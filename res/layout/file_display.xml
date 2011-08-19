@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical" android:background="#F7F7F7">
+	<LinearLayout android:id="@+id/linearLayout7" android:paddingBottom="2pt" android:gravity="center_vertical|top" android:layout_gravity="top" android:layout_height="wrap_content" android:paddingTop="2pt" android:orientation="vertical" android:layout_width="fill_parent" android:background="#1D2D44">
+        <ImageView android:id="@+id/main_header_small" android:src="@drawable/owncloud_logo_small_white" android:layout_gravity="center|center_vertical|center_horizontal" android:layout_height="wrap_content" android:layout_width="wrap_content" android:focusable="true"></ImageView>
+    </LinearLayout>
+	<LinearLayout android:layout_width="fill_parent"
+		android:id="@+id/linearLayout1" android:layout_height="wrap_content">
+		<LinearLayout android:layout_width="wrap_content"
+			android:id="@+id/linearLayout2" android:layout_height="fill_parent">
+			<ImageView android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:src="@drawable/icon"
+				android:id="@+id/imageView1"></ImageView>
+		</LinearLayout>
+		<LinearLayout android:layout_width="wrap_content"
+			android:id="@+id/linearLayout3" android:layout_height="fill_parent"
+			android:orientation="vertical">
+			<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="TextView"></TextView>
+			<TextView android:id="@+id/textView2" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="TextView"></TextView>
+			<TextView android:id="@+id/textView3" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="TextView"></TextView>
+			<TextView android:id="@+id/textView4" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="TextView"></TextView>
+			<TextView android:id="@+id/textView5" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:text="TextView"></TextView>
+		</LinearLayout>
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent"
+		android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+		<ListView android:layout_width="fill_parent" android:id="@android:id/list"
+			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
+			android:dividerHeight="1dip"></ListView>
+	</LinearLayout>
+</LinearLayout>

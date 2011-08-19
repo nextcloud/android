@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:background="#F7F7F7"
+	android:orientation="vertical" android:layout_height="fill_parent">
+	<LinearLayout android:layout_width="fill_parent"
+		android:id="@+id/linearLayout7" android:orientation="vertical"
+		android:background="#1D2D44" android:gravity="top"
+		android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:paddingTop="2pt" android:paddingBottom="2pt">
+		<ImageView android:layout_height="wrap_content"
+			android:src="@drawable/owncloud_logo_small_white"
+			android:layout_width="wrap_content" android:layout_gravity="center_vertical|center_horizontal"
+			android:id="@+id/main_header_small"></ImageView>
+	</LinearLayout>
+	<LinearLayout android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1" android:layout_width="fill_parent"
+		android:layout_gravity="center_horizontal" android:gravity="center_horizontal">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/directory_name"
+			android:layout_gravity="center" android:gravity="center"></TextView>
+	</LinearLayout>
+	<FrameLayout android:layout_height="fill_parent"
+    android:layout_width="fill_parent" android:id="@+id/frameLayout1">
+    <ListView android:id="@android:id/list" android:layout_width="fill_parent"
+      android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
+      android:dividerHeight="1dip" android:fadingEdge="none"></ListView>
+  </FrameLayout>
+</LinearLayout>

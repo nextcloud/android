@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal"
+	android:id="@+id/ListItemLayout" android:layout_width="fill_parent"
+	android:background="#F7F7F7" android:layout_height="wrap_content">
+	<ImageView android:layout_width="wrap_content" android:src="@drawable/ic_menu_archive"
+		android:id="@+id/imageView1" android:layout_height="wrap_content"
+		android:layout_marginLeft="15dip" android:focusable="false"
+		android:focusableInTouchMode="false"></ImageView>
+	<TextView android:layout_height="wrap_content"
+		android:textColor="#303030" android:layout_width="wrap_content"
+		android:text="TextView" android:layout_marginLeft="5dip"
+		android:layout_marginBottom="5dip" android:layout_marginRight="30dip"
+		android:id="@+id/Filename" android:focusable="false"
+    android:focusableInTouchMode="false" android:textSize="20dip">
+	</TextView>
+</LinearLayout>
