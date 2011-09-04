@@ -28,15 +28,14 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -168,7 +167,7 @@ public class OwnCloudMainScreen extends ListActivity {
         String s = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH));
         for (String str : s.split("/")) {
           if (!TextUtils.isEmpty(str))
-            pl.push(str.replace("%20", " "));
+            pl.push(DisplayUtils.HtmlDecode(str));
         }
       }
       getListView().setAdapter(new FileListListAdapter(mCursor, this));      
@@ -211,7 +210,7 @@ public class OwnCloudMainScreen extends ListActivity {
       if (mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
         String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
         String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
-        pl.push(dirname);
+        pl.push(DisplayUtils.HtmlDecode(dirname));
         mParents.push(id_);
         mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, id_),
                                null,
@@ -275,6 +274,10 @@ public class OwnCloudMainScreen extends ListActivity {
     getListView().invalidate();
   }
   
-  
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    // TODO Auto-generated method stub
+    //super.onConfigurationChanged(newConfig);
+  }
 
 }

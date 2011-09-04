@@ -20,6 +20,8 @@ package eu.alefzero.owncloud;
 
 import java.util.HashMap;
 
+import android.util.Log;
+
 public class DisplayUtils {
   public static String bitsToHumanReadable(long bitsLen) {
     double result = bitsLen;
@@ -32,6 +34,19 @@ public class DisplayUtils {
     return result+suffixes[attachedsuff];
   }
   
+  public static String HtmlDecode(String s) {
+    String ret = "";
+    for (int i = 0; i < s.length(); ++i) {
+      if (s.charAt(i) == '%') {
+        ret += (char)Integer.parseInt(s.substring(i+1, i+3), 16);
+        i+=2;
+      } else {
+        ret += s.charAt(i);
+      }
+    }
+    return ret;
+  }
+
   public static String convertMIMEtoPrettyPrint(String mimetype) {
     if (mimeType2HUmanReadable.containsKey(mimetype)) {
       return mimeType2HUmanReadable.get(mimetype);

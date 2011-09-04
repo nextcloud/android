@@ -66,7 +66,7 @@ public class FileListListAdapter implements ListAdapter {
     }
     if (mCursor.moveToPosition(position)) {
       TextView tv = (TextView) v.findViewById(R.id.Filename);
-      tv.setText(mCursor.getString(mCursor.getColumnIndex(ProviderMeta.ProviderTableMeta.FILE_NAME)));
+      tv.setText(DisplayUtils.HtmlDecode(mCursor.getString(mCursor.getColumnIndex(ProviderMeta.ProviderTableMeta.FILE_NAME))));
       if (!mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
         ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
         iv.setImageResource(R.drawable.file);

@@ -1,12 +1,9 @@
 package eu.alefzero.owncloud;
 
-import java.net.Inet4Address;
 import java.util.Stack;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
