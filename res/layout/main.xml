@@ -3,20 +3,13 @@
 	android:layout_width="fill_parent" android:background="#F7F7F7"
 	android:orientation="vertical" android:layout_height="fill_parent">
 	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout7" android:orientation="vertical"
-		android:background="#1D2D44" android:gravity="top"
-		android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:paddingTop="2pt" android:paddingBottom="2pt">
+		android:id="@+id/linearLayout7" android:background="@drawable/main_header_bg" android:gravity="top"
+		android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:orientation="horizontal">
 		<ImageView android:layout_height="wrap_content"
-			android:src="@drawable/owncloud_logo_small_white"
-			android:layout_width="wrap_content" android:layout_gravity="center_vertical|center_horizontal"
+			android:src="@drawable/icon"
+			android:layout_width="wrap_content" android:layout_gravity="center_vertical|left"
 			android:id="@+id/main_header_small"></ImageView>
-	</LinearLayout>
-	<LinearLayout android:layout_height="wrap_content"
-		android:id="@+id/linearLayout1" android:layout_width="fill_parent"
-		android:layout_gravity="center_horizontal" android:gravity="center_horizontal">
-		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/directory_name"
-			android:layout_gravity="center" android:gravity="center"></TextView>
+		<eu.alefzero.owncloud.PathLayout android:id="@+id/pathLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"></eu.alefzero.owncloud.PathLayout>
 	</LinearLayout>
 	<FrameLayout android:layout_height="fill_parent"
     android:layout_width="fill_parent" android:id="@+id/frameLayout1">

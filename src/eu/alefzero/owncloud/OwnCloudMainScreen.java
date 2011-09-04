@@ -34,7 +34,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -146,9 +148,11 @@ public class OwnCloudMainScreen extends ListActivity {
 
   @Override
   public void onBackPressed() {
+    PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
     if (mIsDisplayingFile) {
       mIsDisplayingFile = false;
       setContentView(R.layout.main);
+      pl = (PathLayout) findViewById(R.id.pathLayout1);
       Uri uri;
       if (mParents.empty()) {
         uri = ProviderTableMeta.CONTENT_URI;
@@ -161,8 +165,11 @@ public class OwnCloudMainScreen extends ListActivity {
                              new String[]{mAccount.name}, null);
   
       if (mCursor.moveToFirst()) {
-        TextView tv = (TextView) findViewById(R.id.directory_name);
-        tv.setText(mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH)));
+        String s = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH));
+        for (String str : s.split("/")) {
+          if (!TextUtils.isEmpty(str))
+            pl.push(str.replace("%20", " "));
+        }
       }
       getListView().setAdapter(new FileListListAdapter(mCursor, this));      
       getListView().invalidate();
@@ -173,6 +180,7 @@ public class OwnCloudMainScreen extends ListActivity {
       return;
     } else if (mParents.size() == 1) {
       mParents.pop();
+      pl.pop();
       mCursor = managedQuery(ProviderTableMeta.CONTENT_URI,
           null,
           ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
@@ -180,6 +188,7 @@ public class OwnCloudMainScreen extends ListActivity {
           null);
     } else {
       mParents.pop();
+      pl.pop();
       mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()),
           null,
           ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
@@ -189,19 +198,12 @@ public class OwnCloudMainScreen extends ListActivity {
     
     setListAdapter(new FileListListAdapter(mCursor, this));
     getListView().invalidate();
-
-    TextView tv = (TextView) findViewById(R.id.directory_name);
-    String s = tv.getText().toString();
-    if (s.endsWith("/")) {
-      s = s.substring(0, s.length() - 1);
-    }
-    s = s.substring(0, s.lastIndexOf('/') + 1);
-    tv.setText(s);
   }
 
   @Override
   protected void onListItemClick(ListView l, View v, int position, long id) {
     super.onListItemClick(l, v, position, id);
+    PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
     if (!mCursor.moveToPosition(position)) {
       throw new IndexOutOfBoundsException("Incorrect item selected");
     }
@@ -209,8 +211,7 @@ public class OwnCloudMainScreen extends ListActivity {
       if (mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
         String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
         String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
-        TextView tv = (TextView) findViewById(R.id.directory_name);
-        tv.setText(tv.getText().toString()+dirname+"/");
+        pl.push(dirname);
         mParents.push(id_);
         mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, id_),
                                null,
@@ -265,8 +266,6 @@ public class OwnCloudMainScreen extends ListActivity {
   }
   
   private void populateFileList() {
-    TextView tv = (TextView) findViewById(R.id.directory_name);
-    tv.setText("/");
     mCursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
                                          null,
                                          ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
