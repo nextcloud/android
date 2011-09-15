@@ -64,16 +64,18 @@
                 android:resource="@xml/authenticator" />
         </service>
          <service
-            android:exported="true" android:name=".syncadapter.SyncService">
+            android:exported="true" android:name=".syncadapter.FileSyncService">
             <intent-filter>
-                <action
-                    android:name="android.content.SyncAdapter" />
+                <action android:name="android.content.SyncAdapter"/>
             </intent-filter>
             <meta-data
-                android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter" />
+                android:resource="@xml/syncadapter" android:name="android.content.SyncAdapter"/>
         </service>
          <provider android:name="cp" android:authorities="org.owncloud" android:enabled="true" android:syncable="true" android:exported="false" android:label="@string/sync_string"></provider>
          <activity android:name=".authenticator.AuthenticatorActivity"></activity>
+         <service android:name=".syncadapter.ContactSyncService" android:exported="true"><intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter><meta-data
+                android:resource="@xml/syncadapter" android:name="android.content.SyncAdapter"/></service>
     </application>
 </manifest>
