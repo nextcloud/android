@@ -32,9 +32,12 @@ import android.database.DataSetObserver;
 import android.net.Uri;
 import android.provider.MediaStore.Images.Media;
 import android.sax.StartElementListener;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -75,11 +78,17 @@ public class FileListActionListAdapter implements ListAdapter {
 
   public Object getItem(int position) {
     if (position == 0) {
-      AccountManager accm = (AccountManager) mContext.getSystemService(Context.ACCOUNT_SERVICE);
-      String ocurl = accm.getUserData(mAccount, AccountAuthenticator.KEY_OC_URL);
-      ocurl += mFilePath + mFilename;
       Intent intent = new Intent(Intent.ACTION_VIEW);
-      intent.setDataAndType(Uri.fromFile(new File(mFileStoragePath)), mFileType);
+      if (TextUtils.isEmpty(mFileStoragePath)) {
+        intent.putExtra("toDownload", true);
+        AccountManager accm = (AccountManager) mContext.getSystemService(Context.ACCOUNT_SERVICE);
+        String ocurl = accm.getUserData(mAccount, AccountAuthenticator.KEY_OC_URL);
+        ocurl += mFilePath + mFilename;
+        intent.setData(Uri.parse(ocurl));
+      } else {
+        intent.putExtra("toDownload", false);
+        intent.setDataAndType(Uri.fromFile(new File(mFileStoragePath)), mFileType);
+      }
       return intent;
     }
     return null;

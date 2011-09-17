@@ -48,7 +48,8 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
 					FileInputStream fis = getContactVcard(lookup);
 					// TODO make a webdav request based on the stream
 					// TODO send request to the ownCloud server
-					// TODO mark the current contact as synced - where to store?					
+					// TODO mark the current contact as synced - where to store?
+					fis.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

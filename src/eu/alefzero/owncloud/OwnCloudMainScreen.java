@@ -18,6 +18,7 @@
 
 package eu.alefzero.owncloud;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 import android.accounts.Account;
@@ -36,6 +37,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,18 +52,28 @@ import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 public class OwnCloudMainScreen extends ListActivity {
   private DbHandler mDBHandler;
   private Stack<String> mParents;
+  private LinkedList<String> mPath;
   private Account mAccount;
   private Cursor mCursor;
   private boolean mIsDisplayingFile;
 
   private static final int DIALOG_CHOOSE_ACCOUNT = 0;
 
+  @SuppressWarnings("unchecked")
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    
+    if (savedInstanceState != null) {
+      mParents = (Stack<String>)savedInstanceState.getSerializable("parentsStack");
+      mIsDisplayingFile = savedInstanceState.getBoolean("isDisplayingFile");
+      mPath = (LinkedList<String>)savedInstanceState.getSerializable("path");
+    } else {
+      mParents = new Stack<String>();
+      mPath = new LinkedList<String>();
+      mIsDisplayingFile = false;
+    }
 
-    mParents = new Stack<String>();
-    mIsDisplayingFile = false;
     mDBHandler = new DbHandler(getBaseContext());
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.main);
@@ -179,6 +191,7 @@ public class OwnCloudMainScreen extends ListActivity {
       return;
     } else if (mParents.size() == 1) {
       mParents.pop();
+      mPath.removeLast();
       pl.pop();
       mCursor = managedQuery(ProviderTableMeta.CONTENT_URI,
           null,
@@ -187,6 +200,7 @@ public class OwnCloudMainScreen extends ListActivity {
           null);
     } else {
       mParents.pop();
+      mPath.removeLast();
       pl.pop();
       mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()),
           null,
@@ -211,6 +225,7 @@ public class OwnCloudMainScreen extends ListActivity {
         String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
         String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
         pl.push(DisplayUtils.HtmlDecode(dirname));
+        mPath.addLast(DisplayUtils.HtmlDecode(dirname));
         mParents.push(id_);
         mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, id_),
                                null,
@@ -239,7 +254,8 @@ public class OwnCloudMainScreen extends ListActivity {
         // modified
         tv = (TextView) findViewById(R.id.textView4);
         tv.setText(mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
-        if (!TextUtils.isEmpty(mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)))) {
+        if (!TextUtils.isEmpty(mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH))) &&
+            mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).matches("image/*")) {
           ImageView iv = (ImageView) findViewById(R.id.imageView1);
           Bitmap bmp = BitmapFactory.decodeFile(mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
           Matrix m = new Matrix();
@@ -259,25 +275,52 @@ public class OwnCloudMainScreen extends ListActivity {
     } else {
       try {
         Intent i = (Intent) getListAdapter().getItem(position);
-        startActivity(i);
+        if (i.hasExtra("toDownload")) {
+          if (i.getBooleanExtra("toDownload", false)) {
+            startActivityForResult(i, 200);
+          } else {
+            startActivity(i);            
+          }
+        }
       } catch (ClassCastException e) {}
     }
   }
   
   private void populateFileList() {
-    mCursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
-                                         null,
-                                         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-                                         new String[]{mAccount.name},
-                                         null);
+    if (mParents.empty()) {
+      mCursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
+                                           null,
+                                           ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                                           new String[]{mAccount.name},
+                                           null);
+    } else {
+      mCursor = getContentResolver().query(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()),
+                                           null,
+                                           ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                           new String[]{mAccount.name}, null);
+      if (!mIsDisplayingFile) {
+        PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
+        for (String s : mPath) {
+          pl.push(s);
+        }
+      }
+    }
     setListAdapter(new FileListListAdapter(mCursor, this));
     getListView().invalidate();
   }
   
   @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    // TODO Auto-generated method stub
-    //super.onConfigurationChanged(newConfig);
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    Log.i("asd", data+"");
+  }
+  
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putSerializable("parentsStack", mParents);
+    outState.putSerializable("path", mPath);
+    outState.putBoolean("isDisplayingFile", mIsDisplayingFile);
   }
 
 }
