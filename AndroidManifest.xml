@@ -71,7 +71,8 @@
             <meta-data
                 android:resource="@xml/syncadapter" android:name="android.content.SyncAdapter"/>
         </service>
-         <provider android:name="cp" android:authorities="org.owncloud" android:enabled="true" android:syncable="true" android:exported="false" android:label="@string/sync_string"></provider>
+         <provider android:name="cp" android:authorities="org.owncloud" android:enabled="true" android:syncable="true" android:exported="false" android:label="@string/sync_string_files"></provider>
          <activity android:name=".authenticator.AuthenticatorActivity"></activity>
+         <provider android:label="@string/sync_string_contacts" android:name="cp2" android:syncable="true" android:authorities="org.owncloud" android:enabled="true" android:exported="false"></provider>
     </application>
 </manifest>

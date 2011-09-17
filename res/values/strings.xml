@@ -16,7 +16,7 @@
     <string name="new_session_cancel">Cancel</string>
     <string name="new_session_uri_error">Wrong URL given</string>
     <string name="new_session_session_name_error">Wrong session name</string>
-    <string name="sync_string">Files&amp;Contacts</string>
+    <string name="sync_string_files">Files</string>
     <string name="uploader_no_file_selected">No file selected for upload</string>
     <string name="setup_hint_username">Username</string>
     <string name="setup_hint_password">Password</string>
@@ -36,4 +36,5 @@
     <string name="uploader_upload_succeed">Uploading completed successfully</string>
     <string name="uploader_upload_failed">Upload failed: </string>
     <string name="common_choose_account">Choose account</string>
+    <string name="sync_string_contacts">Contacts</string>
 </resources>
