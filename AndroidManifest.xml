@@ -69,10 +69,17 @@
                 <action android:name="android.content.SyncAdapter"/>
             </intent-filter>
             <meta-data
-                android:resource="@xml/syncadapter" android:name="android.content.SyncAdapter"/>
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter_files"/>
         </service>
-         <provider android:name="cp" android:authorities="org.owncloud" android:enabled="true" android:syncable="true" android:exported="false" android:label="@string/sync_string_files"></provider>
+         <provider android:name="cp" android:enabled="true" android:syncable="true" android:exported="false" android:label="@string/sync_string_files" android:authorities="org.owncloud.files"></provider>
          <activity android:name=".authenticator.AuthenticatorActivity"></activity>
-         <provider android:label="@string/sync_string_contacts" android:name="cp2" android:syncable="true" android:authorities="org.owncloud" android:enabled="true" android:exported="false"></provider>
+         <provider android:label="@string/sync_string_contacts" android:name="cp2" android:syncable="true" android:enabled="true" android:exported="false" android:authorities="org.owncloud.contacts"></provider>
+         <service android:name=".syncadapter.ContactSyncService" android:exported="true">
+             <intent-filter>
+                 <action android:name="android.content.SyncAdapter"></action>
+             </intent-filter>
+             <meta-data android:resource="@xml/syncadapter_contacts" android:name="android.content.SyncAdapter"></meta-data>
+         </service>
     </application>
 </manifest>

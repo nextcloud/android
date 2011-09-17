@@ -69,10 +69,10 @@ public class cp extends ContentProvider {
   private static final UriMatcher mUriMatcher;
   static {
     mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY, "/", ROOT_DIRECTORY);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY, "file/", SINGLE_FILE);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY, "file/#", SINGLE_FILE);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY, "dir/#", DIRECTORY);
+    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "/", ROOT_DIRECTORY);
+    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
+    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
+    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
   }
   
   private static final String TAG = "OC_ContentProvider";
