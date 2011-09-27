@@ -21,7 +21,7 @@
 <!-- for the SyncAdapter. -->
 
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
-    android:contentAuthority="org.owncloud.contacts"
+    android:contentAuthority="com.android.contacts"
     android:accountType="owncloud"
     android:supportsUploading="true"
 />
