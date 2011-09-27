@@ -40,6 +40,7 @@ import android.util.Log;
 public class AuthUtils {
   public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
   public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
+  public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
   
   private static String mResultMsg = "";
   
