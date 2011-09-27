@@ -63,9 +63,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			this.setAccount(account);
 			this.setContentProvider(provider);
 
-			HttpPropFind query = this.getBasicQuery();
+			HttpPropFind query = this.getPropFindQuery();
 			query.setEntity(new StringEntity(WebdavUtils.prepareXmlForPropFind()));
-			TreeNode root = this.fireQuery(query);
+			TreeNode root = this.fireRequest(query);
 
 			commitToDatabase(root, null);
 		} catch (OperationCanceledException e) {

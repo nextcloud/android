@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -96,27 +97,32 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 		};
 	}
 	
-	protected HttpPropFind getBasicQuery() throws OperationCanceledException, AuthenticatorException, IOException {
+	protected HttpPropFind getPropFindQuery() throws OperationCanceledException, AuthenticatorException, IOException {
 		HttpPropFind query = new HttpPropFind(getUri().toString());
 		query.setHeader("Content-type", "text/xml");
 		query.setHeader("User-Agent", "Android-ownCloud");
 		return query;
 	}
 	
-	protected TreeNode fireQuery(HttpPropFind query) throws ClientProtocolException, OperationCanceledException, AuthenticatorException, IOException {
-		BasicHttpContext httpContext = new BasicHttpContext();
-		BasicScheme basicAuth = new BasicScheme();
-		httpContext.setAttribute("preemptive-auth", basicAuth);
-		
-		HttpResponse response = getClient().execute(this.host, query, httpContext);
+	protected HttpResponse fireRawRequest(HttpRequest query) throws ClientProtocolException, OperationCanceledException, AuthenticatorException, IOException {
+	    BasicHttpContext httpContext = new BasicHttpContext();
+        BasicScheme basicAuth = new BasicScheme();
+        httpContext.setAttribute("preemptive-auth", basicAuth);
+        
+        HttpResponse response = getClient().execute(this.host, query, httpContext);
+        return response;
+	}
+	
+	protected TreeNode fireRequest(HttpRequest query) throws ClientProtocolException, OperationCanceledException, AuthenticatorException, IOException {
+		HttpResponse response = fireRawRequest(query);
 		
 		TreeNode root = new TreeNode();
 		root.setProperty(TreeNode.NodeProperty.NAME, "/");
-		this.parseResponse(response, getUri(), getClient(), this.host, httpContext, root.getChildList());
+		this.parseResponse(response, getUri(), getClient(), this.host, root.getChildList());
 		return root;
 	}
 	
-	private Uri getUri() {
+	protected Uri getUri() {
 		return Uri.parse(this.getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_URL));
 	}
 	
@@ -142,7 +148,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 		return this.client;
 	}
 	
-	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, BasicHttpContext httpContext, LinkedList<TreeNode> insertList) throws IOException {
+	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList) throws IOException, OperationCanceledException, AuthenticatorException {
 		boolean skipFirst = true;
 		for (TreeNode n :WebdavUtils.parseResponseToNodes(resp.getEntity().getContent())) {
 			String path = n.stripPathFromFilename(uri.getPath());
@@ -154,9 +160,10 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 
 			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME)) &&
 					n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
-				HttpPropFind method = new HttpPropFind(uri.getPath() + path + n.getProperty(NodeProperty.NAME).replace(" ", "%20") + "/");
-				HttpResponse response = client.execute(targetHost, method, httpContext);
-				parseResponse(response, uri, client, targetHost, httpContext, n.getChildList());
+			    
+			    HttpPropFind method = new HttpPropFind(uri.getPath() + path + n.getProperty(NodeProperty.NAME).replace(" ", "%20") + "/");
+				HttpResponse response = fireRawRequest(method);
+				parseResponse(response, uri, client, targetHost, n.getChildList());
 			}
 		}
 	}
