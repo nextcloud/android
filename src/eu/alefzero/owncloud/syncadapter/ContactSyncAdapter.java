@@ -52,7 +52,6 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
                         cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 String lookup = cursor.getString(
                         cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-                Log.d(TAG, "Found Contact id: " + id + " with lookupkey: "+lookup);
 
                 try {
                     FileInputStream fis = getContactVcard(lookup);
@@ -65,12 +64,10 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
                         lookup+
                         ".vcf"
                     );
-                    
                     byte[] b = new byte[fis.available()];
                     fis.read(b);
                     query.setEntity(new ByteArrayEntity(b));
                     HttpResponse response = fireRawRequest(query);
-                    
                     if(201 != response.getStatusLine().getStatusCode()) {
                         syncResult.stats.numIoExceptions++;
                     }
@@ -88,7 +85,6 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 }
             }
         }
-
     }
 
     protected Uri getUri() {

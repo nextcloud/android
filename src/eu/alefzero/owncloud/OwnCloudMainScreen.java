@@ -312,7 +312,6 @@ public class OwnCloudMainScreen extends ListActivity {
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    Log.i("asd", data+"");
   }
   
   @Override
