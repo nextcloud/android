@@ -16,12 +16,6 @@
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission
-        android:name="android.permission.WRITE_SECURE_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.READ_CONTACTS" />
-    <uses-permission
-        android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission
         android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission
         android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -38,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="OwnCloudUploader">
+        <activity android:name=".Uploader">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
@@ -74,12 +68,7 @@
         </service>
          <provider android:name="cp" android:enabled="true" android:syncable="true" android:exported="false" android:authorities="org.owncloud" android:label="@string/sync_string_files"></provider>
          <activity android:name=".authenticator.AuthenticatorActivity"></activity>
-         <provider android:label="@string/sync_string_contacts" android:name="cp2" android:syncable="true" android:enabled="true" android:exported="false" android:authorities=""></provider>
-         <service android:name=".syncadapter.ContactSyncService" android:exported="true">
-             <intent-filter>
-                 <action android:name="android.content.SyncAdapter"></action>
-             </intent-filter>
-             <meta-data android:resource="@xml/syncadapter_contacts" android:name="android.content.SyncAdapter"></meta-data>
+         <service android:name="FileDownloader">
          </service>
     </application>
 </manifest>

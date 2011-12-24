@@ -22,16 +22,50 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.UnrecoverableKeyException;
 
+import javax.net.SocketFactory;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import javax.security.cert.CertificateException;
+import javax.security.cert.X509Certificate;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import org.apache.commons.httpclient.auth.BasicScheme;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpHead;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.conn.params.ConnManagerPNames;
+import org.apache.http.conn.params.ConnPerRouteBean;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.conn.SingleClientConnManager;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
+
 
 import android.content.Context;
 import android.os.Handler;
@@ -103,10 +137,25 @@ public class AuthUtils {
     sendResult(false, handler, context, "Server error: " + mResultMsg);
     return false;
   }
-
+  
   public static boolean tryGetWebdav(URL url, String username, String pwd,
                                      Handler handler, Context context) {
-    DefaultHttpClient c = new DefaultHttpClient();
+    SchemeRegistry schemeRegistry = new SchemeRegistry();
+ // http scheme
+ schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+ // https scheme
+ schemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+
+ HttpParams params = new BasicHttpParams();
+ params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS, 30);
+ params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE, new ConnPerRouteBean(30));
+ params.setParameter(HttpProtocolParams.USE_EXPECT_CONTINUE, false);
+ HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+
+ ClientConnectionManager cm = new ThreadSafeClientConnManager(params, schemeRegistry);
+    
+    DefaultHttpClient c = new DefaultHttpClient(cm, params);
+    
     c.getCredentialsProvider().setCredentials(
         new AuthScope(url.getHost(), (url.getPort() == -1)?80:url.getPort()), 
         new UsernamePasswordCredentials(username, pwd));
@@ -117,8 +166,9 @@ public class AuthUtils {
     localcontext.setAttribute("preemptive-auth", basicAuth);
     HttpHost targetHost = new HttpHost(url.getHost(), (url.getPort() == -1)
         ? 80
-        : url.getPort(), (url.getProtocol() == "https") ? "https" : "http");
+        : url.getPort(), (url.getProtocol().equals("https")) ? "https" : "http");
     HttpHead httpget = new HttpHead(url.toString());
+    httpget.setHeader("Host", url.getHost());
     HttpResponse response = null;
     try {
       response = c.execute(targetHost, httpget, localcontext);
@@ -134,6 +184,7 @@ public class AuthUtils {
       return false;
     }
     String status = response.getStatusLine().toString();
+
     status = status.split(" ")[1];
     Log.i("AuthUtils", "Status returned: " + status);
     if (status.equals("200")) {

@@ -1,21 +1,7 @@
 package eu.alefzero.owncloud;
 
-import java.io.File;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Stack;
-
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -24,7 +10,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -52,10 +37,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
-import eu.alefzero.webdav.HttpMkCol;
 import eu.alefzero.webdav.WebdavUtils;
 
-public class OwnCloudUploader extends ListActivity implements OnItemClickListener, android.view.View.OnClickListener {
+public class Uploader extends ListActivity implements OnItemClickListener, android.view.View.OnClickListener {
   private static final String TAG = "ownCloudUploader";
 
   private Account mAccount;
@@ -403,91 +387,35 @@ public class OwnCloudUploader extends ListActivity implements OnItemClickListene
     }
 
     public void run() {
-      boolean any_failed = false;
-      DefaultHttpClient httpClient = new DefaultHttpClient();
-      Uri uri = Uri.parse(mAccountManager.getUserData(mAccount,
-          AccountAuthenticator.KEY_OC_URL));
-      httpClient.getCredentialsProvider().setCredentials(
-          new AuthScope(uri.getHost(), (uri.getPort() == -1) ? 80 : uri
-              .getPort()),
-          new UsernamePasswordCredentials(mUsername, mPassword));
-      BasicHttpContext httpContext = new BasicHttpContext();
-      BasicScheme basicAuth = new BasicScheme();
-      httpContext.setAttribute("preemptive-auth", basicAuth);
-      HttpHost targetHost = new HttpHost(uri.getHost(), (uri.getPort() == -1)
-          ? 80
-          : uri.getPort(), (uri.getScheme() == "https") ? "https" : "http");
+      WebdavClient wdc = new WebdavClient(Uri.parse(mAccountManager.getUserData(mAccount,
+          AccountAuthenticator.KEY_OC_URL)));
+      wdc.setCredentials(mUsername, mPassword);
+      wdc.allowUnsignedCertificates();
 
       // create last directory in path if nessesary
       if (mCreateDir) {
-        HttpMkCol method = new HttpMkCol(uri.toString() + mUploadPath + "/");
-        method.setHeader("User-Agent", "Android-ownCloud");
-        try {
-          httpClient.execute(targetHost, method, httpContext);
-          Log.i(TAG, "Creating dir completed");
-        } catch (final Exception e) {
-          e.printStackTrace();
-          mHandler.post(new Runnable() {
-            public void run() {
-              OwnCloudUploader.this.onUploadComplete(false, e.getLocalizedMessage());
-            }
-          });
-          return;
-        }
+        wdc.createDirectory(mUploadPath);
       }
       
       for (int i = 0; i < mUploadStreams.size(); ++i) {
-        final Cursor c = getContentResolver().query((Uri)mUploadStreams.get(i), null, null, null, null);
+        final Cursor c = getContentResolver().query((Uri) mUploadStreams.get(i), null, null, null, null);
         c.moveToFirst();
-
-        HttpPut method = new HttpPut(uri.toString() + mUploadPath + "/"
-            + c.getString(c.getColumnIndex(Media.DISPLAY_NAME)).replace(" ", "%20"));
-        method.setHeader("Content-type", c.getString(c.getColumnIndex(Media.MIME_TYPE)));
-        method.setHeader("User-Agent", "Android-ownCloud");
-
-        try {
-          FileBody fb = new FileBody(new File(c.getString(c.getColumnIndex(Media.DATA))), c.getString(c.getColumnIndex(Media.MIME_TYPE)));
-          MultipartEntity entity = new MultipartEntity();
-          final FileEntity fileEntity = new FileEntity(new File(c.getString(c.getColumnIndex(Media.DATA))),
-               c.getString(c.getColumnIndex(Media.MIME_TYPE)));
-
-          entity.addPart(c.getString(c.getColumnIndex(Media.DISPLAY_NAME)).replace(" ", "%20"), fb);
-
-          method.setEntity(fileEntity);
-          Log.i(TAG, "executing:" + method.getRequestLine().toString());
-
-          httpClient.execute(targetHost, method, httpContext);
+        
+        if (!wdc.putFile(c.getString(c.getColumnIndex(Media.DATA)),
+                         mUploadPath+"/"+c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                         c.getString(c.getColumnIndex(Media.MIME_TYPE)))) {
           mHandler.post(new Runnable() {
             public void run() {
-              OwnCloudUploader.this.PartialupdateUpload(c.getString(c.getColumnIndex(Media.DATA)),
-                                                        c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
-                                                        mUploadPath + (mUploadPath.equals("/")?"":"/"),
-                                                        fileEntity.getContentType().getValue(),
-                                                        fileEntity.getContentLength()+"");
-            }
-          });
-          Log.i(TAG, "Uploading, done");
-
-        } catch (final Exception e) {
-          any_failed = true;
-          mHandler.post(new Runnable() {
-            public void run() {
-              OwnCloudUploader.this.onUploadComplete(false, c.getString(c.getColumnIndex(Media.DISPLAY_NAME))+ " " + e.getLocalizedMessage());
+              Uploader.this.onUploadComplete(false, "Error while uploading file: " + c.getString(c.getColumnIndex(Media.DISPLAY_NAME)));
             }
           });
         }
       }
-      if (!any_failed) {
-        mHandler.post(new Runnable() {
-          public void run() {
-            OwnCloudUploader.this.onUploadComplete(true, "Success");
-          }
-        });
-      }
-      Bundle bundle = new Bundle();
-      bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-      //ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
-
+      mHandler.post(new Runnable() {
+        public void run() {
+          Uploader.this.onUploadComplete(true, null);
+        }
+      });
     }
 
   }

@@ -18,6 +18,10 @@
 
 package eu.alefzero.owncloud;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -36,6 +40,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -276,13 +281,33 @@ public class OwnCloudMainScreen extends ListActivity {
       try {
         Intent i = (Intent) getListAdapter().getItem(position);
         if (i.hasExtra("toDownload")) {
+          
+          Uri data = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() + "/owncloud/filename");
+          Log.d("DUPA", data.toString());
+          File f = new File(data.toString());
+          FileInputStream fis = new FileInputStream(f);
+          byte buffer[] = new byte[512];
+          fis.read(buffer);
+          Log.d("DUPA", new String(buffer));
+          
+          //Intent intent = new Intent(this, FileDownloader.class);
+          /*intent.putExtra(FileDownloader.EXTRA_FILE_PATH, "/docsy.py");
+          intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+          startService(intent);
+          /*
           if (i.getBooleanExtra("toDownload", false)) {
             startActivityForResult(i, 200);
           } else {
             startActivity(i);            
-          }
+          }*/
         }
-      } catch (ClassCastException e) {}
+      } catch (ClassCastException e) {} catch (FileNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
   }
   
