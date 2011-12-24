@@ -290,8 +290,8 @@ public class OwnCloudMainScreen extends ListActivity {
           fis.read(buffer);
           Log.d("DUPA", new String(buffer));
           
-          //Intent intent = new Intent(this, FileDownloader.class);
-          /*intent.putExtra(FileDownloader.EXTRA_FILE_PATH, "/docsy.py");
+          Intent intent = new Intent(this, FileDownloader.class);
+          intent.putExtra(FileDownloader.EXTRA_FILE_PATH, "/"+((TextView)findViewById(R.id.textView1)).getText().toString());
           intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
           startService(intent);
           /*

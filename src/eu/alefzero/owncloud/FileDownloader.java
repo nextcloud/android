@@ -62,78 +62,32 @@ public class FileDownloader extends Service {
     AccountManager am = (AccountManager)getSystemService(ACCOUNT_SERVICE);
     Uri oc_url = Uri.parse(am.getUserData(account, AccountAuthenticator.KEY_OC_URL));
 
-    DefaultHttpClient client = new DefaultHttpClient();
-    Log.d(TAG,  oc_url.toString());
-    HttpGet query = new HttpGet(oc_url + file_path);
-    query.setHeader("Content-type", "text/xml");
-    query.setHeader("User-Agent", "Android-ownCloud");
-    
-    BasicHttpContext httpContext = new BasicHttpContext();
-    BasicScheme basicAuth = new BasicScheme();
-    httpContext.setAttribute("preemptive-auth", basicAuth);
+    WebdavClient wdc = new WebdavClient(oc_url);
     
     String username = account.name.split("@")[0];
     String password = "";
     try {
       password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE, true);
-    } catch (OperationCanceledException e1) {
+    } catch (Exception e) {
       // TODO Auto-generated catch block
-      e1.printStackTrace();
-    } catch (AuthenticatorException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    } catch (IOException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
+      e.printStackTrace();
+      return START_NOT_STICKY;
     }
-    if (am.getUserData(account, AccountAuthenticator.KEY_OC_URL) == null) {
-      
-    }
+    
+    wdc.setCredentials(username, password);
+    wdc.allowUnsignedCertificates();
 
-    client.getCredentialsProvider().setCredentials(
-      new AuthScope(oc_url.getHost(), oc_url.getPort()==-1?80:oc_url.getPort()),
-      new UsernamePasswordCredentials(username, password)
-    );
-    
-    HttpHost host = new HttpHost(oc_url.getHost(), oc_url.getPort()==-1?80:oc_url.getPort());
-    
     Notification n = new Notification(R.drawable.icon, "Downloading file", System.currentTimeMillis());
     PendingIntent pi = PendingIntent.getActivity(this, 1, new Intent(this, OwnCloudMainScreen.class), 0);
     n.setLatestEventInfo(this, "A", "B", pi);
     nm.notify(1, n);
-    
-    HttpResponse response = null;
-    try {
-      response = client.execute(host, query, httpContext);
-    } catch (ClientProtocolException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
+        
     File sdCard = Environment.getExternalStorageDirectory();
     File dir = new File (sdCard.getAbsolutePath() + "/owncloud");
     dir.mkdirs();
     File file = new File(dir, "filename");
-
-    try {
-      FileOutputStream f = new FileOutputStream(file);
-      byte[] b = new byte[(int)response.getEntity().getContentLength()];
-      response.getEntity().getContent().read(b);
-      f.write(b);
-    } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (IllegalStateException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
     
+    wdc.downloadFile(file_path, file);
     
     return START_NOT_STICKY;
   }

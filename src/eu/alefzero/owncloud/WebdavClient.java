@@ -1,11 +1,17 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerPNames;
@@ -62,7 +68,25 @@ public class WebdavClient {
     mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
   }
   
-  boolean downloadFile(String filepath) {
+  boolean downloadFile(String filepath, File targetPath) {
+    HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ", "%20"));
+    get.setHeader("Host", mUri.getHost());
+    get.setHeader("User-Agent", "Android-ownCloud");
+    
+    try {
+      HttpResponse response = mHttpClient.execute(mTargetHost, get, mHttpContext);
+      if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+        return false;
+      }
+      InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());
+      FileOutputStream fos = new FileOutputStream(targetPath);
+      int oneByte;
+      while ((oneByte = isr.read()) != -1) fos.write(oneByte);
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    }
     return true;
   }
   
