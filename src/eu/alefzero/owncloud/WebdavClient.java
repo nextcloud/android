@@ -1,9 +1,12 @@
 package eu.alefzero.owncloud;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -78,10 +81,12 @@ public class WebdavClient {
       if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
         return false;
       }
-      InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());
+      BufferedInputStream bis = new BufferedInputStream(response.getEntity().getContent());
       FileOutputStream fos = new FileOutputStream(targetPath);
-      int oneByte;
-      while ((oneByte = isr.read()) != -1) fos.write(oneByte);
+      
+      byte[] bytes = new byte[512];
+      int readResult;
+      while ((readResult = bis.read(bytes)) != -1) fos.write(bytes, 0, readResult);
       
     } catch (IOException e) {
       e.printStackTrace();
@@ -124,7 +129,7 @@ public class WebdavClient {
 */
       Log.i(TAG, "Uploading, done");
     } catch (final Exception e) {
-      Log.i(TAG, e.getLocalizedMessage());
+      Log.i(TAG, ""+e.getMessage());
       result = false;
     }
     

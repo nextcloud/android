@@ -81,11 +81,11 @@ public class FileDownloader extends Service {
     PendingIntent pi = PendingIntent.getActivity(this, 1, new Intent(this, OwnCloudMainScreen.class), 0);
     n.setLatestEventInfo(this, "A", "B", pi);
     nm.notify(1, n);
-        
+
     File sdCard = Environment.getExternalStorageDirectory();
     File dir = new File (sdCard.getAbsolutePath() + "/owncloud");
     dir.mkdirs();
-    File file = new File(dir, "filename");
+    File file = new File(dir, file_path.replace('/', '.'));
     
     wdc.downloadFile(file_path, file);
     

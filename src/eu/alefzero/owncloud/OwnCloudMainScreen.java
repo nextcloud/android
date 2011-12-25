@@ -278,17 +278,8 @@ public class OwnCloudMainScreen extends ListActivity {
       }    
       getListView().invalidate();
     } else {
-      try {
         Intent i = (Intent) getListAdapter().getItem(position);
         if (i.hasExtra("toDownload")) {
-          
-          Uri data = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath() + "/owncloud/filename");
-          Log.d("DUPA", data.toString());
-          File f = new File(data.toString());
-          FileInputStream fis = new FileInputStream(f);
-          byte buffer[] = new byte[512];
-          fis.read(buffer);
-          Log.d("DUPA", new String(buffer));
           
           Intent intent = new Intent(this, FileDownloader.class);
           intent.putExtra(FileDownloader.EXTRA_FILE_PATH, "/"+((TextView)findViewById(R.id.textView1)).getText().toString());
@@ -301,13 +292,7 @@ public class OwnCloudMainScreen extends ListActivity {
             startActivity(i);            
           }*/
         }
-      } catch (ClassCastException e) {} catch (FileNotFoundException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+
     }
   }
   

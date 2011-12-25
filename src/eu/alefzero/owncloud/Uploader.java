@@ -1,5 +1,9 @@
 package eu.alefzero.owncloud;
 
+import java.io.File;
+import java.net.FileNameMap;
+import java.net.URI;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -173,7 +177,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         throw new IllegalArgumentException("Unknown dialog id: " + id);
     }
   }
-
+  
   class a implements OnClickListener {
     String mPath;
     EditText mDirname;
@@ -398,18 +402,36 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
       }
       
       for (int i = 0; i < mUploadStreams.size(); ++i) {
-        final Cursor c = getContentResolver().query((Uri) mUploadStreams.get(i), null, null, null, null);
-        c.moveToFirst();
-        
-        if (!wdc.putFile(c.getString(c.getColumnIndex(Media.DATA)),
-                         mUploadPath+"/"+c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
-                         c.getString(c.getColumnIndex(Media.MIME_TYPE)))) {
-          mHandler.post(new Runnable() {
-            public void run() {
-              Uploader.this.onUploadComplete(false, "Error while uploading file: " + c.getString(c.getColumnIndex(Media.DISPLAY_NAME)));
-            }
-          });
+        Uri uri = (Uri) mUploadStreams.get(i);
+        if (uri.getScheme().equals("content")) {
+          final Cursor c = getContentResolver().query((Uri) mUploadStreams.get(i), null, null, null, null);
+          c.moveToFirst();
+          
+          if (!wdc.putFile(c.getString(c.getColumnIndex(Media.DATA)),
+                           mUploadPath+"/"+c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                           c.getString(c.getColumnIndex(Media.MIME_TYPE)))) {
+            mHandler.post(new Runnable() {
+              public void run() {
+                Uploader.this.onUploadComplete(false, "Error while uploading file: " + c.getString(c.getColumnIndex(Media.DISPLAY_NAME)));
+              }
+            });
+          }
+        } else if (uri.getScheme().equals("file")) {
+         final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme()+"://", ""));
+         FileNameMap fileNameMap = URLConnection.getFileNameMap();
+         String contentType = fileNameMap.getContentTypeFor(uri.toString());
+         if (contentType == null) {
+           contentType = "text/plain";
+         }
+         if (!wdc.putFile(file.getAbsolutePath(), mUploadPath+"/"+file.getName(), contentType)) {
+           mHandler.post(new Runnable() {
+             public void run() {
+               Uploader.this.onUploadComplete(false, "Error while uploading file: " + file.getName());
+             }
+           });
+         }
         }
+        
       }
       mHandler.post(new Runnable() {
         public void run() {
