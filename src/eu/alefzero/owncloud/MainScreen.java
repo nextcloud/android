@@ -41,6 +41,8 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -54,7 +56,7 @@ import android.widget.TextView;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 
-public class OwnCloudMainScreen extends ListActivity {
+public class MainScreen extends FragmentActivity {
   private DbHandler mDBHandler;
   private Stack<String> mParents;
   private LinkedList<String> mPath;
@@ -64,10 +66,25 @@ public class OwnCloudMainScreen extends ListActivity {
 
   private static final int DIALOG_CHOOSE_ACCOUNT = 0;
 
-  @SuppressWarnings("unchecked")
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+    setContentView(R.layout.main);
+    
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.add(R.id.fileList, new FileList());
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      ft.add(R.id.fileDetail, new FileDetail());
+    }
+    ft.commit();
+
+    /*getSupportFragmentManager().beginTransaction().add(arg0, arg1);
+    FileList fl = new FileList();
+    ft.add(R.id.fileList, fl);
+    ft.commit();
+    /*
+
     
     if (savedInstanceState != null) {
       mParents = (Stack<String>)savedInstanceState.getSerializable("parentsStack");
@@ -98,7 +115,7 @@ public class OwnCloudMainScreen extends ListActivity {
     } else {
       mAccount = accounts[0];
       populateFileList();
-    }
+    }*/
   }
 
   @Override
@@ -128,12 +145,6 @@ public class OwnCloudMainScreen extends ListActivity {
     inflater.inflate(R.menu.menu, menu);
     return true;
   }
-  
-  @Override
-  protected void onDestroy() {
-    mDBHandler.close();
-    super.onDestroy();
-  }
     
   private Dialog createChooseAccountDialog() {
     final AccountManager accMan = AccountManager.get(this);
@@ -155,16 +166,16 @@ public class OwnCloudMainScreen extends ListActivity {
     });
     builder.setOnCancelListener(new OnCancelListener() {
       public void onCancel(DialogInterface dialog) {
-        OwnCloudMainScreen.this.finish();
+        MainScreen.this.finish();
       }
     });
     AlertDialog alert = builder.create();
     return alert;
   }
 
-  @Override
-  public void onBackPressed() {
-    PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
+  //@Override
+  //public void onBackPressed() {
+    /*PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
     if (mIsDisplayingFile) {
       mIsDisplayingFile = false;
       setContentView(R.layout.main);
@@ -215,13 +226,13 @@ public class OwnCloudMainScreen extends ListActivity {
     }
     
     setListAdapter(new FileListListAdapter(mCursor, this));
-    getListView().invalidate();
-  }
+    getListView().invalidate();*/
+  //}
 
-  @Override
-  protected void onListItemClick(ListView l, View v, int position, long id) {
+  //@Override
+/*  protected void onListItemClick(ListView l, View v, int position, long id) {
     super.onListItemClick(l, v, position, id);
-    PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
+    /*PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
     if (!mCursor.moveToPosition(position)) {
       throw new IndexOutOfBoundsException("Incorrect item selected");
     }
@@ -291,10 +302,10 @@ public class OwnCloudMainScreen extends ListActivity {
           } else {
             startActivity(i);            
           }*/
-        }
+       // }
 
-    }
-  }
+    //}
+//  }
   
   private void populateFileList() {
     if (mParents.empty()) {
@@ -309,18 +320,18 @@ public class OwnCloudMainScreen extends ListActivity {
                                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                                            new String[]{mAccount.name}, null);
       if (!mIsDisplayingFile) {
-        PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
-        for (String s : mPath) {
-          pl.push(s);
-        }
+        //PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
+        //for (String s : mPath) {
+        //  pl.push(s);
+       // }
       }
     }
-    setListAdapter(new FileListListAdapter(mCursor, this));
-    getListView().invalidate();
+//    setListAdapter(new FileListListAdapter(mCursor, this));
+//    getListView().invalidate();
   }
   
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  //@Override
+  /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
   }
   
@@ -330,6 +341,6 @@ public class OwnCloudMainScreen extends ListActivity {
     outState.putSerializable("parentsStack", mParents);
     outState.putSerializable("path", mPath);
     outState.putBoolean("isDisplayingFile", mIsDisplayingFile);
-  }
+  }*/
 
 }

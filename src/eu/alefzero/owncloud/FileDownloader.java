@@ -1,30 +1,9 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.UnknownHostException;
-import java.util.Date;
-
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.webdav.HttpPropFind;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -34,7 +13,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.FrameLayout;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 
 public class FileDownloader extends Service {
   static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -78,7 +57,7 @@ public class FileDownloader extends Service {
     wdc.allowUnsignedCertificates();
 
     Notification n = new Notification(R.drawable.icon, "Downloading file", System.currentTimeMillis());
-    PendingIntent pi = PendingIntent.getActivity(this, 1, new Intent(this, OwnCloudMainScreen.class), 0);
+    PendingIntent pi = PendingIntent.getActivity(this, 1, new Intent(this, MainScreen.class), 0);
     n.setLatestEventInfo(this, "A", "B", pi);
     nm.notify(1, n);
 
@@ -91,5 +70,6 @@ public class FileDownloader extends Service {
     
     return START_NOT_STICKY;
   }
-
+  
+  
 }

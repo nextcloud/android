@@ -21,11 +21,11 @@
         android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission
         android:name="android.permission.WRITE_SYNC_SETTINGS" />
-    <uses-sdk android:minSdkVersion="7"></uses-sdk>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".OwnCloudMainScreen"
+        <activity android:name=".MainScreen"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,5 +70,6 @@
          <activity android:name=".authenticator.AuthenticatorActivity"></activity>
          <service android:name="FileDownloader">
          </service>
+         <activity android:name="FileDetailActivity"></activity>
     </application>
 </manifest>

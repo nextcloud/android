@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:background="#F7F7F7"
-	android:orientation="vertical" android:layout_height="fill_parent">
-	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout7" android:background="@drawable/main_header_bg" android:gravity="top"
-		android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:orientation="horizontal">
-		<ImageView android:layout_height="wrap_content"
-			android:src="@drawable/icon"
-			android:layout_width="wrap_content" android:layout_gravity="center_vertical|left"
-			android:id="@+id/main_header_small"></ImageView>
-		<eu.alefzero.owncloud.PathLayout android:id="@+id/pathLayout1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center_vertical"></eu.alefzero.owncloud.PathLayout>
-	</LinearLayout>
-	<FrameLayout android:layout_height="fill_parent"
-    android:layout_width="fill_parent" android:id="@+id/frameLayout1">
-    <ListView android:id="@android:id/list" android:layout_width="fill_parent"
-      android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
-      android:dividerHeight="1dip" android:fadingEdge="none"></ListView>
-  </FrameLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#F7F7F7"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <fragment
+            android:id="@+id/actionBar"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            class="eu.alefzero.owncloud.ui.ActionBar">
+            <!-- Preview: layout=@layout/action_bar -->
+        </fragment>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <fragment
+                android:id="@+id/fileList"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                class="eu.alefzero.owncloud.FileList" >
+
+                <!-- Preview: layout=@layout/list_layout -->
+            </fragment>
+
+            <fragment
+                android:id="@+id/fileDetail"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="2"
+                class="eu.alefzero.owncloud.FileDetail" >
+
+                <!-- Preview: layout=@layout/file_details -->
+            </fragment>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
