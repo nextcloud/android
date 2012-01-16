@@ -1,5 +1,6 @@
 package eu.alefzero.owncloud;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,11 +11,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FileDetail extends Fragment {
+  
+  public Intent mIntent;
+  
+  public void setStuff(Intent intent) {
+    setStuff(intent, getView());
+  }
+  
+  private void setStuff(Intent intent, View view) {
+    String filename = intent.getStringExtra("FILE_NAME");
+    String filepath = intent.getStringExtra("FILE_PATH");
+    setFilename(filename, view);
+  }
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
-    Log.e("TEST", "TEST");
   }
 
   @Override
@@ -27,12 +40,17 @@ public class FileDetail extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.file_details, container, false);
+    
+    if (getActivity().getIntent() != null) setStuff(getActivity().getIntent(), v);
     return v;
   }
 
-  public void use(CharSequence text) {
-    Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
-    // TODO Auto-generated method stub
-    
+  private void setFilename(String filename, View target_view) {
+    TextView tv = (TextView) target_view.findViewById(R.id.textView1);
+    if (tv != null) tv.setText(filename);
+  }
+  
+  public void setFilename(String filename) {
+    setFilename(filename, getView());
   }
 }

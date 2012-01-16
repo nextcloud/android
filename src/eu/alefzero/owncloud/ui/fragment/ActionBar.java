@@ -1,5 +1,6 @@
 package eu.alefzero.owncloud.ui.fragment;
 
+import eu.alefzero.owncloud.PathLayout;
 import eu.alefzero.owncloud.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,5 +26,20 @@ public class ActionBar extends Fragment {
   @Override
   public void onAttach(Activity activity) {
     super.onAttach(activity);
+  }
+  
+  public void setPath(String path) {
+    if (getPathLayout() != null)
+      getPathLayout().addPath(path);
+  }
+  
+  public String getCurrentPath() {
+    if (getPathLayout() != null)
+       return getPathLayout().getFullPath();
+    return "";
+  }
+  
+  private PathLayout getPathLayout() {
+    return (PathLayout) getActivity().findViewById(R.id.pathLayout1);
   }
 }

@@ -63,7 +63,7 @@ import eu.alefzero.owncloud.R.string;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.fragment.FileList;
-
+import eu.alefzero.owncloud.ui.fragment.ActionBar;
 public class FileDisplayActivity extends FragmentActivity {
   private DbHandler mDBHandler;
   private Stack<String> mParents;
@@ -81,6 +81,7 @@ public class FileDisplayActivity extends FragmentActivity {
     setContentView(R.layout.main);
     
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    //ft.add(R.id.actionBar, new ActionBar());
     ft.add(R.id.fileList, new FileList());
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       ft.add(R.id.fileDetail, new FileDetail());
