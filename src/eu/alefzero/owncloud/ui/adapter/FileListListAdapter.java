@@ -1,7 +1,12 @@
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.ui.adapter;
 
 import java.security.Provider;
 
+import eu.alefzero.owncloud.DisplayUtils;
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.R.drawable;
+import eu.alefzero.owncloud.R.id;
+import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 

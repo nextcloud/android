@@ -1,4 +1,4 @@
-package eu.alefzero.owncloud.ui;
+package eu.alefzero.owncloud.ui.fragment;
 
 import eu.alefzero.owncloud.R;
 import android.app.Activity;

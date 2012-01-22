@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.owncloud.authenticator;
+package eu.alefzero.owncloud.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -38,6 +38,8 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {

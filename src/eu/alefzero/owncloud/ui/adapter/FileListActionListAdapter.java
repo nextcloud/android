@@ -16,10 +16,14 @@
  *
  */
 
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.ui.adapter;
 
 import java.io.File;
 
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.R.drawable;
+import eu.alefzero.owncloud.R.id;
+import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.accounts.Account;

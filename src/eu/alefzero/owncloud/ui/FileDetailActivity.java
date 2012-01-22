@@ -1,5 +1,9 @@
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.ui;
 
+import eu.alefzero.owncloud.FileDetail;
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.R.id;
+import eu.alefzero.owncloud.R.layout;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;

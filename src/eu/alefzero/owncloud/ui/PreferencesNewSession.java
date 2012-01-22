@@ -1,4 +1,4 @@
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.ui;
 
 import java.net.URI;
 import java.net.URISyntaxException;
