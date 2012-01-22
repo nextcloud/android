@@ -25,13 +25,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".ui.FileDisplayActivity"
-                  android:label="@string/app_name">
-                  <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.FileDisplayActivity"></activity>
         <activity android:name=".Uploader">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"></action>
@@ -71,5 +65,13 @@
          <service android:name=".FileDownloader">
          </service>
          <activity android:name=".ui.FileDetailActivity"></activity>
+         <activity android:name=".ui.LandingActivity"
+             android:theme="@android:style/Theme.NoTitleBar"
+             android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+         </activity>
     </application>
 </manifest>
