@@ -12,6 +12,8 @@
     <string name="main_calendar">Calendar</string>
     <string name="main_bookmarks">Bookmarks</string>
     <string name="main_settings">Settings</string>
+    <string name="main_tit_accsetup">Account Setup</string>
+    <string name="main_wrn_accsetup">There are no ownCloud accounts on your device. In order to use this App, you need to create one.</string>
     <string name="prefs_general">General</string>
     <string name="prefs_sessions">Stored sessions</string>
     <string name="prefs_add_session">Add new session</string>
@@ -32,7 +34,7 @@
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
-    <string name="uploader_wrn_no_account_text">No correct ownCloud account found on device. Please setup account first.</string>
+    <string name="uploader_wrn_no_account_text">There are no ownCloud accounts on your device. Please setup an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_info_uploading">Uploading</string>
