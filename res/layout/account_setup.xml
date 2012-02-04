@@ -1,29 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="#F7F7F7" android:focusable="true">
-    <LinearLayout android:id="@+id/linearLayout7" android:paddingBottom="2pt" android:gravity="center_vertical|top" android:layout_gravity="top" android:layout_height="wrap_content" android:paddingTop="2pt" android:orientation="vertical" android:layout_width="fill_parent" android:background="#1D2D44">
-        <ImageView android:id="@+id/main_header_small" android:src="@drawable/owncloud_logo_small_white" android:layout_gravity="center|center_vertical|center_horizontal" android:layout_height="wrap_content" android:layout_width="wrap_content" android:focusable="true"></ImageView>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#F7F7F7"
+    android:focusable="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#1D2D44"
+        android:gravity="center_vertical|top"
+        android:orientation="vertical"
+        android:paddingBottom="2pt"
+        android:paddingTop="2pt" >
+
+        <ImageView
+            android:id="@+id/main_header_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical|center_horizontal"
+            android:focusable="true"
+            android:src="@drawable/owncloud_logo_small_white" >
+        </ImageView>
     </LinearLayout>
-	<LinearLayout android:id="@+id/linearLayout2" android:layout_width="fill_parent" android:orientation="vertical" android:gravity="center_vertical" android:layout_gravity="center|center_vertical" android:layout_height="fill_parent">
-		<TableLayout android:id="@+id/tableLayout1" android:layout_height="wrap_content" android:gravity="center_horizontal" android:layout_width="fill_parent">
-			<TableRow android:layout_height="wrap_content" android:id="@+id/tableRow1" android:layout_width="wrap_content" android:gravity="center_horizontal">
-				<TextView android:id="@+id/textView1" android:text="@string/setup_title" android:layout_marginBottom="15dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@android:color/black" android:textStyle="bold" android:layout_marginTop="15dip" android:textSize="7pt"></TextView>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:weightSum="1.0" android:id="@+id/tableRow2" android:layout_width="wrap_content" android:gravity="center_horizontal">
-				<EditText android:id="@+id/host_URL" android:layout_weight="0.75" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/setup_hint_address">
-					<requestFocus></requestFocus>
-				</EditText>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:weightSum="1.0" android:id="@+id/tableRow3" android:layout_width="wrap_content" android:gravity="center_horizontal">
-				<EditText android:id="@+id/account_username" android:layout_weight=".75" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textColor="@android:color/black" android:hint="@string/setup_hint_username"></EditText>
-			</TableRow>
-			<TableRow android:layout_height="wrap_content" android:weightSum="1.0" android:id="@+id/tableRow4" android:layout_width="fill_parent" android:gravity="center_horizontal">
-				<EditText android:id="@+id/account_password" android:layout_weight=".75" android:layout_width="fill_parent" android:inputType="textPassword" android:layout_height="wrap_content" android:textColor="@android:color/black" android:hint="@string/setup_hint_password"></EditText>
-			</TableRow>
-		</TableLayout>
-		<LinearLayout android:layout_height="wrap_content" android:weightSum="1.0" android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:gravity="center_horizontal" android:orientation="horizontal">
-			<Button android:id="@+id/buttonOK" android:text="@string/setup_btn_connect" android:layout_width="wrap_content" android:layout_weight=".50" android:layout_height="wrap_content" android:onClick="onOkClick"></Button>
-		</LinearLayout>
-	</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center|center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:id="@+id/tableLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dip"
+                    android:layout_marginTop="15dip"
+                    android:text="@string/setup_title"
+                    android:textColor="@android:color/black"
+                    android:textSize="7pt"
+                    android:textStyle="bold" >
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0" >
+
+                <EditText
+                    android:id="@+id/host_URL"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:hint="@string/setup_hint_address"
+                    android:inputType="textUri"
+                    android:singleLine="true" >
+
+                    <requestFocus>
+                    </requestFocus>
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0" >
+
+                <EditText
+                    android:id="@+id/account_username"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:hint="@string/setup_hint_username"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black" >
+
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0" >
+
+                <EditText
+                    android:id="@+id/account_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".75"
+                    android:hint="@string/setup_hint_password"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black" >
+
+                </EditText>
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1.0" >
+
+            <Button
+                android:id="@+id/buttonOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:onClick="onOkClick"
+                android:text="@string/setup_btn_connect" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
