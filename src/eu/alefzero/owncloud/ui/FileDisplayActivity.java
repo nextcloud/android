@@ -54,7 +54,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import eu.alefzero.owncloud.DbHandler;
-import eu.alefzero.owncloud.FileDetail;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.R.layout;
@@ -62,6 +61,7 @@ import eu.alefzero.owncloud.R.menu;
 import eu.alefzero.owncloud.R.string;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.ui.fragment.FileDetail;
 import eu.alefzero.owncloud.ui.fragment.FileList;
 import eu.alefzero.owncloud.ui.fragment.ActionBar;
 public class FileDisplayActivity extends FragmentActivity {
@@ -78,7 +78,7 @@ public class FileDisplayActivity extends FragmentActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-    setContentView(R.layout.main);
+    setContentView(R.layout.files);
     
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     //ft.add(R.id.actionBar, new ActionBar());

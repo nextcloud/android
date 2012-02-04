@@ -5,45 +5,22 @@
     android:background="#F7F7F7"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <fragment
+        android:id="@+id/actionBar"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        class="eu.alefzero.owncloud.ui.fragment.ActionBar" >
+        <!-- Preview: layout=@layout/action_bar -->
+    </fragment>
+    
+    <fragment
+        android:id="@+id/landingPage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        class="eu.alefzero.owncloud.ui.fragment.LandingPageFragment" >
+        <!-- Preview: layout=@layout/landing_page_fragment -->
+    </fragment>
 
-        <fragment
-            android:id="@+id/actionBar"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            class="eu.alefzero.owncloud.ui.fragment.ActionBar">
-            <!-- Preview: layout=@layout/action_bar -->
-        </fragment>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <fragment
-                android:id="@+id/fileList"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                class="eu.alefzero.owncloud.ui.fragment.FileList" >
-
-                <!-- Preview: layout=@layout/list_layout -->
-            </fragment>
-
-            <fragment
-                android:id="@+id/fileDetail"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                class="eu.alefzero.owncloud.FileDetail" >
-
-                <!-- Preview: layout=@layout/file_details -->
-            </fragment>
-        </LinearLayout>
-    </LinearLayout>
+    
 
 </LinearLayout>

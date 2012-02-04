@@ -1,6 +1,5 @@
 package eu.alefzero.owncloud.ui.fragment;
 
-import eu.alefzero.owncloud.FileDetail;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;

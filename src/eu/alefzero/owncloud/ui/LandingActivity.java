@@ -41,7 +41,7 @@ public class LandingActivity extends FragmentActivity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.landing_page);
+		setContentView(R.layout.main);
 		
 		// Check, if there are ownCloud accounts
 		if(!accountsAreSetup()){

@@ -8,6 +8,6 @@
     android:id="@+id/fileDetail"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    class="eu.alefzero.owncloud.FileDetail" />
+    class="eu.alefzero.owncloud.ui.fragment.FileDetail" />
 
 </LinearLayout>

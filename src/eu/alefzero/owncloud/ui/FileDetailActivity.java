@@ -1,11 +1,11 @@
 package eu.alefzero.owncloud.ui;
 
 
-import eu.alefzero.owncloud.FileDetail;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.ui.fragment.ActionBar;
+import eu.alefzero.owncloud.ui.fragment.FileDetail;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
