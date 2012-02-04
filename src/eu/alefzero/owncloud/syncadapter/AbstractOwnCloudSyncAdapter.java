@@ -15,6 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
@@ -25,8 +26,6 @@ import java.util.LinkedList;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.impl.auth.BasicScheme;
@@ -46,8 +45,9 @@ import android.text.TextUtils;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
-import eu.alefzero.webdav.TreeNode.NodeProperty;
+import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
+import eu.alefzero.webdav.TreeNode.NodeProperty;
 
 /**
  * Base SyncAdapter for OwnCloud
@@ -63,8 +63,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	private ContentProviderClient contentProvider;
 	private Date lastUpdated;
 	
-	private DefaultHttpClient client = null;
-	private HttpHost host;
+	private HttpHost mHost;
+	private WebdavClient mClient = null;
 
 	public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
@@ -126,7 +126,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
         BasicScheme basicAuth = new BasicScheme();
         httpContext.setAttribute("preemptive-auth", basicAuth);
         
-        HttpResponse response = getClient().execute(this.host, query, httpContext);
+        HttpResponse response = getClient().execute(mHost, query, httpContext);
         return response;
 	}
 	
@@ -135,7 +135,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 		
 		TreeNode root = new TreeNode();
 		root.setProperty(TreeNode.NodeProperty.NAME, "/");
-		this.parseResponse(response, getUri(), getClient(), this.host, root.getChildList());
+		this.parseResponse(response, getUri(), getClient(), mHost, root.getChildList());
 		return root;
 	}
 	
@@ -144,7 +144,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	}
 	
 	private DefaultHttpClient getClient() throws OperationCanceledException, AuthenticatorException, IOException {
-		if(this.client == null) {
+		if(mClient == null) {
 			String username = getAccount().name.split("@")[0];
 			String password = this.getAccountManager().blockingGetAuthToken(getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
 			if (this.getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_URL) == null) {
@@ -152,17 +152,13 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 			}
 			Uri uri = getUri();
 	
-			int port = (uri.getPort() == -1) ? 80 : uri.getPort();
-			this.client = new DefaultHttpClient();
-			this.client.getCredentialsProvider().setCredentials(
-				new AuthScope(uri.getHost(), port),
-				new UsernamePasswordCredentials(username, password)
-			);
-			this.client.setKeepAliveStrategy(this.getKeepAliveStrategy());
-			this.host = new HttpHost(uri.getHost(), port, (uri.getScheme() == "https") ? "https" : "http");
+			mClient = new WebdavClient(uri);
+			mClient.setCredentials(username, password);
+			mClient.allowUnsignedCertificates();
+			mHost = mClient.getTargetHost();
 		}
 		
-		return this.client;
+		return mClient.getHttpClient();
 	}
 	
 	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList) throws IOException, OperationCanceledException, AuthenticatorException {
@@ -184,5 +180,4 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 			}
 		}
 	}
-	
 }

@@ -51,15 +51,11 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 
 import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
+import eu.alefzero.webdav.HttpMkCol;
 
 import android.net.Uri;
 import android.util.Log;
 
-/**
- * A basic WebDAV-Client
- * @author Bartek Przybylski
- *
- */
 public class WebdavClient {
   private DefaultHttpClient mHttpClient;
   private BasicHttpContext mHttpContext;
@@ -67,6 +63,13 @@ public class WebdavClient {
   private SchemeRegistry mSchemeRegistry;
   private Uri mUri;
   final private static String TAG = "WebdavClient";
+  
+  public DefaultHttpClient getHttpClient() {
+    return mHttpClient;
+  }
+  public HttpHost getTargetHost() {
+    return mTargetHost;
+  }
   
   public WebdavClient(Uri uri) {
     mUri = uri;
@@ -114,10 +117,6 @@ public class WebdavClient {
       return false;
     }
     return true;
-  }
-  
-  void getFileList(String dirPath) {
-    
   }
   
   public boolean putFile(String localFile,

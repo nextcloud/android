@@ -70,7 +70,6 @@ public class LandingActivity extends FragmentActivity implements OnClickListener
 		return dialog;
 	}
 
-	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		// In any case - we won't need it anymore
 		dialog.dismiss();

@@ -53,12 +53,10 @@ public class LandingScreenAdapter extends BaseAdapter {
 		mContext = context;
 	}
 
-	@Override
 	public int getCount() {
 		return mLandingScreenIcons.length;
 	}
 
-	@Override
 	/**
 	 * Returns the Intent associated with this object
 	 * or null if the functionality is not yet implemented
@@ -78,12 +76,10 @@ public class LandingScreenAdapter extends BaseAdapter {
 		return intent;
 	}
 
-	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			LayoutInflater inflator = LayoutInflater.from(mContext);
