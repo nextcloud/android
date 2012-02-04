@@ -15,41 +15,45 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.ui;
+
+import android.graphics.drawable.Drawable;
+import android.view.View.OnClickListener;
 
 /**
- * Represents a session to an ownCloud instance
- * @author Bartek Przybylski
- *
- */
-public class OwnCloudSession {
-  private String mSessionName;
-  private String mSessionUrl;
-  private int mEntryId;
+* Represents an Item on the ActionBar.
+* @author Bartek Przybylski
+* 
+*/
+public class ActionItem {
+  private Drawable mIcon;
+  private String mTitle;
+  private OnClickListener mClickListener;
   
-  public OwnCloudSession(String name, String url, int entryId) {
-    mSessionName = name;
-    mSessionUrl = url;
-    mEntryId = entryId;
+  public ActionItem() { }
+  
+  public void setTitle(String title) {
+    mTitle = title;
   }
   
-  public void setName(String name) {
-    mSessionName = name;
+  public String getTitle() {
+    return mTitle;
   }
   
-  public String getName() {
-    return mSessionName;
+  public void setIcon(Drawable icon) {
+    mIcon = icon;
   }
   
-  public void setUrl(String url) {
-    mSessionUrl = url;
+  public Drawable getIcon() {
+    return mIcon;
   }
   
-  public String getUrl() {
-    return mSessionUrl;
+  public void setOnClickListener(OnClickListener listener) {
+    mClickListener = listener;
   }
   
-  public int getEntryId() {
-    return mEntryId;
+  public OnClickListener getOnClickListerner() {
+    return mClickListener;
   }
+  
 }

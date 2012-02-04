@@ -1,3 +1,20 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2011  Bartek Przybylski
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package eu.alefzero.owncloud;
 
 import java.io.File;
@@ -41,8 +58,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
+/**
+ * This can be used to upload things to an ownCloud instance.
+ * @author Bartek Przybylski
+ *
+ */
 public class Uploader extends ListActivity implements OnItemClickListener, android.view.View.OnClickListener {
   private static final String TAG = "ownCloudUploader";
 

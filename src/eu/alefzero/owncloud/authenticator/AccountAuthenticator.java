@@ -1,6 +1,6 @@
 package eu.alefzero.owncloud.authenticator;
 
-import eu.alefzero.owncloud.ui.AuthenticatorActivity;
+import eu.alefzero.owncloud.ui.activity.AuthenticatorActivity;
 import android.accounts.*;
 import android.content.Context;
 import android.content.Intent;

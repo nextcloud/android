@@ -14,7 +14,8 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.ui.FileDisplayActivity;
+import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
+import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service {
   static final String EXTRA_ACCOUNT = "ACCOUNT";

@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.owncloud.ui;
+package eu.alefzero.owncloud.ui.activity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,17 +53,23 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import eu.alefzero.owncloud.DbHandler;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.R.menu;
 import eu.alefzero.owncloud.R.string;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.db.DbHandler;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.fragment.FileDetail;
 import eu.alefzero.owncloud.ui.fragment.FileList;
 import eu.alefzero.owncloud.ui.fragment.ActionBar;
+
+/**
+ * Displays, what files the user has available in his ownCloud.
+ * @author Bartek Przybylski
+ *
+ */
 public class FileDisplayActivity extends FragmentActivity {
   private DbHandler mDBHandler;
   private Stack<String> mParents;

@@ -20,6 +20,11 @@ package eu.alefzero.owncloud.db;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/**
+ * Meta-Class that holds various static field information
+ * @author Bartek Przybylski
+ *
+ */
 public class ProviderMeta {
 
   public static final String AUTHORITY_FILES = "org.owncloud";

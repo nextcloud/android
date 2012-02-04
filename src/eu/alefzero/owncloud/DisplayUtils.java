@@ -22,6 +22,11 @@ import java.util.HashMap;
 
 import android.util.Log;
 
+/**
+ * A helper class for some string operations.
+ * @author Bartek Przybylski
+ *
+ */
 public class DisplayUtils {
   public static String bitsToHumanReadable(long bitsLen) {
     double result = bitsLen;

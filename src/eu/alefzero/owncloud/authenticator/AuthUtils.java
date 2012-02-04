@@ -66,7 +66,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 
-import eu.alefzero.owncloud.ui.AuthenticatorActivity;
+import eu.alefzero.owncloud.ui.activity.AuthenticatorActivity;
 
 
 import android.content.Context;

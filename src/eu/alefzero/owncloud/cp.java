@@ -36,6 +36,11 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+/**
+* The ContentProvider for the ownCloud App.
+* @author Bartek Przybylski
+* 
+*/
 public class cp extends ContentProvider {
 
   private DataBaseHelper mDbHelper;

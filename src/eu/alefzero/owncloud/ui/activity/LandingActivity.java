@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012  Lennart Rosam
+ *   Copyright (C) 2011 Bartek Przybylski
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package eu.alefzero.owncloud.ui;
+package eu.alefzero.owncloud.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -31,8 +31,8 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 
 /**
  * This activity is used as a landing page when the user first opens this app.
- * 
  * @author Lennart Rosam
+ * 
  */
 public class LandingActivity extends FragmentActivity implements OnClickListener {
 

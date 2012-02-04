@@ -43,6 +43,8 @@ import eu.alefzero.webdav.WebdavUtils;
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
  * platform ContactOperations provider.
+ * 
+ * @author Bartek Przybylski
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 	private static final String TAG = "FileSyncAdapter";
