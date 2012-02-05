@@ -22,19 +22,25 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
+import android.widget.Toast;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.ui.adapter.LandingScreenAdapter;
 
 /**
  * This activity is used as a landing page when the user first opens this app.
  * @author Lennart Rosam
  * 
  */
-public class LandingActivity extends FragmentActivity implements OnClickListener {
+public class LandingActivity extends FragmentActivity implements OnClickListener, OnItemClickListener {
 
 	public static final int DIALOG_SETUP_ACCOUNT = 1;
 	
@@ -42,6 +48,13 @@ public class LandingActivity extends FragmentActivity implements OnClickListener
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		// Fill the grid view that is only available in portrait mode
+		GridView landingScreenItems = (GridView) findViewById(R.id.homeScreenGrid);
+		if(landingScreenItems != null){
+			landingScreenItems.setAdapter(new LandingScreenAdapter(this));
+			landingScreenItems.setOnItemClickListener(this);
+		}
 		
 		// Check, if there are ownCloud accounts
 		if(!accountsAreSetup()){
@@ -86,6 +99,22 @@ public class LandingActivity extends FragmentActivity implements OnClickListener
 		
 	}
 	
+	@Override
+	/**
+	 * Start an activity based on the selection
+	 * the user made
+	 */
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent;
+		intent = (Intent) parent.getAdapter().getItem(position);
+		if(intent != null ){
+			startActivity(intent);
+		} else {
+			Toast toast = Toast.makeText(this, "Not yet implemented!", Toast.LENGTH_SHORT);
+			toast.show();
+		} 
+	}
+	
 	/**
 	 * Checks, whether or not there are any ownCloud accounts 
 	 * setup. 
@@ -98,6 +127,6 @@ public class LandingActivity extends FragmentActivity implements OnClickListener
 				.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE); 
 		return accounts.length > 0;
 	}
-	
 
+	
 }

@@ -17,13 +17,13 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import eu.alefzero.owncloud.R;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.SupportActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import eu.alefzero.owncloud.R;
 
 /**
  * A custom ActionBar implementation used in the FileDisplayActivity
@@ -45,7 +45,7 @@ public class ActionBar extends Fragment {
   }
   
   @Override
-  public void onAttach(Activity activity) {
+  public void onAttach(SupportActivity activity) {
     super.onAttach(activity);
   }
   

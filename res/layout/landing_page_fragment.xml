@@ -5,37 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/ocLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="10dip"
-        android:src="@drawable/owncloud_logo" />
-
-    <TextView
-        android:id="@+id/textView0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dip"
-        android:layout_marginTop="15dip"
-        android:text="@string/main_welcome"
-        android:textColor="@android:color/black"
-        android:textSize="7pt"
-        android:textStyle="bold" />
-
-    <GridView
-        android:id="@+id/gridview"
+    <ListView
+        android:id="@+id/homeScreenList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
-        android:columnWidth="90dp"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" >
-    </GridView>
+        android:stretchMode="columnWidth" 
+        android:divider="@android:color/black">
+    </ListView>
 
 </LinearLayout>

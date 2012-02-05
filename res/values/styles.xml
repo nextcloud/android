@@ -2,6 +2,18 @@
 <resources>
 	<style name="Animations" />
 
+	<!-- Default ownCloud app style -->
+	<style name="Theme.ownCloud" parent="style/Theme.Sherlock.Light">
+    	<item name="abBackground">@drawable/main_header_bg</item>
+    	<item name="abTitleTextStyle">@style/ocActionBarTextStyle</item>
+	</style>
+
+	<style name="ocActionBarTextStyle">
+    	<item name="android:textColor">#ffffff</item>
+	</style>
+	
+	
+	
 	<!-- PopDownMenu -->
 	<style name="Animations.PopDownMenu" />
 	
