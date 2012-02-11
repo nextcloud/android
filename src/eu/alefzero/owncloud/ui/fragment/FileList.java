@@ -17,11 +17,17 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.util.ListIterator;
+import java.util.Stack;
+
+import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
+import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
 import eu.alefzero.owncloud.ui.fragment.ActionBar;
 import android.accounts.Account;
@@ -33,32 +39,39 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * A Fragment that lists all files and folders in a given path.
  * @author Bartek Przybylski
  *
  */
-public class FileList extends ListFragment {
+public class FileList extends FragmentListView {
   private Cursor mCursor;
   private Account mAccount;
   private AccountManager mAccountManager;
   private View mheaderView;
+  private Stack<String> mParentsIds;
+  private Stack<String> mDirNames;
 
-  
   @Override
   public void onCreate(Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
     
+    mParentsIds = new Stack<String>();
+    mDirNames = new Stack<String>();
     mAccountManager = (AccountManager)getActivity().getSystemService(Service.ACCOUNT_SERVICE);
     mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[0];
     populateFileList();
@@ -71,42 +84,40 @@ public class FileList extends ListFragment {
   }
   
   @Override
-  public void onListItemClick(ListView l, View v, int position, long id) {
+  public void onItemClick(AdapterView<?> l, View v, int position, long id) {
     FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail);
-    ActionBar ab = (ActionBar) getFragmentManager().findFragmentById(R.id.actionBar);
-    
     if (!mCursor.moveToPosition(position)) {
       throw new IndexOutOfBoundsException("Incorrect item selected");
     }
+    
     if (mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
         String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
+        mParentsIds.push(id_);
         String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
-        //ab..push(DisplayUtils.HtmlDecode(dirname));
-        //mPath.addLast(DisplayUtils.HtmlDecode(dirname));
-        //mParents.push(id_);
+        mDirNames.push(dirname);
+        ((FileDisplayActivity)getActivity()).pushPath(DisplayUtils.HtmlDecode(dirname));
         mCursor = getActivity().managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, id_),
                                null,
                                ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                                new String[]{mAccount.name}, null);
         setListAdapter(new FileListListAdapter(mCursor, getActivity()));
-        setListShown(false);
-        setListShown(true);
-        super.onListItemClick(l, v, position, id);
+        //super.onListItemClick(l, v, position, id);
         return;
     }
     Intent i = new Intent(getActivity(), FileDetailActivity.class);
-    i.putExtra("FILE_PATH", ab.getCurrentPath());
     i.putExtra("FILE_NAME", ((TextView)v.findViewById(R.id.Filename)).getText());
     if (fd != null) {
       fd.setStuff(i);
       //fd.use(((TextView)v.findViewById(R.id.Filename)).getText());
     } else {
-      i.putExtra("FILE_PATH", ab.getCurrentPath());
       i.putExtra("FILE_NAME", ((TextView)v.findViewById(R.id.Filename)).getText());
       startActivity(i);
     }
-    super.onListItemClick(l, v, position, id);
-
+    FragmentTransaction ft = getFragmentManager().beginTransaction();
+    ft.replace(R.id.fileList, this);
+    ft.commitAllowingStateLoss();
+    //super.onListItemClick(l, v, position, id);
+    
   }
   
   @Override
@@ -123,5 +134,25 @@ public class FileList extends ListFragment {
         null);
     
     setListAdapter(new FileListListAdapter(mCursor, getActivity()));
+  }
+  
+  public void onBackPressed() {
+    if (!mParentsIds.empty()) {
+      mParentsIds.pop();
+      mDirNames.pop();
+    }
+    if (!mParentsIds.empty()) {
+      
+      String id_ = mParentsIds.peek();
+      String dirname = mDirNames.peek();
+      mCursor = getActivity().managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, id_),
+                             null,
+                             ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                             new String[]{mAccount.name}, null);
+      setListAdapter(new FileListListAdapter(mCursor, getActivity()));
+    } else {
+      populateFileList();
+    }
+      
   }
 }

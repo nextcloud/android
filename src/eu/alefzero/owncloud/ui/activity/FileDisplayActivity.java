@@ -30,14 +30,17 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ActionBar.OnNavigationListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -49,9 +52,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
@@ -70,25 +77,42 @@ import eu.alefzero.owncloud.ui.fragment.ActionBar;
  * @author Bartek Przybylski
  *
  */
-public class FileDisplayActivity extends FragmentActivity {
+
+public class FileDisplayActivity extends android.support.v4.app.FragmentActivity implements OnNavigationListener {
   private DbHandler mDBHandler;
   private Stack<String> mParents;
   private LinkedList<String> mPath;
   private Account mAccount;
   private Cursor mCursor;
   private boolean mIsDisplayingFile;
-
+  private ArrayAdapter<String> mDirectories;
+  private FileList mFileList;
+ 
   private static final int DIALOG_CHOOSE_ACCOUNT = 0;
-
+  
+  public void pushPath(String path) {
+    mDirectories.insert(path, 0);
+  }
+  
+  public boolean popPath() {
+    mDirectories.remove(mDirectories.getItem(0));
+    Log.d("TAG", ""+getActionBar().getCustomView());
+    return !mDirectories.isEmpty();
+  }
+  
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+    mDirectories = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+    mDirectories.add("/");
+    mFileList = new FileList();
     setContentView(R.layout.files);
+    getActionBar().setNavigationMode(android.support.v4.app.ActionBar.NAVIGATION_MODE_LIST);
+    getActionBar().setDisplayShowTitleEnabled(false);
+    getActionBar().setListNavigationCallbacks(mDirectories, this);
     
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    //ft.add(R.id.actionBar, new ActionBar());
-    ft.add(R.id.fileList, new FileList());
+    ft.add(R.id.fileList, mFileList);
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       ft.add(R.id.fileDetail, new FileDetail());
     }
@@ -343,6 +367,25 @@ public class FileDisplayActivity extends FragmentActivity {
     }
 //    setListAdapter(new FileListListAdapter(mCursor, this));
 //    getListView().invalidate();
+  }
+
+  @Override
+  public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+    int i = itemPosition;
+    while (i-- != 0) {
+      popPath();
+      mFileList.onBackPressed();
+    }
+    return true;
+  }
+  
+  @Override
+  public void onBackPressed() {
+    popPath();
+    if (mDirectories.isEmpty()) {
+      super.onBackPressed();
+    }
+    mFileList.onBackPressed();
   }
   
   //@Override

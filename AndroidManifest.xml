@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".ui.activity.FileDisplayActivity"></activity>
+        <activity android:name=".ui.activity.FileDisplayActivity" android:theme="@style/Theme.ownCloud" android:label="@string/app_name"></activity>
         <activity android:name=".Uploader">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"></action>

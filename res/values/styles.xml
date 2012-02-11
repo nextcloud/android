@@ -11,9 +11,8 @@
 	<style name="ocActionBarTextStyle">
     	<item name="android:textColor">#ffffff</item>
 	</style>
-	
-	
-	
+	    
+	    
 	<!-- PopDownMenu -->
 	<style name="Animations.PopDownMenu" />
 	
