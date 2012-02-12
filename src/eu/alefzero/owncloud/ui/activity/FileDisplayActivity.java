@@ -112,7 +112,7 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     getActionBar().setListNavigationCallbacks(mDirectories, this);
     
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.add(R.id.fileList, mFileList);
+    ft.add(R.id.file_list_container, mFileList);
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       ft.add(R.id.fileDetail, new FileDetail());
     }
@@ -200,7 +200,6 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
         public void onClick(DialogInterface dialog, int item) {
             mAccount = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[item];
             dialog.dismiss();
-            populateFileList();
         }
     });
     builder.setOnCancelListener(new OnCancelListener() {
@@ -346,35 +345,16 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     //}
 //  }
   
-  private void populateFileList() {
-    if (mParents.empty()) {
-      mCursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
-                                           null,
-                                           ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-                                           new String[]{mAccount.name},
-                                           null);
-    } else {
-      mCursor = getContentResolver().query(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()),
-                                           null,
-                                           ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                           new String[]{mAccount.name}, null);
-      if (!mIsDisplayingFile) {
-        //PathLayout pl = (PathLayout) findViewById(R.id.pathLayout1);
-        //for (String s : mPath) {
-        //  pl.push(s);
-       // }
-      }
-    }
+ 
 //    setListAdapter(new FileListListAdapter(mCursor, this));
 //    getListView().invalidate();
-  }
 
   @Override
   public boolean onNavigationItemSelected(int itemPosition, long itemId) {
     int i = itemPosition;
     while (i-- != 0) {
       popPath();
-      mFileList.onBackPressed();
+      //mFileList.onBackPressed();
     }
     return true;
   }
@@ -382,10 +362,9 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   @Override
   public void onBackPressed() {
     popPath();
-    if (mDirectories.isEmpty()) {
-      super.onBackPressed();
-    }
-    mFileList.onBackPressed();
+    //getSupportFragmentManager().popBackStack();
+    //super.onBackPressed();
+    getSupportFragmentManager().popBackStackImmediate();
   }
   
   //@Override
@@ -400,5 +379,4 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     outState.putSerializable("path", mPath);
     outState.putBoolean("isDisplayingFile", mIsDisplayingFile);
   }*/
-
 }

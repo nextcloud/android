@@ -24,6 +24,10 @@ public class FragmentListView extends Fragment implements OnItemClickListener {
     mList.setAdapter(listAdapter);
     mList.invalidate();
   }
+  
+  public ListView getListView() {
+    return mList;
+  }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,

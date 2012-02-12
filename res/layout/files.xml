@@ -9,33 +9,24 @@
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <fragment
-                android:id="@+id/fileList"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                class="eu.alefzero.owncloud.ui.fragment.FileList" >
-
-                <!-- Preview: layout=@layout/list_layout -->
-            </fragment>
-
-            <fragment
-                android:id="@+id/fileDetail"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="2"
-                class="eu.alefzero.owncloud.ui.fragment.FileDetail" >
-
-                <!-- Preview: layout=@layout/file_details -->
-            </fragment>
+            android:id="@+id/file_list_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1">
         </LinearLayout>
+
+        <fragment
+            android:id="@+id/fileDetail"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            class="eu.alefzero.owncloud.ui.fragment.FileDetail" >
+
+            <!-- Preview: layout=@layout/file_details -->
+        </fragment>
     </LinearLayout>
 
 </LinearLayout>
