@@ -17,10 +17,15 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.cp;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.R.layout;
+import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -40,19 +45,25 @@ public class FileDetail extends Fragment {
   public Intent mIntent;
   
   public void setStuff(Intent intent) {
-    setStuff(intent, getView());
+    mIntent = intent;
+    setStuff(getView());
   }
   
-  private void setStuff(Intent intent, View view) {
-    String filename = intent.getStringExtra("FILE_NAME");
-    String filepath = intent.getStringExtra("FILE_PATH");
+  private void setStuff(View view) {
+    String id = mIntent.getStringExtra("FILE_ID");
+    String account_name = mIntent.getStringExtra("ACCOUNT_NAME");
+    Cursor c = getActivity().managedQuery(
+        Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, id),
+        null,
+        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+        new String[]{account_name},
+        null);
+    c.moveToFirst();
+    
+    String filename = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME));
     setFilename(filename, view);
-  }
-  
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    // TODO Auto-generated method stub
-    super.onCreate(savedInstanceState);
+    String mimetype = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE));
+    setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mimetype), view);
   }
 
   @Override
@@ -60,7 +71,10 @@ public class FileDetail extends Fragment {
       Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.file_details, container, false);
     
-    if (getActivity().getIntent() != null) setStuff(getActivity().getIntent(), v);
+    if (getActivity().getIntent() != null) {
+      mIntent = getActivity().getIntent();
+      setStuff(v);
+    }
     return v;
   }
 
@@ -69,7 +83,16 @@ public class FileDetail extends Fragment {
     if (tv != null) tv.setText(filename);
   }
   
+  private void setFiletype(String mimetype, View target_view) {
+    TextView tv = (TextView) target_view.findViewById(R.id.textView2);
+    if (tv != null) tv.setText(mimetype);
+  }
+  
   public void setFilename(String filename) {
     setFilename(filename, getView());
+  }
+  
+  public void setFiletype(String filename) {
+    setFiletype(filename, getView());
   }
 }

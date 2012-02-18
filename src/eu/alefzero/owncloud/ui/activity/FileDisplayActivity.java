@@ -86,7 +86,6 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   private Cursor mCursor;
   private boolean mIsDisplayingFile;
   private ArrayAdapter<String> mDirectories;
-  private FileList mFileList;
  
   private static final int DIALOG_CHOOSE_ACCOUNT = 0;
   
@@ -105,14 +104,13 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     super.onCreate(savedInstanceState);
     mDirectories = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
     mDirectories.add("/");
-    mFileList = new FileList();
     setContentView(R.layout.files);
     getActionBar().setNavigationMode(android.support.v4.app.ActionBar.NAVIGATION_MODE_LIST);
     getActionBar().setDisplayShowTitleEnabled(false);
     getActionBar().setListNavigationCallbacks(mDirectories, this);
     
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.add(R.id.file_list_container, mFileList);
+    ft.add(R.id.file_list_container, new FileList());
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       ft.add(R.id.fileDetail, new FileDetail());
     }
@@ -362,9 +360,12 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   @Override
   public void onBackPressed() {
     popPath();
-    //getSupportFragmentManager().popBackStack();
-    //super.onBackPressed();
-    getSupportFragmentManager().popBackStackImmediate();
+    if (mDirectories.getCount() == 0)
+    {
+      super.onBackPressed();
+      return;
+    }
+    ((FileList)getSupportFragmentManager().findFragmentById(id.file_list_container)).onBackPressed();
   }
   
   //@Override

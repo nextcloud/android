@@ -17,6 +17,8 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.util.Stack;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.FragmentManager;
@@ -26,6 +28,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,17 +51,12 @@ public class FileList extends FragmentListView {
   private Cursor mCursor;
   private Account mAccount;
   private AccountManager mAccountManager;
-  private String mDirName;
-  private String mParentId;
+  private Stack<String> mDirNames;
+  private Stack<String> mParentsIds;
 
   public FileList() {
-    mDirName = null;
-    mParentId = null;
-  }
-
-  public FileList(String dirName, String parentId) {
-    mDirName = dirName;
-    mParentId = parentId;
+    mDirNames = new Stack<String>();
+    mParentsIds = new Stack<String>();
   }
   
   @Override
@@ -72,43 +70,47 @@ public class FileList extends FragmentListView {
   
   @Override
   public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-    FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail); 
     if (!mCursor.moveToPosition(position)) {
       throw new IndexOutOfBoundsException("Incorrect item selected");
     }
-    
+    String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
     if (mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
-        String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
         String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
 
-        FileList fl = new FileList(dirname, id_);
+        mDirNames.push(dirname);
+        mParentsIds.push(id_);
         ((FileDisplayActivity)getActivity()).pushPath(dirname);
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.addToBackStack(null);
-        ft.replace(R.id.file_list_container, fl);
-        ft.commit();
-        getSupportFragmentManager().executePendingTransactions();
+        
+        populateFileList();
         return;
     }
     Intent i = new Intent(getActivity(), FileDetailActivity.class);
     i.putExtra("FILE_NAME", ((TextView)v.findViewById(R.id.Filename)).getText());
+    i.putExtra("FILE_ID", id_);
+    i.putExtra("ACCOUNT_NAME", mAccount.name);
+    FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
       fd.setStuff(i);
     } else {
       startActivity(i);
     }
   }
-  
+
+  public void onBackPressed() {
+    mParentsIds.pop();
+    mDirNames.pop();
+    populateFileList();
+  }
+
   private void populateFileList() {
-    if (mParentId == null || mDirName == null) {
+    if (mParentsIds.empty()) {
       mCursor = getActivity().getContentResolver().query(ProviderTableMeta.CONTENT_URI,
         null,
         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
         new String[]{mAccount.name},
         null);
     } else {
-      mCursor = getActivity().managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParentId),
+      mCursor = getActivity().managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParentsIds.peek()),
           null,
           ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
           new String[]{mAccount.name}, null);
