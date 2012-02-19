@@ -27,6 +27,18 @@
 	</LinearLayout>
 	<LinearLayout android:layout_width="fill_parent"
 		android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+
+		<ImageView
+		    android:id="@+id/imageView2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/action_item_btn" />
+
+		<VideoView
+		    android:id="@+id/videoView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent" />
+
 		<ListView android:layout_width="fill_parent" android:id="@android:id/list"
 			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
 			android:dividerHeight="1dip"></ListView>

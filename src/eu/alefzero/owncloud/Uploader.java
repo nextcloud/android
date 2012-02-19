@@ -438,6 +438,16 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 Uploader.this.onUploadComplete(false, "Error while uploading file: " + c.getString(c.getColumnIndex(Media.DISPLAY_NAME)));
               }
             });
+          } else {
+            mHandler.post(new Runnable() {
+              public void run() {
+                Uploader.this.PartialupdateUpload(c.getString(c.getColumnIndex(Media.DATA)),
+                    c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                    mUploadPath+"/"+c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                    c.getString(c.getColumnIndex(Media.MIME_TYPE)),
+                    c.getString(c.getColumnIndex(Media.SIZE)));
+              }
+            });
           }
         } else if (uri.getScheme().equals("file")) {
          final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme()+"://", ""));

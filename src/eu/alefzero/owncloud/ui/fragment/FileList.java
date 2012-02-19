@@ -21,17 +21,12 @@ import java.util.Stack;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.FragmentManager;
 import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import eu.alefzero.owncloud.R;
@@ -85,10 +80,12 @@ public class FileList extends FragmentListView {
         return;
     }
     Intent i = new Intent(getActivity(), FileDetailActivity.class);
-    i.putExtra("FILE_NAME", ((TextView)v.findViewById(R.id.Filename)).getText());
+    String filename = ((TextView)v.findViewById(R.id.Filename)).getText().toString();
+    i.putExtra("FILE_NAME", filename);
+    i.putExtra("FULL_PATH", "/" + filename);
     i.putExtra("FILE_ID", id_);
-    i.putExtra("ACCOUNT_NAME", mAccount.name);
-    FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail);
+    i.putExtra("ACCOUNT", mAccount);
+    FileDetail fd = (FileDetail) getSupportFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
       fd.setStuff(i);
     } else {

@@ -8,6 +8,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Binder;
@@ -20,6 +21,8 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.db.DbHandler;
+import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -71,8 +74,7 @@ public class FileDownloader extends Service {
     Message msg = mServiceHandler.obtainMessage();
     msg.arg1 = startId;
     mServiceHandler.sendMessage(msg);
-    
-    
+
     return START_NOT_STICKY;
   }
   
@@ -87,7 +89,6 @@ public class FileDownloader extends Service {
     try {
       password = am.blockingGetAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE, true);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     
@@ -105,6 +106,12 @@ public class FileDownloader extends Service {
     File file = new File(dir, mFilePath.replace('/', '.'));
     
     wdc.downloadFile(mFilePath, file);
+    ContentValues cv = new ContentValues();
+    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
+    getContentResolver().update(ProviderTableMeta.CONTENT_URI,
+        cv,
+        ProviderTableMeta.FILE_NAME +"=? AND "+ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+        new String[]{mFilePath.substring(mFilePath.lastIndexOf('/')+1), mAccount.name});
     nm.cancel(1);
   }
   
