@@ -19,7 +19,6 @@ package eu.alefzero.owncloud;
 
 import java.io.File;
 import java.net.FileNameMap;
-import java.net.URI;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Stack;

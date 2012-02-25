@@ -23,9 +23,6 @@ import java.util.Vector;
 
 import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.R.id;
-import eu.alefzero.owncloud.R.menu;
-import eu.alefzero.owncloud.R.xml;
 import eu.alefzero.owncloud.db.DbHandler;
 
 import android.app.Activity;

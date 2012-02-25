@@ -18,21 +18,11 @@
 
 package eu.alefzero.webdav;
 
-import java.sql.Date;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-
-import eu.alefzero.webdav.TreeNode.NodeProperty;
-
-import android.util.Xml;
 
 public class TreeNodeFile extends TreeNode {
 
   public TreeNodeFile() {
-    is_pinned_ = false;
-    pathToDownloadedFile_ = "";
-    lastUpdateDate_ = new Date(1970, 1, 1);
   }
   
   @Override
@@ -49,8 +39,4 @@ public class TreeNodeFile extends TreeNode {
       //TODO: update file
     }*/
   }
-  
-  private boolean is_pinned_;
-  private String pathToDownloadedFile_;
-  private Date lastUpdateDate_;
 }

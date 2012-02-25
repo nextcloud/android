@@ -20,8 +20,6 @@ package eu.alefzero.owncloud;
 
 import java.util.HashMap;
 
-import android.util.Log;
-
 /**
  * A helper class for some string operations.
  * @author Bartek Przybylski

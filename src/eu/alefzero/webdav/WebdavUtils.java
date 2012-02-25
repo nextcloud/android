@@ -39,7 +39,6 @@ import org.xml.sax.SAXException;
 
 import eu.alefzero.webdav.TreeNode.NodeProperty;
 
-import android.text.Html;
 import android.util.Log;
 
 public class WebdavUtils {

@@ -1,26 +1,12 @@
 package eu.alefzero.owncloud.ui.activity;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import eu.alefzero.owncloud.authenticator.AccountAuthenticatorService;
-
-import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class PreferencesNewSession extends AccountAuthenticatorActivity implements OnClickListener {
-  private Intent mReturnData;
-  private final String TAG = "OwnCloudPreferencesNewSession";
   @Override
   public void onCreate(Bundle savedInstanceState){
     super.onCreate(savedInstanceState);
@@ -99,9 +85,9 @@ public class PreferencesNewSession extends AccountAuthenticatorActivity implemen
     }*/
   }
   
-  private URI prepareURI() {
+  /*private URI prepareURI() {
     URI uri = null;
-   /* String url = "";
+    String url = "";
     try {
       String username = ((EditText) findViewById(R.id.newSession_username)).getText().toString().trim();
       String password = ((EditText) findViewById(R.id.newSession_password)).getText().toString().trim();
@@ -127,12 +113,12 @@ public class PreferencesNewSession extends AccountAuthenticatorActivity implemen
       Log.e(TAG, "Incorrect URI syntax " + e.getLocalizedMessage());
       Toast.makeText(this, R.string.new_session_uri_error, Toast.LENGTH_LONG).show();
     }
-    */return uri;
+    return uri;
   }
   
   private boolean isNameValid(String string) {
     return string.matches("[A-Za-z0-9 _-]*");
-  }
+  }*/
   
   @Override
   public void onBackPressed() {

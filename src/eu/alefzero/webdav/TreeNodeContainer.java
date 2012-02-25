@@ -22,8 +22,6 @@ import java.util.ListIterator;
 
 import org.w3c.dom.Document;
 
-import android.util.Xml;
-
 public class TreeNodeContainer extends TreeNode {
   
   @Override

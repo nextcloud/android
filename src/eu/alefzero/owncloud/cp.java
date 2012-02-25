@@ -80,8 +80,6 @@ public class cp extends ContentProvider {
     mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
   }
   
-  private static final String TAG = "OC_ContentProvider";
-  
   @Override
   public int delete(Uri uri, String where, String[] whereArgs) {
     SQLiteDatabase db = mDbHelper.getWritableDatabase();

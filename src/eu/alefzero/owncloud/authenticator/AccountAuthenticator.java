@@ -178,7 +178,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     }
 
     private void validateRequiredFeatures(String[] requiredFeatures) throws UnsupportedFeaturesException {
-        // TODO
     }
 
     private void validateCreaditials(String username, String password, String path) throws AccessDeniedException {

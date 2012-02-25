@@ -18,12 +18,9 @@
 package eu.alefzero.webdav;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -129,7 +126,6 @@ public class WebdavClient {
     method.setHeader("User-Agent", "Android-ownCloud");
 
     try {
-      FileBody fb = new FileBody(new File(localFile, contentType));
       final FileEntity fileEntity = new FileEntity(new File(localFile), contentType);
 
       method.setEntity(fileEntity);

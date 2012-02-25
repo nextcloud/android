@@ -17,29 +17,20 @@
  */
 package eu.alefzero.owncloud.ui.adapter;
 
-import java.security.Provider;
-
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.R.drawable;
-import eu.alefzero.owncloud.R.id;
-import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnLongClickListener;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * This Adapter populates a ListView with all files and 
