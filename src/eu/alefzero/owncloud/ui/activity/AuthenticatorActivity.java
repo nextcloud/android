@@ -32,9 +32,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import eu.alefzero.owncloud.R;
@@ -187,5 +189,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                 password_text.getText().toString(),
                 mHandler,
                 AuthenticatorActivity.this);
+    }
+    
+    /**
+     * Handles the show password checkbox
+     * @author robstar
+     * @param view
+     */
+    public void onCheckboxClick(View view) {
+    	CheckBox checkbox = (CheckBox) findViewById(R.id.show_password);
+    	TextView password_text = (TextView) findViewById(R.id.account_password);
+    	
+    	if(checkbox.isChecked()) {
+    		password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+    	} else {
+    		password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    	}
+    	
     }
 }

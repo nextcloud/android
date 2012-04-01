@@ -74,6 +74,7 @@
                     android:layout_weight="0.75"
                     android:hint="@string/setup_hint_address"
                     android:inputType="textUri"
+                    android:textColor="@android:color/black"
                     android:singleLine="true" >
 
                     <requestFocus>
@@ -119,6 +120,22 @@
 
                 </EditText>
             </TableRow>
+            <TableRow android:id="@+id/tableRow5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0">
+                
+                <CheckBox
+					android:id="@+id/show_password"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_weight=".75"
+					android:hint="@string/setup_hint_show_password"
+					android:textColor="@android:color/black"
+					android:onClick="onCheckboxClick"/>
+                
+            </TableRow>
         </TableLayout>
 
         <LinearLayout
@@ -135,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
                 android:onClick="onOkClick"
+                android:textColor="@android:color/black"
                 android:text="@string/setup_btn_connect" >
             </Button>
         </LinearLayout>
