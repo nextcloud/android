@@ -120,7 +120,7 @@ public class cp extends ContentProvider {
     }
     
     SQLiteDatabase db = mDbHelper.getWritableDatabase();
-    long rowId = db.insert(ProviderTableMeta.DB_NAME, ProviderTableMeta.FILE_NAME, values);
+    long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
     if (rowId > 0) {
       Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
       getContext().getContentResolver().notifyChange(insertedFileUri, null);

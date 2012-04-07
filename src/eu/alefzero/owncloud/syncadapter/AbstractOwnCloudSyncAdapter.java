@@ -39,10 +39,13 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
 import eu.alefzero.webdav.WebdavClient;
@@ -134,8 +137,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 		HttpResponse response = fireRawRequest(query);
 		
 		TreeNode root = new TreeNode();
-		root.setProperty(TreeNode.NodeProperty.NAME, "/");
-		this.parseResponse(response, getUri(), getClient(), mHost, root.getChildList());
+		root.setProperty(TreeNode.NodeProperty.NAME, "");
+		this.parseResponse(response, getUri(), getClient(), mHost, root.getChildList(), false, 0);
 		return root;
 	}
 	
@@ -161,22 +164,37 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 		return mClient.getHttpClient();
 	}
 	
-	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList) throws IOException, OperationCanceledException, AuthenticatorException {
-		boolean skipFirst = true;
+	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList, boolean sf, long parent_id) throws IOException, OperationCanceledException, AuthenticatorException {
+		boolean skipFirst = sf, override_parent = true;
 		for (TreeNode n :WebdavUtils.parseResponseToNodes(resp.getEntity().getContent())) {
+		  if (skipFirst) {
+        skipFirst = false;
+        continue;
+      }
 			String path = n.stripPathFromFilename(uri.getPath());
-			if (skipFirst) {
-				skipFirst = false;
-				continue;
+			OCFile new_file = OCFile.createNewFile(getContentProvider(),
+          getAccount(),
+          n.getProperty(NodeProperty.PATH),
+          0,//Long.parseLong(n.getProperty(NodeProperty.CONTENT_LENGTH)),
+          0,//Long.parseLong(n.getProperty(NodeProperty.CREATE_DATE)),
+          0,//Long.parseLong(n.getProperty(NodeProperty.LAST_MODIFIED_DATE)),
+          n.getProperty(NodeProperty.RESOURCE_TYPE),
+          parent_id);
+			new_file.save();
+			Log.e("ASD", new_file.getFileId()+"");
+			Log.e("ASD", new_file.getFileName()+"");
+			Log.e("ASD", new_file.getPath()+"");
+			if (override_parent) {
+			  parent_id = new_file.getFileId();
+			  override_parent = false;
 			}
-			insertList.add(n);
 
 			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME)) &&
 					n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
 			    
 			    HttpPropFind method = new HttpPropFind(uri.getPath() + path + n.getProperty(NodeProperty.NAME).replace(" ", "%20") + "/");
 				HttpResponse response = fireRawRequest(method);
-				parseResponse(response, uri, client, targetHost, n.getChildList());
+				parseResponse(response, uri, client, targetHost, n.getChildList(), true, new_file.getFileId());
 			}
 		}
 	}

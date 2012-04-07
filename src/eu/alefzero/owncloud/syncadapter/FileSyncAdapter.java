@@ -69,7 +69,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			query.setEntity(new StringEntity(WebdavUtils.prepareXmlForPropFind()));
 			TreeNode root = this.fireRequest(query);
 
-			commitToDatabase(root, null);
+		//	commitToDatabase(root, null);
 		} catch (OperationCanceledException e) {
 			e.printStackTrace();
 		} catch (AuthenticatorException e) {
@@ -78,9 +78,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 		} catch (IOException e) {
 			syncResult.stats.numIoExceptions++;
 			e.printStackTrace();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		}// catch (RemoteException e) {
+		//	e.printStackTrace();
+		//}
 	}
 
 	private void commitToDatabase(TreeNode root, String parentId) throws RemoteException {

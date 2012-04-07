@@ -81,9 +81,6 @@ public class TreeNode {
       path = name.substring(0, name.lastIndexOf('/')+1);
       name = name.substring(name.lastIndexOf('/')+1);
       name = name.replace("%20", " ");
-      if (TextUtils.isEmpty(name)) {
-        name = "/";
-      }
 
       propertyMap_.remove(NodeProperty.NAME);
       propertyMap_.put(NodeProperty.NAME, name);

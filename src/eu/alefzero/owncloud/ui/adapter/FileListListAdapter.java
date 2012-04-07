@@ -17,14 +17,18 @@
  */
 package eu.alefzero.owncloud.ui.adapter;
 
+import java.util.Vector;
+
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +43,13 @@ import android.widget.TextView;
  *
  */
 public class FileListListAdapter implements ListAdapter {
-
-  private Cursor mCursor;
   private Context mContext;
+  private OCFile mFile;
+  private Vector<OCFile> mFiles;
   
-  public FileListListAdapter(Cursor c, Context context) {
-    mCursor = c;
+  public FileListListAdapter(OCFile f, Context context) {
+    mFile = f;
+    mFiles = mFile.getDirectoryContent();
     mContext = context;
   }
   
@@ -59,12 +64,13 @@ public class FileListListAdapter implements ListAdapter {
 
   public int getCount() {
     // TODO Auto-generated method stub
-    return mCursor.getCount();
+    return mFiles.size();
   }
 
   public Object getItem(int position) {
-    // TODO Auto-generated method stub
-    return null;
+    if (mFiles.size() <= position)
+      return null;
+    return mFiles.get(position);
   }
 
   public long getItemId(int position) {
@@ -83,15 +89,16 @@ public class FileListListAdapter implements ListAdapter {
       LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       v = vi.inflate(R.layout.list_layout, null);
     }
-    if (mCursor.moveToPosition(position)) {
+    if (mFiles.size() > position) {
+      OCFile f = mFiles.get(position);
       TextView tv = (TextView) v.findViewById(R.id.Filename);
-      tv.setText(DisplayUtils.HtmlDecode(mCursor.getString(mCursor.getColumnIndex(ProviderMeta.ProviderTableMeta.FILE_NAME))));
-      if (!mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
+      tv.setText(DisplayUtils.HtmlDecode(f.getFileName()));
+      if (!f.getMimetype().equals("DIR")) {
         ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
         iv.setImageResource(R.drawable.file);
       }
     }
-    
+
     return v;
   }
 

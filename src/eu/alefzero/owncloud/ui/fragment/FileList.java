@@ -18,6 +18,7 @@
 package eu.alefzero.owncloud.ui.fragment;
 
 import java.util.Stack;
+import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -46,11 +47,11 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  *
  */
 public class FileList extends FragmentListView {
-  private Cursor mCursor;
   private Account mAccount;
   private AccountManager mAccountManager;
   private Stack<String> mDirNames;
   private Stack<String> mParentsIds;
+  private Vector<OCFile> mFiles;
 
   public FileList() {
     mDirNames = new Stack<String>();
@@ -68,12 +69,13 @@ public class FileList extends FragmentListView {
   
   @Override
   public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-    if (!mCursor.moveToPosition(position)) {
+    if (mFiles.size() <= position) {
       throw new IndexOutOfBoundsException("Incorrect item selected");
     }
-    String id_ = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
-    if (mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)).equals("DIR")) {
-        String dirname = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME));
+    OCFile file = mFiles.get(position);
+    String id_ = String.valueOf(file.getFileId());
+    if (file.getMimetype().equals("DIR")) {
+        String dirname = file.getFileName();
 
         mDirNames.push(dirname);
         mParentsIds.push(id_);
@@ -103,24 +105,12 @@ public class FileList extends FragmentListView {
   }
 
   private void populateFileList() {
-    if (mParentsIds.empty()) {
-      OCFile file = new OCFile(getActivity().getContentResolver(), mAccount, "/");
-      Log.d("ASD", file.getFileName()+"");
-      Log.d("ASD", file.getFileId()+"");
-      if (file.getDirectoryContent() != null)
-      Log.d("ASD", file.getDirectoryContent().size()+"");
-      
-      mCursor = getActivity().getContentResolver().query(ProviderTableMeta.CONTENT_URI,
-        null,
-        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-        new String[]{mAccount.name},
-        null);
-    } else {
-      mCursor = getActivity().managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParentsIds.peek()),
-          null,
-          ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-          new String[]{mAccount.name}, null);
-    }
-    setListAdapter(new FileListListAdapter(mCursor, getActivity()));
+    String s = "/";
+    for (String a : mDirNames)
+      s+= a+"/";
+
+    OCFile file = new OCFile(getActivity().getContentResolver(), mAccount, s);
+    mFiles = file.getDirectoryContent();
+    setListAdapter(new FileListListAdapter(file, getActivity()));
   }
 }

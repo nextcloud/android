@@ -145,12 +145,12 @@ public class WebdavUtils {
     if (currentElement.getElementsByTagName(davPrefix + LAST_MODIFIED).getLength() != 0) {
       Date date = parseResponseDate(
           currentElement.getElementsByTagName(davPrefix + LAST_MODIFIED).item(0).getFirstChild().getNodeValue());
-      resultNode.setProperty(NodeProperty.LAST_MODIFIED_DATE, DISPLAY_DATE_FORMAT.format(date));
+      resultNode.setProperty(NodeProperty.LAST_MODIFIED_DATE, String.valueOf(date.getTime()));
     }
     if (currentElement.getElementsByTagName(davPrefix + CREATE_DATE).getLength() != 0) {
       Date date = parseResponseDate(
           currentElement.getElementsByTagName(davPrefix + CREATE_DATE).item(0).getFirstChild().getNodeValue());
-      resultNode.setProperty(NodeProperty.CREATE_DATE, DISPLAY_DATE_FORMAT.format(date));
+      resultNode.setProperty(NodeProperty.CREATE_DATE, String.valueOf(date));
     }
   }
 
