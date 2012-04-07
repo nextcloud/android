@@ -165,7 +165,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	}
 	
 	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList, boolean sf, long parent_id) throws IOException, OperationCanceledException, AuthenticatorException {
-		boolean skipFirst = sf, override_parent = true;
+		boolean skipFirst = sf, override_parent = !sf;
 		for (TreeNode n :WebdavUtils.parseResponseToNodes(resp.getEntity().getContent())) {
 		  if (skipFirst) {
         skipFirst = false;
@@ -181,9 +181,6 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
           n.getProperty(NodeProperty.RESOURCE_TYPE),
           parent_id);
 			new_file.save();
-			Log.e("ASD", new_file.getFileId()+"");
-			Log.e("ASD", new_file.getFileName()+"");
-			Log.e("ASD", new_file.getPath()+"");
 			if (override_parent) {
 			  parent_id = new_file.getFileId();
 			  override_parent = false;

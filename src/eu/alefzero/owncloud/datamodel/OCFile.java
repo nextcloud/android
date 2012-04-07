@@ -59,6 +59,7 @@ public class OCFile {
               path}, null);
       if (c.moveToFirst())
         new_file.setFileData(c);
+      c.close();
     } catch (RemoteException e) {
       Log.e(TAG, e.getMessage());
     }
@@ -69,7 +70,6 @@ public class OCFile {
     new_file.modified_timestamp_ = modified_timestamp;
     new_file.mimetype_ = mimetype;
     new_file.parent_id_ = parent_id;
-    Log.e(TAG, parent_id+"");
 
     return new_file;
   }
@@ -228,6 +228,7 @@ public class OCFile {
           ret.add(child);
         } while (c.moveToNext());
 
+      c.close();
       return ret;
     }
     return null;
@@ -241,12 +242,6 @@ public class OCFile {
   private OCFile(ContentProviderClient cp, Account account) {
     account_ = account;
     cp_ = cp;
-    resetData();
-  }
-
-  private OCFile(ContentResolver cr, Account account) {
-    account_ = account;
-    cr_ = cr;
     resetData();
   }
 

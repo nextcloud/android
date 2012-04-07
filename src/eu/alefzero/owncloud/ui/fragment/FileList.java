@@ -23,19 +23,13 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;
-import android.app.DownloadManager.Query;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
@@ -50,12 +44,10 @@ public class FileList extends FragmentListView {
   private Account mAccount;
   private AccountManager mAccountManager;
   private Stack<String> mDirNames;
-  private Stack<String> mParentsIds;
   private Vector<OCFile> mFiles;
 
   public FileList() {
     mDirNames = new Stack<String>();
-    mParentsIds = new Stack<String>();
   }
   
   @Override
@@ -78,16 +70,14 @@ public class FileList extends FragmentListView {
         String dirname = file.getFileName();
 
         mDirNames.push(dirname);
-        mParentsIds.push(id_);
         ((FileDisplayActivity)getActivity()).pushPath(dirname);
         
         populateFileList();
         return;
     }
     Intent i = new Intent(getActivity(), FileDetailActivity.class);
-    String filename = ((TextView)v.findViewById(R.id.Filename)).getText().toString();
-    i.putExtra("FILE_NAME", filename);
-    i.putExtra("FULL_PATH", "/" + filename);
+    i.putExtra("FILE_NAME", file.getFileName());
+    i.putExtra("FULL_PATH", file.getPath());
     i.putExtra("FILE_ID", id_);
     i.putExtra("ACCOUNT", mAccount);
     FileDetail fd = (FileDetail) getSupportFragmentManager().findFragmentById(R.id.fileDetail);
@@ -99,7 +89,6 @@ public class FileList extends FragmentListView {
   }
 
   public void onBackPressed() {
-    mParentsIds.pop();
     mDirNames.pop();
     populateFileList();
   }

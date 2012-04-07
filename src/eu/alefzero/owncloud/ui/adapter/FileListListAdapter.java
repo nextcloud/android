@@ -22,13 +22,9 @@ import java.util.Vector;
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.db.ProviderMeta;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +60,7 @@ public class FileListListAdapter implements ListAdapter {
 
   public int getCount() {
     // TODO Auto-generated method stub
-    return mFiles.size();
+    return mFiles != null ? mFiles.size() : 0;
   }
 
   public Object getItem(int position) {
