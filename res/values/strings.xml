@@ -43,6 +43,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_info_uploading">Uploading</string>
     <string name="uploader_btn_create_dir_text">Create dir for upload</string>
+    <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="common_ok">OK</string>
     <string name="common_cancel">Cancel</string>
     <string name="uploader_info_dirname">Directory name</string>

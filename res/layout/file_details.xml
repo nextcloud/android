@@ -1,46 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="#F7F7F7">
-	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout1" android:layout_height="wrap_content">
-		<LinearLayout android:layout_width="wrap_content"
-			android:id="@+id/linearLayout2" android:layout_height="fill_parent">
-			<ImageView android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:src="@drawable/icon"
-				android:id="@+id/imageView1"></ImageView>
-		</LinearLayout>
-		<LinearLayout android:layout_width="wrap_content"
-			android:id="@+id/linearLayout3" android:layout_height="fill_parent"
-			android:orientation="vertical">
-			<TextView android:id="@+id/textView1" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:text="TextView"></TextView>
-			<TextView android:id="@+id/textView2" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:text="TextView"></TextView>
-			<TextView android:id="@+id/textView3" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:text="TextView"></TextView>
-			<TextView android:id="@+id/textView4" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:text="TextView"></TextView>
-			<TextView android:id="@+id/textView5" android:layout_height="wrap_content"
-				android:layout_width="wrap_content" android:text="TextView"></TextView>
-		</LinearLayout>
-	</LinearLayout>
-	<LinearLayout android:layout_width="fill_parent"
-		android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#F7F7F7"
+    android:orientation="vertical" >
 
-		<ImageView
-		    android:id="@+id/imageView2"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/action_item_btn" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-		<VideoView
-		    android:id="@+id/videoView1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
 
-		<ListView android:layout_width="fill_parent" android:id="@android:id/list"
-			android:layout_height="fill_parent" android:divider="@drawable/uploader_list_separator"
-			android:dividerHeight="1dip"></ListView>
-	</LinearLayout>
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon" >
+            </ImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" >
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/action_item_btn" />
+
+        <VideoView
+            android:id="@+id/videoView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="@drawable/uploader_list_separator"
+            android:dividerHeight="1dip" >
+        </ListView>
+    </LinearLayout>
+
 </LinearLayout>

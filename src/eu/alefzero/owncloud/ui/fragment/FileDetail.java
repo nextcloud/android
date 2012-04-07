@@ -101,11 +101,14 @@ public class FileDetail extends Fragment implements OnClickListener {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View v = inflater.inflate(R.layout.file_details, container, false);
+    View v = null;
     
-    if (getActivity().getIntent() != null) {
-      mIntent = getActivity().getIntent();
-      setStuff(v);
+    if (getActivity().getIntent() != null && getActivity().getIntent().getStringExtra("FILE_ID") != null) {
+    	v = inflater.inflate(R.layout.file_details, container, false);
+    	mIntent = getActivity().getIntent();
+    	setStuff(v);
+    } else {
+    	v = inflater.inflate(R.layout.file_details_empty, container, false);
     }
     return v;
   }
