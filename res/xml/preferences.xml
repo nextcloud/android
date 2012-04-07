@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-        <CheckBoxPreference android:title="Create images thumbnails" android:key="create_thumbnails"></CheckBoxPreference>
-    </PreferenceScreen>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <CheckBoxPreference
+        android:key="create_thumbnails"
+        android:title="@string/prefs_create_img_thumbnails" 
+        />
+    
+    <ListPreference
+        android:key="select_oc_account"
+        android:title="@string/prefs_select_oc_account"
+        android:summary="@string/prefs_summary_select_oc_account" 
+        />
+
+</PreferenceScreen>

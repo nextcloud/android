@@ -66,7 +66,7 @@ public class FileDetail extends Fragment implements OnClickListener {
         null);
     c.moveToFirst();
 
-    // retrive details from DB
+    // Retrieve details from DB
     String filename = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME));
     String mimetype = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE));
     String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));

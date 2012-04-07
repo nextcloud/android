@@ -23,11 +23,15 @@ import java.util.Vector;
 
 import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.DbHandler;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -46,11 +50,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  *
  */
 public class Preferences extends PreferenceActivity {
-  private String TAG = "OwnCloudPreferences";
+  private static final String TAG = "OwnCloudPreferences";
   private final int mNewSession = 47;
   private final int mEditSession = 48;
   private DbHandler mDbHandler;
   private Vector<OwnCloudSession> mSessions;
+  private Account[] mAccounts;
   private int mSelectedMenuItem;
   
   @Override
@@ -60,6 +65,7 @@ public class Preferences extends PreferenceActivity {
     mSessions = new Vector<OwnCloudSession>();
     addPreferencesFromResource(R.xml.preferences);
     registerForContextMenu(getListView());
+    populateAccountList();
     //populateSessionList();
   }
   
@@ -76,12 +82,31 @@ public class Preferences extends PreferenceActivity {
       try {
         uri = new URI(mSessions.get(i).getUrl());
       } catch (URISyntaxException e) {
-        e.printStackTrace(); // should never happend
+        e.printStackTrace(); // should never happen
         continue;
       }
       preference.setSummary(uri.getScheme() + "://" + uri.getHost()+uri.getPath());
       ps.addPreference(preference);
     }
+  }
+  
+  /**
+   * Populates the account selector
+   */
+  private void populateAccountList(){
+	  AccountManager accMan = AccountManager.get(this);
+	  mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+	  ListPreference accountList = (ListPreference) findPreference("select_oc_account");
+	  
+	  // Transform accounts into array of string for preferences to use
+	  String[] accNames = new String[mAccounts.length];
+	  for(int i = 0; i < mAccounts.length; i++){
+		  Account account = mAccounts[i];
+		  accNames[i] = account.name;
+	  }
+	  
+	  accountList.setEntries(accNames);
+	  accountList.setEntryValues(accNames);
   }
 
   @Override

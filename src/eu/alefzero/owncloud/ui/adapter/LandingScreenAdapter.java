@@ -26,6 +26,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.ui.activity.Preferences;
 
@@ -65,9 +66,15 @@ public class LandingScreenAdapter extends BaseAdapter {
 	 */
 	public Object getItem(int position) {
 		Intent intent = new Intent();
+		
 		switch (position) {
 		case 0:
-			intent.setClass(mContext, FileDisplayActivity.class);
+			/* 
+			 * The FileDisplayActivity requires the ownCloud account as an parcableExtra.
+			 * We will put in the one that is selected in the preferences
+			 */
+			intent.setClass(mContext, FileDisplayActivity.class);	
+			intent.putExtra("ACCOUNT", AuthUtils.getCurrentOwnCloudAccount(mContext));
 			break;
 		case 5:
 			intent.setClass(mContext, Preferences.class);
@@ -100,5 +107,4 @@ public class LandingScreenAdapter extends BaseAdapter {
 		}
 		return convertView;
 	}
-
 }

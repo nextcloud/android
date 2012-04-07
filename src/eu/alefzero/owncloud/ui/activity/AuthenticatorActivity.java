@@ -29,9 +29,11 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -98,15 +100,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             try {
                 url = new URL(message);
             } catch (MalformedURLException e) {
-                // should never happend
+                // should never happen
                 Log.e(getClass().getName(), "Malformed URL: " + message);
                 return;
             }
 
             String username = username_text.getText().toString().trim();
-            Account account = new Account(username + "@" + url.getHost(), AccountAuthenticator.ACCOUNT_TYPE);
+            String accountName = username + "@" + url.getHost();
+            Account account = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
             AccountManager accManager = AccountManager.get(this);
             accManager.addAccountExplicitly(account, password_text.getText().toString(), null);
+            
+            // Add this account as default in the preferences, if there is none already
+            SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String defaultAccountName = appPreferences.getString("select_oc_account", null);
+            if(defaultAccountName == null){
+            	SharedPreferences.Editor editor = appPreferences.edit();
+            	editor.putString("select_oc_account", accountName);
+            	editor.commit();
+            }
 
             final Intent intent = new Intent();
             intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AccountAuthenticator.ACCOUNT_TYPE);
@@ -114,7 +126,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             intent.putExtra(AccountManager.KEY_AUTHTOKEN, AccountAuthenticator.ACCOUNT_TYPE);
             accManager.setUserData(account, AccountAuthenticator.KEY_OC_URL, url.toString());
 
-            // TODO prepare this URL during a central service
+            // TODO prepare this URL using a central service
             intent.putExtra(AccountManager.KEY_USERDATA, username);
             accManager.setUserData(account, AccountAuthenticator.KEY_CONTACT_URL,
                     url.toString().replace(AuthUtils.WEBDAV_PATH_2_0, AuthUtils.CARDDAV_PATH_2_0)

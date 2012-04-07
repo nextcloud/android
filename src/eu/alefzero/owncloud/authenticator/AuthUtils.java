@@ -48,8 +48,12 @@ import org.apache.http.protocol.BasicHttpContext;
 import eu.alefzero.owncloud.ui.activity.AuthenticatorActivity;
 
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class AuthUtils {
@@ -218,5 +222,30 @@ public class AuthUtils {
       }
     };
     return performOnBackgroundThread(r);
+  }
+  
+  /**
+   * Can be used to get the currently selected ownCloud account in the preferences
+   * 
+   * @param context The current appContext
+   * @return The current account or null, if there is none yet.
+   */
+  public static Account getCurrentOwnCloudAccount(Context context){
+	  Account[] ocAccounts = AccountManager.get(context).getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+	  Account defaultAccount = null;
+	  
+	  SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+	  String accountName = appPreferences.getString("select_oc_account", null);
+	  
+	  if(accountName != null){
+		  for(Account account : ocAccounts){
+			  if(account.name.equals(accountName)){
+				  defaultAccount = account;
+				  break;
+			  }
+		  }
+	  }
+	  
+	return defaultAccount;
   }
 }

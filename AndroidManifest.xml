@@ -60,7 +60,7 @@
                 android:resource="@xml/syncadapter_files"/>
         </service>
          <provider android:name=".cp" android:enabled="true" android:syncable="true" android:exported="false" android:authorities="org.owncloud" android:label="@string/sync_string_files"></provider>
-         <activity android:name=".ui.activity.AuthenticatorActivity"></activity>
+         <activity android:name=".ui.activity.AuthenticatorActivity" android:theme="@style/Theme.ownCloud"></activity>
          <service android:name=".FileDownloader">
          </service>
          <activity android:name=".ui.activity.FileDetailActivity"></activity>

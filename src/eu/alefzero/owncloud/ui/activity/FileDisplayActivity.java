@@ -23,12 +23,10 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ActionBar.OnNavigationListener;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -37,7 +35,6 @@ import android.widget.ArrayAdapter;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.ui.fragment.FileDetail;
 import eu.alefzero.owncloud.ui.fragment.FileList;
 
 /**
@@ -70,13 +67,6 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     action_bar.setNavigationMode(android.support.v4.app.ActionBar.NAVIGATION_MODE_LIST);
     action_bar.setDisplayShowTitleEnabled(false);
     action_bar.setListNavigationCallbacks(mDirectories, this);
-
-    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-    ft.add(R.id.file_list_container, new FileList());
-    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      ft.add(R.id.fileDetail, new FileDetail());
-    }
-    ft.commit();
   }
 
   @Override
