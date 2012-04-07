@@ -22,9 +22,12 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.ActionBar.OnNavigationListener;
@@ -32,10 +35,12 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.view.MenuInflater;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.R.id;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.fragment.FileList;
+import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Displays, what files the user has available in his ownCloud.
@@ -58,6 +63,46 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   }
   
   @Override
+  protected Dialog onCreateDialog(int id, Bundle args) {
+    final AlertDialog.Builder builder = new Builder(this);
+    final EditText dirName = new EditText(getBaseContext());
+    builder.setView(dirName);
+    builder.setTitle(R.string.uploader_info_dirname);
+    
+    builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
+      public void onClick(DialogInterface dialog, int which) {
+        String s = dirName.getText().toString();
+        if (s.trim().isEmpty()) {
+          dialog.cancel();
+          return;
+        }
+        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        // following account choosing is incorrect and needs to be replaced
+        // with some sort of session mechanism
+        Account a = am.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[0];
+
+        String path = "";
+        for (int i = mDirectories.getCount()-2; i >= 0; --i) {
+          path += "/" + mDirectories.getItem(i);
+        }
+        OCFile parent = new OCFile(getContentResolver(), a, path+"/");
+        path += "/" + s + "/";
+        Thread thread = new Thread(new DirectoryCreator(path, a, am));
+        thread.start();
+        OCFile.createNewFile(getContentResolver(), a, path, 0, 0, 0, "DIR", parent.getFileId()).save();
+        
+        dialog.dismiss();
+      }
+    });
+    builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+      public void onClick(DialogInterface dialog, int which) {
+        dialog.cancel();
+      }
+    });
+    return builder.create();
+  }
+  
+  @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mDirectories = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
@@ -73,9 +118,16 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.settingsItem :
+      {
         Intent i = new Intent(this, Preferences.class);
         startActivity(i);
         break;
+      }
+      case R.id.createDirectoryItem:
+      {
+        showDialog(0);
+        break;
+      }
     }
     return true;
   }
@@ -141,5 +193,31 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
       return;
     }
     ((FileList)getSupportFragmentManager().findFragmentById(R.id.fileList)).onBackPressed();
+  }
+  
+  private class DirectoryCreator implements Runnable {
+    private String mTargetPath;
+    private Account mAccount;
+    private AccountManager mAm;
+    
+    public DirectoryCreator(String targetPath, Account account, AccountManager am) {
+      mTargetPath = targetPath;
+      mAccount = account;
+      mAm = am;
+    }
+    
+    @Override
+    public void run() {
+      WebdavClient wdc = new WebdavClient(Uri.parse(mAm.getUserData(mAccount,
+          AccountAuthenticator.KEY_OC_URL)));
+      
+      String username = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
+      String password = mAm.getPassword(mAccount);
+      
+      wdc.setCredentials(username, password);
+      wdc.allowUnsignedCertificates();
+      wdc.createDirectory(mTargetPath);
+    }
+    
   }
 }

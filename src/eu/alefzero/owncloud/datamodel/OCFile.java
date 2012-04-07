@@ -74,6 +74,28 @@ public class OCFile {
     return new_file;
   }
 
+  public static OCFile createNewFile(ContentResolver contentResolver, Account a,
+      String path, int length, int creation_timestamp, int modified_timestamp,
+      String mimetype, long parent_id) {
+    OCFile new_file = new OCFile(contentResolver, a);
+    Cursor c = new_file.cr_.query(ProviderTableMeta.CONTENT_URI_FILE, null,
+          ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
+              + ProviderTableMeta.FILE_PATH + "=?", new String[]{new_file.account_.name,
+              path}, null);
+      if (c.moveToFirst())
+        new_file.setFileData(c);
+      c.close();
+
+    new_file.path_ = path;
+    new_file.length_ = length;
+    new_file.creation_timestamp_ = creation_timestamp;
+    new_file.modified_timestamp_ = modified_timestamp;
+    new_file.mimetype_ = mimetype;
+    new_file.parent_id_ = parent_id;
+
+    return new_file;
+  }
+  
   public OCFile(ContentResolver cr, Account account, long id) {
     cr_ = cr;
     account_ = account;
@@ -242,6 +264,12 @@ public class OCFile {
   private OCFile(ContentProviderClient cp, Account account) {
     account_ = account;
     cp_ = cp;
+    resetData();
+  }
+  
+  private OCFile(ContentResolver cr, Account account) {
+    account_ = account;
+    cr_ = cr;
     resetData();
   }
 
