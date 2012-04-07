@@ -59,7 +59,6 @@ public class FileListListAdapter implements ListAdapter {
   }
 
   public int getCount() {
-    // TODO Auto-generated method stub
     return mFiles != null ? mFiles.size() : 0;
   }
 
@@ -70,8 +69,7 @@ public class FileListListAdapter implements ListAdapter {
   }
 
   public long getItemId(int position) {
-    // TODO Auto-generated method stub
-    return 0;
+    return mFiles != null ? mFiles.get(position).getFileId() : 0;
   }
 
   public int getItemViewType(int position) {
@@ -99,18 +97,15 @@ public class FileListListAdapter implements ListAdapter {
   }
 
   public int getViewTypeCount() {
-    // TODO Auto-generated method stub
     return 4;
   }
 
   public boolean hasStableIds() {
-    // TODO Auto-generated method stub
     return true;
   }
 
   public boolean isEmpty() {
-    // TODO Auto-generated method stub
-    return false;
+    return mFiles != null ? mFiles.isEmpty() : false;
   }
 
   public void registerDataSetObserver(DataSetObserver observer) {
