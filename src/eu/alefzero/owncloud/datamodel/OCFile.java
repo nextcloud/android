@@ -51,7 +51,8 @@ public class OCFile {
         ProviderTableMeta._ID + "=?",
         new String[]{account_.name, String.valueOf(id)},
         null);
-    setFileData(c);
+    if (c.moveToFirst())
+      setFileData(c);
   }
   
   public OCFile(ContentProvider cp, Account account, String path) {
@@ -63,8 +64,10 @@ public class OCFile {
         ProviderTableMeta.FILE_PATH + "=?",
         new String[]{account_.name, path},
         null);
-    setFileData(c);
-    if (path_ != null) path_ = path;
+    if (c.moveToFirst()) {
+      setFileData(c);
+      if (path_ != null) path_ = path;
+    }
   }
   
   public long getFileId() { return id_; }
@@ -112,14 +115,19 @@ public class OCFile {
 
       if (c.moveToFirst())
         do {
-          long id = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
-          OCFile child = new OCFile(cp_, account_, id);
+          OCFile child = new OCFile(cp_, account_);
+          child.setFileData(c);
           ret.add(child);
         } while (c.moveToNext());
 
       return ret;
     }
     return null;
+  }
+  
+  private OCFile(ContentProvider cp, Account account) {
+    account_ = account;
+    cp_ = cp;
   }
   
   private void setFileData(Cursor c) {
@@ -130,7 +138,7 @@ public class OCFile {
     length_ = 0;
     creation_timestamp_ = 0;
     modified_timestamp_ = 0;  
-    if (c != null && c.moveToFirst()) {
+    if (c != null) {
       id_ = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
       path_ = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
       storage_path_ = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
