@@ -18,6 +18,7 @@
 
 package eu.alefzero.owncloud.datamodel;
 
+import java.io.File;
 import java.util.Vector;
 
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
@@ -32,6 +33,7 @@ public class OCFile {
   private static String TAG = "OCFile";
   
   private long id_;
+  private long parent_id_;
   private long length_;
   private long creation_timestamp_;
   private long modified_timestamp_;
@@ -89,20 +91,39 @@ public class OCFile {
   public long getModificationTimestamp() { return modified_timestamp_; }
   public void setModificationTimestamp(long modification_timestamp) { modified_timestamp_ = modification_timestamp; }
 
+  public String getFileName() {
+    if (path_ != null) {
+      File f = new File(path_);
+      return f.getName();
+    }
+    return null;
+  }
+
   public void save() {
     ContentValues cv = new ContentValues();
     cv.put(ProviderTableMeta.FILE_MODIFIED, modified_timestamp_);
     cv.put(ProviderTableMeta.FILE_CREATION, creation_timestamp_);
     cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, length_);
     cv.put(ProviderTableMeta.CONTENT_TYPE, mimetype_);
+    cv.put(ProviderTableMeta.FILE_NAME, getFileName());
+    cv.put(ProviderTableMeta.FILE_PARENT, parent_id_);
+    cv.put(ProviderTableMeta.FILE_PATH, path_);
+    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, storage_path_);
+    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account_.name);
     
-    Uri new_entry = cp_.insert(ProviderTableMeta.CONTENT_URI, cv);
-    try {
-      id_ = Integer.parseInt(new_entry.getEncodedPath());
-    } catch (NumberFormatException e) {
-      Log.e(TAG, "Can't retrieve file id from uri: " + new_entry.toString() +
-                ", reason: " + e.getMessage());
-      id_ = -1; 
+    if (fileExtist()) {
+      cp_.update(ProviderTableMeta.CONTENT_URI,
+                 cv,
+                 ProviderTableMeta._ID + "=?", new String[]{String.valueOf(id_)});
+    } else {
+      Uri new_entry = cp_.insert(ProviderTableMeta.CONTENT_URI, cv);
+      try {
+        id_ = Integer.parseInt(new_entry.getEncodedPath());
+      } catch (NumberFormatException e) {
+        Log.e(TAG, "Can't retrieve file id from uri: " + new_entry.toString() +
+                  ", reason: " + e.getMessage());
+        id_ = -1; 
+      }
     }
   }
   
@@ -125,6 +146,11 @@ public class OCFile {
     return null;
   }
   
+  public void addFile(OCFile file) {
+    file.parent_id_ = id_;
+    file.save();
+  }
+
   private OCFile(ContentProvider cp, Account account) {
     account_ = account;
     cp_ = cp;
