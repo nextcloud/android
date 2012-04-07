@@ -3,7 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#F7F7F7"
-    android:orientation="vertical" 
-    android:id="@+id/file_list_container">
-
+        android:orientation="vertical" >
+       <fragment
+                android:id="@+id/fileList"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                class="eu.alefzero.owncloud.ui.fragment.FileList" >
+                <!-- Preview: layout=@layout/list_layout -->
+            </fragment>
 </LinearLayout>

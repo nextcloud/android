@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -100,6 +101,7 @@ public class FileList extends FragmentListView {
   }
 
   private void populateFileList() {
+    Log.d("ASD", mAccount.name + "");
     if (mParentsIds.empty()) {
       mCursor = getActivity().getContentResolver().query(ProviderTableMeta.CONTENT_URI,
         null,

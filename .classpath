@@ -3,15 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-httpclient-3.0.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.0.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-httpclient-contrib-3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpclient-4.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpcore-4.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpmime-4.1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/httpclient-cache-4.1.2.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
