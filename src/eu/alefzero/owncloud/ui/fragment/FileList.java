@@ -22,6 +22,7 @@ import java.util.Stack;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;
+import android.app.DownloadManager.Query;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
@@ -101,8 +103,13 @@ public class FileList extends FragmentListView {
   }
 
   private void populateFileList() {
-    Log.d("ASD", mAccount.name + "");
     if (mParentsIds.empty()) {
+      OCFile file = new OCFile(getActivity().getContentResolver(), mAccount, "/");
+      Log.d("ASD", file.getFileName()+"");
+      Log.d("ASD", file.getFileId()+"");
+      if (file.getDirectoryContent() != null)
+      Log.d("ASD", file.getDirectoryContent().size()+"");
+      
       mCursor = getActivity().getContentResolver().query(ProviderTableMeta.CONTENT_URI,
         null,
         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",

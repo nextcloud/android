@@ -140,6 +140,6 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
       super.onBackPressed();
       return;
     }
-    ((FileList)getSupportFragmentManager().findFragmentById(id.file_list_container)).onBackPressed();
+    ((FileList)getSupportFragmentManager().findFragmentById(R.id.fileList)).onBackPressed();
   }
 }

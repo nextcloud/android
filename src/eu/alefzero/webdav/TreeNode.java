@@ -74,6 +74,7 @@ public class TreeNode {
       String name = propertyMap_.get(NodeProperty.NAME);
       name = name.replace(oc_path, "");
       String path = "";
+      String name2 = name;
       if (name.endsWith("/")) {
         name = name.substring(0, name.length()-1);
       }
@@ -87,7 +88,7 @@ public class TreeNode {
       propertyMap_.remove(NodeProperty.NAME);
       propertyMap_.put(NodeProperty.NAME, name);
       propertyMap_.remove(NodeProperty.PATH);
-      propertyMap_.put(NodeProperty.PATH, path);
+      propertyMap_.put(NodeProperty.PATH, name2);
       Log.i("TreeNode", toString());
       return path;
     }

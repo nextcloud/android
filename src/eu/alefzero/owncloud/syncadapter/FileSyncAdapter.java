@@ -110,7 +110,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 				cv.put(ProviderTableMeta.FILE_PATH, n.getProperty(NodeProperty.PATH));
 				cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, this.getAccount().name);
 				Uri entry = this.getContentProvider().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
-				Log.d(TAG, "Inserting new entry " + path + name);
+				Log.d(TAG, "Inserting new entry " + path);
 				c = this.getContentProvider().query(entry, null, null, null, null);
 				c.moveToFirst();
 			}
