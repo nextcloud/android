@@ -17,14 +17,19 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;
+import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.RawContacts;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
@@ -57,6 +62,7 @@ public class FileList extends FragmentListView {
     mAccountManager = (AccountManager)getActivity().getSystemService(Service.ACCOUNT_SERVICE);
     mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[0];
     populateFileList();
+    //addContact(mAccount, "Bartek Przybylski", "czlowiek");
   }
   
   @Override
@@ -102,4 +108,40 @@ public class FileList extends FragmentListView {
     mFiles = file.getDirectoryContent();
     setListAdapter(new FileListListAdapter(file, getActivity()));
   }
+  
+  private  void addContact(Account account, String name, String username) {
+    Log.i("ASD", "Adding contact: " + name);
+    ArrayList<ContentProviderOperation> operationList = new ArrayList<ContentProviderOperation>();
+    
+    //Create our RawContact
+    ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(RawContacts.CONTENT_URI);
+    builder.withValue(RawContacts.ACCOUNT_NAME, account.name);
+    builder.withValue(RawContacts.ACCOUNT_TYPE, account.type);
+    builder.withValue(RawContacts.SYNC1, username);
+    operationList.add(builder.build());
+    
+    //Create a Data record of common type 'StructuredName' for our RawContact
+    builder = ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI);
+    builder.withValueBackReference(ContactsContract.CommonDataKinds.StructuredName.RAW_CONTACT_ID, 0);
+    builder.withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+    builder.withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name);
+    operationList.add(builder.build());
+    
+    //Create a Data record of custom type "vnd.android.cursor.item/vnd.fm.last.android.profile" to display a link to the Last.fm profile
+    builder = ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI);
+    builder.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0);
+    builder.withValue(ContactsContract.Data.MIMETYPE, "vnd.android.cursor.item/vnd.owncloud.contact.profile");
+    builder.withValue(ContactsContract.Data.DATA1, username);
+    builder.withValue(ContactsContract.Data.DATA2, "Last.fm Profile");
+    builder.withValue(ContactsContract.Data.DATA3, "View profile");
+    operationList.add(builder.build());
+    
+    try {
+     getActivity().getContentResolver().applyBatch(ContactsContract.AUTHORITY, operationList);
+    } catch (Exception e) {
+     Log.e("ASD", "Something went wrong during creation! " + e);
+     e.printStackTrace();
+    }
+   }
+  
 }

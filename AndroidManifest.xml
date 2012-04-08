@@ -1,76 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="eu.alefzero.owncloud"
-      android:versionCode="1"
-      android:versionName="1.0">
-<uses-permission
-        android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission
-        android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission
-        android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission
-        android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.READ_SYNC_STATS" />
-    <uses-permission
-        android:name="android.permission.READ_SYNC_SETTINGS" />
-    <uses-permission
-        android:name="android.permission.WRITE_SYNC_SETTINGS" />
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="13" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+<manifest package="eu.alefzero.owncloud"
+    android:versionCode="1"
+    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".ui.activity.FileDisplayActivity" android:theme="@style/Theme.ownCloud" android:label="@string/app_name"></activity>
-        <activity android:name=".Uploader">
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="13" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".ui.activity.FileDisplayActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud" >
+        </activity>
+        <activity android:name=".Uploader" >
             <intent-filter>
-                <action android:name="android.intent.action.SEND"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <data android:mimeType="*/*"></data>
+                <action android:name="android.intent.action.SEND" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+
+                <data android:mimeType="*/*" >
+                </data>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.SEND_MULTIPLE"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <data android:mimeType="*/*"></data>
+                <action android:name="android.intent.action.SEND_MULTIPLE" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+
+                <data android:mimeType="*/*" >
+                </data>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.Preferences"></activity>
-        <activity android:name=".ui.activity.PreferencesNewSessionewSession"></activity>
-                <service
-            android:exported="true" android:name=".authenticator.AccountAuthenticatorService">
+        <activity android:name=".ui.activity.Preferences" >
+        </activity>
+        <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
+        </activity>
+
+        <service
+            android:name=".authenticator.AccountAuthenticatorService"
+            android:exported="true" >
             <intent-filter>
-                <action
-                    android:name="android.accounts.AccountAuthenticator" />
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
-         <service
-            android:exported="true" android:name=".syncadapter.FileSyncService">
+        <service
+            android:name=".syncadapter.FileSyncService"
+            android:exported="true" >
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"/>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
+
             <meta-data
                 android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter_files"/>
+                android:resource="@xml/syncadapter_files" />
         </service>
-         <provider android:name=".cp" android:enabled="true" android:syncable="true" android:exported="false" android:authorities="org.owncloud" android:label="@string/sync_string_files"></provider>
-         <activity android:name=".ui.activity.AuthenticatorActivity" android:theme="@style/Theme.ownCloud"></activity>
-         <service android:name=".FileDownloader">
-         </service>
-         <activity android:name=".ui.activity.FileDetailActivity"></activity>
-         <activity android:name=".ui.activity.LandingActivity"
-             android:theme="@style/Theme.ownCloud"
-             android:label="@string/app_name">
-             <intent-filter>
+        <service
+            android:name=".syncadapter.ContactSyncService"
+            android:exported="true"
+            android:process=":contacts" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter_contacts" />
+            <meta-data
+                android:name="android.provider.CONTACTS_STRUCTURE"
+                android:resource="@xml/contacts" />
+        </service>
+
+        <provider
+            android:name=".providers.FileContentProvider"
+            android:authorities="org.owncloud"
+            android:enabled="true"
+            android:exported="false"
+            android:label="@string/sync_string_files"
+            android:syncable="true" >
+        </provider>
+
+        <activity
+            android:name=".ui.activity.AuthenticatorActivity"
+            android:theme="@style/Theme.ownCloud" >
+        </activity>
+
+        <service android:name=".FileDownloader" >
+        </service>
+
+        <activity android:name=".ui.activity.FileDetailActivity" >
+        </activity>
+        <activity
+            android:name=".ui.activity.LandingActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         </activity>
+        </activity>
     </application>
+
 </manifest>

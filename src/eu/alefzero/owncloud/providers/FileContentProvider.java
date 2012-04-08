@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.providers;
 
 import java.util.HashMap;
 
@@ -41,7 +41,7 @@ import android.text.TextUtils;
 * @author Bartek Przybylski
 * 
 */
-public class cp extends ContentProvider {
+public class FileContentProvider extends ContentProvider {
 
   private DataBaseHelper mDbHelper;
   

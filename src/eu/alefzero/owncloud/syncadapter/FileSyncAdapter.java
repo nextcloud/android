@@ -80,7 +80,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			e.printStackTrace();
 		}// catch (RemoteException e) {
 		//	e.printStackTrace();
-		//}
+		// q}
 	}
 
 	private void commitToDatabase(TreeNode root, String parentId) throws RemoteException {
