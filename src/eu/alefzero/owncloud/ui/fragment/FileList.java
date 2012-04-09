@@ -22,8 +22,6 @@ import java.util.Stack;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.app.Service;
 import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +31,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
@@ -47,7 +45,6 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  */
 public class FileList extends FragmentListView {
   private Account mAccount;
-  private AccountManager mAccountManager;
   private Stack<String> mDirNames;
   private Vector<OCFile> mFiles;
 
@@ -59,8 +56,7 @@ public class FileList extends FragmentListView {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    mAccountManager = (AccountManager)getActivity().getSystemService(Service.ACCOUNT_SERVICE);
-    mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[0];
+    mAccount = AuthUtils.getCurrentOwnCloudAccount(getActivity());
     populateFileList();
     //addContact(mAccount, "Bartek Przybylski", "czlowiek");
   }

@@ -38,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.fragment.FileList;
 import eu.alefzero.webdav.WebdavClient;
@@ -66,6 +67,7 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
   protected Dialog onCreateDialog(int id, Bundle args) {
     final AlertDialog.Builder builder = new Builder(this);
     final EditText dirName = new EditText(getBaseContext());
+    final Account a = AuthUtils.getCurrentOwnCloudAccount(this);
     builder.setView(dirName);
     builder.setTitle(R.string.uploader_info_dirname);
     
@@ -76,18 +78,14 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
           dialog.cancel();
           return;
         }
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        // following account choosing is incorrect and needs to be replaced
-        // with some sort of session mechanism
-        Account a = am.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[0];
-
+        
         String path = "";
         for (int i = mDirectories.getCount()-2; i >= 0; --i) {
           path += "/" + mDirectories.getItem(i);
         }
         OCFile parent = new OCFile(getContentResolver(), a, path+"/");
         path += "/" + s + "/";
-        Thread thread = new Thread(new DirectoryCreator(path, a, am));
+        Thread thread = new Thread(new DirectoryCreator(path, a));
         thread.start();
         OCFile.createNewFile(getContentResolver(), a, path, 0, 0, 0, "DIR", parent.getFileId()).save();
         
@@ -200,10 +198,10 @@ public class FileDisplayActivity extends android.support.v4.app.FragmentActivity
     private Account mAccount;
     private AccountManager mAm;
     
-    public DirectoryCreator(String targetPath, Account account, AccountManager am) {
+    public DirectoryCreator(String targetPath, Account account) {
       mTargetPath = targetPath;
       mAccount = account;
-      mAm = am;
+      mAm = (AccountManager) getSystemService(ACCOUNT_SERVICE);
     }
     
     @Override
