@@ -24,6 +24,7 @@ import java.util.Vector;
 import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.db.DbHandler;
 
 import android.accounts.Account;
@@ -97,6 +98,12 @@ public class Preferences extends PreferenceActivity {
 	  AccountManager accMan = AccountManager.get(this);
 	  mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
 	  ListPreference accountList = (ListPreference) findPreference("select_oc_account");
+	  
+	  // Display the name of the current account if there is any
+	  Account defaultAccount = AuthUtils.getCurrentOwnCloudAccount(this);
+	  if(defaultAccount != null){
+		  accountList.setSummary(defaultAccount.name);
+	  }
 	  
 	  // Transform accounts into array of string for preferences to use
 	  String[] accNames = new String[mAccounts.length];
