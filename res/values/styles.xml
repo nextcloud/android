@@ -3,16 +3,18 @@
 	<style name="Animations" />
 
 	<!-- Default ownCloud app style -->
-	<style name="Theme.ownCloud" parent="style/Theme.Sherlock.Light">
-    	<item name="abBackground">@drawable/main_header_bg</item>
-    	<item name="abTitleTextStyle">@style/ocActionBarTextStyle</item>
+	<style name="Theme.ownCloud" parent="style/Theme.Sherlock.Light.DarkActionBar">
+    	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+    	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 	</style>
 
-	<style name="ocActionBarTextStyle">
+	<style name="Theme.ownCloud.Widget.ActionBar" parent="style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
     	<item name="android:textColor">#ffffff</item>
+    	<item name="android:background">@drawable/main_header_bg</item>
 	</style>
-	    
-	    
+	
+	
+	
 	<!-- PopDownMenu -->
 	<style name="Animations.PopDownMenu" />
 	

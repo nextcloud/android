@@ -82,7 +82,7 @@ public class FileList extends FragmentListView {
     i.putExtra("FULL_PATH", file.getPath());
     i.putExtra("FILE_ID", id_);
     i.putExtra("ACCOUNT", mAccount);
-    FileDetail fd = (FileDetail) getSupportFragmentManager().findFragmentById(R.id.fileDetail);
+    FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
       fd.setStuff(i);
     } else {
