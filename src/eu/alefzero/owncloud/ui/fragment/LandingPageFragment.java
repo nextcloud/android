@@ -17,8 +17,9 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import com.actionbarsherlock.app.SherlockFragment;
+
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ import eu.alefzero.owncloud.ui.adapter.LandingScreenAdapter;
  * @author Lennart Rosam
  *
  */
-public class LandingPageFragment extends Fragment {
+public class LandingPageFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

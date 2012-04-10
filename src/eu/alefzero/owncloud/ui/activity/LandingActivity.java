@@ -17,6 +17,8 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -25,7 +27,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -40,7 +41,7 @@ import eu.alefzero.owncloud.ui.adapter.LandingScreenAdapter;
  * @author Lennart Rosam
  * 
  */
-public class LandingActivity extends FragmentActivity implements OnClickListener, OnItemClickListener {
+public class LandingActivity extends SherlockFragmentActivity implements OnClickListener, OnItemClickListener {
 
 	public static final int DIALOG_SETUP_ACCOUNT = 1;
 	

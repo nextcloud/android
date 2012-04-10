@@ -21,12 +21,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Vector;
 
-import eu.alefzero.owncloud.OwnCloudSession;
-import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
-import eu.alefzero.owncloud.db.DbHandler;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -34,23 +28,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+import eu.alefzero.owncloud.OwnCloudSession;
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.AuthUtils;
+import eu.alefzero.owncloud.db.DbHandler;
 
 /**
  * An Activity that allows the user to change the application's settings.
  * @author Bartek Przybylski
  *
  */
-public class Preferences extends PreferenceActivity {
+public class Preferences extends SherlockPreferenceActivity {
   private static final String TAG = "OwnCloudPreferences";
   private final int mNewSession = 47;
   private final int mEditSession = 48;
@@ -119,7 +120,7 @@ public class Preferences extends PreferenceActivity {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
-    MenuInflater inflater = getMenuInflater();
+    MenuInflater inflater = getSherlock().getMenuInflater();
     inflater.inflate(R.menu.prefs_menu, menu);
     return true;
   }
@@ -183,8 +184,8 @@ public class Preferences extends PreferenceActivity {
     mSelectedMenuItem = info.position-1;
     menu.setHeaderTitle(mSessions.get(mSelectedMenuItem).getName());
     
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.session_context_menu, menu);
+    MenuInflater inflater = getSherlock().getMenuInflater();
+    inflater.inflate(R.menu.session_context_menu, (Menu) menu);
     
   }
   

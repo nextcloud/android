@@ -18,12 +18,14 @@
 package eu.alefzero.owncloud.ui.activity;
 
 
-import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.ui.fragment.FileDetail;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.ui.fragment.FileDetail;
 
 /**
  * This activity displays the details of a file like
@@ -31,7 +33,7 @@ import android.view.Window;
  * @author Bartek Przybylski
  *
  */
-public class FileDetailActivity extends FragmentActivity {
+public class FileDetailActivity extends SherlockFragmentActivity {
   private FileDetail mFileDetail;
   
 @Override
