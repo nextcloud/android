@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -51,13 +52,14 @@ import eu.alefzero.owncloud.db.DbHandler;
  * @author Bartek Przybylski
  *
  */
-public class Preferences extends SherlockPreferenceActivity {
+public class Preferences extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
   private static final String TAG = "OwnCloudPreferences";
   private final int mNewSession = 47;
   private final int mEditSession = 48;
   private DbHandler mDbHandler;
   private Vector<OwnCloudSession> mSessions;
   private Account[] mAccounts;
+  private ListPreference mAccountList;
   private int mSelectedMenuItem;
   
   @Override
@@ -98,12 +100,13 @@ public class Preferences extends SherlockPreferenceActivity {
   private void populateAccountList(){
 	  AccountManager accMan = AccountManager.get(this);
 	  mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
-	  ListPreference accountList = (ListPreference) findPreference("select_oc_account");
+	  mAccountList = (ListPreference) findPreference("select_oc_account");
+	  mAccountList.setOnPreferenceChangeListener(this);
 	  
 	  // Display the name of the current account if there is any
 	  Account defaultAccount = AuthUtils.getCurrentOwnCloudAccount(this);
 	  if(defaultAccount != null){
-		  accountList.setSummary(defaultAccount.name);
+		  mAccountList.setSummary(defaultAccount.name);
 	  }
 	  
 	  // Transform accounts into array of string for preferences to use
@@ -113,8 +116,8 @@ public class Preferences extends SherlockPreferenceActivity {
 		  accNames[i] = account.name;
 	  }
 	  
-	  accountList.setEntries(accNames);
-	  accountList.setEntryValues(accNames);
+	  mAccountList.setEntries(accNames);
+	  mAccountList.setEntryValues(accNames);
   }
 
   @Override
@@ -194,5 +197,17 @@ public class Preferences extends SherlockPreferenceActivity {
     mDbHandler.close();
     super.onDestroy();
   }
+
+@Override
+/**
+ * Updates the summary of the account selector after a new account has 
+ * been selected
+ */
+public boolean onPreferenceChange(Preference preference, Object newValue) {
+	if(preference.equals(mAccountList)) {
+		mAccountList.setSummary(newValue.toString());
+	}
+	return true;
+}
   
 }
