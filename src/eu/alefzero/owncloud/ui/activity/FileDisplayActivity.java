@@ -78,6 +78,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 		final Account a = AuthUtils.getCurrentOwnCloudAccount(this);
 		builder.setView(dirName);
 		builder.setTitle(R.string.uploader_info_dirname);
+		dirName.setTextColor(R.color.setup_text_typed);
 
 		builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
