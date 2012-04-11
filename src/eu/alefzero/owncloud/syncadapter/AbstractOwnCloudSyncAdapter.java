@@ -39,22 +39,20 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
+import eu.alefzero.webdav.TreeNode.NodeProperty;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
-import eu.alefzero.webdav.TreeNode.NodeProperty;
 
 /**
  * Base SyncAdapter for OwnCloud
- * Designed to be subclassed for the concreete SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
+ * Designed to be subclassed for the concrete SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
  * 
  * @author sassman
  *
@@ -109,9 +107,19 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
 		return new ConnectionKeepAliveStrategy() {
 			public long getKeepAliveDuration(HttpResponse response, HttpContext context) {
-				// TODO: change keep alive straategy basing on response: ie forbidden/not found/etc
+				// Change keep alive straategy basing on response: ie forbidden/not found/etc
 				// should have keep alive 0
 				// default return: 5s
+				int statusCode = response.getStatusLine().getStatusCode();
+				
+				// HTTP 400, 500 Errors as well as HTTP 118 - Connection timed out
+				if((statusCode >= 400 && statusCode <= 418) || 
+						(statusCode >= 421 && statusCode <= 426) ||
+						(statusCode >= 500 && statusCode <= 510 ) ||
+						statusCode == 118) {
+					return 0;
+				}
+				
 				return 5 * 1000;
 			}
 		};
