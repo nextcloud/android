@@ -63,6 +63,15 @@ public class LandingActivity extends SherlockFragmentActivity implements OnClick
 		}
 
 	}
+	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		// Check, if there are ownCloud accounts
+		if(!accountsAreSetup()){
+			showDialog(DIALOG_SETUP_ACCOUNT);
+		}
+	}
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
