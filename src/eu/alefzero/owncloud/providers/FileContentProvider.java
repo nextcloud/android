@@ -145,7 +145,6 @@ public class FileContentProvider extends ContentProvider {
     
     switch (mUriMatcher.match(uri)) {
       case ROOT_DIRECTORY:
-        sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + " is null");
         break;
       case DIRECTORY:
         sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "="+uri.getPathSegments().get(1));
