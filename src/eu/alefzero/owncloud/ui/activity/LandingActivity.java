@@ -74,6 +74,15 @@ public class LandingActivity extends SherlockFragmentActivity implements OnClick
 	}
 
 	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		// Check, if there are ownCloud accounts
+		if(!accountsAreSetup()){
+			showDialog(DIALOG_SETUP_ACCOUNT);
+		}
+	}
+
+	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
 		switch(id){
