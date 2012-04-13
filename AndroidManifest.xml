@@ -107,6 +107,7 @@
 
         <activity
             android:name=".ui.activity.AuthenticatorActivity"
+            android:exported="true"
             android:theme="@style/Theme.ownCloud" >
         </activity>
 
