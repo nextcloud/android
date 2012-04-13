@@ -23,6 +23,7 @@ import java.util.Vector;
 
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.accounts.Account;
+import android.content.ContentProvider;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -119,6 +120,25 @@ public class OCFile {
       setFileData(c);
       if (path_ != null)
         path_ = path;
+    }
+  }
+
+  public OCFile(ContentProviderClient cp, Account account, String path) {
+    cp_ = cp;
+    account_ = account;
+    
+    try {
+      Cursor c = cp_.query(ProviderTableMeta.CONTENT_URI_FILE, null,
+          ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
+              + ProviderTableMeta.FILE_PATH + "=?", new String[]{account_.name,
+              path}, null);
+      if (c.moveToFirst()) {
+        setFileData(c);
+        if (path_ != null)
+          path_ = path;
+      }
+    } catch (RemoteException e) {
+      Log.d(TAG , e.getMessage());
     }
   }
 
