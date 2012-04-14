@@ -27,6 +27,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AuthUtils;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
@@ -42,6 +44,7 @@ public class FileListFragment extends FragmentListView {
   private Account mAccount;
   private Stack<String> mDirNames;
   private Vector<OCFile> mFiles;
+  private DataStorageManager mStorageManager;
 
   public FileListFragment() {
     mDirNames = new Stack<String>();
@@ -102,9 +105,10 @@ public class FileListFragment extends FragmentListView {
     for (String a : mDirNames)
       s+= a+"/";
 
-    OCFile file = new OCFile(getActivity().getContentResolver(), mAccount, s);
-    mFiles = file.getDirectoryContent();
-    setListAdapter(new FileListListAdapter(file, getActivity()));
+    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+    OCFile file = new OCFile(s);
+    mFiles = mStorageManager.getDirectoryContent(file);
+    setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
   }
   
   //TODO: Delete this testing stuff.

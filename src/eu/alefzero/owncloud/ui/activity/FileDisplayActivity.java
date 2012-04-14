@@ -45,6 +45,8 @@ import com.actionbarsherlock.view.MenuItem;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.authenticator.AuthUtils;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
@@ -59,6 +61,7 @@ import eu.alefzero.webdav.WebdavClient;
 public class FileDisplayActivity extends SherlockFragmentActivity implements
 		OnNavigationListener {
 	private ArrayAdapter<String> mDirectories;
+	private DataStorageManager mStorageManager;
 
 	private static final int DIALOG_CHOOSE_ACCOUNT = 0;
 
@@ -92,12 +95,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 				for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
 					path += "/" + mDirectories.getItem(i);
 				}
-				OCFile parent = new OCFile(getContentResolver(), a, path + "/");
-				path += "/" + s + "/";
+				OCFile parent = mStorageManager.getFileByPath(path + "/");
+				path += s + "/";
 				Thread thread = new Thread(new DirectoryCreator(path, a));
 				thread.start();
-				OCFile.createNewFile(getContentResolver(), a, path, 0, 0, 0,
-						"DIR", parent.getFileId()).save();
+				
+				OCFile new_file = new OCFile(path);
+				new_file.setMimetype("DIR");
+				new_file.setParentId(parent.getParentId());
+				mStorageManager.saveFile(new_file);
 
 				dialog.dismiss();
 			}
@@ -118,6 +124,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 				R.layout.sherlock_spinner_dropdown_item);
 		mDirectories.add("/");
 		setContentView(R.layout.files);
+		mStorageManager = new FileDataStorageManager(AuthUtils.getCurrentOwnCloudAccount(this), getContentResolver());
 		ActionBar action_bar = getSupportActionBar();
 		action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		action_bar.setDisplayShowTitleEnabled(false);
