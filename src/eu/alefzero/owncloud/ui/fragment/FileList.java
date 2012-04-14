@@ -17,17 +17,12 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.content.ContentProviderOperation;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.RawContacts;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
@@ -58,6 +53,7 @@ public class FileList extends FragmentListView {
 
     mAccount = AuthUtils.getCurrentOwnCloudAccount(getActivity());
     populateFileList();
+    // TODO: Remove this testing stuff
     //addContact(mAccount, "Bartek Przybylski", "czlowiek");
   }
   
@@ -90,11 +86,17 @@ public class FileList extends FragmentListView {
     }
   }
 
-  public void onBackPressed() {
+  /**
+   * Call this, when the user presses the up button
+   */
+  public void onNavigateUp() {
     mDirNames.pop();
     populateFileList();
   }
 
+  /**
+   * Lists the directory
+   */
   private void populateFileList() {
     String s = "/";
     for (String a : mDirNames)
@@ -105,7 +107,8 @@ public class FileList extends FragmentListView {
     setListAdapter(new FileListListAdapter(file, getActivity()));
   }
   
-  private  void addContact(Account account, String name, String username) {
+  //TODO: Delete this testing stuff.
+  /*private  void addContact(Account account, String name, String username) {
     Log.i("ASD", "Adding contact: " + name);
     ArrayList<ContentProviderOperation> operationList = new ArrayList<ContentProviderOperation>();
     
@@ -138,6 +141,6 @@ public class FileList extends FragmentListView {
      Log.e("ASD", "Something went wrong during creation! " + e);
      e.printStackTrace();
     }
-   }
+   }*/
   
 }

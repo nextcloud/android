@@ -137,8 +137,25 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 			showDialog(0);
 			break;
 		}
+		case android.R.id.home: {
+			navigateUp();
+			break;
+		}
+			
 		}
 		return true;
+	}
+	
+	public void navigateUp(){
+		popPath();
+		if(mDirectories.getCount() == 0) {
+			Intent intent = new Intent(this, LandingActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return;
+		}
+		((FileList) getSupportFragmentManager().findFragmentById(R.id.fileList))
+				.onNavigateUp();
 	}
 
 	@Override
@@ -191,20 +208,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		int i = itemPosition;
 		while (i-- != 0) {
-			onBackPressed();
+			navigateUp();
 		}
 		return true;
-	}
-
-	@Override
-	public void onBackPressed() {
-		popPath();
-		if (mDirectories.getCount() == 0) {
-			super.onBackPressed();
-			return;
-		}
-		((FileList) getSupportFragmentManager().findFragmentById(R.id.fileList))
-				.onBackPressed();
 	}
 
 	private class DirectoryCreator implements Runnable {

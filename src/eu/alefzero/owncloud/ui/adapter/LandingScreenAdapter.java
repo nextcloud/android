@@ -75,6 +75,7 @@ public class LandingScreenAdapter extends BaseAdapter {
 			 */
 			intent.setClass(mContext, FileDisplayActivity.class);	
 			intent.putExtra("ACCOUNT", AuthUtils.getCurrentOwnCloudAccount(mContext));
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			break;
 		case 5:
 			intent.setClass(mContext, Preferences.class);

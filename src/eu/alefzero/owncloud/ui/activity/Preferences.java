@@ -36,6 +36,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -70,6 +71,8 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
     addPreferencesFromResource(R.xml.preferences);
     registerForContextMenu(getListView());
     populateAccountList();
+    ActionBar actionBar = getSherlock().getActionBar();
+    actionBar.setDisplayHomeAsUpEnabled(true);
     //populateSessionList();
   }
   
@@ -151,6 +154,11 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
         mSessions.remove(ocs);
         getPreferenceScreen().removePreference(getPreferenceScreen().getPreference(mSelectedMenuItem+1));
         break;
+      case android.R.id.home:
+    	  intent = new Intent(getBaseContext(), LandingActivity.class);
+    	  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	  startActivity(intent);
+    	  break;
       default:
         Log.w(TAG, "Unknown menu item triggered");
         return false;
