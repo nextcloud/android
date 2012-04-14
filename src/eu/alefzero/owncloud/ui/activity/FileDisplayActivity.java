@@ -46,7 +46,7 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.ui.fragment.FileList;
+import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -154,7 +154,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 			startActivity(intent);
 			return;
 		}
-		((FileList) getSupportFragmentManager().findFragmentById(R.id.fileList))
+		((FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList))
 				.onNavigateUp();
 	}
 

@@ -25,7 +25,7 @@ import android.view.Window;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.ui.fragment.FileDetail;
+import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
 
 /**
  * This activity displays the details of a file like
@@ -34,7 +34,7 @@ import eu.alefzero.owncloud.ui.fragment.FileDetail;
  *
  */
 public class FileDetailActivity extends SherlockFragmentActivity {
-  private FileDetail mFileDetail;
+  private FileDetailFragment mFileDetail;
   
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ protected void onCreate(Bundle savedInstanceState) {
   getWindow().requestFeature(Window.FEATURE_NO_TITLE);
   setContentView(R.layout.file_activity_details);
   
-  mFileDetail = new FileDetail();
+  mFileDetail = new FileDetailFragment();
   FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
   ft.add(R.id.fileDetail, mFileDetail);
   ft.commit();

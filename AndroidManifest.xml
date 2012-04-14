@@ -114,7 +114,8 @@
         <service android:name=".FileDownloader" >
         </service>
 
-        <activity android:name=".ui.activity.FileDetailActivity" >
+        <activity android:name=".ui.activity.FileDetailActivity" 
+            android:theme="@style/Theme.ownCloud">
         </activity>
         <activity
             android:name=".ui.activity.LandingActivity"

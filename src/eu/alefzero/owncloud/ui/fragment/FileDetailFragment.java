@@ -45,7 +45,7 @@ import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
  * @author Bartek Przybylski
  *
  */
-public class FileDetail extends SherlockFragment implements OnClickListener {
+public class FileDetailFragment extends SherlockFragment implements OnClickListener {
   
   private Intent mIntent;
   private View mView;
@@ -106,7 +106,7 @@ public class FileDetail extends SherlockFragment implements OnClickListener {
     View v = null;
     
     if (getActivity().getIntent() != null && getActivity().getIntent().getStringExtra("FILE_ID") != null) {
-    	v = inflater.inflate(R.layout.file_details, container, false);
+    	v = inflater.inflate(R.layout.file_details_fragment, container, false);
     	mIntent = getActivity().getIntent();
     	setStuff(v);
     } else {

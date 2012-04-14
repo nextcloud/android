@@ -38,12 +38,12 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  * @author Bartek Przybylski
  *
  */
-public class FileList extends FragmentListView {
+public class FileListFragment extends FragmentListView {
   private Account mAccount;
   private Stack<String> mDirNames;
   private Vector<OCFile> mFiles;
 
-  public FileList() {
+  public FileListFragment() {
     mDirNames = new Stack<String>();
   }
   
@@ -78,7 +78,7 @@ public class FileList extends FragmentListView {
     i.putExtra("FULL_PATH", file.getPath());
     i.putExtra("FILE_ID", id_);
     i.putExtra("ACCOUNT", mAccount);
-    FileDetail fd = (FileDetail) getFragmentManager().findFragmentById(R.id.fileDetail);
+    FileDetailFragment fd = (FileDetailFragment) getFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
       fd.setStuff(i);
     } else {
