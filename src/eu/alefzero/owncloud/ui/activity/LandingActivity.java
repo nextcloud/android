@@ -50,12 +50,10 @@ public class LandingActivity extends SherlockFragmentActivity implements OnClick
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		// Fill the grid view that is only available in portrait mode
+		// Fill the grid view of the landing screen with icons
 		GridView landingScreenItems = (GridView) findViewById(R.id.homeScreenGrid);
-		if(landingScreenItems != null){
-			landingScreenItems.setAdapter(new LandingScreenAdapter(this));
-			landingScreenItems.setOnItemClickListener(this);
-		}
+		landingScreenItems.setAdapter(new LandingScreenAdapter(this));
+		landingScreenItems.setOnItemClickListener(this);
 		
 		// Check, if there are ownCloud accounts
 		if(!accountsAreSetup()){
@@ -129,6 +127,7 @@ public class LandingActivity extends SherlockFragmentActivity implements OnClick
 		if(intent != null ){
 			startActivity(intent);
 		} else {
+			// TODO: Implement all of this and make this text go away ;-)
 			Toast toast = Toast.makeText(this, "Not yet implemented!", Toast.LENGTH_SHORT);
 			toast.show();
 		} 

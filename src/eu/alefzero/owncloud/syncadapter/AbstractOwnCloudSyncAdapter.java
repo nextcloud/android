@@ -52,23 +52,24 @@ import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
- * Base SyncAdapter for OwnCloud
- * Designed to be subclassed for the concrete SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
+ * Base SyncAdapter for OwnCloud Designed to be subclassed for the concrete
+ * SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
  * 
  * @author sassman
- *
+ * 
  */
-public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAdapter {
+public abstract class AbstractOwnCloudSyncAdapter extends
+		AbstractThreadedSyncAdapter {
 
 	private AccountManager accountManager;
 	private Account account;
 	private ContentProviderClient contentProvider;
 	private Date lastUpdated;
-	
+
 	private HttpHost mHost;
 	private WebdavClient mClient = null;
 	private static String TAG = "AbstractOwnCloudSyncAdapter";
-	
+
 	public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
 		this.setAccountManager(AccountManager.get(context));
@@ -105,119 +106,140 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-	
+
 	protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
 		return new ConnectionKeepAliveStrategy() {
-			public long getKeepAliveDuration(HttpResponse response, HttpContext context) {
-				// Change keep alive straategy basing on response: ie forbidden/not found/etc
+			public long getKeepAliveDuration(HttpResponse response,
+					HttpContext context) {
+				// Change keep alive straategy basing on response: ie
+				// forbidden/not found/etc
 				// should have keep alive 0
 				// default return: 5s
 				int statusCode = response.getStatusLine().getStatusCode();
-				
-				// HTTP 400, 500 Errors as well as HTTP 118 - Connection timed out
-				if((statusCode >= 400 && statusCode <= 418) || 
-						(statusCode >= 421 && statusCode <= 426) ||
-						(statusCode >= 500 && statusCode <= 510 ) ||
-						statusCode == 118) {
+
+				// HTTP 400, 500 Errors as well as HTTP 118 - Connection timed
+				// out
+				if ((statusCode >= 400 && statusCode <= 418)
+						|| (statusCode >= 421 && statusCode <= 426)
+						|| (statusCode >= 500 && statusCode <= 510)
+						|| statusCode == 118) {
 					return 0;
 				}
-				
+
 				return 5 * 1000;
 			}
 		};
 	}
-	
-	protected HttpPropFind getPropFindQuery() throws OperationCanceledException, AuthenticatorException, IOException {
+
+	protected HttpPropFind getPropFindQuery()
+			throws OperationCanceledException, AuthenticatorException,
+			IOException {
 		HttpPropFind query = new HttpPropFind(getUri().toString());
 		query.setHeader("Content-type", "text/xml");
 		query.setHeader("User-Agent", "Android-ownCloud");
 		return query;
 	}
-	
-	protected HttpResponse fireRawRequest(HttpRequest query) throws ClientProtocolException, OperationCanceledException, AuthenticatorException, IOException {
-	    BasicHttpContext httpContext = new BasicHttpContext();
-        BasicScheme basicAuth = new BasicScheme();
-        httpContext.setAttribute("preemptive-auth", basicAuth);
-        
-        HttpResponse response = getClient().execute(mHost, query, httpContext);
-        return response;
+
+	protected HttpResponse fireRawRequest(HttpRequest query)
+			throws ClientProtocolException, OperationCanceledException,
+			AuthenticatorException, IOException {
+		BasicHttpContext httpContext = new BasicHttpContext();
+		BasicScheme basicAuth = new BasicScheme();
+		httpContext.setAttribute("preemptive-auth", basicAuth);
+
+		HttpResponse response = getClient().execute(mHost, query, httpContext);
+		return response;
 	}
-	
-	protected TreeNode fireRequest(HttpRequest query) throws ClientProtocolException, OperationCanceledException, AuthenticatorException, IOException {
+
+	protected TreeNode fireRequest(HttpRequest query)
+			throws ClientProtocolException, OperationCanceledException,
+			AuthenticatorException, IOException {
 		HttpResponse response = fireRawRequest(query);
-		
+
 		TreeNode root = new TreeNode();
 		root.setProperty(TreeNode.NodeProperty.NAME, "");
-		this.parseResponse(response, getUri(), getClient(), mHost, root.getChildList(), false, 0);
+		this.parseResponse(response, getUri(), getClient(), mHost,
+				root.getChildList(), false, 0);
 		return root;
 	}
-	
+
 	protected Uri getUri() {
-		return Uri.parse(this.getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_URL));
+		return Uri.parse(this.getAccountManager().getUserData(getAccount(),
+				AccountAuthenticator.KEY_OC_URL));
 	}
-	
-	private DefaultHttpClient getClient() throws OperationCanceledException, AuthenticatorException, IOException {
-		if(mClient == null) {
+
+	private DefaultHttpClient getClient() throws OperationCanceledException,
+			AuthenticatorException, IOException {
+		if (mClient == null) {
 			String username = getAccount().name.split("@")[0];
-			String password = this.getAccountManager().blockingGetAuthToken(getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
-			if (this.getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_URL) == null) {
+			String password = this.getAccountManager().blockingGetAuthToken(
+					getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
+			if (this.getAccountManager().getUserData(getAccount(),
+					AccountAuthenticator.KEY_OC_URL) == null) {
 				throw new UnknownHostException();
 			}
 			Uri uri = getUri();
-	
+
 			mClient = new WebdavClient(uri);
 			mClient.setCredentials(username, password);
 			mClient.allowUnsignedCertificates();
 			mHost = mClient.getTargetHost();
 		}
-		
+
 		return mClient.getHttpClient();
 	}
-	
-	private void parseResponse(HttpResponse resp, Uri uri, DefaultHttpClient client, HttpHost targetHost, LinkedList<TreeNode> insertList, boolean sf, long parent_id) throws IOException, OperationCanceledException, AuthenticatorException {
-		boolean skipFirst = sf, override_parent = !sf;
-		for (TreeNode n :WebdavUtils.parseResponseToNodes(resp.getEntity().getContent())) {
-		  if (skipFirst) {
-        skipFirst = false;
-        continue;
-      }
-			String path = n.stripPathFromFilename(uri.getPath());
-			
-			long mod = n.getProperty(NodeProperty.LAST_MODIFIED_DATE) == null ?
-			           0 :
-			           Long.parseLong(n.getProperty(NodeProperty.LAST_MODIFIED_DATE));
-	    OCFile file = new OCFile(getContentProvider(), getAccount(), n.getProperty(NodeProperty.PATH));
-	    if (file.fileExtist() && file.getModificationTimestamp() >= mod) {
-	      Log.d(TAG, "No update for file/dir " + file.getFileName() + " is needed");
-	    } else {
-	      Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH) + " will be " + (file.fileExtist() ? "updated" : "created"));
-  	    long len = n.getProperty(NodeProperty.CONTENT_LENGTH) == null ?
-                   0 :
-                   Long.parseLong(n.getProperty(NodeProperty.CONTENT_LENGTH));
-  	    long create = n.getProperty(NodeProperty.CREATE_DATE) == null ?
-                      0 :
-                      Long.parseLong(n.getProperty(NodeProperty.CREATE_DATE));
-  			file = OCFile.createNewFile(getContentProvider(),
-            getAccount(),
-            n.getProperty(NodeProperty.PATH),
-            len,
-            create,
-            mod,
-            n.getProperty(NodeProperty.RESOURCE_TYPE),
-            parent_id);
-  			file.save();
-  			if (override_parent) {
-  			  parent_id = file.getFileId();
-  			  override_parent = false;
-  			}
-	    }
 
-			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME)) &&
-					n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
-			    
-			    HttpPropFind method = new HttpPropFind(uri.getPath() + path + n.getProperty(NodeProperty.NAME).replace(" ", "%20") + "/");
+	private void parseResponse(HttpResponse resp, Uri uri,
+			DefaultHttpClient client, HttpHost targetHost,
+			LinkedList<TreeNode> insertList, boolean sf, long parent_id)
+			throws IOException, OperationCanceledException,
+			AuthenticatorException {
+		boolean skipFirst = sf, override_parent = !sf;
+		for (TreeNode n : WebdavUtils.parseResponseToNodes(resp.getEntity()
+				.getContent())) {
+			if (skipFirst) {
+				skipFirst = false;
+				continue;
+			}
+			String path = n.stripPathFromFilename(uri.getPath());
+
+			long mod = n.getProperty(NodeProperty.LAST_MODIFIED_DATE) == null ? 0
+					: Long.parseLong(n
+							.getProperty(NodeProperty.LAST_MODIFIED_DATE));
+			OCFile file = new OCFile(getContentProvider(), getAccount(),
+					n.getProperty(NodeProperty.PATH));
+			if (file.fileExtist() && file.getModificationTimestamp() >= mod) {
+				Log.d(TAG, "No update for file/dir " + file.getFileName()
+						+ " is needed");
+			} else {
+				Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH)
+						+ " will be "
+						+ (file.fileExtist() ? "updated" : "created"));
+				long len = n.getProperty(NodeProperty.CONTENT_LENGTH) == null ? 0
+						: Long.parseLong(n
+								.getProperty(NodeProperty.CONTENT_LENGTH));
+				long create = n.getProperty(NodeProperty.CREATE_DATE) == null ? 0
+						: Long.parseLong(n
+								.getProperty(NodeProperty.CREATE_DATE));
+				file = OCFile.createNewFile(getContentProvider(), getAccount(),
+						n.getProperty(NodeProperty.PATH), len, create, mod,
+						n.getProperty(NodeProperty.RESOURCE_TYPE), parent_id);
+				file.save();
+				if (override_parent) {
+					parent_id = file.getFileId();
+					override_parent = false;
+				}
+			}
+
+			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME))
+					&& n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
+
+				HttpPropFind method = new HttpPropFind(uri.getPath() + path
+						+ n.getProperty(NodeProperty.NAME).replace(" ", "%20")
+						+ "/");
 				HttpResponse response = fireRawRequest(method);
-				parseResponse(response, uri, client, targetHost, n.getChildList(), true, file.getFileId());
+				parseResponse(response, uri, client, targetHost,
+						n.getChildList(), true, file.getFileId());
 			}
 		}
 	}
