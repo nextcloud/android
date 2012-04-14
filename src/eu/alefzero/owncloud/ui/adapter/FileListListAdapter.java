@@ -43,76 +43,88 @@ public class FileListListAdapter implements ListAdapter {
   private OCFile mFile;
   private Vector<OCFile> mFiles;
   
-  public FileListListAdapter(OCFile f, Context context) {
-    mFile = f;
+  public FileListListAdapter(OCFile file, Context context) {
+    mFile = file;
     mFiles = mFile.getDirectoryContent();
     mContext = context;
   }
   
+  @Override
   public boolean areAllItemsEnabled() {
     return true;
   }
 
+  @Override
   public boolean isEnabled(int position) {
     // TODO Auto-generated method stub
     return true;
   }
 
+  @Override
   public int getCount() {
     return mFiles != null ? mFiles.size() : 0;
   }
 
+  @Override
   public Object getItem(int position) {
     if (mFiles.size() <= position)
       return null;
     return mFiles.get(position);
   }
 
+  @Override
   public long getItemId(int position) {
     return mFiles != null ? mFiles.get(position).getFileId() : 0;
   }
 
+  @Override
   public int getItemViewType(int position) {
     // TODO Auto-generated method stub
     return 0;
   }
 
+  @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    View v = convertView;
-    if (v == null) {
-      LayoutInflater vi = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      v = vi.inflate(R.layout.list_layout, null);
+    View view = convertView;
+    if (view == null) {
+      LayoutInflater inflator = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      view = inflator.inflate(R.layout.list_layout, null);
     }
     if (mFiles.size() > position) {
-      OCFile f = mFiles.get(position);
-      TextView tv = (TextView) v.findViewById(R.id.Filename);
-      tv.setText(DisplayUtils.HtmlDecode(f.getFileName()));
-      if (!f.getMimetype().equals("DIR")) {
-        ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
-        iv.setImageResource(R.drawable.file);
+      OCFile file = mFiles.get(position);
+      TextView fileName = (TextView) view.findViewById(R.id.Filename);
+      fileName.setText(DisplayUtils.HtmlDecode(file.getFileName()));
+      if (!file.getMimetype().equals("DIR")) {
+        ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+        fileIcon.setImageResource(R.drawable.file);
       }
     }
 
-    return v;
+    return view;
   }
 
+  @Override
   public int getViewTypeCount() {
     return 4;
   }
 
+  @Override
   public boolean hasStableIds() {
     return true;
   }
 
+  @Override
   public boolean isEmpty() {
     return mFiles != null ? mFiles.isEmpty() : false;
   }
 
+  @Override
   public void registerDataSetObserver(DataSetObserver observer) {
     // TODO Auto-generated method stub
     
   }
 
+  @Override
   public void unregisterDataSetObserver(DataSetObserver observer) {
     // TODO Auto-generated method stub
     
