@@ -112,10 +112,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             accManager.addAccountExplicitly(account, password_text.getText().toString(), null);
             
             // Add this account as default in the preferences, if there is none already
-            SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            String defaultAccountName = appPreferences.getString("select_oc_account", null);
-            if(defaultAccountName == null){
-            	SharedPreferences.Editor editor = appPreferences.edit();
+            Account defaultAccount = AuthUtils.getCurrentOwnCloudAccount(this);
+            if(defaultAccount == null){
+            	SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
             	editor.putString("select_oc_account", accountName);
             	editor.commit();
             }
