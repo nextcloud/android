@@ -208,13 +208,13 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 							.getProperty(NodeProperty.LAST_MODIFIED_DATE));
 			OCFile file = new OCFile(getContentProvider(), getAccount(),
 					n.getProperty(NodeProperty.PATH));
-			if (file.fileExtist() && file.getModificationTimestamp() >= mod) {
+			if (file.fileExists() && file.getModificationTimestamp() >= mod) {
 				Log.d(TAG, "No update for file/dir " + file.getFileName()
 						+ " is needed");
 			} else {
 				Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH)
 						+ " will be "
-						+ (file.fileExtist() ? "updated" : "created"));
+						+ (file.fileExists() ? "updated" : "created"));
 				long len = n.getProperty(NodeProperty.CONTENT_LENGTH) == null ? 0
 						: Long.parseLong(n
 								.getProperty(NodeProperty.CONTENT_LENGTH));
