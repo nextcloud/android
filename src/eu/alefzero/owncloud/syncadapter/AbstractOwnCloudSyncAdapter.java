@@ -42,6 +42,7 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.HttpPropFind;
@@ -66,7 +67,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
 	
 	private HttpHost mHost;
 	private WebdavClient mClient = null;
-
+	private static String TAG = "AbstractOwnCloudSyncAdapter";
+	
 	public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
 		this.setAccountManager(AccountManager.get(context));
@@ -180,26 +182,42 @@ public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAd
         continue;
       }
 			String path = n.stripPathFromFilename(uri.getPath());
-			OCFile new_file = OCFile.createNewFile(getContentProvider(),
-          getAccount(),
-          n.getProperty(NodeProperty.PATH),
-          0,//Long.parseLong(n.getProperty(NodeProperty.CONTENT_LENGTH)),
-          0,//Long.parseLong(n.getProperty(NodeProperty.CREATE_DATE)),
-          0,//Long.parseLong(n.getProperty(NodeProperty.LAST_MODIFIED_DATE)),
-          n.getProperty(NodeProperty.RESOURCE_TYPE),
-          parent_id);
-			new_file.save();
-			if (override_parent) {
-			  parent_id = new_file.getFileId();
-			  override_parent = false;
-			}
+			
+			long mod = n.getProperty(NodeProperty.LAST_MODIFIED_DATE) == null ?
+			           0 :
+			           Long.parseLong(n.getProperty(NodeProperty.LAST_MODIFIED_DATE));
+	    OCFile file = new OCFile(getContentProvider(), getAccount(), n.getProperty(NodeProperty.PATH));
+	    if (file.fileExtist() && file.getModificationTimestamp() >= mod) {
+	      Log.d(TAG, "No update for file/dir " + file.getFileName() + " is needed");
+	    } else {
+	      Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH) + " will be " + (file.fileExtist() ? "updated" : "created"));
+  	    long len = n.getProperty(NodeProperty.CONTENT_LENGTH) == null ?
+                   0 :
+                   Long.parseLong(n.getProperty(NodeProperty.CONTENT_LENGTH));
+  	    long create = n.getProperty(NodeProperty.CREATE_DATE) == null ?
+                      0 :
+                      Long.parseLong(n.getProperty(NodeProperty.CREATE_DATE));
+  			file = OCFile.createNewFile(getContentProvider(),
+            getAccount(),
+            n.getProperty(NodeProperty.PATH),
+            len,
+            create,
+            mod,
+            n.getProperty(NodeProperty.RESOURCE_TYPE),
+            parent_id);
+  			file.save();
+  			if (override_parent) {
+  			  parent_id = file.getFileId();
+  			  override_parent = false;
+  			}
+	    }
 
 			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME)) &&
 					n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
 			    
 			    HttpPropFind method = new HttpPropFind(uri.getPath() + path + n.getProperty(NodeProperty.NAME).replace(" ", "%20") + "/");
 				HttpResponse response = fireRawRequest(method);
-				parseResponse(response, uri, client, targetHost, n.getChildList(), true, new_file.getFileId());
+				parseResponse(response, uri, client, targetHost, n.getChildList(), true, file.getFileId());
 			}
 		}
 	}

@@ -119,8 +119,6 @@ public class WebdavUtils {
         parseDisplayName(currentNode, resultNode, davPrefix);
         rList.add(resultNode);
       }
-      
-      
     } catch (ParserConfigurationException e) {
       e.printStackTrace();
     } catch (SAXException e) {
@@ -150,7 +148,7 @@ public class WebdavUtils {
     if (currentElement.getElementsByTagName(davPrefix + CREATE_DATE).getLength() != 0) {
       Date date = parseResponseDate(
           currentElement.getElementsByTagName(davPrefix + CREATE_DATE).item(0).getFirstChild().getNodeValue());
-      resultNode.setProperty(NodeProperty.CREATE_DATE, String.valueOf(date));
+      resultNode.setProperty(NodeProperty.CREATE_DATE, String.valueOf(date.getTime()));
     }
   }
 

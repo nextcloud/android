@@ -86,7 +86,6 @@ public class TreeNode {
       propertyMap_.put(NodeProperty.NAME, name);
       propertyMap_.remove(NodeProperty.PATH);
       propertyMap_.put(NodeProperty.PATH, name2);
-      Log.i("TreeNode", toString());
       return path;
     }
     return null;

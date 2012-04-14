@@ -276,9 +276,9 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                                  null,
                                  null);
           mCursor.moveToFirst();
-          pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH)) +
-                         mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME)).replace(" ", "%20");
+          pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH)).replace(" ", "%20");
         }
+        Log.d(TAG, "Uploading file to dir " + pathToUpload);
         
         showDialog(DIALOG_WAITING);
         mUploadThread = new Thread(new BackgroundUploader(pathToUpload, mStreamsToUpload, mHandler));
@@ -329,29 +329,38 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     mUsername = mAccount.name.substring(0, mAccount.name.indexOf('@'));
     mPassword = mAccountManager.getPassword(mAccount);
     setContentView(R.layout.uploader_layout);
+    
     mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI,
                            null,
-                           ProviderTableMeta.FILE_CONTENT_TYPE+"=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                           new String[]{"DIR", mAccount.name},
+                           ProviderTableMeta.FILE_NAME+"=? AND " +ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                           new String[]{"/", mAccount.name},
                            null);
-
-    ListView lv = getListView();
-    lv.setOnItemClickListener(this);
-    SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                                                      R.layout.uploader_list_item_layout,
-                                                      mCursor,
-                                                      new String[]{ProviderTableMeta.FILE_NAME},
-                                                      new int[]{R.id.textView1});
-    setListAdapter(sca);
-    Button btn = (Button) findViewById(R.id.uploader_choose_folder);
-    btn.setOnClickListener(this);
-    // insert create new directory for multiple items uploading
-    if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-      Button createDirBtn = new Button(this);
-      createDirBtn.setId(android.R.id.button1);
-      createDirBtn.setText(R.string.uploader_btn_create_dir_text);
-      createDirBtn.setOnClickListener(this);
-      ((LinearLayout)findViewById(R.id.linearLayout1)).addView(createDirBtn, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+    
+    if (mCursor.moveToFirst()) {
+      mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI,
+                             null,
+                             ProviderTableMeta.FILE_CONTENT_TYPE+"=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " +ProviderTableMeta.FILE_PARENT+"=?",
+                             new String[]{"DIR", mAccount.name, mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID))},
+                             null);    
+  
+      ListView lv = getListView();
+      lv.setOnItemClickListener(this);
+      SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
+                                                        R.layout.uploader_list_item_layout,
+                                                        mCursor,
+                                                        new String[]{ProviderTableMeta.FILE_NAME},
+                                                        new int[]{R.id.textView1});
+      setListAdapter(sca);
+      Button btn = (Button) findViewById(R.id.uploader_choose_folder);
+      btn.setOnClickListener(this);
+      // insert create new directory for multiple items uploading
+      if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
+        Button createDirBtn = new Button(this);
+        createDirBtn.setId(android.R.id.button1);
+        createDirBtn.setText(R.string.uploader_btn_create_dir_text);
+        createDirBtn.setOnClickListener(this);
+        ((LinearLayout)findViewById(R.id.linearLayout1)).addView(createDirBtn, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+      }
     }
   }
   
