@@ -90,7 +90,7 @@ public class FileDataStorageManager implements DataStorageManager {
     cv.put(ProviderTableMeta.FILE_PATH, file.getPath());
     cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
     cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-    
+
     if (fileExists(file.getPath())) {
       overriden = true;
       if (getContentResolver() != null) {
@@ -109,14 +109,19 @@ public class FileDataStorageManager implements DataStorageManager {
         }
       }
     } else {
+      Uri result_uri = null;
       if (getContentResolver() != null) {
-        getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
+        result_uri = getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
       } else {
         try {
-          getContentProvider().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
+          result_uri = getContentProvider().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
         } catch (RemoteException e) {
           Log.e(TAG, "Fail to insert insert file to database " + e.getMessage());
         }
+      }
+      if (result_uri != null) {
+        long new_id = Long.parseLong(result_uri.getPathSegments().get(1));
+        file.setFileId(new_id);
       }
     }
     
@@ -158,6 +163,7 @@ public class FileDataStorageManager implements DataStorageManager {
       Uri req_uri = Uri.withAppendedPath(
           ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(f.getFileId()));
       Cursor c = null;
+      
       if (getContentProvider() != null) {
         try {
           c = getContentProvider().query(req_uri, null, null, null, null);
@@ -169,12 +175,13 @@ public class FileDataStorageManager implements DataStorageManager {
         c = getContentResolver().query(req_uri, null, null, null, null);
       }
 
-      if (c.moveToFirst())
+      if (c.moveToFirst()) {
         do {
           OCFile child = createFileInstance(c);
           ret.add(child);
         } while (c.moveToNext());
-
+      }
+      
       c.close();
       return ret;
     }

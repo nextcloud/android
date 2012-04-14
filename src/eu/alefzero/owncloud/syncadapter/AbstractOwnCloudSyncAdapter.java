@@ -222,6 +222,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 				Log.d(TAG, "No update for file/dir " + file.getFileName()
 						+ " is needed");
 			} else {
+			  file = new OCFile(n.getProperty(NodeProperty.PATH));
 				Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH)
 						+ " will be "
 						+ (file.fileExists() ? "updated" : "created"));
@@ -231,7 +232,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 				long create = n.getProperty(NodeProperty.CREATE_DATE) == null ? 0
 						: Long.parseLong(n
 								.getProperty(NodeProperty.CREATE_DATE));
-				file = new OCFile(n.getProperty(NodeProperty.PATH));
+
 				file.setFileLength(len);
 				file.setCreationTimestamp(create);
 				file.setModificationTimestamp(mod);

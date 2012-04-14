@@ -38,9 +38,9 @@ public class OCFile {
 	 * @param path The remote path of the file
 	 */
 	public OCFile(String path) {
+	  resetData();
 	  update_while_saving_ = false;
 		path_ = path;
-		resetData();
 	}
 
 	/**

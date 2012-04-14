@@ -23,6 +23,7 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
@@ -56,8 +57,6 @@ public class FileListFragment extends FragmentListView {
 
     mAccount = AuthUtils.getCurrentOwnCloudAccount(getActivity());
     populateFileList();
-    // TODO: Remove this testing stuff
-    //addContact(mAccount, "Bartek Przybylski", "czlowiek");
   }
   
   @Override
@@ -80,6 +79,7 @@ public class FileListFragment extends FragmentListView {
     i.putExtra("FILE_NAME", file.getFileName());
     i.putExtra("FULL_PATH", file.getPath());
     i.putExtra("FILE_ID", id_);
+    Log.e("ASD", mAccount+"");
     i.putExtra("ACCOUNT", mAccount);
     FileDetailFragment fd = (FileDetailFragment) getFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
@@ -103,10 +103,10 @@ public class FileListFragment extends FragmentListView {
   private void populateFileList() {
     String s = "/";
     for (String a : mDirNames)
-      s+= a+"/";
+      s+= a + "/";
 
     mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-    OCFile file = new OCFile(s);
+    OCFile file = mStorageManager.getFileByPath(s);
     mFiles = mStorageManager.getDirectoryContent(file);
     setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
   }

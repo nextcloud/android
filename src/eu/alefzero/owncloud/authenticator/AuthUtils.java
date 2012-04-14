@@ -244,6 +244,9 @@ public class AuthUtils {
 				  break;
 			  }
 		  }
+	  } else if (ocAccounts.length != 0) {
+	    // we at least need to take first account as fallback
+	    defaultAccount = ocAccounts[0];
 	  }
 	  
 	return defaultAccount;
