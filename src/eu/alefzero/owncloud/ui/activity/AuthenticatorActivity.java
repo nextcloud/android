@@ -54,10 +54,15 @@ import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     private Thread mAuthThread;
     private final Handler mHandler = new Handler();
+    private boolean mUseSSLConnection;
 
     public static final String PARAM_USERNAME = "param_Username";
     public static final String PARAM_HOSTNAME = "param_Hostname";
 
+    public AuthenticatorActivity() {
+      mUseSSLConnection = false;
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,12 +167,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             url_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            url_text.setTextColor(Color.BLACK);
+            url_text.setTextColor(android.R.color.primary_text_light);
         }
         try {
             String url_str = url_text.getText().toString();
             if (!url_str.startsWith("http://") &&
                     !url_str.startsWith("https://")) {
+              if (mUseSSLConnection)
+                url_str = "https://" + url_str;
+              else
                 url_str = "http://" + url_str;
             }
             uri = new URL(url_str);
@@ -182,18 +190,33 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             username_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            username_text.setTextColor(Color.BLACK);
+            username_text.setTextColor(android.R.color.primary_text_light);
         }
 
         if (password_text.getText().toString().trim().length() == 0) {
             password_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            password_text.setTextColor(Color.BLACK);
+            password_text.setTextColor(android.R.color.primary_text_light);
         }
         if (hasErrors) {
             return;
         }
+        
+        int new_port = uri.getPort();
+        if (new_port == -1) {
+          if (mUseSSLConnection)
+            new_port = 443;
+          else
+            new_port = 80;
+        }
+        
+        try {
+          uri = new URL(uri.getProtocol(), uri.getHost(), new_port, uri.getPath());
+        } catch (MalformedURLException e) {
+          e.printStackTrace(); // should not happend
+        }
+        
         showDialog(0);
         mAuthThread = AuthUtils.attemptAuth(uri,
                 username_text.getText().toString(),
@@ -205,17 +228,26 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     /**
      * Handles the show password checkbox
      * @author robstar
+     * @author aqu
      * @param view
      */
     public void onCheckboxClick(View view) {
-    	CheckBox checkbox = (CheckBox) findViewById(R.id.show_password);
-    	TextView password_text = (TextView) findViewById(R.id.account_password);
-    	
-    	if(checkbox.isChecked()) {
-    		password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-    	} else {
-    		password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-    	}
+      switch (view.getId()) {
+        case R.id.show_password:
+          TextView password_text = (TextView) findViewById(R.id.account_password);
+          
+          if(((CheckBox)view).isChecked()) {
+            password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+          } else {
+            password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+          }
+        break;
+        case R.id.use_ssl:
+          mUseSSLConnection = ((CheckBox)view).isChecked();
+        break;
+        default:
+          Log.d("AuthActivity", "Clicked invalid view with id: " + view.getId());
+      }
     	
     }
 }

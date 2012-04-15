@@ -51,4 +51,5 @@
     <string name="uploader_upload_failed">Upload failed: </string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_string_contacts">Contacts</string>
+    <string name="use_ssl">Use Secure Connection</string>
 </resources>
