@@ -34,28 +34,28 @@ import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 public class OCFile {
 	private static String TAG = "OCFile";
 
-	private long id_;
-	private long parent_id_;
-	private long length_;
-	private long creation_timestamp_;
-	private long modified_timestamp_;
-	private String path_;
-	private String storage_path_;
-	private String mimetype_;
+	private long id;
+	private long parentId;
+	private long length;
+	private long creationTimestamp;
+	private long modifiedTimestamp;
+	private String remotePath;
+	private String localStoragePath;
+	private String mimeType;
 
-	private ContentResolver contentResolver_;
-	private ContentProviderClient providerClient_;
-	private Account account_;
+	private ContentResolver contentResolver;
+	private ContentProviderClient providerClient;
+	private Account account;
 	
 	private OCFile(ContentProviderClient providerClient, Account account) {
-		account_ = account;
-		providerClient_ = providerClient;
+		this.account = account;
+		this.providerClient = providerClient;
 		resetData();
 	}
 
 	private OCFile(ContentResolver contentResolver, Account account) {
-		account_ = account;
-		contentResolver_ = contentResolver;
+		this.account = account;
+		this.contentResolver = contentResolver;
 		resetData();
 	}
 	
@@ -68,12 +68,12 @@ public class OCFile {
 	 * @param id The ID the file has in the database
 	 */
 	public OCFile(ContentResolver resolver, Account account, long id) {
-		contentResolver_ = resolver;
-		account_ = account;
-		Cursor c = contentResolver_.query(ProviderTableMeta.CONTENT_URI_FILE,
+		this.contentResolver = resolver;
+		this.account = account;
+		Cursor c = this.contentResolver.query(ProviderTableMeta.CONTENT_URI_FILE,
 				null, ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
 						+ ProviderTableMeta._ID + "=?", new String[] {
-						account_.name, String.valueOf(id) }, null);
+						this.account.name, String.valueOf(id) }, null);
 		if (c.moveToFirst())
 			setFileData(c);
 	}
@@ -87,33 +87,33 @@ public class OCFile {
 	 * @param path The remote path of the file
 	 */
 	public OCFile(ContentResolver contentResolver, Account account, String path) {
-		contentResolver_ = contentResolver;
-		account_ = account;
+		this.contentResolver = contentResolver;
+		this.account = account;
 
-		Cursor c = contentResolver_.query(ProviderTableMeta.CONTENT_URI_FILE,
+		Cursor c = this.contentResolver.query(ProviderTableMeta.CONTENT_URI_FILE,
 				null, ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
 						+ ProviderTableMeta.FILE_PATH + "=?", new String[] {
-						account_.name, path }, null);
+						this.account.name, path }, null);
 		if (c.moveToFirst()) {
 			setFileData(c);
-			if (path_ != null)
-				path_ = path;
+			if (remotePath != null)
+				remotePath = path;
 		}
 	}
 	
 	public OCFile(ContentProviderClient cp, Account account, String path) {
-		providerClient_ = cp;
-		account_ = account;
+		this.providerClient = cp;
+		this.account = account;
 
 		try {
-			Cursor c = providerClient_.query(ProviderTableMeta.CONTENT_URI_FILE, null,
+			Cursor c = this.providerClient.query(ProviderTableMeta.CONTENT_URI_FILE, null,
 					ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
 							+ ProviderTableMeta.FILE_PATH + "=?", new String[] {
-							account_.name, path }, null);
+							this.account.name, path }, null);
 			if (c.moveToFirst()) {
 				setFileData(c);
-				if (path_ != null)
-					path_ = path;
+				if (remotePath != null)
+					remotePath = path;
 			}
 		} catch (RemoteException e) {
 			Log.d(TAG, e.getMessage());
@@ -139,10 +139,10 @@ public class OCFile {
 		OCFile new_file = new OCFile(providerClient, account);
 
 		try {
-			Cursor c = new_file.providerClient_.query(ProviderTableMeta.CONTENT_URI_FILE,
+			Cursor c = new_file.providerClient.query(ProviderTableMeta.CONTENT_URI_FILE,
 					null, ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
 							+ ProviderTableMeta.FILE_PATH + "=?", new String[] {
-							new_file.account_.name, path }, null);
+							new_file.account.name, path }, null);
 			if (c.moveToFirst())
 				new_file.setFileData(c);
 			c.close();
@@ -150,12 +150,12 @@ public class OCFile {
 			Log.e(TAG, e.getMessage());
 		}
 
-		new_file.path_ = path;
-		new_file.length_ = length;
-		new_file.creation_timestamp_ = creation_timestamp;
-		new_file.modified_timestamp_ = modified_timestamp;
-		new_file.mimetype_ = mimetype;
-		new_file.parent_id_ = parent_id;
+		new_file.remotePath = path;
+		new_file.length = length;
+		new_file.creationTimestamp = creation_timestamp;
+		new_file.modifiedTimestamp = modified_timestamp;
+		new_file.mimeType = mimetype;
+		new_file.parentId = parent_id;
 
 		return new_file;
 	}
@@ -177,21 +177,21 @@ public class OCFile {
 			Account account, String path, int length, int creation_timestamp,
 			int modified_timestamp, String mimetype, long parent_id) {
 		OCFile new_file = new OCFile(contentResolver, account);
-		Cursor c = new_file.contentResolver_.query(
+		Cursor c = new_file.contentResolver.query(
 				ProviderTableMeta.CONTENT_URI_FILE, null,
 				ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
 						+ ProviderTableMeta.FILE_PATH + "=?", new String[] {
-						new_file.account_.name, path }, null);
+						new_file.account.name, path }, null);
 		if (c.moveToFirst())
 			new_file.setFileData(c);
 		c.close();
 
-		new_file.path_ = path;
-		new_file.length_ = length;
-		new_file.creation_timestamp_ = creation_timestamp;
-		new_file.modified_timestamp_ = modified_timestamp;
-		new_file.mimetype_ = mimetype;
-		new_file.parent_id_ = parent_id;
+		new_file.remotePath = path;
+		new_file.length = length;
+		new_file.creationTimestamp = creation_timestamp;
+		new_file.modifiedTimestamp = modified_timestamp;
+		new_file.mimeType = mimetype;
+		new_file.parentId = parent_id;
 
 		return new_file;
 	}
@@ -203,7 +203,7 @@ public class OCFile {
 	 * @return the file ID
 	 */
 	public long getFileId() {
-		return id_;
+		return id;
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class OCFile {
 	 * @return The path
 	 */
 	public String getPath() {
-		return path_;
+		return remotePath;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class OCFile {
 	 * @return true, if the file exists in the database
 	 */
 	public boolean fileExists() {
-		return id_ != -1;
+		return id != -1;
 	}
 
 	/**
@@ -231,7 +231,7 @@ public class OCFile {
 	 * @return true if it is a directory
 	 */
 	public boolean isDirectory() {
-		return mimetype_ != null && mimetype_.equals("DIR");
+		return mimeType != null && mimeType.equals("DIR");
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class OCFile {
 	 * @return true if it is
 	 */
 	public boolean isDownloaded() {
-		return storage_path_ != null;
+		return localStoragePath != null;
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class OCFile {
 	 * @return The local path to the file
 	 */
 	public String getStoragePath() {
-		return storage_path_;
+		return localStoragePath;
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setStoragePath(String storage_path) {
-		storage_path_ = storage_path;
+		localStoragePath = storage_path;
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class OCFile {
 	 * @return A UNIX timestamp of the time that file was created
 	 */
 	public long getCreationTimestamp() {
-		return creation_timestamp_;
+		return creationTimestamp;
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setCreationTimestamp(long creation_timestamp) {
-		creation_timestamp_ = creation_timestamp;
+		creationTimestamp = creation_timestamp;
 	}
 
 	/**
@@ -287,7 +287,7 @@ public class OCFile {
 	 * @return A UNIX timestamp of the modification time
 	 */
 	public long getModificationTimestamp() {
-		return modified_timestamp_;
+		return modifiedTimestamp;
 	}
 
 	/**
@@ -297,7 +297,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setModificationTimestamp(long modification_timestamp) {
-		modified_timestamp_ = modification_timestamp;
+		modifiedTimestamp = modification_timestamp;
 	}
 
 	/**
@@ -306,8 +306,8 @@ public class OCFile {
 	 * @return The name of the file
 	 */
 	public String getFileName() {
-		if (path_ != null) {
-			File f = new File(path_);
+		if (remotePath != null) {
+			File f = new File(remotePath);
 			return f.getName().equals("") ? "/" : f.getName();
 		}
 		return null;
@@ -319,7 +319,7 @@ public class OCFile {
 	 * @return the Mimetype as a String
 	 */
 	public String getMimetype() {
-		return mimetype_;
+		return mimeType;
 	}
 
 	/**
@@ -327,56 +327,56 @@ public class OCFile {
 	 */
 	public void save() {
 		ContentValues cv = new ContentValues();
-		cv.put(ProviderTableMeta.FILE_MODIFIED, modified_timestamp_);
-		cv.put(ProviderTableMeta.FILE_CREATION, creation_timestamp_);
-		cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, length_);
-		cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, mimetype_);
+		cv.put(ProviderTableMeta.FILE_MODIFIED, modifiedTimestamp);
+		cv.put(ProviderTableMeta.FILE_CREATION, creationTimestamp);
+		cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, length);
+		cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, mimeType);
 		cv.put(ProviderTableMeta.FILE_NAME, getFileName());
-		if (parent_id_ != 0)
-			cv.put(ProviderTableMeta.FILE_PARENT, parent_id_);
-		cv.put(ProviderTableMeta.FILE_PATH, path_);
-		cv.put(ProviderTableMeta.FILE_STORAGE_PATH, storage_path_);
-		cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account_.name);
+		if (parentId != 0)
+			cv.put(ProviderTableMeta.FILE_PARENT, parentId);
+		cv.put(ProviderTableMeta.FILE_PATH, remotePath);
+		cv.put(ProviderTableMeta.FILE_STORAGE_PATH, localStoragePath);
+		cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, account.name);
 
 		if (fileExists()) {
-			if (providerClient_ != null) {
+			if (providerClient != null) {
 				try {
-					providerClient_.update(ProviderTableMeta.CONTENT_URI, cv,
+					providerClient.update(ProviderTableMeta.CONTENT_URI, cv,
 							ProviderTableMeta._ID + "=?",
-							new String[] { String.valueOf(id_) });
+							new String[] { String.valueOf(id) });
 				} catch (RemoteException e) {
 					Log.e(TAG, e.getMessage());
 					return;
 				}
 			} else {
-				contentResolver_.update(ProviderTableMeta.CONTENT_URI, cv,
+				contentResolver.update(ProviderTableMeta.CONTENT_URI, cv,
 						ProviderTableMeta._ID + "=?",
-						new String[] { String.valueOf(id_) });
+						new String[] { String.valueOf(id) });
 			}
 		} else {
 			Uri new_entry = null;
-			if (providerClient_ != null) {
+			if (providerClient != null) {
 				try {
-					new_entry = providerClient_.insert(ProviderTableMeta.CONTENT_URI_FILE,
+					new_entry = providerClient.insert(ProviderTableMeta.CONTENT_URI_FILE,
 							cv);
 				} catch (RemoteException e) {
 					Log.e(TAG, e.getMessage());
-					id_ = -1;
+					id = -1;
 					return;
 				}
 			} else {
-				new_entry = contentResolver_.insert(
+				new_entry = contentResolver.insert(
 						ProviderTableMeta.CONTENT_URI_FILE, cv);
 			}
 			try {
 				String p = new_entry.getEncodedPath();
-				id_ = Integer.parseInt(p.substring(p.lastIndexOf('/') + 1));
+				id = Integer.parseInt(p.substring(p.lastIndexOf('/') + 1));
 			} catch (NumberFormatException e) {
 				Log.e(TAG,
 						"Can't retrieve file id from uri: "
 								+ new_entry.toString() + ", reason: "
 								+ e.getMessage());
-				id_ = -1;
+				id = -1;
 			}
 		}
 	}
@@ -387,26 +387,26 @@ public class OCFile {
 	 * @return The directory content or null, if the file is not a directory
 	 */
 	public Vector<OCFile> getDirectoryContent() {
-		if (isDirectory() && id_ != -1) {
+		if (isDirectory() && id != -1) {
 			Vector<OCFile> ret = new Vector<OCFile>();
 
 			Uri req_uri = Uri.withAppendedPath(
-					ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(id_));
+					ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(id));
 			Cursor c = null;
-			if (providerClient_ != null) {
+			if (providerClient != null) {
 				try {
-					c = providerClient_.query(req_uri, null, null, null, null);
+					c = providerClient.query(req_uri, null, null, null, null);
 				} catch (RemoteException e) {
 					Log.e(TAG, e.getMessage());
 					return ret;
 				}
 			} else {
-				c = contentResolver_.query(req_uri, null, null, null, null);
+				c = contentResolver.query(req_uri, null, null, null, null);
 			}
 
 			if (c.moveToFirst())
 				do {
-					OCFile child = new OCFile(providerClient_, account_);
+					OCFile child = new OCFile(providerClient, account);
 					child.setFileData(c);
 					ret.add(child);
 				} while (c.moveToNext());
@@ -428,7 +428,7 @@ public class OCFile {
 	 */
 	public void addFile(OCFile file) throws IllegalStateException {
 		if (isDirectory()) {
-			file.parent_id_ = id_;
+			file.parentId = id;
 			file.save();
 			return;
 		}
@@ -440,14 +440,14 @@ public class OCFile {
 	 * Used internally. Reset all file properties
 	 */
 	private void resetData() {
-		id_ = -1;
-		path_ = null;
-		parent_id_ = 0;
-		storage_path_ = null;
-		mimetype_ = null;
-		length_ = 0;
-		creation_timestamp_ = 0;
-		modified_timestamp_ = 0;
+		id = -1;
+		remotePath = null;
+		parentId = 0;
+		localStoragePath = null;
+		mimeType = null;
+		length = 0;
+		creationTimestamp = 0;
+		modifiedTimestamp = 0;
 	}
 
 	/**
@@ -457,19 +457,19 @@ public class OCFile {
 	private void setFileData(Cursor c) {
 		resetData();
 		if (c != null) {
-			id_ = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
-			path_ = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
-			parent_id_ = c.getLong(c
+			id = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
+			remotePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
+			parentId = c.getLong(c
 					.getColumnIndex(ProviderTableMeta.FILE_PARENT));
-			storage_path_ = c.getString(c
+			localStoragePath = c.getString(c
 					.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
-			mimetype_ = c.getString(c
+			mimeType = c.getString(c
 					.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE));
-			length_ = c.getLong(c
+			length = c.getLong(c
 					.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
-			creation_timestamp_ = c.getLong(c
+			creationTimestamp = c.getLong(c
 					.getColumnIndex(ProviderTableMeta.FILE_CREATION));
-			modified_timestamp_ = c.getLong(c
+			modifiedTimestamp = c.getLong(c
 					.getColumnIndex(ProviderTableMeta.FILE_MODIFIED));
 		}
 	}
