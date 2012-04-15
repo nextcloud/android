@@ -22,15 +22,15 @@ import java.io.File;
 
 public class OCFile {
 
-	private long id_;
-	private long parent_id_;
-	private long length_;
-	private long creation_timestamp_;
-	private long modified_timestamp_;
-	private String path_;
-	private String storage_path_;
-	private String mimetype_;
-	private boolean update_while_saving_;
+	private long id;
+	private long parentId;
+	private long length;
+	private long creationTimestamp;
+	private long modifiedTimestamp;
+	private String remotePath;
+	private String localPath;
+	private String mimeType;
+	private boolean needsUpdating;
 
 	/**
 	 * Create new {@link OCFile} with given path
@@ -39,8 +39,8 @@ public class OCFile {
 	 */
 	public OCFile(String path) {
 	  resetData();
-	  update_while_saving_ = false;
-		path_ = path;
+	  needsUpdating = false;
+		remotePath = path;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class OCFile {
 	 * @return the file ID
 	 */
 	public long getFileId() {
-		return id_;
+		return id;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class OCFile {
 	 * @return The path
 	 */
 	public String getPath() {
-		return path_;
+		return remotePath;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class OCFile {
 	 * @return true, if the file exists in the database
 	 */
 	public boolean fileExists() {
-		return id_ != -1;
+		return id != -1;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class OCFile {
 	 * @return true if it is a directory
 	 */
 	public boolean isDirectory() {
-		return mimetype_ != null && mimetype_.equals("DIR");
+		return mimeType != null && mimeType.equals("DIR");
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class OCFile {
 	 * @return true if it is
 	 */
 	public boolean isDownloaded() {
-		return storage_path_ != null;
+		return localPath != null;
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class OCFile {
 	 * @return The local path to the file
 	 */
 	public String getStoragePath() {
-		return storage_path_;
+		return localPath;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setStoragePath(String storage_path) {
-		storage_path_ = storage_path;
+		localPath = storage_path;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class OCFile {
 	 * @return A UNIX timestamp of the time that file was created
 	 */
 	public long getCreationTimestamp() {
-		return creation_timestamp_;
+		return creationTimestamp;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setCreationTimestamp(long creation_timestamp) {
-		creation_timestamp_ = creation_timestamp;
+		creationTimestamp = creation_timestamp;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class OCFile {
 	 * @return A UNIX timestamp of the modification time
 	 */
 	public long getModificationTimestamp() {
-		return modified_timestamp_;
+		return modifiedTimestamp;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class OCFile {
 	 *            to set
 	 */
 	public void setModificationTimestamp(long modification_timestamp) {
-		modified_timestamp_ = modification_timestamp;
+		modifiedTimestamp = modification_timestamp;
 	}
 
 	/**
@@ -152,8 +152,8 @@ public class OCFile {
 	 * @return The name of the file
 	 */
 	public String getFileName() {
-		if (path_ != null) {
-			File f = new File(path_);
+		if (remotePath != null) {
+			File f = new File(remotePath);
 			return f.getName().equals("") ? "/" : f.getName();
 		}
 		return null;
@@ -165,7 +165,7 @@ public class OCFile {
 	 * @return the Mimetype as a String
 	 */
 	public String getMimetype() {
-		return mimetype_;
+		return mimeType;
 	}
 
 	/**
@@ -177,8 +177,8 @@ public class OCFile {
 	 */
 	public void addFile(OCFile file) throws IllegalStateException {
 		if (isDirectory()) {
-			file.parent_id_ = id_;
-			update_while_saving_ = true;
+			file.parentId = id;
+			needsUpdating = true;
 			return;
 		}
 		throw new IllegalStateException("This is not a directory where you can add stuff to!");
@@ -188,41 +188,69 @@ public class OCFile {
 	 * Used internally. Reset all file properties
 	 */
 	private void resetData() {
-		id_ = -1;
-		path_ = null;
-		parent_id_ = 0;
-		storage_path_ = null;
-		mimetype_ = null;
-		length_ = 0;
-		creation_timestamp_ = 0;
-		modified_timestamp_ = 0;
+		id = -1;
+		remotePath = null;
+		parentId = 0;
+		localPath = null;
+		mimeType = null;
+		length = 0;
+		creationTimestamp = 0;
+		modifiedTimestamp = 0;
 	}
 
+	/**
+	 * Sets the ID of the file
+	 * @param file_id to set
+	 */
 	public void setFileId(long file_id) {
-	  id_ = file_id;
+	  id = file_id;
 	}
 	
+	/**
+	 * Sets the Mime-Type of the 
+	 * @param mimetype to set
+	 */
 	public void setMimetype(String mimetype) {
-	  mimetype_ = mimetype;
+	  mimeType = mimetype;
 	}
 	
+	/**
+	 * Sets the ID of the parent folder
+	 * @param parent_id to set
+	 */
 	public void setParentId(long parent_id) {
-	  parent_id_ = parent_id;
+	  parentId = parent_id;
 	}
 	
+	/**
+	 * Sets the file size in bytes
+	 * @param file_len to set
+	 */
 	public void setFileLength(long file_len) {
-	  length_ = file_len;
+	  length = file_len;
 	}
 	
+	/**
+	 * Returns the size of the file in bytes
+	 * @return The filesize in bytes
+	 */
   public long getFileLength() {
-    return length_;
+    return length;
   }
   
+  /**
+   * Returns the ID of the parent Folder
+   * @return The ID
+   */
   public long getParentId() {
-    return parent_id_;
+    return parentId;
   }
   
+  /**
+   * Check, if this file needs updating
+   * @return
+   */
   public boolean needsUpdatingWhileSaving() {
-    return update_while_saving_;
+    return needsUpdating;
   }
 }
