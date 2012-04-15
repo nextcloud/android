@@ -58,6 +58,11 @@ public class LandingActivity extends SherlockFragmentActivity implements OnClick
 		// Check, if there are ownCloud accounts
 		if(!accountsAreSetup()){
 			showDialog(DIALOG_SETUP_ACCOUNT);
+		} else {
+			// Start device tracking service 
+			Intent locationServiceIntent = new Intent();
+			locationServiceIntent.setAction("eu.alefzero.owncloud.location.LocationLauncher");
+			sendBroadcast(locationServiceIntent);
 		}
 
 	}

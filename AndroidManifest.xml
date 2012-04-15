@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -113,6 +114,20 @@
 
         <service android:name=".FileDownloader" >
         </service>
+        
+        <service android:name=".location.LocationUpdateService">
+            <intent-filter>
+				<action android:name="eu.alefzero.owncloud.location.LocationUpdateService" />
+			</intent-filter>
+        </service>
+        
+        <receiver android:name=".location.LocationServiceLauncherReciever">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="eu.alefzero.owncloud.location.LocationLauncher" />
+				<category android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
 
         <activity android:name=".ui.activity.FileDetailActivity" 
             android:theme="@style/Theme.ownCloud">
