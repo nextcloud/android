@@ -138,7 +138,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 			break;
 		}
 		case android.R.id.home: {
-			navigateUp();
+			onBackPressed();
 			break;
 		}
 			
@@ -146,11 +146,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 		return true;
 	}
 	
-	public void navigateUp(){
+	@Override
+	public void onBackPressed(){
 		popPath();
 		if(mDirectories.getCount() == 0) {
 			Intent intent = new Intent(this, LandingActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return;
 		}
@@ -208,7 +208,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		int i = itemPosition;
 		while (i-- != 0) {
-			navigateUp();
+			onBackPressed();
 		}
 		return true;
 	}
