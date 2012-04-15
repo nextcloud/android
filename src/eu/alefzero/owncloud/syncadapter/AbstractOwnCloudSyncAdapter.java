@@ -44,6 +44,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
@@ -65,6 +66,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 	private Account account;
 	private ContentProviderClient contentProvider;
 	private Date lastUpdated;
+	private DataStorageManager mStoreManager;
 
 	private HttpHost mHost;
 	private WebdavClient mClient = null;
@@ -107,6 +109,14 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 		this.lastUpdated = lastUpdated;
 	}
 
+	public void setStorageManager(DataStorageManager storage_manager) {
+	  mStoreManager = storage_manager;
+	}
+	
+	public DataStorageManager getStorageManager() {
+	  return mStoreManager;
+	}
+	
 	protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
 		return new ConnectionKeepAliveStrategy() {
 			public long getKeepAliveDuration(HttpResponse response,
@@ -206,12 +216,13 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 			long mod = n.getProperty(NodeProperty.LAST_MODIFIED_DATE) == null ? 0
 					: Long.parseLong(n
 							.getProperty(NodeProperty.LAST_MODIFIED_DATE));
-			OCFile file = new OCFile(getContentProvider(), getAccount(),
-					n.getProperty(NodeProperty.PATH));
-			if (file.fileExists() && file.getModificationTimestamp() >= mod) {
+			
+			OCFile file = getStorageManager().getFileByPath(n.getProperty(NodeProperty.PATH));
+			if (file != null && file.fileExists() && file.getModificationTimestamp() >= mod) {
 				Log.d(TAG, "No update for file/dir " + file.getFileName()
 						+ " is needed");
 			} else {
+			  file = new OCFile(n.getProperty(NodeProperty.PATH));
 				Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH)
 						+ " will be "
 						+ (file.fileExists() ? "updated" : "created"));
@@ -221,10 +232,13 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 				long create = n.getProperty(NodeProperty.CREATE_DATE) == null ? 0
 						: Long.parseLong(n
 								.getProperty(NodeProperty.CREATE_DATE));
-				file = OCFile.createNewFile(getContentProvider(), getAccount(),
-						n.getProperty(NodeProperty.PATH), len, create, mod,
-						n.getProperty(NodeProperty.RESOURCE_TYPE), parent_id);
-				file.save();
+
+				file.setFileLength(len);
+				file.setCreationTimestamp(create);
+				file.setModificationTimestamp(mod);
+				file.setMimetype(n.getProperty(NodeProperty.RESOURCE_TYPE));
+				file.setParentId(parent_id);
+				getStorageManager().saveFile(file);
 				if (override_parent) {
 					parent_id = file.getFileId();
 					override_parent = false;

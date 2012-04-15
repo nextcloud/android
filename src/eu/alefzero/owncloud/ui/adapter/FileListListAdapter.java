@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 
 import android.content.Context;
@@ -42,10 +43,12 @@ public class FileListListAdapter implements ListAdapter {
   private Context mContext;
   private OCFile mFile;
   private Vector<OCFile> mFiles;
+  private DataStorageManager mStorageManager;
   
-  public FileListListAdapter(OCFile file, Context context) {
+  public FileListListAdapter(OCFile file, DataStorageManager storage_man, Context context) {
     mFile = file;
-    mFiles = mFile.getDirectoryContent();
+    mStorageManager = storage_man;
+    mFiles = mStorageManager.getDirectoryContent(mFile);
     mContext = context;
   }
   

@@ -23,10 +23,13 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AuthUtils;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.ui.FragmentListView;
 import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
@@ -42,6 +45,7 @@ public class FileListFragment extends FragmentListView {
   private Account mAccount;
   private Stack<String> mDirNames;
   private Vector<OCFile> mFiles;
+  private DataStorageManager mStorageManager;
 
   public FileListFragment() {
     mDirNames = new Stack<String>();
@@ -53,8 +57,6 @@ public class FileListFragment extends FragmentListView {
 
     mAccount = AuthUtils.getCurrentOwnCloudAccount(getActivity());
     populateFileList();
-    // TODO: Remove this testing stuff
-    //addContact(mAccount, "Bartek Przybylski", "czlowiek");
   }
   
   @Override
@@ -77,6 +79,7 @@ public class FileListFragment extends FragmentListView {
     i.putExtra("FILE_NAME", file.getFileName());
     i.putExtra("FULL_PATH", file.getPath());
     i.putExtra("FILE_ID", id_);
+    Log.e("ASD", mAccount+"");
     i.putExtra("ACCOUNT", mAccount);
     FileDetailFragment fd = (FileDetailFragment) getFragmentManager().findFragmentById(R.id.fileDetail);
     if (fd != null) {
@@ -100,11 +103,12 @@ public class FileListFragment extends FragmentListView {
   private void populateFileList() {
     String s = "/";
     for (String a : mDirNames)
-      s+= a+"/";
+      s+= a + "/";
 
-    OCFile file = new OCFile(getActivity().getContentResolver(), mAccount, s);
-    mFiles = file.getDirectoryContent();
-    setListAdapter(new FileListListAdapter(file, getActivity()));
+    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+    OCFile file = mStorageManager.getFileByPath(s);
+    mFiles = mStorageManager.getDirectoryContent(file);
+    setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
   }
   
   //TODO: Delete this testing stuff.

@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
@@ -64,6 +65,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 		try {
 			this.setAccount(account);
 			this.setContentProvider(provider);
+			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
 
 			HttpPropFind query = this.getPropFindQuery();
 			query.setEntity(new StringEntity(WebdavUtils.prepareXmlForPropFind()));

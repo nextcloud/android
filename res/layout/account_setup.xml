@@ -134,7 +134,21 @@
 					android:hint="@string/setup_hint_show_password"
 					android:textColor="@android:color/black"
 					android:onClick="onCheckboxClick"/>
+            </TableRow>
+            <TableRow android:id="@+id/tableRow6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1.0">
                 
+                <CheckBox
+          android:id="@+id/use_ssl"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight=".75"
+          android:hint="@string/use_ssl"
+          android:textColor="@android:color/black"
+          android:onClick="onCheckboxClick"/>
             </TableRow>
         </TableLayout>
 
