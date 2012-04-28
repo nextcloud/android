@@ -90,6 +90,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
         file.setParentId(parentId);
+        getStorageManager().saveFile(file);
+        if (parentId == 0) parentId = file.getFileId();
+
         if (we.contentType().equals("DIR"))
           fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
       }
