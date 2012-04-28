@@ -22,12 +22,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
@@ -38,7 +40,6 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.FileEntity;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
@@ -53,12 +54,13 @@ import eu.alefzero.webdav.HttpMkCol;
 import android.net.Uri;
 import android.util.Log;
 
-public class WebdavClient {
+public class WebdavClient extends HttpClient {
   private DefaultHttpClient mHttpClient;
   private BasicHttpContext mHttpContext;
   private HttpHost mTargetHost;
   private SchemeRegistry mSchemeRegistry;
   private Uri mUri;
+  private Credentials mCredentials;
   final private static String TAG = "WebdavClient";
   
   public DefaultHttpClient getHttpClient() {
@@ -80,13 +82,15 @@ public class WebdavClient {
                         ( mUri.getScheme().equals("https") ? 443 : 80)
                         : mUri.getPort();
 
-    mHttpClient.getCredentialsProvider().setCredentials(
-        new AuthScope(mUri.getHost(), targetPort), 
-        new UsernamePasswordCredentials(username, password));
-    BasicScheme basicAuth = new BasicScheme();
-    mHttpContext.setAttribute("preemptive-auth", basicAuth);
+    getParams().setAuthenticationPreemptive(true);
+    getState().setCredentials(AuthScope.ANY, getCredentials(username, password));
   }
   
+  private Credentials getCredentials(String username, String password) {
+    if (mCredentials == null)
+      mCredentials = new UsernamePasswordCredentials(username, password); 
+    return mCredentials;
+  }
   public void allowUnsignedCertificates() {
     // https
     mSchemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));

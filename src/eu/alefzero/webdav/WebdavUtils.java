@@ -78,7 +78,7 @@ public class WebdavUtils {
     return "<?xml version=\"1.0\" ?><D:propertyupdate xmlns:D=\"DAV:\"></D:propertyupdate>";
   }
   
-  private static Date parseResponseDate(String date) {
+  public static Date parseResponseDate(String date) {
     Date returnDate = null;
     for (int i = 0; i < DATETIME_FORMATS.length; ++i) {
       try {

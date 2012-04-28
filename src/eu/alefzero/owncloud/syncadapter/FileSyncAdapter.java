@@ -21,6 +21,11 @@ package eu.alefzero.owncloud.syncadapter;
 import java.io.IOException;
 
 import org.apache.http.entity.StringEntity;
+import org.apache.jackrabbit.webdav.DavException;
+import org.apache.jackrabbit.webdav.MultiStatus;
+import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+import org.apache.jackrabbit.webdav.property.DavProperty;
+import org.apache.jackrabbit.webdav.property.DavPropertyName;
 
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
@@ -35,10 +40,12 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.TreeNode;
 import eu.alefzero.webdav.TreeNode.NodeProperty;
+import eu.alefzero.webdav.WebdavEntry;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
@@ -53,7 +60,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 	public FileSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
 	}
-
+	
 	@Override
 	public synchronized void onPerformSync(
 			Account account, 
@@ -62,83 +69,43 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			ContentProviderClient provider, 
 			SyncResult syncResult) {
 
-		try {
 			this.setAccount(account);
 			this.setContentProvider(provider);
 			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
 
-			HttpPropFind query = this.getPropFindQuery();
-			query.setEntity(new StringEntity(WebdavUtils.prepareXmlForPropFind()));
-			TreeNode root = this.fireRequest(query);
-
-		//	commitToDatabase(root, null);
-		} catch (OperationCanceledException e) {
-			e.printStackTrace();
-		} catch (AuthenticatorException e) {
-			syncResult.stats.numAuthExceptions++;
-			e.printStackTrace();
-		} catch (IOException e) {
-			syncResult.stats.numIoExceptions++;
-			e.printStackTrace();
-		}// catch (RemoteException e) {
-		//	e.printStackTrace();
-		// q}
+			fetchData(getUri().toString(), syncResult, 0);
 	}
 
-	private void commitToDatabase(TreeNode root, String parentId) throws RemoteException {
-		for (TreeNode n : root.getChildList()) {
-			Log.d(TAG, n.toString());
-			ContentValues cv = new ContentValues();
-			cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, n.getProperty(NodeProperty.CONTENT_LENGTH));
-			cv.put(ProviderTableMeta.FILE_MODIFIED, n.getProperty(NodeProperty.LAST_MODIFIED_DATE));
-			cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, n.getProperty(NodeProperty.RESOURCE_TYPE));
-			cv.put(ProviderTableMeta.FILE_PARENT, parentId);
+  private void fetchData(String uri, SyncResult syncResult, long parentId) {
+    try {
+      PropFindMethod query = new PropFindMethod(uri);
+      getClient().executeMethod(query);
+      MultiStatus resp = null;
+      resp = query.getResponseBodyAsMultiStatus();
+      for (int i = (parentId==0?0:1); i < resp.getResponses().length; ++i) {
+        WebdavEntry we = new WebdavEntry(resp.getResponses()[i]);
+        OCFile file = new OCFile(we.path());
+        file.setCreationTimestamp(we.createTimestamp());
+        file.setFileLength(we.contentLength());
+        file.setMimetype(we.contentType());
+        file.setModificationTimestamp(we.modifiedTimesamp());
+        file.setParentId(parentId);
+        if (we.contentType().equals("DIR"))
+          fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
+      }
 
-			String name = n.getProperty(NodeProperty.NAME),
-					path = n.getProperty(NodeProperty.PATH);
-			Cursor c = this.getContentProvider().query(ProviderTableMeta.CONTENT_URI_FILE,
-					null,
-					ProviderTableMeta.FILE_NAME+"=? AND " + ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-					new String[]{name, path, this.getAccount().name},
-					null);
-			if (c.moveToFirst()) {
-				this.getContentProvider().update(ProviderTableMeta.CONTENT_URI,
-						cv,
-						ProviderTableMeta._ID+"=?",
-								new String[]{c.getString(c.getColumnIndex(ProviderTableMeta._ID))});
-				Log.d(TAG, "ID of: "+name+":"+c.getString(c.getColumnIndex(ProviderTableMeta._ID)));
-			} else {
-				cv.put(ProviderTableMeta.FILE_NAME, n.getProperty(NodeProperty.NAME));
-				cv.put(ProviderTableMeta.FILE_PATH, n.getProperty(NodeProperty.PATH));
-				cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, this.getAccount().name);
-				Uri entry = this.getContentProvider().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
-				Log.d(TAG, "Inserting new entry " + path);
-				c = this.getContentProvider().query(entry, null, null, null, null);
-				c.moveToFirst();
-			}
-			if (n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
-				commitToDatabase(n, c.getString(c.getColumnIndex(ProviderTableMeta._ID)));
-			}
-		}
-		// clean removed files
-		String[] selection = new String[root.getChildList().size()+2];
-		selection[0] = this.getAccount().name;
-		selection[1] = parentId;
-		String qm = "";
-		for (int i = 2; i < selection.length-1; ++i) {
-			qm += "?,";
-			selection[i] = root.getChildList().get(i-2).getProperty(NodeProperty.NAME);
-		}
-		if (selection.length >= 3) {
-			selection[selection.length-1] = root.getChildrenNames()[selection.length-3];
-			qm += "?";
-		}
-		for (int i = 0; i < selection.length; ++i) {
-			Log.d(TAG,selection[i]+"");
-		}
-		Log.d(TAG,"Removing files "+ parentId);
-		this.getContentProvider().delete(ProviderTableMeta.CONTENT_URI,
-				ProviderTableMeta.FILE_ACCOUNT_OWNER+"=? AND " + ProviderTableMeta.FILE_PARENT + (parentId==null?" IS ":"=")+"? AND " + ProviderTableMeta.FILE_NAME + " NOT IN ("+qm+")",
-				selection);
-	}
+    } catch (OperationCanceledException e) {
+      e.printStackTrace();
+    } catch (AuthenticatorException e) {
+      syncResult.stats.numAuthExceptions++;
+      e.printStackTrace();
+    } catch (IOException e) {
+      syncResult.stats.numIoExceptions++;
+      e.printStackTrace();
+    } catch (DavException e) {
+      syncResult.stats.numIoExceptions++;
+      e.printStackTrace();
+    }
+  }
+	
 }

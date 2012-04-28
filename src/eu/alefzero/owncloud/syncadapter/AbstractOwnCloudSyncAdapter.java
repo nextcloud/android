@@ -153,12 +153,12 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 	protected HttpResponse fireRawRequest(HttpRequest query)
 			throws ClientProtocolException, OperationCanceledException,
 			AuthenticatorException, IOException {
-		BasicHttpContext httpContext = new BasicHttpContext();
+		/*BasicHttpContext httpContext = new BasicHttpContext();
 		BasicScheme basicAuth = new BasicScheme();
 		httpContext.setAttribute("preemptive-auth", basicAuth);
 
-		HttpResponse response = getClient().execute(mHost, query, httpContext);
-		return response;
+		HttpResponse response = getClient().execute(mHost, query, httpContext);*/
+		return null;
 	}
 
 	protected TreeNode fireRequest(HttpRequest query)
@@ -168,8 +168,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 
 		TreeNode root = new TreeNode();
 		root.setProperty(TreeNode.NodeProperty.NAME, "");
-		this.parseResponse(response, getUri(), getClient(), mHost,
-				root.getChildList(), false, 0);
+		//this.parseResponse(response, getUri(), getClient(), mHost,
+		//		root.getChildList(), false, 0);
 		return root;
 	}
 
@@ -178,7 +178,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 				AccountAuthenticator.KEY_OC_URL));
 	}
 
-	private DefaultHttpClient getClient() throws OperationCanceledException,
+	protected WebdavClient getClient() throws OperationCanceledException,
 			AuthenticatorException, IOException {
 		if (mClient == null) {
 			String username = getAccount().name.split("@")[0];
@@ -196,7 +196,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 			mHost = mClient.getTargetHost();
 		}
 
-		return mClient.getHttpClient();
+		return mClient;
 	}
 
 	private void parseResponse(HttpResponse resp, Uri uri,

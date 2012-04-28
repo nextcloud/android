@@ -104,6 +104,7 @@ public class FileListFragment extends FragmentListView {
     String s = "/";
     for (String a : mDirNames)
       s+= a + "/";
+    Log.e("ASD", s);
 
     mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
     OCFile file = mStorageManager.getFileByPath(s);

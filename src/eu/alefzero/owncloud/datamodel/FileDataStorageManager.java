@@ -124,7 +124,7 @@ public class FileDataStorageManager implements DataStorageManager {
         file.setFileId(new_id);
       }
     }
-    
+
     if (file.isDirectory() && file.needsUpdatingWhileSaving())
       for (OCFile f : getDirectoryContent(file))
         saveFile(f);
