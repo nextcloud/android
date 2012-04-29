@@ -21,16 +21,12 @@ package eu.alefzero.owncloud.syncadapter;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.LinkedList;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import android.accounts.Account;
@@ -41,16 +37,10 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
 import android.net.Uri;
-import android.text.TextUtils;
-import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
-import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.HttpPropFind;
-import eu.alefzero.webdav.TreeNode;
-import eu.alefzero.webdav.TreeNode.NodeProperty;
 import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Base SyncAdapter for OwnCloud Designed to be subclassed for the concrete
@@ -161,18 +151,6 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 		return null;
 	}
 
-	protected TreeNode fireRequest(HttpRequest query)
-			throws ClientProtocolException, OperationCanceledException,
-			AuthenticatorException, IOException {
-		HttpResponse response = fireRawRequest(query);
-
-		TreeNode root = new TreeNode();
-		root.setProperty(TreeNode.NodeProperty.NAME, "");
-		//this.parseResponse(response, getUri(), getClient(), mHost,
-		//		root.getChildList(), false, 0);
-		return root;
-	}
-
 	protected Uri getUri() {
 		return Uri.parse(this.getAccountManager().getUserData(getAccount(),
 				AccountAuthenticator.KEY_OC_URL));
@@ -197,64 +175,5 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 		}
 
 		return mClient;
-	}
-
-	private void parseResponse(HttpResponse resp, Uri uri,
-			DefaultHttpClient client, HttpHost targetHost,
-			LinkedList<TreeNode> insertList, boolean sf, long parent_id)
-			throws IOException, OperationCanceledException,
-			AuthenticatorException {
-		boolean skipFirst = sf, override_parent = !sf;
-		for (TreeNode n : WebdavUtils.parseResponseToNodes(resp.getEntity()
-				.getContent())) {
-			if (skipFirst) {
-				skipFirst = false;
-				continue;
-			}
-			String path = n.stripPathFromFilename(uri.getPath());
-
-			long mod = n.getProperty(NodeProperty.LAST_MODIFIED_DATE) == null ? 0
-					: Long.parseLong(n
-							.getProperty(NodeProperty.LAST_MODIFIED_DATE));
-			
-			OCFile file = getStorageManager().getFileByPath(n.getProperty(NodeProperty.PATH));
-			if (file != null && file.fileExists() && file.getModificationTimestamp() >= mod) {
-				Log.d(TAG, "No update for file/dir " + file.getFileName()
-						+ " is needed");
-			} else {
-			  file = new OCFile(n.getProperty(NodeProperty.PATH));
-				Log.d(TAG, "File " + n.getProperty(NodeProperty.PATH)
-						+ " will be "
-						+ (file.fileExists() ? "updated" : "created"));
-				long len = n.getProperty(NodeProperty.CONTENT_LENGTH) == null ? 0
-						: Long.parseLong(n
-								.getProperty(NodeProperty.CONTENT_LENGTH));
-				long create = n.getProperty(NodeProperty.CREATE_DATE) == null ? 0
-						: Long.parseLong(n
-								.getProperty(NodeProperty.CREATE_DATE));
-
-				file.setFileLength(len);
-				file.setCreationTimestamp(create);
-				file.setModificationTimestamp(mod);
-				file.setMimetype(n.getProperty(NodeProperty.RESOURCE_TYPE));
-				file.setParentId(parent_id);
-				getStorageManager().saveFile(file);
-				if (override_parent) {
-					parent_id = file.getFileId();
-					override_parent = false;
-				}
-			}
-
-			if (!TextUtils.isEmpty(n.getProperty(NodeProperty.NAME))
-					&& n.getProperty(NodeProperty.RESOURCE_TYPE).equals("DIR")) {
-
-				HttpPropFind method = new HttpPropFind(uri.getPath() + path
-						+ n.getProperty(NodeProperty.NAME).replace(" ", "%20")
-						+ "/");
-				HttpResponse response = fireRawRequest(method);
-				parseResponse(response, uri, client, targetHost,
-						n.getChildList(), true, file.getFileId());
-			}
-		}
 	}
 }

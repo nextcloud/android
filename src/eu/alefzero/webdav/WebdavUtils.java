@@ -37,8 +37,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import eu.alefzero.webdav.TreeNode.NodeProperty;
-
 import android.util.Log;
 
 public class WebdavUtils {
@@ -97,75 +95,5 @@ public class WebdavUtils {
       }
     }
     return null;
-  }
-  
-  public static List<TreeNode> parseResponseToNodes(InputStream response) {
-    LinkedList<TreeNode> rList = new LinkedList<TreeNode>();
-    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder builder;
-    try {
-      builder = factory.newDocumentBuilder();
-      Document document = builder.parse(response);
-      String davPrefix = determineDAVPrefix(document.getDocumentElement());
-      
-      NodeList nodes = document.getElementsByTagName(davPrefix + RESPONSE);
-      Log.i("WebdavUtils", "Parsing " + nodes.getLength() + " response nodes");
-      
-      for (int i = 0; i < nodes.getLength(); ++i) {
-        Node currentNode = nodes.item(i);
-        TreeNode resultNode =  new TreeNode();
-        parseResourceType(currentNode, resultNode, davPrefix);
-        parseResourceDates(currentNode, resultNode, davPrefix);
-        parseDisplayName(currentNode, resultNode, davPrefix);
-        rList.add(resultNode);
-      }
-    } catch (ParserConfigurationException e) {
-      e.printStackTrace();
-    } catch (SAXException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return rList;
-  }
-
-  private static void parseDisplayName(Node currentNode, TreeNode resultNode,
-      String davPrefix) {
-    Element currentElement = (Element) currentNode;
-    if (currentElement.getElementsByTagName(davPrefix + HREF).getLength() != 0) {
-      String filepath = currentElement.getElementsByTagName(davPrefix + HREF).item(0).getFirstChild().getNodeValue();
-      resultNode.setProperty(NodeProperty.NAME, filepath);
-    }
-  }
-
-  private static void parseResourceDates(Node currentNode, TreeNode resultNode, String davPrefix) {
-    Element currentElement = (Element)currentNode;
-    if (currentElement.getElementsByTagName(davPrefix + LAST_MODIFIED).getLength() != 0) {
-      Date date = parseResponseDate(
-          currentElement.getElementsByTagName(davPrefix + LAST_MODIFIED).item(0).getFirstChild().getNodeValue());
-      resultNode.setProperty(NodeProperty.LAST_MODIFIED_DATE, String.valueOf(date.getTime()));
-    }
-    if (currentElement.getElementsByTagName(davPrefix + CREATE_DATE).getLength() != 0) {
-      Date date = parseResponseDate(
-          currentElement.getElementsByTagName(davPrefix + CREATE_DATE).item(0).getFirstChild().getNodeValue());
-      resultNode.setProperty(NodeProperty.CREATE_DATE, String.valueOf(date.getTime()));
-    }
-  }
-
-  private static void parseResourceType(Node currentNode, TreeNode resultNode, String davPrefix) {
-    Element currentElement = (Element)currentNode;
-    if (currentElement.getElementsByTagName(davPrefix + RESOURCE_TYPE).getLength() != 0 &&
-        currentElement.getElementsByTagName(davPrefix + RESOURCE_TYPE).item(0).hasChildNodes()) {
-      resultNode.setProperty(NodeProperty.RESOURCE_TYPE, "DIR");
-    } else {
-      if (currentElement.getElementsByTagName(davPrefix + CONTENT_TYPE).getLength() != 0) {
-        resultNode.setProperty(NodeProperty.RESOURCE_TYPE, 
-            currentElement.getElementsByTagName(davPrefix + CONTENT_TYPE).item(0).getFirstChild().getNodeValue());
-      }
-      if (currentElement.getElementsByTagName(davPrefix + CONTENT_LENGTH).getLength() != 0) {
-        resultNode.setProperty(NodeProperty.CONTENT_LENGTH, 
-            currentElement.getElementsByTagName(davPrefix + CONTENT_LENGTH).item(0).getFirstChild().getNodeValue());
-      }
-    }
   }
 }

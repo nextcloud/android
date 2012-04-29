@@ -31,7 +31,6 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.util.Log;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.WebdavEntry;
@@ -43,7 +42,6 @@ import eu.alefzero.webdav.WebdavEntry;
  * @author Bartek Przybylski
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
-	private static final String TAG = "FileSyncAdapter";
 
 	public FileSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
@@ -72,7 +70,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
           OCFile file = fillOCFile(we);
           file.setParentId(0);
           getStorageManager().saveFile(file);
-          Log.d(TAG, file.getPath() + " " + file.getFileId());
           fetchData(getUri().toString(), syncResult, file.getFileId());
         }
       } catch (OperationCanceledException e) {
