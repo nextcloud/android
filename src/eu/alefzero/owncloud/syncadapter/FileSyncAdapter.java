@@ -20,33 +20,21 @@ package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
 
-import org.apache.http.entity.StringEntity;
 import org.apache.jackrabbit.webdav.DavException;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.apache.jackrabbit.webdav.property.DavProperty;
-import org.apache.jackrabbit.webdav.property.DavPropertyName;
 
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.ContentProviderClient;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncResult;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.util.Log;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
-import eu.alefzero.webdav.HttpPropFind;
-import eu.alefzero.webdav.TreeNode;
-import eu.alefzero.webdav.TreeNode.NodeProperty;
 import eu.alefzero.webdav.WebdavEntry;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
@@ -73,7 +61,33 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			this.setContentProvider(provider);
 			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
 
-			fetchData(getUri().toString(), syncResult, 0);
+			PropFindMethod query;
+      try {
+        query = new PropFindMethod(getUri().toString());
+        getClient().executeMethod(query);
+        MultiStatus resp = null;
+        resp = query.getResponseBodyAsMultiStatus();
+        if (resp.getResponses().length > 0) {
+          WebdavEntry we = new WebdavEntry(resp.getResponses()[0]);
+          OCFile file = fillOCFile(we);
+          file.setParentId(0);
+          getStorageManager().saveFile(file);
+          Log.d(TAG, file.getPath() + " " + file.getFileId());
+          fetchData(getUri().toString(), syncResult, file.getFileId());
+        }
+      } catch (OperationCanceledException e) {
+        e.printStackTrace();
+      } catch (AuthenticatorException e) {
+        syncResult.stats.numAuthExceptions++;
+        e.printStackTrace();
+      } catch (IOException e) {
+        syncResult.stats.numIoExceptions++;
+        e.printStackTrace();
+      } catch (DavException e) {
+        syncResult.stats.numIoExceptions++;
+        e.printStackTrace();
+      }
+      
 	}
 
   private void fetchData(String uri, SyncResult syncResult, long parentId) {
@@ -82,21 +96,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
       getClient().executeMethod(query);
       MultiStatus resp = null;
       resp = query.getResponseBodyAsMultiStatus();
-      for (int i = (parentId==0?0:1); i < resp.getResponses().length; ++i) {
+      for (int i = 1; i < resp.getResponses().length; ++i) {
         WebdavEntry we = new WebdavEntry(resp.getResponses()[i]);
-        OCFile file = new OCFile(we.path());
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimesamp());
+        OCFile file = fillOCFile(we);
         file.setParentId(parentId);
         getStorageManager().saveFile(file);
         if (parentId == 0) parentId = file.getFileId();
-
         if (we.contentType().equals("DIR"))
           fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
       }
-
     } catch (OperationCanceledException e) {
       e.printStackTrace();
     } catch (AuthenticatorException e) {
@@ -109,6 +117,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
       syncResult.stats.numIoExceptions++;
       e.printStackTrace();
     }
+  }
+  
+  private OCFile fillOCFile(WebdavEntry we) {
+    OCFile file = new OCFile(we.path());
+    file.setCreationTimestamp(we.createTimestamp());
+    file.setFileLength(we.contentLength());
+    file.setMimetype(we.contentType());
+    file.setModificationTimestamp(we.modifiedTimesamp());
+    return file;
   }
 	
 }
