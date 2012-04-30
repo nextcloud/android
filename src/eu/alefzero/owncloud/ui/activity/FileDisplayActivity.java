@@ -155,12 +155,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	
 	@Override
 	public void onBackPressed(){
-		popPath();
-		if(mDirectories.getCount() == 0) {
-			Intent intent = new Intent(this, LandingActivity.class);
-			startActivity(intent);
+		if(mDirectories.getCount() == 1) {
+		  finish();
 			return;
 		}
+		popPath();
 		((FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList))
 				.onNavigateUp();
 	}

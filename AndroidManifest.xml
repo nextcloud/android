@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="eu.alefzero.owncloud"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.alefzero.owncloud"
     android:versionCode="1"
-    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -30,6 +31,11 @@
             android:name=".ui.activity.FileDisplayActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ownCloud" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Uploader" >
             <intent-filter>
@@ -53,8 +59,9 @@
                 </data>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.Preferences" 
-            android:theme="@style/Theme.ownCloud">
+        <activity
+            android:name=".ui.activity.Preferences"
+            android:theme="@style/Theme.ownCloud" >
         </activity>
         <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
         </activity>
@@ -81,21 +88,6 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter_files" />
         </service>
-        <service
-            android:name=".syncadapter.ContactSyncService"
-            android:exported="true"
-            android:process=":contacts" >
-            <intent-filter>
-                <action android:name="android.content.SyncAdapter" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter_contacts" />
-            <meta-data
-                android:name="android.provider.CONTACTS_STRUCTURE"
-                android:resource="@xml/contacts" />
-        </service>
 
         <provider
             android:name=".providers.FileContentProvider"
@@ -114,33 +106,24 @@
 
         <service android:name=".FileDownloader" >
         </service>
-        
-        <service android:name=".location.LocationUpdateService">
+        <service android:name=".location.LocationUpdateService" >
             <intent-filter>
-				<action android:name="eu.alefzero.owncloud.location.LocationUpdateService" />
-			</intent-filter>
-        </service>
-        
-        <receiver android:name=".location.LocationServiceLauncherReciever">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="eu.alefzero.owncloud.location.LocationLauncher" />
-				<category android:name="android.intent.category.HOME" />
-			</intent-filter>
-		</receiver>
-
-        <activity android:name=".ui.activity.FileDetailActivity" 
-            android:theme="@style/Theme.ownCloud">
-        </activity>
-        <activity
-            android:name=".ui.activity.LandingActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ownCloud" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="eu.alefzero.owncloud.location.LocationUpdateService" />
             </intent-filter>
+        </service>
+
+        <receiver android:name=".location.LocationServiceLauncherReciever" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="eu.alefzero.owncloud.location.LocationLauncher" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.activity.FileDetailActivity"
+            android:theme="@style/Theme.ownCloud" >
         </activity>
     </application>
 
