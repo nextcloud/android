@@ -86,23 +86,22 @@ public class ActionEditText extends EditText {
           paramtypes[1] = String.class;
           Method method;
           try {
-            method = this.getClass().getMethod(badgeClickCallback, paramtypes);
-            method.invoke(this, this, s);
+
+            method = getContext().getClass().getMethod(badgeClickCallback, paramtypes);
+            method.invoke(getContext(), this, s);
+
           } catch (NoSuchMethodException e) {
             e.printStackTrace();
           } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
           }
           
+          invalidate();
         }
-        invalidate();
       }
     }
     return r;
@@ -115,19 +114,6 @@ public class ActionEditText extends EditText {
     optionOneColor = a.getColor(R.styleable.ActionEditText_optionOneColor, 0x00ff00);
     optionTwoColor = a.getColor(R.styleable.ActionEditText_optionTwoColor, 0xff0000);
     badgeClickCallback = a.getString(R.styleable.ActionEditText_onBadgeClick);
-  }
-  
-  public void sslBadgeClick(View view, String val) {
-    Log.d("ASD", val);
-  }
-  
-  public void passwordBadgeClick(View view, String val) {
-    
-    if(val.equals("Hide")) {
-      ((TextView)view).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-    } else {
-      ((TextView)view).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-    }
   }
   
 }

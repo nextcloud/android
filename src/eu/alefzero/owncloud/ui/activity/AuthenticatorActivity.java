@@ -225,29 +225,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                 AuthenticatorActivity.this);
     }
     
-    /**
-     * Handles the show password checkbox
-     * @author robstar
-     * @author aqu
-     * @param view
-     */
-    public void onCheckboxClick(View view) {
-      switch (view.getId()) {
-        case R.id.show_password:
-          TextView password_text = (TextView) findViewById(R.id.account_password);
-          
-          if(((CheckBox)view).isChecked()) {
-            password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-          } else {
-            password_text.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-          }
-        break;
-        case R.id.use_ssl:
-          mUseSSLConnection = ((CheckBox)view).isChecked();
-        break;
-        default:
-          Log.d("AuthActivity", "Clicked invalid view with id: " + view.getId());
+    public void sslBadgeClick(View view, String val) {
+      mUseSSLConnection = ((TextView)view).getText().equals("SSL");
+    }
+    
+    public void passwordBadgeClick(View view, String val) {
+      if(val.equals("Hide")) {
+        ((TextView)view).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+      } else {
+        ((TextView)view).setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
       }
-    	
     }
 }
