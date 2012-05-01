@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:oc="http://schemas.android.com/apk/res/eu.alefzero.owncloud"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#F7F7F7"
@@ -67,7 +68,7 @@
                 android:gravity="center_horizontal"
                 android:weightSum="1.0" >
 
-                <EditText
+                <eu.alefzero.owncloud.widgets.ActionEditText
                     android:id="@+id/host_URL"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -75,11 +76,16 @@
                     android:hint="@string/setup_hint_address"
                     android:inputType="textUri"
                     android:textColor="@android:color/black"
-                    android:singleLine="true" >
+                    android:singleLine="true"
+                    oc:optionOneString="SSL"
+                    oc:optionTwoString="NO SSL"
+                    oc:optionOneColor="#00ff00"
+                    oc:optionTwoColor="#ff0000"
+                    oc:onBadgeClick="sslBadgeClick">
 
                     <requestFocus>
                     </requestFocus>
-                </EditText>
+                </eu.alefzero.owncloud.widgets.ActionEditText>
             </TableRow>
 
             <TableRow
@@ -108,7 +114,7 @@
                 android:gravity="center_horizontal"
                 android:weightSum="1.0" >
 
-                <EditText
+                <eu.alefzero.owncloud.widgets.ActionEditText
                     android:id="@+id/account_password"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -116,9 +122,14 @@
                     android:hint="@string/setup_hint_password"
                     android:inputType="textPassword"
                     android:singleLine="true"
-                    android:textColor="@android:color/black" >
+                    android:textColor="@android:color/black" 
+                    oc:optionOneString="Show"
+                    oc:optionTwoString="Hide"
+                    oc:optionOneColor="#00ff00"
+                    oc:optionTwoColor="#ff0000"
+                    oc:onBadgeClick="passwordBadgeClick">
 
-                </EditText>
+                </eu.alefzero.owncloud.widgets.ActionEditText>
             </TableRow>
             <TableRow android:id="@+id/tableRow5"
                 android:layout_width="fill_parent"
@@ -157,7 +168,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:weightSum="1.0" >
 
             <Button
@@ -169,6 +180,17 @@
                 android:textColor="@android:color/black"
                 android:text="@string/setup_btn_connect" >
             </Button>
+
+            <Button
+                android:id="@+id/buttonNotUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:onClick="onNotUserClick"
+                android:textColor="@android:color/black"
+                android:text="Get started!" >
+            </Button>
+            
         </LinearLayout>
     </LinearLayout>
 

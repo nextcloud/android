@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<declare-styleable name="ActionEditText">
+
+		<attr name="optionOneString" format="string" />
+		<attr name="optionOneColor" format="color" />
+    <attr name="optionTwoString" format="string" />
+		<attr name="optionTwoColor" format="color" />
+		<attr name="onBadgeClick" format="string" />
+
+	</declare-styleable>
+
+</resources>
