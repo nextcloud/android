@@ -59,11 +59,12 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-		OnNavigationListener {
+		OnNavigationListener, OnClickListener {
 	private ArrayAdapter<String> mDirectories;
 	private DataStorageManager mStorageManager;
 
-	private static final int DIALOG_CHOOSE_ACCOUNT = 0;
+	private static final int DIALOG_SETUP_ACCOUNT = 0;
+	private static final int DIALOG_CREATE_DIR = 1;
 
 	public void pushPath(String path) {
 		mDirectories.insert(path, 0);
@@ -75,51 +76,75 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	}
 
 	@Override
-	protected Dialog onCreateDialog(int id, Bundle args) {
-		final AlertDialog.Builder builder = new Builder(this);
-		final EditText dirName = new EditText(getBaseContext());
-		final Account a = AuthUtils.getCurrentOwnCloudAccount(this);
-		builder.setView(dirName);
-		builder.setTitle(R.string.uploader_info_dirname);
-		dirName.setTextColor(R.color.setup_text_typed);
+  protected Dialog onCreateDialog(int id) {
+    Dialog dialog;
+    AlertDialog.Builder builder;
+    switch(id){
+    case DIALOG_SETUP_ACCOUNT:
+      builder = new AlertDialog.Builder(this);
+      builder.setTitle(R.string.main_tit_accsetup);
+      builder.setMessage(R.string.main_wrn_accsetup);
+      builder.setCancelable(false);
+      builder.setPositiveButton(R.string.common_ok, this);
+      builder.setNegativeButton(R.string.common_cancel, this);
+      dialog = builder.create();
+      break;
+    case DIALOG_CREATE_DIR:
+    {
+      builder = new Builder(this);
+      final EditText dirName = new EditText(getBaseContext());
+      final Account a = AuthUtils.getCurrentOwnCloudAccount(this);
+      builder.setView(dirName);
+      builder.setTitle(R.string.uploader_info_dirname);
+      dirName.setTextColor(R.color.setup_text_typed);
 
-		builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				String s = dirName.getText().toString();
-				if (s.trim().isEmpty()) {
-					dialog.cancel();
-					return;
-				}
+      builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+          String s = dirName.getText().toString();
+          if (s.trim().isEmpty()) {
+            dialog.cancel();
+            return;
+          }
 
-				String path = "";
-				for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
-					path += "/" + mDirectories.getItem(i);
-				}
-				OCFile parent = mStorageManager.getFileByPath(path + "/");
-				path += s + "/";
-				Thread thread = new Thread(new DirectoryCreator(path, a));
-				thread.start();
-				
-				OCFile new_file = new OCFile(path);
-				new_file.setMimetype("DIR");
-				new_file.setParentId(parent.getParentId());
-				mStorageManager.saveFile(new_file);
+          String path = "";
+          for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
+            path += "/" + mDirectories.getItem(i);
+          }
+          OCFile parent = mStorageManager.getFileByPath(path + "/");
+          path += s + "/";
+          Thread thread = new Thread(new DirectoryCreator(path, a));
+          thread.start();
+          
+          OCFile new_file = new OCFile(path);
+          new_file.setMimetype("DIR");
+          new_file.setParentId(parent.getParentId());
+          mStorageManager.saveFile(new_file);
 
-				dialog.dismiss();
-			}
-		});
-		builder.setNegativeButton(R.string.common_cancel,
-				new OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
-		return builder.create();
-	}
+          dialog.dismiss();
+        }
+      });
+      builder.setNegativeButton(R.string.common_cancel,
+          new OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+              dialog.cancel();
+            }
+          });
+    }
+    default: 
+      dialog = null;
+    }
+      
+    return dialog;
+  }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(!accountsAreSetup()){
+      showDialog(DIALOG_SETUP_ACCOUNT);
+      return;
+    }
+
 		mDirectories = new CustomArrayAdapter<String>(this,
 				R.layout.sherlock_spinner_dropdown_item);
 		mDirectories.add("/");
@@ -141,7 +166,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 			break;
 		}
 		case R.id.createDirectoryItem: {
-			showDialog(0);
+			showDialog(DIALOG_CREATE_DIR);
 			break;
 		}
 		case android.R.id.home: {
@@ -165,51 +190,38 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	}
 
 	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case DIALOG_CHOOSE_ACCOUNT:
-			return createChooseAccountDialog();
-		default:
-			throw new IllegalArgumentException("Unknown dialog id: " + id);
-		}
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSherlock().getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
 
-	private Dialog createChooseAccountDialog() {
-		final AccountManager accMan = AccountManager.get(this);
-		CharSequence[] items = new CharSequence[accMan
-				.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length];
-		int i = 0;
-		for (Account a : accMan
-				.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)) {
-			items[i++] = a.name;
-		}
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.common_choose_account);
-		builder.setCancelable(true);
-		builder.setItems(items, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) {
-				// mAccount =
-				// accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[item];
-				dialog.dismiss();
-			}
-		});
-		builder.setOnCancelListener(new OnCancelListener() {
-			public void onCancel(DialogInterface dialog) {
-				FileDisplayActivity.this.finish();
-			}
-		});
-		AlertDialog alert = builder.create();
-		return alert;
+	 @Override
+	  protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	    super.onRestoreInstanceState(savedInstanceState);
+	    // Check, if there are ownCloud accounts
+	    if(!accountsAreSetup()){
+	      showDialog(DIALOG_SETUP_ACCOUNT);
+	    }
+	  }
+	 
+	 @Override
+	  protected void onStart() {
+	    super.onStart();
+	    // Check, if there are ownCloud accounts
+	    if(!accountsAreSetup()){
+	      showDialog(DIALOG_SETUP_ACCOUNT);
+	    }
+	 }
+	    
+	 @Override
+	protected void onResume() {
+	  super.onResume();
+	  if(!accountsAreSetup()){
+      showDialog(DIALOG_SETUP_ACCOUNT);
+    }
 	}
-
+	    
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		int i = itemPosition;
@@ -278,4 +290,35 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
 		
 	}
+
+	 public void onClick(DialogInterface dialog, int which) {
+	    // In any case - we won't need it anymore
+	    dialog.dismiss();
+	    switch(which){
+	    case DialogInterface.BUTTON_POSITIVE:
+	      Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
+	      intent.putExtra("authorities",
+	          new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+	      startActivity(intent);
+	      break;
+	    case DialogInterface.BUTTON_NEGATIVE:
+	      finish();
+	    }
+	    
+	  }
+	
+	/**
+   * Checks, whether or not there are any ownCloud accounts 
+   * setup. 
+   *  
+   * @return true, if there is at least one account.
+   */
+  private boolean accountsAreSetup() {
+    AccountManager accMan = AccountManager.get(this);
+    Account[] accounts = accMan
+        .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE); 
+    return accounts.length > 0;
+  }
+  
+  
 }

@@ -60,7 +60,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     public static final String PARAM_HOSTNAME = "param_Hostname";
 
     public AuthenticatorActivity() {
-      mUseSSLConnection = false;
+      mUseSSLConnection = true;
     }
     
     @Override

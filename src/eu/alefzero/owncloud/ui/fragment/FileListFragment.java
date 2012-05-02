@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
@@ -109,6 +110,9 @@ public class FileListFragment extends FragmentListView {
     mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
     OCFile file = mStorageManager.getFileByPath(s);
     mFiles = mStorageManager.getDirectoryContent(file);
+    if (mFiles == null || mFiles.size() == 0) {
+      Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
+    }
     setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
   }
   

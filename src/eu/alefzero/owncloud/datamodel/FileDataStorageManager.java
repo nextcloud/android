@@ -164,7 +164,7 @@ public class FileDataStorageManager implements DataStorageManager {
   }
 
   public Vector<OCFile> getDirectoryContent(OCFile f) {
-    if (f.isDirectory() && f.getFileId() != -1) {
+    if (f != null && f.isDirectory() && f.getFileId() != -1) {
       Vector<OCFile> ret = new Vector<OCFile>();
 
       Uri req_uri = Uri.withAppendedPath(
