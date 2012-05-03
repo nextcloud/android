@@ -73,4 +73,6 @@
     	<item>30</item>
     	<item>60</item>
 	</string-array>
+    <string name="auth_trying_to_login">Trying to login</string>
+    <string name="auth_no_ssl">No SSL</string>
 </resources>

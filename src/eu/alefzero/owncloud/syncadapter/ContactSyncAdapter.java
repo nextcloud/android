@@ -7,8 +7,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.accounts.Account;
@@ -73,7 +73,7 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     AccountManager am = getAccountManager();
     String uri = am.getUserData(getAccount(), AccountAuthenticator.KEY_OC_URL)
-                   .replace(AuthUtils.WEBDAV_PATH_2_0, AuthUtils.CARDDAV_PATH_2_0);
+                   .replace(AccountUtils.WEBDAV_PATH_2_0, AccountUtils.CARDDAV_PATH_2_0);
     uri += "/addressbooks/" + getAccount().name.substring(0, getAccount().name.lastIndexOf('@'))
         + "/default/";
     mAddrBookUri = uri;

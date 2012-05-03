@@ -27,8 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
@@ -56,7 +56,7 @@ public class FileListFragment extends FragmentListView {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    mAccount = AuthUtils.getCurrentOwnCloudAccount(getActivity());
+    mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
     populateFileList();
   }
   

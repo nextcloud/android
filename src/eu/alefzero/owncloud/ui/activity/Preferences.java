@@ -43,10 +43,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.db.DbHandler;
 
 /**
@@ -127,7 +127,7 @@ public class Preferences extends SherlockPreferenceActivity implements
 		mAccountList.setOnPreferenceChangeListener(this);
 
 		// Display the name of the current account if there is any
-		Account defaultAccount = AuthUtils.getCurrentOwnCloudAccount(this);
+		Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
 		if (defaultAccount != null) {
 			mAccountList.setSummary(defaultAccount.name);
 		}

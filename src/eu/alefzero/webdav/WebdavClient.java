@@ -24,13 +24,16 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerPNames;
@@ -154,6 +157,17 @@ public class WebdavClient extends HttpClient {
     }
     
     return result;
+  }
+  
+  public int tryToLogin() {
+    int r = 0; 
+    HeadMethod head = new HeadMethod(mUri.toString());
+    try {
+      r = executeMethod(head);
+    } catch (Exception e) {
+      Log.e(TAG, "Error: " + e.getMessage());
+    }
+    return r;
   }
   
   public boolean createDirectory(String path) {

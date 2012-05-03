@@ -42,9 +42,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
@@ -93,7 +93,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     {
       builder = new Builder(this);
       final EditText dirName = new EditText(getBaseContext());
-      final Account a = AuthUtils.getCurrentOwnCloudAccount(this);
+      final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
       builder.setView(dirName);
       builder.setTitle(R.string.uploader_info_dirname);
       dirName.setTextColor(R.color.setup_text_typed);
@@ -149,7 +149,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 				R.layout.sherlock_spinner_dropdown_item);
 		mDirectories.add("/");
 		setContentView(R.layout.files);
-		mStorageManager = new FileDataStorageManager(AuthUtils.getCurrentOwnCloudAccount(this), getContentResolver());
+		mStorageManager = new FileDataStorageManager(AccountUtils.getCurrentOwnCloudAccount(this), getContentResolver());
 		ActionBar action_bar = getSupportActionBar();
 		action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		action_bar.setDisplayShowTitleEnabled(false);

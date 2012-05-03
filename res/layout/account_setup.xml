@@ -150,7 +150,7 @@
                 android:textColor="@android:color/black"
                 android:text="@string/setup_btn_connect" >
             </Button>
-
+<!-- 
             <Button
                 android:id="@+id/buttonNotUser"
                 android:layout_width="fill_parent"
@@ -160,7 +160,7 @@
                 android:textColor="@android:color/black"
                 android:text="Get started!" >
             </Button>
-            
+-->       
         </LinearLayout>
     </LinearLayout>
 

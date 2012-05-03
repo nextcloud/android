@@ -25,8 +25,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AuthUtils;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.ui.activity.Preferences;
 
@@ -74,7 +74,7 @@ public class LandingScreenAdapter extends BaseAdapter {
 			 * We will put in the one that is selected in the preferences
 			 */
 			intent.setClass(mContext, FileDisplayActivity.class);	
-			intent.putExtra("ACCOUNT", AuthUtils.getCurrentOwnCloudAccount(mContext));
+			intent.putExtra("ACCOUNT", AccountUtils.getCurrentOwnCloudAccount(mContext));
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			break;
 		case 5:
