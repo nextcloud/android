@@ -101,7 +101,7 @@ public class FileListFragment extends FragmentListView {
   /**
    * Lists the directory
    */
-  private void populateFileList() {
+  public void populateFileList() {
     String s = "/";
     for (String a : mDirNames)
       s+= a + "/";

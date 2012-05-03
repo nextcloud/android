@@ -23,12 +23,16 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -41,6 +45,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
@@ -48,6 +53,7 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -63,6 +69,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	private ArrayAdapter<String> mDirectories;
 	private DataStorageManager mStorageManager;
 
+	private BR  b;
+	
 	private static final int DIALOG_SETUP_ACCOUNT = 0;
 	private static final int DIALOG_CREATE_DIR = 1;
 
@@ -145,6 +153,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
       return;
     }
 
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);  
+
 		mDirectories = new CustomArrayAdapter<String>(this,
 				R.layout.sherlock_spinner_dropdown_item);
 		mDirectories.add("/");
@@ -219,9 +229,20 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	  super.onResume();
 	  if(!accountsAreSetup()){
       showDialog(DIALOG_SETUP_ACCOUNT);
+      return;
     }
+	   IntentFilter f = new IntentFilter(FileSyncAdapter.SYNC_MESSAGE);
+	   b = new  BR();
+	   registerReceiver(b, f);
+	   setProgressBarIndeterminateVisibility(false);
 	}
 	    
+	 @Override
+	protected void onPause() {
+	  super.onPause();
+	  unregisterReceiver(b);
+	}
+	 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		int i = itemPosition;
@@ -320,5 +341,20 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     return accounts.length > 0;
   }
   
+  private class BR extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      boolean in_progress = intent.getBooleanExtra(FileSyncAdapter.IN_PROGRESS, false);
+      String account_name = intent.getStringExtra(FileSyncAdapter.ACCOUNT_NAME);
+      Log.d("FileDisplay", "sync of account " + account_name + " is in_progress: " + in_progress);
+      setProgressBarIndeterminateVisibility(in_progress);
+      if (!in_progress) {
+        FileListFragment f = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (f != null)
+          f.populateFileList();
+      }
+    }
+    
+  }
   
 }

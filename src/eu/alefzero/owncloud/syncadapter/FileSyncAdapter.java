@@ -29,7 +29,9 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.ContentProviderClient;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
+import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
@@ -43,6 +45,10 @@ import eu.alefzero.webdav.WebdavEntry;
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
+  public static final String SYNC_MESSAGE = "eu.alefzero.owncloud.files.ACCOUNT_SYNC";
+  public static final String IN_PROGRESS = "sync_in_progress";
+  public static final String ACCOUNT_NAME = "account_name";
+  
 	public FileSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
 	}
@@ -59,6 +65,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			this.setContentProvider(provider);
 			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
 
+			Intent i = new Intent(SYNC_MESSAGE);
+			i.putExtra(IN_PROGRESS, true);
+			i.putExtra("ACCOUNT_NAME", account.name);
+			getContext().sendStickyBroadcast(i);
+			
 			PropFindMethod query;
       try {
         query = new PropFindMethod(getUri().toString());
@@ -84,7 +95,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         syncResult.stats.numIoExceptions++;
         e.printStackTrace();
       }
-      
+      i.putExtra(IN_PROGRESS, false);
+      getContext().sendStickyBroadcast(i);
 	}
 
   private void fetchData(String uri, SyncResult syncResult, long parentId) {
