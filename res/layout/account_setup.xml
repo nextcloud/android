@@ -143,9 +143,9 @@
 
             <Button
                 android:id="@+id/buttonOK"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".50"
+                android:layout_weight=".75"
                 android:onClick="onOkClick"
                 android:textColor="@android:color/black"
                 android:text="@string/setup_btn_connect" >
@@ -153,9 +153,9 @@
 
             <Button
                 android:id="@+id/buttonNotUser"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight=".50"
+                android:layout_weight=".75"
                 android:onClick="onNotUserClick"
                 android:textColor="@android:color/black"
                 android:text="Get started!" >

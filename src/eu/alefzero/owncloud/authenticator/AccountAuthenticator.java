@@ -10,8 +10,6 @@ import android.util.Log;
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String OPTIONS_USERNAME = "username";
     public static final String OPTIONS_PASSWORD = "password";
-    public static final String OPTIONS_FILE_LIST_SYNC_ENABLED = "filelist";
-    public static final String OPTIONS_PINNED_FILE_SYNC_ENABLED = "pinned";
 
     public static final String ACCOUNT_TYPE = "owncloud";
     public static final String AUTH_TOKEN_TYPE = "org.owncloud";

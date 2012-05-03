@@ -21,6 +21,8 @@ package eu.alefzero.owncloud.ui.activity;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.actionbarsherlock.ActionBarSherlock;
+
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
@@ -167,7 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             url_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            url_text.setTextColor(android.R.color.primary_text_light);
+            url_text.setTextColor(android.R.color.black);
         }
         try {
             String url_str = url_text.getText().toString();
@@ -190,14 +192,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             username_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            username_text.setTextColor(android.R.color.primary_text_light);
+            username_text.setTextColor(android.R.color.black);
         }
 
         if (password_text.getText().toString().trim().length() == 0) {
             password_text.setTextColor(Color.RED);
             hasErrors = true;
         } else {
-            password_text.setTextColor(android.R.color.primary_text_light);
+            password_text.setTextColor(android.R.color.black);
         }
         if (hasErrors) {
             return;
