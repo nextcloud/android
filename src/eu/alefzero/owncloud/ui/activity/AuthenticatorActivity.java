@@ -243,6 +243,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity implemen
         username_text.getText().toString(),
         password_text.getText().toString());
     mAuthRunnable.setOnAuthenticationResultListener(this, mHandler);
+    Log.e(TAG, uri.toString());
     mAuthThread = new Thread(mAuthRunnable);
     mAuthThread.start();
   }

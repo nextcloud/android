@@ -3,4 +3,5 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Settings" android:icon="@android:drawable/ic_menu_preferences" android:id="@+id/settingsItem"></item>
     <item android:id="@+id/createDirectoryItem" android:title="Create Directory" android:icon="@android:drawable/ic_menu_add"></item>
+    <item android:id="@+id/startSync" android:title="Sync account"></item>
 </menu>

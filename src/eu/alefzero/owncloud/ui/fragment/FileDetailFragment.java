@@ -18,7 +18,10 @@
 package eu.alefzero.owncloud.ui.fragment;
 
 import android.accounts.Account;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,6 +52,22 @@ public class FileDetailFragment extends SherlockFragment implements OnClickListe
   
   private Intent mIntent;
   private View mView;
+  private DownloadFinishReceiver dfr;
+  
+  @Override
+  public void onResume() {
+    super.onResume();
+    dfr = new DownloadFinishReceiver();
+    IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+    getActivity().registerReceiver(dfr, filter);
+  }
+  
+  @Override
+  public void onPause() {
+    super.onPause();
+    getActivity().unregisterReceiver(dfr);
+    dfr = null;
+  }
   
   public void setStuff(Intent intent) {
     mIntent = intent;
@@ -142,6 +161,14 @@ public class FileDetailFragment extends SherlockFragment implements OnClickListe
     i.putExtra(FileDownloader.EXTRA_ACCOUNT, mIntent.getParcelableExtra("ACCOUNT"));
     i.putExtra(FileDownloader.EXTRA_FILE_PATH, mIntent.getStringExtra("FULL_PATH"));
     getActivity().startService(i);
+  }
+  
+  private class DownloadFinishReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      setStuff(getView());
+    }
+    
   }
   
 }

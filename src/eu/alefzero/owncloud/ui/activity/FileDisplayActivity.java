@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -53,7 +54,9 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
+import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -179,6 +182,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 			showDialog(DIALOG_CREATE_DIR);
 			break;
 		}
+		case R.id.startSync: {
+		  Bundle bundle = new Bundle();
+      bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+      ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this),
+		      "org.owncloud",
+		      bundle);
+      break;
+		}
 		case android.R.id.home: {
 			onBackPressed();
 			break;
@@ -231,7 +242,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
       showDialog(DIALOG_SETUP_ACCOUNT);
       return;
     }
-	   IntentFilter f = new IntentFilter(FileSyncAdapter.SYNC_MESSAGE);
+	   IntentFilter f = new IntentFilter(FileSyncService.SYNC_MESSAGE);
 	   b = new  BR();
 	   registerReceiver(b, f);
 	   setProgressBarIndeterminateVisibility(false);
@@ -344,8 +355,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
   private class BR extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-      boolean in_progress = intent.getBooleanExtra(FileSyncAdapter.IN_PROGRESS, false);
-      String account_name = intent.getStringExtra(FileSyncAdapter.ACCOUNT_NAME);
+      boolean in_progress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
+      String account_name = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
       Log.d("FileDisplay", "sync of account " + account_name + " is in_progress: " + in_progress);
       setProgressBarIndeterminateVisibility(in_progress);
       if (!in_progress) {

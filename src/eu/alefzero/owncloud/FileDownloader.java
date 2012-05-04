@@ -8,6 +8,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,9 +26,10 @@ import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service {
+  public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
   public static final String EXTRA_ACCOUNT = "ACCOUNT";
   public static final String EXTRA_FILE_PATH = "FILE_PATH";
-  private static final String TAG = "OC_FileDownloader";
+  private static final String TAG = "FileDownloader";
   
   private NotificationManager nm;
   private Looper mServiceLooper;
@@ -111,6 +113,8 @@ public class FileDownloader extends Service {
         ProviderTableMeta.FILE_NAME +"=? AND "+ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
         new String[]{mFilePath.substring(mFilePath.lastIndexOf('/')+1), mAccount.name});
     nm.cancel(1);
+    Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+    sendBroadcast(end);
   }
   
 }
