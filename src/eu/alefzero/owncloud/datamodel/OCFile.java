@@ -86,7 +86,7 @@ public class OCFile {
 	 * @return true if it is
 	 */
 	public boolean isDownloaded() {
-		return localPath != null;
+		return localPath != null || localPath.equals("");
 	}
 
 	/**

@@ -98,7 +98,11 @@ public class FileDataStorageManager implements DataStorageManager {
     cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
 
     if (fileExists(file.getPath())) {
-      file.setFileId(getFileByPath(file.getPath()).getFileId());
+      OCFile tmpfile = getFileByPath(file.getPath());
+      file.setStoragePath(tmpfile.getStoragePath());
+      cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+      file.setFileId(tmpfile.getFileId());
+      
       overriden = true;
       if (getContentResolver() != null) {
         getContentResolver().update(ProviderTableMeta.CONTENT_URI,
