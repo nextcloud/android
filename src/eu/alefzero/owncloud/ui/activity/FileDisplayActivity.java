@@ -243,8 +243,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 	  
 	   IntentFilter f = new IntentFilter(FileSyncService.SYNC_MESSAGE);
-	   b = new  BR();
-	   registerReceiver(b, f);
+	   syncBroadcastRevceiver = new  SyncBroadcastReceiver();
+	   registerReceiver(syncBroadcastRevceiver, f);
 	   if (getSupportFragmentManager().findFragmentById(R.id.fileList) == null)
 	     setContentView(R.layout.files);
 	   
@@ -304,9 +304,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	 @Override
 	protected void onPause() {
 	  super.onPause();
-	  if (b != null) {
-	    unregisterReceiver(b);
-	    b = null;
+	  if (syncBroadcastRevceiver != null) {
+	    unregisterReceiver(syncBroadcastRevceiver);
+	    syncBroadcastRevceiver = null;
 	  }
 	  
 	}
