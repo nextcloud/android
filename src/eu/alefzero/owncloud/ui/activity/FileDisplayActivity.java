@@ -23,11 +23,11 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -71,7 +71,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	private ArrayAdapter<String> mDirectories;
 	private DataStorageManager mStorageManager;
 
-	private BR  b;
+	private SyncBroadcastReceiver  syncBroadcastRevceiver;
 	
 	private static final int DIALOG_SETUP_ACCOUNT = 0;
 	private static final int DIALOG_CREATE_DIR = 1;
@@ -409,17 +409,20 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     return accounts.length > 0;
   }
   
-  private class BR extends BroadcastReceiver {
+  private class SyncBroadcastReceiver extends BroadcastReceiver {
+	  /**
+	   * {@link BroadcastReceiver} to enable syncing feedback in UI
+	   */
     @Override
     public void onReceive(Context context, Intent intent) {
-      boolean in_progress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
+      boolean inProgress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
       String account_name = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
-      Log.d("FileDisplay", "sync of account " + account_name + " is in_progress: " + in_progress);
-      setProgressBarIndeterminateVisibility(in_progress);
-      if (!in_progress) {
-        FileListFragment f = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
-        if (f != null)
-          f.populateFileList();
+      Log.d("FileDisplay", "sync of account " + account_name + " is in_progress: " + inProgress);
+      setProgressBarIndeterminateVisibility(inProgress);
+      if (!inProgress) {
+        FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (fileListFramgent != null)
+          fileListFramgent.populateFileList();
       }
     }
     
