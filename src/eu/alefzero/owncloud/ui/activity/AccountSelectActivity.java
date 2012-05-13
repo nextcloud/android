@@ -131,7 +131,14 @@ public class AccountSelectActivity extends SherlockListActivity
   @Override
   public void run(AccountManagerFuture<Boolean> future) {
     if (future.isDone()) {
-      AccountUtils.setCurrentOwnCloudAccount(this, AccountUtils.getCurrentOwnCloudAccount(this).name);
+      Account a = AccountUtils.getCurrentOwnCloudAccount(this);
+      String accountName = "";
+      if (a == null) {
+        Account[] accounts = AccountManager.get(this).getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+        if (accounts.length != 0)
+          accountName = accounts[0].name;
+        AccountUtils.setCurrentOwnCloudAccount(this, accountName);
+      }
       populateAccountList();
     }
   }
