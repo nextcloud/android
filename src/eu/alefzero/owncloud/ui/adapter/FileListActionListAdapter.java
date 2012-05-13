@@ -21,9 +21,6 @@ package eu.alefzero.owncloud.ui.adapter;
 import java.io.File;
 
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.R.drawable;
-import eu.alefzero.owncloud.R.id;
-import eu.alefzero.owncloud.R.layout;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.accounts.Account;
@@ -45,10 +42,10 @@ public class FileListActionListAdapter implements ListAdapter {
 
   private Context mContext;
   private Account mAccount;
-  private String mFilename, mFileType, mFilePath, mFileStoragePath, mItemId;
+  private String mFilename, mFileType, mFilePath, mFileStoragePath;
   
   private final int ITEM_DOWNLOAD = 0;
-  private final int ITEM_SHARE = 1;
+  //private final int ITEM_SHARE = 1;
   
   public FileListActionListAdapter(Cursor c, Context co, Account account) {
     mContext = co;
@@ -56,7 +53,7 @@ public class FileListActionListAdapter implements ListAdapter {
     mFileType = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE));
     mFilePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
     mFileStoragePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
-    mItemId = c.getString(c.getColumnIndex(ProviderTableMeta._ID));
+    //mItemId = c.getString(c.getColumnIndex(ProviderTableMeta._ID));
     mAccount = account;
   }
   

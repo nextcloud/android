@@ -8,7 +8,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -105,6 +104,7 @@ public class FileDownloader extends Service {
     dir.mkdirs();
     File file = new File(dir, mFilePath.replace('/', '.'));
     
+    Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
     wdc.downloadFile(mFilePath, file);
     ContentValues cv = new ContentValues();
     cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());

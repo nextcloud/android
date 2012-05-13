@@ -7,6 +7,12 @@
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
 	</style>
+	
+	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.Sherlock.Light.NoActionBar">
+      <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+      <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+  </style>
+	
 
 	<style name="Theme.ownCloud.Widget.ActionBar" parent="style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
     	<item name="android:background">@drawable/main_header_bg</item>

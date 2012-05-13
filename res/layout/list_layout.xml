@@ -1,17 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal"
-	android:id="@+id/ListItemLayout" android:layout_width="fill_parent"
-	android:background="#F7F7F7" android:layout_height="wrap_content">
-	<ImageView android:layout_width="wrap_content" android:src="@drawable/ic_menu_archive"
-		android:id="@+id/imageView1" android:layout_height="wrap_content"
-		android:layout_marginLeft="15dip" android:focusable="false"
-		android:focusableInTouchMode="false"></ImageView>
-	<TextView android:layout_height="wrap_content"
-		android:textColor="#303030" android:layout_width="wrap_content"
-		android:text="TextView" android:layout_marginLeft="5dip"
-		android:layout_marginBottom="5dip" android:layout_marginRight="30dip"
-		android:id="@+id/Filename" android:focusable="false"
-    android:focusableInTouchMode="false" android:textSize="20dip">
-	</TextView>
+    android:id="@+id/ListItemLayout"
+    android:layout_width="fill_parent"
+    android:background="@drawable/list_selector"
+    android:orientation="horizontal"
+    android:layout_height="56dp">
+
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
+        
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/local_file_indicator"/>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="4dp"
+            android:src="@drawable/ic_menu_archive" />
+        
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/Filename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="4dp"
+            android:text="TextView"
+            android:textColor="#303030"
+            android:textSize="20dip" />
+
+        <TextView
+            android:id="@+id/Extension"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="TextView"
+            android:textColor="#D0D0D0"
+            android:textSize="20dip" />
+    </LinearLayout>
+
 </LinearLayout>

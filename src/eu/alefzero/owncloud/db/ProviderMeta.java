@@ -58,7 +58,7 @@ public class ProviderMeta {
     public static final String FILE_PATH = "path";
     public static final String FILE_ACCOUNT_OWNER = "file_owner";
     
-    public static final String DEFAULT_SORT_ORDER = FILE_NAME + " asc";
+    public static final String DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
   }
 }

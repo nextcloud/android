@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="#fefefe" android:centerColor="#cccccc" android:endColor="#fefefe" android:angle="0"/>
+    <gradient android:startColor="@color/filelist_icon_backgorund" android:endColor="@color/filelist_icon_backgorund" android:angle="0"/>
 </shape>

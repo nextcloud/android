@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -39,7 +38,6 @@ import android.content.Context;
 import android.net.Uri;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
-import eu.alefzero.webdav.HttpPropFind;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -49,8 +47,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author sassman
  * 
  */
-public abstract class AbstractOwnCloudSyncAdapter extends
-		AbstractThreadedSyncAdapter {
+public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAdapter {
 
 	private AccountManager accountManager;
 	private Account account;
@@ -58,9 +55,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 	private Date lastUpdated;
 	private DataStorageManager mStoreManager;
 
-	private HttpHost mHost;
 	private WebdavClient mClient = null;
-	private static String TAG = "AbstractOwnCloudSyncAdapter";
 
 	public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
 		super(context, autoInitialize);
@@ -131,15 +126,6 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 		};
 	}
 
-	protected HttpPropFind getPropFindQuery()
-			throws OperationCanceledException, AuthenticatorException,
-			IOException {
-		HttpPropFind query = new HttpPropFind(getUri().toString());
-		query.setHeader("Content-type", "text/xml");
-		query.setHeader("User-Agent", "Android-ownCloud");
-		return query;
-	}
-
 	protected HttpResponse fireRawRequest(HttpRequest query)
 			throws ClientProtocolException, OperationCanceledException,
 			AuthenticatorException, IOException {
@@ -171,7 +157,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 			mClient = new WebdavClient(uri);
 			mClient.setCredentials(username, password);
 			mClient.allowUnsignedCertificates();
-			mHost = mClient.getTargetHost();
+			//mHost = mClient.getTargetHost();
 		}
 
 		return mClient;

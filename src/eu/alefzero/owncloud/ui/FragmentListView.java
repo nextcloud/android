@@ -7,17 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class FragmentListView extends SherlockFragment implements OnItemClickListener {
+public class FragmentListView extends SherlockFragment
+                              implements OnItemClickListener,
+                                         OnItemLongClickListener {
   ListView mList;
   
   @Override
   public void onCreate(Bundle savedInstanceState) {
     mList = new ListView(getActivity());
     mList.setOnItemClickListener(this);
+    mList.setOnItemLongClickListener(this);
     super.onCreate(savedInstanceState);
   }
   
@@ -38,6 +42,12 @@ public class FragmentListView extends SherlockFragment implements OnItemClickLis
   }
   
   public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {}
+
+  @Override
+  public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    return false;
+  }
+  
   
   
 }

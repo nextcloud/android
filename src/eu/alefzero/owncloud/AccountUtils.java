@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012  Bartek Przybylski
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 package eu.alefzero.owncloud;
 
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -29,15 +30,18 @@ import android.preference.PreferenceManager;
 public class AccountUtils {
   public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
   public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
+  public static final String WEBDAV_PATH_4_0 = "/remote/webdav.php";
   public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
-  
+  public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
+  public static final String STATUS_PATH = "/status.php";
+
   /**
    * Can be used to get the currently selected ownCloud account in the preferences
    * 
    * @param context The current appContext
-   * @return The current account or null, if there is none yet.
+   * @return The current account or first available, if none is available, then null.
    */
-  public static Account getCurrentOwnCloudAccount(Context context){
+  public static Account getCurrentOwnCloudAccount(Context context) {
 	  Account[] ocAccounts = AccountManager.get(context).getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
 	  Account defaultAccount = null;
 	  
@@ -58,4 +62,27 @@ public class AccountUtils {
 	  
 	return defaultAccount;
   }
+  
+  public static void setCurrentOwnCloudAccount(Context context, String name) {
+    SharedPreferences.Editor appPrefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+    appPrefs.putString("select_oc_account", name);
+    appPrefs.commit();
+  }
+  
+  /**
+   * 
+   * @param version version of owncloud
+   * @return webdav path for given OC version, null if OC version unknown
+   */
+  public static String getWebdavPath(OwnCloudVersion version) {
+    if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
+      return WEBDAV_PATH_4_0;
+    if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0 ||
+        version.compareTo(OwnCloudVersion.owncloud_v2) >= 0)
+      return WEBDAV_PATH_2_0;
+    if (version.compareTo(OwnCloudVersion.owncloud_v1) >= 0)
+      return WEBDAV_PATH_1_2;
+    return null;
+  }
+
 }

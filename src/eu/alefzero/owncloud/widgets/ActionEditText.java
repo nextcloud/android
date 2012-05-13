@@ -5,20 +5,14 @@ import java.lang.reflect.Method;
 
 import eu.alefzero.owncloud.R;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class ActionEditText extends EditText {
   private String s;
@@ -26,6 +20,7 @@ public class ActionEditText extends EditText {
   private int optionOneColor; 
   private String optionTwoString;
   private int optionTwoColor;
+  private Rect mTextBounds, mButtonRect;
   
   private String badgeClickCallback;
   private Rect btn_rect;
@@ -34,39 +29,41 @@ public class ActionEditText extends EditText {
     super(context, attrs);
     getAttrs(attrs);
     s = optionOneString;
+    mTextBounds = new Rect();
+    mButtonRect = new Rect();
   }
   
   public ActionEditText(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
     getAttrs(attrs);
     s = optionOneString;
+    mTextBounds = new Rect();
+    mButtonRect = new Rect();
   }
   
   @Override
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-    Rect r = new Rect();
     
     Paint p = getPaint();
-    Rect text_bounds = new Rect();
     
-    p.getTextBounds(s, 0, s.length(), text_bounds);
+    p.getTextBounds(s, 0, s.length(), mTextBounds);
     
-    getDrawingRect(r);
-    r.top += 10;
-    r.bottom -= 10;
-    r.left = (int)(getWidth() - text_bounds.width() - 18);
-    r.right = getWidth() - 10;
-    btn_rect = r;
+    getDrawingRect(mButtonRect);
+    mButtonRect.top += 10;
+    mButtonRect.bottom -= 10;
+    mButtonRect.left = (int)(getWidth() - mTextBounds.width() - 18);
+    mButtonRect.right = getWidth() - 10;
+    btn_rect = mButtonRect;
     
     if (s.equals(optionOneString))
       p.setColor(optionOneColor);
     else
       p.setColor(optionTwoColor);
-    canvas.drawRect(r, p);
+    canvas.drawRect(mButtonRect, p);
     p.setColor(Color.GRAY);
     
-    canvas.drawText(s, r.left + 3, r.bottom - (text_bounds.height()/2), p);
+    canvas.drawText(s, mButtonRect.left + 3, mButtonRect.bottom - (mTextBounds.height()/2), p);
     
     invalidate();
   }
@@ -81,6 +78,7 @@ public class ActionEditText extends EditText {
         if (s.equals(optionTwoString)) s = optionOneString;
         else s = optionTwoString;
         if (badgeClickCallback != null) {
+          @SuppressWarnings("rawtypes")
           Class[] paramtypes = new Class[2];
           paramtypes[0] = android.view.View.class;
           paramtypes[1] = String.class;

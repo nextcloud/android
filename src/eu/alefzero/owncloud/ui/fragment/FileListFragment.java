@@ -21,6 +21,8 @@ import java.util.Stack;
 import java.util.Vector;
 
 import android.accounts.Account;
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +59,9 @@ public class FileListFragment extends FragmentListView {
     super.onCreate(savedInstanceState);
 
     mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+    getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
+    getListView().setDividerHeight(1);
+    
     populateFileList();
   }
   
@@ -89,7 +94,16 @@ public class FileListFragment extends FragmentListView {
       startActivity(i);
     }
   }
-
+  
+  @Override
+  public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    ClipData.Item item = new ClipData.Item("ASD");
+    ClipDescription cd = new ClipDescription("ASD", new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN});
+    ClipData dragData = new ClipData(cd, item);
+    arg1.startDrag(dragData, new View.DragShadowBuilder(arg0.getChildAt(arg2)), null, 0);
+    return true;
+  }
+  
   /**
    * Call this, when the user presses the up button
    */

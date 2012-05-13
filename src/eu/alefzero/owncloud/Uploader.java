@@ -436,7 +436,6 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         Uri uri = (Uri) mUploadStreams.get(i);
         if (uri.getScheme().equals("content")) {
           final Cursor c = getContentResolver().query((Uri) mUploadStreams.get(i), null, null, null, null);
-          c.moveToFirst();
           
           if (!wdc.putFile(c.getString(c.getColumnIndex(Media.DATA)),
                            mUploadPath+"/"+c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),

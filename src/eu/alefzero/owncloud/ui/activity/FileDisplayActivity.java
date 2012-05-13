@@ -25,14 +25,15 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,6 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
-import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
@@ -76,6 +75,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	
 	private static final int DIALOG_SETUP_ACCOUNT = 0;
 	private static final int DIALOG_CREATE_DIR = 1;
+	
+	private static final int REQUEST_ACCOUNT_SETUP = 0;
+	private static final int ACTION_SELECT_FILE = 1;
 
 	public void pushPath(String path) {
 		mDirectories.insert(path, 0);
@@ -96,8 +98,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
       builder.setTitle(R.string.main_tit_accsetup);
       builder.setMessage(R.string.main_wrn_accsetup);
       builder.setCancelable(false);
-      builder.setPositiveButton(R.string.common_ok, this);
-      builder.setNegativeButton(R.string.common_cancel, this);
+      builder.setPositiveButton(android.R.string.ok, this);
+      builder.setNegativeButton(android.R.string.cancel, this);
       dialog = builder.create();
       break;
     case DIALOG_CREATE_DIR:
@@ -107,12 +109,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
       final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
       builder.setView(dirName);
       builder.setTitle(R.string.uploader_info_dirname);
-      dirName.setTextColor(R.color.setup_text_typed);
+      int typed_color = getResources().getColor(R.color.setup_text_typed);
+      dirName.setTextColor(typed_color);
 
-      builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
+      builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
           String s = dirName.getText().toString();
-          if (s.trim().isEmpty()) {
+          if (s.trim().length() == 0) {
             dialog.cancel();
             return;
           }
@@ -140,6 +143,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
               dialog.cancel();
             }
           });
+      dialog = builder.create();
+      break;
     }
     default: 
       dialog = null;
@@ -151,27 +156,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		if(!accountsAreSetup()){
       showDialog(DIALOG_SETUP_ACCOUNT);
       return;
     }
-
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);  
-
-		mDirectories = new CustomArrayAdapter<String>(this,
-				R.layout.sherlock_spinner_dropdown_item);
-		mDirectories.add("/");
-		setContentView(R.layout.files);
-		mStorageManager = new FileDataStorageManager(AccountUtils.getCurrentOwnCloudAccount(this), getContentResolver());
-		ActionBar action_bar = getSupportActionBar();
-		action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		action_bar.setDisplayShowTitleEnabled(false);
-		action_bar.setListNavigationCallbacks(mDirectories, this);
-		action_bar.setDisplayHomeAsUpEnabled(true);
+		
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+    setProgressBarIndeterminateVisibility(false);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+	  boolean retval = true;
 		switch (item.getItemId()) {
 		case R.id.settingsItem: {
 			Intent i = new Intent(this, Preferences.class);
@@ -190,13 +187,23 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 		      bundle);
       break;
 		}
+		case R.id.action_upload: {
+		  Intent action = new Intent(Intent.ACTION_GET_CONTENT);  
+		  action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);  
+		  startActivityForResult(Intent.createChooser(action, "Upload file from..."), ACTION_SELECT_FILE);
+		  break;
+		}
+		  
 		case android.R.id.home: {
-			onBackPressed();
+		  Intent i = new Intent(this, AccountSelectActivity.class);
+		  startActivity(i);
+		  finish();
 			break;
 		}
-			
+			default:
+			  retval = false;
 		}
-		return true;
+		return retval;
 	}
 	
 	@Override
@@ -225,15 +232,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	      showDialog(DIALOG_SETUP_ACCOUNT);
 	    }
 	  }
-	 
-	 @Override
-	  protected void onStart() {
-	    super.onStart();
-	    // Check, if there are ownCloud accounts
-	    if(!accountsAreSetup()){
-	      showDialog(DIALOG_SETUP_ACCOUNT);
-	    }
-	 }
+
 	    
 	 @Override
 	protected void onResume() {
@@ -242,16 +241,74 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
       showDialog(DIALOG_SETUP_ACCOUNT);
       return;
     }
+	  
 	   IntentFilter f = new IntentFilter(FileSyncService.SYNC_MESSAGE);
 	   b = new  BR();
 	   registerReceiver(b, f);
-	   setProgressBarIndeterminateVisibility(false);
+	   if (getSupportFragmentManager().findFragmentById(R.id.fileList) == null)
+	     setContentView(R.layout.files);
+	   
+	   mDirectories = new CustomArrayAdapter<String>(this,
+	        R.layout.sherlock_spinner_dropdown_item);
+	    mDirectories.add("/");
+	    
+	    mStorageManager = new FileDataStorageManager(AccountUtils.getCurrentOwnCloudAccount(this), getContentResolver());
+	    ActionBar action_bar = getSupportActionBar();
+	    action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+	    action_bar.setDisplayShowTitleEnabled(false);
+	    action_bar.setListNavigationCallbacks(mDirectories, this);
+	    action_bar.setDisplayHomeAsUpEnabled(true);
 	}
 	    
+	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
+     if (resultCode == RESULT_OK) {
+         if (requestCode == ACTION_SELECT_FILE) {
+             Uri selectedImageUri = data.getData();
+
+             String filemanagerstring = selectedImageUri.getPath();
+
+             String selectedImagePath = getPath(selectedImageUri);
+
+             //DEBUG PURPOSE - you can delete this if you want
+             if(selectedImagePath!=null)
+                 System.out.println(selectedImagePath);
+             else System.out.println("selectedImagePath is null");
+             if(filemanagerstring!=null)
+                 System.out.println(filemanagerstring);
+             else System.out.println("filemanagerstring is null");
+
+             //NOW WE HAVE OUR WANTED STRING
+             if(selectedImagePath!=null)
+                 System.out.println("selectedImagePath is the right one for you!");
+             else
+                 System.out.println("filemanagerstring is the right one for you!");
+         }
+     }
+	 }
+	 
+     public String getPath(Uri uri) {
+       String[] projection = { MediaStore.Images.Media.DATA };
+       Cursor cursor = managedQuery(uri, projection, null, null, null);
+       if(cursor!=null)
+       {
+           //HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+           //THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+           int column_index = cursor
+           .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+           cursor.moveToFirst();
+           return cursor.getString(column_index);
+       }
+       else return null;
+   }
+     
 	 @Override
 	protected void onPause() {
 	  super.onPause();
-	  unregisterReceiver(b);
+	  if (b != null) {
+	    unregisterReceiver(b);
+	    b = null;
+	  }
+	  
 	}
 	 
 	@Override
@@ -322,7 +379,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
 		
 	}
-
+	
 	 public void onClick(DialogInterface dialog, int which) {
 	    // In any case - we won't need it anymore
 	    dialog.dismiss();

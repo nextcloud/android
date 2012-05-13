@@ -173,13 +173,21 @@ public class FileDataStorageManager implements DataStorageManager {
       
       if (getContentProvider() != null) {
         try {
-          c = getContentProvider().query(req_uri, null, null, null, null);
+          c = getContentProvider().query(req_uri,
+                                         null,
+                                         ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                         new String[]{mAccount.name},
+                                         null);
         } catch (RemoteException e) {
           Log.e(TAG, e.getMessage());
           return ret;
         }
       } else {
-        c = getContentResolver().query(req_uri, null, null, null, null);
+        c = getContentResolver().query(req_uri,
+                                       null,
+                                       ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                       new String[]{mAccount.name},
+                                       null);
       }
 
       if (c.moveToFirst()) {
@@ -201,22 +209,24 @@ public class FileDataStorageManager implements DataStorageManager {
     if (getContentResolver() != null) {
       c = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
                                     null,
-                                    cmp_key + "=?",
-                                    new String[] {value},
+                                    cmp_key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                    new String[] {value, mAccount.name},
                                     null);
     } else {
       try {
         c = getContentProvider().query(ProviderTableMeta.CONTENT_URI,
                                       null,
-                                      cmp_key + "=?",
-                                      new String[] {value},
+                                      cmp_key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                      new String[] {value, mAccount.name},
                                       null);
       } catch (RemoteException e) {
         Log.e(TAG, "Couldn't determine file existance, assuming non existance: " + e.getMessage());
         return false;
       }
     }
-    return c.moveToFirst();
+    boolean retval = c.moveToFirst();
+    c.close();
+    return retval;
   }
   
   private Cursor getCursorForValue(String key, String value) {
@@ -224,15 +234,15 @@ public class FileDataStorageManager implements DataStorageManager {
     if (getContentResolver() != null) {
       c = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
                                      null,
-                                     key + "=?",
-                                     new String[] {value},
+                                     key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                     new String[] {value, mAccount.name},
                                      null);
     } else {
       try {
         c = getContentProvider().query(ProviderTableMeta.CONTENT_URI,
                                        null,
-                                       key + "=?",
-                                       new String[]{value},
+                                       key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                                       new String[]{value, mAccount.name},
                                        null);
       } catch (RemoteException e) {
         Log.e(TAG, "Could not get file details: " + e.getMessage());

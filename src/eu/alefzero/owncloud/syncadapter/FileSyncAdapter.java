@@ -31,7 +31,6 @@ import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
-import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
@@ -62,6 +61,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 			this.setContentProvider(provider);
 			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
 
+			Log.d("ASD", "syncing owncloud account " + account.name);
+			
 			Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
 			i.putExtra(FileSyncService.IN_PROGRESS, true);
 			i.putExtra(FileSyncService.ACCOUNT_NAME, account.name);

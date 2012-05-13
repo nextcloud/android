@@ -34,9 +34,7 @@ public class AuthenticationRunnable implements Runnable {
   private URL mUrl;
   private String mUsername;
   private String mPassword;
-  
-  private static final String WEBDAV_2_0_PATH = "/files/webdav.php";
-  
+
   public AuthenticationRunnable(URL url, String username, String password) {
     mListener = null;
     mUrl = url;
@@ -51,7 +49,8 @@ public class AuthenticationRunnable implements Runnable {
   
   @Override
   public void run() {
-    Uri uri = Uri.parse(mUrl.toString() + WEBDAV_2_0_PATH);
+    Uri uri;
+    uri = Uri.parse(mUrl.toString());
     WebdavClient client = new WebdavClient(uri);
     client.setCredentials(mUsername, mPassword);
     int login_result = client.tryToLogin(); 
@@ -71,11 +70,11 @@ public class AuthenticationRunnable implements Runnable {
   }
 
   private void postResult(final boolean success, final String message) {
-    if (mHandler != null) {
+    if (mHandler != null && mListener != null) {
       mHandler.post(new Runnable() {
         @Override
         public void run() {
-          AuthenticationRunnable.this.mListener.onAuthenticationResult(success, message);
+          mListener.onAuthenticationResult(success, message);
         }
       });
     }
