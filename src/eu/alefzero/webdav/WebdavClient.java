@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -71,12 +72,13 @@ public class WebdavClient extends HttpClient {
     //HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ", "%20"));
    
     Log.e("ASD", mUri.toString() + URLDecoder.decode(filepath) + "");
-    GetMethod get = new GetMethod(mUri.toString() + URLDecoder.decode(filepath));
+    GetMethod get = new GetMethod(mUri.toString() + URLEncoder.encode(filepath));
     
 //    get.setHeader("Host", mUri.getHost());
 //    get.setHeader("User-Agent", "Android-ownCloud");
     
     try {
+      Log.e("ASD", get.toString());
       int status = executeMethod(get);
       if (status != HttpStatus.SC_OK) {
         return false;
