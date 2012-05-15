@@ -31,6 +31,7 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.HttpStatus;
@@ -103,9 +104,13 @@ public class WebdavClient extends HttpClient {
     boolean result = true;
 
     try {
-      FileRequestEntity entity = new FileRequestEntity(new File(localFile), contentType);
-      PutMethod put = new PutMethod(mUri.toString() + remoteTarget.substring(1));
+      Log.e("ASD", contentType+"");
+      File f = new File(localFile);
+      RequestEntity entity = new FileRequestEntity(f, contentType);
+      Log.e("ASD", f.exists()+" " + entity.getContentLength());
+      PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
       put.setRequestEntity(entity);
+      Log.d(TAG, "" + put.getURI().toString());
       int status = executeMethod(put);
       Log.d(TAG, "PUT method return with status "+status);
 

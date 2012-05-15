@@ -18,10 +18,10 @@
     	<item name="android:background">@drawable/main_header_bg</item>
     	<item name="background">@drawable/main_header_bg</item>
     	<item name="android:textColor">#ffffff</item>
-   
     	<item name="android:shadowColor">#222222</item>
     	<item name="android:shadowRadius">1</item>
     	<item name="android:shadowDy">1</item>
+    	<item name="android:backgroundSplit">@drawable/split_action_bg</item>
 	</style>
 	
 	<!-- PopDownMenu -->

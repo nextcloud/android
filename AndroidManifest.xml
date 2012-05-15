@@ -147,6 +147,8 @@
         <activity android:name=".extensions.ExtensionsAvailableActivity"></activity>
         <activity android:name=".extensions.ExtensionsListActivity"></activity>
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
+        <service android:name=".files.services.FileUploader" >
+        </service>
     </application>
 
 </manifest>

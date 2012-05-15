@@ -18,6 +18,9 @@
 
 package eu.alefzero.owncloud.ui.activity;
 
+import java.io.File;
+import java.net.URLEncoder;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -55,8 +58,10 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -164,6 +169,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 		
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
     setProgressBarIndeterminateVisibility(false);
+    //if (getSupportFragmentManager().findFragmentById(R.id.fileList) == null)
+      setContentView(R.layout.files);
+    
 	}
 
 	@Override
@@ -245,8 +253,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	   IntentFilter f = new IntentFilter(FileSyncService.SYNC_MESSAGE);
 	   syncBroadcastRevceiver = new  SyncBroadcastReceiver();
 	   registerReceiver(syncBroadcastRevceiver, f);
-	   if (getSupportFragmentManager().findFragmentById(R.id.fileList) == null)
-	     setContentView(R.layout.files);
 	   
 	   mDirectories = new CustomArrayAdapter<String>(this,
 	        R.layout.sherlock_spinner_dropdown_item);
@@ -261,28 +267,40 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 	}
 	    
 	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	   Log.e("ASD", requestCode + " " + resultCode);
      if (resultCode == RESULT_OK) {
          if (requestCode == ACTION_SELECT_FILE) {
-             Uri selectedImageUri = data.getData();
+           Uri selectedImageUri = data.getData();
 
-             String filemanagerstring = selectedImageUri.getPath();
+           String filemanagerstring = selectedImageUri.getPath();
+           String selectedImagePath = getPath(selectedImageUri);
+           String filepath;
 
-             String selectedImagePath = getPath(selectedImageUri);
-
-             //DEBUG PURPOSE - you can delete this if you want
-             if(selectedImagePath!=null)
-                 System.out.println(selectedImagePath);
-             else System.out.println("selectedImagePath is null");
-             if(filemanagerstring!=null)
-                 System.out.println(filemanagerstring);
-             else System.out.println("filemanagerstring is null");
-
-             //NOW WE HAVE OUR WANTED STRING
-             if(selectedImagePath!=null)
-                 System.out.println("selectedImagePath is the right one for you!");
-             else
-                 System.out.println("filemanagerstring is the right one for you!");
+           if(selectedImagePath!=null)
+               filepath = selectedImagePath;
+           else
+               filepath = filemanagerstring;
+             
+         if (filepath == null) {
+           Log.e("FileDisplay", "Couldnt resolve path to file");
+           return;
          }
+         
+         Intent i = new Intent(this, FileUploader.class);
+         i.putExtra(FileUploader.KEY_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+         String remotepath = new String();
+         for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
+           remotepath += "/" + mDirectories.getItem(j);
+         }
+         if (!remotepath.endsWith("/")) remotepath += "/";
+         remotepath += new File(filepath).getName();
+         Log.e("ASD", remotepath+"");
+         
+         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
+         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+         startService(i);
+       }
      }
 	 }
 	 
@@ -291,8 +309,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
        Cursor cursor = managedQuery(uri, projection, null, null, null);
        if(cursor!=null)
        {
-           //HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
-           //THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
            int column_index = cursor
            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
            cursor.moveToFirst();

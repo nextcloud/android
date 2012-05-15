@@ -2,7 +2,7 @@
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/startSync" android:title="Sync account" android:showAsAction="ifRoom" android:icon="@drawable/ic_action_refresh"></item><item android:title="Settings" android:icon="@android:drawable/ic_menu_preferences" android:id="@+id/settingsItem" android:showAsAction="never"></item>
-    <item android:id="@+id/createDirectoryItem" android:title="Create Directory" android:icon="@android:drawable/ic_menu_add" android:showAsAction="ifRoom"></item>
+    <item android:id="@+id/createDirectoryItem" android:title="Create Directory" android:icon="@drawable/ic_action_create_dir" android:showAsAction="ifRoom"></item>
     
     <item android:id="@+id/search" android:icon="@drawable/ic_action_search" android:showAsAction="ifRoom"></item>
     <item android:id="@+id/action_upload" android:icon="@drawable/ic_action_upload" android:showAsAction="ifRoom"></item>
