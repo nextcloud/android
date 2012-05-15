@@ -37,15 +37,15 @@ public class OCFile implements Parcelable {
 		}
 	};
 	
-	private long id;
-	private long parentId;
-	private long length;
-	private long creationTimestamp;
-	private long modifiedTimestamp;
-	private String remotePath;
-	private String localPath;
-	private String mimeType;
-	private boolean needsUpdating;
+	private long mId;
+	private long mParentId;
+	private long mLength;
+	private long mCreationTimestamp;
+	private long mModifiedTimestamp;
+	private String mRemotePath;
+	private String mLocalPath;
+	private String mMimeType;
+	private boolean mNeedsUpdating;
 
 	/**
 	 * Create new {@link OCFile} with given path
@@ -55,8 +55,8 @@ public class OCFile implements Parcelable {
 	 */
 	public OCFile(String path) {
 		resetData();
-		needsUpdating = false;
-		remotePath = path;
+		mNeedsUpdating = false;
+		mRemotePath = path;
 	}
 	
 	/**
@@ -64,15 +64,15 @@ public class OCFile implements Parcelable {
 	 * @param source The source parcel
 	 */
 	private OCFile(Parcel source){
-		id = source.readLong();
-		parentId = source.readLong();
-		length = source.readLong();
-		creationTimestamp = source.readLong();
-		modifiedTimestamp = source.readLong();
-		remotePath = source.readString();
-		localPath = source.readString();
-		mimeType = source.readString();
-		needsUpdating = source.readInt() == 0;
+		mId = source.readLong();
+		mParentId = source.readLong();
+		mLength = source.readLong();
+		mCreationTimestamp = source.readLong();
+		mModifiedTimestamp = source.readLong();
+		mRemotePath = source.readString();
+		mLocalPath = source.readString();
+		mMimeType = source.readString();
+		mNeedsUpdating = source.readInt() == 0;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class OCFile implements Parcelable {
 	 * @return the file ID
 	 */
 	public long getFileId() {
-		return id;
+		return mId;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class OCFile implements Parcelable {
 	 * @return The path
 	 */
 	public String getPath() {
-		return remotePath;
+		return mRemotePath;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class OCFile implements Parcelable {
 	 * @return true, if the file exists in the database
 	 */
 	public boolean fileExists() {
-		return id != -1;
+		return mId != -1;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class OCFile implements Parcelable {
 	 * @return true if it is a directory
 	 */
 	public boolean isDirectory() {
-		return mimeType != null && mimeType.equals("DIR");
+		return mMimeType != null && mMimeType.equals("DIR");
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class OCFile implements Parcelable {
 	 * @return true if it is
 	 */
 	public boolean isDownloaded() {
-		return localPath != null || localPath.equals("");
+		return mLocalPath != null || mLocalPath.equals("");
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class OCFile implements Parcelable {
 	 * @return The local path to the file
 	 */
 	public String getStoragePath() {
-		return localPath;
+		return mLocalPath;
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setStoragePath(String storage_path) {
-		localPath = storage_path;
+		mLocalPath = storage_path;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class OCFile implements Parcelable {
 	 * @return A UNIX timestamp of the time that file was created
 	 */
 	public long getCreationTimestamp() {
-		return creationTimestamp;
+		return mCreationTimestamp;
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setCreationTimestamp(long creation_timestamp) {
-		creationTimestamp = creation_timestamp;
+		mCreationTimestamp = creation_timestamp;
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class OCFile implements Parcelable {
 	 * @return A UNIX timestamp of the modification time
 	 */
 	public long getModificationTimestamp() {
-		return modifiedTimestamp;
+		return mModifiedTimestamp;
 	}
 
 	/**
@@ -175,7 +175,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setModificationTimestamp(long modification_timestamp) {
-		modifiedTimestamp = modification_timestamp;
+		mModifiedTimestamp = modification_timestamp;
 	}
 
 	/**
@@ -184,8 +184,8 @@ public class OCFile implements Parcelable {
 	 * @return The name of the file
 	 */
 	public String getFileName() {
-		if (remotePath != null) {
-			File f = new File(remotePath);
+		if (mRemotePath != null) {
+			File f = new File(mRemotePath);
 			return f.getName().equals("") ? "/" : f.getName();
 		}
 		return null;
@@ -197,7 +197,7 @@ public class OCFile implements Parcelable {
 	 * @return the Mimetype as a String
 	 */
 	public String getMimetype() {
-		return mimeType;
+		return mMimeType;
 	}
 
 	/**
@@ -211,8 +211,8 @@ public class OCFile implements Parcelable {
 	 */
 	public void addFile(OCFile file) throws IllegalStateException {
 		if (isDirectory()) {
-			file.parentId = id;
-			needsUpdating = true;
+			file.mParentId = mId;
+			mNeedsUpdating = true;
 			return;
 		}
 		throw new IllegalStateException(
@@ -223,14 +223,14 @@ public class OCFile implements Parcelable {
 	 * Used internally. Reset all file properties
 	 */
 	private void resetData() {
-		id = -1;
-		remotePath = null;
-		parentId = 0;
-		localPath = null;
-		mimeType = null;
-		length = 0;
-		creationTimestamp = 0;
-		modifiedTimestamp = 0;
+		mId = -1;
+		mRemotePath = null;
+		mParentId = 0;
+		mLocalPath = null;
+		mMimeType = null;
+		mLength = 0;
+		mCreationTimestamp = 0;
+		mModifiedTimestamp = 0;
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setFileId(long file_id) {
-		id = file_id;
+		mId = file_id;
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setMimetype(String mimetype) {
-		mimeType = mimetype;
+		mMimeType = mimetype;
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setParentId(long parent_id) {
-		parentId = parent_id;
+		mParentId = parent_id;
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class OCFile implements Parcelable {
 	 *            to set
 	 */
 	public void setFileLength(long file_len) {
-		length = file_len;
+		mLength = file_len;
 	}
 
 	/**
@@ -279,7 +279,7 @@ public class OCFile implements Parcelable {
 	 * @return The filesize in bytes
 	 */
 	public long getFileLength() {
-		return length;
+		return mLength;
 	}
 
 	/**
@@ -288,7 +288,7 @@ public class OCFile implements Parcelable {
 	 * @return The ID
 	 */
 	public long getParentId() {
-		return parentId;
+		return mParentId;
 	}
 
 	/**
@@ -297,7 +297,7 @@ public class OCFile implements Parcelable {
 	 * @return
 	 */
 	public boolean needsUpdatingWhileSaving() {
-		return needsUpdating;
+		return mNeedsUpdating;
 	}
 
 	@Override
@@ -307,15 +307,15 @@ public class OCFile implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeLong(id);
-		dest.writeLong(parentId);
-		dest.writeLong(length);
-		dest.writeLong(creationTimestamp);
-		dest.writeLong(modifiedTimestamp);
-		dest.writeString(remotePath);
-		dest.writeString(localPath);
-		dest.writeString(mimeType);
-		dest.writeInt(needsUpdating ? 0 : 1 ); // No writeBoolean method exists - yay :D
+		dest.writeLong(mId);
+		dest.writeLong(mParentId);
+		dest.writeLong(mLength);
+		dest.writeLong(mCreationTimestamp);
+		dest.writeLong(mModifiedTimestamp);
+		dest.writeString(mRemotePath);
+		dest.writeString(mLocalPath);
+		dest.writeString(mMimeType);
+		dest.writeInt(mNeedsUpdating ? 0 : 1 ); // No writeBoolean method exists - yay :D
 	}
 	
 }
