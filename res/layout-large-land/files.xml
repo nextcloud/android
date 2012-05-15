@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
   ownCloud Android client application
 
   Copyright (C) 2011  Bartek Przybylski
@@ -14,8 +14,8 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -26,15 +26,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
+
+        <fragment
+            android:id="@+id/fileList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            class="eu.alefzero.owncloud.ui.fragment.FileListFragment" >
+
+            <!-- Preview: layout=@layout/list_layout -->
+        </fragment>
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/fileDetail"
+    <LinearLayout android:id="@+id/file_details_container"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="2"
-        class="eu.alefzero.owncloud.ui.fragment.FileDetail" >
-        <!-- Preview: layout=@layout/file_details -->
-    </fragment>
+        android:layout_height="wrap_content"
+        android:layout_weight="2" >
+
+        <fragment
+            android:id="@+id/fileDetail"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            class="eu.alefzero.owncloud.ui.fragment.FileDetailFragment" >
+
+            <!-- Preview: layout=@layout/file_details_empty -->
+        </fragment>
+    </LinearLayout>
 
 </LinearLayout>

@@ -20,8 +20,23 @@ package eu.alefzero.owncloud.datamodel;
 
 import java.io.File;
 
-public class OCFile {
+import android.os.Parcel;
+import android.os.Parcelable;
 
+public class OCFile implements Parcelable {
+
+	public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+		@Override
+		public OCFile createFromParcel(Parcel source) {
+			return new OCFile(source);
+		}
+
+		@Override
+		public OCFile[] newArray(int size) {
+			return new OCFile[size];
+		}
+	};
+	
 	private long id;
 	private long parentId;
 	private long length;
@@ -35,12 +50,29 @@ public class OCFile {
 	/**
 	 * Create new {@link OCFile} with given path
 	 * 
-	 * @param path The remote path of the file
+	 * @param path
+	 *            The remote path of the file
 	 */
 	public OCFile(String path) {
-	  resetData();
-	  needsUpdating = false;
+		resetData();
+		needsUpdating = false;
 		remotePath = path;
+	}
+	
+	/**
+	 * Reconstruct from parcel
+	 * @param source The source parcel
+	 */
+	private OCFile(Parcel source){
+		id = source.readLong();
+		parentId = source.readLong();
+		length = source.readLong();
+		creationTimestamp = source.readLong();
+		modifiedTimestamp = source.readLong();
+		remotePath = source.readString();
+		localPath = source.readString();
+		mimeType = source.readString();
+		needsUpdating = source.readInt() == 0;
 	}
 
 	/**
@@ -172,8 +204,10 @@ public class OCFile {
 	 * Adds a file to this directory. If this file is not a directory, an
 	 * exception gets thrown.
 	 * 
-	 * @param file to add
-	 * @throws IllegalStateException if you try to add a something and this is not a directory
+	 * @param file
+	 *            to add
+	 * @throws IllegalStateException
+	 *             if you try to add a something and this is not a directory
 	 */
 	public void addFile(OCFile file) throws IllegalStateException {
 		if (isDirectory()) {
@@ -181,7 +215,8 @@ public class OCFile {
 			needsUpdating = true;
 			return;
 		}
-		throw new IllegalStateException("This is not a directory where you can add stuff to!");
+		throw new IllegalStateException(
+				"This is not a directory where you can add stuff to!");
 	}
 
 	/**
@@ -200,57 +235,87 @@ public class OCFile {
 
 	/**
 	 * Sets the ID of the file
-	 * @param file_id to set
+	 * 
+	 * @param file_id
+	 *            to set
 	 */
 	public void setFileId(long file_id) {
-	  id = file_id;
+		id = file_id;
 	}
-	
+
 	/**
-	 * Sets the Mime-Type of the 
-	 * @param mimetype to set
+	 * Sets the Mime-Type of the
+	 * 
+	 * @param mimetype
+	 *            to set
 	 */
 	public void setMimetype(String mimetype) {
-	  mimeType = mimetype;
+		mimeType = mimetype;
 	}
-	
+
 	/**
 	 * Sets the ID of the parent folder
-	 * @param parent_id to set
+	 * 
+	 * @param parent_id
+	 *            to set
 	 */
 	public void setParentId(long parent_id) {
-	  parentId = parent_id;
+		parentId = parent_id;
 	}
-	
+
 	/**
 	 * Sets the file size in bytes
-	 * @param file_len to set
+	 * 
+	 * @param file_len
+	 *            to set
 	 */
 	public void setFileLength(long file_len) {
-	  length = file_len;
+		length = file_len;
 	}
-	
+
 	/**
 	 * Returns the size of the file in bytes
+	 * 
 	 * @return The filesize in bytes
 	 */
-  public long getFileLength() {
-    return length;
-  }
-  
-  /**
-   * Returns the ID of the parent Folder
-   * @return The ID
-   */
-  public long getParentId() {
-    return parentId;
-  }
-  
-  /**
-   * Check, if this file needs updating
-   * @return
-   */
-  public boolean needsUpdatingWhileSaving() {
-    return needsUpdating;
-  }
+	public long getFileLength() {
+		return length;
+	}
+
+	/**
+	 * Returns the ID of the parent Folder
+	 * 
+	 * @return The ID
+	 */
+	public long getParentId() {
+		return parentId;
+	}
+
+	/**
+	 * Check, if this file needs updating
+	 * 
+	 * @return
+	 */
+	public boolean needsUpdatingWhileSaving() {
+		return needsUpdating;
+	}
+
+	@Override
+	public int describeContents() {
+		return this.hashCode();
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
+		dest.writeLong(parentId);
+		dest.writeLong(length);
+		dest.writeLong(creationTimestamp);
+		dest.writeLong(modifiedTimestamp);
+		dest.writeString(remotePath);
+		dest.writeString(localPath);
+		dest.writeString(mimeType);
+		dest.writeInt(needsUpdating ? 0 : 1 ); // No writeBoolean method exists - yay :D
+	}
+	
 }

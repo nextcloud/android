@@ -17,15 +17,13 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import android.accounts.Account;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,134 +39,189 @@ import com.actionbarsherlock.app.SherlockFragment;
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.FileDownloader;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.datamodel.OCFile;
 
 /**
  * This Fragment is used to display the details about a file.
+ * 
  * @author Bartek Przybylski
- *
+ * 
  */
-public class FileDetailFragment extends SherlockFragment implements OnClickListener {
-  
-  private Intent mIntent;
-  private View mView;
-  private DownloadFinishReceiver dfr;
-  
-  @Override
-  public void onResume() {
-    super.onResume();
-    dfr = new DownloadFinishReceiver();
-    IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
-    getActivity().registerReceiver(dfr, filter);
-  }
-  
-  @Override
-  public void onPause() {
-    super.onPause();
-    getActivity().unregisterReceiver(dfr);
-    dfr = null;
-  }
-  
-  public void setStuff(Intent intent) {
-    mIntent = intent;
-    setStuff(getView());
-  }
-  
-  private void setStuff(View view) {
-    mView = view;
-    String id = mIntent.getStringExtra("FILE_ID");
-    Account account = mIntent.getParcelableExtra("ACCOUNT");
-    String account_name = account.name;
-    Cursor c = getActivity().managedQuery(
-        Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, id),
-        null,
-        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-        new String[]{account_name},
-        null);
-    c.moveToFirst();
+public class FileDetailFragment extends SherlockFragment implements
+		OnClickListener {
 
-    // Retrieve details from DB
-    String filename = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_NAME));
-    String mimetype = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE));
-    String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
-    long filesize = c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
+	public static final String FILE = "FILE";
 
-    // set file details
-    setFilename(filename);
-    setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mimetype));
-    setFilesize(filesize);
-    
-    // set file preview if available and possible
-    View w = view.findViewById(R.id.videoView1);
-    w.setVisibility(View.INVISIBLE);
-    if (path == null) {
-      ImageView v = (ImageView) getView().findViewById(R.id.imageView2);
-      v.setImageResource(R.drawable.download);
-      v.setOnClickListener(this);
-    } else {
-      if (mimetype.startsWith("image/")) {
-        ImageView v = (ImageView) view.findViewById(R.id.imageView2);
-        Bitmap bmp = BitmapFactory.decodeFile(path);
-        v.setImageBitmap(bmp);
-      } else if (mimetype.startsWith("video/")) {
-        VideoView v = (VideoView) view.findViewById(R.id.videoView1);
-        v.setVisibility(View.VISIBLE);
-        v.setVideoPath(path);
-        v.start();
-      }
-    }
-  }
+	private Intent mIntent;
+	private View mView;
+	private DownloadFinishReceiver mDownloadFinishReceiver;
+	private OCFile mFile;
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    View v = null;
-    
-    if (getActivity().getIntent() != null && getActivity().getIntent().getStringExtra("FILE_ID") != null) {
-    	v = inflater.inflate(R.layout.file_details_fragment, container, false);
-    	mIntent = getActivity().getIntent();
-    	setStuff(v);
-    } else {
-    	v = inflater.inflate(R.layout.file_details_empty, container, false);
-    }
-    return v;
-  }
+	private int mLayout;
+	private boolean mEmptyLayout;
 
-  @Override
-  public View getView() {
-    return mView == null ? super.getView() : mView;
-  };
-  
-  public void setFilename(String filename) {
-    TextView tv = (TextView) getView().findViewById(R.id.textView1);
-    if (tv != null) tv.setText(filename);
-  }
-  
-  public void setFiletype(String mimetype) {
-    TextView tv = (TextView) getView().findViewById(R.id.textView2);
-    if (tv != null) tv.setText(mimetype);
-  }
-  
-  public void setFilesize(long filesize) {
-    TextView tv = (TextView) getView().findViewById(R.id.textView3);
-    if (tv != null) tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
-  }
+	/**
+	 * Default constructor. When inflated by android -> display empty layout
+	 */
+	public FileDetailFragment() {
+		mLayout = R.layout.file_details_empty;
+		mEmptyLayout = true;
+	}
 
-  @Override
-  public void onClick(View v) {
-    Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
-    Intent i = new Intent(getActivity(), FileDownloader.class);
-    i.putExtra(FileDownloader.EXTRA_ACCOUNT, mIntent.getParcelableExtra("ACCOUNT"));
-    i.putExtra(FileDownloader.EXTRA_FILE_PATH, mIntent.getStringExtra("FULL_PATH"));
-    getActivity().startService(i);
-  }
-  
-  private class DownloadFinishReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      setStuff(getView());
-    }
-    
-  }
-  
+	/**
+	 * Custom construtor. Use with a {@link FragmentTransaction}.
+	 * The intent has to contain {@link FileDetailFragment#FILE} with an OCFile
+	 * and also {@link FileDownloader#EXTRA_ACCOUNT} with the account.
+	 * 
+	 * @param nonEmptyFragment
+	 *            True, to enable file detail rendering
+	 */
+	public FileDetailFragment(Intent intent) {
+		mLayout = R.layout.file_details_fragment;
+		mIntent = intent;
+		mEmptyLayout = false;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		mDownloadFinishReceiver = new DownloadFinishReceiver();
+		IntentFilter filter = new IntentFilter(
+				FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+		getActivity().registerReceiver(mDownloadFinishReceiver, filter);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		getActivity().unregisterReceiver(mDownloadFinishReceiver);
+		mDownloadFinishReceiver = null;
+	}
+
+	/**
+	 * Use this method to signal this Activity that it shall update its view.
+	 * 
+	 * @param intent
+	 *            The {@link Intent} that contains extra information about this
+	 *            file The intent needs to have these extras:
+	 *            <p>
+	 * 
+	 *            {@link FileDetailFragment#FILE}: An {@link OCFile}
+	 *            {@link FileDownloader#EXTRA_ACCOUNT}: The Account that file
+	 *            belongs to (required for downloading)
+	 */
+	public void updateFileDetails(Intent intent) {
+		mIntent = intent;
+		updateFileDetails();
+	}
+
+	private void updateFileDetails() {
+		mFile = mIntent.getParcelableExtra(FILE);
+
+		if (mFile != null) {
+			// set file details
+			setFilename(mFile.getFileName());
+			setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
+					.getMimetype()));
+			setFilesize(mFile.getFileLength());
+
+			// set file preview if available and possible
+			VideoView videoView = (VideoView) mView
+					.findViewById(R.id.videoView1);
+			videoView.setVisibility(View.INVISIBLE);
+			if (mFile.getPath() == null) {
+				ImageView imageView = (ImageView) getView().findViewById(
+						R.id.imageView2);
+				imageView.setImageResource(R.drawable.download);
+				imageView.setOnClickListener(this);
+			} else {
+				if (mFile.getMimetype().startsWith("image/")) {
+					ImageView imageView = (ImageView) mView
+							.findViewById(R.id.imageView2);
+					Bitmap bmp = BitmapFactory.decodeFile(mFile.getPath());
+					imageView.setImageBitmap(bmp);
+				} else if (mFile.getMimetype().startsWith("video/")) {
+					videoView.setVisibility(View.VISIBLE);
+					videoView.setVideoPath(mFile.getPath());
+					videoView.start();
+				}
+			}
+		}
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View view = null;
+
+		view = inflater.inflate(mLayout, container, false);
+		mIntent = getActivity().getIntent();
+		mView = view;
+
+		// make sure we are not using the empty layout
+		if (mEmptyLayout == false) {
+			updateFileDetails();
+		}
+
+		return view;
+	}
+
+	@Override
+	public View getView() {
+		return mView == null ? super.getView() : mView;
+	};
+
+	private void setFilename(String filename) {
+		TextView tv = (TextView) getView().findViewById(R.id.textView1);
+		if (tv != null)
+			tv.setText(filename);
+	}
+
+	private void setFiletype(String mimetype) {
+		TextView tv = (TextView) getView().findViewById(R.id.textView2);
+		if (tv != null)
+			tv.setText(mimetype);
+	}
+
+	private void setFilesize(long filesize) {
+		TextView tv = (TextView) getView().findViewById(R.id.textView3);
+		if (tv != null)
+			tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
+	}
+
+	/**
+	 * Use this to check if the correct layout is loaded. When android
+	 * instanciates this class using the default constructor, the layout will be
+	 * empty.
+	 * 
+	 * Once a user touches a file for the first time, you must instanciate a new
+	 * Fragment with the new FileDetailFragment(true) to inflate the actual
+	 * details
+	 * 
+	 * @return If the layout is empty, this method will return true, otherwise
+	 *         false
+	 */
+	public boolean isEmptyLayout() {
+		return mEmptyLayout;
+	}
+
+	@Override
+	public void onClick(View v) {
+		Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+		Intent i = new Intent(getActivity(), FileDownloader.class);
+		i.putExtra(FileDownloader.EXTRA_ACCOUNT,
+				mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
+		i.putExtra(FileDownloader.EXTRA_FILE_PATH,
+				mIntent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+		getActivity().startService(i);
+	}
+
+	private class DownloadFinishReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			updateFileDetails();
+		}
+
+	}
+
 }
