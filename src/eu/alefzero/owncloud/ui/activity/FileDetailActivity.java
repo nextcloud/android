@@ -43,7 +43,7 @@ public class FileDetailActivity extends SherlockFragmentActivity {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.file_activity_details);
 
-        mFileDetail = new FileDetailFragment();
+        mFileDetail = new FileDetailFragment(getIntent());
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fileDetail, mFileDetail);
         ft.commit();
