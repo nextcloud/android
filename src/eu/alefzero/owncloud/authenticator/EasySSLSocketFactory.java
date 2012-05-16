@@ -154,23 +154,17 @@ public class EasySSLSocketFactory implements ProtocolSocketFactory {
      * terminates and throws an {@link ConnectTimeoutException}
      * </p>
      * 
-     * @param host
-     *            the host name/IP
-     * @param port
-     *            the port on the host
-     * @param clientHost
-     *            the local host name/IP to bind the socket to
-     * @param clientPort
-     *            the port on the local machine
-     * @param params
-     *            {@link HttpConnectionParams Http connection parameters}
+     * @param host the host name/IP
+     * @param port the port on the host
+     * @param clientHost the local host name/IP to bind the socket to
+     * @param clientPort the port on the local machine
+     * @param params {@link HttpConnectionParams Http connection parameters}
      * 
      * @return Socket a new socket
      * 
-     * @throws IOException
-     *             if an I/O error occurs while creating the socket
-     * @throws UnknownHostException
-     *             if the IP address of the host cannot be determined
+     * @throws IOException if an I/O error occurs while creating the socket
+     * @throws UnknownHostException if the IP address of the host cannot be
+     *             determined
      */
     public Socket createSocket(final String host, final int port,
             final InetAddress localAddress, final int localPort,

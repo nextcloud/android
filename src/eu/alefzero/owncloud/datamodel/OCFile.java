@@ -50,8 +50,7 @@ public class OCFile implements Parcelable {
     /**
      * Create new {@link OCFile} with given path
      * 
-     * @param path
-     *            The remote path of the file
+     * @param path The remote path of the file
      */
     public OCFile(String path) {
         resetData();
@@ -62,8 +61,7 @@ public class OCFile implements Parcelable {
     /**
      * Reconstruct from parcel
      * 
-     * @param source
-     *            The source parcel
+     * @param source The source parcel
      */
     private OCFile(Parcel source) {
         mId = source.readLong();
@@ -135,8 +133,7 @@ public class OCFile implements Parcelable {
     /**
      * Can be used to set the path where the file is stored
      * 
-     * @param storage_path
-     *            to set
+     * @param storage_path to set
      */
     public void setStoragePath(String storage_path) {
         mLocalPath = storage_path;
@@ -154,8 +151,7 @@ public class OCFile implements Parcelable {
     /**
      * Set a UNIX timestamp of the time the file was created
      * 
-     * @param creation_timestamp
-     *            to set
+     * @param creation_timestamp to set
      */
     public void setCreationTimestamp(long creation_timestamp) {
         mCreationTimestamp = creation_timestamp;
@@ -173,8 +169,7 @@ public class OCFile implements Parcelable {
     /**
      * Set a UNIX timestamp of the time the time the file was modified.
      * 
-     * @param modification_timestamp
-     *            to set
+     * @param modification_timestamp to set
      */
     public void setModificationTimestamp(long modification_timestamp) {
         mModifiedTimestamp = modification_timestamp;
@@ -206,10 +201,9 @@ public class OCFile implements Parcelable {
      * Adds a file to this directory. If this file is not a directory, an
      * exception gets thrown.
      * 
-     * @param file
-     *            to add
-     * @throws IllegalStateException
-     *             if you try to add a something and this is not a directory
+     * @param file to add
+     * @throws IllegalStateException if you try to add a something and this is
+     *             not a directory
      */
     public void addFile(OCFile file) throws IllegalStateException {
         if (isDirectory()) {
@@ -238,8 +232,7 @@ public class OCFile implements Parcelable {
     /**
      * Sets the ID of the file
      * 
-     * @param file_id
-     *            to set
+     * @param file_id to set
      */
     public void setFileId(long file_id) {
         mId = file_id;
@@ -248,8 +241,7 @@ public class OCFile implements Parcelable {
     /**
      * Sets the Mime-Type of the
      * 
-     * @param mimetype
-     *            to set
+     * @param mimetype to set
      */
     public void setMimetype(String mimetype) {
         mMimeType = mimetype;
@@ -258,8 +250,7 @@ public class OCFile implements Parcelable {
     /**
      * Sets the ID of the parent folder
      * 
-     * @param parent_id
-     *            to set
+     * @param parent_id to set
      */
     public void setParentId(long parent_id) {
         mParentId = parent_id;
@@ -268,8 +259,7 @@ public class OCFile implements Parcelable {
     /**
      * Sets the file size in bytes
      * 
-     * @param file_len
-     *            to set
+     * @param file_len to set
      */
     public void setFileLength(long file_len) {
         mLength = file_len;

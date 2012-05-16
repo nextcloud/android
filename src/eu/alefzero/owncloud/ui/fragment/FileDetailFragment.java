@@ -73,8 +73,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * to contain {@link FileDetailFragment#FILE} with an OCFile and also
      * {@link FileDownloader#EXTRA_ACCOUNT} with the account.
      * 
-     * @param nonEmptyFragment
-     *            True, to enable file detail rendering
+     * @param nonEmptyFragment True, to enable file detail rendering
      */
     public FileDetailFragment(Intent intent) {
         mLayout = R.layout.file_details_fragment;
@@ -101,9 +100,8 @@ public class FileDetailFragment extends SherlockFragment implements
     /**
      * Use this method to signal this Activity that it shall update its view.
      * 
-     * @param intent
-     *            The {@link Intent} that contains extra information about this
-     *            file The intent needs to have these extras:
+     * @param intent The {@link Intent} that contains extra information about
+     *            this file The intent needs to have these extras:
      *            <p>
      * 
      *            {@link FileDetailFragment#FILE}: An {@link OCFile}

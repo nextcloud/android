@@ -39,8 +39,7 @@ public class AccountUtils {
      * Can be used to get the currently selected ownCloud account in the
      * preferences
      * 
-     * @param context
-     *            The current appContext
+     * @param context The current appContext
      * @return The current account or first available, if none is available,
      *         then null.
      */
@@ -78,8 +77,7 @@ public class AccountUtils {
 
     /**
      * 
-     * @param version
-     *            version of owncloud
+     * @param version version of owncloud
      * @return webdav path for given OC version, null if OC version unknown
      */
     public static String getWebdavPath(OwnCloudVersion version) {

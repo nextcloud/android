@@ -52,8 +52,7 @@ public class LocationServiceLauncherReciever extends BroadcastReceiver {
     /**
      * Used internally. Starts or stops the device tracking service
      * 
-     * @param trackDevice
-     *            true to start the service, false to stop it
+     * @param trackDevice true to start the service, false to stop it
      */
     private void startOrStopDeviceTracking(Context context, boolean trackDevice) {
         Intent deviceTrackingIntent = new Intent();

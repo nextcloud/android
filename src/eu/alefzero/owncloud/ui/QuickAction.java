@@ -65,8 +65,7 @@ public class QuickAction extends CustomPopup {
     /**
      * Constructor
      * 
-     * @param anchor
-     *            {@link View} on where the popup window should be displayed
+     * @param anchor {@link View} on where the popup window should be displayed
      */
     public QuickAction(View anchor) {
         super(anchor);
@@ -91,8 +90,7 @@ public class QuickAction extends CustomPopup {
     /**
      * Set animation style
      * 
-     * @param animStyle
-     *            animation style, default is set to ANIM_AUTO
+     * @param animStyle animation style, default is set to ANIM_AUTO
      */
     public void setAnimStyle(int animStyle) {
         this.animStyle = animStyle;
@@ -101,8 +99,7 @@ public class QuickAction extends CustomPopup {
     /**
      * Add action item
      * 
-     * @param action
-     *            {@link ActionItem} object
+     * @param action {@link ActionItem} object
      */
     public void addActionItem(ActionItem action) {
         actionList.add(action);
@@ -181,13 +178,10 @@ public class QuickAction extends CustomPopup {
     /**
      * Set animation style
      * 
-     * @param screenWidth
-     *            screen width
-     * @param requestedX
-     *            distance from left edge
-     * @param onTop
-     *            flag to indicate where the popup should be displayed. Set TRUE
-     *            if displayed on top of anchor view and vice versa
+     * @param screenWidth screen width
+     * @param requestedX distance from left edge
+     * @param onTop flag to indicate where the popup should be displayed. Set
+     *            TRUE if displayed on top of anchor view and vice versa
      */
     private void setAnimationStyle(int screenWidth, int requestedX,
             boolean onTop) {
@@ -257,12 +251,9 @@ public class QuickAction extends CustomPopup {
     /**
      * Get action item {@link View}
      * 
-     * @param title
-     *            action item title
-     * @param icon
-     *            {@link Drawable} action item icon
-     * @param listener
-     *            {@link View.OnClickListener} action item listener
+     * @param title action item title
+     * @param icon {@link Drawable} action item icon
+     * @param listener {@link View.OnClickListener} action item listener
      * @return action item {@link View}
      */
     private View getActionItem(String title, Drawable icon,
@@ -291,10 +282,8 @@ public class QuickAction extends CustomPopup {
     /**
      * Show arrow
      * 
-     * @param whichArrow
-     *            arrow type resource id
-     * @param requestedX
-     *            distance from left screen
+     * @param whichArrow arrow type resource id
+     * @param requestedX distance from left screen
      */
     private void showArrow(int whichArrow, int requestedX) {
         final View showArrow = (whichArrow == R.id.arrow_up) ? mArrowUp
