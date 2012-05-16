@@ -24,18 +24,18 @@ import android.os.IBinder;
 
 public class AccountAuthenticatorService extends Service {
 
-  private AccountAuthenticator mAuthenticator;
-  static final public String ACCOUNT_TYPE = "owncloud"; 
-  
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    mAuthenticator = new AccountAuthenticator(this);
-  }
-  
-  @Override
-  public IBinder onBind(Intent intent) {
-    return mAuthenticator.getIBinder();
-  }
+    private AccountAuthenticator mAuthenticator;
+    static final public String ACCOUNT_TYPE = "owncloud";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mAuthenticator = new AccountAuthenticator(this);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mAuthenticator.getIBinder();
+    }
 
 }

@@ -45,96 +45,96 @@ import eu.alefzero.webdav.WebdavEntry;
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
-	public FileSyncAdapter(Context context, boolean autoInitialize) {
-		super(context, autoInitialize);
-	}
-	
-	@Override
-	public synchronized void onPerformSync(
-			Account account, 
-			Bundle extras, 
-			String authority, 
-			ContentProviderClient provider, 
-			SyncResult syncResult) {
-
-			this.setAccount(account);
-			this.setContentProvider(provider);
-			this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
-
-			Log.d("ASD", "syncing owncloud account " + account.name);
-			
-			Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
-			i.putExtra(FileSyncService.IN_PROGRESS, true);
-			i.putExtra(FileSyncService.ACCOUNT_NAME, account.name);
-			getContext().sendStickyBroadcast(i);
-			
-			PropFindMethod query;
-      try {
-        Log.e("ASD", getUri().toString());
-        query = new PropFindMethod(getUri().toString()+"/");
-        getClient().executeMethod(query);
-        MultiStatus resp = null;
-        resp = query.getResponseBodyAsMultiStatus();
-        
-        if (resp.getResponses().length > 0) {
-          WebdavEntry we = new WebdavEntry(resp.getResponses()[0]);
-          OCFile file = fillOCFile(we);
-          file.setParentId(0);
-          getStorageManager().saveFile(file);
-          fetchData(getUri().toString(), syncResult, file.getFileId());
-        }
-      } catch (OperationCanceledException e) {
-        e.printStackTrace();
-      } catch (AuthenticatorException e) {
-        syncResult.stats.numAuthExceptions++;
-        e.printStackTrace();
-      } catch (IOException e) {
-        syncResult.stats.numIoExceptions++;
-        e.printStackTrace();
-      } catch (DavException e) {
-        syncResult.stats.numIoExceptions++;
-        e.printStackTrace();
-      }
-      i.putExtra(FileSyncService.IN_PROGRESS, false);
-      getContext().sendStickyBroadcast(i);
-	}
-
-  private void fetchData(String uri, SyncResult syncResult, long parentId) {
-    try {
-      PropFindMethod query = new PropFindMethod(uri);
-      getClient().executeMethod(query);
-      MultiStatus resp = null;
-      resp = query.getResponseBodyAsMultiStatus();
-      for (int i = 1; i < resp.getResponses().length; ++i) {
-        WebdavEntry we = new WebdavEntry(resp.getResponses()[i]);
-        OCFile file = fillOCFile(we);
-        file.setParentId(parentId);
-        getStorageManager().saveFile(file);
-        if (parentId == 0) parentId = file.getFileId();
-        if (we.contentType().equals("DIR"))
-          fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
-      }
-    } catch (OperationCanceledException e) {
-      e.printStackTrace();
-    } catch (AuthenticatorException e) {
-      syncResult.stats.numAuthExceptions++;
-      e.printStackTrace();
-    } catch (IOException e) {
-      syncResult.stats.numIoExceptions++;
-      e.printStackTrace();
-    } catch (DavException e) {
-      syncResult.stats.numIoExceptions++;
-      e.printStackTrace();
+    public FileSyncAdapter(Context context, boolean autoInitialize) {
+        super(context, autoInitialize);
     }
-  }
-  
-  private OCFile fillOCFile(WebdavEntry we) {
-    OCFile file = new OCFile(we.path());
-    file.setCreationTimestamp(we.createTimestamp());
-    file.setFileLength(we.contentLength());
-    file.setMimetype(we.contentType());
-    file.setModificationTimestamp(we.modifiedTimesamp());
-    return file;
-  }
-	
+
+    @Override
+    public synchronized void onPerformSync(Account account, Bundle extras,
+            String authority, ContentProviderClient provider,
+            SyncResult syncResult) {
+
+        this.setAccount(account);
+        this.setContentProvider(provider);
+        this.setStorageManager(new FileDataStorageManager(account,
+                getContentProvider()));
+
+        Log.d("ASD", "syncing owncloud account " + account.name);
+
+        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
+        i.putExtra(FileSyncService.IN_PROGRESS, true);
+        i.putExtra(FileSyncService.ACCOUNT_NAME, account.name);
+        getContext().sendStickyBroadcast(i);
+
+        PropFindMethod query;
+        try {
+            Log.e("ASD", getUri().toString());
+            query = new PropFindMethod(getUri().toString() + "/");
+            getClient().executeMethod(query);
+            MultiStatus resp = null;
+            resp = query.getResponseBodyAsMultiStatus();
+
+            if (resp.getResponses().length > 0) {
+                WebdavEntry we = new WebdavEntry(resp.getResponses()[0]);
+                OCFile file = fillOCFile(we);
+                file.setParentId(0);
+                getStorageManager().saveFile(file);
+                fetchData(getUri().toString(), syncResult, file.getFileId());
+            }
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            syncResult.stats.numAuthExceptions++;
+            e.printStackTrace();
+        } catch (IOException e) {
+            syncResult.stats.numIoExceptions++;
+            e.printStackTrace();
+        } catch (DavException e) {
+            syncResult.stats.numIoExceptions++;
+            e.printStackTrace();
+        }
+        i.putExtra(FileSyncService.IN_PROGRESS, false);
+        getContext().sendStickyBroadcast(i);
+    }
+
+    private void fetchData(String uri, SyncResult syncResult, long parentId) {
+        try {
+            PropFindMethod query = new PropFindMethod(uri);
+            getClient().executeMethod(query);
+            MultiStatus resp = null;
+            resp = query.getResponseBodyAsMultiStatus();
+            for (int i = 1; i < resp.getResponses().length; ++i) {
+                WebdavEntry we = new WebdavEntry(resp.getResponses()[i]);
+                OCFile file = fillOCFile(we);
+                file.setParentId(parentId);
+                getStorageManager().saveFile(file);
+                if (parentId == 0)
+                    parentId = file.getFileId();
+                if (we.contentType().equals("DIR"))
+                    fetchData(getUri().toString() + we.path(), syncResult,
+                            file.getFileId());
+            }
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            syncResult.stats.numAuthExceptions++;
+            e.printStackTrace();
+        } catch (IOException e) {
+            syncResult.stats.numIoExceptions++;
+            e.printStackTrace();
+        } catch (DavException e) {
+            syncResult.stats.numIoExceptions++;
+            e.printStackTrace();
+        }
+    }
+
+    private OCFile fillOCFile(WebdavEntry we) {
+        OCFile file = new OCFile(we.path());
+        file.setCreationTimestamp(we.createTimestamp());
+        file.setFileLength(we.contentLength());
+        file.setMimetype(we.contentType());
+        file.setModificationTimestamp(we.modifiedTimesamp());
+        return file;
+    }
+
 }

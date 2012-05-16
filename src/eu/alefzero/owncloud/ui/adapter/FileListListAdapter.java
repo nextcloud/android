@@ -34,119 +34,124 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 /**
- * This Adapter populates a ListView with all files and 
- * folders in an ownCloud instance.
+ * This Adapter populates a ListView with all files and folders in an ownCloud
+ * instance.
+ * 
  * @author Bartek Przybylski
- *
+ * 
  */
 public class FileListListAdapter implements ListAdapter {
-  private Context mContext;
-  private OCFile mFile;
-  private Vector<OCFile> mFiles;
-  private DataStorageManager mStorageManager;
-  
-  public FileListListAdapter(OCFile file, DataStorageManager storage_man, Context context) {
-    mFile = file;
-    mStorageManager = storage_man;
-    mFiles = mStorageManager.getDirectoryContent(mFile);
-    mContext = context;
-  }
-  
-  @Override
-  public boolean areAllItemsEnabled() {
-    return true;
-  }
+    private Context mContext;
+    private OCFile mFile;
+    private Vector<OCFile> mFiles;
+    private DataStorageManager mStorageManager;
 
-  @Override
-  public boolean isEnabled(int position) {
-    // TODO Auto-generated method stub
-    return true;
-  }
-
-  @Override
-  public int getCount() {
-    return mFiles != null ? mFiles.size() : 0;
-  }
-
-  @Override
-  public Object getItem(int position) {
-    if (mFiles.size() <= position)
-      return null;
-    return mFiles.get(position);
-  }
-
-  @Override
-  public long getItemId(int position) {
-    return mFiles != null ? mFiles.get(position).getFileId() : 0;
-  }
-
-  @Override
-  public int getItemViewType(int position) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    View view = convertView;
-    if (view == null) {
-      LayoutInflater inflator = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      view = inflator.inflate(R.layout.list_layout, null);
-    }
-    if (mFiles.size() > position) {
-      OCFile file = mFiles.get(position);
-      TextView fileName = (TextView) view.findViewById(R.id.Filename);
-      TextView ext_text = (TextView) view.findViewById(R.id.Extension);
-      String name = file.getFileName();
-      String ext = file.getFileName();
-      if (name.lastIndexOf('.') != -1) {
-        name = name.substring(0, name.lastIndexOf('.'));
-        ext = ext.substring(ext.lastIndexOf('.'));
-      } else {
-        ext = "";
-      }
-      
-      fileName.setText(DisplayUtils.HtmlDecode(name));
-      ext_text.setText(ext);
-      ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-      if (!file.getMimetype().equals("DIR")) {
-        fileIcon.setImageResource(R.drawable.file);
-      } else {
-        fileIcon.setImageResource(R.drawable.ic_menu_archive);
-      }
-      ImageView down = (ImageView) view.findViewById(R.id.imageView2);
-      if (file.getStoragePath() != null) down.setVisibility(View.VISIBLE);
-      else down.setVisibility(View.INVISIBLE);
-      
+    public FileListListAdapter(OCFile file, DataStorageManager storage_man,
+            Context context) {
+        mFile = file;
+        mStorageManager = storage_man;
+        mFiles = mStorageManager.getDirectoryContent(mFile);
+        mContext = context;
     }
 
-    return view;
-  }
+    @Override
+    public boolean areAllItemsEnabled() {
+        return true;
+    }
 
-  @Override
-  public int getViewTypeCount() {
-    return 4;
-  }
+    @Override
+    public boolean isEnabled(int position) {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-  @Override
-  public boolean hasStableIds() {
-    return true;
-  }
+    @Override
+    public int getCount() {
+        return mFiles != null ? mFiles.size() : 0;
+    }
 
-  @Override
-  public boolean isEmpty() {
-    return mFiles != null ? mFiles.isEmpty() : false;
-  }
+    @Override
+    public Object getItem(int position) {
+        if (mFiles.size() <= position)
+            return null;
+        return mFiles.get(position);
+    }
 
-  @Override
-  public void registerDataSetObserver(DataSetObserver observer) {
-    // TODO Auto-generated method stub
-    
-  }
+    @Override
+    public long getItemId(int position) {
+        return mFiles != null ? mFiles.get(position).getFileId() : 0;
+    }
 
-  @Override
-  public void unregisterDataSetObserver(DataSetObserver observer) {
-    // TODO Auto-generated method stub
-    
-  }
+    @Override
+    public int getItemViewType(int position) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = convertView;
+        if (view == null) {
+            LayoutInflater inflator = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflator.inflate(R.layout.list_layout, null);
+        }
+        if (mFiles.size() > position) {
+            OCFile file = mFiles.get(position);
+            TextView fileName = (TextView) view.findViewById(R.id.Filename);
+            TextView ext_text = (TextView) view.findViewById(R.id.Extension);
+            String name = file.getFileName();
+            String ext = file.getFileName();
+            if (name.lastIndexOf('.') != -1) {
+                name = name.substring(0, name.lastIndexOf('.'));
+                ext = ext.substring(ext.lastIndexOf('.'));
+            } else {
+                ext = "";
+            }
+
+            fileName.setText(DisplayUtils.HtmlDecode(name));
+            ext_text.setText(ext);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            if (!file.getMimetype().equals("DIR")) {
+                fileIcon.setImageResource(R.drawable.file);
+            } else {
+                fileIcon.setImageResource(R.drawable.ic_menu_archive);
+            }
+            ImageView down = (ImageView) view.findViewById(R.id.imageView2);
+            if (file.getStoragePath() != null)
+                down.setVisibility(View.VISIBLE);
+            else
+                down.setVisibility(View.INVISIBLE);
+
+        }
+
+        return view;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 4;
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return mFiles != null ? mFiles.isEmpty() : false;
+    }
+
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void unregisterDataSetObserver(DataSetObserver observer) {
+        // TODO Auto-generated method stub
+
+    }
 }

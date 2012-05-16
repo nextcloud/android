@@ -17,7 +17,6 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Window;
@@ -28,26 +27,27 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
 
 /**
- * This activity displays the details of a file like
- * its name, its size and so on.
+ * This activity displays the details of a file like its name, its size and so
+ * on.
+ * 
  * @author Bartek Przybylski
- *
+ * 
  */
 public class FileDetailActivity extends SherlockFragmentActivity {
-  private FileDetailFragment mFileDetail;
-  
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  // TODO Auto-generated method stub
-  super.onCreate(savedInstanceState);
-  getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-  setContentView(R.layout.file_activity_details);
-  
-  mFileDetail = new FileDetailFragment();
-  FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-  ft.add(R.id.fileDetail, mFileDetail);
-  ft.commit();
-  
-}
+    private FileDetailFragment mFileDetail;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.file_activity_details);
+
+        mFileDetail = new FileDetailFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fileDetail, mFileDetail);
+        ft.commit();
+
+    }
 
 }

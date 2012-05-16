@@ -22,43 +22,44 @@ import android.provider.BaseColumns;
 
 /**
  * Meta-Class that holds various static field information
+ * 
  * @author Bartek Przybylski
- *
+ * 
  */
 public class ProviderMeta {
 
-  public static final String AUTHORITY_FILES = "org.owncloud";
-  public static final String DB_FILE = "owncloud.db";
-  public static final String DB_NAME = "filelist";
-  public static final int DB_VERSION = 1;
-  
-  private ProviderMeta() { }
-  
-  static public class ProviderTableMeta implements BaseColumns {
+    public static final String AUTHORITY_FILES = "org.owncloud";
+    public static final String DB_FILE = "owncloud.db";
     public static final String DB_NAME = "filelist";
-    public static final Uri CONTENT_URI =  
-      Uri.parse("content://" + AUTHORITY_FILES + "/");
-    public static final Uri CONTENT_URI_FILE =
-      Uri.parse("content://" + AUTHORITY_FILES + "/file");
-    public static final Uri CONTENT_URI_DIR =
-      Uri.parse("content://" + AUTHORITY_FILES + "/dir");
+    public static final int DB_VERSION = 1;
 
-    public static final String CONTENT_TYPE =
-      "vnd.android.cursor.dir/vnd.owncloud.file";
-    public static final String CONTENT_TYPE_ITEM =
-      "vnd.android.cursor.item/vnd.owncloud.file";
-    
-    public static final String FILE_PARENT = "parent";
-    public static final String FILE_NAME = "filename";
-    public static final String FILE_CREATION = "created";
-    public static final String FILE_MODIFIED = "modified";
-    public static final String FILE_CONTENT_LENGTH = "content_length";
-    public static final String FILE_CONTENT_TYPE = "content_type";
-    public static final String FILE_STORAGE_PATH = "media_path";
-    public static final String FILE_PATH = "path";
-    public static final String FILE_ACCOUNT_OWNER = "file_owner";
-    
-    public static final String DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
+    private ProviderMeta() {
+    }
 
-  }
+    static public class ProviderTableMeta implements BaseColumns {
+        public static final String DB_NAME = "filelist";
+        public static final Uri CONTENT_URI = Uri.parse("content://"
+                + AUTHORITY_FILES + "/");
+        public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
+                + AUTHORITY_FILES + "/file");
+        public static final Uri CONTENT_URI_DIR = Uri.parse("content://"
+                + AUTHORITY_FILES + "/dir");
+
+        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
+        public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
+
+        public static final String FILE_PARENT = "parent";
+        public static final String FILE_NAME = "filename";
+        public static final String FILE_CREATION = "created";
+        public static final String FILE_MODIFIED = "modified";
+        public static final String FILE_CONTENT_LENGTH = "content_length";
+        public static final String FILE_CONTENT_TYPE = "content_type";
+        public static final String FILE_STORAGE_PATH = "media_path";
+        public static final String FILE_PATH = "path";
+        public static final String FILE_ACCOUNT_OWNER = "file_owner";
+
+        public static final String DEFAULT_SORT_ORDER = FILE_NAME
+                + " collate nocase asc";
+
+    }
 }

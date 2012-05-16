@@ -22,35 +22,36 @@ import android.content.Intent;
 import android.os.IBinder;
 
 /**
- * Background service for syncing files to our
- * local Database
+ * Background service for syncing files to our local Database
+ * 
  * @author Bartek Przybylski
- *
+ * 
  */
 public class FileSyncService extends Service {
-  public static final String SYNC_MESSAGE = "eu.alefzero.owncloud.files.ACCOUNT_SYNC";
-  public static final String IN_PROGRESS = "sync_in_progress";
-  public static final String ACCOUNT_NAME = "account_name";
-  
-  private static final Object syncAdapterLock = new Object();
-  private static AbstractOwnCloudSyncAdapter concretSyncAdapter = null;
+    public static final String SYNC_MESSAGE = "eu.alefzero.owncloud.files.ACCOUNT_SYNC";
+    public static final String IN_PROGRESS = "sync_in_progress";
+    public static final String ACCOUNT_NAME = "account_name";
 
-  /*
-   * {@inheritDoc}
-   */
-  @Override
-  public void onCreate() {
-    synchronized (syncAdapterLock) {
-      if (concretSyncAdapter == null)
-        concretSyncAdapter = new FileSyncAdapter(getApplicationContext(), true);
+    private static final Object syncAdapterLock = new Object();
+    private static AbstractOwnCloudSyncAdapter concretSyncAdapter = null;
+
+    /*
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreate() {
+        synchronized (syncAdapterLock) {
+            if (concretSyncAdapter == null)
+                concretSyncAdapter = new FileSyncAdapter(
+                        getApplicationContext(), true);
+        }
     }
-  }
 
-  /*
-   * {@inheritDoc}
-   */
-  @Override
-  public IBinder onBind(Intent intent) {
-    return concretSyncAdapter.getSyncAdapterBinder();
-  }
+    /*
+     * {@inheritDoc}
+     */
+    @Override
+    public IBinder onBind(Intent intent) {
+        return concretSyncAdapter.getSyncAdapterBinder();
+    }
 }

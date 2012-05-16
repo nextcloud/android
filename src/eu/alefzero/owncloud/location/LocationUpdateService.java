@@ -30,73 +30,79 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-public class LocationUpdateService extends IntentService implements LocationListener {
+public class LocationUpdateService extends IntentService implements
+        LocationListener {
 
-	public static final String TAG = "LocationUpdateService";
-	
-	private LocationManager mLocationManager;
-	private LocationProvider mLocationProvider;
-	private SharedPreferences mPreferences;
-	
-	public LocationUpdateService() {
-		super(TAG);
-	}
+    public static final String TAG = "LocationUpdateService";
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		// Determine, how we can track the device
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-		mLocationProvider = mLocationManager.getProvider(mLocationManager.getBestProvider(criteria, true));
-		
-		// Notify user if there is no way to track the device
-		if(mLocationProvider == null){
-			Toast.makeText(this, eu.alefzero.owncloud.R.string.location_no_provider, Toast.LENGTH_LONG);
-			stopSelf();
-			return;
-		}
-		
-		// Get preferences for device tracking
-		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean trackDevice = mPreferences.getBoolean("enable_devicetracking", true);
-		int updateIntervall = Integer.parseInt(mPreferences.getString("devicetracking_update_intervall", "30")) * 60 * 1000;
-		int distanceBetweenLocationChecks = 50;
-		
-		// If we do shall track the device -> Stop
-		if(!trackDevice){
-			Log.d(TAG, "Devicetracking is disabled");
-			stopSelf();
-			return;
-		}
-		
-		mLocationManager.requestLocationUpdates(mLocationProvider.getName(), updateIntervall, distanceBetweenLocationChecks, this);
-	}
+    private LocationManager mLocationManager;
+    private LocationProvider mLocationProvider;
+    private SharedPreferences mPreferences;
 
-	@Override
-	public void onLocationChanged(Location location) {
-		Log.d(TAG, "Location changed: " + location);
-		
-	}
+    public LocationUpdateService() {
+        super(TAG);
+    }
 
-	@Override
-	public void onProviderDisabled(String arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        // Determine, how we can track the device
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        mLocationProvider = mLocationManager.getProvider(mLocationManager
+                .getBestProvider(criteria, true));
 
-	@Override
-	public void onProviderEnabled(String arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+        // Notify user if there is no way to track the device
+        if (mLocationProvider == null) {
+            Toast.makeText(this,
+                    eu.alefzero.owncloud.R.string.location_no_provider,
+                    Toast.LENGTH_LONG);
+            stopSelf();
+            return;
+        }
 
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
-		
-	}
+        // Get preferences for device tracking
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean trackDevice = mPreferences.getBoolean("enable_devicetracking",
+                true);
+        int updateIntervall = Integer.parseInt(mPreferences.getString(
+                "devicetracking_update_intervall", "30")) * 60 * 1000;
+        int distanceBetweenLocationChecks = 50;
 
+        // If we do shall track the device -> Stop
+        if (!trackDevice) {
+            Log.d(TAG, "Devicetracking is disabled");
+            stopSelf();
+            return;
+        }
+
+        mLocationManager.requestLocationUpdates(mLocationProvider.getName(),
+                updateIntervall, distanceBetweenLocationChecks, this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d(TAG, "Location changed: " + location);
+
+    }
+
+    @Override
+    public void onProviderDisabled(String arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onProviderEnabled(String arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

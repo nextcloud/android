@@ -29,54 +29,55 @@ import android.os.Handler;
 
 public class AuthenticationRunnable implements Runnable {
 
-  private OnAuthenticationResultListener mListener;
-  private Handler mHandler;
-  private URL mUrl;
-  private String mUsername;
-  private String mPassword;
+    private OnAuthenticationResultListener mListener;
+    private Handler mHandler;
+    private URL mUrl;
+    private String mUsername;
+    private String mPassword;
 
-  public AuthenticationRunnable(URL url, String username, String password) {
-    mListener = null;
-    mUrl = url;
-    mUsername = username;
-    mPassword = password;
-  }
-  
-  public void setOnAuthenticationResultListener(OnAuthenticationResultListener listener, Handler handler) {
-    mListener = listener;
-    mHandler = handler;
-  }
-  
-  @Override
-  public void run() {
-    Uri uri;
-    uri = Uri.parse(mUrl.toString());
-    WebdavClient client = new WebdavClient(uri);
-    client.setCredentials(mUsername, mPassword);
-    int login_result = client.tryToLogin(); 
-    switch (login_result) {
-      case HttpStatus.SC_OK:
-        postResult(true, uri.toString());
-        break;
-      case HttpStatus.SC_UNAUTHORIZED:
-        postResult(false, "Invalid login or/and password");
-        break;
-      case HttpStatus.SC_NOT_FOUND:
-        postResult(false, "Wrong path given");
-        break;
-      default:
-        postResult(false, "Internal server error, code: " + login_result);
+    public AuthenticationRunnable(URL url, String username, String password) {
+        mListener = null;
+        mUrl = url;
+        mUsername = username;
+        mPassword = password;
     }
-  }
 
-  private void postResult(final boolean success, final String message) {
-    if (mHandler != null && mListener != null) {
-      mHandler.post(new Runnable() {
-        @Override
-        public void run() {
-          mListener.onAuthenticationResult(success, message);
+    public void setOnAuthenticationResultListener(
+            OnAuthenticationResultListener listener, Handler handler) {
+        mListener = listener;
+        mHandler = handler;
+    }
+
+    @Override
+    public void run() {
+        Uri uri;
+        uri = Uri.parse(mUrl.toString());
+        WebdavClient client = new WebdavClient(uri);
+        client.setCredentials(mUsername, mPassword);
+        int login_result = client.tryToLogin();
+        switch (login_result) {
+        case HttpStatus.SC_OK:
+            postResult(true, uri.toString());
+            break;
+        case HttpStatus.SC_UNAUTHORIZED:
+            postResult(false, "Invalid login or/and password");
+            break;
+        case HttpStatus.SC_NOT_FOUND:
+            postResult(false, "Wrong path given");
+            break;
+        default:
+            postResult(false, "Internal server error, code: " + login_result);
         }
-      });
     }
-  }
+
+    private void postResult(final boolean success, final String message) {
+        if (mHandler != null && mListener != null) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mListener.onAuthenticationResult(success, message);
+                }
+            });
+        }
+    }
 }

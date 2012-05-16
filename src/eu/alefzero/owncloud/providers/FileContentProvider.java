@@ -37,176 +37,184 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 /**
-* The ContentProvider for the ownCloud App.
-* @author Bartek Przybylski
-* 
-*/
+ * The ContentProvider for the ownCloud App.
+ * 
+ * @author Bartek Przybylski
+ * 
+ */
 public class FileContentProvider extends ContentProvider {
 
-  private DataBaseHelper mDbHelper;
-  
-  private static HashMap<String, String> mProjectionMap;
-  static {
-    mProjectionMap = new HashMap<String, String>();
-    mProjectionMap.put(ProviderTableMeta._ID,
-                       ProviderTableMeta._ID);
-    mProjectionMap.put(ProviderTableMeta.FILE_PARENT,
-                       ProviderTableMeta.FILE_PARENT);
-    mProjectionMap.put(ProviderTableMeta.FILE_PATH,
-                       ProviderTableMeta.FILE_PATH);
-    mProjectionMap.put(ProviderTableMeta.FILE_NAME,
-                       ProviderTableMeta.FILE_NAME);
-    mProjectionMap.put(ProviderTableMeta.FILE_CREATION,
-                       ProviderTableMeta.FILE_CREATION);
-    mProjectionMap.put(ProviderTableMeta.FILE_MODIFIED,
-                       ProviderTableMeta.FILE_MODIFIED);
-    mProjectionMap.put(ProviderTableMeta.FILE_CONTENT_LENGTH,
-                       ProviderTableMeta.FILE_CONTENT_LENGTH);
-    mProjectionMap.put(ProviderTableMeta.FILE_CONTENT_TYPE,
-                       ProviderTableMeta.FILE_CONTENT_TYPE);
-    mProjectionMap.put(ProviderTableMeta.FILE_STORAGE_PATH,
-                       ProviderTableMeta.FILE_STORAGE_PATH);
-  }
-  
-  private static final int SINGLE_FILE = 1;
-  private static final int DIRECTORY = 2;
-  private static final int ROOT_DIRECTORY = 3;
-  private static final UriMatcher mUriMatcher;
-  static {
-    mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "/", ROOT_DIRECTORY);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
-    mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
-  }
-  
-  @Override
-  public int delete(Uri uri, String where, String[] whereArgs) {
-    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-    int count = 0;
-    switch (mUriMatcher.match(uri)) {
-      case SINGLE_FILE:
-        count = db.delete(ProviderTableMeta.DB_NAME,
-                          ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1)
-                          + (!TextUtils.isEmpty(where)?" AND (" + where +")" : ""),
-                          whereArgs);
-        break;
-      case ROOT_DIRECTORY:
-        count = db.delete(ProviderTableMeta.DB_NAME, where, whereArgs);
-        break;
-      default:
-        throw new IllegalArgumentException("Unknown uri: " + uri.toString());
-    }
-    getContext().getContentResolver().notifyChange(uri, null);
-    return count;
-  }
+    private DataBaseHelper mDbHelper;
 
-  @Override
-  public String getType(Uri uri) {
-    switch (mUriMatcher.match(uri)) {
-      case ROOT_DIRECTORY:
-        return ProviderTableMeta.CONTENT_TYPE;
-      case SINGLE_FILE:
-        return ProviderTableMeta.CONTENT_TYPE_ITEM;
-      default:
-        throw new IllegalArgumentException("Unknown Uri id." + uri.toString());
+    private static HashMap<String, String> mProjectionMap;
+    static {
+        mProjectionMap = new HashMap<String, String>();
+        mProjectionMap.put(ProviderTableMeta._ID, ProviderTableMeta._ID);
+        mProjectionMap.put(ProviderTableMeta.FILE_PARENT,
+                ProviderTableMeta.FILE_PARENT);
+        mProjectionMap.put(ProviderTableMeta.FILE_PATH,
+                ProviderTableMeta.FILE_PATH);
+        mProjectionMap.put(ProviderTableMeta.FILE_NAME,
+                ProviderTableMeta.FILE_NAME);
+        mProjectionMap.put(ProviderTableMeta.FILE_CREATION,
+                ProviderTableMeta.FILE_CREATION);
+        mProjectionMap.put(ProviderTableMeta.FILE_MODIFIED,
+                ProviderTableMeta.FILE_MODIFIED);
+        mProjectionMap.put(ProviderTableMeta.FILE_CONTENT_LENGTH,
+                ProviderTableMeta.FILE_CONTENT_LENGTH);
+        mProjectionMap.put(ProviderTableMeta.FILE_CONTENT_TYPE,
+                ProviderTableMeta.FILE_CONTENT_TYPE);
+        mProjectionMap.put(ProviderTableMeta.FILE_STORAGE_PATH,
+                ProviderTableMeta.FILE_STORAGE_PATH);
     }
-  }
 
-  @Override
-  public Uri insert(Uri uri, ContentValues values) {
-    if (mUriMatcher.match(uri) != SINGLE_FILE) {
-      throw new IllegalArgumentException("Unknown uri id: " + uri);
+    private static final int SINGLE_FILE = 1;
+    private static final int DIRECTORY = 2;
+    private static final int ROOT_DIRECTORY = 3;
+    private static final UriMatcher mUriMatcher;
+    static {
+        mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "/", ROOT_DIRECTORY);
+        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
+        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
+        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
     }
-    
-    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-    long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
-    if (rowId > 0) {
-      Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-      getContext().getContentResolver().notifyChange(insertedFileUri, null);
-      return insertedFileUri;
-    }
-    throw new SQLException("ERROR " + uri);
-  }
 
-  @Override
-  public boolean onCreate() {
-    mDbHelper = new DataBaseHelper(getContext());
-    return true;
-  }
-
-  @Override
-  public Cursor query(Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
-    SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
-        
-    sqlQuery.setTables(ProviderTableMeta.DB_NAME);
-    sqlQuery.setProjectionMap(mProjectionMap);
-    
-    switch (mUriMatcher.match(uri)) {
-      case ROOT_DIRECTORY:
-        break;
-      case DIRECTORY:
-        sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "="+uri.getPathSegments().get(1));
-        break;
-      case SINGLE_FILE:
-        if (uri.getPathSegments().size() > 1) {
-          sqlQuery.appendWhere(ProviderTableMeta._ID + "=" +
-                               uri.getPathSegments().get(1));
+    @Override
+    public int delete(Uri uri, String where, String[] whereArgs) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        int count = 0;
+        switch (mUriMatcher.match(uri)) {
+        case SINGLE_FILE:
+            count = db.delete(ProviderTableMeta.DB_NAME,
+                    ProviderTableMeta._ID
+                            + "="
+                            + uri.getPathSegments().get(1)
+                            + (!TextUtils.isEmpty(where) ? " AND (" + where
+                                    + ")" : ""), whereArgs);
+            break;
+        case ROOT_DIRECTORY:
+            count = db.delete(ProviderTableMeta.DB_NAME, where, whereArgs);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown uri: " + uri.toString());
         }
-        break;
-      default:
-        throw new IllegalArgumentException("Unknown uri id: " + uri);
-    }
-    
-    String order;
-    if (TextUtils.isEmpty(sortOrder)) {
-      order = ProviderTableMeta.DEFAULT_SORT_ORDER;
-    } else {
-      order = sortOrder;
-    }
-    
-    SQLiteDatabase db = mDbHelper.getReadableDatabase();
-    Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
-    
-    c.setNotificationUri(getContext().getContentResolver(), uri);
-
-    return c;
-  }
-
-  @Override
-  public int update(Uri uri, ContentValues values, String selection,
-      String[] selectionArgs) {
-    return mDbHelper.getWritableDatabase().update(ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
-  }
-
-  class DataBaseHelper extends SQLiteOpenHelper {
-
-    public DataBaseHelper(Context context) {
-      super(context, ProviderMeta.DB_NAME, null, ProviderMeta.DB_VERSION);
-      
-    }
-    
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-      db.execSQL("CREATE TABLE " + ProviderTableMeta.DB_NAME + "(" +
-                 ProviderTableMeta._ID + " INTEGER PRIMARY KEY, " +
-                 ProviderTableMeta.FILE_NAME + " TEXT, " +
-                 ProviderTableMeta.FILE_PATH + " TEXT, " +
-                 ProviderTableMeta.FILE_PARENT + " INTEGER, " +
-                 ProviderTableMeta.FILE_CREATION + " INTEGER, " +
-                 ProviderTableMeta.FILE_MODIFIED + " INTEGER, " +
-                 ProviderTableMeta.FILE_CONTENT_TYPE + " TEXT, " +
-                 ProviderTableMeta.FILE_CONTENT_LENGTH + " INTEGER, " +
-                 ProviderTableMeta.FILE_STORAGE_PATH + " TEXT, " +
-                 ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT);");
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-      
+    public String getType(Uri uri) {
+        switch (mUriMatcher.match(uri)) {
+        case ROOT_DIRECTORY:
+            return ProviderTableMeta.CONTENT_TYPE;
+        case SINGLE_FILE:
+            return ProviderTableMeta.CONTENT_TYPE_ITEM;
+        default:
+            throw new IllegalArgumentException("Unknown Uri id."
+                    + uri.toString());
+        }
     }
-    
-  }
-  
+
+    @Override
+    public Uri insert(Uri uri, ContentValues values) {
+        if (mUriMatcher.match(uri) != SINGLE_FILE) {
+            throw new IllegalArgumentException("Unknown uri id: " + uri);
+        }
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
+        if (rowId > 0) {
+            Uri insertedFileUri = ContentUris.withAppendedId(
+                    ProviderTableMeta.CONTENT_URI_FILE, rowId);
+            getContext().getContentResolver().notifyChange(insertedFileUri,
+                    null);
+            return insertedFileUri;
+        }
+        throw new SQLException("ERROR " + uri);
+    }
+
+    @Override
+    public boolean onCreate() {
+        mDbHelper = new DataBaseHelper(getContext());
+        return true;
+    }
+
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection,
+            String[] selectionArgs, String sortOrder) {
+        SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
+
+        sqlQuery.setTables(ProviderTableMeta.DB_NAME);
+        sqlQuery.setProjectionMap(mProjectionMap);
+
+        switch (mUriMatcher.match(uri)) {
+        case ROOT_DIRECTORY:
+            break;
+        case DIRECTORY:
+            sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "="
+                    + uri.getPathSegments().get(1));
+            break;
+        case SINGLE_FILE:
+            if (uri.getPathSegments().size() > 1) {
+                sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                        + uri.getPathSegments().get(1));
+            }
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown uri id: " + uri);
+        }
+
+        String order;
+        if (TextUtils.isEmpty(sortOrder)) {
+            order = ProviderTableMeta.DEFAULT_SORT_ORDER;
+        } else {
+            order = sortOrder;
+        }
+
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor c = sqlQuery.query(db, projection, selection, selectionArgs,
+                null, null, order);
+
+        c.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return c;
+    }
+
+    @Override
+    public int update(Uri uri, ContentValues values, String selection,
+            String[] selectionArgs) {
+        return mDbHelper.getWritableDatabase().update(
+                ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
+    }
+
+    class DataBaseHelper extends SQLiteOpenHelper {
+
+        public DataBaseHelper(Context context) {
+            super(context, ProviderMeta.DB_NAME, null, ProviderMeta.DB_VERSION);
+
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + ProviderTableMeta.DB_NAME + "("
+                    + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
+                    + ProviderTableMeta.FILE_NAME + " TEXT, "
+                    + ProviderTableMeta.FILE_PATH + " TEXT, "
+                    + ProviderTableMeta.FILE_PARENT + " INTEGER, "
+                    + ProviderTableMeta.FILE_CREATION + " INTEGER, "
+                    + ProviderTableMeta.FILE_MODIFIED + " INTEGER, "
+                    + ProviderTableMeta.FILE_CONTENT_TYPE + " TEXT, "
+                    + ProviderTableMeta.FILE_CONTENT_LENGTH + " INTEGER, "
+                    + ProviderTableMeta.FILE_STORAGE_PATH + " TEXT, "
+                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT);");
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        }
+
+    }
+
 }

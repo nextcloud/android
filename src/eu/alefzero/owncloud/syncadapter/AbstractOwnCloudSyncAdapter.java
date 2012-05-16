@@ -47,119 +47,123 @@ import eu.alefzero.webdav.WebdavClient;
  * @author sassman
  * 
  */
-public abstract class AbstractOwnCloudSyncAdapter extends AbstractThreadedSyncAdapter {
+public abstract class AbstractOwnCloudSyncAdapter extends
+        AbstractThreadedSyncAdapter {
 
-	private AccountManager accountManager;
-	private Account account;
-	private ContentProviderClient contentProvider;
-	private Date lastUpdated;
-	private DataStorageManager mStoreManager;
+    private AccountManager accountManager;
+    private Account account;
+    private ContentProviderClient contentProvider;
+    private Date lastUpdated;
+    private DataStorageManager mStoreManager;
 
-	private WebdavClient mClient = null;
+    private WebdavClient mClient = null;
 
-	public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
-		super(context, autoInitialize);
-		this.setAccountManager(AccountManager.get(context));
-	}
+    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
+        super(context, autoInitialize);
+        this.setAccountManager(AccountManager.get(context));
+    }
 
-	public AccountManager getAccountManager() {
-		return accountManager;
-	}
+    public AccountManager getAccountManager() {
+        return accountManager;
+    }
 
-	public void setAccountManager(AccountManager accountManager) {
-		this.accountManager = accountManager;
-	}
+    public void setAccountManager(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
 
-	public Account getAccount() {
-		return account;
-	}
+    public Account getAccount() {
+        return account;
+    }
 
-	public void setAccount(Account account) {
-		this.account = account;
-	}
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
-	public ContentProviderClient getContentProvider() {
-		return contentProvider;
-	}
+    public ContentProviderClient getContentProvider() {
+        return contentProvider;
+    }
 
-	public void setContentProvider(ContentProviderClient contentProvider) {
-		this.contentProvider = contentProvider;
-	}
+    public void setContentProvider(ContentProviderClient contentProvider) {
+        this.contentProvider = contentProvider;
+    }
 
-	public Date getLastUpdated() {
-		return lastUpdated;
-	}
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
 
-	public void setLastUpdated(Date lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
 
-	public void setStorageManager(DataStorageManager storage_manager) {
-	  mStoreManager = storage_manager;
-	}
-	
-	public DataStorageManager getStorageManager() {
-	  return mStoreManager;
-	}
-	
-	protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
-		return new ConnectionKeepAliveStrategy() {
-			public long getKeepAliveDuration(HttpResponse response,
-					HttpContext context) {
-				// Change keep alive straategy basing on response: ie
-				// forbidden/not found/etc
-				// should have keep alive 0
-				// default return: 5s
-				int statusCode = response.getStatusLine().getStatusCode();
+    public void setStorageManager(DataStorageManager storage_manager) {
+        mStoreManager = storage_manager;
+    }
 
-				// HTTP 400, 500 Errors as well as HTTP 118 - Connection timed
-				// out
-				if ((statusCode >= 400 && statusCode <= 418)
-						|| (statusCode >= 421 && statusCode <= 426)
-						|| (statusCode >= 500 && statusCode <= 510)
-						|| statusCode == 118) {
-					return 0;
-				}
+    public DataStorageManager getStorageManager() {
+        return mStoreManager;
+    }
 
-				return 5 * 1000;
-			}
-		};
-	}
+    protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
+        return new ConnectionKeepAliveStrategy() {
+            public long getKeepAliveDuration(HttpResponse response,
+                    HttpContext context) {
+                // Change keep alive straategy basing on response: ie
+                // forbidden/not found/etc
+                // should have keep alive 0
+                // default return: 5s
+                int statusCode = response.getStatusLine().getStatusCode();
 
-	protected HttpResponse fireRawRequest(HttpRequest query)
-			throws ClientProtocolException, OperationCanceledException,
-			AuthenticatorException, IOException {
-		/*BasicHttpContext httpContext = new BasicHttpContext();
-		BasicScheme basicAuth = new BasicScheme();
-		httpContext.setAttribute("preemptive-auth", basicAuth);
+                // HTTP 400, 500 Errors as well as HTTP 118 - Connection timed
+                // out
+                if ((statusCode >= 400 && statusCode <= 418)
+                        || (statusCode >= 421 && statusCode <= 426)
+                        || (statusCode >= 500 && statusCode <= 510)
+                        || statusCode == 118) {
+                    return 0;
+                }
 
-		HttpResponse response = getClient().execute(mHost, query, httpContext);*/
-		return null;
-	}
+                return 5 * 1000;
+            }
+        };
+    }
 
-	protected Uri getUri() {
-		return Uri.parse(this.getAccountManager().getUserData(getAccount(),
-				AccountAuthenticator.KEY_OC_URL));
-	}
+    protected HttpResponse fireRawRequest(HttpRequest query)
+            throws ClientProtocolException, OperationCanceledException,
+            AuthenticatorException, IOException {
+        /*
+         * BasicHttpContext httpContext = new BasicHttpContext(); BasicScheme
+         * basicAuth = new BasicScheme();
+         * httpContext.setAttribute("preemptive-auth", basicAuth);
+         * 
+         * HttpResponse response = getClient().execute(mHost, query,
+         * httpContext);
+         */
+        return null;
+    }
 
-	protected WebdavClient getClient() throws OperationCanceledException,
-			AuthenticatorException, IOException {
-		if (mClient == null) {
-			String username = getAccount().name.split("@")[0];
-			String password = this.getAccountManager().blockingGetAuthToken(
-					getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
-			if (this.getAccountManager().getUserData(getAccount(),
-					AccountAuthenticator.KEY_OC_URL) == null) {
-				throw new UnknownHostException();
-			}
-			Uri uri = getUri();
+    protected Uri getUri() {
+        return Uri.parse(this.getAccountManager().getUserData(getAccount(),
+                AccountAuthenticator.KEY_OC_URL));
+    }
 
-			mClient = new WebdavClient(uri);
-			mClient.setCredentials(username, password);
-			mClient.allowUnsignedCertificates();
-			//mHost = mClient.getTargetHost();
-		}
+    protected WebdavClient getClient() throws OperationCanceledException,
+            AuthenticatorException, IOException {
+        if (mClient == null) {
+            String username = getAccount().name.split("@")[0];
+            String password = this.getAccountManager().blockingGetAuthToken(
+                    getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
+            if (this.getAccountManager().getUserData(getAccount(),
+                    AccountAuthenticator.KEY_OC_URL) == null) {
+                throw new UnknownHostException();
+            }
+            Uri uri = getUri();
 
-		return mClient;
-	}
+            mClient = new WebdavClient(uri);
+            mClient.setCredentials(username, password);
+            mClient.allowUnsignedCertificates();
+            // mHost = mClient.getTargetHost();
+        }
+
+        return mClient;
+    }
 }

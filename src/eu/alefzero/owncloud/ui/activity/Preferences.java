@@ -56,210 +56,212 @@ import eu.alefzero.owncloud.db.DbHandler;
  * 
  */
 public class Preferences extends SherlockPreferenceActivity implements
-		OnPreferenceChangeListener {
-	private static final String TAG = "OwnCloudPreferences";
-	private final int mNewSession = 47;
-	private final int mEditSession = 48;
-	private DbHandler mDbHandler;
-	private Vector<OwnCloudSession> mSessions;
-	private Account[] mAccounts;
-	private ListPreference mAccountList;
-	private ListPreference mTrackingUpdateInterval;
-	private CheckBoxPreference mDeviceTracking;
-	private int mSelectedMenuItem;
+        OnPreferenceChangeListener {
+    private static final String TAG = "OwnCloudPreferences";
+    private final int mNewSession = 47;
+    private final int mEditSession = 48;
+    private DbHandler mDbHandler;
+    private Vector<OwnCloudSession> mSessions;
+    private Account[] mAccounts;
+    private ListPreference mAccountList;
+    private ListPreference mTrackingUpdateInterval;
+    private CheckBoxPreference mDeviceTracking;
+    private int mSelectedMenuItem;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		mDbHandler = new DbHandler(getBaseContext());
-		mSessions = new Vector<OwnCloudSession>();
-		addPreferencesFromResource(R.xml.preferences);
-		registerForContextMenu(getListView());
-		populateAccountList();
-		ActionBar actionBar = getSherlock().getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDbHandler = new DbHandler(getBaseContext());
+        mSessions = new Vector<OwnCloudSession>();
+        addPreferencesFromResource(R.xml.preferences);
+        registerForContextMenu(getListView());
+        populateAccountList();
+        ActionBar actionBar = getSherlock().getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-		// Update summary for device tracking preference
-		mTrackingUpdateInterval = (ListPreference) findPreference("devicetracking_update_intervall");
-		String trackingSummary = getResources().getString(
-				R.string.prefs_trackmydevice_interval_summary);
-		trackingSummary = String.format(trackingSummary,
-				mTrackingUpdateInterval.getValue());
-		mTrackingUpdateInterval.setSummary(trackingSummary);
-		mTrackingUpdateInterval.setOnPreferenceChangeListener(this);
+        // Update summary for device tracking preference
+        mTrackingUpdateInterval = (ListPreference) findPreference("devicetracking_update_intervall");
+        String trackingSummary = getResources().getString(
+                R.string.prefs_trackmydevice_interval_summary);
+        trackingSummary = String.format(trackingSummary,
+                mTrackingUpdateInterval.getValue());
+        mTrackingUpdateInterval.setSummary(trackingSummary);
+        mTrackingUpdateInterval.setOnPreferenceChangeListener(this);
 
-		// Enable or disable device tracking service. Listen on events
-		mDeviceTracking = (CheckBoxPreference) findPreference("enable_devicetracking");
-		mDeviceTracking.setOnPreferenceChangeListener(this);
-		
-		// populateSessionList();
-	}
+        // Enable or disable device tracking service. Listen on events
+        mDeviceTracking = (CheckBoxPreference) findPreference("enable_devicetracking");
+        mDeviceTracking.setOnPreferenceChangeListener(this);
 
-	private void populateSessionList() {
-		mSessions.clear();
-		mSessions = mDbHandler.getSessionList();
-		PreferenceScreen ps = getPreferenceScreen();
-		ps.removeAll();
-		addPreferencesFromResource(R.xml.preferences);
-		for (int i = 0; i < mSessions.size(); i++) {
-			Preference preference = new Preference(getBaseContext());
-			preference.setTitle(mSessions.get(i).getName());
-			URI uri;
-			try {
-				uri = new URI(mSessions.get(i).getUrl());
-			} catch (URISyntaxException e) {
-				e.printStackTrace(); // should never happen
-				continue;
-			}
-			preference.setSummary(uri.getScheme() + "://" + uri.getHost()
-					+ uri.getPath());
-			ps.addPreference(preference);
-		}
-	}
+        // populateSessionList();
+    }
 
-	/**
-	 * Populates the account selector
-	 */
-	private void populateAccountList() {
-		AccountManager accMan = AccountManager.get(this);
-		mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
-		mAccountList = (ListPreference) findPreference("select_oc_account");
-		mAccountList.setOnPreferenceChangeListener(this);
+    private void populateSessionList() {
+        mSessions.clear();
+        mSessions = mDbHandler.getSessionList();
+        PreferenceScreen ps = getPreferenceScreen();
+        ps.removeAll();
+        addPreferencesFromResource(R.xml.preferences);
+        for (int i = 0; i < mSessions.size(); i++) {
+            Preference preference = new Preference(getBaseContext());
+            preference.setTitle(mSessions.get(i).getName());
+            URI uri;
+            try {
+                uri = new URI(mSessions.get(i).getUrl());
+            } catch (URISyntaxException e) {
+                e.printStackTrace(); // should never happen
+                continue;
+            }
+            preference.setSummary(uri.getScheme() + "://" + uri.getHost()
+                    + uri.getPath());
+            ps.addPreference(preference);
+        }
+    }
 
-		// Display the name of the current account if there is any
-		Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
-		if (defaultAccount != null) {
-			mAccountList.setSummary(defaultAccount.name);
-		}
+    /**
+     * Populates the account selector
+     */
+    private void populateAccountList() {
+        AccountManager accMan = AccountManager.get(this);
+        mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+        mAccountList = (ListPreference) findPreference("select_oc_account");
+        mAccountList.setOnPreferenceChangeListener(this);
 
-		// Transform accounts into array of string for preferences to use
-		String[] accNames = new String[mAccounts.length];
-		for (int i = 0; i < mAccounts.length; i++) {
-			Account account = mAccounts[i];
-			accNames[i] = account.name;
-		}
+        // Display the name of the current account if there is any
+        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (defaultAccount != null) {
+            mAccountList.setSummary(defaultAccount.name);
+        }
 
-		mAccountList.setEntries(accNames);
-		mAccountList.setEntryValues(accNames);
-	}
+        // Transform accounts into array of string for preferences to use
+        String[] accNames = new String[mAccounts.length];
+        for (int i = 0; i < mAccounts.length; i++) {
+            Account account = mAccounts[i];
+            accNames[i] = account.name;
+        }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getSherlock().getMenuInflater();
-		inflater.inflate(R.menu.prefs_menu, menu);
-		return true;
-	}
+        mAccountList.setEntries(accNames);
+        mAccountList.setEntryValues(accNames);
+    }
 
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		super.onMenuItemSelected(featureId, item);
-		Intent intent;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getSherlock().getMenuInflater();
+        inflater.inflate(R.menu.prefs_menu, menu);
+        return true;
+    }
 
-		switch (item.getItemId()) {
-		case R.id.addSessionItem:
-			intent = new Intent(this, PreferencesNewSession.class);
-			startActivityForResult(intent, mNewSession);
-			break;
-		case R.id.SessionContextEdit:
-			intent = new Intent(this, PreferencesNewSession.class);
-			intent.putExtra("sessionId", mSessions.get(mSelectedMenuItem)
-					.getEntryId());
-			intent.putExtra("sessionName", mSessions.get(mSelectedMenuItem)
-					.getName());
-			intent.putExtra("sessionURL", mSessions.get(mSelectedMenuItem)
-					.getUrl());
-			startActivityForResult(intent, mEditSession);
-			break;
-		case R.id.SessionContextRemove:
-			OwnCloudSession ocs = mSessions.get(mSelectedMenuItem);
-			mDbHandler.removeSessionWithId(ocs.getEntryId());
-			mSessions.remove(ocs);
-			getPreferenceScreen().removePreference(
-					getPreferenceScreen().getPreference(mSelectedMenuItem + 1));
-			break;
-		case android.R.id.home:
-			intent = new Intent(getBaseContext(), LandingActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			break;
-		default:
-			Log.w(TAG, "Unknown menu item triggered");
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        super.onMenuItemSelected(featureId, item);
+        Intent intent;
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == Activity.RESULT_OK) {
-			switch (requestCode) {
-			case mNewSession:
-				mDbHandler.addSession(data.getStringExtra("sessionName"),
-						data.getStringExtra("sessionURL"));
-				getPreferenceScreen().removeAll();
-				addPreferencesFromResource(R.xml.preferences);
-				populateSessionList();
-				break;
-			case mEditSession:
-				mDbHandler.changeSessionFields(
-						data.getIntExtra("sessionId", -1),
-						data.getStringExtra("sessionName"),
-						data.getStringExtra("sessionURL"));
-				populateSessionList();
-				break;
-			}
-		}
-	}
+        switch (item.getItemId()) {
+        case R.id.addSessionItem:
+            intent = new Intent(this, PreferencesNewSession.class);
+            startActivityForResult(intent, mNewSession);
+            break;
+        case R.id.SessionContextEdit:
+            intent = new Intent(this, PreferencesNewSession.class);
+            intent.putExtra("sessionId", mSessions.get(mSelectedMenuItem)
+                    .getEntryId());
+            intent.putExtra("sessionName", mSessions.get(mSelectedMenuItem)
+                    .getName());
+            intent.putExtra("sessionURL", mSessions.get(mSelectedMenuItem)
+                    .getUrl());
+            startActivityForResult(intent, mEditSession);
+            break;
+        case R.id.SessionContextRemove:
+            OwnCloudSession ocs = mSessions.get(mSelectedMenuItem);
+            mDbHandler.removeSessionWithId(ocs.getEntryId());
+            mSessions.remove(ocs);
+            getPreferenceScreen().removePreference(
+                    getPreferenceScreen().getPreference(mSelectedMenuItem + 1));
+            break;
+        case android.R.id.home:
+            intent = new Intent(getBaseContext(), LandingActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            break;
+        default:
+            Log.w(TAG, "Unknown menu item triggered");
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-		mSelectedMenuItem = info.position - 1;
-		menu.setHeaderTitle(mSessions.get(mSelectedMenuItem).getName());
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+            case mNewSession:
+                mDbHandler.addSession(data.getStringExtra("sessionName"),
+                        data.getStringExtra("sessionURL"));
+                getPreferenceScreen().removeAll();
+                addPreferencesFromResource(R.xml.preferences);
+                populateSessionList();
+                break;
+            case mEditSession:
+                mDbHandler.changeSessionFields(
+                        data.getIntExtra("sessionId", -1),
+                        data.getStringExtra("sessionName"),
+                        data.getStringExtra("sessionURL"));
+                populateSessionList();
+                break;
+            }
+        }
+    }
 
-		MenuInflater inflater = getSherlock().getMenuInflater();
-		inflater.inflate(R.menu.session_context_menu, (Menu) menu);
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+        mSelectedMenuItem = info.position - 1;
+        menu.setHeaderTitle(mSessions.get(mSelectedMenuItem).getName());
 
-	}
+        MenuInflater inflater = getSherlock().getMenuInflater();
+        inflater.inflate(R.menu.session_context_menu, (Menu) menu);
 
-	@Override
-	protected void onDestroy() {
-		mDbHandler.close();
-		super.onDestroy();
-	}
+    }
 
-	@Override
-	/**
-	 * Updates various summaries after updates. Also starts and stops 
-	 * the
-	 */
-	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		// Update current account summary
-		if (preference.equals(mAccountList)) {
-			mAccountList.setSummary(newValue.toString());
-		} 
-		
-		// Update tracking interval summary
-		else if (preference.equals(mTrackingUpdateInterval)) {
-			String trackingSummary = getResources().getString(
-					R.string.prefs_trackmydevice_interval_summary);
-			trackingSummary = String.format(trackingSummary,
-					newValue.toString());
-			mTrackingUpdateInterval.setSummary(trackingSummary);
-		} 
-		
-		// Start or stop tracking service
-		else if (preference.equals(mDeviceTracking)) {
-			Intent locationServiceIntent = new Intent();
-			locationServiceIntent.setAction("eu.alefzero.owncloud.location.LocationLauncher");
-			locationServiceIntent.putExtra("TRACKING_SETTING", (Boolean) newValue);
-			sendBroadcast(locationServiceIntent);
-		}
-		return true;
-	}
+    @Override
+    protected void onDestroy() {
+        mDbHandler.close();
+        super.onDestroy();
+    }
+
+    @Override
+    /**
+     * Updates various summaries after updates. Also starts and stops 
+     * the
+     */
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        // Update current account summary
+        if (preference.equals(mAccountList)) {
+            mAccountList.setSummary(newValue.toString());
+        }
+
+        // Update tracking interval summary
+        else if (preference.equals(mTrackingUpdateInterval)) {
+            String trackingSummary = getResources().getString(
+                    R.string.prefs_trackmydevice_interval_summary);
+            trackingSummary = String.format(trackingSummary,
+                    newValue.toString());
+            mTrackingUpdateInterval.setSummary(trackingSummary);
+        }
+
+        // Start or stop tracking service
+        else if (preference.equals(mDeviceTracking)) {
+            Intent locationServiceIntent = new Intent();
+            locationServiceIntent
+                    .setAction("eu.alefzero.owncloud.location.LocationLauncher");
+            locationServiceIntent.putExtra("TRACKING_SETTING",
+                    (Boolean) newValue);
+            sendBroadcast(locationServiceIntent);
+        }
+        return true;
+    }
 
 }

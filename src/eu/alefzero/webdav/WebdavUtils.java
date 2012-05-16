@@ -24,33 +24,35 @@ import java.util.Date;
 import java.util.Locale;
 
 public class WebdavUtils {
-  public static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-  private static final SimpleDateFormat DATETIME_FORMATS[] = {
-      new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US),
-      new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
-      new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'", Locale.US),
-      new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US),
-      new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US),
-      new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
-      new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US)};
-  
-  public static String prepareXmlForPropFind() {
-    String ret = "<?xml version=\"1.0\" ?><D:propfind xmlns:D=\"DAV:\"><D:allprop/></D:propfind>";
-    return ret;
-  }
-  
-  public static String prepareXmlForPatch() {
-    return "<?xml version=\"1.0\" ?><D:propertyupdate xmlns:D=\"DAV:\"></D:propertyupdate>";
-  }
-  
-  public static Date parseResponseDate(String date) {
-    Date returnDate = null;
-    for (int i = 0; i < DATETIME_FORMATS.length; ++i) {
-      try {
-        returnDate = DATETIME_FORMATS[i].parse(date);
-        return returnDate;
-      } catch (ParseException e) {}
+    public static final SimpleDateFormat DISPLAY_DATE_FORMAT = new SimpleDateFormat(
+            "dd.MM.yyyy hh:mm");
+    private static final SimpleDateFormat DATETIME_FORMATS[] = {
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US),
+            new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'", Locale.US),
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US),
+            new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US),
+            new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
+            new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US) };
+
+    public static String prepareXmlForPropFind() {
+        String ret = "<?xml version=\"1.0\" ?><D:propfind xmlns:D=\"DAV:\"><D:allprop/></D:propfind>";
+        return ret;
     }
-    return null;
-  }
+
+    public static String prepareXmlForPatch() {
+        return "<?xml version=\"1.0\" ?><D:propertyupdate xmlns:D=\"DAV:\"></D:propertyupdate>";
+    }
+
+    public static Date parseResponseDate(String date) {
+        Date returnDate = null;
+        for (int i = 0; i < DATETIME_FORMATS.length; ++i) {
+            try {
+                returnDate = DATETIME_FORMATS[i].parse(date);
+                return returnDate;
+            } catch (ParseException e) {
+            }
+        }
+        return null;
+    }
 }

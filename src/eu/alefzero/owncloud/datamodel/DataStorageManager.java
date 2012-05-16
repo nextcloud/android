@@ -22,15 +22,15 @@ import java.util.Vector;
 
 public interface DataStorageManager {
 
-  public OCFile getFileByPath(String path);
-  
-  public OCFile getFileById(long id);
+    public OCFile getFileByPath(String path);
 
-  public boolean fileExists(String path);
-  
-  public boolean fileExists(long id);
-  
-  public boolean saveFile(OCFile file);
-  
-  public Vector<OCFile> getDirectoryContent(OCFile f);
+    public OCFile getFileById(long id);
+
+    public boolean fileExists(String path);
+
+    public boolean fileExists(long id);
+
+    public boolean saveFile(OCFile file);
+
+    public Vector<OCFile> getDirectoryContent(OCFile f);
 }

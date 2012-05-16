@@ -43,108 +43,114 @@ import android.net.Uri;
 import android.util.Log;
 
 public class WebdavClient extends HttpClient {
-  private Uri mUri;
-  private Credentials mCredentials;
-  final private static String TAG = "WebdavClient";
-  private static final String USER_AGENT = "Android-ownCloud";
-  
-  public WebdavClient(Uri uri) {
-    mUri = uri;
-    getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
-  }
-  
-  public void setCredentials(String username, String password) {
-    getParams().setAuthenticationPreemptive(true);
-    getState().setCredentials(AuthScope.ANY, getCredentials(username, password));
-  }
-  
-  private Credentials getCredentials(String username, String password) {
-    if (mCredentials == null)
-      mCredentials = new UsernamePasswordCredentials(username, password); 
-    return mCredentials;
-  }
+    private Uri mUri;
+    private Credentials mCredentials;
+    final private static String TAG = "WebdavClient";
+    private static final String USER_AGENT = "Android-ownCloud";
 
-  public void allowUnsignedCertificates() {
-    // https
-    Protocol.registerProtocol("https", new Protocol("https", new EasySSLSocketFactory(), 443));
-  }
-  
-  public boolean downloadFile(String filepath, File targetPath) {
-    //HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ", "%20"));
-   
-    Log.e("ASD", mUri.toString() + URLDecoder.decode(filepath) + "");
-    GetMethod get = new GetMethod(mUri.toString() + URLEncoder.encode(filepath));
-    
-//    get.setHeader("Host", mUri.getHost());
-//    get.setHeader("User-Agent", "Android-ownCloud");
-    
-    try {
-      Log.e("ASD", get.toString());
-      int status = executeMethod(get);
-      if (status != HttpStatus.SC_OK) {
-        return false;
-      }
-      BufferedInputStream bis = new BufferedInputStream(get.getResponseBodyAsStream());
-      FileOutputStream fos = new FileOutputStream(targetPath);
-      
-      byte[] bytes = new byte[512];
-      int readResult;
-      while ((readResult = bis.read(bytes)) != -1) fos.write(bytes, 0, readResult);
-      
-    } catch (IOException e) {
-      e.printStackTrace();
-      return false;
+    public WebdavClient(Uri uri) {
+        mUri = uri;
+        getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
     }
-    return true;
-  }
-  
-  public boolean putFile(String localFile,
-                  String remoteTarget,
-                  String contentType) {
-    boolean result = true;
 
-    try {
-      Log.e("ASD", contentType+"");
-      File f = new File(localFile);
-      RequestEntity entity = new FileRequestEntity(f, contentType);
-      Log.e("ASD", f.exists()+" " + entity.getContentLength());
-      PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
-      put.setRequestEntity(entity);
-      Log.d(TAG, "" + put.getURI().toString());
-      int status = executeMethod(put);
-      Log.d(TAG, "PUT method return with status "+status);
+    public void setCredentials(String username, String password) {
+        getParams().setAuthenticationPreemptive(true);
+        getState().setCredentials(AuthScope.ANY,
+                getCredentials(username, password));
+    }
 
-      Log.i(TAG, "Uploading, done");
-    } catch (final Exception e) {
-      Log.i(TAG, ""+e.getMessage());
-      result = false;
+    private Credentials getCredentials(String username, String password) {
+        if (mCredentials == null)
+            mCredentials = new UsernamePasswordCredentials(username, password);
+        return mCredentials;
     }
-    
-    return result;
-  }
-  
-  public int tryToLogin() {
-    int r = 0; 
-    HeadMethod head = new HeadMethod(mUri.toString());
-    try {
-      r = executeMethod(head);
-    } catch (Exception e) {
-      Log.e(TAG, "Error: " + e.getMessage());
-    }
-    return r;
-  }
 
-  public boolean createDirectory(String path) {
-    try {
-      MkColMethod mkcol = new MkColMethod(mUri.toString() + "/" + path + "/");
-      int status = executeMethod(mkcol);
-      Log.d(TAG, "Status returned " + status);
-      Log.d(TAG, "uri: " + mkcol.getURI().toString());
-      Log.i(TAG, "Creating dir completed");
-    } catch (final Exception e) {
-      e.printStackTrace();
-      return false;
+    public void allowUnsignedCertificates() {
+        // https
+        Protocol.registerProtocol("https", new Protocol("https",
+                new EasySSLSocketFactory(), 443));
     }
-    return true;
-  }
+
+    public boolean downloadFile(String filepath, File targetPath) {
+        // HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ",
+        // "%20"));
+
+        Log.e("ASD", mUri.toString() + URLDecoder.decode(filepath) + "");
+        GetMethod get = new GetMethod(mUri.toString()
+                + URLEncoder.encode(filepath));
+
+        // get.setHeader("Host", mUri.getHost());
+        // get.setHeader("User-Agent", "Android-ownCloud");
+
+        try {
+            Log.e("ASD", get.toString());
+            int status = executeMethod(get);
+            if (status != HttpStatus.SC_OK) {
+                return false;
+            }
+            BufferedInputStream bis = new BufferedInputStream(
+                    get.getResponseBodyAsStream());
+            FileOutputStream fos = new FileOutputStream(targetPath);
+
+            byte[] bytes = new byte[512];
+            int readResult;
+            while ((readResult = bis.read(bytes)) != -1)
+                fos.write(bytes, 0, readResult);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean putFile(String localFile, String remoteTarget,
+            String contentType) {
+        boolean result = true;
+
+        try {
+            Log.e("ASD", contentType + "");
+            File f = new File(localFile);
+            RequestEntity entity = new FileRequestEntity(f, contentType);
+            Log.e("ASD", f.exists() + " " + entity.getContentLength());
+            PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
+            put.setRequestEntity(entity);
+            Log.d(TAG, "" + put.getURI().toString());
+            int status = executeMethod(put);
+            Log.d(TAG, "PUT method return with status " + status);
+
+            Log.i(TAG, "Uploading, done");
+        } catch (final Exception e) {
+            Log.i(TAG, "" + e.getMessage());
+            result = false;
+        }
+
+        return result;
+    }
+
+    public int tryToLogin() {
+        int r = 0;
+        HeadMethod head = new HeadMethod(mUri.toString());
+        try {
+            r = executeMethod(head);
+        } catch (Exception e) {
+            Log.e(TAG, "Error: " + e.getMessage());
+        }
+        return r;
+    }
+
+    public boolean createDirectory(String path) {
+        try {
+            MkColMethod mkcol = new MkColMethod(mUri.toString() + "/" + path
+                    + "/");
+            int status = executeMethod(mkcol);
+            Log.d(TAG, "Status returned " + status);
+            Log.d(TAG, "uri: " + mkcol.getURI().toString());
+            Log.i(TAG, "Creating dir completed");
+        } catch (final Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

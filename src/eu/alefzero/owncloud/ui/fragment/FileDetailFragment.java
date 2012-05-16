@@ -48,180 +48,180 @@ import eu.alefzero.owncloud.datamodel.OCFile;
  * 
  */
 public class FileDetailFragment extends SherlockFragment implements
-		OnClickListener {
+        OnClickListener {
 
-	public static final String FILE = "FILE";
+    public static final String FILE = "FILE";
 
-	private Intent mIntent;
-	private View mView;
-	private DownloadFinishReceiver mDownloadFinishReceiver;
-	private OCFile mFile;
+    private Intent mIntent;
+    private View mView;
+    private DownloadFinishReceiver mDownloadFinishReceiver;
+    private OCFile mFile;
 
-	private int mLayout;
-	private boolean mEmptyLayout;
+    private int mLayout;
+    private boolean mEmptyLayout;
 
-	/**
-	 * Default constructor. When inflated by android -> display empty layout
-	 */
-	public FileDetailFragment() {
-		mLayout = R.layout.file_details_empty;
-		mEmptyLayout = true;
-	}
+    /**
+     * Default constructor. When inflated by android -> display empty layout
+     */
+    public FileDetailFragment() {
+        mLayout = R.layout.file_details_empty;
+        mEmptyLayout = true;
+    }
 
-	/**
-	 * Custom construtor. Use with a {@link FragmentTransaction}.
-	 * The intent has to contain {@link FileDetailFragment#FILE} with an OCFile
-	 * and also {@link FileDownloader#EXTRA_ACCOUNT} with the account.
-	 * 
-	 * @param nonEmptyFragment
-	 *            True, to enable file detail rendering
-	 */
-	public FileDetailFragment(Intent intent) {
-		mLayout = R.layout.file_details_fragment;
-		mIntent = intent;
-		mEmptyLayout = false;
-	}
+    /**
+     * Custom construtor. Use with a {@link FragmentTransaction}. The intent has
+     * to contain {@link FileDetailFragment#FILE} with an OCFile and also
+     * {@link FileDownloader#EXTRA_ACCOUNT} with the account.
+     * 
+     * @param nonEmptyFragment
+     *            True, to enable file detail rendering
+     */
+    public FileDetailFragment(Intent intent) {
+        mLayout = R.layout.file_details_fragment;
+        mIntent = intent;
+        mEmptyLayout = false;
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		mDownloadFinishReceiver = new DownloadFinishReceiver();
-		IntentFilter filter = new IntentFilter(
-				FileDownloader.DOWNLOAD_FINISH_MESSAGE);
-		getActivity().registerReceiver(mDownloadFinishReceiver, filter);
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDownloadFinishReceiver = new DownloadFinishReceiver();
+        IntentFilter filter = new IntentFilter(
+                FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+        getActivity().registerReceiver(mDownloadFinishReceiver, filter);
+    }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		getActivity().unregisterReceiver(mDownloadFinishReceiver);
-		mDownloadFinishReceiver = null;
-	}
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(mDownloadFinishReceiver);
+        mDownloadFinishReceiver = null;
+    }
 
-	/**
-	 * Use this method to signal this Activity that it shall update its view.
-	 * 
-	 * @param intent
-	 *            The {@link Intent} that contains extra information about this
-	 *            file The intent needs to have these extras:
-	 *            <p>
-	 * 
-	 *            {@link FileDetailFragment#FILE}: An {@link OCFile}
-	 *            {@link FileDownloader#EXTRA_ACCOUNT}: The Account that file
-	 *            belongs to (required for downloading)
-	 */
-	public void updateFileDetails(Intent intent) {
-		mIntent = intent;
-		updateFileDetails();
-	}
+    /**
+     * Use this method to signal this Activity that it shall update its view.
+     * 
+     * @param intent
+     *            The {@link Intent} that contains extra information about this
+     *            file The intent needs to have these extras:
+     *            <p>
+     * 
+     *            {@link FileDetailFragment#FILE}: An {@link OCFile}
+     *            {@link FileDownloader#EXTRA_ACCOUNT}: The Account that file
+     *            belongs to (required for downloading)
+     */
+    public void updateFileDetails(Intent intent) {
+        mIntent = intent;
+        updateFileDetails();
+    }
 
-	private void updateFileDetails() {
-		mFile = mIntent.getParcelableExtra(FILE);
+    private void updateFileDetails() {
+        mFile = mIntent.getParcelableExtra(FILE);
 
-		if (mFile != null) {
-			// set file details
-			setFilename(mFile.getFileName());
-			setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
-					.getMimetype()));
-			setFilesize(mFile.getFileLength());
+        if (mFile != null) {
+            // set file details
+            setFilename(mFile.getFileName());
+            setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
+                    .getMimetype()));
+            setFilesize(mFile.getFileLength());
 
-			// set file preview if available and possible
-			VideoView videoView = (VideoView) mView
-					.findViewById(R.id.videoView1);
-			videoView.setVisibility(View.INVISIBLE);
-			if (mFile.getPath() == null) {
-				ImageView imageView = (ImageView) getView().findViewById(
-						R.id.imageView2);
-				imageView.setImageResource(R.drawable.download);
-				imageView.setOnClickListener(this);
-			} else {
-				if (mFile.getMimetype().startsWith("image/")) {
-					ImageView imageView = (ImageView) mView
-							.findViewById(R.id.imageView2);
-					Bitmap bmp = BitmapFactory.decodeFile(mFile.getPath());
-					imageView.setImageBitmap(bmp);
-				} else if (mFile.getMimetype().startsWith("video/")) {
-					videoView.setVisibility(View.VISIBLE);
-					videoView.setVideoPath(mFile.getPath());
-					videoView.start();
-				}
-			}
-		}
-	}
+            // set file preview if available and possible
+            VideoView videoView = (VideoView) mView
+                    .findViewById(R.id.videoView1);
+            videoView.setVisibility(View.INVISIBLE);
+            if (mFile.getPath() == null) {
+                ImageView imageView = (ImageView) getView().findViewById(
+                        R.id.imageView2);
+                imageView.setImageResource(R.drawable.download);
+                imageView.setOnClickListener(this);
+            } else {
+                if (mFile.getMimetype().startsWith("image/")) {
+                    ImageView imageView = (ImageView) mView
+                            .findViewById(R.id.imageView2);
+                    Bitmap bmp = BitmapFactory.decodeFile(mFile.getPath());
+                    imageView.setImageBitmap(bmp);
+                } else if (mFile.getMimetype().startsWith("video/")) {
+                    videoView.setVisibility(View.VISIBLE);
+                    videoView.setVideoPath(mFile.getPath());
+                    videoView.start();
+                }
+            }
+        }
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = null;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = null;
 
-		view = inflater.inflate(mLayout, container, false);
-		mIntent = getActivity().getIntent();
-		mView = view;
+        view = inflater.inflate(mLayout, container, false);
+        mIntent = getActivity().getIntent();
+        mView = view;
 
-		// make sure we are not using the empty layout
-		if (mEmptyLayout == false) {
-			updateFileDetails();
-		}
+        // make sure we are not using the empty layout
+        if (mEmptyLayout == false) {
+            updateFileDetails();
+        }
 
-		return view;
-	}
+        return view;
+    }
 
-	@Override
-	public View getView() {
-		return mView == null ? super.getView() : mView;
-	};
+    @Override
+    public View getView() {
+        return mView == null ? super.getView() : mView;
+    };
 
-	private void setFilename(String filename) {
-		TextView tv = (TextView) getView().findViewById(R.id.textView1);
-		if (tv != null)
-			tv.setText(filename);
-	}
+    private void setFilename(String filename) {
+        TextView tv = (TextView) getView().findViewById(R.id.textView1);
+        if (tv != null)
+            tv.setText(filename);
+    }
 
-	private void setFiletype(String mimetype) {
-		TextView tv = (TextView) getView().findViewById(R.id.textView2);
-		if (tv != null)
-			tv.setText(mimetype);
-	}
+    private void setFiletype(String mimetype) {
+        TextView tv = (TextView) getView().findViewById(R.id.textView2);
+        if (tv != null)
+            tv.setText(mimetype);
+    }
 
-	private void setFilesize(long filesize) {
-		TextView tv = (TextView) getView().findViewById(R.id.textView3);
-		if (tv != null)
-			tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
-	}
+    private void setFilesize(long filesize) {
+        TextView tv = (TextView) getView().findViewById(R.id.textView3);
+        if (tv != null)
+            tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
+    }
 
-	/**
-	 * Use this to check if the correct layout is loaded. When android
-	 * instanciates this class using the default constructor, the layout will be
-	 * empty.
-	 * 
-	 * Once a user touches a file for the first time, you must instanciate a new
-	 * Fragment with the new FileDetailFragment(true) to inflate the actual
-	 * details
-	 * 
-	 * @return If the layout is empty, this method will return true, otherwise
-	 *         false
-	 */
-	public boolean isEmptyLayout() {
-		return mEmptyLayout;
-	}
+    /**
+     * Use this to check if the correct layout is loaded. When android
+     * instanciates this class using the default constructor, the layout will be
+     * empty.
+     * 
+     * Once a user touches a file for the first time, you must instanciate a new
+     * Fragment with the new FileDetailFragment(true) to inflate the actual
+     * details
+     * 
+     * @return If the layout is empty, this method will return true, otherwise
+     *         false
+     */
+    public boolean isEmptyLayout() {
+        return mEmptyLayout;
+    }
 
-	@Override
-	public void onClick(View v) {
-		Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
-		Intent i = new Intent(getActivity(), FileDownloader.class);
-		i.putExtra(FileDownloader.EXTRA_ACCOUNT,
-				mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
-		i.putExtra(FileDownloader.EXTRA_FILE_PATH,
-				mIntent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-		getActivity().startService(i);
-	}
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(getActivity(), FileDownloader.class);
+        i.putExtra(FileDownloader.EXTRA_ACCOUNT,
+                mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
+        i.putExtra(FileDownloader.EXTRA_FILE_PATH,
+                mIntent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+        getActivity().startService(i);
+    }
 
-	private class DownloadFinishReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			updateFileDetails();
-		}
+    private class DownloadFinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateFileDetails();
+        }
 
-	}
+    }
 
 }

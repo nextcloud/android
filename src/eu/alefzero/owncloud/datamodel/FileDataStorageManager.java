@@ -32,243 +32,259 @@ import android.util.Log;
 
 public class FileDataStorageManager implements DataStorageManager {
 
-  private ContentResolver mContentResolver;
-  private ContentProviderClient mContentProvider;
-  private Account mAccount;
-  
-  private static String TAG = "FileDataStorageManager";
-  
-  public FileDataStorageManager(Account account, ContentResolver cr) {
-    mContentProvider = null;
-    mContentResolver = cr;
-    mAccount = account;
-  }
-  
-  public FileDataStorageManager(Account account, ContentProviderClient cp) {
-    mContentProvider = cp;
-    mContentResolver = null;
-    mAccount = account;
-  }
-  
-  @Override
-  public OCFile getFileByPath(String path) {
-    Cursor c = getCursorForValue(ProviderTableMeta.FILE_PATH, path);
-    OCFile file = null;
-    if (c.moveToFirst()) {
-      file = createFileInstance(c);
-      c.close();
+    private ContentResolver mContentResolver;
+    private ContentProviderClient mContentProvider;
+    private Account mAccount;
+
+    private static String TAG = "FileDataStorageManager";
+
+    public FileDataStorageManager(Account account, ContentResolver cr) {
+        mContentProvider = null;
+        mContentResolver = cr;
+        mAccount = account;
     }
-    return file;
-  }
 
-  @Override
-  public OCFile getFileById(long id) {
-    Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
-    OCFile file = null;
-    if (c.moveToFirst()) {
-      file = createFileInstance(c);
-      c.close();
+    public FileDataStorageManager(Account account, ContentProviderClient cp) {
+        mContentProvider = cp;
+        mContentResolver = null;
+        mAccount = account;
     }
-    return file;
-  }
 
-  @Override
-  public boolean fileExists(long id) {
-    return fileExists(ProviderTableMeta._ID, String.valueOf(id));
-  }
-
-  @Override
-  public boolean fileExists(String path) {
-    return fileExists(ProviderTableMeta.FILE_PATH, path);
-  }
-
-  @Override
-  public boolean saveFile(OCFile file) {
-    boolean overriden = false;
-    ContentValues cv = new ContentValues();
-    cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-    cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
-    cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-    cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
-    cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-    if (file.getParentId() != 0)
-      cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-    cv.put(ProviderTableMeta.FILE_PATH, file.getPath());
-    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-    cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-
-    if (fileExists(file.getPath())) {
-      OCFile tmpfile = getFileByPath(file.getPath());
-      file.setStoragePath(tmpfile.getStoragePath());
-      cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-      file.setFileId(tmpfile.getFileId());
-      
-      overriden = true;
-      if (getContentResolver() != null) {
-        getContentResolver().update(ProviderTableMeta.CONTENT_URI,
-                                    cv,
-                                    ProviderTableMeta._ID + "=?",
-                                    new String[] {String.valueOf(file.getFileId())});
-      } else {
-        try {
-          getContentProvider().update(ProviderTableMeta.CONTENT_URI,
-                                      cv,
-                                      ProviderTableMeta._ID + "=?",
-                                      new String[] {String.valueOf(file.getFileId())});
-        } catch (RemoteException e) {
-          Log.e(TAG, "Fail to insert insert file to database " + e.getMessage());
+    @Override
+    public OCFile getFileByPath(String path) {
+        Cursor c = getCursorForValue(ProviderTableMeta.FILE_PATH, path);
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+            c.close();
         }
-      }
-    } else {
-      Uri result_uri = null;
-      if (getContentResolver() != null) {
-        result_uri = getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
-      } else {
-        try {
-          result_uri = getContentProvider().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
-        } catch (RemoteException e) {
-          Log.e(TAG, "Fail to insert insert file to database " + e.getMessage());
+        return file;
+    }
+
+    @Override
+    public OCFile getFileById(long id) {
+        Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+            c.close();
         }
-      }
-      if (result_uri != null) {
-        long new_id = Long.parseLong(result_uri.getPathSegments().get(1));
-        file.setFileId(new_id);
-      }
+        return file;
     }
 
-    if (file.isDirectory() && file.needsUpdatingWhileSaving())
-      for (OCFile f : getDirectoryContent(file))
-        saveFile(f);
-    
-    return overriden;
-  }
+    @Override
+    public boolean fileExists(long id) {
+        return fileExists(ProviderTableMeta._ID, String.valueOf(id));
+    }
 
-  public void setAccount(Account account) {
-    mAccount = account;
-  }
-  
-  public Account getAccount() {
-    return mAccount;
-  }
-  
-  public void setContentResolver(ContentResolver cr) {
-    mContentResolver = cr;
-  }
-  
-  public ContentResolver getContentResolver() {
-    return mContentResolver;
-  }
-  
-  public void setContentProvider(ContentProviderClient cp) {
-    mContentProvider = cp;
-  }
-  
-  public ContentProviderClient getContentProvider() {
-    return mContentProvider;
-  }
+    @Override
+    public boolean fileExists(String path) {
+        return fileExists(ProviderTableMeta.FILE_PATH, path);
+    }
 
-  public Vector<OCFile> getDirectoryContent(OCFile f) {
-    if (f != null && f.isDirectory() && f.getFileId() != -1) {
-      Vector<OCFile> ret = new Vector<OCFile>();
+    @Override
+    public boolean saveFile(OCFile file) {
+        boolean overriden = false;
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+        cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+        if (file.getParentId() != 0)
+            cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
+        cv.put(ProviderTableMeta.FILE_PATH, file.getPath());
+        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
 
-      Uri req_uri = Uri.withAppendedPath(
-          ProviderTableMeta.CONTENT_URI_DIR, String.valueOf(f.getFileId()));
-      Cursor c = null;
-      
-      if (getContentProvider() != null) {
-        try {
-          c = getContentProvider().query(req_uri,
-                                         null,
-                                         ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                         new String[]{mAccount.name},
-                                         null);
-        } catch (RemoteException e) {
-          Log.e(TAG, e.getMessage());
-          return ret;
+        if (fileExists(file.getPath())) {
+            OCFile tmpfile = getFileByPath(file.getPath());
+            file.setStoragePath(tmpfile.getStoragePath());
+            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+            file.setFileId(tmpfile.getFileId());
+
+            overriden = true;
+            if (getContentResolver() != null) {
+                getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv,
+                        ProviderTableMeta._ID + "=?",
+                        new String[] { String.valueOf(file.getFileId()) });
+            } else {
+                try {
+                    getContentProvider().update(ProviderTableMeta.CONTENT_URI,
+                            cv, ProviderTableMeta._ID + "=?",
+                            new String[] { String.valueOf(file.getFileId()) });
+                } catch (RemoteException e) {
+                    Log.e(TAG,
+                            "Fail to insert insert file to database "
+                                    + e.getMessage());
+                }
+            }
+        } else {
+            Uri result_uri = null;
+            if (getContentResolver() != null) {
+                result_uri = getContentResolver().insert(
+                        ProviderTableMeta.CONTENT_URI_FILE, cv);
+            } else {
+                try {
+                    result_uri = getContentProvider().insert(
+                            ProviderTableMeta.CONTENT_URI_FILE, cv);
+                } catch (RemoteException e) {
+                    Log.e(TAG,
+                            "Fail to insert insert file to database "
+                                    + e.getMessage());
+                }
+            }
+            if (result_uri != null) {
+                long new_id = Long.parseLong(result_uri.getPathSegments()
+                        .get(1));
+                file.setFileId(new_id);
+            }
         }
-      } else {
-        c = getContentResolver().query(req_uri,
-                                       null,
-                                       ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                       new String[]{mAccount.name},
-                                       null);
-      }
 
-      if (c.moveToFirst()) {
-        do {
-          OCFile child = createFileInstance(c);
-          ret.add(child);
-        } while (c.moveToNext());
-      }
-      
-      c.close();
-      return ret;
-    }
-    return null;
-  }
+        if (file.isDirectory() && file.needsUpdatingWhileSaving())
+            for (OCFile f : getDirectoryContent(file))
+                saveFile(f);
 
-  
-  private boolean fileExists(String cmp_key, String value) {
-    Cursor c;
-    if (getContentResolver() != null) {
-      c = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
-                                    null,
-                                    cmp_key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                    new String[] {value, mAccount.name},
-                                    null);
-    } else {
-      try {
-        c = getContentProvider().query(ProviderTableMeta.CONTENT_URI,
-                                      null,
-                                      cmp_key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                      new String[] {value, mAccount.name},
-                                      null);
-      } catch (RemoteException e) {
-        Log.e(TAG, "Couldn't determine file existance, assuming non existance: " + e.getMessage());
-        return false;
-      }
+        return overriden;
     }
-    boolean retval = c.moveToFirst();
-    c.close();
-    return retval;
-  }
-  
-  private Cursor getCursorForValue(String key, String value) {
-    Cursor c = null;
-    if (getContentResolver() != null) {
-      c = getContentResolver().query(ProviderTableMeta.CONTENT_URI,
-                                     null,
-                                     key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                     new String[] {value, mAccount.name},
-                                     null);
-    } else {
-      try {
-        c = getContentProvider().query(ProviderTableMeta.CONTENT_URI,
-                                       null,
-                                       key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                       new String[]{value, mAccount.name},
-                                       null);
-      } catch (RemoteException e) {
-        Log.e(TAG, "Could not get file details: " + e.getMessage());
-        c = null;
-      }
-    }
-    return c;
-  }
 
-  private OCFile createFileInstance(Cursor c) {
-    OCFile file = null;
-    if (c != null) {
-      file = new OCFile(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH)));
-      file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
-      file.setParentId(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_PARENT)));
-      file.setStoragePath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
-      file.setMimetype(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-      file.setFileLength(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
-      file.setCreationTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CREATION)));
-      file.setModificationTimestamp(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+    public void setAccount(Account account) {
+        mAccount = account;
     }
-    return file;
-  }
+
+    public Account getAccount() {
+        return mAccount;
+    }
+
+    public void setContentResolver(ContentResolver cr) {
+        mContentResolver = cr;
+    }
+
+    public ContentResolver getContentResolver() {
+        return mContentResolver;
+    }
+
+    public void setContentProvider(ContentProviderClient cp) {
+        mContentProvider = cp;
+    }
+
+    public ContentProviderClient getContentProvider() {
+        return mContentProvider;
+    }
+
+    public Vector<OCFile> getDirectoryContent(OCFile f) {
+        if (f != null && f.isDirectory() && f.getFileId() != -1) {
+            Vector<OCFile> ret = new Vector<OCFile>();
+
+            Uri req_uri = Uri.withAppendedPath(
+                    ProviderTableMeta.CONTENT_URI_DIR,
+                    String.valueOf(f.getFileId()));
+            Cursor c = null;
+
+            if (getContentProvider() != null) {
+                try {
+                    c = getContentProvider().query(req_uri, null,
+                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                            new String[] { mAccount.name }, null);
+                } catch (RemoteException e) {
+                    Log.e(TAG, e.getMessage());
+                    return ret;
+                }
+            } else {
+                c = getContentResolver().query(req_uri, null,
+                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                        new String[] { mAccount.name }, null);
+            }
+
+            if (c.moveToFirst()) {
+                do {
+                    OCFile child = createFileInstance(c);
+                    ret.add(child);
+                } while (c.moveToNext());
+            }
+
+            c.close();
+            return ret;
+        }
+        return null;
+    }
+
+    private boolean fileExists(String cmp_key, String value) {
+        Cursor c;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                    .query(ProviderTableMeta.CONTENT_URI,
+                            null,
+                            cmp_key + "=? AND "
+                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER
+                                    + "=?",
+                            new String[] { value, mAccount.name }, null);
+        } else {
+            try {
+                c = getContentProvider().query(
+                        ProviderTableMeta.CONTENT_URI,
+                        null,
+                        cmp_key + "=? AND "
+                                + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                        new String[] { value, mAccount.name }, null);
+            } catch (RemoteException e) {
+                Log.e(TAG,
+                        "Couldn't determine file existance, assuming non existance: "
+                                + e.getMessage());
+                return false;
+            }
+        }
+        boolean retval = c.moveToFirst();
+        c.close();
+        return retval;
+    }
+
+    private Cursor getCursorForValue(String key, String value) {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                    .query(ProviderTableMeta.CONTENT_URI,
+                            null,
+                            key + "=? AND "
+                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER
+                                    + "=?",
+                            new String[] { value, mAccount.name }, null);
+        } else {
+            try {
+                c = getContentProvider().query(
+                        ProviderTableMeta.CONTENT_URI,
+                        null,
+                        key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER
+                                + "=?", new String[] { value, mAccount.name },
+                        null);
+            } catch (RemoteException e) {
+                Log.e(TAG, "Could not get file details: " + e.getMessage());
+                c = null;
+            }
+        }
+        return c;
+    }
+
+    private OCFile createFileInstance(Cursor c) {
+        OCFile file = null;
+        if (c != null) {
+            file = new OCFile(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.FILE_PATH)));
+            file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
+            file.setParentId(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_PARENT)));
+            file.setStoragePath(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
+            file.setMimetype(c.getString(c
+                    .getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
+            file.setFileLength(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
+            file.setCreationTimestamp(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
+            file.setModificationTimestamp(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+        }
+        return file;
+    }
 
 }

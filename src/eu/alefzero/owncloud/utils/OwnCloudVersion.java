@@ -19,62 +19,65 @@
 package eu.alefzero.owncloud.utils;
 
 public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
-  public static final OwnCloudVersion owncloud_v1 = new OwnCloudVersion(0x010000);
-  public static final OwnCloudVersion owncloud_v2 = new OwnCloudVersion(0x020000);
-  public static final OwnCloudVersion owncloud_v3 = new OwnCloudVersion(0x030000);
-  public static final OwnCloudVersion owncloud_v4 = new OwnCloudVersion(0x040000);
-  
-  // format is in version
-  // 0xAABBCC
-  // for version AA.BB.CC
-  // ie version 3.0.3 will be stored as 0x030003
-  private int mVersion;
-  private boolean mIsValid;
-  
-  public OwnCloudVersion(int version) {
-    mVersion = version;
-    mIsValid = true;
-  }
+    public static final OwnCloudVersion owncloud_v1 = new OwnCloudVersion(
+            0x010000);
+    public static final OwnCloudVersion owncloud_v2 = new OwnCloudVersion(
+            0x020000);
+    public static final OwnCloudVersion owncloud_v3 = new OwnCloudVersion(
+            0x030000);
+    public static final OwnCloudVersion owncloud_v4 = new OwnCloudVersion(
+            0x040000);
 
-  public OwnCloudVersion(String version) {
-    mVersion = 0;
-    mIsValid = false;
-    parseVersionString(version);
-  }
-  
-  public String toString() {
-    return ((mVersion >> 16)%256) + "." +
-           ((mVersion >> 8)%256) + "." +
-           ((mVersion)%256);
-  }
-  
-  public boolean isVersionValid() {
-    return mIsValid;
-  }
-  
-  @Override
-  public int compareTo(OwnCloudVersion another) {
-    return another.mVersion == mVersion ? 0 :
-           another.mVersion < mVersion ? 1 : -1;
-  }
-  
-  private void parseVersionString(String version) {
-    try {
-      String[] nums = version.split("\\.");
-      if (nums.length > 0) {
-        mVersion += Integer.parseInt(nums[0]);
-      }
-      mVersion = mVersion << 8;
-      if (nums.length > 1) {
-        mVersion += Integer.parseInt(nums[1]);
-      }
-      mVersion = mVersion << 8;
-      if (nums.length > 2) {
-        mVersion += Integer.parseInt(nums[2]);
-      }
-      mIsValid = true;
-    } catch (Exception e) {
-      mIsValid = false;
+    // format is in version
+    // 0xAABBCC
+    // for version AA.BB.CC
+    // ie version 3.0.3 will be stored as 0x030003
+    private int mVersion;
+    private boolean mIsValid;
+
+    public OwnCloudVersion(int version) {
+        mVersion = version;
+        mIsValid = true;
     }
-  }
+
+    public OwnCloudVersion(String version) {
+        mVersion = 0;
+        mIsValid = false;
+        parseVersionString(version);
+    }
+
+    public String toString() {
+        return ((mVersion >> 16) % 256) + "." + ((mVersion >> 8) % 256) + "."
+                + ((mVersion) % 256);
+    }
+
+    public boolean isVersionValid() {
+        return mIsValid;
+    }
+
+    @Override
+    public int compareTo(OwnCloudVersion another) {
+        return another.mVersion == mVersion ? 0
+                : another.mVersion < mVersion ? 1 : -1;
+    }
+
+    private void parseVersionString(String version) {
+        try {
+            String[] nums = version.split("\\.");
+            if (nums.length > 0) {
+                mVersion += Integer.parseInt(nums[0]);
+            }
+            mVersion = mVersion << 8;
+            if (nums.length > 1) {
+                mVersion += Integer.parseInt(nums[1]);
+            }
+            mVersion = mVersion << 8;
+            if (nums.length > 2) {
+                mVersion += Integer.parseInt(nums[2]);
+            }
+            mIsValid = true;
+        } catch (Exception e) {
+            mIsValid = false;
+        }
+    }
 }

@@ -29,30 +29,30 @@ import eu.alefzero.owncloud.ui.activity.LandingActivity;
 import eu.alefzero.owncloud.ui.adapter.LandingScreenAdapter;
 
 /**
- * Used on the Landing page to display what Components of 
- * the ownCloud there are. Like Files, Music, Contacts, etc.
+ * Used on the Landing page to display what Components of the ownCloud there
+ * are. Like Files, Music, Contacts, etc.
  * 
  * @author Lennart Rosam
- *
+ * 
  */
 public class LandingPageFragment extends SherlockFragment {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.landing_page_fragment, container);
-		return root;
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.landing_page_fragment, container);
+        return root;
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
-		ListView landingScreenItems = (ListView) getView().findViewById(R.id.homeScreenList);
-		landingScreenItems.setAdapter(new LandingScreenAdapter(getActivity()));
-		landingScreenItems.setOnItemClickListener((LandingActivity) getActivity());
-	}
-	
-		
+        ListView landingScreenItems = (ListView) getView().findViewById(
+                R.id.homeScreenList);
+        landingScreenItems.setAdapter(new LandingScreenAdapter(getActivity()));
+        landingScreenItems
+                .setOnItemClickListener((LandingActivity) getActivity());
+    }
+
 }
