@@ -57,6 +57,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.files.services.FileUploader;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
@@ -78,6 +80,12 @@ public class Uploader extends ListActivity implements OnItemClickListener,
     private Thread mUploadThread;
     private Handler mHandler;
     private ArrayList<Parcelable> mStreamsToUpload;
+    private boolean mCreateDir;
+    private String mUploadPath;
+    private static final String[] CONTENT_PROJECTION = {Media.DATA,
+                                                        Media.DISPLAY_NAME,
+                                                        Media.MIME_TYPE,
+                                                        Media.SIZE};
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -234,11 +242,9 @@ public class Uploader extends ListActivity implements OnItemClickListener,
         }
 
         public void onClick(DialogInterface dialog, int which) {
-            showDialog(DIALOG_WAITING);
-            mUploadThread = new Thread(new BackgroundUploader(mPath
-                    + mDirname.getText().toString(), mStreamsToUpload,
-                    mHandler, true));
-            mUploadThread.start();
+            Uploader.this.mUploadPath = mPath + mDirname.getText().toString();
+            Uploader.this.mCreateDir = true;
+            uploadFiles();
         }
     }
 
@@ -307,10 +313,9 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             }
             Log.d(TAG, "Uploading file to dir " + pathToUpload);
 
-            showDialog(DIALOG_WAITING);
-            mUploadThread = new Thread(new BackgroundUploader(pathToUpload,
-                    mStreamsToUpload, mHandler));
-            mUploadThread.start();
+            mUploadPath = pathToUpload;
+            mCreateDir = false;
+            uploadFiles();
 
             break;
         case android.R.id.button1: // dynamic action for create aditional dir
@@ -394,6 +399,7 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             setListAdapter(sca);
             Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
+            /* disable this until new server interaction service wont be created
             // insert create new directory for multiple items uploading
             if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
                 Button createDirBtn = new Button(this);
@@ -403,7 +409,7 @@ public class Uploader extends ListActivity implements OnItemClickListener,
                 ((LinearLayout) findViewById(R.id.linearLayout1)).addView(
                         createDirBtn, LayoutParams.FILL_PARENT,
                         LayoutParams.WRAP_CONTENT);
-            }
+            }*/
         }
     }
 
@@ -447,32 +453,14 @@ public class Uploader extends ListActivity implements OnItemClickListener,
         getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
     }
 
-    class BackgroundUploader implements Runnable {
-        private ArrayList<Parcelable> mUploadStreams;
-        private Handler mHandler;
-        private String mUploadPath;
-        private boolean mCreateDir;
-
-        public BackgroundUploader(String pathToUpload,
-                ArrayList<Parcelable> streamsToUpload, Handler handler) {
-            mUploadStreams = streamsToUpload;
-            mHandler = handler;
-            mUploadPath = pathToUpload.replace(" ", "%20");
-            mCreateDir = false;
-        }
-
-        public BackgroundUploader(String pathToUpload,
-                ArrayList<Parcelable> streamsToUpload, Handler handler,
-                boolean createDir) {
-            mUploadStreams = streamsToUpload;
-            mHandler = handler;
-            mUploadPath = pathToUpload.replace(" ", "%20");
-            mCreateDir = createDir;
-        }
-
-        public void run() {
-            WebdavClient wdc = new WebdavClient(Uri.parse(mAccountManager
-                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_URL)));
+        public void uploadFiles() {
+            OwnCloudVersion ocv = new OwnCloudVersion(mAccountManager
+                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
+            String base_url = mAccountManager.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+            String webdav_path = AccountUtils.getWebdavPath(ocv);
+            Uri oc_uri = Uri.parse(base_url+webdav_path);
+            
+            WebdavClient wdc = new WebdavClient(oc_uri);
             wdc.setCredentials(mUsername, mPassword);
             wdc.allowUnsignedCertificates();
 
@@ -480,50 +468,26 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             if (mCreateDir) {
                 wdc.createDirectory(mUploadPath);
             }
+            
+            String[] local  = new String[mStreamsToUpload.size()],
+                     remote = new String[mStreamsToUpload.size()];
 
-            for (int i = 0; i < mUploadStreams.size(); ++i) {
-                Uri uri = (Uri) mUploadStreams.get(i);
+            for (int i = 0; i < mStreamsToUpload.size(); ++i) {
+                Uri uri = (Uri) mStreamsToUpload.get(i);
                 if (uri.getScheme().equals("content")) {
-                    final Cursor c = getContentResolver()
-                            .query((Uri) mUploadStreams.get(i), null, null,
-                                    null, null);
+                    Cursor c = getContentResolver().query((Uri) mStreamsToUpload.get(i),
+                                                          CONTENT_PROJECTION,
+                                                          null,
+                                                          null,
+                                                          null);
 
-                    if (!wdc.putFile(
-                            c.getString(c.getColumnIndex(Media.DATA)),
-                            mUploadPath
-                                    + "/"
-                                    + c.getString(c
-                                            .getColumnIndex(Media.DISPLAY_NAME)),
-                            c.getString(c.getColumnIndex(Media.MIME_TYPE)))) {
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                Uploader.this
-                                        .onUploadComplete(
-                                                false,
-                                                "Error while uploading file: "
-                                                        + c.getString(c
-                                                                .getColumnIndex(Media.DISPLAY_NAME)));
-                            }
-                        });
-                    } else {
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                Uploader.this.PartialupdateUpload(
-                                        c.getString(c
-                                                .getColumnIndex(Media.DATA)),
-                                        c.getString(c
-                                                .getColumnIndex(Media.DISPLAY_NAME)),
-                                        mUploadPath
-                                                + "/"
-                                                + c.getString(c
-                                                        .getColumnIndex(Media.DISPLAY_NAME)),
-                                        c.getString(c
-                                                .getColumnIndex(Media.MIME_TYPE)),
-                                        c.getString(c
-                                                .getColumnIndex(Media.SIZE)));
-                            }
-                        });
-                    }
+                    if (!c.moveToFirst()) continue;
+                    
+                    final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                                 data = c.getString(c.getColumnIndex(Media.DATA));
+                    local[i] = data;
+                    remote[i] = mUploadPath + "/" + display_name;
+
                 } else if (uri.getScheme().equals("file")) {
                     final File file = new File(Uri.decode(uri.toString())
                             .replace(uri.getScheme() + "://", ""));
@@ -547,13 +511,15 @@ public class Uploader extends ListActivity implements OnItemClickListener,
                 }
 
             }
-            mHandler.post(new Runnable() {
-                public void run() {
-                    Uploader.this.onUploadComplete(true, null);
-                }
-            });
+            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, local);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote);
+            intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+            startService(intent);
+            finish();
         }
 
-    }
+
 
 }
