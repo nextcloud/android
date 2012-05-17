@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012  Bartek Przybylski
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
-import java.net.FileNameMap;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -30,7 +28,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,20 +36,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta;
@@ -60,7 +53,6 @@ import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -68,8 +60,7 @@ import eu.alefzero.webdav.WebdavUtils;
  * @author Bartek Przybylski
  * 
  */
-public class Uploader extends ListActivity implements OnItemClickListener,
-        android.view.View.OnClickListener {
+public class Uploader extends ListActivity implements OnItemClickListener, android.view.View.OnClickListener {
     private static final String TAG = "ownCloudUploader";
 
     private Account mAccount;
@@ -77,15 +68,10 @@ public class Uploader extends ListActivity implements OnItemClickListener,
     private String mUsername, mPassword;
     private Cursor mCursor;
     private Stack<String> mParents;
-    private Thread mUploadThread;
-    private Handler mHandler;
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
-    private static final String[] CONTENT_PROJECTION = {Media.DATA,
-                                                        Media.DISPLAY_NAME,
-                                                        Media.MIME_TYPE,
-                                                        Media.SIZE};
+    private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -100,12 +86,10 @@ public class Uploader extends ListActivity implements OnItemClickListener,
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mParents = new Stack<String>();
-        mHandler = new Handler();
         if (getIntent().hasExtra(Intent.EXTRA_STREAM)) {
             prepareStreamsToUpload();
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
-            Account[] accounts = mAccountManager
-                    .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+            Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
             if (accounts.length == 0) {
                 Log.i(TAG, "No ownCloud account is available");
                 showDialog(DIALOG_NO_ACCOUNT);
@@ -130,51 +114,40 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             ProgressDialog pDialog = new ProgressDialog(this);
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
-            pDialog.setMessage(getResources().getString(
-                    R.string.uploader_info_uploading));
+            pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
             return pDialog;
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(R.string.uploader_wrn_no_account_text);
             builder.setCancelable(false);
-            builder.setPositiveButton(
-                    R.string.uploader_wrn_no_account_setup_btn_text,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                                // using string value since in API7 this
-                                // constatn is not defined
-                                // in API7 < this constatant is defined in
-                                // Settings.ADD_ACCOUNT_SETTINGS
-                                // and Settings.EXTRA_AUTHORITIES
-                                Intent intent = new Intent(
-                                        "android.settings.ADD_ACCOUNT_SETTINGS");
-                                intent.putExtra(
-                                        "authorities",
-                                        new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
-                                startActivityForResult(intent,
-                                        REQUEST_CODE_SETUP_ACCOUNT);
-                            } else {
-                                // since in API7 there is no direct call for
-                                // account setup, so we need to
-                                // show our own AccountSetupAcricity, get
-                                // desired results and setup
-                                // everything for ourself
-                                Intent intent = new Intent(getBaseContext(),
-                                        AccountAuthenticator.class);
-                                startActivityForResult(intent,
-                                        REQUEST_CODE_SETUP_ACCOUNT);
-                            }
-                        }
-                    });
-            builder.setNegativeButton(
-                    R.string.uploader_wrn_no_account_quit_btn_text,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
+            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                        // using string value since in API7 this
+                        // constatn is not defined
+                        // in API7 < this constatant is defined in
+                        // Settings.ADD_ACCOUNT_SETTINGS
+                        // and Settings.EXTRA_AUTHORITIES
+                        Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
+                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                    } else {
+                        // since in API7 there is no direct call for
+                        // account setup, so we need to
+                        // show our own AccountSetupAcricity, get
+                        // desired results and setup
+                        // everything for ourself
+                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                    }
+                }
+            });
+            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
             return builder.create();
         case DIALOG_GET_DIRNAME:
             final EditText dirName = new EditText(getBaseContext());
@@ -184,38 +157,29 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             if (mParents.empty()) {
                 pathToUpload = "/";
             } else {
-                mCursor = managedQuery(Uri.withAppendedPath(
-                        ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()),
-                        null, null, null, null);
+                mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()), null,
+                        null, null, null);
                 mCursor.moveToFirst();
-                pathToUpload = mCursor.getString(mCursor
-                        .getColumnIndex(ProviderTableMeta.FILE_PATH))
-                        + mCursor
-                                .getString(
-                                        mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME))
-                                .replace(" ", "%20");
+                pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH))
+                        + mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME)).replace(" ", "%20");
             }
             a a = new a(pathToUpload, dirName);
             builder.setPositiveButton(R.string.common_ok, a);
-            builder.setNegativeButton(R.string.common_cancel,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
+            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[mAccountManager
-                    .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length];
+            CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length];
             for (int i = 0; i < ac.length; ++i) {
-                ac[i] = mAccountManager
-                        .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[i].name;
+                ac[i] = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[i].name;
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    mAccount = mAccountManager
-                            .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[which];
+                    mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[which];
                     populateDirectoryList();
                 }
             });
@@ -256,42 +220,31 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             return;
         } else if (mParents.size() == 1) {
             mParents.pop();
-            mCursor = managedQuery(ProviderTableMeta.CONTENT_URI, null,
-                    ProviderTableMeta.FILE_CONTENT_TYPE + "=?",
+            mCursor = managedQuery(ProviderTableMeta.CONTENT_URI, null, ProviderTableMeta.FILE_CONTENT_TYPE + "=?",
                     new String[] { "DIR" }, null);
         } else {
             mParents.pop();
-            mCursor = managedQuery(Uri.withAppendedPath(
-                    ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()), null,
-                    ProviderTableMeta.FILE_CONTENT_TYPE + "=?",
-                    new String[] { "DIR" }, null);
+            mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()), null,
+                    ProviderTableMeta.FILE_CONTENT_TYPE + "=?", new String[] { "DIR" }, null);
         }
 
-        SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                R.layout.uploader_list_item_layout, mCursor,
-                new String[] { ProviderTableMeta.FILE_NAME },
-                new int[] { R.id.textView1 });
+        SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
+                new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
         setListAdapter(sca);
     }
 
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (!mCursor.moveToPosition(position)) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        String _id = mCursor.getString(mCursor
-                .getColumnIndex(ProviderTableMeta._ID));
+        String _id = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
         mParents.push(_id);
 
         mCursor.close();
-        mCursor = managedQuery(
-                Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, _id),
-                null, ProviderTableMeta.FILE_CONTENT_TYPE + "=?",
-                new String[] { "DIR" }, null);
-        SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                R.layout.uploader_list_item_layout, mCursor,
-                new String[] { ProviderTableMeta.FILE_NAME },
-                new int[] { R.id.textView1 });
+        mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, _id), null,
+                ProviderTableMeta.FILE_CONTENT_TYPE + "=?", new String[] { "DIR" }, null);
+        SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
+                new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
         setListAdapter(sca);
         getListView().invalidate();
     }
@@ -303,13 +256,11 @@ public class Uploader extends ListActivity implements OnItemClickListener,
             if (mParents.empty()) {
                 pathToUpload = "/";
             } else {
-                mCursor = managedQuery(Uri.withAppendedPath(
-                        ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()),
-                        null, null, null, null);
+                mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()), null,
+                        null, null, null);
                 mCursor.moveToFirst();
-                pathToUpload = mCursor.getString(
-                        mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH))
-                        .replace(" ", "%20");
+                pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH)).replace(" ",
+                        "%20");
             }
             Log.d(TAG, "Uploading file to dir " + pathToUpload);
 
@@ -326,34 +277,16 @@ public class Uploader extends ListActivity implements OnItemClickListener,
         }
     }
 
-    public void onUploadComplete(boolean uploadSucc, String message) {
-        dismissDialog(DIALOG_WAITING);
-        Log.i(TAG, "UploadSucc: " + uploadSucc + " message: " + message);
-        if (uploadSucc) {
-            Toast.makeText(this,
-                    getResources().getString(R.string.uploader_upload_succeed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(
-                    this,
-                    getResources().getString(R.string.uploader_upload_failed)
-                            + message, Toast.LENGTH_LONG).show();
-        }
-        finish();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "result received. req: " + requestCode + " res: "
-                + resultCode);
+        Log.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
         if (requestCode == REQUEST_CODE_SETUP_ACCOUNT) {
             dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
-            Account[] accounts = mAccountManager
-                    .getAccountsByType(AccountAuthenticator.AUTH_TOKEN_TYPE);
+            Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.AUTH_TOKEN_TYPE);
             if (accounts.length == 0) {
                 showDialog(DIALOG_NO_ACCOUNT);
             } else {
@@ -371,155 +304,99 @@ public class Uploader extends ListActivity implements OnItemClickListener,
         mPassword = mAccountManager.getPassword(mAccount);
         setContentView(R.layout.uploader_layout);
 
-        mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI,
-                null, ProviderTableMeta.FILE_NAME + "=? AND "
-                        + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                new String[] { "/", mAccount.name }, null);
+        mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI, null, ProviderTableMeta.FILE_NAME
+                + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?", new String[] { "/", mAccount.name }, null);
 
         if (mCursor.moveToFirst()) {
             mCursor = managedQuery(
                     ProviderMeta.ProviderTableMeta.CONTENT_URI,
                     null,
-                    ProviderTableMeta.FILE_CONTENT_TYPE + "=? AND "
-                            + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
+                    ProviderTableMeta.FILE_CONTENT_TYPE + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
                             + ProviderTableMeta.FILE_PARENT + "=?",
-                    new String[] {
-                            "DIR",
-                            mAccount.name,
-                            mCursor.getString(mCursor
-                                    .getColumnIndex(ProviderTableMeta._ID)) },
-                    null);
+                    new String[] { "DIR", mAccount.name,
+                            mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID)) }, null);
 
             ListView lv = getListView();
             lv.setOnItemClickListener(this);
-            SimpleCursorAdapter sca = new SimpleCursorAdapter(this,
-                    R.layout.uploader_list_item_layout, mCursor,
-                    new String[] { ProviderTableMeta.FILE_NAME },
-                    new int[] { R.id.textView1 });
+            SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
+                    new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
             setListAdapter(sca);
             Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
-            /* disable this until new server interaction service wont be created
-            // insert create new directory for multiple items uploading
-            if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-                Button createDirBtn = new Button(this);
-                createDirBtn.setId(android.R.id.button1);
-                createDirBtn.setText(R.string.uploader_btn_create_dir_text);
-                createDirBtn.setOnClickListener(this);
-                ((LinearLayout) findViewById(R.id.linearLayout1)).addView(
-                        createDirBtn, LayoutParams.FILL_PARENT,
-                        LayoutParams.WRAP_CONTENT);
-            }*/
+            /*
+             * disable this until new server interaction service wont be created
+             * // insert create new directory for multiple items uploading if
+             * (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
+             * Button createDirBtn = new Button(this);
+             * createDirBtn.setId(android.R.id.button1);
+             * createDirBtn.setText(R.string.uploader_btn_create_dir_text);
+             * createDirBtn.setOnClickListener(this); ((LinearLayout)
+             * findViewById(R.id.linearLayout1)).addView( createDirBtn,
+             * LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); }
+             */
         }
     }
 
     private void prepareStreamsToUpload() {
         if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
             mStreamsToUpload = new ArrayList<Parcelable>();
-            mStreamsToUpload.add(getIntent().getParcelableExtra(
-                    Intent.EXTRA_STREAM));
+            mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-            mStreamsToUpload = getIntent().getParcelableArrayListExtra(
-                    Intent.EXTRA_STREAM);
+            mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         } else {
             // unknow action inserted
-            throw new IllegalArgumentException("Unknown action given: "
-                    + getIntent().getAction());
+            throw new IllegalArgumentException("Unknown action given: " + getIntent().getAction());
         }
     }
 
-    public void PartialupdateUpload(String fileLocalPath, String filename,
-            String filepath, String contentType, String contentLength) {
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_NAME, filename);
-        cv.put(ProviderTableMeta.FILE_PATH, filepath);
-        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, fileLocalPath);
-        cv.put(ProviderTableMeta.FILE_MODIFIED,
-                WebdavUtils.DISPLAY_DATE_FORMAT.format(new java.util.Date()));
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, contentType);
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, contentLength);
-        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-        Log.d(TAG, filename + " ++ " + filepath + " ++ " + contentLength
-                + " ++ " + contentType + " ++ " + fileLocalPath);
-        if (!mParents.empty()) {
-            Cursor c = managedQuery(Uri.withAppendedPath(
-                    ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()), null,
-                    null, null, null);
-            c.moveToFirst();
-            cv.put(ProviderTableMeta.FILE_PARENT,
-                    c.getString(c.getColumnIndex(ProviderTableMeta._ID)));
-            c.close();
+    public void uploadFiles() {
+        OwnCloudVersion ocv = new OwnCloudVersion(mAccountManager.getUserData(mAccount,
+                AccountAuthenticator.KEY_OC_VERSION));
+        String base_url = mAccountManager.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+        String webdav_path = AccountUtils.getWebdavPath(ocv);
+        Uri oc_uri = Uri.parse(base_url + webdav_path);
+
+        WebdavClient wdc = new WebdavClient(oc_uri);
+        wdc.setCredentials(mUsername, mPassword);
+        wdc.allowUnsignedCertificates();
+
+        // create last directory in path if nessesary
+        if (mCreateDir) {
+            wdc.createDirectory(mUploadPath);
         }
-        getContentResolver().insert(ProviderTableMeta.CONTENT_URI_FILE, cv);
+
+        String[] local = new String[mStreamsToUpload.size()], remote = new String[mStreamsToUpload.size()];
+
+        for (int i = 0; i < mStreamsToUpload.size(); ++i) {
+            Uri uri = (Uri) mStreamsToUpload.get(i);
+            if (uri.getScheme().equals("content")) {
+                Cursor c = getContentResolver().query((Uri) mStreamsToUpload.get(i),
+                                                      CONTENT_PROJECTION,
+                                                      null,
+                                                      null,
+                                                      null);
+
+                if (!c.moveToFirst())
+                    continue;
+
+                final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                             data = c.getString(c.getColumnIndex(Media.DATA));
+                local[i] = data;
+                remote[i] = mUploadPath + "/" + display_name;
+            } else if (uri.getScheme().equals("file")) {
+                final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
+                local[i] = file.getAbsolutePath();
+                remote[i] = mUploadPath + "/" + file.getName();
+            }
+
+        }
+        Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+        intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+        intent.putExtra(FileUploader.KEY_LOCAL_FILE, local);
+        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote);
+        intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+        startService(intent);
+        finish();
     }
-
-        public void uploadFiles() {
-            OwnCloudVersion ocv = new OwnCloudVersion(mAccountManager
-                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-            String base_url = mAccountManager.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
-            String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Uri oc_uri = Uri.parse(base_url+webdav_path);
-            
-            WebdavClient wdc = new WebdavClient(oc_uri);
-            wdc.setCredentials(mUsername, mPassword);
-            wdc.allowUnsignedCertificates();
-
-            // create last directory in path if nessesary
-            if (mCreateDir) {
-                wdc.createDirectory(mUploadPath);
-            }
-            
-            String[] local  = new String[mStreamsToUpload.size()],
-                     remote = new String[mStreamsToUpload.size()];
-
-            for (int i = 0; i < mStreamsToUpload.size(); ++i) {
-                Uri uri = (Uri) mStreamsToUpload.get(i);
-                if (uri.getScheme().equals("content")) {
-                    Cursor c = getContentResolver().query((Uri) mStreamsToUpload.get(i),
-                                                          CONTENT_PROJECTION,
-                                                          null,
-                                                          null,
-                                                          null);
-
-                    if (!c.moveToFirst()) continue;
-                    
-                    final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
-                                 data = c.getString(c.getColumnIndex(Media.DATA));
-                    local[i] = data;
-                    remote[i] = mUploadPath + "/" + display_name;
-
-                } else if (uri.getScheme().equals("file")) {
-                    final File file = new File(Uri.decode(uri.toString())
-                            .replace(uri.getScheme() + "://", ""));
-                    FileNameMap fileNameMap = URLConnection.getFileNameMap();
-                    String contentType = fileNameMap.getContentTypeFor(uri
-                            .toString());
-                    if (contentType == null) {
-                        contentType = "text/plain";
-                    }
-                    if (!wdc.putFile(file.getAbsolutePath(), mUploadPath + "/"
-                            + file.getName(), contentType)) {
-                        mHandler.post(new Runnable() {
-                            public void run() {
-                                Uploader.this.onUploadComplete(
-                                        false,
-                                        "Error while uploading file: "
-                                                + file.getName());
-                            }
-                        });
-                    }
-                }
-
-            }
-            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, local);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote);
-            intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
-            startService(intent);
-            finish();
-        }
-
-
 
 }
