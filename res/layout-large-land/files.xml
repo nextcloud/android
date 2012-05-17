@@ -24,7 +24,7 @@
     <LinearLayout
         android:id="@+id/file_list_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1" >
 
         <fragment
@@ -39,7 +39,7 @@
 
     <LinearLayout android:id="@+id/file_details_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="2" >
 
         <fragment

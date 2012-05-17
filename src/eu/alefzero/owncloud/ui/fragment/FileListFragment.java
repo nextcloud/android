@@ -84,6 +84,8 @@ public class FileListFragment extends FragmentListView {
             ((FileDisplayActivity) getActivity()).pushPath(dirname);
 
             populateFileList();
+            resetFileFragment();
+            
             return;
         }
 
@@ -107,11 +109,11 @@ public class FileListFragment extends FragmentListView {
 
             if (fd.isEmptyLayout()) {
                 // True, if this is the first time a user taps on a file
-                fd = new FileDetailFragment(showDetailsIntent);
                 FragmentTransaction transaction = getFragmentManager()
                         .beginTransaction();
-                transaction.replace(R.id.file_details_container, fd,
-                        "FileDetails");
+                fd = new FileDetailFragment(showDetailsIntent);
+                transaction.replace(R.id.fileDetail, fd, "FileDetails");
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
             } else {
                 fd.updateFileDetails(showDetailsIntent);
@@ -119,6 +121,20 @@ public class FileListFragment extends FragmentListView {
 
         } else {
             startActivity(showDetailsIntent);
+        }
+    }
+
+    /**
+     * Resets the FileDetailsFragment on Tablets
+     * so that it always displays "Tab on a file to display it's details" 
+     */
+    private void resetFileFragment() {
+        FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
+        if(fileDetails != null){
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.remove(fileDetails);
+            transaction.add(R.id.file_details_container, new FileDetailFragment());
+            transaction.commit();
         }
     }
 
@@ -140,6 +156,7 @@ public class FileListFragment extends FragmentListView {
     public void onNavigateUp() {
         mDirNames.pop();
         populateFileList();
+        resetFileFragment();
     }
 
     /**

@@ -53,7 +53,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public static final String FILE = "FILE";
 
     private Intent mIntent;
-    private View mView;
+    //private View mView;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private OCFile mFile;
 
@@ -73,7 +73,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * to contain {@link FileDetailFragment#FILE} with an OCFile and also
      * {@link FileDownloader#EXTRA_ACCOUNT} with the account.
      * 
-     * @param nonEmptyFragment True, to enable file detail rendering
+     * @param intent Intent with an account and a file in it for rendering
      */
     public FileDetailFragment(Intent intent) {
         mLayout = R.layout.file_details_fragment;
@@ -124,7 +124,7 @@ public class FileDetailFragment extends SherlockFragment implements
             setFilesize(mFile.getFileLength());
 
             // set file preview if available and possible
-            VideoView videoView = (VideoView) mView
+            VideoView videoView = (VideoView) getView()
                     .findViewById(R.id.videoView1);
             videoView.setVisibility(View.INVISIBLE);
             if (mFile.getStoragePath() == null) {
@@ -134,7 +134,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 imageView.setOnClickListener(this);
             } else {
                 if (mFile.getMimetype().startsWith("image/")) {
-                    ImageView imageView = (ImageView) mView
+                    ImageView imageView = (ImageView) getView()
                             .findViewById(R.id.imageView2);
                     Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
                     imageView.setImageBitmap(bmp);
@@ -151,23 +151,25 @@ public class FileDetailFragment extends SherlockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = null;
-
         view = inflater.inflate(mLayout, container, false);
-        mIntent = getActivity().getIntent();
-        mView = view;
-
-        // make sure we are not using the empty layout
-        if (mEmptyLayout == false) {
-            updateFileDetails();
-        }
-
         return view;
     }
 
     @Override
-    public View getView() {
-        return mView == null ? super.getView() : mView;
-    };
+    public void onStart() {
+        super.onStart();
+        
+        // Fill in required information about file displaying
+        if(mIntent == null){
+            mIntent = getActivity().getIntent();
+        }
+        
+        // Fill in the details if the layout is not empty
+        if(!mEmptyLayout){
+            updateFileDetails();
+        }
+        
+    }
 
     private void setFilename(String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.textView1);
