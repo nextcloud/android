@@ -52,7 +52,6 @@ public class FileListFragment extends FragmentListView {
     private Stack<String> mDirNames;
     private Vector<OCFile> mFiles;
     private DataStorageManager mStorageManager;
-    private FileDetailFragment mFileDetailsDetailFragment;
     private boolean mIsLargeDevice = false;
 
     public FileListFragment() {
@@ -72,9 +71,7 @@ public class FileListFragment extends FragmentListView {
 
     @Override
     public void onStart() {
-        // Inflate the original fragment for better performance
-        mFileDetailsDetailFragment = new FileDetailFragment();
-        
+                
         // Create a placeholder upon launch
         View fragmentContainer = getActivity().findViewById(R.id.file_details_container);
         if (fragmentContainer != null) {
@@ -115,7 +112,7 @@ public class FileListFragment extends FragmentListView {
             FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
             if (fileDetails == null) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, mFileDetailsDetailFragment, "FileDetails");
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(showDetailsIntent), "FileDetails");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
             } else {

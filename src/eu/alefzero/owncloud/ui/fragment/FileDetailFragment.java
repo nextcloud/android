@@ -78,6 +78,18 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    /**
+     * Use this when creating the fragment and display
+     * a file at the same time
+     * 
+     * @param showDetailsIntent The Intent with the required parameters
+     * @see FileDetailFragment#updateFileDetails(Intent)
+     */
+    public FileDetailFragment(Intent showDetailsIntent) {
+        mIntent = showDetailsIntent;
+        mLayout = R.layout.file_details_fragment;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -161,7 +173,10 @@ public class FileDetailFragment extends SherlockFragment implements
         view = inflater.inflate(mLayout, container, false);
         mView = view;
         if(mLayout == R.layout.file_details_fragment){
-            mIntent = getActivity().getIntent();
+            // Phones will launch an activity with this intent
+            if(mIntent == null){
+                mIntent = getActivity().getIntent();
+            }
             updateFileDetails();
         }
         
