@@ -35,7 +35,7 @@ public class DisplayUtils {
             attachedsuff++;
         }
         result = ((int) (result * 100)) / 100.;
-        return result + suffixes[attachedsuff];
+        return result + " " + suffixes[attachedsuff];
     }
 
     public static String HtmlDecode(String s) {

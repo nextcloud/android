@@ -29,10 +29,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -122,28 +122,20 @@ public class FileDetailFragment extends SherlockFragment implements
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
                     .getMimetype()));
             setFilesize(mFile.getFileLength());
-
-            // set file preview if available and possible
-            VideoView videoView = (VideoView) getView()
-                    .findViewById(R.id.videoView1);
-            videoView.setVisibility(View.INVISIBLE);
-            if (mFile.getStoragePath() == null) {
-                ImageView imageView = (ImageView) getView().findViewById(
-                        R.id.imageView2);
-                imageView.setImageResource(R.drawable.download);
-                imageView.setOnClickListener(this);
-            } else {
+            
+            // Update preview
+            if (mFile.getStoragePath() != null) {
                 if (mFile.getMimetype().startsWith("image/")) {
-                    ImageView imageView = (ImageView) getView()
-                            .findViewById(R.id.imageView2);
+                    ImageView preview = (ImageView) getView().findViewById(
+                            R.id.fdPreview);
                     Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
-                    imageView.setImageBitmap(bmp);
-                } else if (mFile.getMimetype().startsWith("video/")) {
-                    videoView.setVisibility(View.VISIBLE);
-                    videoView.setVideoPath(mFile.getStoragePath());
-                    videoView.start();
+                    preview.setImageBitmap(bmp);
                 }
             }
+            
+            // Make download button effective
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+            downloadButton.setOnClickListener(this);
         }
     }
 
@@ -172,19 +164,19 @@ public class FileDetailFragment extends SherlockFragment implements
     }
 
     private void setFilename(String filename) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView1);
+        TextView tv = (TextView) getView().findViewById(R.id.fdFilename);
         if (tv != null)
             tv.setText(filename);
     }
 
     private void setFiletype(String mimetype) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView2);
+        TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null)
             tv.setText(mimetype);
     }
 
     private void setFilesize(long filesize) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView3);
+        TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null)
             tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
     }
@@ -211,8 +203,7 @@ public class FileDetailFragment extends SherlockFragment implements
         Intent i = new Intent(getActivity(), FileDownloader.class);
         i.putExtra(FileDownloader.EXTRA_ACCOUNT,
                 mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
-        i.putExtra(FileDownloader.EXTRA_FILE_PATH,
-                mIntent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getPath());
         getActivity().startService(i);
     }
 
