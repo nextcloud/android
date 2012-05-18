@@ -16,55 +16,54 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/owncloud_white"
-    android:orientation="vertical" >
+    android:background="@color/owncloud_white" >
 
     <ScrollView
         android:id="@+id/fdScrollView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content" >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <RelativeLayout
+                android:id="@+id/fdFileHeaderContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp" >
 
                 <ImageView
                     android:id="@+id/fdIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="4dp"
                     android:src="@drawable/file" />
 
                 <TextView
                     android:id="@+id/fdFilename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/fdIcon"
                     android:text="file.name"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
+            <RelativeLayout
+                android:id="@+id/fdDetailsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fdFileHeaderContainer" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:id="@+id/fdLabelContainer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="16dp" >
+                    android:layout_marginLeft="16dp" >
 
                     <TextView
                         android:id="@+id/fdTypeLabel"
@@ -78,6 +77,7 @@
                         android:id="@+id/fdSizeLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdTypeLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_size"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -86,25 +86,18 @@
                         android:id="@+id/fdCreatedLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdSizeLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_created"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/fdModifiedLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/filedetails_modified"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:id="@+id/fdValueContainer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical"
-                    android:paddingLeft="4dp" >
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="4dp" >
 
                     <TextView
                         android:id="@+id/fdType"
@@ -118,6 +111,7 @@
                         android:id="@+id/fdSize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdType"
                         android:layout_marginTop="12dp"
                         android:text="389 KB"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -126,6 +120,7 @@
                         android:id="@+id/fdCreated"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdSize"
                         android:layout_marginTop="12dp"
                         android:text="2012/05/18 12:23 PM"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -134,34 +129,37 @@
                         android:id="@+id/fdModified"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdCreated"
                         android:layout_marginTop="12dp"
                         android:text="2012/05/19 02:56 PM"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-                </LinearLayout>
-            </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/fdPreviewAndDL"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fdDetailsContainer" >
 
                 <ImageView
                     android:id="@+id/fdPreview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
-                    android:layout_gravity="center_horizontal"
                     android:src="@drawable/owncloud_logo" />
 
                 <Button
                     android:id="@+id/fdDownloadBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/fdPreview"
                     android:layout_marginTop="12dp"
-                    android:layout_gravity="center_horizontal"
                     android:text="@string/filedetails_download" />
-            </LinearLayout>
-        </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
