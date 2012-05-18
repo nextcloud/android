@@ -28,89 +28,48 @@
         android:layout_height="fill_parent" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/fdIcon"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="16dp"
-                android:src="@drawable/file" />
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/fdFilename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/fdIcon"
-                android:layout_centerHorizontal="true"
-                android:text="file.name"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                <ImageView
+                    android:id="@+id/fdIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/file" />
+
+                <TextView
+                    android:id="@+id/fdFilename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="file.name"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/fdType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/fdCreatedLabel"
-                    android:layout_alignLeft="@+id/fdFilename"
-                    android:text="JPG Image"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/fdSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/fdSizeLabel"
-                    android:layout_alignLeft="@+id/fdFilename"
-                    android:text="389 KB"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/fdCreated"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/fdModifiedLabel"
-                    android:layout_alignLeft="@+id/fdFilename"
-                    android:text="2012/05/18 12:23 PM"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/fdModified"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/fdModifiedLabel"
-                    android:layout_alignBottom="@+id/fdModifiedLabel"
-                    android:layout_alignLeft="@+id/fdCreated"
-                    android:text="2012/05/19 02:56 PM"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <ImageView
-                    android:id="@+id/fdPreview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/fdModified"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/owncloud_logo" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true" >
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp" >
 
                     <TextView
                         android:id="@+id/fdTypeLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/fdIcon"
-                        android:layout_below="@+id/fdIcon"
                         android:layout_marginTop="24dp"
                         android:text="@string/filedetails_type"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -119,8 +78,6 @@
                         android:id="@+id/fdSizeLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/fdIcon"
-                        android:layout_below="@+id/fdTypeLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_size"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -129,8 +86,6 @@
                         android:id="@+id/fdCreatedLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/fdIcon"
-                        android:layout_below="@+id/fdSizeLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_created"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -139,22 +94,74 @@
                         android:id="@+id/fdModifiedLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/fdIcon"
-                        android:layout_below="@+id/fdCreatedLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_modified"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp" >
+
+                    <TextView
+                        android:id="@+id/fdType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="JPG Image"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/fdSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="389 KB"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/fdCreated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="2012/05/18 12:23 PM"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/fdModified"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="2012/05/19 02:56 PM"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/fdPreview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/owncloud_logo" />
+
+                <Button
+                    android:id="@+id/fdDownloadBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/filedetails_download" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/fdDownloadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fdScrollView"
-        android:layout_centerHorizontal="true"
-        android:text="@string/filedetails_download" />
 
 </LinearLayout>

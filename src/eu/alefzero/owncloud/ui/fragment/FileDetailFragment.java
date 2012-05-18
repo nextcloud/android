@@ -17,7 +17,6 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -52,35 +51,33 @@ public class FileDetailFragment extends SherlockFragment implements
 
     public static final String FILE = "FILE";
 
-    private Intent mIntent;
-    //private View mView;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private Intent mIntent;
+    private int mLayout;
+    private View mView;
     private OCFile mFile;
 
-    private int mLayout;
-    private boolean mEmptyLayout;
-
     /**
-     * Default constructor. When inflated by android -> display empty layout
+     * Default constructor - contains real layout
      */
-    public FileDetailFragment() {
-        mLayout = R.layout.file_details_empty;
-        mEmptyLayout = true;
-    }
-
-    /**
-     * Custom construtor. Use with a {@link FragmentTransaction}. The intent has
-     * to contain {@link FileDetailFragment#FILE} with an OCFile and also
-     * {@link FileDownloader#EXTRA_ACCOUNT} with the account.
-     * 
-     * @param intent Intent with an account and a file in it for rendering
-     */
-    public FileDetailFragment(Intent intent) {
+    public FileDetailFragment(){
         mLayout = R.layout.file_details_fragment;
-        mIntent = intent;
-        mEmptyLayout = false;
     }
-
+    
+    /**
+     * Creates a dummy layout. For use if the user never has
+     * tapped on a file before
+     * 
+     * @param useEmptyView If true, use empty layout
+     */
+    public FileDetailFragment(boolean useEmptyView){
+        if(useEmptyView){
+            mLayout = R.layout.file_details_empty;
+        } else {
+            mLayout = R.layout.file_details_fragment;
+        }
+    }
+    
     @Override
     public void onResume() {
         super.onResume();
@@ -138,31 +135,7 @@ public class FileDetailFragment extends SherlockFragment implements
             downloadButton.setOnClickListener(this);
         }
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = null;
-        view = inflater.inflate(mLayout, container, false);
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        
-        // Fill in required information about file displaying
-        if(mIntent == null){
-            mIntent = getActivity().getIntent();
-        }
-        
-        // Fill in the details if the layout is not empty
-        if(!mEmptyLayout){
-            updateFileDetails();
-        }
-        
-    }
-
+    
     private void setFilename(String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdFilename);
         if (tv != null)
@@ -181,20 +154,25 @@ public class FileDetailFragment extends SherlockFragment implements
             tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
     }
 
-    /**
-     * Use this to check if the correct layout is loaded. When android
-     * instanciates this class using the default constructor, the layout will be
-     * empty.
-     * 
-     * Once a user touches a file for the first time, you must instanciate a new
-     * Fragment with the new FileDetailFragment(true) to inflate the actual
-     * details
-     * 
-     * @return If the layout is empty, this method will return true, otherwise
-     *         false
-     */
-    public boolean isEmptyLayout() {
-        return mEmptyLayout;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = null;
+        view = inflater.inflate(mLayout, container, false);
+        mView = view;
+        if(mLayout == R.layout.file_details_fragment){
+            mIntent = getActivity().getIntent();
+            updateFileDetails();
+        }
+        
+        return view;
+    }
+    
+    
+
+    @Override
+    public View getView() {
+        return super.getView() == null ? mView : super.getView();
     }
 
     @Override
