@@ -173,6 +173,12 @@ public class FileListFragment extends FragmentListView {
         setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("ACCOUNT", mAccount);
+    }
+    
     // TODO: Delete this testing stuff.
     /*
      * private void addContact(Account account, String name, String username) {

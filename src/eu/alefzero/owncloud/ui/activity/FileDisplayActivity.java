@@ -76,9 +76,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         OnNavigationListener, OnClickListener {
     private ArrayAdapter<String> mDirectories;
     private DataStorageManager mStorageManager;
+    private String[] mDirs = null;
 
     private SyncBroadcastReceiver syncBroadcastRevceiver;
 
+    private static final String KEY_DIR = "DIR";
+    
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
 
@@ -246,6 +249,16 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (!accountsAreSetup()) {
             showDialog(DIALOG_SETUP_ACCOUNT);
         }
+        mDirs = savedInstanceState.getStringArray(KEY_DIR);
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mDirs = new String[mDirectories.getCount()-1];
+        for (int j = mDirectories.getCount() - 2, i = 0; j >= 0; --j, ++i) {
+            mDirs[i] = mDirectories.getItem(j);
+        }
     }
 
     @Override
@@ -263,6 +276,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mDirectories = new CustomArrayAdapter<String>(this,
                 R.layout.sherlock_spinner_dropdown_item);
         mDirectories.add("/");
+        if (mDirs != null) {
+            for (String s : mDirs)
+                mDirectories.insert(s, 0);
+            FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.fileList);
+            if (fileListFramgent != null) fileListFramgent.populateFileList();
+        }
 
         mStorageManager = new FileDataStorageManager(
                 AccountUtils.getCurrentOwnCloudAccount(this),
