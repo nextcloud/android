@@ -49,6 +49,11 @@
     <string name="uploader_info_uploading">Uploading</string>
     <string name="uploader_btn_create_dir_text">Create dir for upload</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
+    <string name="filedetails_size">Size:</string>
+    <string name="filedetails_type">Type:</string>
+    <string name="filedetails_created">Created:</string>
+    <string name="filedetails_modified">Modified:</string>
+    <string name="filedetails_download">Download</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>

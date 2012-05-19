@@ -52,6 +52,7 @@ public class FileListFragment extends FragmentListView {
     private Stack<String> mDirNames;
     private Vector<OCFile> mFiles;
     private DataStorageManager mStorageManager;
+    private boolean mIsLargeDevice = false;
 
     public FileListFragment() {
         mDirNames = new Stack<String>();
@@ -62,11 +63,24 @@ public class FileListFragment extends FragmentListView {
         super.onCreate(savedInstanceState);
 
         mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-        getListView().setDivider(
-                getResources().getDrawable(R.drawable.uploader_list_separator));
+        getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         getListView().setDividerHeight(1);
 
         populateFileList();
+    }
+
+    @Override
+    public void onStart() {
+                
+        // Create a placeholder upon launch
+        View fragmentContainer = getActivity().findViewById(R.id.file_details_container);
+        if (fragmentContainer != null) {
+            mIsLargeDevice = true;
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(true));
+            transaction.commit();
+        }
+        super.onStart();
     }
 
     @Override
@@ -84,53 +98,51 @@ public class FileListFragment extends FragmentListView {
             ((FileDisplayActivity) getActivity()).pushPath(dirname);
 
             populateFileList();
+            resetFileFragment();
+
             return;
         }
 
-        Intent showDetailsIntent = new Intent(getActivity(),
-                FileDetailActivity.class);
+        Intent showDetailsIntent = new Intent(getActivity(), FileDetailActivity.class);
         showDetailsIntent.putExtra(FileDetailFragment.FILE, file);
         showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
 
-        // Try to find by tag first
-        FileDetailFragment fd = (FileDetailFragment) getFragmentManager()
-                .findFragmentByTag("FileDetails");
-
-        // Could be the first time the user has touched a file. find by id
-        if (fd == null) {
-            fd = (FileDetailFragment) getFragmentManager().findFragmentById(
-                    R.id.fileDetail);
-        }
-
-        // Tablets will have this fragment, phones not. Could still be null
-        if (fd != null) {
-
-            if (fd.isEmptyLayout()) {
-                // True, if this is the first time a user taps on a file
-                fd = new FileDetailFragment(showDetailsIntent);
-                FragmentTransaction transaction = getFragmentManager()
-                        .beginTransaction();
-                transaction.replace(R.id.file_details_container, fd,
-                        "FileDetails");
+        // If we are on a large device -> update fragment
+        if (mIsLargeDevice) {
+            FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
+            if (fileDetails == null) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(showDetailsIntent), "FileDetails");
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
             } else {
-                fd.updateFileDetails(showDetailsIntent);
+                fileDetails.updateFileDetails(showDetailsIntent);
             }
-
         } else {
             startActivity(showDetailsIntent);
         }
     }
 
+    /**
+     * Resets the FileDetailsFragment on Tablets so that it always displays
+     * "Tab on a file to display it's details"
+     */
+    private void resetFileFragment() {
+        FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
+        if (fileDetails != null) {
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.remove(fileDetails);
+            transaction.add(R.id.file_details_container, new FileDetailFragment(true));
+            transaction.commit();
+        }
+    }
+
     @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
-            long arg3) {
+    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         ClipData.Item item = new ClipData.Item("ASD");
-        ClipDescription cd = new ClipDescription("ASD",
-                new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN });
+        ClipDescription cd = new ClipDescription("ASD", new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN });
         ClipData dragData = new ClipData(cd, item);
-        arg1.startDrag(dragData,
-                new View.DragShadowBuilder(arg0.getChildAt(arg2)), null, 0);
+        arg1.startDrag(dragData, new View.DragShadowBuilder(arg0.getChildAt(arg2)), null, 0);
         return true;
     }
 
@@ -140,6 +152,7 @@ public class FileListFragment extends FragmentListView {
     public void onNavigateUp() {
         mDirNames.pop();
         populateFileList();
+        resetFileFragment();
     }
 
     /**
@@ -151,16 +164,13 @@ public class FileListFragment extends FragmentListView {
             s += a + "/";
         Log.e("ASD", s);
 
-        mStorageManager = new FileDataStorageManager(mAccount, getActivity()
-                .getContentResolver());
+        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
         OCFile file = mStorageManager.getFileByPath(s);
         mFiles = mStorageManager.getDirectoryContent(file);
         if (mFiles == null || mFiles.size() == 0) {
-            Toast.makeText(getActivity(), "There are no files here",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
         }
-        setListAdapter(new FileListListAdapter(file, mStorageManager,
-                getActivity()));
+        setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
     }
 
     // TODO: Delete this testing stuff.

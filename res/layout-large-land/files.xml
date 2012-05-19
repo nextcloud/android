@@ -19,12 +19,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/owncloud_white"
     android:orientation="horizontal" >
 
     <LinearLayout
         android:id="@+id/file_list_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1" >
 
         <fragment
@@ -39,17 +40,10 @@
 
     <LinearLayout android:id="@+id/file_details_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="2" >
 
-        <fragment
-            android:id="@+id/fileDetail"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            class="eu.alefzero.owncloud.ui.fragment.FileDetailFragment" >
-
-            <!-- Preview: layout=@layout/file_details_empty -->
-        </fragment>
+        <!-- Preview: layout=@layout/file_details_empty -->
     </LinearLayout>
 
 </LinearLayout>

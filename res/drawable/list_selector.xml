@@ -17,7 +17,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
 
-    <item android:drawable="@color/filelist_backgorund" android:state_window_focused="false"/>
+    <item android:drawable="@color/owncloud_white" android:state_window_focused="false"/>
 
     <!-- Even though these two point to the same resource, have two states so the drawable will invalidate itself when coming out of pressed state. -->
     <item android:drawable="@android:color/holo_blue_bright" android:state_enabled="false" android:state_focused="true" android:state_pressed="true"/>

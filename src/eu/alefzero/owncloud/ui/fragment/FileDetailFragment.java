@@ -17,7 +17,6 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,10 +28,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -52,33 +51,43 @@ public class FileDetailFragment extends SherlockFragment implements
 
     public static final String FILE = "FILE";
 
-    private Intent mIntent;
-    private View mView;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private Intent mIntent;
+    private int mLayout;
+    private View mView;
     private OCFile mFile;
 
-    private int mLayout;
-    private boolean mEmptyLayout;
-
     /**
-     * Default constructor. When inflated by android -> display empty layout
+     * Default constructor - contains real layout
      */
-    public FileDetailFragment() {
-        mLayout = R.layout.file_details_empty;
-        mEmptyLayout = true;
-    }
-
-    /**
-     * Custom construtor. Use with a {@link FragmentTransaction}. The intent has
-     * to contain {@link FileDetailFragment#FILE} with an OCFile and also
-     * {@link FileDownloader#EXTRA_ACCOUNT} with the account.
-     * 
-     * @param nonEmptyFragment True, to enable file detail rendering
-     */
-    public FileDetailFragment(Intent intent) {
+    public FileDetailFragment(){
         mLayout = R.layout.file_details_fragment;
-        mIntent = intent;
-        mEmptyLayout = false;
+    }
+    
+    /**
+     * Creates a dummy layout. For use if the user never has
+     * tapped on a file before
+     * 
+     * @param useEmptyView If true, use empty layout
+     */
+    public FileDetailFragment(boolean useEmptyView){
+        if(useEmptyView){
+            mLayout = R.layout.file_details_empty;
+        } else {
+            mLayout = R.layout.file_details_fragment;
+        }
+    }
+    
+    /**
+     * Use this when creating the fragment and display
+     * a file at the same time
+     * 
+     * @param showDetailsIntent The Intent with the required parameters
+     * @see FileDetailFragment#updateFileDetails(Intent)
+     */
+    public FileDetailFragment(Intent showDetailsIntent) {
+        mIntent = showDetailsIntent;
+        mLayout = R.layout.file_details_fragment;
     }
 
     @Override
@@ -122,85 +131,63 @@ public class FileDetailFragment extends SherlockFragment implements
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
                     .getMimetype()));
             setFilesize(mFile.getFileLength());
-
-            // set file preview if available and possible
-            VideoView videoView = (VideoView) mView
-                    .findViewById(R.id.videoView1);
-            videoView.setVisibility(View.INVISIBLE);
-            if (mFile.getStoragePath() == null) {
-                ImageView imageView = (ImageView) getView().findViewById(
-                        R.id.imageView2);
-                imageView.setImageResource(R.drawable.download);
-                imageView.setOnClickListener(this);
-            } else {
+            
+            // Update preview
+            if (mFile.getStoragePath() != null) {
                 if (mFile.getMimetype().startsWith("image/")) {
-                    ImageView imageView = (ImageView) mView
-                            .findViewById(R.id.imageView2);
+                    ImageView preview = (ImageView) getView().findViewById(
+                            R.id.fdPreview);
                     Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
-                    imageView.setImageBitmap(bmp);
-                } else if (mFile.getMimetype().startsWith("video/")) {
-                    videoView.setVisibility(View.VISIBLE);
-                    videoView.setVideoPath(mFile.getStoragePath());
-                    videoView.start();
+                    preview.setImageBitmap(bmp);
                 }
             }
+            
+            // Make download button effective
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+            downloadButton.setOnClickListener(this);
         }
+    }
+    
+    private void setFilename(String filename) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdFilename);
+        if (tv != null)
+            tv.setText(filename);
+    }
+
+    private void setFiletype(String mimetype) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdType);
+        if (tv != null)
+            tv.setText(mimetype);
+    }
+
+    private void setFilesize(long filesize) {
+        TextView tv = (TextView) getView().findViewById(R.id.fdSize);
+        if (tv != null)
+            tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = null;
-
         view = inflater.inflate(mLayout, container, false);
-        mIntent = getActivity().getIntent();
         mView = view;
-
-        // make sure we are not using the empty layout
-        if (mEmptyLayout == false) {
+        if(mLayout == R.layout.file_details_fragment){
+            // Phones will launch an activity with this intent
+            if(mIntent == null){
+                mIntent = getActivity().getIntent();
+            }
             updateFileDetails();
         }
-
+        
         return view;
     }
+    
+    
 
     @Override
     public View getView() {
-        return mView == null ? super.getView() : mView;
-    };
-
-    private void setFilename(String filename) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView1);
-        if (tv != null)
-            tv.setText(filename);
-    }
-
-    private void setFiletype(String mimetype) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView2);
-        if (tv != null)
-            tv.setText(mimetype);
-    }
-
-    private void setFilesize(long filesize) {
-        TextView tv = (TextView) getView().findViewById(R.id.textView3);
-        if (tv != null)
-            tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
-    }
-
-    /**
-     * Use this to check if the correct layout is loaded. When android
-     * instanciates this class using the default constructor, the layout will be
-     * empty.
-     * 
-     * Once a user touches a file for the first time, you must instanciate a new
-     * Fragment with the new FileDetailFragment(true) to inflate the actual
-     * details
-     * 
-     * @return If the layout is empty, this method will return true, otherwise
-     *         false
-     */
-    public boolean isEmptyLayout() {
-        return mEmptyLayout;
+        return super.getView() == null ? mView : super.getView();
     }
 
     @Override
@@ -209,8 +196,7 @@ public class FileDetailFragment extends SherlockFragment implements
         Intent i = new Intent(getActivity(), FileDownloader.class);
         i.putExtra(FileDownloader.EXTRA_ACCOUNT,
                 mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
-        i.putExtra(FileDownloader.EXTRA_FILE_PATH,
-                mIntent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getPath());
         getActivity().startService(i);
     }
 
