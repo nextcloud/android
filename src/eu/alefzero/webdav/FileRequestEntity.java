@@ -16,6 +16,7 @@ public class FileRequestEntity implements RequestEntity {
 
     final File file;
     final String contentType;
+    OnUploadProgressListener listener;
 
     public FileRequestEntity(final File file, final String contentType) {
         super();
@@ -25,7 +26,7 @@ public class FileRequestEntity implements RequestEntity {
         this.file = file;
         this.contentType = contentType;
     }
-
+    
     public long getContentLength() {
         return this.file.length();
     }
@@ -37,6 +38,10 @@ public class FileRequestEntity implements RequestEntity {
     public boolean isRepeatable() {
         return true;
     }
+    
+    public void setOnUploadProgressListener(OnUploadProgressListener listener) {
+        this.listener = listener;
+    }
 
     public void writeRequest(final OutputStream out) throws IOException {
         byte[] tmp = new byte[4096];
@@ -45,6 +50,8 @@ public class FileRequestEntity implements RequestEntity {
         try {
             while ((i = instream.read(tmp)) >= 0) {
                 out.write(tmp, 0, i);
+                if (listener != null) 
+                    listener.OnUploadProgress(i);
             }
         } finally {
             instream.close();

@@ -1,11 +1,12 @@
 package eu.alefzero.owncloud.files.services;
 
-import java.net.URLEncoder;
+import java.io.File;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
+import eu.alefzero.webdav.OnUploadProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -25,7 +26,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-public class FileUploader extends Service {
+public class FileUploader extends Service implements OnUploadProgressListener {
 
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
@@ -44,6 +45,9 @@ public class FileUploader extends Service {
     private String[] mLocalPaths, mRemotePaths;
     private boolean mResult;
     private int mUploadType;
+    private Notification mNotification;
+    private int mTotalDataToSend, mSendData;
+    private int mCurrentIndexUpload;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -129,39 +133,55 @@ public class FileUploader extends Service {
         String username = mAccount.name.substring(0,
                 mAccount.name.lastIndexOf('@'));
         String password = mAccountManager.getPassword(mAccount);
-        Notification notification = new Notification(
+        
+        mTotalDataToSend = mSendData = 0;
+        
+        mNotification = new Notification(
                 eu.alefzero.owncloud.R.drawable.icon, "Uploading...",
                 System.currentTimeMillis());
-        notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        notification.contentView = new RemoteViews(getApplicationContext()
-                .getPackageName(), R.layout.progressbar_layout);
-        notification.contentView.setProgressBar(R.id.status_progress,
-                mLocalPaths.length - 1, 0, false);
-        notification.contentView.setImageViewResource(R.id.status_icon,
-                R.drawable.icon);
+        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
+        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, false);
+        mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
 
-        mNotificationManager.notify(42, notification);
+        mNotificationManager.notify(42, mNotification);
 
         WebdavClient wc = new WebdavClient(ocUri);
+        wc.allowUnsignedCertificates();
+        wc.setUploadListener(this);
         wc.setCredentials(username, password);
 
+        for (int i = 0; i < mLocalPaths.length; ++i) {
+            File f = new File(mLocalPaths[i]);
+            mTotalDataToSend += f.length();
+        }
+        
+        Log.d(TAG, "Will upload " + mTotalDataToSend + " bytes, with " + mLocalPaths.length + " files");
+        
         for (int i = 0; i < mLocalPaths.length; ++i) {
             String mimeType = MimeTypeMap.getSingleton()
                     .getMimeTypeFromExtension(
                             mLocalPaths[i].substring(mLocalPaths[i]
                                     .lastIndexOf('.') + 1));
             mResult = false;
+            mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                 mResult |= true;
             }
-            notification.contentView.setProgressBar(R.id.status_progress,
-                    mLocalPaths.length - 1, i + 1, false);
-
-            mNotificationManager.notify(42, notification);
         }
         // notification.contentView.setProgressBar(R.id.status_progress,
         // mLocalPaths.length-1, mLocalPaths.length-1, false);
         mNotificationManager.cancel(42);
         run();
+    }
+
+    @Override
+    public void OnUploadProgress(long currentProgress) {
+        mSendData += currentProgress;
+        int percent = (int)(100*mSendData/mTotalDataToSend);
+        String text = String.format("%d%% Uploading %s file", percent, new File(mLocalPaths[mCurrentIndexUpload]).getName());
+        mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
+        mNotification.contentView.setTextViewText(R.id.status_text, text);
+        mNotificationManager.notify(42, mNotification);
     }
 }

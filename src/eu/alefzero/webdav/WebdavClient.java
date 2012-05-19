@@ -47,6 +47,7 @@ public class WebdavClient extends HttpClient {
     private Credentials mCredentials;
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
+    private OnUploadProgressListener mUploadProgressListener;
 
     public WebdavClient(Uri uri) {
         mUri = uri;
@@ -104,6 +105,10 @@ public class WebdavClient extends HttpClient {
         return true;
     }
 
+    public void setUploadListener(OnUploadProgressListener listener) {
+        mUploadProgressListener = listener;
+    }
+    
     public boolean putFile(String localFile, String remoteTarget,
             String contentType) {
         boolean result = true;
@@ -111,7 +116,8 @@ public class WebdavClient extends HttpClient {
         try {
             Log.e("ASD", contentType + "");
             File f = new File(localFile);
-            RequestEntity entity = new FileRequestEntity(f, contentType);
+            FileRequestEntity entity = new FileRequestEntity(f, contentType);
+            entity.setOnUploadProgressListener(mUploadProgressListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
             PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
             put.setRequestEntity(entity);

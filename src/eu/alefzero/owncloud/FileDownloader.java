@@ -1,7 +1,6 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
-import java.net.URLEncoder;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
