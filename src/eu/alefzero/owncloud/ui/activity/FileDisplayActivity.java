@@ -250,6 +250,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             showDialog(DIALOG_SETUP_ACCOUNT);
         }
         mDirs = savedInstanceState.getStringArray(KEY_DIR);
+        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        mDirectories.add("/");
+        if (mDirs != null)
+            for (String s : mDirs)
+                mDirectories.insert(s, 0);
     }
     
     @Override
@@ -273,8 +278,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         syncBroadcastRevceiver = new SyncBroadcastReceiver();
         registerReceiver(syncBroadcastRevceiver, f);
 
-        mDirectories = new CustomArrayAdapter<String>(this,
-                R.layout.sherlock_spinner_dropdown_item);
+        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         mDirectories.add("/");
         if (mDirs != null) {
             for (String s : mDirs)
