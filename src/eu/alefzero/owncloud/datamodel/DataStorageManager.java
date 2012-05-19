@@ -33,4 +33,6 @@ public interface DataStorageManager {
     public boolean saveFile(OCFile file);
 
     public Vector<OCFile> getDirectoryContent(OCFile f);
+    
+    public void removeFile(OCFile file);
 }

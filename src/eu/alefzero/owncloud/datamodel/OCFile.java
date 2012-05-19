@@ -46,6 +46,7 @@ public class OCFile implements Parcelable {
     private String mLocalPath;
     private String mMimeType;
     private boolean mNeedsUpdating;
+    private long mLastSyncDate;
 
     /**
      * Create new {@link OCFile} with given path
@@ -227,6 +228,7 @@ public class OCFile implements Parcelable {
         mLength = 0;
         mCreationTimestamp = 0;
         mModifiedTimestamp = 0;
+        mLastSyncDate = 0;
     }
 
     /**
@@ -291,6 +293,14 @@ public class OCFile implements Parcelable {
     public boolean needsUpdatingWhileSaving() {
         return mNeedsUpdating;
     }
+    
+    public long getLastSyncDate() {
+        return mLastSyncDate;
+    }
+    
+    public void setLastSyncDate(long lastSyncDate) {
+        mLastSyncDate = lastSyncDate;
+    }
 
     @Override
     public int describeContents() {
@@ -307,8 +317,8 @@ public class OCFile implements Parcelable {
         dest.writeString(mRemotePath);
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
-        dest.writeInt(mNeedsUpdating ? 0 : 1); // No writeBoolean method exists
-                                               // - yay :D
+        dest.writeInt(mNeedsUpdating ? 1 : 0);
+        dest.writeLong(mLastSyncDate);
     }
 
 }

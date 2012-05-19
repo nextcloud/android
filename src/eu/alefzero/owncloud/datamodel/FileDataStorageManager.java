@@ -286,5 +286,18 @@ public class FileDataStorageManager implements DataStorageManager {
         }
         return file;
     }
+    
+    public void removeFile(OCFile file) {
+        Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI, ""+file.getFileId());
+        if (getContentProvider() != null) {
+            try {
+                getContentProvider().delete(file_uri, null, null);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else {
+            getContentResolver().delete(file_uri, null, null);
+        }
+    }
 
 }

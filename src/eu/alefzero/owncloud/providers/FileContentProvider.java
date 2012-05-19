@@ -66,6 +66,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_CONTENT_TYPE);
         mProjectionMap.put(ProviderTableMeta.FILE_STORAGE_PATH,
                 ProviderTableMeta.FILE_STORAGE_PATH);
+        mProjectionMap.put(ProviderTableMeta.FILE_LAST_SYNC_DATE,
+                ProviderTableMeta.FILE_LAST_SYNC_DATE);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -207,7 +209,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_CONTENT_TYPE + " TEXT, "
                     + ProviderTableMeta.FILE_CONTENT_LENGTH + " INTEGER, "
                     + ProviderTableMeta.FILE_STORAGE_PATH + " TEXT, "
-                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT);");
+                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT, "
+                    + ProviderTableMeta.FILE_LAST_SYNC_DATE + " INTEGER );");
         }
 
         @Override
