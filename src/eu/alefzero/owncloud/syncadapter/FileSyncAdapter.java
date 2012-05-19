@@ -47,6 +47,8 @@ import eu.alefzero.webdav.WebdavEntry;
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
+    private final static String TAG = "FileSyncAdapter"; 
+    
     private long mCurrentSyncTime;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
@@ -63,7 +65,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setStorageManager(new FileDataStorageManager(account,
                 getContentProvider()));
 
-        Log.d("ASD", "syncing owncloud account " + account.name);
+        Log.d(TAG, "syncing owncloud account " + account.name);
 
         Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
         i.putExtra(FileSyncService.IN_PROGRESS, true);

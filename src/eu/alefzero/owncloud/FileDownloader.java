@@ -1,6 +1,7 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
+import java.net.URLEncoder;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -22,6 +23,7 @@ import android.util.Log;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service {
@@ -82,10 +84,13 @@ public class FileDownloader extends Service {
 
     void downloadFile() {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Uri oc_url = Uri.parse(am.getUserData(mAccount,
-                AccountAuthenticator.KEY_OC_URL));
+        String oc_base_url = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+        OwnCloudVersion ocv = new OwnCloudVersion(am
+                .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
+        String webdav_path = AccountUtils.getWebdavPath(ocv);
+        Uri oc_url = Uri.parse(oc_base_url+webdav_path);
 
-        WebdavClient wdc = new WebdavClient(oc_url);
+        WebdavClient wdc = new WebdavClient(Uri.parse(oc_base_url + webdav_path));
 
         String username = mAccount.name.split("@")[0];
         String password = "";
@@ -94,6 +99,7 @@ public class FileDownloader extends Service {
                     AccountAuthenticator.AUTH_TOKEN_TYPE, true);
         } catch (Exception e) {
             e.printStackTrace();
+            return;
         }
 
         wdc.setCredentials(username, password);
@@ -113,17 +119,19 @@ public class FileDownloader extends Service {
         File file = new File(dir, mFilePath.replace('/', '.'));
 
         Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
-        wdc.downloadFile(mFilePath, file);
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
-        getContentResolver().update(
-                ProviderTableMeta.CONTENT_URI,
-                cv,
-                ProviderTableMeta.FILE_NAME + "=? AND "
-                        + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                new String[] {
-                        mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
-                        mAccount.name });
+        Log.e(TAG, mFilePath+"");
+        if (wdc.downloadFile(mFilePath, file)) {
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
+            getContentResolver().update(
+                    ProviderTableMeta.CONTENT_URI,
+                    cv,
+                    ProviderTableMeta.FILE_NAME + "=? AND "
+                            + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                    new String[] {
+                            mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
+                            mAccount.name });            
+        }
         nm.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         sendBroadcast(end);

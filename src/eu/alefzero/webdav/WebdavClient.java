@@ -75,16 +75,16 @@ public class WebdavClient extends HttpClient {
         // HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ",
         // "%20"));
 
-        Log.e("ASD", mUri.toString() + URLDecoder.decode(filepath) + "");
+        Log.e("ASD", mUri.toString() + filepath.replace(" ", "%20") + "");
         GetMethod get = new GetMethod(mUri.toString()
-                + URLEncoder.encode(filepath));
+                + filepath.replace(" ", "%20"));
 
         // get.setHeader("Host", mUri.getHost());
         // get.setHeader("User-Agent", "Android-ownCloud");
 
         try {
-            Log.e("ASD", get.toString());
             int status = executeMethod(get);
+            Log.e(TAG, "status return: " + status);
             if (status != HttpStatus.SC_OK) {
                 return false;
             }

@@ -23,7 +23,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +58,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private int mLayout;
     private View mView;
     private OCFile mFile;
+    private static final String TAG = "FileDetailFragment";
 
     /**
      * Default constructor - contains real layout
@@ -124,6 +127,7 @@ public class FileDetailFragment extends SherlockFragment implements
 
     private void updateFileDetails() {
         mFile = mIntent.getParcelableExtra(FILE);
+        Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
 
         if (mFile != null) {
             // set file details
@@ -131,20 +135,31 @@ public class FileDetailFragment extends SherlockFragment implements
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
                     .getMimetype()));
             setFilesize(mFile.getFileLength());
-            
             // Update preview
             if (mFile.getStoragePath() != null) {
-                if (mFile.getMimetype().startsWith("image/")) {
-                    ImageView preview = (ImageView) getView().findViewById(
-                            R.id.fdPreview);
-                    Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
-                    preview.setImageBitmap(bmp);
+                try {
+                    if (mFile.getMimetype().startsWith("image/")) {
+                        ImageView preview = (ImageView) getView().findViewById(
+                                R.id.fdPreview);
+                        Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
+                        preview.setImageBitmap(bmp);
+                    }
+                } catch (OutOfMemoryError e) {
+                    Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
                 }
+                downloadButton.setText("Open file");
+                downloadButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mFile.getMimetype());
+                        startActivity(i);
+                    }
+                });
+            } else {
+                // Make download button effective
+                downloadButton.setOnClickListener(this);
             }
-            
-            // Make download button effective
-            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setOnClickListener(this);
         }
     }
     

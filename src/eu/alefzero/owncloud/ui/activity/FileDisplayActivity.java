@@ -19,6 +19,7 @@
 package eu.alefzero.owncloud.ui.activity;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import android.accounts.Account;
@@ -298,7 +299,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         AccountUtils.getCurrentOwnCloudAccount(this));
                 String remotepath = new String();
                 for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += "/" + mDirectories.getItem(j);
+                    remotepath += "/" + URLDecoder.decode(mDirectories.getItem(j));
                 }
                 if (!remotepath.endsWith("/"))
                     remotepath += "/";
