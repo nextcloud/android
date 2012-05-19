@@ -96,6 +96,7 @@ public class FileDataStorageManager implements DataStorageManager {
         cv.put(ProviderTableMeta.FILE_PATH, file.getPath());
         cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
 
         if (fileExists(file.getPath())) {
             OCFile tmpfile = getFileByPath(file.getPath());
@@ -283,20 +284,26 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+            file.setLastSyncDate(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
         }
         return file;
     }
     
     public void removeFile(OCFile file) {
-        Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI, ""+file.getFileId());
+        Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
         if (getContentProvider() != null) {
             try {
-                getContentProvider().delete(file_uri, null, null);
+                getContentProvider().delete(file_uri,
+                                            ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                                            new String[]{mAccount.name});
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         } else {
-            getContentResolver().delete(file_uri, null, null);
+            getContentResolver().delete(file_uri,
+                                        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                                        new String[]{mAccount.name});
         }
     }
 

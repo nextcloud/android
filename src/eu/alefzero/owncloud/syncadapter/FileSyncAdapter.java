@@ -19,6 +19,8 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
 import org.apache.jackrabbit.webdav.MultiStatus;
@@ -45,6 +47,8 @@ import eu.alefzero.webdav.WebdavEntry;
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
+    private long mCurrentSyncTime;
+    
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -68,7 +72,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         PropFindMethod query;
         try {
-            Log.e("ASD", getUri().toString());
+            mCurrentSyncTime = System.currentTimeMillis();
             query = new PropFindMethod(getUri().toString() + "/");
             getClient().executeMethod(query);
             MultiStatus resp = null;
@@ -111,8 +115,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 if (parentId == 0)
                     parentId = file.getFileId();
                 if (we.contentType().equals("DIR"))
-                    fetchData(getUri().toString() + we.path(), syncResult,
-                            file.getFileId());
+                    fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
+            }
+            Vector<OCFile> files = getStorageManager().getDirectoryContent(
+                    getStorageManager().getFileById(parentId));
+            for (OCFile file : files) {
+                if (file.getLastSyncDate() != mCurrentSyncTime && file.getLastSyncDate() != 0)
+                    getStorageManager().removeFile(file);
             }
         } catch (OperationCanceledException e) {
             e.printStackTrace();
@@ -129,11 +138,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
 
     private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.path());
+        OCFile file = new OCFile(URLDecoder.decode(we.path()));
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
+        file.setLastSyncDate(mCurrentSyncTime);
         return file;
     }
 
