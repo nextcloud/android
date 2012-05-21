@@ -30,12 +30,12 @@ public class WebdavEntry {
     private String mName, mPath, mUri, mContentType;
     private long mContentLength, mCreateTimestamp, mModifiedTimestamp;
 
-    public WebdavEntry(MultiStatusResponse ms) {
+    public WebdavEntry(MultiStatusResponse ms, String splitElement) {
         resetData();
         if (ms.getStatus().length != 0) {
             mUri = ms.getHref();
 
-            mPath = mUri.split("webdav.php", 2)[1];
+            mPath = mUri.split(splitElement, 2)[1];
 
             int status = ms.getStatus()[0].getStatusCode();
             DavPropertySet propSet = ms.getProperties(status);

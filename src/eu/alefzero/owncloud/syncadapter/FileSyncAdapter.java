@@ -81,7 +81,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             resp = query.getResponseBodyAsMultiStatus();
 
             if (resp.getResponses().length > 0) {
-                WebdavEntry we = new WebdavEntry(resp.getResponses()[0]);
+                WebdavEntry we = new WebdavEntry(resp.getResponses()[0], getUri().getPath());
                 OCFile file = fillOCFile(we);
                 file.setParentId(0);
                 getStorageManager().saveFile(file);
@@ -110,7 +110,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             MultiStatus resp = null;
             resp = query.getResponseBodyAsMultiStatus();
             for (int i = 1; i < resp.getResponses().length; ++i) {
-                WebdavEntry we = new WebdavEntry(resp.getResponses()[i]);
+                WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
                 file.setParentId(parentId);
                 getStorageManager().saveFile(file);
