@@ -177,6 +177,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         setProgressBarIndeterminateVisibility(false);
         // if (getSupportFragmentManager().findFragmentById(R.id.fileList) ==
         // null)
+        Log.e("ASDaaa", "ASDaaa");
         setContentView(R.layout.files);
 
     }
@@ -185,41 +186,36 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-        case R.id.settingsItem: {
-            Intent i = new Intent(this, Preferences.class);
-            startActivity(i);
-            break;
-        }
-        case R.id.createDirectoryItem: {
-            showDialog(DIALOG_CREATE_DIR);
-            break;
-        }
-        case R.id.startSync: {
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            ContentResolver.requestSync(
-                    AccountUtils.getCurrentOwnCloudAccount(this),
-                    "org.owncloud", bundle);
-            break;
-        }
-        case R.id.action_upload: {
-            Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-            action = action.setType("*/*")
-                    .addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(
-                    Intent.createChooser(action, "Upload file from..."),
-                    ACTION_SELECT_FILE);
-            break;
-        }
-
-        case android.R.id.home: {
-            Intent i = new Intent(this, AccountSelectActivity.class);
-            startActivity(i);
-            finish();
-            break;
-        }
-        default:
-            retval = false;
+            case R.id.createDirectoryItem: {
+                showDialog(DIALOG_CREATE_DIR);
+                break;
+            }
+            case R.id.startSync: {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+                ContentResolver.requestSync(
+                        AccountUtils.getCurrentOwnCloudAccount(this),
+                        "org.owncloud", bundle);
+                break;
+            }
+            case R.id.action_upload: {
+                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+                action = action.setType("*/*")
+                        .addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(
+                        Intent.createChooser(action, "Upload file from..."),
+                        ACTION_SELECT_FILE);
+                break;
+            }
+    
+            case android.R.id.home: {
+                Intent i = new Intent(this, AccountSelectActivity.class);
+                startActivity(i);
+                finish();
+                break;
+            }
+            default:
+                retval = false;
         }
         return retval;
     }
