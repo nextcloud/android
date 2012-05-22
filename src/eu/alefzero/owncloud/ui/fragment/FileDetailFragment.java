@@ -135,6 +135,9 @@ public class FileDetailFragment extends SherlockFragment implements
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
                     .getMimetype()));
             setFilesize(mFile.getFileLength());
+            setTimeCreated(mFile.getCreationTimestamp());
+            setTimeModified(mFile.getModificationTimestamp());
+            
             // Update preview
             if (mFile.getStoragePath() != null) {
                 try {
@@ -178,7 +181,21 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setFilesize(long filesize) {
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null)
-            tv.setText(DisplayUtils.bitsToHumanReadable(filesize));
+            tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
+    }
+    
+    private void setTimeCreated(long milliseconds){
+        TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
+        if(tv != null){
+            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
+        }
+    }
+    
+    private void setTimeModified(long milliseconds){
+        TextView tv = (TextView) getView().findViewById(R.id.fdModified);
+        if(tv != null){
+            tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
+        }
     }
 
     @Override
