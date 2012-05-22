@@ -47,7 +47,7 @@ public class FileUploader extends Service implements OnUploadProgressListener {
     private int mUploadType;
     private Notification mNotification;
     private int mTotalDataToSend, mSendData;
-    private int mCurrentIndexUpload;
+    private int mCurrentIndexUpload, mPreviousPercent;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -134,7 +134,7 @@ public class FileUploader extends Service implements OnUploadProgressListener {
                 mAccount.name.lastIndexOf('@'));
         String password = mAccountManager.getPassword(mAccount);
         
-        mTotalDataToSend = mSendData = 0;
+        mTotalDataToSend = mSendData = mPreviousPercent = 0;
         
         mNotification = new Notification(
                 eu.alefzero.owncloud.R.drawable.icon, "Uploading...",
@@ -179,9 +179,12 @@ public class FileUploader extends Service implements OnUploadProgressListener {
     public void OnUploadProgress(long currentProgress) {
         mSendData += currentProgress;
         int percent = (int)(100*mSendData/mTotalDataToSend);
-        String text = String.format("%d%% Uploading %s file", percent, new File(mLocalPaths[mCurrentIndexUpload]).getName());
-        mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
-        mNotification.contentView.setTextViewText(R.id.status_text, text);
-        mNotificationManager.notify(42, mNotification);
+        if (percent != mPreviousPercent) {
+            String text = String.format("%d%% Uploading %s file", percent, new File(mLocalPaths[mCurrentIndexUpload]).getName());
+            mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
+            mNotification.contentView.setTextViewText(R.id.status_text, text);
+            mNotificationManager.notify(42, mNotification);
+        }
+        mPreviousPercent = percent;
     }
 }

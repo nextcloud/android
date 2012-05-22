@@ -24,7 +24,7 @@
     android:layout_height="56dp">
 
     <FrameLayout
-        android:layout_width="56dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:focusable="false"
         android:focusableInTouchMode="false">
@@ -37,9 +37,9 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical|center"
             android:layout_margin="4dp"
             android:src="@drawable/ic_menu_archive" />
         
@@ -55,18 +55,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:ellipsize="middle"
+            android:singleLine="true"
             android:text="TextView"
             android:textColor="#303030"
-            android:textSize="20dip" />
+            android:textSize="16dip" />
 
-        <TextView
-            android:id="@+id/Extension"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="TextView"
-            android:textColor="#D0D0D0"
-            android:textSize="20dip" />
     </LinearLayout>
 
 </LinearLayout>

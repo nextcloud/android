@@ -177,7 +177,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         setProgressBarIndeterminateVisibility(false);
         // if (getSupportFragmentManager().findFragmentById(R.id.fileList) ==
         // null)
-        Log.e("ASDaaa", "ASDaaa");
         setContentView(R.layout.files);
 
     }

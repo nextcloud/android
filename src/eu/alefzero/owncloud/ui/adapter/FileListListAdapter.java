@@ -99,18 +99,9 @@ public class FileListListAdapter implements ListAdapter {
         if (mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            TextView ext_text = (TextView) view.findViewById(R.id.Extension);
             String name = file.getFileName();
-            String ext = file.getFileName();
-            if (name.lastIndexOf('.') != -1) {
-                name = name.substring(0, name.lastIndexOf('.'));
-                ext = ext.substring(ext.lastIndexOf('.'));
-            } else {
-                ext = "";
-            }
 
             fileName.setText(DisplayUtils.HtmlDecode(name));
-            ext_text.setText(ext);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             if (!file.getMimetype().equals("DIR")) {
                 fileIcon.setImageResource(R.drawable.file);
