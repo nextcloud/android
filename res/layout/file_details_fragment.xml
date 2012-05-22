@@ -63,6 +63,8 @@
                     android:id="@+id/fdLabelContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="16dp" >
 
                     <TextView
@@ -90,14 +92,24 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_created"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                    
+                    <TextView
+                        android:id="@+id/fdModifiedLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/fdCreatedLabel"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/filedetails_modified"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/fdValueContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="4dp" >
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@+id/fdLabelContainer" >
 
                     <TextView
                         android:id="@+id/fdType"
@@ -134,6 +146,7 @@
                         android:text="2012/05/19 02:56 PM"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </RelativeLayout>
+
             </RelativeLayout>
 
             <RelativeLayout
