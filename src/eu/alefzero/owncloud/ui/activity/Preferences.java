@@ -146,8 +146,8 @@ public class Preferences extends SherlockPreferenceActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getSherlock().getMenuInflater();
-        inflater.inflate(R.menu.prefs_menu, menu);
+        //MenuInflater inflater = getSherlock().getMenuInflater();
+        //inflater.inflate(R.menu.prefs_menu, menu);
         return true;
     }
 
@@ -157,7 +157,8 @@ public class Preferences extends SherlockPreferenceActivity implements
         Intent intent;
 
         switch (item.getItemId()) {
-        case R.id.addSessionItem:
+        //case R.id.addSessionItem:
+        case 1:
             intent = new Intent(this, PreferencesNewSession.class);
             startActivityForResult(intent, mNewSession);
             break;
