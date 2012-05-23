@@ -20,6 +20,8 @@ package eu.alefzero.owncloud.ui.activity;
 
 import java.io.File;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
