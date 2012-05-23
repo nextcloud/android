@@ -273,7 +273,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     /**
      * In ownCloud 3.0.3 and 4.0.0 there is a bug that SabreDAV does not return
-     * the time time that the file was created. There is a chance that this will
+     * the time that the file was created. There is a chance that this will
      * be fixed in future versions. Use this method to check if this version of
      * ownCloud has this fix.
      * @return True, if ownCloud the ownCloud version is > 3.0.4 and 4.0.1
