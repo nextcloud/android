@@ -75,6 +75,12 @@ public class WebdavClient extends HttpClient {
     public boolean downloadFile(String filepath, File targetPath) {
         // HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ",
         // "%20"));
+        String[] splitted_filepath = filepath.split("/");
+        filepath = "";
+        for (String s : splitted_filepath) {
+            if (s.equals("")) continue;
+            filepath += "/" + URLEncoder.encode(s);
+        }
 
         Log.e("ASD", mUri.toString() + filepath.replace(" ", "%20") + "");
         GetMethod get = new GetMethod(mUri.toString()
