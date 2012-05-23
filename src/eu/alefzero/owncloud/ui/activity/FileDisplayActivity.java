@@ -20,8 +20,6 @@ package eu.alefzero.owncloud.ui.activity;
 
 import java.io.File;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -62,7 +60,6 @@ import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -84,8 +81,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
-
-    private static final int REQUEST_ACCOUNT_SETUP = 0;
     private static final int ACTION_SELECT_FILE = 1;
 
     public void pushPath(String path) {
@@ -175,8 +170,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(false);
-        // if (getSupportFragmentManager().findFragmentById(R.id.fileList) ==
-        // null)
+        
         setContentView(R.layout.files);
 
     }
@@ -282,7 +276,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 mDirectories.insert(s, 0);
             FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.fileList);
-            if (fileListFramgent != null) fileListFramgent.populateFileList();
+            if (fileListFramgent != null) fileListFramgent.listDirectory();
         }
 
         mStorageManager = new FileDataStorageManager(
@@ -466,7 +460,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fileList);
                 if (fileListFramgent != null)
-                    fileListFramgent.populateFileList();
+                    fileListFramgent.listDirectory();
             }
         }
 

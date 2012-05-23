@@ -17,11 +17,13 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Window;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
@@ -38,17 +40,37 @@ public class FileDetailActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.file_activity_details);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         mFileDetail = new FileDetailFragment();
         ft.add(R.id.fragment, mFileDetail, "FileDetails");
         ft.commit();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean returnValue = false;
+        
+        switch(item.getItemId()){
+        case android.R.id.home:
+            Intent intent = new Intent(this, FileDisplayActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(FileDetailFragment.EXTRA_FILE, mFileDetail.getDisplayedFile());
+            startActivity(intent);
+            finish();
+            returnValue = true;
+        }
+        
+        return returnValue;
+    }
+
+
 
     @Override
     protected void onResume() {

@@ -48,10 +48,12 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  * 
  */
 public class FileListFragment extends FragmentListView {
+    private static final String TAG = "FileListFragment";
     private Account mAccount;
     private Stack<String> mDirNames;
     private Vector<OCFile> mFiles;
     private DataStorageManager mStorageManager;
+    private OCFile mFile;
     private boolean mIsLargeDevice = false;
 
     public FileListFragment() {
@@ -63,15 +65,19 @@ public class FileListFragment extends FragmentListView {
         super.onCreate(savedInstanceState);
 
         mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
         getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         getListView().setDividerHeight(1);
 
-        populateFileList();
+        Intent intent = getActivity().getIntent();
+        OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+        mFile = directory;
+        
+        listDirectory(directory);
     }
 
     @Override
     public void onStart() {
-                
         // Create a placeholder upon launch
         View fragmentContainer = getActivity().findViewById(R.id.file_details_container);
         if (fragmentContainer != null) {
@@ -89,22 +95,23 @@ public class FileListFragment extends FragmentListView {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
         OCFile file = mFiles.get(position);
-
+        mFile = file;
+        
         // Update ActionBarPath
         if (file.getMimetype().equals("DIR")) {
             String dirname = file.getFileName();
 
             mDirNames.push(dirname);
             ((FileDisplayActivity) getActivity()).pushPath(dirname);
-
-            populateFileList();
+            
+            listDirectory(file);
             resetFileFragment();
 
             return;
         }
 
         Intent showDetailsIntent = new Intent(getActivity(), FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.FILE, file);
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
         showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
 
         // If we are on a large device -> update fragment
@@ -151,26 +158,53 @@ public class FileListFragment extends FragmentListView {
      */
     public void onNavigateUp() {
         mDirNames.pop();
-        populateFileList();
+        OCFile parentDir = null;
+        
+        if(mFile != null){
+            parentDir = mStorageManager.getFileById(mFile.getParentId());
+            mFile = parentDir;
+        }
+        
+        listDirectory(parentDir);
         resetFileFragment();
     }
 
     /**
-     * Lists the directory
+     * Calls {@link FileListFragment#listDirectory(OCFile)} with a null parameter
      */
-    public void populateFileList() {
-        String s = "/";
-        for (String a : mDirNames)
-            s += a + "/";
-        Log.e("ASD", s);
-
-        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        OCFile file = mStorageManager.getFileByPath(s);
-        mFiles = mStorageManager.getDirectoryContent(file);
+    public void listDirectory(){
+        listDirectory(null);
+    }
+    
+    /**
+     * Lists the given directory on the view. When the input parameter is null,
+     * it will either refresh the last known directory, or list the root
+     * if there never was a directory.
+     * 
+     * @param directory File to be listed
+     */
+    public void listDirectory(OCFile directory) {
+                
+        // Check input parameters for null
+        if(directory == null){
+            if(mFile != null){
+                directory = mFile;
+            } else {
+                directory = mStorageManager.getFileByPath("/");
+            }
+        }
+        
+        // If that's not a directory -> List its parent
+        if(!directory.isDirectory()){
+            Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
+            directory = mStorageManager.getFileById(directory.getParentId());
+        }
+        
+        mFiles = mStorageManager.getDirectoryContent(directory);
         if (mFiles == null || mFiles.size() == 0) {
             Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
         }
-        setListAdapter(new FileListListAdapter(file, mStorageManager, getActivity()));
+        setListAdapter(new FileListListAdapter(directory, mStorageManager, getActivity()));
     }
 
     @Override
@@ -178,48 +212,5 @@ public class FileListFragment extends FragmentListView {
         super.onSaveInstanceState(outState);
         outState.putParcelable("ACCOUNT", mAccount);
     }
-    
-    // TODO: Delete this testing stuff.
-    /*
-     * private void addContact(Account account, String name, String username) {
-     * Log.i("ASD", "Adding contact: " + name);
-     * ArrayList<ContentProviderOperation> operationList = new
-     * ArrayList<ContentProviderOperation>();
-     * 
-     * //Create our RawContact ContentProviderOperation.Builder builder =
-     * ContentProviderOperation.newInsert(RawContacts.CONTENT_URI);
-     * builder.withValue(RawContacts.ACCOUNT_NAME, account.name);
-     * builder.withValue(RawContacts.ACCOUNT_TYPE, account.type);
-     * builder.withValue(RawContacts.SYNC1, username);
-     * operationList.add(builder.build());
-     * 
-     * //Create a Data record of common type 'StructuredName' for our RawContact
-     * builder =
-     * ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI);
-     * builder
-     * .withValueBackReference(ContactsContract.CommonDataKinds.StructuredName
-     * .RAW_CONTACT_ID, 0); builder.withValue(ContactsContract.Data.MIMETYPE,
-     * ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
-     * builder
-     * .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-     * name); operationList.add(builder.build());
-     * 
-     * //Create a Data record of custom type
-     * "vnd.android.cursor.item/vnd.fm.last.android.profile" to display a link
-     * to the Last.fm profile builder =
-     * ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI);
-     * builder.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0);
-     * builder.withValue(ContactsContract.Data.MIMETYPE,
-     * "vnd.android.cursor.item/vnd.owncloud.contact.profile");
-     * builder.withValue(ContactsContract.Data.DATA1, username);
-     * builder.withValue(ContactsContract.Data.DATA2, "Last.fm Profile");
-     * builder.withValue(ContactsContract.Data.DATA3, "View profile");
-     * operationList.add(builder.build());
-     * 
-     * try {
-     * getActivity().getContentResolver().applyBatch(ContactsContract.AUTHORITY,
-     * operationList); } catch (Exception e) { Log.e("ASD",
-     * "Something went wrong during creation! " + e); e.printStackTrace(); } }
-     */
 
 }

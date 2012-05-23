@@ -51,7 +51,7 @@ import eu.alefzero.owncloud.datamodel.OCFile;
 public class FileDetailFragment extends SherlockFragment implements
         OnClickListener {
 
-    public static final String FILE = "FILE";
+    public static final String EXTRA_FILE = "FILE";
 
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private Intent mIntent;
@@ -109,6 +109,46 @@ public class FileDetailFragment extends SherlockFragment implements
         mDownloadFinishReceiver = null;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = null;
+        view = inflater.inflate(mLayout, container, false);
+        mView = view;
+        if(mLayout == R.layout.file_details_fragment){
+            // Phones will launch an activity with this intent
+            if(mIntent == null){
+                mIntent = getActivity().getIntent();
+            }
+            updateFileDetails();
+        }
+        
+        return view;
+    }
+
+    @Override
+    public View getView() {
+        return super.getView() == null ? mView : super.getView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(getActivity(), FileDownloader.class);
+        i.putExtra(FileDownloader.EXTRA_ACCOUNT,
+                mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
+        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getPath());
+        getActivity().startService(i);
+    }
+
+    /**
+     * Can be used to get the file that is currently being displayed.
+     * @return The file on the screen.
+     */
+    public OCFile getDisplayedFile(){
+        return mFile;
+    }
+    
     /**
      * Use this method to signal this Activity that it shall update its view.
      * 
@@ -116,7 +156,7 @@ public class FileDetailFragment extends SherlockFragment implements
      *            this file The intent needs to have these extras:
      *            <p>
      * 
-     *            {@link FileDetailFragment#FILE}: An {@link OCFile}
+     *            {@link FileDetailFragment#EXTRA_FILE}: An {@link OCFile}
      *            {@link FileDownloader#EXTRA_ACCOUNT}: The Account that file
      *            belongs to (required for downloading)
      */
@@ -125,8 +165,11 @@ public class FileDetailFragment extends SherlockFragment implements
         updateFileDetails();
     }
 
+    /**
+     * Updates the view with all relevant details about that file.
+     */
     private void updateFileDetails() {
-        mFile = mIntent.getParcelableExtra(FILE);
+        mFile = mIntent.getParcelableExtra(EXTRA_FILE);
         Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
 
         if (mFile != null) {
@@ -150,7 +193,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 } catch (OutOfMemoryError e) {
                     Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
                 }
-                downloadButton.setText("Open file");
+                downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -166,24 +209,40 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    /**
+     * Updates the filename in view
+     * @param filename to set
+     */
     private void setFilename(String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdFilename);
         if (tv != null)
             tv.setText(filename);
     }
 
+    /**
+     * Updates the MIME type in view
+     * @param mimetype to set
+     */
     private void setFiletype(String mimetype) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null)
             tv.setText(mimetype);
     }
 
+    /**
+     * Updates the file size in view
+     * @param filesize in bytes to set
+     */
     private void setFilesize(long filesize) {
         TextView tv = (TextView) getView().findViewById(R.id.fdSize);
         if (tv != null)
             tv.setText(DisplayUtils.bytesToHumanReadable(filesize));
     }
     
+    /**
+     * Updates the time that the file was created in view
+     * @param milliseconds Unix time to set
+     */
     private void setTimeCreated(long milliseconds){
         TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
         if(tv != null){
@@ -191,6 +250,10 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    /**
+     * Updates the time that the file was last modified
+     * @param milliseconds Unix time to set
+     */
     private void setTimeModified(long milliseconds){
         TextView tv = (TextView) getView().findViewById(R.id.fdModified);
         if(tv != null){
@@ -198,40 +261,10 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = null;
-        view = inflater.inflate(mLayout, container, false);
-        mView = view;
-        if(mLayout == R.layout.file_details_fragment){
-            // Phones will launch an activity with this intent
-            if(mIntent == null){
-                mIntent = getActivity().getIntent();
-            }
-            updateFileDetails();
-        }
-        
-        return view;
-    }
-    
-    
-
-    @Override
-    public View getView() {
-        return super.getView() == null ? mView : super.getView();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(getActivity(), FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_ACCOUNT,
-                mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
-        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getPath());
-        getActivity().startService(i);
-    }
-
+    /**
+     * Once the file download has finished -> update view
+     * @author Bartek Przybylski
+     */
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
