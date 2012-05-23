@@ -95,12 +95,12 @@ public class FileListFragment extends FragmentListView {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
         OCFile file = mFiles.get(position);
-        mFile = file;
         
         // Update ActionBarPath
         if (file.getMimetype().equals("DIR")) {
             String dirname = file.getFileName();
-
+            mFile = file;
+            
             mDirNames.push(dirname);
             ((FileDisplayActivity) getActivity()).pushPath(dirname);
             
