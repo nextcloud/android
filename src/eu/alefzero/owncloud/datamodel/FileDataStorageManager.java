@@ -95,13 +95,13 @@ public class FileDataStorageManager implements DataStorageManager {
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
         if (file.getParentId() != 0)
             cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-        cv.put(ProviderTableMeta.FILE_PATH, file.getPath());
+        cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
 
-        if (fileExists(file.getPath())) {
-            OCFile tmpfile = getFileByPath(file.getPath());
+        if (fileExists(file.getRemotePath())) {
+            OCFile tmpfile = getFileByPath(file.getRemotePath());
             file.setStoragePath(tmpfile.getStoragePath());
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             file.setFileId(tmpfile.getFileId());

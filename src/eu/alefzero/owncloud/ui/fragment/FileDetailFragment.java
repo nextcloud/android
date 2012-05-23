@@ -137,7 +137,7 @@ public class FileDetailFragment extends SherlockFragment implements
         Intent i = new Intent(getActivity(), FileDownloader.class);
         i.putExtra(FileDownloader.EXTRA_ACCOUNT,
                 mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
-        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getPath());
+        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
         getActivity().startService(i);
     }
 

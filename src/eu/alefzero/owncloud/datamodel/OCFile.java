@@ -86,11 +86,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Returns the path of the file
+     * Returns the remote path of the file on ownCloud
      * 
-     * @return The path
+     * @return The remote path to the file
      */
-    public String getPath() {
+    public String getRemotePath() {
         return mRemotePath;
     }
 
@@ -119,7 +119,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return true if it is
      */
     public boolean isDownloaded() {
-        return mLocalPath != null || mLocalPath.equals("");
+        return mLocalPath != null && !mLocalPath.equals("");
     }
 
     /**
@@ -331,6 +331,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             return 1;
         }
         return getFileName().toLowerCase().compareTo(another.getFileName().toLowerCase());
+    }
+
+    public boolean equals(Object o) {
+        OCFile that = (OCFile) o;
+        return this.mId == that.mId;
+    }
+
+    @Override
+    public String toString() {
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s]";
+        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDownloaded(), mLocalPath, mRemotePath);
+        return asString;
     }
 
 }
