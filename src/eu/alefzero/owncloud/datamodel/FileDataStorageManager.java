@@ -18,6 +18,8 @@
 
 package eu.alefzero.owncloud.datamodel;
 
+import java.io.File;
+import java.util.Collections;
 import java.util.Vector;
 
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
@@ -205,6 +207,9 @@ public class FileDataStorageManager implements DataStorageManager {
             }
 
             c.close();
+            
+            Collections.sort(ret);
+            
             return ret;
         }
         return null;
@@ -304,6 +309,9 @@ public class FileDataStorageManager implements DataStorageManager {
             getContentResolver().delete(file_uri,
                                         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
                                         new String[]{mAccount.name});
+        }
+        if (file.getStoragePath() != null) {
+            new File(file.getStoragePath()).delete();
         }
     }
 
