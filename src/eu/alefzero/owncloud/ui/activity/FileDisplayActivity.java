@@ -296,7 +296,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("ASD", requestCode + " " + resultCode);
         if (resultCode == RESULT_OK) {
             if (requestCode == ACTION_SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
@@ -320,17 +319,16 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         AccountUtils.getCurrentOwnCloudAccount(this));
                 String remotepath = new String();
                 for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += "/" + URLDecoder.decode(mDirectories.getItem(j));
+                    remotepath += "/" + URLEncoder.encode(mDirectories.getItem(j));
                 }
                 if (!remotepath.endsWith("/"))
                     remotepath += "/";
-                remotepath += new File(filepath).getName();
+                remotepath += URLEncoder.encode(new File(filepath).getName());
                 Log.e("ASD", remotepath + "");
 
                 i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
                 i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
-                i.putExtra(FileUploader.KEY_UPLOAD_TYPE,
-                        FileUploader.UPLOAD_SINGLE_FILE);
+                i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                 startService(i);
             }
         }
