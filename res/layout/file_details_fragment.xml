@@ -91,6 +91,7 @@
                         android:layout_below="@+id/fdSizeLabel"
                         android:layout_marginTop="12dp"
                         android:text="@string/filedetails_created"
+                        android:visibility="gone"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                     
                     <TextView
@@ -134,6 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/fdSize"
                         android:layout_marginTop="12dp"
+                        android:visibility="gone"
                         android:text="2012/05/18 12:23 PM"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 

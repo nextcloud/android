@@ -17,6 +17,8 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +42,9 @@ import com.actionbarsherlock.app.SherlockFragment;
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.FileDownloader;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -178,7 +182,10 @@ public class FileDetailFragment extends SherlockFragment implements
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
                     .getMimetype()));
             setFilesize(mFile.getFileLength());
-            setTimeCreated(mFile.getCreationTimestamp());
+            if(ocVersionSupportsTimeCreated()){
+                setTimeCreated(mFile.getCreationTimestamp());
+            }
+           
             setTimeModified(mFile.getModificationTimestamp());
             
             // Update preview
@@ -245,8 +252,11 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setTimeCreated(long milliseconds){
         TextView tv = (TextView) getView().findViewById(R.id.fdCreated);
+        TextView tvLabel = (TextView) getView().findViewById(R.id.fdCreatedLabel);
         if(tv != null){
             tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
+            tv.setVisibility(View.VISIBLE);
+            tvLabel.setVisibility(View.VISIBLE);
         }
     }
     
@@ -259,6 +269,28 @@ public class FileDetailFragment extends SherlockFragment implements
         if(tv != null){
             tv.setText(DisplayUtils.unixTimeToHumanReadable(milliseconds));
         }
+    }
+    
+    /**
+     * In ownCloud 3.0.3 and 4.0.0 there is a bug that SabreDAV does not return
+     * the time time that the file was created. There is a chance that this will
+     * be fixed in future versions. Use this method to check if this version of
+     * ownCloud has this fix.
+     * @return True, if ownCloud the ownCloud version is > 3.0.4 and 4.0.1
+     */
+    private boolean ocVersionSupportsTimeCreated(){
+        if(mIntent != null){
+            Account ocAccount = mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
+            if(ocAccount != null){
+                AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
+                OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
+                        .getUserData(ocAccount, AccountAuthenticator.KEY_OC_VERSION));
+                if(ocVersion.compareTo(new OwnCloudVersion(0x030004)) >= 0 || ocVersion.compareTo(new OwnCloudVersion(0x040001)) >= 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
