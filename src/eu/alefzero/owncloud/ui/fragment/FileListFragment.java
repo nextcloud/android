@@ -144,15 +144,6 @@ public class FileListFragment extends FragmentListView {
         }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        ClipData.Item item = new ClipData.Item("ASD");
-        ClipDescription cd = new ClipDescription("ASD", new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN });
-        ClipData dragData = new ClipData(cd, item);
-        arg1.startDrag(dragData, new View.DragShadowBuilder(arg0.getChildAt(arg2)), null, 0);
-        return true;
-    }
-
     /**
      * Call this, when the user presses the up button
      */
