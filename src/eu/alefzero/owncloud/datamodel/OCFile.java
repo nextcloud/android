@@ -23,7 +23,7 @@ import java.io.File;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class OCFile implements Parcelable {
+public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
         @Override
@@ -319,6 +319,18 @@ public class OCFile implements Parcelable {
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
         dest.writeLong(mLastSyncDate);
+    }
+
+    @Override
+    public int compareTo(OCFile another) {
+        if (isDirectory() && another.isDirectory()) {
+            return getFileName().toLowerCase().compareTo(another.getFileName().toLowerCase());
+        } else if (isDirectory()) {
+            return -1;
+        } else if (another.isDirectory()) {
+            return 1;
+        }
+        return getFileName().toLowerCase().compareTo(another.getFileName().toLowerCase());
     }
 
 }
