@@ -85,82 +85,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_CREATE_DIR = 1;
     private static final int ACTION_SELECT_FILE = 1;
 
-    public void pushPath(String path) {
-        mDirectories.insert(path, 0);
-    }
-
-    public boolean popPath() {
-        mDirectories.remove(mDirectories.getItem(0));
-        return !mDirectories.isEmpty();
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog;
-        AlertDialog.Builder builder;
-        switch (id) {
-        case DIALOG_SETUP_ACCOUNT:
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.main_tit_accsetup);
-            builder.setMessage(R.string.main_wrn_accsetup);
-            builder.setCancelable(false);
-            builder.setPositiveButton(android.R.string.ok, this);
-            builder.setNegativeButton(android.R.string.cancel, this);
-            dialog = builder.create();
-            break;
-        case DIALOG_CREATE_DIR: {
-            builder = new Builder(this);
-            final EditText dirName = new EditText(getBaseContext());
-            final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
-            builder.setView(dirName);
-            builder.setTitle(R.string.uploader_info_dirname);
-            int typed_color = getResources().getColor(R.color.setup_text_typed);
-            dirName.setTextColor(typed_color);
-
-            builder.setPositiveButton(android.R.string.ok,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String s = dirName.getText().toString();
-                            if (s.trim().length() == 0) {
-                                dialog.cancel();
-                                return;
-                            }
-
-                            String path = "";
-                            for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
-                                path += "/" + mDirectories.getItem(i);
-                            }
-                            OCFile parent = mStorageManager.getFileByPath(path
-                                    + "/");
-                            path += s + "/";
-                            Thread thread = new Thread(new DirectoryCreator(
-                                    path, a));
-                            thread.start();
-
-                            OCFile new_file = new OCFile(path);
-                            new_file.setMimetype("DIR");
-                            new_file.setParentId(parent.getParentId());
-                            mStorageManager.saveFile(new_file);
-
-                            dialog.dismiss();
-                        }
-                    });
-            builder.setNegativeButton(R.string.common_cancel,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-            dialog = builder.create();
-            break;
-        }
-        default:
-            dialog = null;
-        }
-
-        return dialog;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -175,6 +99,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         setContentView(R.layout.files);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSherlock().getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
     }
 
     @Override
@@ -216,6 +147,54 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        int i = itemPosition;
+        while (i-- != 0) {
+            onBackPressed();
+        }
+        return true;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ACTION_SELECT_FILE) {
+                Uri selectedImageUri = data.getData();
+    
+                String filemanagerstring = selectedImageUri.getPath();
+                String selectedImagePath = getPath(selectedImageUri);
+                String filepath;
+    
+                if (selectedImagePath != null)
+                    filepath = selectedImagePath;
+                else
+                    filepath = filemanagerstring;
+    
+                if (filepath == null) {
+                    Log.e("FileDisplay", "Couldnt resolve path to file");
+                    return;
+                }
+    
+                Intent i = new Intent(this, FileUploader.class);
+                i.putExtra(FileUploader.KEY_ACCOUNT,
+                        AccountUtils.getCurrentOwnCloudAccount(this));
+                String remotepath = new String();
+                for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
+                    remotepath += "/" + URLEncoder.encode(mDirectories.getItem(j));
+                }
+                if (!remotepath.endsWith("/"))
+                    remotepath += "/";
+                remotepath += URLEncoder.encode(new File(filepath).getName());
+                Log.e("ASD", remotepath + "");
+    
+                i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
+                i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+                i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+                startService(i);
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (mDirectories.getCount() == 1) {
             finish();
@@ -224,13 +203,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         popPath();
         ((FileListFragment) getSupportFragmentManager().findFragmentById(
                 R.id.fileList)).onNavigateUp();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSherlock().getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
     }
 
     @Override
@@ -291,57 +263,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         action_bar.setDisplayHomeAsUpEnabled(true);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == ACTION_SELECT_FILE) {
-                Uri selectedImageUri = data.getData();
-
-                String filemanagerstring = selectedImageUri.getPath();
-                String selectedImagePath = getPath(selectedImageUri);
-                String filepath;
-
-                if (selectedImagePath != null)
-                    filepath = selectedImagePath;
-                else
-                    filepath = filemanagerstring;
-
-                if (filepath == null) {
-                    Log.e("FileDisplay", "Couldnt resolve path to file");
-                    return;
-                }
-
-                Intent i = new Intent(this, FileUploader.class);
-                i.putExtra(FileUploader.KEY_ACCOUNT,
-                        AccountUtils.getCurrentOwnCloudAccount(this));
-                String remotepath = new String();
-                for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += "/" + URLEncoder.encode(mDirectories.getItem(j));
-                }
-                if (!remotepath.endsWith("/"))
-                    remotepath += "/";
-                remotepath += URLEncoder.encode(new File(filepath).getName());
-                Log.e("ASD", remotepath + "");
-
-                i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
-                i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
-                i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-                startService(i);
-            }
-        }
-    }
-
-    public String getPath(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if (cursor != null) {
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } else
-            return null;
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -349,70 +270,74 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             unregisterReceiver(syncBroadcastRevceiver);
             syncBroadcastRevceiver = null;
         }
-
+    
     }
 
     @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        int i = itemPosition;
-        while (i-- != 0) {
-            onBackPressed();
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog;
+        AlertDialog.Builder builder;
+        switch (id) {
+        case DIALOG_SETUP_ACCOUNT:
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.main_tit_accsetup);
+            builder.setMessage(R.string.main_wrn_accsetup);
+            builder.setCancelable(false);
+            builder.setPositiveButton(android.R.string.ok, this);
+            builder.setNegativeButton(android.R.string.cancel, this);
+            dialog = builder.create();
+            break;
+        case DIALOG_CREATE_DIR: {
+            builder = new Builder(this);
+            final EditText dirName = new EditText(getBaseContext());
+            final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
+            builder.setView(dirName);
+            builder.setTitle(R.string.uploader_info_dirname);
+            int typed_color = getResources().getColor(R.color.setup_text_typed);
+            dirName.setTextColor(typed_color);
+    
+            builder.setPositiveButton(android.R.string.ok,
+                    new OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            String s = dirName.getText().toString();
+                            if (s.trim().length() == 0) {
+                                dialog.cancel();
+                                return;
+                            }
+    
+                            String path = "";
+                            for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
+                                path += "/" + mDirectories.getItem(i);
+                            }
+                            OCFile parent = mStorageManager.getFileByPath(path
+                                    + "/");
+                            path += s + "/";
+                            Thread thread = new Thread(new DirectoryCreator(
+                                    path, a));
+                            thread.start();
+    
+                            OCFile new_file = new OCFile(path);
+                            new_file.setMimetype("DIR");
+                            new_file.setParentId(parent.getParentId());
+                            mStorageManager.saveFile(new_file);
+    
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setNegativeButton(R.string.common_cancel,
+                    new OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            dialog = builder.create();
+            break;
         }
-        return true;
-    }
-
-    private class DirectoryCreator implements Runnable {
-        private String mTargetPath;
-        private Account mAccount;
-        private AccountManager mAm;
-
-        public DirectoryCreator(String targetPath, Account account) {
-            mTargetPath = targetPath;
-            mAccount = account;
-            mAm = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        default:
+            dialog = null;
         }
-
-        @Override
-        public void run() {
-            WebdavClient wdc = new WebdavClient(Uri.parse(mAm.getUserData(
-                    mAccount, AccountAuthenticator.KEY_OC_URL)));
-
-            String username = mAccount.name.substring(0,
-                    mAccount.name.lastIndexOf('@'));
-            String password = mAm.getPassword(mAccount);
-
-            wdc.setCredentials(username, password);
-            wdc.allowUnsignedCertificates();
-            wdc.createDirectory(mTargetPath);
-        }
-
-    }
-
-    // Custom array adapter to override text colors
-    private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
-
-        public CustomArrayAdapter(FileDisplayActivity ctx, int view) {
-            super(ctx, view);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = super.getView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-            return v;
-        }
-
-        public View getDropDownView(int position, View convertView,
-                ViewGroup parent) {
-            View v = super.getDropDownView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-
-            return v;
-        }
-
+    
+        return dialog;
     }
 
     public void onClick(DialogInterface dialog, int which) {
@@ -428,7 +353,28 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         case DialogInterface.BUTTON_NEGATIVE:
             finish();
         }
+    
+    }
 
+    public String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } else
+            return null;
+    }
+
+    public void pushPath(String path) {
+        mDirectories.insert(path, 0);
+    }
+
+    public boolean popPath() {
+        mDirectories.remove(mDirectories.getItem(0));
+        return !mDirectories.isEmpty();
     }
 
     /**
@@ -441,6 +387,60 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         Account[] accounts = accMan
                 .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
         return accounts.length > 0;
+    }
+
+    private class DirectoryCreator implements Runnable {
+        private String mTargetPath;
+        private Account mAccount;
+        private AccountManager mAm;
+    
+        public DirectoryCreator(String targetPath, Account account) {
+            mTargetPath = targetPath;
+            mAccount = account;
+            mAm = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        }
+    
+        @Override
+        public void run() {
+            WebdavClient wdc = new WebdavClient(Uri.parse(mAm.getUserData(
+                    mAccount, AccountAuthenticator.KEY_OC_URL)));
+    
+            String username = mAccount.name.substring(0,
+                    mAccount.name.lastIndexOf('@'));
+            String password = mAm.getPassword(mAccount);
+    
+            wdc.setCredentials(username, password);
+            wdc.allowUnsignedCertificates();
+            wdc.createDirectory(mTargetPath);
+        }
+    
+    }
+
+    // Custom array adapter to override text colors
+    private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
+    
+        public CustomArrayAdapter(FileDisplayActivity ctx, int view) {
+            super(ctx, view);
+        }
+    
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = super.getView(position, convertView, parent);
+    
+            ((TextView) v).setTextColor(getResources().getColorStateList(
+                    android.R.color.white));
+            return v;
+        }
+    
+        public View getDropDownView(int position, View convertView,
+                ViewGroup parent) {
+            View v = super.getDropDownView(position, convertView, parent);
+    
+            ((TextView) v).setTextColor(getResources().getColorStateList(
+                    android.R.color.white));
+    
+            return v;
+        }
+    
     }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
