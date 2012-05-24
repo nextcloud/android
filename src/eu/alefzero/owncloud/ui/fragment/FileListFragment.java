@@ -17,12 +17,9 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import java.util.Stack;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -50,15 +47,10 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
 public class FileListFragment extends FragmentListView {
     private static final String TAG = "FileListFragment";
     private Account mAccount;
-    private Stack<String> mDirNames;
     private Vector<OCFile> mFiles;
     private DataStorageManager mStorageManager;
     private OCFile mFile;
-    private boolean mIsLargeDevice = false;
-
-    public FileListFragment() {
-        mDirNames = new Stack<String>();
-    }
+    private boolean mIsLargeDevice = false; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +64,7 @@ public class FileListFragment extends FragmentListView {
         Intent intent = getActivity().getIntent();
         OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         mFile = directory;
-        
+                
         listDirectory(directory);
     }
 
@@ -101,7 +93,6 @@ public class FileListFragment extends FragmentListView {
             String dirname = file.getFileName();
             mFile = file;
             
-            mDirNames.push(dirname);
             ((FileDisplayActivity) getActivity()).pushPath(dirname);
             
             listDirectory(file);
@@ -148,7 +139,6 @@ public class FileListFragment extends FragmentListView {
      * Call this, when the user presses the up button
      */
     public void onNavigateUp() {
-        mDirNames.pop();
         OCFile parentDir = null;
         
         if(mFile != null){
