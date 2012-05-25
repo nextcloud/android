@@ -42,6 +42,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -73,7 +74,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-        OnNavigationListener, OnClickListener {
+        OnNavigationListener, OnClickListener, android.view.View.OnClickListener {
     private ArrayAdapter<String> mDirectories;
     private DataStorageManager mStorageManager;
     private FileListFragment mFileList;
@@ -93,19 +94,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!accountsAreSetup()) {
-            showDialog(DIALOG_SETUP_ACCOUNT);
-            return;
-        }
-
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(false);
         
         if(savedInstanceState != null){
             mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);
         }
-        
-        setContentView(R.layout.files);
     }
 
     @Override
@@ -209,7 +203,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onBackPressed() {
-        if (mDirectories.getCount() == 1) {
+        if (mDirectories == null || mDirectories.getCount() == 1) {
             finish();
             return;
         }
@@ -226,10 +220,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        // Check, if there are ownCloud accounts
-        if (!accountsAreSetup()) {
-            showDialog(DIALOG_SETUP_ACCOUNT);
-        }
         mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         mDirectories.add("/");
@@ -241,7 +231,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(mDirectories != null){
+        if(mDirectories != null && mDirectories.getCount() != 0){
             mDirs = new String[mDirectories.getCount()-1];
             for (int j = mDirectories.getCount() - 2, i = 0; j >= 0; --j, ++i) {
                 mDirs[i] = mDirectories.getItem(j);
@@ -257,8 +247,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         //TODO: Dialog useless -> get rid of this
         if (!accountsAreSetup()) {
-            showDialog(DIALOG_SETUP_ACCOUNT);
+            setContentView(R.layout.no_account_available);
+            setProgressBarIndeterminateVisibility(false);
+            getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
+            findViewById(R.id.setup_account).setOnClickListener(this);
             return;
+        } else if (findViewById(R.id.file_list_view) == null) {
+            setContentView(R.layout.files);
         }
 
         // Listen for sync messages
@@ -323,7 +318,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         } else {
             action_bar.setDisplayHomeAsUpEnabled(false);
         }
-        
         
         // List dir here
         mFileList.listDirectory(mCurrentDir);
@@ -556,6 +550,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.setup_account) {
+            Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
+            intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+            startActivity(intent);
+        }
     }
 
 }

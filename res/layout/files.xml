@@ -20,7 +20,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/owncloud_white"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/file_list_view">
 
     <fragment
         android:id="@+id/fileList"
