@@ -334,8 +334,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public boolean equals(Object o) {
-        OCFile that = (OCFile) o;
-        return this.mId == that.mId;
+        if(o instanceof OCFile){
+            OCFile that = (OCFile) o;
+            if(that != null){
+                return this.mId == that.mId;
+            }
+        }
+        
+        return false;
     }
 
     @Override
