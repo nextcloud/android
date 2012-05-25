@@ -19,10 +19,8 @@
 package eu.alefzero.owncloud.ui.activity;
 
 import java.io.File;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -142,11 +140,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         ACTION_SELECT_FILE);
                 break;
             }
-    
+            case R.id.action_accounts: {
+                Intent accountIntent = new Intent(this, AccountSelectActivity.class);
+                startActivity(accountIntent);
+            }
             case android.R.id.home: {
-                Intent i = new Intent(this, AccountSelectActivity.class);
-                startActivity(i);
-                finish();
+                if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
+                    onBackPressed(); 
+                }
                 break;
             }
             default:
@@ -215,6 +216,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         popDirname();
         mFileList.onNavigateUp();
         mCurrentDir = mFileList.getCurrentFile();
+        
+        if(mCurrentDir.getParentId() == 0){
+            ActionBar actionBar = getSupportActionBar(); 
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        } 
     }
 
     @Override
@@ -312,7 +318,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         action_bar.setDisplayShowTitleEnabled(false);
         action_bar.setListNavigationCallbacks(mDirectories, this);
-        action_bar.setDisplayHomeAsUpEnabled(true);
+        if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
+            action_bar.setDisplayHomeAsUpEnabled(true);
+        } else {
+            action_bar.setDisplayHomeAsUpEnabled(false);
+        }
+        
         
         // List dir here
         mFileList.listDirectory(mCurrentDir);

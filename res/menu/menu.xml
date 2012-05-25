@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/startSync" android:title="Sync account" android:showAsAction="ifRoom" android:icon="@drawable/ic_action_refresh"></item>
-    <item android:id="@+id/createDirectoryItem" android:title="Create Directory" android:icon="@drawable/ic_action_create_dir" android:showAsAction="ifRoom"></item>
+    <item android:id="@+id/startSync" android:title="@string/actionbar_sync" android:showAsAction="ifRoom" android:icon="@drawable/ic_action_refresh"></item>
+    <item android:id="@+id/createDirectoryItem" android:title="@string/actionbar_mkdir" android:icon="@drawable/ic_action_create_dir" android:showAsAction="ifRoom"></item>
     
-    <item android:id="@+id/search" android:icon="@drawable/ic_action_search" android:showAsAction="ifRoom"></item>
-    <item android:id="@+id/action_upload" android:icon="@drawable/ic_action_upload" android:showAsAction="ifRoom"></item>
+    <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search" android:showAsAction="ifRoom"></item>
+    <item android:id="@+id/action_upload" android:title="@string/actionbar_upload" android:icon="@drawable/ic_action_upload" android:showAsAction="ifRoom"></item>
+    <item android:id="@+id/action_accounts" android:title="@string/actionbar_settings" android:icon="@android:drawable/ic_menu_preferences" android:showAsAction="ifRoom"></item>
 </menu>

@@ -19,6 +19,8 @@ package eu.alefzero.owncloud.ui.fragment;
 
 import java.util.Vector;
 
+import com.actionbarsherlock.app.ActionBar;
+
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
@@ -92,6 +94,8 @@ public class FileListFragment extends FragmentListView {
         if (file.getMimetype().equals("DIR")) {
             mFile = file;
             ((FileDisplayActivity) getActivity()).pushDirname(file);
+            ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
             listDirectory(file);
             resetFileFragment();
             return;

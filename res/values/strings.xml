@@ -15,6 +15,12 @@
     <string name="main_tit_accsetup">Account Setup</string>
     <string name="main_wrn_accsetup">There are no ownCloud accounts on your device. In order to use this App, you need to create one.</string>
     
+    <string name="actionbar_sync">Sync account</string>
+    <string name="actionbar_upload">Upload file</string>
+    <string name="actionbar_mkdir">Create directory</string>
+    <string name="actionbar_search">Search</string>
+    <string name="actionbar_settings">Settings</string>
+    
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_trackmydevice">Device tracking</string>
     <string name="prefs_add_session">Add new session</string>
