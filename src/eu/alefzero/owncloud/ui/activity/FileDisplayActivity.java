@@ -21,6 +21,8 @@ package eu.alefzero.owncloud.ui.activity;
 import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -61,6 +63,7 @@ import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
+import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
 import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -75,11 +78,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         OnNavigationListener, OnClickListener {
     private ArrayAdapter<String> mDirectories;
     private DataStorageManager mStorageManager;
+    private FileListFragment mFileList;
+    private OCFile mCurrentDir;
     private String[] mDirs = null;
 
     private SyncBroadcastReceiver syncBroadcastRevceiver;
 
-    private static final String KEY_DIR = "DIR";
+    private static final String KEY_DIR_ARRAY = "DIR_ARRAY";
+    private static final String KEY_CURRENT_DIR = "DIR";
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
@@ -97,8 +103,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(false);
         
+        if(savedInstanceState != null){
+            mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);
+        }
+        
         setContentView(R.layout.files);
-
     }
 
     @Override
@@ -155,6 +164,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return true;
     }
 
+    /**
+     * Called, when the user selected something for uploading
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == ACTION_SELECT_FILE) {
@@ -200,9 +212,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             finish();
             return;
         }
-        popPath();
-        ((FileListFragment) getSupportFragmentManager().findFragmentById(
-                R.id.fileList)).onNavigateUp();
+        popDirname();
+        mFileList.onNavigateUp();
     }
 
     @Override
@@ -212,7 +223,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (!accountsAreSetup()) {
             showDialog(DIALOG_SETUP_ACCOUNT);
         }
-        mDirs = savedInstanceState.getStringArray(KEY_DIR);
+        mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         mDirectories.add("/");
         if (mDirs != null)
@@ -229,38 +240,78 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 mDirs[i] = mDirectories.getItem(j);
             }
         }
+        outState.putStringArray(KEY_DIR_ARRAY, mDirs);
+        outState.putParcelable(KEY_CURRENT_DIR, mCurrentDir);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        
+        //TODO: Dialog useless -> get rid of this
         if (!accountsAreSetup()) {
             showDialog(DIALOG_SETUP_ACCOUNT);
             return;
         }
 
-        IntentFilter f = new IntentFilter(FileSyncService.SYNC_MESSAGE);
+        // Listen for sync messages
+        IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
         syncBroadcastRevceiver = new SyncBroadcastReceiver();
-        registerReceiver(syncBroadcastRevceiver, f);
-
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        mDirectories.add("/");
-        if (mDirs != null) {
-            for (String s : mDirs)
-                mDirectories.insert(s, 0);
-            FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.fileList);
-            if (fileListFramgent != null) fileListFramgent.listDirectory();
-        }
-
+        registerReceiver(syncBroadcastRevceiver, syncIntentFilter);
+        
+        // Storage manager initialization
         mStorageManager = new FileDataStorageManager(
                 AccountUtils.getCurrentOwnCloudAccount(this),
                 getContentResolver());
+        
+        // File list
+        mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        
+        // Figure out what directory to list. 
+        // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
+        if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
+            mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+            if(!mCurrentDir.isDirectory()){
+                mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
+            }
+        } 
+                
+        // Drop-Down navigation and file list restore
+        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        
+        
+        // Given the case we have a file to display:
+        if(mCurrentDir != null){
+            ArrayList<OCFile> files = new ArrayList<OCFile>();
+            OCFile currFile = mCurrentDir;
+            while(currFile != null){
+                files.add(currFile);
+                currFile = mStorageManager.getFileById(currFile.getParentId());
+            }
+            
+            // Insert in mDirs
+            mDirs = new String[files.size()];
+            for(int i = files.size() - 1; i >= 0; i--){
+                mDirs[i] = files.get(i).getFileName();
+            }
+        }
+        
+        if (mDirs != null) {
+            for (String s : mDirs)
+                mDirectories.add(s);
+        } else {
+            mDirectories.add("/");
+        }
+               
+        // Actionbar setup
         ActionBar action_bar = getSupportActionBar();
         action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         action_bar.setDisplayShowTitleEnabled(false);
         action_bar.setListNavigationCallbacks(mDirectories, this);
         action_bar.setDisplayHomeAsUpEnabled(true);
+        
+        // List dir here
+        mFileList.listDirectory(mCurrentDir);
     }
 
     @Override
@@ -289,39 +340,40 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             break;
         case DIALOG_CREATE_DIR: {
             builder = new Builder(this);
-            final EditText dirName = new EditText(getBaseContext());
+            final EditText dirNameInput = new EditText(getBaseContext());
             final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
-            builder.setView(dirName);
+            builder.setView(dirNameInput);
             builder.setTitle(R.string.uploader_info_dirname);
             int typed_color = getResources().getColor(R.color.setup_text_typed);
-            dirName.setTextColor(typed_color);
+            dirNameInput.setTextColor(typed_color);
     
             builder.setPositiveButton(android.R.string.ok,
                     new OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            String s = dirName.getText().toString();
-                            if (s.trim().length() == 0) {
+                            String directoryName = dirNameInput.getText().toString();
+                            if (directoryName.trim().length() == 0) {
                                 dialog.cancel();
                                 return;
                             }
     
-                            String path = "";
-                            for (int i = mDirectories.getCount() - 2; i >= 0; --i) {
-                                path += "/" + mDirectories.getItem(i);
-                            }
-                            OCFile parent = mStorageManager.getFileByPath(path
-                                    + "/");
-                            path += s + "/";
+                            // Figure out the path where the dir needs to be created
+                            String path = mCurrentDir.getRemotePath();
+                            
+                            // Create directory
+                            path += directoryName + "/";
                             Thread thread = new Thread(new DirectoryCreator(
                                     path, a));
                             thread.start();
     
-                            OCFile new_file = new OCFile(path);
-                            new_file.setMimetype("DIR");
-                            new_file.setParentId(parent.getParentId());
-                            mStorageManager.saveFile(new_file);
+                            // Save new directory in local database
+                            OCFile newDir = new OCFile(path);
+                            newDir.setMimetype("DIR");
+                            newDir.setParentId(mCurrentDir.getFileId());
+                            mStorageManager.saveFile(newDir);
     
+                            // Display the new folder right away
                             dialog.dismiss();
+                            mFileList.listDirectory(mCurrentDir);
                         }
                     });
             builder.setNegativeButton(R.string.common_cancel,
@@ -340,6 +392,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return dialog;
     }
 
+    
+    /**
+     * Responds to the "There are no ownCloud Accounts setup" dialog
+     * TODO: Dialog is 100% useless -> Remove
+     */
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         // In any case - we won't need it anymore
         dialog.dismiss();
@@ -356,6 +414,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     }
 
+    /**
+     * Translates a content URI of an image to a physical path
+     * on the disk
+     * @param uri The URI to resolve
+     * @return The path to the image or null if it could not be found
+     */
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = managedQuery(uri, projection, null, null, null);
@@ -364,15 +428,28 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
-        } else
-            return null;
+        } 
+        return null;
+    }
+    
+    /**
+     * Pushes a directory to the drop down list
+     * @param directory to push
+     * @throws IllegalArgumentException If the {@link OCFile#isDirectory()} returns false.
+     */
+    public void pushDirname(OCFile directory) {
+        if(!directory.isDirectory()){
+            throw new IllegalArgumentException("Only directories may be pushed!");
+        }
+        mDirectories.insert(directory.getFileName(), 0);
+        mCurrentDir = directory;
     }
 
-    public void pushPath(String path) {
-        mDirectories.insert(path, 0);
-    }
-
-    public boolean popPath() {
+    /**
+     * Pops a directory name from the drop down list
+     * @return True, unless the stack is empty
+     */
+    public boolean popDirname() {
         mDirectories.remove(mDirectories.getItem(0));
         return !mDirectories.isEmpty();
     }

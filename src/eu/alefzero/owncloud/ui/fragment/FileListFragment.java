@@ -90,14 +90,10 @@ public class FileListFragment extends FragmentListView {
         
         // Update ActionBarPath
         if (file.getMimetype().equals("DIR")) {
-            String dirname = file.getFileName();
             mFile = file;
-            
-            ((FileDisplayActivity) getActivity()).pushPath(dirname);
-            
+            ((FileDisplayActivity) getActivity()).pushDirname(file);
             listDirectory(file);
             resetFileFragment();
-
             return;
         }
 
@@ -151,6 +147,15 @@ public class FileListFragment extends FragmentListView {
     }
 
     /**
+     * Use this to query the {@link OCFile} that is currently
+     * being displayed by this fragment
+     * @return The currently viewed OCFile
+     */
+    public OCFile getCurrentFile(){
+        return mFile;
+    }
+    
+    /**
      * Calls {@link FileListFragment#listDirectory(OCFile)} with a null parameter
      */
     public void listDirectory(){
@@ -175,11 +180,14 @@ public class FileListFragment extends FragmentListView {
             }
         }
         
+        
         // If that's not a directory -> List its parent
         if(!directory.isDirectory()){
             Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
             directory = mStorageManager.getFileById(directory.getParentId());
         }
+
+        mFile = directory;
         
         mFiles = mStorageManager.getDirectoryContent(directory);
         if (mFiles == null || mFiles.size() == 0) {
