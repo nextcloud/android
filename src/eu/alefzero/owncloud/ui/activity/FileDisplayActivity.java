@@ -214,6 +214,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
         popDirname();
         mFileList.onNavigateUp();
+        mCurrentDir = mFileList.getCurrentFile();
     }
 
     @Override
@@ -274,6 +275,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if(!mCurrentDir.isDirectory()){
                 mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
             }
+            
+            // Clear intent extra, so rotating the screen will not return us to this directory
+            getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
         } 
                 
         // Drop-Down navigation and file list restore
