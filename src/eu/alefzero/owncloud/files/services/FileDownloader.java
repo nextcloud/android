@@ -1,6 +1,7 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -127,9 +128,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotificationMngr.notify(1, mNotification);
 
         File sdCard = Environment.getExternalStorageDirectory();
-        File dir = new File(sdCard.getAbsolutePath() + "/owncloud");
-        dir.mkdirs();
-        File file = new File(dir, mFilePath.replace('/', '.'));
+        File file = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + mFilePath);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
         Log.e(TAG, mFilePath+"");
