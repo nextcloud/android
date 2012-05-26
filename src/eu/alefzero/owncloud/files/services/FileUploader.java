@@ -5,6 +5,9 @@ import java.io.File;
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
+import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.OnUploadProgressListener;
 import eu.alefzero.webdav.WebdavClient;
@@ -26,7 +29,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-public class FileUploader extends Service implements OnUploadProgressListener {
+public class FileUploader extends Service implements OnDatatransferProgressListener {
 
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
@@ -133,6 +136,7 @@ public class FileUploader extends Service implements OnUploadProgressListener {
         String username = mAccount.name.substring(0,
                 mAccount.name.lastIndexOf('@'));
         String password = mAccountManager.getPassword(mAccount);
+        FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContentResolver());
         
         mTotalDataToSend = mSendData = mPreviousPercent = 0;
         
@@ -148,7 +152,7 @@ public class FileUploader extends Service implements OnUploadProgressListener {
 
         WebdavClient wc = new WebdavClient(ocUri);
         wc.allowSelfsignedCertificates();
-        wc.setUploadListener(this);
+        wc.setDataTransferProgressListener(this);
         wc.setCredentials(username, password);
 
         for (int i = 0; i < mLocalPaths.length; ++i) {
@@ -167,6 +171,14 @@ public class FileUploader extends Service implements OnUploadProgressListener {
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                 mResult |= true;
+                OCFile new_file = new OCFile(mRemotePaths[i]);
+                new_file.setMimetype(mimeType);
+                new_file.setFileLength(new File(mLocalPaths[i]).length());
+                new_file.setModificationTimestamp(System.currentTimeMillis());
+                new_file.setLastSyncDate(0);
+                new_file.setStoragePath(mLocalPaths[i]);
+                new_file.setParentId(storageManager.getFileByPath(mRemotePaths[i].substring(0, mRemotePaths[i].lastIndexOf('/')+1)).getFileId());
+                storageManager.saveFile(new_file);
             }
         }
         // notification.contentView.setProgressBar(R.id.status_progress,
@@ -176,9 +188,9 @@ public class FileUploader extends Service implements OnUploadProgressListener {
     }
 
     @Override
-    public void OnUploadProgress(long currentProgress) {
-        mSendData += currentProgress;
-        int percent = (int)(100*mSendData/mTotalDataToSend);
+    public void transferProgress(long progressRate) {
+        mSendData += progressRate;
+        int percent = (int)(100*((double)mSendData)/((double)mTotalDataToSend));
         if (percent != mPreviousPercent) {
             String text = String.format("%d%% Uploading %s file", percent, new File(mLocalPaths[mCurrentIndexUpload]).getName());
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);

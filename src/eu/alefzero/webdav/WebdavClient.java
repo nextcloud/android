@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import org.apache.commons.httpclient.Credentials;
@@ -31,7 +30,6 @@ import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.HttpStatus;
@@ -48,7 +46,6 @@ public class WebdavClient extends HttpClient {
     private Credentials mCredentials;
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
-    private OnUploadProgressListener mUploadProgressListener;
     private OnDatatransferProgressListener mDataTransferListener;
 
     public WebdavClient(Uri uri) {
@@ -116,10 +113,6 @@ public class WebdavClient extends HttpClient {
         return true;
     }
 
-    public void setUploadListener(OnUploadProgressListener listener) {
-        mUploadProgressListener = listener;
-    }
-    
     public void setDataTransferProgressListener(OnDatatransferProgressListener listener) {
         mDataTransferListener = listener;
     }
@@ -132,7 +125,7 @@ public class WebdavClient extends HttpClient {
             Log.e("ASD", contentType + "");
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.setOnUploadProgressListener(mUploadProgressListener);
+            entity.setOnDatatransferProgressListener(mDataTransferListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
             PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
             put.setRequestEntity(entity);

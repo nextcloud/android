@@ -8,6 +8,8 @@ import java.io.OutputStream;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
+
 /**
  * A RequestEntity that represents a File.
  * 
@@ -16,7 +18,7 @@ public class FileRequestEntity implements RequestEntity {
 
     final File file;
     final String contentType;
-    OnUploadProgressListener listener;
+    OnDatatransferProgressListener listener;
 
     public FileRequestEntity(final File file, final String contentType) {
         super();
@@ -39,7 +41,7 @@ public class FileRequestEntity implements RequestEntity {
         return true;
     }
     
-    public void setOnUploadProgressListener(OnUploadProgressListener listener) {
+    public void setOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
         this.listener = listener;
     }
 
@@ -51,7 +53,7 @@ public class FileRequestEntity implements RequestEntity {
             while ((i = instream.read(tmp)) >= 0) {
                 out.write(tmp, 0, i);
                 if (listener != null) 
-                    listener.OnUploadProgress(i);
+                    listener.transferProgress(i);
             }
         } finally {
             instream.close();
