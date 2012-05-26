@@ -26,6 +26,7 @@ import eu.alefzero.owncloud.datamodel.OCFile;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,15 @@ public class FileListListAdapter implements ListAdapter {
             else
                 down.setVisibility(View.INVISIBLE);
 
+            if (!file.isDirectory()) {
+                view.findViewById(R.id.file_size).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.last_mod).setVisibility(View.VISIBLE);
+                ((TextView)view.findViewById(R.id.file_size)).setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                ((TextView)view.findViewById(R.id.last_mod)).setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+            } else {
+               view.findViewById(R.id.file_size).setVisibility(View.GONE);
+               view.findViewById(R.id.last_mod).setVisibility(View.GONE);
+            }
         }
 
         return view;
