@@ -38,6 +38,7 @@ import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
 import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 
 import android.net.Uri;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class WebdavClient extends HttpClient {
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
     private OnUploadProgressListener mUploadProgressListener;
+    private OnDatatransferProgressListener mDataTransferListener;
 
     public WebdavClient(Uri uri) {
         mUri = uri;
@@ -66,7 +68,7 @@ public class WebdavClient extends HttpClient {
         return mCredentials;
     }
 
-    public void allowUnsignedCertificates() {
+    public void allowSelfsignedCertificates() {
         // https
         Protocol.registerProtocol("https", new Protocol("https",
                 new EasySSLSocketFactory(), 443));
@@ -99,10 +101,13 @@ public class WebdavClient extends HttpClient {
                     get.getResponseBodyAsStream());
             FileOutputStream fos = new FileOutputStream(targetPath);
 
-            byte[] bytes = new byte[512];
+            byte[] bytes = new byte[4096];
             int readResult;
-            while ((readResult = bis.read(bytes)) != -1)
+            while ((readResult = bis.read(bytes)) != -1) {
+                if (mDataTransferListener != null)
+                    mDataTransferListener.transferProgress(readResult);
                 fos.write(bytes, 0, readResult);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +118,10 @@ public class WebdavClient extends HttpClient {
 
     public void setUploadListener(OnUploadProgressListener listener) {
         mUploadProgressListener = listener;
+    }
+    
+    public void setDataTransferProgressListener(OnDatatransferProgressListener listener) {
+        mDataTransferListener = listener;
     }
     
     public boolean putFile(String localFile, String remoteTarget,

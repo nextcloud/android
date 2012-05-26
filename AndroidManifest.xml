@@ -45,8 +45,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.ownCloud"
-        android:uiOptions="splitActionBarWhenNarrow"> 
+        android:theme="@style/Theme.ownCloud"> 
         <activity
             android:name=".ui.activity.FileDisplayActivity"
             android:label="@string/app_name">
@@ -123,7 +122,7 @@
             android:theme="@style/Theme.ownCloud.noActionBar" >
         </activity>
 
-        <service android:name=".FileDownloader" >
+        <service android:name=".files.services.FileDownloader" >
         </service>
         <service android:name=".location.LocationUpdateService" >
             <intent-filter>

@@ -104,12 +104,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (accountsAreSetup()) {
-            MenuInflater inflater = getSherlock().getMenuInflater();
+        MenuInflater inflater = getSherlock().getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
             return true;
-        }
-        return false;
     }
 
     @Override
@@ -206,7 +203,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onBackPressed() {
-        if (mDirectories == null || mDirectories.getCount() == 1) {
+        if (mDirectories == null || mDirectories.getCount() <= 1) {
             finish();
             return;
         }
@@ -499,7 +496,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             String password = mAm.getPassword(mAccount);
     
             wdc.setCredentials(username, password);
-            wdc.allowUnsignedCertificates();
+            wdc.allowSelfsignedCertificates();
             wdc.createDirectory(mTargetPath);
         }
     

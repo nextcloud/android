@@ -160,7 +160,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 
             mClient = new WebdavClient(uri);
             mClient.setCredentials(username, password);
-            mClient.allowUnsignedCertificates();
+            mClient.allowSelfsignedCertificates();
             // mHost = mClient.getTargetHost();
         }
 

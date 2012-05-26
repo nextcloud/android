@@ -147,7 +147,7 @@ public class FileUploader extends Service implements OnUploadProgressListener {
         mNotificationManager.notify(42, mNotification);
 
         WebdavClient wc = new WebdavClient(ocUri);
-        wc.allowUnsignedCertificates();
+        wc.allowSelfsignedCertificates();
         wc.setUploadListener(this);
         wc.setCredentials(username, password);
 

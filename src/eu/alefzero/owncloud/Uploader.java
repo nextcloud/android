@@ -358,7 +358,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
         WebdavClient wdc = new WebdavClient(oc_uri);
         wdc.setCredentials(mUsername, mPassword);
-        wdc.allowUnsignedCertificates();
+        wdc.allowSelfsignedCertificates();
 
         // create last directory in path if nessesary
         if (mCreateDir) {

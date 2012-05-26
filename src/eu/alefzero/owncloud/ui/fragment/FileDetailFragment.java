@@ -40,10 +40,10 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import eu.alefzero.owncloud.DisplayUtils;
-import eu.alefzero.owncloud.FileDownloader;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 /**
@@ -142,6 +142,7 @@ public class FileDetailFragment extends SherlockFragment implements
         i.putExtra(FileDownloader.EXTRA_ACCOUNT,
                 mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
         i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
+        i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
         getActivity().startService(i);
     }
 

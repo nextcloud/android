@@ -1,4 +1,4 @@
-package eu.alefzero.owncloud;
+package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
 
@@ -19,23 +19,33 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
+import android.widget.RemoteViews;
+import eu.alefzero.owncloud.AccountUtils;
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.R.drawable;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
-public class FileDownloader extends Service {
+public class FileDownloader extends Service implements OnDatatransferProgressListener {
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
+    public static final String EXTRA_FILE_SIZE = "FILE_SIZE";
     private static final String TAG = "FileDownloader";
 
-    private NotificationManager nm;
+    private NotificationManager mNotificationMngr;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private Account mAccount;
     private String mFilePath;
+    private int mLastPercent;
+    private long mTotalDownloadSize;
+    private long mCurrentDownlodSize;
+    private Notification mNotification;
 
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
@@ -52,7 +62,7 @@ public class FileDownloader extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotificationMngr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileDownladerThread",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -77,6 +87,8 @@ public class FileDownloader extends Service {
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
+        mCurrentDownlodSize = mLastPercent = 0;
+        mTotalDownloadSize = intent.getLongExtra(EXTRA_FILE_SIZE, -1);
 
         return START_NOT_STICKY;
     }
@@ -90,7 +102,7 @@ public class FileDownloader extends Service {
         Uri oc_url = Uri.parse(oc_base_url+webdav_path);
 
         WebdavClient wdc = new WebdavClient(Uri.parse(oc_base_url + webdav_path));
-
+        
         String username = mAccount.name.split("@")[0];
         String password = "";
         try {
@@ -102,15 +114,17 @@ public class FileDownloader extends Service {
         }
 
         wdc.setCredentials(username, password);
-        wdc.allowUnsignedCertificates();
+        wdc.allowSelfsignedCertificates();
+        wdc.setDataTransferProgressListener(this);
 
-        Notification n = new Notification(R.drawable.icon, "Downloading file",
-                System.currentTimeMillis());
-        PendingIntent pi = PendingIntent.getActivity(this, 1, new Intent(this,
-                FileDisplayActivity.class), 0);
-        n.setLatestEventInfo(this, "Downloading file", "Downloading file "
-                + mFilePath, pi);
-        nm.notify(1, n);
+        mNotification = new Notification(R.drawable.icon, "Downloading file", System.currentTimeMillis());
+
+        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
+        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, mTotalDownloadSize == -1);
+        mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
+        
+        mNotificationMngr.notify(1, mNotification);
 
         File sdCard = Environment.getExternalStorageDirectory();
         File dir = new File(sdCard.getAbsolutePath() + "/owncloud");
@@ -131,9 +145,22 @@ public class FileDownloader extends Service {
                             mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
                             mAccount.name });            
         }
-        nm.cancel(1);
+        mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         sendBroadcast(end);
+    }
+
+    @Override
+    public void transferProgress(long progressRate) {
+        mCurrentDownlodSize += progressRate;
+        int percent = (int)(100.0*((double)mCurrentDownlodSize)/((double)mTotalDownloadSize));
+        if (percent != mLastPercent) {
+          mNotification.contentView.setProgressBar(R.id.status_progress, 100, (int)(100*mCurrentDownlodSize/mTotalDownloadSize), mTotalDownloadSize == -1);
+          mNotification.contentView.setTextViewText(R.id.status_text, percent+"%");
+          mNotificationMngr.notify(1, mNotification);
+        }
+        
+        mLastPercent = percent;
     }
 
 }

@@ -95,7 +95,7 @@ public class ConnectionCheckerRunnable implements Runnable {
 
     private boolean tryConnection(Uri uri) {
         WebdavClient wc = new WebdavClient(uri);
-        wc.allowUnsignedCertificates();
+        wc.allowSelfsignedCertificates();
         GetMethod get = new GetMethod(uri.toString());
         boolean retval = false;
         try {
