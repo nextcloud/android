@@ -29,6 +29,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -96,14 +97,16 @@ public class FileDataStorageManager implements DataStorageManager {
         if (file.getParentId() != 0)
             cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+        if (!file.isDirectory())
+            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
 
         if (fileExists(file.getRemotePath())) {
             OCFile tmpfile = getFileByPath(file.getRemotePath());
             file.setStoragePath(tmpfile.getStoragePath());
-            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+            if (!file.isDirectory());
+                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             file.setFileId(tmpfile.getFileId());
 
             overriden = true;
@@ -279,10 +282,19 @@ public class FileDataStorageManager implements DataStorageManager {
             file.setFileId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             file.setParentId(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_PARENT)));
-            file.setStoragePath(c.getString(c
-                    .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
             file.setMimetype(c.getString(c
                     .getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
+            if (!file.isDirectory()) {
+                file.setStoragePath(c.getString(c
+                        .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
+                if (file.getStoragePath() == null) {
+                    // try to find exisiting file and bind it with current account
+                    File sdCard = Environment.getExternalStorageDirectory();
+                    File f = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + file.getRemotePath());
+                    if (f.exists())
+                        file.setStoragePath(f.getAbsolutePath());
+                }
+            }
             file.setFileLength(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH)));
             file.setCreationTimestamp(c.getLong(c

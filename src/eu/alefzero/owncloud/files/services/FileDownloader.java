@@ -130,6 +130,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         File sdCard = Environment.getExternalStorageDirectory();
         File file = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + mFilePath);
         try {
+            file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
