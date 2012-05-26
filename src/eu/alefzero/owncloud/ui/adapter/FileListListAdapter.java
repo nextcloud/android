@@ -17,6 +17,7 @@
  */
 package eu.alefzero.owncloud.ui.adapter;
 
+import java.net.URLDecoder;
 import java.util.Vector;
 
 import eu.alefzero.owncloud.DisplayUtils;
@@ -102,7 +103,7 @@ public class FileListListAdapter implements ListAdapter {
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
             String name = file.getFileName();
 
-            fileName.setText(DisplayUtils.HtmlDecode(name));
+            fileName.setText(URLDecoder.decode(name));
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             if (!file.getMimetype().equals("DIR")) {
                 fileIcon.setImageResource(R.drawable.file);
