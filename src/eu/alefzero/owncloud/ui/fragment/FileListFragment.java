@@ -174,13 +174,14 @@ public class FileListFragment extends FragmentListView {
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory) {
-                
+        
         // Check input parameters for null
         if(directory == null){
             if(mFile != null){
                 directory = mFile;
             } else {
                 directory = mStorageManager.getFileByPath("/");
+                if (directory == null) return; // no files, wait for sync
             }
         }
         
