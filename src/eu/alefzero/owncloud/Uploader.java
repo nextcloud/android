@@ -18,6 +18,7 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -264,7 +265,10 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             }
             Log.d(TAG, "Uploading file to dir " + pathToUpload);
 
-            mUploadPath = pathToUpload;
+            mUploadPath = "";
+            for (String s : pathToUpload.split("/"))
+                mUploadPath = "/" + URLEncoder.encode(s);
+            if (!mUploadPath.endsWith("/")) mUploadPath += "/";
             mCreateDir = false;
             uploadFiles();
 
@@ -382,11 +386,11 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
                              data = c.getString(c.getColumnIndex(Media.DATA));
                 local[i] = data;
-                remote[i] = mUploadPath + "/" + display_name;
+                remote[i] = mUploadPath + display_name;
             } else if (uri.getScheme().equals("file")) {
                 final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
                 local[i] = file.getAbsolutePath();
-                remote[i] = mUploadPath + "/" + file.getName();
+                remote[i] = mUploadPath + file.getName();
             }
 
         }

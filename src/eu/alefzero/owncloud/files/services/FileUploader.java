@@ -1,6 +1,7 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
+import java.net.URLDecoder;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
@@ -177,7 +178,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 new_file.setModificationTimestamp(System.currentTimeMillis());
                 new_file.setLastSyncDate(0);
                 new_file.setStoragePath(mLocalPaths[i]);
-                new_file.setParentId(storageManager.getFileByPath(mRemotePaths[i].substring(0, mRemotePaths[i].lastIndexOf('/')+1)).getFileId());
+                File f = new File(mRemotePaths[i]);
+                new_file.setParentId(storageManager.getFileByPath(URLDecoder.decode(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/")).getFileId());
                 storageManager.saveFile(new_file);
             }
         }
