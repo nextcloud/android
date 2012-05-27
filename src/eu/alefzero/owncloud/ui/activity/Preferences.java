@@ -78,21 +78,6 @@ public class Preferences extends SherlockPreferenceActivity implements
         populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // Update summary for device tracking preference
-        mTrackingUpdateInterval = (ListPreference) findPreference("devicetracking_update_intervall");
-        String trackingSummary = getResources().getString(
-                R.string.prefs_trackmydevice_interval_summary);
-        trackingSummary = String.format(trackingSummary,
-                mTrackingUpdateInterval.getValue());
-        mTrackingUpdateInterval.setSummary(trackingSummary);
-        mTrackingUpdateInterval.setOnPreferenceChangeListener(this);
-
-        // Enable or disable device tracking service. Listen on events
-        mDeviceTracking = (CheckBoxPreference) findPreference("enable_devicetracking");
-        mDeviceTracking.setOnPreferenceChangeListener(this);
-
-        // populateSessionList();
     }
 
     private void populateSessionList() {
@@ -131,7 +116,7 @@ public class Preferences extends SherlockPreferenceActivity implements
         if (defaultAccount != null) {
             mAccountList.setSummary(defaultAccount.name);
         }
-
+        
         // Transform accounts into array of string for preferences to use
         String[] accNames = new String[mAccounts.length];
         for (int i = 0; i < mAccounts.length; i++) {
@@ -180,7 +165,7 @@ public class Preferences extends SherlockPreferenceActivity implements
                     getPreferenceScreen().getPreference(mSelectedMenuItem + 1));
             break;
         case android.R.id.home:
-            intent = new Intent(getBaseContext(), LandingActivity.class);
+            intent = new Intent(getBaseContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             break;

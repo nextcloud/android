@@ -134,9 +134,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         ACTION_SELECT_FILE);
                 break;
             }
-            case R.id.action_accounts: {
-                Intent accountIntent = new Intent(this, AccountSelectActivity.class);
-                startActivity(accountIntent);
+            case R.id.action_settings: {
+                Intent settingsIntent = new Intent(this, Preferences.class);
+                startActivity(settingsIntent);
             }
             case android.R.id.home: {
                 if(mCurrentDir != null && mCurrentDir.getParentId() != 0){

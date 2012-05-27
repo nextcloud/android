@@ -32,6 +32,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="androud.permission.CAMERA" />
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -148,6 +149,13 @@
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <service android:name=".files.services.FileUploader" >
         </service>
+        <service android:name=".files.services.InstantUploadService" />
+        <receiver android:name=".files.PhotoTakenBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.android.camera.NEW_PICTURE" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

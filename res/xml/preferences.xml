@@ -1,34 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 	<PreferenceCategory android:title="@string/prefs_category_general">
-	    <CheckBoxPreference
-        android:key="create_thumbnails"
-        android:title="@string/prefs_create_img_thumbnails" 
-        />
     
     <ListPreference
         android:key="select_oc_account"
         android:title="@string/prefs_select_oc_account"
         android:summary="@string/prefs_summary_select_oc_account" 
         />
-	</PreferenceCategory>
-	
-	<PreferenceCategory android:title="@string/prefs_category_trackmydevice">
-	    <CheckBoxPreference 
-	        android:key="enable_devicetracking"
-	        android:title="@string/prefs_trackmydevice"
-	        android:summaryOff="@string/prefs_trackmydevice_summary_off"
-	        android:summaryOn="@string/prefs_trackmydevice_summary_on"
-	        android:defaultValue="true"/>
-	    
-	    <ListPreference 
-	        android:key="devicetracking_update_intervall"
-	        android:title="@string/prefs_trackmydevice_interval"
-	        android:summary="@string/prefs_trackmydevice_interval_summary"
-	        android:entries="@array/prefs_trackmydevice_intervall_keys"
-	        android:entryValues="@array/prefs_trackmydevice_intervall_values"
-	        android:defaultValue="30"
-	        android:dependency="enable_devicetracking"/>
+    <CheckBoxPreference android:key="instant_uploading" android:title="Enable instant uploading" android:summary="Instantly upload photos taken by camera"/>
 	</PreferenceCategory>
     
 
