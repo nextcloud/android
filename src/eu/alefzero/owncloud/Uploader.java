@@ -20,7 +20,11 @@ package eu.alefzero.owncloud;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
+import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -46,9 +50,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.DataStorageManager;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
+import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.services.FileUploader;
@@ -67,12 +76,13 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     private Account mAccount;
     private AccountManager mAccountManager;
     private String mUsername, mPassword;
-    private Cursor mCursor;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
     private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
+    private DataStorageManager mStorageManager;
+    private OCFile mFile;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_WAITING = 1;
@@ -87,6 +97,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mParents = new Stack<String>();
+        mParents.add("");
         if (getIntent().hasExtra(Intent.EXTRA_STREAM)) {
             prepareStreamsToUpload();
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
@@ -100,13 +111,14 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             } else {
                 mAccount = accounts[0];
                 setContentView(R.layout.uploader_layout);
+                mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                 populateDirectoryList();
             }
         } else {
             showDialog(DIALOG_NO_STREAM);
         }
     }
-
+    
     @Override
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
@@ -150,7 +162,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 }
             });
             return builder.create();
-        case DIALOG_GET_DIRNAME:
+        /*case DIALOG_GET_DIRNAME:
             final EditText dirName = new EditText(getBaseContext());
             builder.setView(dirName);
             builder.setTitle(R.string.uploader_info_dirname);
@@ -171,7 +183,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                     dialog.cancel();
                 }
             });
-            return builder.create();
+            return builder.create();*/
         case DIALOG_MULTIPLE_ACCOUNT:
             CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length];
             for (int i = 0; i < ac.length; ++i) {
@@ -181,6 +193,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             builder.setItems(ac, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[which];
+                    mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                     populateDirectoryList();
                 }
             });
@@ -216,60 +229,39 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     @Override
     public void onBackPressed() {
 
-        if (mParents.size() == 0) {
+        if (mParents.size() <= 1) {
             super.onBackPressed();
             return;
-        } else if (mParents.size() == 1) {
-            mParents.pop();
-            mCursor = managedQuery(ProviderTableMeta.CONTENT_URI, null, ProviderTableMeta.FILE_CONTENT_TYPE + "=?",
-                    new String[] { "DIR" }, null);
         } else {
             mParents.pop();
-            mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, mParents.peek()), null,
-                    ProviderTableMeta.FILE_CONTENT_TYPE + "=?", new String[] { "DIR" }, null);
+            populateDirectoryList();
         }
-
-        SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
-                new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
-        setListAdapter(sca);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (!mCursor.moveToPosition(position)) {
+        Log.d(TAG, "on item click");
+        Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
+        if (tmpfiles == null) return;
+        // filter on dirtype
+        Vector<OCFile> files = new Vector<OCFile>();
+        for (OCFile f : tmpfiles)
+            if (f.isDirectory())
+                files.add(f);
+        if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        String _id = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID));
-        mParents.push(_id);
-
-        mCursor.close();
-        mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, _id), null,
-                ProviderTableMeta.FILE_CONTENT_TYPE + "=?", new String[] { "DIR" }, null);
-        SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
-                new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
-        setListAdapter(sca);
-        getListView().invalidate();
+        mParents.push(files.get(position).getFileName());
+        populateDirectoryList();
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.uploader_choose_folder:
-            String pathToUpload = null;
-            if (mParents.empty()) {
-                pathToUpload = "/";
-            } else {
-                mCursor = managedQuery(Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, mParents.peek()), null,
-                        null, null, null);
-                mCursor.moveToFirst();
-                pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH)).replace(" ",
-                        "%20");
-            }
-            Log.d(TAG, "Uploading file to dir " + pathToUpload);
-
             mUploadPath = "";
-            for (String s : pathToUpload.split("/"))
-                mUploadPath = "/" + URLEncoder.encode(s);
-            if (!mUploadPath.endsWith("/")) mUploadPath += "/";
-            mCreateDir = false;
+            for (String p : mParents)
+                mUploadPath += URLEncoder.encode(p) + "/";
+            Log.d(TAG, "Uploading file to dir " + mUploadPath);
+
             uploadFiles();
 
             break;
@@ -308,6 +300,36 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         mPassword = mAccountManager.getPassword(mAccount);
         setContentView(R.layout.uploader_layout);
 
+        String full_path = "";
+        for (String a : mParents)
+            full_path += a + "/";
+        
+        Log.d(TAG, "Populating view with content of : " + full_path);
+        
+        mFile = mStorageManager.getFileByPath(full_path);
+        if (mFile != null) {
+            Vector<OCFile> files = mStorageManager.getDirectoryContent(mFile);
+            if (files != null) {
+                List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
+                for (OCFile f : files) {
+                    HashMap<String, Object> h = new HashMap<String, Object>();
+                    if (f.isDirectory()) {
+                        h.put("dirname", f.getFileName());
+                        data.add(h);
+                    }
+                }
+                SimpleAdapter sa = new SimpleAdapter(this,
+                                                     data,
+                                                     R.layout.uploader_list_item_layout,
+                                                     new String[] {"dirname"},
+                                                     new int[] {R.id.textView1});
+                setListAdapter(sa);
+                Button btn = (Button) findViewById(R.id.uploader_choose_folder);
+                btn.setOnClickListener(this);
+                getListView().setOnItemClickListener(this);
+            }
+        }
+        /*
         mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI, null, ProviderTableMeta.FILE_NAME
                 + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?", new String[] { "/", mAccount.name }, null);
 
@@ -337,8 +359,8 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
              * createDirBtn.setOnClickListener(this); ((LinearLayout)
              * findViewById(R.id.linearLayout1)).addView( createDirBtn,
              * LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); }
-             */
-        }
+             *
+        }*/
     }
 
     private void prepareStreamsToUpload() {

@@ -178,8 +178,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 new_file.setModificationTimestamp(System.currentTimeMillis());
                 new_file.setLastSyncDate(0);
                 new_file.setStoragePath(mLocalPaths[i]);
-                File f = new File(mRemotePaths[i]);
-                new_file.setParentId(storageManager.getFileByPath(URLDecoder.decode(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/")).getFileId());
+                File f = new File(URLDecoder.decode(mRemotePaths[i]));
+                new_file.setParentId(storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId());
                 storageManager.saveFile(new_file);
             }
         }
