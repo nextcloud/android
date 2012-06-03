@@ -191,7 +191,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 if (!remotepath.endsWith("/"))
                     remotepath += "/";
                 remotepath += URLEncoder.encode(new File(filepath).getName());
-                Log.e("ASD", remotepath + "");
     
                 i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
                 i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);

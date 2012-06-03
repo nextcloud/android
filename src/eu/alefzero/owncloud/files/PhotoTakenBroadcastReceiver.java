@@ -18,18 +18,24 @@
 
 package eu.alefzero.owncloud.files;
 
+import java.io.File;
+
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.db.DbHandler;
 import eu.alefzero.owncloud.files.services.InstantUploadService;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
 
@@ -44,10 +50,16 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
             Log.d(TAG, "Instant upload disabled, abording uploading");
             return;
         }
-        if (!intent.getAction().equals(NEW_PHOTO_ACTION)) {
+        if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
+            handleConnectivityAction(context, intent);
+        } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
+            handleNewPhontoAction(context, intent);
+        } else {
             Log.e(TAG, "Incorrect intent sent: " + intent.getAction());
-            return;
         }
+    }
+
+    private void handleNewPhontoAction(Context context, Intent intent) {
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
             Log.w(TAG, "No owncloud account found for instant upload, abording");
@@ -68,6 +80,13 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
 
         c.close();
         
+        if (!isOnline(context)) {
+            DbHandler db = new DbHandler(context);
+            db.putFileForLater(file_path, account.name);
+            db.close();
+            return;
+        }
+        
         Intent upload_intent = new Intent(context, InstantUploadService.class);
         upload_intent.putExtra(InstantUploadService.KEY_ACCOUNT, account);
         upload_intent.putExtra(InstantUploadService.KEY_FILE_PATH, file_path);
@@ -78,4 +97,46 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
         context.startService(upload_intent);
     }
 
+    private void handleConnectivityAction(Context context, Intent intent) {
+        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY) ||
+            isOnline(context)) {
+            DbHandler db = new DbHandler(context);
+            Cursor c = db.getAwaitingFiles();
+            if (c.moveToFirst()) {
+                do {
+                    String account_name = c.getString(c.getColumnIndex("account"));
+                    String file_path = c.getString(c.getColumnIndex("path"));
+                    File f = new File(file_path);
+                    if (f.exists()) {
+                        Intent upload_intent = new Intent(context, InstantUploadService.class);
+                        Account account = new Account(account_name, AccountAuthenticator.ACCOUNT_TYPE);
+                        
+                        String mimeType = MimeTypeMap.getSingleton()
+                                .getMimeTypeFromExtension(
+                                        f.getName().substring(f.getName().lastIndexOf('.') + 1));
+                        
+                        upload_intent.putExtra(InstantUploadService.KEY_ACCOUNT, account);
+                        upload_intent.putExtra(InstantUploadService.KEY_FILE_PATH, file_path);
+                        upload_intent.putExtra(InstantUploadService.KEY_DISPLAY_NAME, f.getName());
+                        upload_intent.putExtra(InstantUploadService.KEY_FILE_SIZE, f.length());
+                        upload_intent.putExtra(InstantUploadService.KEY_MIME_TYPE, mimeType);
+                        
+                        context.startService(upload_intent);
+                    } else {
+                        Log.w(TAG, "Instant upload file " + f.getName() + " dont exist anymore");
+                    }
+                } while(c.moveToNext());
+                c.close();
+            }
+            db.clearFiles();
+            db.close();
+        }
+        
+    }
+
+    private boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+    
 }

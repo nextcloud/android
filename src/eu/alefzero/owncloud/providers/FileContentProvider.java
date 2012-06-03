@@ -199,6 +199,7 @@ public class FileContentProvider extends ContentProvider {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            // files table
             db.execSQL("CREATE TABLE " + ProviderTableMeta.DB_NAME + "("
                     + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                     + ProviderTableMeta.FILE_NAME + " TEXT, "

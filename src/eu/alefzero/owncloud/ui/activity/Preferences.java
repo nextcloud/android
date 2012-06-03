@@ -17,20 +17,16 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -78,28 +74,6 @@ public class Preferences extends SherlockPreferenceActivity implements
         populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void populateSessionList() {
-        mSessions.clear();
-        mSessions = mDbHandler.getSessionList();
-        PreferenceScreen ps = getPreferenceScreen();
-        ps.removeAll();
-        addPreferencesFromResource(R.xml.preferences);
-        for (int i = 0; i < mSessions.size(); i++) {
-            Preference preference = new Preference(getBaseContext());
-            preference.setTitle(mSessions.get(i).getName());
-            URI uri;
-            try {
-                uri = new URI(mSessions.get(i).getUrl());
-            } catch (URISyntaxException e) {
-                e.printStackTrace(); // should never happen
-                continue;
-            }
-            preference.setSummary(uri.getScheme() + "://" + uri.getHost()
-                    + uri.getPath());
-            ps.addPreference(preference);
-        }
     }
 
     /**
@@ -157,13 +131,6 @@ public class Preferences extends SherlockPreferenceActivity implements
                     .getUrl());
             startActivityForResult(intent, mEditSession);
             break;
-        case R.id.SessionContextRemove:
-            OwnCloudSession ocs = mSessions.get(mSelectedMenuItem);
-            mDbHandler.removeSessionWithId(ocs.getEntryId());
-            mSessions.remove(ocs);
-            getPreferenceScreen().removePreference(
-                    getPreferenceScreen().getPreference(mSelectedMenuItem + 1));
-            break;
         case android.R.id.home:
             intent = new Intent(getBaseContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -179,24 +146,6 @@ public class Preferences extends SherlockPreferenceActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-            case mNewSession:
-                mDbHandler.addSession(data.getStringExtra("sessionName"),
-                        data.getStringExtra("sessionURL"));
-                getPreferenceScreen().removeAll();
-                addPreferencesFromResource(R.xml.preferences);
-                populateSessionList();
-                break;
-            case mEditSession:
-                mDbHandler.changeSessionFields(
-                        data.getIntExtra("sessionId", -1),
-                        data.getStringExtra("sessionName"),
-                        data.getStringExtra("sessionURL"));
-                populateSessionList();
-                break;
-            }
-        }
     }
 
     @Override

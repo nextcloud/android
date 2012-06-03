@@ -154,6 +154,9 @@
                 <action android:name="com.android.camera.NEW_PICTURE" />
                 <data android:mimeType="image/*" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
         </receiver>
     </application>
 
