@@ -18,7 +18,10 @@
 
 package eu.alefzero.owncloud.ui.activity;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -38,6 +41,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +59,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
 import eu.alefzero.owncloud.AccountUtils;
+import eu.alefzero.owncloud.CrashHandler;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
@@ -96,7 +101,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(false);
-        
+
+        Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
+
         if(savedInstanceState != null){
             mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);
         }
@@ -558,6 +565,5 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
             startActivity(intent);
         }
-    }
-
+    }    
 }
