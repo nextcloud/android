@@ -104,6 +104,10 @@
     <string name="auth_unknow_error">Unknown error occured!</string>
     <string name="auth_login_details">Login details</string>
     
+    <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit crash report?</string>
+    <string name="crashlog_send_report">Send report</string>
+    <string name="crashlog_dont_send_report">Don\'t send report</string>
+    
     <string name="extensions_avail_title">Extensions available!</string>
     <string name="extensions_avail_message">Looks like your ownCloud instance is supporting advanced extensions. Would you like to see extensions available for android ?</string>
 </resources>

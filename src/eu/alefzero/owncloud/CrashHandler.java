@@ -1,3 +1,21 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2012  Bartek Przybylski
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package eu.alefzero.owncloud;
 
 import java.io.BufferedReader;
@@ -15,19 +33,25 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.util.Log;
 
 public class CrashHandler implements UncaughtExceptionHandler {
 
+    public static final String KEY_CRASH_FILENAME = "KEY_CRASH_FILENAME";
+    
     private Context mContext;
     private static final String TAG = "CrashHandler";
     private static final String crash_filename_template = "crash";
     private static List<String> TAGS;
     private UncaughtExceptionHandler defaultUEH;
     
+    // TODO: create base activity which will register for crashlog tag automaticly
     static {
         TAGS = new LinkedList<String>();
         TAGS.add("AccountAuthenticator");
@@ -99,9 +123,21 @@ public class CrashHandler implements UncaughtExceptionHandler {
             
             br.close();
             fw.close();
-
+            
+            Intent dataintent = new Intent(mContext, CrashlogSendActivity.class);
+            dataintent.putExtra(KEY_CRASH_FILENAME, crashfile.getAbsolutePath());
+            PendingIntent intent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, dataintent, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            AlarmManager mngr = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
+            if (mngr == null) {
+                Log.e(TAG, "Couldn't retrieve alarm manager!");
+                defaultUEH.uncaughtException(thread, ex);
+                return;
+            }
+            mngr.set(AlarmManager.RTC, System.currentTimeMillis(), intent);
+            System.exit(2);
         } catch (Exception e1) {
-            Log.e(TAG, "Crash handler failed to run logcat, WTF!");
+            Log.e(TAG, "Crash handler failed!");
+            Log.e(TAG, e1.toString());
             defaultUEH.uncaughtException(thread, ex);
             return;
         }
