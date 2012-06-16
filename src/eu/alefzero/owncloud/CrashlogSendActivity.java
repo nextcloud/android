@@ -19,6 +19,14 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,9 +38,12 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
+import eu.alefzero.webdav.FileRequestEntity;
+
 public class CrashlogSendActivity extends SherlockActivity implements OnClickListener, OnCancelListener {
     
     private static final String TAG = "CrashlogSendActivity";
+    private static final String CRASHLOG_SUBMIT_URL = "";
     private static final int DIALOG_SUBMIT = 5;
     
     private String mLogFilename;
@@ -68,9 +79,29 @@ public class CrashlogSendActivity extends SherlockActivity implements OnClickLis
 
 
     @Override
-    public void onClick(DialogInterface dialog, int which) {
-        new File(mLogFilename).delete();
-        finish();
+    public void onClick(DialogInterface dialog, final int which) {
+        new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                File file = new File(mLogFilename);
+                if (which == Dialog.BUTTON_POSITIVE) {
+                    try {
+                        HttpClient client = new HttpClient();
+                        PostMethod post = new PostMethod(CRASHLOG_SUBMIT_URL);
+                        Part[] parts = {new FilePart("crashfile", file)};
+                        post.setRequestEntity(new MultipartRequestEntity(parts, post.getParams()));
+                        client.executeMethod(post);
+                        post.releaseConnection();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                file.delete();
+                finish();                
+            }
+        }).start();
     }
 
 
