@@ -152,6 +152,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
         mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+        end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
         sendBroadcast(end);
     }
 

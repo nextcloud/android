@@ -309,9 +309,10 @@ public class FileDetailFragment extends SherlockFragment implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateFileDetails();
+            ((OCFile)mIntent.getParcelableExtra(EXTRA_FILE)).setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+            updateFileDetails(mIntent);
         }
-
+        
     }
 
 }
