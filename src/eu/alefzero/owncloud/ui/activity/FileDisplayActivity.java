@@ -232,6 +232,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDirs != null)
             for (String s : mDirs)
                 mDirectories.insert(s, 0);
+        mCurrentDir = savedInstanceState.getParcelable(KEY_CURRENT_DIR);
     }
     
     @Override
@@ -285,7 +286,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
             // Clear intent extra, so rotating the screen will not return us to this directory
             getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
-        } 
+        } else {
+            mCurrentDir = mFileList.getCurrentFile();
+        }
                 
         // Drop-Down navigation and file list restore
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
@@ -336,7 +339,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             unregisterReceiver(syncBroadcastRevceiver);
             syncBroadcastRevceiver = null;
         }
-    
     }
 
     @Override
@@ -361,7 +363,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             builder.setTitle(R.string.uploader_info_dirname);
             int typed_color = getResources().getColor(R.color.setup_text_typed);
             dirNameInput.setTextColor(typed_color);
-    
             builder.setPositiveButton(android.R.string.ok,
                     new OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -372,12 +373,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             }
     
                             // Figure out the path where the dir needs to be created
-                            String path = mCurrentDir.getRemotePath();
+                            String path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
                             
                             // Create directory
                             path += directoryName + "/";
-                            Thread thread = new Thread(new DirectoryCreator(
-                                    path, a));
+                            Thread thread = new Thread(new DirectoryCreator(path, a));
                             thread.start();
     
                             // Save new directory in local database
