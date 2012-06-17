@@ -287,7 +287,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             // Clear intent extra, so rotating the screen will not return us to this directory
             getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
         } else {
-            mCurrentDir = mFileList.getCurrentFile();
+            mCurrentDir = mStorageManager.getFileByPath("/");
         }
                 
         // Drop-Down navigation and file list restore
