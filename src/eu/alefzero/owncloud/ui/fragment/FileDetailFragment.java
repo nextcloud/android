@@ -17,12 +17,15 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.util.List;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -207,7 +210,12 @@ public class FileDetailFragment extends SherlockFragment implements
                     public void onClick(View v) {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mFile.getMimetype());
-                        startActivity(i);
+                        List list = getActivity().getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
+                        if (list.size() > 0) {
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             } else {
