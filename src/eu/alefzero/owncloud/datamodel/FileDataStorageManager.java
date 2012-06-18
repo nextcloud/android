@@ -59,8 +59,8 @@ public class FileDataStorageManager implements DataStorageManager {
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
-            c.close();
         }
+        c.close();
         return file;
     }
 
@@ -70,8 +70,8 @@ public class FileDataStorageManager implements DataStorageManager {
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);
-            c.close();
         }
+        c.close();
         return file;
     }
 
