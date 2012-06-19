@@ -124,6 +124,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, mTotalDownloadSize == -1);
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
+        // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
+        //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on a download in the notification bar
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         
         mNotificationMngr.notify(1, mNotification);
 

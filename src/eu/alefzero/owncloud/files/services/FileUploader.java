@@ -16,6 +16,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -148,7 +149,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, false);
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
-
+        // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
+        //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on an upload in the notification bar
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        
         mNotificationManager.notify(42, mNotification);
 
         WebdavClient wc = new WebdavClient(ocUri);
