@@ -87,7 +87,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private String[] mDirs = null;
 
     private SyncBroadcastReceiver syncBroadcastRevceiver;
-
+    
+    private View mLayoutView = null;
+    
     private static final String KEY_DIR_ARRAY = "DIR_ARRAY";
     private static final String KEY_CURRENT_DIR = "DIR";
     
@@ -107,6 +109,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if(savedInstanceState != null){
             mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);
         }
+        
+        if (findViewById(R.id.file_list_view) == null) 
+            mLayoutView = getLayoutInflater().inflate(R.layout.files, null);  // always inflate this at onCreate() ; just once!
+        
+        //TODO: Dialog useless -> get rid of this
+        if (!accountsAreSetup()) {
+            setContentView(R.layout.no_account_available);
+            setProgressBarIndeterminateVisibility(false);
+            getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
+            findViewById(R.id.setup_account).setOnClickListener(this);
+            
+        } else if (findViewById(R.id.file_list_view) == null) {
+            setContentView(mLayoutView);
+        }
+        
     }
 
     @Override
@@ -252,84 +269,79 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     protected void onResume() {
         super.onResume();
         
-        //TODO: Dialog useless -> get rid of this
-        if (!accountsAreSetup()) {
-            setContentView(R.layout.no_account_available);
-            setProgressBarIndeterminateVisibility(false);
-            getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
-            findViewById(R.id.setup_account).setOnClickListener(this);
-            return;
-        } else if (findViewById(R.id.file_list_view) == null) {
-            setContentView(R.layout.files);
-        }
+        if (accountsAreSetup()) {
+            
+            setContentView(mLayoutView);    // this should solve the crash by repeated inflating in big screens (DROIDCLOUD-27)
 
-        // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
-        syncBroadcastRevceiver = new SyncBroadcastReceiver();
-        registerReceiver(syncBroadcastRevceiver, syncIntentFilter);
+            // Listen for sync messages
+            IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
+            syncBroadcastRevceiver = new SyncBroadcastReceiver();
+            registerReceiver(syncBroadcastRevceiver, syncIntentFilter);
         
-        // Storage manager initialization
-        mStorageManager = new FileDataStorageManager(
-                AccountUtils.getCurrentOwnCloudAccount(this),
-                getContentResolver());
+            // Storage manager initialization
+            mStorageManager = new FileDataStorageManager(
+                    AccountUtils.getCurrentOwnCloudAccount(this),
+                    getContentResolver());
         
-        // File list
-        mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+            // File list
+            mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+            mFileList.updateAccount();
         
-        // Figure out what directory to list. 
-        // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
-        if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
-            mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-            if(!mCurrentDir.isDirectory()){
-                mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
-            }
+            // Figure out what directory to list. 
+            // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
+            if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
+                mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+                if(!mCurrentDir.isDirectory()){
+                    mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
+                }
             
-            // Clear intent extra, so rotating the screen will not return us to this directory
-            getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
-        } else {
-            mCurrentDir = mStorageManager.getFileByPath("/");
-        }
+                // Clear intent extra, so rotating the screen will not return us to this directory
+                getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
+            } else {
+                mCurrentDir = mStorageManager.getFileByPath("/");
+            }
                 
-        // Drop-Down navigation and file list restore
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+            // Drop-Down navigation and file list restore
+            mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         
         
-        // Given the case we have a file to display:
-        if(mCurrentDir != null){
-            ArrayList<OCFile> files = new ArrayList<OCFile>();
-            OCFile currFile = mCurrentDir;
-            while(currFile != null){
-                files.add(currFile);
-                currFile = mStorageManager.getFileById(currFile.getParentId());
-            }
+            // Given the case we have a file to display:
+            if(mCurrentDir != null){
+                ArrayList<OCFile> files = new ArrayList<OCFile>();
+                OCFile currFile = mCurrentDir;
+                while(currFile != null){
+                    files.add(currFile);
+                    currFile = mStorageManager.getFileById(currFile.getParentId());
+                }
             
-            // Insert in mDirs
-            mDirs = new String[files.size()];
-            for(int i = files.size() - 1; i >= 0; i--){
-                mDirs[i] = files.get(i).getFileName();
+                // Insert in mDirs
+                mDirs = new String[files.size()];
+                for(int i = files.size() - 1; i >= 0; i--){
+                    mDirs[i] = files.get(i).getFileName();
+                }
             }
-        }
         
-        if (mDirs != null) {
-            for (String s : mDirs)
-                mDirectories.add(s);
-        } else {
-            mDirectories.add("/");
-        }
+            if (mDirs != null) {
+                for (String s : mDirs)
+                    mDirectories.add(s);
+            } else {
+                mDirectories.add("/");
+            }
                
-        // Actionbar setup
-        ActionBar action_bar = getSupportActionBar();
-        action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        action_bar.setDisplayShowTitleEnabled(false);
-        action_bar.setListNavigationCallbacks(mDirectories, this);
-        if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
-            action_bar.setDisplayHomeAsUpEnabled(true);
-        } else {
-            action_bar.setDisplayHomeAsUpEnabled(false);
-        }
+            // Actionbar setup
+            ActionBar action_bar = getSupportActionBar();
+            action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            action_bar.setDisplayShowTitleEnabled(false);
+            action_bar.setListNavigationCallbacks(mDirectories, this);
+            if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
+                action_bar.setDisplayHomeAsUpEnabled(true);
+            } else {
+                action_bar.setDisplayHomeAsUpEnabled(false);
+            }
         
-        // List dir here
-        mFileList.listDirectory(mCurrentDir);
+            // List dir here
+            mFileList.listDirectory(mCurrentDir);
+        }
     }
 
     @Override

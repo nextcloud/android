@@ -18,9 +18,6 @@ public class FragmentListView extends SherlockFragment implements
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mList = new ListView(getActivity());
-        mList.setOnItemClickListener(this);
-        mList.setOnItemLongClickListener(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -36,6 +33,9 @@ public class FragmentListView extends SherlockFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        mList = new ListView(getActivity());
+        mList.setOnItemClickListener(this);
+        mList.setOnItemLongClickListener(this);
         return mList;
         // return super.onCreateView(inflater, container, savedInstanceState);
     }

@@ -26,7 +26,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import eu.alefzero.owncloud.AccountUtils;
@@ -60,15 +62,24 @@ public class FileListFragment extends FragmentListView {
 
         mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-        getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        getListView().setDividerHeight(1);
 
         Intent intent = getActivity().getIntent();
         OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         mFile = directory;
-                
-        listDirectory(directory);
+        
     }
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
+        getListView().setDividerHeight(1);
+        
+        //listDirectory(mFile);
+        
+        return getListView();
+    }    
 
     @Override
     public void onStart() {
@@ -205,6 +216,17 @@ public class FileListFragment extends FragmentListView {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("ACCOUNT", mAccount);
+    }
+
+    /**
+     * This should be called every time the current account changes, in order to synchronize mStorageManager without create a new FileListFragment
+     */
+    public void updateAccount() {
+        Account old = mAccount;
+        mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+        if (old != mAccount)
+            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+            // dvelasco : a better solution can be provided change the flow between states "wiht account" and "without account", in terms of interactions between AuthenticatorActivity and FileDisplayActivity
     }
 
 }
