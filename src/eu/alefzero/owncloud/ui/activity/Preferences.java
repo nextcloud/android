@@ -71,7 +71,6 @@ public class Preferences extends SherlockPreferenceActivity implements
         mDbHandler = new DbHandler(getBaseContext());
         mSessions = new Vector<OwnCloudSession>();
         addPreferencesFromResource(R.xml.preferences);
-        registerForContextMenu(getListView());
         populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -157,19 +156,6 @@ public class Preferences extends SherlockPreferenceActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-        mSelectedMenuItem = info.position - 1;
-        menu.setHeaderTitle(mSessions.get(mSelectedMenuItem).getName());
-
-        MenuInflater inflater = getSherlock().getMenuInflater();
-        inflater.inflate(R.menu.session_context_menu, (Menu) menu);
-
     }
 
     @Override
