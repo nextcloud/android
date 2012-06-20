@@ -270,7 +270,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         super.onResume();
         
         if (accountsAreSetup()) {
-            
+
             setContentView(mLayoutView);    // this should solve the crash by repeated inflating in big screens (DROIDCLOUD-27)
 
             // Listen for sync messages
@@ -285,7 +285,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
             // File list
             mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
-            mFileList.updateAccount();
         
             // Figure out what directory to list. 
             // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
@@ -577,5 +576,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
             startActivity(intent);
         }
+    }
+
+    public DataStorageManager getStorageManager() {
+        return mStorageManager;
     }    
 }

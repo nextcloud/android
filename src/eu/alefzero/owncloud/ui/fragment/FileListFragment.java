@@ -50,18 +50,15 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  */
 public class FileListFragment extends FragmentListView {
     private static final String TAG = "FileListFragment";
-    private Account mAccount;
-    private Vector<OCFile> mFiles;
-    private DataStorageManager mStorageManager;
+    //private Account mAccount;         // dvelasco : the fragment is not recreated when other account is selected; keep as an attribute is dangerous
+    private Vector<OCFile> mFiles;    
+    //private DataStorageManager mStorageManager;   // dvelasco : just the same; it depends upon the current account ; it's updated in FileDisplayActivity!!
     private OCFile mFile;
     private boolean mIsLargeDevice = false; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
 
         Intent intent = getActivity().getIntent();
         OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
@@ -114,7 +111,7 @@ public class FileListFragment extends FragmentListView {
 
         Intent showDetailsIntent = new Intent(getActivity(), FileDetailActivity.class);
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+        showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(getActivity()));
 
         // If we are on a large device -> update fragment
         if (mIsLargeDevice) {
@@ -153,7 +150,8 @@ public class FileListFragment extends FragmentListView {
         OCFile parentDir = null;
         
         if(mFile != null){
-            parentDir = mStorageManager.getFileById(mFile.getParentId());
+            DataStorageManager storageManager = ((FileDisplayActivity)getActivity()).getStorageManager();
+            parentDir = storageManager.getFileById(mFile.getParentId());
             mFile = parentDir;
         }
         
@@ -186,12 +184,14 @@ public class FileListFragment extends FragmentListView {
      */
     public void listDirectory(OCFile directory) {
         
+        DataStorageManager storageManager = ((FileDisplayActivity)getActivity()).getStorageManager();
+
         // Check input parameters for null
         if(directory == null){
             if(mFile != null){
                 directory = mFile;
             } else {
-                directory = mStorageManager.getFileByPath("/");
+                directory = storageManager.getFileByPath("/");
                 if (directory == null) return; // no files, wait for sync
             }
         }
@@ -200,33 +200,22 @@ public class FileListFragment extends FragmentListView {
         // If that's not a directory -> List its parent
         if(!directory.isDirectory()){
             Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
-            directory = mStorageManager.getFileById(directory.getParentId());
+            directory = storageManager.getFileById(directory.getParentId());
         }
 
         mFile = directory;
         
-        mFiles = mStorageManager.getDirectoryContent(directory);
+        mFiles = storageManager.getDirectoryContent(directory);
         if (mFiles == null || mFiles.size() == 0) {
             Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
         }
-        setListAdapter(new FileListListAdapter(directory, mStorageManager, getActivity()));
+        setListAdapter(new FileListListAdapter(directory, storageManager, getActivity()));
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("ACCOUNT", mAccount);
-    }
-
-    /**
-     * This should be called every time the current account changes, in order to synchronize mStorageManager without create a new FileListFragment
-     */
-    public void updateAccount() {
-        Account old = mAccount;
-        mAccount = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-        if (old != mAccount)
-            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-            // dvelasco : a better solution can be provided change the flow between states "wiht account" and "without account", in terms of interactions between AuthenticatorActivity and FileDisplayActivity
+        outState.putParcelable("ACCOUNT", AccountUtils.getCurrentOwnCloudAccount(getActivity()));
     }
 
 }
