@@ -37,6 +37,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -95,6 +98,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
+    private static final int DIALOG_ABOUT_APP = 2;
     private static final int ACTION_SELECT_FILE = 1;
 
     @Override
@@ -161,6 +165,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             case R.id.action_settings: {
                 Intent settingsIntent = new Intent(this, Preferences.class);
                 startActivity(settingsIntent);
+                break;
+            }
+            case R.id.about_app : {
+                showDialog(DIALOG_ABOUT_APP);
+                break;
             }
             case android.R.id.home: {
                 if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
@@ -354,7 +363,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Dialog dialog;
+        Dialog dialog = null;
         AlertDialog.Builder builder;
         switch (id) {
         case DIALOG_SETUP_ACCOUNT:
@@ -366,6 +375,22 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             builder.setNegativeButton(android.R.string.cancel, this);
             dialog = builder.create();
             break;
+        case DIALOG_ABOUT_APP: {
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle("About");
+            PackageInfo pkg;
+            try {
+                pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
+                builder.setMessage("ownCloud android client\n\nversion: " + pkg.versionName );
+                builder.setIcon(android.R.drawable.ic_menu_info_details);
+                dialog = builder.create();
+            } catch (NameNotFoundException e) {
+                builder = null;
+                dialog = null;
+                e.printStackTrace();
+            }
+            break;
+        }
         case DIALOG_CREATE_DIR: {
             builder = new Builder(this);
             final EditText dirNameInput = new EditText(getBaseContext());
