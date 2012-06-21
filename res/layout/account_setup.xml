@@ -159,6 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:onClick="onCancelClick"
                 android:text="@string/common_cancel" />
 
             <Button

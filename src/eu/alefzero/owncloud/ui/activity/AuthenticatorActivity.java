@@ -221,7 +221,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             tv.setError(message);
         }
     }
-
+    public void onCancelClick(View view) {
+        finish();
+    }
+    
     public void onOkClick(View view) {
         String prefix = "";
         String url = ((TextView) findViewById(R.id.host_URL)).getText()
