@@ -251,6 +251,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.e("ASD", "restore");
         super.onRestoreInstanceState(savedInstanceState);
         mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
@@ -258,11 +259,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDirs != null)
             for (String s : mDirs)
                 mDirectories.insert(s, 0);
-        mCurrentDir = savedInstanceState.getParcelable(KEY_CURRENT_DIR);
+        mCurrentDir = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
     }
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Log.e("ASD", "save " + mCurrentDir.getFileName());
         super.onSaveInstanceState(outState);
         if(mDirectories != null && mDirectories.getCount() != 0){
             mDirs = new String[mDirectories.getCount()-1];
@@ -271,13 +273,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
         outState.putStringArray(KEY_DIR_ARRAY, mDirs);
-        outState.putParcelable(KEY_CURRENT_DIR, mCurrentDir);
+        outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        
+
         if (accountsAreSetup()) {
 
             setContentView(mLayoutView);    // this should solve the crash by repeated inflating in big screens (DROIDCLOUD-27)
@@ -294,7 +296,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
             // File list
             mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
-        
+            
             // Figure out what directory to list. 
             // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
             if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
@@ -359,6 +361,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             unregisterReceiver(syncBroadcastRevceiver);
             syncBroadcastRevceiver = null;
         }
+        getIntent().putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
     }
 
     @Override
