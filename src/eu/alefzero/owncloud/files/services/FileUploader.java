@@ -176,12 +176,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                 mResult |= true;
-                OCFile new_file = new OCFile(mRemotePaths[i]);
+                String decRemotePath = URLDecoder.decode(mRemotePaths[i]);
+                OCFile new_file = new OCFile(decRemotePath);    // FyleSyncAdapter and this MUST use the same encoding when creating a new OCFile
                 new_file.setMimetype(mimeType);
                 new_file.setFileLength(new File(mLocalPaths[i]).length());
                 new_file.setModificationTimestamp(System.currentTimeMillis());
                 new_file.setLastSyncDate(0);
-                new_file.setStoragePath(mLocalPaths[i]);
+                new_file.setStoragePath(mLocalPaths[i]);         
                 File f = new File(URLDecoder.decode(mRemotePaths[i]));
                 new_file.setParentId(storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId());
                 storageManager.saveFile(new_file);
