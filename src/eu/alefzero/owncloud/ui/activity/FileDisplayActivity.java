@@ -264,7 +264,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.e("ASD", "save " + mCurrentDir.getFileName());
+        Log.e("ASD", "save " + (mCurrentDir != null ? mCurrentDir.getFileName() : "NULL"));
         super.onSaveInstanceState(outState);
         if(mDirectories != null && mDirectories.getCount() != 0){
             mDirs = new String[mDirectories.getCount()-1];
