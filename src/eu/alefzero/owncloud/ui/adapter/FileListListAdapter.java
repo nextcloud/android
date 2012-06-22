@@ -103,7 +103,7 @@ public class FileListListAdapter implements ListAdapter {
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
             String name = file.getFileName();
 
-            fileName.setText(URLDecoder.decode(name));
+            fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             if (!file.getMimetype().equals("DIR")) {
                 fileIcon.setImageResource(R.drawable.file);
