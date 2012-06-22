@@ -301,7 +301,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
             if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
                 mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-                if(!mCurrentDir.isDirectory()){
+                if(mCurrentDir != null && !mCurrentDir.isDirectory()){
                     mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
                 }
             
