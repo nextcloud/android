@@ -414,7 +414,18 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             }
     
                             // Figure out the path where the dir needs to be created
-                            String path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
+                            String path;
+                            if (mCurrentDir == null) {
+                                if (!mStorageManager.fileExists("/")) {
+                                    OCFile file = new OCFile("/");
+                                    mStorageManager.saveFile(file);
+                                    mCurrentDir = mStorageManager.getFileByPath("/");
+                                } else {
+                                    Log.wtf("FileDisplay", "OMG NO!");
+                                    return;
+                                }
+                            }
+                            path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
                             
                             // Create directory
                             path += directoryName + "/";
