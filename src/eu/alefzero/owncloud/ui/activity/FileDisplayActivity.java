@@ -255,7 +255,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.e("ASD", "restore");
         super.onRestoreInstanceState(savedInstanceState);
         mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
@@ -268,7 +267,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.e("ASD", "save " + (mCurrentDir != null ? mCurrentDir.getFileName() : "NULL"));
         super.onSaveInstanceState(outState);
         if(mDirectories != null && mDirectories.getCount() != 0){
             mDirs = new String[mDirectories.getCount()-1];
