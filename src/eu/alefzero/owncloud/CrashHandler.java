@@ -37,6 +37,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.util.Log;
@@ -91,11 +92,13 @@ public class CrashHandler implements UncaughtExceptionHandler {
         String crash_filename = crash_filename_template + System.currentTimeMillis() + ".txt";
         File crashfile = new File(ocdir, crash_filename);
         try {
+            PackageInfo pi = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
             ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            String header = String.format("Model: %s, SDK: %d, Current net: %s\n\n",
+            String header = String.format("Model: %s, SDK: %d, Current net: %s AppVersion: %s\n\n",
                                           android.os.Build.MODEL,
                                           android.os.Build.VERSION.SDK_INT,
-                                          cm.getActiveNetworkInfo() != null ? cm.getActiveNetworkInfo().getTypeName() : "NONE");
+                                          cm.getActiveNetworkInfo() != null ? cm.getActiveNetworkInfo().getTypeName() : "NONE",
+                                          pi.versionName);
             Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
             AccountManager am = AccountManager.get(mContext);
             String header2 = String.format("Account: %s, OCUrl: %s, OCVersion: %s\n\n",
