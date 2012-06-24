@@ -100,7 +100,9 @@ public class DisplayUtils {
         if (mimeType2HUmanReadable.containsKey(mimetype)) {
             return mimeType2HUmanReadable.get(mimetype);
         }
-        return mimetype.split("/")[1].toUpperCase() + " file";
+        if (mimetype.split("/").length >= 2)
+            return mimetype.split("/")[1].toUpperCase() + " file";
+        return "Unknown type";
     }
 
     /**
