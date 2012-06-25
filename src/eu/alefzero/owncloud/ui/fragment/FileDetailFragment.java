@@ -21,6 +21,7 @@ import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ActionBar.LayoutParams;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.Path.FillType;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -195,14 +198,31 @@ public class FileDetailFragment extends SherlockFragment implements
             
             // Update preview
             if (mFile.getStoragePath() != null) {
+                ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
                 try {
                     if (mFile.getMimetype().startsWith("image/")) {
-                        ImageView preview = (ImageView) getView().findViewById(
-                                R.id.fdPreview);
-                        Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath());
+                        BitmapFactory.Options options = new Options();
+                        options.inScaled = true;
+                        options.inMutable = false;
+                        options.inPreferQualityOverSpeed = false;
+                        options.inPurgeable = true;
+
+                        Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+
+                        int width = options.outWidth;
+                        int height = options.outHeight;
+                        int scale = 1;
+                        if (width >= 2048 || height >= 2048) {
+                            scale = (int) (Math.ceil(Math.max(height, width)/2048.));
+                            options.inSampleSize = scale;
+                            bmp.recycle();
+
+                            bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+                        }
                         preview.setImageBitmap(bmp);
                     }
                 } catch (OutOfMemoryError e) {
+                    preview.setVisibility(View.INVISIBLE);
                     Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
                 }
                 downloadButton.setText(R.string.filedetails_open);
