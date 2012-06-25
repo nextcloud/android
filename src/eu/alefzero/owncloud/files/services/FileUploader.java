@@ -1,7 +1,6 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
-import java.net.URLDecoder;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
@@ -124,7 +123,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             Toast.makeText(this, "Upload successfull", Toast.LENGTH_SHORT)
                     .show();
         } else {
-            Toast.makeText(this, "No i kupa", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Upload could not be completed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -176,14 +175,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                 mResult |= true;
-                String decRemotePath = URLDecoder.decode(mRemotePaths[i]);
-                OCFile new_file = new OCFile(decRemotePath);    // FyleSyncAdapter and this MUST use the same encoding when creating a new OCFile
+                OCFile new_file = new OCFile(mRemotePaths[i]);
                 new_file.setMimetype(mimeType);
                 new_file.setFileLength(new File(mLocalPaths[i]).length());
                 new_file.setModificationTimestamp(System.currentTimeMillis());
                 new_file.setLastSyncDate(0);
                 new_file.setStoragePath(mLocalPaths[i]);         
-                File f = new File(URLDecoder.decode(mRemotePaths[i]));
+                File f = new File(mRemotePaths[i]);
                 new_file.setParentId(storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId());
                 storageManager.saveFile(new_file);
             }

@@ -84,7 +84,7 @@ public class FileListActionListAdapter implements ListAdapter {
                         .getSystemService(Context.ACCOUNT_SERVICE);
                 String ocurl = accm.getUserData(mAccount,
                         AccountAuthenticator.KEY_OC_URL);
-                ocurl += mFilePath + mFilename;
+                ocurl += mFilePath + Uri.encode(mFilename);
                 intent.setData(Uri.parse(ocurl));
             } else {
                 intent.putExtra("toDownload", false);

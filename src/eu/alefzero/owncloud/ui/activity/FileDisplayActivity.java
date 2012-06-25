@@ -22,7 +22,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import android.accounts.Account;
@@ -223,11 +222,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         AccountUtils.getCurrentOwnCloudAccount(this));
                 String remotepath = new String();
                 for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += "/" + URLEncoder.encode(mDirectories.getItem(j));
+                    remotepath += "/" + mDirectories.getItem(j);
                 }
                 if (!remotepath.endsWith("/"))
                     remotepath += "/";
-                remotepath += URLEncoder.encode(new File(filepath).getName());
+                remotepath += new File(filepath).getName();
+                remotepath = Uri.encode(remotepath, "/");
     
                 i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
                 i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
@@ -309,9 +309,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
                 // Clear intent extra, so rotating the screen will not return us to this directory
                 getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
-            } else {
-                mCurrentDir = mStorageManager.getFileByPath("/");
             }
+            
+            if (mCurrentDir == null)
+                mCurrentDir = mStorageManager.getFileByPath("/");
                 
             // Drop-Down navigation and file list restore
             mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
@@ -428,7 +429,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
                             
                             // Create directory
-                            path += directoryName + "/";
+                            path += Uri.encode(directoryName) + "/";
                             Thread thread = new Thread(new DirectoryCreator(path, a));
                             thread.start();
     

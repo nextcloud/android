@@ -18,7 +18,6 @@
 package eu.alefzero.owncloud;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -215,7 +214,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         EditText mDirname;
 
         public a(String path, EditText dirname) {
-            mPath = path;
+            mPath = path; 
             mDirname = dirname;
         }
 
@@ -239,6 +238,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // click on folder in the list
         Log.d(TAG, "on item click");
         Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
         if (tmpfiles == null) return;
@@ -255,11 +255,13 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     }
 
     public void onClick(View v) {
+        // click on button
         switch (v.getId()) {
         case R.id.uploader_choose_folder:
-            mUploadPath = "";
+            mUploadPath = "/";
             for (String p : mParents)
-                mUploadPath += URLEncoder.encode(p) + "/";
+                mUploadPath += p + "/";
+            mUploadPath = Uri.encode(mUploadPath, "/");
             Log.d(TAG, "Uploading file to dir " + mUploadPath);
 
             uploadFiles();
@@ -408,11 +410,11 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
                              data = c.getString(c.getColumnIndex(Media.DATA));
                 local[i] = data;
-                remote[i] = mUploadPath + display_name;
+                remote[i] = mUploadPath + Uri.encode(display_name);
             } else if (uri.getScheme().equals("file")) {
                 final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
                 local[i] = file.getAbsolutePath();
-                remote[i] = mUploadPath + file.getName();
+                remote[i] = mUploadPath + Uri.encode(file.getName());
             }
 
         }

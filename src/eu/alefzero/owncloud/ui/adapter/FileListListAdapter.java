@@ -17,7 +17,6 @@
  */
 package eu.alefzero.owncloud.ui.adapter;
 
-import java.net.URLDecoder;
 import java.util.Vector;
 
 import eu.alefzero.owncloud.DisplayUtils;

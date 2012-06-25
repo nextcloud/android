@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -71,19 +70,23 @@ public class WebdavClient extends HttpClient {
                 new EasySSLSocketFactory(), 443));
     }
 
-    public boolean downloadFile(String filepath, File targetPath) {
+    public boolean downloadFile(String remoteFilepath, File targetPath) {
         // HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ",
         // "%20"));
-        String[] splitted_filepath = filepath.split("/");
-        filepath = "";
+        /* dvelasco - this is not necessary anymore; OCFile.mRemotePath (the origin of remoteFielPath) keeps valid URL strings
+        String[] splitted_filepath = remoteFilepath.split("/");
+        remoteFilepath = "";
         for (String s : splitted_filepath) {
             if (s.equals("")) continue;
-            filepath += "/" + URLEncoder.encode(s);
+            remoteFilepath += "/" + URLEncoder.encode(s);
         }
 
-        Log.e("ASD", mUri.toString() + filepath.replace(" ", "%20") + "");
+        Log.e("ASD", mUri.toString() + remoteFilepath.replace(" ", "%20") + "");
         GetMethod get = new GetMethod(mUri.toString()
-                + filepath.replace(" ", "%20"));
+                + remoteFilepath.replace(" ", "%20"));
+        */
+        
+        GetMethod get = new GetMethod(mUri.toString() + remoteFilepath);
 
         // get.setHeader("Host", mUri.getHost());
         // get.setHeader("User-Agent", "Android-ownCloud");
@@ -155,8 +158,7 @@ public class WebdavClient extends HttpClient {
 
     public boolean createDirectory(String path) {
         try {
-            MkColMethod mkcol = new MkColMethod(mUri.toString() + "/" + path
-                    + "/");
+            MkColMethod mkcol = new MkColMethod(mUri.toString() + path);
             int status = executeMethod(mkcol);
             Log.d(TAG, "Status returned " + status);
             Log.d(TAG, "uri: " + mkcol.getURI().toString());
