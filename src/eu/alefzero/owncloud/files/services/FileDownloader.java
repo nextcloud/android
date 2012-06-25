@@ -35,6 +35,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
+    public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_FILE_SIZE = "FILE_SIZE";
     private static final String TAG = "FileDownloader";
 
@@ -43,6 +44,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private ServiceHandler mServiceHandler;
     private Account mAccount;
     private String mFilePath;
+    private String mRemotePath;
     private int mLastPercent;
     private long mTotalDownloadSize;
     private long mCurrentDownlodSize;
@@ -85,6 +87,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
         mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
         mFilePath = intent.getStringExtra(EXTRA_FILE_PATH);
+        mRemotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
@@ -141,7 +144,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
         Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
         Log.e(TAG, mFilePath+"");
-        if (wdc.downloadFile(mFilePath, file)) {
+        if (wdc.downloadFile(mRemotePath, file)) {
             ContentValues cv = new ContentValues();
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
             getContentResolver().update(

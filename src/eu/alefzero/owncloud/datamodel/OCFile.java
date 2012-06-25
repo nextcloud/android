@@ -19,7 +19,10 @@
 package eu.alefzero.owncloud.datamodel;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -52,10 +55,19 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * Create new {@link OCFile} with given path
      * 
      * @param path The remote path of the file
+     * @throws MalformedURLException 
      */
     public OCFile(String path) {
         resetData();
         mNeedsUpdating = false;
+        // dvelasco: let's make mandatory that mRemotePath is a valid URL always; this will make our life easier with the URL-encoding/decoding
+        if (path != null && path.length() > 0) {
+            try {
+                new URL("http://silly.test.com:8888" + path);
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path , e);
+            }
+        } else throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path);
         mRemotePath = path;
     }
 
@@ -92,6 +104,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public String getRemotePath() {
         return mRemotePath;
+    }
+
+    /**
+     * Returns the remote path of the file on ownCloud
+     * 
+     * @return The remote path to the file
+     */
+    public String getURLDecodedRemotePath() {
+        return Uri.decode(mRemotePath);
     }
 
     /**
@@ -182,11 +203,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return The name of the file
      */
     public String getFileName() {
-        if (mRemotePath != null) {
-            File f = new File(mRemotePath);
-            return f.getName().equals("") ? "/" : f.getName();
-        }
-        return null;
+        File f = new File(getURLDecodedRemotePath());
+        return f.getName().length() == 0 ? "/" : f.getName();
     }
 
     /**
@@ -324,13 +342,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     @Override
     public int compareTo(OCFile another) {
         if (isDirectory() && another.isDirectory()) {
-            return getFileName().toLowerCase().compareTo(another.getFileName().toLowerCase());
+            return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
         } else if (isDirectory()) {
             return -1;
         } else if (another.isDirectory()) {
             return 1;
         }
-        return getFileName().toLowerCase().compareTo(another.getFileName().toLowerCase());
+        return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
     }
 
     public boolean equals(Object o) {

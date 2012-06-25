@@ -288,9 +288,9 @@ public class FileDataStorageManager implements DataStorageManager {
                 file.setStoragePath(c.getString(c
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
-                    // try to find exisiting file and bind it with current account
+                    // try to find existing file and bind it with current account
                     File sdCard = Environment.getExternalStorageDirectory();
-                    File f = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + file.getRemotePath());
+                    File f = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + file.getURLDecodedRemotePath());
                     if (f.exists())
                         file.setStoragePath(f.getAbsolutePath());
                 }

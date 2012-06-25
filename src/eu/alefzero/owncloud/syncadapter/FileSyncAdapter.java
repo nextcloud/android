@@ -19,7 +19,6 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -140,7 +139,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
 
     private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(URLDecoder.decode(we.path()));
+        OCFile file = new OCFile(we.path());
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
