@@ -106,7 +106,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
         // TODO: fix hack: workaround for bug in actionbar sherlock
         // it always shows indeterminate progress bar
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             setProgressBarIndeterminateVisibility(false);
         }
