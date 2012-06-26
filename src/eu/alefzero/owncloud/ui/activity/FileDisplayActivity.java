@@ -106,7 +106,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
         // TODO: fix hack: workaround for bug in actionbar sherlock
         // it always shows indeterminate progress bar
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
             requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             setProgressBarIndeterminateVisibility(false);
         }
@@ -417,14 +417,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             // Figure out the path where the dir needs to be created
                             String path;
                             if (mCurrentDir == null) {
+                                // this is just a patch; we should ensure that mCurrentDir never is null
                                 if (!mStorageManager.fileExists("/")) {
                                     OCFile file = new OCFile("/");
                                     mStorageManager.saveFile(file);
-                                    mCurrentDir = mStorageManager.getFileByPath("/");
-                                } else {
-                                    Log.wtf("FileDisplay", "OMG NO!");
-                                    return;
                                 }
+                                mCurrentDir = mStorageManager.getFileByPath("/");
                             }
                             path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
                             

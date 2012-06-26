@@ -60,7 +60,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     public OCFile(String path) {
         resetData();
         mNeedsUpdating = false;
-        // dvelasco: let's make mandatory that mRemotePath is a valid URL always; this will make our life easier with the URL-encoding/decoding
+        /// dvelasco: the encoding / decoding problem should be completely translated to WebdavClient & WebdavEntry, but at this moment we are in a little hurry
         if (path != null && path.length() > 0) {
             try {
                 new URL("http://silly.test.com:8888" + path);
@@ -68,7 +68,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
                 throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path , e);
             }
         } else throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path);
-        mRemotePath = path;
+        // save encoded paths have a problem: normalization; this is a quick&dirty fix to avoid duplications
+        mRemotePath = Uri.encode(Uri.decode(path), "/");
     }
 
     /**
