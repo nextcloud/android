@@ -85,7 +85,6 @@ public class WebdavClient extends HttpClient {
         GetMethod get = new GetMethod(mUri.toString()
                 + remoteFilepath.replace(" ", "%20"));
         */
-        
         GetMethod get = new GetMethod(mUri.toString() + remoteFilepath);
 
         // get.setHeader("Host", mUri.getHost());
