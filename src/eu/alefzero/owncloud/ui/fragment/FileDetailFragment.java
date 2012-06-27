@@ -203,9 +203,13 @@ public class FileDetailFragment extends SherlockFragment implements
                     if (mFile.getMimetype().startsWith("image/")) {
                         BitmapFactory.Options options = new Options();
                         options.inScaled = true;
-                        options.inMutable = false;
-                        options.inPreferQualityOverSpeed = false;
                         options.inPurgeable = true;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                            options.inPreferQualityOverSpeed = false;
+                        }
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                            options.inMutable = false;
+                        }
 
                         Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
 
@@ -224,6 +228,14 @@ public class FileDetailFragment extends SherlockFragment implements
                 } catch (OutOfMemoryError e) {
                     preview.setVisibility(View.INVISIBLE);
                     Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
+                    
+                } catch (NoSuchFieldError e) {
+                    preview.setVisibility(View.INVISIBLE);
+                    Log.e(TAG, "Error from access to unexisting field despite protection " + mFile.getFileLength());
+                    
+                } catch (Throwable t) {
+                    preview.setVisibility(View.INVISIBLE);
+                    Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength());
                 }
                 downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {

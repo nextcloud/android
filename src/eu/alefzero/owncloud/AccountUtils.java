@@ -68,6 +68,21 @@ public class AccountUtils {
         return defaultAccount;
     }
 
+    
+
+    /**
+     * Checks, whether or not there are any ownCloud accounts setup.
+     * 
+     * @return true, if there is at least one account.
+     */
+    public static boolean accountsAreSetup(Context context) {
+        AccountManager accMan = AccountManager.get(context);
+        Account[] accounts = accMan
+                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+        return accounts.length > 0;
+    }
+    
+    
     public static void setCurrentOwnCloudAccount(Context context, String name) {
         SharedPreferences.Editor appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(context).edit();

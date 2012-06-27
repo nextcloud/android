@@ -50,36 +50,40 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
  */
 public class FileListFragment extends FragmentListView {
     private static final String TAG = "FileListFragment";
-    //private Account mAccount;         // dvelasco : the fragment is not recreated when other account is selected; keep as an attribute is dangerous
+    
     private Vector<OCFile> mFiles;    
-    //private DataStorageManager mStorageManager;   // dvelasco : just the same; it depends upon the current account ; it's updated in FileDisplayActivity!!
     private OCFile mFile;
-    private boolean mIsLargeDevice = false; 
+    private boolean mIsLargeDevice; 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
 
         Intent intent = getActivity().getIntent();
         OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         mFile = directory;
+        mIsLargeDevice = false; 
         
+        Log.i(getClass().toString(), "onCreate() stop");
     }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Log.i(getClass().toString(), "onCreateView() start");
         super.onCreateView(inflater, container, savedInstanceState);
         getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         getListView().setDividerHeight(1);
         
-        //listDirectory(mFile);
-        
+        Log.i(getClass().toString(), "onCreateView() end");
         return getListView();
     }    
 
     @Override
     public void onStart() {
+        Log.i(getClass().toString(), "onStart() start");
+        super.onStart();
         // Create a placeholder upon launch
         View fragmentContainer = getActivity().findViewById(R.id.file_details_container);
         if (fragmentContainer != null) {
@@ -88,7 +92,7 @@ public class FileListFragment extends FragmentListView {
             transaction.replace(R.id.file_details_container, new FileDetailFragment(true));
             transaction.commit();
         }
-        super.onStart();
+        Log.i(getClass().toString(), "onStart() end");
     }
 
     @Override
@@ -210,12 +214,6 @@ public class FileListFragment extends FragmentListView {
             Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
         }
         setListAdapter(new FileListListAdapter(directory, storageManager, getActivity()));
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable("ACCOUNT", AccountUtils.getCurrentOwnCloudAccount(getActivity()));
     }
 
 }
