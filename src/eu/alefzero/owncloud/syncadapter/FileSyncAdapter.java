@@ -34,6 +34,7 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.WebdavEntry;
@@ -142,7 +143,16 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         OCFile file = new OCFile(we.path());
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
+        
+        // dvelasco; looks like server is not sending very precise mimeTypes; mp3 file results un application/oct
+        String filename = file.getFileName();
+        String mimeType = MimeTypeMap.getSingleton()
+                .getMimeTypeFromExtension(filename.substring(filename.lastIndexOf('.') + 1));
+        if (mimeType == null)
+            file.setMimetype(we.contentType());
+        else
+            file.setMimetype(mimeType);
+        
         file.setModificationTimestamp(we.modifiedTimesamp());
         file.setLastSyncDate(mCurrentSyncTime);
         return file;

@@ -22,6 +22,7 @@ import java.util.List;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ActionBar.LayoutParams;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -243,10 +244,11 @@ public class FileDetailFragment extends SherlockFragment implements
                     public void onClick(View v) {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mFile.getMimetype());
-                        List list = getActivity().getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
-                        if (list.size() > 0) {
+                        i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        try {
                             startActivity(i);
-                        } else {
+                            
+                        } catch (ActivityNotFoundException e) {
                             Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
                         }
                     }

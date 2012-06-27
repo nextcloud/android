@@ -48,7 +48,7 @@ public class FileDetailActivity extends SherlockFragmentActivity {
         
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         mFileDetail = new FileDetailFragment();
-        ft.add(R.id.fragment, mFileDetail, "FileDetails");
+        ft.replace(R.id.fragment, mFileDetail, "FileDetails");
         ft.commit();
 
     }
