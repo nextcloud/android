@@ -52,6 +52,10 @@ public class WebdavEntry {
             prop = propSet.get(DavPropertyName.GETCONTENTTYPE);
             if (prop != null) {
                 mContentType = (String) prop.getValue();
+                // dvelasco: some builds of ownCloud server 4.0.x added a trailing ';' to the MIME type ; if looks fixed, but let's be cautious
+                if (mContentType.indexOf(";") >= 0) {
+                    mContentType = mContentType.substring(0, mContentType.indexOf(";"));
+                }
             } else {
                 mContentType = "DIR";
                 /*

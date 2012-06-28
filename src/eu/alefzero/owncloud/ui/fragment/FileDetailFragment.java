@@ -39,6 +39,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -236,20 +237,48 @@ public class FileDetailFragment extends SherlockFragment implements
                     
                 } catch (Throwable t) {
                     preview.setVisibility(View.INVISIBLE);
-                    Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength());
+                    Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength(), t);
                 }
                 downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mFile.getMimetype());
-                        i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        String storagePath = mFile.getStoragePath();
                         try {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setDataAndType(Uri.parse("file://"+ storagePath), mFile.getMimetype());
+                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                             startActivity(i);
                             
-                        } catch (ActivityNotFoundException e) {
-                            Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                        } catch (Throwable t) {
+                            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+                            boolean toastIt = true; 
+                            String mimeType = "";
+                            try {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                                if (mimeType != mFile.getMimetype()) {
+                                    i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mimeType);
+                                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                    startActivity(i);
+                                    toastIt = false;
+                                }
+                                
+                            } catch (IndexOutOfBoundsException e) {
+                                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                                
+                            } catch (ActivityNotFoundException e) {
+                                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                                
+                            } catch (Throwable th) {
+                                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                                
+                            } finally {
+                                if (toastIt) {
+                                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            
                         }
                     }
                 });

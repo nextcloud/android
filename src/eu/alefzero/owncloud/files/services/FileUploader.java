@@ -167,10 +167,18 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         Log.d(TAG, "Will upload " + mTotalDataToSend + " bytes, with " + mLocalPaths.length + " files");
         
         for (int i = 0; i < mLocalPaths.length; ++i) {
-            String mimeType = MimeTypeMap.getSingleton()
-                    .getMimeTypeFromExtension(
-                            mLocalPaths[i].substring(mLocalPaths[i]
+            
+            String mimeType;
+            try {
+                mimeType = MimeTypeMap.getSingleton()
+                        .getMimeTypeFromExtension(
+                                mLocalPaths[i].substring(mLocalPaths[i]
                                     .lastIndexOf('.') + 1));
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mLocalPaths[i]);
+                mimeType = "application/octet-stream";
+            }
+            
             mResult = false;
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {

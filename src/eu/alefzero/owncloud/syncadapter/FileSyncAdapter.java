@@ -143,16 +143,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         OCFile file = new OCFile(we.path());
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
-        
-        // dvelasco; looks like server is not sending very precise mimeTypes; mp3 file results un application/oct
-        String filename = file.getFileName();
-        String mimeType = MimeTypeMap.getSingleton()
-                .getMimeTypeFromExtension(filename.substring(filename.lastIndexOf('.') + 1));
-        if (mimeType == null)
-            file.setMimetype(we.contentType());
-        else
-            file.setMimetype(mimeType);
-        
+        file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
         file.setLastSyncDate(mCurrentSyncTime);
         return file;
