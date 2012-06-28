@@ -1,6 +1,7 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
+import java.util.List;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
@@ -9,7 +10,6 @@ import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
-import eu.alefzero.webdav.OnUploadProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -32,6 +32,9 @@ import android.widget.Toast;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
+    public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
+    public static final String EXTRA_PARENT_DIR_ID = "PARENT_DIR_ID";
+    
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_ACCOUNT = "ACCOUNT";
@@ -190,12 +193,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 new_file.setLastSyncDate(0);
                 new_file.setStoragePath(mLocalPaths[i]);         
                 File f = new File(mRemotePaths[i]);
-                new_file.setParentId(storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId());
+                long parentDirId = storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId();
+                new_file.setParentId(parentDirId);
                 storageManager.saveFile(new_file);
+                
+                Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
+                end.putExtra(EXTRA_PARENT_DIR_ID, parentDirId);
+                sendBroadcast(end);
             }
+            
         }
-        // notification.contentView.setProgressBar(R.id.status_progress,
-        // mLocalPaths.length-1, mLocalPaths.length-1, false);
         mNotificationManager.cancel(42);
         run();
     }
