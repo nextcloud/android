@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -61,6 +62,7 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
@@ -82,7 +84,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private String[] mDirs = null;
 
     private DataStorageManager mStorageManager;
-    private SyncBroadcastReceiver syncBroadcastReceiver;
+    private SyncBroadcastReceiver mSyncBroadcastReceiver;
+    private UploadFinishReceiver mUploadFinishReceiver;
     
     private View mLayoutView = null;
     private FileListFragment mFileList;
@@ -300,8 +303,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
             // Listen for sync messages
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
-            syncBroadcastReceiver = new SyncBroadcastReceiver();
-            registerReceiver(syncBroadcastReceiver, syncIntentFilter);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            
+            // Listen for upload messages
+            IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+            mUploadFinishReceiver = new UploadFinishReceiver();
+            registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
         
             // Storage manager initialization
             mStorageManager = new FileDataStorageManager(
@@ -374,9 +382,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     protected void onPause() {
         Log.i(getClass().toString(), "onPause() start");
         super.onPause();
-        if (syncBroadcastReceiver != null) {
-            unregisterReceiver(syncBroadcastReceiver);
-            syncBroadcastReceiver = null;
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+            mSyncBroadcastReceiver = null;
+        }
+        if (mUploadFinishReceiver != null) {
+            unregisterReceiver(mUploadFinishReceiver);
+            mUploadFinishReceiver = null;
         }
         getIntent().putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         Log.i(getClass().toString(), "onPause() end");
@@ -611,7 +623,33 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
 
     }
+    
 
+    private class UploadFinishReceiver extends BroadcastReceiver {
+        /**
+         * Once the file upload has finished -> update view
+         *  @author David A. Velasco
+         * {@link BroadcastReceiver} to enable upload feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long parentDirId = intent.getLongExtra(FileUploader.EXTRA_PARENT_DIR_ID, -1);
+            OCFile parentDir = mStorageManager.getFileById(parentDirId);
+            
+            if (parentDir != null && (
+                    (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
+                     parentDir.equals(mCurrentDir))
+                ) {
+                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                if (fileListFragment != null) { 
+                    fileListFragment.listDirectory();
+                }
+            }
+        }
+        
+    }
+
+    
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.setup_account) {
