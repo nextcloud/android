@@ -50,11 +50,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private AccountManager mAccountManager;
     private Account mAccount;
     private String[] mLocalPaths, mRemotePaths;
-    private boolean mResult;
     private int mUploadType;
     private Notification mNotification;
     private int mTotalDataToSend, mSendData;
     private int mCurrentIndexUpload, mPreviousPercent;
+    private int mSuccessCounter;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -122,12 +122,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     public void run() {
-        if (mResult) {
-            Toast.makeText(this, "Upload successfull", Toast.LENGTH_SHORT)
-                    .show();
+        String message;
+        if (mSuccessCounter == mLocalPaths.length) {
+            message = getString(R.string.uploader_upload_succeed); 
         } else {
+            message = getString(R.string.uploader_upload_failed); 
+            if (mLocalPaths.length > 1)
+                message += " (" + mSuccessCounter + " / " + mLocalPaths.length + getString(R.string.uploader_files_uploaded_suffix) + ")";
             Toast.makeText(this, "Upload could not be completed", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     public void uploadFile() {
@@ -169,6 +173,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         Log.d(TAG, "Will upload " + mTotalDataToSend + " bytes, with " + mLocalPaths.length + " files");
         
+        mSuccessCounter = 0;
+        
         for (int i = 0; i < mLocalPaths.length; ++i) {
             
             String mimeType;
@@ -182,10 +188,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 mimeType = "application/octet-stream";
             }
             
-            mResult = false;
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
-                mResult |= true;
+                mSuccessCounter++;
                 OCFile new_file = new OCFile(mRemotePaths[i]);
                 new_file.setMimetype(mimeType);
                 new_file.setFileLength(new File(mLocalPaths[i]).length());

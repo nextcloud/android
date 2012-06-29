@@ -68,6 +68,7 @@
     <string name="uploader_info_dirname">Directory name</string>
     <string name="uploader_upload_succeed">Uploading completed successfully</string>
     <string name="uploader_upload_failed">Upload failed: </string>
+    <string name="uploader_files_uploaded_suffix"> files uploaded</string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_string_contacts">Contacts</string>
     <string name="use_ssl">Use Secure Connection</string>
