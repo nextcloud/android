@@ -19,6 +19,9 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -64,13 +67,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setContentProvider(provider);
         this.setStorageManager(new FileDataStorageManager(account,
                 getContentProvider()));
-
+        
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
-        i.putExtra(FileSyncService.IN_PROGRESS, true);
-        i.putExtra(FileSyncService.ACCOUNT_NAME, account.name);
-        getContext().sendStickyBroadcast(i);
+        sendStickyBroadcast(true, -1);  // starting message to the main IU
 
         PropFindMethod query;
         try {
@@ -99,8 +99,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             syncResult.stats.numIoExceptions++;
             e.printStackTrace();
         }
-        i.putExtra(FileSyncService.IN_PROGRESS, false);
-        getContext().sendStickyBroadcast(i);
+        sendStickyBroadcast(false, -1);        
     }
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
@@ -109,6 +108,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             getClient().executeMethod(query);
             MultiStatus resp = null;
             resp = query.getResponseBodyAsMultiStatus();
+            List<String> paths = new ArrayList<String>();
+            List<Long> fileIds = new ArrayList<Long>(); 
             for (int i = 1; i < resp.getResponses().length; ++i) {
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
@@ -116,15 +117,31 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 getStorageManager().saveFile(file);
                 if (parentId == 0)
                     parentId = file.getFileId();
-                if (we.contentType().equals("DIR"))
-                    fetchData(getUri().toString() + we.path(), syncResult, file.getFileId());
+                if (we.contentType().equals("DIR")) {
+                    // for recursive fetch later
+                    paths.add(we.path());
+                    fileIds.add(file.getFileId());
+                }
             }
+            
             Vector<OCFile> files = getStorageManager().getDirectoryContent(
                     getStorageManager().getFileById(parentId));
             for (OCFile file : files) {
                 if (file.getLastSyncDate() != mCurrentSyncTime && file.getLastSyncDate() != 0)
                     getStorageManager().removeFile(file);
             }
+            
+            // synched folder -> notice to main thread
+            sendStickyBroadcast(true, parentId);
+
+            // recursive fetch
+            Iterator<String> pathsIt = paths.iterator();
+            Iterator<Long> fileIdsIt = fileIds.iterator();
+            while (pathsIt.hasNext()) {
+                fetchData(getUri().toString() + pathsIt.next(), syncResult, fileIdsIt.next());
+            }
+
+
         } catch (OperationCanceledException e) {
             e.printStackTrace();
         } catch (AuthenticatorException e) {
@@ -147,6 +164,17 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         file.setModificationTimestamp(we.modifiedTimesamp());
         file.setLastSyncDate(mCurrentSyncTime);
         return file;
+    }
+    
+    
+    private void sendStickyBroadcast(boolean inProgress, long OCDirId) {
+        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
+        i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
+        i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
+        if (OCDirId > 0) {
+            i.putExtra(FileSyncService.SYNC_FOLDER, OCDirId);
+        }
+        getContext().sendStickyBroadcast(i);
     }
 
 }

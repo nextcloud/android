@@ -147,6 +147,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             case R.id.startSync: {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+                bundle.putString("PROBANDO", "PARAMETRO PASADO AL SYNC");
                 ContentResolver.requestSync(
                         AccountUtils.getCurrentOwnCloudAccount(this),
                         "org.owncloud", bundle);
@@ -614,6 +615,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             Log.d("FileDisplay", "sync of account " + account_name
                     + " is in_progress: " + inProgress);
             setSupportProgressBarIndeterminateVisibility(inProgress);
+            
+            long OCDirId = intent.getLongExtra(FileSyncService.SYNC_FOLDER, -1);
+            if (OCDirId > 0) {
+                OCFile syncDir = mStorageManager.getFileById(OCDirId);
+                if (syncDir != null && (
+                        (mCurrentDir == null && syncDir.getFileName().equals("/")) ||
+                         syncDir.equals(mCurrentDir))
+                    ) {
+                    FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                    if (fileListFragment != null) { 
+                        fileListFragment.listDirectory();
+                    }
+                }
+            }
+            
             if (!inProgress) {
                 FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fileList);

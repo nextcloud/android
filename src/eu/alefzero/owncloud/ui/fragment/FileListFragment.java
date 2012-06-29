@@ -210,9 +210,9 @@ public class FileListFragment extends FragmentListView {
         mFile = directory;
         
         mFiles = storageManager.getDirectoryContent(directory);
-        if (mFiles == null || mFiles.size() == 0) {
+        /*if (mFiles == null || mFiles.size() == 0) {
             Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
-        }
+        }*/
         setListAdapter(new FileListListAdapter(directory, storageManager, getActivity()));
     }
 
