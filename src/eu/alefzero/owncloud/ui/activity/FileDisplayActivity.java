@@ -18,10 +18,7 @@
 
 package eu.alefzero.owncloud.ui.activity;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
-import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
 
 import android.accounts.Account;
@@ -37,20 +34,18 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -67,6 +62,7 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.files.services.FileUploader;
 import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
@@ -81,16 +77,18 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-        OnNavigationListener, OnClickListener, android.view.View.OnClickListener {
+        OnNavigationListener, OnClickListener, android.view.View.OnClickListener  {
+    
     private ArrayAdapter<String> mDirectories;
-    private DataStorageManager mStorageManager;
-    private FileListFragment mFileList;
     private OCFile mCurrentDir;
     private String[] mDirs = null;
 
-    private SyncBroadcastReceiver syncBroadcastRevceiver;
+    private DataStorageManager mStorageManager;
+    private SyncBroadcastReceiver mSyncBroadcastReceiver;
+    private UploadFinishReceiver mUploadFinishReceiver;
     
     private View mLayoutView = null;
+    private FileListFragment mFileList;
     
     private static final String KEY_DIR_ARRAY = "DIR_ARRAY";
     private static final String KEY_CURRENT_DIR = "DIR";
@@ -98,39 +96,37 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
     private static final int DIALOG_ABOUT_APP = 2;
+    
     private static final int ACTION_SELECT_FILE = 1;
+    //private static final int ACTION_CREATE_FIRST_ACCOUNT = 2; dvelasco: WIP
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
 
-        // TODO: fix hack: workaround for bug in actionbar sherlock
-        // it always shows indeterminate progress bar
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-            setProgressBarIndeterminateVisibility(false);
-        }
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setSupportProgressBarIndeterminateVisibility(false);
 
         Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
         if(savedInstanceState != null){
-            mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);
+            mCurrentDir = (OCFile) savedInstanceState.getParcelable(KEY_CURRENT_DIR);   // this is never saved with this key :S
         }
         
-        if (findViewById(R.id.file_list_view) == null) 
-            mLayoutView = getLayoutInflater().inflate(R.layout.files, null);  // always inflate this at onCreate() ; just once!
+        mLayoutView = getLayoutInflater().inflate(R.layout.files, null);  // always inflate this at onCreate() ; just once!
         
-        //TODO: Dialog useless -> get rid of this
-        if (!accountsAreSetup()) {
+        if (AccountUtils.accountsAreSetup(this)) {
+            setContentView(mLayoutView);    
+            
+        } else  {
             setContentView(R.layout.no_account_available);
             setProgressBarIndeterminateVisibility(false);
             getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
             findViewById(R.id.setup_account).setOnClickListener(this);
-            
-        } else if (findViewById(R.id.file_list_view) == null) {
-            setContentView(mLayoutView);
         }
         
+        Log.i(getClass().toString(), "onCreate() end");
     }
 
     @Override
@@ -151,6 +147,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             case R.id.startSync: {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+                bundle.putString("PROBANDO", "PARAMETRO PASADO AL SYNC");
                 ContentResolver.requestSync(
                         AccountUtils.getCurrentOwnCloudAccount(this),
                         "org.owncloud", bundle);
@@ -199,8 +196,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      * Called, when the user selected something for uploading
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == ACTION_SELECT_FILE) {
+        if (requestCode == ACTION_SELECT_FILE) {
+            if (resultCode == RESULT_OK) {
                 Uri selectedImageUri = data.getData();
     
                 String filemanagerstring = selectedImageUri.getPath();
@@ -234,7 +231,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                 startService(i);
             }
-        }
+            
+        }/* dvelasco: WIP - not working as expected ... yet :)
+             else if (requestCode == ACTION_CREATE_FIRST_ACCOUNT) {
+            if (resultCode != RESULT_OK) {
+                finish();   // the user cancelled the AuthenticatorActivity
+            }
+        }*/
     }
 
     @Override
@@ -255,6 +258,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.i(getClass().toString(), "onRestoreInstanceState() start");
         super.onRestoreInstanceState(savedInstanceState);
         mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
@@ -263,10 +267,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             for (String s : mDirs)
                 mDirectories.insert(s, 0);
         mCurrentDir = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
+        Log.i(getClass().toString(), "onRestoreInstanceState() end");
     }
     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Log.i(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         if(mDirectories != null && mDirectories.getCount() != 0){
             mDirs = new String[mDirectories.getCount()-1];
@@ -276,20 +282,35 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
         outState.putStringArray(KEY_DIR_ARRAY, mDirs);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
+        Log.i(getClass().toString(), "onSaveInstanceState() end");
     }
 
     @Override
     protected void onResume() {
+        Log.i(getClass().toString(), "onResume() start");
         super.onResume();
 
-        if (accountsAreSetup()) {
+        if (!AccountUtils.accountsAreSetup(this)) {
+            /*Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+            intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+            //startActivity(intent);
+            startActivityForResult(intent, ACTION_CREATE_FIRST_ACCOUNT);*/
+            
+        } else {    // at least an account exist: normal operation
 
-            setContentView(mLayoutView);    // this should solve the crash by repeated inflating in big screens (DROIDCLOUD-27)
+            // set the layout only if it couldn't be set in onCreate
+            if (findViewById(R.id.file_list_view) == null)
+                setContentView(mLayoutView);
 
             // Listen for sync messages
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
-            syncBroadcastRevceiver = new SyncBroadcastReceiver();
-            registerReceiver(syncBroadcastRevceiver, syncIntentFilter);
+            mSyncBroadcastReceiver = new SyncBroadcastReceiver();
+            registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+            
+            // Listen for upload messages
+            IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+            mUploadFinishReceiver = new UploadFinishReceiver();
+            registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
         
             // Storage manager initialization
             mStorageManager = new FileDataStorageManager(
@@ -355,16 +376,23 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             // List dir here
             mFileList.listDirectory(mCurrentDir);
         }
+        Log.i(getClass().toString(), "onResume() end");
     }
 
     @Override
     protected void onPause() {
+        Log.i(getClass().toString(), "onPause() start");
         super.onPause();
-        if (syncBroadcastRevceiver != null) {
-            unregisterReceiver(syncBroadcastRevceiver);
-            syncBroadcastRevceiver = null;
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+            mSyncBroadcastReceiver = null;
+        }
+        if (mUploadFinishReceiver != null) {
+            unregisterReceiver(mUploadFinishReceiver);
+            mUploadFinishReceiver = null;
         }
         getIntent().putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
+        Log.i(getClass().toString(), "onPause() end");
     }
 
     @Override
@@ -520,18 +548,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return !mDirectories.isEmpty();
     }
 
-    /**
-     * Checks, whether or not there are any ownCloud accounts setup.
-     * 
-     * @return true, if there is at least one account.
-     */
-    private boolean accountsAreSetup() {
-        AccountManager accMan = AccountManager.get(this);
-        Account[] accounts = accMan
-                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
-        return accounts.length > 0;
-    }
-
     private class DirectoryCreator implements Runnable {
         private String mTargetPath;
         private Account mAccount;
@@ -598,17 +614,58 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     .getStringExtra(FileSyncService.ACCOUNT_NAME);
             Log.d("FileDisplay", "sync of account " + account_name
                     + " is in_progress: " + inProgress);
-            setProgressBarIndeterminateVisibility(inProgress);
+            setSupportProgressBarIndeterminateVisibility(inProgress);
+            
+            long OCDirId = intent.getLongExtra(FileSyncService.SYNC_FOLDER, -1);
+            if (OCDirId > 0) {
+                OCFile syncDir = mStorageManager.getFileById(OCDirId);
+                if (syncDir != null && (
+                        (mCurrentDir == null && syncDir.getFileName().equals("/")) ||
+                         syncDir.equals(mCurrentDir))
+                    ) {
+                    FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                    if (fileListFragment != null) { 
+                        fileListFragment.listDirectory();
+                    }
+                }
+            }
+            
             if (!inProgress) {
-                FileListFragment fileListFramgent = (FileListFragment) getSupportFragmentManager()
+                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
                         .findFragmentById(R.id.fileList);
-                if (fileListFramgent != null)
-                    fileListFramgent.listDirectory();
+                if (fileListFragment != null)
+                    fileListFragment.listDirectory();
             }
         }
 
     }
+    
 
+    private class UploadFinishReceiver extends BroadcastReceiver {
+        /**
+         * Once the file upload has finished -> update view
+         *  @author David A. Velasco
+         * {@link BroadcastReceiver} to enable upload feedback in UI
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long parentDirId = intent.getLongExtra(FileUploader.EXTRA_PARENT_DIR_ID, -1);
+            OCFile parentDir = mStorageManager.getFileById(parentDirId);
+            
+            if (parentDir != null && (
+                    (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
+                     parentDir.equals(mCurrentDir))
+                ) {
+                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                if (fileListFragment != null) { 
+                    fileListFragment.listDirectory();
+                }
+            }
+        }
+        
+    }
+
+    
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.setup_account) {

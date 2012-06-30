@@ -1,6 +1,7 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
+import java.util.List;
 
 import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
@@ -9,7 +10,6 @@ import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
-import eu.alefzero.webdav.OnUploadProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -32,6 +32,9 @@ import android.widget.Toast;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
+    public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
+    public static final String EXTRA_PARENT_DIR_ID = "PARENT_DIR_ID";
+    
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_ACCOUNT = "ACCOUNT";
@@ -47,11 +50,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private AccountManager mAccountManager;
     private Account mAccount;
     private String[] mLocalPaths, mRemotePaths;
-    private boolean mResult;
     private int mUploadType;
     private Notification mNotification;
     private int mTotalDataToSend, mSendData;
     private int mCurrentIndexUpload, mPreviousPercent;
+    private int mSuccessCounter;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -119,12 +122,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     public void run() {
-        if (mResult) {
-            Toast.makeText(this, "Upload successfull", Toast.LENGTH_SHORT)
-                    .show();
+        String message;
+        if (mSuccessCounter == mLocalPaths.length) {
+            message = getString(R.string.uploader_upload_succeed); 
         } else {
+            message = getString(R.string.uploader_upload_failed); 
+            if (mLocalPaths.length > 1)
+                message += " (" + mSuccessCounter + " / " + mLocalPaths.length + getString(R.string.uploader_files_uploaded_suffix) + ")";
             Toast.makeText(this, "Upload could not be completed", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     public void uploadFile() {
@@ -166,15 +173,24 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         Log.d(TAG, "Will upload " + mTotalDataToSend + " bytes, with " + mLocalPaths.length + " files");
         
+        mSuccessCounter = 0;
+        
         for (int i = 0; i < mLocalPaths.length; ++i) {
-            String mimeType = MimeTypeMap.getSingleton()
-                    .getMimeTypeFromExtension(
-                            mLocalPaths[i].substring(mLocalPaths[i]
+            
+            String mimeType;
+            try {
+                mimeType = MimeTypeMap.getSingleton()
+                        .getMimeTypeFromExtension(
+                                mLocalPaths[i].substring(mLocalPaths[i]
                                     .lastIndexOf('.') + 1));
-            mResult = false;
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mLocalPaths[i]);
+                mimeType = "application/octet-stream";
+            }
+            
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
-                mResult |= true;
+                mSuccessCounter++;
                 OCFile new_file = new OCFile(mRemotePaths[i]);
                 new_file.setMimetype(mimeType);
                 new_file.setFileLength(new File(mLocalPaths[i]).length());
@@ -182,12 +198,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 new_file.setLastSyncDate(0);
                 new_file.setStoragePath(mLocalPaths[i]);         
                 File f = new File(mRemotePaths[i]);
-                new_file.setParentId(storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId());
+                long parentDirId = storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId();
+                new_file.setParentId(parentDirId);
                 storageManager.saveFile(new_file);
+                
+                Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
+                end.putExtra(EXTRA_PARENT_DIR_ID, parentDirId);
+                sendBroadcast(end);
             }
+            
         }
-        // notification.contentView.setProgressBar(R.id.status_progress,
-        // mLocalPaths.length-1, mLocalPaths.length-1, false);
         mNotificationManager.cancel(42);
         run();
     }

@@ -22,6 +22,7 @@ import java.util.List;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ActionBar.LayoutParams;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -203,9 +205,13 @@ public class FileDetailFragment extends SherlockFragment implements
                     if (mFile.getMimetype().startsWith("image/")) {
                         BitmapFactory.Options options = new Options();
                         options.inScaled = true;
-                        options.inMutable = false;
-                        options.inPreferQualityOverSpeed = false;
                         options.inPurgeable = true;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                            options.inPreferQualityOverSpeed = false;
+                        }
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                            options.inMutable = false;
+                        }
 
                         Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
 
@@ -224,18 +230,55 @@ public class FileDetailFragment extends SherlockFragment implements
                 } catch (OutOfMemoryError e) {
                     preview.setVisibility(View.INVISIBLE);
                     Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
+                    
+                } catch (NoSuchFieldError e) {
+                    preview.setVisibility(View.INVISIBLE);
+                    Log.e(TAG, "Error from access to unexisting field despite protection " + mFile.getFileLength());
+                    
+                } catch (Throwable t) {
+                    preview.setVisibility(View.INVISIBLE);
+                    Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength(), t);
                 }
                 downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mFile.getMimetype());
-                        List list = getActivity().getPackageManager().queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY);
-                        if (list.size() > 0) {
+                        String storagePath = mFile.getStoragePath();
+                        try {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setDataAndType(Uri.parse("file://"+ storagePath), mFile.getMimetype());
+                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                             startActivity(i);
-                        } else {
-                            Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                            
+                        } catch (Throwable t) {
+                            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+                            boolean toastIt = true; 
+                            String mimeType = "";
+                            try {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                                if (mimeType != mFile.getMimetype()) {
+                                    i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mimeType);
+                                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                    startActivity(i);
+                                    toastIt = false;
+                                }
+                                
+                            } catch (IndexOutOfBoundsException e) {
+                                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                                
+                            } catch (ActivityNotFoundException e) {
+                                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                                
+                            } catch (Throwable th) {
+                                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                                
+                            } finally {
+                                if (toastIt) {
+                                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            
                         }
                     }
                 });
@@ -306,7 +349,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * the time that the file was created. There is a chance that this will
      * be fixed in future versions. Use this method to check if this version of
      * ownCloud has this fix.
-     * @return True, if ownCloud the ownCloud version is > 3.0.4 and 4.0.1
+     * @return True, if ownCloud the ownCloud version is > 3.0.4 and 4.0.4
      */
     private boolean ocVersionSupportsTimeCreated(){
         if(mIntent != null){
@@ -315,7 +358,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
                 OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
                         .getUserData(ocAccount, AccountAuthenticator.KEY_OC_VERSION));
-                if(ocVersion.compareTo(new OwnCloudVersion(0x030004)) >= 0 || ocVersion.compareTo(new OwnCloudVersion(0x040001)) >= 0){
+                if(ocVersion.compareTo(new OwnCloudVersion(0x030004)) >= 0 || ocVersion.compareTo(new OwnCloudVersion(0x040004)) >= 0){
                     return true;
                 }
             }

@@ -111,9 +111,16 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
                         Intent upload_intent = new Intent(context, InstantUploadService.class);
                         Account account = new Account(account_name, AccountAuthenticator.ACCOUNT_TYPE);
                         
-                        String mimeType = MimeTypeMap.getSingleton()
-                                .getMimeTypeFromExtension(
-                                        f.getName().substring(f.getName().lastIndexOf('.') + 1));
+                        String mimeType;
+                        try {
+                            mimeType = MimeTypeMap.getSingleton()
+                                    .getMimeTypeFromExtension(
+                                            f.getName().substring(f.getName().lastIndexOf('.') + 1));
+                        
+                        } catch (IndexOutOfBoundsException e) {
+                            Log.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
+                            mimeType = "application/octet-stream";
+                        }
                         
                         upload_intent.putExtra(InstantUploadService.KEY_ACCOUNT, account);
                         upload_intent.putExtra(InstantUploadService.KEY_FILE_PATH, file_path);
