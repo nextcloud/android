@@ -373,8 +373,13 @@ public class FileDetailFragment extends SherlockFragment implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            ((OCFile)mIntent.getParcelableExtra(EXTRA_FILE)).setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-            updateFileDetails(mIntent);
+            if (intent.getAction().equals(FileDownloader.BAD_DOWNLOAD_MESSAGE)) {
+                Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
+                
+            } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+                ((OCFile)mIntent.getParcelableExtra(EXTRA_FILE)).setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+                updateFileDetails(mIntent);
+            }
         }
         
     }
