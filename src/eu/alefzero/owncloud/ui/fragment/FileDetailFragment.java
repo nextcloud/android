@@ -345,11 +345,11 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     /**
-     * In ownCloud 3.0.3 and 4.0.0 there is a bug that SabreDAV does not return
+     * In ownCloud 3.X.X and 4.X.X there is a bug that SabreDAV does not return
      * the time that the file was created. There is a chance that this will
      * be fixed in future versions. Use this method to check if this version of
      * ownCloud has this fix.
-     * @return True, if ownCloud the ownCloud version is > 3.0.4 and 4.0.4
+     * @return True, if ownCloud the ownCloud version is supporting creationg time
      */
     private boolean ocVersionSupportsTimeCreated(){
         if(mIntent != null){
@@ -358,7 +358,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
                 OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
                         .getUserData(ocAccount, AccountAuthenticator.KEY_OC_VERSION));
-                if(ocVersion.compareTo(new OwnCloudVersion(0x030004)) >= 0 || ocVersion.compareTo(new OwnCloudVersion(0x040004)) >= 0){
+                if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
                     return true;
                 }
             }
