@@ -353,7 +353,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * @return True, if ownCloud the ownCloud version is supporting creationg time
      */
     private boolean ocVersionSupportsTimeCreated(){
-        if(mIntent != null){
+       /* if(mIntent != null){
             Account ocAccount = mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
             if(ocAccount != null){
                 AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
@@ -363,7 +363,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     return true;
                 }
             }
-        }
+        }*/
         return false;
     }
 
