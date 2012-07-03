@@ -25,7 +25,6 @@ import java.util.HashMap;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -38,17 +37,16 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
-import eu.alefzero.owncloud.AccountUtils;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
-import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import eu.alefzero.owncloud.AccountUtils;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 public class WebdavClient extends HttpClient {
     private Uri mUri;
@@ -152,8 +150,8 @@ public class WebdavClient extends HttpClient {
         DavMethod delete = new DeleteMethod(mUri.toString() + remoteFilePath);
         try {
             executeMethod(delete);
-        }  catch (IOException e) {
-            Log.e(TAG, "Logging failed with error: " + e.getMessage(), e);
+        }  catch (Throwable e) {
+            Log.e(TAG, "Deleting failed with error: " + e.getMessage(), e);
             return false;
         }
         return true;
