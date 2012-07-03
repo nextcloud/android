@@ -59,31 +59,26 @@ public class WebdavClient extends HttpClient {
     private static HashMap<String, WebdavClient> clients = new HashMap<String, WebdavClient>();
     
     /**
-     * Gets a WebdavClient setup for the current account
+     * Creates a WebdavClient setup for the current account
      * @param account The client accout
      * @param context The application context
      * @return
      */
-    public static synchronized WebdavClient getInstance(Account account, Context context){
-        WebdavClient instance = clients.get(account.name);
-        if(instance == null ){
-            OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
-                    AccountAuthenticator.KEY_OC_VERSION));
-            String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-            String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);
-            WebdavClient client = new WebdavClient();
-            
-            String username = account.name.substring(0, account.name.indexOf('@'));
-            String password = AccountManager.get(context).getPassword(account);
-            
-            client.mUri = Uri.parse(baseUrl + webDavPath);
-            client.getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
-            client.setCredentials(username, password);
-            client.allowSelfsignedCertificates();
-            clients.put(account.name, client);
-        }
-        return instance;
+    public WebdavClient (Account account, Context context){
+        OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
+                AccountAuthenticator.KEY_OC_VERSION));
+        String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
+        String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);        
+        String username = account.name.substring(0, account.name.indexOf('@'));
+        String password = AccountManager.get(context).getPassword(account);
+        
+        mUri = Uri.parse(baseUrl + webDavPath);
+        getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
+        setCredentials(username, password);
+        allowSelfsignedCertificates();
     }
+    
+    public WebdavClient(){}
 
     public void setCredentials(String username, String password) {
         getParams().setAuthenticationPreemptive(true);
@@ -200,12 +195,13 @@ public class WebdavClient extends HttpClient {
      * @param password Password to verify
      * @return A {@link HttpStatus}-Code of the result. SC_OK is good.
      */
-    public int tryToLogin(Uri uri, String username, String password) {
+    public static int tryToLogin(Uri uri, String username, String password) {
         int returnCode = 0;
-        setCredentials(username, password);
+        WebdavClient client = new WebdavClient();
+        client.setCredentials(username, password);
         HeadMethod head = new HeadMethod(uri.toString());
         try {
-            returnCode = executeMethod(head);
+            returnCode = client.executeMethod(head);
         } catch (Exception e) {
             Log.e(TAG, "Error: " + e.getMessage());
         }

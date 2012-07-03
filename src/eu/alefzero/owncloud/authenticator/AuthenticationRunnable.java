@@ -52,9 +52,7 @@ public class AuthenticationRunnable implements Runnable {
     public void run() {
         Uri uri;
         uri = Uri.parse(mUrl.toString());
-        WebdavClient client = new WebdavClient(uri);
-        client.setCredentials(mUsername, mPassword);
-        int login_result = client.tryToLogin();
+        int login_result = WebdavClient.tryToLogin(uri, mUsername, mPassword);
         switch (login_result) {
         case HttpStatus.SC_OK:
             postResult(true, uri.toString());

@@ -139,7 +139,7 @@ public class InstantUploadService extends Service {
                 String oc_version = am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
                 OwnCloudVersion ocv = new OwnCloudVersion(oc_version);
                 String webdav_path = AccountUtils.getWebdavPath(ocv);
-                WebdavClient wdc = new WebdavClient(Uri.parse(oc_base_url + webdav_path));
+                WebdavClient wdc = new WebdavClient(account, getApplicationContext());
                 wdc.allowSelfsignedCertificates();
                 wdc.setCredentials(username, password);
                 

@@ -1,16 +1,7 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
-import java.util.List;
 
-import eu.alefzero.owncloud.AccountUtils;
-import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
-import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
-import eu.alefzero.webdav.WebdavClient;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Notification;
@@ -18,7 +9,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -29,6 +19,11 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
+import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.webdav.WebdavClient;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
@@ -47,7 +42,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private NotificationManager mNotificationManager;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private AccountManager mAccountManager;
     private Account mAccount;
     private String[] mLocalPaths, mRemotePaths;
     private int mUploadType;
@@ -82,7 +76,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         thread.start();
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
-        mAccountManager = AccountManager.get(this);
     }
 
     @Override
@@ -134,15 +127,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     public void uploadFile() {
-        String baseUrl = mAccountManager.getUserData(mAccount,
-                AccountAuthenticator.KEY_OC_BASE_URL), ocVerStr = mAccountManager
-                .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION);
-        OwnCloudVersion ocVer = new OwnCloudVersion(ocVerStr);
-        String webdav_path = AccountUtils.getWebdavPath(ocVer);
-        Uri ocUri = Uri.parse(baseUrl + webdav_path);
-        String username = mAccount.name.substring(0,
-                mAccount.name.lastIndexOf('@'));
-        String password = mAccountManager.getPassword(mAccount);
         FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContentResolver());
         
         mTotalDataToSend = mSendData = mPreviousPercent = 0;
@@ -160,10 +144,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         mNotificationManager.notify(42, mNotification);
 
-        WebdavClient wc = new WebdavClient(ocUri);
-        wc.allowSelfsignedCertificates();
+        WebdavClient wc = new WebdavClient(mAccount, getApplicationContext());
         wc.setDataTransferProgressListener(this);
-        wc.setCredentials(username, password);
 
         for (int i = 0; i < mLocalPaths.length; ++i) {
             File f = new File(mLocalPaths[i]);

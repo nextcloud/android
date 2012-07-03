@@ -149,18 +149,11 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     protected WebdavClient getClient() throws OperationCanceledException,
             AuthenticatorException, IOException {
         if (mClient == null) {
-            String username = getAccount().name.split("@")[0];
-            String password = this.getAccountManager().blockingGetAuthToken(
-                    getAccount(), AccountAuthenticator.AUTH_TOKEN_TYPE, true);
             if (this.getAccountManager().getUserData(getAccount(),
                     AccountAuthenticator.KEY_OC_URL) == null) {
                 throw new UnknownHostException();
             }
-            Uri uri = getUri();
-
-            mClient = new WebdavClient(uri);
-            mClient.setCredentials(username, password);
-            mClient.allowSelfsignedCertificates();
+            mClient = new WebdavClient(account, getContext());
             // mHost = mClient.getTargetHost();
         }
 

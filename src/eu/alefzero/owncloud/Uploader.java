@@ -28,15 +28,15 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,21 +46,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.db.ProviderMeta;
-import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.services.FileUploader;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -74,7 +68,6 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
     private Account mAccount;
     private AccountManager mAccountManager;
-    private String mUsername, mPassword;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
@@ -298,8 +291,6 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     }
 
     private void populateDirectoryList() {
-        mUsername = mAccount.name.substring(0, mAccount.name.indexOf('@'));
-        mPassword = mAccountManager.getPassword(mAccount);
         setContentView(R.layout.uploader_layout);
 
         String full_path = "";
@@ -378,15 +369,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     }
 
     public void uploadFiles() {
-        OwnCloudVersion ocv = new OwnCloudVersion(mAccountManager.getUserData(mAccount,
-                AccountAuthenticator.KEY_OC_VERSION));
-        String base_url = mAccountManager.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
-        String webdav_path = AccountUtils.getWebdavPath(ocv);
-        Uri oc_uri = Uri.parse(base_url + webdav_path);
-
-        WebdavClient wdc = new WebdavClient(oc_uri);
-        wdc.setCredentials(mUsername, mPassword);
-        wdc.allowSelfsignedCertificates();
+        WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
 
         // create last directory in path if nessesary
         if (mCreateDir) {

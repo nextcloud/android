@@ -560,8 +560,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
         @Override
         public void run() {
-            WebdavClient wdc = new WebdavClient(Uri.parse(mAm.getUserData(
-                    mAccount, AccountAuthenticator.KEY_OC_URL)));
+            WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
     
             String username = mAccount.name.substring(0,
                     mAccount.name.lastIndexOf('@'));

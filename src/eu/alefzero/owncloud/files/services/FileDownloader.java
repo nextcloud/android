@@ -11,7 +11,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -21,14 +20,10 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
-import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.R.drawable;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
-import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
@@ -100,13 +95,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
     void downloadFile() {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        String oc_base_url = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
-        OwnCloudVersion ocv = new OwnCloudVersion(am
-                .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-        String webdav_path = AccountUtils.getWebdavPath(ocv);
-        Uri oc_url = Uri.parse(oc_base_url+webdav_path);
 
-        WebdavClient wdc = new WebdavClient(Uri.parse(oc_base_url + webdav_path));
+
+        WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
         
         String username = mAccount.name.split("@")[0];
         String password = "";
@@ -143,8 +134,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             e.printStackTrace();
         }
 
-        Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
-        Log.e(TAG, mFilePath+"");
         String message;
         if (wdc.downloadFile(mRemotePath, file)) {
             ContentValues cv = new ContentValues();
