@@ -193,15 +193,23 @@ public class WebdavClient extends HttpClient {
         return result;
     }
 
-    public int tryToLogin() {
-        int r = 0;
-        HeadMethod head = new HeadMethod(mUri.toString());
+    /**
+     * Tries to log in to the given WedDavURI, with the given credentials
+     * @param uri To test
+     * @param username Username to check
+     * @param password Password to verify
+     * @return A {@link HttpStatus}-Code of the result. SC_OK is good.
+     */
+    public int tryToLogin(Uri uri, String username, String password) {
+        int returnCode = 0;
+        setCredentials(username, password);
+        HeadMethod head = new HeadMethod(uri.toString());
         try {
-            r = executeMethod(head);
+            returnCode = executeMethod(head);
         } catch (Exception e) {
             Log.e(TAG, "Error: " + e.getMessage());
         }
-        return r;
+        return returnCode;
     }
 
     public boolean createDirectory(String path) {
