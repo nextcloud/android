@@ -21,9 +21,11 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -32,11 +34,19 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.client.methods.DavMethod;
+import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
+import eu.alefzero.owncloud.AccountUtils;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -46,10 +56,32 @@ public class WebdavClient extends HttpClient {
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
     private OnDatatransferProgressListener mDataTransferListener;
-
-    public WebdavClient(Uri uri) {
-        mUri = uri;
-        getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
+    private static HashMap<String, WebdavClient> clients = new HashMap<String, WebdavClient>();
+    
+    /**
+     * Gets a WebdavClient setup for the current account
+     * @param account The client accout
+     * @param context The application context
+     * @return
+     */
+    public static synchronized WebdavClient getInstance(Account account, Context context){
+        WebdavClient instance = clients.get(account.name);
+        if(instance == null ){
+            OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
+                    AccountAuthenticator.KEY_OC_VERSION));
+            String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
+            String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);
+            WebdavClient client = new WebdavClient();
+            
+            String username = account.name.substring(0, account.name.indexOf('@'));
+            String password = AccountManager.get(context).getPassword(account);
+            
+            client.mUri = Uri.parse(baseUrl + webDavPath);
+            client.getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
+            client.setCredentials(username, password);
+            clients.put(account.name, client);
+        }
+        return instance;
     }
 
     public void setCredentials(String username, String password) {
@@ -110,6 +142,22 @@ public class WebdavClient extends HttpClient {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Deletes a remote file via webdav
+     * @param remoteFilePath
+     * @return
+     */
+    public boolean deleteFile(String remoteFilePath){
+        DavMethod delete = new DeleteMethod(mUri.toString() + remoteFilePath);
+        try {
+            executeMethod(delete);
+        }  catch (IOException e) {
+            Log.e(TAG, "Logging failed with error: " + e.getMessage(), e);
             return false;
         }
         return true;
