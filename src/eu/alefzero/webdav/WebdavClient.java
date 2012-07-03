@@ -79,6 +79,7 @@ public class WebdavClient extends HttpClient {
             client.mUri = Uri.parse(baseUrl + webDavPath);
             client.getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
             client.setCredentials(username, password);
+            client.allowSelfsignedCertificates();
             clients.put(account.name, client);
         }
         return instance;
