@@ -147,7 +147,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             case R.id.startSync: {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                bundle.putString("PROBANDO", "PARAMETRO PASADO AL SYNC");
                 ContentResolver.requestSync(
                         AccountUtils.getCurrentOwnCloudAccount(this),
                         "org.owncloud", bundle);

@@ -33,6 +33,7 @@ import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
+    public static final String BAD_DOWNLOAD_MESSAGE = "BAD_DOWNLOAD";    
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
@@ -144,6 +145,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
         Log.e(TAG, file.getAbsolutePath() + " " + oc_url.toString());
         Log.e(TAG, mFilePath+"");
+        String message;
         if (wdc.downloadFile(mRemotePath, file)) {
             ContentValues cv = new ContentValues();
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
@@ -155,9 +157,13 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     new String[] {
                             mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
                             mAccount.name });            
+            message = DOWNLOAD_FINISH_MESSAGE;
+        } else {
+            message = BAD_DOWNLOAD_MESSAGE;
         }
+        
         mNotificationMngr.cancel(1);
-        Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+        Intent end = new Intent(message);
         end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
         sendBroadcast(end);
     }

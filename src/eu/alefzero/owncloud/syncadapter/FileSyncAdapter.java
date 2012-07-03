@@ -70,7 +70,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        sendStickyBroadcast(true, -1);  // starting message to the main IU
+        sendStickyBroadcast(true, -1);  // starting message to UI
 
         PropFindMethod query;
         try {
@@ -131,7 +131,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     getStorageManager().removeFile(file);
             }
             
-            // synched folder -> notice to main thread
+            // synched folder -> notice to IU
             sendStickyBroadcast(true, parentId);
 
             // recursive fetch

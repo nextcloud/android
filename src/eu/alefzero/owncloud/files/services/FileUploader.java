@@ -129,7 +129,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             message = getString(R.string.uploader_upload_failed); 
             if (mLocalPaths.length > 1)
                 message += " (" + mSuccessCounter + " / " + mLocalPaths.length + getString(R.string.uploader_files_uploaded_suffix) + ")";
-            Toast.makeText(this, "Upload could not be completed", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
