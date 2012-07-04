@@ -100,6 +100,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } catch (DavException e) {
             syncResult.stats.numIoExceptions++;
             e.printStackTrace();
+        } catch (Throwable t) {
+            //TODO count ; any type of exception should be treated, and the progress indicator finished;
+            //             reporting the user about bad synchronizations should be discussed
+            t.printStackTrace();
         }
         sendStickyBroadcast(false, -1);        
     }
