@@ -21,7 +21,9 @@ package eu.alefzero.owncloud.syncadapter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -70,7 +72,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        sendStickyBroadcast(true, -1);  // starting message to UI
+        sendStickyBroadcast(true, -1);  // message to signal the start to the UI
 
         PropFindMethod query;
         try {
@@ -108,8 +110,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             getClient().executeMethod(query);
             MultiStatus resp = null;
             resp = query.getResponseBodyAsMultiStatus();
-            List<String> paths = new ArrayList<String>();
-            List<Long> fileIds = new ArrayList<Long>(); 
+            Queue<String> paths = new LinkedList<String>();
+            Queue<Long> fileIds = new LinkedList<Long>(); 
             for (int i = 1; i < resp.getResponses().length; ++i) {
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
@@ -135,11 +137,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             sendStickyBroadcast(true, parentId);
 
             // recursive fetch
-            Iterator<String> pathsIt = paths.iterator();
-            Iterator<Long> fileIdsIt = fileIds.iterator();
-            while (pathsIt.hasNext()) {
-                fetchData(getUri().toString() + pathsIt.next(), syncResult, fileIdsIt.next());
+            while(!paths.isEmpty()) {
+                fetchData(getUri().toString() + paths.remove(), syncResult, fileIds.remove());
             }
+            paths = null;
+            fileIds = null;
 
 
         } catch (OperationCanceledException e) {
