@@ -17,21 +17,16 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
-import java.util.List;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.ActionBar.LayoutParams;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
-import android.graphics.Path.FillType;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,47 +59,79 @@ public class FileDetailFragment extends SherlockFragment implements
         OnClickListener {
 
     public static final String EXTRA_FILE = "FILE";
+    public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    private DownloadFinishReceiver mDownloadFinishReceiver;
-    private Intent mIntent;
     private int mLayout;
     private View mView;
     private OCFile mFile;
-    private static final String TAG = "FileDetailFragment";
+    private Account mAccount;
+    
+    private DownloadFinishReceiver mDownloadFinishReceiver;
 
-    /**
-     * Default constructor - contains real layout
-     */
-    public FileDetailFragment(){
-        mLayout = R.layout.file_details_fragment;
-    }
+    private static final String TAG = "FileDetailFragment";
+    public static final String FTAG = "FileDetails"; 
+
     
     /**
-     * Creates a dummy layout. For use if the user never has
-     * tapped on a file before
+     * Creates an empty details fragment.
      * 
-     * @param useEmptyView If true, use empty layout
+     * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
      */
-    public FileDetailFragment(boolean useEmptyView){
-        if(useEmptyView){
-            mLayout = R.layout.file_details_empty;
-        } else {
+    public FileDetailFragment() {
+        mFile = null;
+        mAccount = null;
+        mLayout = R.layout.file_details_empty;
+    }
+    
+    
+    /**
+     * Creates a details fragment.
+     * 
+     * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
+     * 
+     * @param fileToDetail      An {@link OCFile} to show in the fragment
+     * @param ocAccount         An ownCloud account; needed to start downloads
+     */
+    public FileDetailFragment(OCFile fileToDetail, Account ocAccount){
+        mFile = fileToDetail;
+        mAccount = ocAccount;
+        mLayout = R.layout.file_details_empty;
+        
+        if(fileToDetail != null && ocAccount != null) {
             mLayout = R.layout.file_details_fragment;
         }
     }
     
-    /**
-     * Use this when creating the fragment and display
-     * a file at the same time
-     * 
-     * @param showDetailsIntent The Intent with the required parameters
-     * @see FileDetailFragment#updateFileDetails(Intent)
-     */
-    public FileDetailFragment(Intent showDetailsIntent) {
-        mIntent = showDetailsIntent;
-        mLayout = R.layout.file_details_fragment;
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        
+        if (savedInstanceState != null) {
+            mFile = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
+            mAccount = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_ACCOUNT);
+        }
+        
+        View view = null;
+        view = inflater.inflate(mLayout, container, false);
+        mView = view;
+        
+        updateFileDetails();
+        return view;
+    }
+    
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.i(getClass().toString(), "onSaveInstanceState() start");
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(FileDetailFragment.EXTRA_FILE, mFile);
+        outState.putParcelable(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        Log.i(getClass().toString(), "onSaveInstanceState() end");
     }
 
+    
     @Override
     public void onResume() {
         super.onResume();
@@ -122,23 +149,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = null;
-        view = inflater.inflate(mLayout, container, false);
-        mView = view;
-        if(mLayout == R.layout.file_details_fragment){
-            // Phones will launch an activity with this intent
-            if(mIntent == null){
-                mIntent = getActivity().getIntent();
-            }
-            updateFileDetails();
-        }
-        
-        return view;
-    }
-
-    @Override
     public View getView() {
         return super.getView() == null ? mView : super.getView();
     }
@@ -147,8 +157,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onClick(View v) {
         Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
         Intent i = new Intent(getActivity(), FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_ACCOUNT,
-                mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT));
+        i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
         i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
         i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
@@ -167,27 +176,22 @@ public class FileDetailFragment extends SherlockFragment implements
     /**
      * Use this method to signal this Activity that it shall update its view.
      * 
-     * @param intent The {@link Intent} that contains extra information about
-     *            this file The intent needs to have these extras:
-     *            <p>
-     * 
-     *            {@link FileDetailFragment#EXTRA_FILE}: An {@link OCFile}
-     *            {@link FileDownloader#EXTRA_ACCOUNT}: The Account that file
-     *            belongs to (required for downloading)
+     * @param file : An {@link OCFile}
      */
-    public void updateFileDetails(Intent intent) {
-        mIntent = intent;
+    public void updateFileDetails(OCFile file, Account ocAccount) {
+        mFile = file;
+        mAccount = ocAccount;
         updateFileDetails();
     }
+    
 
     /**
      * Updates the view with all relevant details about that file.
      */
-    private void updateFileDetails() {
-        mFile = mIntent.getParcelableExtra(EXTRA_FILE);
-        Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+    public void updateFileDetails() {
 
-        if (mFile != null) {
+        if (mFile != null && mLayout == R.layout.file_details_fragment) {
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
             // set file details
             setFilename(mFile.getFileName());
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
@@ -350,18 +354,15 @@ public class FileDetailFragment extends SherlockFragment implements
      * the time that the file was created. There is a chance that this will
      * be fixed in future versions. Use this method to check if this version of
      * ownCloud has this fix.
-     * @return True, if ownCloud the ownCloud version is supporting creationg time
+     * @return True, if ownCloud the ownCloud version is supporting creation time
      */
     private boolean ocVersionSupportsTimeCreated(){
-       /* if(mIntent != null){
-            Account ocAccount = mIntent.getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
-            if(ocAccount != null){
-                AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
-                OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
-                        .getUserData(ocAccount, AccountAuthenticator.KEY_OC_VERSION));
-                if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
-                    return true;
-                }
+        /*if(mAccount != null){
+            AccountManager accManager = (AccountManager) getActivity().getSystemService(Context.ACCOUNT_SERVICE);
+            OwnCloudVersion ocVersion = new OwnCloudVersion(accManager
+                    .getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
+            if(ocVersion.compareTo(new OwnCloudVersion(0x030000)) < 0) {
+                return true;
             }
         }*/
         return false;
@@ -379,11 +380,12 @@ public class FileDetailFragment extends SherlockFragment implements
                 Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
                 
             } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
-                ((OCFile)mIntent.getParcelableExtra(EXTRA_FILE)).setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-                updateFileDetails(mIntent);
+                mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+                updateFileDetails();
             }
         }
         
     }
+    
 
 }

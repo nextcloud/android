@@ -19,27 +19,17 @@ package eu.alefzero.owncloud.ui.fragment;
 
 import java.util.Vector;
 
-import com.actionbarsherlock.app.ActionBar;
-
-import android.accounts.Account;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
-import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
-import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
-import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.ui.FragmentListView;
-import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
-import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
 
 /**
@@ -51,22 +41,25 @@ import eu.alefzero.owncloud.ui.adapter.FileListListAdapter;
 public class FileListFragment extends FragmentListView {
     private static final String TAG = "FileListFragment";
     
+    private FileListFragment.ContainerActivity mContainerActivity;
+    
     private Vector<OCFile> mFiles;    
-    private OCFile mFile;
-    private boolean mIsLargeDevice; 
+    private OCFile mFile = null;
 
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onCreate() start");
-        super.onCreate(savedInstanceState);
-
-        Intent intent = getActivity().getIntent();
-        OCFile directory = intent.getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-        mFile = directory;
-        mIsLargeDevice = false; 
-        
-        Log.i(getClass().toString(), "onCreate() stop");
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mContainerActivity = (ContainerActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FileListFragment.ContainerActivity");
+        }
     }
+    
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,21 +73,17 @@ public class FileListFragment extends FragmentListView {
         return getListView();
     }    
 
-    @Override
-    public void onStart() {
-        Log.i(getClass().toString(), "onStart() start");
-        super.onStart();
-        // Create a placeholder upon launch
-        View fragmentContainer = getActivity().findViewById(R.id.file_details_container);
-        if (fragmentContainer != null) {
-            mIsLargeDevice = true;
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.file_details_container, new FileDetailFragment(true));
-            transaction.commit();
-        }
-        Log.i(getClass().toString(), "onStart() end");
-    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        Log.i(getClass().toString(), "onActivityCreated() start");
+        
+        super.onCreate(savedInstanceState);
+        
+        Log.i(getClass().toString(), "onActivityCreated() stop");
+    }
+    
+    
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         if (mFiles.size() <= position) {
@@ -102,49 +91,18 @@ public class FileListFragment extends FragmentListView {
         }
         OCFile file = mFiles.get(position);
         
-        // Update ActionBarPath
+        /// Click on a directory
         if (file.getMimetype().equals("DIR")) {
+            // just local updates
             mFile = file;
-            ((FileDisplayActivity) getActivity()).pushDirname(file);
-            ActionBar actionBar = ((FileDisplayActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
             listDirectory(file);
-            resetFileFragment();
-            return;
+            // any other updates are let to the container Activity
+            mContainerActivity.onDirectoryClick(file);
+            
+        } else {    /// Click on a file
+            mContainerActivity.onFileClick(file);
         }
-
-        Intent showDetailsIntent = new Intent(getActivity(), FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(getActivity()));
-
-        // If we are on a large device -> update fragment
-        if (mIsLargeDevice) {
-            FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
-            if (fileDetails == null) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(showDetailsIntent), "FileDetails");
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                transaction.commit();
-            } else {
-                fileDetails.updateFileDetails(showDetailsIntent);
-            }
-        } else {
-            startActivity(showDetailsIntent);
-        }
-    }
-
-    /**
-     * Resets the FileDetailsFragment on Tablets so that it always displays
-     * "Tab on a file to display it's details"
-     */
-    private void resetFileFragment() {
-        FileDetailFragment fileDetails = (FileDetailFragment) getFragmentManager().findFragmentByTag("FileDetails");
-        if (fileDetails != null) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.remove(fileDetails);
-            transaction.add(R.id.file_details_container, new FileDetailFragment(true));
-            transaction.commit();
-        }
+        
     }
 
     /**
@@ -154,13 +112,11 @@ public class FileListFragment extends FragmentListView {
         OCFile parentDir = null;
         
         if(mFile != null){
-            DataStorageManager storageManager = ((FileDisplayActivity)getActivity()).getStorageManager();
+            DataStorageManager storageManager = mContainerActivity.getStorageManager();
             parentDir = storageManager.getFileById(mFile.getParentId());
             mFile = parentDir;
         }
-        
         listDirectory(parentDir);
-        resetFileFragment();
     }
 
     /**
@@ -188,7 +144,7 @@ public class FileListFragment extends FragmentListView {
      */
     public void listDirectory(OCFile directory) {
         
-        DataStorageManager storageManager = ((FileDisplayActivity)getActivity()).getStorageManager();
+        DataStorageManager storageManager = mContainerActivity.getStorageManager();
 
         // Check input parameters for null
         if(directory == null){
@@ -208,12 +164,42 @@ public class FileListFragment extends FragmentListView {
         }
 
         mFile = directory;
-        
         mFiles = storageManager.getDirectoryContent(directory);
+        
         /*if (mFiles == null || mFiles.size() == 0) {
             Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
         }*/
         setListAdapter(new FileListListAdapter(directory, storageManager, getActivity()));
+    }
+    
+    
+    
+    /**
+     * Interface to implement by any Activity that includes some instance of FileListFragment
+     * 
+     * @author David A. Velasco
+     */
+    public interface ContainerActivity {
+
+        /**
+         * Callback method invoked when a directory is clicked by the user on the files list
+         *  
+         * @param file
+         */
+        public void onDirectoryClick(OCFile file);
+        
+        /**
+         * Callback method invoked when a file (non directory) is clicked by the user on the files list
+         *  
+         * @param file
+         */
+        public void onFileClick(OCFile file);
+
+        /**
+         * Getter for the current DataStorageManager in the container activity
+         */
+        public DataStorageManager getStorageManager();
+        
     }
 
 }

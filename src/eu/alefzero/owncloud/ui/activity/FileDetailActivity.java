@@ -17,15 +17,20 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
 
 /**
@@ -36,21 +41,38 @@ import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
  * 
  */
 public class FileDetailActivity extends SherlockFragmentActivity {
-    private FileDetailFragment mFileDetail;
+    
+    private boolean mConfigurationChangedToLandscape = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.file_activity_details);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // check if configuration changed to large-land ; for a tablet being changed from portrait to landscape when in FileDetailActivity 
+        Configuration conf = getResources().getConfiguration();
+        mConfigurationChangedToLandscape = (conf.orientation == Configuration.ORIENTATION_LANDSCAPE && 
+                                                (conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                                           );
+
+        if (!mConfigurationChangedToLandscape) {
+            setContentView(R.layout.file_activity_details);
         
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mFileDetail = new FileDetailFragment();
-        ft.replace(R.id.fragment, mFileDetail, "FileDetails");
-        ft.commit();
-
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        
+            OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+            Account account = getIntent().getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
+            FileDetailFragment mFileDetail = new FileDetailFragment(file, account);
+        
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment, mFileDetail, FileDetailFragment.FTAG);
+            ft.commit();
+            
+        }  else {
+            backToDisplayActivity();   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
+        }
+        
+        
     }
 
     @Override
@@ -59,11 +81,7 @@ public class FileDetailActivity extends SherlockFragmentActivity {
         
         switch(item.getItemId()){
         case android.R.id.home:
-            Intent intent = new Intent(this, FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra(FileDetailFragment.EXTRA_FILE, mFileDetail.getDisplayedFile());
-            startActivity(intent);
-            finish();
+            backToDisplayActivity();
             returnValue = true;
         }
         
@@ -74,10 +92,21 @@ public class FileDetailActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onResume() {
+        
         super.onResume();
-        mFileDetail.updateFileDetails(getIntent());
+        if (!mConfigurationChangedToLandscape) { 
+            FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            fragment.updateFileDetails();
+        }
     }
     
-    
+
+    private void backToDisplayActivity() {
+        Intent intent = new Intent(this, FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(FileDetailFragment.EXTRA_FILE, getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE));
+        startActivity(intent);
+        finish();
+    }
 
 }
