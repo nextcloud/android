@@ -615,7 +615,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             setSupportProgressBarIndeterminateVisibility(inProgress);
             
             long OCDirId = intent.getLongExtra(FileSyncService.SYNC_FOLDER, -1);
-            if (OCDirId > 0) {
+            if (OCDirId >= 0) {
                 OCFile syncDir = mStorageManager.getFileById(OCDirId);
                 if (syncDir != null && (
                         (mCurrentDir == null && syncDir.getFileName().equals("/")) ||

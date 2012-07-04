@@ -206,7 +206,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             //getContentResolver().startSync(ProviderTableMeta.CONTENT_URI,
             //        bundle);
-            ContentResolver.requestSync(account, "org.ownlcoud", bundle);
+            ContentResolver.requestSync(account, "org.owncloud", bundle);
 
             /*
              * if
