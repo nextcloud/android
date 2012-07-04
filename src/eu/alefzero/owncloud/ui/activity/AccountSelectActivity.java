@@ -76,6 +76,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 .getText().toString();
         AccountUtils.setCurrentOwnCloudAccount(this, accountName);
         Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
     }
