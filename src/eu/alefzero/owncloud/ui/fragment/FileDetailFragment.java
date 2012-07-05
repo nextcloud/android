@@ -218,7 +218,6 @@ public class FileDetailFragment extends SherlockFragment implements
             if (mFile.getStoragePath() != null) {
                 // Update preview
                 ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
-                boolean previewIsSet = false;
                 try {
                     if (mFile.getMimetype().startsWith("image/")) {
                         BitmapFactory.Options options = new Options();
@@ -246,9 +245,7 @@ public class FileDetailFragment extends SherlockFragment implements
                             }
                         }
                         if (bmp != null) {
-                            //preview.setImageBitmap(bmp);
-                            preview.setImageDrawable(new BitmapDrawable(preview.getResources(), bmp));
-                            previewIsSet = true;
+                            preview.setImageBitmap(bmp);
                         }
                     }
                 } catch (OutOfMemoryError e) {
@@ -262,12 +259,8 @@ public class FileDetailFragment extends SherlockFragment implements
                 } catch (Throwable t) {
                     preview.setVisibility(View.INVISIBLE);
                     Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength(), t);
-                    
-                } finally {
-                    if (!previewIsSet) {
-                        resetPreview();
-                    }
                 }
+                
                 // Change download button to open button
                 downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
@@ -315,8 +308,6 @@ public class FileDetailFragment extends SherlockFragment implements
             } else {
                 // Make download button effective
                 downloadButton.setOnClickListener(this);
-                // Be sure that preview image is reset; the fragment is reused when possible, a preview of other file could be there
-                resetPreview();
             }
         }
     }
@@ -415,16 +406,4 @@ public class FileDetailFragment extends SherlockFragment implements
         
     }
     
-    
-    /**
-     * Make the preview image shows the ownCloud logo.
-     * 
-     * To be called when setting a preview image is not possible.
-     */
-    private void resetPreview() {
-        ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
-        preview.setImageDrawable(getResources().getDrawable(R.drawable.owncloud_logo));
-    }
-
-
 }
