@@ -97,21 +97,10 @@ public class WebdavClient extends HttpClient {
     }
 
     public boolean downloadFile(String remoteFilepath, File targetPath) {
-        // HttpGet get = new HttpGet(mUri.toString() + filepath.replace(" ",
-        // "%20"));
-        /* dvelasco - this is not necessary anymore; OCFile.mRemotePath (the origin of remoteFielPath) keeps valid URL strings
-        String[] splitted_filepath = remoteFilepath.split("/");
-        remoteFilepath = "";
-        for (String s : splitted_filepath) {
-            if (s.equals("")) continue;
-            remoteFilepath += "/" + URLEncoder.encode(s);
-        }
-
-        Log.e("ASD", mUri.toString() + remoteFilepath.replace(" ", "%20") + "");
-        GetMethod get = new GetMethod(mUri.toString()
-                + remoteFilepath.replace(" ", "%20"));
-        */
         GetMethod get = new GetMethod(mUri.toString() + remoteFilepath);
+        HttpMethodParams params = get.getParams();
+        params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
+        get.setParams(params);
 
         // get.setHeader("Host", mUri.getHost());
         // get.setHeader("User-Agent", "Android-ownCloud");
@@ -172,6 +161,9 @@ public class WebdavClient extends HttpClient {
             entity.setOnDatatransferProgressListener(mDataTransferListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
             PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
+            HttpMethodParams params = put.getParams();
+            params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
+            put.setParams(params);
             put.setRequestEntity(entity);
             Log.d(TAG, "" + put.getURI().toString());
             int status = executeMethod(put);

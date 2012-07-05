@@ -148,6 +148,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                             mAccount.name });            
             message = DOWNLOAD_FINISH_MESSAGE;
         } else {
+            file.delete();
             message = BAD_DOWNLOAD_MESSAGE;
         }
         
