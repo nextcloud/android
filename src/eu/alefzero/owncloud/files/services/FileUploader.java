@@ -158,7 +158,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         for (int i = 0; i < mLocalPaths.length; ++i) {
             
-            String mimeType;
+            String mimeType = null;
             try {
                 mimeType = MimeTypeMap.getSingleton()
                         .getMimeTypeFromExtension(
@@ -166,8 +166,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                                     .lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
                 Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mLocalPaths[i]);
-                mimeType = "application/octet-stream";
             }
+            if (mimeType == null)
+                mimeType = "application/octet-stream";
             
             mCurrentIndexUpload = i;
             if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {

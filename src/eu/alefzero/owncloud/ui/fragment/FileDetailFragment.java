@@ -280,7 +280,7 @@ public class FileDetailFragment extends SherlockFragment implements
                             try {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                                if (mimeType != mFile.getMimetype()) {
+                                if (mimeType != null && !mimeType.equals(mFile.getMimetype())) {
                                     i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mimeType);
                                     i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                     startActivity(i);
