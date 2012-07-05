@@ -27,6 +27,8 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,10 +46,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -165,6 +165,17 @@ public class FileDetailFragment extends SherlockFragment implements
         getActivity().startService(i);
     }
 
+
+    /**
+     * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
+     * 
+     * @return  True when the fragment was created with the empty layout.
+     */
+    public boolean isEmpty() {
+        return mLayout == R.layout.file_details_empty;
+    }
+
+    
     /**
      * Can be used to get the file that is currently being displayed.
      * @return The file on the screen.
@@ -190,7 +201,8 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     public void updateFileDetails() {
 
-        if (mFile != null && mLayout == R.layout.file_details_fragment) {
+        if (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment) {
+            
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
             // set file details
             setFilename(mFile.getFileName());
@@ -203,9 +215,10 @@ public class FileDetailFragment extends SherlockFragment implements
            
             setTimeModified(mFile.getModificationTimestamp());
             
-            // Update preview
             if (mFile.getStoragePath() != null) {
+                // Update preview
                 ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
+                boolean previewIsSet = false;
                 try {
                     if (mFile.getMimetype().startsWith("image/")) {
                         BitmapFactory.Options options = new Options();
@@ -220,17 +233,23 @@ public class FileDetailFragment extends SherlockFragment implements
 
                         Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
 
-                        int width = options.outWidth;
-                        int height = options.outHeight;
-                        int scale = 1;
-                        if (width >= 2048 || height >= 2048) {
-                            scale = (int) (Math.ceil(Math.max(height, width)/2048.));
-                            options.inSampleSize = scale;
-                            bmp.recycle();
+                        if (bmp != null) {
+                            int width = options.outWidth;
+                            int height = options.outHeight;
+                            int scale = 1;
+                            if (width >= 2048 || height >= 2048) {
+                                scale = (int) (Math.ceil(Math.max(height, width)/2048.));
+                                options.inSampleSize = scale;
+                                bmp.recycle();
 
-                            bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+                                bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+                            }
                         }
-                        preview.setImageBitmap(bmp);
+                        if (bmp != null) {
+                            //preview.setImageBitmap(bmp);
+                            preview.setImageDrawable(new BitmapDrawable(preview.getResources(), bmp));
+                            previewIsSet = true;
+                        }
                     }
                 } catch (OutOfMemoryError e) {
                     preview.setVisibility(View.INVISIBLE);
@@ -243,7 +262,13 @@ public class FileDetailFragment extends SherlockFragment implements
                 } catch (Throwable t) {
                     preview.setVisibility(View.INVISIBLE);
                     Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength(), t);
+                    
+                } finally {
+                    if (!previewIsSet) {
+                        resetPreview();
+                    }
                 }
+                // Change download button to open button
                 downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
                     @Override
@@ -290,9 +315,12 @@ public class FileDetailFragment extends SherlockFragment implements
             } else {
                 // Make download button effective
                 downloadButton.setOnClickListener(this);
+                // Be sure that preview image is reset; the fragment is reused when possible, a preview of other file could be there
+                resetPreview();
             }
         }
     }
+    
     
     /**
      * Updates the filename in view
@@ -387,5 +415,16 @@ public class FileDetailFragment extends SherlockFragment implements
         
     }
     
+    
+    /**
+     * Make the preview image shows the ownCloud logo.
+     * 
+     * To be called when setting a preview image is not possible.
+     */
+    private void resetPreview() {
+        ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
+        preview.setImageDrawable(getResources().getDrawable(R.drawable.owncloud_logo));
+    }
+
 
 }

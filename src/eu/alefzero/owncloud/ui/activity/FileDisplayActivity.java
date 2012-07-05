@@ -719,17 +719,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         // If we are on a large device -> update fragment
         if (mDualPane) {
-            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileDetails == null) {
-                // first selected file since the current directory was listed
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                transaction.commit();
-            } else {
-                // another select file
-                fileDetails.updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
-            }   
+            // buttons in the details view a are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.commit();
             
         } else {    // small or medium screen device -> new Activity
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
