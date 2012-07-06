@@ -160,6 +160,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             case R.id.startSync: {
+                // This could be interesting
+                //ContentResolver.cancelSync(null, "org.owncloud");   // cancel the current synchronizations of any other ownCloud account
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
                 ContentResolver.requestSync(
@@ -614,29 +616,25 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             Log.d("FileDisplay", "sync of account " + account_name
                     + " is in_progress: " + inProgress);
 
-            //if (account_name.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  // TODO - probably this check should be added, but won't push it until really tests are done; no time now
+            if (account_name.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
             
-                /// try to refresh the view with every message received from the FileSyncAdapter; brute, but more user friendly when there are a lot of files in the server
-                OCFile currentDir;
+                String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
+                        
                 if (mCurrentDir == null)
-                    currentDir = mStorageManager.getFileByPath("/");
-                else
-                    currentDir = mStorageManager.getFileByPath(mCurrentDir.getRemotePath());
-                
-                if (currentDir != null) {
-                    mCurrentDir = currentDir;
+                    mCurrentDir = mStorageManager.getFileByPath("/");
+
+                if (synchFolderRemotePath != null && mCurrentDir != null && mCurrentDir.getRemotePath().equals(synchFolderRemotePath) ) {
                     FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
+                    mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
                     if (fileListFragment != null) {
-                        if (!mCurrentDir.equals(fileListFragment.getCurrentFile())) {
-                            fileListFragment.listDirectory(mCurrentDir);    // only set the directory in the fragment first time
-                        } else
-                            fileListFragment.listDirectory();   // enough to show new files in the current directory if they are added after 
+                        fileListFragment.listDirectory(mCurrentDir);  
                     }
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
-            //}
+                
+            }
         }
     }
     

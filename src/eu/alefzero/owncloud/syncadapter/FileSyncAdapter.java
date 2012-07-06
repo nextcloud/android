@@ -19,11 +19,6 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -39,7 +34,6 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.webdav.WebdavEntry;
@@ -72,7 +66,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        sendStickyBroadcast(true, -1);  // message to signal the start to the UI
+        sendStickyBroadcast(true, null);  // message to signal the start to the UI
 
         PropFindMethod query;
         try {
@@ -87,7 +81,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 OCFile file = fillOCFile(we);
                 file.setParentId(0);
                 getStorageManager().saveFile(file);
-                fetchData(getUri().toString(), syncResult, file.getFileId());
+                fetchData(getUri().toString(), syncResult, file.getFileId(), account);
             }
         } catch (OperationCanceledException e) {
             e.printStackTrace();
@@ -100,34 +94,27 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } catch (DavException e) {
             syncResult.stats.numIoExceptions++;
             e.printStackTrace();
-        } catch (RuntimeException r) {
-            //TODO count ; any type of exception should be treated, and the progress indicator finished;
-            //             reporting the user about bad synchronizations should be discussed
-            r.printStackTrace();
-            throw r;
+        } catch (Throwable t) {
+            // TODO update syncResult
+            Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
+            t.printStackTrace();
         }
-        sendStickyBroadcast(false, -1);        
+        sendStickyBroadcast(false, null);        
     }
 
-    private void fetchData(String uri, SyncResult syncResult, long parentId) {
+    private void fetchData(String uri, SyncResult syncResult, long parentId, Account account) {
         try {
             Log.v(TAG, "syncing: fetching " + uri);
             
-            boolean logmore = (uri.contains("many-files"));
-
             // remote request 
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO REQUEST");
             PropFindMethod query = new PropFindMethod(uri);
             getClient().executeMethod(query);
             MultiStatus resp = null;
             
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO PREPARE THE RESPONSE");
             resp = query.getResponseBodyAsMultiStatus();
             
             // insertion of updated files
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO PARSE REPONSES");
             for (int i = 1; i < resp.getResponses().length; ++i) {
-                if (logmore) Log.v(TAG, "syncing: fetching many-files, PARSING REPONSE " + i + "-esima");
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
                 file.setParentId(parentId);
@@ -137,26 +124,26 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
             
             // removal of old files
-            // TODO - getDirectoryContent is crashing the app by lack of memory when a lot of files are in the same directory!!!!
-            //        tested with the path /
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, RETRIEVING VECTOR OF FILES");
             Vector<OCFile> files = getStorageManager().getDirectoryContent(
                     getStorageManager().getFileById(parentId));
-            for (OCFile file : files) {
-                if (file.getLastSyncDate() != mCurrentSyncTime && file.getLastSyncDate() != 0)
+            OCFile file;
+            for (int i=0; i < files.size(); ) {
+                file = files.get(i);
+                if (file.getLastSyncDate() != mCurrentSyncTime && file.getLastSyncDate() != 0) {
                     getStorageManager().removeFile(file);
+                    files.remove(i);
+                } else {
+                    i++;
+                }
             }
             
-            // synched folder -> notice to IU
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, NOTIFYING THE UI");
-            sendStickyBroadcast(true, parentId);
+            // synchronized folder -> notice to UI
+            sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
 
             // recursive fetch
-            if (logmore) Log.v(TAG, "syncing: fetching many-files, TRYING TO RECURSE");
-            files = getStorageManager().getDirectoryContent(getStorageManager().getFileById(parentId));
-            for (OCFile file : files) {
-                if (file.getMimetype().equals("DIR")) {
-                    fetchData(getUri().toString() + file.getRemotePath(), syncResult, file.getFileId());
+            for (OCFile newFile : files) {
+                if (newFile.getMimetype().equals("DIR")) {
+                    fetchData(getUri().toString() + newFile.getRemotePath(), syncResult, newFile.getFileId(), account);
                 }
             }
 
@@ -172,6 +159,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } catch (DavException e) {
             syncResult.stats.numIoExceptions++;
             e.printStackTrace();
+        } catch (Throwable t) {
+            // TODO update syncResult
+            Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
+            t.printStackTrace();
         }
     }
 
@@ -186,12 +177,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
     
     
-    private void sendStickyBroadcast(boolean inProgress, long OCDirId) {
+    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath) {
         Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
         i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
         i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
-        if (OCDirId > 0) {
-            i.putExtra(FileSyncService.SYNC_FOLDER, OCDirId);
+        if (dirRemotePath != null) {
+            i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
         }
         getContext().sendStickyBroadcast(i);
     }

@@ -29,9 +29,9 @@ import android.os.IBinder;
  */
 public class FileSyncService extends Service {
     public static final String SYNC_MESSAGE = "eu.alefzero.owncloud.files.ACCOUNT_SYNC";
+    public static final String SYNC_FOLDER_REMOTE_PATH = "eu.alefzero.owncloud.files.SYNC_FOLDER_REMOTE_PATH";
     public static final String IN_PROGRESS = "sync_in_progress";
     public static final String ACCOUNT_NAME = "account_name";
-    public static final String SYNC_FOLDER = "eu.alefzero.owncloud.files.SYNC_FOLDER";
 
     /*
      * {@inheritDoc}
