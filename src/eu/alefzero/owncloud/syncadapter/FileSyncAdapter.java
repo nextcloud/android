@@ -100,36 +100,46 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } catch (DavException e) {
             syncResult.stats.numIoExceptions++;
             e.printStackTrace();
-        } catch (Throwable t) {
+        } catch (RuntimeException r) {
             //TODO count ; any type of exception should be treated, and the progress indicator finished;
             //             reporting the user about bad synchronizations should be discussed
-            t.printStackTrace();
+            r.printStackTrace();
+            throw r;
         }
         sendStickyBroadcast(false, -1);        
     }
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
         try {
+            Log.v(TAG, "syncing: fetching " + uri);
+            
+            boolean logmore = (uri.contains("many-files"));
+
+            // remote request 
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO REQUEST");
             PropFindMethod query = new PropFindMethod(uri);
             getClient().executeMethod(query);
             MultiStatus resp = null;
+            
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO PREPARE THE RESPONSE");
             resp = query.getResponseBodyAsMultiStatus();
-            Queue<String> paths = new LinkedList<String>();
-            Queue<Long> fileIds = new LinkedList<Long>(); 
+            
+            // insertion of updated files
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, TO PARSE REPONSES");
             for (int i = 1; i < resp.getResponses().length; ++i) {
+                if (logmore) Log.v(TAG, "syncing: fetching many-files, PARSING REPONSE " + i + "-esima");
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
                 file.setParentId(parentId);
                 getStorageManager().saveFile(file);
                 if (parentId == 0)
                     parentId = file.getFileId();
-                if (we.contentType().equals("DIR")) {
-                    // for recursive fetch later
-                    paths.add(we.path());
-                    fileIds.add(file.getFileId());
-                }
             }
             
+            // removal of old files
+            // TODO - getDirectoryContent is crashing the app by lack of memory when a lot of files are in the same directory!!!!
+            //        tested with the path /
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, RETRIEVING VECTOR OF FILES");
             Vector<OCFile> files = getStorageManager().getDirectoryContent(
                     getStorageManager().getFileById(parentId));
             for (OCFile file : files) {
@@ -138,14 +148,17 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
             
             // synched folder -> notice to IU
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, NOTIFYING THE UI");
             sendStickyBroadcast(true, parentId);
 
             // recursive fetch
-            while(!paths.isEmpty()) {
-                fetchData(getUri().toString() + paths.remove(), syncResult, fileIds.remove());
+            if (logmore) Log.v(TAG, "syncing: fetching many-files, TRYING TO RECURSE");
+            files = getStorageManager().getDirectoryContent(getStorageManager().getFileById(parentId));
+            for (OCFile file : files) {
+                if (file.getMimetype().equals("DIR")) {
+                    fetchData(getUri().toString() + file.getRemotePath(), syncResult, file.getFileId());
+                }
             }
-            paths = null;
-            fileIds = null;
 
 
         } catch (OperationCanceledException e) {
