@@ -21,10 +21,12 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpConnectionManager;
+import org.apache.commons.httpclient.HttpVersion;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -33,6 +35,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.HttpStatus;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
@@ -54,7 +57,16 @@ public class WebdavClient extends HttpClient {
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
     private OnDatatransferProgressListener mDataTransferListener;
-    private static HashMap<String, WebdavClient> clients = new HashMap<String, WebdavClient>();
+    static private MultiThreadedHttpConnectionManager mConnManager = null;
+    
+    static public MultiThreadedHttpConnectionManager getMultiThreadedConnManager() {
+        if (mConnManager == null) {
+            mConnManager = new MultiThreadedHttpConnectionManager();
+            mConnManager.setMaxConnectionsPerHost(5);
+            mConnManager.setMaxTotalConnections(5);
+        }
+        return mConnManager;
+    }
     
     /**
      * Creates a WebdavClient setup for the current account
@@ -62,7 +74,7 @@ public class WebdavClient extends HttpClient {
      * @param context The application context
      * @return
      */
-    public WebdavClient (Account account, Context context){
+    public WebdavClient (Account account, Context context) {
         OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
                 AccountAuthenticator.KEY_OC_VERSION));
         String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
@@ -71,15 +83,20 @@ public class WebdavClient extends HttpClient {
         String password = AccountManager.get(context).getPassword(account);
         
         mUri = Uri.parse(baseUrl + webDavPath);
-        getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
+
         setCredentials(username, password);
-        allowSelfsignedCertificates();
     }
     
-    public WebdavClient(){}
+    public WebdavClient() {
+        super(getMultiThreadedConnManager());
+        
+        getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
+        getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+        allowSelfsignedCertificates();
+    }
 
     public void setCredentials(String username, String password) {
-        getParams().setAuthenticationPreemptive(true);
+        //getParams().setAuthenticationPreemptive(true);
         getState().setCredentials(AuthScope.ANY,
                 getCredentials(username, password));
     }

@@ -120,9 +120,17 @@ public class FileListListAdapter implements ListAdapter {
                 view.findViewById(R.id.last_mod).setVisibility(View.VISIBLE);
                 ((TextView)view.findViewById(R.id.file_size)).setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 ((TextView)view.findViewById(R.id.last_mod)).setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                // this if-else is needed even thoe fav icon is visible by default
+                // because android reuses views in listview
+                if (!file.keepInSync()) {
+                    view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+                } else {
+                    view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
+                }
             } else {
                view.findViewById(R.id.file_size).setVisibility(View.GONE);
                view.findViewById(R.id.last_mod).setVisibility(View.GONE);
+               view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
         }
 

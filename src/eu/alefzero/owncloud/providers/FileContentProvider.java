@@ -35,6 +35,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -68,6 +69,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_STORAGE_PATH);
         mProjectionMap.put(ProviderTableMeta.FILE_LAST_SYNC_DATE,
                 ProviderTableMeta.FILE_LAST_SYNC_DATE);
+        mProjectionMap.put(ProviderTableMeta.FILE_KEEP_IN_SYNC,
+                ProviderTableMeta.FILE_KEEP_IN_SYNC);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -216,7 +219,11 @@ public class FileContentProvider extends ContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+            if (oldVersion == 1 && newVersion >= 2) {
+                db.execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
+                           " ADD COLUMN " + ProviderTableMeta.FILE_KEEP_IN_SYNC  + " INTEGER " +
+                           " DEFAULT 0");
+            }
         }
 
     }

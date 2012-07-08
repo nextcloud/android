@@ -42,6 +42,15 @@
             android:layout_gravity="center_vertical|center"
             android:layout_margin="4dp"
             android:src="@drawable/ic_menu_archive" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight=".1"
+            android:maxHeight="15dip"
+            android:src="@drawable/ic_favorite" />
         
     </FrameLayout>
 

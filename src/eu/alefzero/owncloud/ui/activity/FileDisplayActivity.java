@@ -111,7 +111,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setSupportProgressBarIndeterminateVisibility(false);
 
-        Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
+//        Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
         if(savedInstanceState != null) {
             mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);

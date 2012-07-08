@@ -101,6 +101,7 @@ public class FileDataStorageManager implements DataStorageManager {
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
         if (fileExists(file.getRemotePath())) {
             OCFile tmpfile = getFileByPath(file.getRemotePath());
@@ -303,6 +304,8 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
             file.setLastSyncDate(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
+            file.setKeepInSync(c.getInt(
+                                c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
         }
         return file;
     }

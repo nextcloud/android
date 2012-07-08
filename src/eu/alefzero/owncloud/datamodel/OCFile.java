@@ -50,6 +50,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mMimeType;
     private boolean mNeedsUpdating;
     private long mLastSyncDate;
+    private boolean mKeepInSync;
 
     /**
      * Create new {@link OCFile} with given path
@@ -87,8 +88,25 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
+        mKeepInSync = source.readInt() == 1;
+        mLastSyncDate = source.readLong();
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mId);
+        dest.writeLong(mParentId);
+        dest.writeLong(mLength);
+        dest.writeLong(mCreationTimestamp);
+        dest.writeLong(mModifiedTimestamp);
+        dest.writeString(mRemotePath);
+        dest.writeString(mLocalPath);
+        dest.writeString(mMimeType);
+        dest.writeInt(mNeedsUpdating ? 1 : 0);
+        dest.writeInt(mKeepInSync ? 1 : 0);
+        dest.writeLong(mLastSyncDate);
+    }
+    
     /**
      * Gets the ID of the file
      * 
@@ -248,6 +266,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mCreationTimestamp = 0;
         mModifiedTimestamp = 0;
         mLastSyncDate = 0;
+        mKeepInSync = false;
+        mNeedsUpdating = false;
     }
 
     /**
@@ -321,23 +341,17 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDate = lastSyncDate;
     }
 
+    public void setKeepInSync(boolean keepInSync) {
+        mKeepInSync = keepInSync;
+    }
+    
+    public boolean keepInSync() {
+        return mKeepInSync;
+    }
+    
     @Override
     public int describeContents() {
         return this.hashCode();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
-        dest.writeLong(mParentId);
-        dest.writeLong(mLength);
-        dest.writeLong(mCreationTimestamp);
-        dest.writeLong(mModifiedTimestamp);
-        dest.writeString(mRemotePath);
-        dest.writeString(mLocalPath);
-        dest.writeString(mMimeType);
-        dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeLong(mLastSyncDate);
     }
 
     @Override

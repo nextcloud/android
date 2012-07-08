@@ -31,7 +31,7 @@ public class ProviderMeta {
     public static final String AUTHORITY_FILES = "org.owncloud";
     public static final String DB_FILE = "owncloud.db";
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     private ProviderMeta() {
     }
@@ -58,6 +58,7 @@ public class ProviderMeta {
         public static final String FILE_PATH = "path";
         public static final String FILE_ACCOUNT_OWNER = "file_owner";
         public static final String FILE_LAST_SYNC_DATE = "last_sync_date";
+        public static final String FILE_KEEP_IN_SYNC = "keep_in_sync";
 
         public static final String DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";

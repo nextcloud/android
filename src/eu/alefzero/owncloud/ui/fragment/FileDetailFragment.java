@@ -17,6 +17,27 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.httpclient.HostConfiguration;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ActivityNotFoundException;
@@ -27,27 +48,36 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity.Header;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
+import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
+import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
+import eu.alefzero.owncloud.utils.OwnCloudVersion;
+import eu.alefzero.webdav.WebdavClient;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -155,14 +185,27 @@ public class FileDetailFragment extends SherlockFragment implements
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(getActivity(), FileDownloader.class);
-        i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-        i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-        i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
-        i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
-        v.setEnabled(false);
-        getActivity().startService(i);
+        if (v.getId() == R.id.fdDownloadBtn) {
+            Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(getActivity(), FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+            i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
+            i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
+            i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
+            v.setEnabled(false);
+            getActivity().startService(i);
+        } else if (v.getId() == R.id.fdKeepInSync) {
+            CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
+            mFile.setKeepInSync(cb.isChecked());
+            FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+            fdsm.saveFile(mFile);
+            if (mFile.keepInSync() && !mFile.isDownloaded()) {
+                onClick(getView().findViewById(R.id.fdDownloadBtn));
+            }
+        }/* else if (v.getId() == R.id.fdShareBtn) {
+            Thread t = new Thread(new ShareRunnable(mFile.getRemotePath()));
+            t.start();
+        }*/
     }
 
 
@@ -215,6 +258,11 @@ public class FileDetailFragment extends SherlockFragment implements
            
             setTimeModified(mFile.getModificationTimestamp());
             
+            CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
+            cb.setChecked(mFile.keepInSync());
+            cb.setOnClickListener(this);
+            //getView().findViewById(R.id.fdShareBtn).setOnClickListener(this);
+            
             if (mFile.getStoragePath() != null) {
                 // Update preview
                 ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
@@ -236,13 +284,29 @@ public class FileDetailFragment extends SherlockFragment implements
                             int width = options.outWidth;
                             int height = options.outHeight;
                             int scale = 1;
+                            boolean recycle = false;
                             if (width >= 2048 || height >= 2048) {
                                 scale = (int) (Math.ceil(Math.max(height, width)/2048.));
                                 options.inSampleSize = scale;
-                                bmp.recycle();
-
-                                bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+                                recycle = true;
                             }
+                                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                                Point size = new Point();
+                                display.getSize(size);
+                                int screenwidth = size.x;
+
+                                Log.e("ASD", "W " + width + " SW " + screenwidth);
+
+                                if (width > screenwidth) {
+                                    scale = (int) (Math.ceil(Math.max(height, width)/screenwidth));
+                                    options.inSampleSize = scale;
+                                    recycle = true;
+                                }
+                            
+
+                            if (recycle) bmp.recycle();
+                            bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
+                            
                         }
                         if (bmp != null) {
                             preview.setImageBitmap(bmp);
@@ -404,6 +468,120 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
         
+    }
+    
+    // this is a temporary class for sharing purposes, it need to be replacead in transfer service
+    private class ShareRunnable implements Runnable {
+        private String mPath;
+
+        public ShareRunnable(String path) {
+            mPath = path;
+        }
+        
+        public void run() {
+            AccountManager am = AccountManager.get(getActivity());
+            Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
+            String url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + AccountUtils.getWebdavPath(ocv);
+
+            Log.d("share", "sharing for version " + ocv.toString());
+
+            if (ocv.compareTo(new OwnCloudVersion(0x040000)) >= 0) {
+                String APPS_PATH = "/apps/files_sharing/";
+                String SHARE_PATH = "ajax/share.php";
+
+                String SHARED_PATH = "/apps/files_sharing/get.php?token=";
+                
+                final String WEBDAV_SCRIPT = "webdav.php";
+                final String WEBDAV_FILES_LOCATION = "/files/";
+                
+                WebdavClient wc = new WebdavClient();
+                HttpConnectionManagerParams params = new HttpConnectionManagerParams();
+                params.setMaxConnectionsPerHost(wc.getHostConfiguration(), 5);
+
+                //wc.getParams().setParameter("http.protocol.single-cookie-header", true);
+                //wc.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+
+                PostMethod post = new PostMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + APPS_PATH + SHARE_PATH);
+
+                post.addRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8" );
+                post.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+                Log.d("share", mPath+"");
+                formparams.add(new BasicNameValuePair("sources",mPath));
+                formparams.add(new BasicNameValuePair("uid_shared_with", "public"));
+                formparams.add(new BasicNameValuePair("permissions", "0"));
+                post.setRequestEntity(new StringRequestEntity(URLEncodedUtils.format(formparams, HTTP.UTF_8)));
+
+                int status;
+                try {
+                    PropFindMethod find = new PropFindMethod(url+"/");
+                    find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                    Log.d("sharer", ""+ url+"/");
+                    wc.setCredentials(account.name.substring(0, account.name.lastIndexOf('@')), am.getPassword(account));
+                    
+                    for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
+                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
+                    }
+                    
+                    int status2 = wc.executeMethod(find);
+
+                    Log.d("sharer", "propstatus "+status2);
+                    
+                    GetMethod get = new GetMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + "/");
+                    get.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                    
+                    status2 = wc.executeMethod(get);
+
+                    Log.d("sharer", "getstatus "+status2);
+                    Log.d("sharer", "" + get.getResponseBodyAsString());
+                    
+                    for (org.apache.commons.httpclient.Header a : get.getResponseHeaders()) {
+                        Log.d("sharer", a.getName() + ":"+a.getValue());
+                    }
+
+                    status = wc.executeMethod(post);
+                    for (org.apache.commons.httpclient.Header a : post.getRequestHeaders()) {
+                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
+                    }
+                    for (org.apache.commons.httpclient.Header a : post.getResponseHeaders()) {
+                        Log.d("sharer", a.getName() + ":"+a.getValue());
+                    }
+                    String resp = post.getResponseBodyAsString();
+                    Log.d("share", ""+post.getURI().toString());
+                    Log.d("share", "returned status " + status);
+                    Log.d("share", " " +resp);
+                    
+                    if(status != HttpStatus.SC_OK ||resp == null || resp.equals("") || resp.startsWith("false")) {
+                        return;
+                     }
+
+                    JSONObject jsonObject = new JSONObject (resp);
+                    String jsonStatus = jsonObject.getString("status");
+                    if(!jsonStatus.equals("success")) throw new Exception("Error while sharing file status != success");
+                    
+                    String token = jsonObject.getString("data");
+                    String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
+                    Log.d("Actions:shareFile ok", "url: " + uri);   
+                    
+                } catch (HttpException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
+            } else if (ocv.compareTo(new OwnCloudVersion(0x030000)) >= 0) {
+                
+            }
+        }
     }
     
 }

@@ -19,6 +19,7 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -36,6 +37,7 @@ import android.os.Bundle;
 import android.util.Log;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.webdav.WebdavEntry;
 
 /**
@@ -118,6 +120,17 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
                 file.setParentId(parentId);
+                if (getStorageManager().getFileByPath(file.getRemotePath()) != null &&
+                    getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
+                    file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
+                                                                         .getModificationTimestamp()) {
+                    Intent intent = new Intent(this.getContext(), FileDownloader.class);
+                    intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                    intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getURLDecodedRemotePath());
+                    intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
+                    file.setKeepInSync(true);
+                    getContext().startService(intent);
+                }
                 getStorageManager().saveFile(file);
                 if (parentId == 0)
                     parentId = file.getFileId();

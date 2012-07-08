@@ -43,7 +43,7 @@ import eu.alefzero.webdav.FileRequestEntity;
 public class CrashlogSendActivity extends SherlockActivity implements OnClickListener, OnCancelListener {
     
     private static final String TAG = "CrashlogSendActivity";
-    private static final String CRASHLOG_SUBMIT_URL = "";
+    private static final String CRASHLOG_SUBMIT_URL = "http://alefzero.eu/a/crashlog/";
     private static final int DIALOG_SUBMIT = 5;
     
     private String mLogFilename;

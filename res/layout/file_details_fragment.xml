@@ -155,25 +155,55 @@
                 android:id="@+id/fdPreviewAndDL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fdDetailsContainer" >
+                android:layout_below="@+id/fdDetailsContainer"
+                android:gravity="center_horizontal" >
+
+                <CheckBox
+                    android:id="@+id/fdKeepInSync"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/fd_keep_in_sync" />
 
                 <ImageView
                     android:id="@+id/fdPreview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_below="@id/fdKeepInSync"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="16dp"
                     android:src="@drawable/owncloud_logo" />
 
-                <Button
-                    android:id="@+id/fdDownloadBtn"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/fdPreview"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/filedetails_download" />
+                    android:layout_below="@id/fdPreview"
+                    android:gravity="center_horizontal" >
+
+                    <Button
+                        android:id="@+id/fdDownloadBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/filedetails_download" />
+
+                    <Button
+                        android:id="@+id/fdRemoveBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Remove" />
+<!-- 
+                    <Button
+                        android:id="@+id/fdShareBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/common_share" />
+ -->
+                </LinearLayout>
             </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 
