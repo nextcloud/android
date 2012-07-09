@@ -203,6 +203,7 @@ public class FileContentProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             // files table
+            Log.i("SQL", "Entering in onCreate");
             db.execSQL("CREATE TABLE " + ProviderTableMeta.DB_NAME + "("
                     + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                     + ProviderTableMeta.FILE_NAME + " TEXT, "
@@ -214,17 +215,19 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_CONTENT_LENGTH + " INTEGER, "
                     + ProviderTableMeta.FILE_STORAGE_PATH + " TEXT, "
                     + ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT, "
-                    + ProviderTableMeta.FILE_LAST_SYNC_DATE + " INTEGER "
+                    + ProviderTableMeta.FILE_LAST_SYNC_DATE + " INTEGER, "
                     + ProviderTableMeta.FILE_KEEP_IN_SYNC + " INTEGER );");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.i("SQL", "Entering in onUpgrade");
             if (oldVersion == 1 && newVersion >= 2) {
+                Log.i("SQL", "Entering in the ADD in onUpgrade");
                 db.execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
                            " ADD COLUMN " + ProviderTableMeta.FILE_KEEP_IN_SYNC  + " INTEGER " +
                            " DEFAULT 0");
-            }
+            } else Log.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
         }
 
     }
