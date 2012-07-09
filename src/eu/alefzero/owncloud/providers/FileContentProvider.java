@@ -214,7 +214,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_CONTENT_LENGTH + " INTEGER, "
                     + ProviderTableMeta.FILE_STORAGE_PATH + " TEXT, "
                     + ProviderTableMeta.FILE_ACCOUNT_OWNER + " TEXT, "
-                    + ProviderTableMeta.FILE_LAST_SYNC_DATE + " INTEGER );");
+                    + ProviderTableMeta.FILE_LAST_SYNC_DATE + " INTEGER "
+                    + ProviderTableMeta.FILE_KEEP_IN_SYNC + " INTEGER );");
         }
 
         @Override
