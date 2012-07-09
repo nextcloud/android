@@ -128,9 +128,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
                     intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getURLDecodedRemotePath());
                     intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
+                    intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());
                     file.setKeepInSync(true);
                     getContext().startService(intent);
                 }
+                if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
+                    file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
                 getStorageManager().saveFile(file);
                 if (parentId == 0)
                     parentId = file.getFileId();
