@@ -463,7 +463,9 @@ public class FileDetailFragment extends SherlockFragment implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            getView().findViewById(R.id.fdDownloadBtn).setEnabled(true);
+            if (getView()!=null && getView().findViewById(R.id.fdDownloadBtn) != null) 
+                getView().findViewById(R.id.fdDownloadBtn).setEnabled(true);
+            
             if (intent.getAction().equals(FileDownloader.BAD_DOWNLOAD_MESSAGE)) {
                 Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
                 
