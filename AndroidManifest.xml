@@ -18,7 +18,7 @@
  -->
 <manifest package="eu.alefzero.owncloud"
     android:versionCode="1"
-    android:versionName="0.1.151B" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionName="0.1.152B" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />

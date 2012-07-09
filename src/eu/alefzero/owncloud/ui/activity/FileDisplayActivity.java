@@ -619,11 +619,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if (account_name.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
             
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
-                        
-                if (mCurrentDir == null)
+                 
+                boolean fillBlankRoot = false;
+                if (mCurrentDir == null) {
                     mCurrentDir = mStorageManager.getFileByPath("/");
+                    fillBlankRoot = (mCurrentDir != null);
+                }
 
-                if (synchFolderRemotePath != null && mCurrentDir != null && mCurrentDir.getRemotePath().equals(synchFolderRemotePath) ) {
+                if (synchFolderRemotePath != null && mCurrentDir != null && (mCurrentDir.getRemotePath().equals(synchFolderRemotePath) || fillBlankRoot) ) {
                     FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
                     mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
