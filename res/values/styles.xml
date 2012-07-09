@@ -69,6 +69,21 @@
 		<item name="@android:windowEnterAnimation">@anim/pump_bottom</item>
 		<item name="@android:windowExitAnimation">@anim/disappear</item>
 	</style>
+	
+	<style name="PassCodeStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+  		<item name="android:gravity">center</item>
+  		<item name="android:layout_margin">10dp</item>
+  		<item name="android:inputType">numberDecimal</item>
+  		<item name="android:numeric">decimal</item>
+		<item name="android:digits">1234567890</item>
+		<item name="android:maxLength">1</item>
+		<item name="android:password">true</item>
+		<item name="android:singleLine">true</item>
+  		    
+    </style>
+		
 	<color name="setup_text_hint">#777777</color>
 	<color name="setup_text_typed">#000000</color>
 </resources>

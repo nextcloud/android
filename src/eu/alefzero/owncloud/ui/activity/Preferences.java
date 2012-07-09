@@ -84,6 +84,26 @@ public class Preferences extends SherlockPreferenceActivity implements
                 return true;
             }
         });
+        
+        CheckBoxPreference pCode = (CheckBoxPreference) findPreference("set_pincode");
+        if (pCode != null){
+            
+            pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    
+                                        
+                    Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
+                    i.putExtra("activity", "preferences");
+                    i.putExtra("pinNewState",newValue.toString());
+                    startActivity(i);
+                    
+                    return true;
+                }
+            });            
+            
+        }
+        
     }
 
     /**
