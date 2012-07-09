@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:oc="http://schemas.android.com/apk/res/eu.alefzero.owncloud"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+
+    <TextView
+        android:id="@+id/pinHdr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter pin code"
+        android:textColor="@android:color/black"
+         />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+      >
+
+        <EditText
+            android:id="@+id/txt1"
+            android:focusable="true"
+            style="@style/PassCodeStyle" />
+
+        <EditText
+            android:id="@+id/txt2"
+            style="@style/PassCodeStyle" />
+
+        <EditText
+            android:id="@+id/txt3"
+            style="@style/PassCodeStyle" />
+
+        <EditText
+            android:id="@+id/txt4"
+            style="@style/PassCodeStyle" />
+    </LinearLayout>
+
+    <Button android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textColor="@android:color/black"
+        android:id="@+id/cancel"/>
+</LinearLayout>

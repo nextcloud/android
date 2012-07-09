@@ -33,11 +33,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -128,6 +130,18 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (AccountUtils.accountsAreSetup(this)) {
             
             initDelayedTilAccountAvailabe();
+            
+            // PIN CODE request
+            // best location is to decide; let's try this first
+            boolean pinStart = false;
+            SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            pinStart = appPrefs.getBoolean("set_passcode", false);
+            
+            if (pinStart) {
+                Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
+                i.putExtra("activity", "splash");
+                startActivity(i);
+            }
             
         } else {
             
