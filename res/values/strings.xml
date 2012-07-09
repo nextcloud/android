@@ -75,7 +75,10 @@
     <string name="use_ssl">Use Secure Connection</string>
     <string name="location_no_provider">ownCloud cannot track your device. Please check your location settings</string>
     
-    <string name="pincode_enter_pin_code">Enter pin code</string>
+    <string name="pincode_enter_pin_code">Please, insert your PIN code</string>
+    <string name="pincode_enter_new_pin_code">Please, insert your new PIN code</string>
+    <string name="pincode_configure_your_pin">Configure your PIN code</string>
+    <string name="pincode_confirm_your_pincode">"Confirm your PIN code, please"</string>
     
     <string-array name="prefs_trackmydevice_intervall_keys">
     	<item>15 Minutes</item>

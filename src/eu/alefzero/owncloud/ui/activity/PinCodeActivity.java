@@ -102,13 +102,13 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     protected void setInitView(){
         bCancel.setVisibility(View.INVISIBLE);
         bCancel.setVisibility(View.GONE);
-        mPinHdr.setText("Please, Insert your PIN");
+        mPinHdr.setText(R.string.pincode_enter_pin_code);
     }
     
     
     
     protected void setChangePincodeView(){
-        mPinHdr.setText("Configure your PIN");
+        mPinHdr.setText(R.string.pincode_configure_your_pin);
         bCancel.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -330,7 +330,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                            if (!confirmingPinCode && !newPasswordEntered){
                                pinCodeChangeRequest();
                            } else if (newPasswordEntered && !confirmingPinCode){
-                               mPinHdr.setText("Confirm your PINCode, please");
+                               mPinHdr.setText(R.string.pincode_confirm_your_pincode);
                                confirmingPinCode = true;
                                clearBoxes();
                            } else {
@@ -411,7 +411,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                  public void onClick(DialogInterface dialog, int which) {
                      // TODO Auto-generated method stub
                      setChangePincodeView();
-                     mPinHdr.setText("Please, insert your new PIN Code");
+                     mPinHdr.setText(R.string.pincode_enter_new_pin_code);
                      clearBoxes();
                      newPasswordEntered = true;
                  }
@@ -471,7 +471,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             });
             aDialog.show();
             clearBoxes(); 
-            mPinHdr.setText("Configure your PIN");
+            mPinHdr.setText(R.string.pincode_configure_your_pin);
             newPasswordEntered = true;
             confirmingPinCode = false;
             
@@ -512,7 +512,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                 
             });
             aDialog.show();
-            mPinHdr.setText("Configure your PIN");
+            mPinHdr.setText(R.string.pincode_configure_your_pin);
             clearBoxes();
         }
     
