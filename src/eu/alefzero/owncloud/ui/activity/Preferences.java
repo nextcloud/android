@@ -45,6 +45,7 @@ import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.DbHandler;
+import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -94,8 +95,8 @@ public class Preferences extends SherlockPreferenceActivity implements
                     
                                         
                     Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-                    i.putExtra("activity", "preferences");
-                    i.putExtra("pinNewState",newValue.toString());
+                    i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
+                    i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
                     startActivity(i);
                     
                     return true;

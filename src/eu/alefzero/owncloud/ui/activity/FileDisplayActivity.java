@@ -131,17 +131,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
             initDelayedTilAccountAvailabe();
             
-            // PIN CODE request
-            // best location is to decide; let's try this first
-            boolean pinStart = false;
-            SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            pinStart = appPrefs.getBoolean("set_passcode", false);
-            
-            if (pinStart) {
-                Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
-                i.putExtra("activity", "splash");
-                startActivity(i);
+            // PIN CODE request ;  best location is to decide, let's try this first
+            //if (savedInstanceState == null) {
+            if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
+                requestPinCode();
             }
+            
             
         } else {
             
@@ -768,6 +763,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             transaction.commit();
         }
 
+    }
+    
+
+    /**
+     * Launch an intent to request the PIN code to the user before letting him use the app
+     */
+    private void requestPinCode() {
+        boolean pinStart = false;
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        pinStart = appPrefs.getBoolean("set_pincode", false);
+        if (pinStart) {
+            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "FileDisplayActivity");
+            startActivity(i);
+        }
     }
 
     

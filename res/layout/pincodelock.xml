@@ -28,14 +28,14 @@
         android:id="@+id/pinHdr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter pin code"
+        android:text="@string/pincode_enter_pin_code"
         android:textColor="@android:color/black"
          />
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-      >
+        android:gravity="center_horizontal" >
 
         <EditText
             android:id="@+id/txt1"
@@ -57,7 +57,7 @@
 
     <Button android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="@android:string/cancel"
         android:textColor="@android:color/black"
         android:id="@+id/cancel"/>
 </LinearLayout>

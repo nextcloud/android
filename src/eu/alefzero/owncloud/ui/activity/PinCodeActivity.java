@@ -42,6 +42,8 @@ import android.widget.TextView;
 public class PinCodeActivity extends SherlockFragmentActivity {
 
   
+    public final static String EXTRA_ACTIVITY = "eu.alefzero.owncloud.ui.activity.PinCodeActivity.ACTIVITY";
+    public final static String EXTRA_NEW_STATE = "eu.alefzero.owncloud.ui.activity.PinCodeActivity.NEW_STATE";
     
     Button bCancel;
     TextView mPinHdr;
@@ -66,7 +68,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         setContentView(R.layout.pincodelock); 
         
         Intent intent = getIntent();
-        activity = intent.getStringExtra("activity");
+        activity = intent.getStringExtra(EXTRA_ACTIVITY);
      
         bCancel = (Button) findViewById(R.id.cancel);
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
@@ -111,7 +113,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 finish();
             }
         });
@@ -296,7 +297,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                // TODO Auto-generated method stub
+                
                 if (s.length() > 0) {
                    
                    if (!confirmingPinCode){
@@ -308,33 +309,31 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                        pinCodeChecked = checkPincode();
                    }
                    
-                   if (pinCodeChecked && activity.equals("splash")){
+                   if (pinCodeChecked && activity.equals("FileDisplayActivity")){
                        finish();
                    } else if (pinCodeChecked){
                        
                        Intent intent = getIntent();
-                       String newState = intent.getStringExtra("pinNewState");
+                       String newState = intent.getStringExtra(EXTRA_NEW_STATE);
                        
                        if (newState.equals("false")){
                            SharedPreferences.Editor appPrefs = PreferenceManager
                                    .getDefaultSharedPreferences(getApplicationContext()).edit();
                            appPrefs.putBoolean("set_pincode",false);
                            appPrefs.commit();
-                           
                            // TODO Alert Message que salte y vuelva a la pantalla anterior
                            
                            finish();
-                           
                            
                        }else{
                        
                            if (!confirmingPinCode && !newPasswordEntered){
                                pinCodeChangeRequest();
-                           }else if (newPasswordEntered && !confirmingPinCode){
+                           } else if (newPasswordEntered && !confirmingPinCode){
                                mPinHdr.setText("Confirm your PINCode, please");
                                confirmingPinCode = true;
                                clearBoxes();
-                           }else {
+                           } else {
                                confirmPincode();
                            }
                        }
