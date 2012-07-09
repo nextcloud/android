@@ -292,8 +292,13 @@ public class FileDetailFragment extends SherlockFragment implements
                             }
                                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                                 Point size = new Point();
-                                display.getSize(size);
-                                int screenwidth = size.x;
+                                int screenwidth;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                                    display.getSize(size);
+                                    screenwidth = size.x;
+                                } else {
+                                    screenwidth = display.getWidth();
+                                }
 
                                 Log.e("ASD", "W " + width + " SW " + screenwidth);
 

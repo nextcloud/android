@@ -129,7 +129,12 @@ public class CrashHandler implements UncaughtExceptionHandler {
             
             Intent dataintent = new Intent(mContext, CrashlogSendActivity.class);
             dataintent.putExtra(KEY_CRASH_FILENAME, crashfile.getAbsolutePath());
-            PendingIntent intent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, dataintent, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent intent;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                intent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, dataintent, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            } else {
+                intent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, dataintent, Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            }
             AlarmManager mngr = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
             if (mngr == null) {
                 Log.e(TAG, "Couldn't retrieve alarm manager!");
