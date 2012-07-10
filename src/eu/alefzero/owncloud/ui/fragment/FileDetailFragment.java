@@ -34,6 +34,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
+import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
+import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +45,8 @@ import android.accounts.AccountManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -63,10 +67,12 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import eu.alefzero.owncloud.AccountUtils;
@@ -183,26 +189,43 @@ public class FileDetailFragment extends SherlockFragment implements
         return super.getView() == null ? mView : super.getView();
     }
 
+    
+    
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fdDownloadBtn) {
-            //Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getActivity(), FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-            i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
-            i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
-            v.setEnabled(false);
-            getActivity().startService(i);
-        } else if (v.getId() == R.id.fdKeepInSync) {
-            CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
-            mFile.setKeepInSync(cb.isChecked());
-            FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-            fdsm.saveFile(mFile);
-            if (mFile.keepInSync() && !mFile.isDownloaded()) {
-                onClick(getView().findViewById(R.id.fdDownloadBtn));
+        switch (v.getId()) {
+            case R.id.fdDownloadBtn: {
+                //Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getActivity(), FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+                i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
+                i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
+                i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
+                v.setEnabled(false);
+                getActivity().startService(i);
+                break;
             }
-        }/* else if (v.getId() == R.id.fdShareBtn) {
+            case R.id.fdKeepInSync: {
+                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
+                mFile.setKeepInSync(cb.isChecked());
+                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+                fdsm.saveFile(mFile);
+                if (mFile.keepInSync() && !mFile.isDownloaded()) {
+                    onClick(getView().findViewById(R.id.fdDownloadBtn));
+                }
+                break;
+            }
+            case R.id.fdRenameBtn: {
+                EditNameFragment dialog = EditNameFragment.newInstance(mFile.getFileName());
+                dialog.show(getFragmentManager(), "nameeditdialog");
+                dialog.setOnDismissListener(this);
+                break;
+            }
+            default:
+                Log.e(TAG, "Incorrect view clicked!");
+        }
+        
+        /* else if (v.getId() == R.id.fdShareBtn) {
             Thread t = new Thread(new ShareRunnable(mFile.getRemotePath()));
             t.start();
         }*/
@@ -262,6 +285,7 @@ public class FileDetailFragment extends SherlockFragment implements
             cb.setChecked(mFile.keepInSync());
             cb.setOnClickListener(this);
             //getView().findViewById(R.id.fdShareBtn).setOnClickListener(this);
+            getView().findViewById(R.id.fdRenameBtn).setOnClickListener(this);
             
             if (mFile.getStoragePath() != null) {
                 // Update preview
@@ -590,4 +614,149 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    public void onDismiss(EditNameFragment dialog) {
+        Log.e("ASD","ondismiss");
+        if (dialog instanceof EditNameFragment) {
+            if (((EditNameFragment)dialog).getResult()) {
+                String newFilename = ((EditNameFragment)dialog).getNewFilename();
+                Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+                if (!newFilename.equals(mFile.getFileName())) {
+                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                    if (fdsm.getFileById(mFile.getFileId()) != null) {
+                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath()+"/"+newFilename);
+                        newFile.setCreationTimestamp(mFile.getCreationTimestamp());
+                        newFile.setFileId(mFile.getFileId());
+                        newFile.setFileLength(mFile.getFileLength());
+                        newFile.setKeepInSync(mFile.keepInSync());
+                        newFile.setLastSyncDate(mFile.getLastSyncDate());
+                        newFile.setMimetype(mFile.getMimetype());
+                        newFile.setModificationTimestamp(mFile.getModificationTimestamp());
+                        newFile.setParentId(mFile.getParentId());
+                        newFile.setStoragePath(mFile.getStoragePath());
+                        fdsm.removeFile(mFile);
+                        fdsm.saveFile(newFile);
+                        new Thread(new RenameRunnable(mFile, newFile, mAccount)).start();
+                        mFile = newFile;
+                        updateFileDetails(mFile, mAccount);
+                    }
+                }
+            }
+        } else {
+            Log.e(TAG, "Unknown dialog intance passed to onDismissDalog: " + dialog.getClass().getCanonicalName());
+        }
+        
+    }
+    
+    private class RenameRunnable implements Runnable {
+        
+        Account mAccount;
+        OCFile mOld, mNew;
+        
+        public RenameRunnable(OCFile oldFile, OCFile newFile, Account account) {
+            mOld = oldFile;
+            mNew = newFile;
+            mAccount = account;
+        }
+        
+        public void run() {
+            WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
+            AccountManager am = AccountManager.get(getSherlockActivity());
+            String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
+            String webdav_path = AccountUtils.getWebdavPath(ocv);
+            Log.d("ASD", ""+baseUrl + webdav_path + mOld.getRemotePath());
+
+            
+            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
+            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + mOld.getRemotePath(),
+                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
+            
+            try {
+                int status = wc.executeMethod(move);
+                Log.e("ASD", ""+move.getQueryString());
+                Log.d("move", "returned status " + status);
+            } catch (HttpException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        private class LocalMoveMethod extends DavMethodBase {
+
+            public LocalMoveMethod(String uri, String dest) {
+                super(uri);
+                addRequestHeader(new org.apache.commons.httpclient.Header("Destination", dest));
+            }
+
+            @Override
+            public String getName() {
+                return "MOVE";
+            }
+
+            @Override
+            protected boolean isSuccess(int status) {
+                return status == 201 || status == 204;
+            }
+            
+        }
+    }
+    
+    private static class EditNameFragment extends SherlockDialogFragment implements OnClickListener {
+
+        private String mNewFilename;
+        private boolean mResult;
+        private FileDetailFragment mListener;
+        
+        static public EditNameFragment newInstance(String filename) {
+            EditNameFragment f = new EditNameFragment();
+            Bundle args = new Bundle();
+            args.putString("filename", filename);
+            f.setArguments(args);
+            return f;
+        }
+        
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.edit_box_dialog, container, false);
+
+            String currentName = getArguments().getString("filename", "");
+            
+            ((Button)v.findViewById(R.id.cancel)).setOnClickListener(this);
+            ((Button)v.findViewById(R.id.ok)).setOnClickListener(this);
+            ((TextView)v.findViewById(R.id.user_input)).setText(currentName);
+
+            mResult = false;
+            return v;
+        }
+        
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.ok: {
+                    mNewFilename = ((TextView)getView().findViewById(R.id.user_input)).getText().toString();
+                    mResult = true;
+                }
+                case R.id.cancel: { // fallthought
+                    dismiss();
+                    mListener.onDismiss(this);
+                }
+            }
+        }
+        
+        void setOnDismissListener(FileDetailFragment listener) {
+            mListener = listener;
+        }
+        
+        public String getNewFilename() {
+            return mNewFilename;
+        }
+        
+        // true if user click ok
+        public boolean getResult() {
+            return mResult;
+        }
+        
+    }
 }

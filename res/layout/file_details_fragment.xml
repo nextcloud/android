@@ -181,6 +181,13 @@
                     android:gravity="center_horizontal" >
 
                     <Button
+                        android:id="@+id/Button01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/common_remove" />
+
+                    <Button
                         android:id="@+id/fdDownloadBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -188,11 +195,11 @@
                         android:text="@string/filedetails_download" />
 
                     <Button
-                        android:id="@+id/fdRemoveBtn"
+                        android:id="@+id/fdRenameBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:text="Remove" />
+                        android:text="@string/common_rename" />
 <!-- 
                     <Button
                         android:id="@+id/fdShareBtn"
@@ -201,6 +208,7 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/common_share" />
  -->
+
                 </LinearLayout>
             </RelativeLayout>
 

@@ -119,4 +119,6 @@
     <string name="extensions_avail_message">Looks like your ownCloud instance is supporting advanced extensions. Would you like to see extensions available for android ?</string>
     <string name="fd_keep_in_sync">Keep file up to date</string>
     <string name="common_share">Share</string>
+    <string name="common_rename">Rename</string>
+    <string name="common_remove">Remove</string>
 </resources>
