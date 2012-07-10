@@ -186,7 +186,7 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fdDownloadBtn) {
-            Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
             Intent i = new Intent(getActivity(), FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
             i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
@@ -466,12 +466,11 @@ public class FileDetailFragment extends SherlockFragment implements
             if (getView()!=null && getView().findViewById(R.id.fdDownloadBtn) != null) 
                 getView().findViewById(R.id.fdDownloadBtn).setEnabled(true);
             
-            if (intent.getAction().equals(FileDownloader.BAD_DOWNLOAD_MESSAGE)) {
-                Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
-                
-            } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+            if (intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false)) {
                 mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
                 updateFileDetails();
+            } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+                Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
             }
         }
         

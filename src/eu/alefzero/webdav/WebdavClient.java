@@ -114,6 +114,7 @@ public class WebdavClient extends HttpClient {
     }
 
     public boolean downloadFile(String remoteFilepath, File targetPath) {
+        boolean ret = false;
         GetMethod get = new GetMethod(mUri.toString() + remoteFilepath);
         HttpMethodParams params = get.getParams();
         params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
@@ -125,26 +126,28 @@ public class WebdavClient extends HttpClient {
         try {
             int status = executeMethod(get);
             Log.e(TAG, "status return: " + status);
-            if (status != HttpStatus.SC_OK) {
-                return false;
-            }
-            BufferedInputStream bis = new BufferedInputStream(
-                    get.getResponseBodyAsStream());
-            FileOutputStream fos = new FileOutputStream(targetPath);
+            if (status == HttpStatus.SC_OK) {
+                targetPath.createNewFile();
+                BufferedInputStream bis = new BufferedInputStream(
+                        get.getResponseBodyAsStream());
+                FileOutputStream fos = new FileOutputStream(targetPath);
 
-            byte[] bytes = new byte[4096];
-            int readResult;
-            while ((readResult = bis.read(bytes)) != -1) {
-                if (mDataTransferListener != null)
-                    mDataTransferListener.transferProgress(readResult);
-                fos.write(bytes, 0, readResult);
+                byte[] bytes = new byte[4096];
+                int readResult;
+                while ((readResult = bis.read(bytes)) != -1) {
+                    if (mDataTransferListener != null)
+                        mDataTransferListener.transferProgress(readResult);
+                    fos.write(bytes, 0, readResult);
+                }
+                
             }
-
-        } catch (IOException e) {
+            ret = true;
+        } catch (Throwable e) {
             e.printStackTrace();
-            return false;
+            targetPath.delete();
         }
-        return true;
+        
+        return ret;
     }
     
     /**

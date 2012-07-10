@@ -28,7 +28,7 @@ import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
-    public static final String BAD_DOWNLOAD_MESSAGE = "BAD_DOWNLOAD";    
+    public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
@@ -127,14 +127,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
         File sdCard = Environment.getExternalStorageDirectory();
         File file = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + mFilePath);
-        try {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        file.getParentFile().mkdirs();
 
-        String message;
+        boolean download_result = false;
         if (wdc.downloadFile(mRemotePath, file)) {
             ContentValues cv = new ContentValues();
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
@@ -146,15 +141,13 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     new String[] {
                             mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
                             mAccount.name });            
-            message = DOWNLOAD_FINISH_MESSAGE;
-        } else {
-            file.delete();
-            message = BAD_DOWNLOAD_MESSAGE;
+            download_result = true;
         }
         
         mNotificationMngr.cancel(1);
-        Intent end = new Intent(message);
+        Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
+        end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
         sendBroadcast(end);
     }
 
