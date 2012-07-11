@@ -57,6 +57,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceActivity.Header;
 import android.util.Log;
 import android.view.Display;
@@ -634,11 +635,9 @@ public class FileDetailFragment extends SherlockFragment implements
                         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
                         newFile.setParentId(mFile.getParentId());
                         newFile.setStoragePath(mFile.getStoragePath());
-                        fdsm.removeFile(mFile);
-                        fdsm.saveFile(newFile);
-                        new Thread(new RenameRunnable(mFile, newFile, mAccount)).start();
-                        mFile = newFile;
-                        updateFileDetails(mFile, mAccount);
+                        
+                        new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
+
                     }
                 }
             }
@@ -652,11 +651,13 @@ public class FileDetailFragment extends SherlockFragment implements
         
         Account mAccount;
         OCFile mOld, mNew;
+        Handler mHandler;
         
-        public RenameRunnable(OCFile oldFile, OCFile newFile, Account account) {
+        public RenameRunnable(OCFile oldFile, OCFile newFile, Account account, Handler handler) {
             mOld = oldFile;
             mNew = newFile;
             mAccount = account;
+            mHandler = handler;
         }
         
         public void run() {
@@ -667,13 +668,22 @@ public class FileDetailFragment extends SherlockFragment implements
             String webdav_path = AccountUtils.getWebdavPath(ocv);
             Log.d("ASD", ""+baseUrl + webdav_path + mOld.getRemotePath());
 
-            
             Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
             LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + mOld.getRemotePath(),
                                              Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
             
             try {
                 int status = wc.executeMethod(move);
+                if (move.succeeded()) {
+                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                    fdsm.removeFile(mOld);
+                    fdsm.saveFile(mNew);
+                    mFile = mNew;
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() { updateFileDetails(mFile, mAccount); }
+                    });
+                }
                 Log.e("ASD", ""+move.getQueryString());
                 Log.d("move", "returned status " + status);
             } catch (HttpException e) {
