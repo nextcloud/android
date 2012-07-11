@@ -20,6 +20,7 @@ package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.jackrabbit.webdav.DavException;
@@ -50,6 +51,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     private final static String TAG = "FileSyncAdapter"; 
     
+    /*  Commented code for ugly performance tests
+    private final static int MAX_DELAYS = 100;
+    private static long[] mResponseDelays = new long[MAX_DELAYS]; 
+    private static long[] mSaveDelays = new long[MAX_DELAYS];
+    private int mDelaysIndex = 0;
+    private int mDelaysCount = 0;
+    */
+    
     private long mCurrentSyncTime;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
@@ -65,6 +74,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setContentProvider(provider);
         this.setStorageManager(new FileDataStorageManager(account,
                 getContentProvider()));
+        
+        /*  Commented code for ugly performance tests
+        mDelaysIndex = 0;
+        mDelaysCount = 0;
+        */
+        
         
         Log.d(TAG, "syncing owncloud account " + account.name);
 
@@ -101,21 +116,50 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
             t.printStackTrace();
         }
+        
+        /*  Commented code for ugly performance tests
+        long sum = 0, mean = 0, max = 0, min = Long.MAX_VALUE;
+        for (int i=0; i<MAX_DELAYS && i<mDelaysCount; i++) {
+            sum += mResponseDelays[i];
+            max = Math.max(max, mResponseDelays[i]);
+            min = Math.min(min, mResponseDelays[i]);
+        }
+        mean = sum / mDelaysCount;
+        Log.e(TAG, "SYNC STATS - response: mean time = " + mean + " ; max time = " + max + " ; min time = " + min);
+        
+        sum = 0; max = 0; min = Long.MAX_VALUE;
+        for (int i=0; i<MAX_DELAYS && i<mDelaysCount; i++) {
+            sum += mSaveDelays[i];
+            max = Math.max(max, mSaveDelays[i]);
+            min = Math.min(min, mSaveDelays[i]);
+        }
+        mean = sum / mDelaysCount;
+        Log.e(TAG, "SYNC STATS - save:     mean time = " + mean + " ; max time = " + max + " ; min time = " + min);
+        Log.e(TAG, "SYNC STATS - folders measured: " + mDelaysCount);
+        */
+        
         sendStickyBroadcast(false, null);        
     }
 
     private void fetchData(String uri, SyncResult syncResult, long parentId, Account account) {
         try {
-            Log.v(TAG, "syncing: fetching " + uri);
+            //Log.v(TAG, "syncing: fetching " + uri);
             
             // remote request 
             PropFindMethod query = new PropFindMethod(uri);
+            /*  Commented code for ugly performance tests
+            long responseDelay = System.currentTimeMillis();
+            */
             getClient().executeMethod(query);
+            /*  Commented code for ugly performance tests
+            responseDelay = System.currentTimeMillis() - responseDelay;
+            Log.e(TAG, "syncing: RESPONSE TIME for " + uri + " contents, " + responseDelay + "ms");
+            */
             MultiStatus resp = null;
-            
             resp = query.getResponseBodyAsMultiStatus();
             
-            // insertion of updated files
+            // insertion or update of files
+            List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
             for (int i = 1; i < resp.getResponses().length; ++i) {
                 WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
                 OCFile file = fillOCFile(we);
@@ -134,12 +178,21 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 }
                 if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
                     file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
-                getStorageManager().saveFile(file);
+                //getStorageManager().saveFile(file);
+                updatedFiles.add(file);
                 if (parentId == 0)
                     parentId = file.getFileId();
             }
+            /*  Commented code for ugly performance tests
+            long saveDelay = System.currentTimeMillis();
+            */            
+            getStorageManager().saveFiles(updatedFiles);    // all "at once" ; trying to get a best performance in database update
+            /*  Commented code for ugly performance tests
+            saveDelay = System.currentTimeMillis() - saveDelay;
+            Log.e(TAG, "syncing: SAVE TIME for " + uri + " contents, " + mSaveDelays[mDelaysIndex] + "ms");
+            */
             
-            // removal of old files
+            // removal of obsolete files
             Vector<OCFile> files = getStorageManager().getDirectoryContent(
                     getStorageManager().getFileById(parentId));
             OCFile file;
@@ -162,6 +215,16 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     fetchData(getUri().toString() + newFile.getRemotePath(), syncResult, newFile.getFileId(), account);
                 }
             }
+            
+            /*  Commented code for ugly performance tests
+            mResponseDelays[mDelaysIndex] = responseDelay;
+            mSaveDelays[mDelaysIndex] = saveDelay;
+            mDelaysCount++;
+            mDelaysIndex++;
+            if (mDelaysIndex >= MAX_DELAYS)
+                mDelaysIndex = 0;
+             */
+            
 
 
         } catch (OperationCanceledException e) {

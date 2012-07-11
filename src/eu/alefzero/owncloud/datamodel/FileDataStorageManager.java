@@ -19,14 +19,21 @@
 package eu.alefzero.owncloud.datamodel;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
+import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import android.accounts.Account;
 import android.content.ContentProviderClient;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -155,6 +162,86 @@ public class FileDataStorageManager implements DataStorageManager {
         return overriden;
     }
 
+
+    @Override
+    public void saveFiles(List<OCFile> files) {
+        
+        Iterator<OCFile> filesIt = files.iterator();
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(files.size());
+        OCFile file = null;
+
+        // prepare operations to perform
+        while (filesIt.hasNext()) {
+            file = filesIt.next();
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+            cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
+            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
+            cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+            cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+            if (file.getParentId() != 0)
+                cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
+            cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
+            if (!file.isDirectory())
+                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+            cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
+
+            if (fileExists(file.getRemotePath())) {
+                OCFile tmpfile = getFileByPath(file.getRemotePath());
+                file.setStoragePath(tmpfile.getStoragePath());
+                if (!file.isDirectory());
+                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+                file.setFileId(tmpfile.getFileId());
+
+                operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                        withValues(cv).
+                        withSelection(  ProviderTableMeta._ID + "=?", 
+                                        new String[] { String.valueOf(file.getFileId()) })
+                        .build());
+                
+            } else {
+                operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).withValues(cv).build());
+            }
+        }
+        
+        // apply operations in batch
+        ContentProviderResult[] results = null;
+        try {
+            if (getContentResolver() != null) {
+                results = getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+            
+            } else {
+                results = getContentProvider().applyBatch(operations);
+            }
+            
+        } catch (OperationApplicationException e) {
+            Log.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
+            
+        } catch (RemoteException e) {
+            Log.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
+        }
+        
+        // update new id in file objects for insertions
+        if (results != null) {
+            long newId;
+            for (int i=0; i<results.length; i++) {
+                if (results[i].uri != null) {
+                    newId = Long.parseLong(results[i].uri.getPathSegments().get(1));
+                    files.get(i).setFileId(newId);
+                    //Log.v(TAG, "Found and added id in insertion for " + files.get(i).getRemotePath());
+                }
+            }
+        }
+
+        for (OCFile aFile : files) {
+            if (aFile.isDirectory() && aFile.needsUpdatingWhileSaving())
+                saveFiles(getDirectoryContent(aFile));
+        }
+
+    }
+    
     public void setAccount(Account account) {
         mAccount = account;
     }

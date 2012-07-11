@@ -18,6 +18,7 @@
 
 package eu.alefzero.owncloud.datamodel;
 
+import java.util.List;
 import java.util.Vector;
 
 public interface DataStorageManager {
@@ -31,6 +32,8 @@ public interface DataStorageManager {
     public boolean fileExists(long id);
 
     public boolean saveFile(OCFile file);
+
+    public void saveFiles(List<OCFile> files);
 
     public Vector<OCFile> getDirectoryContent(OCFile f);
     

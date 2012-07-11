@@ -123,7 +123,9 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (mUriMatcher.match(uri) != SINGLE_FILE) {
+        if (mUriMatcher.match(uri) != SINGLE_FILE &&
+            mUriMatcher.match(uri) != ROOT_DIRECTORY) {
+            
             throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
 
