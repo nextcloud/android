@@ -64,6 +64,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -726,6 +727,8 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button)v.findViewById(R.id.cancel)).setOnClickListener(this);
             ((Button)v.findViewById(R.id.ok)).setOnClickListener(this);
             ((TextView)v.findViewById(R.id.user_input)).setText(currentName);
+            ((TextView)v.findViewById(R.id.user_input)).requestFocus();
+            getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
             mResult = false;
             return v;
