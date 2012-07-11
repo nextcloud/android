@@ -21,7 +21,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import eu.alefzero.owncloud.R;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -84,14 +83,29 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         
-        // Not PIN Code defined yet
-        if ( appPrefs.getString("PrefPinCode1", null) == null ){
-            setChangePincodeView();
+ 
+        // Not PIN Code defined yet.
+        // In a previous version settings is allow from start
+        if ( (appPrefs.getString("PrefPinCode1", null) == null ) ){
+            setInitView();
             pinCodeChecked = true; 
             newPasswordEntered = true;
             
-        } else {
-            setInitView(); 
+        }else if (appPrefs.getBoolean("set_pincode", false)){
+            if (activity.equals("preferences")){
+                mPinHdr.setText(R.string.pincode_configure_your_pin);
+                setChangePincodeView(true);
+            }else{
+                bCancel.setVisibility(View.INVISIBLE);
+                bCancel.setVisibility(View.GONE);
+                mPinHdr.setText(R.string.pincode_enter_pin_code);
+                setChangePincodeView(false);
+            }
+            
+        }else {
+            mPinHdr.setText(R.string.pincode_enter_pin_code);
+            pinCodeChecked = true;
+            setChangePincodeView(true); 
         }
            
        
@@ -107,19 +121,33 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mPinHdr.setText(R.string.pincode_enter_pin_code);
     }
     
-    
-    
-    protected void setChangePincodeView(){
-        mPinHdr.setText(R.string.pincode_configure_your_pin);
+   
+    protected void setChangePincodeView(boolean state){
+       
+        if(state){
+        bCancel.setVisibility(View.VISIBLE);
         bCancel.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
+        @Override
+        public void onClick(View v) {
+            
+            SharedPreferences.Editor appPrefsE = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
+            
+            SharedPreferences appPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext());
+            
+            boolean state = appPrefs.getBoolean("set_pincode", false);
+            appPrefsE.putBoolean("set_pincode",!state); 
+            appPrefsE.commit();
+            
+            finish();
             }
         });
+        }  
     
     }
+    
+    
     
     /*
      *  
@@ -323,9 +351,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                                    .getDefaultSharedPreferences(getApplicationContext()).edit();
                            appPrefs.putBoolean("set_pincode",false);
                            appPrefs.commit();
-                           // TODO Alert Message que salte y vuelva a la pantalla anterior
-                           
-                           finish();
+                           pinCodeEnd(false);
                            
                        }else{
                        
@@ -404,37 +430,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     
     protected void pinCodeChangeRequest(){
     
-        AlertDialog.Builder aBuilder = new AlertDialog.Builder(this);
-        aBuilder.setMessage("Do yo want to set a new PIN Code")
-              .setCancelable(false)
-              .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                 
-                 @Override
-                 public void onClick(DialogInterface dialog, int which) {
-                     // TODO Auto-generated method stub
-                     setChangePincodeView();
-                     mPinHdr.setText(R.string.pincode_enter_new_pin_code);
-                     clearBoxes();
-                     newPasswordEntered = true;
-                 }
-             })
-             .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                 
-                 @Override
-                 public void onClick(DialogInterface dialog, int which) {
-                     // TODO Auto-generated method stub
-                     SharedPreferences.Editor appPrefs = PreferenceManager
-                             .getDefaultSharedPreferences(getApplicationContext()).edit();
-                     appPrefs.putBoolean("set_pincode",false);
-                     appPrefs.commit();
-                     finish();
-                 }
-             });
-        
-        AlertDialog alert =aBuilder.create();
-      
-        alert.show();
-        
+        clearBoxes(); 
+        mPinHdr.setText(R.string.pincode_confirm_your_pincode); 
+        confirmingPinCode =true;
         
     }
     
@@ -520,6 +518,31 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     
     }
    
+    
+    protected void pinCodeEnd(boolean state){
+        AlertDialog aDialog = new AlertDialog.Builder(this).create();
+        
+        if (state){
+            aDialog.setTitle("SAVE & EXIT");
+            aDialog.setMessage("PIN Code Activated");
+        }else{
+            aDialog.setTitle("SAVE & EXIT");
+            aDialog.setMessage("PIN Code Removed"); 
+        }
+        
+        aDialog.setButton("OK", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub("");
+                finish();
+                return; 
+            }
+            
+        });
+        aDialog.show(); 
+    }
+    
     protected void savePincodeAndExit(){
         SharedPreferences.Editor appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext()).edit();
@@ -531,7 +554,10 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         appPrefs.putBoolean("set_pincode",true);
         appPrefs.commit();
         
-        finish();
+        pinCodeEnd(true);
+        
+        
+        
     }
     
     
@@ -543,6 +569,20 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mText4.setText("");
         mText1.requestFocus(); 
     }
+    
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
+            
+            
+            return true; 
+            
+        }
+        
+        return super.onKeyDown(keyCode, event);
+    }
+    
             
             
 }

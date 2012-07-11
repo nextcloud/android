@@ -22,10 +22,12 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
@@ -54,7 +56,7 @@ import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
  * 
  */
 public class Preferences extends SherlockPreferenceActivity implements
-        OnPreferenceChangeListener {
+        OnPreferenceChangeListener{
     private static final String TAG = "OwnCloudPreferences";
     private final int mNewSession = 47;
     private final int mEditSession = 48;
@@ -64,6 +66,7 @@ public class Preferences extends SherlockPreferenceActivity implements
     private ListPreference mAccountList;
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
+    private CheckBoxPreference pCode;
     private int mSelectedMenuItem;
 
     @Override
@@ -86,17 +89,19 @@ public class Preferences extends SherlockPreferenceActivity implements
             }
         });
         
-        CheckBoxPreference pCode = (CheckBoxPreference) findPreference("set_pincode");
+        pCode = (CheckBoxPreference) findPreference("set_pincode");
+         
+        
         if (pCode != null){
             
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    
-                                        
+                                          
                     Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
                     i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
                     i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
+                    
                     startActivity(i);
                     
                     return true;
@@ -106,6 +111,21 @@ public class Preferences extends SherlockPreferenceActivity implements
         }
         
     }
+
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        SharedPreferences appPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        
+        boolean state = appPrefs.getBoolean("set_pincode", false);
+        pCode.setChecked(state);
+        
+        super.onResume();
+    }
+
+
 
     /**
      * Populates the account selector
@@ -133,6 +153,8 @@ public class Preferences extends SherlockPreferenceActivity implements
         mAccountList.setEntryValues(accNames);
     }
 
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -185,6 +207,8 @@ public class Preferences extends SherlockPreferenceActivity implements
         super.onDestroy();
     }
 
+    
+    
     @Override
     /**
      * Updates various summaries after updates. Also starts and stops 
@@ -213,8 +237,10 @@ public class Preferences extends SherlockPreferenceActivity implements
             locationServiceIntent.putExtra("TRACKING_SETTING",
                     (Boolean) newValue);
             sendBroadcast(locationServiceIntent);
-        }
+        } 
         return true;
     }
+    
+    
 
 }
