@@ -42,6 +42,8 @@ import org.json.JSONObject;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -94,7 +96,7 @@ import eu.alefzero.webdav.WebdavClient;
  * 
  */
 public class FileDetailFragment extends SherlockFragment implements
-        OnClickListener {
+        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -222,6 +224,12 @@ public class FileDetailFragment extends SherlockFragment implements
                 dialog.show(getFragmentManager(), "nameeditdialog");
                 dialog.setOnDismissListener(this);
                 break;
+            }   
+            case R.id.fdRemoveBtn: {
+                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("remove " + mFile.getFileName());
+                confDialog.setOnConfirmationListener(this);
+                confDialog.show(getFragmentManager(), "REMOVE_CONFIRMATION_FRAGMENT");
+                break;
             }
             default:
                 Log.e(TAG, "Incorrect view clicked!");
@@ -232,8 +240,16 @@ public class FileDetailFragment extends SherlockFragment implements
             t.start();
         }*/
     }
-
-
+    
+    
+    @Override
+    public void onConfirmation(boolean confirmation, String callerTag) {
+        if (confirmation && callerTag.equals("REMOVE_CONFIRMATION_FRAGMENT")) {
+            // TODO remove in a separated thread
+        }
+    }
+    
+    
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
      * 
@@ -502,7 +518,7 @@ public class FileDetailFragment extends SherlockFragment implements
         
     }
     
-    // this is a temporary class for sharing purposes, it need to be replacead in transfer service
+    // this is a temporary class for sharing purposes, it need to be replaced in transfer service
     private class ShareRunnable implements Runnable {
         private String mPath;
 
@@ -772,4 +788,5 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         
     }
+
 }
