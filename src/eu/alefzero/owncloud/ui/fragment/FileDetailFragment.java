@@ -879,7 +879,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 Log.e("ASD", "W " + width + " SW " + screenwidth);
 
                 if (width > screenwidth) {
-                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / screenwidth)));
+                    scale = (int) Math.ceil((float)width / screenwidth);
                     options.inSampleSize = scale;
                 }
 
