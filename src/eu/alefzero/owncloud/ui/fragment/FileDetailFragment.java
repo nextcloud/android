@@ -17,6 +17,7 @@
  */
 package eu.alefzero.owncloud.ui.fragment;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
+import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.json.JSONException;
@@ -51,6 +53,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -59,8 +62,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceActivity.Header;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -86,6 +91,7 @@ import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
+import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -110,6 +116,7 @@ public class FileDetailFragment extends SherlockFragment implements
 
     private static final String TAG = "FileDetailFragment";
     public static final String FTAG = "FileDetails"; 
+    public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
 
     
     /**
@@ -158,10 +165,10 @@ public class FileDetailFragment extends SherlockFragment implements
         mView = view;
         
         if (mLayout == R.layout.file_details_fragment) {
-            getView().findViewById(R.id.fdKeepInSync).setOnClickListener(this);
-            //getView().findViewById(R.id.fdShareBtn).setOnClickListener(this);
-            getView().findViewById(R.id.fdRenameBtn).setOnClickListener(this);
-            getView().findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
+            //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdRenameBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
         }
         
         updateFileDetails();
@@ -235,7 +242,7 @@ public class FileDetailFragment extends SherlockFragment implements
             case R.id.fdRemoveBtn: {
                 ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("to remove " + mFile.getFileName());
                 confDialog.setOnConfirmationListener(this);
-                confDialog.show(getFragmentManager(), "REMOVE_CONFIRMATION_FRAGMENT");
+                confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 break;
             }
             default:
@@ -251,9 +258,13 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onConfirmation(boolean confirmation, String callerTag) {
-        if (confirmation && callerTag.equals("REMOVE_CONFIRMATION_FRAGMENT")) {
-            // TODO remove in a separated thread
-        }
+        if (confirmation && callerTag.equals(FTAG_CONFIRMATION)) {
+            Log.e("ASD","onConfirmation");
+            FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+            if (fdsm.getFileById(mFile.getFileId()) != null) {
+                new Thread(new RemoveRunnable(mFile, mAccount, new Handler())).start();
+            }
+        } else if (!confirmation) Log.d(TAG, "REMOVAL CANCELED");
     }
     
     
@@ -794,5 +805,90 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         
     }
+    
+    
+    private class RemoveRunnable implements Runnable {
+        
+        Account mAccount;
+        OCFile mFileToRemove;
+        Handler mHandler;
+        
+        public RemoveRunnable(OCFile fileToRemove, Account account, Handler handler) {
+            mFileToRemove = fileToRemove;
+            mAccount = account;
+            mHandler = handler;
+        }
+        
+        public void run() {
+            WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
+            AccountManager am = AccountManager.get(getSherlockActivity());
+            String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
+            String webdav_path = AccountUtils.getWebdavPath(ocv);
+            Log.d("ASD", ""+baseUrl + webdav_path + mFileToRemove.getRemotePath());
+
+            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + mFileToRemove.getRemotePath());
+            HttpMethodParams params = delete.getParams();
+            params.setSoTimeout(1000);
+            delete.setParams(params);
+            
+            boolean success = false;
+            try {
+                int status = wc.executeMethod(delete);
+                if (delete.succeeded()) {
+                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                    fdsm.removeFile(mFileToRemove);
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() { 
+                            try {
+                                Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
+                                msg.show();
+                                if (getActivity() instanceof FileDisplayActivity) {
+                                    // double pane
+                                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                    transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                                    transaction.commit();
+                                    
+                                } else {
+                                    getActivity().finish();
+                                }
+                                
+                            } catch (NotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    success = true;
+                }
+                Log.e("ASD", ""+ delete.getQueryString());
+                Log.d("delete", "returned status " + status);
+                
+            } catch (HttpException e) {
+                e.printStackTrace();
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+                
+            } finally {
+                if (!success) {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+                                msg.show();
+                            
+                            } catch (NotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        }
+        
+    }
+    
 
 }
