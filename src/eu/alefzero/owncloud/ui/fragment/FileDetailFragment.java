@@ -61,6 +61,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -111,6 +112,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private View mView;
     private OCFile mFile;
     private Account mAccount;
+    private ImageView mPreview;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
 
@@ -169,6 +171,7 @@ public class FileDetailFragment extends SherlockFragment implements
             //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRenameBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
+            mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
         }
         
         updateFileDetails();
@@ -200,6 +203,10 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onPause();
         getActivity().unregisterReceiver(mDownloadFinishReceiver);
         mDownloadFinishReceiver = null;
+        if (mPreview != null) {
+            mPreview = null;
+            System.gc();
+        }
     }
 
     @Override
@@ -322,69 +329,9 @@ public class FileDetailFragment extends SherlockFragment implements
             
             if (mFile.getStoragePath() != null) {
                 // Update preview
-                ImageView preview = (ImageView) getView().findViewById(R.id.fdPreview);
-                try {
-                    if (mFile.getMimetype().startsWith("image/")) {
-                        BitmapFactory.Options options = new Options();
-                        options.inScaled = true;
-                        options.inPurgeable = true;
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
-                            options.inPreferQualityOverSpeed = false;
-                        }
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                            options.inMutable = false;
-                        }
-
-                        Bitmap bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
-
-                        if (bmp != null) {
-                            int width = options.outWidth;
-                            int height = options.outHeight;
-                            int scale = 1;
-                            boolean recycle = false;
-                            if (width >= 2048 || height >= 2048) {
-                                scale = (int) (Math.ceil(Math.max(height, width)/2048.));
-                                options.inSampleSize = scale;
-                                recycle = true;
-                            }
-                                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                                Point size = new Point();
-                                int screenwidth;
-                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                                    display.getSize(size);
-                                    screenwidth = size.x;
-                                } else {
-                                    screenwidth = display.getWidth();
-                                }
-
-                                Log.e("ASD", "W " + width + " SW " + screenwidth);
-
-                                if (width > screenwidth) {
-                                    scale = (int) (Math.ceil(Math.max(height, width)/screenwidth));
-                                    options.inSampleSize = scale;
-                                    recycle = true;
-                                }
-                            
-
-                            if (recycle) bmp.recycle();
-                            bmp = BitmapFactory.decodeFile(mFile.getStoragePath(), options);
-                            
-                        }
-                        if (bmp != null) {
-                            preview.setImageBitmap(bmp);
-                        }
-                    }
-                } catch (OutOfMemoryError e) {
-                    preview.setVisibility(View.INVISIBLE);
-                    Log.e(TAG, "Out of memory occured for file with size " + mFile.getFileLength());
-                    
-                } catch (NoSuchFieldError e) {
-                    preview.setVisibility(View.INVISIBLE);
-                    Log.e(TAG, "Error from access to unexisting field despite protection " + mFile.getFileLength());
-                    
-                } catch (Throwable t) {
-                    preview.setVisibility(View.INVISIBLE);
-                    Log.e(TAG, "Unexpected error while creating image preview " + mFile.getFileLength(), t);
+                if (mFile.getMimetype().startsWith("image/")) {
+                    BitmapLoader bl = new BitmapLoader();
+                    bl.execute(new String[]{mFile.getStoragePath()});
                 }
                 
                 // Change download button to open button
@@ -885,6 +832,82 @@ public class FileDetailFragment extends SherlockFragment implements
                         }
                     });
                 }
+            }
+        }
+        
+    }
+    
+    class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap result = null;
+            if (params.length != 1) return result;
+            String storagePath = params[0];
+            try {
+
+                BitmapFactory.Options options = new Options();
+                options.inScaled = true;
+                options.inPurgeable = true;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
+                    options.inPreferQualityOverSpeed = false;
+                }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+                    options.inMutable = false;
+                }
+
+                result = BitmapFactory.decodeFile(storagePath, options);
+
+                if (result != null) {
+                    int width = options.outWidth;
+                    int height = options.outHeight;
+                    int scale = 1;
+                    boolean recycle = false;
+                    if (width >= 2048 || height >= 2048) {
+                        scale = (int) (Math.ceil(Math.max(height, width) / 2048.));
+                        options.inSampleSize = scale;
+                        recycle = true;
+                    }
+                    Display display = getActivity().getWindowManager().getDefaultDisplay();
+                    Point size = new Point();
+                    int screenwidth;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                        display.getSize(size);
+                        screenwidth = size.x;
+                    } else {
+                        screenwidth = display.getWidth();
+                    }
+
+                    Log.e("ASD", "W " + width + " SW " + screenwidth);
+
+                    if (width > screenwidth) {
+                        scale = (int) (Math.ceil(Math.max(height, width) / screenwidth));
+                        options.inSampleSize = scale;
+                        recycle = true;
+                    }
+
+                    if (recycle)
+                        result.recycle();
+                    result = BitmapFactory.decodeFile(storagePath, options);
+                }
+
+            } catch (OutOfMemoryError e) {
+                result = null;
+                Log.e(TAG, "Out of memory occured for file with size " + storagePath);
+                
+            } catch (NoSuchFieldError e) {
+                result = null;
+                Log.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
+                
+            } catch (Throwable t) {
+                result = null;
+                Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
+            }
+            return result;
+        }
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (result != null) {
+                mPreview.setImageBitmap(result);
             }
         }
         
