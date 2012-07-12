@@ -748,7 +748,9 @@ public class FileDetailFragment extends SherlockFragment implements
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.edit_box_dialog, container, false);
 
-            String currentName = getArguments().getString("filename", "");
+            String currentName = getArguments().getString("filename");
+            if (currentName == null)
+                currentName = "";
             
             ((Button)v.findViewById(R.id.cancel)).setOnClickListener(this);
             ((Button)v.findViewById(R.id.ok)).setOnClickListener(this);
