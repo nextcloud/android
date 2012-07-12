@@ -157,6 +157,13 @@ public class FileDetailFragment extends SherlockFragment implements
         view = inflater.inflate(mLayout, container, false);
         mView = view;
         
+        if (mLayout == R.layout.file_details_fragment) {
+            getView().findViewById(R.id.fdKeepInSync).setOnClickListener(this);
+            //getView().findViewById(R.id.fdShareBtn).setOnClickListener(this);
+            getView().findViewById(R.id.fdRenameBtn).setOnClickListener(this);
+            getView().findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
+        }
+        
         updateFileDetails();
         return view;
     }
@@ -226,7 +233,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }   
             case R.id.fdRemoveBtn: {
-                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("remove " + mFile.getFileName());
+                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("to remove " + mFile.getFileName());
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), "REMOVE_CONFIRMATION_FRAGMENT");
                 break;
@@ -301,9 +308,6 @@ public class FileDetailFragment extends SherlockFragment implements
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
             cb.setChecked(mFile.keepInSync());
-            cb.setOnClickListener(this);
-            //getView().findViewById(R.id.fdShareBtn).setOnClickListener(this);
-            getView().findViewById(R.id.fdRenameBtn).setOnClickListener(this);
             
             if (mFile.getStoragePath() != null) {
                 // Update preview

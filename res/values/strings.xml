@@ -122,6 +122,6 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-    <string name="confirmation_alert_prefix">Do you really want </string>
+    <string name="confirmation_alert_prefix">"Do you really want "</string>
     <string name="confirmation_alert_suffix">"?"</string>
 </resources>
