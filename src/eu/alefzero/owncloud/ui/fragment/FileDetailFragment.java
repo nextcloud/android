@@ -205,7 +205,6 @@ public class FileDetailFragment extends SherlockFragment implements
         mDownloadFinishReceiver = null;
         if (mPreview != null) {
             mPreview = null;
-            System.gc();
         }
     }
 
@@ -848,6 +847,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 BitmapFactory.Options options = new Options();
                 options.inScaled = true;
                 options.inPurgeable = true;
+                options.inJustDecodeBounds = true;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
                     options.inPreferQualityOverSpeed = false;
                 }
@@ -856,39 +856,36 @@ public class FileDetailFragment extends SherlockFragment implements
                 }
 
                 result = BitmapFactory.decodeFile(storagePath, options);
+                options.inJustDecodeBounds = false;
 
-                if (result != null) {
-                    int width = options.outWidth;
-                    int height = options.outHeight;
-                    int scale = 1;
-                    boolean recycle = false;
-                    if (width >= 2048 || height >= 2048) {
-                        scale = (int) (Math.ceil(Math.max(height, width) / 2048.));
-                        options.inSampleSize = scale;
-                        recycle = true;
-                    }
-                    Display display = getActivity().getWindowManager().getDefaultDisplay();
-                    Point size = new Point();
-                    int screenwidth;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                        display.getSize(size);
-                        screenwidth = size.x;
-                    } else {
-                        screenwidth = display.getWidth();
-                    }
-
-                    Log.e("ASD", "W " + width + " SW " + screenwidth);
-
-                    if (width > screenwidth) {
-                        scale = (int) (Math.ceil(Math.max(height, width) / screenwidth));
-                        options.inSampleSize = scale;
-                        recycle = true;
-                    }
-
-                    if (recycle)
-                        result.recycle();
-                    result = BitmapFactory.decodeFile(storagePath, options);
+                int width = options.outWidth;
+                int height = options.outHeight;
+                int scale = 1;
+                boolean recycle = false;
+                if (width >= 2048 || height >= 2048) {
+                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
+                    options.inSampleSize = scale;
                 }
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                int screenwidth;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                    display.getSize(size);
+                    screenwidth = size.x;
+                } else {
+                    screenwidth = display.getWidth();
+                }
+
+                Log.e("ASD", "W " + width + " SW " + screenwidth);
+
+                if (width > screenwidth) {
+                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / screenwidth)));
+                    options.inSampleSize = scale;
+                }
+
+                result = BitmapFactory.decodeFile(storagePath, options);
+
+                Log.e("ASD", "W " + options.outWidth + " SW " + options.outHeight);
 
             } catch (OutOfMemoryError e) {
                 result = null;
