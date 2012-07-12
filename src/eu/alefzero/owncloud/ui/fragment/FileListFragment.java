@@ -43,8 +43,8 @@ public class FileListFragment extends FragmentListView {
     
     private FileListFragment.ContainerActivity mContainerActivity;
     
-    private Vector<OCFile> mFiles;    
     private OCFile mFile = null;
+    private FileListListAdapter mAdapter;
 
     
     /**
@@ -79,6 +79,7 @@ public class FileListFragment extends FragmentListView {
         Log.i(getClass().toString(), "onActivityCreated() start");
         
         super.onCreate(savedInstanceState);
+        //mAdapter = new FileListListAdapter();
         
         Log.i(getClass().toString(), "onActivityCreated() stop");
     }
@@ -86,21 +87,22 @@ public class FileListFragment extends FragmentListView {
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        if (mFiles.size() <= position) {
-            throw new IndexOutOfBoundsException("Incorrect item selected");
-        }
-        OCFile file = mFiles.get(position);
-        
-        /// Click on a directory
-        if (file.getMimetype().equals("DIR")) {
-            // just local updates
-            mFile = file;
-            listDirectory(file);
-            // any other updates are let to the container Activity
-            mContainerActivity.onDirectoryClick(file);
+        OCFile file = (OCFile) mAdapter.getItem(position);
+        if (file != null) {
+            /// Click on a directory
+            if (file.getMimetype().equals("DIR")) {
+                // just local updates
+                mFile = file;
+                listDirectory(file);
+                // any other updates are let to the container Activity
+                mContainerActivity.onDirectoryClick(file);
             
-        } else {    /// Click on a file
-            mContainerActivity.onFileClick(file);
+            } else {    /// Click on a file
+                mContainerActivity.onFileClick(file);
+            }
+            
+        } else {
+            Log.d(TAG, "Null object in ListAdapter!!");
         }
         
     }
@@ -164,12 +166,9 @@ public class FileListFragment extends FragmentListView {
         }
 
         mFile = directory;
-        mFiles = storageManager.getDirectoryContent(directory);
         
-        /*if (mFiles == null || mFiles.size() == 0) {
-            Toast.makeText(getActivity(), "There are no files here", Toast.LENGTH_LONG).show();
-        }*/
-        setListAdapter(new FileListListAdapter(directory, storageManager, getActivity()));
+        mAdapter = new FileListListAdapter(directory, storageManager, getActivity());
+        setListAdapter(mAdapter);
     }
     
     
