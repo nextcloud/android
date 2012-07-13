@@ -111,7 +111,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        setSupportProgressBarIndeterminateVisibility(false);
 
         Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
@@ -150,6 +149,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             mForcedLoginToCreateFirstAccount = true;
         }
         
+        setSupportProgressBarIndeterminateVisibility(false);
         Log.i(getClass().toString(), "onCreate() end");
     }
 
