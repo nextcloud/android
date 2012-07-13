@@ -75,10 +75,14 @@
     <string name="use_ssl">Use Secure Connection</string>
     <string name="location_no_provider">ownCloud cannot track your device. Please check your location settings</string>
     
-    <string name="pincode_enter_pin_code">Please, insert your PIN code</string>
-    <string name="pincode_enter_new_pin_code">Please, insert your new PIN code</string>
-    <string name="pincode_configure_your_pin">Configure your PIN code</string>
-    <string name="pincode_confirm_your_pincode">"Confirm your PIN code, please"</string>
+    <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
+    <string name="pincode_enter_new_pin_code">Please, insert your new App PIN</string>
+    <string name="pincode_configure_your_pin">Enter ownCloud App PIN</string>
+    <string name="pincode_reenter_your_pincode">Reenter ownCloud App PIN, please;</string>
+    <string name="pincode_remove_your_pincode">Remove your ownCloud App PIN;</string>
+    <string name="pincode_mismatch">Both ownCloud App PIN are not the same;</string> 
+    <string name="pincode_wrong">Incorrect ownCloud App PIN;</string>
+    
     
     <string-array name="prefs_trackmydevice_intervall_keys">
     	<item>15 Minutes</item>
@@ -122,10 +126,10 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-    <string name="confirmation_alert_prefix">"Do you really want "</string>
-    <string name="confirmation_alert_suffix">"?"</string>
-    
-    <string name="remove_success_msg">"Successful removal"</string>
-    <string name="remove_fail_msg">"Removal could not be completed"</string>
-    
+    <string name="confirmation_alert_prefix">Do you really want </string>
+	<string name="confirmation_alert_suffix">"?"</string>
+	
+	<string name="remove_success_msg">"Successful removal"</string>
+	<string name="remove_fail_msg">"Removal could not be completed"</string>
+	
 </resources>

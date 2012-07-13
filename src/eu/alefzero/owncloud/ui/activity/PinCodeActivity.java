@@ -60,7 +60,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     boolean pinCodeChecked = false;
     boolean newPasswordEntered = false;
     boolean bChange = true; // to control that only one blocks jump
-    int tCounter ; // Count the number of attempts an user could introduce de PIN code
+    int tCounter ; // Count the number of attempts an user could introduce the PIN code
 
     
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mText1 = (EditText) findViewById(R.id.txt1);
         mText1.requestFocus();
-        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);        
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
@@ -91,29 +91,42 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             pinCodeChecked = true; 
             newPasswordEntered = true;
             
-        }else if (appPrefs.getBoolean("set_pincode", false)){
-            if (activity.equals("preferences")){
-                mPinHdr.setText(R.string.pincode_configure_your_pin);
-                setChangePincodeView(true);
-            }else{
-                bCancel.setVisibility(View.INVISIBLE);
-                bCancel.setVisibility(View.GONE);
-                mPinHdr.setText(R.string.pincode_enter_pin_code);
-                setChangePincodeView(false);
-            }
+        }else{ 
             
-        }else {
-            mPinHdr.setText(R.string.pincode_enter_pin_code);
-            pinCodeChecked = true;
-            setChangePincodeView(true); 
-        }
+            if (appPrefs.getBoolean("set_pincode", false)){
+               // pincode activated
+               if (activity.equals("preferences")){
+                // PIN has been activated yet
+                 mPinHdr.setText(R.string.pincode_configure_your_pin);
+                 pinCodeChecked = true ; // No need to check it 
+                 setChangePincodeView(true);
+               }else{
+                // PIN active
+                 bCancel.setVisibility(View.INVISIBLE);
+                 bCancel.setVisibility(View.GONE);
+                 mPinHdr.setText(R.string.pincode_enter_pin_code);
+                 setChangePincodeView(false);
+              }
+            
+           }else {
+            // pincode removal
+              mPinHdr.setText(R.string.pincode_enter_pin_code);
+              pinCodeChecked = false;
+              setChangePincodeView(true); 
+           }
            
-       
+        }
         setTextListeners();
         
         
     }
-       
+     
+    protected void setInitVars(){
+        confirmingPinCode = false;
+        pinCodeChecked = false;
+        newPasswordEntered = false;
+
+    }
     
     protected void setInitView(){
         bCancel.setVisibility(View.INVISIBLE);
@@ -139,7 +152,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             boolean state = appPrefs.getBoolean("set_pincode", false);
             appPrefsE.putBoolean("set_pincode",!state); 
             appPrefsE.commit();
-            
+            setInitVars();
             finish();
             }
         });
@@ -351,6 +364,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                                    .getDefaultSharedPreferences(getApplicationContext()).edit();
                            appPrefs.putBoolean("set_pincode",false);
                            appPrefs.commit();
+                           
+                           setInitVars();
                            pinCodeEnd(false);
                            
                        }else{
@@ -358,7 +373,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                            if (!confirmingPinCode && !newPasswordEntered){
                                pinCodeChangeRequest();
                            } else if (newPasswordEntered && !confirmingPinCode){
-                               mPinHdr.setText(R.string.pincode_confirm_your_pincode);
+                               mPinHdr.setText(R.string.pincode_reenter_your_pincode);
                                confirmingPinCode = true;
                                clearBoxes();
                            } else {
@@ -431,7 +446,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     protected void pinCodeChangeRequest(){
     
         clearBoxes(); 
-        mPinHdr.setText(R.string.pincode_confirm_your_pincode); 
+        mPinHdr.setText(R.string.pincode_reenter_your_pincode); 
         confirmingPinCode =true;
         
     }
@@ -459,7 +474,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         }else {
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
             aDialog.setTitle("ERROR");
-            aDialog.setMessage("Wrong PIN");
+            CharSequence cseq = getString(R.string.pincode_wrong);
+            aDialog.setMessage(cseq);
             aDialog.setButton("OK", new DialogInterface.OnClickListener(){
 
                 @Override
@@ -471,7 +487,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             });
             aDialog.show();
             clearBoxes(); 
-            mPinHdr.setText(R.string.pincode_configure_your_pin);
+            mPinHdr.setText(R.string.pincode_enter_pin_code);
             newPasswordEntered = true;
             confirmingPinCode = false;
             
@@ -501,7 +517,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
             aDialog.setTitle("ERROR");
-            aDialog.setMessage("PIN Code Mismatch");
+            CharSequence cseq = getString(R.string.pincode_mismatch);
+            aDialog.setMessage(cseq);
             aDialog.setButton("OK", new DialogInterface.OnClickListener(){
 
                 @Override
@@ -575,7 +592,20 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount()== 0){
             
+            if (activity.equals("preferences")){
+                SharedPreferences.Editor appPrefsE = PreferenceManager
             
+                    .getDefaultSharedPreferences(getApplicationContext()).edit();
+            
+                SharedPreferences appPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(getApplicationContext());
+            
+                boolean state = appPrefs.getBoolean("set_pincode", false);
+                appPrefsE.putBoolean("set_pincode",!state); 
+                appPrefsE.commit();
+                setInitVars();
+                finish();
+            }
             return true; 
             
         }
