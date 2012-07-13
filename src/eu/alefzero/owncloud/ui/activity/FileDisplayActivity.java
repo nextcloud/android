@@ -142,14 +142,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             setContentView(R.layout.no_account_available);
             getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
             findViewById(R.id.setup_account).setOnClickListener(this);
-            
+
+            setSupportProgressBarIndeterminateVisibility(false);
+
             Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
             startActivity(intent);  // although the code is here, the activity won't be created until this.onStart() and this.onResume() are finished;
             mForcedLoginToCreateFirstAccount = true;
         }
         
-        setSupportProgressBarIndeterminateVisibility(false);
         Log.i(getClass().toString(), "onCreate() end");
     }
 
@@ -762,7 +763,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
             transaction.commit();
         }
-
+        setSupportProgressBarIndeterminateVisibility(false);
     }
     
 
