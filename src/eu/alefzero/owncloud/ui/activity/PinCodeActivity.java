@@ -17,6 +17,8 @@
  */
 package eu.alefzero.owncloud.ui.activity;
 
+import java.util.Arrays;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import eu.alefzero.owncloud.R;
@@ -74,7 +76,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mText1 = (EditText) findViewById(R.id.txt1);
         mText1.requestFocus();
-        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);        
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
@@ -182,7 +183,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                       tempText[0] = mText1.getText().toString();
                       
                    }
+                                      
                    mText2.requestFocus();
+                   
                 }
             }
 
@@ -215,7 +218,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                     if (!confirmingPinCode){
                         tempText[1] = mText2.getText().toString();
                     }
+                    
                     mText3.requestFocus();
+                    
                 }
             }
 
@@ -243,7 +248,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
                     mText1.setText("");
                     mText1.requestFocus();
-                    tempText[0] = "";
+                    if (!confirmingPinCode)
+                       tempText[0] = "";
                     bChange= false;
                 
                 }else if(!bChange){
@@ -261,6 +267,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                 // TODO Auto-generated method stub
                 if (mText1.getText().toString().equals("")){
                     mText1.requestFocus(); 
+                }else {
+                    mText1.append("");
                 }
                 
             }
@@ -281,6 +289,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                         tempText[2] = mText3.getText().toString();
                     }
                     mText4.requestFocus();
+                    
                 }
             }
 
@@ -306,7 +315,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
                 if (keyCode == KeyEvent.KEYCODE_DEL && bChange) {
                     mText2.requestFocus();
-                    tempText[1] = "";
+                    if (!confirmingPinCode)
+                        tempText[1] = "";
                     mText2.setText("");
                     bChange= false;
                     
@@ -370,12 +380,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                            
                        }else{
                        
-                           if (!confirmingPinCode && !newPasswordEntered){
+                           if (!confirmingPinCode){
                                pinCodeChangeRequest();
-                           } else if (newPasswordEntered && !confirmingPinCode){
-                               mPinHdr.setText(R.string.pincode_reenter_your_pincode);
-                               confirmingPinCode = true;
-                               clearBoxes();
+                            
                            } else {
                                confirmPincode();
                            }
@@ -411,7 +418,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
                 if (keyCode == KeyEvent.KEYCODE_DEL && bChange) {
                     mText3.requestFocus();
-                    tempText[2]="";
+                    if (!confirmingPinCode)
+                        tempText[2]="";
                     mText3.setText("");
                     bChange= false;
                     
@@ -472,6 +480,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         
         
         }else {
+            Arrays.fill(tempText, null);
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
             aDialog.setTitle("ERROR");
             CharSequence cseq = getString(R.string.pincode_wrong);
@@ -515,6 +524,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
         } else {
             
+            Arrays.fill(tempText, null);
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
             aDialog.setTitle("ERROR");
             CharSequence cseq = getString(R.string.pincode_mismatch);
