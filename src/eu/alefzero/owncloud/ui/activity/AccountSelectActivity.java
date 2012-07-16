@@ -78,6 +78,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
         AccountUtils.setCurrentOwnCloudAccount(this, accountName);
 
         // trigger synchronization when current account is changed
+        ContentResolver.cancelSync(null, "org.owncloud");
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), "org.owncloud", bundle);

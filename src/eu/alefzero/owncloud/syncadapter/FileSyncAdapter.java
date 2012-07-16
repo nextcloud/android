@@ -265,5 +265,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
         getContext().sendStickyBroadcast(i);
     }
+    
+    @Override
+    public void onSyncCanceled() {
+        Log.d(TAG, "sync is being cancelled !! ************************************************");
+        super.onSyncCanceled();
+    }
 
 }
