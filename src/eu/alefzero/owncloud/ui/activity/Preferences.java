@@ -31,15 +31,10 @@ import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import eu.alefzero.owncloud.AccountUtils;
@@ -47,7 +42,6 @@ import eu.alefzero.owncloud.OwnCloudSession;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.DbHandler;
-import eu.alefzero.owncloud.syncadapter.FileSyncAdapter;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -62,8 +56,8 @@ public class Preferences extends SherlockPreferenceActivity implements
     private final int mEditSession = 48;
     private DbHandler mDbHandler;
     private Vector<OwnCloudSession> mSessions;
-    private Account[] mAccounts;
-    private ListPreference mAccountList;
+    //private Account[] mAccounts;
+    //private ListPreference mAccountList;
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
@@ -75,7 +69,7 @@ public class Preferences extends SherlockPreferenceActivity implements
         mDbHandler = new DbHandler(getBaseContext());
         mSessions = new Vector<OwnCloudSession>();
         addPreferencesFromResource(R.xml.preferences);
-        populateAccountList();
+        //populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         Preference p = findPreference("manage_account");
@@ -129,7 +123,7 @@ public class Preferences extends SherlockPreferenceActivity implements
 
     /**
      * Populates the account selector
-     */
+     *-/
     private void populateAccountList() {
         AccountManager accMan = AccountManager.get(this);
         mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
@@ -151,7 +145,7 @@ public class Preferences extends SherlockPreferenceActivity implements
 
         mAccountList.setEntries(accNames);
         mAccountList.setEntryValues(accNames);
-    }
+    }*/
 
     
     
@@ -216,12 +210,12 @@ public class Preferences extends SherlockPreferenceActivity implements
      */
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         // Update current account summary
-        if (preference.equals(mAccountList)) {
+        /*if (preference.equals(mAccountList)) {
             mAccountList.setSummary(newValue.toString());
         }
 
         // Update tracking interval summary
-        else if (preference.equals(mTrackingUpdateInterval)) {
+        else*/ if (preference.equals(mTrackingUpdateInterval)) {
             String trackingSummary = getResources().getString(
                     R.string.prefs_trackmydevice_interval_summary);
             trackingSummary = String.format(trackingSummary,

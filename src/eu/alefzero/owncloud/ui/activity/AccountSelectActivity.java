@@ -9,6 +9,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,6 +76,12 @@ public class AccountSelectActivity extends SherlockListActivity implements
         String accountName = ((TextView) v.findViewById(android.R.id.text1))
                 .getText().toString();
         AccountUtils.setCurrentOwnCloudAccount(this, accountName);
+
+        // trigger synchronization when current account is changed
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), "org.owncloud", bundle);
+        
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);

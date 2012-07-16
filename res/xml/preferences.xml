@@ -2,11 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 	<PreferenceCategory android:title="@string/prefs_category_general">
     
-    <ListPreference
+    <!-- ListPreference
         android:key="select_oc_account"
         android:title="@string/prefs_select_oc_account"
         android:summary="@string/prefs_summary_select_oc_account" 
-        />
+        / -->
     <Preference android:title="Manage accounts" android:key="manage_account" />
     <CheckBoxPreference android:title="ownCloud App PIN" android:key="set_pincode" 
                         android:summary="Protect your ownCloud client"/>
