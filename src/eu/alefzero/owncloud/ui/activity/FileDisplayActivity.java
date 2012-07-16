@@ -170,8 +170,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             case R.id.startSync: {
-                // This could be interesting
-                //ContentResolver.cancelSync(null, "org.owncloud");   // cancel the current synchronizations of any other ownCloud account
+                ContentResolver.cancelSync(null, "org.owncloud");   // cancel the current synchronizations of any ownCloud account
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
                 ContentResolver.requestSync(

@@ -19,7 +19,6 @@
 package eu.alefzero.owncloud.syncadapter;
 
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 import java.util.List;
 import java.util.Vector;
 
@@ -60,6 +59,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     */
     
     private long mCurrentSyncTime;
+    private boolean mCancellation;
+    private Account mAccount;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -70,9 +71,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             String authority, ContentProviderClient provider,
             SyncResult syncResult) {
 
-        this.setAccount(account);
+        mCancellation = false;
+        mAccount = account;
+        
+        this.setAccount(mAccount);
         this.setContentProvider(provider);
-        this.setStorageManager(new FileDataStorageManager(account,
+        this.setStorageManager(new FileDataStorageManager(mAccount,
                 getContentProvider()));
         
         /*  Commented code for ugly performance tests
@@ -81,7 +85,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         */
         
         
-        Log.d(TAG, "syncing owncloud account " + account.name);
+        Log.d(TAG, "syncing owncloud account " + mAccount.name);
 
         sendStickyBroadcast(true, null);  // message to signal the start to the UI
 
@@ -98,7 +102,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 OCFile file = fillOCFile(we);
                 file.setParentId(0);
                 getStorageManager().saveFile(file);
-                fetchData(getUri().toString(), syncResult, file.getFileId(), account);
+                if (!mCancellation) {
+                    fetchData(getUri().toString(), syncResult, file.getFileId());
+                }
             }
         } catch (OperationCanceledException e) {
             e.printStackTrace();
@@ -141,7 +147,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         sendStickyBroadcast(false, null);        
     }
 
-    private void fetchData(String uri, SyncResult syncResult, long parentId, Account account) {
+    private void fetchData(String uri, SyncResult syncResult, long parentId) {
         try {
             //Log.v(TAG, "syncing: fetching " + uri);
             
@@ -210,12 +216,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
 
             // recursive fetch
-            for (OCFile newFile : files) {
+            for (int i=0; i < files.size() && !mCancellation; i++) {
+                OCFile newFile = files.get(i);
                 if (newFile.getMimetype().equals("DIR")) {
-                    fetchData(getUri().toString() + newFile.getRemotePath(), syncResult, newFile.getFileId(), account);
+                    fetchData(getUri().toString() + newFile.getRemotePath(), syncResult, newFile.getFileId());
                 }
             }
-            
+            if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancellation request");
+                
             /*  Commented code for ugly performance tests
             mResponseDelays[mDelaysIndex] = responseDelay;
             mSaveDelays[mDelaysIndex] = saveDelay;
@@ -240,7 +248,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             e.printStackTrace();
         } catch (Throwable t) {
             // TODO update syncResult
-            Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
+            Log.e(TAG, "problem while synchronizing owncloud account " + mAccount.name, t);
             t.printStackTrace();
         }
     }
@@ -266,9 +274,16 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         getContext().sendStickyBroadcast(i);
     }
     
+    /**
+     * Called by system SyncManager when a synchronization is required to be cancelled.
+     * 
+     * Sets the mCancellation flag to 'true'. THe synchronization will be stopped when before a new folder is fetched. Data of the last folder
+     * fetched will be still saved in the database. See onPerformSync implementation.
+     */
     @Override
     public void onSyncCanceled() {
-        Log.d(TAG, "sync is being cancelled !! ************************************************");
+        Log.d(TAG, "Synchronization of " + mAccount.name + " has been requested to cancell");
+        mCancellation = true;
         super.onSyncCanceled();
     }
 
