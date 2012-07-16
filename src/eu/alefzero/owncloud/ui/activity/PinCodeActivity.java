@@ -76,6 +76,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mText1 = (EditText) findViewById(R.id.txt1);
         mText1.requestFocus();
+        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);        
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
