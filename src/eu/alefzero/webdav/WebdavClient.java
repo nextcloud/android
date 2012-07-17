@@ -122,7 +122,7 @@ public class WebdavClient extends HttpClient {
      */
     public boolean downloadFile(String remoteFilepath, File targetPath) {
         boolean ret = false;
-        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encode(remoteFilepath));
+        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
         HttpMethodParams params = get.getParams();
         params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
         get.setParams(params);
@@ -163,7 +163,7 @@ public class WebdavClient extends HttpClient {
      * @return
      */
     public boolean deleteFile(String remoteFilePath){
-        DavMethod delete = new DeleteMethod(mUri.toString() + WebdavUtils.encode(remoteFilePath));
+        DavMethod delete = new DeleteMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilePath));
         try {
             executeMethod(delete);
         }  catch (Throwable e) {
@@ -196,7 +196,7 @@ public class WebdavClient extends HttpClient {
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
             entity.setOnDatatransferProgressListener(mDataTransferListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
-            PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encode(remoteTarget));
+            PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
             HttpMethodParams params = put.getParams();
             params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
             put.setParams(params);
@@ -242,7 +242,7 @@ public class WebdavClient extends HttpClient {
      */
     public boolean createDirectory(String path) {
         try {
-            MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encode(path));
+            MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
             int status = executeMethod(mkcol);
             Log.d(TAG, "Status returned " + status);
             Log.d(TAG, "uri: " + mkcol.getURI().toString());

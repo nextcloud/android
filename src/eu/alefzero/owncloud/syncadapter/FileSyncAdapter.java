@@ -220,7 +220,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             for (int i=0; i < files.size() && !mCancellation; i++) {
                 OCFile newFile = files.get(i);
                 if (newFile.getMimetype().equals("DIR")) {
-                    fetchData(getUri().toString() + WebdavUtils.encode(newFile.getRemotePath()), syncResult, newFile.getFileId());
+                    fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
                 }
             }
             if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancellation request");

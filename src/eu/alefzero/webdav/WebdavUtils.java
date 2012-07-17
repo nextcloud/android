@@ -68,7 +68,7 @@ public class WebdavUtils {
      * @param remoteFilePath    Path
      * @return                  Encoded path according to RFC 2396, always starting with "/"
      */
-    public static String encode(String remoteFilePath) {
+    public static String encodePath(String remoteFilePath) {
         String encodedPath = Uri.encode(remoteFilePath, "/");
         if (!encodedPath.startsWith("/"))
             encodedPath = "/" + encodedPath;

@@ -197,6 +197,7 @@ public class FileDetailFragment extends SherlockFragment implements
         IntentFilter filter = new IntentFilter(
                 FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mDownloadFinishReceiver, filter);
+        mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
     }
 
     @Override
@@ -340,9 +341,10 @@ public class FileDetailFragment extends SherlockFragment implements
                     @Override
                     public void onClick(View v) {
                         String storagePath = mFile.getStoragePath();
+                        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
                         try {
                             Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setDataAndType(Uri.parse("file://"+ storagePath), mFile.getMimetype());
+                            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
                             i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                             startActivity(i);
                             
@@ -354,7 +356,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
                                 if (mimeType != null && !mimeType.equals(mFile.getMimetype())) {
-                                    i.setDataAndType(Uri.parse("file://"+mFile.getStoragePath()), mimeType);
+                                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
                                     i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                                     startActivity(i);
                                     toastIt = false;
@@ -644,11 +646,11 @@ public class FileDetailFragment extends SherlockFragment implements
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
             String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encode(mOld.getRemotePath()));
+            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encodePath(mOld.getRemotePath()));
 
-            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encode(mNew.getRemotePath()));
-            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + WebdavUtils.encode(mOld.getRemotePath()),
-                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encode(mNew.getRemotePath()));
+            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encodePath(mNew.getRemotePath()));
+            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mOld.getRemotePath()),
+                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encodePath(mNew.getRemotePath()));
             
             try {
                 int status = wc.executeMethod(move);
@@ -772,9 +774,9 @@ public class FileDetailFragment extends SherlockFragment implements
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
             String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encode(mFileToRemove.getRemotePath()));
+            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
 
-            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encode(mFileToRemove.getRemotePath()));
+            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             HttpMethodParams params = delete.getParams();
             params.setSoTimeout(1000);
             delete.setParams(params);

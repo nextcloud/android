@@ -23,6 +23,7 @@ import java.io.File;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
@@ -84,7 +85,7 @@ public class FileListActionListAdapter implements ListAdapter {
                         .getSystemService(Context.ACCOUNT_SERVICE);
                 String ocurl = accm.getUserData(mAccount,
                         AccountAuthenticator.KEY_OC_URL);
-                ocurl += mFilePath + Uri.encode(mFilename);
+                ocurl += WebdavUtils.encodePath(mFilePath + mFilename);
                 intent.setData(Uri.parse(ocurl));
             } else {
                 intent.putExtra("toDownload", false);
