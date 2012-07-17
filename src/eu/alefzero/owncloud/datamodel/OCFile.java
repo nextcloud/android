@@ -40,6 +40,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         }
     };
 
+    public static final String PATH_SEPARATOR = "/";
+    
     private long mId;
     private long mParentId;
     private long mLength;
@@ -53,24 +55,19 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mKeepInSync;
 
     /**
-     * Create new {@link OCFile} with given path
+     * Create new {@link OCFile} with given path.
      * 
-     * @param path The remote path of the file
-     * @throws MalformedURLException 
+     * The path received must be URL-decoded. Path separator must be OCFile.PATH_SEPARATOR, and it must be the first character in 'path'.
+     * 
+     * @param path The remote path of the file.
      */
     public OCFile(String path) {
         resetData();
         mNeedsUpdating = false;
-        /// dvelasco: the encoding / decoding problem should be completely translated to WebdavClient & WebdavEntry, but at this moment we are in a little hurry
-        if (path != null && path.length() > 0) {
-            try {
-                new URL("http://silly.test.com:8888" + path);
-            } catch (MalformedURLException e) {
-                throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path , e);
-            }
-        } else throw new RuntimeException("Trying to create a OCFile with a non valid remote path: " + path);
-        // save encoded paths have a problem: normalization; this is a quick&dirty fix to avoid duplications
-        mRemotePath = Uri.encode(Uri.decode(path), "/");
+        if (path == null || path.length() <= 0 || !path.startsWith(PATH_SEPARATOR)) {
+            throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
+        }
+        mRemotePath = path;
     }
 
     /**
@@ -123,15 +120,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public String getRemotePath() {
         return mRemotePath;
-    }
-
-    /**
-     * Returns the remote path of the file on ownCloud
-     * 
-     * @return The remote path to the file
-     */
-    public String getURLDecodedRemotePath() {
-        return Uri.decode(mRemotePath);
     }
 
     /**
@@ -222,7 +210,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return The name of the file
      */
     public String getFileName() {
-        File f = new File(getURLDecodedRemotePath());
+        File f = new File(getRemotePath());
         return f.getName().length() == 0 ? "/" : f.getName();
     }
 

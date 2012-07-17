@@ -166,7 +166,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                         null, null, null);
                 mCursor.moveToFirst();
                 pathToUpload = mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_PATH))
-                        + mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME)).replace(" ", "%20");
+                        + mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta.FILE_NAME)).replace(" ", "%20");   // TODO don't make this ; use WebdavUtils.encode in the right moment
             }
             a a = new a(pathToUpload, dirName);
             builder.setPositiveButton(R.string.common_ok, a);
@@ -251,10 +251,9 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         // click on button
         switch (v.getId()) {
         case R.id.uploader_choose_folder:
-            mUploadPath = "/";
+            mUploadPath = "";   // first element in mParents is root dir, represented by ""; init mUploadPath with "/" results in a "//" prefix
             for (String p : mParents)
-                mUploadPath += p + "/";
-            mUploadPath = Uri.encode(mUploadPath, "/");
+                mUploadPath += p + OCFile.PATH_SEPARATOR;
             Log.d(TAG, "Uploading file to dir " + mUploadPath);
 
             uploadFiles();
@@ -393,11 +392,11 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
                              data = c.getString(c.getColumnIndex(Media.DATA));
                 local[i] = data;
-                remote[i] = mUploadPath + Uri.encode(display_name);
+                remote[i] = mUploadPath + display_name;
             } else if (uri.getScheme().equals("file")) {
                 final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
                 local[i] = file.getAbsolutePath();
-                remote[i] = mUploadPath + Uri.encode(file.getName());
+                remote[i] = mUploadPath + file.getName();
             }
 
         }

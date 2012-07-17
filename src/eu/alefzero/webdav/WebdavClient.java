@@ -113,9 +113,16 @@ public class WebdavClient extends HttpClient {
                 new EasySSLSocketFactory(), 443));
     }
 
+    /**
+     * Downloads a file in remoteFilepath to the local targetPath.
+     * 
+     * @param remoteFilepath    Path to the file in the remote server, URL DECODED. 
+     * @param targetPath        Local path to save the downloaded file.
+     * @return                  'True' when the file is successfully downloaded.
+     */
     public boolean downloadFile(String remoteFilepath, File targetPath) {
         boolean ret = false;
-        GetMethod get = new GetMethod(mUri.toString() + remoteFilepath);
+        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encode(remoteFilepath));
         HttpMethodParams params = get.getParams();
         params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
         get.setParams(params);
@@ -152,11 +159,11 @@ public class WebdavClient extends HttpClient {
     
     /**
      * Deletes a remote file via webdav
-     * @param remoteFilePath
+     * @param remoteFilePath       Remote file path of the file to delete, in URL DECODED format.
      * @return
      */
     public boolean deleteFile(String remoteFilePath){
-        DavMethod delete = new DeleteMethod(mUri.toString() + remoteFilePath);
+        DavMethod delete = new DeleteMethod(mUri.toString() + WebdavUtils.encode(remoteFilePath));
         try {
             executeMethod(delete);
         }  catch (Throwable e) {
@@ -170,6 +177,15 @@ public class WebdavClient extends HttpClient {
         mDataTransferListener = listener;
     }
     
+    /**
+     * Creates or update a file in the remote server with the contents of a local file.
+     * 
+     * 
+     * @param localFile         Path to the local file to upload.
+     * @param remoteTarget      Remote path to the file to create or update, URL DECODED
+     * @param contentType       MIME type of the file.
+     * @return                  'True' then the upload was successfully completed
+     */
     public boolean putFile(String localFile, String remoteTarget,
             String contentType) {
         boolean result = true;
@@ -180,7 +196,7 @@ public class WebdavClient extends HttpClient {
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
             entity.setOnDatatransferProgressListener(mDataTransferListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
-            PutMethod put = new PutMethod(mUri.toString() + remoteTarget);
+            PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encode(remoteTarget));
             HttpMethodParams params = put.getParams();
             params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
             put.setParams(params);
@@ -218,9 +234,15 @@ public class WebdavClient extends HttpClient {
         return returnCode;
     }
 
+    /**
+     * Creates a remote directory with the received path.
+     * 
+     * @param path      Path of the directory to create, URL DECODED
+     * @return          'True' when the directory is successfully created
+     */
     public boolean createDirectory(String path) {
         try {
-            MkColMethod mkcol = new MkColMethod(mUri.toString() + path);
+            MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encode(path));
             int status = executeMethod(mkcol);
             Log.d(TAG, "Status returned " + status);
             Log.d(TAG, "uri: " + mkcol.getURI().toString());

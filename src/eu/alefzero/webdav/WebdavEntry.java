@@ -24,6 +24,7 @@ import org.apache.jackrabbit.webdav.property.DavProperty;
 import org.apache.jackrabbit.webdav.property.DavPropertyName;
 import org.apache.jackrabbit.webdav.property.DavPropertySet;
 
+import android.net.Uri;
 import android.util.Log;
 
 public class WebdavEntry {
@@ -91,6 +92,10 @@ public class WebdavEntry {
 
     public String path() {
         return mPath;
+    }
+    
+    public String decodedPath() {
+        return Uri.decode(mPath);
     }
 
     public String name() {

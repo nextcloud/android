@@ -99,9 +99,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mRemotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
         }
 
-        for (int i = 0; i < mRemotePaths.length; ++i)
-            mRemotePaths[i] = mRemotePaths[i].replace(' ', '+');
-
         if (mLocalPaths.length != mRemotePaths.length) {
             Log.e(TAG, "Remote paths and local paths are not equal!");
             return Service.START_NOT_STICKY;

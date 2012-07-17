@@ -39,6 +39,7 @@ import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.webdav.WebdavEntry;
+import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
@@ -176,7 +177,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                          .getModificationTimestamp()) {
                     Intent intent = new Intent(this.getContext(), FileDownloader.class);
                     intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                    intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getURLDecodedRemotePath());
+                    intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
                     intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
                     intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());
                     file.setKeepInSync(true);
@@ -219,7 +220,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             for (int i=0; i < files.size() && !mCancellation; i++) {
                 OCFile newFile = files.get(i);
                 if (newFile.getMimetype().equals("DIR")) {
-                    fetchData(getUri().toString() + newFile.getRemotePath(), syncResult, newFile.getFileId());
+                    fetchData(getUri().toString() + WebdavUtils.encode(newFile.getRemotePath()), syncResult, newFile.getFileId());
                 }
             }
             if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancellation request");
@@ -254,7 +255,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
 
     private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.path());
+        OCFile file = new OCFile(we.decodedPath());
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());

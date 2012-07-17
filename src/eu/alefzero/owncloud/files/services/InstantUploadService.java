@@ -148,7 +148,7 @@ public class InstantUploadService extends Service {
                 try {
                     status = wdc.executeMethod(mkcol);
                     Log.e(TAG, "mkcol returned " + status);
-                    wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + Uri.encode(filename), mimetype);
+                    wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
                 } catch (HttpException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

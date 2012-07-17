@@ -117,7 +117,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if(savedInstanceState != null) {
             mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
             mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-            mDirectories.add("/");
+            mDirectories.add(OCFile.PATH_SEPARATOR);
             if (mDirs != null)
                 for (String s : mDirs)
                     mDirectories.insert(s, 0);
@@ -244,12 +244,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         AccountUtils.getCurrentOwnCloudAccount(this));
                 String remotepath = new String();
                 for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += "/" + mDirectories.getItem(j);
+                    remotepath += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
                 }
-                if (!remotepath.endsWith("/"))
-                    remotepath += "/";
+                if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
+                    remotepath += OCFile.PATH_SEPARATOR;
                 remotepath += new File(filepath).getName();
-                remotepath = Uri.encode(remotepath, "/");
     
                 i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
                 i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
@@ -369,7 +368,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 for (String s : mDirs)
                     mDirectories.add(s);
             } else {
-                mDirectories.add("/");
+                mDirectories.add(OCFile.PATH_SEPARATOR);
             }
                
             // Actionbar setup
@@ -456,16 +455,16 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             String path;
                             if (mCurrentDir == null) {
                                 // this is just a patch; we should ensure that mCurrentDir never is null
-                                if (!mStorageManager.fileExists("/")) {
-                                    OCFile file = new OCFile("/");
+                                if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
+                                    OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
                                     mStorageManager.saveFile(file);
                                 }
-                                mCurrentDir = mStorageManager.getFileByPath("/");
+                                mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
                             }
                             path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
                             
                             // Create directory
-                            path += Uri.encode(directoryName) + "/";
+                            path += directoryName + OCFile.PATH_SEPARATOR;
                             Thread thread = new Thread(new DirectoryCreator(path, a));
                             thread.start();
     

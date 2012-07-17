@@ -95,6 +95,7 @@ import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
+import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -223,7 +224,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 Intent i = new Intent(getActivity(), FileDownloader.class);
                 i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
                 i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-                i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getURLDecodedRemotePath());
+                i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
                 i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
                 v.setEnabled(false);
                 getActivity().startService(i);
@@ -602,7 +603,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 if (!newFilename.equals(mFile.getFileName())) {
                     FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
                     if (fdsm.getFileById(mFile.getFileId()) != null) {
-                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath()+"/"+newFilename);
+                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath() + OCFile.PATH_SEPARATOR + newFilename);
                         newFile.setCreationTimestamp(mFile.getCreationTimestamp());
                         newFile.setFileId(mFile.getFileId());
                         newFile.setFileLength(mFile.getFileLength());
@@ -643,11 +644,11 @@ public class FileDetailFragment extends SherlockFragment implements
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
             String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + mOld.getRemotePath());
+            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encode(mOld.getRemotePath()));
 
-            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
-            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + mOld.getRemotePath(),
-                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + mNew.getRemotePath());
+            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encode(mNew.getRemotePath()));
+            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + WebdavUtils.encode(mOld.getRemotePath()),
+                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encode(mNew.getRemotePath()));
             
             try {
                 int status = wc.executeMethod(move);
@@ -771,9 +772,9 @@ public class FileDetailFragment extends SherlockFragment implements
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
             String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + mFileToRemove.getRemotePath());
+            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encode(mFileToRemove.getRemotePath()));
 
-            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + mFileToRemove.getRemotePath());
+            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encode(mFileToRemove.getRemotePath()));
             HttpMethodParams params = delete.getParams();
             params.setSoTimeout(1000);
             delete.setParams(params);
