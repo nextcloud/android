@@ -132,4 +132,6 @@
 	<string name="remove_success_msg">"Successful removal"</string>
 	<string name="remove_fail_msg">"Removal could not be completed"</string>
 	
+	<string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please, try other app to select the file"</string>
+	
 </resources>

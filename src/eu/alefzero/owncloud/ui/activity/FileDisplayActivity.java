@@ -48,6 +48,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -223,20 +224,29 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACTION_SELECT_FILE) {
             if (resultCode == RESULT_OK) {
-                Uri selectedImageUri = data.getData();
+                String filepath = null;
+                try {
+                    Uri selectedImageUri = data.getData();
     
-                String filemanagerstring = selectedImageUri.getPath();
-                String selectedImagePath = getPath(selectedImageUri);
-                String filepath;
+                    String filemanagerstring = selectedImageUri.getPath();
+                    String selectedImagePath = getPath(selectedImageUri);
     
-                if (selectedImagePath != null)
-                    filepath = selectedImagePath;
-                else
-                    filepath = filemanagerstring;
-    
-                if (filepath == null) {
-                    Log.e("FileDisplay", "Couldnt resolve path to file");
-                    return;
+                    if (selectedImagePath != null)
+                        filepath = selectedImagePath;
+                    else
+                        filepath = filemanagerstring;
+                    
+                } catch (Exception e) {
+                    Log.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
+                    e.printStackTrace();
+                    
+                } finally {
+                    if (filepath == null) {
+                        Log.e("FileDisplay", "Couldnt resolve path to file");
+                        Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
+                        t.show();
+                        return;
+                    }
                 }
     
                 Intent i = new Intent(this, FileUploader.class);
