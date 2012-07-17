@@ -23,19 +23,25 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import eu.alefzero.owncloud.R;
 
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,10 +82,11 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mText1 = (EditText) findViewById(R.id.txt1);
         mText1.requestFocus();
-        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);        
+        getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
+        
         
         
         SharedPreferences appPrefs = PreferenceManager
@@ -112,7 +119,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
            }else {
             // pincode removal
-              mPinHdr.setText(R.string.pincode_enter_pin_code);
+              mPinHdr.setText(R.string.pincode_remove_your_pincode);
               pinCodeChecked = false;
               setChangePincodeView(true); 
            }
@@ -122,6 +129,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         
         
     }
+    
+
      
     protected void setInitVars(){
         confirmingPinCode = false;
@@ -184,8 +193,10 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                       tempText[0] = mText1.getText().toString();
                       
                    }
-                                      
+                                                        
+                   mText1.setTransformationMethod(new PasswordTransformationMethod());                  
                    mText2.requestFocus();
+
                    
                 }
             }
@@ -200,6 +211,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
+                
 
             }
         });
@@ -266,10 +278,9 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
+                
                 if (mText1.getText().toString().equals("")){
                     mText1.requestFocus(); 
-                }else {
-                    mText1.append("");
                 }
                 
             }
@@ -334,6 +345,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
+
                 if (mText1.getText().toString().equals("")){
                     mText1.requestFocus(); 
                 }else if (mText2.getText().toString().equals("")){
@@ -436,6 +448,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
+               
                 if (mText1.getText().toString().equals("")){
                     mText1.requestFocus(); 
                 }else if (mText2.getText().toString().equals("")){
@@ -483,10 +496,12 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         }else {
             Arrays.fill(tempText, null);
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
-            aDialog.setTitle("ERROR");
+            CharSequence errorSeq = getString(R.string.common_error);
+            aDialog.setTitle(errorSeq);
             CharSequence cseq = getString(R.string.pincode_wrong);
             aDialog.setMessage(cseq);
-            aDialog.setButton("OK", new DialogInterface.OnClickListener(){
+            CharSequence okSeq = getString(R.string.common_ok);
+            aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -527,10 +542,12 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
             Arrays.fill(tempText, null);
             AlertDialog aDialog = new AlertDialog.Builder(this).create();
-            aDialog.setTitle("ERROR");
+            CharSequence errorSeq = getString(R.string.common_error);
+            aDialog.setTitle(errorSeq);
             CharSequence cseq = getString(R.string.pincode_mismatch);
             aDialog.setMessage(cseq);
-            aDialog.setButton("OK", new DialogInterface.OnClickListener(){
+            CharSequence okSeq = getString(R.string.common_ok);
+            aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -551,14 +568,20 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         AlertDialog aDialog = new AlertDialog.Builder(this).create();
         
         if (state){
-            aDialog.setTitle("SAVE & EXIT");
-            aDialog.setMessage("PIN Code Activated");
+            CharSequence saveSeq = getString(R.string.common_save_exit);
+            aDialog.setTitle(saveSeq);
+            CharSequence cseq = getString(R.string.pincode_stored);
+            aDialog.setMessage(cseq);
+            
         }else{
-            aDialog.setTitle("SAVE & EXIT");
-            aDialog.setMessage("PIN Code Removed"); 
+            CharSequence saveSeq = getString(R.string.common_save_exit);
+            aDialog.setTitle(saveSeq);
+            CharSequence cseq = getString(R.string.pincode_removed);
+            aDialog.setMessage(cseq);
+            
         }
-        
-        aDialog.setButton("OK", new DialogInterface.OnClickListener(){
+        CharSequence okSeq = getString(R.string.common_ok);
+        aDialog.setButton(okSeq, new DialogInterface.OnClickListener(){
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -624,6 +647,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         return super.onKeyDown(keyCode, event);
     }
     
-            
+   
+
+    
             
 }

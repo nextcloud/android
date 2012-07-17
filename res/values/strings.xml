@@ -65,6 +65,8 @@
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_save_exit">Save &amp; Exit</string>
+    <string name="common_error">Error</string>
     <string name="uploader_info_dirname">Directory name</string>
     <string name="uploader_upload_succeed">Uploading completed successfully</string>
     <string name="uploader_upload_failed">Upload failed: </string>
@@ -78,11 +80,12 @@
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
     <string name="pincode_enter_new_pin_code">Please, insert your new App PIN</string>
     <string name="pincode_configure_your_pin">Enter ownCloud App PIN</string>
-    <string name="pincode_reenter_your_pincode">Reenter ownCloud App PIN, please;</string>
-    <string name="pincode_remove_your_pincode">Remove your ownCloud App PIN;</string>
-    <string name="pincode_mismatch">Both ownCloud App PIN are not the same;</string> 
-    <string name="pincode_wrong">Incorrect ownCloud App PIN;</string>
-    
+    <string name="pincode_reenter_your_pincode">Reenter ownCloud App PIN, please</string>
+    <string name="pincode_remove_your_pincode">Remove your ownCloud App PIN</string>
+    <string name="pincode_mismatch">Both ownCloud App PIN are not the same</string> 
+    <string name="pincode_wrong">Incorrect ownCloud App PIN</string>
+    <string name="pincode_removed">ownCloud App PIN removed</string>
+    <string name="pincode_stored">ownCloud App PIN stored</string>
     
     <string-array name="prefs_trackmydevice_intervall_keys">
     	<item>15 Minutes</item>
@@ -126,12 +129,11 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-    <string name="confirmation_alert_prefix">Do you really want </string>
+	<string name="confirmation_alert_prefix">"Do you really want "</string>
 	<string name="confirmation_alert_suffix">"?"</string>
+
+    <string name="remove_success_msg">"Successful removal"</string>
+    <string name="remove_fail_msg">"Removal could not be completed"</string>
 	
-	<string name="remove_success_msg">"Successful removal"</string>
-	<string name="remove_fail_msg">"Removal could not be completed"</string>
-	
-	<string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please, try other app to select the file"</string>
-	
+    <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please, try other app to select the file"</string>
 </resources>
