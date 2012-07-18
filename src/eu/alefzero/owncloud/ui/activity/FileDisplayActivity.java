@@ -646,9 +646,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
                 if ((synchFolderRemotePath != null && mCurrentDir != null && (mCurrentDir.getRemotePath().equals(synchFolderRemotePath)))
                         || fillBlankRoot ) {
+                    if (!fillBlankRoot) 
+                        mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
                     FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
-                    mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
                     if (fileListFragment != null) {
                         fileListFragment.listDirectory(mCurrentDir);  
                     }
