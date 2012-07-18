@@ -19,6 +19,7 @@
 package eu.alefzero.owncloud.authenticator;
 
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLHandshakeException;
@@ -39,6 +40,10 @@ import android.os.Handler;
 import android.util.Log;
 
 public class ConnectionCheckerRunnable implements Runnable {
+    
+    /** Maximum time to wait for a response from the server when the connection is being tested, in MILLISECONDs.  */
+    public static final int TRY_CONNECTION_TIMEOUT = 5000;
+    
     private static final String TAG = "ConnectionCheckerRunnable";
     private OnConnectCheckListener mListener;
     private String mUrl;
@@ -99,7 +104,7 @@ public class ConnectionCheckerRunnable implements Runnable {
         GetMethod get = new GetMethod(uri.toString());
         boolean retval = false;
         try {
-            int status = wc.executeMethod(get);
+            int status = wc.executeMethod(get, TRY_CONNECTION_TIMEOUT);
             switch (status) {
             case HttpStatus.SC_OK: {
                 String response = get.getResponseBodyAsString();
@@ -127,7 +132,8 @@ public class ConnectionCheckerRunnable implements Runnable {
 
         } catch (Exception e) {
             if (e instanceof UnknownHostException
-                    || e instanceof ConnectException) {
+                    || e instanceof ConnectException 
+                    || e instanceof SocketTimeoutException) {
                 mLatestResult = ResultType.HOST_NOT_AVAILABLE;
             } else if (e instanceof JSONException) {
                 mLatestResult = ResultType.INSTANCE_NOT_CONFIGURED;

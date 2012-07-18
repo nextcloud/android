@@ -24,7 +24,8 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -123,15 +124,12 @@ public class WebdavClient extends HttpClient {
     public boolean downloadFile(String remoteFilepath, File targetPath) {
         boolean ret = false;
         GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
-        HttpMethodParams params = get.getParams();
-        params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
-        get.setParams(params);
 
         // get.setHeader("Host", mUri.getHost());
         // get.setHeader("User-Agent", "Android-ownCloud");
 
         try {
-            int status = executeMethod(get);
+            int status = executeMethod(get, 0);
             Log.e(TAG, "status return: " + status);
             if (status == HttpStatus.SC_OK) {
                 targetPath.createNewFile();
@@ -197,12 +195,9 @@ public class WebdavClient extends HttpClient {
             entity.setOnDatatransferProgressListener(mDataTransferListener);
             Log.e("ASD", f.exists() + " " + entity.getContentLength());
             PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
-            HttpMethodParams params = put.getParams();
-            params.setSoTimeout(0); // that means "infinite timeout"; it's the default value, but let's make it explicit
-            put.setParams(params);
             put.setRequestEntity(entity);
             Log.d(TAG, "" + put.getURI().toString());
-            int status = executeMethod(put);
+            int status = executeMethod(put, 0);
             Log.d(TAG, "PUT method return with status " + status);
 
             Log.i(TAG, "Uploading, done");
@@ -252,5 +247,32 @@ public class WebdavClient extends HttpClient {
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * Requests the received method with the received timeout (milliseconds).
+     * 
+     * Executes the method through the inherited HttpClient.executedMethod(method).
+     * 
+     * Sets the socket timeout for the HttpMethodBase method received.
+     * 
+     * @param method    HTTP method request.
+     * @param timeout   Timeout to set, in milliseconds; <= 0 means infinite.
+     */
+    public int executeMethod(HttpMethodBase method, int readTimeout) throws HttpException, IOException {
+        int oldSoTimeout = getParams().getSoTimeout();
+        try {
+            if (readTimeout < 0) { 
+                readTimeout = 0;
+            }
+            HttpMethodParams params = method.getParams();
+            params.setSoTimeout(readTimeout);       
+            method.setParams(params);               // this should be enough...
+            getParams().setSoTimeout(readTimeout);  // ... but this is necessary for HTTPS
+            return executeMethod(method);
+        } finally {
+            getParams().setSoTimeout(oldSoTimeout);
+        }
     }
 }

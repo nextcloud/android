@@ -23,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import eu.alefzero.owncloud.datamodel.OCFile;
-
 import android.net.Uri;
 
 public class WebdavUtils {
@@ -74,4 +72,5 @@ public class WebdavUtils {
             encodedPath = "/" + encodedPath;
         return encodedPath;
     }
+    
 }

@@ -176,13 +176,16 @@ public class EasySSLSocketFactory implements ProtocolSocketFactory {
         int timeout = params.getConnectionTimeout();
         SocketFactory socketfactory = getSSLContext().getSocketFactory();
         if (timeout == 0) {
-            return socketfactory.createSocket(host, port, localAddress,
+            Socket socket = socketfactory.createSocket(host, port, localAddress,
                     localPort);
+            socket.setSoTimeout(params.getSoTimeout());
+            return socket;
         } else {
             Socket socket = socketfactory.createSocket();
             SocketAddress localaddr = new InetSocketAddress(localAddress,
                     localPort);
             SocketAddress remoteaddr = new InetSocketAddress(host, port);
+            socket.setSoTimeout(params.getSoTimeout());
             socket.bind(localaddr);
             socket.connect(remoteaddr, timeout);
             return socket;

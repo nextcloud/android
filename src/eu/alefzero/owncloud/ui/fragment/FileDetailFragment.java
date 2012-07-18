@@ -758,6 +758,9 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private class RemoveRunnable implements Runnable {
         
+        /** Arbitrary timeout for deletion */
+        public final static int DELETION_TIMEOUT = 5000;
+        
         Account mAccount;
         OCFile mFileToRemove;
         Handler mHandler;
@@ -777,13 +780,10 @@ public class FileDetailFragment extends SherlockFragment implements
             Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
 
             DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
-            HttpMethodParams params = delete.getParams();
-            params.setSoTimeout(1000);
-            delete.setParams(params);
             
             boolean success = false;
             try {
-                int status = wc.executeMethod(delete);
+                int status = wc.executeMethod(delete, DELETION_TIMEOUT);
                 if (delete.succeeded()) {
                     FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
                     fdsm.removeFile(mFileToRemove);
