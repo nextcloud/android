@@ -236,7 +236,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 mFile.setKeepInSync(cb.isChecked());
                 FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
                 fdsm.saveFile(mFile);
-                if (mFile.keepInSync() && !mFile.isDownloaded()) {
+                if (mFile.keepInSync()) {
                     onClick(getView().findViewById(R.id.fdDownloadBtn));
                 }
                 break;
@@ -597,7 +597,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     public void onDismiss(EditNameFragment dialog) {
-        Log.e("ASD","ondismiss");
         if (dialog instanceof EditNameFragment) {
             if (((EditNameFragment)dialog).getResult()) {
                 String newFilename = ((EditNameFragment)dialog).getNewFilename();
@@ -614,7 +613,13 @@ public class FileDetailFragment extends SherlockFragment implements
                         newFile.setMimetype(mFile.getMimetype());
                         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
                         newFile.setParentId(mFile.getParentId());
-                        newFile.setStoragePath(mFile.getStoragePath());
+                        if (mFile.isDownloaded()) {
+                            File f = new File(mFile.getStoragePath());
+                            Log.e(TAG, f.getAbsolutePath()+"");
+                            f.renameTo(new File(f.getParent()+"/"+newFilename));
+                            Log.e(TAG, f.getAbsolutePath()+"");
+                            newFile.setStoragePath(f.getAbsolutePath());
+                        }
                         
                         new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
 
@@ -754,7 +759,6 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         
     }
-    
     
     private class RemoveRunnable implements Runnable {
         
@@ -906,7 +910,7 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         @Override
         protected void onPostExecute(Bitmap result) {
-            if (result != null) {
+            if (result != null && mPreview != null) {
                 mPreview.setImageBitmap(result);
             }
         }
