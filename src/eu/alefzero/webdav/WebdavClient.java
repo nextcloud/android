@@ -97,7 +97,7 @@ public class WebdavClient extends HttpClient {
     }
 
     public void setCredentials(String username, String password) {
-        //getParams().setAuthenticationPreemptive(true);
+        getParams().setAuthenticationPreemptive(true);
         getState().setCredentials(AuthScope.ANY,
                 getCredentials(username, password));
     }
