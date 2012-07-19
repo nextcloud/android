@@ -193,11 +193,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                       tempText[0] = mText1.getText().toString();
                       
                    }
-                                                        
-                   mText1.setTransformationMethod(new PasswordTransformationMethod());                  
                    mText2.requestFocus();
-
-                   
                 }
             }
 
@@ -279,8 +275,13 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
                 
+                mText2.setCursorVisible(true);
                 if (mText1.getText().toString().equals("")){
+                    mText2.setSelected(false);
+                    mText2.setCursorVisible(false);
                     mText1.requestFocus(); 
+                    mText1.setSelected(true);
+                    mText1.setSelection(0);
                 }
                 
             }
@@ -345,11 +346,19 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
-
+                mText3.setCursorVisible(true);
                 if (mText1.getText().toString().equals("")){
-                    mText1.requestFocus(); 
+                    mText3.setSelected(false);
+                    mText3.setCursorVisible(false);
+                    mText1.requestFocus();
+                    mText1.setSelected(true);
+                    mText1.setSelection(0);
                 }else if (mText2.getText().toString().equals("")){
-                    mText2.requestFocus(); 
+                    mText3.setSelected(false);
+                    mText3.setCursorVisible(false);
+                    mText2.requestFocus();
+                    mText2.setSelected(true);
+                    mText2.setSelection(0);
                 }
                 
             }
@@ -448,13 +457,27 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 // TODO Auto-generated method stub
-               
+                
+                mText4.setCursorVisible(true);
+                
                 if (mText1.getText().toString().equals("")){
-                    mText1.requestFocus(); 
+                    mText4.setSelected(false);
+                    mText4.setCursorVisible(false);
+                    mText1.requestFocus();
+                    mText1.setSelected(true);
+                    mText1.setSelection(0);
                 }else if (mText2.getText().toString().equals("")){
-                    mText2.requestFocus(); 
+                    mText4.setSelected(false);
+                    mText4.setCursorVisible(false);
+                    mText2.requestFocus();
+                    mText2.setSelected(true);
+                    mText2.setSelection(0);
                 }else if (mText3.getText().toString().equals("")){
-                    mText3.requestFocus(); 
+                    mText4.setSelected(false);
+                    mText4.setCursorVisible(false);
+                    mText3.requestFocus();
+                    mText3.setSelected(true);
+                    mText3.setSelection(0);
                 }
                 
             }
