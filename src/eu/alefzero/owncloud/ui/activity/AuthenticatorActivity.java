@@ -343,6 +343,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (uri.length() != 0) {
                     setResultIconAndText(R.drawable.progress_small,
                             R.string.auth_testing_connection);
+                    findViewById(R.id.buttonOK).setEnabled(false);  // avoid connect can be clicked if the test was previously passed
                     mConnChkRunnable = new ConnectionCheckerRunnable(uri, this);
                     mConnChkRunnable.setListener(this, mHandler);
                     mAuthThread = new Thread(mConnChkRunnable);
