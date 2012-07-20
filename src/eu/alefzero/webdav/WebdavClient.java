@@ -186,7 +186,7 @@ public class WebdavClient extends HttpClient {
      */
     public boolean putFile(String localFile, String remoteTarget,
             String contentType) {
-        boolean result = true;
+        boolean result = false;
 
         try {
             Log.e("ASD", contentType + "");
@@ -200,7 +200,11 @@ public class WebdavClient extends HttpClient {
             int status = executeMethod(put, 0);
             Log.d(TAG, "PUT method return with status " + status);
 
-            Log.i(TAG, "Uploading, done");
+            if (status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT) {
+                result = true;
+                Log.i(TAG, "Uploading, done");
+            }
+            
         } catch (final Exception e) {
             Log.i(TAG, "" + e.getMessage());
             result = false;
