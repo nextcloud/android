@@ -144,9 +144,9 @@ public class WebdavClient extends HttpClient {
                         mDataTransferListener.transferProgress(readResult);
                     fos.write(bytes, 0, readResult);
                 }
-                
+                ret = true;
             }
-            ret = true;
+            
         } catch (Throwable e) {
             e.printStackTrace();
             targetPath.delete();

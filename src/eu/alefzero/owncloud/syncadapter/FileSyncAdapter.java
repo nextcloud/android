@@ -185,6 +185,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 }
                 if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
                     file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
+                
                 //getStorageManager().saveFile(file);
                 updatedFiles.add(file);
                 if (parentId == 0)

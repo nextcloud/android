@@ -22,14 +22,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -37,20 +34,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
-import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
@@ -58,14 +50,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.preference.PreferenceActivity.Header;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
@@ -77,7 +65,6 @@ import android.view.WindowManager.LayoutParams;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -169,9 +156,11 @@ public class FileDetailFragment extends SherlockFragment implements
         
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
-            //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRenameBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdDownloadBtn).setOnClickListener(this);
+            mView.findViewById(R.id.fdOpenBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
+            //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
             mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
         }
         
@@ -221,13 +210,16 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
-                //Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), FileDownloader.class);
                 i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
                 i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
                 i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
                 i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
-                v.setEnabled(false);
+                
+                // update ui 
+                Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
+                setButtonsForDownloading();
+                
                 getActivity().startService(i);
                 break;
             }
@@ -251,6 +243,47 @@ public class FileDetailFragment extends SherlockFragment implements
                 ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("to remove " + mFile.getFileName());
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+                break;
+            }
+            case R.id.fdOpenBtn: {
+                String storagePath = mFile.getStoragePath();
+                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
+                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivity(i);
+                    
+                } catch (Throwable t) {
+                    Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+                    boolean toastIt = true; 
+                    String mimeType = "";
+                    try {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                        if (mimeType != null && !mimeType.equals(mFile.getMimetype())) {
+                            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                            startActivity(i);
+                            toastIt = false;
+                        }
+                        
+                    } catch (IndexOutOfBoundsException e) {
+                        Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                        
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                        
+                    } catch (Throwable th) {
+                        Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                        
+                    } finally {
+                        if (toastIt) {
+                            Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    
+                }
                 break;
             }
             default:
@@ -313,7 +346,6 @@ public class FileDetailFragment extends SherlockFragment implements
 
         if (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment) {
             
-            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
             // set file details
             setFilename(mFile.getFileName());
             setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
@@ -327,16 +359,22 @@ public class FileDetailFragment extends SherlockFragment implements
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
             cb.setChecked(mFile.keepInSync());
-            
-            if (mFile.getStoragePath() != null) {
+
+            // configure UI for depending upon local state of the file
+            if (mFile.isDownloading()) {
+                setButtonsForDownloading();
+                
+            } else if (mFile.isDown()) {
                 // Update preview
                 if (mFile.getMimetype().startsWith("image/")) {
                     BitmapLoader bl = new BitmapLoader();
                     bl.execute(new String[]{mFile.getStoragePath()});
                 }
                 
+                setButtonsForDown();
+                
                 // Change download button to open button
-                downloadButton.setText(R.string.filedetails_open);
+                /*downloadButton.setText(R.string.filedetails_open);
                 downloadButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -379,10 +417,9 @@ public class FileDetailFragment extends SherlockFragment implements
                             
                         }
                     }
-                });
+                });*/
             } else {
-                // Make download button effective
-                downloadButton.setOnClickListener(this);
+                setButtonsForRemote();
             }
         }
     }
@@ -444,6 +481,53 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     /**
+     * Enables or disables buttons for a file being downloaded
+     */
+    private void setButtonsForDownloading() {
+        if (!isEmpty()) {
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+            downloadButton.setText(R.string.filedetails_download_in_progress);
+            downloadButton.setEnabled(false);   // TODO replace it with a 'cancel download' button
+        
+            // let's protect the user from himself ;)
+            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
+            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(false);
+            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(false);
+        }
+    }
+    
+    /**
+     * Enables or disables buttons for a file locally available 
+     */
+    private void setButtonsForDown() {
+        if (!isEmpty()) {
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+            downloadButton.setText(R.string.filedetails_redownload);
+            downloadButton.setEnabled(true);
+        
+            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
+            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
+            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
+        }
+    }
+
+    /**
+     * Enables or disables buttons for a file not locally available 
+     */
+    private void setButtonsForRemote() {
+        if (!isEmpty()) {
+            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
+            downloadButton.setText(R.string.filedetails_download);
+            downloadButton.setEnabled(true);
+            
+            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
+            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
+            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
+        }
+    }
+    
+
+    /**
      * In ownCloud 3.X.X and 4.X.X there is a bug that SabreDAV does not return
      * the time that the file was created. There is a chance that this will
      * be fixed in future versions. Use this method to check if this version of
@@ -469,17 +553,17 @@ public class FileDetailFragment extends SherlockFragment implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (getView()!=null && getView().findViewById(R.id.fdDownloadBtn) != null) 
-                getView().findViewById(R.id.fdDownloadBtn).setEnabled(true);
-            
-            if (intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false)) {
-                mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
-                updateFileDetails();
-            } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
-                Toast.makeText(context, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
+            if (mFile != null) {
+                boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
+                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                if (mFile.getRemotePath().equals(downloadedRemotePath)) {
+                    if (downloadWasFine) {
+                        mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+                    }
+                    updateFileDetails();    // it updates the buttons; must be called although !downloadWasFine
+                }
             }
         }
-        
     }
     
     // this is a temporary class for sharing purposes, it need to be replaced in transfer service
@@ -613,11 +697,11 @@ public class FileDetailFragment extends SherlockFragment implements
                         newFile.setMimetype(mFile.getMimetype());
                         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
                         newFile.setParentId(mFile.getParentId());
-                        if (mFile.isDownloaded()) {
+                        if (mFile.isDown()) {
                             File f = new File(mFile.getStoragePath());
-                            Log.e(TAG, f.getAbsolutePath()+"");
+                            Log.e(TAG, f.getAbsolutePath());
                             f.renameTo(new File(f.getParent()+"/"+newFilename));
-                            Log.e(TAG, f.getAbsolutePath()+"");
+                            Log.e(TAG, f.getAbsolutePath());
                             newFile.setStoragePath(f.getAbsolutePath());
                         }
                         
@@ -627,7 +711,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 }
             }
         } else {
-            Log.e(TAG, "Unknown dialog intance passed to onDismissDalog: " + dialog.getClass().getCanonicalName());
+            Log.e(TAG, "Unknown dialog instance passed to onDismissDalog: " + dialog.getClass().getCanonicalName());
         }
         
     }

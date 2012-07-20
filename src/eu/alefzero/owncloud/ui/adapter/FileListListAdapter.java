@@ -109,12 +109,19 @@ public class FileListListAdapter implements ListAdapter {
             } else {
                 fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
-            ImageView down = (ImageView) view.findViewById(R.id.imageView2);
-            if (file.getStoragePath() != null)
-                down.setVisibility(View.VISIBLE);
-            else
-                down.setVisibility(View.INVISIBLE);
-
+            ImageView downloaded = (ImageView) view.findViewById(R.id.imageView2);
+            ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
+            if (file.isDown()) {
+                 downloaded.setVisibility(View.VISIBLE);
+                 downloading.setVisibility(View.INVISIBLE);
+            } else if (file.isDownloading()) {
+                downloaded.setVisibility(View.INVISIBLE);
+                downloading.setVisibility(View.VISIBLE);
+            } else {
+                downloaded.setVisibility(View.INVISIBLE);
+                downloading.setVisibility(View.INVISIBLE);
+            }
+                
             if (!file.isDirectory()) {
                 view.findViewById(R.id.file_size).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.last_mod).setVisibility(View.VISIBLE);

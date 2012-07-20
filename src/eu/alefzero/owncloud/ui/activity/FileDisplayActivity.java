@@ -89,6 +89,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private DataStorageManager mStorageManager;
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
+    private DownloadFinishReceiver mDownloadFinishReceiver;
     
     private View mLayoutView = null;
     private FileListFragment mFileList;
@@ -329,6 +330,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
             mUploadFinishReceiver = new UploadFinishReceiver();
             registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
+            
+            // Listen for download messages
+            IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+            mDownloadFinishReceiver = new DownloadFinishReceiver();
+            registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
             // Storage manager initialization
             mStorageManager = new FileDataStorageManager(
@@ -410,6 +416,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             unregisterReceiver(mUploadFinishReceiver);
             mUploadFinishReceiver = null;
         }
+        if (mDownloadFinishReceiver != null) {
+            unregisterReceiver(mDownloadFinishReceiver);
+            mDownloadFinishReceiver = null;
+        }
+        
         getIntent().putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         Log.i(getClass().toString(), "onPause() end");
     }
@@ -684,6 +695,24 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
         
+    }
+    
+    
+    /**
+     * Once the file download has finished -> update view
+     */
+    private class DownloadFinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
+            String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+            if (downloadWasFine && mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
+                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                if (fileListFragment != null) { 
+                    fileListFragment.listDirectory();
+                }
+            }
+        }
     }
 
     

@@ -412,7 +412,7 @@ public class FileDataStorageManager implements DataStorageManager {
                                         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
                                         new String[]{mAccount.name});
         }
-        if (file.getStoragePath() != null) {
+        if (file.isDown()) {
             new File(file.getStoragePath()).delete();
         }
     }

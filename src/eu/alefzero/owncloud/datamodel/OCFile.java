@@ -144,10 +144,31 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Use this to check if this file is available locally
      * 
+     * TODO use a better condition not dependent upon mLenght being synchronized; to change when downloads are done through a temporal file
+     * 
      * @return true if it is
      */
-    public boolean isDownloaded() {
-        return mLocalPath != null && !mLocalPath.equals("");
+    public boolean isDown() {
+        if (mLocalPath != null && mLocalPath.length() > 0) {
+            File file = new File(mLocalPath);
+            return (file.exists() && file.length() == mLength);
+        }
+        return false;
+    }
+    
+    /**
+     * Use this to check if this file is downloading
+     * 
+     * TODO use a better condition not dependent upon mLenght being synchronized; to change when downloads are done through a temporal file
+     * 
+     * @return true if it is in a download in progress
+     */
+    public boolean isDownloading() {
+        if (mLocalPath != null && mLocalPath.length() > 0) {
+            File file = new File(mLocalPath);
+            return (file.exists() && file.length() < mLength);  
+        }
+        return false;
     }
 
     /**
@@ -368,7 +389,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s]";
-        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDownloaded(), mLocalPath, mRemotePath);
+        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath);
         return asString;
     }
 

@@ -20,6 +20,7 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
@@ -146,9 +147,17 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+        end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
         end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
         sendBroadcast(end);
+
+        if (download_result) {
+            Toast.makeText(this, R.string.downloader_download_succeed , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
+        }
+        
     }
 
     @Override
@@ -163,5 +172,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         mLastPercent = percent;
     }
-
+    
+    
 }

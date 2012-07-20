@@ -188,6 +188,13 @@
                         android:text="@string/common_remove" />
 
                     <Button
+                        android:id="@+id/fdOpenBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/filedetails_open" />
+
+                    <Button
                         android:id="@+id/fdDownloadBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
