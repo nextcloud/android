@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Hasło:</string>
+  <string name="main_login">Nazwa użytkownika:</string>
+  <string name="main_button_login">Login</string>
+  <string name="main_welcome">Witaj w ownCloud</string>
+  <string name="main_settings">Ustawienia</string>
+  <string name="prefs_category_general">Ogólne</string>
+  <string name="auth_username">Nazwa użytkownika</string>
+  <string name="auth_password">Hasło</string>
+  <string name="setup_hint_username">Nazwa użytkownika</string>
+  <string name="setup_hint_password">Hasło</string>
+  <string name="setup_hint_show_password">Pokazać hasło?</string>
+  <string name="setup_btn_connect">Połącz</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
+  <string name="filedetails_size">Rozmiar:</string>
+  <string name="filedetails_type">Typ:</string>
+  <string name="filedetails_created">Utworzony:</string>
+  <string name="filedetails_modified">Zmodyfikowany:</string>
+  <string name="filedetails_download">Pobierz</string>
+  <string name="filedetails_open">Otwórz</string>
+  <string name="common_yes">Tak</string>
+  <string name="common_no">Nie</string>
+  <string name="common_ok">OK</string>
+  <string name="common_cancel">Anuluj</string>
+  <string name="common_save_exit">Zapisz i wyjdź</string>
+  <string name="common_error">Błąd</string>
+  <string name="uploader_info_dirname">Nazwa katalogu</string>
+  <string name="common_choose_account">Wybierz konto</string>
+  <string name="pincode_wrong">ownCloud</string>
+  <string name="auth_trying_to_login">Logowanie...</string>
+  <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
+  <string name="auth_connect_anyway">Połącz mimo wszystko</string>
+  <string name="auth_connection_established">Połączenie nawiązane</string>
+  <string name="auth_testing_connection">Testowanie połączenia...</string>
+  <string name="auth_unknow_host_title">Nie można nawiązać połączenia</string>
+  <string name="crashlog_send_report">Wyślij raport</string>
+  <string name="crashlog_dont_send_report">Nie wysyłaj</string>
+  <string name="common_rename">Zmień nazwę</string>
+  <string name="common_remove">Usuń</string>
+  <string name="confirmation_alert_prefix">Czy na pewno chcesz </string>
+</resources>

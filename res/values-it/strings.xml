@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Password:</string>
+  <string name="main_welcome">Benvenuto nel tuo ownCloud</string>
+  <string name="main_files">File</string>
+  <string name="main_music">Musica</string>
+  <string name="main_contacts">Contatti</string>
+  <string name="main_calendar">Calendario</string>
+  <string name="main_bookmarks">Segnalibri</string>
+  <string name="main_settings">Impostazioni</string>
+  <string name="actionbar_upload">Carica un file</string>
+  <string name="actionbar_mkdir">Crea cartella</string>
+  <string name="actionbar_search">Cerca</string>
+  <string name="actionbar_settings">Impostazioni</string>
+  <string name="prefs_add_session">Aggiungi nuova sessione</string>
+  <string name="prefs_select_oc_account">Scegli un account</string>
+  <string name="prefs_summary_select_oc_account">Scegli, quale dei tuoi account la app deve usare</string>
+  <string name="prefs_trackmydevice">Localizzazione del dispositivo</string>
+  <string name="prefs_trackmydevice_interval">Intervallo di aggiornamento</string>
+  <string name="prefs_trackmydevice_interval_summary">Aggiorna ogni %1$s minuti</string>
+  <string name="auth_username">Nome utente</string>
+  <string name="auth_password">Password</string>
+  <string name="sync_string_files">File</string>
+  <string name="setup_hint_password">Password</string>
+  <string name="setup_hint_address">Indirizzo web</string>
+  <string name="setup_hint_show_password">Mostra password?</string>
+  <string name="setup_title">Connetti al tuo ownCloud</string>
+  <string name="setup_btn_connect">Connetti</string>
+  <string name="uploader_btn_upload_text">Carica</string>
+  <string name="uploader_wrn_no_account_text">Non ci sono account ownCloud sul tuo dispositivo. Per favore prima imposta un account.</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
+  <string name="filedetails_size">Dimensione:</string>
+  <string name="filedetails_type">Tipo:</string>
+  <string name="filedetails_created">Creato:</string>
+  <string name="filedetails_modified">Modificato:</string>
+  <string name="filedetails_open">Apri</string>
+  <string name="common_yes">Sì</string>
+  <string name="common_no">No</string>
+  <string name="common_ok">OK</string>
+  <string name="common_error">Errore</string>
+  <string name="uploader_info_dirname">Nome cartella</string>
+  <string name="common_choose_account">Scegli account</string>
+  <string name="sync_string_contacts">Contatti</string>
+  <string name="use_ssl">Usa connessione sicura</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 Minuti</item>
+    <item>30 Minuti</item>
+    <item>60 Minuti</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_no_net_conn_title">Nessuna connessione a internet</string>
+  <string name="auth_no_net_conn_message">Non sono state rilevate connessioni alla rete, controlla la tua connessione Internet e prova ancora.</string>
+  <string name="auth_unknown_error_title">Errore sconosciuto</string>
+  <string name="auth_unknow_host_title">Impossibile stabilire una connessione</string>
+  <string name="auth_unknow_host_message">Impossibile stabilire una connessione</string>
+  <string name="auth_unknow_error">Errore sconosciuto!</string>
+  <string name="common_share">Condividi</string>
+  <string name="common_rename">Rinomina</string>
+  <string name="common_remove">Rimuovi</string>
+  <string name="confirmation_alert_prefix">Vuoi davvero </string>
+  <string name="confirmation_alert_suffix"></string>
+  <string name="remove_success_msg">Rimozione effettuata con successo</string>
+  <string name="remove_fail_msg">La rimozione non può essere completata</string>
+</resources>

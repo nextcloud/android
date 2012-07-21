@@ -1,0 +1,6 @@
+include tx
+
+# Docs
+include LICENSE README.rst
+recursive-include docs *
+
