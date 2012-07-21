@@ -18,7 +18,7 @@
  -->
 <manifest package="eu.alefzero.owncloud"
     android:versionCode="1"
-    android:versionName="0.1.170B" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionName="0.1.171B" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -128,15 +128,6 @@
                 <action android:name="eu.alefzero.owncloud.location.LocationUpdateService" />
             </intent-filter>
         </service>
-
-        <receiver android:name=".location.LocationServiceLauncherReciever" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="eu.alefzero.owncloud.location.LocationLauncher" />
-
-                <category android:name="android.intent.category.HOME" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".ui.activity.FileDetailActivity" />
         <activity android:name=".ui.activity.PinCodeActivity" />
