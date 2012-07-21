@@ -178,35 +178,49 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/fdPreview"
-                    android:gravity="center_horizontal" >
+                    android:orientation="vertical" >
 
-                    <Button
-                        android:id="@+id/fdRemoveBtn"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/common_remove" />
+                        android:gravity="center_horizontal" >
 
-                    <Button
-                        android:id="@+id/fdOpenBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/filedetails_open" />
+                        <Button
+                            android:id="@+id/fdRemoveBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/common_remove" />
 
-                    <Button
-                        android:id="@+id/fdDownloadBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/filedetails_download" />
+                        <Button
+                            android:id="@+id/fdOpenBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/filedetails_open" />
 
-                    <Button
-                        android:id="@+id/fdRenameBtn"
-                        android:layout_width="wrap_content"
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/common_rename" />
+                        android:gravity="center_horizontal">
+
+                        <Button
+                            android:id="@+id/fdDownloadBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/filedetails_download" />
+
+                        <Button
+                            android:id="@+id/fdRenameBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/common_rename" />
+
+                    </LinearLayout>
 <!-- 
                     <Button
                         android:id="@+id/fdShareBtn"
