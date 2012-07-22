@@ -80,11 +80,11 @@ public class WebdavClient extends HttpClient {
                 AccountAuthenticator.KEY_OC_VERSION));
         String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
         String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);        
-        String username = account.name.substring(0, account.name.indexOf('@'));
+        String username = account.name.substring(0, account.name.lastIndexOf('@'));
         String password = AccountManager.get(context).getPassword(account);
         
         mUri = Uri.parse(baseUrl + webDavPath);
-
+Log.e("ASD", ""+username);
         setCredentials(username, password);
     }
     
