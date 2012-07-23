@@ -25,6 +25,7 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
@@ -34,6 +35,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_FILE_SIZE = "FILE_SIZE";
+    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     private static final String TAG = "FileDownloader";
 
     private NotificationManager mNotificationMngr;
@@ -150,6 +152,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
         end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
+        end.putExtra(ACCOUNT_NAME, mAccount.name);
         sendBroadcast(end);
 
         if (download_result) {

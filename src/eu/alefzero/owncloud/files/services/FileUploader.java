@@ -37,6 +37,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_ACCOUNT = "ACCOUNT";
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
+    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
 
     public static final int UPLOAD_SINGLE_FILE = 0;
     public static final int UPLOAD_MULTIPLE_FILES = 1;
@@ -187,6 +188,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 
                 Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
                 end.putExtra(EXTRA_PARENT_DIR_ID, parentDirId);
+                end.putExtra(ACCOUNT_NAME, mAccount.name);
                 sendBroadcast(end);
             }
             

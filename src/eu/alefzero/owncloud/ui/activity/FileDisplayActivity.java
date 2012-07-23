@@ -639,13 +639,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             boolean inProgress = intent.getBooleanExtra(
                     FileSyncService.IN_PROGRESS, false);
-            String account_name = intent
+            String accountName = intent
                     .getStringExtra(FileSyncService.ACCOUNT_NAME);
 
-            Log.d("FileDisplay", "sync of account " + account_name
+            Log.d("FileDisplay", "sync of account " + accountName
                     + " is in_progress: " + inProgress);
 
-            if (account_name.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
+            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
             
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
                  
@@ -683,10 +683,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             long parentDirId = intent.getLongExtra(FileUploader.EXTRA_PARENT_DIR_ID, -1);
             OCFile parentDir = mStorageManager.getFileById(parentDirId);
-            
-            if (parentDir != null && (
-                    (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
-                     parentDir.equals(mCurrentDir))
+            String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
+
+            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
+                    parentDir != null && 
+                    (   (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
+                            parentDir.equals(mCurrentDir)
+                    )
                 ) {
                 FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
@@ -706,7 +709,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            if (downloadWasFine && mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
+            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+
+            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
+                    downloadWasFine && mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
                 FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
