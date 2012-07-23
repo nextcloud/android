@@ -2,6 +2,9 @@ package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
 
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.HeadMethod;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Notification;
@@ -168,7 +171,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 mimeType = "application/octet-stream";
             
             mCurrentIndexUpload = i;
-            if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
+            mRemotePaths[i] = getAvailableRemotePath(wc, mRemotePaths[i]);
+            if (mRemotePaths[i] != null && wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                 mSuccessCounter++;
                 OCFile new_file = new OCFile(mRemotePaths[i]);
                 new_file.setMimetype(mimeType);
@@ -189,6 +193,46 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         }
         mNotificationManager.cancel(42);
         run();
+    }
+
+    /**
+     * Checks if remotePath does not exist in the server and returns it, or adds a suffix to it in order to avoid the server
+     * file is overwritten.
+     * 
+     * @param string
+     * @return
+     */
+    private String getAvailableRemotePath(WebdavClient wc, String remotePath) {
+        Boolean check = wc.existsFile(remotePath);
+        if (check == null) {    // null means fail
+            return null;
+        } else if (!check) {
+            return remotePath;
+        }
+    
+        int pos = remotePath.lastIndexOf(".");
+        String suffix = "";
+        String extension = "";
+        if (pos >= 0) {
+            extension = remotePath.substring(pos+1);
+            remotePath = remotePath.substring(0, pos);
+        }
+        int count = 2;
+        while (check != null && check) {
+            suffix = " (" + count + ")";
+            if (pos >= 0)
+                check = wc.existsFile(remotePath + suffix + "." + extension);
+            else
+                check = wc.existsFile(remotePath + suffix);
+            count++;
+        }
+        if (check == null) {
+            return null;
+        } else if (pos >=0) {
+            return remotePath + suffix + "." + extension;
+        } else {
+            return remotePath + suffix;
+        }
     }
 
     @Override

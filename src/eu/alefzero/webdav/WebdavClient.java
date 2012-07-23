@@ -252,6 +252,23 @@ Log.e("ASD", ""+username);
         }
         return true;
     }
+    
+    
+    /**
+     * Check if a file exists in the OC server
+     * 
+     * @return      'Boolean.TRUE' if the file exists; 'Boolean.FALSE' it doesn't exist; NULL if couldn't be checked
+     */
+    public Boolean existsFile(String path) {
+        try {
+            HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
+            int status = executeMethod(head);
+            return (status == HttpStatus.SC_OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     /**
