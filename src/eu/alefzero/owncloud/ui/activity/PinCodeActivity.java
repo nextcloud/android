@@ -96,7 +96,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         // Not PIN Code defined yet.
         // In a previous version settings is allow from start
         if ( (appPrefs.getString("PrefPinCode1", null) == null ) ){
-            setInitView();
+            setChangePincodeView(true);
             pinCodeChecked = true; 
             newPasswordEntered = true;
             
