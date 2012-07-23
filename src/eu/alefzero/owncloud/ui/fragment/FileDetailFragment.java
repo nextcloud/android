@@ -688,7 +688,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 if (!newFilename.equals(mFile.getFileName())) {
                     FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
                     if (fdsm.getFileById(mFile.getFileId()) != null) {
-                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath() + OCFile.PATH_SEPARATOR + newFilename);
+                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath() + newFilename);
                         newFile.setCreationTimestamp(mFile.getCreationTimestamp());
                         newFile.setFileId(mFile.getFileId());
                         newFile.setFileLength(mFile.getFileLength());
@@ -700,9 +700,9 @@ public class FileDetailFragment extends SherlockFragment implements
                         if (mFile.isDown()) {
                             File f = new File(mFile.getStoragePath());
                             Log.e(TAG, f.getAbsolutePath());
-                            f.renameTo(new File(f.getParent()+"/"+newFilename));
-                            Log.e(TAG, f.getAbsolutePath());
-                            newFile.setStoragePath(f.getAbsolutePath());
+                            f.renameTo(new File(f.getParent() + File.separator + newFilename)); // TODO check if fails
+                            Log.e(TAG, f.getParent() + File.separator + newFilename);
+                            newFile.setStoragePath(f.getParent() + File.separator + newFilename);
                         }
                         
                         new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
