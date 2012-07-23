@@ -120,9 +120,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (mSuccessCounter == mLocalPaths.length) {
             message = getString(R.string.uploader_upload_succeed); 
         } else {
-            message = getString(R.string.uploader_upload_failed); 
-            if (mLocalPaths.length > 1)
-                message += " (" + mSuccessCounter + " / " + mLocalPaths.length + getString(R.string.uploader_files_uploaded_suffix) + ")";
+            message = String.format(getString(R.string.uploader_upload_failed), mSuccessCounter, mLocalPaths.length); 
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

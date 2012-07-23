@@ -71,8 +71,7 @@
     <string name="common_error">Error</string>
     <string name="uploader_info_dirname">Directory name</string>
     <string name="uploader_upload_succeed">Upload was successful</string>
-    <string name="uploader_upload_failed">Upload failed: </string>
-    <string name="uploader_files_uploaded_suffix"> files uploaded</string>
+    <string name="uploader_upload_failed">Upload failed: %1$d/%2$d files uploaded</string>
     <string name="downloader_download_succeed">Download was successful</string>
     <string name="downloader_download_failed">Download could not be completed</string>
     <string name="common_choose_account">Choose account</string>
@@ -132,8 +131,7 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-	<string name="confirmation_alert_prefix">"Do you really want "</string>
-	<string name="confirmation_alert_suffix">"?"</string>
+	<string name="confirmation_alert">"Do you really want %1$s ?"</string>
 
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>
