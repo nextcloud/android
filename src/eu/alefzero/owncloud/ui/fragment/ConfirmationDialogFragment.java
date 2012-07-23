@@ -35,7 +35,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage(String.format(getString(R.string.confirmation_alert_prefix), confirmationTarget))
+                .setMessage(String.format(getString(R.string.confirmation_alert), confirmationTarget))
                 .setPositiveButton(R.string.common_ok,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
