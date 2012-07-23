@@ -22,6 +22,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import eu.alefzero.owncloud.files.services.FileDownloader;
+
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -144,14 +146,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Use this to check if this file is available locally
      * 
-     * TODO use a better condition not dependent upon mLenght being synchronized; to change when downloads are done through a temporal file
-     * 
      * @return true if it is
      */
     public boolean isDown() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
             File file = new File(mLocalPath);
-            return (file.exists() && file.length() == mLength);
+            return (file.exists());
         }
         return false;
     }
@@ -159,14 +159,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Use this to check if this file is downloading
      * 
-     * TODO use a better condition not dependent upon mLenght being synchronized; to change when downloads are done through a temporal file
-     * 
      * @return true if it is in a download in progress
      */
     public boolean isDownloading() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
-            File file = new File(mLocalPath);
-            return (file.exists() && file.length() < mLength);  
+            String savePath = FileDownloader.getSavePath();
+            File file = new File(FileDownloader.getTemporalPath() + mLocalPath.substring(savePath.length()));
+            return (file.exists());  
         }
         return false;
     }

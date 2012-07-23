@@ -60,6 +60,16 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             stopSelf(msg.arg1);
         }
     }
+    
+    public static final String getSavePath() {
+        File sdCard = Environment.getExternalStorageDirectory();
+        return sdCard.getAbsolutePath() + "/owncloud/";
+    }
+    
+    public static final String getTemporalPath() {
+        File sdCard = Environment.getExternalStorageDirectory();
+        return sdCard.getAbsolutePath() + "/owncloud.tmp/";
+    }
 
     @Override
     public void onCreate() {
@@ -128,29 +138,40 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         mNotificationMngr.notify(1, mNotification);
 
-        File sdCard = Environment.getExternalStorageDirectory();
-        File file = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + mFilePath);
-        file.getParentFile().mkdirs();
+        // download in a temporal file
+        File tmpFile = new File(getTemporalPath() + mAccount.name + mFilePath);
+        tmpFile.getParentFile().mkdirs();
 
         boolean download_result = false;
-        if (wdc.downloadFile(mRemotePath, file)) {
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getAbsolutePath());
-            getContentResolver().update(
+        File newFile = null;
+        if (wdc.downloadFile(mRemotePath, tmpFile)) {
+            newFile = new File(getSavePath() + mAccount.name + mFilePath);
+            newFile.getParentFile().mkdirs();
+            boolean moved = tmpFile.renameTo(newFile);
+            
+            if (moved) {
+                ContentValues cv = new ContentValues();
+                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newFile.getAbsolutePath());
+                getContentResolver().update(
                     ProviderTableMeta.CONTENT_URI,
                     cv,
                     ProviderTableMeta.FILE_NAME + "=? AND "
                             + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                     new String[] {
                             mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
-                            mAccount.name });            
-            download_result = true;
+                            mAccount.name });
+                download_result = true;
+            }
+        }
+        
+        if (!download_result) {
+            tmpFile.delete();
         }
         
         mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
-        end.putExtra(EXTRA_FILE_PATH, file.getAbsolutePath());
+        end.putExtra(EXTRA_FILE_PATH, newFile.getAbsolutePath());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
         end.putExtra(ACCOUNT_NAME, mAccount.name);
         sendBroadcast(end);

@@ -111,12 +111,12 @@ public class FileListListAdapter implements ListAdapter {
             }
             ImageView downloaded = (ImageView) view.findViewById(R.id.imageView2);
             ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
-            if (file.isDown()) {
-                 downloaded.setVisibility(View.VISIBLE);
-                 downloading.setVisibility(View.INVISIBLE);
-            } else if (file.isDownloading()) {
+            if (file.isDownloading()) {
                 downloaded.setVisibility(View.INVISIBLE);
                 downloading.setVisibility(View.VISIBLE);
+            } else if (file.isDown()) {
+                 downloaded.setVisibility(View.VISIBLE);
+                 downloading.setVisibility(View.INVISIBLE);
             } else {
                 downloaded.setVisibility(View.INVISIBLE);
                 downloading.setVisibility(View.INVISIBLE);
