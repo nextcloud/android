@@ -131,7 +131,7 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-	<string name="confirmation_alert">"Do you really want %1$s ?"</string>
+	<string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
 
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>

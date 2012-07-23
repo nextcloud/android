@@ -241,7 +241,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }   
             case R.id.fdRemoveBtn: {
-                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance("to remove " + mFile.getFileName());
+                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(R.string.confirmation_remove_alert, new String[]{mFile.getFileName()});
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 break;
