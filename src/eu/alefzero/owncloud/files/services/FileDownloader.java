@@ -164,16 +164,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             }
         }
         
-        if (!download_result) {
-            tmpFile.delete();
-        }
-        
         mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
-        end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
-        end.putExtra(EXTRA_FILE_PATH, newFile.getAbsolutePath());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
         end.putExtra(ACCOUNT_NAME, mAccount.name);
+        end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
+        if (download_result) {
+            end.putExtra(EXTRA_FILE_PATH, newFile.getAbsolutePath());
+        }
         sendBroadcast(end);
 
         if (download_result) {

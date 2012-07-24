@@ -57,6 +57,13 @@ public class WebdavClient extends HttpClient {
     private Credentials mCredentials;
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
+    
+    /** Default timeout for waiting data from the server: 10 seconds */
+    public static final int DEFAULT_DATA_TIMEOUT = 10000;
+    
+    /** Default timeout for establishing a connection: infinite */
+    public static final int DEFAULT_CONNECTION_TIMEOUT = 0;
+    
     private OnDatatransferProgressListener mDataTransferListener;
     static private MultiThreadedHttpConnectionManager mConnManager = null;
     
@@ -76,6 +83,8 @@ public class WebdavClient extends HttpClient {
      * @return
      */
     public WebdavClient (Account account, Context context) {
+        setDefaultTimeouts();
+        
         OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
                 AccountAuthenticator.KEY_OC_VERSION));
         String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
@@ -84,12 +93,14 @@ public class WebdavClient extends HttpClient {
         String password = AccountManager.get(context).getPassword(account);
         
         mUri = Uri.parse(baseUrl + webDavPath);
-Log.e("ASD", ""+username);
+        Log.e("ASD", ""+username);
         setCredentials(username, password);
     }
     
     public WebdavClient() {
         super(getMultiThreadedConnManager());
+        
+        setDefaultTimeouts();
         
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -106,6 +117,14 @@ Log.e("ASD", ""+username);
         if (mCredentials == null)
             mCredentials = new UsernamePasswordCredentials(username, password);
         return mCredentials;
+    }
+    
+    /**
+     * Sets the connection and wait-for-data timeouts to be applied by default.
+     */
+    private void setDefaultTimeouts() {
+        getParams().setSoTimeout(DEFAULT_DATA_TIMEOUT);
+        getHttpConnectionManager().getParams().setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);
     }
 
     public void allowSelfsignedCertificates() {
