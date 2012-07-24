@@ -19,11 +19,14 @@ package eu.alefzero.owncloud.ui.adapter;
 
 import java.util.Vector;
 
+import eu.alefzero.owncloud.AccountUtils;
 import eu.alefzero.owncloud.DisplayUtils;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.util.Log;
@@ -46,6 +49,7 @@ public class FileListListAdapter implements ListAdapter {
     private OCFile mFile;
     private Vector<OCFile> mFiles;
     private DataStorageManager mStorageManager;
+    private Account mAccount;
 
     public FileListListAdapter(OCFile file, DataStorageManager storage_man,
             Context context) {
@@ -53,6 +57,7 @@ public class FileListListAdapter implements ListAdapter {
         mStorageManager = storage_man;
         mFiles = mStorageManager.getDirectoryContent(mFile);
         mContext = context;
+        mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
     }
 
     @Override
@@ -111,7 +116,7 @@ public class FileListListAdapter implements ListAdapter {
             }
             ImageView downloaded = (ImageView) view.findViewById(R.id.imageView2);
             ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
-            if (file.isDownloading()) {
+            if (FileDownloader.isDownloading(mAccount, file.getRemotePath())) {
                 downloaded.setVisibility(View.INVISIBLE);
                 downloading.setVisibility(View.VISIBLE);
             } else if (file.isDown()) {

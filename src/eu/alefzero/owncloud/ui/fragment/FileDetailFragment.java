@@ -362,7 +362,7 @@ public class FileDetailFragment extends SherlockFragment implements
             cb.setChecked(mFile.keepInSync());
 
             // configure UI for depending upon local state of the file
-            if (mFile.isDownloading()) {
+            if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
                 setButtonsForDownloading();
                 
             } else if (mFile.isDown()) {

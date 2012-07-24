@@ -157,20 +157,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
     
     /**
-     * Use this to check if this file is downloading
-     * 
-     * @return true if it is in a download in progress
-     */
-    public boolean isDownloading() {
-        if (mLocalPath != null && mLocalPath.length() > 0) {
-            String savePath = FileDownloader.getSavePath();
-            File file = new File(FileDownloader.getTemporalPath() + mLocalPath.substring(savePath.length()));
-            return (file.exists());  
-        }
-        return false;
-    }
-
-    /**
      * The path, where the file is stored locally
      * 
      * @return The local path to the file

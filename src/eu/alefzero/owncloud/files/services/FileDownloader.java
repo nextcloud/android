@@ -2,6 +2,9 @@ package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -48,7 +51,27 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private long mTotalDownloadSize;
     private long mCurrentDownlodSize;
     private Notification mNotification;
+    
+    /**
+     * Static map with the files being download and the path to the temporal file were are download
+     */
+    private static Map<String, String> mDownloadsInProgress = Collections.synchronizedMap(new HashMap<String, String>());
+    
+    /**
+     * Returns True when the file referred by 'remotePath' in the ownCloud account 'account' is downloading
+     */
+    public static boolean isDownloading(Account account, String remotePath) {
+        return (mDownloadsInProgress.get(buildRemoteName(account.name, remotePath)) != null);
+    }
+    
+    /**
+     * Builds a key for mDownloadsInProgress from the accountName and remotePath
+     */
+    private static String buildRemoteName(String accountName, String remotePath) {
+        return accountName + remotePath;
+    }
 
+    
     private final class ServiceHandler extends Handler {
         public ServiceHandler(Looper looper) {
             super(looper);
@@ -141,6 +164,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         // download in a temporal file
         File tmpFile = new File(getTemporalPath() + mAccount.name + mFilePath);
         tmpFile.getParentFile().mkdirs();
+        mDownloadsInProgress.put(buildRemoteName(mAccount.name, mRemotePath), tmpFile.getAbsolutePath());
 
         boolean download_result = false;
         File newFile = null;
@@ -163,6 +187,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 download_result = true;
             }
         }
+        
+        mDownloadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePath));
         
         mNotificationMngr.cancel(1);
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
