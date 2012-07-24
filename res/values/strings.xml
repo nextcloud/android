@@ -30,7 +30,7 @@
     <string name="prefs_trackmydevice">Device tracking</string>
     <string name="prefs_trackmydevice_summary_off">Enable ownCloud to track your device location</string>
     <string name="prefs_trackmydevice_summary_on">Your ownCloud keeps track of this device</string>
-    <string name="prefs_trackmydevice_interval">Update intervall</string>
+    <string name="prefs_trackmydevice_interval">Update interval</string>
     <string name="prefs_trackmydevice_interval_summary">Update every %1$s minutes</string>
     <string name="prefs_accounts">Accounts</string>
     
@@ -53,7 +53,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_info_uploading">Uploading</string>
-    <string name="uploader_btn_create_dir_text">Create dir for upload</string>
+    <string name="uploader_btn_create_dir_text">Create directory for upload</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -105,7 +105,7 @@
     <string name="auth_no_net_conn_message">No network connection have been detected, check your Internet connection and try again.</string>
     <string name="auth_connect_anyway">Connect anyway</string>
     <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
-    <string name="auth_nossl_plain_ok_message">Application couldn\'t etablish secure connection to server. Although non secure connection is available. You may continue or cancel.</string>
+    <string name="auth_nossl_plain_ok_message">Application couldn\'t establish a secure connection to server. Although non secure connection is available. You may continue or cancel.</string>
     <string name="auth_connection_established">Connection established</string>
     <string name="auth_testing_connection">Testing connection…</string>
     <string name="auth_not_configured_title">Malformed ownCloud configuration</string>
@@ -113,11 +113,11 @@
     <string name="auth_unknown_error_title">Unknown error occurred</string>
     <string name="auth_unknown_error_message">Unknown error occurred. Please contact authors and include logs from your device.</string>
     <string name="auth_unknow_host_title">Can\'t establish connection</string>
-    <string name="auth_unknow_host_message">Coundn\'t establish connection to host. Please check hostname and server availability and try again.</string>
+    <string name="auth_unknow_host_message">Couldn\'t establish connection to host. Please check hostname and server availability and try again.</string>
     <string name="auth_incorrect_path_title">ownCloud instance not found</string>
     <string name="auth_incorrect_path_message">Application couldn\'t find ownClound instance at given path. Please check your path and try again.</string>
     <string name="auth_secure_connection">Secure connection established</string>
-    <string name="auth_unknow_error">Unknown error occured!</string>
+    <string name="auth_unknow_error">Unknown error occurred!</string>
     <string name="auth_login_details">Login details</string>
     
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit crash report?</string>
