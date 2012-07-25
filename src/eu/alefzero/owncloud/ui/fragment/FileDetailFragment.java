@@ -556,7 +556,7 @@ public class FileDetailFragment extends SherlockFragment implements
         public void onReceive(Context context, Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
 
-            if (accountName.equals(mAccount.name) && mFile != null) {
+            if (!isEmpty() && accountName.equals(mAccount.name)) {
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 if (mFile.getRemotePath().equals(downloadedRemotePath)) {
