@@ -264,8 +264,12 @@ public class WebdavClient extends HttpClient {
         HeadMethod head = new HeadMethod(uri.toString());
         try {
             returnCode = client.executeMethod(head);
+        } catch (HttpException e) {
+            Log.e(TAG, "HTTP exception trying to login at " + uri.getEncodedPath(), e);
+        } catch (IOException e) {
+            Log.e(TAG, "I/O exception trying to login at " + uri.getEncodedPath(), e);
         } catch (Exception e) {
-            Log.e(TAG, "Error: " + e.getMessage());
+            Log.e(TAG, "Unexpected exception trying to login at " + uri.getEncodedPath(), e);
         }
         return returnCode;
     }
