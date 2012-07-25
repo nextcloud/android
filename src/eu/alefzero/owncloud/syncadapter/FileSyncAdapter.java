@@ -206,7 +206,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             OCFile file;
             for (int i=0; i < files.size(); ) {
                 file = files.get(i);
-                if (file.getLastSyncDate() != mCurrentSyncTime && file.getLastSyncDate() != 0) {
+                if (file.getLastSyncDate() != mCurrentSyncTime) {
                     getStorageManager().removeFile(file);
                     files.remove(i);
                 } else {
