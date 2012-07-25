@@ -218,7 +218,6 @@ public class FileDetailFragment extends SherlockFragment implements
                 i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
                 
                 // update ui 
-                Toast.makeText(getActivity(), "Downloading", Toast.LENGTH_LONG).show();
                 setButtonsForDownloading();
                 
                 getActivity().startService(i);

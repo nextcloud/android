@@ -8,6 +8,8 @@ import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,6 +24,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import eu.alefzero.owncloud.R;
@@ -49,7 +52,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private String mRemotePath;
     private int mLastPercent;
     private long mTotalDownloadSize;
-    private long mCurrentDownlodSize;
+    private long mCurrentDownloadSize;
     private Notification mNotification;
     
     /**
@@ -112,61 +115,67 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!intent.hasExtra(EXTRA_ACCOUNT)
-                && !intent.hasExtra(EXTRA_FILE_PATH)) {
+        if (    !intent.hasExtra(EXTRA_ACCOUNT) ||
+                !intent.hasExtra(EXTRA_FILE_PATH) ||
+                !intent.hasExtra(EXTRA_REMOTE_PATH)
+           ) {
             Log.e(TAG, "Not enough information provided in intent");
             return START_STICKY;
         }
         mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
         mFilePath = intent.getStringExtra(EXTRA_FILE_PATH);
         mRemotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+        mTotalDownloadSize = intent.getLongExtra(EXTRA_FILE_SIZE, -1);
+        mCurrentDownloadSize = mLastPercent = 0;
+
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
-        mCurrentDownlodSize = mLastPercent = 0;
-        mTotalDownloadSize = intent.getLongExtra(EXTRA_FILE_SIZE, -1);
 
         return START_NOT_STICKY;
     }
 
     void downloadFile() {
+        boolean downloadResult = false;
+
+        /// prepare client object to send the request to the ownCloud server
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-
-
         WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
-        
         String username = mAccount.name.split("@")[0];
-        String password = "";
+        String password = null;
         try {
             password = am.blockingGetAuthToken(mAccount,
                     AccountAuthenticator.AUTH_TOKEN_TYPE, true);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Access to account credentials failed", e);
+            // TODO - check if that log prints the stack trace
+            sendFinalBroadcast(downloadResult, null);
             return;
         }
-
         wdc.setCredentials(username, password);
         wdc.allowSelfsignedCertificates();
         wdc.setDataTransferProgressListener(this);
 
-        mNotification = new Notification(R.drawable.icon, "Downloading file", System.currentTimeMillis());
-
+        
+        /// download will be in a temporal file
+        File tmpFile = new File(getTemporalPath() + mAccount.name + mFilePath);
+        
+        /// create status notification to show the download progress
+        mNotification = new Notification(R.drawable.icon, getString(R.string.downloader_download_in_progress_ticker), System.currentTimeMillis());
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
         mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, mTotalDownloadSize == -1);
+        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, tmpFile.getName()));
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
         //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on a download in the notification bar
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
         
-        mNotificationMngr.notify(1, mNotification);
 
-        // download in a temporal file
-        File tmpFile = new File(getTemporalPath() + mAccount.name + mFilePath);
+        /// perform the download
         tmpFile.getParentFile().mkdirs();
         mDownloadsInProgress.put(buildRemoteName(mAccount.name, mRemotePath), tmpFile.getAbsolutePath());
-
-        boolean download_result = false;
         File newFile = null;
         if (wdc.downloadFile(mRemotePath, tmpFile)) {
             newFile = new File(getSavePath() + mAccount.name + mFilePath);
@@ -184,42 +193,57 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     new String[] {
                             mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
                             mAccount.name });
-                download_result = true;
+                downloadResult = true;
             }
         }
-        
         mDownloadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePath));
-        
-        mNotificationMngr.cancel(1);
-        Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
-        end.putExtra(EXTRA_DOWNLOAD_RESULT, download_result);
-        end.putExtra(ACCOUNT_NAME, mAccount.name);
-        end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
-        if (download_result) {
-            end.putExtra(EXTRA_FILE_PATH, newFile.getAbsolutePath());
-        }
-        sendBroadcast(end);
 
-        if (download_result) {
-            Toast.makeText(this, R.string.downloader_download_succeed , Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, R.string.downloader_download_failed , Toast.LENGTH_SHORT).show();
-        }
         
+        /// notify result
+        mNotificationMngr.cancel(R.string.downloader_download_in_progress_ticker);
+        int tickerId = (downloadResult) ? R.string.downloader_download_succeed_ticker : R.string.downloader_download_failed_ticker;
+        int contentId = (downloadResult) ? R.string.downloader_download_succeed_content : R.string.downloader_download_failed_content;
+        Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
+        finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+        // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
+        //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on a download in the notification bar
+        finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), tmpFile.getName()), finalNotification.contentIntent);
+        mNotificationMngr.notify(tickerId, finalNotification);
+            
+        sendFinalBroadcast(downloadResult, (downloadResult)?newFile.getAbsolutePath():null);
     }
 
+    
     @Override
     public void transferProgress(long progressRate) {
-        mCurrentDownlodSize += progressRate;
-        int percent = (int)(100.0*((double)mCurrentDownlodSize)/((double)mTotalDownloadSize));
+        mCurrentDownloadSize += progressRate;
+        int percent = (int)(100.0*((double)mCurrentDownloadSize)/((double)mTotalDownloadSize));
         if (percent != mLastPercent) {
-          mNotification.contentView.setProgressBar(R.id.status_progress, 100, (int)(100*mCurrentDownlodSize/mTotalDownloadSize), mTotalDownloadSize == -1);
-          mNotification.contentView.setTextViewText(R.id.status_text, percent+"%");
-          mNotificationMngr.notify(1, mNotification);
+          mNotification.contentView.setProgressBar(R.id.status_progress, 100, (int)(100*mCurrentDownloadSize/mTotalDownloadSize), mTotalDownloadSize == -1);
+          mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), percent, new File(mFilePath).getName()));
+          mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
         }
         
         mLastPercent = percent;
     }
     
-    
+
+    /**
+     * Sends a broadcast in order to the interested activities can update their view
+     * 
+     * @param downloadResult        'True' if the download was successful
+     * @param newFilePath           Absolute path to the download file
+     */
+    private void sendFinalBroadcast(boolean downloadResult, String newFilePath) {
+        Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+        end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult);
+        end.putExtra(ACCOUNT_NAME, mAccount.name);
+        end.putExtra(EXTRA_REMOTE_PATH, mRemotePath);
+        if (downloadResult) {
+            end.putExtra(EXTRA_FILE_PATH, newFilePath);
+        }
+        sendBroadcast(end);
+    }
+
 }

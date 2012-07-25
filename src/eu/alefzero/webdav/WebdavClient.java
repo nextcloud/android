@@ -137,24 +137,25 @@ public class WebdavClient extends HttpClient {
      * Downloads a file in remoteFilepath to the local targetPath.
      * 
      * @param remoteFilepath    Path to the file in the remote server, URL DECODED. 
-     * @param targetPath        Local path to save the downloaded file.
+     * @param targetFile        Local path to save the downloaded file.
      * @return                  'True' when the file is successfully downloaded.
      */
-    public boolean downloadFile(String remoteFilepath, File targetPath) {
+    public boolean downloadFile(String remoteFilepath, File targetFile) {
         boolean ret = false;
+        boolean caughtException = false;
         GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
 
         // get.setHeader("Host", mUri.getHost());
         // get.setHeader("User-Agent", "Android-ownCloud");
 
+        int status = -1;
         try {
-            int status = executeMethod(get, 0);
-            Log.e(TAG, "status return: " + status);
+            status = executeMethod(get);
             if (status == HttpStatus.SC_OK) {
-                targetPath.createNewFile();
+                targetFile.createNewFile();
                 BufferedInputStream bis = new BufferedInputStream(
                         get.getResponseBodyAsStream());
-                FileOutputStream fos = new FileOutputStream(targetPath);
+                FileOutputStream fos = new FileOutputStream(targetFile);
 
                 byte[] bytes = new byte[4096];
                 int readResult;
@@ -166,11 +167,28 @@ public class WebdavClient extends HttpClient {
                 ret = true;
             }
             
-        } catch (Throwable e) {
-            e.printStackTrace();
-            targetPath.delete();
+        } catch (HttpException e) {
+            Log.e(TAG, "HTTP exception downloading " + remoteFilepath, e);
+            caughtException = true;
+
+        } catch (IOException e) {
+            Log.e(TAG, "I/O exception downloading " + remoteFilepath, e);
+            caughtException = true;
+
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected exception downloading " + remoteFilepath, e);
+            caughtException = true;
+            
+        } finally {
+            if (!ret) {
+                if (!caughtException) {
+                    Log.e(TAG, "Download of " + remoteFilepath + " to " + targetFile + " failed with HTTP status " + status);
+                }
+                if (targetFile.exists()) {
+                    targetFile.delete();
+                }
+            }
         }
-        
         return ret;
     }
     
