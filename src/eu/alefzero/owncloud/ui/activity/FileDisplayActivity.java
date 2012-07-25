@@ -707,12 +707,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
 
             if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                    downloadWasFine && mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
+                     mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
                 FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
