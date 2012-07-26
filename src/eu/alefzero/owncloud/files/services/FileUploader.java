@@ -144,6 +144,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotificationManager.notify(42, mNotification);
 
         WebdavClient wc = new WebdavClient(mAccount, getApplicationContext());
+        wc.allowSelfsignedCertificates();
         wc.setDataTransferProgressListener(this);
 
         for (int i = 0; i < mLocalPaths.length; ++i) {

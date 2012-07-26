@@ -373,8 +373,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s]";
-        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath);
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s]";
+        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, new Long(mParentId), new Boolean(mKeepInSync));
         return asString;
     }
 

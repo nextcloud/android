@@ -150,7 +150,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
         try {
-            //Log.v(TAG, "syncing: fetching " + uri);
+            Log.d(TAG, "fetching " + uri);
             
             // remote request 
             PropFindMethod query = new PropFindMethod(uri);
@@ -187,6 +187,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
                 
                 //getStorageManager().saveFile(file);
+                Log.v(TAG, "adding file: " + file);
                 updatedFiles.add(file);
                 if (parentId == 0)
                     parentId = file.getFileId();
@@ -207,6 +208,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             for (int i=0; i < files.size(); ) {
                 file = files.get(i);
                 if (file.getLastSyncDate() != mCurrentSyncTime) {
+                    Log.v(TAG, "removing file: " + file);
                     getStorageManager().removeFile(file);
                     files.remove(i);
                 } else {
@@ -224,7 +226,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
                 }
             }
-            if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancellation request");
+            if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancelation request");
                 
             /*  Commented code for ugly performance tests
             mResponseDelays[mDelaysIndex] = responseDelay;

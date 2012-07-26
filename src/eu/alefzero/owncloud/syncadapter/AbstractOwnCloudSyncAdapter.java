@@ -154,6 +154,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
                 throw new UnknownHostException();
             }
             mClient = new WebdavClient(account, getContext());
+            mClient.allowSelfsignedCertificates();
             // mHost = mClient.getTargetHost();
         }
 

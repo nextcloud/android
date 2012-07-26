@@ -733,6 +733,7 @@ public class FileDetailFragment extends SherlockFragment implements
         
         public void run() {
             WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
+            wc.allowSelfsignedCertificates();
             AccountManager am = AccountManager.get(getSherlockActivity());
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
@@ -863,6 +864,7 @@ public class FileDetailFragment extends SherlockFragment implements
         
         public void run() {
             WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
+            wc.allowSelfsignedCertificates();
             AccountManager am = AccountManager.get(getSherlockActivity());
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
