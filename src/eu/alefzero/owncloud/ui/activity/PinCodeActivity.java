@@ -187,28 +187,22 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                // TODO Auto-generated method stub
-                if (s.length() > 0) {
-                   if (!confirmingPinCode){
-                      tempText[0] = mText1.getText().toString();
-                      
-                   }
-                   mText2.requestFocus();
-                }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                     int after) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-                
-
+                if (s.length() > 0) {
+                    if (!confirmingPinCode){
+                       tempText[0] = mText1.getText().toString();
+                       
+                    }
+                    mText2.requestFocus();
+                 }
             }
         });
         
@@ -222,28 +216,22 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
                     if (!confirmingPinCode){
                         tempText[1] = mText2.getText().toString();
                     }
                     
                     mText3.requestFocus();
-                    
                 }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
             }
         });
  
@@ -296,27 +284,21 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                // TODO Auto-generated method stub
-                if (s.length() > 0) {
-                    if (!confirmingPinCode){
-                        tempText[2] = mText3.getText().toString();
-                    }
-                    mText4.requestFocus();
-                    
-                }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                     int after) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
+                if (s.length() > 0) {
+                    if (!confirmingPinCode){
+                        tempText[2] = mText3.getText().toString();
+                    }
+                    mText4.requestFocus();
+                }
             }
         });
         
@@ -372,61 +354,55 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                
-                if (s.length() > 0) {
-                   
-                   if (!confirmingPinCode){
-                      tempText[3] = mText4.getText().toString();
-                   }
-                   mText1.requestFocus();
-
-                   if (!pinCodeChecked){
-                       pinCodeChecked = checkPincode();
-                   }
-                   
-                   if (pinCodeChecked && activity.equals("FileDisplayActivity")){
-                       finish();
-                   } else if (pinCodeChecked){
-                       
-                       Intent intent = getIntent();
-                       String newState = intent.getStringExtra(EXTRA_NEW_STATE);
-                       
-                       if (newState.equals("false")){
-                           SharedPreferences.Editor appPrefs = PreferenceManager
-                                   .getDefaultSharedPreferences(getApplicationContext()).edit();
-                           appPrefs.putBoolean("set_pincode",false);
-                           appPrefs.commit();
-                           
-                           setInitVars();
-                           pinCodeEnd(false);
-                           
-                       }else{
-                       
-                           if (!confirmingPinCode){
-                               pinCodeChangeRequest();
-                            
-                           } else {
-                               confirmPincode();
-                           }
-                       }
-                  
-                       
-                   }    
-                                      
-                }
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                     int after) {
-                // TODO Auto-generated method stub
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
+                if (s.length() > 0) {
+                    
+                    if (!confirmingPinCode){
+                       tempText[3] = mText4.getText().toString();
+                    }
+                    mText1.requestFocus();
 
+                    if (!pinCodeChecked){
+                        pinCodeChecked = checkPincode();
+                    }
+                    
+                    if (pinCodeChecked && activity.equals("FileDisplayActivity")){
+                        finish();
+                    } else if (pinCodeChecked){
+                        
+                        Intent intent = getIntent();
+                        String newState = intent.getStringExtra(EXTRA_NEW_STATE);
+                        
+                        if (newState.equals("false")){
+                            SharedPreferences.Editor appPrefs = PreferenceManager
+                                    .getDefaultSharedPreferences(getApplicationContext()).edit();
+                            appPrefs.putBoolean("set_pincode",false);
+                            appPrefs.commit();
+                            
+                            setInitVars();
+                            pinCodeEnd(false);
+                            
+                        }else{
+                        
+                            if (!confirmingPinCode){
+                                pinCodeChangeRequest();
+                             
+                            } else {
+                                confirmPincode();
+                            }
+                        }
+                   
+                        
+                    }    
+                }
             }
         });
 
