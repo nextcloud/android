@@ -1,15 +1,12 @@
 package eu.alefzero.owncloud.files.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,14 +21,11 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
-import android.util.LogPrinter;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
-import eu.alefzero.owncloud.syncadapter.FileSyncService;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
@@ -120,7 +114,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 !intent.hasExtra(EXTRA_REMOTE_PATH)
            ) {
             Log.e(TAG, "Not enough information provided in intent");
-            return START_STICKY;
+            return START_NOT_STICKY;
         }
         mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
         mFilePath = intent.getStringExtra(EXTRA_FILE_PATH);
@@ -135,7 +129,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         return START_NOT_STICKY;
     }
 
-    void downloadFile() {
+    /**
+     * Core download method: requests the file to download and stores it.
+     */
+    private void downloadFile() {
         boolean downloadResult = false;
 
         /// prepare client object to send the request to the ownCloud server
@@ -148,7 +145,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     AccountAuthenticator.AUTH_TOKEN_TYPE, true);
         } catch (Exception e) {
             Log.e(TAG, "Access to account credentials failed", e);
-            // TODO - check if that log prints the stack trace
             sendFinalBroadcast(downloadResult, null);
             return;
         }
@@ -167,8 +163,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, mTotalDownloadSize == -1);
         mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, tmpFile.getName()));
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
-        // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
-        //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on a download in the notification bar
+        // TODO put something smart in the contentIntent below
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
         
@@ -201,12 +196,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         /// notify result
         mNotificationMngr.cancel(R.string.downloader_download_in_progress_ticker);
-        int tickerId = (downloadResult) ? R.string.downloader_download_succeed_ticker : R.string.downloader_download_failed_ticker;
-        int contentId = (downloadResult) ? R.string.downloader_download_succeed_content : R.string.downloader_download_failed_content;
+        int tickerId = (downloadResult) ? R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
+        int contentId = (downloadResult) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
         Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
         finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-        // dvelasco ; contentIntent MUST be assigned to avoid app crashes in versions previous to Android 4.x ;
-        //              BUT an empty Intent is not a very elegant solution; something smart should happen when a user 'clicks' on a download in the notification bar
+        // TODO put something smart in the contentIntent below
         finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), tmpFile.getName()), finalNotification.contentIntent);
         mNotificationMngr.notify(tickerId, finalNotification);
@@ -214,7 +208,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         sendFinalBroadcast(downloadResult, (downloadResult)?newFile.getAbsolutePath():null);
     }
 
-    
+    /**
+     * Callback method to update the progress bar in the status notification.
+     */
     @Override
     public void transferProgress(long progressRate) {
         mCurrentDownloadSize += progressRate;

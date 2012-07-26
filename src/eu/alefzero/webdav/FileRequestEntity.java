@@ -8,6 +8,8 @@ import java.io.OutputStream;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import android.util.Log;
+
 import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 
 /**
@@ -55,6 +57,10 @@ public class FileRequestEntity implements RequestEntity {
                 if (listener != null) 
                     listener.transferProgress(i);
             }
+        } catch (IOException io) {
+            Log.e("FileRequestException", io.getMessage());
+            throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
+            
         } finally {
             instream.close();
         }

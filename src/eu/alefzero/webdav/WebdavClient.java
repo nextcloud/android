@@ -145,9 +145,6 @@ public class WebdavClient extends HttpClient {
         boolean caughtException = false;
         GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
 
-        // get.setHeader("Host", mUri.getHost());
-        // get.setHeader("User-Agent", "Android-ownCloud");
-
         int status = -1;
         try {
             status = executeMethod(get);
@@ -221,32 +218,38 @@ public class WebdavClient extends HttpClient {
      * @param contentType       MIME type of the file.
      * @return                  'True' then the upload was successfully completed
      */
-    public boolean putFile(String localFile, String remoteTarget,
-            String contentType) {
+    public boolean putFile(String localFile, String remoteTarget, String contentType) {
         boolean result = false;
+        boolean caughtException = false;
+        int status = 0;
 
         try {
-            Log.e("ASD", contentType + "");
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
             entity.setOnDatatransferProgressListener(mDataTransferListener);
-            Log.e("ASD", f.exists() + " " + entity.getContentLength());
             PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
             put.setRequestEntity(entity);
-            Log.d(TAG, "" + put.getURI().toString());
-            int status = executeMethod(put, 0);
-            Log.d(TAG, "PUT method return with status " + status);
-
-            if (status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT) {
-                result = true;
-                Log.i(TAG, "Uploading, done");
-            }
+            status = executeMethod(put);
             
-        } catch (final Exception e) {
-            Log.i(TAG, "" + e.getMessage());
-            result = false;
-        }
+            result = (status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT);
+            
+            Log.d(TAG, "PUT response for " + remoteTarget + " finished with HTTP status " + status);
+            
+        } catch (HttpException e) {
+            Log.e(TAG, "HTTP exception uploading " + localFile + " to " + remoteTarget, e);
+            caughtException = true;
 
+        } catch (IOException e) {
+            Log.e(TAG, "I/O exception uploading " + localFile + " to " + remoteTarget, e);
+            caughtException = true;
+
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected exception uploading " + localFile + " to " + remoteTarget, e);
+            caughtException = true;
+        }
+        
+        if (!result && !caughtException) Log.e(TAG, "Upload of " + localFile + " to " + remoteTarget + " FAILED with HTTP status " + status);
+        
         return result;
     }
 
