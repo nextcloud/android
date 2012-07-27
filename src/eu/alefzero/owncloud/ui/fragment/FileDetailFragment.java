@@ -40,6 +40,8 @@ import org.json.JSONObject;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -97,6 +99,8 @@ public class FileDetailFragment extends SherlockFragment implements
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
+    private FileDetailFragment.ContainerActivity mContainerActivity;
+    
     private int mLayout;
     private View mView;
     private OCFile mFile;
@@ -104,6 +108,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private ImageView mPreview;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private UploadFinishReceiver mUploadFinishReceiver;
 
     private static final String TAG = "FileDetailFragment";
     public static final String FTAG = "FileDetails"; 
@@ -137,6 +142,20 @@ public class FileDetailFragment extends SherlockFragment implements
         
         if(fileToDetail != null && ocAccount != null) {
             mLayout = R.layout.file_details_fragment;
+        }
+    }
+    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mContainerActivity = (ContainerActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FileListFragment.ContainerActivity");
         }
     }
     
@@ -183,18 +202,29 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(
                 FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mDownloadFinishReceiver, filter);
+        
+        mUploadFinishReceiver = new UploadFinishReceiver();
+        filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        getActivity().registerReceiver(mUploadFinishReceiver, filter);
+        
         mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        
         getActivity().unregisterReceiver(mDownloadFinishReceiver);
         mDownloadFinishReceiver = null;
+        
+        getActivity().unregisterReceiver(mUploadFinishReceiver);
+        mUploadFinishReceiver = null;
+        
         if (mPreview != null) {
             mPreview = null;
         }
@@ -218,9 +248,10 @@ public class FileDetailFragment extends SherlockFragment implements
                 i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
                 
                 // update ui 
-                setButtonsForDownloading();
+                setButtonsForTransferring();
                 
                 getActivity().startService(i);
+                mContainerActivity.onFileStateChanged();    // this is not working; it is performed before the fileDownloadService registers it as 'in progress'
                 break;
             }
             case R.id.fdKeepInSync: {
@@ -230,6 +261,8 @@ public class FileDetailFragment extends SherlockFragment implements
                 fdsm.saveFile(mFile);
                 if (mFile.keepInSync()) {
                     onClick(getView().findViewById(R.id.fdDownloadBtn));
+                } else {    
+                    mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
                 }
                 break;
             }
@@ -361,8 +394,8 @@ public class FileDetailFragment extends SherlockFragment implements
             cb.setChecked(mFile.keepInSync());
 
             // configure UI for depending upon local state of the file
-            if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
-                setButtonsForDownloading();
+            if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
+                setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {
                 // Update preview
@@ -483,10 +516,10 @@ public class FileDetailFragment extends SherlockFragment implements
     /**
      * Enables or disables buttons for a file being downloaded
      */
-    private void setButtonsForDownloading() {
+    private void setButtonsForTransferring() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_download_in_progress);
+            //downloadButton.setText(R.string.filedetails_download_in_progress);    // ugly
             downloadButton.setEnabled(false);   // TODO replace it with a 'cancel download' button
         
             // let's protect the user from himself ;)
@@ -502,7 +535,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForDown() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_redownload);
+            //downloadButton.setText(R.string.filedetails_redownload);      // ugly
             downloadButton.setEnabled(true);
         
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
@@ -517,7 +550,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForRemote() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_download);
+            //downloadButton.setText(R.string.filedetails_download);    // unnecessary
             downloadButton.setEnabled(true);
             
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
@@ -545,6 +578,31 @@ public class FileDetailFragment extends SherlockFragment implements
         }*/
         return false;
     }
+    
+    
+    /**
+     * Interface to implement by any Activity that includes some instance of FileDetailFragment
+     * 
+     * @author David A. Velasco
+     */
+    public interface ContainerActivity {
+
+        /**
+         * Callback method invoked when the detail fragment wants to notice its container 
+         * activity about a relevant state the file shown by the fragment.
+         * 
+         * Added to notify to FileDisplayActivity about the need of refresh the files list. 
+         * 
+         * Currently called when:
+         *  - a download is started;
+         *  - a rename is completed;
+         *  - a deletion is completed;
+         *  - the 'inSync' flag is changed;
+         */
+        public void onFileStateChanged();
+        
+    }
+    
 
     /**
      * Once the file download has finished -> update view
@@ -560,7 +618,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 if (mFile.getRemotePath().equals(downloadedRemotePath)) {
                     if (downloadWasFine) {
-                        mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+                        mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));    // updates the local object without accessing the database again
                     }
                     updateFileDetails();    // it updates the buttons; must be called although !downloadWasFine
                 }
@@ -568,6 +626,37 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    
+    /**
+     * Once the file upload has finished -> update view
+     * 
+     * Being notified about the finish of an upload is necessary for the next sequence:
+     *   1. Upload a big file.
+     *   2. Force a synchronization; if it finished before the upload, the file in transfer will be included in the local database and in the file list
+     *      of its containing folder; the the server includes it in the PROPFIND requests although it's not fully upload. 
+     *   3. Click the file in the list to see its details.
+     *   4. Wait for the upload finishes; at this moment, the details view must be refreshed to enable the action buttons.
+     */
+    private class UploadFinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
+
+            if (!isEmpty() && accountName.equals(mAccount.name)) {
+                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
+                String uploadRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
+                if (mFile.getRemotePath().equals(uploadRemotePath)) {
+                    if (uploadWasFine) {
+                        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+                        mFile = fdsm.getFileByPath(mFile.getRemotePath());
+                    }
+                    updateFileDetails();    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
+                }
+            }
+        }
+    }
+    
+
     // this is a temporary class for sharing purposes, it need to be replaced in transfer service
     private class ShareRunnable implements Runnable {
         private String mPath;
@@ -753,7 +842,10 @@ public class FileDetailFragment extends SherlockFragment implements
                     mFile = mNew;
                     mHandler.post(new Runnable() {
                         @Override
-                        public void run() { updateFileDetails(mFile, mAccount); }
+                        public void run() { 
+                            updateFileDetails(mFile, mAccount);
+                            mContainerActivity.onFileStateChanged();
+                        }
                     });
                 }
                 Log.e("ASD", ""+move.getQueryString());
@@ -890,6 +982,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                                     transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
                                     transaction.commit();
+                                    mContainerActivity.onFileStateChanged();
                                     
                                 } else {
                                     getActivity().finish();
@@ -932,7 +1025,8 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
-        @Override
+        @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
+		@Override
         protected Bitmap doInBackground(String... params) {
             Bitmap result = null;
             if (params.length != 1) return result;
@@ -956,7 +1050,6 @@ public class FileDetailFragment extends SherlockFragment implements
                 int width = options.outWidth;
                 int height = options.outHeight;
                 int scale = 1;
-                boolean recycle = false;
                 if (width >= 2048 || height >= 2048) {
                     scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
                     options.inSampleSize = scale;

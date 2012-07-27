@@ -30,6 +30,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
     public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_PARENT_DIR_ID = "PARENT_DIR_ID";
+    public static final String EXTRA_UPLOAD_RESULT = "RESULT";
+    public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_FILE_PATH = "FILE_PATH";
     
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
@@ -184,29 +187,41 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             if (mimeType == null)
                 mimeType = "application/octet-stream";
             mCurrentIndexUpload = i;
-            mRemotePaths[i] = getAvailableRemotePath(wc, mRemotePaths[i]);
-            mUploadsInProgress.put(buildRemoteName(mAccount.name, mRemotePaths[i]), mLocalPaths[i]);
             long parentDirId = -1;
-            if (mRemotePaths[i] != null && wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
-                mSuccessCounter++;
-                OCFile new_file = new OCFile(mRemotePaths[i]);
-                new_file.setMimetype(mimeType);
-                new_file.setFileLength(localFiles[i].length());
-                new_file.setModificationTimestamp(System.currentTimeMillis());
-                new_file.setLastSyncDate(0);
-                new_file.setStoragePath(mLocalPaths[i]);         
+            boolean uploadResult = false;
+            String availablePath = getAvailableRemotePath(wc, mRemotePaths[i]);
+            try {
                 File f = new File(mRemotePaths[i]);
                 parentDirId = storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId();
-                new_file.setParentId(parentDirId);
-                storageManager.saveFile(new_file);
+                if(availablePath != null) {
+                    mRemotePaths[i] = availablePath;
+                    mUploadsInProgress.put(buildRemoteName(mAccount.name, mRemotePaths[i]), mLocalPaths[i]);
+                    if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
+                        OCFile new_file = new OCFile(mRemotePaths[i]);
+                        new_file.setMimetype(mimeType);
+                        new_file.setFileLength(localFiles[i].length());
+                        new_file.setModificationTimestamp(System.currentTimeMillis());
+                        new_file.setLastSyncDate(0);
+                        new_file.setStoragePath(mLocalPaths[i]);         
+                        new_file.setParentId(parentDirId);
+                        storageManager.saveFile(new_file);
+                        mSuccessCounter++;
+                        uploadResult = true;
+                    }
+                }
+            } finally {
+                mUploadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePaths[i]));
+                
+                /// notify upload (or fail) of EACH file to activities interested
+                Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
+                end.putExtra(EXTRA_PARENT_DIR_ID, parentDirId);
+                end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult);
+                end.putExtra(EXTRA_REMOTE_PATH, mRemotePaths[i]);
+                end.putExtra(EXTRA_FILE_PATH, mLocalPaths[i]);
+                end.putExtra(ACCOUNT_NAME, mAccount.name);
+                sendBroadcast(end);
             }
-            mUploadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePaths[i]));
             
-            /// notify upload of EACH file to activities interested
-            Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
-            end.putExtra(EXTRA_PARENT_DIR_ID, parentDirId);
-            end.putExtra(ACCOUNT_NAME, mAccount.name);
-            sendBroadcast(end);
         }
         
         /// notify final result

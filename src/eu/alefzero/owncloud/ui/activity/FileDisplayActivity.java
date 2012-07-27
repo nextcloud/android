@@ -80,7 +80,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    FileListFragment.ContainerActivity, OnNavigationListener, OnClickListener, android.view.View.OnClickListener  {
+    FileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnClickListener, android.view.View.OnClickListener  {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir;
@@ -787,6 +787,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             startActivity(showDetailsIntent);
         }
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onFileStateChanged() {
+        FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (fileListFragment != null) { 
+            fileListFragment.listDirectory();
+        }
+    }
+    
     
     /**
      *  Operations in this method should be preferably performed in onCreate to have a lighter onResume method. 

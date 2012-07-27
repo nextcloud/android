@@ -25,6 +25,7 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.DataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
+import eu.alefzero.owncloud.files.services.FileUploader;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -114,18 +115,40 @@ public class FileListListAdapter implements ListAdapter {
             } else {
                 fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
-            ImageView downloaded = (ImageView) view.findViewById(R.id.imageView2);
-            ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
+            ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             if (FileDownloader.isDownloading(mAccount, file.getRemotePath())) {
-                downloaded.setVisibility(View.INVISIBLE);
-                downloading.setVisibility(View.VISIBLE);
+                localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
+            } else if (FileUploader.isUploading(mAccount, file.getRemotePath())) {
+                localStateView.setImageResource(R.drawable.uploading_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
             } else if (file.isDown()) {
-                 downloaded.setVisibility(View.VISIBLE);
-                 downloading.setVisibility(View.INVISIBLE);
+                localStateView.setImageResource(R.drawable.local_file_indicator);
+                localStateView.setVisibility(View.VISIBLE);
             } else {
-                downloaded.setVisibility(View.INVISIBLE);
-                downloading.setVisibility(View.INVISIBLE);
+                localStateView.setVisibility(View.INVISIBLE);
             }
+                /*
+            ImageView down = (ImageView) view.findViewById(R.id.imageView2);
+            ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
+            ImageView uploading = (ImageView) view.findViewById(R.id.imageView5);
+            if (FileDownloader.isDownloading(mAccount, file.getRemotePath())) {
+                down.setVisibility(View.INVISIBLE);
+                downloading.setVisibility(View.VISIBLE);
+                uploading.setVisibility(View.INVISIBLE);
+            } else if (FileUploader.isUploading(mAccount, file.getRemotePath())) {
+                down.setVisibility(View.INVISIBLE);
+                downloading.setVisibility(View.INVISIBLE);
+                uploading.setVisibility(View.VISIBLE);
+            } else if (file.isDown()) {
+                 down.setVisibility(View.VISIBLE);
+                 downloading.setVisibility(View.INVISIBLE);
+                 uploading.setVisibility(View.INVISIBLE);
+            } else {
+                down.setVisibility(View.INVISIBLE);
+                downloading.setVisibility(View.INVISIBLE);
+                uploading.setVisibility(View.INVISIBLE);
+            }*/
                 
             if (!file.isDirectory()) {
                 view.findViewById(R.id.file_size).setVisibility(View.VISIBLE);

@@ -32,6 +32,7 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
+import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 
 /**
  * This activity displays the details of a file like its name, its size and so
@@ -40,7 +41,7 @@ import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
  * @author Bartek Przybylski
  * 
  */
-public class FileDetailActivity extends SherlockFragmentActivity {
+public class FileDetailActivity extends SherlockFragmentActivity implements FileDetailFragment.ContainerActivity {
     
     private boolean mConfigurationChangedToLandscape = false;
 
@@ -108,5 +109,14 @@ public class FileDetailActivity extends SherlockFragmentActivity {
         startActivity(intent);
         finish();
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onFileStateChanged() {
+        // nothing to do here!
+    }
+    
 
 }

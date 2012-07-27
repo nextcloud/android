@@ -35,7 +35,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_FILE_SIZE = "FILE_SIZE";
-    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
+    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+    
     private static final String TAG = "FileDownloader";
 
     private NotificationManager mNotificationMngr;
@@ -172,26 +173,29 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         tmpFile.getParentFile().mkdirs();
         mDownloadsInProgress.put(buildRemoteName(mAccount.name, mRemotePath), tmpFile.getAbsolutePath());
         File newFile = null;
-        if (wdc.downloadFile(mRemotePath, tmpFile)) {
-            newFile = new File(getSavePath() + mAccount.name + mFilePath);
-            newFile.getParentFile().mkdirs();
-            boolean moved = tmpFile.renameTo(newFile);
+        try {
+            if (wdc.downloadFile(mRemotePath, tmpFile)) {
+                newFile = new File(getSavePath() + mAccount.name + mFilePath);
+                newFile.getParentFile().mkdirs();
+                boolean moved = tmpFile.renameTo(newFile);
             
-            if (moved) {
-                ContentValues cv = new ContentValues();
-                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newFile.getAbsolutePath());
-                getContentResolver().update(
-                    ProviderTableMeta.CONTENT_URI,
-                    cv,
-                    ProviderTableMeta.FILE_NAME + "=? AND "
-                            + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                    new String[] {
-                            mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
-                            mAccount.name });
-                downloadResult = true;
+                if (moved) {
+                    ContentValues cv = new ContentValues();
+                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newFile.getAbsolutePath());
+                    getContentResolver().update(
+                            ProviderTableMeta.CONTENT_URI,
+                            cv,
+                            ProviderTableMeta.FILE_NAME + "=? AND "
+                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
+                            new String[] {
+                                mFilePath.substring(mFilePath.lastIndexOf('/') + 1),
+                                mAccount.name });
+                    downloadResult = true;
+                }
             }
+        } finally {
+            mDownloadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePath));
         }
-        mDownloadsInProgress.remove(buildRemoteName(mAccount.name, mRemotePath));
 
         
         /// notify result

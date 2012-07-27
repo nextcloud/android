@@ -35,11 +35,17 @@
             android:layout_height="wrap_content"
             android:src="@drawable/local_file_indicator"/>
 
-        <ImageView
+        <!-- ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/downloading_file_indicator"/>
+            android:src="@drawable/downloading_file_indicator"/ >
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uploading_file_indicator"/ -->
 
         <ImageView
             android:id="@+id/imageView1"
