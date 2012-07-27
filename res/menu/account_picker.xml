@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/createAccount" android:title="Create Account" android:showAsAction="ifRoom|withText"></item>
+    <item android:id="@+id/createAccount" android:title="@string/create_account" android:showAsAction="ifRoom|withText"></item>
     
 
 </menu>

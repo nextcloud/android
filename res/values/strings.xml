@@ -33,6 +33,7 @@
     <string name="prefs_trackmydevice_interval">Update interval</string>
     <string name="prefs_trackmydevice_interval_summary">Update every %1$s minutes</string>
     <string name="prefs_accounts">Accounts</string>
+    <string name="prefs_manage_accounts">Manage accounts</string>    
     
     <string name="auth_host_url">ownCloud URL</string>
     <string name="auth_username">Username</string>
@@ -69,6 +70,12 @@
     <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_error">Error</string>
+    <string name="about_title">About</string>
+    
+    <string name="delete_account">Delete account</string>
+    <string name="create_account">Create account</string>
+    
+    <string name="upload_chooser_title">Upload file from &#8230;</string>
     <string name="uploader_info_dirname">Directory name</string>
 	<string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>    
 	<string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>    

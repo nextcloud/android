@@ -185,7 +185,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 action = action.setType("*/*")
                         .addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(
-                        Intent.createChooser(action, "Upload file from..."),
+                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                         ACTION_SELECT_FILE);
                 break;
             }
@@ -441,7 +441,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             break;
         case DIALOG_ABOUT_APP: {
             builder = new AlertDialog.Builder(this);
-            builder.setTitle("About");
+            builder.setTitle(getString(R.string.about_title));
             PackageInfo pkg;
             try {
                 pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
