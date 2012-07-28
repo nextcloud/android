@@ -15,7 +15,7 @@
     <string name="main_tit_accsetup">Setup Account</string>
     <string name="main_wrn_accsetup">There are no ownCloud accounts on your device. In order to use this App, you need to create one.</string>
     
-    <string name="actionbar_sync">Sync account</string>
+    <string name="actionbar_sync">Refresh</string>
     <string name="actionbar_upload">Upload file</string>
     <string name="actionbar_mkdir">Create directory</string>
     <string name="actionbar_search">Search</string>
@@ -148,7 +148,10 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-	<string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+	  <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+	  <string name="confirmation_remove_local">Local only</string>
+	  <string name="confirmation_remove_remote">Remove form server</string>
+	  <string name="confirmation_remove_remote_and_local">Both remote and local</string>
 
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>

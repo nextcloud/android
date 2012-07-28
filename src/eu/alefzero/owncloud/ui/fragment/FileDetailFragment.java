@@ -273,7 +273,12 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }   
             case R.id.fdRemoveBtn: {
-                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(R.string.confirmation_remove_alert, new String[]{mFile.getFileName()});
+                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
+                        R.string.confirmation_remove_alert,
+                        new String[]{mFile.getFileName()},
+                        mFile.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
+                        mFile.isDown() ? R.string.confirmation_remove_local : -1,
+                        R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 break;
@@ -331,14 +336,31 @@ public class FileDetailFragment extends SherlockFragment implements
     
     
     @Override
-    public void onConfirmation(boolean confirmation, String callerTag) {
-        if (confirmation && callerTag.equals(FTAG_CONFIRMATION)) {
+    public void onConfirmation(String callerTag) {
+        if (callerTag.equals(FTAG_CONFIRMATION)) {
             Log.e("ASD","onConfirmation");
             FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
             if (fdsm.getFileById(mFile.getFileId()) != null) {
                 new Thread(new RemoveRunnable(mFile, mAccount, new Handler())).start();
             }
-        } else if (!confirmation) Log.d(TAG, "REMOVAL CANCELED");
+        }
+    }
+    
+    @Override
+    public void onNeutral(String callerTag) {
+        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+        File f = null;
+        if (mFile.isDown() && (f = new File(mFile.getStoragePath())).exists()) {
+            f.delete();
+            mFile.setStoragePath(null);
+            fdsm.saveFile(mFile);
+            updateFileDetails(mFile, mAccount);
+        }
+    }
+    
+    @Override
+    public void onCancel(String callerTag) {
+        Log.d(TAG, "REMOVAL CANCELED");
     }
     
     
