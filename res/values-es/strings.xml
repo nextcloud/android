@@ -57,6 +57,8 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
+  <string name="filedetails_redownload">Volver a descargar</string>
+  <string name="filedetails_download_in_progress">Descargando</string>
   <string name="filedetails_open">Abrir</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
@@ -65,10 +67,6 @@
   <string name="common_save_exit">Guardar &amp; Salir</string>
   <string name="common_error">Error</string>
   <string name="uploader_info_dirname">Nombre de directorio</string>
-  <string name="uploader_upload_succeed">Enviado correctamente</string>
-  <string name="uploader_upload_failed">Falló el envío:</string>
-  <string name="uploader_files_uploaded_suffix"> archivos subidos</string>
-  <string name="downloader_download_failed">La descarga no pudo completarse</string>
   <string name="common_choose_account">Elige una cuenta</string>
   <string name="sync_string_contacts">Contactos</string>
   <string name="use_ssl">Usar conexión segura</string>
@@ -120,8 +118,7 @@
   <string name="common_share">Compartir</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
-  <string name="confirmation_alert_prefix">¿Está seguro que quiere</string>
-  <string name="confirmation_alert_suffix"></string>
+  <string name="confirmation_remove_alert">¿Está seguro que desea borrar %1$s ?</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>

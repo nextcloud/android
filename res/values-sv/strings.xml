@@ -1,2 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="hello">Hello World, OwnCloudHuvudSkärm!</string>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Lösenord:</string>
+  <string name="main_login">Användare:</string>
+  <string name="main_button_login">Logga in</string>
+  <string name="main_welcome">Välkommen till ditt ownCloud</string>
+  <string name="main_files">Filer</string>
+  <string name="main_music">Musik</string>
+  <string name="main_contacts">Kontakter</string>
+  <string name="main_calendar">Kalender</string>
+  <string name="main_bookmarks">Bokmärken</string>
+  <string name="main_settings">Inställningar</string>
+  <string name="main_tit_accsetup">Skapa konto</string>
+  <string name="main_wrn_accsetup">Det finns inget konto för ownCloud. För att använda denna app måste du skapa ett konto.</string>
+  <string name="actionbar_sync">Ladda om</string>
+  <string name="actionbar_upload">Ladda upp fil</string>
+  <string name="actionbar_mkdir">Skapa mapp</string>
+  <string name="actionbar_search">Sök</string>
+  <string name="actionbar_settings">Inställningar</string>
+</resources>

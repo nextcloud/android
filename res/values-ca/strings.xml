@@ -1,2 +1,125 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="hello">Hola, pantalla principal OwnCloud!</string>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Contrasenya:</string>
+  <string name="main_login">Nom d\'usuari:</string>
+  <string name="main_button_login">Accés</string>
+  <string name="main_welcome">Benvingut al vostre ownCloud</string>
+  <string name="main_files">Fitxers</string>
+  <string name="main_music">Música</string>
+  <string name="main_contacts">Contactes</string>
+  <string name="main_calendar">Calendari</string>
+  <string name="main_bookmarks">Adreces d\'interès</string>
+  <string name="main_settings">Configuració</string>
+  <string name="main_tit_accsetup">Configuració de comptes</string>
+  <string name="main_wrn_accsetup">No hi ha comptes d\'ownCloud en el dispositiu. Per usar l\'aplicació, n\'heu de crear un.</string>
+  <string name="actionbar_sync">Sincronitza el compte</string>
+  <string name="actionbar_upload">Puja un fitxer</string>
+  <string name="actionbar_mkdir">Crea una carpeta</string>
+  <string name="actionbar_search">Cerca</string>
+  <string name="actionbar_settings">Configuració</string>
+  <string name="prefs_category_general">General</string>
+  <string name="prefs_category_trackmydevice">Seguiment del dispositiu</string>
+  <string name="prefs_add_session">Afegeix una sessió nova</string>
+  <string name="prefs_create_img_thumbnails">Crea miniatures d\'imatges</string>
+  <string name="prefs_select_oc_account">Seleccioneu un compte</string>
+  <string name="prefs_summary_select_oc_account">Escolliu quin dels comptes hauria d\'usar l\'aplicació</string>
+  <string name="prefs_trackmydevice">Seguiment del dispositiu</string>
+  <string name="prefs_trackmydevice_summary_off">Permet que owCloud faci el seguiment del dispositiu</string>
+  <string name="prefs_trackmydevice_summary_on">ownCloud manté el seguiment d\'aquest dispositiu</string>
+  <string name="prefs_trackmydevice_interval">Actualitza l\'interval</string>
+  <string name="prefs_trackmydevice_interval_summary">Actualitza cada %1$s minuts</string>
+  <string name="prefs_accounts">Comptes</string>
+  <string name="auth_host_url">URL de ownCloud</string>
+  <string name="auth_username">Nom d\'usuari</string>
+  <string name="auth_password">Contrasenya</string>
+  <string name="new_session_uri_error">La URL proporcionada és incorrecta</string>
+  <string name="new_session_session_name_error">El nom de la sessió no és correcte</string>
+  <string name="sync_string_files">Fitxers</string>
+  <string name="uploader_no_file_selected">No heu seleccionat cap fitxer per a la pujada</string>
+  <string name="setup_hint_username">Nom d\'usuari</string>
+  <string name="setup_hint_password">Contrasenya</string>
+  <string name="setup_hint_address">Adreça web</string>
+  <string name="setup_hint_show_password">Mostra la contrasenya</string>
+  <string name="setup_title">Connecta amb ownCloud</string>
+  <string name="setup_btn_connect">Connecta</string>
+  <string name="uploader_btn_upload_text">Puja</string>
+  <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
+  <string name="uploader_wrn_no_account_text">No hi ha comptes ownCloud en el dispositiu. Configureu un compte primer</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
+  <string name="uploader_info_uploading">S\'està pujant</string>
+  <string name="uploader_btn_create_dir_text">Crea una carpeta per les pujades</string>
+  <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
+  <string name="filedetails_size">Mida:</string>
+  <string name="filedetails_type">Tipus:</string>
+  <string name="filedetails_created">Creat:</string>
+  <string name="filedetails_modified">Midificat:</string>
+  <string name="filedetails_download">Baixada</string>
+  <string name="filedetails_redownload">Baixa de nou</string>
+  <string name="filedetails_download_in_progress">S\'està baixant</string>
+  <string name="filedetails_open">Obert</string>
+  <string name="common_yes">Sí</string>
+  <string name="common_no">No</string>
+  <string name="common_ok">D\'acord</string>
+  <string name="common_cancel">Cancel·la</string>
+  <string name="common_save_exit">Desa &amp; Surt</string>
+  <string name="common_error">Error</string>
+  <string name="uploader_info_dirname">Nom de la carpeta</string>
+  <string name="common_choose_account">Escolliu el compte</string>
+  <string name="sync_string_contacts">Contactes</string>
+  <string name="use_ssl">Usa connexió segura</string>
+  <string name="location_no_provider">ownCloud no pot fer el seguiment de l\'equip. Comproveu la configuració d\'ubicuació</string>
+  <string name="pincode_enter_pin_code">Escriviu el PIN de l\'aplicació</string>
+  <string name="pincode_enter_new_pin_code">Escriviu el nou PIN de l\'aplicació</string>
+  <string name="pincode_configure_your_pin">Escriviu el PIN de l\'aplicació ownCloud</string>
+  <string name="pincode_reenter_your_pincode">Torneu a escriure el PIN de l\'aplicació ownCloud</string>
+  <string name="pincode_remove_your_pincode">Elimina el PIN de l\'aplicació ownCloud</string>
+  <string name="pincode_mismatch">Els PINs de l\'aplicació no coincideixen</string>
+  <string name="pincode_wrong">El PIN de l\'aplicació ownCloud no és correcte</string>
+  <string name="pincode_removed">S\'ha eliminat el PIN de l\'aplicació ownCloud</string>
+  <string name="pincode_stored">S\'ha desat el PIN de l\'aplicació ownCloud</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 Minuts</item>
+    <item>30 Minuts</item>
+    <item>60 Minuts</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
+  <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
+  <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
+  <string name="auth_connect_anyway">Connecta igualment</string>
+  <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
+  <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
+  <string name="auth_connection_established">S\'ha establert la connexió</string>
+  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
+  <string name="auth_not_configured_title">La configuració de ownCloud està malformada</string>
+  <string name="auth_not_configured_message">Sembla que la instància ownCloud no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
+  <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
+  <string name="auth_unknown_error_message">S\'ha produït un error desconegut. Contacteu els autors i inclogueu els registres del dispositiu.</string>
+  <string name="auth_unknow_host_title">No s\'ha pogut establir la connexió</string>
+  <string name="auth_unknow_host_message">No s\'ha pogut establir la connexió amb el servidor. Comproveu el nom del servidor i que està operatiu i intenteu-ho de nou.</string>
+  <string name="auth_incorrect_path_title">No s\'ha trobat la instància ownCloud</string>
+  <string name="auth_incorrect_path_message">L\'aplicació no ha trobat la instància ownCloud al camí indicat. Comproveu el camí i torneu-ho a intentar.</string>
+  <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
+  <string name="auth_unknow_error">S\'ha produït un error desconegut!</string>
+  <string name="auth_login_details">Detalls de connexió</string>
+  <string name="crashlog_message">L\'aplicació s\'ha aturat de manera no prevista. Voleu enviar el registre d\'errors?</string>
+  <string name="crashlog_send_report">Envia el registre d\'errors</string>
+  <string name="crashlog_dont_send_report">No envïis el registre d\'errors</string>
+  <string name="extensions_avail_title">Hi ha extensions disponibles!</string>
+  <string name="extensions_avail_message">Sembla que la instància ownCloud té suport per extensions avançades. Voleu veure les extensions disponibles per Android?</string>
+  <string name="fd_keep_in_sync">Mantén el fitxer actualitzat</string>
+  <string name="common_share">Comparteix</string>
+  <string name="common_rename">Reanomena</string>
+  <string name="common_remove">Elimina</string>
+  <string name="confirmation_remove_alert">Esteu segur que voleu eliminar %1$s?</string>
+  <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
+  <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
+  <string name="filedisplay_unexpected_bad_get_content">S\'ha produït un problema inesperat; proveu una altra aplicació per seleccionar el fitxer</string>
+</resources>

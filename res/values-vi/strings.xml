@@ -1,2 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="hello">Xin chào bạn đến với trang chủ OwnCloud</string>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Mật khẩu :</string>
+  <string name="main_login">Tên người dùng :</string>
+  <string name="main_button_login">Đăng nhập</string>
+  <string name="main_welcome">Chào mừng bạn đến với OwnCloud</string>
+  <string name="main_files">Các tập tin</string>
+  <string name="main_music">Âm nhạc</string>
+  <string name="main_contacts">Danh sách liên lạc</string>
+  <string name="main_calendar">Lịch</string>
+  <string name="main_bookmarks">Đánh dấu</string>
+  <string name="main_settings">Cài đặt</string>
+  <string name="main_tit_accsetup">Cài đặt tài khoản</string>
+  <string name="main_wrn_accsetup">Trên thiết bị của bạn không có tài khoản ownCloud .Để sử dụng ứng dụng này, bạn cần phải tạo một tài khoản.</string>
+  <string name="actionbar_sync">Đồng bộ tài khoản</string>
+  <string name="actionbar_upload">Tải lên</string>
+  <string name="actionbar_mkdir">Tạo thư mục</string>
+  <string name="actionbar_search">Tìm kiếm</string>
+  <string name="actionbar_settings">Cài đặt</string>
+  <string name="prefs_category_general">Tổng hợp</string>
+  <string name="prefs_select_oc_account">Chọn một tài khoản</string>
+  <string name="prefs_trackmydevice_interval_summary">Đã cập nhập được %1$s</string>
+  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_username">Tên người dùng</string>
+  <string name="auth_password">Mật khẩu</string>
+  <string name="new_session_uri_error">Bạn nhập sai URL</string>
+  <string name="sync_string_files">Tập tin</string>
+  <string name="uploader_no_file_selected">Không có tập tin nào được chọn để tải lên</string>
+  <string name="setup_hint_username">Tài khoản</string>
+  <string name="setup_hint_password">Mật khẩu</string>
+  <string name="setup_hint_address">Địa chỉ Web</string>
+  <string name="setup_hint_show_password">Hiện mật khẩu ?</string>
+  <string name="setup_title">Kết nối tới ownCloud của bạn </string>
+  <string name="setup_btn_connect">Kết nối</string>
+  <string name="uploader_btn_upload_text">Tải lên</string>
+  <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
+  <string name="uploader_wrn_no_account_text">Trên thiết bị của bạn không có tài khoản ownCloud .Bước đầu tiên hãy thiết lập một tài khoản.</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Thoát</string>
+  <string name="uploader_info_uploading">Đang tải lên</string>
+</resources>
