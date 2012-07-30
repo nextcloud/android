@@ -53,8 +53,10 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setMessage(String.format(getString(resourceId), confirmationTarget))
-            .setIconAttribute(android.R.attr.alertDialogIcon)
             .setTitle(android.R.string.dialog_alert_title);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            builder.setIconAttribute(android.R.attr.alertDialogIcon);
+        }
         
         if (posBtn != -1)
             builder.setPositiveButton(posBtn,
