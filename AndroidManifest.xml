@@ -17,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="eu.alefzero.owncloud"
-    android:versionCode="1"
-    android:versionName="0.1.192B" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="103000"
+    android:versionName="1.3.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
