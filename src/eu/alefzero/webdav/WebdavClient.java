@@ -142,7 +142,6 @@ public class WebdavClient extends HttpClient {
      */
     public boolean downloadFile(String remoteFilepath, File targetFile) {
         boolean ret = false;
-        boolean caughtException = false;
         GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
 
         int status = -1;
@@ -166,19 +165,16 @@ public class WebdavClient extends HttpClient {
             
         } catch (HttpException e) {
             Log.e(TAG, "HTTP exception downloading " + remoteFilepath, e);
-            caughtException = true;
 
         } catch (IOException e) {
             Log.e(TAG, "I/O exception downloading " + remoteFilepath, e);
-            caughtException = true;
 
         } catch (Exception e) {
             Log.e(TAG, "Unexpected exception downloading " + remoteFilepath, e);
-            caughtException = true;
             
         } finally {
             if (!ret) {
-                if (!caughtException) {
+                if (status >= 0) {
                     Log.e(TAG, "Download of " + remoteFilepath + " to " + targetFile + " failed with HTTP status " + status);
                 }
                 if (targetFile.exists()) {
@@ -220,8 +216,7 @@ public class WebdavClient extends HttpClient {
      */
     public boolean putFile(String localFile, String remoteTarget, String contentType) {
         boolean result = false;
-        boolean caughtException = false;
-        int status = 0;
+        int status = -1;
 
         try {
             File f = new File(localFile);
@@ -237,18 +232,15 @@ public class WebdavClient extends HttpClient {
             
         } catch (HttpException e) {
             Log.e(TAG, "HTTP exception uploading " + localFile + " to " + remoteTarget, e);
-            caughtException = true;
 
         } catch (IOException e) {
             Log.e(TAG, "I/O exception uploading " + localFile + " to " + remoteTarget, e);
-            caughtException = true;
 
         } catch (Exception e) {
             Log.e(TAG, "Unexpected exception uploading " + localFile + " to " + remoteTarget, e);
-            caughtException = true;
         }
         
-        if (!result && !caughtException) Log.e(TAG, "Upload of " + localFile + " to " + remoteTarget + " FAILED with HTTP status " + status);
+        if (!result && status >= 0) Log.e(TAG, "Upload of " + localFile + " to " + remoteTarget + " FAILED with HTTP status " + status);
         
         return result;
     }
@@ -284,17 +276,29 @@ public class WebdavClient extends HttpClient {
      * @return          'True' when the directory is successfully created
      */
     public boolean createDirectory(String path) {
+        boolean result = false;
+        int status = -1;
         try {
             MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
-            int status = executeMethod(mkcol);
-            Log.d(TAG, "Status returned " + status);
-            Log.d(TAG, "uri: " + mkcol.getURI().toString());
-            Log.i(TAG, "Creating dir completed");
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return false;
+            Log.d(TAG, "Creating directory " + path);
+            status = executeMethod(mkcol);
+            Log.d(TAG, "Status returned: " + status);
+            result = mkcol.succeeded();
+            
+        } catch (HttpException e) {
+            Log.e(TAG, "HTTP exception creating directory " + path, e);
+
+        } catch (IOException e) {
+            Log.e(TAG, "I/O exception creating directory " + path, e);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected exception creating directory " + path, e);
+            
         }
-        return true;
+        if (!result && status >= 0) {
+            Log.e(TAG, "Creation of directory " + path + " failed with HTTP status " + status);
+        }
+        return result;
     }
     
     

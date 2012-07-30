@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -36,9 +37,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
@@ -104,8 +107,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
     private static final int DIALOG_ABOUT_APP = 2;
+    private static final int DIALOG_SHORT_WAIT = 3;
     
     private static final int ACTION_SELECT_FILE = 1;
+    
+    private static final String TAG = "FileDisplayActivity";
+    
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -451,7 +458,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             } catch (NameNotFoundException e) {
                 builder = null;
                 dialog = null;
-                e.printStackTrace();
+                Log.e(TAG, "Error while showing about dialog", e);
             }
             break;
         }
@@ -486,18 +493,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             
                             // Create directory
                             path += directoryName + OCFile.PATH_SEPARATOR;
-                            Thread thread = new Thread(new DirectoryCreator(path, a));
+                            Thread thread = new Thread(new DirectoryCreator(path, a, new Handler()));
                             thread.start();
-    
-                            // Save new directory in local database
-                            OCFile newDir = new OCFile(path);
-                            newDir.setMimetype("DIR");
-                            newDir.setParentId(mCurrentDir.getFileId());
-                            mStorageManager.saveFile(newDir);
-    
-                            // Display the new folder right away
+                            
                             dialog.dismiss();
-                            mFileList.listDirectory(mCurrentDir);
+                            
+                            showDialog(DIALOG_SHORT_WAIT);
                         }
                     });
             builder.setNegativeButton(R.string.common_cancel,
@@ -507,6 +508,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         }
                     });
             dialog = builder.create();
+            break;
+        }
+        case DIALOG_SHORT_WAIT: {
+            ProgressDialog working_dialog = new ProgressDialog(this);
+            working_dialog.setMessage(getResources().getString(
+                    R.string.wait_a_moment));
+            working_dialog.setIndeterminate(true);
+            working_dialog.setCancelable(false);
+            dialog = working_dialog;
             break;
         }
         default:
@@ -582,11 +592,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         private String mTargetPath;
         private Account mAccount;
         private AccountManager mAm;
+        private Handler mHandler; 
     
-        public DirectoryCreator(String targetPath, Account account) {
+        public DirectoryCreator(String targetPath, Account account, Handler handler) {
             mTargetPath = targetPath;
             mAccount = account;
             mAm = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+            mHandler = handler;
         }
     
         @Override
@@ -599,7 +611,39 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
             wdc.setCredentials(username, password);
             wdc.allowSelfsignedCertificates();
-            wdc.createDirectory(mTargetPath);
+            boolean created = wdc.createDirectory(mTargetPath);
+            if (created) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() { 
+                        dismissDialog(DIALOG_SHORT_WAIT);
+                        
+                        // Save new directory in local database
+                        OCFile newDir = new OCFile(mTargetPath);
+                        newDir.setMimetype("DIR");
+                        newDir.setParentId(mCurrentDir.getFileId());
+                        mStorageManager.saveFile(newDir);
+    
+                        // Display the new folder right away
+                        mFileList.listDirectory(mCurrentDir);
+                    }
+                });
+                
+            } else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissDialog(DIALOG_SHORT_WAIT);
+                        try {
+                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
+                            msg.show();
+                        
+                        } catch (NotFoundException e) {
+                            Log.e(TAG, "Error while trying to show fail message " , e);
+                        }
+                    }
+                });
+            }
         }
     
     }
