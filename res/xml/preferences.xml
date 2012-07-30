@@ -8,11 +8,11 @@
         android:summary="@string/prefs_summary_select_oc_account" 
         / -->
     <Preference android:title="@string/prefs_manage_accounts" android:key="manage_account" />
-    <CheckBoxPreference android:title="ownCloud App PIN" android:key="set_pincode" 
-                        android:summary="Protect your ownCloud client"/>
+    <CheckBoxPreference android:title="@string/prefs_pincode" android:key="set_pincode" 
+                        android:summary="@string/prefs_pincode_summary"/>
     <CheckBoxPreference android:key="instant_uploading" 
-                        android:title="Enable instant uploading" 
-                        android:summary="Instantly upload photos taken by camera"/>
+                        android:title="@string/prefs_instant_upload"  
+                        android:summary="@string/prefs_instant_upload_summary"/>
     
 	</PreferenceCategory>
     

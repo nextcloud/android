@@ -33,7 +33,11 @@
     <string name="prefs_trackmydevice_interval">Update interval</string>
     <string name="prefs_trackmydevice_interval_summary">Update every %1$s minutes</string>
     <string name="prefs_accounts">Accounts</string>
-    <string name="prefs_manage_accounts">Manage accounts</string>    
+    <string name="prefs_manage_accounts">Manage accounts</string>
+    <string name="prefs_pincode">ownCloud App PIN</string>
+    <string name="prefs_pincode_summary">Protect your ownCloud client</string>
+    <string name="prefs_instant_upload">Enable instant uploading</string>
+    <string name="prefs_instant_upload_summary">Instantly upload photos taken by camera</string>
     
     <string name="auth_host_url">ownCloud URL</string>
     <string name="auth_username">Username</string>
