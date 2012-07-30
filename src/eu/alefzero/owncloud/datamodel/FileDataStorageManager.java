@@ -27,6 +27,7 @@ import java.util.Vector;
 
 import eu.alefzero.owncloud.db.ProviderMeta;
 import eu.alefzero.owncloud.db.ProviderMeta.ProviderTableMeta;
+import eu.alefzero.owncloud.files.services.FileDownloader;
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -378,8 +379,7 @@ public class FileDataStorageManager implements DataStorageManager {
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
                     // try to find existing file and bind it with current account
-                    File sdCard = Environment.getExternalStorageDirectory();
-                    File f = new File(sdCard.getAbsolutePath() + "/owncloud/" + mAccount.name + file.getRemotePath());
+                    File f = new File(FileDownloader.getSavePath(mAccount.name) + file.getRemotePath());
                     if (f.exists())
                         file.setStoragePath(f.getAbsolutePath());
                 }

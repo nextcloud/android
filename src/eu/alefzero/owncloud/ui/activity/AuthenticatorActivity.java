@@ -20,6 +20,7 @@ package eu.alefzero.owncloud.ui.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
@@ -167,6 +168,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             String username = username_text.getText().toString().trim();
             String accountName = username + "@" + url.getHost();
+            if (url.getPort() >= 0) {
+                accountName += ":" + url.getPort();
+            }
             Account account = new Account(accountName,
                     AccountAuthenticator.ACCOUNT_TYPE);
             AccountManager accManager = AccountManager.get(this);

@@ -13,6 +13,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -82,14 +83,16 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
     }
     
-    public static final String getSavePath() {
+    public static final String getSavePath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud/";
+        return sdCard.getAbsolutePath() + "/owncloud/" + Uri.encode(accountName, "@");   
+            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
     
-    public static final String getTemporalPath() {
+    public static final String getTemporalPath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud.tmp/";
+        return sdCard.getAbsolutePath() + "/owncloud/tmp/" + Uri.encode(accountName, "@");
+            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
 
     @Override
@@ -155,7 +158,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
         
         /// download will be in a temporal file
-        File tmpFile = new File(getTemporalPath() + mAccount.name + mFilePath);
+        File tmpFile = new File(getTemporalPath(mAccount.name) + mFilePath);
         
         /// create status notification to show the download progress
         mNotification = new Notification(R.drawable.icon, getString(R.string.downloader_download_in_progress_ticker), System.currentTimeMillis());
@@ -175,7 +178,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         File newFile = null;
         try {
             if (wdc.downloadFile(mRemotePath, tmpFile)) {
-                newFile = new File(getSavePath() + mAccount.name + mFilePath);
+                newFile = new File(getSavePath(mAccount.name) + mFilePath);
                 newFile.getParentFile().mkdirs();
                 boolean moved = tmpFile.renameTo(newFile);
             
