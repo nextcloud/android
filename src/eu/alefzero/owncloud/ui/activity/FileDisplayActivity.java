@@ -107,7 +107,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
     private static final int DIALOG_ABOUT_APP = 2;
-    private static final int DIALOG_SHORT_WAIT = 3;
+    public static final int DIALOG_SHORT_WAIT = 3;
     
     private static final int ACTION_SELECT_FILE = 1;
     

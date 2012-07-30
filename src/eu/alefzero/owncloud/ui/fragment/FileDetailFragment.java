@@ -82,6 +82,7 @@ import eu.alefzero.owncloud.datamodel.FileDataStorageManager;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.files.services.FileUploader;
+import eu.alefzero.owncloud.ui.activity.FileDetailActivity;
 import eu.alefzero.owncloud.ui.activity.FileDisplayActivity;
 import eu.alefzero.owncloud.utils.OwnCloudVersion;
 import eu.alefzero.webdav.WebdavClient;
@@ -338,10 +339,11 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            Log.e("ASD","onConfirmation");
             FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
             if (fdsm.getFileById(mFile.getFileId()) != null) {
                 new Thread(new RemoveRunnable(mFile, mAccount, new Handler())).start();
+                boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
             }
         }
     }
@@ -765,15 +767,24 @@ public class FileDetailFragment extends SherlockFragment implements
                         newFile.setMimetype(mFile.getMimetype());
                         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
                         newFile.setParentId(mFile.getParentId());
+                        boolean localRenameFails = false;
                         if (mFile.isDown()) {
                             File f = new File(mFile.getStoragePath());
                             Log.e(TAG, f.getAbsolutePath());
-                            f.renameTo(new File(f.getParent() + File.separator + newFilename)); // TODO check if fails
+                            localRenameFails = !(f.renameTo(new File(f.getParent() + File.separator + newFilename)));
                             Log.e(TAG, f.getParent() + File.separator + newFilename);
                             newFile.setStoragePath(f.getParent() + File.separator + newFilename);
                         }
                         
-                        new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
+                        if (localRenameFails) {
+                            Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
+                            msg.show();
+                            
+                        } else {
+                            new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
+                            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                        }
 
                     }
                 }
@@ -810,29 +821,52 @@ public class FileDetailFragment extends SherlockFragment implements
             LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mOld.getRemotePath()),
                                              Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encodePath(mNew.getRemotePath()));
             
+            boolean success = false;
             try {
                 int status = wc.executeMethod(move);
-                if (move.succeeded()) {
-                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                    fdsm.removeFile(mOld);
-                    fdsm.saveFile(mNew);
-                    mFile = mNew;
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() { 
-                            updateFileDetails(mFile, mAccount);
-                            mContainerActivity.onFileStateChanged();
-                        }
-                    });
-                }
-                Log.e("ASD", ""+move.getQueryString());
-                Log.d("move", "returned status " + status);
+                success = move.succeeded();
+                Log.d(TAG, "Move returned status: " + status);
+                
             } catch (HttpException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(TAG, "HTTP Exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
+                
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(TAG, "I/O Exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
+                
+            } catch (Exception e) {
+                Log.e(TAG, "Unexpected exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
+            }
+            
+            if (success) {
+                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                fdsm.removeFile(mOld);
+                fdsm.saveFile(mNew);
+                mFile = mNew;
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() { 
+                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                        updateFileDetails(mFile, mAccount);
+                        mContainerActivity.onFileStateChanged();
+                    }
+                });
+                
+            } else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                        try {
+                            Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
+                            msg.show();
+                            
+                        } catch (NotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }
         private class LocalMoveMethod extends DavMethodBase {
@@ -918,9 +952,6 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private class RemoveRunnable implements Runnable {
         
-        /** Arbitrary timeout for deletion */
-        public final static int DELETION_TIMEOUT = 5000;
-        
         Account mAccount;
         OCFile mFileToRemove;
         Handler mHandler;
@@ -943,59 +974,65 @@ public class FileDetailFragment extends SherlockFragment implements
             DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             
             boolean success = false;
+            int status = -1;
             try {
-                int status = wc.executeMethod(delete, DELETION_TIMEOUT);
-                if (delete.succeeded()) {
-                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                    fdsm.removeFile(mFileToRemove);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() { 
-                            try {
-                                Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-                                msg.show();
-                                if (getActivity() instanceof FileDisplayActivity) {
-                                    // double pane
-                                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                    transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                                    transaction.commit();
-                                    mContainerActivity.onFileStateChanged();
-                                    
-                                } else {
-                                    getActivity().finish();
-                                }
-                                
-                            } catch (NotFoundException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    success = true;
-                }
-                Log.e("ASD", ""+ delete.getQueryString());
-                Log.d("delete", "returned status " + status);
+                status = wc.executeMethod(delete);
+                success = (delete.succeeded());
+                Log.d(TAG, "Delete: returned status " + status);
                 
             } catch (HttpException e) {
-                e.printStackTrace();
+                Log.e(TAG, "HTTP Exception removing file " + mFileToRemove.getRemotePath(), e);
                 
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "I/O Exception removing file " + mFileToRemove.getRemotePath(), e);
                 
-            } finally {
-                if (!success) {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-                                msg.show();
-                            
-                            } catch (NotFoundException e) {
-                                e.printStackTrace();
+            } catch (Exception e) {
+                Log.e(TAG, "Unexpected exception removing file " + mFileToRemove.getRemotePath(), e);
+            }
+            
+            if (success) {
+                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                fdsm.removeFile(mFileToRemove);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                        try {
+                            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
+                            msg.show();
+                            if (inDisplayActivity) {
+                                // double pane
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                                transaction.commit();
+                                mContainerActivity.onFileStateChanged();
+                                
+                            } else {
+                                getActivity().finish();
                             }
+                            
+                        } catch (NotFoundException e) {
+                            e.printStackTrace();
                         }
-                    });
-                }
+                    }
+                });
+                
+            } else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                        try {
+                            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+                            msg.show();
+                            
+                        } catch (NotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         }
         

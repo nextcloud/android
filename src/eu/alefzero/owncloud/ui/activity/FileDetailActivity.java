@@ -18,11 +18,12 @@
 package eu.alefzero.owncloud.ui.activity;
 
 import android.accounts.Account;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -32,7 +33,6 @@ import eu.alefzero.owncloud.R;
 import eu.alefzero.owncloud.datamodel.OCFile;
 import eu.alefzero.owncloud.files.services.FileDownloader;
 import eu.alefzero.owncloud.ui.fragment.FileDetailFragment;
-import eu.alefzero.owncloud.ui.fragment.FileListFragment;
 
 /**
  * This activity displays the details of a file like its name, its size and so
@@ -42,6 +42,8 @@ import eu.alefzero.owncloud.ui.fragment.FileListFragment;
  * 
  */
 public class FileDetailActivity extends SherlockFragmentActivity implements FileDetailFragment.ContainerActivity {
+    
+    public static final int DIALOG_SHORT_WAIT = 0;
     
     private boolean mConfigurationChangedToLandscape = false;
 
@@ -110,6 +112,27 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         finish();
     }
     
+    
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog = null;
+        switch (id) {
+        case DIALOG_SHORT_WAIT: {
+            ProgressDialog working_dialog = new ProgressDialog(this);
+            working_dialog.setMessage(getResources().getString(
+                    R.string.wait_a_moment));
+            working_dialog.setIndeterminate(true);
+            working_dialog.setCancelable(false);
+            dialog = working_dialog;
+            break;
+        }
+        default:
+            dialog = null;
+        }
+        return dialog;
+    }
+    
+    
     /**
      * {@inheritDoc}
      */
@@ -117,6 +140,5 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     public void onFileStateChanged() {
         // nothing to do here!
     }
-    
 
 }
