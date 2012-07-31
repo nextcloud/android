@@ -284,25 +284,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 .toString().toLowerCase();
 
         switch (type) {
-        case OK:
-            // ugly as hell
-            if (t_url.startsWith("http://") || t_url.startsWith("https://")) {
-                mIsSslConn = t_url.startsWith("http://") ? false : true;
-                mStatusIcon = R.drawable.ic_ok;
-                mStatusText = R.string.auth_connection_established;
-                mStatusCorrect = true;
-            } else {
-                mIsSslConn = true;
-                mStatusIcon = android.R.drawable.ic_secure;
-                mStatusText = R.string.auth_secure_connection;
-                mStatusCorrect = true;
-            }
+        case OK_SSL:
+            mIsSslConn = true;
+            mStatusIcon = android.R.drawable.ic_secure;
+            mStatusText = R.string.auth_secure_connection;
+            mStatusCorrect = true;
             break;
         case OK_NO_SSL:
-            mStatusIcon = android.R.drawable.ic_secure;
-            mStatusText = R.string.auth_nossl_plain_ok_title;
-            mStatusCorrect = true;
             mIsSslConn = false;
+            mStatusCorrect = true;
+            if (t_url.startsWith("http://") ) {
+                mStatusText = R.string.auth_connection_established;
+                mStatusIcon = R.drawable.ic_ok;
+            } else {
+                mStatusText = R.string.auth_nossl_plain_ok_title;
+                mStatusIcon = android.R.drawable.ic_partial_secure;
+            }
             break;
         case TIMEOUT:
         case INORRECT_ADDRESS:

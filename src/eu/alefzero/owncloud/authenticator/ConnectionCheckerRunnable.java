@@ -73,13 +73,13 @@ public class ConnectionCheckerRunnable implements Runnable {
             return;
         }
         if (mUrl.startsWith("http://") || mUrl.startsWith("https://")) {
-            mLatestResult = ResultType.OK;
+            mLatestResult = (mUrl.startsWith("https://"))? ResultType.OK_SSL : ResultType.OK_NO_SSL;
             tryConnection(Uri.parse(mUrl + AccountUtils.STATUS_PATH));
             postResult(mLatestResult);
         } else {
             Uri uri = Uri.parse("https://" + mUrl + AccountUtils.STATUS_PATH);
             if (tryConnection(uri)) {
-                postResult(ResultType.OK);
+                postResult(ResultType.OK_SSL);
                 return;
             }
             Log.d(TAG,
