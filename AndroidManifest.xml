@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<manifest package="eu.alefzero.owncloud"
+<manifest package="com.owncloud.android"
     android:versionCode="103000"
     android:versionName="1.3.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -122,11 +122,6 @@
         </activity>
 
         <service android:name=".files.services.FileDownloader" >
-        </service>
-        <service android:name=".location.LocationUpdateService" >
-            <intent-filter>
-                <action android:name="eu.alefzero.owncloud.location.LocationUpdateService" />
-            </intent-filter>
         </service>
 
         <activity android:name=".ui.activity.FileDetailActivity" />

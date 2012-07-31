@@ -8,9 +8,10 @@ import java.io.OutputStream;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
+
 import android.util.Log;
 
-import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
 
 /**
  * A RequestEntity that represents a File.

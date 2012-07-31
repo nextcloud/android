@@ -17,7 +17,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:oc="http://schemas.android.com/apk/res/eu.alefzero.owncloud"
+    xmlns:oc="http://schemas.android.com/apk/res/com.owncloud.android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"

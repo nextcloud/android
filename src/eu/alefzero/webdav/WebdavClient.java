@@ -41,16 +41,17 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authenticator.EasySSLSocketFactory;
+import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
+import com.owncloud.android.utils.OwnCloudVersion;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import eu.alefzero.owncloud.AccountUtils;
-import eu.alefzero.owncloud.authenticator.AccountAuthenticator;
-import eu.alefzero.owncloud.authenticator.EasySSLSocketFactory;
-import eu.alefzero.owncloud.files.interfaces.OnDatatransferProgressListener;
-import eu.alefzero.owncloud.utils.OwnCloudVersion;
 
 public class WebdavClient extends HttpClient {
     private Uri mUri;

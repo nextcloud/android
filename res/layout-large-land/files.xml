@@ -32,7 +32,7 @@
             android:id="@+id/fileList"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            class="eu.alefzero.owncloud.ui.fragment.FileListFragment" >
+            class="com.owncloud.android.ui.fragment.FileListFragment" >
 
             <!-- Preview: layout=@layout/list_layout -->
         </fragment>
