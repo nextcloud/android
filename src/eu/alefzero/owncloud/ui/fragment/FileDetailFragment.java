@@ -856,6 +856,16 @@ public class FileDetailFragment extends SherlockFragment implements
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        // undo the local rename
+                        if (mNew.isDown()) {
+                            File f = new File(mNew.getStoragePath());
+                            if (!f.renameTo(new File(mOld.getStoragePath()))) {
+                                // the local rename undoing failed; last chance: save the new local storage path in the old file
+                                mFile.setStoragePath(mNew.getStoragePath());
+                                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
+                                fdsm.saveFile(mFile);
+                            }
+                        }
                         boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                         getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
                         try {
