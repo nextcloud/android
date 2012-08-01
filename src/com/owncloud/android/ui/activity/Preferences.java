@@ -227,7 +227,7 @@ public class Preferences extends SherlockPreferenceActivity implements
         else if (preference.equals(mDeviceTracking)) {
             Intent locationServiceIntent = new Intent();
             locationServiceIntent
-                    .setAction("eu.alefzero.owncloud.location.LocationLauncher");
+                    .setAction("com.owncloud.android.location.LocationLauncher");
             locationServiceIntent.putExtra("TRACKING_SETTING",
                     (Boolean) newValue);
             sendBroadcast(locationServiceIntent);

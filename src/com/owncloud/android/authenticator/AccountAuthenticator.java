@@ -41,7 +41,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     /**
      * Value under this key should handle path to webdav php script. Will be
      * removed and usage should be replaced by combining
-     * {@link eu.alefzero.owncloud.authenticator.KEY_OC_BASE_URL} and
+     * {@link com.owncloud.android.authenticator.AuthenticatorActivity.KEY_OC_BASE_URL} and
      * {@link com.owncloud.android.utils.OwnCloudVersion}
      * 
      * @deprecated

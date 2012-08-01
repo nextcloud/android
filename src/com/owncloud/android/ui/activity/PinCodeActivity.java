@@ -49,8 +49,8 @@ import android.widget.TextView;
 public class PinCodeActivity extends SherlockFragmentActivity {
 
   
-    public final static String EXTRA_ACTIVITY = "eu.alefzero.owncloud.ui.activity.PinCodeActivity.ACTIVITY";
-    public final static String EXTRA_NEW_STATE = "eu.alefzero.owncloud.ui.activity.PinCodeActivity.NEW_STATE";
+    public final static String EXTRA_ACTIVITY = "com.owncloud.android.ui.activity.PinCodeActivity.ACTIVITY";
+    public final static String EXTRA_NEW_STATE = "com.owncloud.android.ui.activity.PinCodeActivity.NEW_STATE";
     
     Button bCancel;
     TextView mPinHdr;

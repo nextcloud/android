@@ -34,7 +34,7 @@ public class LocationServiceLauncherReciever extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Intent deviceTrackingIntent = new Intent();
         deviceTrackingIntent
-                .setAction("eu.alefzero.owncloud.location.LocationUpdateService");
+                .setAction("com.owncloud.android.location.LocationUpdateService");
         SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(context);
         boolean trackDevice = preferences.getBoolean("enable_devicetracking",
@@ -57,7 +57,7 @@ public class LocationServiceLauncherReciever extends BroadcastReceiver {
     private void startOrStopDeviceTracking(Context context, boolean trackDevice) {
         Intent deviceTrackingIntent = new Intent();
         deviceTrackingIntent
-                .setAction("eu.alefzero.owncloud.location.LocationUpdateService");
+                .setAction("com.owncloud.android.location.LocationUpdateService");
         if (!isDeviceTrackingServiceRunning(context) && trackDevice) {
             Log.d(TAG, "Starting device tracker service");
             context.startService(deviceTrackingIntent);

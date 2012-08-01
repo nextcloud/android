@@ -64,7 +64,7 @@ public class LandingActivity extends SherlockFragmentActivity implements
             // Start device tracking service
             Intent locationServiceIntent = new Intent();
             locationServiceIntent
-                    .setAction("eu.alefzero.owncloud.location.LocationLauncher");
+                    .setAction("com.owncloud.android.location.LocationLauncher");
             sendBroadcast(locationServiceIntent);
         }
 
