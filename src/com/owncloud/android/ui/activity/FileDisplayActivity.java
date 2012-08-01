@@ -292,6 +292,17 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mFileList.onNavigateUp();
         mCurrentDir = mFileList.getCurrentFile();
         
+        if (mDualPane) {
+            // Resets the FileDetailsFragment on Tablets so that it always displays
+            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fileDetails != null && !fileDetails.isEmpty()) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.remove(fileDetails);
+                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null));
+                transaction.commit();
+            }
+        }
+        
         if(mCurrentDir.getParentId() == 0){
             ActionBar actionBar = getSupportActionBar(); 
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -800,7 +811,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane) {
             // Resets the FileDetailsFragment on Tablets so that it always displays
             FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileDetails != null) {
+            if (fileDetails != null && !fileDetails.isEmpty()) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.remove(fileDetails);
                 transaction.add(R.id.file_details_container, new FileDetailFragment(null, null));
