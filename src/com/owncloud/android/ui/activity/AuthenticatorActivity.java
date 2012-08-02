@@ -249,7 +249,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void continueConnection(String prefix) {
         String url = ((TextView) findViewById(R.id.host_URL)).getText()
-                .toString();
+                .toString().trim();
         String username = ((TextView) findViewById(R.id.account_username))
                 .getText().toString();
         String password = ((TextView) findViewById(R.id.account_password))
@@ -302,12 +302,33 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mStatusIcon = android.R.drawable.ic_partial_secure;
             }
             break;
+        case BAD_OC_VERSION:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_bad_oc_version_title;
+            break;
+        case WRONG_CONNECTION:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_wrong_connection_title;
+            break;
         case TIMEOUT:
-        case INORRECT_ADDRESS:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_timeout_title;
+            break;
+        case INCORRECT_ADDRESS:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_incorrect_address_title;
+            break;
+        case SSL_UNVERIFIED_SERVER:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_ssl_unverified_server_title;
+            break;
         case SSL_INIT_ERROR:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_ssl_general_error_title;
+            break;
         case HOST_NOT_AVAILABLE:
             mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_unknow_host_title;
+            mStatusText = R.string.auth_unknown_host_title;
             break;
         case NO_NETWORK_CONNECTION:
             mStatusIcon = R.drawable.no_network;
@@ -319,7 +340,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case UNKNOWN_ERROR:
             mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_unknow_error;
+            mStatusText = R.string.auth_unknown_error_title;
             break;
         case FILE_NOT_FOUND:
             mStatusIcon = R.drawable.common_error;
@@ -341,7 +362,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (view.getId() == R.id.host_URL) {
             if (!hasFocus) {
                 TextView tv = ((TextView) findViewById(R.id.host_URL));
-                String uri = tv.getText().toString();
+                String uri = tv.getText().toString().trim();
                 if (uri.length() != 0) {
                     setResultIconAndText(R.drawable.progress_small,
                             R.string.auth_testing_connection);

@@ -131,14 +131,19 @@
     <string name="auth_testing_connection">Testing connection…</string>
     <string name="auth_not_configured_title">Malformed ownCloud configuration</string>
     <string name="auth_not_configured_message">It seems that your ownCloud instance is not correctly configured. Contact your administrator for more details.</string>
-    <string name="auth_unknown_error_title">Unknown error occurred</string>
+    <string name="auth_unknown_error_title">Unknown error occurred!</string>
     <string name="auth_unknown_error_message">Unknown error occurred. Please contact authors and include logs from your device.</string>
-    <string name="auth_unknow_host_title">Can\'t establish connection</string>
-    <string name="auth_unknow_host_message">Couldn\'t establish connection to host. Please check hostname and server availability and try again.</string>
+    <string name="auth_unknown_host_title">Couldn\'t find host</string>
+    <string name="auth_unknown_host_message">Couldn\'t find the entered host. Please check hostname and server availability and try again.</string>
     <string name="auth_incorrect_path_title">ownCloud instance not found</string>
     <string name="auth_incorrect_path_message">Application couldn\'t find ownClound instance at given path. Please check your path and try again.</string>
-    <string name="auth_secure_connection">Secure connection established</string>
-    <string name="auth_unknow_error">Unknown error occurred!</string>
+    <string name="auth_timeout_title">The server took too long to respond</string>
+    <string name="auth_incorrect_address_title">Malformed URL</string>
+	<string name="auth_ssl_general_error_title">SSL initialization failed</string>
+	<string name="auth_ssl_unverified_server_title">Unverified SSL server\'s identity</string>
+	<string name="auth_bad_oc_version_title">Unrecognized ownCloud server version</string>
+	<string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
+	<string name="auth_secure_connection">Secure connection established</string>
     <string name="auth_login_details">Login details</string>
     
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit crash report?</string>

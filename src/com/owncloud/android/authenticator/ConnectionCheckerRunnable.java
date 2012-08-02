@@ -18,12 +18,20 @@
 
 package com.owncloud.android.authenticator;
 
+import java.io.IOException;
 import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URL;
 import java.net.UnknownHostException;
 
+import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONException;
@@ -75,19 +83,17 @@ public class ConnectionCheckerRunnable implements Runnable {
         }
         if (mUrl.startsWith("http://") || mUrl.startsWith("https://")) {
             mLatestResult = (mUrl.startsWith("https://"))? ResultType.OK_SSL : ResultType.OK_NO_SSL;
-            tryConnection(Uri.parse(mUrl + AccountUtils.STATUS_PATH));
+            tryConnection(mUrl + AccountUtils.STATUS_PATH);
             postResult(mLatestResult);
         } else {
-            Uri uri = Uri.parse("https://" + mUrl + AccountUtils.STATUS_PATH);
-            if (tryConnection(uri)) {
+            if (tryConnection("https://" + mUrl + AccountUtils.STATUS_PATH)) {
                 postResult(ResultType.OK_SSL);
                 return;
             }
             Log.d(TAG,
                     "establishing secure connection failed, trying non secure connection");
-            uri = Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH);
 
-            if (tryConnection(uri)) {
+            if (tryConnection("http://" + mUrl + AccountUtils.STATUS_PATH)) {
                 postResult(ResultType.OK_NO_SSL);
                 return;
             }
@@ -99,12 +105,13 @@ public class ConnectionCheckerRunnable implements Runnable {
         return mOCVersion;
     }
 
-    private boolean tryConnection(Uri uri) {
-        WebdavClient wc = new WebdavClient();
-        wc.allowSelfsignedCertificates();
-        GetMethod get = new GetMethod(uri.toString());
+    private boolean tryConnection(String urlSt) {
         boolean retval = false;
         try {
+            WebdavClient wc = new WebdavClient();
+            wc.allowSelfsignedCertificates();
+            URL url = new URL(urlSt);   // better than android.net.Uri in this case; provides URL validation
+            GetMethod get = new GetMethod(url.toString());
             int status = wc.executeMethod(get, TRY_CONNECTION_TIMEOUT);
             switch (status) {
             case HttpStatus.SC_OK: {
@@ -115,8 +122,10 @@ public class ConnectionCheckerRunnable implements Runnable {
                     break;
                 }
                 mOCVersion = new OwnCloudVersion(json.getString("version"));
-                if (!mOCVersion.isVersionValid())
+                if (!mOCVersion.isVersionValid()) {
+                    mLatestResult = ResultType.BAD_OC_VERSION;
                     break;
+                }
                 retval = true;
                 break;
             }
@@ -131,19 +140,45 @@ public class ConnectionCheckerRunnable implements Runnable {
                 Log.e(TAG, "Not handled status received from server: " + status);
             }
 
+        } catch (JSONException e) {
+            mLatestResult = ResultType.INSTANCE_NOT_CONFIGURED;
+            Log.e(TAG, "JSON exception while trying connection (instance not configured) ", e);
+            
+        } catch (SocketException e) {  
+            mLatestResult = ResultType.WRONG_CONNECTION;
+            Log.e(TAG, "Socket exception while trying connection", e);
+            
+        } catch (SocketTimeoutException e) { 
+            mLatestResult = ResultType.TIMEOUT;
+            Log.e(TAG, "Socket timeout exception while trying connection", e);
+            
+        } catch (MalformedURLException e) {
+            mLatestResult = ResultType.INCORRECT_ADDRESS;
+            Log.e(TAG, "Connect exception while trying connection", e);
+            
+        } catch (UnknownHostException e) {
+            mLatestResult = ResultType.HOST_NOT_AVAILABLE;
+            Log.e(TAG, "Unknown host exception while trying connection", e);
+            
+        } catch (SSLPeerUnverifiedException e) { // specially meaningful SSLException
+            mLatestResult = ResultType.SSL_UNVERIFIED_SERVER;
+            Log.e(TAG, "SSL Peer Unverified exception while trying connection", e);
+            
+        } catch (SSLException e) {  
+            mLatestResult = ResultType.SSL_INIT_ERROR;
+            Log.e(TAG, "SSL exception while trying connection", e);
+            
+        } catch (HttpException e) { // specific exceptions from org.apache.commons.httpclient
+            mLatestResult = ResultType.UNKNOWN_ERROR;
+            Log.e(TAG, "HTTP exception while trying connection", e);
+            
+        } catch (IOException e) {   // UnkownsServiceException, and any other weird I/O Exception that could occur
+            mLatestResult = ResultType.UNKNOWN_ERROR;
+            Log.e(TAG, "I/O exception while trying connection", e);
+            
         } catch (Exception e) {
-            if (e instanceof UnknownHostException
-                    || e instanceof ConnectException 
-                    || e instanceof SocketTimeoutException) {
-                mLatestResult = ResultType.HOST_NOT_AVAILABLE;
-            } else if (e instanceof JSONException) {
-                mLatestResult = ResultType.INSTANCE_NOT_CONFIGURED;
-            } else if (e instanceof SSLHandshakeException) {
-                mLatestResult = ResultType.SSL_INIT_ERROR;
-            } else {
-                mLatestResult = ResultType.UNKNOWN_ERROR;
-            }
-            e.printStackTrace();
+            mLatestResult = ResultType.UNKNOWN_ERROR;
+            Log.e(TAG, "Unexpected exception while trying connection", e);
         }
 
         return retval;

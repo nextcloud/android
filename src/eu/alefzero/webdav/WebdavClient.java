@@ -255,10 +255,10 @@ public class WebdavClient extends HttpClient {
      */
     public static int tryToLogin(Uri uri, String username, String password) {
         int returnCode = 0;
-        WebdavClient client = new WebdavClient();
-        client.setCredentials(username, password);
-        HeadMethod head = new HeadMethod(uri.toString());
         try {
+            WebdavClient client = new WebdavClient();
+            client.setCredentials(username, password);
+            HeadMethod head = new HeadMethod(uri.toString());
             returnCode = client.executeMethod(head);
         } catch (HttpException e) {
             Log.e(TAG, "HTTP exception trying to login at " + uri.getEncodedPath(), e);
