@@ -234,7 +234,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onOkClick(View view) {
         String prefix = "";
         String url = ((TextView) findViewById(R.id.host_URL)).getText()
-                .toString();
+                .toString().trim();
         if (mIsSslConn) {
             prefix = "https://";
         } else {
@@ -282,7 +282,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mStatusText = mStatusIcon = 0;
         mStatusCorrect = false;
         String t_url = ((TextView) findViewById(R.id.host_URL)).getText()
-                .toString().toLowerCase();
+                .toString().trim().toLowerCase();
 
         switch (type) {
         case OK_SSL:
