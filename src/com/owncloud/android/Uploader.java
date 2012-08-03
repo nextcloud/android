@@ -56,6 +56,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -370,46 +372,51 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     }
 
     public void uploadFiles() {
-        WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
-        wdc.allowSelfsignedCertificates();
+        try {
+            WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
+            wdc.allowSelfsignedCertificates();
 
-        // create last directory in path if nessesary
-        if (mCreateDir) {
-            wdc.createDirectory(mUploadPath);
-        }
+            // create last directory in path if necessary
+            if (mCreateDir) {
+                wdc.createDirectory(mUploadPath);
+            }
 
-        String[] local = new String[mStreamsToUpload.size()], remote = new String[mStreamsToUpload.size()];
+            String[] local = new String[mStreamsToUpload.size()], remote = new String[mStreamsToUpload.size()];
 
-        for (int i = 0; i < mStreamsToUpload.size(); ++i) {
-            Uri uri = (Uri) mStreamsToUpload.get(i);
-            if (uri.getScheme().equals("content")) {
-                Cursor c = getContentResolver().query((Uri) mStreamsToUpload.get(i),
+            for (int i = 0; i < mStreamsToUpload.size(); ++i) {
+                Uri uri = (Uri) mStreamsToUpload.get(i);
+                if (uri.getScheme().equals("content")) {
+                    Cursor c = getContentResolver().query((Uri) mStreamsToUpload.get(i),
                                                       CONTENT_PROJECTION,
                                                       null,
                                                       null,
                                                       null);
 
-                if (!c.moveToFirst())
-                    continue;
+                    if (!c.moveToFirst())
+                        continue;
 
-                final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
-                             data = c.getString(c.getColumnIndex(Media.DATA));
-                local[i] = data;
-                remote[i] = mUploadPath + display_name;
-            } else if (uri.getScheme().equals("file")) {
-                final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
-                local[i] = file.getAbsolutePath();
-                remote[i] = mUploadPath + file.getName();
+                    final String display_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME)),
+                                data = c.getString(c.getColumnIndex(Media.DATA));
+                    local[i] = data;
+                    remote[i] = mUploadPath + display_name;
+                } else if (uri.getScheme().equals("file")) {
+                    final File file = new File(Uri.decode(uri.toString()).replace(uri.getScheme() + "://", ""));
+                    local[i] = file.getAbsolutePath();
+                    remote[i] = mUploadPath + file.getName();
+                }
+
             }
-
+            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
+            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            intent.putExtra(FileUploader.KEY_LOCAL_FILE, local);
+            intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote);
+            intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
+            startService(intent);
+            finish();
+            
+        } catch (SecurityException e) {
+            Toast.makeText(this, getString(R.string.uploader_error_forbidden_content), Toast.LENGTH_LONG).show();
         }
-        Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-        intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
-        intent.putExtra(FileUploader.KEY_LOCAL_FILE, local);
-        intent.putExtra(FileUploader.KEY_REMOTE_FILE, remote);
-        intent.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
-        startService(intent);
-        finish();
     }
 
 }
