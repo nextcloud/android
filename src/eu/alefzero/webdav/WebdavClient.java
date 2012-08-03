@@ -84,6 +84,8 @@ public class WebdavClient extends HttpClient {
      * @return
      */
     public WebdavClient (Account account, Context context) {
+        Log.d(TAG, "Creating WebdavClient associated to " + account.name);
+        
         setDefaultTimeouts();
         
         OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
@@ -100,6 +102,7 @@ public class WebdavClient extends HttpClient {
     
     public WebdavClient() {
         super(getMultiThreadedConnManager());
+        Log.d(TAG, "Creating WebdavClient");
         
         setDefaultTimeouts();
         
