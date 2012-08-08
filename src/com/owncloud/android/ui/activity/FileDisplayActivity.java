@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -83,26 +82,19 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    FileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnClickListener, android.view.View.OnClickListener  {
+    FileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir;
-    private String[] mDirs = null;
 
     private DataStorageManager mStorageManager;
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     
-    private View mLayoutView = null;
     private FileListFragment mFileList;
     
     private boolean mDualPane;
-    
-    private boolean mForcedLoginToCreateFirstAccount = false;
-    
-    private static final String KEY_DIR_ARRAY = "DIR_ARRAY";
-    private static final String KEY_CURRENT_DIR = "DIR";
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
@@ -116,52 +108,100 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onCreate() start");
+        Log.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
+        /// saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
-            mDirs = savedInstanceState.getStringArray(KEY_DIR_ARRAY);
-            mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-            mDirectories.add(OCFile.PATH_SEPARATOR);
-            if (mDirs != null)
-                for (String s : mDirs)
-                    mDirectories.insert(s, 0);
             mCurrentDir = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
         }
         
-        mLayoutView = getLayoutInflater().inflate(R.layout.files, null);  // always inflate this at onCreate() ; just once!
-        
-        if (AccountUtils.accountsAreSetup(this)) {
+        if (!AccountUtils.accountsAreSetup(this)) {
+            /// no account available: FORCE ACCOUNT CREATION
+            mStorageManager = null;
+            createFirstAccount();
             
-            initDelayedTilAccountAvailabe();
+        } else {    /// at least an account is available
             
-            // PIN CODE request ;  best location is to decide, let's try this first
-            //if (savedInstanceState == null) {
-            if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
-                requestPinCode();
-            }
+            initDataFromCurrentAccount();
             
-            
-        } else {
-            
-            setContentView(R.layout.no_account_available);
-            getSupportActionBar().setNavigationMode(ActionBar.DISPLAY_SHOW_TITLE);
-            findViewById(R.id.setup_account).setOnClickListener(this);
-
-            setSupportProgressBarIndeterminateVisibility(false);
-
-            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-            intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
-            startActivity(intent);  // although the code is here, the activity won't be created until this.onStart() and this.onResume() are finished;
-            mForcedLoginToCreateFirstAccount = true;
         }
-        
-        Log.i(getClass().toString(), "onCreate() end");
+
+        // PIN CODE request ;  best location is to decide, let's try this first
+        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
+            requestPinCode();
+        }
+
+            
+        /// USER INTERFACE
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            
+        // Drop-down navigation 
+        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
+        OCFile currFile = mCurrentDir;
+        while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
+            mDirectories.insert(currFile.getFileName(), 0);
+            currFile = mStorageManager.getFileById(currFile.getParentId());
+        }
+        mDirectories.insert(OCFile.PATH_SEPARATOR, 0);
+
+        // Inflate and set the layout view
+        setContentView(R.layout.files);    
+        mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        mDualPane = (findViewById(R.id.file_details_container) != null);
+        if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+            transaction.commit();
+        }
+            
+        // Action bar setup
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
+        actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getParentId() != 0);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        actionBar.setListNavigationCallbacks(mDirectories, this);
+        setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
+            
+        Log.d(getClass().toString(), "onCreate() end");
     }
+
+
+    /**
+     * Launches the account creation activity. To use when no ownCloud account is available
+     */
+    private void createFirstAccount() {
+        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+        startActivity(intent);  // the new activity won't be created until this.onStart() and this.onResume() are finished;
+    }
+
+
+    /**
+     *  Load of state dependent of the existence of an ownCloud account
+     */
+    private void initDataFromCurrentAccount() {
+        /// Storage manager initialization - access to local database
+        mStorageManager = new FileDataStorageManager(
+                AccountUtils.getCurrentOwnCloudAccount(this),
+                getContentResolver());
+
+        /// State recovery - CURRENT DIRECTORY ; priority: 1/ getIntent(), 2/ savedInstanceState (in onCreate()), 3/ root dir
+        if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)) {
+            mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+            if(mCurrentDir != null && !mCurrentDir.isDirectory()){
+                mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
+            }
+            // clear intent extra, so rotating the screen will not return us to this directory
+            getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
+        }
+        if (mCurrentDir == null)
+            mCurrentDir = mStorageManager.getFileByPath("/");   // this will return NULL if the database has not ever synchronized
+    }
+        
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -223,6 +263,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         while (i-- != 0) {
             onBackPressed();
         }
+        // the next operation triggers a new call to this method, but it's necessary to 
+        // ensure that the name exposed in the action bar is the current directory when the 
+        // user selected it in the navigation list
+        if (itemPosition != 0)
+            getSupportActionBar().setSelectedNavigationItem(0);
         return true;
     }
 
@@ -284,7 +329,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onBackPressed() {
-        if (mDirectories == null || mDirectories.getCount() <= 1) {
+        if (mDirectories.getCount() <= 1) {
             finish();
             return;
         }
@@ -311,34 +356,25 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        // responsability of restore is prefered in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log.i(getClass().toString(), "onSaveInstanceState() start");
+        // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
+        Log.d(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
-        if(mDirectories != null && mDirectories.getCount() != 0){
-            mDirs = new String[mDirectories.getCount()-1];
-            for (int j = mDirectories.getCount() - 2, i = 0; j >= 0; --j, ++i) {
-                mDirs[i] = mDirectories.getItem(j);
-            }
-        }
-        outState.putStringArray(KEY_DIR_ARRAY, mDirs);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
-        Log.i(getClass().toString(), "onSaveInstanceState() end");
+        Log.d(getClass().toString(), "onSaveInstanceState() end");
     }
 
     @Override
     protected void onResume() {
-        Log.i(getClass().toString(), "onResume() start");
+        Log.d(getClass().toString(), "onResume() start");
         super.onResume();
 
         if (AccountUtils.accountsAreSetup(this)) {
-         // at least an account exist: normal operation
             
-            // set the layout only if it couldn't be set in onCreate
-            if (mForcedLoginToCreateFirstAccount) {
-                initDelayedTilAccountAvailabe();
-                mForcedLoginToCreateFirstAccount = false;
+            if (mStorageManager == null) {
+                // this is necessary for handling the come back to FileDisplayActivity when the first ownCloud account is created 
+                initDataFromCurrentAccount();
             }
-
+            
             // Listen for sync messages
             IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
             mSyncBroadcastReceiver = new SyncBroadcastReceiver();
@@ -354,77 +390,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             mDownloadFinishReceiver = new DownloadFinishReceiver();
             registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
-            // Storage manager initialization
-            mStorageManager = new FileDataStorageManager(
-                    AccountUtils.getCurrentOwnCloudAccount(this),
-                    getContentResolver());
-        
-            // File list fragments   
-            mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
-            
-            
-            // Figure out what directory to list. 
-            // Priority: Intent (here), savedInstanceState (onCreate), root dir (dir is null)
-            if(getIntent().hasExtra(FileDetailFragment.EXTRA_FILE)){
-                mCurrentDir = (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-                if(mCurrentDir != null && !mCurrentDir.isDirectory()){
-                    mCurrentDir = mStorageManager.getFileById(mCurrentDir.getParentId());
-                }
-            
-                // Clear intent extra, so rotating the screen will not return us to this directory
-                getIntent().removeExtra(FileDetailFragment.EXTRA_FILE);
-            }
-            
-            if (mCurrentDir == null)
-                mCurrentDir = mStorageManager.getFileByPath("/");
-                
-            // Drop-Down navigation and file list restore
-            mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        
-        
-            // Given the case we have a file to display:
-            if(mCurrentDir != null){
-                ArrayList<OCFile> files = new ArrayList<OCFile>();
-                OCFile currFile = mCurrentDir;
-                while(currFile != null){
-                    files.add(currFile);
-                    currFile = mStorageManager.getFileById(currFile.getParentId());
-                }
-            
-                // Insert in mDirs
-                mDirs = new String[files.size()];
-                for(int i = files.size() - 1; i >= 0; i--){
-                    mDirs[i] = files.get(i).getFileName();
-                }
-            }
-        
-            if (mDirs != null) {
-                for (String s : mDirs)
-                    mDirectories.add(s);
-            } else {
-                mDirectories.add(OCFile.PATH_SEPARATOR);
-            }
-               
-            // Actionbar setup
-            ActionBar action_bar = getSupportActionBar();
-            action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-            action_bar.setDisplayShowTitleEnabled(false);
-            action_bar.setListNavigationCallbacks(mDirectories, this);
-            if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
-                action_bar.setDisplayHomeAsUpEnabled(true);
-            } else {
-                action_bar.setDisplayHomeAsUpEnabled(false);
-            }
-        
-            // List dir here
+            // List current directory
             mFileList.listDirectory(mCurrentDir);
+            
+        } else {
+            
+            mStorageManager = null;     // an invalid object will be there if all the ownCloud accounts are removed
+            showDialog(DIALOG_SETUP_ACCOUNT);
+            
         }
-        Log.i(getClass().toString(), "onResume() end");
+        Log.d(getClass().toString(), "onResume() end");
     }
 
     @Override
     protected void onPause() {
-        Log.i(getClass().toString(), "onPause() start");
+        Log.d(getClass().toString(), "onPause() start");
         super.onPause();
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
@@ -438,9 +418,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
+        if (!AccountUtils.accountsAreSetup(this)) {
+            dismissDialog(DIALOG_SETUP_ACCOUNT);
+        }
         
         getIntent().putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
-        Log.i(getClass().toString(), "onPause() end");
+        Log.d(getClass().toString(), "onPause() end");
     }
 
     @Override
@@ -448,15 +431,27 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         Dialog dialog = null;
         AlertDialog.Builder builder;
         switch (id) {
-        case DIALOG_SETUP_ACCOUNT:
+        case DIALOG_SETUP_ACCOUNT: {
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.main_tit_accsetup);
             builder.setMessage(R.string.main_wrn_accsetup);
             builder.setCancelable(false);
-            builder.setPositiveButton(android.R.string.ok, this);
-            builder.setNegativeButton(android.R.string.cancel, this);
+            builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    createFirstAccount();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(R.string.common_exit, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            //builder.setNegativeButton(android.R.string.cancel, this);
             dialog = builder.create();
             break;
+        }
         case DIALOG_ABOUT_APP: {
             builder = new AlertDialog.Builder(this);
             builder.setTitle(getString(R.string.about_title));
@@ -538,27 +533,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     
-    /**
-     * Responds to the "There are no ownCloud Accounts setup" dialog
-     * TODO: Dialog is 100% useless -> Remove
-     */
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        // In any case - we won't need it anymore
-        dialog.dismiss();
-        switch (which) {
-        case DialogInterface.BUTTON_POSITIVE:
-            Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
-            intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
-            startActivity(intent);
-            break;
-        case DialogInterface.BUTTON_NEGATIVE:
-            finish();
-        }
-    
-    }
-
     /**
      * Translates a content URI of an image to a physical path
      * on the disk
@@ -774,18 +748,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
     }
-
-    
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.setup_account) {
-            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-            intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
-            startActivity(intent); 
-            mForcedLoginToCreateFirstAccount = true;
-        }
-    }
-
     
     
     
@@ -855,30 +817,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
     
-    
-    /**
-     *  Operations in this method should be preferably performed in onCreate to have a lighter onResume method. 
-     * 
-     *  But we need to delay them to onResume for the first start of the application, when no account exists and the login activity must be shown; and 
-     *  put instead the ugly view that shows the 'Setup' button to restart the login activity.   
-     *  
-     *  In other way, if the users cancels or presses BACK in the login page that first time (users can be cruel sometimes) would show a blank view (the 
-     *  FragmentList view empty).
-     *  
-     *  This is temporal, until we found out how to get a result in this activity after launching the ADD_ACCOUNT Intent with startActivityForResult (not trivial)
-     */
-    private void initDelayedTilAccountAvailabe() {
-        setContentView(mLayoutView);    
-        mDualPane = (findViewById(R.id.file_details_container) != null);
-        if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-            transaction.commit();
-        }
-        setSupportProgressBarIndeterminateVisibility(false);
-    }
-    
-
     /**
      * Launch an intent to request the PIN code to the user before letting him use the app
      */

@@ -74,6 +74,7 @@
     <string name="common_ok">OK</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
+    <string name="common_exit">Leave ownCloud</string>
     <string name="common_error">Error</string>
     <string name="about_title">About</string>
     
