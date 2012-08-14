@@ -69,7 +69,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileListFragment;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
@@ -82,7 +82,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    FileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener {
+    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir;
@@ -92,7 +92,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     
-    private FileListFragment mFileList;
+    private OCFileListFragment mFileList;
     
     private boolean mDualPane;
     
@@ -100,8 +100,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_CREATE_DIR = 1;
     private static final int DIALOG_ABOUT_APP = 2;
     public static final int DIALOG_SHORT_WAIT = 3;
+    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
     
-    private static final int ACTION_SELECT_FILE = 1;
+    private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
+    private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     
     private static final String TAG = "FileDisplayActivity";
     
@@ -142,14 +144,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         OCFile currFile = mCurrentDir;
         while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
-            mDirectories.insert(currFile.getFileName(), 0);
+            mDirectories.add(currFile.getFileName());
             currFile = mStorageManager.getFileById(currFile.getParentId());
         }
-        mDirectories.insert(OCFile.PATH_SEPARATOR, 0);
+        mDirectories.add(OCFile.PATH_SEPARATOR);
 
         // Inflate and set the layout view
         setContentView(R.layout.files);    
-        mFileList = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        mFileList = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
         mDualPane = (findViewById(R.id.file_details_container) != null);
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -228,12 +230,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             case R.id.action_upload: {
-                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                action = action.setType("*/*")
-                        .addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(
-                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                        ACTION_SELECT_FILE);
+                showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
                 break;
             }
             case R.id.action_settings: {
@@ -275,57 +272,89 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      * Called, when the user selected something for uploading
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ACTION_SELECT_FILE) {
-            if (resultCode == RESULT_OK) {
-                String filepath = null;
-                try {
-                    Uri selectedImageUri = data.getData();
-    
-                    String filemanagerstring = selectedImageUri.getPath();
-                    String selectedImagePath = getPath(selectedImageUri);
-    
-                    if (selectedImagePath != null)
-                        filepath = selectedImagePath;
-                    else
-                        filepath = filemanagerstring;
-                    
-                } catch (Exception e) {
-                    Log.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
-                    e.printStackTrace();
-                    
-                } finally {
-                    if (filepath == null) {
-                        Log.e("FileDisplay", "Couldnt resolve path to file");
-                        Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
-                        t.show();
-                        return;
-                    }
-                }
-    
-                Intent i = new Intent(this, FileUploader.class);
-                i.putExtra(FileUploader.KEY_ACCOUNT,
-                        AccountUtils.getCurrentOwnCloudAccount(this));
-                String remotepath = new String();
-                for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
-                    remotepath += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
-                }
-                if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
-                    remotepath += OCFile.PATH_SEPARATOR;
-                remotepath += new File(filepath).getName();
-    
-                i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
-                i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
-                i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-                startService(i);
-            }
+        
+        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && resultCode == RESULT_OK) {
+            requestSimpleUpload(data);
             
-        }/* dvelasco: WIP - not working as expected ... yet :)
-             else if (requestCode == ACTION_CREATE_FIRST_ACCOUNT) {
-            if (resultCode != RESULT_OK) {
-                finish();   // the user cancelled the AuthenticatorActivity
-            }
-        }*/
+        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && resultCode == RESULT_OK) {
+            requestMultipleUpload(data);
+            
+        }
     }
+
+    private void requestMultipleUpload(Intent data) {
+        String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
+        if (filePaths != null) {
+            String[] remotePaths = new String[filePaths.length];
+            String remotePathBase = "";
+            for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
+                remotePathBase += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
+            }
+            if (!remotePathBase.endsWith(OCFile.PATH_SEPARATOR))
+                remotePathBase += OCFile.PATH_SEPARATOR;
+            for (int j = 0; j< remotePaths.length; j++) {
+                remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
+            }
+
+            Intent i = new Intent(this, FileUploader.class);
+            i.putExtra(FileUploader.KEY_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
+            i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
+            i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            startService(i);
+            
+        } else {
+            Log.d("FileDisplay", "User clicked on 'Update' with no selection");
+            Toast t = Toast.makeText(this, getString(R.string.filedisplay_no_file_selected), Toast.LENGTH_LONG);
+            t.show();
+            return;
+        }
+    }
+
+
+    private void requestSimpleUpload(Intent data) {
+        String filepath = null;
+        try {
+            Uri selectedImageUri = data.getData();
+
+            String filemanagerstring = selectedImageUri.getPath();
+            String selectedImagePath = getPath(selectedImageUri);
+
+            if (selectedImagePath != null)
+                filepath = selectedImagePath;
+            else
+                filepath = filemanagerstring;
+            
+        } catch (Exception e) {
+            Log.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
+            e.printStackTrace();
+            
+        } finally {
+            if (filepath == null) {
+                Log.e("FileDisplay", "Couldnt resolve path to file");
+                Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
+                t.show();
+                return;
+            }
+        }
+
+        Intent i = new Intent(this, FileUploader.class);
+        i.putExtra(FileUploader.KEY_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(this));
+        String remotepath = new String();
+        for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
+            remotepath += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
+        }
+        if (!remotepath.endsWith(OCFile.PATH_SEPARATOR))
+            remotepath += OCFile.PATH_SEPARATOR;
+        remotepath += new File(filepath).getName();
+
+        i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
+        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+        startService(i);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -471,7 +500,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         case DIALOG_CREATE_DIR: {
             builder = new Builder(this);
             final EditText dirNameInput = new EditText(getBaseContext());
-            final Account a = AccountUtils.getCurrentOwnCloudAccount(this);
             builder.setView(dirNameInput);
             builder.setTitle(R.string.uploader_info_dirname);
             int typed_color = getResources().getColor(R.color.setup_text_typed);
@@ -499,7 +527,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             
                             // Create directory
                             path += directoryName + OCFile.PATH_SEPARATOR;
-                            Thread thread = new Thread(new DirectoryCreator(path, a, new Handler()));
+                            Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
                             thread.start();
                             
                             dialog.dismiss();
@@ -523,6 +551,33 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             working_dialog.setIndeterminate(true);
             working_dialog.setCancelable(false);
             dialog = working_dialog;
+            break;
+        }
+        case DIALOG_CHOOSE_UPLOAD_SOURCE: {
+            final String [] items = {   getString(R.string.actionbar_upload_files), 
+                                        getString(R.string.actionbar_upload_from_apps) }; 
+            builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.actionbar_upload);
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    if (item == 0) {
+                        //if (!mDualPane) { 
+                            Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
+                            startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                        //} else {
+                            // TODO create and handle new fragment LocalFileListFragment
+                        //}
+                    } else if (item == 1) {
+                        Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+                        action = action.setType("*/*")
+                                .addCategory(Intent.CATEGORY_OPENABLE);
+                        startActivityForResult(
+                                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                                ACTION_SELECT_CONTENT_FROM_APPS);
+                    }
+                }
+            });
+            dialog = builder.create();
             break;
         }
         default:
@@ -688,7 +743,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         || fillBlankRoot ) {
                     if (!fillBlankRoot) 
                         mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
-                    FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager()
+                    OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
                     if (fileListFragment != null) {
                         fileListFragment.listDirectory(mCurrentDir);  
@@ -720,7 +775,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             parentDir.equals(mCurrentDir)
                     )
                 ) {
-                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
                 }
@@ -741,7 +796,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
             if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
                      mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
-                FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
                 }
@@ -811,7 +866,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     @Override
     public void onFileStateChanged() {
-        FileListFragment fileListFragment = (FileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
         if (fileListFragment != null) { 
             fileListFragment.listDirectory();
         }

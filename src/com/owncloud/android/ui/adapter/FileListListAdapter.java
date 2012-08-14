@@ -35,8 +35,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -129,33 +131,17 @@ public class FileListListAdapter implements ListAdapter {
             } else {
                 localStateView.setVisibility(View.INVISIBLE);
             }
-                /*
-            ImageView down = (ImageView) view.findViewById(R.id.imageView2);
-            ImageView downloading = (ImageView) view.findViewById(R.id.imageView4);
-            ImageView uploading = (ImageView) view.findViewById(R.id.imageView5);
-            if (FileDownloader.isDownloading(mAccount, file.getRemotePath())) {
-                down.setVisibility(View.INVISIBLE);
-                downloading.setVisibility(View.VISIBLE);
-                uploading.setVisibility(View.INVISIBLE);
-            } else if (FileUploader.isUploading(mAccount, file.getRemotePath())) {
-                down.setVisibility(View.INVISIBLE);
-                downloading.setVisibility(View.INVISIBLE);
-                uploading.setVisibility(View.VISIBLE);
-            } else if (file.isDown()) {
-                 down.setVisibility(View.VISIBLE);
-                 downloading.setVisibility(View.INVISIBLE);
-                 uploading.setVisibility(View.INVISIBLE);
-            } else {
-                down.setVisibility(View.INVISIBLE);
-                downloading.setVisibility(View.INVISIBLE);
-                uploading.setVisibility(View.INVISIBLE);
-            }*/
-                
+
+            
+            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+            
             if (!file.isDirectory()) {
-                view.findViewById(R.id.file_size).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.last_mod).setVisibility(View.VISIBLE);
-                ((TextView)view.findViewById(R.id.file_size)).setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-                ((TextView)view.findViewById(R.id.last_mod)).setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                fileSizeV.setVisibility(View.VISIBLE);
+                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 // this if-else is needed even thoe fav icon is visible by default
                 // because android reuses views in listview
                 if (!file.keepInSync()) {
@@ -163,9 +149,23 @@ public class FileListListAdapter implements ListAdapter {
                 } else {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
+                
+                ListView parentList = (ListView)parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                    checkBoxV.setVisibility(View.GONE);
+                } else {
+                    checkBoxV.setVisibility(View.VISIBLE);
+                    if (parentList.isItemChecked(position)) {
+                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                    } else {
+                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                    }
+                }
+                
             } else {
-               view.findViewById(R.id.file_size).setVisibility(View.GONE);
-               view.findViewById(R.id.last_mod).setVisibility(View.GONE);
+               fileSizeV.setVisibility(View.GONE);
+               lastModV.setVisibility(View.GONE);
+               checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
         }

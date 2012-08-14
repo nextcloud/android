@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class FragmentListView extends SherlockFragment implements
         OnItemClickListener, OnItemLongClickListener {
-    ListView mList;
+    protected ListView mList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

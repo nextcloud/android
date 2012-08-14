@@ -15,7 +15,8 @@
   <string name="main_tit_accsetup">Konto einrichten</string>
   <string name="main_wrn_accsetup">Auf deinem Gerät sind keine Konten eingerichtet. Bitte erstelle ein Konto, um diese App nutzen zu können.</string>
   <string name="actionbar_sync">Neuladen</string>
-  <string name="actionbar_upload">Datei hochladen</string>
+  <string name="actionbar_upload">Hochladen</string>
+  <string name="actionbar_upload_files">Datei</string>
   <string name="actionbar_mkdir">Verzeichnis erstellen</string>
   <string name="actionbar_search">Suche</string>
   <string name="actionbar_settings">Einstellungen</string>

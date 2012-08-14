@@ -16,7 +16,9 @@
     <string name="main_wrn_accsetup">There are no ownCloud accounts on your device. In order to use this App, you need to create one.</string>
     
     <string name="actionbar_sync">Refresh</string>
-    <string name="actionbar_upload">Upload file</string>
+    <string name="actionbar_upload">Upload</string>
+    <string name="actionbar_upload_from_apps">Content from other apps</string>
+    <string name="actionbar_upload_files">Files</string>
     <string name="actionbar_mkdir">Create directory</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_settings">Settings</string>
@@ -81,7 +83,7 @@
     <string name="delete_account">Delete account</string>
     <string name="create_account">Create account</string>
     
-    <string name="upload_chooser_title">Upload file from &#8230;</string>
+    <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Directory name</string>
 	<string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>    
 	<string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>    
@@ -175,4 +177,5 @@
     <string name="wait_a_moment">Wait a moment</string>
 	
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please, try other app to select the file"</string>
+    <string name="filedisplay_no_file_selected">No file was selected</string>
 </resources>

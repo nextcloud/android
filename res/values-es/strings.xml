@@ -15,7 +15,9 @@
   <string name="main_tit_accsetup">Configuración de cuenta</string>
   <string name="main_wrn_accsetup">No hay cuentas de ownCloud en tu dispositivo. Para usar esta aplicación, necesitas crear una.</string>
   <string name="actionbar_sync">Sincronización de cuenta</string>
-  <string name="actionbar_upload">Subir archivo</string>
+  <string name="actionbar_upload">Subir</string>
+  <string name="actionbar_upload_from_apps">Contenido de otras apps</string>
+  <string name="actionbar_upload_files">Ficheros</string>
   <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_search">Buscar</string>
   <string name="actionbar_settings">Ajustes</string>

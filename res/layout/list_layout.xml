@@ -35,18 +35,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/local_file_indicator"/>
 
-        <!-- ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/downloading_file_indicator"/ >
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/uploading_file_indicator"/ -->
-
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="20dp"
@@ -65,13 +53,14 @@
             android:src="@drawable/ic_favorite" />
         
     </FrameLayout>
-
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical" 
-        android:gravity="center_vertical">
-
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
         <TextView
             android:id="@+id/Filename"
             android:layout_width="wrap_content"
@@ -112,5 +101,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/custom_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:gravity=""
+        android:src="@android:drawable/checkbox_off_background" />
 
 </LinearLayout>

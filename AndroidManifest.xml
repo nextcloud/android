@@ -17,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="103004"
-    android:versionName="1.3.4" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="103005"
+    android:versionName="1.3.5" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -53,6 +53,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.UploadFilesActivity">
         </activity>
         <activity android:name=".Uploader" >
             <intent-filter>
