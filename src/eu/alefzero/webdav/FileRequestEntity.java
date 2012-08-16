@@ -8,7 +8,7 @@ import java.io.OutputStream;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
-import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import android.util.Log;
 

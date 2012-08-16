@@ -186,7 +186,7 @@ public class EasySSLSocketFactory implements ProtocolSocketFactory {
             socket.setSoTimeout(params.getSoTimeout());
             return socket;
         } else {
-            Log.d(TAG, " ... with connection timeout " + timeout + " and socket timeout" + params.getSoTimeout());
+            Log.d(TAG, " ... with connection timeout " + timeout + " and socket timeout " + params.getSoTimeout());
             Socket socket = socketfactory.createSocket();
             SocketAddress localaddr = new InetSocketAddress(localAddress,
                     localPort);

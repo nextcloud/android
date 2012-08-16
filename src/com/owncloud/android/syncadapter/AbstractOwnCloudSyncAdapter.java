@@ -30,6 +30,7 @@ import org.apache.http.protocol.HttpContext;
 
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -154,9 +155,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
                     AccountAuthenticator.KEY_OC_URL) == null) {
                 throw new UnknownHostException();
             }
-            mClient = new WebdavClient(account, getContext());
-            mClient.allowSelfsignedCertificates();
-            // mHost = mClient.getTargetHost();
+            mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
         }
 
         return mClient;

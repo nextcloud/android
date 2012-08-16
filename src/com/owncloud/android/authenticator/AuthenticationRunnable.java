@@ -22,6 +22,8 @@ import java.net.URL;
 
 import org.apache.commons.httpclient.HttpStatus;
 
+import com.owncloud.android.utils.OwnCloudClientUtils;
+
 import eu.alefzero.webdav.WebdavClient;
 
 import android.net.Uri;
@@ -52,7 +54,8 @@ public class AuthenticationRunnable implements Runnable {
     public void run() {
         Uri uri;
         uri = Uri.parse(mUrl.toString());
-        int login_result = WebdavClient.tryToLogin(uri, mUsername, mPassword);
+        WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(uri, mUsername, mPassword);
+        int login_result = wdc.tryToLogin();
         switch (login_result) {
         case HttpStatus.SC_OK:
             postResult(true, uri.toString());

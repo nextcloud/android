@@ -7,7 +7,8 @@ import java.util.Map;
 
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -141,22 +142,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         boolean downloadResult = false;
 
         /// prepare client object to send the request to the ownCloud server
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
-        String username = mAccount.name.split("@")[0];
-        String password = null;
-        try {
-            password = am.blockingGetAuthToken(mAccount,
-                    AccountAuthenticator.AUTH_TOKEN_TYPE, true);
-        } catch (Exception e) {
-            Log.e(TAG, "Access to account credentials failed", e);
-            sendFinalBroadcast(downloadResult, null);
-            return;
-        }
-        wdc.setCredentials(username, password);
-        wdc.allowSelfsignedCertificates();
+        WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
         wdc.setDataTransferProgressListener(this);
-
         
         /// download will be in a temporal file
         File tmpFile = new File(getTemporalPath(mAccount.name) + mFilePath);

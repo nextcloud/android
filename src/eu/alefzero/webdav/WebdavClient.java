@@ -21,35 +21,26 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpVersion;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
-import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.HttpStatus;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.authenticator.EasySSLSocketFactory;
-import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
-import com.owncloud.android.utils.OwnCloudVersion;
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
@@ -59,56 +50,17 @@ public class WebdavClient extends HttpClient {
     final private static String TAG = "WebdavClient";
     private static final String USER_AGENT = "Android-ownCloud";
     
-    /** Default timeout for waiting data from the server: 10 seconds */
-    public static final int DEFAULT_DATA_TIMEOUT = 10000;
-    
-    /** Default timeout for establishing a connection: infinite */
-    public static final int DEFAULT_CONNECTION_TIMEOUT = 0;
-    
     private OnDatatransferProgressListener mDataTransferListener;
-    static private MultiThreadedHttpConnectionManager mConnManager = null;
-    
-    static public MultiThreadedHttpConnectionManager getMultiThreadedConnManager() {
-        if (mConnManager == null) {
-            mConnManager = new MultiThreadedHttpConnectionManager();
-            mConnManager.setMaxConnectionsPerHost(5);
-            mConnManager.setMaxTotalConnections(5);
-        }
-        return mConnManager;
-    }
+    static private byte[] sExhaustBuffer = new byte[1024];
     
     /**
-     * Creates a WebdavClient setup for the current account
-     * @param account The client accout
-     * @param context The application context
-     * @return
+     * Constructor
      */
-    public WebdavClient (Account account, Context context) {
-        Log.d(TAG, "Creating WebdavClient associated to " + account.name);
-        
-        setDefaultTimeouts();
-        
-        OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account,
-                AccountAuthenticator.KEY_OC_VERSION));
-        String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-        String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);        
-        String username = account.name.substring(0, account.name.lastIndexOf('@'));
-        String password = AccountManager.get(context).getPassword(account);
-        
-        mUri = Uri.parse(baseUrl + webDavPath);
-        Log.e("ASD", ""+username);
-        setCredentials(username, password);
-    }
-    
-    public WebdavClient() {
-        super(getMultiThreadedConnManager());
+    public WebdavClient(HttpConnectionManager connectionMgr) {
+        super(connectionMgr);
         Log.d(TAG, "Creating WebdavClient");
-        
-        setDefaultTimeouts();
-        
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-        allowSelfsignedCertificates();
     }
 
     public void setCredentials(String username, String password) {
@@ -124,33 +76,18 @@ public class WebdavClient extends HttpClient {
     }
     
     /**
-     * Sets the connection and wait-for-data timeouts to be applied by default.
-     */
-    private void setDefaultTimeouts() {
-        getParams().setSoTimeout(DEFAULT_DATA_TIMEOUT);
-        getHttpConnectionManager().getParams().setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);
-    }
-
-    public void allowSelfsignedCertificates() {
-        // https
-        Protocol.registerProtocol("https", new Protocol("https",
-                new EasySSLSocketFactory(), 443));
-    }
-
-    /**
      * Downloads a file in remoteFilepath to the local targetPath.
      * 
      * @param remoteFilepath    Path to the file in the remote server, URL DECODED. 
      * @param targetFile        Local path to save the downloaded file.
      * @return                  'True' when the file is successfully downloaded.
      */
-    public boolean downloadFile(String remoteFilepath, File targetFile) {
+    public boolean downloadFile(String remoteFilePath, File targetFile) {
         boolean ret = false;
-        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilepath));
+        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilePath));
 
-        int status = -1;
         try {
-            status = executeMethod(get);
+            int status = executeMethod(get);
             if (status == HttpStatus.SC_OK) {
                 targetFile.createNewFile();
                 BufferedInputStream bis = new BufferedInputStream(
@@ -165,26 +102,19 @@ public class WebdavClient extends HttpClient {
                     fos.write(bytes, 0, readResult);
                 }
                 ret = true;
+            } else {
+                exhaustResponse(get.getResponseBodyAsStream());
             }
+            Log.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
             
-        } catch (HttpException e) {
-            Log.e(TAG, "HTTP exception downloading " + remoteFilepath, e);
-
-        } catch (IOException e) {
-            Log.e(TAG, "I/O exception downloading " + remoteFilepath, e);
-
         } catch (Exception e) {
-            Log.e(TAG, "Unexpected exception downloading " + remoteFilepath, e);
+            logException(e, "dowloading " + remoteFilePath);
             
         } finally {
-            if (!ret) {
-                if (status >= 0) {
-                    Log.e(TAG, "Download of " + remoteFilepath + " to " + targetFile + " failed with HTTP status " + status);
-                }
-                if (targetFile.exists()) {
-                    targetFile.delete();
-                }
+            if (!ret && targetFile.exists()) {
+                targetFile.delete();
             }
+            get.releaseConnection();    // let the connection available for other methods
         }
         return ret;
     }
@@ -194,17 +124,26 @@ public class WebdavClient extends HttpClient {
      * @param remoteFilePath       Remote file path of the file to delete, in URL DECODED format.
      * @return
      */
-    public boolean deleteFile(String remoteFilePath){
+    public boolean deleteFile(String remoteFilePath) {
+        boolean ret = false;
         DavMethod delete = new DeleteMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilePath));
         try {
-            executeMethod(delete);
-        }  catch (Throwable e) {
-            Log.e(TAG, "Deleting failed with error: " + e.getMessage(), e);
-            return false;
+            int status = executeMethod(delete);
+            ret = (status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED || status == HttpStatus.SC_NO_CONTENT);
+            exhaustResponse(delete.getResponseBodyAsStream());
+            
+            Log.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
+            
+        } catch (Exception e) {
+            logException(e, "deleting " + remoteFilePath);
+            
+        } finally {
+            delete.releaseConnection();    // let the connection available for other methods
         }
-        return true;
+        return ret;
     }
 
+    
     public void setDataTransferProgressListener(OnDatatransferProgressListener listener) {
         mDataTransferListener = listener;
     }
@@ -221,56 +160,51 @@ public class WebdavClient extends HttpClient {
     public boolean putFile(String localFile, String remoteTarget, String contentType) {
         boolean result = false;
         int status = -1;
-
+        PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
+        
         try {
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
             entity.setOnDatatransferProgressListener(mDataTransferListener);
-            PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
             put.setRequestEntity(entity);
             status = executeMethod(put);
             
             result = (status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT);
             
-            Log.d(TAG, "PUT response for " + remoteTarget + " finished with HTTP status " + status);
+            Log.d(TAG, "PUT to " + remoteTarget + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+
+            exhaustResponse(put.getResponseBodyAsStream());
             
-        } catch (HttpException e) {
-            Log.e(TAG, "HTTP exception uploading " + localFile + " to " + remoteTarget, e);
-
-        } catch (IOException e) {
-            Log.e(TAG, "I/O exception uploading " + localFile + " to " + remoteTarget, e);
-
         } catch (Exception e) {
-            Log.e(TAG, "Unexpected exception uploading " + localFile + " to " + remoteTarget, e);
+            logException(e, "uploading " + localFile + " to " + remoteTarget);
+            
+        } finally {
+            put.releaseConnection();    // let the connection available for other methods
         }
-        
-        if (!result && status >= 0) Log.e(TAG, "Upload of " + localFile + " to " + remoteTarget + " FAILED with HTTP status " + status);
-        
         return result;
     }
 
     /**
-     * Tries to log in to the given WedDavURI, with the given credentials
-     * @param uri To test
-     * @param username Username to check
-     * @param password Password to verify
+     * Tries to log in to the current URI, with the current credentials
+     * 
      * @return A {@link HttpStatus}-Code of the result. SC_OK is good.
      */
-    public static int tryToLogin(Uri uri, String username, String password) {
-        int returnCode = 0;
+    public int tryToLogin() {
+        int status = 0;
+        HeadMethod head = new HeadMethod(mUri.toString());
         try {
-            WebdavClient client = new WebdavClient();
-            client.setCredentials(username, password);
-            HeadMethod head = new HeadMethod(uri.toString());
-            returnCode = client.executeMethod(head);
-        } catch (HttpException e) {
-            Log.e(TAG, "HTTP exception trying to login at " + uri.getEncodedPath(), e);
-        } catch (IOException e) {
-            Log.e(TAG, "I/O exception trying to login at " + uri.getEncodedPath(), e);
+            status = executeMethod(head);
+            boolean result = status == HttpStatus.SC_OK;
+            Log.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+            exhaustResponse(head.getResponseBodyAsStream());
+            
         } catch (Exception e) {
-            Log.e(TAG, "Unexpected exception trying to login at " + uri.getEncodedPath(), e);
+            logException(e, "trying to login at " + mUri.toString());
+            
+        } finally {
+            head.releaseConnection();
         }
-        return returnCode;
+        return status;
     }
 
     /**
@@ -282,25 +216,21 @@ public class WebdavClient extends HttpClient {
     public boolean createDirectory(String path) {
         boolean result = false;
         int status = -1;
+        MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
-            MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
             Log.d(TAG, "Creating directory " + path);
             status = executeMethod(mkcol);
             Log.d(TAG, "Status returned: " + status);
             result = mkcol.succeeded();
             
-        } catch (HttpException e) {
-            Log.e(TAG, "HTTP exception creating directory " + path, e);
-
-        } catch (IOException e) {
-            Log.e(TAG, "I/O exception creating directory " + path, e);
-
-        } catch (Exception e) {
-            Log.e(TAG, "Unexpected exception creating directory " + path, e);
+            Log.d(TAG, "MKCOL to " + path + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+            exhaustResponse(mkcol.getResponseBodyAsStream());
             
-        }
-        if (!result && status >= 0) {
-            Log.e(TAG, "Creation of directory " + path + " failed with HTTP status " + status);
+        } catch (Exception e) {
+            logException(e, "creating directory " + path);
+            
+        } finally {
+            mkcol.releaseConnection();    // let the connection available for other methods
         }
         return result;
     }
@@ -312,13 +242,19 @@ public class WebdavClient extends HttpClient {
      * @return      'Boolean.TRUE' if the file exists; 'Boolean.FALSE' it doesn't exist; NULL if couldn't be checked
      */
     public Boolean existsFile(String path) {
+        HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
-            HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
             int status = executeMethod(head);
+            Log.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
+            exhaustResponse(head.getResponseBodyAsStream());
             return (status == HttpStatus.SC_OK);
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            logException(e, "checking existence of " + path);
             return null;
+            
+        } finally {
+            head.releaseConnection();    // let the connection available for other methods
         }
     }
 
@@ -328,24 +264,83 @@ public class WebdavClient extends HttpClient {
      * 
      * Executes the method through the inherited HttpClient.executedMethod(method).
      * 
-     * Sets the socket timeout for the HttpMethodBase method received.
+     * Sets the socket and connection timeouts only for the method received.
      * 
-     * @param method    HTTP method request.
-     * @param timeout   Timeout to set, in milliseconds; <= 0 means infinite.
+     * The timeouts are both in milliseconds; 0 means 'infinite'; < 0 means 'do not change the default'
+     * 
+     * @param method            HTTP method request.
+     * @param readTimeout       Timeout to set for data reception
+     * @param conntionTimout    Timeout to set for connection establishment
      */
-    public int executeMethod(HttpMethodBase method, int readTimeout) throws HttpException, IOException {
+    public int executeMethod(HttpMethodBase method, int readTimeout, int connectionTimeout) throws HttpException, IOException {
         int oldSoTimeout = getParams().getSoTimeout();
+        int oldConnectionTimeout = getHttpConnectionManager().getParams().getConnectionTimeout();
         try {
-            if (readTimeout < 0) { 
-                readTimeout = 0;
+            if (readTimeout >= 0) { 
+                method.getParams().setSoTimeout(readTimeout);   // this should be enough...
+                getParams().setSoTimeout(readTimeout);          // ... but this looks like necessary for HTTPS
             }
-            HttpMethodParams params = method.getParams();
-            params.setSoTimeout(readTimeout);       
-            method.setParams(params);               // this should be enough...
-            getParams().setSoTimeout(readTimeout);  // ... but this is necessary for HTTPS
+            if (connectionTimeout >= 0) {
+                getHttpConnectionManager().getParams().setConnectionTimeout(connectionTimeout);
+            }
             return executeMethod(method);
         } finally {
             getParams().setSoTimeout(oldSoTimeout);
+            getHttpConnectionManager().getParams().setConnectionTimeout(oldConnectionTimeout);
         }
     }
+
+    /**
+     * Exhausts a not interesting HTTP response. Encouraged by HttpClient documentation.
+     * 
+     * @param responseBodyAsStream      InputStream with the HTTP response to exhaust.
+     */
+    private static void exhaustResponse(InputStream responseBodyAsStream) {
+        if (responseBodyAsStream != null) {
+            try {
+                while (responseBodyAsStream.read(sExhaustBuffer) >= 0);
+                responseBodyAsStream.close();
+            
+            } catch (IOException io) {
+                Log.e(TAG, "Unexpected exception while exhausting not interesting HTTP response; will be IGNORED", io);
+            }
+        }
+    }
+
+
+    /**
+     * Logs an exception triggered in a HTTP request. 
+     * 
+     * @param e         Caught exception.
+     * @param doing     Suffix to add at the end of the logged message.
+     */
+    private static void logException(Exception e, String doing) {
+        if (e instanceof HttpException) {
+            Log.e(TAG, "HTTP violation while " + doing, e);
+
+        } else if (e instanceof IOException) {
+            Log.e(TAG, "Unrecovered transport exception while " + doing, e);
+
+        } else {
+            Log.e(TAG, "Unexpected exception while " + doing, e);
+        }
+    }
+
+    
+    /**
+     * Sets the connection and wait-for-data timeouts to be applied by default to the methods performed by this client.
+     */
+    public void setDefaultTimeouts(int defaultDataTimeout, int defaultConnectionTimeout) {
+            getParams().setSoTimeout(defaultDataTimeout);
+            getHttpConnectionManager().getParams().setConnectionTimeout(defaultConnectionTimeout);
+    }
+
+    /**
+     * Sets the base URI for the helper methods that receive paths as parameters, instead of full URLs
+     * @param uri
+     */
+    public void setBaseUri(Uri uri) {
+        mUri = uri;
+    }
+    
 }

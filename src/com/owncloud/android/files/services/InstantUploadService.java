@@ -28,6 +28,7 @@ import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -126,35 +127,19 @@ public class InstantUploadService extends Service {
         
         public void run() {
             HashMap<String, Object> working_map;
-            AccountManager am = AccountManager.get(getApplicationContext());
             
             while ((working_map = getFirstObject()) != null) {
                 Account account = (Account) working_map.get(KEY_ACCOUNT);
-                String username = account.name.substring(0, account.name.lastIndexOf('@'));
-                String password = am.getPassword(account);
                 String filename = (String) working_map.get(KEY_DISPLAY_NAME);
                 String filepath = (String) working_map.get(KEY_FILE_PATH);
                 String mimetype = (String) working_map.get(KEY_MIME_TYPE);
                 
-                String oc_base_url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-                String oc_version = am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
-                OwnCloudVersion ocv = new OwnCloudVersion(oc_version);
-                String webdav_path = AccountUtils.getWebdavPath(ocv);
-                WebdavClient wdc = new WebdavClient(account, getApplicationContext());
-                wdc.allowSelfsignedCertificates();
-                wdc.setCredentials(username, password);
+                WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(account, getApplicationContext());
                 
-                MkColMethod mkcol = new MkColMethod(oc_base_url+webdav_path+INSTANT_UPLOAD_DIR);
                 int status = 0;
-                try {
-                    status = wdc.executeMethod(mkcol);
-                    Log.e(TAG, "mkcol returned " + status);
-                    wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
-                } catch (HttpException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                wdc.createDirectory(INSTANT_UPLOAD_DIR);
+                Log.e(TAG, "mkcol returned " + status);
+                wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
             }
         }
     }

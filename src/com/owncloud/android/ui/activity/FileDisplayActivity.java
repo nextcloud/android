@@ -70,6 +70,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
@@ -643,14 +644,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
         @Override
         public void run() {
-            WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
-            
-            String username = mAccount.name.substring(0,
-                    mAccount.name.lastIndexOf('@'));
-            String password = mAm.getPassword(mAccount);
-    
-            wdc.setCredentials(username, password);
-            wdc.allowSelfsignedCertificates();
+            WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
             boolean created = wdc.createDirectory(mTargetPath);
             if (created) {
                 mHandler.post(new Runnable() {

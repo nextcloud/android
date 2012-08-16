@@ -266,7 +266,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String url_str = prefix + url + webdav_path;
             uri = new URL(url_str);
         } catch (MalformedURLException e) {
-            // should not happend
+            // should not happen
             e.printStackTrace();
         }
 

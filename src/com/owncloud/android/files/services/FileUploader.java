@@ -7,7 +7,8 @@ import java.util.Map;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.interfaces.OnDatatransferProgressListener;
+import eu.alefzero.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -150,8 +151,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mTotalDataToSend = mSendData = mPreviousPercent = 0;
         
         /// prepare client object to send the request to the ownCloud server
-        WebdavClient wc = new WebdavClient(mAccount, getApplicationContext());
-        wc.allowSelfsignedCertificates();
+        WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
         wc.setDataTransferProgressListener(this);
 
         /// create status notification to show the upload progress

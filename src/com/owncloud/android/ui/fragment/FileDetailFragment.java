@@ -82,6 +82,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
@@ -661,7 +662,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 final String WEBDAV_SCRIPT = "webdav.php";
                 final String WEBDAV_FILES_LOCATION = "/files/";
                 
-                WebdavClient wc = new WebdavClient();
+                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getActivity().getApplicationContext());
                 HttpConnectionManagerParams params = new HttpConnectionManagerParams();
                 params.setMaxConnectionsPerHost(wc.getHostConfiguration(), 5);
 
@@ -684,7 +685,6 @@ public class FileDetailFragment extends SherlockFragment implements
                     PropFindMethod find = new PropFindMethod(url+"/");
                     find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
                     Log.d("sharer", ""+ url+"/");
-                    wc.setCredentials(account.name.substring(0, account.name.lastIndexOf('@')), am.getPassword(account));
                     
                     for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
                         Log.d("sharer-h", a.getName() + ":"+a.getValue());
@@ -809,8 +809,7 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         
         public void run() {
-            WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
-            wc.allowSelfsignedCertificates();
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
             AccountManager am = AccountManager.get(getSherlockActivity());
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
@@ -825,6 +824,7 @@ public class FileDetailFragment extends SherlockFragment implements
             try {
                 int status = wc.executeMethod(move);
                 success = move.succeeded();
+                move.getResponseBodyAsString(); // exhaust response, although not interesting
                 Log.d(TAG, "Move returned status: " + status);
                 
             } catch (HttpException e) {
@@ -835,7 +835,10 @@ public class FileDetailFragment extends SherlockFragment implements
                 
             } catch (Exception e) {
                 Log.e(TAG, "Unexpected exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
-            }
+                
+            } finally {
+               move.releaseConnection();
+            } 
             
             if (success) {
                 FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
@@ -973,8 +976,7 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         
         public void run() {
-            WebdavClient wc = new WebdavClient(mAccount, getSherlockActivity().getApplicationContext());
-            wc.allowSelfsignedCertificates();
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
             AccountManager am = AccountManager.get(getSherlockActivity());
             String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
@@ -988,6 +990,7 @@ public class FileDetailFragment extends SherlockFragment implements
             try {
                 status = wc.executeMethod(delete);
                 success = (delete.succeeded());
+                delete.getResponseBodyAsString();   // exhaust the response, although not interesting
                 Log.d(TAG, "Delete: returned status " + status);
                 
             } catch (HttpException e) {
@@ -998,6 +1001,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 
             } catch (Exception e) {
                 Log.e(TAG, "Unexpected exception removing file " + mFileToRemove.getRemotePath(), e);
+                
+            } finally {
+                delete.releaseConnection();
             }
             
             if (success) {

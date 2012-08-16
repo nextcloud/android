@@ -19,18 +19,15 @@
 package com.owncloud.android.authenticator;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URL;
 import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLPeerUnverifiedException;
 
+import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -39,6 +36,7 @@ import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.OnConnectCheckListener.ResultType;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -107,15 +105,14 @@ public class ConnectionCheckerRunnable implements Runnable {
 
     private boolean tryConnection(String urlSt) {
         boolean retval = false;
+        GetMethod get = null;
         try {
-            WebdavClient wc = new WebdavClient();
-            wc.allowSelfsignedCertificates();
-            URL url = new URL(urlSt);   // better than android.net.Uri in this case; provides URL validation
-            GetMethod get = new GetMethod(url.toString());
-            int status = wc.executeMethod(get, TRY_CONNECTION_TIMEOUT);
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(urlSt));
+            get = new GetMethod(urlSt);
+            int status = wc.executeMethod(get, TRY_CONNECTION_TIMEOUT, TRY_CONNECTION_TIMEOUT);
+            String response = get.getResponseBodyAsString();
             switch (status) {
             case HttpStatus.SC_OK: {
-                String response = get.getResponseBodyAsString();
                 JSONObject json = new JSONObject(response);
                 if (!json.getBoolean("installed")) {
                     mLatestResult = ResultType.INSTANCE_NOT_CONFIGURED;
@@ -168,17 +165,25 @@ public class ConnectionCheckerRunnable implements Runnable {
             mLatestResult = ResultType.SSL_INIT_ERROR;
             Log.e(TAG, "SSL exception while trying connection", e);
             
-        } catch (HttpException e) { // specific exceptions from org.apache.commons.httpclient
+        } catch (ConnectTimeoutException e) {   // timeout specific exception from org.apache.commons.httpclient
+            mLatestResult = ResultType.TIMEOUT;
+            Log.e(TAG, "Socket timeout exception while trying connection", e);
+            
+        } catch (HttpException e) { // other specific exceptions from org.apache.commons.httpclient
             mLatestResult = ResultType.UNKNOWN_ERROR;
             Log.e(TAG, "HTTP exception while trying connection", e);
             
-        } catch (IOException e) {   // UnkownsServiceException, and any other weird I/O Exception that could occur
+        } catch (IOException e) {   // UnkownsServiceException, and any other transport exceptions that could occur
             mLatestResult = ResultType.UNKNOWN_ERROR;
             Log.e(TAG, "I/O exception while trying connection", e);
             
         } catch (Exception e) {
             mLatestResult = ResultType.UNKNOWN_ERROR;
             Log.e(TAG, "Unexpected exception while trying connection", e);
+            
+        } finally {
+            if (get != null)
+                get.releaseConnection();
         }
 
         return retval;

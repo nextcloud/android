@@ -30,6 +30,7 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -373,8 +374,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
     public void uploadFiles() {
         try {
-            WebdavClient wdc = new WebdavClient(mAccount, getApplicationContext());
-            wdc.allowSelfsignedCertificates();
+            WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
 
             // create last directory in path if necessary
             if (mCreateDir) {

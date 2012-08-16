@@ -91,7 +91,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         sendStickyBroadcast(true, null);  // message to signal the start to the UI
 
-        PropFindMethod query;
+        PropFindMethod query = null;
         try {
             mCurrentSyncTime = System.currentTimeMillis();
             query = new PropFindMethod(getUri().toString() + "/");
@@ -123,6 +123,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             // TODO update syncResult
             Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
             t.printStackTrace();
+            
+        } finally {
+            if (query != null)
+                query.releaseConnection();  // let the connection available for other methods
         }
         
         /*  Commented code for ugly performance tests
@@ -150,11 +154,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
+        PropFindMethod query = null;
         try {
             Log.d(TAG, "fetching " + uri);
             
             // remote request 
-            PropFindMethod query = new PropFindMethod(uri);
+            query = new PropFindMethod(uri);
             /*  Commented code for ugly performance tests
             long responseDelay = System.currentTimeMillis();
             */
@@ -236,8 +241,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (mDelaysIndex >= MAX_DELAYS)
                 mDelaysIndex = 0;
              */
-            
-
 
         } catch (OperationCanceledException e) {
             e.printStackTrace();
@@ -254,6 +257,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             // TODO update syncResult
             Log.e(TAG, "problem while synchronizing owncloud account " + mAccount.name, t);
             t.printStackTrace();
+            
+        } finally {
+            if (query != null)
+                query.releaseConnection();  // let the connection available for other methods
         }
     }
 

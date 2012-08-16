@@ -21,6 +21,7 @@ import java.io.File;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -42,7 +43,7 @@ public class FileOperation {
     public boolean delete(OCFile file){
         
         Account account = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        WebdavClient client = new WebdavClient(account, mContext);
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(account, mContext);
         if(client.deleteFile(file.getRemotePath())){
             File localFile = new File(file.getStoragePath());
             return localFile.delete();
