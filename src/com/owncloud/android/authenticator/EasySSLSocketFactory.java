@@ -179,23 +179,23 @@ public class EasySSLSocketFactory implements ProtocolSocketFactory {
         }
         int timeout = params.getConnectionTimeout();
         SocketFactory socketfactory = getSSLContext().getSocketFactory();
-        if (timeout == 0) {
+        /*if (timeout == 0) {
             Log.d(TAG, " ... with connection timeout 0 and socket timeout " + params.getSoTimeout());
             Socket socket = socketfactory.createSocket(host, port, localAddress,
                     localPort);
             socket.setSoTimeout(params.getSoTimeout());
             return socket;
-        } else {
-            Log.d(TAG, " ... with connection timeout " + timeout + " and socket timeout " + params.getSoTimeout());
-            Socket socket = socketfactory.createSocket();
-            SocketAddress localaddr = new InetSocketAddress(localAddress,
-                    localPort);
-            SocketAddress remoteaddr = new InetSocketAddress(host, port);
-            socket.setSoTimeout(params.getSoTimeout());
-            socket.bind(localaddr);
-            socket.connect(remoteaddr, timeout);
-            return socket;
-        }
+        } else {*/
+        Log.d(TAG, " ... with connection timeout " + timeout + " and socket timeout " + params.getSoTimeout());
+        Socket socket = socketfactory.createSocket();
+        SocketAddress localaddr = new InetSocketAddress(localAddress,
+                localPort);
+        SocketAddress remoteaddr = new InetSocketAddress(host, port);
+        socket.setSoTimeout(params.getSoTimeout());
+        socket.bind(localaddr);
+        socket.connect(remoteaddr, timeout);
+        return socket;
+        //}
     }
 
     /**
