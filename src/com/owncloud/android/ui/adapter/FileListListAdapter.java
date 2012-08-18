@@ -154,12 +154,12 @@ public class FileListListAdapter implements ListAdapter {
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
-                    checkBoxV.setVisibility(View.VISIBLE);
                     if (parentList.isItemChecked(position)) {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
                     } else {
                         checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
                     }
+                    checkBoxV.setVisibility(View.VISIBLE);
                 }
                 
             } else {

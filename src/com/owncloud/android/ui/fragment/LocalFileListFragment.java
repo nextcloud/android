@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.owncloud.android.R;
@@ -116,6 +117,14 @@ public class LocalFileListFragment extends FragmentListView {
                 mContainerActivity.onDirectoryClick(file);
             
             } else {    /// Click on a file
+                ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
+                if (checkBoxV != null) {
+                    if (getListView().isItemChecked(position)) {
+                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                    } else {
+                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                    }
+                }
                 // notify the change to the container Activity
                 mContainerActivity.onFileClick(file);
             }
