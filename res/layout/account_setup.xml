@@ -140,16 +140,16 @@
 
             </FrameLayout>
 
-        </LinearLayout>
+            </LinearLayout>
 
     </FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/buttons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="1" >
@@ -173,6 +173,21 @@
                 android:textColor="@android:color/black" />
 
         </LinearLayout>
+        
+		<Button
+			android:id="@+id/account_register"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/buttons_layout"
+			android:layout_centerHorizontal="true"
+			android:onClick="onRegisterClick"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			android:textColor="#0000FF"
+			android:background="@android:color/transparent"
+			android:text="@string/auth_register" />
+            
+        
     </RelativeLayout>
 
 </LinearLayout>

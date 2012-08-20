@@ -41,6 +41,7 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -228,6 +229,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
     public void onCancelClick(View view) {
+        setResult(RESULT_CANCELED);
         finish();
     }
     
@@ -245,6 +247,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             prefix = "";
         }
         continueConnection(prefix);
+    }
+    
+    public void onRegisterClick(View view) {
+        Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse("https://owncloud.com/mobile/new"));
+        setResult(RESULT_CANCELED);
+        startActivity(register);
     }
 
     private void continueConnection(String prefix) {
