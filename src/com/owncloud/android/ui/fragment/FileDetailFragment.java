@@ -79,6 +79,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -263,9 +264,17 @@ public class FileDetailFragment extends SherlockFragment implements
                 fdsm.saveFile(mFile);
                 if (mFile.keepInSync()) {
                     onClick(getView().findViewById(R.id.fdDownloadBtn));
-                } else {    
+                } else {
                     mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
                 }
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                                           FileObserverService.class);
+                intent.putExtra(FileObserverService.KEY_FILE_CMD,
+                           (cb.isChecked()?
+                                   FileObserverService.CMD_ADD_OBSERVED_FILE:
+                                   FileObserverService.CMD_DEL_OBSERVED_FILE));
+                intent.putExtra(FileObserverService.KEY_CMD_ARG, mFile.getStoragePath());
+                getActivity().startService(intent);
                 break;
             }
             case R.id.fdRenameBtn: {

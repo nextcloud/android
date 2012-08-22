@@ -42,6 +42,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_ACCOUNT = "ACCOUNT";
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
+    public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
@@ -97,7 +98,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
         @Override
         public void handleMessage(Message msg) {
-            uploadFile();
+            uploadFile(msg.arg2==1?true:false);
             stopSelf(msg.arg1);
         }
     }
@@ -146,6 +147,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
+        msg.arg2 = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false)?1:0;
         mServiceHandler.sendMessage(msg);
 
         return Service.START_NOT_STICKY;
@@ -155,7 +157,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     /**
      * Core upload method: sends the file(s) to upload
      */
-    public void uploadFile() {
+    public void uploadFile(boolean force_override) {
         FileDataStorageManager storageManager = new FileDataStorageManager(mAccount, getContentResolver());
 
         mTotalDataToSend = mSendData = mPreviousPercent = 0;
@@ -213,7 +215,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mCurrentIndexUpload = i;
             long parentDirId = -1;
             boolean uploadResult = false;
-            String availablePath = getAvailableRemotePath(wc, mRemotePaths[i]);
+            String availablePath = mRemotePaths[i];
+            if (!force_override)
+                availablePath = getAvailableRemotePath(wc, mRemotePaths[i]);
             try {
                 File f = new File(mRemotePaths[i]);
                 parentDirId = storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId();
@@ -228,6 +232,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                         new_file.setLastSyncDate(0);
                         new_file.setStoragePath(mLocalPaths[i]);         
                         new_file.setParentId(parentDirId);
+                        if (force_override)
+                            new_file.setKeepInSync(true);
                         storageManager.saveFile(new_file);
                         mSuccessCounter++;
                         uploadResult = true;

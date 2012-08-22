@@ -72,10 +72,20 @@ public class FileDataStorageManager implements DataStorageManager {
         c.close();
         return file;
     }
-
+    
     @Override
     public OCFile getFileById(long id) {
         Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+        }
+        c.close();
+        return file;
+    }
+    
+    public OCFile getFileByLocalPath(String path) {
+        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
         OCFile file = null;
         if (c.moveToFirst()) {
             file = createFileInstance(c);

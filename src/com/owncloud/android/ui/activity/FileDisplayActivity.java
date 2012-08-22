@@ -40,6 +40,7 @@ import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -65,7 +66,10 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -108,12 +112,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     private static final String TAG = "FileDisplayActivity";
     
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
-
+        
         Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
         /// saved instance state: keep this always before initDataFromCurrentAccount()
@@ -137,6 +140,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             requestPinCode();
         }
 
+        // file observer
+        Intent observer_intent = new Intent(this, FileObserverService.class);
+        observer_intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_INIT_OBSERVED_LIST);
+        startService(observer_intent);
             
         /// USER INTERFACE
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);

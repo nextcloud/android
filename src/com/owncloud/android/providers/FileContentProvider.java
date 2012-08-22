@@ -72,6 +72,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_LAST_SYNC_DATE);
         mProjectionMap.put(ProviderTableMeta.FILE_KEEP_IN_SYNC,
                 ProviderTableMeta.FILE_KEEP_IN_SYNC);
+        mProjectionMap.put(ProviderTableMeta.FILE_ACCOUNT_OWNER,
+                ProviderTableMeta.FILE_ACCOUNT_OWNER);
     }
 
     private static final int SINGLE_FILE = 1;
