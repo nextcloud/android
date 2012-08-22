@@ -85,7 +85,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     private final static int DIALOG_WAITING = 1;
     private final static int DIALOG_NO_STREAM = 2;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
-    private final static int DIALOG_GET_DIRNAME = 4;
+    //private final static int DIALOG_GET_DIRNAME = 4;
 
     private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
 
@@ -107,7 +107,6 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
                 mAccount = accounts[0];
-                setContentView(R.layout.uploader_layout);
                 mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                 populateDirectoryList();
             }
@@ -202,6 +201,17 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 }
             });
             return builder.create();
+        case DIALOG_NO_STREAM:
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setTitle(R.string.uploader_wrn_no_content_title);
+            builder.setMessage(R.string.uploader_wrn_no_content_text);
+            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            return builder.create();
         default:
             throw new IllegalArgumentException("Unknown dialog id: " + id);
         }
@@ -264,9 +274,9 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             uploadFiles();
 
             break;
-        case android.R.id.button1: // dynamic action for create aditional dir
+        /*case android.R.id.button1: // dynamic action for create aditional dir
             showDialog(DIALOG_GET_DIRNAME);
-            break;
+            break;*/
         default:
             throw new IllegalArgumentException("Wrong element clicked");
         }
