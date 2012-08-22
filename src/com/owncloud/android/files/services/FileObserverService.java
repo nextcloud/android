@@ -48,6 +48,13 @@ public class FileObserverService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        // this occurs when system tries to restart
+        // service, so we need to reinitialize observers
+        if (intent == null) {
+            initializeObservedList();
+            return Service.START_STICKY;
+        }
+            
         if (!intent.hasExtra(KEY_FILE_CMD)) {
             Log.e(TAG, "No KEY_FILE_CMD argument given");
             return Service.START_STICKY;
