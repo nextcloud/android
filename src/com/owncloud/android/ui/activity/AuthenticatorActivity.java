@@ -223,7 +223,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             finish();
         } else {
-            dismissDialog(DIALOG_LOGIN_PROGRESS);
+            try {
+                dismissDialog(DIALOG_LOGIN_PROGRESS);
+            } catch (IllegalArgumentException e) {
+                // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
+            }
             TextView tv = (TextView) findViewById(R.id.account_username);
             tv.setError(message);
         }
@@ -268,14 +272,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         URL uri = null;
         String webdav_path = AccountUtils.getWebdavPath(mConnChkRunnable
                 .getDiscoveredVersion());
-
+        if (webdav_path == null) {
+            onAuthenticationResult(false, getString(R.string.auth_bad_oc_version_title));
+            return;
+        }
+        
         try {
             mBaseUrl = prefix + url;
             String url_str = prefix + url + webdav_path;
             uri = new URL(url_str);
         } catch (MalformedURLException e) {
-            // should not happen
-            e.printStackTrace();
+            // should never happen
+            onAuthenticationResult(false, getString(R.string.auth_incorrect_address_title));
+            return;
         }
 
         showDialog(DIALOG_LOGIN_PROGRESS);
@@ -374,7 +383,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (uri.length() != 0) {
                     setResultIconAndText(R.drawable.progress_small,
                             R.string.auth_testing_connection);
-                    findViewById(R.id.buttonOK).setEnabled(false);  // avoid connect can be clicked if the test was previously passed
                     mConnChkRunnable = new ConnectionCheckerRunnable(uri, this);
                     mConnChkRunnable.setListener(this, mHandler);
                     mAuthThread = new Thread(mConnChkRunnable);
@@ -384,6 +392,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                             View.INVISIBLE);
                     setResultIconAndText(0, 0);
                 }
+            } else {
+                // avoids that the 'connect' button can be clicked if the test was previously passed
+                findViewById(R.id.buttonOK).setEnabled(false); 
             }
         } else if (view.getId() == R.id.account_password) {
             ImageView iv = (ImageView) findViewById(R.id.viewPassword);
