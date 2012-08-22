@@ -18,26 +18,17 @@
 
 package com.owncloud.android.files.services;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpException;
-import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
-
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.utils.OwnCloudClientUtils;
-import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Service;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -136,9 +127,7 @@ public class InstantUploadService extends Service {
                 
                 WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(account, getApplicationContext());
                 
-                int status = 0;
-                wdc.createDirectory(INSTANT_UPLOAD_DIR);
-                Log.e(TAG, "mkcol returned " + status);
+                wdc.createDirectory(INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists; put will be tried anyway
                 wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
             }
         }

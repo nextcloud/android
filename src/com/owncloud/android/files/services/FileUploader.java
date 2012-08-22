@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.PhotoTakenBroadcastReceiver;
+
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.utils.OwnCloudClientUtils;
 
@@ -41,6 +43,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String KEY_ACCOUNT = "ACCOUNT";
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
+    public static final String KEY_MIME_TYPE = "MIME_TYPE";
+    public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
 
     public static final int UPLOAD_SINGLE_FILE = 0;
     public static final int UPLOAD_MULTIPLE_FILES = 1;
@@ -51,12 +55,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private Account mAccount;
-    private String[] mLocalPaths, mRemotePaths;
+    private String[] mLocalPaths, mRemotePaths, mMimeTypes;
     private int mUploadType;
     private Notification mNotification;
     private long mTotalDataToSend, mSendData;
     private int mCurrentIndexUpload, mPreviousPercent;
     private int mSuccessCounter;
+    private boolean mIsInstant;
     
     /**
      * Static map with the files being download and the path to the temporal file were are download
@@ -124,16 +129,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mLocalPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
             mRemotePaths = new String[] { intent
                     .getStringExtra(KEY_REMOTE_FILE) };
+            mMimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
+            
         } else { // mUploadType == UPLOAD_MULTIPLE_FILES
             mLocalPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
             mRemotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+            mMimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
         }
-
+        
         if (mLocalPaths.length != mRemotePaths.length) {
             Log.e(TAG, "Different number of remote paths and local paths!");
             return Service.START_NOT_STICKY;
         }
 
+        mIsInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
+                
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
@@ -166,6 +176,17 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
 
+        /// create remote folder for instant uploads if necessary
+        if (mIsInstant) {
+            OCFile instantUploadDir = storageManager.getFileByPath(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);
+            if (instantUploadDir == null) {
+                wc.createDirectory(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists, but local database is not synchronized; the upload will be started anyway
+                OCFile newDir = new OCFile(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);
+                newDir.setMimetype("DIR");
+                newDir.setParentId(storageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId());
+                storageManager.saveFile(newDir);
+            }
+        }
         
         /// perform the upload
         File [] localFiles = new File[mLocalPaths.length];
@@ -176,14 +197,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         Log.d(TAG, "Will upload " + mTotalDataToSend + " bytes, with " + mLocalPaths.length + " files");
         mSuccessCounter = 0;
         for (int i = 0; i < mLocalPaths.length; ++i) {
-            String mimeType = null;
-            try {
-                mimeType = MimeTypeMap.getSingleton()
+            String mimeType = (mMimeTypes != null) ? mMimeTypes[i] : null;
+            if (mimeType == null) {
+                try {
+                    mimeType = MimeTypeMap.getSingleton()
                         .getMimeTypeFromExtension(
                                 mLocalPaths[i].substring(mLocalPaths[i]
                                     .lastIndexOf('.') + 1));
-            } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mLocalPaths[i]);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mLocalPaths[i]);
+                }
             }
             if (mimeType == null)
                 mimeType = "application/octet-stream";
