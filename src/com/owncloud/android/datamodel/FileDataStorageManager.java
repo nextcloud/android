@@ -399,7 +399,7 @@ public class FileDataStorageManager implements DataStorageManager {
         return file;
     }
     
-    public void removeFile(OCFile file) {
+    public void removeFile(OCFile file, boolean removeLocalCopy) {
         Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
         if (getContentProvider() != null) {
             try {
@@ -414,7 +414,7 @@ public class FileDataStorageManager implements DataStorageManager {
                                         ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
                                         new String[]{mAccount.name});
         }
-        if (file.isDown()) {
+        if (file.isDown() && removeLocalCopy) {
             new File(file.getStoragePath()).delete();
         }
     }

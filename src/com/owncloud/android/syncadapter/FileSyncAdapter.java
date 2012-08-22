@@ -210,11 +210,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             Vector<OCFile> files = getStorageManager().getDirectoryContent(
                     getStorageManager().getFileById(parentId));
             OCFile file;
+            String currentSavePath = FileDownloader.getSavePath(mAccount.name);
             for (int i=0; i < files.size(); ) {
                 file = files.get(i);
                 if (file.getLastSyncDate() != mCurrentSyncTime) {
                     Log.v(TAG, "removing file: " + file);
-                    getStorageManager().removeFile(file);
+                    getStorageManager().removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
                     files.remove(i);
                 } else {
                     i++;

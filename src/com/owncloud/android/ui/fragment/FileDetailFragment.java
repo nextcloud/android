@@ -842,7 +842,7 @@ public class FileDetailFragment extends SherlockFragment implements
             
             if (success) {
                 FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                fdsm.removeFile(mOld);
+                fdsm.removeFile(mOld, false);
                 fdsm.saveFile(mNew);
                 mFile = mNew;
                 mHandler.post(new Runnable() {
@@ -1008,7 +1008,7 @@ public class FileDetailFragment extends SherlockFragment implements
             
             if (success) {
                 FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                fdsm.removeFile(mFileToRemove);
+                fdsm.removeFile(mFileToRemove, true);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {

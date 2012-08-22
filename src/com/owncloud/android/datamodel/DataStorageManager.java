@@ -37,5 +37,5 @@ public interface DataStorageManager {
 
     public Vector<OCFile> getDirectoryContent(OCFile f);
     
-    public void removeFile(OCFile file);
+    public void removeFile(OCFile file, boolean removeLocalCopy);
 }
