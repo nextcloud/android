@@ -22,18 +22,22 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 
 import android.accounts.Account;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
@@ -62,7 +66,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     
     private long mCurrentSyncTime;
     private boolean mCancellation;
-    private Account mAccount;
+    private boolean mIsManualSync;
+    private boolean mRightSync;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -74,12 +79,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             SyncResult syncResult) {
 
         mCancellation = false;
-        mAccount = account;
+        mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
+        mRightSync = true;
         
-        this.setAccount(mAccount);
+        this.setAccount(account);
         this.setContentProvider(provider);
-        this.setStorageManager(new FileDataStorageManager(mAccount,
-                getContentProvider()));
+        this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
         
         /*  Commented code for ugly performance tests
         mDelaysIndex = 0;
@@ -87,46 +92,66 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         */
         
         
-        Log.d(TAG, "syncing owncloud account " + mAccount.name);
+        Log.d(TAG, "syncing owncloud account " + account.name);
 
         sendStickyBroadcast(true, null);  // message to signal the start to the UI
 
+        String uri = getUri().toString();
         PropFindMethod query = null;
         try {
             mCurrentSyncTime = System.currentTimeMillis();
-            query = new PropFindMethod(getUri().toString() + "/");
-            getClient().executeMethod(query);
-            MultiStatus resp = null;
-            resp = query.getResponseBodyAsMultiStatus();
+            query = new PropFindMethod(uri + "/");
+            int status = getClient().executeMethod(query);
+            if (status != HttpStatus.SC_UNAUTHORIZED) {
+                MultiStatus resp = query.getResponseBodyAsMultiStatus();
 
-            if (resp.getResponses().length > 0) {
-                WebdavEntry we = new WebdavEntry(resp.getResponses()[0], getUri().getPath());
-                OCFile file = fillOCFile(we);
-                file.setParentId(0);
-                getStorageManager().saveFile(file);
-                if (!mCancellation) {
-                    fetchData(getUri().toString(), syncResult, file.getFileId());
+                if (resp.getResponses().length > 0) {
+                    WebdavEntry we = new WebdavEntry(resp.getResponses()[0], getUri().getPath());
+                    OCFile file = fillOCFile(we);
+                    file.setParentId(0);
+                    getStorageManager().saveFile(file);
+                    if (!mCancellation) {
+                        fetchData(uri, syncResult, file.getFileId());
+                    }
                 }
+                
+            } else {
+                syncResult.stats.numAuthExceptions++;
             }
-        } catch (OperationCanceledException e) {
-            e.printStackTrace();
-        } catch (AuthenticatorException e) {
-            syncResult.stats.numAuthExceptions++;
-            e.printStackTrace();
         } catch (IOException e) {
             syncResult.stats.numIoExceptions++;
-            e.printStackTrace();
+            logException(e, uri + "/");
+            
         } catch (DavException e) {
-            syncResult.stats.numIoExceptions++;
-            e.printStackTrace();
-        } catch (Throwable t) {
-            // TODO update syncResult
-            Log.e(TAG, "problem while synchronizing owncloud account " + account.name, t);
-            t.printStackTrace();
+            syncResult.stats.numParseExceptions++;
+            logException(e, uri + "/");
+            
+        } catch (Exception e) {
+            // TODO something smart with syncresult
+            logException(e, uri + "/");
+            mRightSync = false;
             
         } finally {
             if (query != null)
                 query.releaseConnection();  // let the connection available for other methods
+            mRightSync &= (syncResult.stats.numIoExceptions == 0 && syncResult.stats.numAuthExceptions == 0 && syncResult.stats.numParseExceptions == 0);
+            if (!mRightSync && mIsManualSync) {
+                /// don't let the system synchronization manager retries MANUAL synchronizations
+                //      (be careful: "MANUAL" currently includes the synchronization requested when a new account is created and when the user changes the current account)
+                syncResult.tooManyRetries = true;
+                
+                /// notify the user about the failure of MANUAL synchronization
+                Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
+                notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                // TODO put something smart in the contentIntent below
+                notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                                getContext().getString(R.string.sync_fail_ticker), 
+                                                String.format(getContext().getString(R.string.sync_fail_content), account.name), 
+                                                notification.contentIntent);
+                ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_ticker, notification);
+            }
+            sendStickyBroadcast(false, null);        // message to signal the end to the UI
         }
         
         /*  Commented code for ugly performance tests
@@ -150,7 +175,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         Log.e(TAG, "SYNC STATS - folders measured: " + mDelaysCount);
         */
         
-        sendStickyBroadcast(false, null);        
     }
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
@@ -163,105 +187,105 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             /*  Commented code for ugly performance tests
             long responseDelay = System.currentTimeMillis();
             */
-            getClient().executeMethod(query);
+            int status = getClient().executeMethod(query);
             /*  Commented code for ugly performance tests
             responseDelay = System.currentTimeMillis() - responseDelay;
             Log.e(TAG, "syncing: RESPONSE TIME for " + uri + " contents, " + responseDelay + "ms");
             */
-            MultiStatus resp = null;
-            resp = query.getResponseBodyAsMultiStatus();
+            if (status != HttpStatus.SC_UNAUTHORIZED) {
+                MultiStatus resp = query.getResponseBodyAsMultiStatus();
             
-            // insertion or update of files
-            List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
-            for (int i = 1; i < resp.getResponses().length; ++i) {
-                WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
-                OCFile file = fillOCFile(we);
-                file.setParentId(parentId);
-                if (getStorageManager().getFileByPath(file.getRemotePath()) != null &&
-                    getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
-                    file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
+                // insertion or update of files
+                List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
+                for (int i = 1; i < resp.getResponses().length; ++i) {
+                    WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
+                    OCFile file = fillOCFile(we);
+                    file.setParentId(parentId);
+                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null &&
+                            getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
+                            file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
                                                                          .getModificationTimestamp()) {
-                    Intent intent = new Intent(this.getContext(), FileDownloader.class);
-                    intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                    intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
-                    intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
-                    intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());
-                    file.setKeepInSync(true);
-                    getContext().startService(intent);
-                }
-                if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
-                    file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
+                        Intent intent = new Intent(this.getContext(), FileDownloader.class);
+                        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                        intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
+                        intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
+                        intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());
+                        file.setKeepInSync(true);
+                        getContext().startService(intent);
+                    }
+                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
+                        file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
                 
-                //Log.v(TAG, "adding file: " + file);
-                updatedFiles.add(file);
-                if (parentId == 0)
-                    parentId = file.getFileId();
-            }
-            /*  Commented code for ugly performance tests
-            long saveDelay = System.currentTimeMillis();
-            */            
-            getStorageManager().saveFiles(updatedFiles);    // all "at once" ; trying to get a best performance in database update
-            /*  Commented code for ugly performance tests
-            saveDelay = System.currentTimeMillis() - saveDelay;
-            Log.e(TAG, "syncing: SAVE TIME for " + uri + " contents, " + mSaveDelays[mDelaysIndex] + "ms");
-            */
-            
-            // removal of obsolete files
-            Vector<OCFile> files = getStorageManager().getDirectoryContent(
-                    getStorageManager().getFileById(parentId));
-            OCFile file;
-            String currentSavePath = FileDownloader.getSavePath(mAccount.name);
-            for (int i=0; i < files.size(); ) {
-                file = files.get(i);
-                if (file.getLastSyncDate() != mCurrentSyncTime) {
-                    Log.v(TAG, "removing file: " + file);
-                    getStorageManager().removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
-                    files.remove(i);
-                } else {
-                    i++;
+                    // Log.v(TAG, "adding file: " + file);
+                    updatedFiles.add(file);
+                    if (parentId == 0)
+                        parentId = file.getFileId();
                 }
-            }
+                /*  Commented code for ugly performance tests
+                long saveDelay = System.currentTimeMillis();
+                 */            
+                getStorageManager().saveFiles(updatedFiles);    // all "at once" ; trying to get a best performance in database update
+                /*  Commented code for ugly performance tests
+                saveDelay = System.currentTimeMillis() - saveDelay;
+                Log.e(TAG, "syncing: SAVE TIME for " + uri + " contents, " + mSaveDelays[mDelaysIndex] + "ms");
+                 */
             
-            // synchronized folder -> notice to UI
-            sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
-
-            // recursive fetch
-            for (int i=0; i < files.size() && !mCancellation; i++) {
-                OCFile newFile = files.get(i);
-                if (newFile.getMimetype().equals("DIR")) {
-                    fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
+                // removal of obsolete files
+                Vector<OCFile> files = getStorageManager().getDirectoryContent(
+                        getStorageManager().getFileById(parentId));
+                OCFile file;
+                String currentSavePath = FileDownloader.getSavePath(getAccount().name);
+                for (int i=0; i < files.size(); ) {
+                    file = files.get(i);
+                    if (file.getLastSyncDate() != mCurrentSyncTime) {
+                        Log.v(TAG, "removing file: " + file);
+                        getStorageManager().removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
+                        files.remove(i);
+                    } else {
+                        i++;
+                    }
                 }
-            }
-            if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancelation request");
+            
+                // recursive fetch
+                for (int i=0; i < files.size() && !mCancellation; i++) {
+                    OCFile newFile = files.get(i);
+                    if (newFile.getMimetype().equals("DIR")) {
+                        fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
+                    }
+                }
+                if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancelation request");
                 
-            /*  Commented code for ugly performance tests
-            mResponseDelays[mDelaysIndex] = responseDelay;
-            mSaveDelays[mDelaysIndex] = saveDelay;
-            mDelaysCount++;
-            mDelaysIndex++;
-            if (mDelaysIndex >= MAX_DELAYS)
-                mDelaysIndex = 0;
-             */
+                /*  Commented code for ugly performance tests
+                mResponseDelays[mDelaysIndex] = responseDelay;
+                mSaveDelays[mDelaysIndex] = saveDelay;
+                mDelaysCount++;
+                mDelaysIndex++;
+                if (mDelaysIndex >= MAX_DELAYS)
+                    mDelaysIndex = 0;
+                 */
 
-        } catch (OperationCanceledException e) {
-            e.printStackTrace();
-        } catch (AuthenticatorException e) {
-            syncResult.stats.numAuthExceptions++;
-            e.printStackTrace();
+            } else {
+                syncResult.stats.numAuthExceptions++;
+            }
         } catch (IOException e) {
             syncResult.stats.numIoExceptions++;
-            e.printStackTrace();
-        } catch (DavException e) {
-            syncResult.stats.numIoExceptions++;
-            e.printStackTrace();
-        } catch (Throwable t) {
-            // TODO update syncResult
-            Log.e(TAG, "problem while synchronizing owncloud account " + mAccount.name, t);
-            t.printStackTrace();
+            logException(e, uri);
             
+        } catch (DavException e) {
+            syncResult.stats.numParseExceptions++;
+            logException(e, uri);
+            
+        } catch (Exception e) {
+            // TODO something smart with syncresult
+            mRightSync = false;
+            logException(e, uri);
+
         } finally {
             if (query != null)
                 query.releaseConnection();  // let the connection available for other methods
+
+            // synchronized folder -> notice to UI
+            sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
         }
     }
 
@@ -294,9 +318,29 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     @Override
     public void onSyncCanceled() {
-        Log.d(TAG, "Synchronization of " + mAccount.name + " has been requested to cancell");
+        Log.d(TAG, "Synchronization of " + getAccount().name + " has been requested to cancel");
         mCancellation = true;
         super.onSyncCanceled();
     }
 
+    
+    /**
+     * Logs an exception triggered in a synchronization request. 
+     * 
+     * @param e       Caught exception.
+     * @param uri     Uri to the remote directory that was fetched when the synchronization failed 
+     */
+    private void logException(Exception e, String uri) {
+        if (e instanceof IOException) {
+            Log.e(TAG, "Unrecovered transport exception while synchronizing " + uri + " at " + getAccount().name, e);
+
+        } else if (e instanceof DavException) {
+            Log.e(TAG, "Unexpected WebDAV exception while synchronizing " + uri + " at " + getAccount().name, e);
+
+        } else {
+            Log.e(TAG, "Unexpected exception while synchronizing " + uri  + " at " + getAccount().name, e);
+        }
+    }
+
+    
 }

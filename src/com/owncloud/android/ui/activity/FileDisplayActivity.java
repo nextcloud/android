@@ -229,12 +229,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             case R.id.startSync: {
-                ContentResolver.cancelSync(null, "org.owncloud");   // cancel the current synchronizations of any ownCloud account
+                ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);   // cancel the current synchronizations of any ownCloud account
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
                 ContentResolver.requestSync(
                         AccountUtils.getCurrentOwnCloudAccount(this),
-                        "org.owncloud", bundle);
+                        AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
                 break;
             }
             case R.id.action_upload: {

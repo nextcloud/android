@@ -314,7 +314,7 @@ public class WebdavClient extends HttpClient {
      * @param e         Caught exception.
      * @param doing     Suffix to add at the end of the logged message.
      */
-    private static void logException(Exception e, String doing) {
+    private void logException(Exception e, String doing) {
         if (e instanceof HttpException) {
             Log.e(TAG, "HTTP violation while " + doing, e);
 

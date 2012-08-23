@@ -148,8 +148,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends
                 AccountAuthenticator.KEY_OC_URL));
     }
 
-    protected WebdavClient getClient() throws OperationCanceledException,
-            AuthenticatorException, IOException {
+    protected WebdavClient getClient() throws /*OperationCanceledException,
+            AuthenticatorException,*/ IOException {
         if (mClient == null) {
             if (this.getAccountManager().getUserData(getAccount(),
                     AccountAuthenticator.KEY_OC_URL) == null) {
