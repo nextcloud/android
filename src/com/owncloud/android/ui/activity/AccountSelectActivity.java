@@ -40,12 +40,21 @@ import com.owncloud.android.R;
 public class AccountSelectActivity extends SherlockListActivity implements
         AccountManagerCallback<Boolean> {
 
+    private static final String PREVIOUS_ACCOUNT_KEY = "ACCOUNT";
+    
     private final Handler mHandler = new Handler();
+    private Account mPreviousAccount = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            mPreviousAccount = savedInstanceState.getParcelable(PREVIOUS_ACCOUNT_KEY);
+        } else {
+            mPreviousAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        }
+        
         ActionBar action_bar = getSupportActionBar();
         action_bar.setDisplayShowTitleEnabled(true);
         action_bar.setDisplayHomeAsUpEnabled(false);
@@ -55,6 +64,29 @@ public class AccountSelectActivity extends SherlockListActivity implements
     protected void onResume() {
         super.onResume();
         populateAccountList();
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.isFinishing()) {
+            Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+            if ((mPreviousAccount == null && current != null) || 
+                (mPreviousAccount != null && !mPreviousAccount.equals(current))) {
+                /// the account set as default changed since this activity was created 
+            
+                // trigger synchronization
+                ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                
+                // restart the main activity
+                Intent i = new Intent(this, FileDisplayActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        }
     }
 
     @Override
@@ -76,17 +108,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
         String accountName = ((TextView) v.findViewById(android.R.id.text1))
                 .getText().toString();
         AccountUtils.setCurrentOwnCloudAccount(this, accountName);
-
-        // trigger synchronization when current account is changed
-        ContentResolver.cancelSync(null, "org.owncloud");
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), "org.owncloud", bundle);
-        
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-        finish();
+        finish();   // immediate exit
     }
 
     @Override
