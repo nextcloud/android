@@ -220,6 +220,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 availablePath = getAvailableRemotePath(wc, mRemotePaths[i]);
             try {
                 File f = new File(mRemotePaths[i]);
+                long size = localFiles[i].length();
                 parentDirId = storageManager.getFileByPath(f.getParent().endsWith("/")?f.getParent():f.getParent()+"/").getFileId();
                 if(availablePath != null) {
                     mRemotePaths[i] = availablePath;
@@ -227,7 +228,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     if (wc.putFile(mLocalPaths[i], mRemotePaths[i], mimeType)) {
                         OCFile new_file = new OCFile(mRemotePaths[i]);
                         new_file.setMimetype(mimeType);
-                        new_file.setFileLength(localFiles[i].length());
+                        new_file.setFileLength(size);
                         new_file.setModificationTimestamp(System.currentTimeMillis());
                         new_file.setLastSyncDate(0);
                         new_file.setStoragePath(mLocalPaths[i]);         

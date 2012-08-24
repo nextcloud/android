@@ -5,6 +5,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
@@ -49,12 +54,19 @@ public class FileRequestEntity implements RequestEntity {
     }
 
     public void writeRequest(final OutputStream out) throws IOException {
-        byte[] tmp = new byte[4096];
+        //byte[] tmp = new byte[4096];
+        ByteBuffer tmp = ByteBuffer.allocate(4096);
         int i = 0;
-        InputStream instream = new FileInputStream(this.file);
+        
+        FileChannel channel = new RandomAccessFile(this.file, "rw").getChannel();
+        FileLock lock = channel.tryLock();
+        //InputStream instream = new FileInputStream(this.file);
+        
         try {
-            while ((i = instream.read(tmp)) >= 0) {
-                out.write(tmp, 0, i);
+            //while ((i = instream.read(tmp)) >= 0) {
+            while ((i = channel.read(tmp)) >= 0) {
+                out.write(tmp.array(), 0, i);
+                tmp.clear();
                 if (listener != null) 
                     listener.transferProgress(i);
             }
@@ -63,7 +75,9 @@ public class FileRequestEntity implements RequestEntity {
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         } finally {
-            instream.close();
+            //instream.close();
+            lock.release();
+            channel.close();
         }
     }
 
