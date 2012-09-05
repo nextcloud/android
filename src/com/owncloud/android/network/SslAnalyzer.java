@@ -42,9 +42,10 @@ public class SslAnalyzer {
      */
     public static Exception getRecoverableException(RemoteOperationResult result) {
         Exception ret = null;
-        SSLException e = (SSLException)result.getException();
+        SSLException e = null;
         Throwable cause = null;
-        if (e != null) {
+        if (result.getException() instanceof SSLException) {
+            e = (SSLException)result.getException();
             if (e instanceof SSLPeerUnverifiedException) {
                 ret = e;
                 

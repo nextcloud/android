@@ -69,8 +69,7 @@ public class SslValidatorDialog extends Dialog {
      *                      by setting the certificate as reliable.
      */
     public static SslValidatorDialog newInstance(Context context, RemoteOperationResult result, OnSslValidatorListener listener) {
-        Exception e = SslAnalyzer.getRecoverableException(result);
-        if (e != null) {
+        if (SslAnalyzer.isRecoverable(result)) {
             SslValidatorDialog dialog = new SslValidatorDialog(context, listener);
             return dialog;
         } else {
