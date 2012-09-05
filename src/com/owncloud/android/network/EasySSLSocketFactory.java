@@ -28,7 +28,7 @@
  *
  */
 
-package com.owncloud.android.authenticator;
+package com.owncloud.android.network;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -46,6 +46,7 @@ import org.apache.commons.httpclient.HttpClientError;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory;
+
 
 import android.util.Log;
 

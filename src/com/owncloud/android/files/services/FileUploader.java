@@ -10,7 +10,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.PhotoTakenBroadcastReceiver;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.utils.OwnCloudClientUtils;
+
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.app.Notification;

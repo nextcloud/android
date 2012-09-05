@@ -1,4 +1,4 @@
-package com.owncloud.android.authenticator;
+package com.owncloud.android.network;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one

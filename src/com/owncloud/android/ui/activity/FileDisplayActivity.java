@@ -71,10 +71,10 @@ import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.OwnCloudClientUtils;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;

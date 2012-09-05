@@ -30,7 +30,7 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.utils.OwnCloudClientUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

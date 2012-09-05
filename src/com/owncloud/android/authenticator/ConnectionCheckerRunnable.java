@@ -36,7 +36,7 @@ import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.OnConnectCheckListener.ResultType;
-import com.owncloud.android.utils.OwnCloudClientUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -107,7 +107,7 @@ public class ConnectionCheckerRunnable implements Runnable {
         boolean retval = false;
         GetMethod get = null;
         try {
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(urlSt));
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(urlSt), mContext);
             get = new GetMethod(urlSt);
             int status = wc.executeMethod(get, TRY_CONNECTION_TIMEOUT, TRY_CONNECTION_TIMEOUT);
             String response = get.getResponseBodyAsString();

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.owncloud.android.utils.OwnCloudClientUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 

@@ -22,10 +22,11 @@ import java.net.URL;
 
 import org.apache.commons.httpclient.HttpStatus;
 
-import com.owncloud.android.utils.OwnCloudClientUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 
@@ -36,12 +37,14 @@ public class AuthenticationRunnable implements Runnable {
     private URL mUrl;
     private String mUsername;
     private String mPassword;
+    private Context mContext;
 
-    public AuthenticationRunnable(URL url, String username, String password) {
+    public AuthenticationRunnable(URL url, String username, String password, Context context) {
         mListener = null;
         mUrl = url;
         mUsername = username;
         mPassword = password;
+        mContext = context;
     }
 
     public void setOnAuthenticationResultListener(
@@ -54,7 +57,7 @@ public class AuthenticationRunnable implements Runnable {
     public void run() {
         Uri uri;
         uri = Uri.parse(mUrl.toString());
-        WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(uri, mUsername, mPassword);
+        WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(uri, mUsername, mPassword, mContext);
         int login_result = wdc.tryToLogin();
         switch (login_result) {
         case HttpStatus.SC_OK:

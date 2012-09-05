@@ -8,7 +8,8 @@ import java.util.Map;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.utils.OwnCloudClientUtils;
+
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

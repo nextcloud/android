@@ -21,7 +21,7 @@ import java.io.File;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.OwnCloudClientUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.content.Context;

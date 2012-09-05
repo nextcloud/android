@@ -20,21 +20,24 @@ package com.owncloud.android.ui.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.authenticator.AuthenticationRunnable;
-import com.owncloud.android.authenticator.ConnectionCheckerRunnable;
+import com.owncloud.android.authenticator.ConnectionCheckOperation;
 import com.owncloud.android.authenticator.OnAuthenticationResultListener;
 import com.owncloud.android.authenticator.OnConnectCheckListener;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.extensions.ExtensionsAvailableActivity;
-import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.ui.dialog.SslValidatorDialog;
+import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -55,6 +58,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.owncloud.android.R;
 
+import eu.alefzero.webdav.WebdavClient;
+
 /**
  * This Activity is used to add an ownCloud account to the App
  * 
@@ -62,24 +67,29 @@ import com.owncloud.android.R;
  * 
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-        implements OnAuthenticationResultListener, OnConnectCheckListener,
+        implements OnAuthenticationResultListener, OnConnectCheckListener, OnRemoteOperationListener, OnSslValidatorListener, 
         OnFocusChangeListener, OnClickListener {
+
     private static final int DIALOG_LOGIN_PROGRESS = 0;
+    private static final int DIALOG_SSL_VALIDATOR = 1;
+    private static final int DIALOG_CERT_NOT_SAVED = 2;
 
     private static final String TAG = "AuthActivity";
 
     private Thread mAuthThread;
     private AuthenticationRunnable mAuthRunnable;
-    private ConnectionCheckerRunnable mConnChkRunnable;
+    //private ConnectionCheckerRunnable mConnChkRunnable = null;
+    private ConnectionCheckOperation mConnChkRunnable;
     private final Handler mHandler = new Handler();
     private String mBaseUrl;
-
+    
     private static final String STATUS_TEXT = "STATUS_TEXT";
     private static final String STATUS_ICON = "STATUS_ICON";
     private static final String STATUS_CORRECT = "STATUS_CORRECT";
     private static final String IS_SSL_CONN = "IS_SSL_CONN";
     private int mStatusText, mStatusIcon;
     private boolean mStatusCorrect, mIsSslConn;
+    private RemoteOperationResult mLastSslFailedResult;
 
     public static final String PARAM_USERNAME = "param_Username";
     public static final String PARAM_HOSTNAME = "param_Hostname";
@@ -149,10 +159,45 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             dialog = working_dialog;
             break;
         }
+        case DIALOG_SSL_VALIDATOR: {
+            SslValidatorDialog sslValidator = SslValidatorDialog.newInstance(this, mLastSslFailedResult, this);
+            if (sslValidator != null)
+                dialog = sslValidator;
+            // else, mLastSslFailedResult is not an SSL fail recoverable by accepting the server certificate as reliable; dialog will still be null
+            break;
+        }
+        case DIALOG_CERT_NOT_SAVED: {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
+            builder.setCancelable(false);
+            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    };
+                });
+            dialog = builder.create();
+            break;
+        }
         default:
             Log.e(TAG, "Incorrect dialog called with id = " + id);
         }
         return dialog;
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+        switch (id) {
+        case DIALOG_LOGIN_PROGRESS:
+        case DIALOG_CERT_NOT_SAVED:
+            break;
+        case DIALOG_SSL_VALIDATOR: {
+            ((SslValidatorDialog)dialog).updateResult(mLastSslFailedResult);
+            break;
+        }
+        default:
+            Log.e(TAG, "Incorrect dialog called with id = " + id);
+        }
     }
 
     public void onAuthenticationResult(boolean success, String message) {
@@ -203,6 +248,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             accManager.setUserData(account,
                     AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable
                             .getDiscoveredVersion().toString());
+            
             accManager.setUserData(account,
                     AccountAuthenticator.KEY_OC_BASE_URL, mBaseUrl);
 
@@ -272,6 +318,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         URL uri = null;
         String webdav_path = AccountUtils.getWebdavPath(mConnChkRunnable
                 .getDiscoveredVersion());
+        
         if (webdav_path == null) {
             onAuthenticationResult(false, getString(R.string.auth_bad_oc_version_title));
             return;
@@ -288,7 +335,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         showDialog(DIALOG_LOGIN_PROGRESS);
-        mAuthRunnable = new AuthenticationRunnable(uri, username, password);
+        mAuthRunnable = new AuthenticationRunnable(uri, username, password, this);
         mAuthRunnable.setOnAuthenticationResultListener(this, mHandler);
         mAuthThread = new Thread(mAuthRunnable);
         mAuthThread.start();
@@ -383,10 +430,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (uri.length() != 0) {
                     setResultIconAndText(R.drawable.progress_small,
                             R.string.auth_testing_connection);
-                    mConnChkRunnable = new ConnectionCheckerRunnable(uri, this);
-                    mConnChkRunnable.setListener(this, mHandler);
-                    mAuthThread = new Thread(mConnChkRunnable);
-                    mAuthThread.start();
+                    //mConnChkRunnable = new ConnectionCheckerRunnable(uri, this);
+                    mConnChkRunnable = new ConnectionCheckOperation(uri, this);
+                    //mConnChkRunnable.setListener(this, mHandler);
+                    //mAuthThread = new Thread(mConnChkRunnable);
+                    //mAuthThread.start();
+            		WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
+                    mAuthThread = mConnChkRunnable.execute(client, this, mHandler);
                 } else {
                     findViewById(R.id.refreshButton).setVisibility(
                             View.INVISIBLE);
@@ -436,4 +486,108 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             view.setInputType(input_type);
         }
     }
+
+	@Override
+	public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+		if (operation.equals(mConnChkRunnable)) {
+		    
+	        mStatusText = mStatusIcon = 0;
+	        mStatusCorrect = false;
+	        String t_url = ((TextView) findViewById(R.id.host_URL)).getText()
+	                .toString().trim().toLowerCase();
+	        
+	        switch (result.getCode()) {
+	        case OK_SSL:
+	            mIsSslConn = true;
+	            mStatusIcon = android.R.drawable.ic_secure;
+	            mStatusText = R.string.auth_secure_connection;
+	            mStatusCorrect = true;
+	            break;
+	            
+	        case OK_NO_SSL:
+	        case OK:
+	            mIsSslConn = false;
+	            mStatusCorrect = true;
+	            if (t_url.startsWith("http://") ) {
+	                mStatusText = R.string.auth_connection_established;
+	                mStatusIcon = R.drawable.ic_ok;
+	            } else {
+	                mStatusText = R.string.auth_nossl_plain_ok_title;
+	                mStatusIcon = android.R.drawable.ic_partial_secure;
+	            }
+	            break;
+	        
+	            
+	        case BAD_OC_VERSION:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_bad_oc_version_title;
+	            break;
+	        case WRONG_CONNECTION:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_wrong_connection_title;
+	            break;
+	        case TIMEOUT:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_timeout_title;
+	            break;
+	        case INCORRECT_ADDRESS:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_incorrect_address_title;
+	            break;
+	            
+	        case SSL_ERROR:
+                mStatusIcon = R.drawable.common_error;
+                mStatusText = R.string.auth_ssl_general_error_title;
+                //mStatusText = R.string.auth_ssl_unverified_server_title;
+                mLastSslFailedResult = result;
+                showDialog(DIALOG_SSL_VALIDATOR);   // see onCreateDialog(); it does not always show the dialog
+	            /*if (InteractiveSslValidatorActivity.isRecoverable(result)) {
+	                Intent intent = new Intent(this, InteractiveSslValidatorActivity.class);
+	                startActivityForResult(intent, REQUEST_FOR_SSL_CERT);
+	            }*/
+	            break;
+	            
+	        case HOST_NOT_AVAILABLE:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_unknown_host_title;
+	            break;
+	        case NO_NETWORK_CONNECTION:
+	            mStatusIcon = R.drawable.no_network;
+	            mStatusText = R.string.auth_no_net_conn_title;
+	            break;
+	        case INSTANCE_NOT_CONFIGURED:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_not_configured_title;
+	            break;
+	        case FILE_NOT_FOUND:
+	            mStatusIcon = R.drawable.common_error;
+	            mStatusText = R.string.auth_incorrect_path_title;
+	            break;
+            case UNHANDLED_HTTP_CODE:
+            case UNKNOWN_ERROR:
+                mStatusIcon = R.drawable.common_error;
+                mStatusText = R.string.auth_unknown_error_title;
+                break;
+	        default:
+	            Log.e(TAG, "Incorrect connection checker result type: " + operation);
+	        }
+	        setResultIconAndText(mStatusIcon, mStatusText);
+	        if (!mStatusCorrect)
+	            findViewById(R.id.refreshButton).setVisibility(View.VISIBLE);
+	        else
+	            findViewById(R.id.refreshButton).setVisibility(View.INVISIBLE);
+	        findViewById(R.id.buttonOK).setEnabled(mStatusCorrect);
+		}
+	}
+
+	
+    public void onSavedCertificate() {
+        mAuthThread = mConnChkRunnable.retry(this, mHandler);                
+    }
+
+    @Override
+    public void onFailedSavingCertificate() {
+        showDialog(DIALOG_CERT_NOT_SAVED);
+    }
+    
 }
