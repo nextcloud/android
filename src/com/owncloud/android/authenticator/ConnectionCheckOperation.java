@@ -24,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.network.SslAnalyzer;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -122,7 +121,7 @@ public class ConnectionCheckOperation extends RemoteOperation {
             if (tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH)) {
                 return new RemoteOperationResult(RemoteOperationResult.ResultCode.OK_SSL);
         			
-            } else if (!SslAnalyzer.isRecoverable(mLatestResult)) {
+            } else if (mLatestResult.isSslRecoverableException()) {
                 
                 Log.d(TAG, "establishing secure connection failed, trying non secure connection");
                 client.setBaseUri(Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH));

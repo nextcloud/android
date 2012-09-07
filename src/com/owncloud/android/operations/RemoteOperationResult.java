@@ -10,6 +10,10 @@ import javax.net.ssl.SSLException;
 import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.HttpStatus;
 
+import android.util.Log;
+
+import com.owncloud.android.network.CertificateCombinedException;
+
 
 public class RemoteOperationResult {
     
@@ -29,6 +33,8 @@ public class RemoteOperationResult {
         SSL_ERROR,
         BAD_OC_VERSION, 
     }
+
+    private static final String TAG = null;
     
     private boolean mSuccess = false;
     private int mHttpCode = -1;
@@ -66,30 +72,31 @@ public class RemoteOperationResult {
         
         if (e instanceof SocketException) {  
             mCode = ResultCode.WRONG_CONNECTION;
-            //Log.e(TAG, "Socket exception while trying connection", e);
+            Log.e(TAG, "Socket exception", e);
         
         } else if (e instanceof SocketTimeoutException) {
             mCode = ResultCode.TIMEOUT;
-            //Log.e(TAG, "Socket timeout exception while trying connection", e);
+            Log.e(TAG, "Socket timeout exception", e);
         
         } else if (e instanceof ConnectTimeoutException) {
             mCode = ResultCode.TIMEOUT;
-            //Log.e(TAG, "Socket timeout exception while trying connection", e);
+            Log.e(TAG, "Connect timeout exception", e);
             
         } else if (e instanceof MalformedURLException) {
             mCode = ResultCode.INCORRECT_ADDRESS;
-            //Log.e(TAG, "Connect exception while trying connection", e);
+            Log.e(TAG, "Malformed URL exception", e);
         
         } else if (e instanceof UnknownHostException) {
             mCode = ResultCode.HOST_NOT_AVAILABLE;
-            //Log.e(TAG, "Unknown host exception while trying connection", e);
+            Log.e(TAG, "Unknown host exception", e);
         
         } else if (e instanceof SSLException) {
             mCode = ResultCode.SSL_ERROR;
-            //Log.e(TAG, "SSL exception while trying connection", e);
+            Log.e(TAG, "SSL exception", e);
             
         } else {
             mCode = ResultCode.UNKNOWN_ERROR;
+            Log.e(TAG, "Unknown exception", e);
         }
             
         /*  }   catch (HttpException e) { // other specific exceptions from org.apache.commons.httpclient
@@ -116,6 +123,30 @@ public class RemoteOperationResult {
     
     public Exception getException() {
         return mException;
+    }
+
+    public boolean isSslRecoverableException() {
+        return (getSslRecoverableException() != null);
+    }
+    
+    public CertificateCombinedException getSslRecoverableException() {
+        CertificateCombinedException result = null;
+        if (mCode == ResultCode.SSL_ERROR) {
+            if (mException instanceof CertificateCombinedException)
+                result = (CertificateCombinedException)mException;
+            Throwable cause = mException.getCause();
+            Throwable previousCause = null;
+            while (cause != null && cause != previousCause && !(cause instanceof CertificateCombinedException)) {
+                previousCause = cause;
+                cause = cause.getCause();
+            }
+            if (cause != null && cause instanceof CertificateCombinedException)
+                result = (CertificateCombinedException)cause; 
+        }
+        if (result != null && result.isRecoverable())
+            return result;
+        else
+            return null;
     }
 
 }

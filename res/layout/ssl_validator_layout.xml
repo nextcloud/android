@@ -63,18 +63,18 @@
 		 />
 		
 	<TextView
-		android:id="@+id/reason_hostname_not_vertified"
+		android:id="@+id/reason_hostname_not_verified"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
 		android:paddingLeft="20dp"
-		android:text="@string/ssl_validator_reason_hostname_not_vertified"
+		android:text="@string/ssl_validator_reason_hostname_not_verified"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 	
     
 	<TextView
-        android:id="@+id/issuer"
+        android:id="@+id/subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:padding="5dp"

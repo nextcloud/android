@@ -20,16 +20,8 @@ package com.owncloud.android.ui.dialog;
 import java.io.IOException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertPath;
-import java.security.cert.CertPathValidatorException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
-import java.security.cert.CertificateExpiredException;
-import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
-import java.util.List;
-
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -40,8 +32,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.network.CertificateCombinedException;
 import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.network.SslAnalyzer;
 import com.owncloud.android.operations.RemoteOperationResult;
 
 /**
@@ -54,7 +46,7 @@ public class SslValidatorDialog extends Dialog {
     private final static String TAG = SslValidatorDialog.class.getSimpleName();
 
     private OnSslValidatorListener mListener;
-    private Exception mException = null;
+    private CertificateCombinedException mException = null;
     private View mView;
     
     
@@ -69,7 +61,7 @@ public class SslValidatorDialog extends Dialog {
      *                      by setting the certificate as reliable.
      */
     public static SslValidatorDialog newInstance(Context context, RemoteOperationResult result, OnSslValidatorListener listener) {
-        if (SslAnalyzer.isRecoverable(result)) {
+        if (result.isSslRecoverableException()) {
             SslValidatorDialog dialog = new SslValidatorDialog(context, listener);
             return dialog;
         } else {
@@ -100,7 +92,6 @@ public class SslValidatorDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         mView = getLayoutInflater().inflate(R.layout.ssl_validator_layout, null);
         setContentView(mView); 
-        //setTitle(R.string.ssl_validator_title);
         
         mView.findViewById(R.id.ok).setOnClickListener( 
                 new View.OnClickListener() {
@@ -134,52 +125,50 @@ public class SslValidatorDialog extends Dialog {
     
     
     public void updateResult(RemoteOperationResult result) {
-        mException = SslAnalyzer.getRecoverableException(result);
-        if (mException instanceof CertPathValidatorException ) {
-            showCertificateData(((CertPathValidatorException)mException).getCertPath());
-            ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
-            ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_hostname_not_vertified)).setVisibility(View.GONE);
-            
-        } else if (mException instanceof CertificateExpiredException ) {
-            ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
-            ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_hostname_not_vertified)).setVisibility(View.GONE);
-            
-        } else if (mException instanceof CertificateNotYetValidException ) {
-            ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
-            ((TextView)mView.findViewById(R.id.reason_hostname_not_vertified)).setVisibility(View.GONE);
-            
-        } else if (mException instanceof SSLPeerUnverifiedException ) {
+        mException = result.getSslRecoverableException();
+        if (mException != null) {
+            // "clean" view
             ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_hostname_not_vertified)).setVisibility(View.VISIBLE);
+            ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.GONE);
+            ((TextView)mView.findViewById(R.id.subject)).setVisibility(View.GONE);
+
+            if (mException.getCertPathValidatorException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+            }
+            
+            if (mException.getCertificateExpiredException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+            }
+            
+            if (mException.getCertificateNotYetValidException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
+            } 
+
+            if (mException.getSslPeerUnverifiedException() != null ) {
+                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
+            }
+            
+            
+            showCertificateData(mException.getServerCertificate());
         }
         
     }
     
-    private void showCertificateData(CertPath certPath) {
-        final List<? extends Certificate> certs = certPath.getCertificates();
-        /*X509Certificate badCert = null;
-        if (e.getIndex() >= 0 && e.getIndex() < certs.size()) 
-            badCert = (X509Certificate) certs.get(e.getIndex());*/
-        if (certs.size() > 0) {
-            X509Certificate serverCert = (X509Certificate) certs.get(0);
-            String text = serverCert.getSubjectDN().getName();
+    private void showCertificateData(X509Certificate cert) {
+        TextView subject = (TextView)mView.findViewById(R.id.subject);
+        if (cert != null) {
+            String text = cert.getSubjectDN().getName();
             text = text.substring(text.indexOf(",") + 1);
-            ((TextView)mView.findViewById(R.id.issuer)).setText(text);
+            subject.setVisibility(View.VISIBLE);
+            subject.setText(text);
         }
     }
 
     private void saveServerCert() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-        // TODO be able to add certificate for any recoverable exception
-        if (mException instanceof CertPathValidatorException) {
-            OwnCloudClientUtils.addCertToKnownServersStore(((CertPathValidatorException) mException).getCertPath().getCertificates().get(0), getContext());
+        if (mException.getServerCertificate() != null) {
+            OwnCloudClientUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
         }
     }
 

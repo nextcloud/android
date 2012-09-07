@@ -34,6 +34,8 @@ import javax.net.ssl.TrustManager;
 
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
@@ -63,6 +65,8 @@ public class OwnCloudClientUtils {
     private static Protocol mDefaultHttpsProtocol = null;
 
     private static AdvancedSslSocketFactory mAdvancedSslSocketFactory = null;
+
+    private static X509HostnameVerifier mHostnameVerifier = null;
     
     
     /**
@@ -191,7 +195,7 @@ public class OwnCloudClientUtils {
         }
     }
     
-    private static AdvancedSslSocketFactory getAdvancedSslSocketFactory(Context context) throws GeneralSecurityException, IOException {
+    public static AdvancedSslSocketFactory getAdvancedSslSocketFactory(Context context) throws GeneralSecurityException, IOException {
         if (mAdvancedSslSocketFactory  == null) {
             KeyStore trustStore = getKnownServersStore(context);
             AdvancedX509TrustManager trustMgr = new AdvancedX509TrustManager(trustStore);
@@ -200,17 +204,8 @@ public class OwnCloudClientUtils {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, tms, null);
                     
-            /*} catch (KeyStoreException e) {
-                e.printStackTrace();
-                    
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-                    
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
-                    
-            }*/
-            mAdvancedSslSocketFactory = new AdvancedSslSocketFactory(sslContext, null);    // TODO HOST NAME VERIFIER
+            mHostnameVerifier = new BrowserCompatHostnameVerifier();
+            mAdvancedSslSocketFactory = new AdvancedSslSocketFactory(sslContext, trustMgr, mHostnameVerifier);
         }
         return mAdvancedSslSocketFactory;
     }

@@ -21,8 +21,11 @@ package com.owncloud.android.network;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertStoreException;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.TrustManager;
@@ -91,8 +94,35 @@ public class AdvancedX509TrustManager implements X509TrustManager {
      */
     public void checkServerTrusted(X509Certificate[] certificates, String authType) throws CertificateException {
         if (!isKnownServer(certificates[0])) {
-            Log.d(TAG, "checkClientTrusted() with standard trust manager...");
-            mStandardTrustManager.checkClientTrusted(certificates, authType);
+        	CertificateCombinedException result = new CertificateCombinedException(certificates[0]);
+        	try {
+        		certificates[0].checkValidity();
+        	} catch (CertificateExpiredException c) {
+        		result.setCertificateExpiredException(c);
+        		
+        	} catch (CertificateNotYetValidException c) {
+                result.setCertificateNotYetException(c);
+        	}
+        	
+        	try {
+        	    mStandardTrustManager.checkServerTrusted(certificates, authType);
+        	} catch (CertificateException c) {
+                Throwable cause = c.getCause();
+                Throwable previousCause = null;
+                while (cause != null && cause != previousCause && !(cause instanceof CertPathValidatorException)) {     // getCause() is not funny
+                    previousCause = cause;
+                    cause = cause.getCause();
+                }
+                if (cause != null && cause instanceof CertPathValidatorException) {
+                	result.setCertPathValidatorException((CertPathValidatorException)cause);
+                } else {
+                	result.setOtherCertificateException(c);
+                }
+        	}
+        	
+        	if (result.isException())
+        		throw result;
+
         }
     }
     
@@ -105,7 +135,7 @@ public class AdvancedX509TrustManager implements X509TrustManager {
     }
 
     
-    private boolean isKnownServer(X509Certificate cert) {
+    public boolean isKnownServer(X509Certificate cert) {
         try {
             return (mKnownServersKeyStore.getCertificateAlias(cert) != null);
         } catch (KeyStoreException e) {

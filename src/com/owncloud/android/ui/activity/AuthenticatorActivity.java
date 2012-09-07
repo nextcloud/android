@@ -160,10 +160,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         case DIALOG_SSL_VALIDATOR: {
-            SslValidatorDialog sslValidator = SslValidatorDialog.newInstance(this, mLastSslFailedResult, this);
-            if (sslValidator != null)
-                dialog = sslValidator;
-            // else, mLastSslFailedResult is not an SSL fail recoverable by accepting the server certificate as reliable; dialog will still be null
+            dialog = SslValidatorDialog.newInstance(this, mLastSslFailedResult, this);
             break;
         }
         case DIALOG_CERT_NOT_SAVED: {
@@ -540,11 +537,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mStatusText = R.string.auth_ssl_general_error_title;
                 //mStatusText = R.string.auth_ssl_unverified_server_title;
                 mLastSslFailedResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR);   // see onCreateDialog(); it does not always show the dialog
-	            /*if (InteractiveSslValidatorActivity.isRecoverable(result)) {
-	                Intent intent = new Intent(this, InteractiveSslValidatorActivity.class);
-	                startActivityForResult(intent, REQUEST_FOR_SSL_CERT);
-	            }*/
+                if (mLastSslFailedResult.isSslRecoverableException())
+                    showDialog(DIALOG_SSL_VALIDATOR); 
 	            break;
 	            
 	        case HOST_NOT_AVAILABLE:
