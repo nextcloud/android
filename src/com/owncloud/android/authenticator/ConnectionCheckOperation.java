@@ -121,7 +121,7 @@ public class ConnectionCheckOperation extends RemoteOperation {
             if (tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH)) {
                 return new RemoteOperationResult(RemoteOperationResult.ResultCode.OK_SSL);
         			
-            } else if (mLatestResult.isSslRecoverableException()) {
+            } else if (!mLatestResult.isSslRecoverableException()) {
                 
                 Log.d(TAG, "establishing secure connection failed, trying non secure connection");
                 client.setBaseUri(Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH));
