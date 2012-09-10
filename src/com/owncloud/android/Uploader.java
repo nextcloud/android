@@ -95,8 +95,9 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mParents = new Stack<String>();
         mParents.add("");
-        if (getIntent().hasExtra(Intent.EXTRA_STREAM)) {
-            prepareStreamsToUpload();
+        /*if (getIntent().hasExtra(Intent.EXTRA_STREAM)) {
+            prepareStreamsToUpload();*/
+        if (prepareStreamsToUpload()) {
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
             if (accounts.length == 0) {
@@ -370,16 +371,14 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         }*/
     }
 
-    private void prepareStreamsToUpload() {
+    private boolean prepareStreamsToUpload() {
         if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
             mStreamsToUpload = new ArrayList<Parcelable>();
             mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
             mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        } else {
-            // unknow action inserted
-            throw new IllegalArgumentException("Unknown action given: " + getIntent().getAction());
         }
+        return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
     }
 
     public void uploadFiles() {
