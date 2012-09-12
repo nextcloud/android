@@ -27,6 +27,8 @@ public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
             0x030000);
     public static final OwnCloudVersion owncloud_v4 = new OwnCloudVersion(
             0x040000);
+    public static final OwnCloudVersion owncloud_v4_5 = new OwnCloudVersion(
+            0x040500);
 
     // format is in version
     // 0xAABBCC

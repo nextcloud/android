@@ -1,15 +1,12 @@
 package eu.alefzero.webdav;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
@@ -52,7 +49,7 @@ public class FileRequestEntity implements RequestEntity {
     public void setOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
         this.listener = listener;
     }
-
+    
     public void writeRequest(final OutputStream out) throws IOException {
         //byte[] tmp = new byte[4096];
         ByteBuffer tmp = ByteBuffer.allocate(4096);

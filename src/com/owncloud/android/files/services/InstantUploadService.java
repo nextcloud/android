@@ -128,7 +128,11 @@ public class InstantUploadService extends Service {
                 WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(account, getApplicationContext());
                 
                 wdc.createDirectory(INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists; put will be tried anyway
-                wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
+                try {
+                    wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
+                } catch (Exception e) {
+                    // nothing to do; this service is deprecated, indeed
+                }
             }
         }
     }

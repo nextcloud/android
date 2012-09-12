@@ -1,5 +1,24 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2012 Bartek Przybylski
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.operations;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -8,6 +27,7 @@ import java.net.UnknownHostException;
 import javax.net.ssl.SSLException;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 
 import android.util.Log;
@@ -15,9 +35,16 @@ import android.util.Log;
 import com.owncloud.android.network.CertificateCombinedException;
 
 
+/**
+ * The result of a remote operation required to an ownCloud server.
+ * 
+ * Provides a common classification of resulst for all the application. 
+ * 
+ * @author David A. Velasco
+ */
 public class RemoteOperationResult {
     
-    public enum ResultCode {    // TODO leave alone our own errors
+    public enum ResultCode { 
         OK,
         OK_SSL,
         OK_NO_SSL,
@@ -72,40 +99,26 @@ public class RemoteOperationResult {
         
         if (e instanceof SocketException) {  
             mCode = ResultCode.WRONG_CONNECTION;
-            Log.e(TAG, "Socket exception", e);
         
         } else if (e instanceof SocketTimeoutException) {
             mCode = ResultCode.TIMEOUT;
-            Log.e(TAG, "Socket timeout exception", e);
         
         } else if (e instanceof ConnectTimeoutException) {
             mCode = ResultCode.TIMEOUT;
-            Log.e(TAG, "Connect timeout exception", e);
             
         } else if (e instanceof MalformedURLException) {
             mCode = ResultCode.INCORRECT_ADDRESS;
-            Log.e(TAG, "Malformed URL exception", e);
         
         } else if (e instanceof UnknownHostException) {
             mCode = ResultCode.HOST_NOT_AVAILABLE;
-            Log.e(TAG, "Unknown host exception", e);
         
         } else if (e instanceof SSLException) {
             mCode = ResultCode.SSL_ERROR;
-            Log.e(TAG, "SSL exception", e);
             
         } else {
             mCode = ResultCode.UNKNOWN_ERROR;
-            Log.e(TAG, "Unknown exception", e);
         }
-            
-        /*  }   catch (HttpException e) { // other specific exceptions from org.apache.commons.httpclient
-                Log.e(TAG, "HTTP exception while trying connection", e);
-            }   catch (IOException e) {   // UnkownsServiceException, and any other transport exceptions that could occur
-                Log.e(TAG, "I/O exception while trying connection", e);
-            }   catch (Exception e) {
-                Log.e(TAG, "Unexpected exception while trying connection", e);
-        */
+        
     }
     
     
@@ -147,6 +160,43 @@ public class RemoteOperationResult {
             return result;
         else
             return null;
+    }
+    
+    
+    public String getLogMessage() {
+        
+        if (mException != null) {
+            if (mException instanceof SocketException) {  
+                return "Socket exception";
+        
+            } else if (mException instanceof SocketTimeoutException) {
+                return "Socket timeout exception";
+        
+            } else if (mException instanceof ConnectTimeoutException) {
+                return "Connect timeout exception";
+            
+            } else if (mException instanceof MalformedURLException) {
+                return "Malformed URL exception";
+        
+            } else if (mException instanceof UnknownHostException) {
+                return "Unknown host exception";
+        
+            } else if (mException instanceof SSLException) {
+                return "SSL exception";
+
+            } else if (mException instanceof HttpException) {
+                return "HTTP violation";
+
+            } else if (mException instanceof IOException) {
+                return "Unrecovered transport exception";
+
+            } else {
+                return "Unexpected exception";
+            }
+        }
+        
+        return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess()?"success":"fail") + ")";
+
     }
 
 }

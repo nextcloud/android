@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -151,14 +152,14 @@ public class WebdavClient extends HttpClient {
     /**
      * Creates or update a file in the remote server with the contents of a local file.
      * 
-     * 
      * @param localFile         Path to the local file to upload.
      * @param remoteTarget      Remote path to the file to create or update, URL DECODED
      * @param contentType       MIME type of the file.
-     * @return                  'True' then the upload was successfully completed
+     * @return                  Status HTTP code returned by the server.
+     * @throws IOException      When a transport error that could not be recovered occurred while uploading the file to the server.
+     * @throws HttpException    When a violation of the HTTP protocol occurred. 
      */
-    public boolean putFile(String localFile, String remoteTarget, String contentType) {
-        boolean result = false;
+    public int putFile(String localFile, String remoteTarget, String contentType) throws HttpException, IOException {
         int status = -1;
         PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
         
@@ -169,21 +170,14 @@ public class WebdavClient extends HttpClient {
             put.setRequestEntity(entity);
             status = executeMethod(put);
             
-            result = (status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT);
-            
-            Log.d(TAG, "PUT to " + remoteTarget + " finished with HTTP status " + status + (!result?"(FAIL)":""));
-
             exhaustResponse(put.getResponseBodyAsStream());
-            
-        } catch (Exception e) {
-            logException(e, "uploading " + localFile + " to " + remoteTarget);
             
         } finally {
             put.releaseConnection();    // let the connection available for other methods
         }
-        return result;
+        return status;
     }
-
+    
     /**
      * Tries to log in to the current URI, with the current credentials
      * 
@@ -239,19 +233,16 @@ public class WebdavClient extends HttpClient {
     /**
      * Check if a file exists in the OC server
      * 
-     * @return      'Boolean.TRUE' if the file exists; 'Boolean.FALSE' it doesn't exist; NULL if couldn't be checked
+     * @return              'true' if the file exists; 'false' it doesn't exist
+     * @throws  Exception   When the existence could not be determined
      */
-    public Boolean existsFile(String path) {
+    public boolean existsFile(String path) throws IOException, HttpException {
         HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
             int status = executeMethod(head);
             Log.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
             return (status == HttpStatus.SC_OK);
-            
-        } catch (Exception e) {
-            logException(e, "checking existence of " + path);
-            return null;
             
         } finally {
             head.releaseConnection();    // let the connection available for other methods
@@ -295,7 +286,7 @@ public class WebdavClient extends HttpClient {
      * 
      * @param responseBodyAsStream      InputStream with the HTTP response to exhaust.
      */
-    private static void exhaustResponse(InputStream responseBodyAsStream) {
+    public void exhaustResponse(InputStream responseBodyAsStream) {
         if (responseBodyAsStream != null) {
             try {
                 while (responseBodyAsStream.read(sExhaustBuffer) >= 0);
@@ -341,6 +332,10 @@ public class WebdavClient extends HttpClient {
      */
     public void setBaseUri(Uri uri) {
         mUri = uri;
+    }
+
+    public Uri getBaseUri() {
+        return mUri;
     }
     
 }
