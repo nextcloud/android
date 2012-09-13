@@ -125,15 +125,17 @@ public class SslValidatorDialog extends Dialog {
     
     
     public void updateResult(RemoteOperationResult result) {
-        mException = result.getSslRecoverableException();
-        if (mException != null) {
-            // "clean" view
+        if (result.isSslRecoverableException()) {
+            mException = (CertificateCombinedException) result.getException();
+            
+            /// clean
             ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.GONE);
             ((TextView)mView.findViewById(R.id.subject)).setVisibility(View.GONE);
 
+            /// refresh
             if (mException.getCertPathValidatorException() != null) {
                 ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
             }
@@ -163,6 +165,9 @@ public class SslValidatorDialog extends Dialog {
             text = text.substring(text.indexOf(",") + 1);
             subject.setVisibility(View.VISIBLE);
             subject.setText(text);
+        } else {
+            // this should not happen
+            subject.setText(R.string.ssl_validator_certificate_not_available);
         }
     }
 

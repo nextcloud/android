@@ -89,7 +89,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String IS_SSL_CONN = "IS_SSL_CONN";
     private int mStatusText, mStatusIcon;
     private boolean mStatusCorrect, mIsSslConn;
-    private RemoteOperationResult mLastSslFailedResult;
+    private RemoteOperationResult mLastSslUntrustedServerResult;
 
     public static final String PARAM_USERNAME = "param_Username";
     public static final String PARAM_HOSTNAME = "param_Hostname";
@@ -160,7 +160,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         case DIALOG_SSL_VALIDATOR: {
-            dialog = SslValidatorDialog.newInstance(this, mLastSslFailedResult, this);
+            dialog = SslValidatorDialog.newInstance(this, mLastSslUntrustedServerResult, this);
             break;
         }
         case DIALOG_CERT_NOT_SAVED: {
@@ -189,7 +189,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         case DIALOG_CERT_NOT_SAVED:
             break;
         case DIALOG_SSL_VALIDATOR: {
-            ((SslValidatorDialog)dialog).updateResult(mLastSslFailedResult);
+            ((SslValidatorDialog)dialog).updateResult(mLastSslUntrustedServerResult);
             break;
         }
         default:
@@ -532,15 +532,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 	            mStatusText = R.string.auth_incorrect_address_title;
 	            break;
 	            
-	        case SSL_ERROR:
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                mStatusIcon = R.drawable.common_error;
+                mStatusText = R.string.auth_ssl_unverified_server_title;
+                mLastSslUntrustedServerResult = result;
+                showDialog(DIALOG_SSL_VALIDATOR); 
+                break;
+	            
+            case SSL_ERROR:
                 mStatusIcon = R.drawable.common_error;
                 mStatusText = R.string.auth_ssl_general_error_title;
-                //mStatusText = R.string.auth_ssl_unverified_server_title;
-                mLastSslFailedResult = result;
-                if (mLastSslFailedResult.isSslRecoverableException())
-                    showDialog(DIALOG_SSL_VALIDATOR); 
-	            break;
-	            
+                break;
+                
 	        case HOST_NOT_AVAILABLE:
 	            mStatusIcon = R.drawable.common_error;
 	            mStatusText = R.string.auth_unknown_host_title;
@@ -563,7 +566,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mStatusText = R.string.auth_unknown_error_title;
                 break;
 	        default:
-	            Log.e(TAG, "Incorrect connection checker result type: " + operation);
+	            Log.e(TAG, "Incorrect connection checker result type: " + result.getHttpCode());
 	        }
 	        setResultIconAndText(mStatusIcon, mStatusText);
 	        if (!mStatusCorrect)

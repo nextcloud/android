@@ -83,15 +83,23 @@ public class ConnectionCheckOperation extends RemoteOperation {
 
         } catch (JSONException e) {
             mLatestResult = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
-            //Log.e(TAG, "JSON exception while trying connection (instance not configured) ", e);
             
         } catch (Exception e) {
             mLatestResult = new RemoteOperationResult(e);
-            //Log.e(TAG, "Unexpected exception while trying connection", e);
             
         } finally {
             if (get != null)
                 get.releaseConnection();
+        }
+        
+        if (mLatestResult.isSuccess()) {
+            Log.i(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
+            
+        } else if (mLatestResult.getException() != null) {
+            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage(), mLatestResult.getException());
+            
+        } else {
+            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
         }
 
         return retval;

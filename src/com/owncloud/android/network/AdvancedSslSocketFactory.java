@@ -24,18 +24,17 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocket;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.params.HttpConnectionParams;
@@ -163,16 +162,32 @@ public class AdvancedSslSocketFactory implements ProtocolSocketFactory {
      */
     private void verifyPeerIdentity(String host, int port, Socket socket) throws IOException {
         try {
-            IOException failInHandshake = null;
+            CertificateCombinedException failInHandshake = null;
             /// 1. VERIFY THE SERVER CERTIFICATE through the registered TrustManager (that should be an instance of AdvancedX509TrustManager) 
             try {
                 SSLSocket sock = (SSLSocket) socket;    // a new SSLSession instance is created as a "side effect" 
                 sock.startHandshake();
-            } catch (IOException e) {
-                failInHandshake = e;
-                if (!(e.getCause() instanceof CertificateCombinedException)) {
+                
+            } catch (RuntimeException e) {
+                
+                if (e instanceof CertificateCombinedException) {
+                    failInHandshake = (CertificateCombinedException) e;
+                } else {
+                    Throwable cause = e.getCause();
+                    Throwable previousCause = null;
+                    while (cause != null && cause != previousCause && !(cause instanceof CertificateCombinedException)) {
+                        previousCause = cause;
+                        cause = cause.getCause();
+                    }
+                    if (cause != null && cause instanceof CertificateCombinedException) {
+                        failInHandshake = (CertificateCombinedException)cause;
+                    }
+                }
+                if (failInHandshake == null) {
                     throw e;
                 }
+                failInHandshake.setHostInUrl(host);
+                
             }
             
             /// 2. VERIFY HOSTNAME
@@ -181,7 +196,7 @@ public class AdvancedSslSocketFactory implements ProtocolSocketFactory {
             if (mHostnameVerifier != null) {
                 if (failInHandshake != null) {
                     /// 2.1 : a new SSLSession instance was NOT created in the handshake
-                    X509Certificate serverCert = ((CertificateCombinedException)failInHandshake.getCause()).getServerCertificate();
+                    X509Certificate serverCert = failInHandshake.getServerCertificate();
                     try {
                         mHostnameVerifier.verify(host, serverCert);
                     } catch (SSLException e) {
@@ -190,57 +205,28 @@ public class AdvancedSslSocketFactory implements ProtocolSocketFactory {
                 
                 } else {
                     /// 2.2 : a new SSLSession instance was created in the handshake
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                        /// this is sure ONLY for Android >= 3.0 ; the same is true for mHostnameVerifier.verify(host, (SSLSocket)socket)
-                        newSession = ((SSLSocket)socket).getSession();
-                        if (!mTrustManager.isKnownServer((X509Certificate)(newSession.getPeerCertificates()[0])))
-                            verifiedHostname = mHostnameVerifier.verify(host, newSession); 
-                    
-                    } else {
-                        //// performing the previous verification in Android versions under 2.3.x  (and we don't know the exact value of x) WILL BREAK THE SSL CONTEXT, and any HTTP operation executed later through the socket WILL FAIL ; 
-                        //// it is related with A BUG IN THE OpenSSLSOcketImpl.java IN THE ANDROID CORE SYSTEM; it was fixed here:
-                        ////        http://gitorious.org/ginger/libcore/blobs/df349b3eaf4d1fa0643ab722173bc3bf20a266f5/luni/src/main/java/org/apache/harmony/xnet/provider/jsse/OpenSSLSocketImpl.java
-                        ///  but we could not find out in what Android version was released the bug fix;
-                        ///
-                        /// besides, due to the bug, calling ((SSLSocket)socket).getSession() IS NOT SAFE ; the next workaround is an UGLY BUT SAFE solution to get it
-                        SSLSessionContext sessionContext = mSslContext.getClientSessionContext();
-                        if (sessionContext  != null) {
-                            SSLSession session = null;
-                            synchronized(sessionContext) {  // a SSLSession in the SSLSessionContext can be closed while we are searching for the new one; it happens; really
-                                Enumeration<byte[]> ids = sessionContext.getIds();
-                                while (ids.hasMoreElements()) {
-                                    session = sessionContext.getSession(ids.nextElement());
-                                    if (    session.getPeerHost().equals(host) && 
-                                            session.getPeerPort() == port && 
-                                            (newSession == null || newSession.getCreationTime() < session.getCreationTime())) {
-                                        newSession = session;
-                                    }
-                               }
-                            }
-                            if (newSession != null) {
-                                if (!mTrustManager.isKnownServer((X509Certificate)(newSession.getPeerCertificates()[0]))) {
-                                    verifiedHostname = mHostnameVerifier.verify(host, newSession);
-                                }
-                            } else {
-                                Log.d(TAG, "Hostname verification could not be performed because the new SSLSession was not found");
-                            }
-                        }
+                    newSession = ((SSLSocket)socket).getSession();
+                    if (!mTrustManager.isKnownServer((X509Certificate)(newSession.getPeerCertificates()[0]))) {
+                        verifiedHostname = mHostnameVerifier.verify(host, newSession); 
                     }
                 }
             }
 
             /// 3. Combine the exceptions to throw, if any
-            if (failInHandshake != null) {
-                if (!verifiedHostname) {
-                    ((CertificateCombinedException)failInHandshake.getCause()).setSslPeerUnverifiedException(new SSLPeerUnverifiedException(host));
+            if (!verifiedHostname) {
+                SSLPeerUnverifiedException pue = new SSLPeerUnverifiedException("Names in the server certificate do not match to " + host + " in the URL");
+                if (failInHandshake == null) {
+                    failInHandshake = new CertificateCombinedException((X509Certificate) newSession.getPeerCertificates()[0]);
+                    failInHandshake.setHostInUrl(host);
                 }
-                throw failInHandshake;
-            } else if (!verifiedHostname) {
-                CertificateCombinedException ce = new CertificateCombinedException((X509Certificate) newSession.getPeerCertificates()[0]);
-                SSLPeerUnverifiedException pue = new SSLPeerUnverifiedException(host);
-                ce.setSslPeerUnverifiedException(pue);
-                pue.initCause(ce);
+                failInHandshake.setSslPeerUnverifiedException(pue);
+                pue.initCause(failInHandshake);
                 throw pue;
+                
+            } else if (failInHandshake != null) {
+                SSLHandshakeException hse = new SSLHandshakeException("Server certificate could not be verified");
+                hse.initCause(failInHandshake);
+                throw hse;
             }
             
         } catch (IOException io) {        

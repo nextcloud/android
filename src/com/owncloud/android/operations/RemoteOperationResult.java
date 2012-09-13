@@ -25,12 +25,11 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
-
-import android.util.Log;
 
 import com.owncloud.android.network.CertificateCombinedException;
 
@@ -38,7 +37,7 @@ import com.owncloud.android.network.CertificateCombinedException;
 /**
  * The result of a remote operation required to an ownCloud server.
  * 
- * Provides a common classification of resulst for all the application. 
+ * Provides a common classification of remote operation results for all the application. 
  * 
  * @author David A. Velasco
  */
@@ -58,11 +57,10 @@ public class RemoteOperationResult {
         HOST_NOT_AVAILABLE, 
         NO_NETWORK_CONNECTION, 
         SSL_ERROR,
-        BAD_OC_VERSION, 
+        SSL_RECOVERABLE_PEER_UNVERIFIED,
+        BAD_OC_VERSION 
     }
 
-    private static final String TAG = null;
-    
     private boolean mSuccess = false;
     private int mHttpCode = -1;
     private Exception mException = null;
@@ -112,8 +110,17 @@ public class RemoteOperationResult {
         } else if (e instanceof UnknownHostException) {
             mCode = ResultCode.HOST_NOT_AVAILABLE;
         
-        } else if (e instanceof SSLException) {
-            mCode = ResultCode.SSL_ERROR;
+        } else if (e instanceof SSLException || e instanceof RuntimeException) {
+            CertificateCombinedException se = getCertificateCombinedException(e);
+            if (se != null) {
+                mException = se;
+                if (se.isRecoverable()) { 
+                    mCode = ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED;
+                }
+                
+            } else { 
+                mCode = ResultCode.SSL_ERROR;
+            }
             
         } else {
             mCode = ResultCode.UNKNOWN_ERROR;
@@ -139,27 +146,24 @@ public class RemoteOperationResult {
     }
 
     public boolean isSslRecoverableException() {
-        return (getSslRecoverableException() != null);
+        return mCode == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED;
     }
     
-    public CertificateCombinedException getSslRecoverableException() {
+    private CertificateCombinedException getCertificateCombinedException(Exception e) {
         CertificateCombinedException result = null;
-        if (mCode == ResultCode.SSL_ERROR) {
-            if (mException instanceof CertificateCombinedException)
-                result = (CertificateCombinedException)mException;
-            Throwable cause = mException.getCause();
-            Throwable previousCause = null;
-            while (cause != null && cause != previousCause && !(cause instanceof CertificateCombinedException)) {
-                previousCause = cause;
-                cause = cause.getCause();
-            }
-            if (cause != null && cause instanceof CertificateCombinedException)
-                result = (CertificateCombinedException)cause; 
+        if (e instanceof CertificateCombinedException) {
+            return (CertificateCombinedException)e;
         }
-        if (result != null && result.isRecoverable())
-            return result;
-        else
-            return null;
+        Throwable cause = mException.getCause();
+        Throwable previousCause = null;
+        while (cause != null && cause != previousCause && !(cause instanceof CertificateCombinedException)) {
+            previousCause = cause;
+            cause = cause.getCause();
+        }
+        if (cause != null && cause instanceof CertificateCombinedException) {
+            result = (CertificateCombinedException)cause; 
+        }
+        return result;
     }
     
     
@@ -182,7 +186,10 @@ public class RemoteOperationResult {
                 return "Unknown host exception";
         
             } else if (mException instanceof SSLException) {
-                return "SSL exception";
+                if (mCode == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)
+                    return "SSL recoverable exception";
+                else
+                    return "SSL exception";
 
             } else if (mException instanceof HttpException) {
                 return "HTTP violation";
@@ -193,6 +200,16 @@ public class RemoteOperationResult {
             } else {
                 return "Unexpected exception";
             }
+        }
+        
+        if (mCode == ResultCode.INSTANCE_NOT_CONFIGURED) {
+            return "The ownCloud server is not configured!";
+            
+        } else if (mCode == ResultCode.NO_NETWORK_CONNECTION) {
+            return "No network connection";
+            
+        } else if (mCode == ResultCode.BAD_OC_VERSION) {
+            return "No valid ownCloud version was found at the server";
         }
         
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess()?"success":"fail") + ")";
