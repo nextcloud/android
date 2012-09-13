@@ -73,6 +73,11 @@ public class ConnectionCheckOperation extends RemoteOperation {
                         mLatestResult = new RemoteOperationResult(RemoteOperationResult.ResultCode.BAD_OC_VERSION);
                         
                     } else {
+                        mLatestResult = new RemoteOperationResult(urlSt.startsWith("https://") ? 
+                                                                    RemoteOperationResult.ResultCode.OK_SSL : 
+                                                                    RemoteOperationResult.ResultCode.OK_NO_SSL
+                            );
+
                         retval = true;
                     }
                 }
@@ -118,27 +123,18 @@ public class ConnectionCheckOperation extends RemoteOperation {
         	return new RemoteOperationResult(RemoteOperationResult.ResultCode.NO_NETWORK_CONNECTION);
         }
         if (mUrl.startsWith("http://") || mUrl.startsWith("https://")) {
-            mLatestResult = new RemoteOperationResult(
-                                mUrl.startsWith("https://") ? RemoteOperationResult.ResultCode.OK_SSL : RemoteOperationResult.ResultCode.OK_NO_SSL
-                            );
             tryConnection(client, mUrl + AccountUtils.STATUS_PATH);
-            return mLatestResult;
             
         } else {
             client.setBaseUri(Uri.parse("https://" + mUrl + AccountUtils.STATUS_PATH));
-            if (tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH)) {
-                return new RemoteOperationResult(RemoteOperationResult.ResultCode.OK_SSL);
-        			
-            } else if (!mLatestResult.isSslRecoverableException()) {
-                
+            boolean httpsSuccess = tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH); 
+            if (!httpsSuccess && !mLatestResult.isSslRecoverableException()) {
                 Log.d(TAG, "establishing secure connection failed, trying non secure connection");
                 client.setBaseUri(Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH));
-                if (tryConnection(client, "http://" + mUrl + AccountUtils.STATUS_PATH)) {
-                    return new RemoteOperationResult(RemoteOperationResult.ResultCode.OK_NO_SSL);
-                }
+                tryConnection(client, "http://" + mUrl + AccountUtils.STATUS_PATH);
             }
-            return mLatestResult;
         }
+        return mLatestResult;
 	}
 	
 }
