@@ -117,7 +117,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         Log.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
         
-        Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
+        //Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
         /// saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
