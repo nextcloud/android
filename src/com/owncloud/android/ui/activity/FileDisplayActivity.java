@@ -141,9 +141,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
 
         // file observer
-        Intent observer_intent = new Intent(this, FileObserverService.class);
+        /*Intent observer_intent = new Intent(this, FileObserverService.class);
         observer_intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_INIT_OBSERVED_LIST);
         startService(observer_intent);
+        */
             
         /// USER INTERFACE
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);

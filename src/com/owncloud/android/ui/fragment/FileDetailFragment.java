@@ -267,6 +267,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 } else {
                     mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
                 }
+                /*
                 Intent intent = new Intent(getActivity().getApplicationContext(),
                                            FileObserverService.class);
                 intent.putExtra(FileObserverService.KEY_FILE_CMD,
@@ -275,6 +276,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
                 intent.putExtra(FileObserverService.KEY_CMD_ARG, mFile.getStoragePath());
                 getActivity().startService(intent);
+                */
                 break;
             }
             case R.id.fdRenameBtn: {
