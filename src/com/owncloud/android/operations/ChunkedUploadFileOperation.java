@@ -28,6 +28,8 @@ import java.util.Random;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
+import android.util.Log;
+
 import eu.alefzero.webdav.ChunkFromFileChannelRequestEntity;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
@@ -37,6 +39,7 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
     
     private static final long CHUNK_SIZE = 102400;
     private static final String OC_CHUNKED_HEADER = "OC-Chunked";
+    private static final String TAG = ChunkedUploadFileOperation.class.getSimpleName();
 
     public ChunkedUploadFileOperation(  String localPath, 
                                         String remotePath, 
@@ -62,15 +65,16 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
             ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE);
             entity.setOnDatatransferProgressListener(getDataTransferListener());
             long offset = 0;
-            String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt()) + "-" ;
+            String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);
             for (int chunkIndex = 0; chunkIndex < chunkCount ; chunkIndex++, offset += CHUNK_SIZE) {
-                put = new PutMethod(uriPrefix + chunkIndex + "-" + chunkCount);
+                put = new PutMethod(uriPrefix + chunkCount + "-" + chunkIndex);
                 put.addRequestHeader(OC_CHUNKED_HEADER, OC_CHUNKED_HEADER);
                 entity.setOffset(offset);
                 put.setRequestEntity(entity);
                 status = client.executeMethod(put);
                 client.exhaustResponse(put.getResponseBodyAsStream());
+                Log.d(TAG, "Upload of " + getLocalPath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
                 if (!isSuccess(status))
                     break;
             }

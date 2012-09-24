@@ -103,8 +103,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * @return          'True' if the ownCloud server with version supports chunked uploads.
      */
     private static boolean chunkedUploadIsSupported(OwnCloudVersion version) {
-        //return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);    // TODO uncomment when feature is full in server
-        return false;   
+        return (version != null && version.compareTo(OwnCloudVersion.owncloud_v4_5) >= 0);    // TODO uncomment when feature is full in server
+        //return false;   
     }
 
     

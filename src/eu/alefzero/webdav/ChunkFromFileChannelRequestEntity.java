@@ -89,9 +89,8 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
         int readCount = 0;
         
        try {
-            //while ((i = instream.read(tmp)) >= 0) {
             mChannel.position(mOffset);
-            while (mChannel.position() < mOffset + mSize) {
+            while (mChannel.position() < mOffset + mSize && mChannel.position() < mChannel.size()) {
                 readCount = mChannel.read(mBuffer);
                 out.write(mBuffer.array(), 0, readCount);
                 mBuffer.clear();
