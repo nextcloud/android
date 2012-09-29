@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>owncloud-android</name>
+	<name>owncloud-android-tests</name>
 	<comment></comment>
 	<projects>
+		<project>owncloud-android</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
