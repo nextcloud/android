@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2011-2012  Bartek Przybylski
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -17,11 +17,6 @@
  */
 package com.owncloud.android.db;
 
-import java.util.Vector;
-
-import com.owncloud.android.OwnCloudSession;
-
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -38,7 +33,6 @@ public class DbHandler {
     private SQLiteDatabase mDB;
     private OpenerHepler mHelper;
     private final String mDatabaseName = "ownCloud";
-    private final String TABLE_SESSIONS = "sessions";
     private final int mDatabaseVersion = 1;
     
     private final String TABLE_INSTANT_UPLOAD = "instant_upload";

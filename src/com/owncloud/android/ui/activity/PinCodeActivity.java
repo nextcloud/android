@@ -27,24 +27,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 
 public class PinCodeActivity extends SherlockFragmentActivity {
 
@@ -238,8 +232,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // TODO Auto-generated method stub
-
                 if (keyCode == KeyEvent.KEYCODE_DEL && bChange) {
 
                     mText1.setText("");
@@ -260,8 +252,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Auto-generated method stub
-                
                 mText2.setCursorVisible(true);
                 if (mText1.getText().toString().equals("")){
                     mText2.setSelected(false);
@@ -305,8 +295,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // TODO Auto-generated method stub
-
                 if (keyCode == KeyEvent.KEYCODE_DEL && bChange) {
                     mText2.requestFocus();
                     if (!confirmingPinCode)
@@ -326,7 +314,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Auto-generated method stub
                 mText3.setCursorVisible(true);
                 if (mText1.getText().toString().equals("")){
                     mText3.setSelected(false);
@@ -411,8 +398,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // TODO Auto-generated method stub
-
                 if (keyCode == KeyEvent.KEYCODE_DEL && bChange) {
                     mText3.requestFocus();
                     if (!confirmingPinCode)
@@ -431,8 +416,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                // TODO Auto-generated method stub
-                
                 mText4.setCursorVisible(true);
                 
                 if (mText1.getText().toString().equals("")){
@@ -503,7 +486,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // TODO Auto-generated method stub("");
                    return; 
                 }
                 
@@ -549,7 +531,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // TODO Auto-generated method stub("");
                    return; 
                 }
                 
@@ -583,7 +564,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub("");
                 finish();
                 return; 
             }

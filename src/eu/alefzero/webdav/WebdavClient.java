@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -102,12 +101,12 @@ public class WebdavClient extends HttpClient {
                         mDataTransferListener.transferProgress(readResult);
                     fos.write(bytes, 0, readResult);
                 }
+                fos.close();
                 ret = true;
             } else {
                 exhaustResponse(get.getResponseBodyAsStream());
             }
             Log.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
-            
         } catch (Exception e) {
             logException(e, "dowloading " + remoteFilePath);
             

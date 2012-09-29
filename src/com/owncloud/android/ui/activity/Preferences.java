@@ -19,8 +19,6 @@ package com.owncloud.android.ui.activity;
 
 import java.util.Vector;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,9 +34,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.OwnCloudSession;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.DbHandler;
 
 import com.owncloud.android.R;

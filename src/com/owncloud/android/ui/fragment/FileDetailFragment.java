@@ -35,7 +35,6 @@ import org.apache.http.protocol.HTTP;
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.accounts.Account;
@@ -79,7 +78,6 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.ui.activity.FileDetailActivity;
@@ -649,6 +647,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
 
     // this is a temporary class for sharing purposes, it need to be replaced in transfer service
+    @SuppressWarnings("unused")
     private class ShareRunnable implements Runnable {
         private String mPath;
 
@@ -741,17 +740,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
                     Log.d("Actions:shareFile ok", "url: " + uri);   
                     
-                } catch (HttpException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 

@@ -21,7 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
@@ -40,7 +39,6 @@ import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -65,10 +63,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.syncadapter.FileSyncService;
@@ -637,13 +632,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private class DirectoryCreator implements Runnable {
         private String mTargetPath;
         private Account mAccount;
-        private AccountManager mAm;
         private Handler mHandler; 
     
         public DirectoryCreator(String targetPath, Account account, Handler handler) {
             mTargetPath = targetPath;
             mAccount = account;
-            mAm = (AccountManager) getSystemService(ACCOUNT_SERVICE);
             mHandler = handler;
         }
     

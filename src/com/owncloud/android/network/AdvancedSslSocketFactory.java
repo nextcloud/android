@@ -25,7 +25,6 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.security.cert.X509Certificate;
-import java.util.Enumeration;
 
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
@@ -33,7 +32,6 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocket;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;

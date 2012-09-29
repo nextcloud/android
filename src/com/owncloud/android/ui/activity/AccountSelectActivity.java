@@ -19,9 +19,7 @@ import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -40,6 +38,8 @@ import com.owncloud.android.R;
 public class AccountSelectActivity extends SherlockListActivity implements
         AccountManagerCallback<Boolean> {
 
+    private static final String  TAG = "AccountSelectActivity";
+    
     private static final String PREVIOUS_ACCOUNT_KEY = "ACCOUNT";
     
     private final Handler mHandler = new Handler();
@@ -124,13 +124,20 @@ public class AccountSelectActivity extends SherlockListActivity implements
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
                 .getMenuInfo();
         int index = info.position;
-        HashMap<String, String> map = (HashMap<String, String>) getListAdapter()
-                .getItem(index);
+        HashMap<String, String> map = null;
+        try {
+            map = (HashMap<String, String>) getListAdapter().getItem(index);
+        } catch (ClassCastException e) {
+            Log.wtf(TAG, "getitem(index) from list adapter did not return hashmap, bailing out");
+            return false;
+        }
+        
         String accountName = map.get("NAME");
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am

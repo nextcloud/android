@@ -2,7 +2,6 @@ package com.owncloud.android.extensions;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Vector;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -14,7 +13,6 @@ import com.owncloud.android.utils.OwnCloudVersion;
 
 
 import android.R;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -115,20 +113,25 @@ public class ExtensionsListActivity extends ListActivity {
             return mDescription;
         }
 
+        @SuppressWarnings("unused")
         public String getIcon() {
             return mIcon;
         }
 
+        @SuppressWarnings("unused")
         public String getDownload() {
             return mDownload;
         }
 
+        @SuppressWarnings("unused")
         public String getPlayId() {
             return mPlayId;
         }
 
+        @SuppressWarnings("unused")
         public OwnCloudVersion getVersion() {
             return mVersion;
         }
     }
+    
 }

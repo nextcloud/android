@@ -3,14 +3,11 @@ package com.owncloud.android.syncadapter;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.db.ProviderMeta;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -24,7 +21,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 
 public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private String mAddrBookUri;
@@ -53,7 +49,7 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     byte[] b = new byte[f.available()];
                     f.read(b);
                     query.setEntity(new ByteArrayEntity(b));
-                    HttpResponse response = fireRawRequest(query);
+                    fireRawRequest(query);
                 } catch (IOException e) {
                     e.printStackTrace();
                     return;
