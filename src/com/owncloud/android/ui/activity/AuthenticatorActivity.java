@@ -240,8 +240,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     AccountAuthenticator.ACCOUNT_TYPE);
             intent.putExtra(AccountManager.KEY_USERDATA, username);
 
-            accManager.setUserData(account, AccountAuthenticator.KEY_OC_URL,
-                    url.toString());
             accManager.setUserData(account,
                     AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable
                             .getDiscoveredVersion().toString());

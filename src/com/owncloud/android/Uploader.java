@@ -132,6 +132,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             builder.setMessage(R.string.uploader_wrn_no_account_text);
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
@@ -154,6 +155,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                 }
             });
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
@@ -188,6 +190,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[which];
                     mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
@@ -196,6 +199,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             });
             builder.setCancelable(true);
             builder.setOnCancelListener(new OnCancelListener() {
+                @Override
                 public void onCancel(DialogInterface dialog) {
                     dialog.cancel();
                     finish();
@@ -208,6 +212,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             builder.setMessage(R.string.uploader_wrn_no_content_text);
             builder.setCancelable(false);
             builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
@@ -227,6 +232,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             mDirname = dirname;
         }
 
+        @Override
         public void onClick(DialogInterface dialog, int which) {
             Uploader.this.mUploadPath = mPath + mDirname.getText().toString();
             Uploader.this.mCreateDir = true;
@@ -246,6 +252,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         }
     }
 
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log.d(TAG, "on item click");
@@ -263,6 +270,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         populateDirectoryList();
     }
 
+    @Override
     public void onClick(View v) {
         // click on button
         switch (v.getId()) {

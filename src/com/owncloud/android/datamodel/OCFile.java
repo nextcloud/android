@@ -355,6 +355,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return getRemotePath().toLowerCase().compareTo(another.getRemotePath().toLowerCase());
     }
 
+    @Override
     public boolean equals(Object o) {
         if(o instanceof OCFile){
             OCFile that = (OCFile) o;

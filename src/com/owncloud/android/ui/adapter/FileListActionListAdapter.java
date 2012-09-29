@@ -20,9 +20,9 @@ package com.owncloud.android.ui.adapter;
 
 import java.io.File;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
@@ -63,17 +63,14 @@ public class FileListActionListAdapter implements ListAdapter {
     }
 
     public boolean areAllItemsEnabled() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     public boolean isEnabled(int position) {
-        // TODO Auto-generated method stub
         return true;
     }
 
     public int getCount() {
-        // TODO Auto-generated method stub
         return 1;
     }
 
@@ -85,7 +82,7 @@ public class FileListActionListAdapter implements ListAdapter {
                 AccountManager accm = (AccountManager) mContext
                         .getSystemService(Context.ACCOUNT_SERVICE);
                 String ocurl = accm.getUserData(mAccount,
-                        AccountAuthenticator.KEY_OC_URL);
+                        AccountUtils.constructFullURLForAccount(mContext, mAccount));
                 ocurl += WebdavUtils.encodePath(mFilePath + mFilename);
                 intent.setData(Uri.parse(ocurl));
             } else {
@@ -99,12 +96,10 @@ public class FileListActionListAdapter implements ListAdapter {
     }
 
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     public int getItemViewType(int position) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -135,29 +130,20 @@ public class FileListActionListAdapter implements ListAdapter {
     }
 
     public int getViewTypeCount() {
-        // TODO Auto-generated method stub
         return 2;
     }
 
     public boolean hasStableIds() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
         return false;
     }
 
-    public void registerDataSetObserver(DataSetObserver observer) {
-        // TODO Auto-generated method stub
+    public void registerDataSetObserver(DataSetObserver observer) { }
 
-    }
-
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        // TODO Auto-generated method stub
-
-    }
+    public void unregisterDataSetObserver(DataSetObserver observer) { }
 
     private void setActionName(TextView tv) {
         if (mFileType.matches("image/.*")) {

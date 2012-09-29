@@ -107,5 +107,27 @@ public class AccountUtils {
         }
         return null;
     }
+    
+    /**
+     * Constructs full url to host and webdav resource basing on host version
+     * @param context
+     * @param account
+     * @return url or null on failure
+     */
+    public static String constructFullURLForAccount(Context context, Account account) {
+        try {
+            AccountManager ama = AccountManager.get(context);
+            String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
+            String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
+            OwnCloudVersion ver = new OwnCloudVersion(strver);
+            String webdavpath = getWebdavPath(ver);
+
+            if (webdavpath == null) return null;
+            return baseurl + webdavpath;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

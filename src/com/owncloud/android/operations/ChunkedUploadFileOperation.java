@@ -58,9 +58,11 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
         PutMethod put = null;
         FileChannel channel = null;
         FileLock lock = null;
+        RandomAccessFile raf = null;
         try {
             File file = new File(getLocalPath());
-            channel = new RandomAccessFile(file, "rw").getChannel();
+            raf = new RandomAccessFile(file, "rw");
+            channel = raf.getChannel();
             lock = channel.tryLock();
             ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE);
             entity.setOnDatatransferProgressListener(getDataTransferListener());
@@ -84,6 +86,8 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                 lock.release();
             if (channel != null)
                 channel.close();
+            if (raf != null)
+                raf.close();
             if (put != null)
                 put.releaseConnection();    // let the connection available for other methods
         }

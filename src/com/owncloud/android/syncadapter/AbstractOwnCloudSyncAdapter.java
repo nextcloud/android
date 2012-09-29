@@ -28,7 +28,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.protocol.HttpContext;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
 
@@ -144,15 +144,13 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     }
 
     protected Uri getUri() {
-        return Uri.parse(this.getAccountManager().getUserData(getAccount(),
-                AccountAuthenticator.KEY_OC_URL));
+        return Uri.parse(AccountUtils.constructFullURLForAccount(getContext(), getAccount()));
     }
 
     protected WebdavClient getClient() throws /*OperationCanceledException,
             AuthenticatorException,*/ IOException {
         if (mClient == null) {
-            if (this.getAccountManager().getUserData(getAccount(),
-                    AccountAuthenticator.KEY_OC_URL) == null) {
+            if (AccountUtils.constructFullURLForAccount(getContext(), getAccount()) == null) {
                 throw new UnknownHostException();
             }
             mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());

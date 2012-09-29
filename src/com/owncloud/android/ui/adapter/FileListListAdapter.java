@@ -31,11 +31,9 @@ import com.owncloud.android.R;
 import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -71,7 +69,6 @@ public class FileListListAdapter implements ListAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        // TODO Auto-generated method stub
         return true;
     }
 
@@ -94,7 +91,6 @@ public class FileListListAdapter implements ListAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -190,13 +186,9 @@ public class FileListListAdapter implements ListAdapter {
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void unregisterDataSetObserver(DataSetObserver observer) {
-        // TODO Auto-generated method stub
-
     }
 }
