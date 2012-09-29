@@ -61,7 +61,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.CrashHandler;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -116,8 +115,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
-        
-        //Thread.setDefaultUncaughtExceptionHandler(new CrashHandler(getApplicationContext()));
 
         /// saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
