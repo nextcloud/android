@@ -1,15 +1,12 @@
 package com.owncloud.android.test;
 
-import org.junit.Test;
+import android.test.AndroidTestCase;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
-import junit.framework.TestCase;
-
-public class AccountUtilsTest extends TestCase {
+public class AccountUtilsTest extends AndroidTestCase {
     
-    @Test
     public void testGetWebdavPath() {
         OwnCloudVersion ocv12 = new OwnCloudVersion(0x010200);
         OwnCloudVersion ocv22 = new OwnCloudVersion(0x020200);
