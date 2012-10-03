@@ -44,7 +44,7 @@
     <string name="auth_host_url">ownCloud URL</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
-    <string name="auth_register">I am new at ownCloud</string>
+    <string name="auth_register">I am new to ownCloud</string>
     <string name="new_session_uri_error">Wrong URL given</string>
     <string name="new_session_session_name_error">Wrong session name</string>
     <string name="sync_string_files">Files</string>
