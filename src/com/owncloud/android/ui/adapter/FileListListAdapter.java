@@ -30,10 +30,10 @@ import com.owncloud.android.R;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -46,7 +46,7 @@ import android.widget.TextView;
  * @author Bartek Przybylski
  * 
  */
-public class FileListListAdapter implements ListAdapter {
+public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile;
     private Vector<OCFile> mFiles;
@@ -79,7 +79,7 @@ public class FileListListAdapter implements ListAdapter {
 
     @Override
     public Object getItem(int position) {
-        if (mFiles.size() <= position)
+        if (mFiles == null || mFiles.size() <= position)
             return null;
         return mFiles.get(position);
     }
@@ -102,7 +102,7 @@ public class FileListListAdapter implements ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_layout, null);
         }
-        if (mFiles.size() > position) {
+        if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
             String name = file.getFileName();
@@ -184,11 +184,14 @@ public class FileListListAdapter implements ListAdapter {
         return mFiles != null ? mFiles.isEmpty() : false;
     }
 
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
+    /**
+     * Change the adapted directory for a new one
+     * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
+     */
+    public void swapDirectory(OCFile directory) {
+        mFile = directory;
+        mFiles = mStorageManager.getDirectoryContent(mFile);
+        notifyDataSetChanged();
     }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-    }
+    
 }

@@ -20,15 +20,11 @@ package com.owncloud.android.ui.adapter;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +46,6 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-    private Set<DataSetObserver> mObservers = new HashSet<DataSetObserver>();
 
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
@@ -159,23 +154,13 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
         return (mFiles == null || mFiles.length == 0);
     }
 
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
-        mObservers.add(observer);
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        mObservers.remove(observer);
-    }
-
     /**
      * Change the adapted directory for a new one
-     * @param directory     New file to adapt. 
+     * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
      */
     public void swapDirectory(File directory) {
         mDirectory = directory;
-        mFiles = mDirectory.listFiles();
+        mFiles = (mDirectory != null ? mDirectory.listFiles() : null);
         if (mFiles != null) {
             Arrays.sort(mFiles, new Comparator<File>() {
                 @Override
@@ -194,9 +179,6 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             
             });
         }
-        Iterator<DataSetObserver> it = mObservers.iterator();
-        while (it.hasNext()) {
-            it.next().onChanged();
-        }
+        notifyDataSetChanged();
     }
 }

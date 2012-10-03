@@ -74,17 +74,13 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onCreateView() start");
+        Log.i(TAG, "onCreateView() start");
         super.onCreateView(inflater, container, savedInstanceState);
         getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         getListView().setDividerHeight(1);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         
-        if (savedInstanceState != null) {
-            // TODO recover previous state; or maybe in onActivityCreated
-        }
-        
-        Log.i(getClass().toString(), "onCreateView() end");
+        Log.i(TAG, "onCreateView() end");
         return getListView();
     }    
 
@@ -94,11 +90,29 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onActivityCreated() start");
+        Log.i(TAG, "onActivityCreated() start");
         
         super.onCreate(savedInstanceState);
+        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
+        setListAdapter(mAdapter);
         
-        Log.i(getClass().toString(), "onActivityCreated() stop");
+        if (savedInstanceState != null) {
+            Log.i(TAG, "savedInstanceState is not null");
+            int position = savedInstanceState.getInt("LIST_POSITION");
+            getListView().setSelectionFromTop(position, 0);
+        }
+        
+        Log.i(TAG, "onActivityCreated() stop");
+    }
+    
+    
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.i(TAG, "onSaveInstanceState() start");
+        
+        savedInstanceState.putInt("LIST_POSITION", getListView().getFirstVisiblePosition());
+        
+        Log.i(TAG, "onSaveInstanceState() stop");
     }
     
     
@@ -182,7 +196,7 @@ public class LocalFileListFragment extends FragmentListView {
                 directory = mDirectory;
             } else {
                 directory = Environment.getExternalStorageDirectory();  // TODO be careful with the state of the storage; could not be available
-                if (directory == null) return; // no files, wait for sync
+                if (directory == null) return; // no files to show
             }
         }
         
@@ -194,14 +208,9 @@ public class LocalFileListFragment extends FragmentListView {
         }
 
         mDirectory = directory;
-        if (mAdapter == null) {
-            mAdapter = new LocalFileListAdapter(mDirectory, getActivity());
-            setListAdapter(mAdapter);
-        } else {
-            mList.clearChoices();   // by now, only files in the same directory will be kept as selected
-            mAdapter.swapDirectory(mDirectory);
-        }
-        
+        mList.clearChoices();   // by now, only files in the same directory will be kept as selected
+        mAdapter.swapDirectory(mDirectory);
+        mList.setSelectionFromTop(0, 0);
     }
     
 
@@ -244,6 +253,14 @@ public class LocalFileListFragment extends FragmentListView {
          * @param file
          */
         public void onFileClick(File file);
+        
+        
+        /**
+         * Callback method invoked when the parent activity is fully created to get the directory to list firstly.
+         * 
+         * @return  Directory to list firstly. Can be NULL.
+         */
+        public File getInitialDirectory();
 
     }
 

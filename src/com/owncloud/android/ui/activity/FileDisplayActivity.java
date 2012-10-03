@@ -421,7 +421,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
             // List current directory
-            mFileList.listDirectory(mCurrentDir);
+            //mFileList.listDirectory(mCurrentDir);
             
         } else {
             
@@ -850,6 +850,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
             startActivity(showDetailsIntent);
         }
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public OCFile getInitialDirectory() {
+        return mCurrentDir;
     }
     
     

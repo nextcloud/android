@@ -55,32 +55,53 @@ public class OCFileListFragment extends FragmentListView {
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement FileListFragment.ContainerActivity");
+            throw new ClassCastException(activity.toString() + " must implement " + OCFileListFragment.ContainerActivity.class.getCanonicalName());
         }
     }
     
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onCreateView() start");
+        Log.i(TAG, "onCreateView() start");
         super.onCreateView(inflater, container, savedInstanceState);
         getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         getListView().setDividerHeight(1);
         
-        Log.i(getClass().toString(), "onCreateView() end");
+        Log.i(TAG, "onCreateView() end");
         return getListView();
     }    
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(getClass().toString(), "onActivityCreated() start");
+        Log.i(TAG, "onActivityCreated() start");
         
         super.onCreate(savedInstanceState);
+        mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity());
+        setListAdapter(mAdapter);
+        
+        if (savedInstanceState != null) {
+            Log.i(TAG, "savedInstanceState is not null");
+            int position = savedInstanceState.getInt("LIST_POSITION");
+            getListView().setSelectionFromTop(position, 0);
+        }
         //mAdapter = new FileListListAdapter();
         
-        Log.i(getClass().toString(), "onActivityCreated() stop");
+        Log.i(TAG, "onActivityCreated() stop");
+    }
+    
+    
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.i(TAG, "onSaveInstanceState() start");
+        
+        savedInstanceState.putInt("LIST_POSITION", getListView().getFirstVisiblePosition());
+        
+        Log.i(TAG, "onSaveInstanceState() stop");
     }
     
     
@@ -144,7 +165,6 @@ public class OCFileListFragment extends FragmentListView {
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory) {
-        
         DataStorageManager storageManager = mContainerActivity.getStorageManager();
 
         // Check input parameters for null
@@ -165,9 +185,8 @@ public class OCFileListFragment extends FragmentListView {
         }
 
         mFile = directory;
-        
-        mAdapter = new FileListListAdapter(directory, storageManager, getActivity());
-        setListAdapter(mAdapter);
+        mAdapter.swapDirectory(mFile);
+        mList.setSelectionFromTop(0, 0);
     }
     
     
@@ -197,6 +216,15 @@ public class OCFileListFragment extends FragmentListView {
          * Getter for the current DataStorageManager in the container activity
          */
         public DataStorageManager getStorageManager();
+        
+        
+        /**
+         * Callback method invoked when the parent activity is fully created to get the directory to list firstly.
+         * 
+         * @return  Directory to list firstly. Can be NULL.
+         */
+        public OCFile getInitialDirectory();
+        
         
     }
 

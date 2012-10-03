@@ -88,6 +88,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         setContentView(R.layout.upload_files_layout);
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
+        
         // Set input controllers
         mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
@@ -164,17 +165,6 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         Log.d(TAG, "onSaveInstanceState() end");
     }
 
-    @Override
-    protected void onResume() {
-        Log.d(TAG, "onResume() start");
-        super.onResume();
-
-        // List current directory
-        mFileListFragment.listDirectory(mCurrentDir);
-            
-        Log.d(TAG, "onResume() end");
-    }
-
     
     /**
      * Pushes a directory to the drop down list
@@ -243,6 +233,14 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     @Override
     public void onFileClick(File file) {
         // nothing to do
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getInitialDirectory() {
+        return mCurrentDir;
     }
 
 
