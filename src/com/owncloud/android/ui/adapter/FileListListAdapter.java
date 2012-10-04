@@ -48,18 +48,19 @@ import android.widget.TextView;
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
-    private OCFile mFile;
-    private Vector<OCFile> mFiles;
+    private OCFile mFile = null;
+    private Vector<OCFile> mFiles = null;
     private DataStorageManager mStorageManager;
     private Account mAccount;
 
     public FileListListAdapter(OCFile file, DataStorageManager storage_man,
             Context context) {
-        mFile = file;
         mStorageManager = storage_man;
-        mFiles = mStorageManager.getDirectoryContent(mFile);
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        swapDirectory(file);
+        /*mFile = file;
+        mFiles = mStorageManager.getDirectoryContent(mFile);*/
     }
 
     @Override
@@ -86,7 +87,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int position) {
-        return mFiles != null ? mFiles.get(position).getFileId() : 0;
+        if (mFiles == null || mFiles.size() <= position)
+            return 0;
+        return mFiles.get(position).getFileId();
     }
 
     @Override
@@ -171,7 +174,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 4;
+        return 1;
     }
 
     @Override
@@ -181,7 +184,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public boolean isEmpty() {
-        return mFiles != null ? mFiles.isEmpty() : false;
+        return (mFiles == null || mFiles.isEmpty());
     }
 
     /**
@@ -190,7 +193,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      */
     public void swapDirectory(OCFile directory) {
         mFile = directory;
-        mFiles = mStorageManager.getDirectoryContent(mFile);
+        if (mStorageManager != null) {
+            mFiles = mStorageManager.getDirectoryContent(mFile);
+        } else {
+            mFiles = null;
+        }
         notifyDataSetChanged();
     }
     
