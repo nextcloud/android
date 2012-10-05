@@ -1,2 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_password">Пароль:</string>
+  <string name="main_files">Файли</string>
+  <string name="main_calendar">Календар</string>
+  <string name="main_bookmarks">Закладки</string>
+  <string name="main_settings">Налаштування</string>
+  <string name="actionbar_settings">Налаштування</string>
+  <string name="auth_password">Пароль</string>
+  <string name="sync_string_files">Файли</string>
+  <string name="setup_hint_password">Пароль</string>
+  <string name="filedetails_size">Розмір:</string>
+  <string name="filedetails_modified">Змінено:</string>
+  <string name="filedetails_download">Завантажити</string>
+  <string name="common_yes">Так</string>
+  <string name="common_no">Ні</string>
+  <string name="common_cancel">Відмінити</string>
+</resources>
