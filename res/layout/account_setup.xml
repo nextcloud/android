@@ -113,7 +113,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:singleLine="true"
-                android:hint="@string/auth_username" />
+                android:hint="@string/auth_username"
+                android:inputType="textNoSuggestions" />
 
             <FrameLayout
                 android:layout_width="match_parent"
