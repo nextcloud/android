@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="hello">Olá Mundo, OwnCloudMainScreen!</string>
+  <string name="app_name">owncloud</string>
+  <string name="main_password">Palavra-passe:</string>
+  <string name="main_login">Nome de Utilizador:</string>
+  <string name="main_button_login">Login</string>
+  <string name="main_welcome">Bem-vindo à sua ownCloud</string>
+  <string name="main_files">Ficheiros</string>
+  <string name="main_music">Musica</string>
+  <string name="main_contacts">Contactos</string>
+  <string name="main_calendar">Calendário</string>
+  <string name="main_bookmarks">Marcadores</string>
+  <string name="main_settings">Definições</string>
+  <string name="main_tit_accsetup">Configurar conta</string>
+  <string name="actionbar_sync">Actualizar</string>
+  <string name="actionbar_upload">Enviar</string>
+  <string name="actionbar_mkdir">Criar pasta</string>
+  <string name="actionbar_search">Procurar</string>
+  <string name="actionbar_settings">Definições</string>
+  <string name="prefs_category_general">Geral</string>
+  <string name="prefs_add_session">Acrescentar nova sessão</string>
+  <string name="prefs_create_img_thumbnails">Criar miniaturas de imagens</string>
+  <string name="prefs_select_oc_account">Escolha uma conta</string>
+  <string name="prefs_summary_select_oc_account">Escolha qual das suas contas deve ser usada pela app.</string>
+  <string name="prefs_trackmydevice_interval">Intervalo de actualização</string>
+  <string name="prefs_accounts">Contas</string>
+  <string name="auth_host_url">URL ownCloud</string>
+  <string name="auth_username">Nome de Utilizador</string>
+  <string name="auth_password">Palavra-passe</string>
+  <string name="sync_string_files">Ficheiros</string>
+  <string name="setup_hint_address">Endereço web</string>
+  <string name="setup_hint_show_password">Mostrar palavra-passe?</string>
+  <string name="setup_title">Ligar à sua ownCloud</string>
+  <string name="setup_btn_connect">Ligar</string>
+  <string name="uploader_btn_upload_text">Enviar</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
+</resources>
