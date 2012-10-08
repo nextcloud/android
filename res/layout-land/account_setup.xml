@@ -64,8 +64,8 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/auth_host_url"
-                        android:singleLine="true" >
-
+                        android:singleLine="true"
+                        android:inputType="textNoSuggestions">
                         <requestFocus />
                     </EditText>
 
