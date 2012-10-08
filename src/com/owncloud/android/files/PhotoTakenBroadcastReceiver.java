@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images.Media;
 import android.util.Log;
@@ -45,10 +46,13 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
     
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false)) {
+        boolean iu_enabled = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
+
+        if (!iu_enabled) {
             Log.d(TAG, "Instant upload disabled, abording uploading");
             return;
         }
+        
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
@@ -71,6 +75,17 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
             Log.e(TAG, "Couldn't resolve given uri!");
             return;
         }
+
+        boolean iu_via_wifi = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_wifi", false);
+        boolean is_conn_via_wifi = false;        
+        if (iu_via_wifi) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm != null && cm.getActiveNetworkInfo() != null &&
+                cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI &&
+                cm.getActiveNetworkInfo().getState() == State.CONNECTED)
+                is_conn_via_wifi = true;
+        }
+
         
         String file_path = c.getString(c.getColumnIndex(Media.DATA));
         String file_name = c.getString(c.getColumnIndex(Media.DISPLAY_NAME));
@@ -79,7 +94,7 @@ public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
 
         c.close();
         
-        if (!isOnline(context)) {
+        if (!isOnline(context) || (iu_via_wifi && !is_conn_via_wifi)) {
             DbHandler db = new DbHandler(context);
             db.putFileForLater(file_path, account.name);
             db.close();
