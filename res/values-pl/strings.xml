@@ -53,7 +53,6 @@
   <string name="filedetails_modified">Zmodyfikowano:</string>
   <string name="filedetails_download">Pobierz</string>
   <string name="filedetails_redownload">Pobierz ponownie</string>
-  <string name="filedetails_download_in_progress">Pobieram</string>
   <string name="filedetails_open">Otwórz</string>
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>

@@ -58,7 +58,6 @@
   <string name="filedetails_modified">Modificato:</string>
   <string name="filedetails_download">Scarica</string>
   <string name="filedetails_redownload">Scarica nuovamente</string>
-  <string name="filedetails_download_in_progress">Scaricamento in corso</string>
   <string name="filedetails_open">Apri</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>

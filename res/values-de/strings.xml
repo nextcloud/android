@@ -60,7 +60,6 @@
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
   <string name="filedetails_redownload">Erneut herunterladen</string>
-  <string name="filedetails_download_in_progress">Lade herunter</string>
   <string name="filedetails_open">Öffnen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>

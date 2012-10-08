@@ -49,7 +49,6 @@
   <string name="filedetails_created">Δημιουργήθηκε:</string>
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
-  <string name="filedetails_download_in_progress">Λήψη</string>
   <string name="filedetails_open">Άνοιγμα</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>

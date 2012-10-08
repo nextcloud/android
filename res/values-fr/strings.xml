@@ -58,7 +58,6 @@
   <string name="filedetails_modified">Modifié le :</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_redownload">Télécharger à nouveau</string>
-  <string name="filedetails_download_in_progress">Téléchargement</string>
   <string name="filedetails_open">Ouvrir</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>

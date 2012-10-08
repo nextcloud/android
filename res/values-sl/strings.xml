@@ -55,7 +55,6 @@
   <string name="filedetails_modified">Spremenjen:</string>
   <string name="filedetails_download">Prenos</string>
   <string name="filedetails_redownload">Ponovno prenesi</string>
-  <string name="filedetails_download_in_progress">Prenašam</string>
   <string name="filedetails_open">Odpri</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>

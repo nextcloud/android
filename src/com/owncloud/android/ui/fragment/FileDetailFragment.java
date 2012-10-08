@@ -242,17 +242,29 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
-                Intent i = new Intent(getActivity(), FileDownloader.class);
-                i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-                i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-                i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
-                i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
+                if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
+                    
+                    // TODO cancelar descarga
+                    
+                    if (mFile.isDown()) {
+                        setButtonsForDown();
+                    } else {
+                        setButtonsForRemote();
+                    }
+                    
+                } else {
+                    Intent i = new Intent(getActivity(), FileDownloader.class);
+                    i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+                    i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
+                    i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
+                    i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
                 
-                // update ui 
-                setButtonsForTransferring();
+                    // update ui 
+                    setButtonsForTransferring();
                 
-                getActivity().startService(i);
-                mContainerActivity.onFileStateChanged();    // this is not working; it is performed before the fileDownloadService registers it as 'in progress'
+                    getActivity().startService(i);
+                    mContainerActivity.onFileStateChanged();    // this is not working; it is performed before the fileDownloadService registers it as 'in progress'
+                }
                 break;
             }
             case R.id.fdKeepInSync: {
@@ -508,8 +520,8 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForTransferring() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            //downloadButton.setText(R.string.filedetails_download_in_progress);    // ugly
-            downloadButton.setEnabled(false);   // TODO replace it with a 'cancel download' button
+            downloadButton.setText(R.string.common_cancel);
+            //downloadButton.setEnabled(false);
         
             // let's protect the user from himself ;)
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
@@ -524,8 +536,8 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForDown() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            //downloadButton.setText(R.string.filedetails_redownload);      // ugly
-            downloadButton.setEnabled(true);
+            downloadButton.setText(R.string.filedetails_redownload);
+            //downloadButton.setEnabled(true);
         
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
@@ -539,8 +551,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForRemote() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            //downloadButton.setText(R.string.filedetails_download);    // unnecessary
-            downloadButton.setEnabled(true);
+            downloadButton.setText(R.string.filedetails_download);
             
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);

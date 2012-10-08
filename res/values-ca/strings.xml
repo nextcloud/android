@@ -58,7 +58,6 @@
   <string name="filedetails_modified">Midificat:</string>
   <string name="filedetails_download">Baixada</string>
   <string name="filedetails_redownload">Baixa de nou</string>
-  <string name="filedetails_download_in_progress">S\'està baixant</string>
   <string name="filedetails_open">Obert</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>

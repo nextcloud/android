@@ -71,8 +71,7 @@
     <string name="filedetails_created">Created:</string>
     <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
-	<string name="filedetails_redownload">Redownload</string>
-	<string name="filedetails_download_in_progress">Downloading</string>
+	<string name="filedetails_redownload">Refresh</string>
     <string name="filedetails_open">Open</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
