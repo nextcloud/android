@@ -79,9 +79,12 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.ui.fragment.OCFileListFragment.ContainerActivity;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
@@ -136,7 +139,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * @param fileToDetail      An {@link OCFile} to show in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public FileDetailFragment(OCFile fileToDetail, Account ocAccount){
+    public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
         mFile = fileToDetail;
         mAccount = ocAccount;
         mLayout = R.layout.file_details_empty;
@@ -147,20 +150,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mContainerActivity = (ContainerActivity) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement FileListFragment.ContainerActivity");
-        }
-    }
-    
-    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -185,10 +174,23 @@ public class FileDetailFragment extends SherlockFragment implements
             mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
         }
         
-        updateFileDetails();
         return view;
     }
     
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mContainerActivity = (ContainerActivity) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getCanonicalName());
+        }
+    }
+        
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -242,10 +244,10 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
-                if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
-                    
-                    // TODO cancelar descarga
-                    
+                //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
+                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile.getRemotePath())) {
+                    downloaderBinder.cancel(mAccount, mFile.getRemotePath());
                     if (mFile.isDown()) {
                         setButtonsForDown();
                     } else {
@@ -440,7 +442,9 @@ public class FileDetailFragment extends SherlockFragment implements
             cb.setChecked(mFile.keepInSync());
 
             // configure UI for depending upon local state of the file
-            if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
+            //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
+            FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile.getRemotePath())) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
                 setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {
@@ -585,7 +589,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity {
+    public interface ContainerActivity extends TransferServiceGetter {
 
         /**
          * Callback method invoked when the detail fragment wants to notice its container 

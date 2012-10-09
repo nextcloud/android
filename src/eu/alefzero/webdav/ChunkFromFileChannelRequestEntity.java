@@ -95,7 +95,7 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
                 out.write(mBuffer.array(), 0, readCount);
                 mBuffer.clear();
                 if (mListener != null) 
-                    mListener.transferProgress(readCount);
+                    mListener.onTransferProgress(readCount);
             }
             
         } catch (IOException io) {

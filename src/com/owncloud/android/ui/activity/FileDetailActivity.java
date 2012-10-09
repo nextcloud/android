@@ -20,9 +20,13 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -30,6 +34,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 
 import com.owncloud.android.R;
@@ -46,6 +51,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     public static final int DIALOG_SHORT_WAIT = 0;
     
     private boolean mConfigurationChangedToLandscape = false;
+    private FileDownloaderBinder mDownloaderBinder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +64,13 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
                                            );
 
         if (!mConfigurationChangedToLandscape) {
+            bindService(new Intent(this, FileDownloader.class), mConnection, Context.BIND_AUTO_CREATE);
+            
             setContentView(R.layout.file_activity_details);
         
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-        
+
             OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
             Account account = getIntent().getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
             FileDetailFragment mFileDetail = new FileDetailFragment(file, account);
@@ -77,7 +85,33 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
         
     }
+    
+    
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
 
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            mDownloaderBinder = (FileDownloaderBinder) service;
+            FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fragment != null)
+                fragment.updateFileDetails();   // a new chance to get the mDownloadBinder through getDownloadBinder()
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mDownloaderBinder = null;
+        }
+    };    
+    
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(mConnection);
+    }
+    
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
@@ -141,4 +175,13 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         // nothing to do here!
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
+    }
+    
 }

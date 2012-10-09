@@ -98,7 +98,7 @@ public class WebdavClient extends HttpClient {
                 int readResult;
                 while ((readResult = bis.read(bytes)) != -1) {
                     if (mDataTransferListener != null)
-                        mDataTransferListener.transferProgress(readResult);
+                        mDataTransferListener.onTransferProgress(readResult);
                     fos.write(bytes, 0, readResult);
                 }
                 fos.close();
@@ -165,7 +165,7 @@ public class WebdavClient extends HttpClient {
         try {
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.setOnDatatransferProgressListener(mDataTransferListener);
+            entity.addOnDatatransferProgressListener(mDataTransferListener);
             put.setRequestEntity(entity);
             status = executeMethod(put);
             

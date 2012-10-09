@@ -62,17 +62,20 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
     private static final String TAG = FileUploader.class.getSimpleName();
     
-    private NotificationManager mNotificationManager;
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
+
     private AbstractList<Account> mAccounts = new Vector<Account>();
-    private AbstractList<UploadFileOperation> mUploads = new Vector<UploadFileOperation>(); 
+    private AbstractList<UploadFileOperation> mUploads = new Vector<UploadFileOperation>();
+    private int mCurrentIndexUpload;
+    
+    private NotificationManager mNotificationManager;
     private Notification mNotification;
-    private long mTotalDataToSend, mSendData;
-    private int mTotalFilesToSend;
-    private int mCurrentIndexUpload, mPreviousPercent;
-    private int mSuccessCounter;
     private RemoteViews mDefaultNotificationContentView;
+    private long mTotalDataToSend, mSendData;
+    private int mTotalFilesToSend, mPreviousPercent;
+    private int mSuccessCounter;
+    
     
     /**
      * Static map with the files being download and the path to the temporal file were are download
@@ -107,23 +110,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
     
 
-    @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
-    }
-
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            uploadFile();
-            stopSelf(msg.arg1);
-        }
-    }
-
+    /**
+     * Service initialization
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -135,6 +124,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mServiceHandler = new ServiceHandler(mServiceLooper);
     }
 
+    
+    /**
+     * Entry point to add one or several files to the queue of uploads.
+     * 
+     * New uploads are added calling to startService(), resulting in a call to this method. This ensures the service will keep on working 
+     * although the caller activity goes away.
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!intent.hasExtra(KEY_ACCOUNT) && !intent.hasExtra(KEY_UPLOAD_TYPE)) {
@@ -190,6 +186,37 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         return Service.START_NOT_STICKY;
     }
 
+    
+    /**
+     * Provides a binder object that clients can use to perform operations on the queue of uploads, excepting the addition of new files. 
+     * 
+     * Implemented to perform cancellation, pause and resume of existing uploads.
+     */
+    @Override
+    public IBinder onBind(Intent arg0) {
+        return null;
+    }
+
+    
+    /** 
+     * Upload worker. Performs the pending uploads in the order they were requested. 
+     * 
+     * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}. 
+     */
+    private final class ServiceHandler extends Handler {
+        public ServiceHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            uploadFile();
+            stopSelf(msg.arg1);
+        }
+    }
+
+    
+    
     
     /**
      * Core upload method: sends the file(s) to upload
@@ -381,7 +408,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * Callback method to update the progress bar in the status notification.
      */
     @Override
-    public void transferProgress(long progressRate) {
+    public void onTransferProgress(long progressRate) {
         mSendData += progressRate;
         int percent = (int)(100*((double)mSendData)/((double)mTotalDataToSend));
         if (percent != mPreviousPercent) {
@@ -392,4 +419,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         }
         mPreviousPercent = percent;
     }
+
+    @Override
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+        // TODO Maybe replace the other transferProgress with this
+    }
+    
+    
 }

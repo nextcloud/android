@@ -26,12 +26,14 @@ import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -40,6 +42,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
@@ -64,6 +67,7 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.syncadapter.FileSyncService;
@@ -90,6 +94,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private FileDownloaderBinder mDownloaderBinder = null;
     
     private OCFileListFragment mFileList;
     
@@ -123,6 +128,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
         } else {    /// at least an account is available
             
+            bindService(new Intent(this, FileDownloader.class), mConnection, Context.BIND_AUTO_CREATE);
             initDataFromCurrentAccount();
             
         }
@@ -205,7 +211,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             mCurrentDir = mStorageManager.getFileByPath("/");   // this will return NULL if the database has not ever synchronized
     }
         
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(mConnection);
+    }
 
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
@@ -421,7 +434,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
             // List current directory
-            //mFileList.listDirectory(mCurrentDir);
+            mFileList.listDirectory(mCurrentDir);   // we should find the way to avoid the need of this
             
         } else {
             
@@ -872,6 +885,40 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             fileListFragment.listDirectory();
         }
     }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
+    }
+    
+    
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            mDownloaderBinder = (FileDownloaderBinder) service;
+            // a new chance to get the mDownloadBinder through getDownloadBinder() - THIS IS A MESS
+            mFileList.listDirectory();
+            if (mDualPane) {
+                FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (fragment != null)
+                    fragment.updateFileDetails();
+            }
+            
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mDownloaderBinder = null;
+        }
+    };    
+
+    
     
     /**
      * Launch an intent to request the PIN code to the user before letting him use the app
@@ -887,5 +934,5 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
 
-    
+
 }

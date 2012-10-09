@@ -144,7 +144,7 @@ public class UploadFileOperation extends RemoteOperation {
         try {
             File f = new File(mLocalPath);
             FileRequestEntity entity = new FileRequestEntity(f, mMimeType);
-            entity.setOnDatatransferProgressListener(mDataTransferListener);
+            entity.addOnDatatransferProgressListener(mDataTransferListener);
             put.setRequestEntity(entity);
             status = client.executeMethod(put);
             client.exhaustResponse(put.getResponseBodyAsStream());

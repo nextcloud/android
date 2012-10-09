@@ -7,6 +7,10 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
@@ -23,7 +27,7 @@ public class FileRequestEntity implements RequestEntity {
 
     final File mFile;
     final String mContentType;
-    OnDatatransferProgressListener mListener;
+    Set<OnDatatransferProgressListener> mListeners = new HashSet<OnDatatransferProgressListener>();
 
     public FileRequestEntity(final File file, final String contentType) {
         super();
@@ -49,9 +53,18 @@ public class FileRequestEntity implements RequestEntity {
         return true;
     }
     
-    public void setOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mListener = listener;
+    public void addOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        mListeners.add(listener);
     }
+    
+    public void addOnDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
+        mListeners.addAll(listeners);
+    }
+    
+    public void removeOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        mListeners.remove(listener);
+    }
+    
     
     @Override
     public void writeRequest(final OutputStream out) throws IOException {
@@ -64,22 +77,22 @@ public class FileRequestEntity implements RequestEntity {
         RandomAccessFile raf = new RandomAccessFile(mFile, "rw");
         FileChannel channel = raf.getChannel();
         FileLock lock = channel.tryLock();
-        //InputStream instream = new FileInputStream(this.file);
-        
+        Iterator<OnDatatransferProgressListener> it = null;
         try {
-            //while ((i = instream.read(tmp)) >= 0) {
             while ((i = channel.read(tmp)) >= 0) {
                 out.write(tmp.array(), 0, i);
                 tmp.clear();
-                if (mListener != null) 
-                    mListener.transferProgress(i);
+                it = mListeners.iterator();
+                while (it.hasNext()) {
+                    it.next().onTransferProgress(i);
+                }
             }
+            
         } catch (IOException io) {
             Log.e("FileRequestException", io.getMessage());
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         } finally {
-            //instream.close();
             lock.release();
             channel.close();
             raf.close();

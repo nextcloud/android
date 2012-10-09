@@ -19,7 +19,9 @@ package com.owncloud.android.ui.fragment;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.FragmentListView;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 
 import android.app.Activity;
@@ -76,12 +78,15 @@ public class OCFileListFragment extends FragmentListView {
     }    
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i(TAG, "onActivityCreated() start");
         
-        super.onCreate(savedInstanceState);
-        mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity());
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity(), mContainerActivity);
         setListAdapter(mAdapter);
         
         if (savedInstanceState != null) {
@@ -154,7 +159,9 @@ public class OCFileListFragment extends FragmentListView {
      * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
      */
     public void listDirectory(){
+        int position = mList.getFirstVisiblePosition();
         listDirectory(null);
+        mList.setSelectionFromTop(position, 0);
     }
     
     /**
@@ -187,6 +194,7 @@ public class OCFileListFragment extends FragmentListView {
         mFile = directory;
         mAdapter.swapDirectory(mFile);
         mList.setSelectionFromTop(0, 0);
+        mList.invalidate();
     }
     
     
@@ -196,7 +204,7 @@ public class OCFileListFragment extends FragmentListView {
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity {
+    public interface ContainerActivity extends TransferServiceGetter {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list

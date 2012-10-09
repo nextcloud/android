@@ -57,7 +57,9 @@ public class RemoteOperationResult {
         NO_NETWORK_CONNECTION, 
         SSL_ERROR,
         SSL_RECOVERABLE_PEER_UNVERIFIED,
-        BAD_OC_VERSION 
+        BAD_OC_VERSION,
+        STORAGE_ERROR_MOVING_FROM_TMP,
+        CANCELLED
     }
 
     private boolean mSuccess = false;
@@ -94,7 +96,10 @@ public class RemoteOperationResult {
     public RemoteOperationResult(Exception e) {
         mException = e; 
         
-        if (e instanceof SocketException) {  
+        if (e instanceof OperationCancelledException) {
+            mCode = ResultCode.CANCELLED;
+            
+        } else if (e instanceof SocketException) {  
             mCode = ResultCode.WRONG_CONNECTION;
         
         } else if (e instanceof SocketTimeoutException) {
@@ -130,6 +135,10 @@ public class RemoteOperationResult {
     
     public boolean isSuccess() {
         return mSuccess;
+    }
+    
+    public boolean isCancelled() {
+        return mCode == ResultCode.CANCELLED;
     }
     
     public int getHttpCode() {
@@ -169,7 +178,10 @@ public class RemoteOperationResult {
     public String getLogMessage() {
         
         if (mException != null) {
-            if (mException instanceof SocketException) {  
+            if (mException instanceof OperationCancelledException) {
+                return "Operation cancelled by the caller";
+                
+            } else if (mException instanceof SocketException) {  
                 return "Socket exception";
         
             } else if (mException instanceof SocketTimeoutException) {
@@ -209,6 +221,9 @@ public class RemoteOperationResult {
             
         } else if (mCode == ResultCode.BAD_OC_VERSION) {
             return "No valid ownCloud version was found at the server";
+            
+        } else if (mCode == ResultCode.STORAGE_ERROR_MOVING_FROM_TMP) {
+            return "Error while moving file from temporal to final directory";
         }
         
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess()?"success":"fail") + ")";
