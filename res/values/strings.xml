@@ -194,4 +194,6 @@
     <string name="ssl_validator_not_saved">The certificate could not be saved</string>
     
     <string name="text_placeholder">This is a placeholder</string>
+    
+    <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
 </resources>

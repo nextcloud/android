@@ -17,7 +17,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:oc="http://schemas.android.com/apk/res/com.owncloud.android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:focusable="true"
@@ -60,8 +59,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/auth_host_url"
-                    android:singleLine="true" >
-
+                    android:singleLine="true"
+                    android:inputType="textNoSuggestions" >
                     <requestFocus />
                 </EditText>
 
