@@ -134,7 +134,7 @@
         <service android:name=".files.services.FileUploader" >
         </service>
         <service android:name=".files.services.InstantUploadService" />
-        <receiver android:name=".files.PhotoTakenBroadcastReceiver">
+        <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.android.camera.NEW_PICTURE" />
                 <data android:mimeType="image/*" />

@@ -38,7 +38,7 @@ import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
-public class PhotoTakenBroadcastReceiver extends BroadcastReceiver {
+public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     public static String INSTANT_UPLOAD_DIR = "/InstantUpload/";
     private static String TAG = "PhotoTakenBroadcastReceiver";

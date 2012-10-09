@@ -11,7 +11,7 @@ import java.util.Vector;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.PhotoTakenBroadcastReceiver;
+import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -293,10 +293,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private boolean createRemoteFolderForInstantUploads(WebdavClient client, FileDataStorageManager storageManager) {
         boolean result = true;
-        OCFile instantUploadDir = storageManager.getFileByPath(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);
+        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
         if (instantUploadDir == null) {
-            result = client.createDirectory(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists, but local database is not synchronized; the upload will be started anyway
-            OCFile newDir = new OCFile(PhotoTakenBroadcastReceiver.INSTANT_UPLOAD_DIR);
+            result = client.createDirectory(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists, but local database is not synchronized; the upload will be started anyway
+            OCFile newDir = new OCFile(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
             newDir.setMimetype("DIR");
             newDir.setParentId(storageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId());
             storageManager.saveFile(newDir);
