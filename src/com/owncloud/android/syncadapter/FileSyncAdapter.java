@@ -373,7 +373,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 Log.w(TAG, "Problem while getting ocversion from server");
             }
         } catch (Exception e) {
-            Log.e(TAG, "ASDASD", e);
+            Log.e(TAG, "Problem getting response from server", e);
         }
     }
 }
