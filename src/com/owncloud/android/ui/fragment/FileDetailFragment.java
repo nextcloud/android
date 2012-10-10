@@ -84,7 +84,6 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
-import com.owncloud.android.ui.fragment.OCFileListFragment.ContainerActivity;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -55,7 +56,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private String mRemotePath = null;
     private String mMimeType = null;
     private long mSize = -1;
-    private Boolean mCancellationRequested = false;
+    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
 
@@ -164,19 +165,21 @@ public class DownloadFileOperation extends RemoteOperation {
         GetMethod get = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
         Iterator<OnDatatransferProgressListener> it = null;
         
+        FileOutputStream fos = null;
         try {
             status = client.executeMethod(get);
             if (isSuccess(status)) {
                 targetFile.createNewFile();
                 BufferedInputStream bis = new BufferedInputStream(get.getResponseBodyAsStream());
-                FileOutputStream fos = new FileOutputStream(targetFile);
+                fos = new FileOutputStream(targetFile);
                 long transferred = 0;
 
                 byte[] bytes = new byte[4096];
                 int readResult = 0;
                 while ((readResult = bis.read(bytes)) != -1) {
                     synchronized(mCancellationRequested) {
-                        if (mCancellationRequested) {
+                        if (mCancellationRequested.get()) {
+                            get.abort();
                             throw new OperationCancelledException();
                         }
                     }
@@ -187,7 +190,6 @@ public class DownloadFileOperation extends RemoteOperation {
                         it.next().onTransferProgress(readResult, transferred, mSize, targetFile.getName());
                     }
                 }
-                fos.close();
                 savedFile = true;
                 
             } else {
@@ -195,6 +197,7 @@ public class DownloadFileOperation extends RemoteOperation {
             }
                 
         } finally {
+            if (fos != null) fos.close();
             if (!savedFile && targetFile.exists()) {
                 targetFile.delete();
             }
@@ -205,9 +208,7 @@ public class DownloadFileOperation extends RemoteOperation {
 
     
     public void cancel() {
-        synchronized(mCancellationRequested) {
-            mCancellationRequested = true;
-        }
+        mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
     }
     
 }

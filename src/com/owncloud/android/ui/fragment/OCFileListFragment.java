@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;

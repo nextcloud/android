@@ -52,34 +52,13 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private WebdavClient mDownloadClient = null;
     private Account mLastAccount = null;
     
-    //private AbstractList<Account> mAccounts = new Vector<Account>();
     private ConcurrentMap<String, DownloadFileOperation> mPendingDownloads = new ConcurrentHashMap<String, DownloadFileOperation>();
     private DownloadFileOperation mCurrentDownload = null;
-    
-    /*
-    private Account mAccount;
-    private String mFilePath;
-    private String mRemotePath;
-    private long mTotalDownloadSize;
-    private long mCurrentDownloadSize;
-    */
     
     private NotificationManager mNotificationMngr;
     private Notification mNotification;
     private int mLastPercent;
     
-    
-    /**
-     * Static map with the files being download and the path to the temporal file were are download
-     */
-    //private static Set<String> mDownloadsInProgress = Collections.synchronizedSet(new HashSet<String>());
-    
-    /**
-     * Returns True when the file referred by 'remotePath' in the ownCloud account 'account' is downloading
-     */
-    /*public static boolean isDownloading(Account account, String remotePath) {
-        return (mDownloadsInProgress.contains(buildRemoteName(account.name, remotePath)));
-    }*/
     
     /**
      * Builds a key for mDownloadsInProgress from the accountName and remotePath
@@ -186,11 +165,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param remotePath    URL to the remote file in the queue of downloads.
          */
         public void cancel(Account account, String remotePath) {
+            DownloadFileOperation download = null;
             synchronized (mPendingDownloads) {
-                DownloadFileOperation download = mPendingDownloads.remove(buildRemoteName(account.name, remotePath));
-                if (download != null) {
-                    download.cancel();
-                }
+                download = mPendingDownloads.remove(buildRemoteName(account.name, remotePath));
+            }
+            if (download != null) {
+                download.cancel();
             }
         }
         
