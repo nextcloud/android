@@ -173,6 +173,7 @@ public class FileDetailFragment extends SherlockFragment implements
             mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
         }
         
+        updateFileDetails();
         return view;
     }
     

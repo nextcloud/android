@@ -74,7 +74,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-            Account account = getIntent().getParcelableExtra(FileDownloader.EXTRA_ACCOUNT);
+            Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
             FileDetailFragment mFileDetail = new FileDetailFragment(file, account);
         
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -147,6 +147,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         Intent intent = new Intent(this, FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(FileDetailFragment.EXTRA_FILE, getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE));
+        intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT));
         startActivity(intent);
         finish();
     }

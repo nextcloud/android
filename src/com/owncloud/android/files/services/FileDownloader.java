@@ -312,7 +312,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
-        showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, download.getAccount());
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         
