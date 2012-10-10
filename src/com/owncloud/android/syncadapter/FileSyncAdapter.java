@@ -90,8 +90,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mDelaysIndex = 0;
         mDelaysCount = 0;
         */
-        
-        
+
         Log.d(TAG, "syncing owncloud account " + account.name);
 
         sendStickyBroadcast(true, null);  // message to signal the start to the UI
@@ -114,7 +113,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                         fetchData(uri, syncResult, file.getFileId());
                     }
                 }
-                
+
             } else {
                 syncResult.stats.numAuthExceptions++;
             }

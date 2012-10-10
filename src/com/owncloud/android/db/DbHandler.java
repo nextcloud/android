@@ -69,8 +69,8 @@ public class DbHandler {
      */
     public boolean removeIUPendingFile(String localPath, String accountName) {
         return mDB.delete(TABLE_INSTANT_UPLOAD,
-                          "path = ? and account = ?",
-                          new String[]{ localPath, accountName }) != 0;
+                          "path = ?",
+                          new String[]{ localPath }) != 0;
         
     }
     
