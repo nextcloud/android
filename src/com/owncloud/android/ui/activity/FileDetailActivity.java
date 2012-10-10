@@ -52,6 +52,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     
     private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
+    private ServiceConnection mConnection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
                                            );
 
         if (!mConfigurationChangedToLandscape) {
+            mConnection = new DetailsServiceConnection();
             bindService(new Intent(this, FileDownloader.class), mConnection, Context.BIND_AUTO_CREATE);
             
             setContentView(R.layout.file_activity_details);
@@ -88,14 +90,14 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     
     
     /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private class DetailsServiceConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
             mDownloaderBinder = (FileDownloaderBinder) service;
             FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fragment != null)
-                fragment.updateFileDetails();   // a new chance to get the mDownloadBinder through getDownloadBinder()
+                fragment.updateFileDetails();   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
         }
 
         @Override
@@ -108,7 +110,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbindService(mConnection);
+        if (mConnection != null) {
+            unbindService(mConnection);
+            mConnection = null;
+        }
     }
     
     
