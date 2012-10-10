@@ -31,6 +31,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -52,74 +53,68 @@ public class DownloadFileOperation extends RemoteOperation {
     private static final String TAG = DownloadFileOperation.class.getCanonicalName();
 
     private Account mAccount = null;
-    private String mLocalPath = null;
-    private String mRemotePath = null;
-    private String mMimeType = null;
-    private long mSize = -1;
+    private OCFile mFile;
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
 
     
+    public DownloadFileOperation(Account account, OCFile file) {
+        if (account == null)
+            throw new IllegalArgumentException("Illegal null account in DownloadFileOperation creation");
+        if (file == null)
+            throw new IllegalArgumentException("Illegal null file in DownloadFileOperation creation");
+        
+        mAccount = account;
+        mFile = file;
+    }
+
+
     public Account getAccount() {
         return mAccount;
     }
+    
+    public OCFile getFile() {
+        return mFile;
+    }
 
-    public String getLocalPath() {
-        return mLocalPath;
+    public String getSavePath() {
+        return FileDownloader.getSavePath(mAccount.name) + mFile.getRemotePath();
+    }
+    
+    public String getTmpPath() {
+        return FileDownloader.getTemporalPath(mAccount.name) + mFile.getRemotePath();
     }
     
     public String getRemotePath() {
-        return mRemotePath;
+        return mFile.getRemotePath();
     }
 
     public String getMimeType() {
-        return mMimeType;
+        String mimeType = mFile.getMimetype();
+        if (mimeType == null || mimeType.length() <= 0) {
+            try {
+                mimeType = MimeTypeMap.getSingleton()
+                    .getMimeTypeFromExtension(
+                            mFile.getRemotePath().substring(mFile.getRemotePath().lastIndexOf('.') + 1));
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
+            }
+        }
+        if (mimeType == null) {
+            mimeType = "application/octet-stream";
+        }
+        return mimeType;
     }
     
     public long getSize() {
-        return mSize;
+        return mFile.getFileLength();
     }
     
-    
-    public DownloadFileOperation( Account account, 
-                                String localPath, 
-                                String remotePath, 
-                                String mimeType, 
-                                long size,
-                                boolean forceOverwrite) {
-        
-        if (account == null)
-            throw new IllegalArgumentException("Illegal null account in DownloadFileOperation creation");
-        if (localPath == null)
-            throw new IllegalArgumentException("Illegal null local path in DownloadFileOperation creation");
-        if (remotePath == null)
-            throw new IllegalArgumentException("Illegal null remote path in DownloadFileOperation creation");
-        
-        mAccount = account;
-        mLocalPath = localPath;
-        mRemotePath = remotePath;
-        mMimeType = mimeType;
-        if (mMimeType == null) {
-            try {
-                mMimeType = MimeTypeMap.getSingleton()
-                    .getMimeTypeFromExtension(
-                            localPath.substring(localPath.lastIndexOf('.') + 1));
-            } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + localPath);
-            }
-        }
-        if (mMimeType == null) {
-            mMimeType = "application/octet-stream";
-        }
-        mSize = size;
-    }
     
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
         mDataTransferListeners.add(listener);
     }
-    
-    
     
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
@@ -127,15 +122,15 @@ public class DownloadFileOperation extends RemoteOperation {
         File newFile = null;
         boolean moved = false;
         
-        /// download will be in a temporal file
-        File tmpFile = new File(FileDownloader.getTemporalPath(mAccount.name) + mLocalPath);
+        /// download will be performed to a temporal file, then moved to the final location
+        File tmpFile = new File(getTmpPath());
         
         /// perform the download
         try {
             tmpFile.getParentFile().mkdirs();
             int status = downloadFile(client, tmpFile);
             if (isSuccess(status)) {
-                newFile = new File(FileDownloader.getSavePath(mAccount.name) + mLocalPath);
+                newFile = new File(getSavePath());
                 newFile.getParentFile().mkdirs();
                 moved = tmpFile.renameTo(newFile);
             }
@@ -143,11 +138,11 @@ public class DownloadFileOperation extends RemoteOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.STORAGE_ERROR_MOVING_FROM_TMP);
             else
                 result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Download of " + mLocalPath + " to " + mRemotePath + ": " + result.getLogMessage());
+            Log.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Download of " + mRemotePath + " to " + mLocalPath + ": " + result.getLogMessage(), e);
+            Log.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
         }
         
         return result;
@@ -162,7 +157,7 @@ public class DownloadFileOperation extends RemoteOperation {
     protected int downloadFile(WebdavClient client, File targetFile) throws HttpException, IOException, OperationCancelledException {
         int status = -1;
         boolean savedFile = false;
-        GetMethod get = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+        GetMethod get = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
         Iterator<OnDatatransferProgressListener> it = null;
         
         FileOutputStream fos = null;
@@ -187,7 +182,7 @@ public class DownloadFileOperation extends RemoteOperation {
                     transferred += readResult;
                     it = mDataTransferListeners.iterator();
                     while (it.hasNext()) {
-                        it.next().onTransferProgress(readResult, transferred, mSize, targetFile.getName());
+                        it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
                     }
                 }
                 savedFile = true;
@@ -210,5 +205,5 @@ public class DownloadFileOperation extends RemoteOperation {
     public void cancel() {
         mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
     }
-    
+
 }

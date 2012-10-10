@@ -245,8 +245,8 @@ public class FileDetailFragment extends SherlockFragment implements
             case R.id.fdDownloadBtn: {
                 //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile.getRemotePath())) {
-                    downloaderBinder.cancel(mAccount, mFile.getRemotePath());
+                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
+                    downloaderBinder.cancel(mAccount, mFile);
                     if (mFile.isDown()) {
                         setButtonsForDown();
                     } else {
@@ -256,9 +256,10 @@ public class FileDetailFragment extends SherlockFragment implements
                 } else {
                     Intent i = new Intent(getActivity(), FileDownloader.class);
                     i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-                    i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
+                    i.putExtra(FileDownloader.EXTRA_FILE, mFile);
+                    /*i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
                     i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
-                    i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());
+                    i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());*/
                 
                     // update ui 
                     setButtonsForTransferring();
@@ -443,7 +444,7 @@ public class FileDetailFragment extends SherlockFragment implements
             // configure UI for depending upon local state of the file
             //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile.getRemotePath())) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
+            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
                 setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {

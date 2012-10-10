@@ -123,7 +123,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             //if (FileDownloader.isDownloading(mAccount, file.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file.getRemotePath())) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
                 localStateView.setImageResource(R.drawable.downloading_file_indicator);
                 localStateView.setVisibility(View.VISIBLE);
             } else if (FileUploader.isUploading(mAccount, file.getRemotePath())) {

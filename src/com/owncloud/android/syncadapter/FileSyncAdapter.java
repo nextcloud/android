@@ -207,9 +207,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                          .getModificationTimestamp()) {
                         Intent intent = new Intent(this.getContext(), FileDownloader.class);
                         intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                        intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
+                        intent.putExtra(FileDownloader.EXTRA_FILE, file);
+                        /*intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
                         intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
-                        intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());
+                        intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());*/
                         file.setKeepInSync(true);
                         getContext().startService(intent);
                     }

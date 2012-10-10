@@ -7,12 +7,15 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.ui.activity.FileDetailActivity;
+import com.owncloud.android.ui.fragment.FileDetailFragment;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -32,16 +35,18 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
+
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
+    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_FILE = "FILE";
+    
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
-    public static final String EXTRA_FILE_SIZE = "FILE_SIZE";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
     
     private static final String TAG = "FileDownloader";
@@ -63,8 +68,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     /**
      * Builds a key for mDownloadsInProgress from the accountName and remotePath
      */
-    private static String buildRemoteName(String accountName, String remotePath) {
-        return accountName + remotePath;
+    private String buildRemoteName(Account account, OCFile file) {
+        return account.name + file.getRemotePath();
     }
     
     public static final String getSavePath(String accountName) {
@@ -105,21 +110,20 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (    !intent.hasExtra(EXTRA_ACCOUNT) ||
-                !intent.hasExtra(EXTRA_FILE_PATH) ||
-                !intent.hasExtra(EXTRA_REMOTE_PATH)
+                !intent.hasExtra(EXTRA_FILE)
+                /*!intent.hasExtra(EXTRA_FILE_PATH) ||
+                !intent.hasExtra(EXTRA_REMOTE_PATH)*/
            ) {
             Log.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         }
         Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-        String filePath = intent.getStringExtra(EXTRA_FILE_PATH);
-        String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
-        long totalDownloadSize = intent.getLongExtra(EXTRA_FILE_SIZE, -1);
-
-        AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this will always contain just one element, but that can change in a near future
-        String downloadKey = buildRemoteName(account.name, remotePath);
+        OCFile file = intent.getParcelableExtra(EXTRA_FILE);
+        
+        AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
+        String downloadKey = buildRemoteName(account, file);
         try {
-            DownloadFileOperation newDownload = new DownloadFileOperation(account, filePath, remotePath, (String)null, totalDownloadSize, false); 
+            DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
             newDownload.addDatatransferProgressListener(this);
             requestedDownloads.add(downloadKey);
@@ -162,12 +166,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * Cancels a pending or current download of a remote file.
          * 
          * @param account       Owncloud account where the remote file is stored.
-         * @param remotePath    URL to the remote file in the queue of downloads.
+         * @param file          A file in the queue of pending downloads
          */
-        public void cancel(Account account, String remotePath) {
+        public void cancel(Account account, OCFile file) {
             DownloadFileOperation download = null;
             synchronized (mPendingDownloads) {
-                download = mPendingDownloads.remove(buildRemoteName(account.name, remotePath));
+                download = mPendingDownloads.remove(buildRemoteName(account, file));
             }
             if (download != null) {
                 download.cancel();
@@ -179,14 +183,15 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * Returns True when the file referred by 'remotePath' in the ownCloud account 'account' is downloading
          * 
          * @param account       Owncloud account where the remote file is stored.
-         * @param remotePath    URL to the remote file in the queue of downloads.
+         * @param file          A file in the queue of downloads.
          */
-        public boolean isDownloading(Account account, String remotePath) {
+        public boolean isDownloading(Account account, OCFile file) {
             synchronized (mPendingDownloads) {
-                return (mPendingDownloads.containsKey(buildRemoteName(account.name, remotePath)));
+                return (mPendingDownloads.containsKey(buildRemoteName(account, file)));
             }
         }
     }
+    
     
     /** 
      * Download worker. Performs the pending downloads in the order they were requested. 
@@ -236,35 +241,31 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             }
 
             /// perform the download
-            //mDownloadsInProgress.add(buildRemoteName(mLastAccount.name, mCurrentDownload.getRemotePath()));
             RemoteOperationResult downloadResult = null;
-            File newLocalFile = null;
-            //try {
+            try {
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     ContentValues cv = new ContentValues();
-                    newLocalFile = new File(getSavePath(mCurrentDownload.getAccount().name) + mCurrentDownload.getLocalPath());
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, newLocalFile.getAbsolutePath());
+                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, mCurrentDownload.getSavePath());
                     getContentResolver().update(
                             ProviderTableMeta.CONTENT_URI,
                             cv,
                             ProviderTableMeta.FILE_NAME + "=? AND "
                                     + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                                     new String[] {
-                                    mCurrentDownload.getLocalPath().substring(mCurrentDownload.getLocalPath().lastIndexOf('/') + 1),
+                                    mCurrentDownload.getSavePath().substring(mCurrentDownload.getSavePath().lastIndexOf('/') + 1),
                                     mLastAccount.name });
                 }
             
-            /*} finally {
-                mDownloadsInProgress.remove(buildRemoteName(mLastAccount.name, mCurrentDownload.getRemotePath()));
-            }*/
-        
-            mPendingDownloads.remove(downloadKey);
+            } finally {
+                mPendingDownloads.remove(downloadKey);
+            }
+
             
             /// notify result
             notifyDownloadResult(mCurrentDownload, downloadResult);
             
-            sendFinalBroadcast(mCurrentDownload, downloadResult, (downloadResult.isSuccess())? newLocalFile.getAbsolutePath():null);
+            sendFinalBroadcast(mCurrentDownload, downloadResult);
         }
     }
 
@@ -305,10 +306,16 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
         mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, download.getSize() == -1);
-        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, new File(download.getLocalPath()).getName()));
+        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, new File(download.getSavePath()).getName()));
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
-        // TODO put something smart in the contentIntent below
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+        
+        /// includes a pending intent in the notification showing the details view of the file
+        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
+        showDetailsIntent.putExtra(FileDownloader.EXTRA_ACCOUNT, download.getAccount());
+        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        
         mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
     }
 
@@ -328,7 +335,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
             finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
-            finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getLocalPath()).getName()), finalNotification.contentIntent);
+            finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             mNotificationMngr.notify(tickerId, finalNotification);
         }
     }
@@ -339,15 +346,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * 
      * @param download          Finished download operation
      * @param downloadResult    Result of the download operation
-     * @param newFilePath       Absolute path to the downloaded file
      */
-    private void sendFinalBroadcast(DownloadFileOperation download, RemoteOperationResult downloadResult, String newFilePath) {
+    private void sendFinalBroadcast(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         if (downloadResult.isSuccess()) {
-            end.putExtra(EXTRA_FILE_PATH, newFilePath);
+            end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         }
         sendBroadcast(end);
     }
