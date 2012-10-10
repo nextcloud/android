@@ -26,11 +26,15 @@ import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+import org.json.JSONObject;
 
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
+import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -94,6 +98,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         Log.d(TAG, "syncing owncloud account " + account.name);
 
         sendStickyBroadcast(true, null);  // message to signal the start to the UI
+        
+        updateOCVersion();
 
         String uri = getUri().toString();
         PropFindMethod query = null;
@@ -342,5 +348,32 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
     }
 
-    
+    private void updateOCVersion() {
+        String statUrl = getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_BASE_URL);
+        statUrl += AccountUtils.STATUS_PATH;
+        
+        try {
+            String result = getClient().getResultAsString(statUrl);
+            if (result != null) {
+                try {
+                    JSONObject json = new JSONObject(result);
+                    if (json != null && json.getString("version") != null) {
+                        OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
+                        if (ocver.isVersionValid()) {
+                            getAccountManager().setUserData(getAccount(), AccountAuthenticator.KEY_OC_VERSION, ocver.toString());
+                            Log.d(TAG, "Got new OC version " + ocver.toString());
+                        } else {
+                            Log.w(TAG, "Invalid version number received from server: " + json.getString("version"));
+                        }
+                    }
+                } catch (Throwable e) {
+                    Log.w(TAG, "Couldn't parse version response", e);
+                }
+            } else {
+                Log.w(TAG, "Problem while getting ocversion from server");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "ASDASD", e);
+        }
+    }
 }
