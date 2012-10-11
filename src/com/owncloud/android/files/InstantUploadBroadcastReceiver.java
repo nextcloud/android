@@ -50,6 +50,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
@@ -86,7 +87,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        Cursor c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
+        Cursor c = context.getContentResolver().query(intent.getData(),
+                                                      CONTENT_PROJECTION,
+                                                      null, null, null);
         
         if (!c.moveToFirst()) {
             Log.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
@@ -98,6 +101,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String mime_type = c.getString(c.getColumnIndex(Media.MIME_TYPE));
 
         c.close();
+        Log.e(TAG, file_path+"");
         
         if (!isOnline(context) ||
             (instantUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
@@ -114,7 +118,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         // On the other hand this might be only for dynamicly registered
         // broadcast receivers, needs investigation.
         IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-        context.registerReceiver(this, filter);
+        context.getApplicationContext().registerReceiver(this, filter);
                 
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -140,6 +144,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
+                IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+                context.getApplicationContext().registerReceiver(this, filter);
                 do {
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));

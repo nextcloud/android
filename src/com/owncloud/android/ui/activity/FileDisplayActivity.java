@@ -967,13 +967,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 return;
             }
             // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
-            mFileList.listDirectory();
+            if (mFileList != null)
+                mFileList.listDirectory();
             if (mDualPane) {
                 FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
                 if (fragment != null)
                     fragment.updateFileDetails();
             }
-            
         }
 
         @Override

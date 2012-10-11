@@ -336,5 +336,20 @@ public class WebdavClient extends HttpClient {
     public Uri getBaseUri() {
         return mUri;
     }
+
+    public String getResultAsString(String targetUrl) {
+        String getResult = null;
+        try {
+            GetMethod get = new GetMethod(targetUrl);
+            int status = executeMethod(get);
+            if (status == HttpStatus.SC_OK) {
+                getResult = get.getResponseBodyAsString();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error while getting requested file: " + targetUrl, e);
+            getResult = null;
+        }
+        return getResult;
+    }
     
 }

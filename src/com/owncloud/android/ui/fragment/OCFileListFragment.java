@@ -172,28 +172,30 @@ public class OCFileListFragment extends FragmentListView {
      */
     public void listDirectory(OCFile directory) {
         DataStorageManager storageManager = mContainerActivity.getStorageManager();
+        if (storageManager != null) {
 
-        // Check input parameters for null
-        if(directory == null){
-            if(mFile != null){
-                directory = mFile;
-            } else {
-                directory = storageManager.getFileByPath("/");
-                if (directory == null) return; // no files, wait for sync
+            // Check input parameters for null
+            if(directory == null){
+                if(mFile != null){
+                    directory = mFile;
+                } else {
+                    directory = storageManager.getFileByPath("/");
+                    if (directory == null) return; // no files, wait for sync
+                }
             }
-        }
         
         
-        // If that's not a directory -> List its parent
-        if(!directory.isDirectory()){
-            Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
-            directory = storageManager.getFileById(directory.getParentId());
-        }
+            // If that's not a directory -> List its parent
+            if(!directory.isDirectory()){
+                Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
+                directory = storageManager.getFileById(directory.getParentId());
+            }
 
-        mFile = directory;
-        mAdapter.swapDirectory(mFile);
-        mList.setSelectionFromTop(0, 0);
-        mList.invalidate();
+            mFile = directory;
+            mAdapter.swapDirectory(mFile);
+            mList.setSelectionFromTop(0, 0);
+            mList.invalidate();
+        }
     }
     
     
