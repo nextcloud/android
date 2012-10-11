@@ -941,13 +941,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onServiceConnected(ComponentName className, IBinder service) {
             mDownloaderBinder = (FileDownloaderBinder) service;
             // a new chance to get the mDownloadBinder through getDownloadBinder() - THIS IS A MESS
-            mFileList.listDirectory();
+            if (mFileList != null)
+                mFileList.listDirectory();
             if (mDualPane) {
                 FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
                 if (fragment != null)
                     fragment.updateFileDetails();
             }
-            
         }
 
         @Override
