@@ -247,9 +247,30 @@ public class FileDetailFragment extends SherlockFragment implements
             case R.id.fdDownloadBtn: {
                 //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+                FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
                 if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
                     downloaderBinder.cancel(mAccount, mFile);
                     if (mFile.isDown()) {
+                        setButtonsForDown();
+                    } else {
+                        setButtonsForRemote();
+                    }
+
+                } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile)) {
+                    uploaderBinder.cancel(mAccount, mFile);
+                    if (!mFile.fileExists()) {
+                        // TODO make something better
+                        if (getActivity() instanceof FileDisplayActivity) {
+                            // double pane
+                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FTAG); // empty FileDetailFragment
+                            transaction.commit();
+                            mContainerActivity.onFileStateChanged();
+                        } else {
+                            getActivity().finish();
+                        }
+                        
+                    } else if (mFile.isDown()) {
                         setButtonsForDown();
                     } else {
                         setButtonsForRemote();
@@ -534,6 +555,7 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(false);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(false);
+            getView().findViewById(R.id.fdKeepInSync).setEnabled(false);
         }
     }
     
@@ -549,6 +571,7 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
+            getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
         }
     }
 
@@ -563,6 +586,7 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
+            getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
         }
     }
     

@@ -22,11 +22,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 
@@ -36,7 +38,6 @@ import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 
 /**
  * Remote operation performing the upload of a file to an ownCloud server
@@ -47,44 +48,31 @@ public class UploadFileOperation extends RemoteOperation {
     
     private static final String TAG = UploadFileOperation.class.getCanonicalName();
 
-    private Account mAccount = null;
-    private String mLocalPath = null;
+    private Account mAccount;
+    private OCFile mFile;
     private String mRemotePath = null;
-    private String mMimeType = null;
     private boolean mIsInstant = false;
     private boolean mForceOverwrite = false;
+    PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
+    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
 
     
     public UploadFileOperation( Account account,
-                                String localPath, 
-                                String remotePath, 
-                                String mimeType, 
+                                OCFile file,
                                 boolean isInstant, 
                                 boolean forceOverwrite) {
         if (account == null)
-            throw new IllegalArgumentException("Illegal null account in UploadFileOperation creation");
-        if (localPath == null || localPath.length() <= 0)
-            throw new IllegalArgumentException("Illegal null or empty localPath in UploadFileOperation creation");
-        if (remotePath == null || remotePath.length() <= 0)
-            throw new IllegalArgumentException("Illegal null or empty remotePath in UploadFileOperation creation");
-
+            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
+        if (file == null)
+            throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
+        if (file.getStoragePath() == null || file.getStoragePath().length() <= 0 || !(new File(file.getStoragePath()).exists())) {
+            throw new IllegalArgumentException("Illegal file in UploadFileOperation; storage path invalid or file not found: " + file.getStoragePath());
+        }
+        
         mAccount = account;
-        mLocalPath = localPath;
-        mRemotePath = remotePath;
-        mMimeType = mimeType;
-        if (mMimeType == null || mMimeType.length() <= 0) {
-            try {
-                mMimeType = MimeTypeMap.getSingleton()
-                        .getMimeTypeFromExtension(
-                                localPath.substring(localPath.lastIndexOf('.') + 1));
-            } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + localPath);
-            }
-        }
-        if (mMimeType == null) {
-            mMimeType = "application/octet-stream";
-        }
+        mFile = file;
+        mRemotePath = file.getRemotePath();
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
     }
@@ -94,16 +82,21 @@ public class UploadFileOperation extends RemoteOperation {
         return mAccount;
     }
     
-    public String getLocalPath() {
-        return mLocalPath;
+    public OCFile getFile() {
+        return mFile;
+    }
+    
+    public String getStoragePath() {
+        return mFile.getStoragePath();
     }
 
     public String getRemotePath() {
+        //return mFile.getRemotePath(); // DON'T MAKE THIS ; the remotePath used can be different to mFile.getRemotePath() if mForceOverwrite is 'false'; see run(...)
         return mRemotePath;
     }
 
     public String getMimeType() {
-        return mMimeType;
+        return mFile.getMimetype();
     }
     
     public boolean isInstant() {
@@ -136,14 +129,25 @@ public class UploadFileOperation extends RemoteOperation {
         
             /// perform the upload
             nameCheckPassed = true;
+            synchronized(mCancellationRequested) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                } else {
+                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+                }
+            }
             int status = uploadFile(client);
             result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Upload of " + mLocalPath + " to " + mRemotePath + ": " + result.getLogMessage());
-            
+            Log.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage());
+
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log.e(TAG, "Upload of " + mLocalPath + " to " + mRemotePath + ": " + result.getLogMessage() + (nameCheckPassed?"":" (while checking file existence in server)"), e);
-            
+            // TODO something cleaner
+            if (mCancellationRequested.get()) {
+                result = new RemoteOperationResult(new OperationCancelledException());
+            } else {
+                result = new RemoteOperationResult(e);
+            }
+            Log.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage() + (nameCheckPassed?"":" (while checking file existence in server)"), result.getException());
         }
         
         return result;
@@ -155,20 +159,18 @@ public class UploadFileOperation extends RemoteOperation {
     }
     
     
-    protected int uploadFile(WebdavClient client) throws HttpException, IOException {
+    protected int uploadFile(WebdavClient client) throws HttpException, IOException, OperationCancelledException {
         int status = -1;
-        PutMethod put = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
-        
         try {
-            File f = new File(mLocalPath);
-            FileRequestEntity entity = new FileRequestEntity(f, mMimeType);
+            File f = new File(mFile.getStoragePath());
+            FileRequestEntity entity = new FileRequestEntity(f, getMimeType());
             entity.addOnDatatransferProgressListeners(mDataTransferListeners);
-            put.setRequestEntity(entity);
-            status = client.executeMethod(put);
-            client.exhaustResponse(put.getResponseBodyAsStream());
+            mPutMethod.setRequestEntity(entity);
+            status = client.executeMethod(mPutMethod);
+            client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
             
         } finally {
-            put.releaseConnection();    // let the connection available for other methods
+            mPutMethod.releaseConnection();    // let the connection available for other methods
         }
         return status;
     }
@@ -210,5 +212,13 @@ public class UploadFileOperation extends RemoteOperation {
         }
     }
 
+
+    public void cancel() {
+        synchronized(mCancellationRequested) {
+            mCancellationRequested.set(true);
+            if (mPutMethod != null)
+                mPutMethod.abort();
+        }
+    }
 
 }

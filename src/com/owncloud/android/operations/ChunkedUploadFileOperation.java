@@ -28,6 +28,8 @@ import java.util.Random;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
+import com.owncloud.android.datamodel.OCFile;
+
 import android.accounts.Account;
 import android.util.Log;
 
@@ -42,41 +44,38 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
     private static final String TAG = ChunkedUploadFileOperation.class.getSimpleName();
 
     public ChunkedUploadFileOperation(  Account account,
-                                        String localPath, 
-                                        String remotePath, 
-                                        String mimeType, 
+                                        OCFile file,
                                         boolean isInstant, 
                                         boolean forceOverwrite) {
         
-        super(account, localPath, remotePath, mimeType, isInstant, forceOverwrite);
+        super(account, file, isInstant, forceOverwrite);
     }
 
     @Override
     protected int uploadFile(WebdavClient client) throws HttpException, IOException {
         int status = -1;
 
-        PutMethod put = null;
         FileChannel channel = null;
         FileLock lock = null;
         RandomAccessFile raf = null;
         try {
-            File file = new File(getLocalPath());
+            File file = new File(getStoragePath());
             raf = new RandomAccessFile(file, "rw");
             channel = raf.getChannel();
             lock = channel.tryLock();
-            ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE);
+            ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE, file);
             entity.addOnDatatransferProgressListeners(getDataTransferListeners());
             long offset = 0;
             String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);
             for (int chunkIndex = 0; chunkIndex < chunkCount ; chunkIndex++, offset += CHUNK_SIZE) {
-                put = new PutMethod(uriPrefix + chunkCount + "-" + chunkIndex);
-                put.addRequestHeader(OC_CHUNKED_HEADER, OC_CHUNKED_HEADER);
+                mPutMethod = new PutMethod(uriPrefix + chunkCount + "-" + chunkIndex);
+                mPutMethod.addRequestHeader(OC_CHUNKED_HEADER, OC_CHUNKED_HEADER);
                 entity.setOffset(offset);
-                put.setRequestEntity(entity);
-                status = client.executeMethod(put);
-                client.exhaustResponse(put.getResponseBodyAsStream());
-                Log.d(TAG, "Upload of " + getLocalPath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
+                mPutMethod.setRequestEntity(entity);
+                status = client.executeMethod(mPutMethod);
+                client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
+                Log.d(TAG, "Upload of " + getStoragePath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
                 if (!isSuccess(status))
                     break;
             }
@@ -88,8 +87,8 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                 channel.close();
             if (raf != null)
                 raf.close();
-            if (put != null)
-                put.releaseConnection();    // let the connection available for other methods
+            if (mPutMethod != null)
+                mPutMethod.releaseConnection();    // let the connection available for other methods
         }
         return status;
     }

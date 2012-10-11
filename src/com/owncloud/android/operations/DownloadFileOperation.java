@@ -52,7 +52,7 @@ public class DownloadFileOperation extends RemoteOperation {
     
     private static final String TAG = DownloadFileOperation.class.getCanonicalName();
 
-    private Account mAccount = null;
+    private Account mAccount;
     private OCFile mFile;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
@@ -90,7 +90,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getMimeType() {
-        String mimeType = mFile.getMimetype();
+        String mimeType = mFile.getMimetype();  // TODO fix the mime types in OCFiles FOREVER
         if (mimeType == null || mimeType.length() <= 0) {
             try {
                 mimeType = MimeTypeMap.getSingleton()

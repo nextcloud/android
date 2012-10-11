@@ -27,7 +27,7 @@ public class FileRequestEntity implements RequestEntity {
 
     final File mFile;
     final String mContentType;
-    Set<OnDatatransferProgressListener> mListeners = new HashSet<OnDatatransferProgressListener>();
+    Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
 
     public FileRequestEntity(final File file, final String contentType) {
         super();
@@ -54,15 +54,15 @@ public class FileRequestEntity implements RequestEntity {
     }
     
     public void addOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mListeners.add(listener);
+        mDataTransferListeners.add(listener);
     }
     
     public void addOnDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
-        mListeners.addAll(listeners);
+        mDataTransferListeners.addAll(listeners);
     }
     
     public void removeOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mListeners.remove(listener);
+        mDataTransferListeners.remove(listener);
     }
     
     
@@ -70,7 +70,7 @@ public class FileRequestEntity implements RequestEntity {
     public void writeRequest(final OutputStream out) throws IOException {
         //byte[] tmp = new byte[4096];
         ByteBuffer tmp = ByteBuffer.allocate(4096);
-        int i = 0;
+        int readResult = 0;
         
         // TODO(bprzybylski): each mem allocation can throw OutOfMemoryError we need to handle it
         //                    globally in some fashionable manner
@@ -78,13 +78,17 @@ public class FileRequestEntity implements RequestEntity {
         FileChannel channel = raf.getChannel();
         FileLock lock = channel.tryLock();
         Iterator<OnDatatransferProgressListener> it = null;
+        long transferred = 0;
+        long size = mFile.length();
+        if (size == 0) size = -1;
         try {
-            while ((i = channel.read(tmp)) >= 0) {
-                out.write(tmp.array(), 0, i);
+            while ((readResult = channel.read(tmp)) >= 0) {
+                out.write(tmp.array(), 0, readResult);
                 tmp.clear();
-                it = mListeners.iterator();
+                transferred += readResult;
+                it = mDataTransferListeners.iterator();
                 while (it.hasNext()) {
-                    it.next().onTransferProgress(i);
+                    it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
                 }
             }
             

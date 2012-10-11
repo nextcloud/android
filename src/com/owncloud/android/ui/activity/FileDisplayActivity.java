@@ -222,7 +222,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             mCurrentDir = mStorageManager.getFileByPath(mCurrentDir.getRemotePath());   // mCurrentDir == null if it is not in the current account
         }
         if (mCurrentFile != null) {
-            mCurrentFile = mStorageManager.getFileByPath(mCurrentFile.getRemotePath());   // mCurrentFile == null if it is not in the current account
+            if (mCurrentFile.fileExists()) {
+                mCurrentFile = mStorageManager.getFileByPath(mCurrentFile.getRemotePath());   // mCurrentFile == null if it is not in the current account
+            }   // else : keep mCurrentFile with the received value; this is currently the case of an upload in progress, when the user presses the status notification in a landscape tablet
         }
         
         /// Default to root if mCurrentDir was not found
@@ -442,9 +444,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         if (mDualPane) {
             FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            OCFile file = fragment.getDisplayedFile();
-            if (file != null) {
-                outState.putParcelable(FileDetailFragment.EXTRA_FILE, file);
+            if (fragment != null) {
+                OCFile file = fragment.getDisplayedFile();
+                if (file != null) {
+                    outState.putParcelable(FileDetailFragment.EXTRA_FILE, file);
+                }
             }
         }
         Log.d(getClass().toString(), "onSaveInstanceState() end");
