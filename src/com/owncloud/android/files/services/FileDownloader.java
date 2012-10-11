@@ -40,6 +40,7 @@ import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
+    
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
     
@@ -60,13 +61,16 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private ConcurrentMap<String, DownloadFileOperation> mPendingDownloads = new ConcurrentHashMap<String, DownloadFileOperation>();
     private DownloadFileOperation mCurrentDownload = null;
     
-    private NotificationManager mNotificationMngr;
+    private NotificationManager mNotificationManager;
     private Notification mNotification;
     private int mLastPercent;
     
     
     /**
-     * Builds a key for mDownloadsInProgress from the accountName and remotePath
+     * Builds a key for mPendingDownloads from the account and file to download
+     * 
+     * @param account   Account where the file to download is stored
+     * @param file      File to download
      */
     private String buildRemoteName(Account account, OCFile file) {
         return account.name + file.getRemotePath();
@@ -91,12 +95,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     @Override
     public void onCreate() {
         super.onCreate();
-        mNotificationMngr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        HandlerThread thread = new HandlerThread("FileDownladerThread",
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        HandlerThread thread = new HandlerThread("FileDownloaderThread",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper);
+        mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
     }
 
@@ -180,10 +184,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         
         /**
-         * Returns True when the file referred by 'remotePath' in the ownCloud account 'account' is downloading
+         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download
          * 
          * @param account       Owncloud account where the remote file is stored.
-         * @param file          A file in the queue of downloads.
+         * @param file          A file that could be in the queue of downloads.
          */
         public boolean isDownloading(Account account, OCFile file) {
             synchronized (mPendingDownloads) {
@@ -198,9 +202,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * 
      * Created with the Looper of a new thread, started in {@link FileUploader#onCreate()}. 
      */
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
+    private static class ServiceHandler extends Handler {
+        // don't make it a final class, and don't remove the static ; lint will warn about a possible memory leak
+        FileDownloader mService;
+        public ServiceHandler(Looper looper, FileDownloader service) {
             super(looper);
+            if (service == null)
+                throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            mService = service;
         }
 
         @Override
@@ -210,10 +219,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             if (msg.obj != null) {
                 Iterator<String> it = requestedDownloads.iterator();
                 while (it.hasNext()) {
-                    downloadFile(it.next());
+                    mService.downloadFile(it.next());
                 }
             }
-            stopSelf(msg.arg1);
+            mService.stopSelf(msg.arg1);
         }
     }
     
@@ -235,7 +244,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             notifyDownloadStart(mCurrentDownload);
 
             /// prepare client object to send the request to the ownCloud server
-            if (mDownloadClient == null || mLastAccount != mCurrentDownload.getAccount()) {
+            if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
                 mLastAccount = mCurrentDownload.getAccount();
                 mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
             }
@@ -258,7 +267,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             
             } finally {
-                mPendingDownloads.remove(downloadKey);
+                synchronized(mPendingDownloads) {
+                    mPendingDownloads.remove(downloadKey);
+                }
             }
 
             
@@ -271,15 +282,42 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
 
     
     /**
+     * Creates a status notification to show the download progress
+     * 
+     * @param download  Download operation starting.
+     */
+    private void notifyDownloadStart(DownloadFileOperation download) {
+        /// create status notification with a progress bar
+        mLastPercent = 0;
+        mNotification = new Notification(R.drawable.icon, getString(R.string.downloader_download_in_progress_ticker), System.currentTimeMillis());
+        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
+        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
+        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, download.getSize() < 0);
+        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, new File(download.getSavePath()).getName()));
+        mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
+        
+        /// includes a pending intent in the notification showing the details view of the file
+        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
+        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        
+        mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
+    }
+
+    
+    /**
      * Callback method to update the progress bar in the status notification.
      */
     @Override
     public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
-          mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer == -1);
-          mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName));
-          mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
+          mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
+          String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
+          mNotification.contentView.setTextViewText(R.id.status_text, text);
+          mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
         }
         mLastPercent = percent;
     }
@@ -295,39 +333,13 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     
 
     /**
-     * Creates a status notification to show the download progress
-     * 
-     * @param download  Download operation starting.
-     */
-    private void notifyDownloadStart(DownloadFileOperation download) {
-        /// create status notification to show the download progress
-        mLastPercent = 0;
-        mNotification = new Notification(R.drawable.icon, getString(R.string.downloader_download_in_progress_ticker), System.currentTimeMillis());
-        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
-        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, download.getSize() == -1);
-        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, new File(download.getSavePath()).getName()));
-        mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
-        
-        /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
-        showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        
-        mNotificationMngr.notify(R.string.downloader_download_in_progress_ticker, mNotification);
-    }
-
-    
-    /**
      * Updates the status notification with the result of a download operation.
      * 
      * @param downloadResult    Result of the download operation.
      * @param download          Finished download operation
      */
     private void notifyDownloadResult(DownloadFileOperation download, RemoteOperationResult downloadResult) {
-        mNotificationMngr.cancel(R.string.downloader_download_in_progress_ticker);
+        mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
         if (!downloadResult.isCancelled()) {
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
@@ -336,7 +348,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             // TODO put something smart in the contentIntent below
             finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
             finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
-            mNotificationMngr.notify(tickerId, finalNotification);
+            mNotificationManager.notify(tickerId, finalNotification);
         }
     }
     

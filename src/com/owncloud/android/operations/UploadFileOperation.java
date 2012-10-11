@@ -20,6 +20,8 @@ package com.owncloud.android.operations;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -32,6 +34,7 @@ import eu.alefzero.webdav.FileRequestEntity;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
+import android.accounts.Account;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -44,13 +47,52 @@ public class UploadFileOperation extends RemoteOperation {
     
     private static final String TAG = UploadFileOperation.class.getCanonicalName();
 
+    private Account mAccount = null;
     private String mLocalPath = null;
     private String mRemotePath = null;
     private String mMimeType = null;
     private boolean mIsInstant = false;
     private boolean mForceOverwrite = false;
-    private OnDatatransferProgressListener mDataTransferListener = null;
+    private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
 
+    
+    public UploadFileOperation( Account account,
+                                String localPath, 
+                                String remotePath, 
+                                String mimeType, 
+                                boolean isInstant, 
+                                boolean forceOverwrite) {
+        if (account == null)
+            throw new IllegalArgumentException("Illegal null account in UploadFileOperation creation");
+        if (localPath == null || localPath.length() <= 0)
+            throw new IllegalArgumentException("Illegal null or empty localPath in UploadFileOperation creation");
+        if (remotePath == null || remotePath.length() <= 0)
+            throw new IllegalArgumentException("Illegal null or empty remotePath in UploadFileOperation creation");
+
+        mAccount = account;
+        mLocalPath = localPath;
+        mRemotePath = remotePath;
+        mMimeType = mimeType;
+        if (mMimeType == null || mMimeType.length() <= 0) {
+            try {
+                mMimeType = MimeTypeMap.getSingleton()
+                        .getMimeTypeFromExtension(
+                                localPath.substring(localPath.lastIndexOf('.') + 1));
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + localPath);
+            }
+        }
+        if (mMimeType == null) {
+            mMimeType = "application/octet-stream";
+        }
+        mIsInstant = isInstant;
+        mForceOverwrite = forceOverwrite;
+    }
+
+
+    public Account getAccount() {
+        return mAccount;
+    }
     
     public String getLocalPath() {
         return mLocalPath;
@@ -63,49 +105,25 @@ public class UploadFileOperation extends RemoteOperation {
     public String getMimeType() {
         return mMimeType;
     }
-
     
     public boolean isInstant() {
         return mIsInstant;
     }
-    
     
     public boolean getForceOverwrite() {
         return mForceOverwrite;
     }
 
     
-    public OnDatatransferProgressListener getDataTransferListener() {
-        return mDataTransferListener ;
+    public Set<OnDatatransferProgressListener> getDataTransferListeners() {
+        return mDataTransferListeners;
     }
+    
+    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+        mDataTransferListeners.add(listener);
+    }
+    
 
-    
-    public UploadFileOperation( String localPath, 
-                                String remotePath, 
-                                String mimeType, 
-                                boolean isInstant, 
-                                boolean forceOverwrite, 
-                                OnDatatransferProgressListener dataTransferProgressListener) {
-        mLocalPath = localPath;
-        mRemotePath = remotePath;
-        mMimeType = mimeType;
-        if (mMimeType == null) {
-            try {
-                mMimeType = MimeTypeMap.getSingleton()
-                    .getMimeTypeFromExtension(
-                            localPath.substring(localPath.lastIndexOf('.') + 1));
-            } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + localPath);
-            }
-        }
-        if (mMimeType == null) {
-            mMimeType = "application/octet-stream";
-        }
-        mIsInstant = isInstant;
-        mForceOverwrite = forceOverwrite;
-        mDataTransferListener = dataTransferProgressListener;
-    }
-    
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
@@ -144,7 +162,7 @@ public class UploadFileOperation extends RemoteOperation {
         try {
             File f = new File(mLocalPath);
             FileRequestEntity entity = new FileRequestEntity(f, mMimeType);
-            entity.addOnDatatransferProgressListener(mDataTransferListener);
+            entity.addOnDatatransferProgressListeners(mDataTransferListeners);
             put.setRequestEntity(entity);
             status = client.executeMethod(put);
             client.exhaustResponse(put.getResponseBodyAsStream());
@@ -191,5 +209,6 @@ public class UploadFileOperation extends RemoteOperation {
             return remotePath + suffix;
         }
     }
+
 
 }

@@ -28,6 +28,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -35,6 +36,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 
 import com.owncloud.android.R;
@@ -49,10 +52,14 @@ import com.owncloud.android.R;
 public class FileDetailActivity extends SherlockFragmentActivity implements FileDetailFragment.ContainerActivity {
     
     public static final int DIALOG_SHORT_WAIT = 0;
+
+    public static final String TAG = FileDetailActivity.class.getSimpleName();
     
     private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
-    private ServiceConnection mConnection = null;
+    private ServiceConnection mDownloadConnection, mUploadConnection = null;
+    private FileUploaderBinder mUploaderBinder = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +72,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
                                            );
 
         if (!mConfigurationChangedToLandscape) {
-            mConnection = new DetailsServiceConnection();
-            bindService(new Intent(this, FileDownloader.class), mConnection, Context.BIND_AUTO_CREATE);
+            mDownloadConnection = new DetailsServiceConnection();
+            bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
+            mUploadConnection = new DetailsServiceConnection();
+            bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
             
             setContentView(R.layout.file_activity_details);
         
@@ -93,16 +102,30 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private class DetailsServiceConnection implements ServiceConnection {
 
         @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            mDownloaderBinder = (FileDownloaderBinder) service;
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
+                Log.d(TAG, "Download service connected");
+                mDownloaderBinder = (FileDownloaderBinder) service;
+            } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
+                Log.d(TAG, "Upload service connected");
+                mUploaderBinder = (FileUploaderBinder) service;
+            } else {
+                return;
+            }
             FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fragment != null)
                 fragment.updateFileDetails();   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mDownloaderBinder = null;
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
+                Log.d(TAG, "Download service disconnected");
+                mDownloaderBinder = null;
+            } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
+                Log.d(TAG, "Upload service disconnected");
+                mUploaderBinder = null;
+            }
         }
     };    
     
@@ -110,9 +133,13 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mConnection != null) {
-            unbindService(mConnection);
-            mConnection = null;
+        if (mDownloadConnection != null) {
+            unbindService(mDownloadConnection);
+            mDownloadConnection = null;
+        }
+        if (mUploadConnection != null) {
+            unbindService(mUploadConnection);
+            mUploadConnection = null;
         }
     }
     
@@ -188,6 +215,12 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
+    }
+
+
+    @Override
+    public FileUploaderBinder getFileUploaderBinder() {
+        return mUploaderBinder;
     }
     
 }

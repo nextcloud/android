@@ -80,6 +80,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -445,7 +446,8 @@ public class FileDetailFragment extends SherlockFragment implements
             // configure UI for depending upon local state of the file
             //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
+            FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))) {
                 setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {

@@ -28,10 +28,10 @@ import java.util.Random;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
+import android.accounts.Account;
 import android.util.Log;
 
 import eu.alefzero.webdav.ChunkFromFileChannelRequestEntity;
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
@@ -41,14 +41,14 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
     private static final String OC_CHUNKED_HEADER = "OC-Chunked";
     private static final String TAG = ChunkedUploadFileOperation.class.getSimpleName();
 
-    public ChunkedUploadFileOperation(  String localPath, 
+    public ChunkedUploadFileOperation(  Account account,
+                                        String localPath, 
                                         String remotePath, 
                                         String mimeType, 
                                         boolean isInstant, 
-                                        boolean forceOverwrite, 
-                                        OnDatatransferProgressListener dataTransferProgressListener) {
+                                        boolean forceOverwrite) {
         
-        super(localPath, remotePath, mimeType, isInstant, forceOverwrite, dataTransferProgressListener);
+        super(account, localPath, remotePath, mimeType, isInstant, forceOverwrite);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
             channel = raf.getChannel();
             lock = channel.tryLock();
             ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE);
-            entity.setOnDatatransferProgressListener(getDataTransferListener());
+            entity.addOnDatatransferProgressListeners(getDataTransferListeners());
             long offset = 0;
             String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);

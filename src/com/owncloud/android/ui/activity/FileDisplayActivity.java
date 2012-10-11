@@ -69,6 +69,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -96,6 +97,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private FileDownloaderBinder mDownloaderBinder = null;
+    private FileUploaderBinder mUploaderBinder = null;
+    private ServiceConnection mDownloadConnection = null, mUploadConnection = null;
     
     private OCFileListFragment mFileList;
     
@@ -140,7 +143,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
         }
         
-        bindService(new Intent(this, FileDownloader.class), mConnection, Context.BIND_AUTO_CREATE);
+        mUploadConnection = new ListServiceConnection(); 
+        mDownloadConnection = new ListServiceConnection();
+        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
 
         // PIN CODE request ;  best location is to decide, let's try this first
         if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
@@ -243,7 +249,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbindService(mConnection);
+        if (mDownloadConnection != null)
+            unbindService(mDownloadConnection);
+        if (mUploadConnection != null)
+            unbindService(mUploadConnection);
     }
 
     
@@ -932,15 +941,32 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public FileDownloaderBinder getFileDownloaderBinder() {
         return mDownloaderBinder;
     }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FileUploaderBinder getFileUploaderBinder() {
+        return mUploaderBinder;
+    }
     
     
     /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection mConnection = new ServiceConnection() {
+    private class ListServiceConnection implements ServiceConnection {
 
         @Override
-        public void onServiceConnected(ComponentName className, IBinder service) {
-            mDownloaderBinder = (FileDownloaderBinder) service;
-            // a new chance to get the mDownloadBinder through getDownloadBinder() - THIS IS A MESS
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+                Log.d(TAG, "Download service connected");
+                mDownloaderBinder = (FileDownloaderBinder) service;
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+                Log.d(TAG, "Upload service connected");
+                mUploaderBinder = (FileUploaderBinder) service;
+            } else {
+                return;
+            }
+            // a new chance to get the mDownloadBinder through getFileDownloadBinder() - THIS IS A MESS
             mFileList.listDirectory();
             if (mDualPane) {
                 FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
@@ -951,8 +977,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mDownloaderBinder = null;
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
+                Log.d(TAG, "Download service disconnected");
+                mDownloaderBinder = null;
+            } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
+                Log.d(TAG, "Upload service disconnected");
+                mUploaderBinder = null;
+            }
         }
     };    
 

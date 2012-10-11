@@ -54,9 +54,8 @@ public class DownloadFileOperation extends RemoteOperation {
 
     private Account mAccount = null;
     private OCFile mFile;
-    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-    
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
+    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
 
     
     public DownloadFileOperation(Account account, OCFile file) {

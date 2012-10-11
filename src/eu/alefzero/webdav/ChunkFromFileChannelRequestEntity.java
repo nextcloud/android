@@ -22,6 +22,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
@@ -44,7 +48,7 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
     private final String mContentType;
     private final long mSize;
     private long mOffset;
-    private OnDatatransferProgressListener mListener;
+    Set<OnDatatransferProgressListener> mListeners = new HashSet<OnDatatransferProgressListener>();
     private ByteBuffer mBuffer = ByteBuffer.allocate(4096);
 
     public ChunkFromFileChannelRequestEntity(final FileChannel channel, final String contentType, long size) {
@@ -81,12 +85,22 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
         return true;
     }
     
-    public void setOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mListener = listener;
+    public void addOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        mListeners.add(listener);
     }
+    
+    public void addOnDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
+        mListeners.addAll(listeners);
+    }
+    
+    public void removeOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        mListeners.remove(listener);
+    }
+    
     
     public void writeRequest(final OutputStream out) throws IOException {
         int readCount = 0;
+        Iterator<OnDatatransferProgressListener> it = null;
         
        try {
             mChannel.position(mOffset);
@@ -94,8 +108,10 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
                 readCount = mChannel.read(mBuffer);
                 out.write(mBuffer.array(), 0, readCount);
                 mBuffer.clear();
-                if (mListener != null) 
-                    mListener.onTransferProgress(readCount);
+                it = mListeners.iterator();
+                while (it.hasNext()) {
+                    it.next().onTransferProgress(readCount);
+                }
             }
             
         } catch (IOException io) {
