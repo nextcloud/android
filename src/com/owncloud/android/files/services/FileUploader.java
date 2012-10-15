@@ -69,7 +69,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
     private WebdavClient mUploadClient = null;
-    private Account mLastAccount = null, mLastAccountWhereInstantFolderWasCreated = null;
+    private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
 
     private ConcurrentMap<String, UploadFileOperation> mPendingUploads = new ConcurrentHashMap<String, UploadFileOperation>();
@@ -180,14 +180,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         UploadFileOperation newUpload = null;
         OCFile file = null;
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+        boolean fixed = false;
+        if (isInstant) {
+            fixed = checkAndFixInstantUploadDirectory(storageManager);
+        }
         try {
             for (int i=0; i < localPaths.length; i++) {
                 uploadKey = buildRemoteName(account, remotePaths[i]);
-                file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), forceOverwrite, storageManager);
+                file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), isInstant, forceOverwrite, storageManager);
                 if (chunked) {
                     newUpload = new ChunkedUploadFileOperation(account, file, isInstant, forceOverwrite);
                 } else {
                     newUpload = new UploadFileOperation(account, file, isInstant, forceOverwrite);
+                }
+                if (fixed && i==0) {
+                    newUpload.setRemoteFolderToBeCreated();
                 }
                 mPendingUploads.putIfAbsent(uploadKey, newUpload);
                 newUpload.addDatatransferProgressListener(this);
@@ -197,6 +204,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Not enough information provided in intent: " + e.getMessage());
             return START_NOT_STICKY;
+            
+        } catch (IllegalStateException e) {
+            Log.e(TAG, "Bad information provided in intent: " + e.getMessage());
+            return START_NOT_STICKY;
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Unexpected exception while processing upload intent", e);
+            return START_NOT_STICKY;
+            
         }
         
         if (requestedUploads.size() > 0) {
@@ -315,12 +331,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 mUploadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
             }
             
-            /// create remote folder for instant uploads, "if necessary" (would be great that HEAD to a folder worked as with files, we should check; but it's not WebDAV standard, anyway
-            if (mCurrentUpload.isInstant() && !mLastAccountWhereInstantFolderWasCreated.equals(mCurrentUpload.getAccount())) {
-                mLastAccountWhereInstantFolderWasCreated = mCurrentUpload.getAccount();
-                createRemoteFolderForInstantUploads(mUploadClient, mStorageManager);
+            /// create remote folder for instant uploads
+            if (mCurrentUpload.isRemoteFolderToBeCreated()) {
+                mUploadClient.createDirectory(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);    // ignoring result; fail could just mean that it already exists, but local database is not synchronized; the upload will be tried anyway
             }
-        
+
+            
             /// perform the upload
             RemoteOperationResult uploadResult = null;
             try {
@@ -345,26 +361,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     /**
-     * Create remote folder for instant uploads if necessary.
-     * 
-     * @param client            WebdavClient to the ownCloud server.
-     * @param storageManager    Interface to the local database caching the data in the server.
-     * @return                  'True' if the folder exists when the methods finishes.
-     */
-    private boolean createRemoteFolderForInstantUploads(WebdavClient client, FileDataStorageManager storageManager) {
-        boolean result = true;
-        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
-        if (instantUploadDir == null) {
-            result = client.createDirectory(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists, but local database is not synchronized; the upload will be started anyway
-            OCFile newDir = new OCFile(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
-            newDir.setMimetype("DIR");
-            newDir.setParentId(storageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId());
-            storageManager.saveFile(newDir);
-        }
-        return result;
-    }
-
-    /**
      * Saves a new OC File after a successful upload.
      * 
      * @param file              OCFile describing the uploaded file
@@ -377,7 +373,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
     
     
-    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean forceOverwrite, FileDataStorageManager storageManager) {
+    private boolean checkAndFixInstantUploadDirectory(FileDataStorageManager storageManager) {
+        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
+        if (instantUploadDir == null) {
+            // first instant upload in the account, or never account not synchronized after the remote InstantUpload folder was created
+            OCFile newDir = new OCFile(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
+            newDir.setMimetype("DIR");
+            newDir.setParentId(storageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId());
+            storageManager.saveFile(newDir);
+            return true;
+        }
+        return false;
+    }
+
+    
+    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean isInstant, boolean forceOverwrite, FileDataStorageManager storageManager) {
         OCFile newFile = new OCFile(remotePath);
         newFile.setStoragePath(localPath);
         newFile.setLastSyncDate(0);
@@ -407,9 +417,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         // parent dir
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith("/")?parentPath:parentPath+"/" ;
-        long parentDirId = storageManager.getFileByPath(parentPath).getFileId();
+        OCFile parentDir = storageManager.getFileByPath(parentPath);
+        if (parentDir == null) {
+            throw new IllegalStateException("Can not upload a file to a non existing remote location: " + parentPath);
+        }
+        long parentDirId = parentDir.getFileId();
         newFile.setParentId(parentDirId);
-        
         return newFile;
     }
     

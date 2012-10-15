@@ -52,11 +52,11 @@ public class UploadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private String mRemotePath = null;
     private boolean mIsInstant = false;
+    private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-
     
     public UploadFileOperation( Account account,
                                 OCFile file,
@@ -102,11 +102,19 @@ public class UploadFileOperation extends RemoteOperation {
     public boolean isInstant() {
         return mIsInstant;
     }
+
+    public boolean isRemoteFolderToBeCreated() {
+        return mRemoteFolderToBeCreated;
+    }
     
+    public void setRemoteFolderToBeCreated() {
+        mRemoteFolderToBeCreated = true;
+    }
+
     public boolean getForceOverwrite() {
         return mForceOverwrite;
     }
-
+    
     
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {
         return mDataTransferListeners;
@@ -220,5 +228,6 @@ public class UploadFileOperation extends RemoteOperation {
                 mPutMethod.abort();
         }
     }
+
 
 }
