@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
   <string name="filedetails_redownload">Ladda ner igen</string>
-  <string name="filedetails_download_in_progress">Laddar ner</string>
   <string name="filedetails_open">Öppna</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
@@ -177,4 +176,5 @@
   <string name="ssl_validator_question">Vill du lita på detta certifikat ändå?</string>
   <string name="ssl_validator_not_saved">Certifikatet kunde inte sparas</string>
   <string name="text_placeholder">Detta är en platshållare</string>
+  <string name="instant_upload_on_wifi">Ladda upp bilder endast via WiFi</string>
 </resources>

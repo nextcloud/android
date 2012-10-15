@@ -61,7 +61,6 @@
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Descarcă</string>
   <string name="filedetails_redownload">Descarcă din nou</string>
-  <string name="filedetails_download_in_progress">Se descarcă</string>
   <string name="filedetails_open">Deschide</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Nu</string>

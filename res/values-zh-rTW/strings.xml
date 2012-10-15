@@ -46,7 +46,6 @@
   <string name="filedetails_created">建立:</string>
   <string name="filedetails_modified">修改:</string>
   <string name="filedetails_redownload">重新下載</string>
-  <string name="filedetails_download_in_progress">下載中</string>
   <string name="filedetails_open">開啟</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>

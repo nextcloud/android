@@ -176,4 +176,5 @@
   <string name="ssl_validator_question">¿Confías de todas formas en este certificado?</string>
   <string name="ssl_validator_not_saved">El certificado no pudo ser guardado</string>
   <string name="text_placeholder">Es un marcador de posición</string>
+  <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
 </resources>

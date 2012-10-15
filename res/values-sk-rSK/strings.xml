@@ -14,6 +14,7 @@
   <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty ownCloud. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
   <string name="actionbar_sync">Obnoviť</string>
   <string name="actionbar_upload">Nahraj súbor</string>
+  <string name="actionbar_upload_files">Súbory</string>
   <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_search">Hľadaj</string>
   <string name="actionbar_settings">Nastavenia</string>
@@ -24,7 +25,12 @@
   <string name="prefs_select_oc_account">Výbor účet</string>
   <string name="prefs_summary_select_oc_account">Vyberte účet pre túto aplikáciu.</string>
   <string name="prefs_trackmydevice">Sledovanie zariadenia</string>
+  <string name="prefs_trackmydevice_summary_off">Povoliť sledovanie polohy zariadenia</string>
+  <string name="prefs_trackmydevice_summary_on">Váš ownCloud sleduje vašu polohu na tomto zariadení</string>
+  <string name="prefs_trackmydevice_interval">Interval aktualizácie</string>
+  <string name="prefs_trackmydevice_interval_summary">Aktualizácia každých %1$s minút</string>
   <string name="prefs_accounts">Účty</string>
+  <string name="prefs_manage_accounts">Správa účtov</string>
   <string name="prefs_pincode">PIN aplikácie ownCloud</string>
   <string name="prefs_pincode_summary">Chrániť klienta ownCloud</string>
   <string name="prefs_instant_upload">Zapnúť okamžité odosielanie</string>
@@ -32,7 +38,11 @@
   <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Používateľská meno</string>
   <string name="auth_password">Heslo</string>
+  <string name="auth_register">Som nový v ownCloud</string>
+  <string name="new_session_uri_error">Zadané nesprávne URL</string>
+  <string name="new_session_session_name_error">Nesprávny názov sedenia</string>
   <string name="sync_string_files">Súbory</string>
+  <string name="uploader_no_file_selected">Nebol označený žiadny súbor pre odoslanie</string>
   <string name="setup_hint_username">Meno užívateľa</string>
   <string name="setup_hint_password">Heslo</string>
   <string name="setup_hint_address">Web adresa</string>
@@ -41,8 +51,10 @@
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašie</string>
+  <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny ownCloud účet. Zadajte ho prosím.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Koniec</string>
+  <string name="uploader_wrn_no_content_title">Žiadny obsah pre odoslanie</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="uploader_btn_create_dir_text">Vytvoriť adresár pre nahrávanie</string>
   <string name="filedetails_size">Veľkosť:</string>
@@ -50,14 +62,18 @@
   <string name="filedetails_created">Vytvorený:</string>
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
-  <string name="filedetails_download_in_progress">Sťahovanie</string>
+  <string name="filedetails_redownload">Obnoviť</string>
   <string name="filedetails_open">Otvoriť</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_cancel">Zrušiť</string>
   <string name="common_save_exit">Uložiť a ukončiť</string>
   <string name="common_error">Chyba</string>
+  <string name="delete_account">Zmazať účet</string>
+  <string name="create_account">Vytvoriť účet</string>
+  <string name="upload_chooser_title">Odoslať z ...</string>
   <string name="uploader_info_dirname">Názov adresára</string>
+  <string name="uploader_upload_in_progress_ticker">Odosielam ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Odoslanie bolo úspešné</string>
   <string name="uploader_upload_failed_ticker">Odoslanie bolo neúspešné</string>
@@ -66,6 +82,7 @@
   <string name="downloader_download_succeeded_ticker">Sťahovanie bolo úspešné</string>
   <string name="common_choose_account">Zvoliť účet</string>
   <string name="sync_string_contacts">Kontakty</string>
+  <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
   <string name="use_ssl">Použiť zabezpečené pripojenie</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
   <string name="pincode_enter_new_pin_code">Zadajte nové PIN aplikácie</string>
@@ -73,8 +90,36 @@
   <string name="pincode_reenter_your_pincode">Zadajte znovu PIN ownCloud aplikácie</string>
   <string name="pincode_remove_your_pincode">Zrušiť PIN pre ownCloud aplikáciu</string>
   <string name="pincode_mismatch">PIN sa neshodujú</string>
+  <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
+  <string name="pincode_removed">PIN aplikácie bol odstránený</string>
+  <string name="pincode_stored">PIN aplikácie bol uložený</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 minút</item>
+    <item>30 minút</item>
+    <item>60 minút</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_trying_to_login">Pokus o pripojenie...</string>
+  <string name="auth_no_net_conn_title">Bez siete</string>
+  <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
+  <string name="auth_connect_anyway">Aj tak pripojiť</string>
+  <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
+  <string name="auth_connection_established">Pripojenie vytvorené</string>
   <string name="auth_testing_connection">Testovane pripojenia...</string>
+  <string name="auth_login_details">Podrobnosti prihlásenia</string>
   <string name="common_share">Zdieľaj</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
+  <string name="ssl_validator_title">Upozornenie</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
+  <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
+  <string name="ssl_validator_certificate_not_available">Nie je možné získať certifikát servera</string>
+  <string name="ssl_validator_question">Chcete veriť tomuto certifikátu v každom prípade ?</string>
+  <string name="ssl_validator_not_saved">Certifikát nemôže byť uložený</string>
+  <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
 </resources>

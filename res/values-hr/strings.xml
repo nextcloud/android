@@ -1,2 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Lozinka:</string>
+  <string name="main_login">Korisničko ime:</string>
+  <string name="main_button_login">Prijava</string>
+  <string name="main_files">Datoteke</string>
+  <string name="main_music">Muzika</string>
+  <string name="main_calendar">Kalendar</string>
+  <string name="main_bookmarks">Zabilješke</string>
+  <string name="main_settings">Postavke</string>
+  <string name="actionbar_sync">Osvježi</string>
+  <string name="actionbar_upload">Učitaj</string>
+  <string name="actionbar_mkdir">Kreiraj direktorij</string>
+  <string name="actionbar_search">pretraži</string>
+  <string name="actionbar_settings">Postavke</string>
+  <string name="prefs_category_general">Općenito</string>
+  <string name="prefs_add_session">Dodaj novo pretraživanje</string>
+  <string name="prefs_select_oc_account">Izaberi račun</string>
+  <string name="prefs_accounts">Korisnićki računi</string>
+  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_username">Korisničko ime</string>
+  <string name="auth_password">Lozinka</string>
+  <string name="sync_string_files">Datoteke</string>
+  <string name="setup_hint_username">Korisničko ime</string>
+  <string name="setup_hint_password">Lozinka</string>
+  <string name="setup_hint_address">Web adresa</string>
+  <string name="setup_hint_show_password">Prikaži lozinku?</string>
+  <string name="setup_btn_connect">Poveži</string>
+  <string name="uploader_btn_upload_text">Učitaj</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
+  <string name="auth_trying_to_login">Trying to login…</string>
+  <string name="common_remove">Makni</string>
+</resources>

@@ -50,7 +50,6 @@
   <string name="filedetails_modified">Modificat :</string>
   <string name="filedetails_download">Avalcarga</string>
   <string name="filedetails_redownload">Torna avalcargar</string>
-  <string name="filedetails_download_in_progress">Avalcarga</string>
   <string name="filedetails_open">Dubrís</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>

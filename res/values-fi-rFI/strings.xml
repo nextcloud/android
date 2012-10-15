@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
-  <string name="filedetails_download_in_progress">Ladataan</string>
   <string name="filedetails_open">Avaa</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
@@ -170,6 +169,8 @@
   <string name="ssl_validator_title">Varoitus</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
   <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
+  <string name="ssl_validator_certificate_not_available">Palvelimen varmenteen noutaminen epäonnistui</string>
   <string name="ssl_validator_question">Haluatko silti luottaa tähän varmenteeseen?</string>
   <string name="ssl_validator_not_saved">Varmenteen tallennus epäonnistui</string>
+  <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
 </resources>

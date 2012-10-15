@@ -46,7 +46,6 @@
   <string name="filedetails_modified">Endret:</string>
   <string name="filedetails_download">Last ned</string>
   <string name="filedetails_redownload">Last ned igjen</string>
-  <string name="filedetails_download_in_progress">Laster ned</string>
   <string name="filedetails_open">Åpne</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>

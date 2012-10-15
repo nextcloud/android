@@ -168,4 +168,13 @@
   <string name="filedisplay_no_file_selected">Δεν επιλέχθηκαν αρχεία </string>
   <string name="ssl_validator_title">Προειδοποίηση</string>
   <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να εγκριθεί</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι αξιόπιστο</string>
+  <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Το πιστοποιητικό του διακομιστή είναι πολύ νέο</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- Η διεύθυνση URL δεν ταιριάζει με το όνομα στο πιστοποιητικό</string>
+  <string name="ssl_validator_certificate_not_available">Το πιστοποιητικό του διακομιστή δεν μπόρεσε να ανακτηθεί</string>
+  <string name="ssl_validator_question">Θέλετε να θεωρείται έμπιστο το πιστοποιητικό αυτό ούτως ή άλλως;</string>
+  <string name="ssl_validator_not_saved">Το πιστοποιητικό δεν ήταν δυνατόν να αποθηκευτεί</string>
+  <string name="text_placeholder">Αυτό είναι ένα σημείο κράτησης θέσης</string>
+  <string name="instant_upload_on_wifi">Αποστολή εικόνων μόνο μέσω WiFi</string>
 </resources>

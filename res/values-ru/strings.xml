@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_redownload">Скачать заново</string>
-  <string name="filedetails_download_in_progress">Скачивание</string>
   <string name="filedetails_open">Открыть</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>

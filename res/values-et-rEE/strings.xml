@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
   <string name="filedetails_redownload">Lae uuesti alla</string>
-  <string name="filedetails_download_in_progress">Allalaadimine</string>
   <string name="filedetails_open">Ava</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>

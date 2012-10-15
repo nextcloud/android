@@ -69,7 +69,6 @@
   <string name="filedetails_modified">更新:</string>
   <string name="filedetails_download">ダウンロード</string>
   <string name="filedetails_redownload">再ダウンロード</string>
-  <string name="filedetails_download_in_progress">ダウンロード中</string>
   <string name="filedetails_open">開く</string>
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
@@ -177,4 +176,5 @@
   <string name="ssl_validator_question">この証明書を信頼してもよろしいですか？</string>
   <string name="ssl_validator_not_saved">証明書は保存できませんでした</string>
   <string name="text_placeholder">これはプレースホルダです</string>
+  <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
 </resources>

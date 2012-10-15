@@ -69,7 +69,6 @@
   <string name="filedetails_modified">แก้ไขเมื่อ:</string>
   <string name="filedetails_download">ดาวน์โหลด</string>
   <string name="filedetails_redownload">ดาวน์โหลดใหม่อีกครั้ง</string>
-  <string name="filedetails_download_in_progress">กำลังดาวน์โหลด</string>
   <string name="filedetails_open">เปิด</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
@@ -168,7 +167,14 @@
   <string name="filedisplay_unexpected_bad_get_content">เกิดปัญหาที่ไม่คาดคิด ; กรุณาลองใช้งานแอปฯอื่นๆ เพื่อเลือกไฟล์</string>
   <string name="filedisplay_no_file_selected">ไม่มีไฟล์ที่ถูกเลือก</string>
   <string name="ssl_validator_title">คำเตือน</string>
+  <string name="ssl_validator_header">ไม่สามารถยืนยันความถูกต้องของตัวตนของเว็บไซต์ได้</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์ไม่น่าเชื่อถือ</string>
+  <string name="ssl_validator_reason_cert_expired">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์หมดอายุแล้ว</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์ยังมีอายุน้อยอยู่</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- URL ดังกล่าวไม่ตรงกันกับชื่อโฮสต์ที่อยู่ในใบรับรอง</string>
+  <string name="ssl_validator_certificate_not_available">ไม่สามารถขอรับใบรับรองความปลอดภัยของเซิร์ฟเวอร์ได้</string>
   <string name="ssl_validator_question">คุณต้องการให้ความไว้วางใจในใบรับรองความปลอดภัยนี้หรือไม่?</string>
   <string name="ssl_validator_not_saved">ไม่สามารถบันทึกใบรับรองความปลอดภัยได้</string>
   <string name="text_placeholder">นี่เป็นตัวยึด</string>
+  <string name="instant_upload_on_wifi">อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</string>
 </resources>

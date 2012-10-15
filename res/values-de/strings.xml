@@ -68,7 +68,7 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_redownload">Erneut herunterladen</string>
+  <string name="filedetails_redownload">Neu laden</string>
   <string name="filedetails_open">Öffnen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
@@ -173,7 +173,8 @@
   <string name="ssl_validator_reason_cert_not_yet_valid">- Das Zertifikat des Servers ist zu neu</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Die Adresse stimmt nicht mit dem im Zertifikat angegebenen Hostnamen  überein</string>
   <string name="ssl_validator_certificate_not_available">Das Zertifikat des Servers konnte nicht abgerufen werden</string>
-  <string name="ssl_validator_question">Möchten Sie diesem Zertifikat trotzdem vertrauen?</string>
+  <string name="ssl_validator_question">Möchtest Du diesem Zertifikat trotzdem vertrauen?</string>
   <string name="ssl_validator_not_saved">Das Zertifikat konnte nicht gespeichert werden</string>
   <string name="text_placeholder">Dies ist ein Platzhalter</string>
+  <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
 </resources>

@@ -69,7 +69,7 @@
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Baixa</string>
   <string name="filedetails_redownload">Baixa de nou</string>
-  <string name="filedetails_open">Obert</string>
+  <string name="filedetails_open">Obre</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
@@ -176,4 +176,5 @@
   <string name="ssl_validator_question">Voleu confiar en aquest certificat igualment?</string>
   <string name="ssl_validator_not_saved">El certificat no s\'ha pogu desar</string>
   <string name="text_placeholder">Això és un text variable</string>
+  <string name="instant_upload_on_wifi">Puja les fotos només via WiFi</string>
 </resources>

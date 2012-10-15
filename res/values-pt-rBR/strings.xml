@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_redownload">Baixar novamente</string>
-  <string name="filedetails_download_in_progress">Baixando</string>
   <string name="filedetails_open">Abrir</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
@@ -167,4 +166,15 @@
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado ; por favor, tente usar outro app para selecionar o arquivo</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
+  <string name="ssl_validator_title">Aviso</string>
+  <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
+  <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- O certificado do servidor é muito recente</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- O URL do host não confere com o host do certificado</string>
+  <string name="ssl_validator_certificate_not_available">O certificado do servidor não pode ser obtido</string>
+  <string name="ssl_validator_question">Você confia nesse certificado mesmo assim?</string>
+  <string name="ssl_validator_not_saved">O certificado não pode ser salvo</string>
+  <string name="text_placeholder">Isso é um marcador de espaço</string>
+  <string name="instant_upload_on_wifi">Fazer upload de fotos somente via WiFi</string>
 </resources>

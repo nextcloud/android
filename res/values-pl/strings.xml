@@ -176,4 +176,5 @@
   <string name="ssl_validator_question">Zaakceptować certyfikat?</string>
   <string name="ssl_validator_not_saved">Nie można zapisać certyfikatu</string>
   <string name="text_placeholder">Tekst zastępczy</string>
+  <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
 </resources>

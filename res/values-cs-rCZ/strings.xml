@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Upraven:</string>
   <string name="filedetails_download">Stáhnout</string>
   <string name="filedetails_redownload">Znovu stáhnout</string>
-  <string name="filedetails_download_in_progress">Stahování</string>
   <string name="filedetails_open">Otevřít</string>
   <string name="common_yes">Ano</string>
   <string name="common_no">Ne</string>
@@ -177,4 +176,5 @@
   <string name="ssl_validator_question">Přejete si přesto tomuto certifikátu důvěřovat?</string>
   <string name="ssl_validator_not_saved">Certifikát nelze uložit</string>
   <string name="text_placeholder">Zástupný text</string>
+  <string name="instant_upload_on_wifi">Odesílat obrázky pouze skrze WiFi</string>
 </resources>

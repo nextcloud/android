@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="hello">Saluton, mondo, ĈefekranoDeOwnCloud!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Pasvorto:</string>
   <string name="main_login">Uzantonomo:</string>
@@ -66,7 +67,6 @@
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
   <string name="filedetails_redownload">Reelŝuti</string>
-  <string name="filedetails_download_in_progress">Elŝutante</string>
   <string name="filedetails_open">Malfermi</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
@@ -160,4 +160,12 @@
   <string name="wait_a_moment">Atendu momenton</string>
   <string name="filedisplay_unexpected_bad_get_content">Neatendita problemo; bonvolu provi alian aplikaĵon por elekti la dosieron</string>
   <string name="filedisplay_no_file_selected">Neniu dosiero elektiĝis</string>
+  <string name="ssl_validator_title">Averto</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- La servila atestilo ne fidindas</string>
+  <string name="ssl_validator_reason_cert_expired">- La servila atestilo eksvalidiĝis</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- La servila atestilo tro junas</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- La URL ne kongruas kun la gastignomo en la atestilo</string>
+  <string name="ssl_validator_certificate_not_available">La servila atestilo ne povis ekhaviĝi</string>
+  <string name="ssl_validator_question">Ĉu vi volas fidi ĉi tiun atestilon ĉiuokaze?</string>
+  <string name="ssl_validator_not_saved">La atestino ne povis konserviĝi</string>
 </resources>

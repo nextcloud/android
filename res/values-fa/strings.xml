@@ -37,7 +37,6 @@
   <string name="uploader_wrn_no_content_text">هیچ مطلبی دریافت نشده است. هیچ‌‌چیزی بارگزاری نشده.</string>
   <string name="uploader_info_uploading">در حال بارگزاری</string>
   <string name="filedetails_redownload">بارگزاری دوباره</string>
-  <string name="filedetails_download_in_progress">در حال بارگیری</string>
   <string name="about_title">درباره</string>
   <string name="delete_account">حذف حساب</string>
   <string name="create_account">ساخت حساب</string>

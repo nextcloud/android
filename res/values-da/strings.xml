@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Ændret:</string>
   <string name="filedetails_download">Hent</string>
   <string name="filedetails_redownload">Download igen</string>
-  <string name="filedetails_download_in_progress">Downloader</string>
   <string name="filedetails_open">Åben</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
@@ -167,4 +166,15 @@
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; prøv venligst anden applikation til at vælge filen</string>
   <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
+  <string name="ssl_validator_title">Advarsel</string>
+  <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
+  <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
+  <string name="ssl_validator_certificate_not_available">Serverens certifikat kunne ikke hentes</string>
+  <string name="ssl_validator_question">Stoler du på certifikatet alligevel?</string>
+  <string name="ssl_validator_not_saved">Certifikatet kunne ikke gemmes</string>
+  <string name="text_placeholder">Dette er en pladsholder</string>
+  <string name="instant_upload_on_wifi">Upload billeder kun via WiFi </string>
 </resources>

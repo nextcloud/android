@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="hello">Hello World, OwnCloudMainScreen!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Пароль:</string>
   <string name="main_login">Имя пользователя:</string>
@@ -32,6 +33,7 @@
   <string name="prefs_trackmydevice_interval">Обновить интервал</string>
   <string name="prefs_trackmydevice_interval_summary">Обновлять каждые %1$s минут</string>
   <string name="prefs_accounts">Учетные записи</string>
+  <string name="prefs_manage_accounts">Управление учетными записями</string>
   <string name="prefs_pincode">ownCloud App PIN</string>
   <string name="prefs_pincode_summary">Защитить Ваш ownCloud-клиент</string>
   <string name="prefs_instant_upload">Включить немедленную загрузку</string>
@@ -66,7 +68,7 @@
   <string name="filedetails_created">Создано:</string>
   <string name="filedetails_modified">Модифицировано:</string>
   <string name="filedetails_download">Загрузка</string>
-  <string name="filedetails_download_in_progress">Загрузка</string>
+  <string name="filedetails_redownload">Загрузить еще раз</string>
   <string name="filedetails_open">Открыть</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
@@ -104,6 +106,7 @@
   <string name="pincode_configure_your_pin">Введите PIN-код приложения ownCloud</string>
   <string name="pincode_reenter_your_pincode">Повторно введите PIN-код ownCloud-приложения, пожалуйста</string>
   <string name="pincode_remove_your_pincode">Удалите PIN-код ownCloud-приложения</string>
+  <string name="pincode_mismatch">PIN-коды ownCloud-приложения не идентичны</string>
   <string name="pincode_wrong">Неверный PIN-код ownCloud-приложения</string>
   <string name="pincode_removed">PIN-код ownCloud-приложения удален</string>
   <string name="pincode_stored">PIN-код ownCloud-приложения сохранен</string>
@@ -132,25 +135,35 @@
   <string name="auth_unknown_host_title">Не удалось найти хост</string>
   <string name="auth_unknown_host_message">Не удалось найти введенный хост. Пожалуйста, проверьте имя хоста и доступность сервера и попробуйте снова</string>
   <string name="auth_incorrect_path_title">ownCloud не найден</string>
+  <string name="auth_incorrect_path_message">Приложение не может найти экземпляр ownClound по предложенному пути. Пожалуйста, проверьте ​​путь и попробуйте еще раз.</string>
   <string name="auth_timeout_title">Ответ сервера занимает слишком много времени</string>
   <string name="auth_incorrect_address_title">Адрес URL неверен</string>
   <string name="auth_ssl_general_error_title">SSL-инициализация не удалась</string>
   <string name="auth_ssl_unverified_server_title">Непроверенная SSL идентификация сервера</string>
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера ownCloud </string>
   <string name="auth_wrong_connection_title">Не удалось установить соединение</string>
+  <string name="auth_secure_connection">Защищенное соединение установлено</string>
+  <string name="auth_login_details">Учетные данные</string>
+  <string name="crashlog_message">Приложение неожиданно завершило работу. Хотели бы вы отправить отчет о неполадках?</string>
   <string name="crashlog_send_report">Отправить отчет</string>
   <string name="crashlog_dont_send_report">Не отправлять отчет</string>
+  <string name="extensions_avail_title">Расширения доступны!</string>
+  <string name="extensions_avail_message">Похоже, ваш экземпляр ownCloud поддерживает дополнительные расширения. Хотели бы вы видеть расширения, доступные для Android?</string>
+  <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_share">Сделать общим</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
+  <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_local">Только локально</string>
   <string name="confirmation_remove_remote">Удалить с сервера</string>
   <string name="confirmation_remove_remote_and_local">Оба, удаленный и локальный</string>
   <string name="remove_success_msg">Успешное удаление</string>
+  <string name="remove_fail_msg">Удаление не может быть завершено</string>
   <string name="rename_local_fail_msg">Локальная копия не может быть переименована; попробуйте другое новое имя</string>
   <string name="rename_server_fail_msg">Переименование не может быть завершено</string>
   <string name="create_dir_fail_msg">Каталог не может быть создан</string>
   <string name="wait_a_moment">Подождите</string>
+  <string name="filedisplay_unexpected_bad_get_content">Неожиданная проблема; пожалуйста, попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файл не был выбран</string>
   <string name="ssl_validator_title">Предупреждение</string>
   <string name="ssl_validator_header">Идентификация сайта не может быть проверена</string>
@@ -159,4 +172,8 @@
   <string name="ssl_validator_reason_cert_not_yet_valid">- Сертификат сервера еще не действителен</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL не соответствует имени хоста в сертификате</string>
   <string name="ssl_validator_certificate_not_available">Сертификат сервера не может быть получен</string>
+  <string name="ssl_validator_question">Хотите объявить этот сертификат надежным в любом случае?</string>
+  <string name="ssl_validator_not_saved">Этот сертификат не может быть сохранен</string>
+  <string name="text_placeholder">Это заполнитель</string>
+  <string name="instant_upload_on_wifi">Загрузать изображения только посредством WiFi </string>
 </resources>

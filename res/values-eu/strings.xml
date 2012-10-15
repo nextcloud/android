@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
   <string name="filedetails_redownload">Birdeskargatzen</string>
-  <string name="filedetails_download_in_progress">Deskargatzen</string>
   <string name="filedetails_open">Ireki</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
@@ -176,4 +175,6 @@
   <string name="ssl_validator_certificate_not_available">Zerbitzariaren ziurtagiria ezin da lortu</string>
   <string name="ssl_validator_question">Nahi duzu, hala ere, ziurtagiriaz fidatu?</string>
   <string name="ssl_validator_not_saved">Ziurtagiria ezin da gorde</string>
+  <string name="text_placeholder">Hau leku-marka da</string>
+  <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
 </resources>

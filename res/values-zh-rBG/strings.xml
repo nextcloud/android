@@ -69,7 +69,6 @@
   <string name="filedetails_modified">修改于：</string>
   <string name="filedetails_download">下载</string>
   <string name="filedetails_redownload">重新下载</string>
-  <string name="filedetails_download_in_progress">下载中</string>
   <string name="filedetails_open">打开</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>

@@ -69,7 +69,6 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_redownload">Volver a descargar</string>
-  <string name="filedetails_download_in_progress">Descargando</string>
   <string name="filedetails_open">Abrir</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
@@ -167,4 +166,15 @@
   <string name="wait_a_moment">Esperá un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, intentá otra aplicación para abrir el archivo</string>
   <string name="filedisplay_no_file_selected">No se seleccionó ningún archivo</string>
+  <string name="ssl_validator_title">Alerta</string>
+  <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es confiable</string>
+  <string name="ssl_validator_reason_cert_expired">- El certificado del servidor caducó</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- El certificado del servidor es demasiado nuevo</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- La URL no se condice con el nomber del servidor en el certificado</string>
+  <string name="ssl_validator_certificate_not_available">No se pudo obtener el certificado del servidor </string>
+  <string name="ssl_validator_question">Confiás en el certificado de todos modos?</string>
+  <string name="ssl_validator_not_saved">No fue posible guardar el certificado</string>
+  <string name="text_placeholder">Este es un texto temporario</string>
+  <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
 </resources>

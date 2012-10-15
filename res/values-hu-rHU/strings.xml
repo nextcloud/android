@@ -48,7 +48,6 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
-  <string name="filedetails_download_in_progress">Letöltések</string>
   <string name="filedetails_open">Megnyitás</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
