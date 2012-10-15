@@ -184,6 +184,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     private void fetchData(String uri, SyncResult syncResult, long parentId) {
         PropFindMethod query = null;
+        Vector<OCFile> children = null;
         try {
             Log.d(TAG, "fetching " + uri);
             
@@ -213,9 +214,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                         Intent intent = new Intent(this.getContext(), FileDownloader.class);
                         intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
                         intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                        /*intent.putExtra(FileDownloader.EXTRA_FILE_PATH, file.getRemotePath());
-                        intent.putExtra(FileDownloader.EXTRA_REMOTE_PATH, file.getRemotePath());
-                        intent.putExtra(FileDownloader.EXTRA_FILE_SIZE, file.getFileLength());*/
                         file.setKeepInSync(true);
                         getContext().startService(intent);
                     }
@@ -224,8 +222,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 
                     // Log.v(TAG, "adding file: " + file);
                     updatedFiles.add(file);
-                    if (parentId == 0)
-                        parentId = file.getFileId();
                 }
                 /*  Commented code for ugly performance tests
                 long saveDelay = System.currentTimeMillis();
@@ -237,39 +233,21 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                  */
             
                 // removal of obsolete files
-                Vector<OCFile> files = getStorageManager().getDirectoryContent(
+                 children = getStorageManager().getDirectoryContent(
                         getStorageManager().getFileById(parentId));
                 OCFile file;
                 String currentSavePath = FileDownloader.getSavePath(getAccount().name);
-                for (int i=0; i < files.size(); ) {
-                    file = files.get(i);
+                for (int i=0; i < children.size(); ) {
+                    file = children.get(i);
                     if (file.getLastSyncDate() != mCurrentSyncTime) {
                         Log.v(TAG, "removing file: " + file);
                         getStorageManager().removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
-                        files.remove(i);
+                        children.remove(i);
                     } else {
                         i++;
                     }
                 }
             
-                // recursive fetch
-                for (int i=0; i < files.size() && !mCancellation; i++) {
-                    OCFile newFile = files.get(i);
-                    if (newFile.getMimetype().equals("DIR")) {
-                        fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
-                    }
-                }
-                if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancelation request");
-                
-                /*  Commented code for ugly performance tests
-                mResponseDelays[mDelaysIndex] = responseDelay;
-                mSaveDelays[mDelaysIndex] = saveDelay;
-                mDelaysCount++;
-                mDelaysIndex++;
-                if (mDelaysIndex >= MAX_DELAYS)
-                    mDelaysIndex = 0;
-                 */
-
             } else {
                 syncResult.stats.numAuthExceptions++;
             }
@@ -293,8 +271,39 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             // synchronized folder -> notice to UI
             sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
         }
+        
+        
+        fetchChildren(children, syncResult);
+        if (mCancellation) Log.d(TAG, "Leaving " + uri + " because cancelation request");
+        
+        
+        /*  Commented code for ugly performance tests
+        mResponseDelays[mDelaysIndex] = responseDelay;
+        mSaveDelays[mDelaysIndex] = saveDelay;
+        mDelaysCount++;
+        mDelaysIndex++;
+        if (mDelaysIndex >= MAX_DELAYS)
+            mDelaysIndex = 0;
+         */
+        
     }
 
+    /**
+     * Synchronize data of folders in the list of received files
+     * 
+     * @param files         Files to recursively fetch 
+     * @param syncResult    Updated object to provide results to the Synchronization Manager
+     */
+    private void fetchChildren(Vector<OCFile> files, SyncResult syncResult) {
+        for (int i=0; i < files.size() && !mCancellation; i++) {
+            OCFile newFile = files.get(i);
+            if (newFile.getMimetype().equals("DIR")) {
+                fetchData(getUri().toString() + WebdavUtils.encodePath(newFile.getRemotePath()), syncResult, newFile.getFileId());
+            }
+        }
+    }
+
+    
     private OCFile fillOCFile(WebdavEntry we) {
         OCFile file = new OCFile(we.decodedPath());
         file.setCreationTimestamp(we.createTimestamp());
