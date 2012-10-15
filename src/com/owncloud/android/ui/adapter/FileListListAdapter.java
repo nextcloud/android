@@ -61,7 +61,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        swapDirectory(file);
+        swapDirectory(file, mStorageManager);
         /*mFile = file;
         mFiles = mStorageManager.getDirectoryContent(mFile);*/
     }
@@ -195,10 +195,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     /**
      * Change the adapted directory for a new one
-     * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
+     * @param directory                 New file to adapt. Can be NULL, meaning "no content to adapt".
+     * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory) {
+    public void swapDirectory(OCFile directory, DataStorageManager updatedStorageManager) {
         mFile = directory;
+        if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
+            mStorageManager = updatedStorageManager;
+            mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getDirectoryContent(mFile);
         } else {

@@ -192,7 +192,7 @@ public class OCFileListFragment extends FragmentListView {
             }
 
             mFile = directory;
-            mAdapter.swapDirectory(mFile);
+            mAdapter.swapDirectory(mFile, storageManager);
             mList.setSelectionFromTop(0, 0);
             mList.invalidate();
         }
