@@ -106,7 +106,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_layout, null);
+            view = inflator.inflate(R.layout.list_item, null);
         }
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);

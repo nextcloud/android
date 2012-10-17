@@ -187,11 +187,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
-            
+        
         Log.d(getClass().toString(), "onCreate() end");
     }
 
-
+    
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
@@ -553,6 +553,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             try {
                 pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
                 builder.setMessage("ownCloud android client\n\nversion: " + pkg.versionName );
+                //builder.setMessage(String.format(getString(R.string.aboout_message), pkg.versionName));
                 builder.setIcon(android.R.drawable.ic_menu_info_details);
                 dialog = builder.create();
             } catch (NameNotFoundException e) {

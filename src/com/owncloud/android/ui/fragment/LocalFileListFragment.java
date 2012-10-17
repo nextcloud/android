@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
@@ -77,13 +76,10 @@ public class LocalFileListFragment extends FragmentListView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView() start");
-        super.onCreateView(inflater, container, savedInstanceState);
-        getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        getListView().setDividerHeight(1);
+        View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        
         Log.i(TAG, "onCreateView() end");
-        return getListView();
+        return v;
     }    
 
 
@@ -119,29 +115,6 @@ public class LocalFileListFragment extends FragmentListView {
     }
     
     
-    /**
-     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
-     * the device is turned to other position. 
-     * 
-     * THe current policy is take as a reference the visible item in the center of the screen.  
-     * 
-     * @return      The position in the list of the visible item in the center of the screen.
-     */
-    private int getReferencePosition() {
-        return (getListView().getFirstVisiblePosition() + getListView().getLastVisiblePosition()) / 2;
-    }
-
-    
-    /**
-     * Sets the visible part of the list from the reference position.
-     * 
-     * @param   position    Reference position previously returned by {@link LocalFileListFragment#getReferencePosition()}
-     */
-    private void setReferencePosition(int position) {
-        ((ExtendedListView)getListView()).setAndCenterSelection(position);
-    }
-    
-
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */

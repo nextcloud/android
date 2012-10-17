@@ -90,7 +90,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_layout, null);
+            view = inflator.inflate(R.layout.list_item, null);
         }
         if (mFiles != null && mFiles.length > position) {
             File file = mFiles[position];

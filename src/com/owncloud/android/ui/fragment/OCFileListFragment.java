@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
@@ -27,11 +26,8 @@ import com.owncloud.android.ui.adapter.FileListListAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import com.owncloud.android.R;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -67,22 +63,6 @@ public class OCFileListFragment extends FragmentListView {
      * {@inheritDoc}
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView() start");
-        super.onCreateView(inflater, container, savedInstanceState);
-        getListView().setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
-        getListView().setDividerHeight(1);
-        
-        Log.i(TAG, "onCreateView() end");
-        return getListView();
-    }    
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i(TAG, "onActivityCreated() start");
         
@@ -110,29 +90,6 @@ public class OCFileListFragment extends FragmentListView {
         Log.i(TAG, "onSaveInstanceState() stop");
     }
     
-    
-    /**
-     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
-     * the device is turned to other position. 
-     * 
-     * THe current policy is take as a reference the visible item in the center of the screen.  
-     * 
-     * @return      The position in the list of the visible item in the center of the screen.
-     */
-    private int getReferencePosition() {
-        return (getListView().getFirstVisiblePosition() + getListView().getLastVisiblePosition()) / 2;
-    }
-
-    
-    /**
-     * Sets the visible part of the list from the reference position.
-     * 
-     * @param   position    Reference position previously returned by {@link OCFileListFragment#getReferencePosition()}
-     */
-    private void setReferencePosition(int position) {
-        ((ExtendedListView)getListView()).setAndCenterSelection(position);
-    }
-
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
