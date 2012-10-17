@@ -48,6 +48,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     
     Button bCancel;
     TextView mPinHdr;
+    TextView mPinHdrExplanation;
     EditText mText1;
     EditText mText2;
     EditText mText3;
@@ -73,6 +74,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
      
         bCancel = (Button) findViewById(R.id.cancel);
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
+        mPinHdrExplanation = (TextView) findViewById(R.id.pinHdrExpl);
         mText1 = (EditText) findViewById(R.id.txt1);
         mText1.requestFocus();
         getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -100,6 +102,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                if (activity.equals("preferences")){
                 // PIN has been activated yet
                  mPinHdr.setText(R.string.pincode_configure_your_pin);
+                 mPinHdrExplanation.setVisibility(View.VISIBLE);
                  pinCodeChecked = true ; // No need to check it 
                  setChangePincodeView(true);
                }else{
@@ -107,12 +110,14 @@ public class PinCodeActivity extends SherlockFragmentActivity {
                  bCancel.setVisibility(View.INVISIBLE);
                  bCancel.setVisibility(View.GONE);
                  mPinHdr.setText(R.string.pincode_enter_pin_code);
+                 mPinHdrExplanation.setVisibility(View.INVISIBLE);
                  setChangePincodeView(false);
               }
             
            }else {
             // pincode removal
               mPinHdr.setText(R.string.pincode_remove_your_pincode);
+              mPinHdrExplanation.setVisibility(View.INVISIBLE);
               pinCodeChecked = false;
               setChangePincodeView(true); 
            }
@@ -136,6 +141,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         bCancel.setVisibility(View.INVISIBLE);
         bCancel.setVisibility(View.GONE);
         mPinHdr.setText(R.string.pincode_enter_pin_code);
+        mPinHdrExplanation.setVisibility(View.INVISIBLE);
     }
     
    
@@ -450,6 +456,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     
         clearBoxes(); 
         mPinHdr.setText(R.string.pincode_reenter_your_pincode); 
+        mPinHdrExplanation.setVisibility(View.INVISIBLE);        
         confirmingPinCode =true;
         
     }
@@ -493,6 +500,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             aDialog.show();
             clearBoxes(); 
             mPinHdr.setText(R.string.pincode_enter_pin_code);
+            mPinHdrExplanation.setVisibility(View.INVISIBLE);
             newPasswordEntered = true;
             confirmingPinCode = false;
             
@@ -537,6 +545,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
             });
             aDialog.show();
             mPinHdr.setText(R.string.pincode_configure_your_pin);
+            mPinHdrExplanation.setVisibility(View.VISIBLE);
             clearBoxes();
         }
     
