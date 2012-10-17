@@ -552,8 +552,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             PackageInfo pkg;
             try {
                 pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                builder.setMessage("ownCloud android client\n\nversion: " + pkg.versionName );
-                //builder.setMessage(String.format(getString(R.string.aboout_message), pkg.versionName));
+                builder.setMessage(String.format(getString(R.string.about_message), pkg.versionName));
                 builder.setIcon(android.R.drawable.ic_menu_info_details);
                 dialog = builder.create();
             } catch (NameNotFoundException e) {
