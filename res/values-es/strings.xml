@@ -157,7 +157,7 @@
   <string name="confirmation_remove_alert">¿Está seguro que desea borrar %1$s ?</string>
   <string name="confirmation_remove_local">Sólo local</string>
   <string name="confirmation_remove_remote">Eliminar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Tanto remoto como local</string>
+  <string name="confirmation_remove_remote_and_local">Remoto y local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_local_fail_msg">No se pudo cambiar el nombre de la copia local, trata con un nombre differente</string>
