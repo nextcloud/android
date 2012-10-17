@@ -19,6 +19,7 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
+import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
@@ -44,6 +45,7 @@ import com.owncloud.android.R;
  */
 public class LocalFileListFragment extends FragmentListView {
     private static final String TAG = "LocalFileListFragment";
+    private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -98,8 +100,8 @@ public class LocalFileListFragment extends FragmentListView {
         
         if (savedInstanceState != null) {
             Log.i(TAG, "savedInstanceState is not null");
-            int position = savedInstanceState.getInt("LIST_POSITION");
-            getListView().setSelectionFromTop(position, 0);
+            int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
+            setReferencePosition(position);
         }
         
         Log.i(TAG, "onActivityCreated() stop");
@@ -110,12 +112,36 @@ public class LocalFileListFragment extends FragmentListView {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         Log.i(TAG, "onSaveInstanceState() start");
         
-        savedInstanceState.putInt("LIST_POSITION", getListView().getFirstVisiblePosition());
+        savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
+        
         
         Log.i(TAG, "onSaveInstanceState() stop");
     }
     
     
+    /**
+     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
+     * the device is turned to other position. 
+     * 
+     * THe current policy is take as a reference the visible item in the center of the screen.  
+     * 
+     * @return      The position in the list of the visible item in the center of the screen.
+     */
+    private int getReferencePosition() {
+        return (getListView().getFirstVisiblePosition() + getListView().getLastVisiblePosition()) / 2;
+    }
+
+    
+    /**
+     * Sets the visible part of the list from the reference position.
+     * 
+     * @param   position    Reference position previously returned by {@link LocalFileListFragment#getReferencePosition()}
+     */
+    private void setReferencePosition(int position) {
+        ((ExtendedListView)getListView()).setAndCenterSelection(position);
+    }
+    
+
     /**
      * Checks the file clicked over. Browses inside if it is a directory. Notifies the container activity in any case.
      */
@@ -207,10 +233,12 @@ public class LocalFileListFragment extends FragmentListView {
             directory = directory.getParentFile();
         }
 
-        mDirectory = directory;
         mList.clearChoices();   // by now, only files in the same directory will be kept as selected
-        mAdapter.swapDirectory(mDirectory);
-        mList.setSelectionFromTop(0, 0);
+        mAdapter.swapDirectory(directory);
+        if (mDirectory == null || !mDirectory.equals(directory)) {
+            mList.setSelectionFromTop(0, 0);
+        }
+        mDirectory = directory;
     }
     
 

@@ -19,6 +19,7 @@ package com.owncloud.android.ui.fragment;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
@@ -40,6 +41,7 @@ import com.owncloud.android.R;
  */
 public class OCFileListFragment extends FragmentListView {
     private static final String TAG = "FileListFragment";
+    private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -90,24 +92,47 @@ public class OCFileListFragment extends FragmentListView {
         
         if (savedInstanceState != null) {
             Log.i(TAG, "savedInstanceState is not null");
-            int position = savedInstanceState.getInt("LIST_POSITION");
-            getListView().setSelectionFromTop(position, 0);
+            int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
+            setReferencePosition(position);
         }
-        //mAdapter = new FileListListAdapter();
         
         Log.i(TAG, "onActivityCreated() stop");
     }
     
     
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         Log.i(TAG, "onSaveInstanceState() start");
         
-        savedInstanceState.putInt("LIST_POSITION", getListView().getFirstVisiblePosition());
+        savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
         
         Log.i(TAG, "onSaveInstanceState() stop");
     }
     
+    
+    /**
+     * Calculates the position of the item that will be used as a reference to reposition the visible items in the list when
+     * the device is turned to other position. 
+     * 
+     * THe current policy is take as a reference the visible item in the center of the screen.  
+     * 
+     * @return      The position in the list of the visible item in the center of the screen.
+     */
+    private int getReferencePosition() {
+        return (getListView().getFirstVisiblePosition() + getListView().getLastVisiblePosition()) / 2;
+    }
+
+    
+    /**
+     * Sets the visible part of the list from the reference position.
+     * 
+     * @param   position    Reference position previously returned by {@link OCFileListFragment#getReferencePosition()}
+     */
+    private void setReferencePosition(int position) {
+        ((ExtendedListView)getListView()).setAndCenterSelection(position);
+    }
+
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
@@ -158,9 +183,7 @@ public class OCFileListFragment extends FragmentListView {
      * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
      */
     public void listDirectory(){
-        int position = mList.getFirstVisiblePosition();
         listDirectory(null);
-        mList.setSelectionFromTop(position, 0);
     }
     
     /**
@@ -191,10 +214,11 @@ public class OCFileListFragment extends FragmentListView {
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            mFile = directory;
             mAdapter.swapDirectory(mFile, storageManager);
-            mList.setSelectionFromTop(0, 0);
-            mList.invalidate();
+            if (mFile == null || !mFile.equals(directory)) {
+                mList.setSelectionFromTop(0, 0);
+            }
+            mFile = directory;
         }
     }
     

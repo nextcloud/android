@@ -485,7 +485,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
             // List current directory
-            mFileList.listDirectory(mCurrentDir);   // we should find the way to avoid the need of this
+            mFileList.listDirectory(mCurrentDir);   // TODO we should find the way to avoid the need of this (maybe it's not necessary yet; to check)
             
         } else {
             
@@ -721,7 +721,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         mStorageManager.saveFile(newDir);
     
                         // Display the new folder right away
-                        mFileList.listDirectory(mCurrentDir);
+                        mFileList.listDirectory();
                     }
                 });
                 
@@ -802,7 +802,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
                     if (fileListFragment != null) {
-                        fileListFragment.listDirectory(mCurrentDir);  
+                        fileListFragment.listDirectory(mCurrentDir);
                     }
                 }
                 
