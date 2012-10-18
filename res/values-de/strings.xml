@@ -132,12 +132,12 @@
   <string name="auth_connection_established">Verbindung hergestellt</string>
   <string name="auth_testing_connection">Verbindung testen&#8230;</string>
   <string name="auth_not_configured_title">Falsch konfigurierte ownCloud</string>
-  <string name="auth_not_configured_message">Es scheint, als wäre Deine ownCloud-Installation nicht richtig konfiguriert. Bitte kontaktiere Deinen Administrator, um weitere Details zu erhalten.</string>
+  <string name="auth_not_configured_message">Es scheint, als wäre Deine ownCloud Installation nicht richtig konfiguriert. Bitte kontaktiere Deinen Administrator, um weitere Details zu erhalten.</string>
   <string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
   <string name="auth_unknown_error_message">Ein unbekannter Fehler ist aufgetreten. Bitte kontaktiere Deinen Administrator unter Zu­hil­fe­nah­me der Log-Dateien Deines Gerätes.</string>
   <string name="auth_unknown_host_title">Konnte den Host nicht finden.</string>
   <string name="auth_unknown_host_message">Konnte den eingetragenen Host nicht finden. Bitte prüfe den Hostnamen und die Verfügbarkeit des Servers und versuche es erneut.</string>
-  <string name="auth_incorrect_path_title">ownCloud-Installation nicht gefunden</string>
+  <string name="auth_incorrect_path_title">ownCloud Installation nicht gefunden</string>
   <string name="auth_incorrect_path_message">Die App konnte die ownCloud unter dem angegebenen Pfad nicht finden. Bitte überprüfe den Pfad und versuche es erneut.</string>
   <string name="auth_timeout_title">Der Server brauchte zu lange für eine Antwort.</string>
   <string name="auth_incorrect_address_title">Fehlerhafte URL</string>
