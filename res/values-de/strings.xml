@@ -106,6 +106,7 @@
   <string name="pincode_enter_pin_code">Bitte gib Deine App-PIN ein</string>
   <string name="pincode_enter_new_pin_code">Bitte gib eine neue App-PIN ein</string>
   <string name="pincode_configure_your_pin">Bitte gib Deine ownCloud-App-PIN ein</string>
+  <string name="pincode_configure_your_pin_explanation">Es wird jedes Mal die App geöffnet angefordert werden</string>
   <string name="pincode_reenter_your_pincode">Bitte gib Deine ownCloud-App-PIN erneut ein.</string>
   <string name="pincode_remove_your_pincode">ownCloud-App-PIN entfernen</string>
   <string name="pincode_mismatch">Die ownCloud-App-PINs stimmen nicht überein</string>
