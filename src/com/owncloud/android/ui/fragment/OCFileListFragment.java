@@ -171,7 +171,7 @@ public class OCFileListFragment extends FragmentListView {
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            mAdapter.swapDirectory(mFile, storageManager);
+            mAdapter.swapDirectory(directory, storageManager);
             if (mFile == null || !mFile.equals(directory)) {
                 mList.setSelectionFromTop(0, 0);
             }
