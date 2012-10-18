@@ -40,7 +40,7 @@ public class FragmentListView extends SherlockFragment implements
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
         mList.setOnItemLongClickListener(this);
-        mList.setEmptyView(v.findViewById(R.id.empty_list_view));
+        //mList.setEmptyView(v.findViewById(R.id.empty_list_view));     // looks like it's not a cool idea 
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
         return v;
