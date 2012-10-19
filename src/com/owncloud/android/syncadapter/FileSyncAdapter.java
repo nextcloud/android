@@ -149,7 +149,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
                 // TODO put something smart in the contentIntent below
-                notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
                 notification.setLatestEventInfo(getContext().getApplicationContext(), 
                                                 getContext().getString(R.string.sync_fail_ticker), 
                                                 String.format(getContext().getString(R.string.sync_fail_content), account.name), 

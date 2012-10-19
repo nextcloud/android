@@ -301,7 +301,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
         
         mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
     }
@@ -346,7 +346,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
             finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             mNotificationManager.notify(tickerId, finalNotification);
         }

@@ -448,7 +448,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
         
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
     }
@@ -501,7 +501,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
             showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, showDetailsIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
             
             mNotification.setLatestEventInfo(   getApplicationContext(), 
                                                 getString(R.string.uploader_upload_succeeded_ticker), 
@@ -523,7 +523,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             Notification finalNotification = new Notification(R.drawable.icon, getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
+            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
             finalNotification.setLatestEventInfo(   getApplicationContext(), 
                                                     getString(R.string.uploader_upload_failed_ticker), 
                                                     String.format(getString(R.string.uploader_upload_failed_content_single), (new File(upload.getStoragePath())).getName()), 
