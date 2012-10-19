@@ -114,7 +114,7 @@
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
     <string name="pincode_enter_new_pin_code">Please, insert your new App PIN</string>
     <string name="pincode_configure_your_pin">Enter ownCloud App PIN</string>
-    <string name="pincode_configure_your_pin_explanation">It will be requested every time the app is opened</string> 
+    <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string> 
     <string name="pincode_reenter_your_pincode">Reenter ownCloud App PIN, please</string>
     <string name="pincode_remove_your_pincode">Remove your ownCloud App PIN</string>
     <string name="pincode_mismatch">Both ownCloud App PIN are not the same</string> 
