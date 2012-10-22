@@ -166,4 +166,15 @@
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
   <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
+  <string name="ssl_validator_title">Hoiatus</string>
+  <string name="ssl_validator_header">Saidi identiteeti ei suudetud kinnitada</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Serveri sertifikaat pole usaldusväärne</string>
+  <string name="ssl_validator_reason_cert_expired">- Serveri sertifikaat on aegunud</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Serveri sertifikaat on liiga noor</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- URL ei kattu sertifikaadis oleva hostinimega</string>
+  <string name="ssl_validator_certificate_not_available">Serveri sertifikaati ei õnnestunud hankida</string>
+  <string name="ssl_validator_question">Kas sa soovid siiski seda sertifikaati usaldada?</string>
+  <string name="ssl_validator_not_saved">Sertifikaadi salvestamine ebaõnnestus</string>
+  <string name="text_placeholder">See on kohahoidja</string>
+  <string name="instant_upload_on_wifi">Lae pilte üles ainult läbi WiFi</string>
 </resources>
