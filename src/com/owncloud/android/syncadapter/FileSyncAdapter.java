@@ -34,6 +34,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
@@ -211,7 +212,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                             getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
                             file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
                                                                          .getModificationTimestamp()) {
-                        Intent intent = new Intent(this.getContext(), FileDownloader.class);
+                        // first disable observer so we won't get file upload right after download
+                        Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
+                        Intent intent = new Intent(getContext(), FileObserverService.class);
+                        intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
+                        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
+                        getContext().startService(intent);
+                        intent = new Intent(this.getContext(), FileDownloader.class);
                         intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
                         intent.putExtra(FileDownloader.EXTRA_FILE, file);
                         file.setKeepInSync(true);

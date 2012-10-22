@@ -68,6 +68,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -154,10 +155,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
 
         // file observer
-        /*Intent observer_intent = new Intent(this, FileObserverService.class);
+        Intent observer_intent = new Intent(this, FileObserverService.class);
         observer_intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_INIT_OBSERVED_LIST);
         startService(observer_intent);
-        */
+        
             
         /// USER INTERFACE
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);

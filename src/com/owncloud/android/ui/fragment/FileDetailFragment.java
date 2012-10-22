@@ -78,6 +78,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -302,7 +303,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 } else {
                     mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
                 }
-                /*
+                
                 Intent intent = new Intent(getActivity().getApplicationContext(),
                                            FileObserverService.class);
                 intent.putExtra(FileObserverService.KEY_FILE_CMD,
@@ -310,8 +311,9 @@ public class FileDetailFragment extends SherlockFragment implements
                                    FileObserverService.CMD_ADD_OBSERVED_FILE:
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
                 intent.putExtra(FileObserverService.KEY_CMD_ARG, mFile.getStoragePath());
+                Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
-                */
+                
                 break;
             }
             case R.id.fdRenameBtn: {

@@ -52,9 +52,14 @@ public class OwnCloudFileObserver extends FileObserver {
         return mPath;
     }
     
+    public String getRemotePath() {
+        return mFile.getRemotePath();
+    }
+    
     @Override
     public void onEvent(int event, String path) {
-        if ((event | mMask) == 0) {
+        Log.d(TAG, "Got file modified with event " + event + " and path " + path);
+        if ((event & mMask) == 0) {
             Log.wtf(TAG, "Incorrect event " + event + " sent for file " + path +
                          " with registered for " + mMask + " and original path " +
                          mPath);
