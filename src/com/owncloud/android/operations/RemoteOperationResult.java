@@ -19,6 +19,7 @@
 package com.owncloud.android.operations;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -40,13 +41,18 @@ import com.owncloud.android.network.CertificateCombinedException;
  * 
  * @author David A. Velasco
  */
-public class RemoteOperationResult {
+public class RemoteOperationResult implements Serializable {
+    
+    /** Generated - to refresh every time the class changes */
+    private static final long serialVersionUID = -7805531062432602444L;
+
     
     public enum ResultCode { 
         OK,
         OK_SSL,
         OK_NO_SSL,
         UNHANDLED_HTTP_CODE,
+        UNAUTHORIZED,        
         FILE_NOT_FOUND, 
         INSTANCE_NOT_CONFIGURED, 
         UNKNOWN_ERROR, 
@@ -81,6 +87,9 @@ public class RemoteOperationResult {
             
         } else if (httpCode > 0) {
             switch (httpCode) {
+                case HttpStatus.SC_UNAUTHORIZED:
+                    mCode = ResultCode.UNAUTHORIZED;
+                    break;
                 case HttpStatus.SC_NOT_FOUND:
                     mCode = ResultCode.FILE_NOT_FOUND;
                     break;

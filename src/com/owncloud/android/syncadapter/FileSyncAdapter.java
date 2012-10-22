@@ -34,6 +34,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
@@ -97,7 +98,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        sendStickyBroadcast(true, null);  // message to signal the start to the UI
+        sendStickyBroadcast(true, null, null);  // message to signal the start to the UI
         
         updateOCVersion();
 
@@ -315,12 +316,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     }
     
     
-    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath) {
+    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
         Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
         i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
         i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {
             i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
+        }
+        if (result != null) {
+            i.putExtra(FileSyncService.SYNC_RESULT, result);
         }
         getContext().sendStickyBroadcast(i);
     }

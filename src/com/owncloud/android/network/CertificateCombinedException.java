@@ -45,7 +45,7 @@ import javax.net.ssl.SSLPeerUnverifiedException;
  */
 public class CertificateCombinedException extends RuntimeException {
 
-    /** Generated */
+    /** Generated - to refresh every time the class changes */
     private static final long serialVersionUID = -8875782030758554999L;
     
     private X509Certificate mServerCert = null;

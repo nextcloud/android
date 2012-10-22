@@ -32,6 +32,7 @@ public class FileSyncService extends Service {
     public static final String SYNC_FOLDER_REMOTE_PATH = "SYNC_FOLDER_REMOTE_PATH";
     public static final String IN_PROGRESS = "SYNC_IN_PROGRESS";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+    public static final String SYNC_RESULT = "SYNC_RESULT";
 
     /*
      * {@inheritDoc}
