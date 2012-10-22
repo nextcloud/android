@@ -88,11 +88,13 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
             int status = client.executeMethod(query);
             
-            if (isSuccess(status)) { 
+            // check and process response
+            if (isMultiStatus(status)) { 
+                /// TODO take into account all the possible status per child-resource
                 
                 MultiStatus resp = query.getResponseBodyAsMultiStatus();
             
-                // reading files
+                // read contents in folder
                 List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
                 for (int i = 1; i < resp.getResponses().length; ++i) {
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());
@@ -101,7 +103,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
                     if (oldFile != null) {
                         if (oldFile.keepInSync() && file.getModificationTimestamp() > oldFile.getModificationTimestamp()) {
-                            requestContentDownload();
+                            requestContentDownload(file);
                         }
                         file.setKeepInSync(oldFile.keepInSync());
                     }
@@ -110,7 +112,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 }
                 
                 
-                // save updated files in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
+                // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
                 mStorageManager.saveFiles(updatedFiles);
 
                 
@@ -129,57 +131,40 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     }
                 }
                 
-            } else if (status == HttpStatus.SC_UNAUTHORIZED) {
-                syncResult.stats.numAuthExceptions++;
-                
             } else {
-                // TODO something smart with syncResult? OR NOT
+                client.exhaustResponse(query.getResponseBodyAsStream());
             }
             
-            result = new RemoteOperationResult(isSuccess(status), status);
+            // prepare result object
+            result = new RemoteOperationResult(isMultiStatus(status), status);
             Log.i(TAG, "Synchronization of " + mRemotePath + ": " + result.getLogMessage());
             
             
-        } catch (IOException e) {
-            syncResult.stats.numIoExceptions++;
-            logException(e, uri);
-            
-        } catch (DavException e) {
-            syncResult.stats.numParseExceptions++;
-            logException(e, uri);
-            
         } catch (Exception e) {
-            // TODO something smart with syncresult
-            mRightSync = false;
-            logException(e, uri);
+            // TODO - distinguish IOException and DavException in RemoteOperationResult constructor 
+            result = new RemoteOperationResult(e);
+            Log.e(TAG, "Synchronization of " + mRemotePath + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (query != null)
                 query.releaseConnection();  // let the connection available for other methods
-
-            // synchronized folder -> notice to UI
-            sendStickyBroadcast(true, getStorageManager().getFileById(parentId).getRemotePath());
         }
-        
         
         return result;
     }
     
     
-    public boolean isSuccess(int status) {
-        return (status == HttpStatus.SC_MULTI_STATUS); // TODO check other possible OK codes; doc doesn't help
+    public boolean isMultiStatus(int status) {
+        return (status == HttpStatus.SC_MULTI_STATUS); 
     }
 
 
-    private void requestContentDownload() {
-        Intent intent = new Intent(this.getContext(), FileDownloader.class);
-        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-        intent.putExtra(FileDownloader.EXTRA_FILE, file);
-        file.setKeepInSync(true);
-        getContext().startService(intent);
-    }
-
-
+    /**
+     * Creates and populates a new {@link OCFile} object with the data read from the server.
+     * 
+     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
+     * @return          New OCFile instance representing the remote resource described by we.
+     */
     private OCFile fillOCFile(WebdavEntry we) {
         OCFile file = new OCFile(we.decodedPath());
         file.setCreationTimestamp(we.createTimestamp());
@@ -190,4 +175,16 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return file;
     }
     
+    
+    /** 
+     * Probably this code would be better in other place
+     */
+    private void requestContentDownload(OCFile file) {
+        Intent intent = new Intent(this.getContext(), FileDownloader.class);
+        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+        intent.putExtra(FileDownloader.EXTRA_FILE, file);
+        getContext().startService(intent);
+    }
+
+
 }
