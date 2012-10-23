@@ -18,20 +18,19 @@
 
 package com.owncloud.android.operations;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
 import org.apache.http.HttpStatus;
-import org.apache.jackrabbit.webdav.DavException;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 
@@ -59,18 +58,40 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private long mParentId;
     
     /** Access to the local database */
-    private FileDataStorageManager mStorageManager;
+    private DataStorageManager mStorageManager;
     
     /** Account where the file to synchronize belongs */
     private Account mAccount;
     
+    /** Android context; necessary to send requests to the download service; maybe something to refactor */
+    private Context mContext;
     
-    SynchronizeFolderOperation(String remotePath, long currentSyncTime, long parentId, FileDataStorageManager storageManager, Account account) {
+    /** Files and folders contained in the synchronized folder */
+    private List<OCFile> mChildren;
+    
+    
+    public SynchronizeFolderOperation(  String remotePath, 
+                                        long currentSyncTime, 
+                                        long parentId, 
+                                        DataStorageManager dataStorageManager, 
+                                        Account account, 
+                                        Context context ) {
         mRemotePath = remotePath;
         mCurrentSyncTime = currentSyncTime;
         mParentId = parentId;
-        mStorageManager = storageManager;
+        mStorageManager = dataStorageManager;
         mAccount = account;
+        mContext = context;
+    }
+    
+    
+    /**
+     * Returns the list of files and folders contained in the synchronized folder, if called after synchronization is complete.
+     * 
+     * @return      List of files and folders contained in the synchronized folder.
+     */
+    public List<OCFile> getChildren() {
+        return mChildren;
     }
     
     
@@ -80,20 +101,26 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
-        Vector<OCFile> children = null;
         try {
-            Log.d(TAG, "Fetching files in " + mRemotePath);
+            Log.d(TAG, "Synchronizing " + mAccount.name + ", fetching files in " + mRemotePath);
             
             // remote request 
             query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
             int status = client.executeMethod(query);
             
-            // check and process response
+            // check and process response   - /// TODO take into account all the possible status per child-resource
             if (isMultiStatus(status)) { 
-                /// TODO take into account all the possible status per child-resource
-                
                 MultiStatus resp = query.getResponseBodyAsMultiStatus();
             
+                // synchronize properties of the parent folder, if necessary
+                if (mParentId == DataStorageManager.ROOT_PARENT_ID) {
+                    WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
+                    OCFile parent = fillOCFile(we);
+                    parent.setParentId(mParentId);
+                    mStorageManager.saveFile(parent);
+                    mParentId = parent.getFileId();
+                }
+                
                 // read contents in folder
                 List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
                 for (int i = 1; i < resp.getResponses().length; ++i) {
@@ -117,15 +144,15 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
                 
                 // removal of obsolete files
-                children = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
+                mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
                 OCFile file;
                 String currentSavePath = FileDownloader.getSavePath(mAccount.name);
-                for (int i=0; i < children.size(); ) {
-                    file = children.get(i);
+                for (int i=0; i < mChildren.size(); ) {
+                    file = mChildren.get(i);
                     if (file.getLastSyncDate() != mCurrentSyncTime) {
                         Log.d(TAG, "removing file: " + file);
                         mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
-                        children.remove(i);
+                        mChildren.remove(i);
                     } else {
                         i++;
                     }
@@ -137,13 +164,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             
             // prepare result object
             result = new RemoteOperationResult(isMultiStatus(status), status);
-            Log.i(TAG, "Synchronization of " + mRemotePath + ": " + result.getLogMessage());
+            Log.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
             
             
         } catch (Exception e) {
-            // TODO - distinguish IOException and DavException in RemoteOperationResult constructor 
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Synchronization of " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+            Log.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (query != null)
@@ -177,13 +203,15 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     
     
     /** 
-     * Probably this code would be better in other place
+     * Requests a download to the file download service
+     * 
+     * @param   file    OCFile representing the remote file to download
      */
     private void requestContentDownload(OCFile file) {
-        Intent intent = new Intent(this.getContext(), FileDownloader.class);
+        Intent intent = new Intent(mContext, FileDownloader.class);
         intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
         intent.putExtra(FileDownloader.EXTRA_FILE, file);
-        getContext().startService(intent);
+        mContext.startService(intent);
     }
 
 

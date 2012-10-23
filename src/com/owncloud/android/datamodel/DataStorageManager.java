@@ -23,6 +23,8 @@ import java.util.Vector;
 
 public interface DataStorageManager {
 
+    public static final int ROOT_PARENT_ID = 0;
+    
     public OCFile getFileByPath(String path);
 
     public OCFile getFileById(long id);

@@ -30,6 +30,7 @@ import javax.net.ssl.SSLException;
 import org.apache.commons.httpclient.ConnectTimeoutException;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.network.CertificateCombinedException;
 
@@ -211,6 +212,9 @@ public class RemoteOperationResult implements Serializable {
                 else
                     return "SSL exception";
 
+            } else if (mException instanceof DavException) {
+                return "Unexpected WebDAV exception";
+
             } else if (mException instanceof HttpException) {
                 return "HTTP violation";
 
@@ -236,7 +240,7 @@ public class RemoteOperationResult implements Serializable {
         }
         
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess()?"success":"fail") + ")";
-
+        
     }
 
 }
