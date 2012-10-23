@@ -55,12 +55,18 @@ import eu.alefzero.webdav.WebdavClient;
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
-    private final static String TAG = "FileSyncAdapter"; 
+    private final static String TAG = "FileSyncAdapter";
+
+    /** 
+     * Maximum number of failed folder synchronizations that are supported before finishing the synchronization operation
+     */
+    private static final int MAX_FAILED_RESULTS = 3; 
     
     private long mCurrentSyncTime;
     private boolean mCancellation;
     private boolean mIsManualSync;
-    private boolean mRightSync;
+    private int mFailedResultsCounter;    
+    private RemoteOperationResult mLastFailedResult;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -73,7 +79,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         mCancellation = false;
         mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
-        mRightSync = true;
+        mFailedResultsCounter = 0;
+        mLastFailedResult = null;
         
         this.setAccount(account);
         this.setContentProvider(provider);
@@ -81,7 +88,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         Log.d(TAG, "syncing owncloud account " + account.name);
 
-        sendStickyBroadcast(true, null);  // message to signal the start to the UI
+        sendStickyBroadcast(true, null, null);  // message to signal the start of the synchronization to the UI
         
         try {
             updateOCVersion();
@@ -96,8 +103,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } finally {
             // it's important making this although very unexpected errors occur; that's the reason for the finally
             
-            mRightSync &= (syncResult.stats.numIoExceptions == 0 && syncResult.stats.numAuthExceptions == 0 && syncResult.stats.numParseExceptions == 0);
-            if (!mRightSync && mIsManualSync) {
+            if (mFailedResultsCounter > 0 && mIsManualSync) {
                 /// don't let the system synchronization manager retries MANUAL synchronizations
                 //      (be careful: "MANUAL" currently includes the synchronization requested when a new account is created and when the user changes the current account)
                 syncResult.tooManyRetries = true;
@@ -105,7 +111,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 /// notify the user about the failure of MANUAL synchronization
                 notifyFailedSynchronization();
             }
-            sendStickyBroadcast(false, null);        // message to signal the end to the UI
+            sendStickyBroadcast(false, null, mLastFailedResult);        // message to signal the end to the UI
         }
         
     }
@@ -169,6 +175,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void fetchData(String remotePath, SyncResult syncResult, long parentId) {
         
+        if (mFailedResultsCounter > MAX_FAILED_RESULTS && isFinisher(mLastFailedResult))
+            return;
+        
         // get client object to connect to the remote ownCloud server
         WebdavClient client = null;
         try {
@@ -191,7 +200,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
-        sendStickyBroadcast(true, remotePath);
+        sendStickyBroadcast(true, remotePath, null);
         
         if (result.isSuccess()) {
             // synchronize children folders 
@@ -208,12 +217,29 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             } else if (result.getException() instanceof IOException) { 
                 syncResult.stats.numIoExceptions++;
                 
-            } else if (result.getException() != null) {
-                // TODO maybe something smarter with syncResult
-                mRightSync = false;
             }
+            mFailedResultsCounter++;
+            mLastFailedResult = result;
         }
             
+    }
+
+    /**
+     * Checks if a failed result should terminate the synchronization process immediately, according to
+     * OUR OWN POLICY
+     * 
+     * @param   failedResult        Remote operation result to check.
+     * @return                      'True' if the result should immediately finish the synchronization
+     */
+    private boolean isFinisher(RemoteOperationResult failedResult) {
+        if  (failedResult != null) {
+            RemoteOperationResult.ResultCode code = failedResult.getCode();
+            return (code.equals(RemoteOperationResult.ResultCode.SSL_ERROR) ||
+                    code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) ||
+                    code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION) ||
+                    code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED));
+        }
+        return false;
     }
 
     /**
@@ -235,21 +261,21 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     
     /**
-     * Sends a message to any app component interested in the progress of the synchronization.
+     * Sends a message to any application component interested in the progress of the synchronization.
      * 
      * @param inProgress        'True' when the synchronization progress is not finished.
      * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
      */
-    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath/*, RemoteOperationResult result*/) {
+    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
         Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
         i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
         i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {
             i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
         }
-        /*if (result != null) {
+        if (result != null) {
             i.putExtra(FileSyncService.SYNC_RESULT, result);
-        }*/
+        }
         getContext().sendStickyBroadcast(i);
     }
 
