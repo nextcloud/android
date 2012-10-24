@@ -39,7 +39,6 @@ import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
-import android.net.Uri;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -143,19 +142,14 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         return null;
     }
 
-    protected Uri getUri() {
-        return Uri.parse(AccountUtils.constructFullURLForAccount(getContext(), getAccount()));
-    }
-
-    protected WebdavClient getClient() throws /*OperationCanceledException,
-            AuthenticatorException,*/ IOException {
-        if (mClient == null) {
-            if (AccountUtils.constructFullURLForAccount(getContext(), getAccount()) == null) {
-                throw new UnknownHostException();
-            }
-            mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
+    protected void initClientForCurrentAccount() throws UnknownHostException {
+        if (AccountUtils.constructFullURLForAccount(getContext(), account) == null) {
+            throw new UnknownHostException();
         }
-
+        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
+    }
+    
+    protected WebdavClient getClient() {
         return mClient;
     }
 }

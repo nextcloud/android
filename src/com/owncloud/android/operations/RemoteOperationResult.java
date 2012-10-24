@@ -206,11 +206,14 @@ public class RemoteOperationResult implements Serializable {
             } else if (mException instanceof UnknownHostException) {
                 return "Unknown host exception";
         
-            } else if (mException instanceof SSLException) {
-                if (mCode == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)
+            } else if (mException instanceof CertificateCombinedException) {
+                if (((CertificateCombinedException) mException).isRecoverable())
                     return "SSL recoverable exception";
                 else
                     return "SSL exception";
+                
+            } else if (mException instanceof SSLException) {
+                return "SSL exception";
 
             } else if (mException instanceof DavException) {
                 return "Unexpected WebDAV exception";

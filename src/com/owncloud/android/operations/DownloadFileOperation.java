@@ -119,7 +119,7 @@ public class DownloadFileOperation extends RemoteOperation {
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
         File newFile = null;
-        boolean moved = false;
+        boolean moved = true;
         
         /// download will be performed to a temporal file, then moved to the final location
         File tmpFile = new File(getTmpPath());

@@ -19,20 +19,18 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import org.apache.jackrabbit.webdav.DavException;
-import org.json.JSONObject;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.operations.UpdateOCVersionOperation;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -45,7 +43,6 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.util.Log;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
@@ -67,11 +64,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private boolean mIsManualSync;
     private int mFailedResultsCounter;    
     private RemoteOperationResult mLastFailedResult;
+    private SyncResult mSyncResult;
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void onPerformSync(Account account, Bundle extras,
             String authority, ContentProviderClient provider,
@@ -81,24 +82,33 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
         mFailedResultsCounter = 0;
         mLastFailedResult = null;
+        mSyncResult = syncResult;
         
         this.setAccount(account);
         this.setContentProvider(provider);
         this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
+        try {
+            this.initClientForCurrentAccount();
+        } catch (UnknownHostException e) {
+            /// the account is unknown for the Synchronization Manager, or unreachable for this context; don't try this again
+            mSyncResult.tooManyRetries = true;
+            notifyFailedSynchronization();
+            return;
+        }
         
-        Log.d(TAG, "syncing owncloud account " + account.name);
-
+        Log.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
         sendStickyBroadcast(true, null, null);  // message to signal the start of the synchronization to the UI
         
         try {
             updateOCVersion();
             mCurrentSyncTime = System.currentTimeMillis();
             if (!mCancellation) {
-                fetchData(OCFile.PATH_SEPARATOR, syncResult, DataStorageManager.ROOT_PARENT_ID);
+                fetchData(OCFile.PATH_SEPARATOR, DataStorageManager.ROOT_PARENT_ID);
                 
             } else {
                 Log.d(TAG, "Leaving synchronization before any remote request due to cancellation was requested");
             }
+            
             
         } finally {
             // it's important making this although very unexpected errors occur; that's the reason for the finally
@@ -106,7 +116,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (mFailedResultsCounter > 0 && mIsManualSync) {
                 /// don't let the system synchronization manager retries MANUAL synchronizations
                 //      (be careful: "MANUAL" currently includes the synchronization requested when a new account is created and when the user changes the current account)
-                syncResult.tooManyRetries = true;
+                mSyncResult.tooManyRetries = true;
                 
                 /// notify the user about the failure of MANUAL synchronization
                 notifyFailedSynchronization();
@@ -136,31 +146,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * Updates the locally stored version value of the ownCloud server
      */
     private void updateOCVersion() {
-        String statUrl = getAccountManager().getUserData(getAccount(), AccountAuthenticator.KEY_OC_BASE_URL);
-        statUrl += AccountUtils.STATUS_PATH;
-        
-        try {
-            String result = getClient().getResultAsString(statUrl);
-            if (result != null) {
-                try {
-                    JSONObject json = new JSONObject(result);
-                    if (json != null && json.getString("version") != null) {
-                        OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
-                        if (ocver.isVersionValid()) {
-                            getAccountManager().setUserData(getAccount(), AccountAuthenticator.KEY_OC_VERSION, ocver.toString());
-                            Log.d(TAG, "Got new OC version " + ocver.toString());
-                        } else {
-                            Log.w(TAG, "Invalid version number received from server: " + json.getString("version"));
-                        }
-                    }
-                } catch (Throwable e) {
-                    Log.w(TAG, "Couldn't parse version response", e);
-                }
-            } else {
-                Log.w(TAG, "Problem while getting ocversion from server");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Problem getting response from server", e);
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(getAccount(), getContext());
+        RemoteOperationResult result = update.execute(getClient());
+        if (!result.isSuccess()) {
+            mLastFailedResult = result; 
         }
     }
 
@@ -171,22 +160,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * 
      * @param remotePath        Remote path to the folder to synchronize.
      * @param parentId          Database Id of the folder to synchronize.
-     * @param syncResult        Object to update for communicate results to the system's synchronization manager.        
      */
-    private void fetchData(String remotePath, SyncResult syncResult, long parentId) {
+    private void fetchData(String remotePath, long parentId) {
         
-        if (mFailedResultsCounter > MAX_FAILED_RESULTS && isFinisher(mLastFailedResult))
+        if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult))
             return;
-        
-        // get client object to connect to the remote ownCloud server
-        WebdavClient client = null;
-        try {
-            client = getClient();
-        } catch (IOException e) {
-            syncResult.stats.numIoExceptions++;
-            Log.d(TAG, "Could not get client object while trying to synchronize - impossible to continue");
-            return;
-        }
         
         // perform folder synchronization
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
@@ -196,7 +174,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                                     getAccount(), 
                                                                                     getContext()
                                                                                   );
-        RemoteOperationResult result = synchFolderOp.execute(client);
+        RemoteOperationResult result = synchFolderOp.execute(getClient());
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
@@ -205,17 +183,17 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (result.isSuccess()) {
             // synchronize children folders 
             List<OCFile> children = synchFolderOp.getChildren();
-            fetchChildren(children, syncResult);    // beware of the 'hidden' recursion here!
+            fetchChildren(children);    // beware of the 'hidden' recursion here!
             
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
-                syncResult.stats.numAuthExceptions++;
+                mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
-                syncResult.stats.numParseExceptions++;
+                mSyncResult.stats.numParseExceptions++;
                 
             } else if (result.getException() instanceof IOException) { 
-                syncResult.stats.numIoExceptions++;
+                mSyncResult.stats.numIoExceptions++;
                 
             }
             mFailedResultsCounter++;
@@ -246,14 +224,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * Synchronize data of folders in the list of received files
      * 
      * @param files         Files to recursively fetch 
-     * @param syncResult    Updated object to provide results to the Synchronization Manager
      */
-    private void fetchChildren(List<OCFile> files, SyncResult syncResult) {
+    private void fetchChildren(List<OCFile> files) {
         int i;
         for (i=0; i < files.size() && !mCancellation; i++) {
             OCFile newFile = files.get(i);
             if (newFile.isDirectory()) {
-                fetchData(newFile.getRemotePath(), syncResult, newFile.getFileId());
+                fetchData(newFile.getRemotePath(), newFile.getFileId());
             }
         }
         if (mCancellation && i <files.size()) Log.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");

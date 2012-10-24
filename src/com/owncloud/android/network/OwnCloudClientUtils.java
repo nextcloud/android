@@ -38,8 +38,6 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -79,11 +77,8 @@ public class OwnCloudClientUtils {
     public static WebdavClient createOwnCloudClient (Account account, Context context) {
         Log.d(TAG, "Creating WebdavClient associated to " + account.name);
        
-        String baseUrl = AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-        OwnCloudVersion ownCloudVersion = new OwnCloudVersion(AccountManager.get(context).getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
-        String webDavPath = AccountUtils.getWebdavPath(ownCloudVersion);
-        
-        WebdavClient client = createOwnCloudClient(Uri.parse(baseUrl + webDavPath), context);
+        Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(context, account));
+        WebdavClient client = createOwnCloudClient(uri, context);
         
         String username = account.name.substring(0, account.name.lastIndexOf('@'));
         String password = AccountManager.get(context).getPassword(account);
