@@ -166,4 +166,15 @@
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">非预期问题;请尝试使用其他应用选择文件</string>
   <string name="filedisplay_no_file_selected">未选择文件</string>
+  <string name="ssl_validator_title">警告</string>
+  <string name="ssl_validator_header">此站点身份不能确认</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- 服务器证书不受信任</string>
+  <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- 服务器证书太新</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- URL 不匹配证书中的主机名</string>
+  <string name="ssl_validator_certificate_not_available">无法获取服务器证书</string>
+  <string name="ssl_validator_question">您想要强行信任此证书吗？</string>
+  <string name="ssl_validator_not_saved">证书不能保存</string>
+  <string name="text_placeholder">这是一个占位符</string>
+  <string name="instant_upload_on_wifi">只通过 WiFi 上传图片</string>
 </resources>

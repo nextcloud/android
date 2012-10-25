@@ -166,4 +166,15 @@
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
+  <string name="ssl_validator_title">警告</string>
+  <string name="ssl_validator_header">站点身份无法验证</string>
+  <string name="ssl_validator_reason_cert_not_trusted">不受信任的服务器证书</string>
+  <string name="ssl_validator_reason_cert_expired">服务器证书过期</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">服务器证书过新</string>
+  <string name="ssl_validator_reason_hostname_not_verified">主机名与证书中的记录不匹配</string>
+  <string name="ssl_validator_certificate_not_available">无法获得服务器证书</string>
+  <string name="ssl_validator_question">是否信任此证书？</string>
+  <string name="ssl_validator_not_saved">证书无法保存</string>
+  <string name="text_placeholder">占位符一枚</string>
+  <string name="instant_upload_on_wifi">仅通过WIFI上传图片。</string>
 </resources>

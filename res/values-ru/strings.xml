@@ -166,4 +166,15 @@
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
+  <string name="ssl_validator_title">Предупреждение</string>
+  <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
+  <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Сертификат сервера слишком новый</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- Адрес не совпадает с именем в сертификате</string>
+  <string name="ssl_validator_certificate_not_available">Сертификат сервера не доступен</string>
+  <string name="ssl_validator_question">Все-равно доверять данному сертификату?</string>
+  <string name="ssl_validator_not_saved">Сертификат не может быть сохранён</string>
+  <string name="text_placeholder">Это заполнитель</string>
+  <string name="instant_upload_on_wifi">Загружать изображения только через WiFi</string>
 </resources>

@@ -28,6 +28,7 @@ public class FileObserverService extends Service {
     public final static int CMD_INIT_OBSERVED_LIST = 1;
     public final static int CMD_ADD_OBSERVED_FILE = 2;
     public final static int CMD_DEL_OBSERVED_FILE = 3;
+    public final static int CMD_ADD_DOWNLOADING_FILE = 4;
 
     private static String TAG = "FileObserverService";
     private static List<OwnCloudFileObserver> mObservers;
@@ -70,13 +71,16 @@ public class FileObserverService extends Service {
             case CMD_DEL_OBSERVED_FILE:
                 removeObservedFile(intent.getStringExtra(KEY_CMD_ARG));
                 break;
+            case CMD_ADD_DOWNLOADING_FILE:
+                addDownloadingFile(intent.getStringExtra(KEY_CMD_ARG));
+                break;
             default:
                 Log.wtf(TAG, "Incorrect key given");
         }
 
         return Service.START_STICKY;
     }
-    
+
     private void initializeObservedList() {
         if (mObservers != null) return; // nothing to do here
         mObservers = new ArrayList<OwnCloudFileObserver>();
@@ -107,7 +111,7 @@ public class FileObserverService extends Service {
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
             OwnCloudFileObserver observer =
                     new OwnCloudFileObserver(path, OwnCloudFileObserver.CHANGES_ONLY);
-            observer.setContext(getBaseContext());
+            observer.setContext(getApplicationContext());
             observer.setAccount(account);
             observer.setStorageManager(storage);
             observer.setOCFile(storage.getFileByPath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH))));
@@ -167,6 +171,24 @@ public class FileObserverService extends Service {
         }
         Log.d(TAG, "Stopped watching " + path);
     }
+        
+    private void addDownloadingFile(String remotePath) {
+        OwnCloudFileObserver observer = null;
+        for (OwnCloudFileObserver o : mObservers) {
+            if (o.getRemotePath().equals(remotePath)) {
+                observer = o;
+                break;
+            }
+        }
+        if (observer == null) {
+            Log.e(TAG, "Couldn't find observer for remote file " + remotePath);
+            return;
+        }
+        observer.stopWatching();
+        DownloadCompletedReceiver dcr = new DownloadCompletedReceiver(observer.getPath(), observer);
+        registerReceiver(dcr, new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE));
+    }
+
     
     private static void addReceiverToList(DownloadCompletedReceiver r) {
         synchronized(mReceiverListLock) {

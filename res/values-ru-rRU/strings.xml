@@ -77,6 +77,7 @@
   <string name="common_save_exit">Сохранить &amp; Выход</string>
   <string name="common_exit">Покинуть ownCloud</string>
   <string name="common_error">Ошибка</string>
+  <string name="about_title">О программе</string>
   <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать аккаунт</string>
   <string name="upload_chooser_title">Загрузить из...</string>

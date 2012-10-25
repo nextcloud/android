@@ -33,6 +33,7 @@ import android.util.Log;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavEntry;
@@ -130,6 +131,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
                     if (oldFile != null) {
                         if (oldFile.keepInSync() && file.getModificationTimestamp() > oldFile.getModificationTimestamp()) {
+                            disableObservance(file);        // first disable observer so we won't get file upload right after download
                             requestContentDownload(file);
                         }
                         file.setKeepInSync(oldFile.keepInSync());
@@ -137,8 +139,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 
                     updatedFiles.add(file);
                 }
-                
-                
+                                
                 // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
                 mStorageManager.saveFiles(updatedFiles);
 
@@ -179,7 +180,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return result;
     }
     
-    
+
     public boolean isMultiStatus(int status) {
         return (status == HttpStatus.SC_MULTI_STATUS); 
     }
@@ -202,6 +203,21 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
     
     
+    /**
+     * Request to stop the observance of local updates for a file.  
+     * 
+     * @param file      OCFile representing the remote file to stop to monitor for local updates
+     */
+    private void disableObservance(OCFile file) {
+        Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
+        Intent intent = new Intent(mContext, FileObserverService.class);
+        intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
+        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
+        mContext.startService(intent);
+        
+    }
+
+
     /** 
      * Requests a download to the file download service
      * 

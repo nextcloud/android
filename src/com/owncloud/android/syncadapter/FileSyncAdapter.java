@@ -28,9 +28,15 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+//<<<<<<< HEAD
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
+/*=======
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileObserverService;
+import com.owncloud.android.utils.OwnCloudVersion;
+>>>>>>> origin/master*/
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -185,6 +191,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             List<OCFile> children = synchFolderOp.getChildren();
             fetchChildren(children);    // beware of the 'hidden' recursion here!
             
+//<<<<<<< HEAD
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
                 mSyncResult.stats.numAuthExceptions++;
@@ -194,6 +201,32 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 
             } else if (result.getException() instanceof IOException) { 
                 mSyncResult.stats.numIoExceptions++;
+/*=======
+                // insertion or update of files
+                List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
+                for (int i = 1; i < resp.getResponses().length; ++i) {
+                    WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
+                    OCFile file = fillOCFile(we);
+                    file.setParentId(parentId);
+                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null &&
+                            getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
+                            file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
+                                                                         .getModificationTimestamp()) {
+                        // first disable observer so we won't get file upload right after download
+                        Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
+                        Intent intent = new Intent(getContext(), FileObserverService.class);
+                        intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
+                        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
+                        getContext().startService(intent);
+                        intent = new Intent(this.getContext(), FileDownloader.class);
+                        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+                        intent.putExtra(FileDownloader.EXTRA_FILE, file);
+                        file.setKeepInSync(true);
+                        getContext().startService(intent);
+                    }
+                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
+                        file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
+>>>>>>> origin/master*/
                 
             }
             mFailedResultsCounter++;
