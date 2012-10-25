@@ -33,7 +33,6 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
-import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.json.JSONObject;
 
@@ -83,6 +82,10 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
@@ -99,7 +102,7 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  */
 public class FileDetailFragment extends SherlockFragment implements
-        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -114,6 +117,9 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
+    
+    private Handler mHandler;
+    private RemoteOperation mLastRemoteOperation;
 
     private static final String TAG = "FileDetailFragment";
     public static final String FTAG = "FileDetails"; 
@@ -148,6 +154,13 @@ public class FileDetailFragment extends SherlockFragment implements
         if(fileToDetail != null && ocAccount != null) {
             mLayout = R.layout.file_details_fragment;
         }
+    }
+    
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mHandler = new Handler();
     }
     
 
@@ -390,7 +403,12 @@ public class FileDetailFragment extends SherlockFragment implements
         if (callerTag.equals(FTAG_CONFIRMATION)) {
             FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
             if (fdsm.getFileById(mFile.getFileId()) != null) {
-                new Thread(new RemoveRunnable(mFile, mAccount, new Handler())).start();
+                mLastRemoteOperation = new RemoveFileOperation( mFile, 
+                                                                true, 
+                                                                new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
+                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
+                mLastRemoteOperation.execute(wc, this, mHandler);
+                
                 boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
             }
@@ -1007,97 +1025,6 @@ public class FileDetailFragment extends SherlockFragment implements
         
     }
     
-    private class RemoveRunnable implements Runnable {
-        
-        Account mAccount;
-        OCFile mFileToRemove;
-        Handler mHandler;
-        
-        public RemoveRunnable(OCFile fileToRemove, Account account, Handler handler) {
-            mFileToRemove = fileToRemove;
-            mAccount = account;
-            mHandler = handler;
-        }
-        
-        public void run() {
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            AccountManager am = AccountManager.get(getSherlockActivity());
-            String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
-            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-            String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
-
-            DeleteMethod delete = new DeleteMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
-            
-            boolean success = false;
-            int status = -1;
-            try {
-                status = wc.executeMethod(delete);
-                success = (delete.succeeded());
-                delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-                Log.d(TAG, "Delete: returned status " + status);
-                
-            } catch (HttpException e) {
-                Log.e(TAG, "HTTP Exception removing file " + mFileToRemove.getRemotePath(), e);
-                
-            } catch (IOException e) {
-                Log.e(TAG, "I/O Exception removing file " + mFileToRemove.getRemotePath(), e);
-                
-            } catch (Exception e) {
-                Log.e(TAG, "Unexpected exception removing file " + mFileToRemove.getRemotePath(), e);
-                
-            } finally {
-                delete.releaseConnection();
-            }
-            
-            if (success) {
-                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                fdsm.removeFile(mFileToRemove, true);
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-                            msg.show();
-                            if (inDisplayActivity) {
-                                // double pane
-                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                                transaction.commit();
-                                mContainerActivity.onFileStateChanged();
-                                
-                            } else {
-                                getActivity().finish();
-                            }
-                            
-                        } catch (NotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                
-            } else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                            
-                        } catch (NotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        }
-        
-    }
-    
     class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
         @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
 		@Override
@@ -1170,6 +1097,39 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
         
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        if (operation.equals(mLastRemoteOperation)) {
+            if (operation instanceof RemoveFileOperation) {
+                boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                if (result.isSuccess()) {
+                    Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
+                    msg.show();
+                    if (inDisplayActivity) {
+                        // double pane
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                        transaction.commit();
+                        mContainerActivity.onFileStateChanged();
+                    } else {
+                        getActivity().finish();
+                    }
+                    
+                } else {
+                    Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+                    msg.show();
+                    if (result.isSslRecoverableException()) {
+                        // TODO
+                    }
+                }
+            }
+        }
     }
     
 
