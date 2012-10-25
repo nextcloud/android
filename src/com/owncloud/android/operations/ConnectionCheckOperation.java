@@ -16,7 +16,7 @@
  *
  */
 
-package com.owncloud.android.authenticator;
+package com.owncloud.android.operations;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -24,8 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
