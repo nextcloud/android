@@ -152,12 +152,14 @@ public class RenameFileOperation extends RemoteOperation {
      * IMPORTANT: The test must be made in the same file system where files are download. The internal storage
      * could be formatted with a different file system.
      * 
+     * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities specific for the interactions with the file system
+     * 
      * @return      'True' if a temporal file named with the name to set could be created in the file system where 
      *              local files are stored.
      */
     private boolean isValidNewName() {
         // check tricky names
-        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator)) { 
+        if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
             return false;
         }
         // create a test file
