@@ -39,7 +39,7 @@ import eu.alefzero.webdav.WebdavUtils;
 
 public class ChunkedUploadFileOperation extends UploadFileOperation {
     
-    private static final long CHUNK_SIZE = 102400;
+    private static final long CHUNK_SIZE = 1024000;
     private static final String OC_CHUNKED_HEADER = "OC-Chunked";
     private static final String TAG = ChunkedUploadFileOperation.class.getSimpleName();
 
