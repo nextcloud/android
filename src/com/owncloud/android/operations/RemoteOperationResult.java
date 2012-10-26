@@ -66,7 +66,9 @@ public class RemoteOperationResult implements Serializable {
         SSL_RECOVERABLE_PEER_UNVERIFIED,
         BAD_OC_VERSION,
         STORAGE_ERROR_MOVING_FROM_TMP,
-        CANCELLED
+        CANCELLED, 
+        INVALID_LOCAL_FILE_NAME, 
+        INVALID_OVERWRITE
     }
 
     private boolean mSuccess = false;

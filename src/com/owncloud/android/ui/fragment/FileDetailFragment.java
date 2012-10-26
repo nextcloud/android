@@ -18,11 +18,9 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -32,7 +30,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import org.json.JSONObject;
 
@@ -45,7 +42,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -61,7 +57,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager.LayoutParams;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -69,7 +64,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
@@ -85,10 +79,14 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
@@ -102,7 +100,7 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  */
 public class FileDetailFragment extends SherlockFragment implements
-        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener {
+        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -330,9 +328,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }
             case R.id.fdRenameBtn: {
-                EditNameFragment dialog = EditNameFragment.newInstance(mFile.getFileName());
-                dialog.show(getFragmentManager(), "nameeditdialog");
+                EditNameDialog dialog = EditNameDialog.newInstance(mFile.getFileName());
                 dialog.setOnDismissListener(this);
+                dialog.show(getFragmentManager(), "nameeditdialog");
                 break;
             }   
             case R.id.fdRemoveBtn: {
@@ -812,218 +810,20 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
-    public void onDismiss(EditNameFragment dialog) {
-        if (dialog instanceof EditNameFragment) {
-            if (((EditNameFragment)dialog).getResult()) {
-                String newFilename = ((EditNameFragment)dialog).getNewFilename();
-                Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-                if (!newFilename.equals(mFile.getFileName())) {
-                    FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                    if (fdsm.getFileById(mFile.getFileId()) != null) {
-                        OCFile newFile = new OCFile(fdsm.getFileById(mFile.getParentId()).getRemotePath() + newFilename);
-                        newFile.setCreationTimestamp(mFile.getCreationTimestamp());
-                        newFile.setFileId(mFile.getFileId());
-                        newFile.setFileLength(mFile.getFileLength());
-                        newFile.setKeepInSync(mFile.keepInSync());
-                        newFile.setLastSyncDate(mFile.getLastSyncDate());
-                        newFile.setMimetype(mFile.getMimetype());
-                        newFile.setModificationTimestamp(mFile.getModificationTimestamp());
-                        newFile.setParentId(mFile.getParentId());
-                        boolean localRenameFails = false;
-                        if (mFile.isDown()) {
-                            File f = new File(mFile.getStoragePath());
-                            Log.e(TAG, f.getAbsolutePath());
-                            localRenameFails = !(f.renameTo(new File(f.getParent() + File.separator + newFilename)));
-                            Log.e(TAG, f.getParent() + File.separator + newFilename);
-                            newFile.setStoragePath(f.getParent() + File.separator + newFilename);
-                        }
-                        
-                        if (localRenameFails) {
-                            Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                            
-                        } else {
-                            new Thread(new RenameRunnable(mFile, newFile, mAccount, new Handler())).start();
-                            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                        }
-
-                    }
-                }
-            }
-        } else {
-            Log.e(TAG, "Unknown dialog instance passed to onDismissDalog: " + dialog.getClass().getCanonicalName());
-        }
-        
-    }
-    
-    private class RenameRunnable implements Runnable {
-        
-        Account mAccount;
-        OCFile mOld, mNew;
-        Handler mHandler;
-        
-        public RenameRunnable(OCFile oldFile, OCFile newFile, Account account, Handler handler) {
-            mOld = oldFile;
-            mNew = newFile;
-            mAccount = account;
-            mHandler = handler;
-        }
-        
-        public void run() {
+    public void onDismiss(EditNameDialog dialog) {
+        if (dialog.getResult()) {
+            String newFilename = dialog.getNewFilename();
+            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            mLastRemoteOperation = new RenameFileOperation( mFile, 
+                                                            newFilename, 
+                                                            new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
             WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            AccountManager am = AccountManager.get(getSherlockActivity());
-            String baseUrl = am.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
-            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION));
-            String webdav_path = AccountUtils.getWebdavPath(ocv);
-            Log.d("ASD", ""+baseUrl + webdav_path + WebdavUtils.encodePath(mOld.getRemotePath()));
-
-            Log.e("ASD", Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encodePath(mNew.getRemotePath()));
-            LocalMoveMethod move = new LocalMoveMethod(baseUrl + webdav_path + WebdavUtils.encodePath(mOld.getRemotePath()),
-                                             Uri.parse(baseUrl).getPath() == null ? "" : Uri.parse(baseUrl).getPath() + webdav_path + WebdavUtils.encodePath(mNew.getRemotePath()));
-            
-            boolean success = false;
-            try {
-                int status = wc.executeMethod(move);
-                success = move.succeeded();
-                move.getResponseBodyAsString(); // exhaust response, although not interesting
-                Log.d(TAG, "Move returned status: " + status);
-                
-            } catch (HttpException e) {
-                Log.e(TAG, "HTTP Exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
-                
-            } catch (IOException e) {
-                Log.e(TAG, "I/O Exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
-                
-            } catch (Exception e) {
-                Log.e(TAG, "Unexpected exception renaming file " + mOld.getRemotePath() + " to " + mNew.getRemotePath(), e);
-                
-            } finally {
-               move.releaseConnection();
-            } 
-            
-            if (success) {
-                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                fdsm.removeFile(mOld, false);
-                fdsm.saveFile(mNew);
-                mFile = mNew;
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() { 
-                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                        updateFileDetails(mFile, mAccount);
-                        mContainerActivity.onFileStateChanged();
-                    }
-                });
-                
-            } else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // undo the local rename
-                        if (mNew.isDown()) {
-                            File f = new File(mNew.getStoragePath());
-                            if (!f.renameTo(new File(mOld.getStoragePath()))) {
-                                // the local rename undoing failed; last chance: save the new local storage path in the old file
-                                mFile.setStoragePath(mNew.getStoragePath());
-                                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-                                fdsm.saveFile(mFile);
-                            }
-                        }
-                        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                            
-                        } catch (NotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        }
-        private class LocalMoveMethod extends DavMethodBase {
-
-            public LocalMoveMethod(String uri, String dest) {
-                super(uri);
-                addRequestHeader(new org.apache.commons.httpclient.Header("Destination", dest));
-            }
-
-            @Override
-            public String getName() {
-                return "MOVE";
-            }
-
-            @Override
-            protected boolean isSuccess(int status) {
-                return status == 201 || status == 204;
-            }
-            
+            mLastRemoteOperation.execute(wc, this, mHandler);
+            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
         }
     }
     
-    private static class EditNameFragment extends SherlockDialogFragment implements OnClickListener {
-
-        private String mNewFilename;
-        private boolean mResult;
-        private FileDetailFragment mListener;
-        
-        static public EditNameFragment newInstance(String filename) {
-            EditNameFragment f = new EditNameFragment();
-            Bundle args = new Bundle();
-            args.putString("filename", filename);
-            f.setArguments(args);
-            return f;
-        }
-        
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.edit_box_dialog, container, false);
-
-            String currentName = getArguments().getString("filename");
-            if (currentName == null)
-                currentName = "";
-            
-            ((Button)v.findViewById(R.id.cancel)).setOnClickListener(this);
-            ((Button)v.findViewById(R.id.ok)).setOnClickListener(this);
-            ((TextView)v.findViewById(R.id.user_input)).setText(currentName);
-            ((TextView)v.findViewById(R.id.user_input)).requestFocus();
-            getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-            mResult = false;
-            return v;
-        }
-        
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.ok: {
-                    mNewFilename = ((TextView)getView().findViewById(R.id.user_input)).getText().toString();
-                    mResult = true;
-                }
-                case R.id.cancel: { // fallthought
-                    dismiss();
-                    mListener.onDismiss(this);
-                }
-            }
-        }
-        
-        void setOnDismissListener(FileDetailFragment listener) {
-            mListener = listener;
-        }
-        
-        public String getNewFilename() {
-            return mNewFilename;
-        }
-        
-        // true if user click ok
-        public boolean getResult() {
-            return mResult;
-        }
-        
-    }
     
     class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
         @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
@@ -1106,27 +906,59 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         if (operation.equals(mLastRemoteOperation)) {
             if (operation instanceof RemoveFileOperation) {
-                boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                if (result.isSuccess()) {
-                    Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-                    msg.show();
-                    if (inDisplayActivity) {
-                        // double pane
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                        transaction.commit();
-                        mContainerActivity.onFileStateChanged();
-                    } else {
-                        getActivity().finish();
-                    }
-                    
-                } else {
-                    Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-                    msg.show();
-                    if (result.isSslRecoverableException()) {
-                        // TODO
-                    }
+                onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+                
+            } else if (operation instanceof RenameFileOperation) {
+                onRenameFileOperationFinish((RenameFileOperation)operation, result);
+            }
+        }
+    }
+    
+    
+    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
+        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+        
+        if (result.isSuccess()) {
+            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
+            msg.show();
+            if (inDisplayActivity) {
+                // double pane
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                transaction.commit();
+                mContainerActivity.onFileStateChanged();
+            } else {
+                getActivity().finish();
+            }
+                
+        } else {
+            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+            msg.show();
+            if (result.isSslRecoverableException()) {
+                // TODO show the SSL warning dialog
+            }
+        }
+    }
+    
+    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
+        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+        
+        if (result.isSuccess()) {
+            updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
+            mContainerActivity.onFileStateChanged();
+            
+        } else {
+            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+                Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                // TODO throw again the new rename dialog
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                if (result.isSslRecoverableException()) {
+                    // TODO show the SSL warning dialog
                 }
             }
         }

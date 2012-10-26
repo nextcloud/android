@@ -60,7 +60,9 @@ public class RemoveFileOperation extends RemoteOperation {
     
     
     /**
-     * Performs the removal
+     * Performs the remove operation
+     * 
+     * @param   client      Client object to communicate with the remote ownCloud server.
      */
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
