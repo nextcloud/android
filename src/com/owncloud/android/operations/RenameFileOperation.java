@@ -41,7 +41,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class RenameFileOperation extends RemoteOperation {
     
-    private static final String TAG = RemoveFileOperation.class.getCanonicalName();
+    private static final String TAG = RemoveFileOperation.class.getSimpleName();
 
     private static final int RENAME_READ_TIMEOUT = 10000;
     private static final int RENAME_CONNECTION_TIMEOUT = 5000;

@@ -50,7 +50,7 @@ import android.webkit.MimeTypeMap;
  */
 public class DownloadFileOperation extends RemoteOperation {
     
-    private static final String TAG = DownloadFileOperation.class.getCanonicalName();
+    private static final String TAG = DownloadFileOperation.class.getSimpleName();
 
     private Account mAccount;
     private OCFile mFile;

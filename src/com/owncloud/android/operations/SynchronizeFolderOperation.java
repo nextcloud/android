@@ -47,7 +47,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class SynchronizeFolderOperation extends RemoteOperation {
 
-    private static final String TAG = SynchronizeFolderOperation.class.getCanonicalName();
+    private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
 
     /** Remote folder to synchronize */
     private String mRemotePath;

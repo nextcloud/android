@@ -65,7 +65,7 @@ public class LocalFileListFragment extends FragmentListView {
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + LocalFileListFragment.ContainerActivity.class.getCanonicalName());
+            throw new ClassCastException(activity.toString() + " must implement " + LocalFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
     

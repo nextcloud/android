@@ -46,7 +46,7 @@ import android.util.Log;
  */
 public class UploadFileOperation extends RemoteOperation {
     
-    private static final String TAG = UploadFileOperation.class.getCanonicalName();
+    private static final String TAG = UploadFileOperation.class.getSimpleName();
 
     private Account mAccount;
     private OCFile mFile;

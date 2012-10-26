@@ -54,7 +54,7 @@ public class OCFileListFragment extends FragmentListView {
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + OCFileListFragment.ContainerActivity.class.getCanonicalName());
+            throw new ClassCastException(activity.toString() + " must implement " + OCFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
     

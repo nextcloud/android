@@ -200,7 +200,7 @@ public class FileDetailFragment extends SherlockFragment implements
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getCanonicalName());
+            throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getSimpleName());
         }
     }
         

@@ -35,7 +35,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class RemoveFileOperation extends RemoteOperation {
     
-    private static final String TAG = RemoveFileOperation.class.getCanonicalName();
+    private static final String TAG = RemoveFileOperation.class.getSimpleName();
 
     private static final int REMOVE_READ_TIMEOUT = 10000;
     private static final int REMOVE_CONNECTION_TIMEOUT = 5000;
