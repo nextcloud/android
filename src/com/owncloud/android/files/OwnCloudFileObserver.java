@@ -39,7 +39,7 @@ import android.util.Log;
 
 public class OwnCloudFileObserver extends FileObserver {
 
-    public static int CHANGES_ONLY = CLOSE_WRITE | MOVED_FROM | MODIFY;
+    public static int CHANGES_ONLY = CLOSE_WRITE;
     
     private static String TAG = "OwnCloudFileObserver";
     private String mPath;
