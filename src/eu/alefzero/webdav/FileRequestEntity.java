@@ -74,7 +74,7 @@ public class FileRequestEntity implements RequestEntity {
         
         // TODO(bprzybylski): each mem allocation can throw OutOfMemoryError we need to handle it
         //                    globally in some fashionable manner
-        RandomAccessFile raf = new RandomAccessFile(mFile, "rw");
+        RandomAccessFile raf = new RandomAccessFile(mFile, "r");
         FileChannel channel = raf.getChannel();
         FileLock lock = channel.tryLock();
         Iterator<OnDatatransferProgressListener> it = null;

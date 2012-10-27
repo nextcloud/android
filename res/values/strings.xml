@@ -200,4 +200,9 @@
     <string name="text_placeholder">This is a placeholder</string>
     
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
+    <string name="conflict_title">Update conflict</string>
+    <string name="conflict_message">Remote file %s is not synchronized with local file. Continuing will replace content of file on server.</string>
+    <string name="conflict_keep_both">Keep both</string>
+    <string name="conflict_overwrite">Overwrite</string>
+    <string name="conflict_dont_upload">Don\'t upload</string>
 </resources>

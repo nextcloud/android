@@ -68,13 +68,15 @@ public class RemoteOperationResult implements Serializable {
         STORAGE_ERROR_MOVING_FROM_TMP,
         CANCELLED, 
         INVALID_LOCAL_FILE_NAME, 
-        INVALID_OVERWRITE
+        INVALID_OVERWRITE,
+        CONFLICT
     }
 
     private boolean mSuccess = false;
     private int mHttpCode = -1;
     private Exception mException = null;
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
+    private Object mExtraData = null;
     
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
@@ -98,6 +100,9 @@ public class RemoteOperationResult implements Serializable {
                     break;
                 case HttpStatus.SC_INTERNAL_SERVER_ERROR:
                     mCode = ResultCode.INSTANCE_NOT_CONFIGURED;
+                    break;
+                case HttpStatus.SC_CONFLICT:
+                    mCode = ResultCode.CONFLICT;
                     break;
                 default:
                     mCode = ResultCode.UNHANDLED_HTTP_CODE;
@@ -167,6 +172,14 @@ public class RemoteOperationResult implements Serializable {
 
     public boolean isSslRecoverableException() {
         return mCode == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED;
+    }
+    
+    public void setExtraData(Object data) {
+        mExtraData = data;
+    }
+    
+    public Object getExtraData() {
+        return mExtraData;
     }
     
     private CertificateCombinedException getCertificateCombinedException(Exception e) {
