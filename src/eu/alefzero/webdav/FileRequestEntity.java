@@ -24,7 +24,6 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -94,7 +93,6 @@ public class FileRequestEntity implements RequestEntity {
         //                    globally in some fashionable manner
         RandomAccessFile raf = new RandomAccessFile(mFile, "r");
         FileChannel channel = raf.getChannel();
-        FileLock lock = channel.tryLock();
         Iterator<OnDatatransferProgressListener> it = null;
         long transferred = 0;
         long size = mFile.length();
@@ -115,7 +113,6 @@ public class FileRequestEntity implements RequestEntity {
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         } finally {
-            lock.release();
             channel.close();
             raf.close();
         }
