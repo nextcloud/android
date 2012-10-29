@@ -196,7 +196,22 @@
     <string name="ssl_validator_certificate_not_available">The server certificate could not be obtained</string>
     <string name="ssl_validator_question">Do you want to trust this certificate anyway?</string>
     <string name="ssl_validator_not_saved">The certificate could not be saved</string>
-    
+    <string name="ssl_validator_btn_details_see">View details</string>
+    <string name="ssl_validator_btn_details_hide">Hide details</string>
+    <string name="ssl_validator_label_subject">Issued to:</string>
+    <string name="ssl_validator_label_issuer">Issued by:</string>
+    <string name="ssl_validator_label_CN">Common name:</string>
+    <string name="ssl_validator_label_O">Organization:</string>
+	<string name="ssl_validator_label_OU">Organizational unit:</string>
+	<string name="ssl_validator_label_C">Country:</string>
+	<string name="ssl_validator_label_ST">State:</string>
+	<string name="ssl_validator_label_L">Location:</string>
+    <string name="ssl_validator_label_validity">Validity:</string>
+    <string name="ssl_validator_label_validity_from">From:</string>
+	<string name="ssl_validator_label_validity_to">To:</string>
+	<string name="ssl_validator_label_signature">Signature:</string>
+	<string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
+			
     <string name="text_placeholder">This is a placeholder</string>
     
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>

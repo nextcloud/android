@@ -22,6 +22,11 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.security.auth.x500.X500Principal;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -29,6 +34,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -121,6 +127,22 @@ public class SslValidatorDialog extends Dialog {
                         cancel();
                     }
                 });
+        
+        mView.findViewById(R.id.details_btn).setOnClickListener(
+                new View.OnClickListener() {
+                   @Override
+                    public void onClick(View v) {
+                       View detailsScroll = findViewById(R.id.details_scroll);
+                       if (detailsScroll.getVisibility() == View.VISIBLE) {
+                           detailsScroll.setVisibility(View.GONE);
+                           ((Button)v).setText(R.string.ssl_validator_btn_details_see);
+                           
+                       } else {
+                           detailsScroll.setVisibility(View.VISIBLE);
+                           ((Button)v).setText(R.string.ssl_validator_btn_details_hide);
+                       }
+                    }
+                });
     }
     
     
@@ -129,11 +151,11 @@ public class SslValidatorDialog extends Dialog {
             mException = (CertificateCombinedException) result.getException();
             
             /// clean
-            ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.GONE);
-            ((TextView)mView.findViewById(R.id.subject)).setVisibility(View.GONE);
+            mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
+            mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
+            mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
+            mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
+            mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
 
             /// refresh
             if (mException.getCertPathValidatorException() != null) {
@@ -159,20 +181,160 @@ public class SslValidatorDialog extends Dialog {
     }
     
     private void showCertificateData(X509Certificate cert) {
-        TextView subject = (TextView)mView.findViewById(R.id.subject);
+
         if (cert != null) {
-            String text = cert.getSubjectDN().getName();
-            text = text.substring(text.indexOf(",") + 1);
-            subject.setVisibility(View.VISIBLE);
-            subject.setText(text);
+            showSubject(cert.getSubjectX500Principal());
+            showIssuer(cert.getIssuerX500Principal());
+            showValidity(cert.getNotBefore(), cert.getNotAfter());
+            showSignature(cert);
+            
         } else {
             // this should not happen
-            subject.setText(R.string.ssl_validator_certificate_not_available);
+            // TODO
         }
+    }
+
+    private void showSignature(X509Certificate cert) {
+        TextView sigView = ((TextView)mView.findViewById(R.id.value_signature));
+        TextView algorithmView = ((TextView)mView.findViewById(R.id.value_signature_algorithm));
+        sigView.setText(getHex(cert.getSignature()));
+        algorithmView.setText(cert.getSigAlgName());
+    }
+    
+    public String getHex(final byte [] raw) {
+        if (raw == null) {
+           return null;
+        }
+        final StringBuilder hex = new StringBuilder(2 * raw.length);
+        for (final byte b : raw) {
+           final int hiVal = (b & 0xF0) >> 4;
+           final int loVal = b & 0x0F;
+           hex.append((char) ('0' + (hiVal + (hiVal / 10 * 7))));
+           hex.append((char) ('0' + (loVal + (loVal / 10 * 7))));
+        }
+        return hex.toString();
+     }    
+
+    private void showValidity(Date notBefore, Date notAfter) {
+        TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
+        TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
+        fromView.setText(notBefore.toLocaleString());
+        toView.setText(notAfter.toLocaleString());
+    }
+
+    private void showSubject(X500Principal subject) {
+        Map<String, String> s = parsePrincipal(subject);
+        TextView cnView = ((TextView)mView.findViewById(R.id.value_subject_CN));
+        TextView oView = ((TextView)mView.findViewById(R.id.value_subject_O));
+        TextView ouView = ((TextView)mView.findViewById(R.id.value_subject_OU));
+        TextView cView = ((TextView)mView.findViewById(R.id.value_subject_C));
+        TextView stView = ((TextView)mView.findViewById(R.id.value_subject_ST));
+        TextView lView = ((TextView)mView.findViewById(R.id.value_subject_L));
+        
+        if (s.get("CN") != null) {
+            cnView.setText(s.get("CN"));
+            cnView.setVisibility(View.VISIBLE);
+        } else {
+            cnView.setVisibility(View.GONE);
+        }
+        if (s.get("O") != null) {
+            oView.setText(s.get("O"));
+            oView.setVisibility(View.VISIBLE);
+        } else {
+            oView.setVisibility(View.GONE);
+        }
+        if (s.get("OU") != null) {
+            ouView.setText(s.get("OU"));
+            ouView.setVisibility(View.VISIBLE);
+        } else {
+            ouView.setVisibility(View.GONE);
+        }
+        if (s.get("C") != null) {
+            cView.setText(s.get("C"));
+            cView.setVisibility(View.VISIBLE);
+        } else {
+            cView.setVisibility(View.GONE);
+        }
+        if (s.get("ST") != null) {
+            stView.setText(s.get("ST"));
+            stView.setVisibility(View.VISIBLE);
+        } else {
+            stView.setVisibility(View.GONE);
+        }
+        if (s.get("L") != null) {
+            lView.setText(s.get("L"));
+            lView.setVisibility(View.VISIBLE);
+        } else {
+            lView.setVisibility(View.GONE);
+        }
+    }
+    
+    private void showIssuer(X500Principal issuer) {
+        Map<String, String> s = parsePrincipal(issuer);
+        TextView cnView = ((TextView)mView.findViewById(R.id.value_issuer_CN));
+        TextView oView = ((TextView)mView.findViewById(R.id.value_issuer_O));
+        TextView ouView = ((TextView)mView.findViewById(R.id.value_issuer_OU));
+        TextView cView = ((TextView)mView.findViewById(R.id.value_issuer_C));
+        TextView stView = ((TextView)mView.findViewById(R.id.value_issuer_ST));
+        TextView lView = ((TextView)mView.findViewById(R.id.value_issuer_L));
+        
+        if (s.get("CN") != null) {
+            cnView.setText(s.get("CN"));
+            cnView.setVisibility(View.VISIBLE);
+        } else {
+            cnView.setVisibility(View.GONE);
+        }
+        if (s.get("O") != null) {
+            oView.setText(s.get("O"));
+            oView.setVisibility(View.VISIBLE);
+        } else {
+            oView.setVisibility(View.GONE);
+        }
+        if (s.get("OU") != null) {
+            ouView.setText(s.get("OU"));
+            ouView.setVisibility(View.VISIBLE);
+        } else {
+            ouView.setVisibility(View.GONE);
+        }
+        if (s.get("C") != null) {
+            cView.setText(s.get("C"));
+            cView.setVisibility(View.VISIBLE);
+        } else {
+            cView.setVisibility(View.GONE);
+        }
+        if (s.get("ST") != null) {
+            stView.setText(s.get("ST"));
+            stView.setVisibility(View.VISIBLE);
+        } else {
+            stView.setVisibility(View.GONE);
+        }
+        if (s.get("L") != null) {
+            lView.setText(s.get("L"));
+            lView.setVisibility(View.VISIBLE);
+        } else {
+            lView.setVisibility(View.GONE);
+        }
+    }
+    
+
+    private Map<String, String> parsePrincipal(X500Principal principal) {
+        Map<String, String> result = new HashMap<String, String>();
+        String toParse = principal.getName();
+        String[] pieces = toParse.split(",");
+        String[] tokens = {"CN", "O", "OU", "C", "ST", "L"}; 
+        for (int i=0; i < pieces.length ; i++) {
+            for (int j=0; j<tokens.length; j++) {
+                if (pieces[i].startsWith(tokens[j] + "=")) {
+                    result.put(tokens[j], pieces[i].substring(tokens[j].length()+1));
+                }
+            }
+        }
+        return result;
     }
 
     private void saveServerCert() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         if (mException.getServerCertificate() != null) {
+            // TODO make this asynchronously, it can take some time
             OwnCloudClientUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
         }
     }
