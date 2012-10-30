@@ -57,13 +57,15 @@ public class WebdavEntry {
                 if (mContentType.indexOf(";") >= 0) {
                     mContentType = mContentType.substring(0, mContentType.indexOf(";"));
                 }
-            } else {
-                mContentType = "DIR";
-                /*
-                 * prop = propSet.get(DavPropertyName.ISCOLLECTION); if (prop !=
-                 * null && Boolean.parseBoolean((String) prop.getValue()))
-                 * mContentType = "DIR";
-                 */
+            }
+            
+            // check if it's a folder in the standard way: see RFC2518 12.2 , or RFC4918 14.3 
+            prop = propSet.get(DavPropertyName.RESOURCETYPE);
+            if (prop!= null) {
+                Object value = prop.getValue();
+                if (value != null) {
+                    mContentType = "DIR";   // a specific attribute would be better, but this is enough; unless while we have no reason to distinguish MIME types for folders
+                }
             }
 
             prop = propSet.get(DavPropertyName.GETCONTENTLENGTH);
