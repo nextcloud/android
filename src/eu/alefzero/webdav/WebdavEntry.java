@@ -50,6 +50,8 @@ public class WebdavEntry {
                     mName = tmp[tmp.length - 1];
             }
 
+            // use unknown mimetype as default behavior
+            mContentType = "application/octet-stream";
             prop = propSet.get(DavPropertyName.GETCONTENTTYPE);
             if (prop != null) {
                 mContentType = (String) prop.getValue();
