@@ -17,17 +17,40 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import java.io.File;
+
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.FragmentListView;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+
+import eu.alefzero.webdav.WebdavClient;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -35,7 +58,7 @@ import android.widget.AdapterView;
  * @author Bartek Przybylski
  * 
  */
-public class OCFileListFragment extends FragmentListView {
+public class OCFileListFragment extends FragmentListView implements EditNameDialog.EditNameDialogListener, OnRemoteOperationListener, ConfirmationDialogFragmentListener {
     private static final String TAG = "FileListFragment";
     private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
@@ -43,6 +66,10 @@ public class OCFileListFragment extends FragmentListView {
     
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
+    
+    private Handler mHandler;
+    private boolean mIsLargeLayout;
+    private OCFile mTargetFile;
 
     
     /**
@@ -75,6 +102,12 @@ public class OCFileListFragment extends FragmentListView {
             int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
             setReferencePosition(position);
         }
+        
+        registerForContextMenu(getListView());
+        getListView().setOnCreateContextMenuListener(this);        
+        
+        mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
+        mHandler = new Handler();
         
         Log.i(TAG, "onActivityCreated() stop");
     }
@@ -112,6 +145,49 @@ public class OCFileListFragment extends FragmentListView {
         }
         
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.file_context_menu, menu);
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;        
+    }
+    
+    
+    /**
+     * {@inhericDoc}
+     */
+    @Override
+    public boolean onContextItemSelected (MenuItem item) {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
+        mTargetFile = (OCFile) mAdapter.getItem(info.position);
+        switch (item.getItemId()) {
+            case R.id.rename_file_item:
+                EditNameDialog dialog = EditNameDialog.newInstance(mTargetFile.getFileName());
+                dialog.setOnDismissListener(this);
+                dialog.show(getFragmentManager(), "nameeditdialog");
+                Log.d(TAG, "RENAME SELECTED, item " + info.id + " at position " + info.position);
+                return true;
+            case R.id.remove_file_item:
+                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
+                        R.string.confirmation_remove_alert,
+                        new String[]{mTargetFile.getFileName()},
+                        mTargetFile.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
+                        mTargetFile.isDown() ? R.string.confirmation_remove_local : -1,
+                        R.string.common_cancel);
+                confDialog.setOnConfirmationListener(this);
+                confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
+                Log.d(TAG, "REMOVE SELECTED, item " + info.id + " at position " + info.position);
+                return true;
+            default:
+                return super.onContextItemSelected(item); 
+        }
+    }
+    
 
     /**
      * Call this, when the user presses the up button
@@ -218,4 +294,110 @@ public class OCFileListFragment extends FragmentListView {
         
     }
 
+
+
+    @Override
+    public void onDismiss(EditNameDialog dialog) {
+        if (dialog.getResult()) {
+            String newFilename = dialog.getNewFilename();
+            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            RemoteOperation operation = new RenameFileOperation(mTargetFile, 
+                                                                newFilename, 
+                                                                mContainerActivity.getStorageManager());
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
+            operation.execute(wc, this, mHandler);
+            getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+        }
+    }
+
+
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        if (operation instanceof RemoveFileOperation) {
+            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+                
+        } else if (operation instanceof RenameFileOperation) {
+            onRenameFileOperationFinish((RenameFileOperation)operation, result);
+        }
+    }
+
+    
+    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
+        getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+        if (result.isSuccess()) {
+            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
+            msg.show();
+            if (mIsLargeLayout) {
+                // TODO - this should be done only when the current FileDetailFragment shows the deleted file
+                //          -> THIS METHOD WOULD BE BETTER PLACED AT THE ACTIVITY LEVEL
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                transaction.commit();
+            }
+            listDirectory();
+                
+        } else {
+            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+            msg.show();
+            if (result.isSslRecoverableException()) {
+                // TODO show the SSL warning dialog
+            }
+        }
+    }
+
+    
+    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
+        getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+        if (result.isSuccess()) {
+            listDirectory();
+            // TODO is file
+            
+        } else {
+            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+                Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                // TODO throw again the new rename dialog
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                if (result.isSslRecoverableException()) {
+                    // TODO show the SSL warning dialog
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onConfirmation(String callerTag) {
+        if (callerTag.equals(FileDetailFragment.FTAG_CONFIRMATION)) {
+            if (mContainerActivity.getStorageManager().getFileById(mTargetFile.getFileId()) != null) {
+                RemoteOperation operation = new RemoveFileOperation( mTargetFile, 
+                                                                    true, 
+                                                                    mContainerActivity.getStorageManager());
+                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
+                operation.execute(wc, this, mHandler);
+                
+                getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+            }
+        }
+    }
+    
+    @Override
+    public void onNeutral(String callerTag) {
+        File f = null;
+        if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
+            f.delete();
+            mTargetFile.setStoragePath(null);
+            mContainerActivity.getStorageManager().saveFile(mFile);
+        }
+        listDirectory();
+    }
+    
+    @Override
+    public void onCancel(String callerTag) {
+        Log.d(TAG, "REMOVAL CANCELED");
+    }
+    
+    
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu 	xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<item 	android:id="@+id/rename_file_item" 
+	    	android:title="@string/common_rename" 
+	    	android:icon="@android:drawable/ic_menu_set_as"
+	/>
+	
+    <item 	android:id="@+id/remove_file_item" 
+        	android:title="@string/common_remove" 
+        	android:icon="@android:drawable/ic_menu_delete"
+	/>
+    
+</menu>
