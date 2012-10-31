@@ -94,8 +94,16 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:visibility="invisible" />
-
             </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/oauth_onOff_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:onClick="onOff_check_Click"
+                android:text="@string/oauth_check_onoff"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -104,7 +112,41 @@
                 android:layout_weight="1"
                 android:text="@string/auth_login_details"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+            
+            <EditText
+                android:id="@+id/oAuth_URL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/oauth_host_url"
+                android:singleLine="true"
+                android:visibility="gone" >
 
+                <requestFocus />
+            </EditText>            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/auth2_action_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@android:drawable/stat_notify_sync"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/oauth2_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:visibility="gone" />
+            </LinearLayout>            
             <EditText
                 android:id="@+id/account_username"
                 android:layout_width="match_parent"

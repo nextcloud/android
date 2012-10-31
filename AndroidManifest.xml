@@ -151,6 +151,10 @@
             </intent-filter>
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
+        
+        <service android:name=".authenticator.oauth2.services.OAuth2GetTokenService" >
+        </service>
+        
     </application>
 
 </manifest>

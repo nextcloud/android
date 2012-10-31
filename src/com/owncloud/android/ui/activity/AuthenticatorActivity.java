@@ -20,12 +20,20 @@ package com.owncloud.android.ui.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.authenticator.AuthenticationRunnable;
 import com.owncloud.android.authenticator.OnAuthenticationResultListener;
 import com.owncloud.android.authenticator.OnConnectCheckListener;
+import com.owncloud.android.authenticator.oauth2.OAuth2GetCodeRunnable;
+import com.owncloud.android.authenticator.oauth2.OnOAuth2GetCodeResultListener;
+import com.owncloud.android.authenticator.oauth2.connection.ConnectorOAuth2;
+import com.owncloud.android.authenticator.oauth2.services.OAuth2GetTokenService;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -40,9 +48,12 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +65,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.owncloud.android.R;
@@ -68,7 +81,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
         implements OnAuthenticationResultListener, OnConnectCheckListener, OnRemoteOperationListener, OnSslValidatorListener, 
-        OnFocusChangeListener, OnClickListener {
+        OnFocusChangeListener, OnClickListener, OnOAuth2GetCodeResultListener {
 
     private static final int DIALOG_LOGIN_PROGRESS = 0;
     private static final int DIALOG_SSL_VALIDATOR = 1;
@@ -94,6 +107,30 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String PARAM_USERNAME = "param_Username";
     public static final String PARAM_HOSTNAME = "param_Hostname";
 
+    // oAuth2 variables.
+    private static final int OAUTH2_LOGIN_PROGRESS = 3;
+    private static final String OAUTH2_STATUS_TEXT = "OAUTH2_STATUS_TEXT";
+    private static final String OAUTH2_STATUS_ICON = "OAUTH2_STATUS_ICON";
+    private static final String OAUTH2_CODE_RESULT = "CODE_RESULT";
+    private static final String OAUTH2_BASE_URL = "BASE_URL"; 
+    private static final String OAUTH2_IS_CHECKED = "OAUTH2_IS_CHECKED";    
+    private Thread mOAuth2GetCodeThread;
+    private OAuth2GetCodeRunnable mOAuth2GetCodeRunnable;     
+    private String oAuth2BaseUrl;
+    private TokenReceiver tokenReceiver;
+    private JSONObject codeResponseJson; 
+    private int mOAuth2StatusText, mOAuth2StatusIcon;    
+    
+    public ConnectorOAuth2 connectorOAuth2;
+    
+    // Variables used to save the on the state the contents of all fields.
+    private static final String HOST_URL_TEXT = "HOST_URL_TEXT";
+    private static final String OAUTH2_URL_TEXT = "OAUTH2_URL_TEXT";
+    private static final String ACCOUNT_USERNAME = "ACCOUNT_USERNAME";
+    private static final String ACCOUNT_PASSWORD = "ACCOUNT_PASSWORD";
+
+    // END of oAuth2 variables.
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +140,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         ImageView iv2 = (ImageView) findViewById(R.id.viewPassword);
         TextView tv = (TextView) findViewById(R.id.host_URL);
         TextView tv2 = (TextView) findViewById(R.id.account_password);
+        // New textview to oAuth2 URL.
+        TextView tv3 = (TextView) findViewById(R.id.oAuth_URL);
 
         if (savedInstanceState != null) {
             mStatusIcon = savedInstanceState.getInt(STATUS_ICON);
@@ -114,7 +153,35 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (!mStatusCorrect)
                 iv.setVisibility(View.VISIBLE);
             else
-                iv.setVisibility(View.INVISIBLE);
+                iv.setVisibility(View.INVISIBLE);            
+            
+            // Getting the state of oAuth2 components.
+            mOAuth2StatusIcon = savedInstanceState.getInt(OAUTH2_STATUS_ICON);
+            mOAuth2StatusText = savedInstanceState.getInt(OAUTH2_STATUS_TEXT);
+                // We set this to true if the rotation happens when the user is validating oAuth2 user_code.
+            changeViewByOAuth2Check(savedInstanceState.getBoolean(OAUTH2_IS_CHECKED));
+            oAuth2BaseUrl = savedInstanceState.getString(OAUTH2_BASE_URL);
+                // We store a JSon object with all the data returned from oAuth2 server when we get user_code.
+                // Is better than store variable by variable. We use String object to serialize from/to it.
+            try {
+                if (savedInstanceState.containsKey(OAUTH2_CODE_RESULT)) {
+                    codeResponseJson = new JSONObject(savedInstanceState.getString(OAUTH2_CODE_RESULT));
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, "onCreate->JSONException: " + e.toString());
+            }
+            // END of getting the state of oAuth2 components.
+            
+            // Getting contents of each field.
+            EditText hostUrl = (EditText)findViewById(R.id.host_URL);
+            hostUrl.setText(savedInstanceState.getString(HOST_URL_TEXT), TextView.BufferType.EDITABLE);
+            EditText oauth2Url = (EditText)findViewById(R.id.oAuth_URL);
+            oauth2Url.setText(savedInstanceState.getString(OAUTH2_URL_TEXT), TextView.BufferType.EDITABLE);
+            EditText accountUsername = (EditText)findViewById(R.id.account_username);
+            accountUsername.setText(savedInstanceState.getString(ACCOUNT_USERNAME), TextView.BufferType.EDITABLE);
+            EditText accountPassword = (EditText)findViewById(R.id.account_password);
+            accountPassword.setText(savedInstanceState.getString(ACCOUNT_PASSWORD), TextView.BufferType.EDITABLE);
+            // END of getting contents of each field
 
         } else {
             mStatusText = mStatusIcon = 0;
@@ -125,6 +192,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         iv2.setOnClickListener(this);
         tv.setOnFocusChangeListener(this);
         tv2.setOnFocusChangeListener(this);
+        // Setting the listener for oAuth2 URL TextView.
+        tv3.setOnFocusChangeListener(this);
+        
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -132,6 +203,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         outState.putInt(STATUS_ICON, mStatusIcon);
         outState.putInt(STATUS_TEXT, mStatusText);
         outState.putBoolean(STATUS_CORRECT, mStatusCorrect);
+        
+        // Saving the state of oAuth2 components.
+        outState.putInt(OAUTH2_STATUS_ICON, mOAuth2StatusIcon);
+        outState.putInt(OAUTH2_STATUS_TEXT, mOAuth2StatusText);
+        CheckBox oAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
+        outState.putBoolean(OAUTH2_IS_CHECKED, oAuth2Check.isChecked());
+        if (codeResponseJson != null){
+            outState.putString(OAUTH2_CODE_RESULT, codeResponseJson.toString());
+        }
+        outState.putString(OAUTH2_BASE_URL, oAuth2BaseUrl);
+        // END of saving the state of oAuth2 components.
+        
+        // Saving contents of each field.
+        outState.putString(HOST_URL_TEXT,((TextView) findViewById(R.id.host_URL)).getText().toString().trim());
+        outState.putString(OAUTH2_URL_TEXT,((TextView) findViewById(R.id.oAuth_URL)).getText().toString().trim());
+        outState.putString(ACCOUNT_USERNAME,((TextView) findViewById(R.id.account_username)).getText().toString().trim());
+        outState.putString(ACCOUNT_PASSWORD,((TextView) findViewById(R.id.account_password)).getText().toString().trim());
+        
         super.onSaveInstanceState(outState);
     }
 
@@ -156,6 +245,37 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                             }
                         }
                     });
+            dialog = working_dialog;
+            break;
+        }
+        // oAuth2 dialog. We show here to the user the URL and user_code that the user must validate in a web browser.
+        case OAUTH2_LOGIN_PROGRESS: {
+            ProgressDialog working_dialog = new ProgressDialog(this);
+            try {
+                working_dialog.setMessage(String.format(getString(R.string.oauth_code_validation_message), 
+                        codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL), 
+                        codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_USER_CODE)));
+            } catch (JSONException e) {
+                Log.e(TAG, "onCreateDialog->JSONException: " + e.toString());
+            }
+            working_dialog.setIndeterminate(true);
+            working_dialog.setCancelable(true);
+            working_dialog
+            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    Log.i(TAG, "Login canceled");
+                    if (mOAuth2GetCodeThread != null) {
+                        mOAuth2GetCodeThread.interrupt();
+                        finish();
+                    } 
+                    if (tokenReceiver != null) {
+                        unregisterReceiver(tokenReceiver);
+                        tokenReceiver = null;
+                        finish();
+                    }
+                }
+            });
             dialog = working_dialog;
             break;
         }
@@ -196,6 +316,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log.e(TAG, "Incorrect dialog called with id = " + id);
         }
     }
+    
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume() start");
+        // Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
+        if (tokenReceiver == null) {
+            IntentFilter tokenFilter = new IntentFilter(OAuth2GetTokenService.TOKEN_RECEIVED_MESSAGE);                
+            tokenReceiver = new TokenReceiver();
+            this.registerReceiver(tokenReceiver,tokenFilter);
+        }
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause() start");
+        super.onPause();
+    }    
+    
 
     public void onAuthenticationResult(boolean success, String message) {
         if (success) {
@@ -240,6 +379,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     AccountAuthenticator.ACCOUNT_TYPE);
             intent.putExtra(AccountManager.KEY_USERDATA, username);
 
+            accManager.setUserData(account, AccountAuthenticator.KEY_OC_URL,
+                    url.toString());
             accManager.setUserData(account,
                     AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable
                             .getDiscoveredVersion().toString());
@@ -452,6 +593,28 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 v.setInputType(input_type);
                 iv.setVisibility(View.INVISIBLE);
             }
+        // If the focusChange occurs on the oAuth2 URL field, we do this.
+        } else if (view.getId() == R.id.oAuth_URL) {
+            if (!hasFocus) {
+                TextView tv3 = ((TextView) findViewById(R.id.oAuth_URL));
+                // We get the URL of oAuth2 server.
+                oAuth2BaseUrl = tv3.getText().toString().trim();
+                if (oAuth2BaseUrl.length() != 0) {
+                    // We start a thread to get user_code from the oAuth2 server.
+                    setOAuth2ResultIconAndText(R.drawable.progress_small, R.string.oauth_login_connection);
+                    mOAuth2GetCodeRunnable = new OAuth2GetCodeRunnable(oAuth2BaseUrl, this);
+                    mOAuth2GetCodeRunnable.setListener(this, mHandler);
+                    mOAuth2GetCodeThread = new Thread(mOAuth2GetCodeRunnable);
+                    mOAuth2GetCodeThread.start();
+                } else {
+                    findViewById(R.id.refreshButton).setVisibility(
+                            View.INVISIBLE);
+                    setOAuth2ResultIconAndText(0, 0);
+                }
+            } else {
+                // avoids that the 'connect' button can be clicked if the test was previously passed
+                findViewById(R.id.buttonOK).setEnabled(false); 
+            }
         }
     }
 
@@ -479,6 +642,151 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             int input_type = InputType.TYPE_CLASS_TEXT
                     | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
             view.setInputType(input_type);
+        }
+    }
+    
+    @Override protected void onDestroy() {       
+        // We must stop the service thats it's pooling to oAuth2 server for a token.
+        Intent tokenService = new Intent(this, OAuth2GetTokenService.class);
+        stopService(tokenService);
+        
+        // We stop listening the result of the pooling service.
+        if (tokenReceiver != null) {
+            unregisterReceiver(tokenReceiver);
+            tokenReceiver = null;
+            finish();
+        }
+
+        super.onDestroy();
+    }    
+    
+    // Controlling the oAuth2 checkbox on the activity: hide and show widgets.
+    public void onOff_check_Click(View view) {
+        CheckBox oAuth2Check = (CheckBox)view;      
+        changeViewByOAuth2Check(oAuth2Check.isChecked());
+
+    }
+    
+    public void changeViewByOAuth2Check(Boolean checked) {
+        
+        EditText oAuth2Url = (EditText) findViewById(R.id.oAuth_URL);
+        EditText accountUsername = (EditText) findViewById(R.id.account_username);
+        EditText accountPassword = (EditText) findViewById(R.id.account_password);
+        ImageView viewPassword = (ImageView) findViewById(R.id.viewPassword); 
+        ImageView auth2ActionIndicator = (ImageView) findViewById(R.id.auth2_action_indicator); 
+        TextView oauth2StatusText = (TextView) findViewById(R.id.oauth2_status_text);         
+
+        if (checked) {
+            oAuth2Url.setVisibility(View.VISIBLE);
+            accountUsername.setVisibility(View.GONE);
+            accountPassword.setVisibility(View.GONE);
+            viewPassword.setVisibility(View.GONE);
+            auth2ActionIndicator.setVisibility(View.INVISIBLE);
+            oauth2StatusText.setVisibility(View.INVISIBLE);
+        } else {
+            oAuth2Url.setVisibility(View.GONE);
+            accountUsername.setVisibility(View.VISIBLE);
+            accountPassword.setVisibility(View.VISIBLE);
+            viewPassword.setVisibility(View.INVISIBLE);
+            auth2ActionIndicator.setVisibility(View.GONE);
+            oauth2StatusText.setVisibility(View.GONE);
+        }     
+
+    }    
+    
+    // Controlling the oAuth2 result of server connection.
+    private void setOAuth2ResultIconAndText(int drawable_id, int text_id) {
+        ImageView iv = (ImageView) findViewById(R.id.auth2_action_indicator);
+        TextView tv = (TextView) findViewById(R.id.oauth2_status_text);
+
+        if (drawable_id == 0 && text_id == 0) {
+            iv.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);
+        } else {
+            iv.setImageResource(drawable_id);
+            tv.setText(text_id);
+            iv.setVisibility(View.VISIBLE);
+            tv.setVisibility(View.VISIBLE);
+        }
+    }     
+    
+    // Results from the first call to oAuth2 server : getting the user_code and verification_url.
+    @Override
+    public void onOAuth2GetCodeResult(ResultOAuthType type, JSONObject responseJson) {
+        if ((type == ResultOAuthType.OK_SSL)||(type == ResultOAuthType.OK_NO_SSL)) {
+            codeResponseJson = responseJson;
+            startOAuth2Authentication();
+        } else if (type == ResultOAuthType.HOST_NOT_AVAILABLE) {
+            setOAuth2ResultIconAndText(R.drawable.common_error, R.string.oauth_connection_url_unavailable);
+        }
+    }
+
+    // If the results of getting the user_code and verification_url are OK, we get the received data and we start
+    // the pooling service to oAuth2 server to get a valid token.
+    private void startOAuth2Authentication () {
+        String deviceCode = null;
+        String verificationUrl = null;
+        String userCode = null;
+        int expiresIn = -1;
+        int interval = -1;
+
+        Log.d(TAG, "ResponseOAuth2->" + codeResponseJson.toString());
+
+        try {
+            // We get data that we must show to the user or we will use internally.
+            verificationUrl = codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL);
+            userCode = codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_USER_CODE);
+            expiresIn = codeResponseJson.getInt(OAuth2GetCodeRunnable.CODE_EXPIRES_IN);                
+
+            // And we get data that we must use to get a token.
+            deviceCode = codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_DEVICE_CODE);
+            interval = codeResponseJson.getInt(OAuth2GetCodeRunnable.CODE_INTERVAL);
+
+        } catch (JSONException e) {
+            Log.e(TAG, "Exception accesing data in Json object" + e.toString());
+        }
+
+        // Updating status widget to OK.
+        setOAuth2ResultIconAndText(R.drawable.ic_ok, R.string.auth_connection_established);
+        
+        // Showing the dialog with instructions for the user.
+        showDialog(OAUTH2_LOGIN_PROGRESS);
+
+        // Loggin all the data.
+        Log.d(TAG, "verificationUrl->" + verificationUrl);
+        Log.d(TAG, "userCode->" + userCode);
+        Log.d(TAG, "deviceCode->" + deviceCode);
+        Log.d(TAG, "expiresIn->" + expiresIn);
+        Log.d(TAG, "interval->" + interval);
+
+        // Starting the pooling service.
+        try {
+            Intent tokenService = new Intent(this, OAuth2GetTokenService.class);
+            tokenService.putExtra(OAuth2GetTokenService.TOKEN_BASE_URI, oAuth2BaseUrl);
+            tokenService.putExtra(OAuth2GetTokenService.TOKEN_DEVICE_CODE, deviceCode);
+            tokenService.putExtra(OAuth2GetTokenService.TOKEN_INTERVAL, interval);
+
+            startService(tokenService);
+        }
+        catch (Exception e) {
+            Log.e(TAG, "tokenService creation problem :", e);
+        }
+    }   
+
+    // We get data from the oAuth2 token service with this broadcast receiver.
+    private class TokenReceiver extends BroadcastReceiver {
+        /**
+         * The token is received.
+         *  @author
+         * {@link BroadcastReceiver} to enable oAuth2 token receiving.
+         */
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            @SuppressWarnings("unchecked")
+            HashMap<String, String> tokenResponse = (HashMap<String, String>)intent.getExtras().get(OAuth2GetTokenService.TOKEN_RECEIVED_DATA);
+            Log.d(TAG, "TokenReceiver->" + tokenResponse.get(OAuth2GetTokenService.TOKEN_ACCESS_TOKEN));
+            dismissDialog(OAUTH2_LOGIN_PROGRESS);
+
         }
     }
 
@@ -584,5 +892,5 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onFailedSavingCertificate() {
         showDialog(DIALOG_CERT_NOT_SAVED);
     }
-    
+
 }

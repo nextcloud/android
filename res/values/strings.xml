@@ -187,6 +187,12 @@
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please, try other app to select the file"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
     
+    <string name="oauth_host_url">oAuth2 URL</string> 
+    <string name="oauth_check_onoff">Login with oAuth2.</string> 
+    <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
+    <string name="oauth_code_validation_message">Please, open a web browser and go to:\n%1$s.\nValidate this code there:\n%2$s</string>
+    <string name="oauth_connection_url_unavailable">Connection to this URL not available.</string> 
+        
     <string name="ssl_validator_title">Warning</string>
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
