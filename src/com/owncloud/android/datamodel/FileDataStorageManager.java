@@ -428,6 +428,40 @@ public class FileDataStorageManager implements DataStorageManager {
         if (file.isDown() && removeLocalCopy) {
             new File(file.getStoragePath()).delete();
         }
+        if (file.isDirectory() && removeLocalCopy) {
+            File f = new File(FileDownloader.getSavePath(mAccount.name) + file.getRemotePath());
+            if (f.exists() && f.isDirectory() && (f.list() == null || f.list().length == 0)) {
+                f.delete();
+            }
+        }
+    }
+
+    @Override
+    public void removeDirectory(OCFile dir, boolean removeDBData, boolean removeLocalContent) {
+        // TODO consider possible failures
+        if (dir != null && dir.isDirectory() && dir.getFileId() != -1) {
+            Vector<OCFile> children = getDirectoryContent(dir);
+            if (children != null) {
+                OCFile child = null;
+                for (int i=0; i<children.size(); i++) {
+                    child = children.get(i);
+                    if (child.isDirectory()) {
+                        removeDirectory(child, removeDBData, removeLocalContent);
+                    } else {
+                        if (removeDBData) {
+                            removeFile(child, removeLocalContent);
+                        } else if (removeLocalContent) {
+                            if (child.isDown()) {
+                                new File(child.getStoragePath()).delete();
+                            }
+                        }
+                    }
+                }
+                if (removeDBData) {
+                    removeFile(dir, true);
+                }
+            }
+        }
     }
 
 }

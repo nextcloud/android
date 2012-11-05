@@ -170,7 +170,9 @@
     <string name="common_remove">Remove</string>
     
 	  <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+	  <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents ?"</string>
 	  <string name="confirmation_remove_local">Local only</string>
+	  <string name="confirmation_remove_folder_local">Local contents only</string>
 	  <string name="confirmation_remove_remote">Remove from server</string>
 	  <string name="confirmation_remove_remote_and_local">Remote and local</string>
 

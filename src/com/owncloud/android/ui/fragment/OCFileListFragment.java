@@ -173,11 +173,22 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 Log.d(TAG, "RENAME SELECTED, item " + info.id + " at position " + info.position);
                 return true;
             case R.id.remove_file_item:
+                int messageStringId = R.string.confirmation_remove_alert;
+                int posBtnStringId = R.string.confirmation_remove_remote;
+                int neuBtnStringId = -1;
+                if (mTargetFile.isDirectory()) {
+                    messageStringId = R.string.confirmation_remove_folder_alert;
+                    posBtnStringId = R.string.confirmation_remove_remote_and_local;
+                    neuBtnStringId = R.string.confirmation_remove_folder_local;
+                } else if (mTargetFile.isDown()) {
+                    posBtnStringId = R.string.confirmation_remove_remote_and_local;
+                    neuBtnStringId = R.string.confirmation_remove_local;
+                }
                 ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                        R.string.confirmation_remove_alert,
+                        messageStringId,
                         new String[]{mTargetFile.getFileName()},
-                        mTargetFile.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
-                        mTargetFile.isDown() ? R.string.confirmation_remove_local : -1,
+                        posBtnStringId,
+                        neuBtnStringId,
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
@@ -386,7 +397,11 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     @Override
     public void onNeutral(String callerTag) {
         File f = null;
-        if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
+        if (mTargetFile.isDirectory()) {
+            // TODO run in a secondary thread?
+            mContainerActivity.getStorageManager().removeDirectory(mTargetFile, false, true);
+            
+        } else if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
             f.delete();
             mTargetFile.setStoragePath(null);
             mContainerActivity.getStorageManager().saveFile(mFile);
