@@ -89,7 +89,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mFailedResultsCounter = 0;
         mLastFailedResult = null;
         mSyncResult = syncResult;
-        
+        mSyncResult.fullSyncRequested = false;
+        mSyncResult.delayUntil = 60*60*24; // sync after 24h
+
         this.setAccount(account);
         this.setContentProvider(provider);
         this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
