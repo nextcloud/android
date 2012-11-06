@@ -154,7 +154,38 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.file_context_menu, menu);
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;        
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+        OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
+        MenuItem item = null;
+        int[] ids = null;
+        if (targetFile.isDirectory()) {
+            int[] theIds = {R.id.open_file_item, R.id.download_file_item, R.id.cancel_download_item, R.id.cancel_upload_item};
+            ids = theIds;
+            
+        } else if ( mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)) {
+            int[] theIds = {R.id.open_file_item, R.id.download_file_item, R.id.cancel_upload_item};
+            ids = theIds;
+            
+        } else if ( mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)) {
+            int[] theIds = {R.id.open_file_item, R.id.download_file_item, R.id.cancel_download_item};
+            ids = theIds;
+            
+        } else if ( targetFile.isDown()) {
+            int[] theIds = {R.id.cancel_download_item, R.id.cancel_upload_item};
+            ids = theIds;
+            
+        } else {
+            int[] theIds = {R.id.open_file_item, R.id.cancel_download_item, R.id.cancel_upload_item};
+            ids = theIds;
+        }
+        
+        for (int i=0; i < ids.length; i++) {
+            item = menu.findItem(ids[i]);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
     }
     
     
