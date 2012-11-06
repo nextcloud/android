@@ -212,7 +212,21 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      */
     public String getFileName() {
         File f = new File(getRemotePath());
-        return f.getName().length() == 0 ? "/" : f.getName();
+        return f.getName().length() == 0 ? PATH_SEPARATOR : f.getName();
+    }
+    
+    /**
+     * Sets the name of the file
+     * 
+     * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory 
+     */
+    public void setFileName(String name) {
+        if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(PATH_SEPARATOR)) {
+            mRemotePath = (new File(getRemotePath())).getParent() + name;
+            if (isDirectory()) {
+                mRemotePath += PATH_SEPARATOR;
+            }
+        }
     }
 
     /**
@@ -370,7 +384,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s]";
-        asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, new Long(mParentId), new Boolean(mKeepInSync));
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync));
         return asString;
     }
 

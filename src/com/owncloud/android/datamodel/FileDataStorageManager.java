@@ -145,6 +145,29 @@ public class FileDataStorageManager implements DataStorageManager {
                                     + e.getMessage());
                 }
             }
+        } else if (fileExists(file.getFileId())) {      // for renamed files; no more delete and create
+                OCFile oldFile = getFileById(file.getFileId());
+                if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
+                    file.setStoragePath(oldFile.getStoragePath());
+                if (!file.isDirectory());
+                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+
+                overriden = true;
+                if (getContentResolver() != null) {
+                    getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv,
+                            ProviderTableMeta._ID + "=?",
+                            new String[] { String.valueOf(file.getFileId()) });
+                } else {
+                    try {
+                        getContentProvider().update(ProviderTableMeta.CONTENT_URI,
+                                cv, ProviderTableMeta._ID + "=?",
+                                new String[] { String.valueOf(file.getFileId()) });
+                    } catch (RemoteException e) {
+                        Log.e(TAG,
+                                "Fail to insert insert file to database "
+                                        + e.getMessage());
+                    }
+                }
         } else {
             Uri result_uri = null;
             if (getContentResolver() != null) {
@@ -201,11 +224,12 @@ public class FileDataStorageManager implements DataStorageManager {
             cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
             if (fileExists(file.getRemotePath())) {
-                OCFile tmpfile = getFileByPath(file.getRemotePath());
-                file.setStoragePath(tmpfile.getStoragePath());
+                OCFile oldFile = getFileByPath(file.getRemotePath());
+                if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
+                    file.setStoragePath(oldFile.getStoragePath());
                 if (!file.isDirectory());
                     cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-                file.setFileId(tmpfile.getFileId());
+                file.setFileId(oldFile.getFileId());
 
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                         withValues(cv).
@@ -213,6 +237,19 @@ public class FileDataStorageManager implements DataStorageManager {
                                         new String[] { String.valueOf(file.getFileId()) })
                         .build());
                 
+            } else if (fileExists(file.getFileId())) {
+                    OCFile oldFile = getFileById(file.getFileId());
+                    if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
+                        file.setStoragePath(oldFile.getStoragePath());
+                    if (!file.isDirectory());
+                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+
+                    operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                            withValues(cv).
+                            withSelection(  ProviderTableMeta._ID + "=?", 
+                                            new String[] { String.valueOf(file.getFileId()) })
+                            .build());
+                    
             } else {
                 operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI).withValues(cv).build());
             }
