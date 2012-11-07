@@ -152,6 +152,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         case android.R.id.home:
             backToDisplayActivity();
             returnValue = true;
+            break;
+        default:
+        	returnValue = super.onOptionsItemSelected(item);
         }
         
         return returnValue;

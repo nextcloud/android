@@ -305,7 +305,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             default:
-                retval = false;
+                retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
