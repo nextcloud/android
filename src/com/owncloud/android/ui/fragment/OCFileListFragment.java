@@ -23,6 +23,9 @@ import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -38,8 +41,13 @@ import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
 import eu.alefzero.webdav.WebdavClient;
+import eu.alefzero.webdav.WebdavUtils;
 
+import android.accounts.Account;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
@@ -48,6 +56,7 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -197,13 +206,14 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.rename_file_item:
+            case R.id.rename_file_item: {
                 EditNameDialog dialog = EditNameDialog.newInstance(mTargetFile.getFileName());
                 dialog.setOnDismissListener(this);
                 dialog.show(getFragmentManager(), "nameeditdialog");
                 Log.d(TAG, "RENAME SELECTED, item " + info.id + " at position " + info.position);
                 return true;
-            case R.id.remove_file_item:
+            }
+            case R.id.remove_file_item: {
                 int messageStringId = R.string.confirmation_remove_alert;
                 int posBtnStringId = R.string.confirmation_remove_remote;
                 int neuBtnStringId = -1;
@@ -225,6 +235,80 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
                 Log.d(TAG, "REMOVE SELECTED, item " + info.id + " at position " + info.position);
                 return true;
+            }
+            case R.id.open_file_item: {
+                String storagePath = mTargetFile.getStoragePath();
+                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mTargetFile.getMimetype());
+                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivity(i);
+                    
+                } catch (Throwable t) {
+                    Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mTargetFile.getMimetype());
+                    boolean toastIt = true; 
+                    String mimeType = "";
+                    try {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                        if (mimeType == null || !mimeType.equals(mTargetFile.getMimetype())) {
+                            if (mimeType != null) {
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                            } else {
+                                // desperate try
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
+                            }
+                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                            startActivity(i);
+                            toastIt = false;
+                        }
+                        
+                    } catch (IndexOutOfBoundsException e) {
+                        Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                        
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                        
+                    } catch (Throwable th) {
+                        Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                        
+                    } finally {
+                        if (toastIt) {
+                            Toast.makeText(getActivity(), "There is no application to handle file " + mTargetFile.getFileName(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    
+                }
+                return true;
+            }
+            case R.id.download_file_item: {
+                Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+                Intent i = new Intent(getActivity(), FileDownloader.class);
+                i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+                i.putExtra(FileDownloader.EXTRA_FILE, mTargetFile);
+                getActivity().startService(i);
+                listDirectory();
+                return true;
+            }
+            case R.id.cancel_download_item: {
+                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+                Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+                if (downloaderBinder != null && downloaderBinder.isDownloading(account, mTargetFile)) {
+                    downloaderBinder.cancel(account, mTargetFile);
+                    listDirectory();
+                }
+                return true;
+            }
+            case R.id.cancel_upload_item: {
+                FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+                Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+                if (uploaderBinder != null && uploaderBinder.isUploading(account, mTargetFile)) {
+                    uploaderBinder.cancel(account, mTargetFile);
+                    listDirectory();
+                }
+                return true;
+            }
             default:
                 return super.onContextItemSelected(item); 
         }

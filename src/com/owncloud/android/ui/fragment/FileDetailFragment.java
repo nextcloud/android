@@ -360,8 +360,13 @@ public class FileDetailFragment extends SherlockFragment implements
                     try {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                        if (mimeType != null && !mimeType.equals(mFile.getMimetype())) {
-                            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                        if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
+                            if (mimeType != null) {
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                            } else {
+                                // desperate try
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
+                            }
                             i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                             startActivity(i);
                             toastIt = false;
