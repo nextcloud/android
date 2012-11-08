@@ -476,8 +476,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             onFocusChange(findViewById(R.id.host_URL), false);
         } else if (v.getId() == R.id.viewPassword) {
             TextView view = (TextView) findViewById(R.id.account_password);
-            int input_type = InputType.TYPE_CLASS_TEXT
-                    | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+            int input_type = view.getInputType();
+            if ((input_type & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                input_type = InputType.TYPE_CLASS_TEXT
+                        | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+            } else {
+                input_type = InputType.TYPE_CLASS_TEXT
+                        | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+            }
             view.setInputType(input_type);
         }
     }
