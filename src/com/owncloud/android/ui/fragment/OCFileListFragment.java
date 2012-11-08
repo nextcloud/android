@@ -29,15 +29,14 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -50,7 +49,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -67,7 +65,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Bartek Przybylski
  * 
  */
-public class OCFileListFragment extends FragmentListView implements EditNameDialog.EditNameDialogListener, OnRemoteOperationListener, ConfirmationDialogFragmentListener {
+public class OCFileListFragment extends FragmentListView implements EditNameDialogListener, ConfirmationDialogFragmentListener {
     private static final String TAG = "FileListFragment";
     private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
@@ -77,7 +75,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     private FileListListAdapter mAdapter;
     
     private Handler mHandler;
-    private boolean mIsLargeLayout;
     private OCFile mTargetFile;
 
     
@@ -115,7 +112,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
-        mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
         mHandler = new Handler();
         
         Log.i(TAG, "onActivityCreated() stop");
@@ -209,8 +205,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             case R.id.rename_file_item: {
                 EditNameDialog dialog = EditNameDialog.newInstance(mTargetFile.getFileName());
                 dialog.setOnDismissListener(this);
-                dialog.show(getFragmentManager(), "nameeditdialog");
-                Log.d(TAG, "RENAME SELECTED, item " + info.id + " at position " + info.position);
+                dialog.show(getFragmentManager(), EditNameDialog.TAG);
                 return true;
             }
             case R.id.remove_file_item: {
@@ -233,7 +228,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
                 confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
-                Log.d(TAG, "REMOVE SELECTED, item " + info.id + " at position " + info.position);
                 return true;
             }
             case R.id.open_file_item: {
@@ -289,6 +283,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 i.putExtra(FileDownloader.EXTRA_FILE, mTargetFile);
                 getActivity().startService(i);
                 listDirectory();
+                mContainerActivity.onTransferStateChanged(mTargetFile, true, false);
                 return true;
             }
             case R.id.cancel_download_item: {
@@ -297,6 +292,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 if (downloaderBinder != null && downloaderBinder.isDownloading(account, mTargetFile)) {
                     downloaderBinder.cancel(account, mTargetFile);
                     listDirectory();
+                    mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
                 }
                 return true;
             }
@@ -306,6 +302,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 if (uploaderBinder != null && uploaderBinder.isUploading(account, mTargetFile)) {
                     uploaderBinder.cancel(account, mTargetFile);
                     listDirectory();
+                    mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
                 }
                 return true;
             }
@@ -388,7 +385,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter {
+    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list
@@ -418,10 +415,26 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         public OCFile getInitialDirectory();
         
         
+        /**
+         * Callback method invoked when a the 'transfer state' of a file changes.
+         * 
+         * This happens when a download or upload is started or ended for a file.
+         * 
+         * This method is necessary by now to update the user interface of the double-pane layout in tablets
+         * because methods {@link FileDownloaderBinder#isDownloading(Account, OCFile)} and {@link FileUploaderBinder#isUploading(Account, OCFile)}
+         * won't provide the needed response before the method where this is called finishes. 
+         * 
+         * TODO Remove this when the transfer state of a file is kept in the database (other thing TODO)
+         * 
+         * @param file          OCFile which state changed.
+         * @param downloading   Flag signaling if the file is now downloading.
+         * @param uploading     Flag signaling if the file is now uploading.
+         */
+        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
+        
     }
-
-
-
+    
+    
     @Override
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
@@ -431,69 +444,12 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
             WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-            operation.execute(wc, this, mHandler);
+            operation.execute(wc, mContainerActivity, mHandler);
             getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         }
     }
 
-
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-                
-        } else if (operation instanceof RenameFileOperation) {
-            onRenameFileOperationFinish((RenameFileOperation)operation, result);
-        }
-    }
-
     
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
-        if (result.isSuccess()) {
-            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
-            if (mIsLargeLayout) {
-                // TODO - this should be done only when the current FileDetailFragment shows the deleted file
-                //          -> THIS METHOD WOULD BE BETTER PLACED AT THE ACTIVITY LEVEL
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                transaction.commit();
-            }
-            listDirectory();
-                
-        } else {
-            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
-            if (result.isSslRecoverableException()) {
-                // TODO show the SSL warning dialog
-            }
-        }
-    }
-
-    
-    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
-        if (result.isSuccess()) {
-            listDirectory();
-            // TODO is file
-            
-        } else {
-            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                // TODO throw again the new rename dialog
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (result.isSslRecoverableException()) {
-                    // TODO show the SSL warning dialog
-                }
-            }
-        }
-    }
-
-
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FileDetailFragment.FTAG_CONFIRMATION)) {
@@ -502,7 +458,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                                                                     true, 
                                                                     mContainerActivity.getStorageManager());
                 WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-                operation.execute(wc, this, mHandler);
+                operation.execute(wc, mContainerActivity, mHandler);
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }
@@ -519,15 +475,16 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         } else if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
             f.delete();
             mTargetFile.setStoragePath(null);
-            mContainerActivity.getStorageManager().saveFile(mFile);
+            mContainerActivity.getStorageManager().saveFile(mTargetFile);
         }
         listDirectory();
+        mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
     
     @Override
     public void onCancel(String callerTag) {
         Log.d(TAG, "REMOVAL CANCELED");
     }
-    
-    
+
+
 }

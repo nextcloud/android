@@ -60,6 +60,16 @@ public class RemoveFileOperation extends RemoteOperation {
     
     
     /**
+     * Getter for the file to remove (or removed, if the operation was successfully performed).
+     * 
+     * @return      File to remove or already removed.
+     */
+    public OCFile getFile() {
+        return mFileToRemove;
+    }
+    
+    
+    /**
      * Performs the remove operation
      * 
      * @param   client      Client object to communicate with the remote ownCloud server.

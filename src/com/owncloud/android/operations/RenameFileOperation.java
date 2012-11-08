@@ -86,7 +86,9 @@ public class RenameFileOperation extends RemoteOperation {
                 return new RemoteOperationResult(ResultCode.OK);
             }
         
-            newRemotePath = (new File(mFile.getRemotePath())).getParent() + mNewName;
+            String parent = (new File(mFile.getRemotePath())).getParent();
+            parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
+            newRemotePath =  parent + mNewName;
             
             // check if the new name is valid in the local file system
             if (!isValidNewName()) {

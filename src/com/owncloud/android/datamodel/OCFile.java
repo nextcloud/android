@@ -22,6 +22,7 @@ import java.io.File;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
@@ -38,6 +39,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     };
 
     public static final String PATH_SEPARATOR = "/";
+
+    private static final String TAG = OCFile.class.getSimpleName();
     
     private long mId;
     private long mParentId;
@@ -221,11 +224,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory 
      */
     public void setFileName(String name) {
+        Log.d(TAG, "OCFile name changin from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(PATH_SEPARATOR)) {
-            mRemotePath = (new File(getRemotePath())).getParent() + name;
+            String parent = (new File(getRemotePath())).getParent();
+            parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
+            mRemotePath =  parent + name;
             if (isDirectory()) {
                 mRemotePath += PATH_SEPARATOR;
             }
+            Log.d(TAG, "OCFile name changed to " + mRemotePath);
         }
     }
 

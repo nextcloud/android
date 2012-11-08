@@ -186,7 +186,7 @@ public class FileDetailFragment extends SherlockFragment implements
             mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
         }
         
-        updateFileDetails();
+        updateFileDetails(false);
         return view;
     }
     
@@ -462,14 +462,21 @@ public class FileDetailFragment extends SherlockFragment implements
     public void updateFileDetails(OCFile file, Account ocAccount) {
         mFile = file;
         mAccount = ocAccount;
-        updateFileDetails();
+        updateFileDetails(false);
     }
     
 
     /**
      * Updates the view with all relevant details about that file.
+     *
+     * TODO Remove parameter when the transferring state of files is kept in database. 
+     * 
+     * @param transferring      Flag signaling if the file should be considered as downloading or uploading, 
+     *                          although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and 
+     *                          {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
+     * 
      */
-    public void updateFileDetails() {
+    public void updateFileDetails(boolean transferring) {
 
         if (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment) {
             
@@ -491,7 +498,7 @@ public class FileDetailFragment extends SherlockFragment implements
             //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if ((downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))) {
+            if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))) {
                 setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {
@@ -504,9 +511,11 @@ public class FileDetailFragment extends SherlockFragment implements
                 setButtonsForDown();
                 
             } else {
+                // TODO load default preview image; when the local file is removed, the preview remains there
                 setButtonsForRemote();
             }
         }
+        getView().invalidate();
     }
     
     
@@ -674,7 +683,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     if (downloadWasFine) {
                         mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));    // updates the local object without accessing the database again
                     }
-                    updateFileDetails();    // it updates the buttons; must be called although !downloadWasFine
+                    updateFileDetails(false);    // it updates the buttons; must be called although !downloadWasFine
                 }
             }
         }
@@ -704,7 +713,7 @@ public class FileDetailFragment extends SherlockFragment implements
                         FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
                         mFile = fdsm.getFileByPath(mFile.getRemotePath());
                     }
-                    updateFileDetails();    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
+                    updateFileDetails(false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
             }
         }
@@ -968,6 +977,6 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
-    
+
 
 }

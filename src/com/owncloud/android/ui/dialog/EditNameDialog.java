@@ -39,6 +39,8 @@ import com.owncloud.android.R;
  */
 public class EditNameDialog extends SherlockDialogFragment implements OnClickListener {
 
+    public static final String TAG = EditNameDialog.class.getSimpleName();
+    
     private String mNewFilename;
     private boolean mResult;
     private EditNameDialogListener mListener;

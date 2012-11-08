@@ -434,7 +434,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         // parent dir
         String parentPath = new File(remotePath).getParent();
-        parentPath = parentPath.endsWith("/")?parentPath:parentPath+"/" ;
+        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR ;
         OCFile parentDir = storageManager.getFileByPath(parentPath);
         if (parentDir == null) {
             throw new IllegalStateException("Can not upload a file to a non existing remote location: " + parentPath);
