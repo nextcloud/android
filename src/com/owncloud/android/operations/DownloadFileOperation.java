@@ -32,9 +32,9 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
@@ -78,11 +78,15 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getSavePath() {
-        return FileDownloader.getSavePath(mAccount.name) + mFile.getRemotePath();
+        String path = mFile.getStoragePath();   // re-downloads should be done over the original file 
+        if (path != null && path.length() > 0) {
+            return path;
+        }
+        return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
     }
     
     public String getTmpPath() {
-        return FileDownloader.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+        return FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
     }
     
     public String getRemotePath() {

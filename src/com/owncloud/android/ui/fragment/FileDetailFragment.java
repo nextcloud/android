@@ -87,6 +87,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
@@ -289,6 +290,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
+                    // ISSUE 6: this button should be promoted to 'synchronize' if the file is DOWN, not just redownload
                     Intent i = new Intent(getActivity(), FileDownloader.class);
                     i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
                     i.putExtra(FileDownloader.EXTRA_FILE, mFile);
@@ -321,7 +323,11 @@ public class FileDetailFragment extends SherlockFragment implements
                            (cb.isChecked()?
                                    FileObserverService.CMD_ADD_OBSERVED_FILE:
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
-                intent.putExtra(FileObserverService.KEY_CMD_ARG, mFile.getStoragePath());
+                String localPath = mFile.getStoragePath();
+                if (localPath == null || localPath.length() <= 0) {
+                    localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+                }
+                intent.putExtra(FileObserverService.KEY_CMD_ARG, localPath);
                 Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 

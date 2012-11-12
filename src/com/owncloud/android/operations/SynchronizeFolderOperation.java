@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileObserverService;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavEntry;
@@ -147,7 +148,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 // removal of obsolete files
                 mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
                 OCFile file;
-                String currentSavePath = FileDownloader.getSavePath(mAccount.name);
+                String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
                 for (int i=0; i < mChildren.size(); ) {
                     file = mChildren.get(i);
                     if (file.getLastSyncDate() != mCurrentSyncTime) {

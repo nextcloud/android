@@ -27,7 +27,7 @@ import java.util.Vector;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.content.ContentProviderClient;
@@ -390,7 +390,7 @@ public class FileDataStorageManager implements DataStorageManager {
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
                     // try to find existing file and bind it with current account
-                    File f = new File(FileDownloader.getSavePath(mAccount.name) + file.getRemotePath());
+                    File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
                     if (f.exists())
                         file.setStoragePath(f.getAbsolutePath());
                 }

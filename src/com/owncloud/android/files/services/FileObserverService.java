@@ -50,7 +50,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
     public final static int CMD_DEL_OBSERVED_FILE = 3;
     public final static int CMD_ADD_DOWNLOADING_FILE = 4;
 
-    private static String TAG = "FileObserverService";
+    private static String TAG = FileObserverService.class.getSimpleName();
     private static List<OwnCloudFileObserver> mObservers;
     private static List<DownloadCompletedReceiver> mDownloadReceivers;
     private static Object mReceiverListLock = new Object();
@@ -181,7 +181,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         if (path == null) return;
         if (mObservers == null) {
             initializeObservedList();
-            return;
+            return; // ISSUE 2: why return? ; the file still has to be removed of the mObservers !
         }
         for (int i = 0; i < mObservers.size(); ++i) {
             OwnCloudFileObserver observer = mObservers.get(i);
@@ -229,6 +229,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         switch (status) {
             case CONFLICT:
             {
+                // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
                 Intent i = new Intent(getApplicationContext(), ConflictsResolveActivity.class);
                 i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("remotepath", remotePath);
@@ -257,7 +258,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (mPath.equals(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH))) {
+            if (mPath.equals(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH))) {  // ISSUE 3: this condition will be false if the download failed; in that case, the download won't ever be retried
                 context.unregisterReceiver(this);
                 removeReceiverFromList(this);
                 mObserver.startWatching();

@@ -47,7 +47,7 @@ public class OwnCloudFileObserver extends FileObserver {
     DataStorageManager mStorage;
     Account mOCAccount;
     OCFile mFile;
-    static Context mContext;
+    static Context mContext;    // ISSUE 4: why is this static?
     List<FileObserverStatusListener> mListeners;
     
     public OwnCloudFileObserver(String path) {

@@ -28,8 +28,8 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
@@ -163,7 +163,7 @@ public class RenameFileOperation extends RemoteOperation {
             return false;
         }
         // create a test file
-        String tmpFolder = FileDownloader.getTemporalPath("");
+        String tmpFolder = FileStorageUtils.getTemporalPath("");
         File testFile = new File(tmpFolder + mNewName);
         try {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
