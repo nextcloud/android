@@ -25,8 +25,8 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -40,7 +40,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
@@ -73,6 +72,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private IBinder mBinder;
     private WebdavClient mDownloadClient = null;
     private Account mLastAccount = null;
+    private FileDataStorageManager mStorageManager;
     
     private ConcurrentMap<String, DownloadFileOperation> mPendingDownloads = new ConcurrentHashMap<String, DownloadFileOperation>();
     private DownloadFileOperation mCurrentDownload = null;
@@ -250,6 +250,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             /// prepare client object to send the request to the ownCloud server
             if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
                 mLastAccount = mCurrentDownload.getAccount();
+                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
                 mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
             }
 
@@ -258,16 +259,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             try {
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
-                    ContentValues cv = new ContentValues();
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, mCurrentDownload.getSavePath());
-                    getContentResolver().update(
-                            ProviderTableMeta.CONTENT_URI,
-                            cv,
-                            ProviderTableMeta.FILE_NAME + "=? AND "
-                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                    new String[] {
-                                    mCurrentDownload.getSavePath().substring(mCurrentDownload.getSavePath().lastIndexOf('/') + 1),
-                                    mLastAccount.name });
+                    saveDownloadedFile();
                 }
             
             } finally {
@@ -284,7 +276,22 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
     }
 
-    
+
+    /**
+     * Updates the OC File after a successful download.
+     */
+    private void saveDownloadedFile() {
+        OCFile file = mCurrentDownload.getFile();
+        file.setLastSyncDate(System.currentTimeMillis());
+        file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
+        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        file.setMimetype(mCurrentDownload.getMimeType());
+        file.setStoragePath(mCurrentDownload.getSavePath());
+        file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
+        mStorageManager.saveFile(file);
+    }
+
+
     /**
      * Creates a status notification to show the download progress
      * 

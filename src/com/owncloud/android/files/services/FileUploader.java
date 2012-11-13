@@ -25,6 +25,10 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.MultiStatus;
+import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -37,6 +41,8 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
+import eu.alefzero.webdav.WebdavEntry;
+import eu.alefzero.webdav.WebdavUtils;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
 
@@ -360,7 +366,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             try {
                 uploadResult = mCurrentUpload.execute(mUploadClient);
                 if (uploadResult.isSuccess()) {
-                    saveUploadedFile(mCurrentUpload.getFile(), mStorageManager);
+                    saveUploadedFile();
                 }
                 
             } finally {
@@ -379,15 +385,76 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     /**
-     * Saves a new OC File after a successful upload.
+     * Saves a OC File after a successful upload.
      * 
-     * @param file              OCFile describing the uploaded file
-     * @param storageManager    Interface to the database where the new OCFile has to be stored.
-     * @param parentDirId       Id of the parent OCFile.
+     * A PROPFIND is necessary to keep the props in the local database synchronized with the server, 
+     * specially the modification time and Etag (where available)
+     * 
+     * TODO refactor this ugly thing
      */
-    private void saveUploadedFile(OCFile file, FileDataStorageManager storageManager) {
-        file.setModificationTimestamp(System.currentTimeMillis());
-        storageManager.saveFile(file);
+    private void saveUploadedFile() {
+        OCFile file = mCurrentUpload.getFile();
+        
+        PropFindMethod propfind = null;
+        RemoteOperationResult result = null;
+        try {
+          propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()));
+          int status = mUploadClient.executeMethod(propfind);
+          boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
+          if (isMultiStatus) {
+              MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
+              WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
+                                               mUploadClient.getBaseUri().getPath());
+              OCFile newFile = fillOCFile(we);
+              newFile.setStoragePath(file.getStoragePath());
+              newFile.setKeepInSync(file.keepInSync());
+              file = newFile;
+              
+          } else {
+              // this would be a problem
+              mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
+          }
+          
+          result = new RemoteOperationResult(isMultiStatus, status);
+          Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage());
+          
+        } catch (Exception e) {
+            result = new RemoteOperationResult(e);
+            Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage(), e);
+
+        } finally {
+            if (propfind != null)
+                propfind.releaseConnection();
+        }
+
+        if (!result.isSuccess()) {
+            // file was successfully uploaded, but the new time stamp and Etag in the server could not be read; 
+            // just keeping old values :(
+            if (!mCurrentUpload.getRemotePath().equals(file.getRemotePath())) {
+                // true when the file was automatically renamed to avoid an overwrite 
+                OCFile newFile = new OCFile(mCurrentUpload.getRemotePath());
+                newFile.setCreationTimestamp(file.getCreationTimestamp());
+                newFile.setFileLength(file.getFileLength());
+                newFile.setMimetype(file.getMimetype());
+                newFile.setModificationTimestamp(file.getModificationTimestamp());  // this is specially BAD
+                // newFile.setEtag(file.getEtag()) // TODO and this is still worse 
+                file = newFile;
+            }
+        }
+        
+        file.setLastSyncDate(System.currentTimeMillis());
+        mStorageManager.saveFile(file);
+    }
+
+    
+    private OCFile fillOCFile(WebdavEntry we) {
+        OCFile file = new OCFile(we.decodedPath());
+        file.setCreationTimestamp(we.createTimestamp());
+        file.setFileLength(we.contentLength());
+        file.setMimetype(we.contentType());
+        file.setModificationTimestamp(we.modifiedTimesamp());
+        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        return file;
     }
     
     

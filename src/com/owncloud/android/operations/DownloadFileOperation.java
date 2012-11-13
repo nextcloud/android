@@ -22,11 +22,13 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
@@ -56,6 +58,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private long mModificationTimestamp = 0;
 
     
     public DownloadFileOperation(Account account, OCFile file) {
@@ -94,7 +97,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getMimeType() {
-        String mimeType = mFile.getMimetype();  // TODO fix the mime types in OCFiles FOREVER
+        String mimeType = mFile.getMimetype();
         if (mimeType == null || mimeType.length() <= 0) {
             try {
                 mimeType = MimeTypeMap.getSingleton()
@@ -112,6 +115,10 @@ public class DownloadFileOperation extends RemoteOperation {
     
     public long getSize() {
         return mFile.getFileLength();
+    }
+    
+    public long getModificationTimestamp() {
+        return (mModificationTimestamp > 0) ? mModificationTimestamp : mFile.getModificationTimestamp();
     }
     
     
@@ -189,6 +196,11 @@ public class DownloadFileOperation extends RemoteOperation {
                     }
                 }
                 savedFile = true;
+                Header modificationTime = get.getResponseHeader("Last-Modified");
+                if (modificationTime != null) {
+                    Date d = WebdavUtils.parseResponseDate((String) modificationTime.getValue());
+                    mModificationTimestamp = (d != null) ? d.getTime() : 0;
+                }
                 
             } else {
                 client.exhaustResponse(get.getResponseBodyAsStream());
