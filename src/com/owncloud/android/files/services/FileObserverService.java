@@ -168,7 +168,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         FileDataStorageManager storage =
                 new FileDataStorageManager(account, getContentResolver());
         observer.setStorageManager(storage);
-        observer.setOCFile(storage.getFileByLocalPath(path));
+        observer.setOCFile(storage.getFileByLocalPath(path));   // ISSUE 10 - the fix in FileDetailsFragment to avoid path == null was not enough; it the file was never down before, this sets a NULL OCFile in the observer 
         observer.addObserverStatusListener(this);
 
         DownloadCompletedReceiver receiver = new DownloadCompletedReceiver(path, observer);

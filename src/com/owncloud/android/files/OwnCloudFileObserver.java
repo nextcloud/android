@@ -18,6 +18,7 @@
 
 package com.owncloud.android.files;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -91,9 +92,9 @@ public class OwnCloudFileObserver extends FileObserver {
     
     @Override
     public void onEvent(int event, String path) {
-        Log.d(TAG, "Got file modified with event " + event + " and path " + path);
+        Log.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
         if ((event & mMask) == 0) {
-            Log.wtf(TAG, "Incorrect event " + event + " sent for file " + path +
+            Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
             for (FileObserverStatusListener l : mListeners)
