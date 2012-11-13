@@ -181,17 +181,16 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         if (path == null) return;
         if (mObservers == null) {
             initializeObservedList();
-            return; // ISSUE 2: why return? ; the file still has to be removed of the mObservers !
         }
         for (int i = 0; i < mObservers.size(); ++i) {
             OwnCloudFileObserver observer = mObservers.get(i);
             if (observer.getPath().equals(path)) {
                 observer.stopWatching();
                 mObservers.remove(i);
+                Log.d(TAG, "Stopped watching " + path);
                 break;
             }
         }
-        Log.d(TAG, "Stopped watching " + path);
     }
         
     private void addDownloadingFile(String remotePath) {
