@@ -368,9 +368,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        if (downloadResult.isSuccess()) {
-            end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
-        }
+        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         sendBroadcast(end);
     }
 

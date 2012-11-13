@@ -18,6 +18,7 @@
 
 package com.owncloud.android.files.services;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -257,12 +258,16 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (mPath.equals(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH))) {  // ISSUE 3: this condition will be false if the download failed; in that case, the download won't ever be retried
-                context.unregisterReceiver(this);
-                removeReceiverFromList(this);
-                mObserver.startWatching();
-                Log.d(TAG, "Started watching " + mPath);
-                return;
+            if (mPath.equals(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH))) {
+                if ((new File(mPath)).exists()) {   
+                    // the download could be successful, or not; in both cases, the file could be down, due to a former download or upload
+                    context.unregisterReceiver(this);
+                    removeReceiverFromList(this);
+                    mObserver.startWatching();
+                    Log.d(TAG, "Started watching " + mPath);
+                    return;
+                }   // else - keep waiting for a future retry of the download ; 
+                    // mObserver.startWatching() won't ever work if the file is not in the device when it's called 
             }
         }
         
