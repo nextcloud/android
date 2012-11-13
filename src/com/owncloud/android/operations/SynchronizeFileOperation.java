@@ -23,7 +23,6 @@ import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
-import android.content.Context;
 import android.util.Log;
 
 import com.owncloud.android.datamodel.DataStorageManager;
@@ -46,8 +45,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
     public SynchronizeFileOperation(
             String remotePath, 
             DataStorageManager dataStorageManager, 
-            Account account, 
-            Context context ) {
+            Account account) {
         mRemotePath = remotePath;
         mStorageManager = dataStorageManager;
         mAccount = account;

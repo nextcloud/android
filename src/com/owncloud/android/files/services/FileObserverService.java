@@ -158,12 +158,12 @@ public class FileObserverService extends Service implements FileObserverStatusLi
             observer = mObservers.get(i);
             if (observer.getPath().equals(path))
                 duplicate = true;
-            observer.setContext(getBaseContext());
+            observer.setContext(getApplicationContext());
         }
         if (duplicate) return;
         observer = new OwnCloudFileObserver(path, OwnCloudFileObserver.CHANGES_ONLY);
-        observer.setContext(getBaseContext());
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getBaseContext());
+        observer.setContext(getApplicationContext());
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         observer.setAccount(account);
         FileDataStorageManager storage =
                 new FileDataStorageManager(account, getContentResolver());

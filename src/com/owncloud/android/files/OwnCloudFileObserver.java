@@ -41,14 +41,14 @@ public class OwnCloudFileObserver extends FileObserver {
 
     public static int CHANGES_ONLY = CLOSE_WRITE;
     
-    private static String TAG = "OwnCloudFileObserver";
+    private static String TAG = OwnCloudFileObserver.class.getSimpleName();
     private String mPath;
     private int mMask;
-    DataStorageManager mStorage;
-    Account mOCAccount;
-    OCFile mFile;
-    static Context mContext;    // ISSUE 4: why is this static?
-    List<FileObserverStatusListener> mListeners;
+    private DataStorageManager mStorage;
+    private Account mOCAccount;
+    private OCFile mFile;
+    private Context mContext;
+    private List<FileObserverStatusListener> mListeners;
     
     public OwnCloudFileObserver(String path) {
         this(path, ALL_EVENTS);
@@ -101,7 +101,7 @@ public class OwnCloudFileObserver extends FileObserver {
             return;
         }
         WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile.getRemotePath(), mStorage, mOCAccount, mContext);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile.getRemotePath(), mStorage, mOCAccount);
         RemoteOperationResult result = sfo.execute(wc);
         
         if (result.getExtraData() == Boolean.TRUE) {
