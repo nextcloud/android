@@ -87,7 +87,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
@@ -311,26 +310,34 @@ public class FileDetailFragment extends SherlockFragment implements
                 mFile.setKeepInSync(cb.isChecked());
                 FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
                 fdsm.saveFile(mFile);
-                if (mFile.keepInSync()) {
+                
+                /* NOT HERE
+                 * now that FileObserverService is involved, the easiest way to coordinate it with the download service
+                 * in every possible case is let the FileObserverService decide if the download should be started at
+                 * this moment or not
+                 * 
+                 * see changes at FileObserverService#addObservedFile
+                 
+                   if (mFile.keepInSync()) {
                     onClick(getView().findViewById(R.id.fdDownloadBtn));
                 } else {
                     mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
-                }
+                }*/
                 
+                /// register the OCFile instance in the observer service to monitor local updates;
+                /// if necessary, the file is download 
                 Intent intent = new Intent(getActivity().getApplicationContext(),
                                            FileObserverService.class);
                 intent.putExtra(FileObserverService.KEY_FILE_CMD,
                            (cb.isChecked()?
                                    FileObserverService.CMD_ADD_OBSERVED_FILE:
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
-                String localPath = mFile.getStoragePath();
-                if (localPath == null || localPath.length() <= 0) {
-                    localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
-                }
-                intent.putExtra(FileObserverService.KEY_CMD_ARG, localPath);
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
                 Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 
+                mContainerActivity.onFileStateChanged();                
                 break;
             }
             case R.id.fdRenameBtn: {

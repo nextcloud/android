@@ -123,7 +123,7 @@ public class FileDataStorageManager implements DataStorageManager {
 
         if (fileExists(file.getRemotePath())) {
             OCFile oldFile = getFileByPath(file.getRemotePath());
-            if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
+            if (file.getStoragePath() == null && oldFile.isDown())
                 file.setStoragePath(oldFile.getStoragePath());
             if (!file.isDirectory());
                 cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());

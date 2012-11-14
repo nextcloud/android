@@ -136,5 +136,13 @@ public class OwnCloudFileObserver extends FileObserver {
                                                Account account,
                                                FileObserverStatusListener.Status status);
     }
+
+    public OCFile getOCFile() {
+        return mFile;
+    }
+
+    public Account getAccount() {
+        return mOCAccount;
+    }
     
 }

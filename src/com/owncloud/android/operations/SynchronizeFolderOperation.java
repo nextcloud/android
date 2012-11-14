@@ -213,7 +213,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
         Intent intent = new Intent(mContext, FileObserverService.class);
         intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
-        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
+        intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, file);
+        intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
         mContext.startService(intent);
         
     }

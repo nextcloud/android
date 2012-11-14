@@ -22,12 +22,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.files.OwnCloudFileObserver.FileObserverStatusListener;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -44,7 +45,8 @@ import android.util.Log;
 public class FileObserverService extends Service implements FileObserverStatusListener {
 
     public final static String KEY_FILE_CMD = "KEY_FILE_CMD";
-    public final static String KEY_CMD_ARG = "KEY_CMD_ARG";
+    public final static String KEY_CMD_ARG_FILE = "KEY_CMD_ARG_FILE";
+    public final static String KEY_CMD_ARG_ACCOUNT = "KEY_CMD_ARG_ACCOUNT";
 
     public final static int CMD_INIT_OBSERVED_LIST = 1;
     public final static int CMD_ADD_OBSERVED_FILE = 2;
@@ -87,13 +89,16 @@ public class FileObserverService extends Service implements FileObserverStatusLi
                 initializeObservedList();
                 break;
             case CMD_ADD_OBSERVED_FILE:
-                addObservedFile(intent.getStringExtra(KEY_CMD_ARG));
+                addObservedFile( (OCFile)intent.getParcelableExtra(KEY_CMD_ARG_FILE), 
+                                 (Account)intent.getParcelableExtra(KEY_CMD_ARG_ACCOUNT));
                 break;
             case CMD_DEL_OBSERVED_FILE:
-                removeObservedFile(intent.getStringExtra(KEY_CMD_ARG));
+                removeObservedFile( (OCFile)intent.getParcelableExtra(KEY_CMD_ARG_FILE), 
+                                    (Account)intent.getParcelableExtra(KEY_CMD_ARG_ACCOUNT));
                 break;
             case CMD_ADD_DOWNLOADING_FILE:
-                addDownloadingFile(intent.getStringExtra(KEY_CMD_ARG));
+                addDownloadingFile( (OCFile)intent.getParcelableExtra(KEY_CMD_ARG_FILE),
+                                    (Account)intent.getParcelableExtra(KEY_CMD_ARG_ACCOUNT));
                 break;
             default:
                 Log.wtf(TAG, "Incorrect key given");
@@ -145,65 +150,137 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         c.close();
     }
     
-    private void addObservedFile(String path) {
-        if (path == null) return;
+    /**
+     * Registers the local copy of a remote file to be observed for local changes,
+     * an automatically updated in the ownCloud server.
+     *
+     * If there is no local copy of the remote file, a request to download it is send
+     * to the FileDownloader service. The observation is delayed until the download
+     * is finished.
+     * 
+     * @param file      Object representing a remote file which local copy must be observed.
+     * @param account   OwnCloud account containing file.
+     */
+    private void addObservedFile(OCFile file, Account account) {
+        if (file == null) {
+            Log.e(TAG, "Trying to observe a NULL file");
+            return;
+        }
         if (mObservers == null) {
             // this is very rare case when service was killed by system
             // and observers list was deleted in that procedure
             initializeObservedList();
         }
-        boolean duplicate = false;
-        OwnCloudFileObserver observer = null;
-        for (int i = 0; i < mObservers.size(); ++i) {
-            observer = mObservers.get(i);
-            if (observer.getPath().equals(path))
-                duplicate = true;
-            observer.setContext(getApplicationContext());
+        String localPath = file.getStoragePath();
+        if (!file.isDown()) {
+            // this is a file downloading / to be download for the first time
+            localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
         }
-        if (duplicate) return;
-        observer = new OwnCloudFileObserver(path, OwnCloudFileObserver.CHANGES_ONLY);
-        observer.setContext(getApplicationContext());
-        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-        observer.setAccount(account);
-        FileDataStorageManager storage =
-                new FileDataStorageManager(account, getContentResolver());
-        observer.setStorageManager(storage);
-        observer.setOCFile(storage.getFileByLocalPath(path));   // ISSUE 10 - the fix in FileDetailsFragment to avoid path == null was not enough; it the file was never down before, this sets a NULL OCFile in the observer 
-        observer.addObserverStatusListener(this);
-
-        DownloadCompletedReceiver receiver = new DownloadCompletedReceiver(path, observer);
-        registerReceiver(receiver, new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE));
+        OwnCloudFileObserver tmpObserver = null, observer = null;
+        for (int i = 0; i < mObservers.size(); ++i) {
+            tmpObserver = mObservers.get(i);
+            if (tmpObserver.getPath().equals(localPath)) {
+                observer = tmpObserver;
+            }
+            tmpObserver.setContext(getApplicationContext());   // 'refreshing' context to all the observers? why?
+        }
+        if (observer == null) {
+            /// the local file was never registered to observe before
+            observer = new OwnCloudFileObserver(localPath, OwnCloudFileObserver.CHANGES_ONLY);
+            //Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+            observer.setAccount(account);
+            FileDataStorageManager storage =
+                    new FileDataStorageManager(account, getContentResolver());  // I don't trust in this resolver's life span...
+            observer.setStorageManager(storage);
+            //observer.setOCFile(storage.getFileByLocalPath(path));   // ISSUE 10 - the fix in FileDetailsFragment to avoid path == null was not enough; it the file was never down before, this sets a NULL OCFile in the observer
+            observer.setOCFile(file);
+            observer.addObserverStatusListener(this);
+            observer.setContext(getApplicationContext());
+            
+        } else {
+            /* LET'S IGNORE THAT, CURRENTLY, A LOCAL FILE CAN BE LINKED TO DIFFERENT FILES IN OWNCLOUD;
+             * we should change that
+             * 
+            /// the local file is already observed for some other OCFile(s)
+            observer.addOCFile(account, file);  // OCFiles should have a reference to the account containing them to not be confused
+            */ 
+        }
 
         mObservers.add(observer);
-        Log.d(TAG, "Observer added for path " + path);
+        Log.d(TAG, "Observer added for path " + localPath);
+        
+        if (!file.isDown()) {
+            // if the file is not down, it can't be observed for changes
+            DownloadCompletedReceiver receiver = new DownloadCompletedReceiver(localPath, observer);
+            registerReceiver(receiver, new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE));
+
+            Intent i = new Intent(this, FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            startService(i);
+            
+        } else {
+            observer.startWatching();
+            Log.d(TAG, "Started watching " + localPath);
+            
+        }
+        
     }
+
     
-    private void removeObservedFile(String path) {
-        if (path == null) return;
+    /**
+     * Unregisters the local copy of a remote file to be observed for local changes.
+     *
+     * @param file      Object representing a remote file which local copy must be not observed longer.
+     * @param account   OwnCloud account containing file.
+     */
+    private void removeObservedFile(OCFile file, Account account) {
+        if (file == null) {
+            Log.e(TAG, "Trying to unobserve a NULL file");
+            return;
+        }
         if (mObservers == null) {
             initializeObservedList();
         }
+        String localPath = file.getStoragePath();
+        if (!file.isDown()) {
+            // this happens when a file not in the device is set to be kept synchronized, and quickly unset again,
+            // while the download is not finished
+            localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
+        }
+        
         for (int i = 0; i < mObservers.size(); ++i) {
             OwnCloudFileObserver observer = mObservers.get(i);
-            if (observer.getPath().equals(path)) {
+            if (observer.getPath().equals(localPath)) {
                 observer.stopWatching();
-                mObservers.remove(i);
-                Log.d(TAG, "Stopped watching " + path);
+                mObservers.remove(i);       // assuming, again, that a local file can be only linked to only ONE remote file; currently false
+                if (!file.isDown()) {
+                    // TODO unregister download receiver ;forget this until list of receivers is replaced for a single receiver
+                }
+                Log.d(TAG, "Stopped watching " + localPath);
                 break;
             }
         }
-    }
         
-    private void addDownloadingFile(String remotePath) {
+    }
+
+    
+    /**
+     * Temporarily disables the observance of a file that is going to be download.
+     *
+     * @param file      Object representing the remote file which local copy must not be observed temporarily.
+     * @param account   OwnCloud account containing file.
+     */
+    private void addDownloadingFile(OCFile file, Account account) {
         OwnCloudFileObserver observer = null;
         for (OwnCloudFileObserver o : mObservers) {
-            if (o.getRemotePath().equals(remotePath)) {
+            if (o.getRemotePath().equals(file.getRemotePath()) && o.getAccount().equals(account)) {
                 observer = o;
                 break;
             }
         }
         if (observer == null) {
-            Log.e(TAG, "Couldn't find observer for remote file " + remotePath);
+            Log.e(TAG, "Couldn't find observer for remote file " + file.getRemotePath());
             return;
         }
         observer.stopWatching();
