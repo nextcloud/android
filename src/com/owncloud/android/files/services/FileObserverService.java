@@ -27,6 +27,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.files.OwnCloudFileObserver.FileObserverStatusListener;
+import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -302,10 +304,9 @@ public class FileObserverService extends Service implements FileObserverStatusLi
     }
 
     @Override
-    public void OnObservedFileStatusUpdate(String localPath, String remotePath, Account account, Status status) {
-        switch (status) {
-            case CONFLICT:
-            {
+    public void onObservedFileStatusUpdate(String localPath, String remotePath, Account account, RemoteOperationResult result) {
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
                 Intent i = new Intent(getApplicationContext(), ConflictsResolveActivity.class);
                 i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -313,14 +314,11 @@ public class FileObserverService extends Service implements FileObserverStatusLi
                 i.putExtra("localpath", localPath);
                 i.putExtra("account", account);
                 startActivity(i);
-                break;
+                
+            } else {
+                // TODO send notification to the notification bar?
             }
-            case SENDING_TO_UPLOADER:
-            case INCORRECT_MASK:
-                break;
-            default:
-                Log.wtf(TAG, "Unhandled status " + status);
-        }
+        } // else, nothing else to do; now it's duty of FileUploader service 
     }
 
     private class DownloadCompletedReceiver extends BroadcastReceiver {

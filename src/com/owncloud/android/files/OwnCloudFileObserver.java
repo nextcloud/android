@@ -24,8 +24,6 @@ import java.util.List;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.OwnCloudFileObserver.FileObserverStatusListener.Status;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -34,7 +32,6 @@ import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.content.Intent;
 import android.os.FileObserver;
 import android.util.Log;
 
@@ -97,44 +94,26 @@ public class OwnCloudFileObserver extends FileObserver {
             Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
+            /* Unexpected event that will be ignored; no reason to propagate it 
             for (FileObserverStatusListener l : mListeners)
                 l.OnObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, Status.INCORRECT_MASK);
+            */
             return;
         }
         WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile.getRemotePath(), mStorage, mOCAccount);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(getRemotePath(), mStorage, mOCAccount, true, false, mContext);
         RemoteOperationResult result = sfo.execute(wc);
-        
-        if (result.getExtraData() == Boolean.TRUE) {
-            // inform user about conflict and let him decide what to do
-            for (FileObserverStatusListener l : mListeners)
-                l.OnObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, Status.CONFLICT);
-            return;
+        for (FileObserverStatusListener l : mListeners) {
+            l.onObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, result);
         }
-
-        for (FileObserverStatusListener l : mListeners)
-            l.OnObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, Status.SENDING_TO_UPLOADER);
         
-        Intent i = new Intent(mContext, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, mFile.getRemotePath());
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, mPath);
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
-        mContext.startService(i);
     }
     
     public interface FileObserverStatusListener {
-        public enum Status {
-            SENDING_TO_UPLOADER,
-            CONFLICT,
-            INCORRECT_MASK
-        }
-        
-        public void OnObservedFileStatusUpdate(String localPath,
+        public void onObservedFileStatusUpdate(String localPath,
                                                String remotePath,
                                                Account account,
-                                               FileObserverStatusListener.Status status);
+                                               RemoteOperationResult result);
     }
 
     public OCFile getOCFile() {

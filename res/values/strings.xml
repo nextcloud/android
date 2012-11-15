@@ -169,10 +169,10 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-	  <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
-	  <string name="confirmation_remove_local">Local only</string>
-	  <string name="confirmation_remove_remote">Remove from server</string>
-	  <string name="confirmation_remove_remote_and_local">Remote and local</string>
+	<string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+	<string name="confirmation_remove_local">Local only</string>
+	<string name="confirmation_remove_remote">Remove from server</string>
+	<string name="confirmation_remove_remote_and_local">Remote and local</string>
 
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>
@@ -180,6 +180,9 @@
     <string name="rename_local_fail_msg">"Local copy could not be renamed; try a differente new name"</string>
     <string name="rename_server_fail_msg">"Rename could not be completed"</string>
         
+    <string name="sync_file_fail_msg">Remote file could not be checked</string> 
+    <string name="sync_file_nothing_to_do_msg">File contents already synchronized</string> 
+    
     <string name="create_dir_fail_msg">Directory could not be created</string>
     
     <string name="wait_a_moment">Wait a moment</string>

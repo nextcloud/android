@@ -74,14 +74,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
+    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
+    public static final String KEY_MIME_TYPE = "MIME_TYPE";
+
     public static final String KEY_ACCOUNT = "ACCOUNT";
+    
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
-    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
-    public static final String KEY_MIME_TYPE = "MIME_TYPE";
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
 
     public static final int UPLOAD_SINGLE_FILE = 0;
@@ -211,7 +213,14 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         try {
             for (int i=0; i < localPaths.length; i++) {
                 uploadKey = buildRemoteName(account, remotePaths[i]);
-                file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), isInstant, forceOverwrite, storageManager);
+                file = storageManager.getFileByLocalPath(remotePaths[i]);
+                if (file != null) {
+                    Log.d(TAG, "Upload of file already in server: " + remotePaths[i]);
+                    // TODO - review handling of input OCFiles in FileDownloader and FileUploader ; some times retrieving them from database can be necessary, some times not; we should make something consistent
+                } else {
+                    Log.d(TAG, "Upload of new file: " + remotePaths[i]);
+                    file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), isInstant, storageManager);
+                }
                 if (chunked) {
                     newUpload = new ChunkedUploadFileOperation(account, file, isInstant, forceOverwrite);
                 } else {
@@ -427,7 +436,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 propfind.releaseConnection();
         }
 
-        if (!result.isSuccess()) {
+        long syncDate = System.currentTimeMillis();
+        if (result.isSuccess()) {
+            file.setLastSyncDateForProperties(syncDate);
+            
+        } else {
             // file was successfully uploaded, but the new time stamp and Etag in the server could not be read; 
             // just keeping old values :(
             if (!mCurrentUpload.getRemotePath().equals(file.getRemotePath())) {
@@ -436,13 +449,14 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 newFile.setCreationTimestamp(file.getCreationTimestamp());
                 newFile.setFileLength(file.getFileLength());
                 newFile.setMimetype(file.getMimetype());
-                newFile.setModificationTimestamp(file.getModificationTimestamp());  // this is specially BAD
+                newFile.setModificationTimestamp(file.getModificationTimestamp());
+                newFile.setLastSyncDateForProperties(file.getLastSyncDateForProperties());
+                newFile.setKeepInSync(file.keepInSync());
                 // newFile.setEtag(file.getEtag()) // TODO and this is still worse 
                 file = newFile;
             }
         }
-        
-        file.setLastSyncDate(System.currentTimeMillis());
+        file.setLastSyncDateForData(syncDate);
         mStorageManager.saveFile(file);
     }
 
@@ -472,11 +486,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     
-    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean isInstant, boolean forceOverwrite, FileDataStorageManager storageManager) {
+    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean isInstant, FileDataStorageManager storageManager) {
         OCFile newFile = new OCFile(remotePath);
         newFile.setStoragePath(localPath);
-        newFile.setLastSyncDate(0);
-        newFile.setKeepInSync(forceOverwrite);
+        newFile.setLastSyncDateForProperties(0);
+        newFile.setLastSyncDateForData(0);
         
         // size
         if (localPath != null && localPath.length() > 0) {

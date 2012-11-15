@@ -48,8 +48,11 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mLocalPath;
     private String mMimeType;
     private boolean mNeedsUpdating;
-    private long mLastSyncDate;
+    private long mLastSyncDateForProperties;
+    private long mLastSyncDateForData;
     private boolean mKeepInSync;
+
+    private String mEtag;
 
     /**
      * Create new {@link OCFile} with given path.
@@ -83,7 +86,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
         mKeepInSync = source.readInt() == 1;
-        mLastSyncDate = source.readLong();
+        mLastSyncDateForProperties = source.readLong();
+        mLastSyncDateForData = source.readLong();
     }
 
     @Override
@@ -98,7 +102,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
         dest.writeInt(mKeepInSync ? 1 : 0);
-        dest.writeLong(mLastSyncDate);
+        dest.writeLong(mLastSyncDateForProperties);
+        dest.writeLong(mLastSyncDateForData);
     }
     
     /**
@@ -254,7 +259,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLength = 0;
         mCreationTimestamp = 0;
         mModifiedTimestamp = 0;
-        mLastSyncDate = 0;
+        mLastSyncDateForProperties = 0;
+        mLastSyncDateForData = 0;
         mKeepInSync = false;
         mNeedsUpdating = false;
     }
@@ -322,12 +328,20 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mNeedsUpdating;
     }
     
-    public long getLastSyncDate() {
-        return mLastSyncDate;
+    public long getLastSyncDateForProperties() {
+        return mLastSyncDateForProperties;
     }
     
-    public void setLastSyncDate(long lastSyncDate) {
-        mLastSyncDate = lastSyncDate;
+    public void setLastSyncDateForProperties(long lastSyncDate) {
+        mLastSyncDateForProperties = lastSyncDate;
+    }
+    
+    public long getLastSyncDateForData() {
+        return mLastSyncDateForData;
+    }
+
+    public void setLastSyncDateForData(long lastSyncDate) {
+        mLastSyncDateForData = lastSyncDate;
     }
 
     public void setKeepInSync(boolean keepInSync) {
@@ -372,6 +386,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s]";
         asString = String.format(asString, new Long(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, new Long(mParentId), new Boolean(mKeepInSync));
         return asString;
+    }
+
+    public String getEtag() {
+        return mEtag;
+    }
+
+    public long getLocalModificationTimestamp() {
+        if (mLocalPath != null && mLocalPath.length() > 0) {
+            File f = new File(mLocalPath);
+            return f.lastModified();
+        }
+        return 0;
     }
 
 }

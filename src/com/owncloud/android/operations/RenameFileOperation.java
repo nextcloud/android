@@ -191,7 +191,8 @@ public class RenameFileOperation extends RemoteOperation {
         file.setFileId(mFile.getFileId());
         file.setFileLength(mFile.getFileLength());
         file.setKeepInSync(mFile.keepInSync());
-        file.setLastSyncDate(mFile.getLastSyncDate());
+        file.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
+        file.setLastSyncDateForData(mFile.getLastSyncDateForData());
         file.setMimetype(mFile.getMimetype());
         file.setModificationTimestamp(mFile.getModificationTimestamp());
         file.setParentId(mFile.getParentId());

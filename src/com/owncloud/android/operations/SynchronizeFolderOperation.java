@@ -151,7 +151,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
                 for (int i=0; i < mChildren.size(); ) {
                     file = mChildren.get(i);
-                    if (file.getLastSyncDate() != mCurrentSyncTime) {
+                    if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
                         Log.d(TAG, "removing file: " + file);
                         mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
                         mChildren.remove(i);
@@ -199,7 +199,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
-        file.setLastSyncDate(mCurrentSyncTime);
+        file.setLastSyncDateForProperties(mCurrentSyncTime);
         return file;
     }
     

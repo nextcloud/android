@@ -59,6 +59,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
     
+    public static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
@@ -282,7 +283,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void saveDownloadedFile() {
         OCFile file = mCurrentDownload.getFile();
-        file.setLastSyncDate(System.currentTimeMillis());
+        long syncDate = System.currentTimeMillis();
+        file.setLastSyncDateForProperties(syncDate);
+        file.setLastSyncDateForData(syncDate);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
         // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
         file.setMimetype(mCurrentDownload.getMimeType());

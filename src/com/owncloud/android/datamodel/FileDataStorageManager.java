@@ -118,7 +118,8 @@ public class FileDataStorageManager implements DataStorageManager {
         if (!file.isDirectory())
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
         cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
         if (fileExists(file.getRemotePath())) {
@@ -197,7 +198,8 @@ public class FileDataStorageManager implements DataStorageManager {
             if (!file.isDirectory())
                 cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
             cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
             if (fileExists(file.getRemotePath())) {
@@ -401,8 +403,10 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
-            file.setLastSyncDate(c.getLong(c
+            file.setLastSyncDateForProperties(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
+            file.setLastSyncDateForData(c.getLong(c.
+                    getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
             file.setKeepInSync(c.getInt(
                                 c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
         }

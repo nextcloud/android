@@ -82,6 +82,8 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
@@ -119,7 +121,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
 
-    private static final String TAG = "FileDetailFragment";
+    private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
 
@@ -255,6 +257,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onClick(View v) {
+        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
                 //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
@@ -289,26 +292,21 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
-                    // ISSUE 6: this button should be promoted to 'synchronize' if the file is DOWN, not just redownload
-                    Intent i = new Intent(getActivity(), FileDownloader.class);
-                    i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-                    i.putExtra(FileDownloader.EXTRA_FILE, mFile);
-                    /*i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-                    i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
-                    i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());*/
+                    mLastRemoteOperation = new SynchronizeFileOperation(mFile.getRemotePath(), fdsm, mAccount, true, false, getActivity());
+                    WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
+                    mLastRemoteOperation.execute(wc, this, mHandler);
                 
                     // update ui 
-                    setButtonsForTransferring();
-                
-                    getActivity().startService(i);
-                    mContainerActivity.onFileStateChanged();    // this is not working; it is performed before the fileDownloadService registers it as 'in progress'
+                    boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                    getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                    setButtonsForTransferring(); // disable button immediately, although the synchronization does not result in a file transference
+                    
                 }
                 break;
             }
             case R.id.fdKeepInSync: {
                 CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
                 mFile.setKeepInSync(cb.isChecked());
-                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
                 fdsm.saveFile(mFile);
                 
                 /* NOT HERE
@@ -923,6 +921,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 
             } else if (operation instanceof RenameFileOperation) {
                 onRenameFileOperationFinish((RenameFileOperation)operation, result);
+                
+            } else if (operation instanceof SynchronizeFileOperation) {
+                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
             }
         }
     }
@@ -977,5 +978,39 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
+        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
+                //i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra("remotepath", mFile.getRemotePath());
+                i.putExtra("localpath", mFile.getStoragePath());
+                i.putExtra("account", mAccount);
+                startActivity(i);
+                
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+            }
+            
+        } else {
+            if (operation.transferWasRequested()) {
+                mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
+                                                            // checking the service to see if the file is downloading results in FALSE
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                if (mFile.isDown()) {
+                    setButtonsForDown();
+                    
+                } else {
+                    setButtonsForRemote();
+                }
+            }
+        }
+    }
 
 }
