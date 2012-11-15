@@ -76,8 +76,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     
-    public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
-    public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
+    public static final String KEY_FILE = "FILE";
+    public static final String KEY_LOCAL_FILE = "LOCAL_FILE";       // TODO remove this as a possible input argument ; use KEY_FILE everywhere
+    public static final String KEY_REMOTE_FILE = "REMOTE_FILE";     // TODO remove this as a possible input argument ; use KEY_FILE everywhere
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
 
     public static final String KEY_ACCOUNT = "ACCOUNT";
@@ -158,7 +159,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)) {
+        if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE) || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
             Log.e(TAG, "Not enough information provided in intent");
             return Service.START_NOT_STICKY;
         }
@@ -169,33 +170,57 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         }
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
         
-        String[] localPaths, remotePaths, mimeTypes; 
+        String[] localPaths = null, remotePaths = null, mimeTypes = null;
+        OCFile[] files = null;
         if (uploadType == UPLOAD_SINGLE_FILE) {
-            localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
-            remotePaths = new String[] { intent
-                    .getStringExtra(KEY_REMOTE_FILE) };
-            mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
+            
+            if (intent.hasExtra(KEY_FILE)) {
+                files = new OCFile[] {intent.getParcelableExtra(KEY_FILE) };
+                
+            } else {
+                localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
+                remotePaths = new String[] { intent.getStringExtra(KEY_REMOTE_FILE) };
+                mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
+            }
             
         } else { // mUploadType == UPLOAD_MULTIPLE_FILES
-            localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
-            remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
-            mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            
+            if (intent.hasExtra(KEY_FILE)) {
+                files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);    // TODO will this casting work fine?
+                
+            } else {
+                localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
+                remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+                mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            }
         }
 
-        if (localPaths == null) {
-            Log.e(TAG, "Incorrect array for local paths provided in upload intent");
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+        
+        if (intent.hasExtra(KEY_FILE) && files == null) {
+            Log.e(TAG, "Incorrect array for OCFiles provided in upload intent");
             return Service.START_NOT_STICKY;
-        }
-        if (remotePaths == null) {
-            Log.e(TAG, "Incorrect array for remote paths provided in upload intent");
-            return Service.START_NOT_STICKY;
+            
+        } else if (!intent.hasExtra(KEY_FILE)) {
+            if (localPaths == null) {
+                Log.e(TAG, "Incorrect array for local paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (remotePaths == null) {
+                Log.e(TAG, "Incorrect array for remote paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (localPaths.length != remotePaths.length) {
+                Log.e(TAG, "Different number of remote paths and local paths!");
+                return Service.START_NOT_STICKY;
+            }
+            
+            files = new OCFile[localPaths.length];
+            for (int i=0; i < localPaths.length; i++) {
+                files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), storageManager);
+            }
         }
             
-        if (localPaths.length != remotePaths.length) {
-            Log.e(TAG, "Different number of remote paths and local paths!");
-            return Service.START_NOT_STICKY;
-        }
-        
         boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
         
@@ -204,27 +229,17 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;
         UploadFileOperation newUpload = null;
-        OCFile file = null;
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
         boolean fixed = false;
         if (isInstant) {
             fixed = checkAndFixInstantUploadDirectory(storageManager);
         }
         try {
-            for (int i=0; i < localPaths.length; i++) {
-                uploadKey = buildRemoteName(account, remotePaths[i]);
-                file = storageManager.getFileByLocalPath(remotePaths[i]);
-                if (file != null) {
-                    Log.d(TAG, "Upload of file already in server: " + remotePaths[i]);
-                    // TODO - review handling of input OCFiles in FileDownloader and FileUploader ; some times retrieving them from database can be necessary, some times not; we should make something consistent
-                } else {
-                    Log.d(TAG, "Upload of new file: " + remotePaths[i]);
-                    file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), isInstant, storageManager);
-                }
+            for (int i=0; i < files.length; i++) {
+                uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 if (chunked) {
-                    newUpload = new ChunkedUploadFileOperation(account, file, isInstant, forceOverwrite);
+                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite);
                 } else {
-                    newUpload = new UploadFileOperation(account, file, isInstant, forceOverwrite);
+                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite);
                 }
                 if (fixed && i==0) {
                     newUpload.setRemoteFolderToBeCreated();
@@ -486,7 +501,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     
-    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean isInstant, FileDataStorageManager storageManager) {
+    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, FileDataStorageManager storageManager) {
         OCFile newFile = new OCFile(remotePath);
         newFile.setStoragePath(localPath);
         newFile.setLastSyncDateForProperties(0);

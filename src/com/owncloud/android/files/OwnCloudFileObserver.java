@@ -101,7 +101,7 @@ public class OwnCloudFileObserver extends FileObserver {
             return;
         }
         WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(getRemotePath(), mStorage, mOCAccount, true, false, mContext);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile, mStorage, mOCAccount, true, false, mContext);
         RemoteOperationResult result = sfo.execute(wc);
         for (FileObserverStatusListener l : mListeners) {
             l.onObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, result);

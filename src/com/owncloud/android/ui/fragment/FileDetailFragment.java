@@ -292,7 +292,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
-                    mLastRemoteOperation = new SynchronizeFileOperation(mFile.getRemotePath(), fdsm, mAccount, true, false, getActivity());
+                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, fdsm, mAccount, true, false, getActivity());
                     WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
                     mLastRemoteOperation.execute(wc, this, mHandler);
                 
@@ -309,19 +309,6 @@ public class FileDetailFragment extends SherlockFragment implements
                 mFile.setKeepInSync(cb.isChecked());
                 fdsm.saveFile(mFile);
                 
-                /* NOT HERE
-                 * now that FileObserverService is involved, the easiest way to coordinate it with the download service
-                 * in every possible case is let the FileObserverService decide if the download should be started at
-                 * this moment or not
-                 * 
-                 * see changes at FileObserverService#addObservedFile
-                 
-                   if (mFile.keepInSync()) {
-                    onClick(getView().findViewById(R.id.fdDownloadBtn));
-                } else {
-                    mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
-                }*/
-                
                 /// register the OCFile instance in the observer service to monitor local updates;
                 /// if necessary, the file is download 
                 Intent intent = new Intent(getActivity().getApplicationContext(),
@@ -335,7 +322,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 
-                mContainerActivity.onFileStateChanged();                
+                if (mFile.keepInSync()) {
+                    onClick(getView().findViewById(R.id.fdDownloadBtn));    // force an immediate synchronization
+                }
                 break;
             }
             case R.id.fdRenameBtn: {

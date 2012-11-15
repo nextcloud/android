@@ -156,10 +156,6 @@ public class FileObserverService extends Service implements FileObserverStatusLi
      * Registers the local copy of a remote file to be observed for local changes,
      * an automatically updated in the ownCloud server.
      *
-     * If there is no local copy of the remote file, a request to download it is send
-     * to the FileDownloader service. The observation is delayed until the download
-     * is finished.
-     * 
      * @param file      Object representing a remote file which local copy must be observed.
      * @param account   OwnCloud account containing file.
      */
@@ -216,11 +212,6 @@ public class FileObserverService extends Service implements FileObserverStatusLi
             DownloadCompletedReceiver receiver = new DownloadCompletedReceiver(localPath, observer);
             registerReceiver(receiver, new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE));
 
-            Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-            i.putExtra(FileDownloader.EXTRA_FILE, file);
-            startService(i);
-            
         } else {
             observer.startWatching();
             Log.d(TAG, "Started watching " + localPath);

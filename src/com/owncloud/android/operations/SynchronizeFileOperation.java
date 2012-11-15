@@ -40,7 +40,8 @@ import eu.alefzero.webdav.WebdavUtils;
 public class SynchronizeFileOperation extends RemoteOperation {
 
     private String TAG = SynchronizeFileOperation.class.getSimpleName();
-    private String mRemotePath;
+    //private String mRemotePath;
+    private OCFile mLocalFile;
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
@@ -50,14 +51,15 @@ public class SynchronizeFileOperation extends RemoteOperation {
     private boolean mTransferWasRequested = false;
     
     public SynchronizeFileOperation(
-            String remotePath, 
+            OCFile localFile, 
             DataStorageManager dataStorageManager, 
             Account account, 
             boolean syncFileContents,
             boolean localChangeAlreadyKnown,
             Context context) {
         
-        mRemotePath = remotePath;
+        //mRemotePath = remotePath;
+        mLocalFile = localFile;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mSyncFileContents = syncFileContents;
@@ -73,17 +75,15 @@ public class SynchronizeFileOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         mTransferWasRequested = false;
         try {
-            OCFile localFile = mStorageManager.getFileByPath(mRemotePath);
-            
-            if (!localFile.isDown()) {
+            if (!mLocalFile.isDown()) {
                 /// easy decision
-                requestForDownload(localFile);
+                requestForDownload(mLocalFile);
                 result = new RemoteOperationResult(ResultCode.OK);
                 
             } else {
-                /// local copy in the device -> need to think a bit more before do nothing
+                /// local copy in the device -> need to think a bit more before do anything
                 
-                propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+                propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()));
                 int status = client.executeMethod(propfind);
                 boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
                 if (isMultiStatus) {
@@ -95,12 +95,13 @@ public class SynchronizeFileOperation extends RemoteOperation {
                     /// check changes in server and local file
                     boolean serverChanged = false;
                     if (serverFile.getEtag() != null) {
-                        serverChanged = (!serverFile.getEtag().equals(localFile.getEtag()));
+                        serverChanged = (!serverFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
                     } else {
                         // server without etags
-                        serverChanged = (serverFile.getModificationTimestamp() > localFile.getModificationTimestamp());
+                        serverChanged = (serverFile.getModificationTimestamp() > mLocalFile.getModificationTimestamp());
                     }
-                    boolean localChanged = (mLocalChangeAlreadyKnown || localFile.getLocalModificationTimestamp() > localFile.getLastSyncDateForData());
+                    boolean localChanged = (mLocalChangeAlreadyKnown || mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
+                        // TODO this will be always true after the app is upgraded to database version 3; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes
                     if (localChanged && serverChanged) {
@@ -109,7 +110,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                   
                     } else if (localChanged) {
                         if (mSyncFileContents) {
-                            requestForUpload(localFile);
+                            requestForUpload(mLocalFile);
                             // the local update of file properties will be done by the FileUploader service when the upload finishes
                         } else {
                             // NOTHING TO DO HERE: updating the properties of the file in the server without uploading the contents would be stupid; 
@@ -120,12 +121,12 @@ public class SynchronizeFileOperation extends RemoteOperation {
                   
                     } else if (serverChanged) {
                         if (mSyncFileContents) {
-                            requestForDownload(serverFile);
+                            requestForDownload(mLocalFile); // local, not server; we won't to keep the value of keepInSync!
                             // the update of local data will be done later by the FileUploader service when the upload finishes
                         } else {
                             // TODO CHECK: is this really useful in some point in the code?
-                            serverFile.setKeepInSync(localFile.keepInSync());
-                            serverFile.setParentId(localFile.getParentId());
+                            serverFile.setKeepInSync(mLocalFile.keepInSync());
+                            serverFile.setParentId(mLocalFile.getParentId());
                             mStorageManager.saveFile(serverFile);
                             
                         }
@@ -143,11 +144,11 @@ public class SynchronizeFileOperation extends RemoteOperation {
           
             }
             
-            Log.i(TAG, "Synchronizing " + mAccount.name + ", file " + mRemotePath + ": " + result.getLogMessage());
+            Log.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
           
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Synchronizing " + mAccount.name + ", file " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+            Log.e(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (propfind != null)
@@ -160,13 +161,14 @@ public class SynchronizeFileOperation extends RemoteOperation {
     /**
      * Requests for an upload to the FileUploader service
      * 
-     * @param localFile     OCFile object representing the file to upload
+     * @param file     OCFile object representing the file to upload
      */
-    private void requestForUpload(OCFile localFile) {
+    private void requestForUpload(OCFile file) {
         Intent i = new Intent(mContext, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, mAccount);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());
+        i.putExtra(FileUploader.KEY_FILE, file);
+        /*i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);    // doing this we would lose the value of keepInSync in the road, and maybe it's not updated in the database when the FileUploader service gets it!  
+        i.putExtra(FileUploader.KEY_LOCAL_FILE, localFile.getStoragePath());*/
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
         mContext.startService(i);
