@@ -113,6 +113,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private View mView;
     private OCFile mFile;
     private Account mAccount;
+    private FileDataStorageManager mStorageManager;
     private ImageView mPreview;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -134,6 +135,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public FileDetailFragment() {
         mFile = null;
         mAccount = null;
+        mStorageManager = null;
         mLayout = R.layout.file_details_empty;
     }
     
@@ -149,6 +151,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
         mFile = fileToDetail;
         mAccount = ocAccount;
+        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
         
         if(fileToDetail != null && ocAccount != null) {
@@ -205,6 +208,18 @@ public class FileDetailFragment extends SherlockFragment implements
             throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getSimpleName());
         }
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (mAccount != null) {
+            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
+        }
+    }
         
 
     @Override
@@ -257,7 +272,6 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onClick(View v) {
-        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
                 //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
@@ -292,7 +306,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
-                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, fdsm, mAccount, true, false, getActivity());
+                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, mStorageManager, mAccount, true, false, getActivity());
                     WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
                     mLastRemoteOperation.execute(wc, this, mHandler);
                 
@@ -307,7 +321,7 @@ public class FileDetailFragment extends SherlockFragment implements
             case R.id.fdKeepInSync: {
                 CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
                 mFile.setKeepInSync(cb.isChecked());
-                fdsm.saveFile(mFile);
+                mStorageManager.saveFile(mFile);
                 
                 /// register the OCFile instance in the observer service to monitor local updates;
                 /// if necessary, the file is download 
@@ -399,11 +413,10 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-            if (fdsm.getFileById(mFile.getFileId()) != null) {
+            if (mStorageManager.getFileById(mFile.getFileId()) != null) {
                 mLastRemoteOperation = new RemoveFileOperation( mFile, 
                                                                 true, 
-                                                                new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
+                                                                mStorageManager);
                 WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
                 mLastRemoteOperation.execute(wc, this, mHandler);
                 
@@ -415,12 +428,11 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onNeutral(String callerTag) {
-        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
         File f = null;
         if (mFile.isDown() && (f = new File(mFile.getStoragePath())).exists()) {
             f.delete();
             mFile.setStoragePath(null);
-            fdsm.saveFile(mFile);
+            mStorageManager.saveFile(mFile);
             updateFileDetails(mFile, mAccount);
         }
     }
@@ -456,6 +468,12 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
         mFile = file;
+        if (ocAccount != null && ( 
+                mStorageManager == null || 
+                (mAccount != null && !mAccount.equals(ocAccount))
+           )) {
+            mStorageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
+        }
         mAccount = ocAccount;
         updateFileDetails();
     }
@@ -667,7 +685,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 if (mFile.getRemotePath().equals(downloadedRemotePath)) {
                     if (downloadWasFine) {
-                        mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));    // updates the local object without accessing the database again
+                        mFile = mStorageManager.getFileByPath(downloadedRemotePath);
                     }
                     updateFileDetails();    // it updates the buttons; must be called although !downloadWasFine
                 }
