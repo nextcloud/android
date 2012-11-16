@@ -583,7 +583,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForDown() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_redownload);
+            downloadButton.setText(R.string.filedetails_sync_file);
             //downloadButton.setEnabled(true);
         
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
