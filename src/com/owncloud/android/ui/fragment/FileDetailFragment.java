@@ -306,7 +306,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
-                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, mStorageManager, mAccount, true, false, getActivity());
+                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
                     WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
                     mLastRemoteOperation.execute(wc, this, mHandler);
                 

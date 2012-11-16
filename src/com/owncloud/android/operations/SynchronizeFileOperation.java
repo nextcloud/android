@@ -42,6 +42,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
     private String TAG = SynchronizeFileOperation.class.getSimpleName();
     //private String mRemotePath;
     private OCFile mLocalFile;
+    private OCFile mServerFile;
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
@@ -51,23 +52,24 @@ public class SynchronizeFileOperation extends RemoteOperation {
     private boolean mTransferWasRequested = false;
     
     public SynchronizeFileOperation(
-            OCFile localFile, 
-            DataStorageManager dataStorageManager, 
+            OCFile localFile,
+            OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
+            DataStorageManager storageManager, 
             Account account, 
             boolean syncFileContents,
-            boolean localChangeAlreadyKnown,
+            boolean localChangeAlreadyKnown, 
             Context context) {
         
-        //mRemotePath = remotePath;
         mLocalFile = localFile;
-        mStorageManager = dataStorageManager;
+        mServerFile = serverFile;
+        mStorageManager = storageManager;
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mLocalChangeAlreadyKnown = localChangeAlreadyKnown;
         mContext = context;
     }
 
-    
+
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         
@@ -83,29 +85,38 @@ public class SynchronizeFileOperation extends RemoteOperation {
             } else {
                 /// local copy in the device -> need to think a bit more before do anything
                 
-                propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()));
-                int status = client.executeMethod(propfind);
-                boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
-                if (isMultiStatus) {
-                    MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
-                    WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
+                if (mServerFile == null) {
+                    /// take the duty of check the server for the current state of the file there
+                    propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()));
+                    int status = client.executeMethod(propfind);
+                    boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
+                    if (isMultiStatus) {
+                        MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
+                        WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
                                                client.getBaseUri().getPath());
-                    OCFile serverFile = fillOCFile(we);
+                        mServerFile = fillOCFile(we);
+                        
+                    } else {
+                        client.exhaustResponse(propfind.getResponseBodyAsStream());
+                        result = new RemoteOperationResult(false, status);
+                    }
+                }
+                
+                if (result == null) {   // true if the server was not checked, or nothing was wrong with the remote request
               
                     /// check changes in server and local file
                     boolean serverChanged = false;
-                    if (serverFile.getEtag() != null) {
-                        serverChanged = (!serverFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
+                    if (mServerFile.getEtag() != null) {
+                        serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
                     } else {
                         // server without etags
-                        serverChanged = (serverFile.getModificationTimestamp() > mLocalFile.getModificationTimestamp());
+                        serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestamp());
                     }
                     boolean localChanged = (mLocalChangeAlreadyKnown || mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
                         // TODO this will be always true after the app is upgraded to database version 3; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes
                     if (localChanged && serverChanged) {
-                        // conflict
                         result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                   
                     } else if (localChanged) {
@@ -125,9 +136,9 @@ public class SynchronizeFileOperation extends RemoteOperation {
                             // the update of local data will be done later by the FileUploader service when the upload finishes
                         } else {
                             // TODO CHECK: is this really useful in some point in the code?
-                            serverFile.setKeepInSync(mLocalFile.keepInSync());
-                            serverFile.setParentId(mLocalFile.getParentId());
-                            mStorageManager.saveFile(serverFile);
+                            mServerFile.setKeepInSync(mLocalFile.keepInSync());
+                            mServerFile.setParentId(mLocalFile.getParentId());
+                            mStorageManager.saveFile(mServerFile);
                             
                         }
                         result = new RemoteOperationResult(ResultCode.OK);
@@ -137,10 +148,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         result = new RemoteOperationResult(ResultCode.OK);
                     }
               
-                } else {
-                    client.exhaustResponse(propfind.getResponseBodyAsStream());
-                    result = new RemoteOperationResult(false, status);
-                }
+                } 
           
             }
             

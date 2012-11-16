@@ -136,6 +136,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
             newDownload.addDatatransferProgressListener(this);
             requestedDownloads.add(downloadKey);
+            sendBroadcastNewDownload(newDownload);
             
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Not enough information provided in intent: " + e.getMessage());
@@ -273,7 +274,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             /// notify result
             notifyDownloadResult(mCurrentDownload, downloadResult);
             
-            sendFinalBroadcast(mCurrentDownload, downloadResult);
+            sendBroadcastDownloadFinished(mCurrentDownload, downloadResult);
         }
     }
 
@@ -368,16 +369,30 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     
     
     /**
-     * Sends a broadcast in order to the interested activities can update their view
+     * Sends a broadcast when a download finishes in order to the interested activities can update their view
      * 
      * @param download          Finished download operation
      * @param downloadResult    Result of the download operation
      */
-    private void sendFinalBroadcast(DownloadFileOperation download, RemoteOperationResult downloadResult) {
+    private void sendBroadcastDownloadFinished(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
+        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
+        sendBroadcast(end);
+    }
+    
+    
+    /**
+     * Sends a broadcast when a new download is added to the queue.
+     * 
+     * @param download          Added download operation
+     */
+    private void sendBroadcastNewDownload(DownloadFileOperation download) {
+        Intent end = new Intent(DOWNLOAD_ADDED_MESSAGE);
+        /*end.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
         end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         sendBroadcast(end);
     }
