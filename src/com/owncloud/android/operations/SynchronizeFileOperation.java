@@ -95,6 +95,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
                                                client.getBaseUri().getPath());
                         mServerFile = fillOCFile(we);
+                        mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
                         
                     } else {
                         client.exhaustResponse(propfind.getResponseBodyAsStream());
@@ -137,6 +138,8 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         } else {
                             // TODO CHECK: is this really useful in some point in the code?
                             mServerFile.setKeepInSync(mLocalFile.keepInSync());
+                            mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
+                            mServerFile.setStoragePath(mLocalFile.getStoragePath());
                             mServerFile.setParentId(mLocalFile.getParentId());
                             mStorageManager.saveFile(mServerFile);
                             
@@ -210,8 +213,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
-        file.setLastSyncDateForProperties(System.currentTimeMillis());
-        file.setLastSyncDateForData(0);
         return file;
     }
 

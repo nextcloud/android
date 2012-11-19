@@ -124,10 +124,6 @@ public class FileDataStorageManager implements DataStorageManager {
 
         if (fileExists(file.getRemotePath())) {
             OCFile oldFile = getFileByPath(file.getRemotePath());
-            if (file.getStoragePath() == null && oldFile.isDown())
-                file.setStoragePath(oldFile.getStoragePath());
-            if (!file.isDirectory());
-                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             file.setFileId(oldFile.getFileId());
 
             overriden = true;
@@ -203,12 +199,8 @@ public class FileDataStorageManager implements DataStorageManager {
             cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
             if (fileExists(file.getRemotePath())) {
-                OCFile tmpfile = getFileByPath(file.getRemotePath());
-                file.setStoragePath(tmpfile.getStoragePath());
-                if (!file.isDirectory());
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-                file.setFileId(tmpfile.getFileId());
-
+                OCFile oldFile = getFileByPath(file.getRemotePath());
+                file.setFileId(oldFile.getFileId());
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                         withValues(cv).
                         withSelection(  ProviderTableMeta._ID + "=?", 
@@ -391,10 +383,12 @@ public class FileDataStorageManager implements DataStorageManager {
                 file.setStoragePath(c.getString(c
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
-                    // try to find existing file and bind it with current account
+                    // try to find existing file and bind it with current account; - with the current update of SynchronizeFolderOperation, this won't be necessary anymore after a full synchronization of the account
                     File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-                    if (f.exists())
+                    if (f.exists()) {
                         file.setStoragePath(f.getAbsolutePath());
+                        file.setLastSyncDateForData(f.lastModified());
+                    }
                 }
             }
             file.setFileLength(c.getLong(c

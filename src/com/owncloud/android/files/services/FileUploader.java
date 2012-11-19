@@ -419,12 +419,14 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void saveUploadedFile() {
         OCFile file = mCurrentUpload.getFile();
         
+        /// new PROPFIND to keep data consistent with server in theory, should return the same we already have
         PropFindMethod propfind = null;
         RemoteOperationResult result = null;
+        long syncDate = System.currentTimeMillis();
         try {
           propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()));
           int status = mUploadClient.executeMethod(propfind);
-          boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
+          boolean isMultiStatus = (status == HttpStatus.SC_MULTI_STATUS);
           if (isMultiStatus) {
               MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
               WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
@@ -432,10 +434,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
               OCFile newFile = fillOCFile(we);
               newFile.setStoragePath(file.getStoragePath());
               newFile.setKeepInSync(file.keepInSync());
+              newFile.setLastSyncDateForProperties(syncDate);
               file = newFile;
               
           } else {
-              // this would be a problem
               mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
           }
           
@@ -451,27 +453,22 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 propfind.releaseConnection();
         }
 
-        long syncDate = System.currentTimeMillis();
-        if (result.isSuccess()) {
-            file.setLastSyncDateForProperties(syncDate);
-            
-        } else {
-            // file was successfully uploaded, but the new time stamp and Etag in the server could not be read; 
-            // just keeping old values :(
-            if (!mCurrentUpload.getRemotePath().equals(file.getRemotePath())) {
-                // true when the file was automatically renamed to avoid an overwrite 
-                OCFile newFile = new OCFile(mCurrentUpload.getRemotePath());
-                newFile.setCreationTimestamp(file.getCreationTimestamp());
-                newFile.setFileLength(file.getFileLength());
-                newFile.setMimetype(file.getMimetype());
-                newFile.setModificationTimestamp(file.getModificationTimestamp());
-                newFile.setLastSyncDateForProperties(file.getLastSyncDateForProperties());
-                newFile.setKeepInSync(file.keepInSync());
-                // newFile.setEtag(file.getEtag()) // TODO and this is still worse 
-                file = newFile;
-            }
+        file.setLastSyncDateForData(syncDate);  // this is right, no matter if the PROPFIND was successful or not
+        
+        if (!result.isSuccess() && !mCurrentUpload.getRemotePath().equals(file.getRemotePath())) {
+            // true when the file was automatically renamed to avoid an overwrite ; yes, this is a bit obscure...
+            OCFile newFile = new OCFile(mCurrentUpload.getRemotePath());
+            newFile.setCreationTimestamp(file.getCreationTimestamp());
+            newFile.setFileLength(file.getFileLength());
+            newFile.setMimetype(file.getMimetype());
+            newFile.setModificationTimestamp(file.getModificationTimestamp());
+            newFile.setLastSyncDateForProperties(file.getLastSyncDateForProperties());
+            newFile.setStoragePath(file.getStoragePath());
+            newFile.setKeepInSync(file.keepInSync());
+            // newFile.setEtag(file.getEtag())
+            file = newFile;
         }
-        file.setLastSyncDateForData(syncDate);
+        
         mStorageManager.saveFile(file);
     }
 

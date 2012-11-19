@@ -26,11 +26,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.OwnCloudFileObserver;
-import com.owncloud.android.files.OwnCloudFileObserver.FileObserverStatusListener;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
@@ -45,7 +41,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-public class FileObserverService extends Service implements FileObserverStatusListener {
+public class FileObserverService extends Service {
 
     public final static int CMD_INIT_OBSERVED_LIST = 1;
     public final static int CMD_ADD_OBSERVED_FILE = 2;
@@ -77,7 +73,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         registerReceiver(mDownloadReceiver, filter);
         
         mObserversMap = new HashMap<String, OwnCloudFileObserver>();
-        initializeObservedList();
+        //initializeObservedList();
     }
     
     
@@ -86,6 +82,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         super.onDestroy();
         unregisterReceiver(mDownloadReceiver);
         mObserversMap = null;   // TODO study carefully the life cycle of Services to grant the best possible observance
+        Log.d(TAG, "Bye, bye");
     }
     
     
@@ -159,12 +156,11 @@ public class FileObserverService extends Service implements FileObserverStatusLi
 
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
             OwnCloudFileObserver observer =
-                    new OwnCloudFileObserver(path, OwnCloudFileObserver.CHANGES_ONLY);
-            observer.setContext(getApplicationContext());
-            observer.setAccount(account);
-            observer.setStorageManager(storage);
-            observer.setOCFile(storage.getFileByPath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH))));
-            observer.addObserverStatusListener(this);
+                    new OwnCloudFileObserver(   path, 
+                                                storage.getFileByPath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH))),
+                                                account, 
+                                                getApplicationContext(), 
+                                                OwnCloudFileObserver.CHANGES_ONLY);
             mObserversMap.put(path, observer);
             if (new File(path).exists()) {
                 observer.startWatching();
@@ -174,6 +170,7 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         } while (c.moveToNext());
         c.close();
     }
+    
     
     /**
      * Registers the local copy of a remote file to be observed for local changes,
@@ -200,17 +197,11 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         OwnCloudFileObserver observer = mObserversMap.get(localPath);
         if (observer == null) {
             /// the local file was never registered to observe before
-            observer = new OwnCloudFileObserver(localPath, OwnCloudFileObserver.CHANGES_ONLY);
-            //Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-            observer.setAccount(account);
-            FileDataStorageManager storage =
-                    new FileDataStorageManager(account, getContentResolver());  // I don't trust in this resolver's life span...
-            observer.setStorageManager(storage);
-            //observer.setOCFile(storage.getFileByLocalPath(path));   // ISSUE 10 - the fix in FileDetailsFragment to avoid path == null was not enough; it the file was never down before, this sets a NULL OCFile in the observer
-            observer.setOCFile(file);
-            observer.addObserverStatusListener(this);
-            observer.setContext(getApplicationContext());
-
+            observer = new OwnCloudFileObserver(   localPath, 
+                                                    file,
+                                                    account, 
+                                                    getApplicationContext(), 
+                                                    OwnCloudFileObserver.CHANGES_ONLY);
             mObserversMap.put(localPath, observer);
             Log.d(TAG, "Observer added for path " + localPath);
         
@@ -254,26 +245,6 @@ public class FileObserverService extends Service implements FileObserverStatusLi
         
     }
 
-    
-    @Override
-    public void onObservedFileStatusUpdate(String localPath, String remotePath, Account account, RemoteOperationResult result) {
-        if (!result.isSuccess()) {
-            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
-                Intent i = new Intent(getApplicationContext(), ConflictsResolveActivity.class);
-                i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("remotepath", remotePath);
-                i.putExtra("localpath", localPath);
-                i.putExtra("account", account);
-                startActivity(i);
-                
-            } else {
-                // TODO send notification to the notification bar?
-            }
-        } // else, nothing else to do; now it's duty of FileUploader service 
-    }
-    
-    
 
     /**
      *  Private receiver listening to events broadcast by the FileDownloader service.

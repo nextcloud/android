@@ -19,19 +19,21 @@
 package com.owncloud.android.files;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
 
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.Intent;
 import android.os.FileObserver;
 import android.util.Log;
 
@@ -40,51 +42,31 @@ public class OwnCloudFileObserver extends FileObserver {
     public static int CHANGES_ONLY = CLOSE_WRITE;
     
     private static String TAG = OwnCloudFileObserver.class.getSimpleName();
+    
     private String mPath;
     private int mMask;
-    private DataStorageManager mStorage;
     private Account mOCAccount;
     private OCFile mFile;
     private Context mContext;
-    private List<FileObserverStatusListener> mListeners;
-    
-    public OwnCloudFileObserver(String path) {
-        this(path, ALL_EVENTS);
-    }
-    
-    public OwnCloudFileObserver(String path, int mask) {
-        super(path, mask);
-        mPath = path;
-        mMask = mask;
-        mListeners = new LinkedList<FileObserverStatusListener>();
-    }
-    
-    public void setAccount(Account account) {
-        mOCAccount = account;
-    }
-    
-    public void setStorageManager(DataStorageManager manager) {
-        mStorage = manager;
-    }
-    
-    public void setOCFile(OCFile file) {
-        mFile = file;
-    }
-    
-    public void setContext(Context context) {
-        mContext = context;
-    }
 
-    public String getPath() {
-        return mPath;
-    }
     
-    public String getRemotePath() {
-        return mFile.getRemotePath();
-    }
-    
-    public void addObserverStatusListener(FileObserverStatusListener listener) {
-        mListeners.add(listener);
+    public OwnCloudFileObserver(String path, OCFile file, Account account, Context context, int mask) {
+        super(path, mask);
+        if (path == null)
+            throw new IllegalArgumentException("NULL path argument received"); 
+        if (file == null)
+            throw new IllegalArgumentException("NULL file argument received"); 
+        if (account == null)
+            throw new IllegalArgumentException("NULL account argument received"); 
+        if (context == null)
+            throw new IllegalArgumentException("NULL context argument received");
+        if (!path.equals(file.getStoragePath()) && !path.equals(FileStorageUtils.getDefaultSavePathFor(account.name, file)))
+            throw new IllegalArgumentException("File argument is not linked to the local file set in path argument");
+        mPath = path;
+        mFile = file;
+        mOCAccount = account;
+        mContext = context; 
+        mMask = mask;
     }
     
     @Override
@@ -94,34 +76,29 @@ public class OwnCloudFileObserver extends FileObserver {
             Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
-            /* Unexpected event that will be ignored; no reason to propagate it 
-            for (FileObserverStatusListener l : mListeners)
-                l.OnObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, Status.INCORRECT_MASK);
-            */
             return;
         }
         WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile, null, mStorage, mOCAccount, true, false, mContext);
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile, 
+                                                                    null, 
+                                                                    new FileDataStorageManager(mOCAccount, mContext.getContentResolver()), 
+                                                                    mOCAccount, 
+                                                                    true, 
+                                                                    true, 
+                                                                    mContext);
         RemoteOperationResult result = sfo.execute(wc);
-        for (FileObserverStatusListener l : mListeners) {
-            l.onObservedFileStatusUpdate(mPath, getRemotePath(), mOCAccount, result);
+        if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+            // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
+            Intent i = new Intent(mContext, ConflictsResolveActivity.class);
+            i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("remotepath", mFile.getRemotePath());
+            i.putExtra("localpath", mPath);
+            i.putExtra("account", mOCAccount);
+            mContext.startActivity(i);
         }
-        
-    }
-    
-    public interface FileObserverStatusListener {
-        public void onObservedFileStatusUpdate(String localPath,
-                                               String remotePath,
-                                               Account account,
-                                               RemoteOperationResult result);
-    }
-
-    public OCFile getOCFile() {
-        return mFile;
-    }
-
-    public Account getAccount() {
-        return mOCAccount;
+        // TODO save other errors in some point where the user can inspect them later;
+        //      or maybe just toast them;
+        //      or nothing, very strange fails
     }
     
 }

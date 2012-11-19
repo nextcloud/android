@@ -18,6 +18,7 @@
 
 package com.owncloud.android.operations;
 
+import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
@@ -138,26 +139,39 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
                 List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
                 for (int i = 1; i < resp.getResponses().length; ++i) {
+                    /// new OCFile instance with the data from the server
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());
                     OCFile file = fillOCFile(we);
+                    
+                    /// set data about local state, keeping unchanged former data if existing
+                    file.setLastSyncDateForProperties(mCurrentSyncTime);
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
                     if (oldFile != null) {
                         file.setKeepInSync(oldFile.keepInSync());
                         file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
-                        if (file.keepInSync()) {
-                            //disableObservance(file);        // first disable observer so we won't get file upload right after download
-                            //                                // now, the FileDownloader service sends a broadcast before start a download; the FileObserverService is listening for it
-                            //requestFileSynchronization(file, oldFile, client);
-                            SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
-                                                                                                file, 
-                                                                                                mStorageManager,
-                                                                                                mAccount,       
-                                                                                                true, 
-                                                                                                false,          
-                                                                                                mContext
-                                                                                                );
-                            filesToSyncContents.add(operation);
+                        file.setStoragePath(oldFile.getStoragePath());
+                    }
+
+                    /// scan default location if local copy of file is not linked in OCFile instance
+                    if (file.getStoragePath() == null && !file.isDirectory()) {
+                        File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                        if (f.exists()) {
+                            file.setStoragePath(f.getAbsolutePath());
+                            file.setLastSyncDateForData(f.lastModified());
                         }
+                    }
+                    
+                    /// prepare content synchronization for kept-in-sync files
+                    if (file.keepInSync()) {
+                        SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
+                                                                                            file, 
+                                                                                            mStorageManager,
+                                                                                            mAccount,       
+                                                                                            true, 
+                                                                                            false,          
+                                                                                            mContext
+                                                                                            );
+                        filesToSyncContents.add(operation);
                     }
                 
                     updatedFiles.add(file);
@@ -250,7 +264,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
-        file.setLastSyncDateForProperties(mCurrentSyncTime);
         file.setParentId(mParentId);
         return file;
     }
