@@ -155,6 +155,8 @@ public class FileObserverService extends Service {
                 continue;
 
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+            if (path == null || path.length() <= 0)
+                continue;
             OwnCloudFileObserver observer =
                     new OwnCloudFileObserver(   path, 
                                                 account, 
