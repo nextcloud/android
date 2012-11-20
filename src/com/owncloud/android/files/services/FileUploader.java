@@ -74,6 +74,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String EXTRA_PARENT_DIR_ID = "PARENT_DIR_ID";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     
@@ -674,6 +675,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void sendFinalBroadcast(UploadFileOperation upload, RemoteOperationResult uploadResult) {
         Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath());    // real remote path, after possible automatic renaming
+        if (upload.wasRenamed()) {
+            end.putExtra(EXTRA_OLD_REMOTE_PATH, upload.getOldFile().getRemotePath());
+        }
         end.putExtra(EXTRA_FILE_PATH, upload.getStoragePath());
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());

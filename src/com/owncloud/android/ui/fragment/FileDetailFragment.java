@@ -712,10 +712,16 @@ public class FileDetailFragment extends SherlockFragment implements
             if (!isEmpty() && accountName.equals(mAccount.name)) {
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
                 String uploadRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-                if (mFile.getRemotePath().equals(uploadRemotePath)) {
+                boolean renamedInUpload = mFile.getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+                if (mFile.getRemotePath().equals(uploadRemotePath) ||
+                    renamedInUpload) {
                     if (uploadWasFine) {
-                        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-                        mFile = fdsm.getFileByPath(mFile.getRemotePath());
+                        mFile = mStorageManager.getFileByPath(mFile.getRemotePath());
+                    }
+                    if (renamedInUpload) {
+                        String newName = (new File(uploadRemotePath)).getName();
+                        Toast msg = Toast.makeText(getActivity().getApplicationContext(), String.format(getString(R.string.filedetails_renamed_in_upload_msg), newName), Toast.LENGTH_LONG);
+                        msg.show();
                     }
                     updateFileDetails();    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
