@@ -157,7 +157,6 @@ public class FileObserverService extends Service {
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
             OwnCloudFileObserver observer =
                     new OwnCloudFileObserver(   path, 
-                                                storage.getFileByPath(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH))),
                                                 account, 
                                                 getApplicationContext(), 
                                                 OwnCloudFileObserver.CHANGES_ONLY);
@@ -197,8 +196,7 @@ public class FileObserverService extends Service {
         OwnCloudFileObserver observer = mObserversMap.get(localPath);
         if (observer == null) {
             /// the local file was never registered to observe before
-            observer = new OwnCloudFileObserver(   localPath, 
-                                                    file,
+            observer = new OwnCloudFileObserver(    localPath, 
                                                     account, 
                                                     getApplicationContext(), 
                                                     OwnCloudFileObserver.CHANGES_ONLY);

@@ -27,7 +27,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -46,24 +45,24 @@ public class OwnCloudFileObserver extends FileObserver {
     private String mPath;
     private int mMask;
     private Account mOCAccount;
-    private OCFile mFile;
+    //private OCFile mFile;
     private Context mContext;
 
     
-    public OwnCloudFileObserver(String path, OCFile file, Account account, Context context, int mask) {
+    public OwnCloudFileObserver(String path, Account account, Context context, int mask) {
         super(path, mask);
         if (path == null)
             throw new IllegalArgumentException("NULL path argument received"); 
-        if (file == null)
-            throw new IllegalArgumentException("NULL file argument received"); 
+        /*if (file == null)
+            throw new IllegalArgumentException("NULL file argument received");*/ 
         if (account == null)
             throw new IllegalArgumentException("NULL account argument received"); 
         if (context == null)
             throw new IllegalArgumentException("NULL context argument received");
-        if (!path.equals(file.getStoragePath()) && !path.equals(FileStorageUtils.getDefaultSavePathFor(account.name, file)))
-            throw new IllegalArgumentException("File argument is not linked to the local file set in path argument");
+        /*if (!path.equals(file.getStoragePath()) && !path.equals(FileStorageUtils.getDefaultSavePathFor(account.name, file)))
+            throw new IllegalArgumentException("File argument is not linked to the local file set in path argument"); */
         mPath = path;
-        mFile = file;
+        //mFile = file;
         mOCAccount = account;
         mContext = context; 
         mMask = mask;
@@ -79,9 +78,12 @@ public class OwnCloudFileObserver extends FileObserver {
             return;
         }
         WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
-        SynchronizeFileOperation sfo = new SynchronizeFileOperation(mFile, 
+        FileDataStorageManager storageManager = new FileDataStorageManager(mOCAccount, mContext.getContentResolver());
+        OCFile file = storageManager.getFileByLocalPath(mPath);     // a fresh object is needed; many things could have occurred to the file since it was registered to observe
+                                                                    // again, assuming that local files are linked to a remote file AT MOST, SOMETHING TO BE DONE; 
+        SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, 
                                                                     null, 
-                                                                    new FileDataStorageManager(mOCAccount, mContext.getContentResolver()), 
+                                                                    storageManager, 
                                                                     mOCAccount, 
                                                                     true, 
                                                                     true, 
@@ -91,7 +93,7 @@ public class OwnCloudFileObserver extends FileObserver {
             // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
             Intent i = new Intent(mContext, ConflictsResolveActivity.class);
             i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra("remotepath", mFile.getRemotePath());
+            i.putExtra("remotepath", file.getRemotePath());
             i.putExtra("localpath", mPath);
             i.putExtra("account", mOCAccount);
             mContext.startActivity(i);
