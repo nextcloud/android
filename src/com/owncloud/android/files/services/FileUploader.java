@@ -38,6 +38,7 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -418,11 +419,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private void saveUploadedFile() {
         OCFile file = mCurrentUpload.getFile();
+        long syncDate = System.currentTimeMillis();
+        file.setLastSyncDateForData(syncDate);
         
         /// new PROPFIND to keep data consistent with server in theory, should return the same we already have
         PropFindMethod propfind = null;
         RemoteOperationResult result = null;
-        long syncDate = System.currentTimeMillis();
         try {
           propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()));
           int status = mUploadClient.executeMethod(propfind);
@@ -431,11 +433,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
               MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
               WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
                                                mUploadClient.getBaseUri().getPath());
-              OCFile newFile = fillOCFile(we);
-              newFile.setStoragePath(file.getStoragePath());
-              newFile.setKeepInSync(file.keepInSync());
-              newFile.setLastSyncDateForProperties(syncDate);
-              file = newFile;
+              updateOCFile(file, we);
+              file.setLastSyncDateForProperties(syncDate);
               
           } else {
               mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
@@ -453,34 +452,47 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 propfind.releaseConnection();
         }
 
-        file.setLastSyncDateForData(syncDate);  // this is right, no matter if the PROPFIND was successful or not
         
-        if (!result.isSuccess() && !mCurrentUpload.getRemotePath().equals(file.getRemotePath())) {
-            // true when the file was automatically renamed to avoid an overwrite ; yes, this is a bit obscure...
-            OCFile newFile = new OCFile(mCurrentUpload.getRemotePath());
-            newFile.setCreationTimestamp(file.getCreationTimestamp());
-            newFile.setFileLength(file.getFileLength());
-            newFile.setMimetype(file.getMimetype());
-            newFile.setModificationTimestamp(file.getModificationTimestamp());
-            newFile.setLastSyncDateForProperties(file.getLastSyncDateForProperties());
-            newFile.setStoragePath(file.getStoragePath());
-            newFile.setKeepInSync(file.keepInSync());
-            // newFile.setEtag(file.getEtag())
-            file = newFile;
+        if (mCurrentUpload.wasRenamed()) {
+            OCFile oldFile = mCurrentUpload.getOldFile();
+            if (!oldFile.fileExists()) {
+                // just a name coincidence
+                file.setStoragePath(oldFile.getStoragePath());
+                
+            } else {
+                // conflict resolved with 'Keep both' by the user
+                File localFile = new File(oldFile.getStoragePath());
+                File newLocalFile = new File(FileStorageUtils.getDefaultSavePathFor(mCurrentUpload.getAccount().name, file));
+                boolean renameSuccessed = localFile.renameTo(newLocalFile);
+                if (renameSuccessed) {
+                    file.setStoragePath(newLocalFile.getAbsolutePath());
+                    
+                } else {
+                    // poor solution
+                    Log.d(TAG, "DAMN IT: local rename failed after uploading a file with a new name already existing both in the remote account and the local database (should be due to a conflict solved with 'keep both'");
+                    file.setStoragePath(null);
+                        // not so fine:
+                        //      - local file will be kept there as 'trash' until is download (and overwritten) again from the server;
+                        //      - user will see as 'not down' a file that was just upload
+                        // BUT:
+                        //      - no loss of data happened
+                        //      - when the user downloads again the renamed and original file from the server, local file names and contents will be correctly synchronized with names and contents in server
+                }
+                oldFile.setStoragePath(null);
+                mStorageManager.saveFile(oldFile);
+            }
         }
         
         mStorageManager.saveFile(file);
     }
 
     
-    private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.decodedPath());
+    private void updateOCFile(OCFile file, WebdavEntry we) {
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
         // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
-        return file;
     }
     
     

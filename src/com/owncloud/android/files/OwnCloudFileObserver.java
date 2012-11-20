@@ -93,9 +93,8 @@ public class OwnCloudFileObserver extends FileObserver {
             // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
             Intent i = new Intent(mContext, ConflictsResolveActivity.class);
             i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra("remotepath", file.getRemotePath());
-            i.putExtra("localpath", mPath);
-            i.putExtra("account", mOCAccount);
+            i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
+            i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mOCAccount);
             mContext.startActivity(i);
         }
         // TODO save other errors in some point where the user can inspect them later;

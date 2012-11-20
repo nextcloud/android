@@ -992,10 +992,8 @@ public class FileDetailFragment extends SherlockFragment implements
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
-                //i.setFlags(i.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra("remotepath", mFile.getRemotePath());
-                i.putExtra("localpath", mFile.getStoragePath());
-                i.putExtra("account", mAccount);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, mFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
                 startActivity(i);
                 
             } else {

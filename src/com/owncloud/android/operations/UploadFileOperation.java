@@ -50,13 +50,16 @@ public class UploadFileOperation extends RemoteOperation {
 
     private Account mAccount;
     private OCFile mFile;
+    private OCFile mOldFile;
     private String mRemotePath = null;
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
+    private boolean mWasRenamed = false;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+
     
     public UploadFileOperation( Account account,
                                 OCFile file,
@@ -86,13 +89,16 @@ public class UploadFileOperation extends RemoteOperation {
         return mFile;
     }
     
+    public OCFile getOldFile() {
+        return mOldFile; 
+    }
+    
     public String getStoragePath() {
         return mFile.getStoragePath();
     }
 
     public String getRemotePath() {
-        //return mFile.getRemotePath(); // DON'T MAKE THIS ; the remotePath used can be different to mFile.getRemotePath() if mForceOverwrite is 'false'; see run(...)
-        return mRemotePath;
+        return mFile.getRemotePath(); 
     }
 
     public String getMimeType() {
@@ -115,6 +121,9 @@ public class UploadFileOperation extends RemoteOperation {
         return mForceOverwrite;
     }
     
+    public boolean wasRenamed() {
+        return mWasRenamed;
+    }
     
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {
         return mDataTransferListeners;
@@ -132,7 +141,11 @@ public class UploadFileOperation extends RemoteOperation {
         try {
             /// rename the file to upload, if necessary
             if (!mForceOverwrite) {
-                mRemotePath = getAvailableRemotePath(client, mRemotePath);
+                String remotePath = getAvailableRemotePath(client, mRemotePath);
+                mWasRenamed = !remotePath.equals(mRemotePath);
+                if (mWasRenamed) {
+                   createNewOCFile(remotePath);
+                }
             }
         
             /// perform the upload
@@ -162,6 +175,24 @@ public class UploadFileOperation extends RemoteOperation {
     }
 
     
+    private void createNewOCFile(String newRemotePath) {
+        // a new OCFile instance must be created for a new remote path
+        OCFile newFile = new OCFile(newRemotePath);
+        newFile.setCreationTimestamp(mFile.getCreationTimestamp());
+        newFile.setFileLength(mFile.getFileLength());
+        newFile.setMimetype(mFile.getMimetype());
+        newFile.setModificationTimestamp(mFile.getModificationTimestamp());
+        // newFile.setEtag(mFile.getEtag())
+        newFile.setKeepInSync(mFile.keepInSync());
+        newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
+        newFile.setLastSyncDateForData(mFile.getLastSyncDateForData());
+        newFile.setStoragePath(mFile.getStoragePath());
+        newFile.setParentId(mFile.getParentId());
+        mOldFile = mFile;
+        mFile = newFile;
+    }
+
+
     public boolean isSuccess(int status) {
         return ((status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT));
     }
