@@ -40,7 +40,9 @@ import eu.alefzero.webdav.WebdavUtils;
 public class SynchronizeFileOperation extends RemoteOperation {
 
     private String TAG = SynchronizeFileOperation.class.getSimpleName();
-    //private String mRemotePath;
+    private static final int SYNC_READ_TIMEOUT = 10000;
+    private static final int SYNC_CONNECTION_TIMEOUT = 5000;
+    
     private OCFile mLocalFile;
     private OCFile mServerFile;
     private DataStorageManager mStorageManager;
@@ -88,7 +90,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                 if (mServerFile == null) {
                     /// take the duty of check the server for the current state of the file there
                     propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()));
-                    int status = client.executeMethod(propfind);
+                    int status = client.executeMethod(propfind, SYNC_READ_TIMEOUT, SYNC_CONNECTION_TIMEOUT);
                     boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
                     if (isMultiStatus) {
                         MultiStatus resp = propfind.getResponseBodyAsMultiStatus();

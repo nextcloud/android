@@ -1003,6 +1003,13 @@ public class FileDetailFragment extends SherlockFragment implements
                 msg.show();
             }
             
+            if (mFile.isDown()) {
+                setButtonsForDown();
+                
+            } else {
+                setButtonsForRemote();
+            }
+            
         } else {
             if (operation.transferWasRequested()) {
                 mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
