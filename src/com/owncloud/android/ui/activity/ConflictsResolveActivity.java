@@ -62,6 +62,7 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
         
         switch (decision) {
             case CANCEL:
+                finish();
                 return;
             case OVERWRITE:
                 i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
