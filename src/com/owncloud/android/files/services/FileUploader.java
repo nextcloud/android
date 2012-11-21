@@ -199,6 +199,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
         
+        boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
+        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
+        boolean fixed = false;
+        if (isInstant) {
+            fixed = checkAndFixInstantUploadDirectory(storageManager);  // MUST be done BEFORE calling obtainNewOCFileToUpload
+        }
+        
         if (intent.hasExtra(KEY_FILE) && files == null) {
             Log.e(TAG, "Incorrect array for OCFiles provided in upload intent");
             return Service.START_NOT_STICKY;
@@ -223,18 +230,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
             
-        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
-        boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-        
         OwnCloudVersion ocv = new OwnCloudVersion(AccountManager.get(this).getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;
         UploadFileOperation newUpload = null;
-        boolean fixed = false;
-        if (isInstant) {
-            fixed = checkAndFixInstantUploadDirectory(storageManager);
-        }
         try {
             for (int i=0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
