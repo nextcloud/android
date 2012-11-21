@@ -168,9 +168,11 @@ public class RenameFileOperation extends RemoteOperation {
         // try to rename the local copy of the file
         if (mFile.isDown()) {
             File f = new File(mFile.getStoragePath());
-            String newStoragePath = f.getParent() + mNewName;
-            if (f.renameTo(new File(newStoragePath))) {
-                mFile.setStoragePath(newStoragePath);
+            String parentStoragePath = f.getParent();
+            if (!parentStoragePath.endsWith(File.separator))
+                parentStoragePath += File.separator;
+            if (f.renameTo(new File(parentStoragePath + mNewName))) {
+                mFile.setStoragePath(parentStoragePath + mNewName);
             }
             // else - NOTHING: the link to the local file is kept although the local name can't be updated
             // TODO - study conditions when this could be a problem
