@@ -500,5 +500,76 @@ public class FileDataStorageManager implements DataStorageManager {
             }
         }
     }
+    
+    
+    /**
+     * Updates database for a folder that was moved to a different location.
+     * 
+     * TODO explore better (faster) implementations
+     * TODO throw exceptions up !
+     */
+    @Override
+    public void moveDirectory(OCFile dir, String newPath) {
+        // TODO check newPath
+        
+        if (dir != null && dir.isDirectory() && dir.fileExists() && !dir.getFileName().equals(OCFile.PATH_SEPARATOR)) {
+            /// 1. get all the descendants of 'dir' in a single QUERY (including 'dir')
+            Cursor c = null;
+            if (getContentProvider() != null) {
+                try {
+                    c = getContentProvider().query(ProviderTableMeta.CONTENT_URI, 
+                                                    null,
+                                                    ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ?",
+                                                    new String[] { mAccount.name, dir.getRemotePath() + "%" }, null);
+                } catch (RemoteException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            } else {
+                c = getContentResolver().query(ProviderTableMeta.CONTENT_URI, 
+                                                null,
+                                                ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ?",
+                                                new String[] { mAccount.name, dir.getRemotePath() + "%" }, null);
+            }
+
+            /// 2. prepare a batch of update operations to change all the descendants
+            ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(c.getCount());
+            ContentValues cv = new ContentValues();
+            int lengthOfOldPath = dir.getRemotePath().length();
+            String defaultSavePath = FileDownloader.getSavePath(mAccount.name);
+            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
+            if (c.moveToFirst()) {
+                do {
+                    OCFile child = createFileInstance(c);
+                    cv.put(ProviderTableMeta.FILE_PATH, newPath + child.getRemotePath().substring(lengthOfOldPath));
+                    if (child.getStoragePath() != null && child.getStoragePath().startsWith(defaultSavePath)) {
+                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, defaultSavePath + newPath + child.getStoragePath().substring(lengthOfOldStoragePath));
+                    }
+                    operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                                                                        withValues(cv).
+                                                                        withSelection(  ProviderTableMeta._ID + "=?", 
+                                                                                new String[] { String.valueOf(child.getFileId()) })
+                                                                                .build());
+                } while (c.moveToNext());
+            }
+            c.close();
+            
+            /// 3. apply updates in batch
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+                
+                } else {
+                    getContentProvider().applyBatch(operations);
+                }
+                
+            } catch (OperationApplicationException e) {
+                Log.e(TAG, "Fail to update descendants of " + dir.getFileId() + " in database", e);
+                
+            } catch (RemoteException e) {
+                Log.e(TAG, "Fail to update desendants of " + dir.getFileId() + " in database", e);
+            }
+            
+        }
+    }
 
 }

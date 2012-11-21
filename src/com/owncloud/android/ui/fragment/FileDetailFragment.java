@@ -829,6 +829,7 @@ public class FileDetailFragment extends SherlockFragment implements
             String newFilename = dialog.getNewFilename();
             Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
             mLastRemoteOperation = new RenameFileOperation( mFile, 
+                                                            mAccount, 
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
             WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());

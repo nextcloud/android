@@ -441,6 +441,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             String newFilename = dialog.getNewFilename();
             Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
             RemoteOperation operation = new RenameFileOperation(mTargetFile, 
+                                                                AccountUtils.getCurrentOwnCloudAccount(getActivity()), 
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
             WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
