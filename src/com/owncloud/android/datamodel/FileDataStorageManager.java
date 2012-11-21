@@ -533,12 +533,12 @@ public class FileDataStorageManager implements DataStorageManager {
 
             /// 2. prepare a batch of update operations to change all the descendants
             ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(c.getCount());
-            ContentValues cv = new ContentValues();
             int lengthOfOldPath = dir.getRemotePath().length();
             String defaultSavePath = FileDownloader.getSavePath(mAccount.name);
             int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
             if (c.moveToFirst()) {
                 do {
+                    ContentValues cv = new ContentValues(); // don't take the constructor out of the loop and clear the object
                     OCFile child = createFileInstance(c);
                     cv.put(ProviderTableMeta.FILE_PATH, newPath + child.getRemotePath().substring(lengthOfOldPath));
                     if (child.getStoragePath() != null && child.getStoragePath().startsWith(defaultSavePath)) {
