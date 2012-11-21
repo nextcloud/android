@@ -109,6 +109,11 @@ public class ConflictsResolveDialog extends SherlockDialogFragment {
         }
     }
     
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        mListener.ConflictDecisionMade(Decision.CANCEL);
+    }
+    
     public interface OnConflictDecisionMadeListener {
         public void ConflictDecisionMade(Decision decision);
     }
