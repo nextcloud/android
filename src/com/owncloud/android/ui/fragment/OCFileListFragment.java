@@ -203,8 +203,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.rename_file_item: {
-                EditNameDialog dialog = EditNameDialog.newInstance(mTargetFile.getFileName());
-                dialog.setOnDismissListener(this);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), mTargetFile.getFileName(), this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
                 return true;
             }

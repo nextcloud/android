@@ -328,8 +328,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }
             case R.id.fdRenameBtn: {
-                EditNameDialog dialog = EditNameDialog.newInstance(mFile.getFileName());
-                dialog.setOnDismissListener(this);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), mFile.getFileName(), this);
                 dialog.show(getFragmentManager(), "nameeditdialog");
                 break;
             }   

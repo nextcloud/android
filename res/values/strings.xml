@@ -181,6 +181,7 @@
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>
     
+    <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">"Local copy could not be renamed; try a differente new name"</string>
     <string name="rename_server_fail_msg">"Rename could not be completed"</string>
         
