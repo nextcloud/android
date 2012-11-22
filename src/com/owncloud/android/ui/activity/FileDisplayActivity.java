@@ -902,9 +902,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-
+            OCFile downloadedFile = mStorageManager.getFileByPath(downloadedRemotePath);    // if null, the file is not in the current account, OR WAS DELETED before the download finished 
+            
             if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                     mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
+                     mCurrentDir != null && downloadedFile != null &&
+                     mCurrentDir.getFileId() == downloadedFile.getParentId()) {
                 OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
