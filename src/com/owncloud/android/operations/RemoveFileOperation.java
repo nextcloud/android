@@ -18,6 +18,7 @@
 
 package com.owncloud.android.operations;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import android.util.Log;
@@ -81,7 +82,7 @@ public class RemoveFileOperation extends RemoteOperation {
         try {
             delete = new DeleteMethod(client.getBaseUri() + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
-            if (delete.succeeded()) {
+            if (delete.succeeded() || status == HttpStatus.SC_NOT_FOUND) {
                 if (mFileToRemove.isDirectory()) {
                     mDataStorageManager.removeDirectory(mFileToRemove, true, mDeleteLocalCopy);
                 } else {
@@ -89,7 +90,7 @@ public class RemoveFileOperation extends RemoteOperation {
                 }
             }
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-            result = new RemoteOperationResult(delete.succeeded(), status);
+            result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status);
             Log.i(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
