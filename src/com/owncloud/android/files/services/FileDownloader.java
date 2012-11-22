@@ -380,7 +380,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
-        sendBroadcast(end);
+        sendStickyBroadcast(end);
     }
     
     
@@ -390,11 +390,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * @param download          Added download operation
      */
     private void sendBroadcastNewDownload(DownloadFileOperation download) {
-        Intent end = new Intent(DOWNLOAD_ADDED_MESSAGE);
-        /*end.putExtra(ACCOUNT_NAME, download.getAccount().name);
-        end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
-        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
-        sendBroadcast(end);
+        Intent added = new Intent(DOWNLOAD_ADDED_MESSAGE);
+        /*added.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
+        added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
+        sendStickyBroadcast(added);
     }
 
 }

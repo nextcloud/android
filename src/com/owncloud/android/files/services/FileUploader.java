@@ -683,7 +683,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
         end.putExtra(EXTRA_PARENT_DIR_ID, upload.getFile().getParentId());
-        sendBroadcast(end);
+        sendStickyBroadcast(end);
     }
 
 

@@ -707,6 +707,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private class UploadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Received broacast! : " + intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH));
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
 
             if (!isEmpty() && accountName.equals(mAccount.name)) {
