@@ -202,14 +202,27 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         
         
         /**
-         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download
+         * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download.
+         * 
+         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to download. 
          * 
          * @param account       Owncloud account where the remote file is stored.
          * @param file          A file that could be in the queue of downloads.
          */
         public boolean isDownloading(Account account, OCFile file) {
+            String targetKey = buildRemoteName(account, file);
             synchronized (mPendingDownloads) {
-                return (mPendingDownloads.containsKey(buildRemoteName(account, file)));
+                if (file.isDirectory()) {
+                    // this can be slow if there are many downloads :(
+                    Iterator<String> it = mPendingDownloads.keySet().iterator();
+                    boolean found = false;
+                    while (it.hasNext() && !found) {
+                        found = it.next().startsWith(targetKey);
+                    }
+                    return found;
+                } else {
+                    return (mPendingDownloads.containsKey(targetKey));
+                }
             }
         }
     }

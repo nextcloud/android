@@ -64,7 +64,6 @@ import eu.alefzero.webdav.WebdavClient;
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
     public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
-    public static final String EXTRA_PARENT_DIR_ID = "PARENT_DIR_ID";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
@@ -281,12 +280,25 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         /**
          * Returns True when the file described by 'file' is being uploaded to the ownCloud account 'account' or waiting for it
          * 
+         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to download. 
+         * 
          * @param account       Owncloud account where the remote file will be stored.
          * @param file          A file that could be in the queue of pending uploads
          */
         public boolean isUploading(Account account, OCFile file) {
+            String targetKey = buildRemoteName(account, file);
             synchronized (mPendingUploads) {
-                return (mPendingUploads.containsKey(buildRemoteName(account, file)));
+                if (file.isDirectory()) {
+                    // this can be slow if there are many downloads :(
+                    Iterator<String> it = mPendingUploads.keySet().iterator();
+                    boolean found = false;
+                    while (it.hasNext() && !found) {
+                        found = it.next().startsWith(targetKey);
+                    }
+                    return found;
+                } else {
+                    return (mPendingUploads.containsKey(targetKey));
+                }
             }
         }
     }
@@ -572,7 +584,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         end.putExtra(EXTRA_FILE_PATH, upload.getStoragePath());
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
-        end.putExtra(EXTRA_PARENT_DIR_ID, upload.getFile().getParentId());
         sendBroadcast(end);
     }
 

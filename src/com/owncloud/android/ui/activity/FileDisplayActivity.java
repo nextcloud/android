@@ -874,16 +874,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            long parentDirId = intent.getLongExtra(FileUploader.EXTRA_PARENT_DIR_ID, -1);
-            OCFile parentDir = mStorageManager.getFileById(parentDirId);
+            String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
-
-            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                    parentDir != null && 
-                    (   (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
-                            parentDir.equals(mCurrentDir)
-                    )
-                ) {
+            boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
+            boolean isDescendant = (mCurrentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            if (sameAccount && isDescendant) {
                 OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
@@ -902,11 +897,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            OCFile downloadedFile = mStorageManager.getFileByPath(downloadedRemotePath);    // if null, the file is not in the current account, OR WAS DELETED before the download finished 
-            
-            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                     mCurrentDir != null && downloadedFile != null &&
-                     mCurrentDir.getFileId() == downloadedFile.getParentId()) {
+            boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
+            boolean isDescendant = (mCurrentDir != null) && (downloadedRemotePath != null) && (downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            if (sameAccount && isDescendant) {
                 OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
