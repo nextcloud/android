@@ -39,6 +39,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -122,6 +124,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     
     private static final String TAG = "FileDisplayActivity";
+
+    private static int[] mMenuIdentifiersToPatch = {R.id.about_app};
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -270,8 +274,31 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
+            
+            patchHiddenAccents(menu);
+            
             return true;
     }
+
+    /**
+     * Workaround for this: <a href="http://code.google.com/p/android/issues/detail?id=3974">http://code.google.com/p/android/issues/detail?id=3974</a> 
+     * 
+     * @param menu      Menu to patch
+     */
+    private void patchHiddenAccents(Menu menu) {
+        for (int i = 0; i < mMenuIdentifiersToPatch.length ; i++) {
+            MenuItem aboutItem = menu.findItem(mMenuIdentifiersToPatch[i]);
+            if (aboutItem != null && aboutItem.getIcon() instanceof BitmapDrawable) {
+                // Clip off the bottom three (density independent) pixels of transparent padding
+                Bitmap original = ((BitmapDrawable) aboutItem.getIcon()).getBitmap();
+                float scale = getResources().getDisplayMetrics().density;
+                int clippedHeight = (int) (original.getHeight() - (3 * scale));
+                Bitmap scaled = Bitmap.createBitmap(original, 0, 0, original.getWidth(), clippedHeight);
+                aboutItem.setIcon(new BitmapDrawable(getResources(), scaled));
+            }
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
