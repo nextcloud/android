@@ -29,8 +29,8 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
@@ -154,10 +154,10 @@ public class RenameFileOperation extends RemoteOperation {
     
     private void saveLocalDirectory() {
         mStorageManager.moveDirectory(mFile, mNewRemotePath);
-        String localPath = FileDownloader.getSavePath(mAccount.name) + mFile.getRemotePath();
+        String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {
-            localDir.renameTo(new File(FileDownloader.getSavePath(mAccount.name) + mNewRemotePath));
+            localDir.renameTo(new File(FileStorageUtils.getSavePath(mAccount.name) + mNewRemotePath));
             // TODO - if renameTo fails, children files that are already down will result unlinked
         }
     }
@@ -201,7 +201,7 @@ public class RenameFileOperation extends RemoteOperation {
             return false;
         }
         // create a test file
-        String tmpFolder = FileDownloader.getTemporalPath("");
+        String tmpFolder = FileStorageUtils.getTemporalPath("");
         File testFile = new File(tmpFolder + mNewName);
         try {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
@@ -218,8 +218,7 @@ public class RenameFileOperation extends RemoteOperation {
     }
 
 
-
-    // move operation - TODO: find out why org.apache.jackrabbit.webdav.client.methods.MoveMethod is not used instead ¿?
+    // move operation
     private class LocalMoveMethod extends DavMethodBase {
 
         public LocalMoveMethod(String uri, String dest) {

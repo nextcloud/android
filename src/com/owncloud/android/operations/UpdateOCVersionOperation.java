@@ -42,7 +42,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 public class UpdateOCVersionOperation extends RemoteOperation {
 
-    private static final String TAG = UploadFileOperation.class.getSimpleName();
+    private static final String TAG = UpdateOCVersionOperation.class.getSimpleName();
 
     private Account mAccount;
     private Context mContext;

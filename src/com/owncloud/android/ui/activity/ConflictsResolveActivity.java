@@ -19,6 +19,7 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
@@ -38,21 +39,27 @@ import android.util.Log;
  */
 public class ConflictsResolveActivity extends SherlockFragmentActivity implements OnConflictDecisionMadeListener {
 
+    public static final String EXTRA_FILE = "FILE";
+    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+
     private String TAG = ConflictsResolveActivity.class.getSimpleName();
     
-    private String mRemotePath;
+    //private String mRemotePath;
     
-    private String mLocalPath;
+    //private String mLocalPath;
     
+    private OCFile mFile;
     private Account mOCAccount;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRemotePath = getIntent().getStringExtra("remotepath");
-        mLocalPath = getIntent().getStringExtra("localpath");
-        mOCAccount = getIntent().getParcelableExtra("account");
-        ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(mRemotePath, this);
+        
+        //mRemotePath = getIntent().getStringExtra("remotepath");
+        //mLocalPath = getIntent().getStringExtra("localpath");
+        mFile = getIntent().getParcelableExtra(EXTRA_FILE);
+        mOCAccount = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
+        ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(mFile.getRemotePath(), this);
         d.showDialog(this);
     }
 
@@ -62,6 +69,7 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
         
         switch (decision) {
             case CANCEL:
+                finish();
                 return;
             case OVERWRITE:
                 i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
@@ -72,8 +80,9 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
                 return;
         }
         i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, mLocalPath);
+        //i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
+        //i.putExtra(FileUploader.KEY_LOCAL_FILE, mLocalPath);
+        i.putExtra(FileUploader.KEY_FILE, mFile);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         
         startService(i);

@@ -18,6 +18,7 @@
 
 package com.owncloud.android.operations;
 
+import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,13 +28,12 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileObserverService;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavEntry;
@@ -69,6 +69,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     
     /** Files and folders contained in the synchronized folder */
     private List<OCFile> mChildren;
+
+    private int mConflictsFound;
+
+    private int mFailsInFavouritesFound;
     
     
     public SynchronizeFolderOperation(  String remotePath, 
@@ -86,6 +90,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
     
     
+    public int getConflictsFound() {
+        return mConflictsFound;
+    }
+    
+    public int getFailsInFavouritesFound() {
+        return mFailsInFavouritesFound;
+    }
+    
     /**
      * Returns the list of files and folders contained in the synchronized folder, if called after synchronization is complete.
      * 
@@ -99,6 +111,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
+        mFailsInFavouritesFound = 0;
+        mConflictsFound = 0;
         
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
@@ -117,24 +131,47 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (mParentId == DataStorageManager.ROOT_PARENT_ID) {
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
                     OCFile parent = fillOCFile(we);
-                    parent.setParentId(mParentId);
                     mStorageManager.saveFile(parent);
                     mParentId = parent.getFileId();
                 }
                 
                 // read contents in folder
                 List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
+                List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
                 for (int i = 1; i < resp.getResponses().length; ++i) {
+                    /// new OCFile instance with the data from the server
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());
                     OCFile file = fillOCFile(we);
-                    file.setParentId(mParentId);
+                    
+                    /// set data about local state, keeping unchanged former data if existing
+                    file.setLastSyncDateForProperties(mCurrentSyncTime);
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
                     if (oldFile != null) {
-                        if (oldFile.keepInSync() && file.getModificationTimestamp() > oldFile.getModificationTimestamp()) {
-                            disableObservance(file);        // first disable observer so we won't get file upload right after download
-                            requestContentDownload(file);
-                        }
                         file.setKeepInSync(oldFile.keepInSync());
+                        file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                        file.setStoragePath(oldFile.getStoragePath());
+                    }
+
+                    /// scan default location if local copy of file is not linked in OCFile instance
+                    if (file.getStoragePath() == null && !file.isDirectory()) {
+                        File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                        if (f.exists()) {
+                            file.setStoragePath(f.getAbsolutePath());
+                            file.setLastSyncDateForData(f.lastModified());
+                        }
+                    }
+                    
+                    /// prepare content synchronization for kept-in-sync files
+                    if (file.keepInSync()) {
+                        SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
+                                                                                            file, 
+                                                                                            mStorageManager,
+                                                                                            mAccount,       
+                                                                                            true, 
+                                                                                            false,          
+                                                                                            mContext
+                                                                                            );
+                        filesToSyncContents.add(operation);
                     }
                 
                     updatedFiles.add(file);
@@ -142,15 +179,35 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                                 
                 // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
                 mStorageManager.saveFiles(updatedFiles);
-
                 
+                // request for the synchronization of files AFTER saving last properties
+                SynchronizeFileOperation op = null;
+                RemoteOperationResult contentsResult = null;
+                for (int i=0; i < filesToSyncContents.size(); i++) {
+                    op = filesToSyncContents.get(i);
+                    contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
+                    if (!contentsResult.isSuccess()) {
+                        if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
+                            mConflictsFound++;
+                        } else {
+                            mFailsInFavouritesFound++;
+                            if (contentsResult.getException() != null) {
+                                Log.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                            } else {
+                                Log.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                            }
+                        }
+                    }   // won't let these fails break the synchronization process
+                }
+
+                    
                 // removal of obsolete files
                 mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
                 OCFile file;
-                String currentSavePath = FileDownloader.getSavePath(mAccount.name);
+                String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
                 for (int i=0; i < mChildren.size(); ) {
                     file = mChildren.get(i);
-                    if (file.getLastSyncDate() != mCurrentSyncTime) {
+                    if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
                         Log.d(TAG, "removing file: " + file);
                         mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
                         mChildren.remove(i);
@@ -164,7 +221,16 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             }
             
             // prepare result object
-            result = new RemoteOperationResult(isMultiStatus(status), status);
+            if (isMultiStatus(status)) {
+                if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
+                            
+                } else {
+                    result = new RemoteOperationResult(true, status);
+                }
+            } else {
+                result = new RemoteOperationResult(false, status);
+            }
             Log.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
             
             
@@ -198,37 +264,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimesamp());
-        file.setLastSyncDate(mCurrentSyncTime);
+        file.setParentId(mParentId);
         return file;
     }
     
-    
-    /**
-     * Request to stop the observance of local updates for a file.  
-     * 
-     * @param file      OCFile representing the remote file to stop to monitor for local updates
-     */
-    private void disableObservance(OCFile file) {
-        Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
-        Intent intent = new Intent(mContext, FileObserverService.class);
-        intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
-        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
-        mContext.startService(intent);
-        
-    }
-
-
-    /** 
-     * Requests a download to the file download service
-     * 
-     * @param   file    OCFile representing the remote file to download
-     */
-    private void requestContentDownload(OCFile file) {
-        Intent intent = new Intent(mContext, FileDownloader.class);
-        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-        intent.putExtra(FileDownloader.EXTRA_FILE, file);
-        mContext.startService(intent);
-    }
-
 
 }

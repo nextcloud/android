@@ -27,7 +27,7 @@ import java.util.Vector;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.content.ContentProviderClient;
@@ -118,16 +118,18 @@ public class FileDataStorageManager implements DataStorageManager {
         if (!file.isDirectory())
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
         cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
-        if (fileExists(file.getRemotePath())) {
-            OCFile oldFile = getFileByPath(file.getRemotePath());
-            if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
-                file.setStoragePath(oldFile.getStoragePath());
-            if (!file.isDirectory());
-                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-            file.setFileId(oldFile.getFileId());
+        boolean sameRemotePath = fileExists(file.getRemotePath());
+        if (sameRemotePath ||
+            fileExists(file.getFileId())        ) {           // for renamed files; no more delete and create
+            
+            if (sameRemotePath) {
+                OCFile oldFile = getFileByPath(file.getRemotePath());
+                file.setFileId(oldFile.getFileId());
+            }
 
             overriden = true;
             if (getContentResolver() != null) {
@@ -145,29 +147,6 @@ public class FileDataStorageManager implements DataStorageManager {
                                     + e.getMessage());
                 }
             }
-        } else if (fileExists(file.getFileId())) {      // for renamed files; no more delete and create
-                OCFile oldFile = getFileById(file.getFileId());
-                if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
-                    file.setStoragePath(oldFile.getStoragePath());
-                if (!file.isDirectory());
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-
-                overriden = true;
-                if (getContentResolver() != null) {
-                    getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv,
-                            ProviderTableMeta._ID + "=?",
-                            new String[] { String.valueOf(file.getFileId()) });
-                } else {
-                    try {
-                        getContentProvider().update(ProviderTableMeta.CONTENT_URI,
-                                cv, ProviderTableMeta._ID + "=?",
-                                new String[] { String.valueOf(file.getFileId()) });
-                    } catch (RemoteException e) {
-                        Log.e(TAG,
-                                "Fail to insert insert file to database "
-                                        + e.getMessage());
-                    }
-                }
         } else {
             Uri result_uri = null;
             if (getContentResolver() != null) {
@@ -220,17 +199,13 @@ public class FileDataStorageManager implements DataStorageManager {
             if (!file.isDirectory())
                 cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDate());
+            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
             cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
             if (fileExists(file.getRemotePath())) {
                 OCFile oldFile = getFileByPath(file.getRemotePath());
-                if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
-                    file.setStoragePath(oldFile.getStoragePath());
-                if (!file.isDirectory());
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
                 file.setFileId(oldFile.getFileId());
-
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                         withValues(cv).
                         withSelection(  ProviderTableMeta._ID + "=?", 
@@ -426,10 +401,12 @@ public class FileDataStorageManager implements DataStorageManager {
                 file.setStoragePath(c.getString(c
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
-                    // try to find existing file and bind it with current account
-                    File f = new File(FileDownloader.getSavePath(mAccount.name) + file.getRemotePath());
-                    if (f.exists())
+                    // try to find existing file and bind it with current account; - with the current update of SynchronizeFolderOperation, this won't be necessary anymore after a full synchronization of the account
+                    File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                    if (f.exists()) {
                         file.setStoragePath(f.getAbsolutePath());
+                        file.setLastSyncDateForData(f.lastModified());
+                    }
                 }
             }
             file.setFileLength(c.getLong(c
@@ -438,8 +415,10 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
-            file.setLastSyncDate(c.getLong(c
+            file.setLastSyncDateForProperties(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
+            file.setLastSyncDateForData(c.getLong(c.
+                    getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
             file.setKeepInSync(c.getInt(
                                 c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
         }
@@ -466,7 +445,7 @@ public class FileDataStorageManager implements DataStorageManager {
             new File(file.getStoragePath()).delete();
         }
         if (file.isDirectory() && removeLocalCopy) {
-            File f = new File(FileDownloader.getSavePath(mAccount.name) + file.getRemotePath());
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
             if (f.exists() && f.isDirectory() && (f.list() == null || f.list().length == 0)) {
                 f.delete();
             }
@@ -534,7 +513,7 @@ public class FileDataStorageManager implements DataStorageManager {
             /// 2. prepare a batch of update operations to change all the descendants
             ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(c.getCount());
             int lengthOfOldPath = dir.getRemotePath().length();
-            String defaultSavePath = FileDownloader.getSavePath(mAccount.name);
+            String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
             int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
             if (c.moveToFirst()) {
                 do {

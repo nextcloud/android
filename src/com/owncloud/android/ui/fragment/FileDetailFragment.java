@@ -82,6 +82,8 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
@@ -111,6 +113,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private View mView;
     private OCFile mFile;
     private Account mAccount;
+    private FileDataStorageManager mStorageManager;
     private ImageView mPreview;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -119,7 +122,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
 
-    private static final String TAG = "FileDetailFragment";
+    private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
 
@@ -132,6 +135,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public FileDetailFragment() {
         mFile = null;
         mAccount = null;
+        mStorageManager = null;
         mLayout = R.layout.file_details_empty;
     }
     
@@ -147,6 +151,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
         mFile = fileToDetail;
         mAccount = ocAccount;
+        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
         
         if(fileToDetail != null && ocAccount != null) {
@@ -203,6 +208,18 @@ public class FileDetailFragment extends SherlockFragment implements
             throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getSimpleName());
         }
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (mAccount != null) {
+            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
+        }
+    }
         
 
     @Override
@@ -257,7 +274,6 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fdDownloadBtn: {
-                //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath())) {
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
                 FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
                 if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
@@ -289,42 +305,39 @@ public class FileDetailFragment extends SherlockFragment implements
                     }
                     
                 } else {
-                    Intent i = new Intent(getActivity(), FileDownloader.class);
-                    i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-                    i.putExtra(FileDownloader.EXTRA_FILE, mFile);
-                    /*i.putExtra(FileDownloader.EXTRA_REMOTE_PATH, mFile.getRemotePath());
-                    i.putExtra(FileDownloader.EXTRA_FILE_PATH, mFile.getRemotePath());
-                    i.putExtra(FileDownloader.EXTRA_FILE_SIZE, mFile.getFileLength());*/
+                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
+                    WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
+                    mLastRemoteOperation.execute(wc, this, mHandler);
                 
                     // update ui 
-                    setButtonsForTransferring();
-                
-                    getActivity().startService(i);
-                    mContainerActivity.onFileStateChanged();    // this is not working; it is performed before the fileDownloadService registers it as 'in progress'
+                    boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                    getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                    setButtonsForTransferring(); // disable button immediately, although the synchronization does not result in a file transference
+                    
                 }
                 break;
             }
             case R.id.fdKeepInSync: {
                 CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
                 mFile.setKeepInSync(cb.isChecked());
-                FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-                fdsm.saveFile(mFile);
-                if (mFile.keepInSync()) {
-                    onClick(getView().findViewById(R.id.fdDownloadBtn));
-                } else {
-                    mContainerActivity.onFileStateChanged();    // put inside 'else' to not call it twice (here, and in the virtual click on fdDownloadBtn)
-                }
+                mStorageManager.saveFile(mFile);
                 
+                /// register the OCFile instance in the observer service to monitor local updates;
+                /// if necessary, the file is download 
                 Intent intent = new Intent(getActivity().getApplicationContext(),
                                            FileObserverService.class);
                 intent.putExtra(FileObserverService.KEY_FILE_CMD,
                            (cb.isChecked()?
                                    FileObserverService.CMD_ADD_OBSERVED_FILE:
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
-                intent.putExtra(FileObserverService.KEY_CMD_ARG, mFile.getStoragePath());
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
                 Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 
+                if (mFile.keepInSync()) {
+                    onClick(getView().findViewById(R.id.fdDownloadBtn));    // force an immediate synchronization
+                }
                 break;
             }
             case R.id.fdRenameBtn: {
@@ -403,11 +416,10 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
-            if (fdsm.getFileById(mFile.getFileId()) != null) {
+            if (mStorageManager.getFileById(mFile.getFileId()) != null) {
                 mLastRemoteOperation = new RemoveFileOperation( mFile, 
                                                                 true, 
-                                                                new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
+                                                                mStorageManager);
                 WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
                 mLastRemoteOperation.execute(wc, this, mHandler);
                 
@@ -419,12 +431,11 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onNeutral(String callerTag) {
-        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getContentResolver());
         File f = null;
         if (mFile.isDown() && (f = new File(mFile.getStoragePath())).exists()) {
             f.delete();
             mFile.setStoragePath(null);
-            fdsm.saveFile(mFile);
+            mStorageManager.saveFile(mFile);
             updateFileDetails(mFile, mAccount);
         }
     }
@@ -460,6 +471,12 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
         mFile = file;
+        if (ocAccount != null && ( 
+                mStorageManager == null || 
+                (mAccount != null && !mAccount.equals(ocAccount))
+           )) {
+            mStorageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
+        }
         mAccount = ocAccount;
         updateFileDetails(false);
     }
@@ -596,8 +613,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private void setButtonsForDown() {
         if (!isEmpty()) {
             Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_redownload);
-            //downloadButton.setEnabled(true);
+            downloadButton.setText(R.string.filedetails_sync_file);
         
             ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
@@ -680,7 +696,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
                 if (mFile.getRemotePath().equals(downloadedRemotePath)) {
                     if (downloadWasFine) {
-                        mFile.setStoragePath(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));    // updates the local object without accessing the database again
+                        mFile = mStorageManager.getFileByPath(downloadedRemotePath);
                     }
                     updateFileDetails(false);    // it updates the buttons; must be called although !downloadWasFine
                 }
@@ -707,10 +723,16 @@ public class FileDetailFragment extends SherlockFragment implements
             if (!isEmpty() && accountName.equals(mAccount.name)) {
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
                 String uploadRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-                if (mFile.getRemotePath().equals(uploadRemotePath)) {
+                boolean renamedInUpload = mFile.getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+                if (mFile.getRemotePath().equals(uploadRemotePath) ||
+                    renamedInUpload) {
                     if (uploadWasFine) {
-                        FileDataStorageManager fdsm = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-                        mFile = fdsm.getFileByPath(mFile.getRemotePath());
+                        mFile = mStorageManager.getFileByPath(mFile.getRemotePath());
+                    }
+                    if (renamedInUpload) {
+                        String newName = (new File(uploadRemotePath)).getName();
+                        Toast msg = Toast.makeText(getActivity().getApplicationContext(), String.format(getString(R.string.filedetails_renamed_in_upload_msg), newName), Toast.LENGTH_LONG);
+                        msg.show();
                     }
                     updateFileDetails(false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
@@ -924,6 +946,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 
             } else if (operation instanceof RenameFileOperation) {
                 onRenameFileOperationFinish((RenameFileOperation)operation, result);
+                
+            } else if (operation instanceof SynchronizeFileOperation) {
+                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
             }
         }
     }
@@ -977,6 +1002,45 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
+    
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
+        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
 
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, mFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
+                startActivity(i);
+                
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+            }
+            
+            if (mFile.isDown()) {
+                setButtonsForDown();
+                
+            } else {
+                setButtonsForRemote();
+            }
+            
+        } else {
+            if (operation.transferWasRequested()) {
+                mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
+                                                            // checking the service to see if the file is downloading results in FALSE
+            } else {
+                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                if (mFile.isDown()) {
+                    setButtonsForDown();
+                    
+                } else {
+                    setButtonsForRemote();
+                }
+            }
+        }
+    }
 
 }

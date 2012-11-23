@@ -25,8 +25,8 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -40,11 +40,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -62,6 +59,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
     
+    public static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
     public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
@@ -75,6 +73,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private IBinder mBinder;
     private WebdavClient mDownloadClient = null;
     private Account mLastAccount = null;
+    private FileDataStorageManager mStorageManager;
     
     private ConcurrentMap<String, DownloadFileOperation> mPendingDownloads = new ConcurrentHashMap<String, DownloadFileOperation>();
     private DownloadFileOperation mCurrentDownload = null;
@@ -92,18 +91,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private String buildRemoteName(Account account, OCFile file) {
         return account.name + file.getRemotePath();
-    }
-    
-    public static final String getSavePath(String accountName) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud/" + Uri.encode(accountName, "@");   
-            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
-    }
-    
-    public static final String getTemporalPath(String accountName) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud/tmp/" + Uri.encode(accountName, "@");
-            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
 
     
@@ -149,6 +136,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
             newDownload.addDatatransferProgressListener(this);
             requestedDownloads.add(downloadKey);
+            sendBroadcastNewDownload(newDownload);
             
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "Not enough information provided in intent: " + e.getMessage());
@@ -277,6 +265,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             /// prepare client object to send the request to the ownCloud server
             if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
                 mLastAccount = mCurrentDownload.getAccount();
+                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
                 mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
             }
 
@@ -285,16 +274,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             try {
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
-                    ContentValues cv = new ContentValues();
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, mCurrentDownload.getSavePath());
-                    getContentResolver().update(
-                            ProviderTableMeta.CONTENT_URI,
-                            cv,
-                            ProviderTableMeta.FILE_NAME + "=? AND "
-                                    + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                                    new String[] {
-                                    mCurrentDownload.getSavePath().substring(mCurrentDownload.getSavePath().lastIndexOf('/') + 1),
-                                    mLastAccount.name });
+                    saveDownloadedFile();
                 }
             
             } finally {
@@ -307,11 +287,28 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             /// notify result
             notifyDownloadResult(mCurrentDownload, downloadResult);
             
-            sendFinalBroadcast(mCurrentDownload, downloadResult);
+            sendBroadcastDownloadFinished(mCurrentDownload, downloadResult);
         }
     }
 
-    
+
+    /**
+     * Updates the OC File after a successful download.
+     */
+    private void saveDownloadedFile() {
+        OCFile file = mCurrentDownload.getFile();
+        long syncDate = System.currentTimeMillis();
+        file.setLastSyncDateForProperties(syncDate);
+        file.setLastSyncDateForData(syncDate);
+        file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
+        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        file.setMimetype(mCurrentDownload.getMimeType());
+        file.setStoragePath(mCurrentDownload.getSavePath());
+        file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
+        mStorageManager.saveFile(file);
+    }
+
+
     /**
      * Creates a status notification to show the download progress
      * 
@@ -385,20 +382,32 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     
     
     /**
-     * Sends a broadcast in order to the interested activities can update their view
+     * Sends a broadcast when a download finishes in order to the interested activities can update their view
      * 
      * @param download          Finished download operation
      * @param downloadResult    Result of the download operation
      */
-    private void sendFinalBroadcast(DownloadFileOperation download, RemoteOperationResult downloadResult) {
+    private void sendBroadcastDownloadFinished(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
-        if (downloadResult.isSuccess()) {
-            end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
-        }
-        sendBroadcast(end);
+        end.putExtra(EXTRA_FILE_PATH, download.getSavePath());
+        sendStickyBroadcast(end);
+    }
+    
+    
+    /**
+     * Sends a broadcast when a new download is added to the queue.
+     * 
+     * @param download          Added download operation
+     */
+    private void sendBroadcastNewDownload(DownloadFileOperation download) {
+        Intent added = new Intent(DOWNLOAD_ADDED_MESSAGE);
+        /*added.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
+        added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
+        sendStickyBroadcast(added);
     }
 
 }

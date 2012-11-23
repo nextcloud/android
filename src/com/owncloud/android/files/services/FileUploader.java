@@ -25,6 +25,10 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.MultiStatus;
+import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -34,9 +38,12 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
+import eu.alefzero.webdav.WebdavEntry;
+import eu.alefzero.webdav.WebdavUtils;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
 
@@ -66,15 +73,19 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
+    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     
+    public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
+    public static final String KEY_MIME_TYPE = "MIME_TYPE";
+
     public static final String KEY_ACCOUNT = "ACCOUNT";
+    
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
-    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
-    public static final String KEY_MIME_TYPE = "MIME_TYPE";
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
 
     public static final int UPLOAD_SINGLE_FILE = 0;
@@ -149,7 +160,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)) {
+        if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE) || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
             Log.e(TAG, "Not enough information provided in intent");
             return Service.START_NOT_STICKY;
         }
@@ -160,55 +171,76 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         }
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
         
-        String[] localPaths, remotePaths, mimeTypes; 
+        String[] localPaths = null, remotePaths = null, mimeTypes = null;
+        OCFile[] files = null;
         if (uploadType == UPLOAD_SINGLE_FILE) {
-            localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
-            remotePaths = new String[] { intent
-                    .getStringExtra(KEY_REMOTE_FILE) };
-            mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
+            
+            if (intent.hasExtra(KEY_FILE)) {
+                files = new OCFile[] {intent.getParcelableExtra(KEY_FILE) };
+                
+            } else {
+                localPaths = new String[] { intent.getStringExtra(KEY_LOCAL_FILE) };
+                remotePaths = new String[] { intent.getStringExtra(KEY_REMOTE_FILE) };
+                mimeTypes = new String[] { intent.getStringExtra(KEY_MIME_TYPE) };
+            }
             
         } else { // mUploadType == UPLOAD_MULTIPLE_FILES
-            localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
-            remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
-            mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            
+            if (intent.hasExtra(KEY_FILE)) {
+                files = (OCFile[]) intent.getParcelableArrayExtra(KEY_FILE);    // TODO will this casting work fine?
+                
+            } else {
+                localPaths = intent.getStringArrayExtra(KEY_LOCAL_FILE);
+                remotePaths = intent.getStringArrayExtra(KEY_REMOTE_FILE);
+                mimeTypes = intent.getStringArrayExtra(KEY_MIME_TYPE);
+            }
         }
 
-        if (localPaths == null) {
-            Log.e(TAG, "Incorrect array for local paths provided in upload intent");
-            return Service.START_NOT_STICKY;
+        FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
+        
+        boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
+        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
+        boolean fixed = false;
+        if (isInstant) {
+            fixed = checkAndFixInstantUploadDirectory(storageManager);  // MUST be done BEFORE calling obtainNewOCFileToUpload
         }
-        if (remotePaths == null) {
-            Log.e(TAG, "Incorrect array for remote paths provided in upload intent");
+        
+        if (intent.hasExtra(KEY_FILE) && files == null) {
+            Log.e(TAG, "Incorrect array for OCFiles provided in upload intent");
             return Service.START_NOT_STICKY;
+            
+        } else if (!intent.hasExtra(KEY_FILE)) {
+            if (localPaths == null) {
+                Log.e(TAG, "Incorrect array for local paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (remotePaths == null) {
+                Log.e(TAG, "Incorrect array for remote paths provided in upload intent");
+                return Service.START_NOT_STICKY;
+            }
+            if (localPaths.length != remotePaths.length) {
+                Log.e(TAG, "Different number of remote paths and local paths!");
+                return Service.START_NOT_STICKY;
+            }
+            
+            files = new OCFile[localPaths.length];
+            for (int i=0; i < localPaths.length; i++) {
+                files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), storageManager);
+            }
         }
             
-        if (localPaths.length != remotePaths.length) {
-            Log.e(TAG, "Different number of remote paths and local paths!");
-            return Service.START_NOT_STICKY;
-        }
-        
-        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
-        boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-        
         OwnCloudVersion ocv = new OwnCloudVersion(AccountManager.get(this).getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;
         UploadFileOperation newUpload = null;
-        OCFile file = null;
-        FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
-        boolean fixed = false;
-        if (isInstant) {
-            fixed = checkAndFixInstantUploadDirectory(storageManager);
-        }
         try {
-            for (int i=0; i < localPaths.length; i++) {
-                uploadKey = buildRemoteName(account, remotePaths[i]);
-                file = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes!=null)?mimeTypes[i]:(String)null), isInstant, forceOverwrite, storageManager);
+            for (int i=0; i < files.length; i++) {
+                uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 if (chunked) {
-                    newUpload = new ChunkedUploadFileOperation(account, file, isInstant, forceOverwrite);
+                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite);
                 } else {
-                    newUpload = new UploadFileOperation(account, file, isInstant, forceOverwrite);
+                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite);
                 }
                 if (fixed && i==0) {
                     newUpload.setRemoteFolderToBeCreated();
@@ -372,7 +404,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             try {
                 uploadResult = mCurrentUpload.execute(mUploadClient);
                 if (uploadResult.isSuccess()) {
-                    saveUploadedFile(mCurrentUpload.getFile(), mStorageManager);
+                    saveUploadedFile();
                 }
                 
             } finally {
@@ -391,15 +423,89 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     /**
-     * Saves a new OC File after a successful upload.
+     * Saves a OC File after a successful upload.
      * 
-     * @param file              OCFile describing the uploaded file
-     * @param storageManager    Interface to the database where the new OCFile has to be stored.
-     * @param parentDirId       Id of the parent OCFile.
+     * A PROPFIND is necessary to keep the props in the local database synchronized with the server, 
+     * specially the modification time and Etag (where available)
+     * 
+     * TODO refactor this ugly thing
      */
-    private void saveUploadedFile(OCFile file, FileDataStorageManager storageManager) {
-        file.setModificationTimestamp(System.currentTimeMillis());
-        storageManager.saveFile(file);
+    private void saveUploadedFile() {
+        OCFile file = mCurrentUpload.getFile();
+        long syncDate = System.currentTimeMillis();
+        file.setLastSyncDateForData(syncDate);
+        
+        /// new PROPFIND to keep data consistent with server in theory, should return the same we already have
+        PropFindMethod propfind = null;
+        RemoteOperationResult result = null;
+        try {
+          propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()));
+          int status = mUploadClient.executeMethod(propfind);
+          boolean isMultiStatus = (status == HttpStatus.SC_MULTI_STATUS);
+          if (isMultiStatus) {
+              MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
+              WebdavEntry we = new WebdavEntry(resp.getResponses()[0],
+                                               mUploadClient.getBaseUri().getPath());
+              updateOCFile(file, we);
+              file.setLastSyncDateForProperties(syncDate);
+              
+          } else {
+              mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
+          }
+          
+          result = new RemoteOperationResult(isMultiStatus, status);
+          Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage());
+          
+        } catch (Exception e) {
+            result = new RemoteOperationResult(e);
+            Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage(), e);
+
+        } finally {
+            if (propfind != null)
+                propfind.releaseConnection();
+        }
+
+        
+        if (mCurrentUpload.wasRenamed()) {
+            OCFile oldFile = mCurrentUpload.getOldFile();
+            if (!oldFile.fileExists()) {
+                // just a name coincidence
+                file.setStoragePath(oldFile.getStoragePath());
+                
+            } else {
+                // conflict resolved with 'Keep both' by the user
+                File localFile = new File(oldFile.getStoragePath());
+                File newLocalFile = new File(FileStorageUtils.getDefaultSavePathFor(mCurrentUpload.getAccount().name, file));
+                boolean renameSuccessed = localFile.renameTo(newLocalFile);
+                if (renameSuccessed) {
+                    file.setStoragePath(newLocalFile.getAbsolutePath());
+                    
+                } else {
+                    // poor solution
+                    Log.d(TAG, "DAMN IT: local rename failed after uploading a file with a new name already existing both in the remote account and the local database (should be due to a conflict solved with 'keep both'");
+                    file.setStoragePath(null);
+                        // not so fine:
+                        //      - local file will be kept there as 'trash' until is download (and overwritten) again from the server;
+                        //      - user will see as 'not down' a file that was just upload
+                        // BUT:
+                        //      - no loss of data happened
+                        //      - when the user downloads again the renamed and original file from the server, local file names and contents will be correctly synchronized with names and contents in server
+                }
+                oldFile.setStoragePath(null);
+                mStorageManager.saveFile(oldFile);
+            }
+        }
+        
+        mStorageManager.saveFile(file);
+    }
+
+    
+    private void updateOCFile(OCFile file, WebdavEntry we) {
+        file.setCreationTimestamp(we.createTimestamp());
+        file.setFileLength(we.contentLength());
+        file.setMimetype(we.contentType());
+        file.setModificationTimestamp(we.modifiedTimesamp());
+        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
     }
     
     
@@ -417,16 +523,17 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     
-    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, boolean isInstant, boolean forceOverwrite, FileDataStorageManager storageManager) {
+    private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType, FileDataStorageManager storageManager) {
         OCFile newFile = new OCFile(remotePath);
         newFile.setStoragePath(localPath);
-        newFile.setLastSyncDate(0);
-        newFile.setKeepInSync(forceOverwrite);
+        newFile.setLastSyncDateForProperties(0);
+        newFile.setLastSyncDateForData(0);
         
         // size
         if (localPath != null && localPath.length() > 0) {
             File localFile = new File(localPath);
             newFile.setFileLength(localFile.length());
+            newFile.setLastSyncDateForData(localFile.lastModified());
         }   // don't worry about not assigning size, the problems with localPath are checked when the UploadFileOperation instance is created
         
         // MIME type
@@ -581,10 +688,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void sendFinalBroadcast(UploadFileOperation upload, RemoteOperationResult uploadResult) {
         Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath());    // real remote path, after possible automatic renaming
+        if (upload.wasRenamed()) {
+            end.putExtra(EXTRA_OLD_REMOTE_PATH, upload.getOldFile().getRemotePath());
+        }
         end.putExtra(EXTRA_FILE_PATH, upload.getStoragePath());
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
-        sendBroadcast(end);
+        sendStickyBroadcast(end);
     }
 
 
