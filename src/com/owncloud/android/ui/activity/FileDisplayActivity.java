@@ -77,6 +77,7 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
@@ -1083,9 +1084,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 
         } else if (operation instanceof RenameFileOperation) {
             onRenameFileOperationFinish((RenameFileOperation)operation, result);
+            
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
         }
     }
-    
+
+
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 
      * file. 
@@ -1154,6 +1159,34 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     mLastSslUntrustedServerResult = result;
                     showDialog(DIALOG_SSL_VALIDATOR); 
                 }
+            }
+        }
+    }
+
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
+        dismissDialog(DIALOG_SHORT_WAIT);
+        OCFile syncedFile = operation.getLocalFile();
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(this, ConflictsResolveActivity.class);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+                startActivity(i);
+                
+            } else {
+                Toast msg = Toast.makeText(this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+            }
+            
+        } else {
+            if (operation.transferWasRequested()) {
+                mFileList.listDirectory();
+                onTransferStateChanged(syncedFile, true, true);
+                
+            } else {
+                Toast msg = Toast.makeText(this, R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
+                msg.show();
             }
         }
     }

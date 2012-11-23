@@ -25,7 +25,6 @@ import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -33,6 +32,7 @@ import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
@@ -166,6 +166,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         List<Integer> toHide = new ArrayList<Integer>();    
         List<Integer> toDisable = new ArrayList<Integer>();  
         
+        MenuItem item = null;
         if (targetFile.isDirectory()) {
             // contextual menu for folders
             toHide.add(R.id.open_file_item);
@@ -184,6 +185,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             if (targetFile.isDown()) {
                 toHide.add(R.id.cancel_download_item);
                 toHide.add(R.id.cancel_upload_item);
+                item = menu.findItem(R.id.download_file_item);
+                if (item != null) {
+                    item.setTitle(R.string.filedetails_sync_file);
+                }
             } else {
                 toHide.add(R.id.open_file_item);
             }
@@ -207,7 +212,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             }
         }
 
-        MenuItem item = null;
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -307,13 +311,11 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 return true;
             }
             case R.id.download_file_item: {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-                Intent i = new Intent(getActivity(), FileDownloader.class);
-                i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
-                i.putExtra(FileDownloader.EXTRA_FILE, mTargetFile);
-                getActivity().startService(i);
-                listDirectory();
-                mContainerActivity.onTransferStateChanged(mTargetFile, true, false);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
+                RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
+                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getSherlockActivity().getApplicationContext());
+                operation.execute(wc, mContainerActivity, mHandler);
+                getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
                 return true;
             }
             case R.id.cancel_download_item: {

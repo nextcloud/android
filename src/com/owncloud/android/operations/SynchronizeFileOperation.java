@@ -223,4 +223,9 @@ public class SynchronizeFileOperation extends RemoteOperation {
         return mTransferWasRequested;
     }
 
+
+    public OCFile getLocalFile() {
+        return mLocalFile;
+    }
+
 }
