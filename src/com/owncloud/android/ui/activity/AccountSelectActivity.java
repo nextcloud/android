@@ -166,7 +166,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
             }
         }
 
-        return false;
+        return true;
     }
 
     private void populateAccountList() {

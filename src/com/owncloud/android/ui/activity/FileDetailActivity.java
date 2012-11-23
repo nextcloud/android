@@ -114,7 +114,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             }
             FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fragment != null)
-                fragment.updateFileDetails();   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
+                fragment.updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
         }
 
         @Override
@@ -152,6 +152,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         case android.R.id.home:
             backToDisplayActivity();
             returnValue = true;
+            break;
+        default:
+        	returnValue = super.onOptionsItemSelected(item);
         }
         
         return returnValue;
@@ -165,7 +168,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         super.onResume();
         if (!mConfigurationChangedToLandscape) { 
             FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            fragment.updateFileDetails();
+            fragment.updateFileDetails(false);
         }
     }
     

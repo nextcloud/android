@@ -40,4 +40,8 @@ public interface DataStorageManager {
     public Vector<OCFile> getDirectoryContent(OCFile f);
     
     public void removeFile(OCFile file, boolean removeLocalCopy);
+    
+    public void removeDirectory(OCFile dir, boolean removeDBData, boolean removeLocalContent);
+
+    public void moveDirectory(OCFile dir, String newPath);
 }

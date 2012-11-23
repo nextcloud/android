@@ -81,7 +81,9 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
-    <string name="common_cancel">Cancel</string>
+    <string name="common_cancel_download">Cancel download</string>
+    <string name="common_cancel_upload">Cancel upload</string>
+	<string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_exit">Leave ownCloud</string>
     <string name="common_error">Error</string>
@@ -102,7 +104,7 @@
     <string name="uploader_upload_failed_content_multiple">Upload failed: %1$d/%2$d files were upload</string>
     <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
-    <string name="downloader_download_succeeded_ticker">Download suceeded</string>
+    <string name="downloader_download_succeeded_ticker">Download succeeded</string>
     <string name="downloader_download_succeeded_content">%1$s was successfully download</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Download of %1$s could not be completed</string>
@@ -175,14 +177,17 @@
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     
-	<string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
-	<string name="confirmation_remove_local">Local only</string>
-	<string name="confirmation_remove_remote">Remove from server</string>
-	<string name="confirmation_remove_remote_and_local">Remote and local</string>
+	  <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+	  <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents ?"</string>
+	  <string name="confirmation_remove_local">Local only</string>
+	  <string name="confirmation_remove_folder_local">Local contents only</string>
+	  <string name="confirmation_remove_remote">Remove from server</string>
+	  <string name="confirmation_remove_remote_and_local">Remote and local</string>
 
     <string name="remove_success_msg">"Successful removal"</string>
     <string name="remove_fail_msg">"Removal could not be completed"</string>
     
+    <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">"Local copy could not be renamed; try a differente new name"</string>
     <string name="rename_server_fail_msg">"Rename could not be completed"</string>
         
