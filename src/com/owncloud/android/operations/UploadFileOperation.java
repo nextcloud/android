@@ -33,6 +33,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.http.HttpStatus;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -61,7 +62,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
-    private boolean mMoveLocalFile = false;
+    private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
@@ -72,7 +73,7 @@ public class UploadFileOperation extends RemoteOperation {
                                 OCFile file,
                                 boolean isInstant, 
                                 boolean forceOverwrite,
-                                boolean moveLocalFile) {
+                                int localBehaviour) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -86,7 +87,7 @@ public class UploadFileOperation extends RemoteOperation {
         mRemotePath = file.getRemotePath();
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
-        mMoveLocalFile = moveLocalFile;
+        mLocalBehaviour = localBehaviour;
     }
 
 
@@ -147,8 +148,8 @@ public class UploadFileOperation extends RemoteOperation {
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
         boolean localCopyPassed = false, nameCheckPassed = false;
-        File temporalFile = null, originalFile = null;
         String originalStoragePath = mFile.getStoragePath();
+        File temporalFile = null, originalFile = new File(originalStoragePath), expectedFile = null;
         try {
             /// rename the file to upload, if necessary
             if (!mForceOverwrite) {
@@ -160,35 +161,33 @@ public class UploadFileOperation extends RemoteOperation {
             }
             nameCheckPassed = true;
         
-            /// check location of local file, and copy to a temporal file to upload it if not in its corresponding directory
-            String targetLocalPath =  FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);            
-            if (!originalStoragePath.equals(targetLocalPath)) {  
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);  /// not before getAvailableRemotePath() !!!
+            expectedFile = new File(expectedPath);
+            
+            /// check location of local file; if not the expected, copy to a temporal file before upload (if COPY is the expected behaviour)
+            if (!originalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
+
                 File ocLocalFolder = new File(FileStorageUtils.getSavePath(mAccount.name));
-                originalFile = new File(originalStoragePath);
-                if (!mMoveLocalFile) {
-                    // the file must be copied to the ownCloud local folder
-                    
-                    if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
-                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
-                        return result;
+                if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
+                    result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
+                    return result;  // error condition when the file should be copied
                         
-                    } else {
-                        String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                        mFile.setStoragePath(temporalPath);
-                        temporalFile = new File(temporalPath);
-                        if (!originalStoragePath.equals(temporalPath)) {   // preventing weird but possible situation
-                            InputStream in = new FileInputStream(originalFile);
-                            OutputStream out = new FileOutputStream(temporalFile);
-                            byte[] buf = new byte[1024];
-                            int len;
-                            while ((len = in.read(buf)) > 0){
-                                out.write(buf, 0, len);
-                            }
-                            in.close();
-                            out.close();
+                } else {
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    mFile.setStoragePath(temporalPath);
+                    temporalFile = new File(temporalPath);
+                    if (!originalStoragePath.equals(temporalPath)) {   // preventing weird but possible situation
+                        InputStream in = new FileInputStream(originalFile);
+                        OutputStream out = new FileOutputStream(temporalFile);
+                        byte[] buf = new byte[1024];
+                        int len;
+                        while ((len = in.read(buf)) > 0){
+                            out.write(buf, 0, len);
                         }
+                        in.close();
+                        out.close();
                     }
-                }   // else - the file will be MOVED to the corresponding directory AFTER the upload finishes
+                }
             }
             localCopyPassed = true;
             
@@ -205,26 +204,30 @@ public class UploadFileOperation extends RemoteOperation {
             
             /// move local temporal file or original file to its corresponding location in the ownCloud local folder
             if (isSuccess(status)) {
-                File fileToMove = null;
-                if (temporalFile != null) { 
-                    fileToMove = temporalFile;
-                } else if (originalFile != null) {
-                    fileToMove = originalFile;
-                }
-                if (fileToMove != null) {
-                    mFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile));
-                    File finalFile = new File(mFile.getStoragePath());
-                    if (!fileToMove.renameTo(finalFile)) {
-                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                    mFile.setStoragePath(null);
+                    
+                } else {
+                    mFile.setStoragePath(expectedPath);
+                    File fileToMove = null;
+                    if (temporalFile != null) {             // FileUploader.LOCAL_BEHAVIOUR_COPY ; see where temporalFile was set
+                        fileToMove = temporalFile;
+                    } else {                                // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                        fileToMove = originalFile;
                     }
-                }
+                    expectedFile = new File(mFile.getStoragePath());
+                    if (!expectedFile.equals(fileToMove) && !fileToMove.renameTo(expectedFile)) {
+                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                        return result;
+                    }
+                } 
             }
             
-            if (result == null)
-                result = new RemoteOperationResult(isSuccess(status), status);
+            result = new RemoteOperationResult(isSuccess(status), status);
             
             
         } catch (Exception e) {
+            // TODO something cleaner with cancellations
             if (mCancellationRequested.get()) {
                 result = new RemoteOperationResult(new OperationCancelledException());
             } else {

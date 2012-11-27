@@ -46,9 +46,9 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                                         OCFile file,
                                         boolean isInstant, 
                                         boolean forceOverwrite,
-                                        boolean moveLocalFile) {
+                                        int localBehaviour) {
         
-        super(account, file, isInstant, forceOverwrite, moveLocalFile);
+        super(account, file, isInstant, forceOverwrite, localBehaviour);
     }
 
     @Override

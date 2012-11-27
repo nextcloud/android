@@ -86,6 +86,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String KEY_UPLOAD_TYPE = "UPLOAD_TYPE";
     public static final String KEY_FORCE_OVERWRITE = "KEY_FORCE_OVERWRITE";
     public static final String KEY_INSTANT_UPLOAD = "INSTANT_UPLOAD";
+    public static final String KEY_LOCAL_BEHAVIOUR = "BEHAVIOUR";
+    
+    public static final int LOCAL_BEHAVIOUR_COPY = 0;
+    public static final int LOCAL_BEHAVIOUR_MOVE = 1;
+    public static final int LOCAL_BEHAVIOUR_FORGET = 2;
 
     public static final int UPLOAD_SINGLE_FILE = 0;
     public static final int UPLOAD_MULTIPLE_FILES = 1;
@@ -198,7 +203,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         FileDataStorageManager storageManager = new FileDataStorageManager(account, getContentResolver());
         
         boolean forceOverwrite = intent.getBooleanExtra(KEY_FORCE_OVERWRITE, false);
-        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false); 
+        boolean isInstant = intent.getBooleanExtra(KEY_INSTANT_UPLOAD, false);
+        int localAction = intent.getIntExtra(KEY_LOCAL_BEHAVIOUR, LOCAL_BEHAVIOUR_COPY);
         boolean fixed = false;
         if (isInstant) {
             fixed = checkAndFixInstantUploadDirectory(storageManager);  // MUST be done BEFORE calling obtainNewOCFileToUpload
@@ -237,9 +243,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             for (int i=0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 if (chunked) {
-                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite, false);
+                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction);
                 } else {
-                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, false);
+                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction);
                 }
                 if (fixed && i==0) {
                     newUpload.setRemoteFolderToBeCreated();
@@ -468,28 +474,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (mCurrentUpload.wasRenamed()) {
             OCFile oldFile = mCurrentUpload.getOldFile();
             if (oldFile.fileExists()) {
-                // the upload was the result of a conflict resolved with 'Keep both' by the user
-                /*File localFile = new File(file.getStoragePath());
-                File newLocalFile = new File(FileStorageUtils.getDefaultSavePathFor(mCurrentUpload.getAccount().name, file));
-                boolean renameSuccessed = localFile.renameTo(newLocalFile);
-                if (renameSuccessed) {
-                    file.setStoragePath(newLocalFile.getAbsolutePath());
-                    
-                } else {
-                    // poor solution
-                    Log.d(TAG, "DAMN IT: local rename failed after uploading a file with a new name already existing both in the remote account and the local database (should be due to a conflict solved with 'keep both'");
-                    file.setStoragePath(null);
-                        // not so fine:
-                        //      - local file will be kept there as 'trash' until is download (and overwritten) again from the server;
-                        //      - user will see as 'not down' a file that was just upload
-                        // BUT:
-                        //      - no loss of data happened
-                        //      - when the user downloads again the renamed and original file from the server, local file names and contents will be correctly synchronized with names and contents in server
-                }*/
-                if (oldFile.isDown()) {
-                    File oldLocalFile = new File(oldFile.getStoragePath());
-                    oldLocalFile.delete();  // the RemoteFileOperation copied and renamed it! // TODO launch the 'Keep both' option with mMove set 'ture'
-                }
                 oldFile.setStoragePath(null);
                 mStorageManager.saveFile(oldFile);
                 
