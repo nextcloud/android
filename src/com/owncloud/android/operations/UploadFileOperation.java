@@ -19,7 +19,11 @@
 package com.owncloud.android.operations;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -31,6 +35,8 @@ import org.apache.http.HttpStatus;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.FileRequestEntity;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -55,6 +61,7 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
+    private boolean mMoveLocalFile = false;
     private boolean mWasRenamed = false;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
@@ -64,7 +71,8 @@ public class UploadFileOperation extends RemoteOperation {
     public UploadFileOperation( Account account,
                                 OCFile file,
                                 boolean isInstant, 
-                                boolean forceOverwrite) {
+                                boolean forceOverwrite,
+                                boolean moveLocalFile) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -78,6 +86,7 @@ public class UploadFileOperation extends RemoteOperation {
         mRemotePath = file.getRemotePath();
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
+        mMoveLocalFile = moveLocalFile;
     }
 
 
@@ -137,7 +146,9 @@ public class UploadFileOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
-        boolean nameCheckPassed = false;
+        boolean localCopyPassed = false, nameCheckPassed = false;
+        File temporalFile = null, originalFile = null;
+        String originalStoragePath = mFile.getStoragePath();
         try {
             /// rename the file to upload, if necessary
             if (!mForceOverwrite) {
@@ -147,28 +158,100 @@ public class UploadFileOperation extends RemoteOperation {
                    createNewOCFile(remotePath);
                 }
             }
-        
-            /// perform the upload
             nameCheckPassed = true;
+        
+            /// check location of local file, and copy to a temporal file to upload it if not in its corresponding directory
+            String targetLocalPath =  FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);            
+            if (!originalStoragePath.equals(targetLocalPath)) {  
+                File ocLocalFolder = new File(FileStorageUtils.getSavePath(mAccount.name));
+                originalFile = new File(originalStoragePath);
+                if (!mMoveLocalFile) {
+                    // the file must be copied to the ownCloud local folder
+                    
+                    if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
+                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
+                        return result;
+                        
+                    } else {
+                        String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                        mFile.setStoragePath(temporalPath);
+                        temporalFile = new File(temporalPath);
+                        if (!originalStoragePath.equals(temporalPath)) {   // preventing weird but possible situation
+                            InputStream in = new FileInputStream(originalFile);
+                            OutputStream out = new FileOutputStream(temporalFile);
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = in.read(buf)) > 0){
+                                out.write(buf, 0, len);
+                            }
+                            in.close();
+                            out.close();
+                        }
+                    }
+                }   // else - the file will be MOVED to the corresponding directory AFTER the upload finishes
+            }
+            localCopyPassed = true;
+            
+            /// perform the upload
             synchronized(mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 } else {
-                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
                 }
             }
             int status = uploadFile(client);
-            result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage());
-
+            
+            
+            /// move local temporal file or original file to its corresponding location in the ownCloud local folder
+            if (isSuccess(status)) {
+                File fileToMove = null;
+                if (temporalFile != null) { 
+                    fileToMove = temporalFile;
+                } else if (originalFile != null) {
+                    fileToMove = originalFile;
+                }
+                if (fileToMove != null) {
+                    mFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile));
+                    File finalFile = new File(mFile.getStoragePath());
+                    if (!fileToMove.renameTo(finalFile)) {
+                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                    }
+                }
+            }
+            
+            if (result == null)
+                result = new RemoteOperationResult(isSuccess(status), status);
+            
+            
         } catch (Exception e) {
-            // TODO something cleaner
             if (mCancellationRequested.get()) {
                 result = new RemoteOperationResult(new OperationCancelledException());
             } else {
                 result = new RemoteOperationResult(e);
             }
-            Log.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage() + (nameCheckPassed?"":" (while checking file existence in server)"), result.getException());
+            
+            
+        } finally {
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
+            if (result.isSuccess()) {
+                Log.i(TAG, "Upload of " + originalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    
+            } else {
+                if (result.getException() != null) {
+                    String complement = "";
+                    if (!nameCheckPassed) {
+                        complement = " (while checking file existence in server)";
+                    } else if (!localCopyPassed) {
+                        complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name) + ")";
+                    }
+                    Log.e(TAG, "Upload of " + originalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
+                } else {
+                    Log.e(TAG, "Upload of " + originalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                }
+            }
         }
         
         return result;

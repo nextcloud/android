@@ -45,9 +45,10 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
     public ChunkedUploadFileOperation(  Account account,
                                         OCFile file,
                                         boolean isInstant, 
-                                        boolean forceOverwrite) {
+                                        boolean forceOverwrite,
+                                        boolean moveLocalFile) {
         
-        super(account, file, isInstant, forceOverwrite);
+        super(account, file, isInstant, forceOverwrite, moveLocalFile);
     }
 
     @Override

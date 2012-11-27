@@ -38,7 +38,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -238,9 +237,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             for (int i=0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 if (chunked) {
-                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite);
+                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite, false);
                 } else {
-                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite);
+                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, false);
                 }
                 if (fixed && i==0) {
                     newUpload.setRemoteFolderToBeCreated();
@@ -458,23 +457,19 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
           
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage(), e);
+            Log.e(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": " + result.getLogMessage(), e);
 
         } finally {
             if (propfind != null)
                 propfind.releaseConnection();
         }
 
-        
+        /// maybe this would be better as part of UploadFileOperation... or maybe all this method
         if (mCurrentUpload.wasRenamed()) {
             OCFile oldFile = mCurrentUpload.getOldFile();
-            if (!oldFile.fileExists()) {
-                // just a name coincidence
-                file.setStoragePath(oldFile.getStoragePath());
-                
-            } else {
-                // conflict resolved with 'Keep both' by the user
-                File localFile = new File(oldFile.getStoragePath());
+            if (oldFile.fileExists()) {
+                // the upload was the result of a conflict resolved with 'Keep both' by the user
+                /*File localFile = new File(file.getStoragePath());
                 File newLocalFile = new File(FileStorageUtils.getDefaultSavePathFor(mCurrentUpload.getAccount().name, file));
                 boolean renameSuccessed = localFile.renameTo(newLocalFile);
                 if (renameSuccessed) {
@@ -490,10 +485,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                         // BUT:
                         //      - no loss of data happened
                         //      - when the user downloads again the renamed and original file from the server, local file names and contents will be correctly synchronized with names and contents in server
+                }*/
+                if (oldFile.isDown()) {
+                    File oldLocalFile = new File(oldFile.getStoragePath());
+                    oldLocalFile.delete();  // the RemoteFileOperation copied and renamed it! // TODO launch the 'Keep both' option with mMove set 'ture'
                 }
                 oldFile.setStoragePath(null);
                 mStorageManager.saveFile(oldFile);
-            }
+                
+            } // else: it was just an automatic renaming due to a name coincidence; nothing else is needed, the storagePath is right in the instance returned by mCurrentUpload.getFile()
         }
         
         mStorageManager.saveFile(file);

@@ -145,7 +145,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 moved = tmpFile.renameTo(newFile);
             }
             if (!moved)
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.STORAGE_ERROR_MOVING_FROM_TMP);
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             else
                 result = new RemoteOperationResult(isSuccess(status), status);
             Log.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
