@@ -591,7 +591,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     dialog.dismiss();
                 }
             });
-            builder.setNegativeButton(R.string.common_exit, new OnClickListener() {
+            String message = String.format(getString(R.string.common_exit), getString(R.string.app_name));
+            builder.setNegativeButton(message, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     finish();
@@ -607,7 +608,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             PackageInfo pkg;
             try {
                 pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                builder.setMessage(String.format(getString(R.string.about_message), pkg.versionName));
+                builder.setMessage(String.format(getString(R.string.about_message), getString(R.string.app_name), pkg.versionName));
                 builder.setIcon(android.R.drawable.ic_menu_info_details);
                 dialog = builder.create();
             } catch (NameNotFoundException e) {

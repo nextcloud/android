@@ -129,7 +129,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(R.string.uploader_wrn_no_account_text);
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
@@ -432,7 +432,8 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             finish();
             
         } catch (SecurityException e) {
-            Toast.makeText(this, getString(R.string.uploader_error_forbidden_content), Toast.LENGTH_LONG).show();
+            String message = String.format(getString(R.string.uploader_error_forbidden_content), getString(R.string.app_name));
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
 
