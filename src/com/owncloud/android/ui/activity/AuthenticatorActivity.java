@@ -270,7 +270,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
             }
             TextView tv = (TextView) findViewById(R.id.account_username);
-            tv.setError(message);
+            tv.setError(message + "        ");  // the extra spaces are a workaround for an ugly bug: 
+                                                // 1. insert wrong credentials and connect
+                                                // 2. put the focus on the user name field with using hardware controls (don't touch the screen); the error is shown UNDER the field
+                                                // 3. touch the user name field; the software keyboard appears; the error popup is moved OVER the field and SHRINKED in width, losing the last word
+                                                // Seen, at least, in Android 2.x devices
         }
     }
     public void onCancelClick(View view) {

@@ -22,6 +22,7 @@ import java.net.URL;
 
 import org.apache.commons.httpclient.HttpStatus;
 
+import com.owncloud.android.R;
 import com.owncloud.android.network.OwnCloudClientUtils;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -64,13 +65,13 @@ public class AuthenticationRunnable implements Runnable {
             postResult(true, uri.toString());
             break;
         case HttpStatus.SC_UNAUTHORIZED:
-            postResult(false, "Invalid login or/and password");
+            postResult(false, mContext.getString(R.string.auth_unauthorized));
             break;
         case HttpStatus.SC_NOT_FOUND:
-            postResult(false, "Wrong path given");
+            postResult(false, mContext.getString(R.string.auth_not_found));
             break;
         default:
-            postResult(false, "Internal server error, code: " + login_result);
+            postResult(false, String.format(mContext.getString(R.string.auth_internal), login_result));
         }
     }
 

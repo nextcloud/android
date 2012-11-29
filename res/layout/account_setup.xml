@@ -59,7 +59,6 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/auth_host_url"
-                    android:singleLine="true"
                     android:inputType="textNoSuggestions" >
                     <requestFocus />
                 </EditText>
@@ -111,7 +110,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:singleLine="true"
                 android:hint="@string/auth_username"
                 android:inputType="textNoSuggestions" />
 
@@ -127,8 +125,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/auth_password"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
+                    android:inputType="textPassword"/>
 
                 <ImageView
                     android:id="@+id/viewPassword"
