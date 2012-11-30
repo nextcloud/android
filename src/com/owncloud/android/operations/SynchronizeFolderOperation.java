@@ -300,9 +300,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         if (storagePath != null && !storagePath.equals(expectedPath)) {
             /// fix storagePaths out of the local ownCloud folder
             File originalFile = new File(storagePath);
-            mForgottenLocalFiles.put(file.getRemotePath(), storagePath);    // TODO REMOVE
-            
-            /*  TO TEST NOTIFICATION!!! - TODO UNCOMMENT
             if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
                 mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
                 file.setStoragePath(null);
@@ -338,7 +335,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     }
                 }
             }
-            */
         }
     }
 

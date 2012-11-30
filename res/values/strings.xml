@@ -118,7 +118,7 @@
 	<string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)</string>
 	<string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
 	<string name="sync_foreign_files_forgotten_content">%1$d files out of the ownCloud directory could not be copied into</string>
-	<string name="sync_foreign_files_forgotten_explanation">"From version 1.3.16, uploaded files are copied to the local ownCloud folder to avoid problems when the same local file is uploaded to different folders or accounts.\n\nSome files uploaded in the past could not be copied during the account synchronization. %1$s will not track their current location anymore. You will need to download them again to access their contents from this app.\n\nSee below the list of untracked local files and the remote files in in %2$s they were linked to:</string>
+	<string name="sync_foreign_files_forgotten_explanation">"From version 1.3.16, uploaded files are copied to the local ownCloud folder to avoid problems when the same local file is uploaded to different folders or accounts.\n\nSome files uploaded in the past could not be copied during the account synchronization. %1$s will not track their current location anymore. You will need to download them again to access their contents from this app.\n\nSee below the list of untracked local files and the remote files in in %2$s they were linked to.</string>
     <string name="sync_foreign_files_forgotten_remote_prefix">"Remote: "</string>
     <string name="sync_foreign_files_forgotten_local_prefix">"Local: "</string>
 	

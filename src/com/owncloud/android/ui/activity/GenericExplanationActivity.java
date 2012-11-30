@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,11 +24,11 @@ import com.owncloud.android.R;
  * 
  * @author David A. Velasco
  */
-public class ExplanationActivity  extends SherlockFragmentActivity {
+public class GenericExplanationActivity  extends SherlockFragmentActivity {
 
-    public static final String EXTRA_LIST = ExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST";
-    public static final String EXTRA_LIST_2 = ExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST_2";
-    public static final String MESSAGE = ExplanationActivity.class.getCanonicalName() + ".MESSAGE";
+    public static final String EXTRA_LIST = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST";
+    public static final String EXTRA_LIST_2 = GenericExplanationActivity.class.getCanonicalName() + ".EXTRA_LIST_2";
+    public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() + ".MESSAGE";
     
     
     @Override
@@ -39,11 +40,12 @@ public class ExplanationActivity  extends SherlockFragmentActivity {
         ArrayList<String> list = intent.getStringArrayListExtra(EXTRA_LIST);
         ArrayList<String> list2 = intent.getStringArrayListExtra(EXTRA_LIST_2);
         
-        setContentView(R.layout.explanation);
+        setContentView(R.layout.generic_explanation);
         
         if (message != null) {
             TextView textView = (TextView) findViewById(R.id.message);
             textView.setText(message);
+            textView.setMovementMethod(new ScrollingMovementMethod());
         }
         
         ListView listView = (ListView) findViewById(R.id.list);
@@ -62,7 +64,6 @@ public class ExplanationActivity  extends SherlockFragmentActivity {
         ArrayList<String> mList2;
         
         ExplanationListAdapterView(Context context, ArrayList<String> list, ArrayList<String> list2) {
-            //super(context, android.R.layout.two_line_list_item, android.R.id.text1, list);
             super(context, android.R.layout.two_line_list_item, android.R.id.text1, list);
             mList = list;
             mList2 = list2;
