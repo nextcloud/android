@@ -881,6 +881,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
+                removeStickyBroadcast(intent);
                 
             }
             
