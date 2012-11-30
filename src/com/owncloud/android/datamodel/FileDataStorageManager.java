@@ -456,7 +456,7 @@ public class FileDataStorageManager implements DataStorageManager {
         // TODO consider possible failures
         if (dir != null && dir.isDirectory() && dir.getFileId() != -1) {
             Vector<OCFile> children = getDirectoryContent(dir);
-            if (children != null) {
+            if (children.size() > 0) {
                 OCFile child = null;
                 for (int i=0; i<children.size(); i++) {
                     child = children.get(i);

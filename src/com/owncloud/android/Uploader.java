@@ -257,7 +257,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         // click on folder in the list
         Log.d(TAG, "on item click");
         Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
-        if (tmpfiles == null) return;
+        if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
         for (OCFile f : tmpfiles)
@@ -325,7 +325,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
             Vector<OCFile> files = mStorageManager.getDirectoryContent(mFile);
-            if (files != null) {
+            if (files.size() > 0) {
                 List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
                 for (OCFile f : files) {
                     HashMap<String, Object> h = new HashMap<String, Object>();
