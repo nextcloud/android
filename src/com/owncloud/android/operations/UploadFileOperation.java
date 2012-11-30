@@ -143,7 +143,6 @@ public class UploadFileOperation extends RemoteOperation {
         mDataTransferListeners.add(listener);
     }
     
-
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
@@ -187,6 +186,11 @@ public class UploadFileOperation extends RemoteOperation {
                             while ((len = in.read(buf)) > 0){
                                 out.write(buf, 0, len);
                             }
+                            
+                        } catch (Exception e) {
+                            result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                            return result;
+                            
                         } finally {
                             try {
                                 if (in != null) in.close();
@@ -230,8 +234,11 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                     expectedFile = new File(mFile.getStoragePath());
                     if (!expectedFile.equals(fileToMove) && !fileToMove.renameTo(expectedFile)) {
-                        result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                        return result;
+                        mFile.setStoragePath(null); // forget the local file
+                        // by now, treat this as a success; the file was uploaded; the user won't like that the local file is not linked, but this should be a veeery rare fail;
+                        // the best option could be show a warning message (but not a fail)
+                        //result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                        //return result;
                     }
                 } 
             }

@@ -71,7 +71,8 @@ public class RemoteOperationResult implements Serializable {
         CONFLICT, 
         SYNC_CONFLICT,
         LOCAL_STORAGE_FULL, 
-        LOCAL_STORAGE_NOT_MOVED
+        LOCAL_STORAGE_NOT_MOVED, 
+        LOCAL_STORAGE_NOT_COPIED
     }
 
     private boolean mSuccess = false;

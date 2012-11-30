@@ -36,6 +36,7 @@ import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -645,9 +646,18 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
             finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            
+            String content = null; 
+            if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL ||
+                uploadResult.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
+                // TODO we need a class to provide error messages for the users from a RemoteOperationResult and a RemoteOperation 
+                content = String.format(getString(R.string.error__upload__local_file_not_copied), (new File(upload.getStoragePath())).getName(), getString(R.string.app_name));
+            } else {
+                content = String.format(getString(R.string.uploader_upload_failed_content_single), (new File(upload.getStoragePath())).getName());
+            }
             finalNotification.setLatestEventInfo(   getApplicationContext(), 
                                                     getString(R.string.uploader_upload_failed_ticker), 
-                                                    String.format(getString(R.string.uploader_upload_failed_content_single), (new File(upload.getStoragePath())).getName()), 
+                                                    content, 
                                                     finalNotification.contentIntent);
             
             mNotificationManager.notify(R.string.uploader_upload_failed_ticker, finalNotification);
