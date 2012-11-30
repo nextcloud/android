@@ -292,8 +292,8 @@ public class FileDataStorageManager implements DataStorageManager {
 
     @Override
     public Vector<OCFile> getDirectoryContent(OCFile f) {
+        Vector<OCFile> ret = new Vector<OCFile>();
         if (f != null && f.isDirectory() && f.getFileId() != -1) {
-            Vector<OCFile> ret = new Vector<OCFile>();
 
             Uri req_uri = Uri.withAppendedPath(
                     ProviderTableMeta.CONTENT_URI_DIR,
@@ -326,9 +326,8 @@ public class FileDataStorageManager implements DataStorageManager {
             
             Collections.sort(ret);
             
-            return ret;
         }
-        return null;
+        return ret;
     }
 
     private boolean fileExists(String cmp_key, String value) {
