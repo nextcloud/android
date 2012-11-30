@@ -733,6 +733,7 @@ public class FileDetailFragment extends SherlockFragment implements
                         String newName = (new File(uploadRemotePath)).getName();
                         Toast msg = Toast.makeText(getActivity().getApplicationContext(), String.format(getString(R.string.filedetails_renamed_in_upload_msg), newName), Toast.LENGTH_LONG);
                         msg.show();
+                        getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
                     }
                     updateFileDetails(false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
