@@ -19,7 +19,13 @@
 package com.owncloud.android.operations;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.http.HttpStatus;
@@ -73,6 +79,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private int mConflictsFound;
 
     private int mFailsInFavouritesFound;
+
+    private Map<String, String> mForgottenLocalFiles;
     
     
     public SynchronizeFolderOperation(  String remotePath, 
@@ -87,6 +95,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
+        mForgottenLocalFiles = new HashMap<String, String>();
     }
     
     
@@ -96,6 +105,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     
     public int getFailsInFavouritesFound() {
         return mFailsInFavouritesFound;
+    }
+    
+    public Map<String, String> getForgottenLocalFiles() {
+        return mForgottenLocalFiles;
     }
     
     /**
@@ -113,6 +126,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
+        mForgottenLocalFiles.clear();
         
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
@@ -149,6 +163,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     if (oldFile != null) {
                         file.setKeepInSync(oldFile.keepInSync());
                         file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                        checkAndFixForeignStoragePath(oldFile);
                         file.setStoragePath(oldFile.getStoragePath());
                     }
 
@@ -268,5 +283,64 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return file;
     }
     
+
+    /**
+     * Checks the storage path of the OCFile received as parameter. If it's out of the local ownCloud folder,
+     * tries to copy the file inside it. 
+     * 
+     * If the copy fails, the link to the local file is nullified. The account of forgotten files is kept in 
+     * {@link #mForgottenLocalFiles}
+     * 
+     * @param file      File to check and fix.
+     */
+    private void checkAndFixForeignStoragePath(OCFile file) {
+        String storagePath = file.getStoragePath();
+        String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
+        File ocLocalFolder = new File(FileStorageUtils.getSavePath(mAccount.name));
+        if (storagePath != null && !storagePath.equals(expectedPath)) {
+            /// fix storagePaths out of the local ownCloud folder
+            File originalFile = new File(storagePath);
+            mForgottenLocalFiles.put(file.getRemotePath(), storagePath);    // TODO REMOVE
+            
+            /*  TO TEST NOTIFICATION!!! - TODO UNCOMMENT
+            if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
+                mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
+                file.setStoragePath(null);
+                    
+            } else {
+                InputStream in = null;
+                OutputStream out = null;
+                try {
+                    File expectedFile = new File(expectedPath);
+                    in = new FileInputStream(originalFile);
+                    out = new FileOutputStream(expectedFile);
+                    byte[] buf = new byte[1024];
+                    int len;
+                    while ((len = in.read(buf)) > 0){
+                        out.write(buf, 0, len);
+                    }
+                    file.setStoragePath(expectedPath);
+                    
+                } catch (Exception e) {
+                    mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
+                    file.setStoragePath(null);
+                    
+                } finally {
+                    try {
+                        if (in != null) in.close();
+                    } catch (Exception e) {
+                        Log.d(TAG, "Weird exception while closing input stream for " + storagePath + " (ignoring)", e);
+                    }
+                    try {
+                        if (out != null) out.close();
+                    } catch (Exception e) {
+                        Log.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                    }
+                }
+            }
+            */
+        }
+    }
+
 
 }

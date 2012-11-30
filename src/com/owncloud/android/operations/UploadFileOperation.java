@@ -177,15 +177,28 @@ public class UploadFileOperation extends RemoteOperation {
                     mFile.setStoragePath(temporalPath);
                     temporalFile = new File(temporalPath);
                     if (!originalStoragePath.equals(temporalPath)) {   // preventing weird but possible situation
-                        InputStream in = new FileInputStream(originalFile);
-                        OutputStream out = new FileOutputStream(temporalFile);
-                        byte[] buf = new byte[1024];
-                        int len;
-                        while ((len = in.read(buf)) > 0){
-                            out.write(buf, 0, len);
+                        InputStream in = null;
+                        OutputStream out = null;
+                        try {
+                            in = new FileInputStream(originalFile);
+                            out = new FileOutputStream(temporalFile);
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = in.read(buf)) > 0){
+                                out.write(buf, 0, len);
+                            }
+                        } finally {
+                            try {
+                                if (in != null) in.close();
+                            } catch (Exception e) {
+                                Log.d(TAG, "Weird exception while closing input stream for " + originalStoragePath + " (ignoring)", e);
+                            }
+                            try {
+                                if (out != null) out.close();
+                            } catch (Exception e) {
+                                Log.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                            }
                         }
-                        in.close();
-                        out.close();
                     }
                 }
             }
