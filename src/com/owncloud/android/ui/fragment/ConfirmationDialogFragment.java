@@ -37,6 +37,16 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
     
     private ConfirmationDialogFragmentListener mListener;
     
+    /**
+     * Public factory method to create new ConfirmationDialogFragment instances.
+     * 
+     * @param string_id         Resource id for a message to show in the dialog.
+     * @param arguments         Arguments to complete the message, if it's a format string.
+     * @param posBtn            Resource id for the text of the positive button.
+     * @param neuBtn            Resource id for the text of the neutral button.
+     * @param negBtn            Resource id for the text of the negative button.
+     * @return                  Dialog ready to show.
+     */
     public static ConfirmationDialogFragment newInstance(int string_id, String[] arguments, int posBtn, int neuBtn, int negBtn) {
         ConfirmationDialogFragment frag = new ConfirmationDialogFragment();
         Bundle args = new Bundle();

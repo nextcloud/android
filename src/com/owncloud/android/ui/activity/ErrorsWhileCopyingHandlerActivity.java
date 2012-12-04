@@ -233,7 +233,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
          * 
          * In other case, the list of remaining files is still available to retry the movement.
          * 
-         * @result      'True' when the movement was successful.
+         * @param result      'True' when the movement was successful.
          */
         @Override
         protected void onPostExecute(Boolean result) {

@@ -125,6 +125,8 @@
     <string name="foreign_files_fail">"Some files could not be moved"</string>
     <string name="foreign_files_local_text">"Local: %1$s"</string>
 	<string name="foreign_files_remote_text">"Remote: %1$s"</string>
+
+	<string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>	
     	
 	<string name="use_ssl">Use Secure Connection</string>
     <string name="location_no_provider">ownCloud cannot track your device. Please check your location settings</string>
