@@ -35,7 +35,7 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.activity.GenericExplanationActivity;
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import android.accounts.Account;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -346,17 +346,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         /// includes a pending intent in the notification showing a more detailed explanation
-        Intent explanationIntent = new Intent(getContext(), GenericExplanationActivity.class);
-        String message = String.format(getContext().getString(R.string.sync_foreign_files_forgotten_explanation), getContext().getString(R.string.app_name), getAccount().name);
-        explanationIntent.putExtra(GenericExplanationActivity.MESSAGE, message);
+        Intent explanationIntent = new Intent(getContext(), ErrorsWhileCopyingHandlerActivity.class);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_ACCOUNT, getAccount());
         ArrayList<String> remotePaths = new ArrayList<String>();
         ArrayList<String> localPaths = new ArrayList<String>();
-        for (String remote : mForgottenLocalFiles.keySet()) {
-           remotePaths.add(getContext().getString(R.string.sync_foreign_files_forgotten_remote_prefix) + remote);
-           localPaths.add(getContext().getString(R.string.sync_foreign_files_forgotten_local_prefix) + mForgottenLocalFiles.get(remote));
-        }
-        explanationIntent.putExtra(GenericExplanationActivity.EXTRA_LIST, localPaths);
-        explanationIntent.putExtra(GenericExplanationActivity.EXTRA_LIST_2, remotePaths);  
+        remotePaths.addAll(mForgottenLocalFiles.keySet());
+        localPaths.addAll(mForgottenLocalFiles.values());
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_LOCAL_PATHS, localPaths);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_REMOTE_PATHS, remotePaths);  
         explanationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), explanationIntent, 0);

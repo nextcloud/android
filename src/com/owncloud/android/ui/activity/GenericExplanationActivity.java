@@ -17,7 +17,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 
 /**
- * Activity showing a text message and, optionally, a couple of scrollable lists of texts.
+ * Activity showing a text message and, optionally, a couple list of single or paired text strings.
  * 
  * Added to show explanations for notifications when the user clicks on them, and there no place
  * better to show them.

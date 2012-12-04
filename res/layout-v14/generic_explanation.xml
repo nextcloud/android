@@ -48,13 +48,7 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-		<Button
-		    android:id="@+id/ok"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="@string/common_ok" />
-		
+        <!-- 'OK' / 'CANCEL' BUTTONS CHANGE THEIR ORDER FROM ANDROID 4.0 ; THANKS, GOOGLE -->
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
@@ -62,6 +56,13 @@
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
+		<Button
+		    android:id="@+id/ok"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/common_ok" />
+		
 	</LinearLayout>
 	
 </LinearLayout>

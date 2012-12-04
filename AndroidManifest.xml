@@ -132,7 +132,8 @@
         <activity android:name=".extensions.ExtensionsListActivity"></activity>
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
-        <activity android:name="com.owncloud.android.ui.activity.GenericExplanationActivity"/>
+        <activity android:name=".ui.activity.GenericExplanationActivity"/>
+        <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
         <service android:name=".files.services.FileUploader" >
         </service>
