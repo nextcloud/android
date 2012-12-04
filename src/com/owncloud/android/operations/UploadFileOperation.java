@@ -166,8 +166,7 @@ public class UploadFileOperation extends RemoteOperation {
             /// check location of local file; if not the expected, copy to a temporal file before upload (if COPY is the expected behaviour)
             if (!originalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
 
-                File ocLocalFolder = new File(FileStorageUtils.getSavePath(mAccount.name));
-                if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
+                if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
                     result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
                     return result;  // error condition when the file should be copied
                         

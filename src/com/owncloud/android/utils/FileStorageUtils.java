@@ -22,6 +22,8 @@ import java.io.File;
 
 import android.net.Uri;
 import android.os.Environment;
+import android.os.StatFs;
+
 import com.owncloud.android.datamodel.OCFile;
 
 
@@ -43,5 +45,16 @@ public class FileStorageUtils {
             // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
 
+    public static final long getUsableSpace(String accountName) {
+        File savePath = Environment.getExternalStorageDirectory();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+            return savePath.getUsableSpace();
+            
+        } else {
+            StatFs stats = new StatFs(savePath.getAbsolutePath());
+            return stats.getAvailableBlocks() * stats.getBlockSize();
+        }
+        
+    }
     
 }

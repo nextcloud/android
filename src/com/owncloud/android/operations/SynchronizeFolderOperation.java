@@ -296,11 +296,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private void checkAndFixForeignStoragePath(OCFile file) {
         String storagePath = file.getStoragePath();
         String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, file);
-        File ocLocalFolder = new File(FileStorageUtils.getSavePath(mAccount.name));
         if (storagePath != null && !storagePath.equals(expectedPath)) {
             /// fix storagePaths out of the local ownCloud folder
             File originalFile = new File(storagePath);
-            if (ocLocalFolder.getUsableSpace() < originalFile.length()) {
+            if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
                 mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
                 file.setStoragePath(null);
                     

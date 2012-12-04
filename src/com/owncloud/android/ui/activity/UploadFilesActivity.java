@@ -319,9 +319,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
                 File localFile = new File(localPath);
                 total += localFile.length();
             }
-            String savePath = FileStorageUtils.getSavePath(mAccount.name);
-            File saveDir = new File(savePath);
-            return (saveDir.getUsableSpace() >= total);
+            return (FileStorageUtils.getUsableSpace(mAccount.name) >= total);
         }
 
         /**
