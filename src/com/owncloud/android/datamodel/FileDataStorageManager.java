@@ -108,6 +108,7 @@ public class FileDataStorageManager implements DataStorageManager {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
@@ -189,6 +190,7 @@ public class FileDataStorageManager implements DataStorageManager {
             file = filesIt.next();
             ContentValues cv = new ContentValues();
             cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+            cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
             cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
             cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
             cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
@@ -414,6 +416,8 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+            file.setModificationTimestampAtLastSyncForData(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
             file.setLastSyncDateForProperties(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
             file.setLastSyncDateForData(c.getLong(c.

@@ -279,7 +279,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimesamp());
+        file.setModificationTimestamp(we.modifiedTimestamp());
         file.setParentId(mParentId);
         return file;
     }

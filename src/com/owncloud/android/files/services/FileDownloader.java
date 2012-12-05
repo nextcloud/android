@@ -301,6 +301,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);
         file.setModificationTimestamp(mCurrentDownload.getModificationTimestamp());
+        file.setModificationTimestampAtLastSyncForData(mCurrentDownload.getModificationTimestamp());
         // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
         file.setMimetype(mCurrentDownload.getMimeType());
         file.setStoragePath(mCurrentDownload.getSavePath());

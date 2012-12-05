@@ -489,7 +489,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         file.setCreationTimestamp(we.createTimestamp());
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimesamp());
+        file.setModificationTimestamp(we.modifiedTimestamp());
+        file.setModificationTimestampAtLastSyncForData(we.modifiedTimestamp());
         // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
     }
     

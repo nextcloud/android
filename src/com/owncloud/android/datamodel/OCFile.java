@@ -47,6 +47,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private long mLength;
     private long mCreationTimestamp;
     private long mModifiedTimestamp;
+    private long mModifiedTimestampAtLastSyncForData;
     private String mRemotePath;
     private String mLocalPath;
     private String mMimeType;
@@ -84,6 +85,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLength = source.readLong();
         mCreationTimestamp = source.readLong();
         mModifiedTimestamp = source.readLong();
+        mModifiedTimestampAtLastSyncForData = source.readLong();
         mRemotePath = source.readString();
         mLocalPath = source.readString();
         mMimeType = source.readString();
@@ -100,6 +102,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeLong(mLength);
         dest.writeLong(mCreationTimestamp);
         dest.writeLong(mModifiedTimestamp);
+        dest.writeLong(mModifiedTimestampAtLastSyncForData);
         dest.writeString(mRemotePath);
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
@@ -196,9 +199,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * Get a UNIX timestamp of the file modification time
-     * 
-     * @return A UNIX timestamp of the modification time
+     * Get a UNIX timestamp of the file modification time.
+     *
+     * @return  A UNIX timestamp of the modification time, corresponding to the value returned by the server
+     *          in the last synchronization of the properties of this file. 
      */
     public long getModificationTimestamp() {
         return mModifiedTimestamp;
@@ -207,12 +211,40 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     /**
      * Set a UNIX timestamp of the time the time the file was modified.
      * 
+     * To update with the value returned by the server in every synchronization of the properties 
+     * of this file.
+     * 
      * @param modification_timestamp to set
      */
     public void setModificationTimestamp(long modification_timestamp) {
         mModifiedTimestamp = modification_timestamp;
     }
 
+    
+    /**
+     * Get a UNIX timestamp of the file modification time.
+     *
+     * @return  A UNIX timestamp of the modification time, corresponding to the value returned by the server
+     *          in the last synchronization of THE CONTENTS of this file. 
+     */
+    public long getModificationTimestampAtLastSyncForData() {
+        return mModifiedTimestampAtLastSyncForData;
+    }
+
+    /**
+     * Set a UNIX timestamp of the time the time the file was modified.
+     * 
+     * To update with the value returned by the server in every synchronization of THE CONTENTS 
+     * of this file.
+     * 
+     * @param modification_timestamp to set
+     */
+    public void setModificationTimestampAtLastSyncForData(long modificationTimestamp) {
+        mModifiedTimestampAtLastSyncForData = modificationTimestamp;
+    }
+
+    
+    
     /**
      * Returns the filename and "/" for the root directory
      * 
@@ -280,6 +312,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLength = 0;
         mCreationTimestamp = 0;
         mModifiedTimestamp = 0;
+        mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
         mKeepInSync = false;

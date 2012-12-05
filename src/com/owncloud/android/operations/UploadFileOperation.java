@@ -310,6 +310,7 @@ public class UploadFileOperation extends RemoteOperation {
         newFile.setFileLength(mFile.getFileLength());
         newFile.setMimetype(mFile.getMimetype());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
+        newFile.setModificationTimestampAtLastSyncForData(mFile.getModificationTimestampAtLastSyncForData());
         // newFile.setEtag(mFile.getEtag())
         newFile.setKeepInSync(mFile.keepInSync());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
