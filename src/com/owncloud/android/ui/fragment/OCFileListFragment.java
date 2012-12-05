@@ -498,8 +498,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
+            if (mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
         }
     }
     
@@ -515,8 +517,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             mTargetFile.setStoragePath(null);
             mContainerActivity.getStorageManager().saveFile(mTargetFile);
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        if (mCurrentDialog != null) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+        }
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
@@ -524,8 +528,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     @Override
     public void onCancel(String callerTag) {
         Log.d(TAG, "REMOVAL CANCELED");
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        if (mCurrentDialog != null) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+        }
     }
 
 

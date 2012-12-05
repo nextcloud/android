@@ -242,12 +242,16 @@ public class UploadFileOperation extends RemoteOperation {
                     } else {                                // FileUploader.LOCAL_BEHAVIOUR_MOVE
                         fileToMove = originalFile;
                     }
-                    if (!expectedFile.equals(fileToMove) && !fileToMove.renameTo(expectedFile)) {
-                        mFile.setStoragePath(null); // forget the local file
-                        // by now, treat this as a success; the file was uploaded; the user won't like that the local file is not linked, but this should be a veeery rare fail;
-                        // the best option could be show a warning message (but not a fail)
-                        //result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                        //return result;
+                    if (!expectedFile.equals(fileToMove)) {
+                        File expectedFolder = expectedFile.getParentFile();
+                        expectedFolder.mkdirs();
+                        if (!expectedFolder.isDirectory() || !fileToMove.renameTo(expectedFile)) {
+                            mFile.setStoragePath(null); // forget the local file
+                            // by now, treat this as a success; the file was uploaded; the user won't like that the local file is not linked, but this should be a veeery rare fail;
+                            // the best option could be show a warning message (but not a fail)
+                            //result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                            //return result;
+                        }
                     }
                 } 
             }
