@@ -372,16 +372,16 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         
-        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && resultCode == RESULT_OK) {
-            requestSimpleUpload(data);
+        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            requestSimpleUpload(data, resultCode);
             
-        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && resultCode == RESULT_OK) {
-            requestMultipleUpload(data);
+        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            requestMultipleUpload(data, resultCode);
             
         }
     }
 
-    private void requestMultipleUpload(Intent data) {
+    private void requestMultipleUpload(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
@@ -400,6 +400,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
             i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
             i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
             
         } else {
@@ -411,7 +413,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
 
-    private void requestSimpleUpload(Intent data) {
+    private void requestSimpleUpload(Intent data, int resultCode) {
         String filepath = null;
         try {
             Uri selectedImageUri = data.getData();
@@ -451,6 +453,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
     }
 
@@ -684,6 +688,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     if (item == 0) {
                         //if (!mDualPane) { 
                             Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
+                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
                             startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
                         //} else {
                             // TODO create and handle new fragment LocalFileListFragment

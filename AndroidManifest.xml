@@ -17,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="103015"
-    android:versionName="1.3.15" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="103016"
+    android:versionName="1.3.16" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -132,7 +132,9 @@
         <activity android:name=".extensions.ExtensionsListActivity"></activity>
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
-            
+        <activity android:name=".ui.activity.GenericExplanationActivity"/>
+        <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
+        
         <service android:name=".files.services.FileUploader" >
         </service>
         <service android:name=".files.services.InstantUploadService" />

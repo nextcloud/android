@@ -20,9 +20,12 @@ package com.owncloud.android.ui.activity;
 
 import java.io.File;
 
+import android.accounts.Account;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,7 +38,11 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import com.owncloud.android.R;
 
@@ -48,18 +55,25 @@ import com.owncloud.android.R;
  */
 
 public class UploadFilesActivity extends SherlockFragmentActivity implements
-    LocalFileListFragment.ContainerActivity, OnNavigationListener, OnClickListener {
+    LocalFileListFragment.ContainerActivity, OnNavigationListener, OnClickListener, ConfirmationDialogFragmentListener {
     
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
     private Button mUploadBtn;
+    private Account mAccount;
+    private DialogFragment mCurrentDialog;
     
-    public static final String EXTRA_DIRECTORY_PATH = "com.owncloud.android.Directory"; 
-    public static final String EXTRA_CHOSEN_FILES = "com.owncloud.android.ChosenFiles";
+    public static final String EXTRA_ACCOUNT = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
+    public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
+
+    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
     
+    private static final String KEY_DIRECTORY_PATH = UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String TAG = "UploadFilesActivity";
+    private static final String WAIT_DIALOG_TAG = "WAIT";
+    private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
     
     
     @Override
@@ -68,11 +82,13 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.EXTRA_DIRECTORY_PATH));
+            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH));
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
         
+        mAccount = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
+                
         /// USER INTERFACE
             
         // Drop-down navigation 
@@ -102,6 +118,12 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
+        
+        // wait dialog
+        if (mCurrentDialog != null) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+        }
             
         Log.d(TAG, "onCreate() end");
     }
@@ -161,7 +183,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
         Log.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
-        outState.putString(UploadFilesActivity.EXTRA_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
+        outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
         Log.d(TAG, "onSaveInstanceState() end");
     }
 
@@ -246,6 +268,9 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
+     * 
+     * TODO Make here the real request to the Upload service ; will require to receive the account and 
+     * target folder where the upload must be done in the received intent.
      */
     @Override
     public void onClick(View v) {
@@ -254,11 +279,110 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             finish();
             
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            Intent data = new Intent();
-            data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
-            setResult(RESULT_OK, data);
-            finish();
+            new CheckAvailableSpaceTask().execute();
         }
     }
+
+
+    /**
+     * Asynchronous task checking if there is space enough to copy all the files chosen
+     * to upload into the ownCloud local folder.
+     * 
+     * Maybe an AsyncTask is not strictly necessary, but who really knows.
+     * 
+     * @author David A. Velasco
+     */
+    private class CheckAvailableSpaceTask extends AsyncTask<Void, Void, Boolean> {
+
+        /**
+         * Updates the UI before trying the movement
+         */
+        @Override
+        protected void onPreExecute () {
+            /// progress dialog and disable 'Move' button
+            mCurrentDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
+            mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
+        }
+        
+        
+        /**
+         * Checks the available space
+         * 
+         * @return     'True' if there is space enough.
+         */
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
+            long total = 0;
+            for (int i=0; i < checkedFilePaths.length ; i++) {
+                String localPath = checkedFilePaths[i];
+                File localFile = new File(localPath);
+                total += localFile.length();
+            }
+            return (FileStorageUtils.getUsableSpace(mAccount.name) >= total);
+        }
+
+        /**
+         * Updates the activity UI after the check of space is done.
+         * 
+         * If there is not space enough. shows a new dialog to query the user if wants to move the files instead
+         * of copy them.
+         * 
+         * @param result        'True' when there is space enough to copy all the selected files.
+         */
+        @Override
+        protected void onPostExecute(Boolean result) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+            
+            if (result) {
+                // return the list of selected files (success)
+                Intent data = new Intent();
+                data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                setResult(RESULT_OK, data);
+                finish();
+                
+            } else {
+                // show a dialog to query the user if wants to move the selected files to the ownCloud folder instead of copying
+                String[] args = {getString(R.string.app_name)};
+                ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no);
+                dialog.setOnConfirmationListener(UploadFilesActivity.this);
+                mCurrentDialog = dialog;
+                mCurrentDialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
+            }
+        }
+    }
+
+    @Override
+    public void onConfirmation(String callerTag) {
+        Log.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
+        if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
+            // return the list of selected files to the caller activity (success), signaling that they should be moved to the ownCloud folder, instead of copied
+            Intent data = new Intent();
+            data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+            setResult(RESULT_OK_AND_MOVE, data);
+            finish();
+        }
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
+    }
+
+
+    @Override
+    public void onNeutral(String callerTag) {
+        Log.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
+    }
+
+
+    @Override
+    public void onCancel(String callerTag) {
+        /// nothing to do; don't finish, let the user change the selection
+        Log.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
+    }    
+
     
 }

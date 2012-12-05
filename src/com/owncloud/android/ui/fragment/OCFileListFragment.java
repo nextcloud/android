@@ -51,6 +51,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -78,7 +79,8 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     
     private Handler mHandler;
     private OCFile mTargetFile;
-
+    
+    private DialogFragment mCurrentDialog;
     
     /**
      * {@inheritDoc}
@@ -261,7 +263,8 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                         neuBtnStringId,
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
-                confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
+                mCurrentDialog = confDialog;
+                mCurrentDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
                 return true;
             }
             case R.id.open_file_item: {
@@ -495,6 +498,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }
+            if (mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
         }
     }
     
@@ -510,6 +517,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             mTargetFile.setStoragePath(null);
             mContainerActivity.getStorageManager().saveFile(mTargetFile);
         }
+        if (mCurrentDialog != null) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+        }
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
@@ -517,6 +528,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     @Override
     public void onCancel(String callerTag) {
         Log.d(TAG, "REMOVAL CANCELED");
+        if (mCurrentDialog != null) {
+            mCurrentDialog.dismiss();
+            mCurrentDialog = null;
+        }
     }
 
 

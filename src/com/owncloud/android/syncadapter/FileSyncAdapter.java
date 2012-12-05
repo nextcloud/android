@@ -20,7 +20,10 @@ package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
@@ -32,7 +35,7 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import android.accounts.Account;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -68,6 +71,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private SyncResult mSyncResult;
     private int mConflictsFound;
     private int mFailsInFavouritesFound;
+    private Map<String, String> mForgottenLocalFiles;
+
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -87,6 +92,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mLastFailedResult = null;
         mConflictsFound = 0;
         mFailsInFavouritesFound = 0;
+        mForgottenLocalFiles = new HashMap<String, String>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
         mSyncResult.delayUntil = 60*60*24; // sync after 24h
@@ -128,8 +134,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 /// notify the user about the failure of MANUAL synchronization
                 notifyFailedSynchronization();
                 
-            } else if (mConflictsFound > 0 || mFailsInFavouritesFound > 0) {
+            }
+            if (mConflictsFound > 0 || mFailsInFavouritesFound > 0) {
                 notifyFailsInFavourites();
+            }
+            if (mForgottenLocalFiles.size() > 0) {
+                notifyForgottenLocalFiles();
+                
             }
             sendStickyBroadcast(false, null, mLastFailedResult);        // message to signal the end to the UI
         }
@@ -194,6 +205,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 mConflictsFound += synchFolderOp.getConflictsFound();
                 mFailsInFavouritesFound += synchFolderOp.getFailsInFavouritesFound();
+            }
+            if (synchFolderOp.getForgottenLocalFiles().size() > 0) {
+                mForgottenLocalFiles.putAll(synchFolderOp.getForgottenLocalFiles());
             }
             // synchronize children folders 
             List<OCFile> children = synchFolderOp.getChildren();
@@ -288,7 +302,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
 
     /**
-     * Notifies the user about conflicts and strange fails when trying to synchronize the contents of favourite files.
+     * Notifies the user about conflicts and strange fails when trying to synchronize the contents of kept-in-sync files.
      * 
      * By now, we won't consider a failed synchronization.
      */
@@ -317,4 +331,39 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } 
     }
 
+    
+    /**
+     * Notifies the user about local copies of files out of the ownCloud local directory that were 'forgotten' because 
+     * copying them inside the ownCloud local directory was not possible.
+     * 
+     * We don't want links to files out of the ownCloud local directory (foreign files) anymore. It's easy to have 
+     * synchronization problems if a local file is linked to more than one remote file.
+     * 
+     * We won't consider a synchronization as failed when foreign files can not be copied to the ownCloud local directory.
+     */
+    private void notifyForgottenLocalFiles() {
+        Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_foreign_files_forgotten_ticker), System.currentTimeMillis());
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        /// includes a pending intent in the notification showing a more detailed explanation
+        Intent explanationIntent = new Intent(getContext(), ErrorsWhileCopyingHandlerActivity.class);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_ACCOUNT, getAccount());
+        ArrayList<String> remotePaths = new ArrayList<String>();
+        ArrayList<String> localPaths = new ArrayList<String>();
+        remotePaths.addAll(mForgottenLocalFiles.keySet());
+        localPaths.addAll(mForgottenLocalFiles.values());
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_LOCAL_PATHS, localPaths);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_REMOTE_PATHS, remotePaths);  
+        explanationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        
+        notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), explanationIntent, 0);
+        notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                        getContext().getString(R.string.sync_foreign_files_forgotten_ticker), 
+                                        String.format(getContext().getString(R.string.sync_foreign_files_forgotten_content), mForgottenLocalFiles.size()), 
+                                        notification.contentIntent);
+        ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_foreign_files_forgotten_ticker, notification);
+        
+    }
+    
+    
 }

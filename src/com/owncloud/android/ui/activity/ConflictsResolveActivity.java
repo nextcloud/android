@@ -73,15 +73,15 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
                 return;
             case OVERWRITE:
                 i.putExtra(FileUploader.KEY_FORCE_OVERWRITE, true);
-            case KEEP_BOTH: // fallthrough
+                break;
+            case KEEP_BOTH:
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 break;
             default:
                 Log.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
         i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);
-        //i.putExtra(FileUploader.KEY_REMOTE_FILE, mRemotePath);
-        //i.putExtra(FileUploader.KEY_LOCAL_FILE, mLocalPath);
         i.putExtra(FileUploader.KEY_FILE, mFile);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         

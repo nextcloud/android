@@ -108,6 +108,7 @@ public class FileDataStorageManager implements DataStorageManager {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
@@ -189,6 +190,7 @@ public class FileDataStorageManager implements DataStorageManager {
             file = filesIt.next();
             ContentValues cv = new ContentValues();
             cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+            cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
             cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
             cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
             cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
@@ -292,8 +294,8 @@ public class FileDataStorageManager implements DataStorageManager {
 
     @Override
     public Vector<OCFile> getDirectoryContent(OCFile f) {
+        Vector<OCFile> ret = new Vector<OCFile>();
         if (f != null && f.isDirectory() && f.getFileId() != -1) {
-            Vector<OCFile> ret = new Vector<OCFile>();
 
             Uri req_uri = Uri.withAppendedPath(
                     ProviderTableMeta.CONTENT_URI_DIR,
@@ -326,9 +328,8 @@ public class FileDataStorageManager implements DataStorageManager {
             
             Collections.sort(ret);
             
-            return ret;
         }
-        return null;
+        return ret;
     }
 
     private boolean fileExists(String cmp_key, String value) {
@@ -415,6 +416,8 @@ public class FileDataStorageManager implements DataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_CREATION)));
             file.setModificationTimestamp(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_MODIFIED)));
+            file.setModificationTimestampAtLastSyncForData(c.getLong(c
+                    .getColumnIndex(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
             file.setLastSyncDateForProperties(c.getLong(c
                     .getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
             file.setLastSyncDateForData(c.getLong(c.
@@ -457,7 +460,7 @@ public class FileDataStorageManager implements DataStorageManager {
         // TODO consider possible failures
         if (dir != null && dir.isDirectory() && dir.getFileId() != -1) {
             Vector<OCFile> children = getDirectoryContent(dir);
-            if (children != null) {
+            if (children.size() > 0) {
                 OCFile child = null;
                 for (int i=0; i<children.size(); i++) {
                     child = children.get(i);

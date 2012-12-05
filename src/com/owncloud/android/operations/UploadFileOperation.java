@@ -19,7 +19,11 @@
 package com.owncloud.android.operations;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -29,8 +33,11 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.http.HttpStatus;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.FileRequestEntity;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -55,7 +62,10 @@ public class UploadFileOperation extends RemoteOperation {
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
+    private int mLocalBehaviour = FileUploader.LOCAL_BEHAVIOUR_COPY;
     private boolean mWasRenamed = false;
+    private String mOriginalFileName = null;
+    private String mOriginalStoragePath = null;
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
@@ -64,7 +74,8 @@ public class UploadFileOperation extends RemoteOperation {
     public UploadFileOperation( Account account,
                                 OCFile file,
                                 boolean isInstant, 
-                                boolean forceOverwrite) {
+                                boolean forceOverwrite,
+                                int localBehaviour) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -78,11 +89,18 @@ public class UploadFileOperation extends RemoteOperation {
         mRemotePath = file.getRemotePath();
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
+        mLocalBehaviour = localBehaviour;
+        mOriginalStoragePath = mFile.getStoragePath();
+        mOriginalFileName = mFile.getFileName();
     }
 
 
     public Account getAccount() {
         return mAccount;
+    }
+    
+    public String getFileName() {
+        return mOriginalFileName;
     }
     
     public OCFile getFile() {
@@ -91,6 +109,10 @@ public class UploadFileOperation extends RemoteOperation {
     
     public OCFile getOldFile() {
         return mOldFile; 
+    }
+    
+    public String getOriginalStoragePath() {
+        return mOriginalStoragePath;
     }
     
     public String getStoragePath() {
@@ -133,11 +155,11 @@ public class UploadFileOperation extends RemoteOperation {
         mDataTransferListeners.add(listener);
     }
     
-
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
-        boolean nameCheckPassed = false;
+        boolean localCopyPassed = false, nameCheckPassed = false;
+        File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
         try {
             /// rename the file to upload, if necessary
             if (!mForceOverwrite) {
@@ -147,28 +169,134 @@ public class UploadFileOperation extends RemoteOperation {
                    createNewOCFile(remotePath);
                 }
             }
-        
-            /// perform the upload
             nameCheckPassed = true;
+        
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);  /// not before getAvailableRemotePath() !!!
+            expectedFile = new File(expectedPath);
+            
+            /// check location of local file; if not the expected, copy to a temporal file before upload (if COPY is the expected behaviour)
+            if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
+
+                if (FileStorageUtils.getUsableSpace(mAccount.name) < originalFile.length()) {
+                    result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL);
+                    return result;  // error condition when the file should be copied
+                        
+                } else {
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    mFile.setStoragePath(temporalPath);
+                    temporalFile = new File(temporalPath);
+                    if (!mOriginalStoragePath.equals(temporalPath)) {   // preventing weird but possible situation
+                        InputStream in = null;
+                        OutputStream out = null;
+                        try {
+                            File temporalParent = temporalFile.getParentFile();
+                            temporalParent.mkdirs();
+                            if (!temporalParent.isDirectory()) {
+                                throw new IOException("Unexpected error: parent directory could not be created");
+                            }
+                            temporalFile.createNewFile();
+                            if (!temporalFile.isFile()) {
+                                throw new IOException("Unexpected error: target file could not be created");
+                            }                    
+                            in = new FileInputStream(originalFile);
+                            out = new FileOutputStream(temporalFile);
+                            byte[] buf = new byte[1024];
+                            int len;
+                            while ((len = in.read(buf)) > 0){
+                                out.write(buf, 0, len);
+                            }
+                            
+                        } catch (Exception e) {
+                            result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                            return result;
+                            
+                        } finally {
+                            try {
+                                if (in != null) in.close();
+                            } catch (Exception e) {
+                                Log.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
+                            }
+                            try {
+                                if (out != null) out.close();
+                            } catch (Exception e) {
+                                Log.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                            }
+                        }
+                    }
+                }
+            }
+            localCopyPassed = true;
+            
+            /// perform the upload
             synchronized(mCancellationRequested) {
                 if (mCancellationRequested.get()) {
                     throw new OperationCancelledException();
                 } else {
-                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
                 }
             }
             int status = uploadFile(client);
+            
+            
+            /// move local temporal file or original file to its corresponding location in the ownCloud local folder
+            if (isSuccess(status)) {
+                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                    mFile.setStoragePath(null);
+                    
+                } else {
+                    mFile.setStoragePath(expectedPath);
+                    File fileToMove = null;
+                    if (temporalFile != null) {             // FileUploader.LOCAL_BEHAVIOUR_COPY ; see where temporalFile was set
+                        fileToMove = temporalFile;
+                    } else {                                // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                        fileToMove = originalFile;
+                    }
+                    if (!expectedFile.equals(fileToMove)) {
+                        File expectedFolder = expectedFile.getParentFile();
+                        expectedFolder.mkdirs();
+                        if (!expectedFolder.isDirectory() || !fileToMove.renameTo(expectedFile)) {
+                            mFile.setStoragePath(null); // forget the local file
+                            // by now, treat this as a success; the file was uploaded; the user won't like that the local file is not linked, but this should be a veeery rare fail;
+                            // the best option could be show a warning message (but not a fail)
+                            //result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                            //return result;
+                        }
+                    }
+                } 
+            }
+            
             result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage());
-
+            
+            
         } catch (Exception e) {
-            // TODO something cleaner
+            // TODO something cleaner with cancellations
             if (mCancellationRequested.get()) {
                 result = new RemoteOperationResult(new OperationCancelledException());
             } else {
                 result = new RemoteOperationResult(e);
             }
-            Log.e(TAG, "Upload of " + mFile.getStoragePath() + " to " + mRemotePath + ": " + result.getLogMessage() + (nameCheckPassed?"":" (while checking file existence in server)"), result.getException());
+            
+            
+        } finally {
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
+            if (result.isSuccess()) {
+                Log.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    
+            } else {
+                if (result.getException() != null) {
+                    String complement = "";
+                    if (!nameCheckPassed) {
+                        complement = " (while checking file existence in server)";
+                    } else if (!localCopyPassed) {
+                        complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name) + ")";
+                    }
+                    Log.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
+                } else {
+                    Log.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                }
+            }
         }
         
         return result;
@@ -182,6 +310,7 @@ public class UploadFileOperation extends RemoteOperation {
         newFile.setFileLength(mFile.getFileLength());
         newFile.setMimetype(mFile.getMimetype());
         newFile.setModificationTimestamp(mFile.getModificationTimestamp());
+        newFile.setModificationTimestampAtLastSyncForData(mFile.getModificationTimestampAtLastSyncForData());
         // newFile.setEtag(mFile.getEtag())
         newFile.setKeepInSync(mFile.keepInSync());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());

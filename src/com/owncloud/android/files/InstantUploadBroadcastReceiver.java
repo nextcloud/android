@@ -66,7 +66,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         // remove successfull uploading, ignore rest for reupload on reconnect
         if (intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false)) {
             DbHandler db = new DbHandler(context);
-            String localPath = intent.getStringExtra(FileUploader.EXTRA_FILE_PATH);
+            String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
             if (!db.removeIUPendingFile(localPath,
                                         intent.getStringExtra(FileUploader.ACCOUNT_NAME))) {
                 Log.w(TAG, "Tried to remove non existing instant upload file " + localPath);

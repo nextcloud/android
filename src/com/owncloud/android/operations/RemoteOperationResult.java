@@ -65,12 +65,14 @@ public class RemoteOperationResult implements Serializable {
         SSL_ERROR,
         SSL_RECOVERABLE_PEER_UNVERIFIED,
         BAD_OC_VERSION,
-        STORAGE_ERROR_MOVING_FROM_TMP,
         CANCELLED, 
         INVALID_LOCAL_FILE_NAME, 
         INVALID_OVERWRITE,
         CONFLICT, 
-        SYNC_CONFLICT
+        SYNC_CONFLICT,
+        LOCAL_STORAGE_FULL, 
+        LOCAL_STORAGE_NOT_MOVED, 
+        LOCAL_STORAGE_NOT_COPIED
     }
 
     private boolean mSuccess = false;
@@ -254,8 +256,11 @@ public class RemoteOperationResult implements Serializable {
         } else if (mCode == ResultCode.BAD_OC_VERSION) {
             return "No valid ownCloud version was found at the server";
             
-        } else if (mCode == ResultCode.STORAGE_ERROR_MOVING_FROM_TMP) {
-            return "Error while moving file from temporal to final directory";
+        } else if (mCode == ResultCode.LOCAL_STORAGE_FULL) {
+            return "Local storage full";
+            
+        } else if (mCode == ResultCode.LOCAL_STORAGE_NOT_MOVED) {
+            return "Error while moving file to final directory";
         }
         
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess()?"success":"fail") + ")";

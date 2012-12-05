@@ -126,7 +126,7 @@ public class WebdavEntry {
         return mCreateTimestamp;
     }
 
-    public long modifiedTimesamp() {
+    public long modifiedTimestamp() {
         return mModifiedTimestamp;
     }
 
