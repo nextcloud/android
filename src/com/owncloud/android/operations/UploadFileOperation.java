@@ -189,6 +189,15 @@ public class UploadFileOperation extends RemoteOperation {
                         InputStream in = null;
                         OutputStream out = null;
                         try {
+                            File temporalParent = temporalFile.getParentFile();
+                            temporalParent.mkdirs();
+                            if (!temporalParent.isDirectory()) {
+                                throw new IOException("Unexpected error: parent directory could not be created");
+                            }
+                            temporalFile.createNewFile();
+                            if (!temporalFile.isFile()) {
+                                throw new IOException("Unexpected error: target file could not be created");
+                            }                    
                             in = new FileInputStream(originalFile);
                             out = new FileOutputStream(temporalFile);
                             byte[] buf = new byte[1024];

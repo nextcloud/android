@@ -21,6 +21,7 @@ package com.owncloud.android.operations;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -308,6 +309,15 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 OutputStream out = null;
                 try {
                     File expectedFile = new File(expectedPath);
+                    File expectedParent = expectedFile.getParentFile();
+                    expectedParent.mkdirs();
+                    if (!expectedParent.isDirectory()) {
+                        throw new IOException("Unexpected error: parent directory could not be created");
+                    }
+                    expectedFile.createNewFile();
+                    if (!expectedFile.isFile()) {
+                        throw new IOException("Unexpected error: target file could not be created");
+                    }                    
                     in = new FileInputStream(originalFile);
                     out = new FileOutputStream(expectedFile);
                     byte[] buf = new byte[1024];
@@ -318,6 +328,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     file.setStoragePath(expectedPath);
                     
                 } catch (Exception e) {
+                    Log.e(TAG, "Exception while copying foreign file " + expectedPath, e);
                     mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
                     file.setStoragePath(null);
                     
