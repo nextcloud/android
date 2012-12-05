@@ -74,7 +74,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
-    public static final String EXTRA_FILE_PATH = "FILE_PATH";
+    public static final String EXTRA_OLD_FILE_PATH = "OLD_FILE_PATH";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";    
     
     public static final String KEY_FILE = "FILE";
@@ -562,7 +562,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mDefaultNotificationContentView = mNotification.contentView;
         mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, false);
-        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.uploader_upload_in_progress_content), 0, new File(upload.getStoragePath()).getName()));
+        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         
         /// includes a pending intent in the notification showing the details view of the file
@@ -627,7 +627,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             
             mNotification.setLatestEventInfo(   getApplicationContext(), 
                                                 getString(R.string.uploader_upload_succeeded_ticker), 
-                                                String.format(getString(R.string.uploader_upload_succeeded_content_single), (new File(upload.getStoragePath())).getName()), 
+                                                String.format(getString(R.string.uploader_upload_succeeded_content_single), upload.getFileName()), 
                                                 mNotification.contentIntent);
             
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);    // NOT AN ERROR; uploader_upload_in_progress_ticker is the target, not a new notification
@@ -651,9 +651,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL ||
                 uploadResult.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
                 // TODO we need a class to provide error messages for the users from a RemoteOperationResult and a RemoteOperation 
-                content = String.format(getString(R.string.error__upload__local_file_not_copied), (new File(upload.getStoragePath())).getName(), getString(R.string.app_name));
+                content = String.format(getString(R.string.error__upload__local_file_not_copied), upload.getFileName(), getString(R.string.app_name));
             } else {
-                content = String.format(getString(R.string.uploader_upload_failed_content_single), (new File(upload.getStoragePath())).getName());
+                content = String.format(getString(R.string.uploader_upload_failed_content_single), upload.getFileName());
             }
             finalNotification.setLatestEventInfo(   getApplicationContext(), 
                                                     getString(R.string.uploader_upload_failed_ticker), 
@@ -685,7 +685,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (upload.wasRenamed()) {
             end.putExtra(EXTRA_OLD_REMOTE_PATH, upload.getOldFile().getRemotePath());
         }
-        end.putExtra(EXTRA_FILE_PATH, upload.getStoragePath());
+        end.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
         end.putExtra(ACCOUNT_NAME, upload.getAccount().name);
         end.putExtra(EXTRA_UPLOAD_RESULT, uploadResult.isSuccess());
         sendStickyBroadcast(end);

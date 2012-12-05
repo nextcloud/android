@@ -363,7 +363,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }
-        //mCurrentDialog.dismiss();
+        mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }
 
@@ -371,7 +371,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     @Override
     public void onNeutral(String callerTag) {
         Log.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
-        //mCurrentDialog.dismiss();
+        mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }
 
@@ -380,7 +380,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
-        //mCurrentDialog.dismiss();
+        mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }    
 

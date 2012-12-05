@@ -50,6 +50,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
@@ -121,6 +122,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
+    private DialogFragment mCurrentDialog;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
@@ -353,7 +355,8 @@ public class FileDetailFragment extends SherlockFragment implements
                         mFile.isDown() ? R.string.confirmation_remove_local : -1,
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
-                confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+                mCurrentDialog = confDialog;
+                mCurrentDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 break;
             }
             case R.id.fdOpenBtn: {
@@ -427,6 +430,8 @@ public class FileDetailFragment extends SherlockFragment implements
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
             }
         }
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
     }
     
     @Override
@@ -438,11 +443,15 @@ public class FileDetailFragment extends SherlockFragment implements
             mStorageManager.saveFile(mFile);
             updateFileDetails(mFile, mAccount);
         }
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
     }
     
     @Override
     public void onCancel(String callerTag) {
         Log.d(TAG, "REMOVAL CANCELED");
+        mCurrentDialog.dismiss();
+        mCurrentDialog = null;
     }
     
     
