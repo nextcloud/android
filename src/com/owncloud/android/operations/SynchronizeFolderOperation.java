@@ -164,6 +164,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     if (oldFile != null) {
                         file.setKeepInSync(oldFile.keepInSync());
                         file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                        file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // not local, but must be kept unchanged when the file contents are not updated
                         checkAndFixForeignStoragePath(oldFile);
                         file.setStoragePath(oldFile.getStoragePath());
                     }
