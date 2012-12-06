@@ -163,8 +163,18 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
                     if (oldFile != null) {
                         file.setKeepInSync(oldFile.keepInSync());
-                        file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
-                        file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // not local, but must be kept unchanged when the file contents are not updated
+                        if (oldFile.isDown() && oldFile.getLastSyncDateForData() == 0) {
+                            // only should be true after the upgrade to database version 3 (official 1.3.16 release)
+                            file.setLastSyncDateForData(oldFile.getLocalModificationTimestamp());   // assume there are not local changes pending to upload
+                        } else {
+                            file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                        } 
+                        if (oldFile.isDown() && oldFile.getModificationTimestampAtLastSyncForData() == 0) {
+                            // only should be true after the upgrade to database version 4 (official 1.3.16 release)
+                            file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestamp()); // assume the file was downloaded not later than the last account synchronization
+                        } else {
+                            file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // not local, but must be kept unchanged when the file contents are not updated
+                        }
                         checkAndFixForeignStoragePath(oldFile);
                         file.setStoragePath(oldFile.getStoragePath());
                     }
