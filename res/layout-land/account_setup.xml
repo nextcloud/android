@@ -64,7 +64,6 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/auth_host_url"
-                        android:singleLine="true"
                         android:inputType="textNoSuggestions">
                         <requestFocus />
                     </EditText>
@@ -159,7 +158,6 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/auth_username"
-                    android:singleLine="true"
                     android:inputType="textNoSuggestions" />
 
                 <FrameLayout
@@ -174,8 +172,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/auth_password"
-                        android:inputType="textPassword"
-                        android:singleLine="true" />
+                        android:inputType="textPassword"/>
 
                     <ImageView
                         android:id="@+id/viewPassword"
@@ -217,6 +214,7 @@
                 android:onClick="onOkClick"
                 android:text="@string/setup_btn_connect"
                 android:textColor="@android:color/black" />
+            
         </LinearLayout>
         
 		<Button
@@ -229,8 +227,8 @@
 			android:paddingTop="10dp"
 			android:paddingBottom="10dp"
 			android:textColor="#0000FF"
-			android:background="@android:color/transparent"
-			android:text="@string/auth_register" />
+			android:background="@android:color/transparent" />
+			<!-- android:text="@string/app_name @string/auth_register" /-->
         
     </RelativeLayout>
 

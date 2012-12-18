@@ -129,7 +129,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(R.string.uploader_wrn_no_account_text);
+            builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
@@ -257,7 +257,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         // click on folder in the list
         Log.d(TAG, "on item click");
         Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
-        if (tmpfiles == null) return;
+        if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
         for (OCFile f : tmpfiles)
@@ -325,7 +325,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
             Vector<OCFile> files = mStorageManager.getDirectoryContent(mFile);
-            if (files != null) {
+            if (files.size() > 0) {
                 List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
                 for (OCFile f : files) {
                     HashMap<String, Object> h = new HashMap<String, Object>();
@@ -432,7 +432,8 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             finish();
             
         } catch (SecurityException e) {
-            Toast.makeText(this, getString(R.string.uploader_error_forbidden_content), Toast.LENGTH_LONG).show();
+            String message = String.format(getString(R.string.uploader_error_forbidden_content), getString(R.string.app_name));
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
         }
     }
 

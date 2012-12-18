@@ -18,6 +18,7 @@
 
 package com.owncloud.android.operations;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import android.util.Log;
@@ -60,6 +61,16 @@ public class RemoveFileOperation extends RemoteOperation {
     
     
     /**
+     * Getter for the file to remove (or removed, if the operation was successfully performed).
+     * 
+     * @return      File to remove or already removed.
+     */
+    public OCFile getFile() {
+        return mFileToRemove;
+    }
+    
+    
+    /**
      * Performs the remove operation
      * 
      * @param   client      Client object to communicate with the remote ownCloud server.
@@ -71,11 +82,15 @@ public class RemoveFileOperation extends RemoteOperation {
         try {
             delete = new DeleteMethod(client.getBaseUri() + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
-            if (delete.succeeded()) {
-                mDataStorageManager.removeFile(mFileToRemove, mDeleteLocalCopy);
+            if (delete.succeeded() || status == HttpStatus.SC_NOT_FOUND) {
+                if (mFileToRemove.isDirectory()) {
+                    mDataStorageManager.removeDirectory(mFileToRemove, true, mDeleteLocalCopy);
+                } else {
+                    mDataStorageManager.removeFile(mFileToRemove, mDeleteLocalCopy);
+                }
             }
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-            result = new RemoteOperationResult(delete.succeeded(), status);
+            result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status);
             Log.i(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {

@@ -20,7 +20,10 @@ package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
@@ -28,16 +31,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-//<<<<<<< HEAD
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
-/*=======
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileObserverService;
-import com.owncloud.android.utils.OwnCloudVersion;
->>>>>>> origin/master*/
-
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import android.accounts.Account;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -71,6 +69,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private int mFailedResultsCounter;    
     private RemoteOperationResult mLastFailedResult;
     private SyncResult mSyncResult;
+    private int mConflictsFound;
+    private int mFailsInFavouritesFound;
+    private Map<String, String> mForgottenLocalFiles;
+
     
     public FileSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -88,8 +90,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
         mFailedResultsCounter = 0;
         mLastFailedResult = null;
+        mConflictsFound = 0;
+        mFailsInFavouritesFound = 0;
+        mForgottenLocalFiles = new HashMap<String, String>();
         mSyncResult = syncResult;
-        
+        mSyncResult.fullSyncRequested = false;
+        mSyncResult.delayUntil = 60*60*24; // sync after 24h
+
         this.setAccount(account);
         this.setContentProvider(provider);
         this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
@@ -126,13 +133,20 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 
                 /// notify the user about the failure of MANUAL synchronization
                 notifyFailedSynchronization();
+                
+            }
+            if (mConflictsFound > 0 || mFailsInFavouritesFound > 0) {
+                notifyFailsInFavourites();
+            }
+            if (mForgottenLocalFiles.size() > 0) {
+                notifyForgottenLocalFiles();
+                
             }
             sendStickyBroadcast(false, null, mLastFailedResult);        // message to signal the end to the UI
         }
         
     }
-    
-    
+
     
     /**
      * Called by system SyncManager when a synchronization is required to be cancelled.
@@ -186,12 +200,19 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
         sendStickyBroadcast(true, remotePath, null);
         
-        if (result.isSuccess()) {
+        if (result.isSuccess() || result.getCode() == ResultCode.SYNC_CONFLICT) {
+            
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                mConflictsFound += synchFolderOp.getConflictsFound();
+                mFailsInFavouritesFound += synchFolderOp.getFailsInFavouritesFound();
+            }
+            if (synchFolderOp.getForgottenLocalFiles().size() > 0) {
+                mForgottenLocalFiles.putAll(synchFolderOp.getForgottenLocalFiles());
+            }
             // synchronize children folders 
             List<OCFile> children = synchFolderOp.getChildren();
             fetchChildren(children);    // beware of the 'hidden' recursion here!
             
-//<<<<<<< HEAD
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
                 mSyncResult.stats.numAuthExceptions++;
@@ -201,33 +222,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 
             } else if (result.getException() instanceof IOException) { 
                 mSyncResult.stats.numIoExceptions++;
-/*=======
-                // insertion or update of files
-                List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
-                for (int i = 1; i < resp.getResponses().length; ++i) {
-                    WebdavEntry we = new WebdavEntry(resp.getResponses()[i], getUri().getPath());
-                    OCFile file = fillOCFile(we);
-                    file.setParentId(parentId);
-                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null &&
-                            getStorageManager().getFileByPath(file.getRemotePath()).keepInSync() &&
-                            file.getModificationTimestamp() > getStorageManager().getFileByPath(file.getRemotePath())
-                                                                         .getModificationTimestamp()) {
-                        // first disable observer so we won't get file upload right after download
-                        Log.d(TAG, "Disabling observation of remote file" + file.getRemotePath());
-                        Intent intent = new Intent(getContext(), FileObserverService.class);
-                        intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_ADD_DOWNLOADING_FILE);
-                        intent.putExtra(FileObserverService.KEY_CMD_ARG, file.getRemotePath());
-                        getContext().startService(intent);
-                        intent = new Intent(this.getContext(), FileDownloader.class);
-                        intent.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
-                        intent.putExtra(FileDownloader.EXTRA_FILE, file);
-                        file.setKeepInSync(true);
-                        getContext().startService(intent);
-                    }
-                    if (getStorageManager().getFileByPath(file.getRemotePath()) != null)
-                        file.setKeepInSync(getStorageManager().getFileByPath(file.getRemotePath()).keepInSync());
->>>>>>> origin/master*/
-                
             }
             mFailedResultsCounter++;
             mLastFailedResult = result;
@@ -306,6 +300,70 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_ticker, notification);
     }
 
-    
 
+    /**
+     * Notifies the user about conflicts and strange fails when trying to synchronize the contents of kept-in-sync files.
+     * 
+     * By now, we won't consider a failed synchronization.
+     */
+    private void notifyFailsInFavourites() {
+        if (mFailedResultsCounter > 0) {
+            Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_in_favourites_ticker), System.currentTimeMillis());
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            // TODO put something smart in the contentIntent below
+            notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                            getContext().getString(R.string.sync_fail_in_favourites_ticker), 
+                                            String.format(getContext().getString(R.string.sync_fail_in_favourites_content), mFailedResultsCounter + mConflictsFound, mConflictsFound), 
+                                            notification.contentIntent);
+            ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_in_favourites_ticker, notification);
+            
+        } else {
+            Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_conflicts_in_favourites_ticker), System.currentTimeMillis());
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            // TODO put something smart in the contentIntent below
+            notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                            getContext().getString(R.string.sync_conflicts_in_favourites_ticker), 
+                                            String.format(getContext().getString(R.string.sync_conflicts_in_favourites_content), mConflictsFound), 
+                                            notification.contentIntent);
+            ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_conflicts_in_favourites_ticker, notification);
+        } 
+    }
+
+    
+    /**
+     * Notifies the user about local copies of files out of the ownCloud local directory that were 'forgotten' because 
+     * copying them inside the ownCloud local directory was not possible.
+     * 
+     * We don't want links to files out of the ownCloud local directory (foreign files) anymore. It's easy to have 
+     * synchronization problems if a local file is linked to more than one remote file.
+     * 
+     * We won't consider a synchronization as failed when foreign files can not be copied to the ownCloud local directory.
+     */
+    private void notifyForgottenLocalFiles() {
+        Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_foreign_files_forgotten_ticker), System.currentTimeMillis());
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        /// includes a pending intent in the notification showing a more detailed explanation
+        Intent explanationIntent = new Intent(getContext(), ErrorsWhileCopyingHandlerActivity.class);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_ACCOUNT, getAccount());
+        ArrayList<String> remotePaths = new ArrayList<String>();
+        ArrayList<String> localPaths = new ArrayList<String>();
+        remotePaths.addAll(mForgottenLocalFiles.keySet());
+        localPaths.addAll(mForgottenLocalFiles.values());
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_LOCAL_PATHS, localPaths);
+        explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_REMOTE_PATHS, remotePaths);  
+        explanationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        
+        notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), explanationIntent, 0);
+        notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                        getContext().getString(R.string.sync_foreign_files_forgotten_ticker), 
+                                        String.format(getContext().getString(R.string.sync_foreign_files_forgotten_content), mForgottenLocalFiles.size()), 
+                                        notification.contentIntent);
+        ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_foreign_files_forgotten_ticker, notification);
+        
+    }
+    
+    
 }

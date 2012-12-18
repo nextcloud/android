@@ -39,6 +39,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -72,7 +74,13 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -90,7 +98,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener {
+    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir = null;
@@ -122,6 +130,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     
     private static final String TAG = "FileDisplayActivity";
+
+    private static int[] mMenuIdentifiersToPatch = {R.id.about_app};
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -270,8 +280,31 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
+            
+            patchHiddenAccents(menu);
+            
             return true;
     }
+
+    /**
+     * Workaround for this: <a href="http://code.google.com/p/android/issues/detail?id=3974">http://code.google.com/p/android/issues/detail?id=3974</a> 
+     * 
+     * @param menu      Menu to patch
+     */
+    private void patchHiddenAccents(Menu menu) {
+        for (int i = 0; i < mMenuIdentifiersToPatch.length ; i++) {
+            MenuItem aboutItem = menu.findItem(mMenuIdentifiersToPatch[i]);
+            if (aboutItem != null && aboutItem.getIcon() instanceof BitmapDrawable) {
+                // Clip off the bottom three (density independent) pixels of transparent padding
+                Bitmap original = ((BitmapDrawable) aboutItem.getIcon()).getBitmap();
+                float scale = getResources().getDisplayMetrics().density;
+                int clippedHeight = (int) (original.getHeight() - (3 * scale));
+                Bitmap scaled = Bitmap.createBitmap(original, 0, 0, original.getWidth(), clippedHeight);
+                aboutItem.setIcon(new BitmapDrawable(getResources(), scaled));
+            }
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -305,7 +338,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 break;
             }
             default:
-                retval = false;
+                retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
@@ -339,16 +372,16 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         
-        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && resultCode == RESULT_OK) {
-            requestSimpleUpload(data);
+        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            requestSimpleUpload(data, resultCode);
             
-        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && resultCode == RESULT_OK) {
-            requestMultipleUpload(data);
+        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            requestMultipleUpload(data, resultCode);
             
         }
     }
 
-    private void requestMultipleUpload(Intent data) {
+    private void requestMultipleUpload(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
@@ -367,6 +400,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             i.putExtra(FileUploader.KEY_LOCAL_FILE, filePaths);
             i.putExtra(FileUploader.KEY_REMOTE_FILE, remotePaths);
             i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
+            if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
+                i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
             startService(i);
             
         } else {
@@ -378,7 +413,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
 
-    private void requestSimpleUpload(Intent data) {
+    private void requestSimpleUpload(Intent data, int resultCode) {
         String filepath = null;
         try {
             Uri selectedImageUri = data.getData();
@@ -418,6 +453,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         i.putExtra(FileUploader.KEY_LOCAL_FILE, filepath);
         i.putExtra(FileUploader.KEY_REMOTE_FILE, remotepath);
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+        if (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)
+            i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
         startService(i);
     }
 
@@ -558,7 +595,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     dialog.dismiss();
                 }
             });
-            builder.setNegativeButton(R.string.common_exit, new OnClickListener() {
+            String message = String.format(getString(R.string.common_exit), getString(R.string.app_name));
+            builder.setNegativeButton(message, new OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                     finish();
@@ -574,7 +612,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             PackageInfo pkg;
             try {
                 pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                builder.setMessage(String.format(getString(R.string.about_message), pkg.versionName));
+                builder.setMessage(String.format(getString(R.string.about_message), getString(R.string.app_name), pkg.versionName));
                 builder.setIcon(android.R.drawable.ic_menu_info_details);
                 dialog = builder.create();
             } catch (NameNotFoundException e) {
@@ -650,6 +688,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                     if (item == 0) {
                         //if (!mDualPane) { 
                             Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
+                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
                             startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
                         //} else {
                             // TODO create and handle new fragment LocalFileListFragment
@@ -847,6 +886,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
+                removeStickyBroadcast(intent);
                 
             }
             
@@ -869,16 +909,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            long parentDirId = intent.getLongExtra(FileUploader.EXTRA_PARENT_DIR_ID, -1);
-            OCFile parentDir = mStorageManager.getFileById(parentDirId);
+            String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
-
-            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                    parentDir != null && 
-                    (   (mCurrentDir == null && parentDir.getFileName().equals("/")) ||
-                            parentDir.equals(mCurrentDir)
-                    )
-                ) {
+            boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
+            boolean isDescendant = (mCurrentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            if (sameAccount && isDescendant) {
                 OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
@@ -897,9 +932,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-
-            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name) &&
-                     mCurrentDir != null && mCurrentDir.getFileId() == mStorageManager.getFileByPath(downloadedRemotePath).getParentId()) {
+            boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
+            boolean isDescendant = (mCurrentDir != null) && (downloadedRemotePath != null) && (downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            if (sameAccount && isDescendant) {
                 OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
                 if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
@@ -1024,7 +1059,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if (mDualPane) {
                 FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
                 if (fragment != null)
-                    fragment.updateFileDetails();
+                    fragment.updateFileDetails(false);
             }
         }
 
@@ -1067,6 +1102,153 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onFailedSavingCertificate() {
         showDialog(DIALOG_CERT_NOT_SAVED);
     }
+
+
+    /**
+     * Updates the view associated to the activity after the finish of some operation over files
+     * in the current account.
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        if (operation instanceof RemoveFileOperation) {
+            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+                
+        } else if (operation instanceof RenameFileOperation) {
+            onRenameFileOperationFinish((RenameFileOperation)operation, result);
+            
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+        }
+    }
+
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying to remove a 
+     * file. 
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
+        dismissDialog(DIALOG_SHORT_WAIT);
+        if (result.isSuccess()) {
+            Toast msg = Toast.makeText(this, R.string.remove_success_msg, Toast.LENGTH_LONG);
+            msg.show();
+            OCFile removedFile = operation.getFile();
+            if (mDualPane) {
+                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && removedFile.equals(details.getDisplayedFile()) ) {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
+                    transaction.commit();
+                }
+            }
+            if (mStorageManager.getFileById(removedFile.getParentId()).equals(mCurrentDir)) {
+                mFileList.listDirectory();
+            }
+                
+        } else {
+            Toast msg = Toast.makeText(this, R.string.remove_fail_msg, Toast.LENGTH_LONG); 
+            msg.show();
+            if (result.isSslRecoverableException()) {
+                mLastSslUntrustedServerResult = result;
+                showDialog(DIALOG_SSL_VALIDATOR); 
+            }
+        }
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying to rename a 
+     * file. 
+     * 
+     * @param operation     Renaming operation performed.
+     * @param result        Result of the renaming.
+     */
+    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
+        dismissDialog(DIALOG_SHORT_WAIT);
+        OCFile renamedFile = operation.getFile();
+        if (result.isSuccess()) {
+            if (mDualPane) {
+                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && renamedFile.equals(details.getDisplayedFile()) ) {
+                    details.updateFileDetails(renamedFile, AccountUtils.getCurrentOwnCloudAccount(this));
+                }
+            }
+            if (mStorageManager.getFileById(renamedFile.getParentId()).equals(mCurrentDir)) {
+                mFileList.listDirectory();
+            }
+            
+        } else {
+            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+                Toast msg = Toast.makeText(this, R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                // TODO throw again the new rename dialog
+            } else {
+                Toast msg = Toast.makeText(this, R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                if (result.isSslRecoverableException()) {
+                    mLastSslUntrustedServerResult = result;
+                    showDialog(DIALOG_SSL_VALIDATOR); 
+                }
+            }
+        }
+    }
+
+
+    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
+        dismissDialog(DIALOG_SHORT_WAIT);
+        OCFile syncedFile = operation.getLocalFile();
+        if (!result.isSuccess()) {
+            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+                Intent i = new Intent(this, ConflictsResolveActivity.class);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, syncedFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+                startActivity(i);
+                
+            } else {
+                Toast msg = Toast.makeText(this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+            }
+            
+        } else {
+            if (operation.transferWasRequested()) {
+                mFileList.listDirectory();
+                onTransferStateChanged(syncedFile, true, true);
+                
+            } else {
+                Toast msg = Toast.makeText(this, R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
+                msg.show();
+            }
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
+        /*OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (fileListFragment != null) { 
+            fileListFragment.listDirectory();
+        }*/
+        if (mDualPane) {
+            FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (details != null && file.equals(details.getDisplayedFile()) ) {
+                if (downloading || uploading) {
+                    details.updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
+                } else {
+                    details.updateFileDetails(downloading || uploading);
+                }
+            }
+        }
+    }
+
+
+    
 
 
 }

@@ -57,9 +57,10 @@ public class LocationUpdateService extends IntentService implements
 
         // Notify user if there is no way to track the device
         if (mLocationProvider == null) {
+            String message = String.format(getString(R.string.location_no_provider), getString(R.string.app_name));
             Toast.makeText(this,
-                    R.string.location_no_provider,
-                    Toast.LENGTH_LONG);
+                    message,
+                    Toast.LENGTH_LONG).show();
             stopSelf();
             return;
         }
