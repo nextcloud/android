@@ -120,7 +120,16 @@
         <activity
             android:name=".ui.activity.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar" >
+            android:theme="@style/Theme.ownCloud.noActionBar" 
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="oauth-mobile-app" />
+            </intent-filter>
         </activity>
 
         <service android:name=".files.services.FileDownloader" >

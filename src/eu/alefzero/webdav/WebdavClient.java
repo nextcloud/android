@@ -68,7 +68,7 @@ public class WebdavClient extends HttpClient {
         getState().setCredentials(AuthScope.ANY,
                 getCredentials(username, password));
     }
-
+    
     private Credentials getCredentials(String username, String password) {
         if (mCredentials == null)
             mCredentials = new UsernamePasswordCredentials(username, password);

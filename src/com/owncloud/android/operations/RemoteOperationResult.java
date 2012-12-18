@@ -45,8 +45,8 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
     
     /** Generated - to refresh every time the class changes */
-    private static final long serialVersionUID = -7805531062432602444L;
-
+    private static final long serialVersionUID = 5336333154035462033L;
+    
     
     public enum ResultCode { 
         OK,
@@ -69,7 +69,8 @@ public class RemoteOperationResult implements Serializable {
         CANCELLED, 
         INVALID_LOCAL_FILE_NAME, 
         INVALID_OVERWRITE,
-        CONFLICT
+        CONFLICT, 
+        OAUTH2_ERROR
     }
 
     private boolean mSuccess = false;

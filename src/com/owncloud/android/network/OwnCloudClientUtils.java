@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -38,6 +39,7 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authenticator.AccountAuthenticator;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -75,16 +77,22 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient (Account account, Context context) {
-        Log.d(TAG, "Creating WebdavClient associated to " + account.name);
+        //Log.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(context, account));
         WebdavClient client = createOwnCloudClient(uri, context);
         
         String username = account.name.substring(0, account.name.lastIndexOf('@'));
-        String password = AccountManager.get(context).getPassword(account);
-        //String password = am.blockingGetAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE, true);
+        /*if (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2)) {
+            // TODO - this is a trap; the OAuth access token shouldn't be saved as the account password
+            String accessToken = AccountManager.get(context).getPassword(account);
+            client.setCredentials("bearer", accessToken);
         
-        client.setCredentials(username, password);
+        } else {*/
+            String password = AccountManager.get(context).getPassword(account);
+            //String password = am.blockingGetAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE, true);
+            client.setCredentials(username, password);
+        //}
         
         return client;
     }
@@ -100,7 +108,7 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, String username, String password, Context context) {
-        Log.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
+        //Log.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
         
         WebdavClient client = createOwnCloudClient(uri, context);
         
@@ -118,7 +126,7 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        Log.d(TAG, "Creating WebdavClient for " + uri);
+        //Log.d(TAG, "Creating WebdavClient for " + uri);
         
         //allowSelfsignedCertificates(true);
         try {
@@ -269,5 +277,6 @@ public class OwnCloudClientUtils {
         }
         return mConnManager;
     }
+
 
 }

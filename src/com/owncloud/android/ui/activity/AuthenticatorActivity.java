@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,14 +31,18 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.authenticator.AuthenticationRunnable;
 import com.owncloud.android.authenticator.OnAuthenticationResultListener;
 import com.owncloud.android.authenticator.OnConnectCheckListener;
+import com.owncloud.android.authenticator.oauth2.OAuth2Context;
 import com.owncloud.android.authenticator.oauth2.OAuth2GetCodeRunnable;
 import com.owncloud.android.authenticator.oauth2.OnOAuth2GetCodeResultListener;
 import com.owncloud.android.authenticator.oauth2.connection.ConnectorOAuth2;
 import com.owncloud.android.authenticator.oauth2.services.OAuth2GetTokenService;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.utils.OwnCloudVersion;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.ConnectionCheckOperation;
+import com.owncloud.android.operations.ExistenceCheckOperation;
+import com.owncloud.android.operations.GetOAuth2AccessToken;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -91,15 +96,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private Thread mAuthThread;
     private AuthenticationRunnable mAuthRunnable;
-    //private ConnectionCheckerRunnable mConnChkRunnable = null;
     private ConnectionCheckOperation mConnChkRunnable;
+    private ExistenceCheckOperation mAuthChkOperation;
     private final Handler mHandler = new Handler();
     private String mBaseUrl;
+    private OwnCloudVersion mDiscoveredVersion;
     
     private static final String STATUS_TEXT = "STATUS_TEXT";
     private static final String STATUS_ICON = "STATUS_ICON";
     private static final String STATUS_CORRECT = "STATUS_CORRECT";
     private static final String IS_SSL_CONN = "IS_SSL_CONN";
+    private static final String OC_VERSION = "OC_VERSION";
     private int mStatusText, mStatusIcon;
     private boolean mStatusCorrect, mIsSslConn;
     private RemoteOperationResult mLastSslUntrustedServerResult;
@@ -112,11 +119,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String OAUTH2_STATUS_TEXT = "OAUTH2_STATUS_TEXT";
     private static final String OAUTH2_STATUS_ICON = "OAUTH2_STATUS_ICON";
     private static final String OAUTH2_CODE_RESULT = "CODE_RESULT";
-    private static final String OAUTH2_BASE_URL = "BASE_URL"; 
     private static final String OAUTH2_IS_CHECKED = "OAUTH2_IS_CHECKED";    
     private Thread mOAuth2GetCodeThread;
     private OAuth2GetCodeRunnable mOAuth2GetCodeRunnable;     
-    private String oAuth2BaseUrl;
     private TokenReceiver tokenReceiver;
     private JSONObject codeResponseJson; 
     private int mOAuth2StatusText, mOAuth2StatusIcon;    
@@ -125,9 +130,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     // Variables used to save the on the state the contents of all fields.
     private static final String HOST_URL_TEXT = "HOST_URL_TEXT";
-    private static final String OAUTH2_URL_TEXT = "OAUTH2_URL_TEXT";
     private static final String ACCOUNT_USERNAME = "ACCOUNT_USERNAME";
     private static final String ACCOUNT_PASSWORD = "ACCOUNT_PASSWORD";
+    
+    //private boolean mNewRedirectUriCaptured;
+    private Uri mNewCapturedUriFromOAuth2Redirection;
 
     // END of oAuth2 variables.
     
@@ -140,8 +147,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         ImageView iv2 = (ImageView) findViewById(R.id.viewPassword);
         TextView tv = (TextView) findViewById(R.id.host_URL);
         TextView tv2 = (TextView) findViewById(R.id.account_password);
-        // New textview to oAuth2 URL.
-        TextView tv3 = (TextView) findViewById(R.id.oAuth_URL);
+        EditText oauth2Url = (EditText)findViewById(R.id.oAuth_URL);
+        oauth2Url.setText("OWNCLOUD AUTHORIZATION PROVIDER IN TEST");
 
         if (savedInstanceState != null) {
             mStatusIcon = savedInstanceState.getInt(STATUS_ICON);
@@ -153,14 +160,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (!mStatusCorrect)
                 iv.setVisibility(View.VISIBLE);
             else
-                iv.setVisibility(View.INVISIBLE);            
+                iv.setVisibility(View.INVISIBLE);        
+            
+            String ocVersion = savedInstanceState.getString(OC_VERSION, null);
+            if (ocVersion != null)
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
             
             // Getting the state of oAuth2 components.
             mOAuth2StatusIcon = savedInstanceState.getInt(OAUTH2_STATUS_ICON);
             mOAuth2StatusText = savedInstanceState.getInt(OAUTH2_STATUS_TEXT);
                 // We set this to true if the rotation happens when the user is validating oAuth2 user_code.
             changeViewByOAuth2Check(savedInstanceState.getBoolean(OAUTH2_IS_CHECKED));
-            oAuth2BaseUrl = savedInstanceState.getString(OAUTH2_BASE_URL);
                 // We store a JSon object with all the data returned from oAuth2 server when we get user_code.
                 // Is better than store variable by variable. We use String object to serialize from/to it.
             try {
@@ -175,8 +185,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // Getting contents of each field.
             EditText hostUrl = (EditText)findViewById(R.id.host_URL);
             hostUrl.setText(savedInstanceState.getString(HOST_URL_TEXT), TextView.BufferType.EDITABLE);
-            EditText oauth2Url = (EditText)findViewById(R.id.oAuth_URL);
-            oauth2Url.setText(savedInstanceState.getString(OAUTH2_URL_TEXT), TextView.BufferType.EDITABLE);
             EditText accountUsername = (EditText)findViewById(R.id.account_username);
             accountUsername.setText(savedInstanceState.getString(ACCOUNT_USERNAME), TextView.BufferType.EDITABLE);
             EditText accountPassword = (EditText)findViewById(R.id.account_password);
@@ -192,17 +200,32 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         iv2.setOnClickListener(this);
         tv.setOnFocusChangeListener(this);
         tv2.setOnFocusChangeListener(this);
-        // Setting the listener for oAuth2 URL TextView.
-        tv3.setOnFocusChangeListener(this);
         
-        super.onCreate(savedInstanceState);
+        mNewCapturedUriFromOAuth2Redirection = null;
+        
+        Log.d(TAG, "onCreate");
     }
 
+    
+    @Override
+    protected void onNewIntent (Intent intent) {
+        Uri data = intent.getData();
+        //mNewRedirectUriCaptured = (data != null && data.toString().startsWith(OAuth2Context.MY_REDIRECT_URI));
+        if (data != null && data.toString().startsWith(OAuth2Context.MY_REDIRECT_URI)) {
+            mNewCapturedUriFromOAuth2Redirection = data;
+        }
+        Log.d(TAG, "onNewIntent()");
+    
+    }
+    
+    
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(STATUS_ICON, mStatusIcon);
         outState.putInt(STATUS_TEXT, mStatusText);
         outState.putBoolean(STATUS_CORRECT, mStatusCorrect);
+        if (mDiscoveredVersion != null) 
+            outState.putString(OC_VERSION, mDiscoveredVersion.toString());
         
         // Saving the state of oAuth2 components.
         outState.putInt(OAUTH2_STATUS_ICON, mOAuth2StatusIcon);
@@ -212,12 +235,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (codeResponseJson != null){
             outState.putString(OAUTH2_CODE_RESULT, codeResponseJson.toString());
         }
-        outState.putString(OAUTH2_BASE_URL, oAuth2BaseUrl);
         // END of saving the state of oAuth2 components.
         
         // Saving contents of each field.
         outState.putString(HOST_URL_TEXT,((TextView) findViewById(R.id.host_URL)).getText().toString().trim());
-        outState.putString(OAUTH2_URL_TEXT,((TextView) findViewById(R.id.oAuth_URL)).getText().toString().trim());
         outState.putString(ACCOUNT_USERNAME,((TextView) findViewById(R.id.account_username)).getText().toString().trim());
         outState.putString(ACCOUNT_PASSWORD,((TextView) findViewById(R.id.account_password)).getText().toString().trim());
         
@@ -252,9 +273,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         case OAUTH2_LOGIN_PROGRESS: {
             ProgressDialog working_dialog = new ProgressDialog(this);
             try {
-                working_dialog.setMessage(String.format(getString(R.string.oauth_code_validation_message), 
-                        codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL), 
-                        codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_USER_CODE)));
+                if (codeResponseJson != null && codeResponseJson.has(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL)) {
+                    working_dialog.setMessage(String.format(getString(R.string.oauth_code_validation_message), 
+                            codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL), 
+                            codeResponseJson.getString(OAuth2GetCodeRunnable.CODE_USER_CODE)));
+                } else {
+                    working_dialog.setMessage(String.format("Getting authorization"));
+                }
             } catch (JSONException e) {
                 Log.e(TAG, "onCreateDialog->JSONException: " + e.toString());
             }
@@ -307,6 +332,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         switch (id) {
         case DIALOG_LOGIN_PROGRESS:
         case DIALOG_CERT_NOT_SAVED:
+        case OAUTH2_LOGIN_PROGRESS:
             break;
         case DIALOG_SSL_VALIDATOR: {
             ((SslValidatorDialog)dialog).updateResult(mLastSslUntrustedServerResult);
@@ -320,11 +346,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume() start");
-        // Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
+        // (old oauth code) Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
         if (tokenReceiver == null) {
             IntentFilter tokenFilter = new IntentFilter(OAuth2GetTokenService.TOKEN_RECEIVED_MESSAGE);                
             tokenReceiver = new TokenReceiver();
             this.registerReceiver(tokenReceiver,tokenFilter);
+        }
+        // (new oauth code)
+        /*if (mNewRedirectUriCaptured) {
+            mNewRedirectUriCaptured = false;*/
+        if (mNewCapturedUriFromOAuth2Redirection != null) {
+            getOAuth2AccessTokenFromCapturedRedirection();            
+            
         }
         super.onResume();
     }
@@ -382,8 +415,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             accManager.setUserData(account, AccountAuthenticator.KEY_OC_URL,
                     url.toString());
             accManager.setUserData(account,
-                    AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable
-                            .getDiscoveredVersion().toString());
+                    AccountAuthenticator.KEY_OC_VERSION, mDiscoveredVersion.toString());
             
             accManager.setUserData(account,
                     AccountAuthenticator.KEY_OC_BASE_URL, mBaseUrl);
@@ -432,9 +464,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 || url.toLowerCase().startsWith("https://")) {
             prefix = "";
         }
-        continueConnection(prefix);
+        CheckBox oAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
+        if (oAuth2Check != null && oAuth2Check.isChecked()) {
+            startOauthorization();
+            
+        } else {
+            continueConnection(prefix);
+        }
     }
     
+    private void startOauthorization() {
+        // We start a thread to get an authorization code from the oAuth2 server.
+        setOAuth2ResultIconAndText(R.drawable.progress_small, R.string.oauth_login_connection);
+        mOAuth2GetCodeRunnable = new OAuth2GetCodeRunnable(OAuth2Context.OAUTH2_F_AUTHORIZATION_ENDPOINT_URL, this);
+        //mOAuth2GetCodeRunnable = new OAuth2GetCodeRunnable(OAuth2Context.OAUTH2_G_DEVICE_GETCODE_URL, this);
+        mOAuth2GetCodeRunnable.setListener(this, mHandler);
+        mOAuth2GetCodeThread = new Thread(mOAuth2GetCodeRunnable);
+        mOAuth2GetCodeThread.start();
+    }
+
     public void onRegisterClick(View view) {
         Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse("https://owncloud.com/mobile/new"));
         setResult(RESULT_CANCELED);
@@ -452,8 +500,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             url = url.substring(0, url.length() - 1);
 
         URL uri = null;
-        String webdav_path = AccountUtils.getWebdavPath(mConnChkRunnable
-                .getDiscoveredVersion());
+        mDiscoveredVersion = mConnChkRunnable.getDiscoveredVersion();
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion);
         
         if (webdav_path == null) {
             onAuthenticationResult(false, getString(R.string.auth_bad_oc_version_title));
@@ -567,11 +615,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     setResultIconAndText(R.drawable.progress_small,
                             R.string.auth_testing_connection);
                     //mConnChkRunnable = new ConnectionCheckerRunnable(uri, this);
-                    mConnChkRunnable = new ConnectionCheckOperation(uri, this);
+                    mConnChkRunnable = new  ConnectionCheckOperation(uri, this);
                     //mConnChkRunnable.setListener(this, mHandler);
                     //mAuthThread = new Thread(mConnChkRunnable);
                     //mAuthThread.start();
             		WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
+            		mDiscoveredVersion = null;
                     mAuthThread = mConnChkRunnable.execute(client, this, mHandler);
                 } else {
                     findViewById(R.id.refreshButton).setVisibility(
@@ -592,28 +641,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         | InputType.TYPE_TEXT_VARIATION_PASSWORD;
                 v.setInputType(input_type);
                 iv.setVisibility(View.INVISIBLE);
-            }
-        // If the focusChange occurs on the oAuth2 URL field, we do this.
-        } else if (view.getId() == R.id.oAuth_URL) {
-            if (!hasFocus) {
-                TextView tv3 = ((TextView) findViewById(R.id.oAuth_URL));
-                // We get the URL of oAuth2 server.
-                oAuth2BaseUrl = tv3.getText().toString().trim();
-                if (oAuth2BaseUrl.length() != 0) {
-                    // We start a thread to get user_code from the oAuth2 server.
-                    setOAuth2ResultIconAndText(R.drawable.progress_small, R.string.oauth_login_connection);
-                    mOAuth2GetCodeRunnable = new OAuth2GetCodeRunnable(oAuth2BaseUrl, this);
-                    mOAuth2GetCodeRunnable.setListener(this, mHandler);
-                    mOAuth2GetCodeThread = new Thread(mOAuth2GetCodeRunnable);
-                    mOAuth2GetCodeThread.start();
-                } else {
-                    findViewById(R.id.refreshButton).setVisibility(
-                            View.INVISIBLE);
-                    setOAuth2ResultIconAndText(0, 0);
-                }
-            } else {
-                // avoids that the 'connect' button can be clicked if the test was previously passed
-                findViewById(R.id.buttonOK).setEnabled(false); 
             }
         }
     }
@@ -715,15 +742,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onOAuth2GetCodeResult(ResultOAuthType type, JSONObject responseJson) {
         if ((type == ResultOAuthType.OK_SSL)||(type == ResultOAuthType.OK_NO_SSL)) {
             codeResponseJson = responseJson;
-            startOAuth2Authentication();
+            if (codeResponseJson != null) {
+                getOAuth2AccessTokenFromJsonResponse();
+            }  // else - nothing to do here - wait for callback !!!
+        
         } else if (type == ResultOAuthType.HOST_NOT_AVAILABLE) {
             setOAuth2ResultIconAndText(R.drawable.common_error, R.string.oauth_connection_url_unavailable);
         }
     }
 
     // If the results of getting the user_code and verification_url are OK, we get the received data and we start
-    // the pooling service to oAuth2 server to get a valid token.
-    private void startOAuth2Authentication () {
+    // the polling service to oAuth2 server to get a valid token.
+    private void getOAuth2AccessTokenFromJsonResponse() {
         String deviceCode = null;
         String verificationUrl = null;
         String userCode = null;
@@ -762,7 +792,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         // Starting the pooling service.
         try {
             Intent tokenService = new Intent(this, OAuth2GetTokenService.class);
-            tokenService.putExtra(OAuth2GetTokenService.TOKEN_BASE_URI, oAuth2BaseUrl);
+            tokenService.putExtra(OAuth2GetTokenService.TOKEN_URI, OAuth2Context.OAUTH2_G_DEVICE_GETTOKEN_URL);
             tokenService.putExtra(OAuth2GetTokenService.TOKEN_DEVICE_CODE, deviceCode);
             tokenService.putExtra(OAuth2GetTokenService.TOKEN_INTERVAL, interval);
 
@@ -771,7 +801,61 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         catch (Exception e) {
             Log.e(TAG, "tokenService creation problem :", e);
         }
+        
     }   
+    
+    private void getOAuth2AccessTokenFromCapturedRedirection() {
+        Map<String, String> responseValues = new HashMap<String, String>();
+        //String queryParameters = getIntent().getData().getQuery();
+        String queryParameters = mNewCapturedUriFromOAuth2Redirection.getQuery();
+        mNewCapturedUriFromOAuth2Redirection = null;
+        
+        Log.v(TAG, "Queryparameters (Code) = " + queryParameters);
+
+        String[] pairs = queryParameters.split("&");
+        Log.v(TAG, "Pairs (Code) = " + pairs.toString());
+
+        int i = 0;
+        String key = "";
+        String value = "";
+
+        StringBuilder sb = new StringBuilder();
+
+        while (pairs.length > i) {
+            int j = 0;
+            String[] part = pairs[i].split("=");
+
+            while (part.length > j) {
+                String p = part[j];
+                if (j == 0) {
+                    key = p;
+                    sb.append(key + " = ");
+                } else if (j == 1) {
+                    value = p;
+                    responseValues.put(key, value);
+                    sb.append(value + "\n");
+                }
+
+                Log.v(TAG, "[" + i + "," + j + "] = " + p);
+                j++;
+            }
+            i++;
+        }
+        
+        
+        // Updating status widget to OK.
+        setOAuth2ResultIconAndText(R.drawable.ic_ok, R.string.auth_connection_established);
+        
+        // Showing the dialog with instructions for the user.
+        showDialog(OAUTH2_LOGIN_PROGRESS);
+
+        // 
+        RemoteOperation operation = new GetOAuth2AccessToken(responseValues);
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(OAuth2Context.OAUTH2_F_TOKEN_ENDPOINT_URL), getApplicationContext());
+        operation.execute(client, this, mHandler);
+    }
+
+    
 
     // We get data from the oAuth2 token service with this broadcast receiver.
     private class TokenReceiver extends BroadcastReceiver {
@@ -792,7 +876,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 	@Override
 	public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-		if (operation.equals(mConnChkRunnable)) {
+		if (operation instanceof ConnectionCheckOperation) {
 		    
 	        mStatusText = mStatusIcon = 0;
 	        mStatusCorrect = false;
@@ -880,6 +964,128 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 	        else
 	            findViewById(R.id.refreshButton).setVisibility(View.INVISIBLE);
 	        findViewById(R.id.buttonOK).setEnabled(mStatusCorrect);
+	        
+		} else if (operation instanceof GetOAuth2AccessToken) {
+
+            try {
+                dismissDialog(OAUTH2_LOGIN_PROGRESS);
+            } catch (IllegalArgumentException e) {
+                // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
+            }
+
+		    if (result.isSuccess()) {
+		        
+		        /// time to test the retrieved access token on the ownCloud server
+		        String url = ((TextView) findViewById(R.id.host_URL)).getText()
+		                .toString().trim();
+		        if (url.endsWith("/"))
+		            url = url.substring(0, url.length() - 1);
+
+		        Uri uri = null;
+		        /*String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion);
+		        
+		        if (webdav_path == null) {
+		            onAuthenticationResult(false, getString(R.string.auth_bad_oc_version_title));
+		            return;
+		        }*/
+		        
+		        String prefix = "";
+		        if (mIsSslConn) {
+		            prefix = "https://";
+		        } else {
+		            prefix = "http://";
+		        }
+		        if (url.toLowerCase().startsWith("http://")
+		                || url.toLowerCase().startsWith("https://")) {
+		            prefix = "";
+		        }
+		        
+		        try {
+		            mBaseUrl = prefix + url;
+		            //String url_str = prefix + url + webdav_path;
+		            String url_str = prefix + url + "/remote.php/odav";
+		            uri = Uri.parse(url_str);
+		            
+		        } catch (Exception e) {
+		            // should never happen
+		            onAuthenticationResult(false, getString(R.string.auth_incorrect_address_title));
+		            return;
+		        }
+
+		        showDialog(DIALOG_LOGIN_PROGRESS);
+                String accessToken = ((GetOAuth2AccessToken)operation).getResultTokenMap().get(OAuth2Context.KEY_ACCESS_TOKEN);
+                Log.d(TAG, "ACCESS TOKEN: " + accessToken);
+		        mAuthChkOperation = new ExistenceCheckOperation("", this, accessToken);
+		        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(uri, getApplicationContext());
+		        mAuthChkOperation.execute(client, this, mHandler);
+		        
+                
+            } else {
+                TextView tv = (TextView) findViewById(R.id.oAuth_URL);
+                tv.setError("A valid authorization could not be obtained");
+
+            }
+		        
+		} else if (operation instanceof ExistenceCheckOperation)  {
+		        
+		    try {
+		        dismissDialog(DIALOG_LOGIN_PROGRESS);
+		    } catch (IllegalArgumentException e) {
+		        // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
+		    }
+		    
+		    if (result.isSuccess()) {
+                TextView tv = (TextView) findViewById(R.id.oAuth_URL);
+                tv.setError("OOOOOKKKKKK");
+		        Log.d(TAG, "OOOOK!!!!");
+		        /**
+		        Uri uri = Uri.parse(mBaseUrl);
+		        String username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong(); 
+		        String accountName = username + "@" + uri.getHost();
+		        if (uri.getPort() >= 0) {
+		            accountName += ":" + uri.getPort();
+		        }
+		        // TODO - check that accountName does not exist
+		        Account account = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
+		        AccountManager accManager = AccountManager.get(this);
+		        /// TODO SAVE THE ACCESS TOKEN, HERE OR IN SOME BETTER PLACE
+		        //accManager.addAccountExplicitly(account, mAccesToken, null);  //// IS THIS REALLY NEEDED? IS NOT REDUNDANT WITH SETACCOUNTAUTHENTICATORRESULT?
+
+		        // Add this account as default in the preferences, if there is none
+		        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+		        if (defaultAccount == null) {
+		            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+		            editor.putString("select_oc_account", accountName);
+	                editor.commit();
+		        }
+
+		        /// account data to save by the AccountManager
+		        final Intent intent = new Intent();
+		        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AccountAuthenticator.ACCOUNT_TYPE);
+		        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, account.name);
+		        intent.putExtra(AccountManager.KEY_AUTHTOKEN, AccountAuthenticator.ACCOUNT_TYPE);
+		        intent.putExtra(AccountManager.KEY_USERDATA, username);
+		        intent.putExtra(AccountManager.KEY_AUTHTOKEN, mAccessToken)
+
+		        accManager.setUserData(account, AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable.getDiscoveredVersion().toString());
+		        accManager.setUserData(account, AccountAuthenticator.KEY_OC_BASE_URL, mBaseUrl);
+
+		        setAccountAuthenticatorResult(intent.getExtras());
+		        setResult(RESULT_OK, intent);
+	                
+		        /// enforce the first account synchronization
+		        Bundle bundle = new Bundle();
+		        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+		        ContentResolver.requestSync(account, "org.owncloud", bundle);
+
+		        finish();
+		        */
+	                
+		    } else {      
+		        TextView tv = (TextView) findViewById(R.id.oAuth_URL);
+		        tv.setError(result.getLogMessage());
+                Log.d(TAG, "NOOOOO " + result.getLogMessage());
+		    }
 		}
 	}
 

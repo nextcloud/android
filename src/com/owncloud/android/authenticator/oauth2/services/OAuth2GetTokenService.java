@@ -33,7 +33,7 @@ public class OAuth2GetTokenService extends Service {
 
     public static final String TOKEN_RECEIVED_MESSAGE = "TOKEN_RECEIVED";
     public static final String TOKEN_RECEIVED_DATA = "TOKEN_DATA";
-    public static final String TOKEN_BASE_URI = "baseURI";
+    public static final String TOKEN_URI = "TOKEN_URI";
     public static final String TOKEN_DEVICE_CODE = "device_code";
     public static final String TOKEN_INTERVAL = "interval";
     public static final String TOKEN_RECEIVED_ERROR = "error";
@@ -61,18 +61,17 @@ public class OAuth2GetTokenService extends Service {
         Bundle param = intent.getExtras();
 
         if (param != null) {
-            String mUrl = param.getString(TOKEN_BASE_URI);     
+            String mUrl = param.getString(TOKEN_URI);     
             if (!mUrl.startsWith("http://") || !mUrl.startsWith("https://")) {        
                 requestBaseURI = "https://" + mUrl;            
             }     
             requestDeviceCode = param.getString(TOKEN_DEVICE_CODE);
             requestInterval = param.getInt(TOKEN_INTERVAL);
             
-            Log.d(TAG, "onBind -> baseURI=" + requestBaseURI);
-            Log.d(TAG, "onBind -> requestDeviceCode=" + requestDeviceCode);
-            Log.d(TAG, "onBind -> requestInterval=" + requestInterval);                  
+            Log.d(TAG, "onStartCommand -> requestDeviceCode=" + requestDeviceCode);
+            Log.d(TAG, "onStartCommand -> requestInterval=" + requestInterval);                  
         } else  {
-            Log.e(TAG, "onBind -> params could not be null");
+            Log.e(TAG, "onStartCommand -> params could not be null");
         }
         startService();
         return Service.START_NOT_STICKY;
@@ -127,13 +126,13 @@ public class OAuth2GetTokenService extends Service {
         }        
 
         try{            
-            connectorOAuth2.setConnectorOAuth2Url(requestBaseURI + OAuth2Context.OAUTH2_DEVICE_GETTOKEN_URL);
+            connectorOAuth2.setConnectorOAuth2Url(requestBaseURI + OAuth2Context.OAUTH2_G_DEVICE_GETTOKEN_URL);
 
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("client_id", OAuth2Context.OAUTH2_DEVICE_CLIENT_ID));
-            nameValuePairs.add(new BasicNameValuePair("client_secret", OAuth2Context.OAUTH2_DEVICE_CLIENT_SECRET));
+            nameValuePairs.add(new BasicNameValuePair("client_id", OAuth2Context.OAUTH2_G_DEVICE_CLIENT_ID));
+            nameValuePairs.add(new BasicNameValuePair("client_secret", OAuth2Context.OAUTH2_G_DEVICE_CLIENT_SECRET));
             nameValuePairs.add(new BasicNameValuePair("code",requestDeviceCode));            
-            nameValuePairs.add(new BasicNameValuePair("grant_type",OAuth2Context.OAUTH_DEVICE_GETTOKEN_GRANT_TYPE));  
+            nameValuePairs.add(new BasicNameValuePair("grant_type",OAuth2Context.OAUTH_G_DEVICE_GETTOKEN_GRANT_TYPE));  
 
             params = new UrlEncodedFormEntity(nameValuePairs);
         }

@@ -204,8 +204,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private void setIntentFlags(Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
     }
