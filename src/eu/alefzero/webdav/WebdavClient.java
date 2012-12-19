@@ -22,14 +22,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthPolicy;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
@@ -39,7 +45,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
-import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
+
+import com.owncloud.android.network.BearerAuthScheme;
+import com.owncloud.android.network.BearerCredentials;
 
 import android.net.Uri;
 import android.util.Log;
@@ -63,17 +71,27 @@ public class WebdavClient extends HttpClient {
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
     }
 
-    public void setCredentials(String username, String password) {
+    public void setBearerCredentials(String accessToken) {
+        AuthPolicy.registerAuthScheme(BearerAuthScheme.AUTH_POLICY, BearerAuthScheme.class);
+        
+        List<String> authPrefs = new ArrayList<String>(1);
+        authPrefs.add(BearerAuthScheme.AUTH_POLICY);
+        getParams().setParameter(AuthPolicy.AUTH_SCHEME_PRIORITY, authPrefs);        
+        
+        mCredentials = new BearerCredentials(accessToken);
+        getState().setCredentials(AuthScope.ANY, mCredentials);
+    }
+
+    public void setBasicCredentials(String username, String password) {
+        List<String> authPrefs = new ArrayList<String>(1);
+        authPrefs.add(AuthPolicy.BASIC);
+        getParams().setParameter(AuthPolicy.AUTH_SCHEME_PRIORITY, authPrefs);        
+        
         getParams().setAuthenticationPreemptive(true);
-        getState().setCredentials(AuthScope.ANY,
-                getCredentials(username, password));
+        mCredentials = new UsernamePasswordCredentials(username, password);
+        getState().setCredentials(AuthScope.ANY, mCredentials);
     }
     
-    private Credentials getCredentials(String username, String password) {
-        if (mCredentials == null)
-            mCredentials = new UsernamePasswordCredentials(username, password);
-        return mCredentials;
-    }
     
     /**
      * Downloads a file in remoteFilepath to the local targetPath.
@@ -200,34 +218,6 @@ public class WebdavClient extends HttpClient {
         return status;
     }
 
-    /**
-     * Creates a remote directory with the received path.
-     * 
-     * @param path      Path of the directory to create, URL DECODED
-     * @return          'True' when the directory is successfully created
-     */
-    public boolean createDirectory(String path) {
-        boolean result = false;
-        int status = -1;
-        MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
-        try {
-            Log.d(TAG, "Creating directory " + path);
-            status = executeMethod(mkcol);
-            Log.d(TAG, "Status returned: " + status);
-            result = mkcol.succeeded();
-            
-            Log.d(TAG, "MKCOL to " + path + " finished with HTTP status " + status + (!result?"(FAIL)":""));
-            exhaustResponse(mkcol.getResponseBodyAsStream());
-            
-        } catch (Exception e) {
-            logException(e, "creating directory " + path);
-            
-        } finally {
-            mkcol.releaseConnection();    // let the connection available for other methods
-        }
-        return result;
-    }
-    
     
     /**
      * Check if a file exists in the OC server
@@ -336,5 +326,13 @@ public class WebdavClient extends HttpClient {
     public Uri getBaseUri() {
         return mUri;
     }
+    
 
+    @Override
+    public int executeMethod(HostConfiguration hostconfig, final HttpMethod method, final HttpState state) throws IOException, HttpException  {
+        if (mCredentials instanceof BearerAuthScheme) {
+            method.getHostAuthState().setAuthScheme(AuthPolicy.getAuthScheme(BearerAuthScheme.AUTH_POLICY));
+        }
+        return super.executeMethod(hostconfig, method, state);
+    }
 }

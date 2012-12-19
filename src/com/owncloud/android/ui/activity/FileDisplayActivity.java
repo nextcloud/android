@@ -73,7 +73,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -88,7 +88,6 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Displays, what files the user has available in his ownCloud.
@@ -116,6 +115,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private OCFileListFragment mFileList;
     
     private boolean mDualPane;
+    private Handler mHandler;
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
@@ -137,6 +137,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onCreate(Bundle savedInstanceState) {
         Log.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
+        
+        mHandler = new Handler();
 
         /// Load of parameters from received intent
         mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); // no check necessary, mCurrenDir == null if the parameter is not in the intent
@@ -652,8 +654,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             
                             // Create directory
                             path += directoryName + OCFile.PATH_SEPARATOR;
-                            Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                            thread.start();
+                            RemoteOperation operation = new CreateFolderOperation(path, mCurrentDir.getFileId(), mStorageManager);
+                            operation.execute(  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), 
+                                                FileDisplayActivity.this, 
+                                                FileDisplayActivity.this, 
+                                                mHandler);
                             
                             dialog.dismiss();
                             
@@ -771,56 +776,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return !mDirectories.isEmpty();
     }
 
-    private class DirectoryCreator implements Runnable {
-        private String mTargetPath;
-        private Account mAccount;
-        private Handler mHandler; 
-    
-        public DirectoryCreator(String targetPath, Account account, Handler handler) {
-            mTargetPath = targetPath;
-            mAccount = account;
-            mHandler = handler;
-        }
-    
-        @Override
-        public void run() {
-            WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-            boolean created = wdc.createDirectory(mTargetPath);
-            if (created) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() { 
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        
-                        // Save new directory in local database
-                        OCFile newDir = new OCFile(mTargetPath);
-                        newDir.setMimetype("DIR");
-                        newDir.setParentId(mCurrentDir.getFileId());
-                        mStorageManager.saveFile(newDir);
-    
-                        // Display the new folder right away
-                        mFileList.listDirectory();
-                    }
-                });
-                
-            } else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                        
-                        } catch (NotFoundException e) {
-                            Log.e(TAG, "Error while trying to show fail message " , e);
-                        }
-                    }
-                });
-            }
-        }
-    
-    }
 
     // Custom array adapter to override text colors
     private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
@@ -1121,6 +1076,32 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+            
+        } else if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+        }
+    }
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            mFileList.listDirectory();
+            
+        } else {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                    
+            } catch (NotFoundException e) {
+                Log.e(TAG, "Error while trying to show fail message " , e);
+            }
         }
     }
 

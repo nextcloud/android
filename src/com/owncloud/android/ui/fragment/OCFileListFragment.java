@@ -316,8 +316,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             case R.id.download_file_item: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getSherlockActivity().getApplicationContext());
-                operation.execute(wc, mContainerActivity, mHandler);
+                operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler);
                 getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
                 return true;
             }
@@ -479,8 +478,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                                                                 AccountUtils.getCurrentOwnCloudAccount(getActivity()), 
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-            operation.execute(wc, mContainerActivity, mHandler);
+            operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler);
             getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         }
     }
@@ -493,8 +491,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 RemoteOperation operation = new RemoveFileOperation( mTargetFile, 
                                                                     true, 
                                                                     mContainerActivity.getStorageManager());
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-                operation.execute(wc, mContainerActivity, mHandler);
+                operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler);
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }

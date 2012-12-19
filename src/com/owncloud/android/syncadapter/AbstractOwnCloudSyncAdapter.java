@@ -142,7 +142,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         return null;
     }
 
-    protected void initClientForCurrentAccount() throws UnknownHostException {
+    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException {
         if (AccountUtils.constructFullURLForAccount(getContext(), account) == null) {
             throw new UnknownHostException();
         }

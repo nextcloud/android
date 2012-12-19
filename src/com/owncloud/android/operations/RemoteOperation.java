@@ -17,7 +17,17 @@
  */
 package com.owncloud.android.operations;
 
+import java.io.IOException;
+
+import com.owncloud.android.network.OwnCloudClientUtils;
+
+import android.accounts.Account;
+import android.accounts.AccountsException;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -30,7 +40,15 @@ import eu.alefzero.webdav.WebdavClient;
  */
 public abstract class RemoteOperation implements Runnable {
 	
-	/** Object to interact with the ownCloud server */
+    private static final String TAG = RemoteOperation.class.getSimpleName();
+
+    /** ownCloud account in the remote ownCloud server to operate */
+    private Account mAccount = null;
+    
+    /** Android Application context */
+    private Context mContext = null;
+    
+	/** Object to interact with the remote server */
 	private WebdavClient mClient = null;
 	
 	/** Callback object to notify about the execution of the remote operation */
@@ -45,10 +63,40 @@ public abstract class RemoteOperation implements Runnable {
 	 */
 	protected abstract RemoteOperationResult run(WebdavClient client); 
 	
+
+    /**
+     * Synchronously executes the remote operation on the received ownCloud account.
+     * 
+     * Do not call this method from the main thread.
+     * 
+     * This method should be used whenever an ownCloud account is available, instead of {@link #execute(WebdavClient)}. 
+     * 
+     * @param account   ownCloud account in remote ownCloud server to reach during the execution of the operation.
+     * @param context   Android context for the component calling the method.
+     * @return          Result of the operation.
+     */
+    public final RemoteOperationResult execute(Account account, Context context) {
+        if (account == null)
+            throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Account");
+        if (context == null)
+            throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Context");
+        mAccount = account;
+        mContext = context.getApplicationContext();
+        try {
+            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+        } catch (Exception e) {
+            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+            return new RemoteOperationResult(e);
+        }
+        return run(mClient);
+    }
+    
 	
 	/**
 	 * Synchronously executes the remote operation
 	 * 
+     * Do not call this method from the main thread.
+     * 
 	 * @param client	Client object to reach an ownCloud server during the execution of the operation.
 	 * @return			Result of the operation.
 	 */
@@ -60,6 +108,42 @@ public abstract class RemoteOperation implements Runnable {
 	}
 
 	
+    /**
+     * Asynchronously executes the remote operation
+     * 
+     * This method should be used whenever an ownCloud account is available, instead of {@link #execute(WebdavClient)}. 
+     * 
+     * @param account           ownCloud account in remote ownCloud server to reach during the execution of the operation.
+     * @param context           Android context for the component calling the method.
+     * @param listener          Listener to be notified about the execution of the operation.
+     * @param listenerHandler   Handler associated to the thread where the methods of the listener objects must be called.
+     * @return                  Thread were the remote operation is executed.
+     */
+    public final Thread execute(Account account, Context context, OnRemoteOperationListener listener, Handler listenerHandler) {
+        if (account == null)
+            throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Account");
+        if (context == null)
+            throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Context");
+        mAccount = account;
+        mContext = context.getApplicationContext();
+        mClient = null;     // the client instance will be created from mAccount and mContext in the runnerThread to create below
+        
+        if (listener == null) {
+            throw new IllegalArgumentException("Trying to execute a remote operation asynchronously without a listener to notiy the result");
+        }
+        mListener = listener;
+        
+        if (listenerHandler == null) {
+            throw new IllegalArgumentException("Trying to execute a remote operation asynchronously without a handler to the listener's thread");
+        }
+        mListenerHandler = listenerHandler;
+        
+        Thread runnerThread = new Thread(this);
+        runnerThread.start();
+        return runnerThread;
+    }
+
+    
 	/**
 	 * Asynchronously executes the remote operation
 	 * 
@@ -119,13 +203,32 @@ public abstract class RemoteOperation implements Runnable {
 	 */
     @Override
     public final void run() {
-    	final RemoteOperationResult result = execute(mClient);
+        RemoteOperationResult result = null;
+        try{
+            if (mClient == null) {
+                if (mAccount != null && mContext != null) {
+                    mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                } else {
+                    throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");
+                }
+            }
+            result = run(mClient);
+            
+        } catch (IOException e) {
+            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+            result = new RemoteOperationResult(e);
+            
+        } catch (AccountsException e) {
+            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+            result = new RemoteOperationResult(e);
+        }
     	
+        final RemoteOperationResult resultToSend = result;
         if (mListenerHandler != null && mListener != null) {
         	mListenerHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mListener.onRemoteOperationFinish(RemoteOperation.this, result);
+                    mListener.onRemoteOperationFinish(RemoteOperation.this, resultToSend);
                 }
             });
         }

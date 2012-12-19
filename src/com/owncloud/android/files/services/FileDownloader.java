@@ -19,6 +19,7 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.Iterator;
 import java.util.Vector;
@@ -36,6 +37,7 @@ import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 
 import android.accounts.Account;
+import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -262,21 +264,30 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             
             notifyDownloadStart(mCurrentDownload);
 
-            /// prepare client object to send the request to the ownCloud server
-            if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
-                mLastAccount = mCurrentDownload.getAccount();
-                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
-            }
-
-            /// perform the download
             RemoteOperationResult downloadResult = null;
             try {
-                downloadResult = mCurrentDownload.execute(mDownloadClient);
+                /// prepare client object to send the request to the ownCloud server
+                if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
+                    mLastAccount = mCurrentDownload.getAccount();
+                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, this);
+                }
+
+                /// perform the download
+                if (downloadResult == null) {
+                    downloadResult = mCurrentDownload.execute(mDownloadClient);
+                }
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
                 }
             
+            } catch (AccountsException e) {
+                Log.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                downloadResult = new RemoteOperationResult(e);
+            } catch (IOException e) {
+                Log.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                downloadResult = new RemoteOperationResult(e);
+                
             } finally {
                 synchronized(mPendingDownloads) {
                     mPendingDownloads.remove(downloadKey);

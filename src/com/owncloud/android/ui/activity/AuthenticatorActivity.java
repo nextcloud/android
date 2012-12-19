@@ -509,7 +509,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         URL uri = null;
         mDiscoveredVersion = mConnChkRunnable.getDiscoveredVersion();
-        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion);
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, false);
         
         if (webdav_path == null) {
             onAuthenticationResult(false, getString(R.string.auth_bad_oc_version_title));
@@ -613,7 +613,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         findViewById(R.id.buttonOK).setEnabled(mStatusCorrect);
     }
 
-    @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (view.getId() == R.id.host_URL) {
             if (!hasFocus) {
@@ -1028,7 +1027,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 		        showDialog(DIALOG_LOGIN_PROGRESS);
                 String accessToken = ((GetOAuth2AccessToken)operation).getResultTokenMap().get(OAuth2Context.KEY_ACCESS_TOKEN);
-                Log.d(TAG, "ACCESS TOKEN: " + accessToken);
+                Log.d(TAG, "Got ACCESS TOKEN: " + accessToken);
 		        mAuthChkOperation = new ExistenceCheckOperation("", this, accessToken);
 		        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(uri, getApplicationContext());
 		        mAuthChkOperation.execute(client, this, mHandler);
@@ -1050,9 +1049,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 		    
 		    if (result.isSuccess()) {
                 TextView tv = (TextView) findViewById(R.id.oAuth_URL);
-                tv.setError("OOOOOKKKKKK");
-		        Log.d(TAG, "OOOOK!!!!");
-		        /**
+		        Log.d(TAG, "Checked access - time to save the account");
+		        
 		        Uri uri = Uri.parse(mBaseUrl);
 		        String username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong(); 
 		        String accountName = username + "@" + uri.getHost();
@@ -1062,8 +1060,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 		        // TODO - check that accountName does not exist
 		        Account account = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
 		        AccountManager accManager = AccountManager.get(this);
-		        /// TODO SAVE THE ACCESS TOKEN, HERE OR IN SOME BETTER PLACE
-		        //accManager.addAccountExplicitly(account, mAccesToken, null);  //// IS THIS REALLY NEEDED? IS NOT REDUNDANT WITH SETACCOUNTAUTHENTICATORRESULT?
+		        accManager.addAccountExplicitly(account, "", null);  // with our implementation, the password is never input in the app
 
 		        // Add this account as default in the preferences, if there is none
 		        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
@@ -1077,12 +1074,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 		        final Intent intent = new Intent();
 		        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, AccountAuthenticator.ACCOUNT_TYPE);
 		        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, account.name);
-		        intent.putExtra(AccountManager.KEY_AUTHTOKEN, AccountAuthenticator.ACCOUNT_TYPE);
 		        intent.putExtra(AccountManager.KEY_USERDATA, username);
-		        intent.putExtra(AccountManager.KEY_AUTHTOKEN, mAccessToken)
 
+                accManager.setAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, ((ExistenceCheckOperation) operation).getAccessToken());
+                
 		        accManager.setUserData(account, AccountAuthenticator.KEY_OC_VERSION, mConnChkRunnable.getDiscoveredVersion().toString());
 		        accManager.setUserData(account, AccountAuthenticator.KEY_OC_BASE_URL, mBaseUrl);
+		        accManager.setUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");
 
 		        setAccountAuthenticatorResult(intent.getExtras());
 		        setResult(RESULT_OK, intent);
@@ -1093,12 +1091,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 		        ContentResolver.requestSync(account, "org.owncloud", bundle);
 
 		        finish();
-		        */
 	                
 		    } else {      
 		        TextView tv = (TextView) findViewById(R.id.oAuth_URL);
 		        tv.setError(result.getLogMessage());
-                Log.d(TAG, "NOOOOO " + result.getLogMessage());
+                Log.d(TAG, "Access failed: " + result.getLogMessage());
 		    }
 		}
 	}

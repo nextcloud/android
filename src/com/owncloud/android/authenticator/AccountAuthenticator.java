@@ -33,6 +33,9 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      */
     public static final String ACCOUNT_TYPE = "owncloud";
     public static final String AUTH_TOKEN_TYPE = "org.owncloud";
+    public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
+    public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
+    public static final String AUTH_TOKEN_TYPE_REFRESH_TOKEN = "owncloud.oauth2.refresh_token";
 
     public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
@@ -57,8 +60,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      * http://server/path or https://owncloud.server
      */
     public static final String KEY_OC_BASE_URL = "oc_base_url";
-
-    private static final String TAG = "AccountAuthenticator";
+    /**
+     * Flag signaling if the ownCloud server can be accessed with OAuth2 access tokens.
+     */
+    public static final String KEY_SUPPORTS_OAUTH2 = "oc_supports_oauth2";
+    
+    private static final String TAG = AccountAuthenticator.class.getSimpleName();
+    
     private Context mContext;
 
     public AccountAuthenticator(Context context) {
@@ -144,13 +152,25 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             return e.getFailureBundle();
         }
         final AccountManager am = AccountManager.get(mContext);
-        final String password = am.getPassword(account);
-        if (password != null) {
-            final Bundle result = new Bundle();
-            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-            result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
-            result.putString(AccountManager.KEY_AUTHTOKEN, password);
-            return result;
+        if (authTokenType.equals(AUTH_TOKEN_TYPE_ACCESS_TOKEN)) {
+            final String accessToken = am.peekAuthToken(account, authTokenType);
+            if (accessToken != null) {
+                final Bundle result = new Bundle();
+                result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+                result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
+                result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
+                return result;
+            }
+            
+        } else if (authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD)) {
+            final String password = am.getPassword(account);
+            if (password != null) {
+                final Bundle result = new Bundle();
+                result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+                result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
+                result.putString(AccountManager.KEY_AUTHTOKEN, password);
+                return result;
+            }
         }
 
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
@@ -158,7 +178,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                 response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
-        intent.putExtra(AuthenticatorActivity.PARAM_USERNAME, account.name);
+        intent.putExtra(AuthenticatorActivity.PARAM_USERNAME, account.name);    // TODO fix, this will pass the accountName, not the username
 
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -219,7 +239,10 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private void validateAuthTokenType(String authTokenType)
             throws UnsupportedAuthTokenTypeException {
-        if (!authTokenType.equals(AUTH_TOKEN_TYPE)) {
+        if (!authTokenType.equals(AUTH_TOKEN_TYPE) &&
+            !authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD) &&
+            !authTokenType.equals(AUTH_TOKEN_TYPE_ACCESS_TOKEN) &&
+            !authTokenType.equals(AUTH_TOKEN_TYPE_REFRESH_TOKEN) ) {
             throw new UnsupportedAuthTokenTypeException();
         }
     }

@@ -19,6 +19,7 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.Iterator;
 import java.util.Vector;
@@ -34,6 +35,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -49,6 +52,7 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -391,34 +395,45 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             
             notifyUploadStart(mCurrentUpload);
 
+            RemoteOperationResult uploadResult = null;
             
-            /// prepare client object to send requests to the ownCloud server
-            if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
-                mLastAccount = mCurrentUpload.getAccount();
-                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                mUploadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
-            }
+            try {
+                /// prepare client object to send requests to the ownCloud server
+                if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
+                    mLastAccount = mCurrentUpload.getAccount();
+                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mUploadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
+                }
             
-            /// create remote folder for instant uploads
-            if (mCurrentUpload.isRemoteFolderToBeCreated()) {
-                mUploadClient.createDirectory(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);    // ignoring result; fail could just mean that it already exists, but local database is not synchronized; the upload will be tried anyway
-            }
+                /// create remote folder for instant uploads
+                if (mCurrentUpload.isRemoteFolderToBeCreated()) {
+                    RemoteOperation operation = new CreateFolderOperation(  InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR, 
+                                                                            mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId(), // TODO generalize this : INSTANT_UPLOAD_DIR could not be a child of root
+                                                                            mStorageManager);
+                    operation.execute(mUploadClient);      // ignoring result; fail could just mean that it already exists, but local database is not synchronized; the upload will be tried anyway
+                }
 
             
-            /// perform the upload
-            RemoteOperationResult uploadResult = null;
-            try {
+                /// perform the upload
                 uploadResult = mCurrentUpload.execute(mUploadClient);
                 if (uploadResult.isSuccess()) {
                     saveUploadedFile();
                 }
+                
+            } catch (AccountsException e) {
+                Log.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                uploadResult = new RemoteOperationResult(e);
+                
+            } catch (IOException e) {
+                Log.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                uploadResult = new RemoteOperationResult(e);
                 
             } finally {
                 synchronized(mPendingUploads) {
                     mPendingUploads.remove(uploadKey);
                 }
             }
-        
+            
             /// notify result
             notifyUploadResult(uploadResult, mCurrentUpload);
             

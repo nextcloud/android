@@ -37,6 +37,9 @@ import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import android.accounts.Account;
+import android.accounts.AccountsException;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -102,7 +105,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
         try {
             this.initClientForCurrentAccount();
-        } catch (UnknownHostException e) {
+        } catch (IOException e) {
+            /// the account is unknown for the Synchronization Manager, or unreachable for this context; don't try this again
+            mSyncResult.tooManyRetries = true;
+            notifyFailedSynchronization();
+            return;
+        } catch (AccountsException e) {
             /// the account is unknown for the Synchronization Manager, or unreachable for this context; don't try this again
             mSyncResult.tooManyRetries = true;
             notifyFailedSynchronization();

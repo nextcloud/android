@@ -308,8 +308,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     
                 } else {
                     mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
-                    WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                    mLastRemoteOperation.execute(wc, this, mHandler);
+                    mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
                 
                     // update ui 
                     boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
@@ -423,8 +422,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 mLastRemoteOperation = new RemoveFileOperation( mFile, 
                                                                 true, 
                                                                 mStorageManager);
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                mLastRemoteOperation.execute(wc, this, mHandler);
+                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
                 
                 boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
@@ -752,6 +750,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
 
     // this is a temporary class for sharing purposes, it need to be replaced in transfer service
+    /*
     @SuppressWarnings("unused")
     private class ShareRunnable implements Runnable {
         private String mPath;
@@ -854,6 +853,7 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
+    */
     
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
@@ -863,8 +863,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                                             mAccount, 
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
             boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
         }

@@ -391,12 +391,13 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
     public void uploadFiles() {
         try {
+            /* TODO - mCreateDir can never be true at this moment; we will replace wdc.createDirectory by CreateFolderOperation when that is fixed 
             WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-
             // create last directory in path if necessary
             if (mCreateDir) {
                 wdc.createDirectory(mUploadPath);
             }
+            */
 
             String[] local = new String[mStreamsToUpload.size()], remote = new String[mStreamsToUpload.size()];
 

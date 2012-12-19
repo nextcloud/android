@@ -106,4 +106,9 @@ public class ExistenceCheckOperation extends RemoteOperation {
                 && cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
+
+    public String getAccessToken() {
+        return mAccessToken;
+    }
+
 }
