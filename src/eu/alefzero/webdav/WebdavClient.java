@@ -330,8 +330,9 @@ public class WebdavClient extends HttpClient {
 
     @Override
     public int executeMethod(HostConfiguration hostconfig, final HttpMethod method, final HttpState state) throws IOException, HttpException  {
-        if (mCredentials instanceof BearerAuthScheme) {
+        if (mCredentials instanceof BearerCredentials) {
             method.getHostAuthState().setAuthScheme(AuthPolicy.getAuthScheme(BearerAuthScheme.AUTH_POLICY));
+            method.getHostAuthState().setAuthAttempted(true);
         }
         return super.executeMethod(hostconfig, method, state);
     }
