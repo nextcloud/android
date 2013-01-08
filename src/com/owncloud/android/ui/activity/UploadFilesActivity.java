@@ -314,7 +314,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         protected Boolean doInBackground(Void... params) {
             String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
             long total = 0;
-            for (int i=0; i < checkedFilePaths.length ; i++) {
+            for (int i=0; checkedFilePaths != null && i < checkedFilePaths.length ; i++) {
                 String localPath = checkedFilePaths[i];
                 File localFile = new File(localPath);
                 total += localFile.length();
