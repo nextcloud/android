@@ -198,6 +198,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param file          A file that could be in the queue of downloads.
          */
         public boolean isDownloading(Account account, OCFile file) {
+            if (account == null || file == null) return false;
             String targetKey = buildRemoteName(account, file);
             synchronized (mPendingDownloads) {
                 if (file.isDirectory()) {
