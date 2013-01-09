@@ -155,10 +155,6 @@ public class FileDetailFragment extends SherlockFragment implements
         mAccount = ocAccount;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
-        
-        if(fileToDetail != null && ocAccount != null) {
-            mLayout = R.layout.file_details_fragment;
-        }
     }
     
     
@@ -177,6 +173,10 @@ public class FileDetailFragment extends SherlockFragment implements
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
             mAccount = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_ACCOUNT);
+        }
+        
+        if(mFile != null && mAccount != null) {
+            mLayout = R.layout.file_details_fragment;
         }
         
         View view = null;
@@ -461,7 +461,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * @return  True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return mLayout == R.layout.file_details_empty;
+        return (mLayout == R.layout.file_details_empty || mFile == null || mAccount == null);
     }
 
     
@@ -736,14 +736,14 @@ public class FileDetailFragment extends SherlockFragment implements
                 if (mFile.getRemotePath().equals(uploadRemotePath) ||
                     renamedInUpload) {
                     if (uploadWasFine) {
-                        mFile = mStorageManager.getFileByPath(mFile.getRemotePath());
+                        mFile = mStorageManager.getFileByPath(uploadRemotePath);
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadRemotePath)).getName();
                         Toast msg = Toast.makeText(getActivity().getApplicationContext(), String.format(getString(R.string.filedetails_renamed_in_upload_msg), newName), Toast.LENGTH_LONG);
                         msg.show();
-                        getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
                     }
+                    getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
                     updateFileDetails(false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
             }
