@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">สวัสดีชาวโลก, หน้าจอต้อนรับหลัก OwnCloud</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">รหัสผ่าน:</string>
   <string name="main_login">ชื่อผู้ใช้:</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">ตั้งค่า</string>
   <string name="main_tit_accsetup">ตั้งค่าบัญชี</string>
   <string name="main_wrn_accsetup">ไม่มีบัญชี ownCloud ของคุณอยู่บนอุปกรณ์ของคุณ หากต้องการใช้งานแอปตัวนี้ คุณจำเป็นต้องสร้างบัญชีใหม่</string>
+  <string name="about_message">โปรแกรมไคลเอนต์ ownCloud สำหรับใช้งานกับแอนดรอยด์\n\nรุ่น: %1$s</string>
   <string name="actionbar_sync">รีเฟรช</string>
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
   <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
@@ -62,17 +62,20 @@
   <string name="uploader_error_forbidden_content">ownCloud ไม่อนุญาตให้เข้าถึงเนื้อหาที่ถูกแชร์ไว้</string>
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
   <string name="uploader_btn_create_dir_text">สร้างไดเร็กทอรี่สำหรับอัพโหลด</string>
+  <string name="file_list_empty">ยังไม่มีไฟล์อยู่ในโฟลเดอร์นี้.\nสามารถเพิ่มไฟล์ใหม่ได้จากตัวเลือกในเมนู \"อัพโหลด\".</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
   <string name="filedetails_type">ชนิด:</string>
   <string name="filedetails_created">สร้างเมื่อ:</string>
   <string name="filedetails_modified">แก้ไขเมื่อ:</string>
   <string name="filedetails_download">ดาวน์โหลด</string>
+  <string name="filedetails_sync_file">รีเฟรช</string>
   <string name="filedetails_redownload">ดาวน์โหลดใหม่อีกครั้ง</string>
   <string name="filedetails_open">เปิด</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
   <string name="common_ok">ตกลง</string>
+  <string name="common_cancel_upload">ยกเลิกการอัพโหลด</string>
   <string name="common_cancel">ยกเลิก</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_exit">ออกจาก ownCloud</string>
@@ -105,6 +108,7 @@
   <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
   <string name="pincode_enter_new_pin_code">กรุณาใส่รหัส PIN แอปตัวใหม่ของคุณ</string>
   <string name="pincode_configure_your_pin">กรอกรหัส PIN ของ ownCloud App</string>
+  <string name="pincode_configure_your_pin_explanation">หมายเลข PIN ดังกล่าวจะถูกร้องขอทุกครั้งที่เริ่มใช้งานแอปฯ</string>
   <string name="pincode_reenter_your_pincode">กรุณากรอกรหัส PIN ของแอป ownCloud ใหม่อีกครั้ง</string>
   <string name="pincode_remove_your_pincode">ลบรหัส PIN แอป ของ ownCloud ของคุณ</string>
   <string name="pincode_mismatch">รหัส ownCloud App API ไม่ตรงกัน</string>
@@ -175,6 +179,26 @@
   <string name="ssl_validator_certificate_not_available">ไม่สามารถขอรับใบรับรองความปลอดภัยของเซิร์ฟเวอร์ได้</string>
   <string name="ssl_validator_question">คุณต้องการให้ความไว้วางใจในใบรับรองความปลอดภัยนี้หรือไม่?</string>
   <string name="ssl_validator_not_saved">ไม่สามารถบันทึกใบรับรองความปลอดภัยได้</string>
+  <string name="ssl_validator_btn_details_see">รายละเอียด</string>
+  <string name="ssl_validator_btn_details_hide">ซ๋อน</string>
+  <string name="ssl_validator_label_subject">ออกถึง:</string>
+  <string name="ssl_validator_label_issuer">ออกโดย:</string>
+  <string name="ssl_validator_label_CN">ชื่อสามัญ:</string>
+  <string name="ssl_validator_label_O">องค์กร:</string>
+  <string name="ssl_validator_label_OU">หน่วยงาน:</string>
+  <string name="ssl_validator_label_C">ประเทศ:</string>
+  <string name="ssl_validator_label_ST">รัฐ:</string>
+  <string name="ssl_validator_label_L">สถานที่ตั้ง:</string>
+  <string name="ssl_validator_label_validity">ตั้งแต่วันที่:</string>
+  <string name="ssl_validator_label_validity_from">จาก:</string>
+  <string name="ssl_validator_label_validity_to">ถึง:</string>
+  <string name="ssl_validator_label_signature">ลายเซ็นต์:</string>
+  <string name="ssl_validator_label_signature_algorithm">อัลกอริทึ่ม:</string>
   <string name="text_placeholder">นี่เป็นตัวยึด</string>
   <string name="instant_upload_on_wifi">อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</string>
+  <string name="conflict_title">ปรับปรุงปัญหาความขัดแย้ง</string>
+  <string name="conflict_message">ไฟล์ระยะไกล %s ยังไม่ได้ถูกผสานข้อมูลกับไฟล์ในเครื่อง การดำเนินการต่อไปจะเป็นการแทนที่เนื้อหาของไฟล์ที่อยู่บนเซิร์ฟเวอร์</string>
+  <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
+  <string name="conflict_overwrite">เขียนทับ</string>
+  <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
 </resources>

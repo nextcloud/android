@@ -1,2 +1,136 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">මුරපදය</string>
+  <string name="main_login">පරිශීලක නාමය</string>
+  <string name="main_button_login">ප්‍රවිශ්ටය</string>
+  <string name="main_welcome">OwnCloud වෙත ඔබව සාදරයෙන් පිළිගනිමු</string>
+  <string name="main_files">ගොනු</string>
+  <string name="main_music">සංගීතය</string>
+  <string name="main_contacts">සබඳතා</string>
+  <string name="main_calendar">දිනදසුන</string>
+  <string name="main_bookmarks">පිටු සළකුනු</string>
+  <string name="main_settings">සිටුවම්</string>
+  <string name="main_tit_accsetup">පරිශීලක ගිණුම ස්ථාපිත කරන්න</string>
+  <string name="main_wrn_accsetup">owncloud ගිණුම් මෙම යන්ත්‍රයේ නොමැත. මෙම යෙදුම භාවිතයට ගිණුමක් තිබිය යුතුය</string>
+  <string name="actionbar_sync">නැවුම් කරන්න</string>
+  <string name="actionbar_upload">උඩුගත කිරීම</string>
+  <string name="actionbar_upload_files">ගොනු</string>
+  <string name="actionbar_mkdir">ඩිරෙක්ටරිය සාදන්න</string>
+  <string name="actionbar_search">සොයන්න</string>
+  <string name="actionbar_settings">සිටුවම්</string>
+  <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
+  <string name="prefs_category_trackmydevice">මෙවලම සෙවීම</string>
+  <string name="prefs_add_session">නව සැසියක් එකතු කරන්න</string>
+  <string name="prefs_create_img_thumbnails">සිඟිති රූ සාදන්න</string>
+  <string name="prefs_select_oc_account">ගිණුමක් තෝරන්න</string>
+  <string name="prefs_summary_select_oc_account">යෙදුම ඔබගේ ගිණුම් අතුරින් කිනම් ගිණුම භාවිතා කළ යුතුදැයි තෝරන්න</string>
+  <string name="prefs_trackmydevice">මෙවලම සෙවීම</string>
+  <string name="prefs_trackmydevice_summary_off">ඔබගේ යන්ත්‍රය ඇති ස්ථානය සොයාගැනීමට අවසර ownCloudට ලබාදෙන්න</string>
+  <string name="prefs_trackmydevice_summary_on">ඔබගේ ownCloud ඔබගේ යන්ත්‍රය ඇති ස්ථානය හඹායයි</string>
+  <string name="prefs_trackmydevice_interval">යාවත්කාලීන කරන කාල ප්‍රාන්තරය</string>
+  <string name="prefs_trackmydevice_interval_summary">සෑම මිනිත්තු %1$s වරක් යාවත්කාලීන කරන්න</string>
+  <string name="prefs_accounts">ගිණුම්</string>
+  <string name="prefs_manage_accounts">ගිණුම් කළමනාකරනය</string>
+  <string name="prefs_pincode_summary">ඔබේ ownCloud සේවාලාභියා සුරකින්න</string>
+  <string name="prefs_instant_upload">ක්‍ෂණික උඩුගත කිරීම් සක්‍රිය කරන්න</string>
+  <string name="prefs_instant_upload_summary">කැමරාවෙන් ගත් රූප ක්‍ෂණිකව උඩුගත කරන්න</string>
+  <string name="auth_host_url">ownCloud යොමුව</string>
+  <string name="auth_username">පරිශීලක නම</string>
+  <string name="auth_password">මුර පදය</string>
+  <string name="auth_register">මම ownCloudට නවකයෙක්මි</string>
+  <string name="new_session_uri_error">දී ඇති යෙදුම වැරදි</string>
+  <string name="new_session_session_name_error">වැරදි සැසිවාර නමක්</string>
+  <string name="sync_string_files">ගොනු</string>
+  <string name="uploader_no_file_selected">උඩුගත කිරීමට ගොනුවක් තෝරා නැත</string>
+  <string name="setup_hint_username">පරිශීලක නම</string>
+  <string name="setup_hint_password">මුර පදය</string>
+  <string name="setup_hint_address">අන්තර්ජාල ලිපිනය</string>
+  <string name="setup_hint_show_password">මුරපදය පෙන්වන්නද?</string>
+  <string name="setup_title">ඔබගේ ownCloud හා සම්බන්ධ වන්න</string>
+  <string name="setup_btn_connect">සම්බන්ධ වන්න</string>
+  <string name="uploader_btn_upload_text">උඩුගත කිරීම</string>
+  <string name="uploader_wrn_no_account_title">ගිණුමක් හමු නොවුණි</string>
+  <string name="uploader_wrn_no_account_text">owncloud ගිණුම් මෙම යන්ත්‍රයේ නොමැත. කරුණාකර ගිණුමක් සාදන්න</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">ස්ථාපනය</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">නික්මෙන්න</string>
+  <string name="uploader_info_uploading">උඩුගතවේ</string>
+  <string name="uploader_btn_create_dir_text">උඩුගත කිරීම් සඳහා ඩිරෙක්ටරිය තනන්න</string>
+  <string name="filedetails_select_file">වැඩි විස්තර සඳහා ගොනුවක් ස්පර්ෂ කරන්න</string>
+  <string name="filedetails_size">විශාලත්වය:</string>
+  <string name="filedetails_type">ගණය:</string>
+  <string name="filedetails_created">සෑදු දිනය:</string>
+  <string name="filedetails_modified">වෙනස් කළ දිනය:</string>
+  <string name="filedetails_download">භාගත කරන්න</string>
+  <string name="filedetails_sync_file">නැවුම් කරන්න</string>
+  <string name="filedetails_redownload">නැවුම් කරන්න</string>
+  <string name="filedetails_open">විවෘත කරන්න</string>
+  <string name="common_yes">ඔව්</string>
+  <string name="common_no">එපා</string>
+  <string name="common_ok">හරි</string>
+  <string name="common_cancel_upload">උඩුගත කිරීම අත් හරින්න</string>
+  <string name="common_cancel">එපා</string>
+  <string name="common_save_exit">සුරැක &amp; පිටවන්න</string>
+  <string name="common_exit">ownCloud අත්හැර යන්න</string>
+  <string name="common_error">දෝශය</string>
+  <string name="about_title">පිළිබඳව</string>
+  <string name="delete_account">ගිණුම මකන්න</string>
+  <string name="create_account">ගිණුම සාදන්න</string>
+  <string name="uploader_info_dirname">ඩිරෙක්ටරි නම</string>
+  <string name="uploader_upload_succeeded_ticker">උඩුගත කිරීම සාර්ථකයි</string>
+  <string name="uploader_upload_succeeded_content_multiple">%1$d ගොනු සාර්ථකව උඩුගත කෙරුණි</string>
+  <string name="uploader_upload_failed_ticker">උඩුගත කිරීම අසාර්ථකයි</string>
+  <string name="uploader_upload_failed_content_multiple">උඩුගත කිරීම අසාර්ථකයි: %1$d/%2$d ගොනු උඩගත විය</string>
+  <string name="downloader_download_in_progress_ticker">බාගතවේ...</string>
+  <string name="downloader_download_succeeded_ticker">බාගත කිරීම සාර්ථකයි</string>
+  <string name="downloader_download_failed_ticker">බාගත කිරීම අසාර්ථකයි</string>
+  <string name="common_choose_account">ගිණුම තෝරන්න</string>
+  <string name="sync_string_contacts">සබඳතා</string>
+  <string name="use_ssl">ආරක්ෂිත සම්බන්ධතාවක් භාවිතා කරන්න</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>විනාඩි 15</item>
+    <item>විනාඩි 30</item>
+    <item>විනාඩි 60</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_trying_to_login">පිවිසීමට උත්සහ කරනවා...</string>
+  <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
+  <string name="auth_no_net_conn_message">ජාල සම්බන්ධතාවක් සොයා ගත නොහැක. ඔබගේ අන්තර්ජාල සම්බන්ධතාව පරීක්ෂාකර නැවත උත්සහ කරන්න</string>
+  <string name="auth_connect_anyway">කොහොමත් සම්බන්ධවන්න</string>
+  <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
+  <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
+  <string name="auth_testing_connection">සම්බන්ධතාව පරීක්ෂා කෙරේ</string>
+  <string name="auth_not_configured_title">විකෘතිවු OwnCloud හැඩගැසුමක්</string>
+  <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
+  <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>
+  <string name="auth_timeout_title">සේවාදායකයා පිළිතුරු දීමට දිගු කාලයක් ගත්තේය</string>
+  <string name="auth_incorrect_address_title">විකෘතිවු යොමුවක්</string>
+  <string name="auth_ssl_general_error_title">SSL ආරම්භ කිරීම අසාර්ථකයි</string>
+  <string name="auth_bad_oc_version_title">හඳුනාගත නොහැකි ownCloud අනුවාදයක්</string>
+  <string name="auth_wrong_connection_title">සම්බන්ධයක් ඇතිකර ගැනීමට නොහැකි විය</string>
+  <string name="auth_secure_connection">රක්‍ෂිත සම්බන්ධතාවක් සාදන ලදී</string>
+  <string name="auth_login_details">පිවිසුම් සඳහා විස්තර</string>
+  <string name="crashlog_send_report">වාර්තාව යවන්න</string>
+  <string name="crashlog_dont_send_report">වාර්තාව යවන්න එපා</string>
+  <string name="fd_keep_in_sync">ගොනුව යාවත්කාලීනව තබාගන්න</string>
+  <string name="common_share">බෙදා හදාගන්න</string>
+  <string name="common_rename">නැවත නම් කරන්න</string>
+  <string name="common_remove">ඉවත් කරන්න </string>
+  <string name="confirmation_remove_alert">%1$s සැබැවින්ම ඉවත්කිරීමට අවශ්‍යද?</string>
+  <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
+  <string name="confirmation_remove_remote">සේවාදායකයාගෙන් ඉවත් කරන්න</string>
+  <string name="confirmation_remove_remote_and_local">දුරස්ථ හා පෙදෙසි </string>
+  <string name="remove_success_msg">සාර්ථක ඉවත්කිරීමක්</string>
+  <string name="remove_fail_msg">ඉවත් කිරීම සම්පූර්ණ කළ නොහැක</string>
+  <string name="rename_server_fail_msg">නැවත නම් කිරීම සම්පුර්ණ කළ නොහැකි විය</string>
+  <string name="create_dir_fail_msg">ඩිරෙක්ටරිය සෑදීමට නොහැකි විය</string>
+  <string name="wait_a_moment">ස්වල්ප මොහොතක් සිටින්න</string>
+  <string name="filedisplay_unexpected_bad_get_content">නොසිතු ප්‍රශ්ණයක්; කරුණාකර වෙනත් යෙදුමක් භාවිතා කර ගොනුව තෝරන්න</string>
+  <string name="filedisplay_no_file_selected">ගොනුවක් තෝරා නැත</string>
+  <string name="ssl_validator_title">අනතුරු ඇඟවිම</string>
+  <string name="ssl_validator_btn_details_hide">සඟවන්න</string>
+</resources>

@@ -1,2 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_button_login">login</string>
+  <string name="main_contacts">kontak</string>
+  <string name="main_settings">pengaturan</string>
+  <string name="actionbar_settings">pengaturan</string>
+  <string name="prefs_category_general">umum</string>
+  <string name="auth_host_url">tautan</string>
+  <string name="auth_username">nama pengguna</string>
+  <string name="auth_password">kata kunci</string>
+  <string name="setup_hint_username">nama pengguna</string>
+  <string name="setup_hint_password">kata kunci</string>
+  <string name="filedetails_download">unduh</string>
+  <string name="filedetails_open">buka</string>
+  <string name="common_yes">Ya</string>
+  <string name="common_cancel_upload">Batal mengunggah</string>
+  <string name="common_cancel">batal</string>
+  <string name="common_error">kesalahan</string>
+  <string name="sync_string_contacts">kontak</string>
+  <string name="common_share">berbagi</string>
+  <string name="common_remove">hilangkan</string>
+  <string name="ssl_validator_title">peringatan</string>
+  <string name="ssl_validator_btn_details_hide">sembunyikan</string>
+</resources>

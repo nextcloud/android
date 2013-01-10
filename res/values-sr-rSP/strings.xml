@@ -1,2 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_files">Fajlovi</string>
+  <string name="main_music">Muzika</string>
+  <string name="main_settings">Podešavanja</string>
+  <string name="actionbar_upload">Pošalji</string>
+  <string name="actionbar_upload_files">Fajlovi</string>
+  <string name="actionbar_settings">Podešavanja</string>
+  <string name="auth_username">Korisničko ime</string>
+  <string name="auth_password">Lozinka</string>
+  <string name="sync_string_files">Fajlovi</string>
+  <string name="setup_hint_username">Korisničko ime</string>
+  <string name="setup_hint_password">Lozinka</string>
+  <string name="uploader_btn_upload_text">Pošalji</string>
+  <string name="filedetails_download">Preuzmi</string>
+  <string name="common_cancel">Otkaži</string>
+</resources>
