@@ -488,9 +488,9 @@ public class FileDataStorageManager implements DataStorageManager {
                         }
                     }
                 }
-                if (removeDBData) {
-                    removeFile(dir, true);
-                }
+            }
+            if (removeDBData) {
+                removeFile(dir, true);
             }
         }
     }
