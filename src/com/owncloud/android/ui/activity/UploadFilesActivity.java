@@ -140,7 +140,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
                 break;
             }
             default:
-                retval = onOptionsItemSelected(item);
+                retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
