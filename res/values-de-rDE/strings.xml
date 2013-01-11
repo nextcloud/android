@@ -80,7 +80,7 @@
   <string name="common_cancel_upload">Upload abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; Schließen</string>
-  <string name="common_exit">%1$s verlasse</string>
+  <string name="common_exit">%1$s verlassen</string>
   <string name="common_error">Fehler</string>
   <string name="about_title">Über</string>
   <string name="delete_account">Account löschen</string>
