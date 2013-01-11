@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Merhaba Dünya, OwnCloudAnaEkran!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Şifre:</string>
   <string name="main_login">Kullanıcı Adı:</string>
@@ -34,6 +33,7 @@
   <string name="prefs_accounts">Hesaplar</string>
   <string name="prefs_manage_accounts">Hesapları yönet</string>
   <string name="prefs_pincode">ownCloud App PIN</string>
+  <string name="prefs_pincode_summary">İstemcinizi koruyun</string>
   <string name="prefs_instant_upload">Anında yükleme etkinleştir</string>
   <string name="prefs_instant_upload_summary">Anında çekilen fotoğrafları yükle</string>
   <string name="auth_host_url">ownCloud URL</string>
@@ -65,11 +65,14 @@
   <string name="filedetails_created">Yaratma:</string>
   <string name="filedetails_modified">Değiştirme:</string>
   <string name="filedetails_download">İndir</string>
+  <string name="filedetails_sync_file">Tazele</string>
   <string name="filedetails_redownload">Tekrar indir</string>
   <string name="filedetails_open">Aç</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">İndirmeyi iptal et</string>
+  <string name="common_cancel_upload">Yüklemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
   <string name="common_save_exit">Kaydet %amp; Kapat</string>
   <string name="common_exit">Çıkış</string>
@@ -96,6 +99,7 @@
   <string name="common_choose_account">Hesap seçiniz</string>
   <string name="sync_string_contacts">Kontaklar</string>
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
+  <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>
   <string name="use_ssl">Güvenli bağlanti kullan</string>
   <string name="location_no_provider">ownCloud cihazınızı takip edemiyor. Lütfen konum ayarlarınızı kontrol ediniz</string>
   <string name="pincode_enter_pin_code">Lütfen uygulama PIN\'ınızı giriniz</string>
@@ -133,6 +137,7 @@
   <string name="auth_unknown_host_message">Girilen anabilgisayar bulunamadı. Anabilgisayaradı ve sunucu kullanılabilirliğini kontrol edin ve yeniden deneyin.</string>
   <string name="auth_incorrect_path_title">ownCloud servisi bulunamadı.</string>
   <string name="auth_incorrect_path_message">Uygulama verilen dizin yolunda ownCloud bulamadı. Lütfen dizin yolunu kontrol edin ve tekrar deneyin.</string>
+  <string name="auth_timeout_title">Sunucu çok geç cevap veriyor</string>
   <string name="auth_incorrect_address_title">Hatalı biçimlendirilmiş URL</string>
   <string name="auth_ssl_general_error_title">SSL başlatılmasında hata</string>
   <string name="auth_ssl_unverified_server_title">Doğrulanmamış SSL sunucu kimliğini</string>
@@ -140,6 +145,7 @@
   <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
   <string name="auth_secure_connection">Güvenli bağlantı sağlandı.</string>
   <string name="auth_login_details">Giriş detayları</string>
+  <string name="auth_unauthorized">Geçersiz kullanıcı adı/parola</string>
   <string name="crashlog_message">Uygulama umulmadık bir şekilde sonlandı. Hata raporunu göndermek ister misiniz ?</string>
   <string name="crashlog_send_report">Rapor gönder</string>
   <string name="crashlog_dont_send_report">Rapor gönderme</string>
@@ -150,15 +156,41 @@
   <string name="common_rename">İsim değiştir.</string>
   <string name="common_remove">Kaldır</string>
   <string name="confirmation_remove_alert"> %1$s ları gerçekten kaldırmak istiyor musunuz ?</string>
+  <string name="confirmation_remove_folder_alert">Gerçekten %1s ve içeriğini silmek istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
+  <string name="confirmation_remove_folder_local">Sadece yerel içerik</string>
   <string name="confirmation_remove_remote">Sunucudan kaldır</string>
   <string name="confirmation_remove_remote_and_local">Uzaktaki ve yereldeki</string>
   <string name="remove_success_msg">Kaldırma başarılı</string>
   <string name="remove_fail_msg">Kaldırma tamamlanamıyor</string>
+  <string name="rename_dialog_title">Yeni bir isim girin</string>
   <string name="rename_local_fail_msg">Yerel kopya adlandırılamaz; farklı bir ad deneyin</string>
   <string name="rename_server_fail_msg">Yeniden  adlandırılma tamamlanmadı</string>
   <string name="create_dir_fail_msg">Dizin oluşturulamadı</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
+  <string name="ssl_validator_title">Uyarı</string>
+  <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi geçmiş</string>
+  <string name="ssl_validator_certificate_not_available">Sunucu sertifikası elde edilemedi</string>
+  <string name="ssl_validator_question">Sertifikaya yine de güvenmek istiyor musunuz?</string>
+  <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
+  <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
+  <string name="ssl_validator_btn_details_hide">Gizle</string>
+  <string name="ssl_validator_label_O">Organizasyon:</string>
+  <string name="ssl_validator_label_OU">Organizasyon birimi:</string>
+  <string name="ssl_validator_label_C">Ülke:</string>
+  <string name="ssl_validator_label_ST">Eyalet:</string>
+  <string name="ssl_validator_label_L">Konum:</string>
+  <string name="ssl_validator_label_validity">Geçerlilik:</string>
+  <string name="ssl_validator_label_validity_from">Kimden:</string>
+  <string name="ssl_validator_label_validity_to">Kime:</string>
+  <string name="ssl_validator_label_signature">İmza:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
+  <string name="text_placeholder">Bu bir yer tutucudur</string>
+  <string name="instant_upload_on_wifi">Resimleri sadece WiFi bağlantısında yükle</string>
+  <string name="conflict_title">Çakışmayı güncelle</string>
+  <string name="conflict_keep_both">İkisini de koru</string>
+  <string name="conflict_overwrite">Üzerine yaz</string>
+  <string name="conflict_dont_upload">Yükleme</string>
 </resources>

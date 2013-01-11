@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="main_files">Skrár</string>
+  <string name="main_music">Tónlist</string>
+  <string name="main_bookmarks">Bókamerki</string>
+  <string name="main_settings">Stillingar</string>
+  <string name="actionbar_upload">Senda inn</string>
+  <string name="actionbar_upload_files">Skrár</string>
+  <string name="actionbar_settings">Stillingar</string>
+  <string name="auth_host_url">URL</string>
+  <string name="auth_username">Notendanafn</string>
+  <string name="auth_password">Lykilorð</string>
+  <string name="sync_string_files">Skrár</string>
+  <string name="setup_hint_username">Notendanafn</string>
+  <string name="setup_hint_password">Lykilorð</string>
+  <string name="uploader_btn_upload_text">Senda inn</string>
+  <string name="filedetails_download">Niðurhal</string>
+  <string name="filedetails_open">Opna</string>
+  <string name="common_yes">Já</string>
+  <string name="common_no">Nei</string>
+  <string name="common_cancel_upload">Hætta við innsendingu</string>
+  <string name="common_cancel">Hætta við</string>
+  <string name="common_error"><strong>Villa</strong></string>
+  <string name="common_share">Deila</string>
+  <string name="common_rename">Endurskýra</string>
+  <string name="common_remove">Fjarlægja</string>
+  <string name="ssl_validator_title">Aðvörun</string>
+</resources>

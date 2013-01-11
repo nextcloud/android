@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Helló világ, OwnCloudKezdőképernyő!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Jelszó:</string>
   <string name="main_login">Felhasználói név:</string>
@@ -48,10 +47,13 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
+  <string name="filedetails_sync_file">Frissítés</string>
+  <string name="filedetails_redownload">Frissítés</string>
   <string name="filedetails_open">Megnyitás</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_upload">Feltöltés megszakítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_error">Hiba</string>
@@ -73,8 +75,12 @@
   <string name="pincode_enter_pin_code">Kérlek add meg az App PIN kódját</string>
   <string name="pincode_enter_new_pin_code">Kérlek add meg az új APP PIN kódját</string>
   <string name="pincode_configure_your_pin">ownCloud App PIN kója</string>
+  <string name="common_share">Megosztás</string>
+  <string name="common_rename">Átnevezés</string>
+  <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg szeretnéd törölni  %1$s ?</string>
   <string name="confirmation_remove_local">Csak helyből</string>
   <string name="confirmation_remove_remote">Törlés a szerverről</string>
   <string name="confirmation_remove_remote_and_local">Törlés a szerverről és helyből</string>
+  <string name="ssl_validator_title">Figyelmeztetés</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Adissiatz monde, OwnCloudMainScreen !</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Senhal :</string>
   <string name="main_login">Nom o escais :</string>
@@ -15,6 +14,7 @@
   <string name="main_tit_accsetup">Compte de configuracion</string>
   <string name="actionbar_sync">Refresca</string>
   <string name="actionbar_upload">Amontcarga</string>
+  <string name="actionbar_upload_files">Fichièrs</string>
   <string name="actionbar_mkdir">Crea un repertòri</string>
   <string name="actionbar_search">Cèrca</string>
   <string name="actionbar_settings">Configuracion</string>
@@ -49,11 +49,13 @@
   <string name="filedetails_created">Creat :</string>
   <string name="filedetails_modified">Modificat :</string>
   <string name="filedetails_download">Avalcarga</string>
+  <string name="filedetails_sync_file">Refresca</string>
   <string name="filedetails_redownload">Torna avalcargar</string>
   <string name="filedetails_open">Dubrís</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'accòrdi</string>
+  <string name="common_cancel_upload"> Anulla l\'amontcargar</string>
   <string name="common_cancel">Annula</string>
   <string name="common_error">Error</string>
   <string name="about_title">A prepaus</string>

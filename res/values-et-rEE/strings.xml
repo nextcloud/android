@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Tere maailm, OwnCloudMainScreen!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Parool:</string>
   <string name="main_login">Kasutajanimi:</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">Seaded</string>
   <string name="main_tit_accsetup">Konto seadistamine</string>
   <string name="main_wrn_accsetup">Sinu seadmes pole ühtegi ownCloudi kontot. Selle rakenduse kasutamiseks pead sa ühe looma.</string>
+  <string name="about_message">ownCloud Androidi klient\n\nversioon: %1$s</string>
   <string name="actionbar_sync">Värskenda</string>
   <string name="actionbar_upload">Lae fail üles</string>
   <string name="actionbar_upload_from_apps">Sisu teistest rakendustest</string>
@@ -62,17 +62,21 @@
   <string name="uploader_error_forbidden_content">ownCloudile pole lubatud ligipääs jagatud sisule</string>
   <string name="uploader_info_uploading">Üleslaadimine</string>
   <string name="uploader_btn_create_dir_text">Loo üleslaadimise jaoks kaust</string>
+  <string name="file_list_empty">Selles kaustas pole ühtegi faili.\nUusi faile saab lisada kasutades menüü valikut \"Lae üles\".</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
   <string name="filedetails_type">Tüüp:</string>
   <string name="filedetails_created">Loodud:</string>
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
+  <string name="filedetails_sync_file">Värskenda</string>
   <string name="filedetails_redownload">Lae uuesti alla</string>
   <string name="filedetails_open">Ava</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">Tühista allalaadimine</string>
+  <string name="common_cancel_upload">Tühista üleslaadimine</string>
   <string name="common_cancel">Loobu</string>
   <string name="common_save_exit">Salvesta &amp; Välju</string>
   <string name="common_exit">Lahku ownCloudist</string>
@@ -100,11 +104,13 @@
   <string name="sync_string_contacts">Kontaktid</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
+  <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
   <string name="use_ssl">Kasuta turvalist ühendust</string>
   <string name="location_no_provider">ownCloud ei saa sinu seadet jälgida. Palun kontrolli oma asukoha seadeid</string>
   <string name="pincode_enter_pin_code">Palun sisesta oma rakenduse PIN</string>
   <string name="pincode_enter_new_pin_code">Palun sisesta oma rakenduse uus PIN</string>
   <string name="pincode_configure_your_pin">Palun ownCloudi rakenduse PIN</string>
+  <string name="pincode_configure_your_pin_explanation">PIN-i nõutakse iga kord, kui rakendus käivitatakse</string>
   <string name="pincode_reenter_your_pincode">Palun sisesta oma ownCloudi rakenduse PIN uuesti</string>
   <string name="pincode_remove_your_pincode">Eemalda oma ownCloud rakenduse PIN</string>
   <string name="pincode_mismatch">Mõlemad ownCloudi rakenduse PIN-id pole samad</string>
@@ -145,6 +151,9 @@
   <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
   <string name="auth_secure_connection">Saavutati turvaline ühendus</string>
   <string name="auth_login_details">Sisselogimise andmed</string>
+  <string name="auth_unauthorized">Vigane kasutajanimi /parool</string>
+  <string name="auth_not_found">Sisestati vale asukoht</string>
+  <string name="auth_internal">Sisemine serveri viga, kood %1$d</string>
   <string name="crashlog_message">Rakdnus suleti ootamatult. Kas sa sooviksid saata kokkujooksmise kohta teavitust arendajale?</string>
   <string name="crashlog_send_report">Saada veateade</string>
   <string name="crashlog_dont_send_report">Ära saada veateadet</string>
@@ -155,13 +164,18 @@
   <string name="common_rename">Nimeta ümber</string>
   <string name="common_remove">Eemalda</string>
   <string name="confirmation_remove_alert">Oled sa kindel, et soovid %1$s eemaldada ?</string>
+  <string name="confirmation_remove_folder_alert">Kas sa tõesti soovid eemaldada %1$s ja selle sisu ?</string>
   <string name="confirmation_remove_local">Ainult kohalik</string>
+  <string name="confirmation_remove_folder_local">Ainult kohalik sisu</string>
   <string name="confirmation_remove_remote">Eemalda serverist</string>
   <string name="confirmation_remove_remote_and_local">Mõlemad nii eemalolev kui ka kohalik</string>
   <string name="remove_success_msg">Eemaldamine oli edukas</string>
   <string name="remove_fail_msg">Eemaldamist ei suudetud lõpetada</string>
+  <string name="rename_dialog_title">Sisesta uus nimi</string>
   <string name="rename_local_fail_msg">Kohalikku faili ei saa ümber nimetada; proovi teist uut nime</string>
   <string name="rename_server_fail_msg">Ümbernimetamine ebaõnnestus</string>
+  <string name="sync_file_fail_msg">Mujaloleva faili kontrollimine ebaõnnestus</string>
+  <string name="sync_file_nothing_to_do_msg">Faili sisu on juba sünkroniseeritud</string>
   <string name="create_dir_fail_msg">Kausta loomine ebaõnnestus</string>
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
@@ -175,6 +189,21 @@
   <string name="ssl_validator_certificate_not_available">Serveri sertifikaati ei õnnestunud hankida</string>
   <string name="ssl_validator_question">Kas sa soovid siiski seda sertifikaati usaldada?</string>
   <string name="ssl_validator_not_saved">Sertifikaadi salvestamine ebaõnnestus</string>
+  <string name="ssl_validator_btn_details_see">Üksikasjad</string>
+  <string name="ssl_validator_btn_details_hide">Peida</string>
+  <string name="ssl_validator_label_O">Organisatsioon:</string>
+  <string name="ssl_validator_label_OU">Organisatsiooni üksus:</string>
+  <string name="ssl_validator_label_C">Riik:</string>
+  <string name="ssl_validator_label_ST">Maakond:</string>
+  <string name="ssl_validator_label_L">Asukoht:</string>
+  <string name="ssl_validator_label_validity">Kehtivus:</string>
+  <string name="ssl_validator_label_signature">Allkiri:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritm:</string>
   <string name="text_placeholder">See on kohahoidja</string>
   <string name="instant_upload_on_wifi">Lae pilte üles ainult läbi WiFi</string>
+  <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">Uuenduse konflikt</string>
+  <string name="conflict_keep_both">Säilita mõlemad</string>
+  <string name="conflict_overwrite">Kirjuta üle</string>
+  <string name="conflict_dont_upload">Ära uuenda</string>
 </resources>

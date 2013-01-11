@@ -1,2 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Passwuert:</string>
+  <string name="main_music">Musek</string>
+  <string name="main_contacts">Kontakter</string>
+  <string name="main_settings">Astellungen</string>
+  <string name="actionbar_settings">Astellungen</string>
+  <string name="filedetails_download">Download</string>
+  <string name="common_yes">Jo</string>
+  <string name="common_cancel_upload">Upload ofbriechen</string>
+  <string name="common_cancel">Ofbriechen</string>
+  <string name="common_error">Fehler</string>
+  <string name="sync_string_contacts">Kontakter</string>
+  <string name="common_share">Deelen</string>
+  <string name="ssl_validator_title">Warnung</string>
+</resources>

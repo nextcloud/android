@@ -1,2 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_files">Faili</string>
+  <string name="main_music">Mūzika</string>
+  <string name="main_settings">Iestatījumi</string>
+  <string name="actionbar_upload">Augšuplādet</string>
+  <string name="actionbar_upload_files">Faili</string>
+  <string name="actionbar_settings">Iestatījumi</string>
+  <string name="auth_username">Lietotājvārds</string>
+  <string name="auth_password">Parole</string>
+  <string name="sync_string_files">Faili</string>
+  <string name="setup_hint_username">Lietotājvārds</string>
+  <string name="setup_hint_password">Parole</string>
+  <string name="uploader_btn_upload_text">Augšuplādet</string>
+  <string name="filedetails_download">Lejuplādēt</string>
+  <string name="common_cancel_upload">Atcelt augšuplādi</string>
+  <string name="common_error">Kļūme</string>
+  <string name="common_share">Līdzdalīt</string>
+  <string name="common_rename">Pārdēvēt</string>
+</resources>

@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Saluton, mondo, ĈefekranoDeOwnCloud!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Pasvorto:</string>
   <string name="main_login">Uzantonomo:</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">Agordo</string>
   <string name="main_tit_accsetup">Agordi konton</string>
   <string name="main_wrn_accsetup">Estas neniu konto de ownCloud en via aparato. Por povi uzi ĉi tiun aplikaĵon, vi devas krei iun.</string>
+  <string name="about_message">Android-aplikaĵo %1$s\n\neldono: %2$s</string>
   <string name="actionbar_sync">Refreŝigi</string>
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
@@ -61,16 +61,21 @@
   <string name="uploader_error_forbidden_content">ownCloud ne estas permesata aliri la kunhavigitan enhavon</string>
   <string name="uploader_info_uploading">Alŝutante</string>
   <string name="uploader_btn_create_dir_text">Krei dosierujon por alŝuto</string>
+  <string name="file_list_empty">Neniu dosiero estas en ĉi tiu dosierujo.\nNovajn dosierojn vi povas aldoni per la menuero “Alŝuti”.</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
+  <string name="filedetails_sync_file">Refreŝigi</string>
   <string name="filedetails_redownload">Reelŝuti</string>
   <string name="filedetails_open">Malfermi</string>
+  <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>
+  <string name="common_cancel_download">Nuligi elŝuton</string>
+  <string name="common_cancel_upload">Nuligi alŝuton</string>
   <string name="common_cancel">Nuligi</string>
   <string name="common_save_exit">Konservi kaj forlasi</string>
   <string name="common_exit">Forlasi ownCloud-on</string>
@@ -98,6 +103,10 @@
   <string name="sync_string_contacts">Kontaktoj</string>
   <string name="sync_fail_ticker">Sinkronigo malsukcesis</string>
   <string name="sync_fail_content">Sinkronigo de %1$s ne povis plenumiĝi</string>
+  <string name="sync_conflicts_in_favourites_ticker">Konfliktoj troviĝis</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d ade sinkronigataj dosieroj ne povis sinkroniĝi</string>
+  <string name="sync_fail_in_favourites_ticker">Malsukcesis ada sinkronigo de dosieroj</string>
+  <string name="sync_fail_in_favourites_content">Enhavoj de %1$d dosieroj ne povis sinkroniĝi (%2$d konfliktas)</string>
   <string name="use_ssl">Uzi sekuran konekton</string>
   <string name="location_no_provider">ownCloud ne povas spuri vian aparaton. Bonvolu kontroli vian lokagordon.</string>
   <string name="pincode_enter_pin_code">Bonvolu enigi vian PIN-on de aplikaĵo</string>
@@ -140,6 +149,9 @@
   <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
   <string name="auth_secure_connection">Sekura konekto stariĝis</string>
   <string name="auth_login_details">Ensalutaj detaloj</string>
+  <string name="auth_unauthorized">Nevalida ensalutonomo/pasvorto</string>
+  <string name="auth_not_found">Malĝusta vojo doniĝis</string>
+  <string name="auth_internal">Ena servila eraro: kodo %1$d</string>
   <string name="crashlog_message">Aplikaĵo finis neatendite. Ĉu vi volus sendi paneoraporton?</string>
   <string name="crashlog_send_report">Sendi raporton</string>
   <string name="crashlog_dont_send_report">Ne sendi raporton</string>
@@ -149,18 +161,24 @@
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj sian enhavon?</string>
   <string name="confirmation_remove_local">Nur loka</string>
+  <string name="confirmation_remove_folder_local">Nur lokaj enhavoj</string>
   <string name="confirmation_remove_remote">Forigi el la servilo</string>
   <string name="confirmation_remove_remote_and_local">Kaj malloka kaj loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>
   <string name="remove_fail_msg">Forigo ne eblis plenumiĝi</string>
+  <string name="rename_dialog_title">Enigu novan nomon</string>
   <string name="rename_local_fail_msg">Loka kopio ne povis alinomiĝi; provu malsaman novan nomon</string>
   <string name="rename_server_fail_msg">Alinomigo ne povis plenumiĝi</string>
+  <string name="sync_file_fail_msg">Malloka dosiero ne povis kontroliĝi</string>
+  <string name="sync_file_nothing_to_do_msg">Dosierenhavoj jam sinkroniĝis</string>
   <string name="create_dir_fail_msg">Dosierujo ne povis kreiĝi</string>
   <string name="wait_a_moment">Atendu momenton</string>
   <string name="filedisplay_unexpected_bad_get_content">Neatendita problemo; bonvolu provi alian aplikaĵon por elekti la dosieron</string>
   <string name="filedisplay_no_file_selected">Neniu dosiero elektiĝis</string>
   <string name="ssl_validator_title">Averto</string>
+  <string name="ssl_validator_header">La idento de la ejo ne povis kontroliĝi</string>
   <string name="ssl_validator_reason_cert_not_trusted">- La servila atestilo ne fidindas</string>
   <string name="ssl_validator_reason_cert_expired">- La servila atestilo eksvalidiĝis</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- La servila atestilo tro junas</string>
@@ -168,4 +186,24 @@
   <string name="ssl_validator_certificate_not_available">La servila atestilo ne povis ekhaviĝi</string>
   <string name="ssl_validator_question">Ĉu vi volas fidi ĉi tiun atestilon ĉiuokaze?</string>
   <string name="ssl_validator_not_saved">La atestino ne povis konserviĝi</string>
+  <string name="ssl_validator_btn_details_see">Detaloj</string>
+  <string name="ssl_validator_btn_details_hide">Malmontri</string>
+  <string name="ssl_validator_label_CN">Komuna nomo:</string>
+  <string name="ssl_validator_label_O">Organizaĵo:</string>
+  <string name="ssl_validator_label_OU">Organiza ero:</string>
+  <string name="ssl_validator_label_C">Lando:</string>
+  <string name="ssl_validator_label_ST">Ŝtato:</string>
+  <string name="ssl_validator_label_L">Loko:</string>
+  <string name="ssl_validator_label_validity">Valideco:</string>
+  <string name="ssl_validator_label_validity_from">El:</string>
+  <string name="ssl_validator_label_validity_to">Al:</string>
+  <string name="ssl_validator_label_signature">Subskribo:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="text_placeholder">Ĉi tio estas lokokupilo</string>
+  <string name="instant_upload_on_wifi">Alŝuti bildojn nur per WiFi</string>
+  <string name="conflict_title">Alŝuta konflikto</string>
+  <string name="conflict_message">La malloka dosiero %s estas ne sinkronigita kun loka dosiero. Se la ago daŭrus, enhavo de la dosiero en la servilo anstataŭiĝus.</string>
+  <string name="conflict_keep_both">Konservi ambaŭ</string>
+  <string name="conflict_overwrite">Anstataŭigi</string>
+  <string name="conflict_dont_upload">Ne alŝuti</string>
 </resources>
