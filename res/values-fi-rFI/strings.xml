@@ -75,6 +75,7 @@
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">Peru lataus</string>
   <string name="common_cancel_upload">Peru lähetys</string>
   <string name="common_cancel">Peru</string>
   <string name="common_save_exit">Tallenna ja poistu</string>
@@ -176,6 +177,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
   <string name="ssl_validator_title">Varoitus</string>
+  <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
   <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
   <string name="ssl_validator_certificate_not_available">Palvelimen varmenteen noutaminen epäonnistui</string>
