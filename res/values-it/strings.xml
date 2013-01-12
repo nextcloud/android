@@ -13,7 +13,7 @@
   <string name="main_settings">Impostazioni</string>
   <string name="main_tit_accsetup">Configurazione account</string>
   <string name="main_wrn_accsetup">Non ci sono account ownCloud su questo dispositivo. Per utilizzare questa applicazione, devi crearne uno.</string>
-  <string name="about_message">Client ownCloud per Android\n\nversione: %1$s</string>
+  <string name="about_message">%1$s per Android\n\nversione: %2$s</string>
   <string name="actionbar_sync">Sincronizza account</string>
   <string name="actionbar_upload">Carica un file</string>
   <string name="actionbar_upload_from_apps">Contenuti da altre applicazioni</string>
@@ -36,7 +36,7 @@
   <string name="prefs_manage_accounts">Gestisci account</string>
   <string name="prefs_pincode">PIN ownCloud App</string>
   <string name="prefs_pincode_summary">Proteggi il tuo client ownCloud</string>
-  <string name="prefs_instant_upload">Abilita il caricamento immediato</string>
+  <string name="prefs_instant_upload">Caricamento immediato</string>
   <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
   <string name="auth_host_url">URL ownCloud</string>
   <string name="auth_username">Nome utente</string>
@@ -209,7 +209,7 @@
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
   <string name="text_placeholder">Questo è un segnaposto</string>
-  <string name="instant_upload_on_wifi">Carica le immagini solo tramite WiFi</string>
+  <string name="instant_upload_on_wifi">Carica le immagini solo via WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Conflitto di aggiornamento</string>
   <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>
