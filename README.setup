@@ -9,3 +9,5 @@ If you want to start development of ownCloud android client you have two way to 
 after those space you should be good to go.
 
 HAVE FUN!
+
+NOTE: You must have 'tools' and 'platforms-tools' in your path in order to run setup_env.sh 
