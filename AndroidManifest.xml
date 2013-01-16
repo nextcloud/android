@@ -88,7 +88,7 @@
         <service
             android:name=".authenticator.AccountAuthenticatorService"
             android:exported="true">
-            <intent-filter>
+            <intent-filter  android:priority="100">
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 
