@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">你好世界，我是 OwnCloud 主屏幕！</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">密码</string>
   <string name="main_login">用户名：</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">设置</string>
   <string name="main_tit_accsetup">设置帐号</string>
   <string name="main_wrn_accsetup">您的设备上没有 ownCloud 帐号。要使用此应用，您需要创建一个帐号。</string>
+  <string name="about_message">ownCloud Android 客户端⏎ ⏎ 版本：%1$s</string>
   <string name="actionbar_sync">刷新</string>
   <string name="actionbar_upload">上传</string>
   <string name="actionbar_upload_from_apps">其他应用的内容</string>
@@ -62,17 +62,20 @@
   <string name="uploader_error_forbidden_content">ownCloud 不允许访问共享内容</string>
   <string name="uploader_info_uploading">上传中</string>
   <string name="uploader_btn_create_dir_text">创建上传文件夹</string>
+  <string name="file_list_empty">此文件夹中没有文件。⏎ 可以通过 \"上传\" 菜单选项添加新文件。</string>
   <string name="filedetails_select_file">按文件显示额外信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">修改于：</string>
   <string name="filedetails_download">下载</string>
+  <string name="filedetails_sync_file">刷新</string>
   <string name="filedetails_redownload">重新下载</string>
   <string name="filedetails_open">打开</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>
+  <string name="common_cancel_upload">取消上传</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">保存 &amp; 退出</string>
   <string name="common_exit">离开 ownCloud</string>
@@ -105,6 +108,7 @@
   <string name="pincode_enter_pin_code">请插入您的应用 PIN</string>
   <string name="pincode_enter_new_pin_code">请插入您的新应用 PIN</string>
   <string name="pincode_configure_your_pin">输入 ownCloud 应用 PIN</string>
+  <string name="pincode_configure_your_pin_explanation">将在每次应用程序启动时请求 PIN </string>
   <string name="pincode_reenter_your_pincode">请重新输入 ownCloud 应用 PIN</string>
   <string name="pincode_remove_your_pincode">移除您的 ownCloud 应用 PIN</string>
   <string name="pincode_mismatch">两次 ownCloud 应用 PIN 不相同</string>
@@ -175,6 +179,26 @@
   <string name="ssl_validator_certificate_not_available">无法获取服务器证书</string>
   <string name="ssl_validator_question">您想要强行信任此证书吗？</string>
   <string name="ssl_validator_not_saved">证书不能保存</string>
+  <string name="ssl_validator_btn_details_see">细节</string>
+  <string name="ssl_validator_btn_details_hide">隐藏</string>
+  <string name="ssl_validator_label_subject">签发对象：</string>
+  <string name="ssl_validator_label_issuer">签发者：</string>
+  <string name="ssl_validator_label_CN">通用名：</string>
+  <string name="ssl_validator_label_O">组织：</string>
+  <string name="ssl_validator_label_OU">组织单元：</string>
+  <string name="ssl_validator_label_C">国家：</string>
+  <string name="ssl_validator_label_ST">州省：</string>
+  <string name="ssl_validator_label_L">位置：</string>
+  <string name="ssl_validator_label_validity">有效性：</string>
+  <string name="ssl_validator_label_validity_from">从：</string>
+  <string name="ssl_validator_label_validity_to">到：</string>
+  <string name="ssl_validator_label_signature">签名：</string>
+  <string name="ssl_validator_label_signature_algorithm">算法：</string>
   <string name="text_placeholder">这是一个占位符</string>
   <string name="instant_upload_on_wifi">只通过 WiFi 上传图片</string>
+  <string name="conflict_title">上传冲突</string>
+  <string name="conflict_message">远程文件 %s 未与本地文件同步。继续将替换服务器上的文件内容。</string>
+  <string name="conflict_keep_both">保留两者</string>
+  <string name="conflict_overwrite">覆写</string>
+  <string name="conflict_dont_upload">不上传</string>
 </resources>

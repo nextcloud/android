@@ -17,8 +17,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="103017"
-    android:versionName="1.3.17" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="103018"
+    android:versionName="1.3.18" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -88,7 +88,7 @@
         <service
             android:name=".authenticator.AccountAuthenticatorService"
             android:exported="true">
-            <intent-filter>
+            <intent-filter  android:priority="100">
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
 

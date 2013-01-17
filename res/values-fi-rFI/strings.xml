@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Hei maailma! ownCloudPääIkkuna</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Salasana:</string>
   <string name="main_login">Käyttäjätunnus:</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">Asetukset</string>
   <string name="main_tit_accsetup">Aseta tili</string>
   <string name="main_wrn_accsetup">Laitteessasi ei ole ownCloud-tilejä. Luo tili käyttääksesi tätä sovellusta.</string>
+  <string name="about_message">ownCloudin Android-sovellus\n\nversio: %1$s</string>
   <string name="actionbar_sync">Päivitä</string>
   <string name="actionbar_upload">Lähetä tiedosto</string>
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
@@ -62,17 +62,21 @@
   <string name="uploader_error_forbidden_content">ownCloudilla ei ole oikeuksia jaettuun sisältöön</string>
   <string name="uploader_info_uploading">Lähetetään</string>
   <string name="uploader_btn_create_dir_text">Luo kansio latausta varten</string>
+  <string name="file_list_empty">Tässä kansiossa ei ole tiedostoja.\nUusia tiedostoja voi lisätä käyttäen valikon \"Lähetä\"-toimintoa.</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
   <string name="filedetails_type">Tyyppi:</string>
   <string name="filedetails_created">Luotu:</string>
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
+  <string name="filedetails_sync_file">Päivitä</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
   <string name="filedetails_open">Avaa</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">Peru lataus</string>
+  <string name="common_cancel_upload">Peru lähetys</string>
   <string name="common_cancel">Peru</string>
   <string name="common_save_exit">Tallenna ja poistu</string>
   <string name="common_exit">Jätä ownCloud</string>
@@ -100,11 +104,13 @@
   <string name="sync_string_contacts">Yhteystiedot</string>
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
+  <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
   <string name="use_ssl">Käytä salattua yhteyttä</string>
   <string name="location_no_provider">ownCloud ei voi jäljittää laitettasi. Tarkista laitteesi sijaintiasetukset</string>
   <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
   <string name="pincode_enter_new_pin_code">Anna uuden sovelluksesi PIN-koodi</string>
   <string name="pincode_configure_your_pin">Anna ownCloud-sovelluksen PIN</string>
+  <string name="pincode_configure_your_pin_explanation">PIN kysytään joka kerta, kun sovellus käynnistetään</string>
   <string name="pincode_reenter_your_pincode">Anna ownCloud-sovelluksen PIN uudestaan</string>
   <string name="pincode_remove_your_pincode">Poista ownCloud-sovelluksen PIN</string>
   <string name="pincode_mismatch">ownCloud-sovelluksen PIN-koodit eivät täsmää</string>
@@ -145,6 +151,9 @@
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
   <string name="auth_login_details">Kirjautumistiedot</string>
+  <string name="auth_unauthorized">Virheellinen tunnus tai salasana</string>
+  <string name="auth_not_found">Väärä polku</string>
+  <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>
   <string name="crashlog_send_report">Lähetä ilmoitus</string>
   <string name="crashlog_dont_send_report">Älä lähetä ilmoitusta</string>
@@ -160,6 +169,7 @@
   <string name="confirmation_remove_remote_and_local">Sekä etä- että paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
   <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
+  <string name="rename_dialog_title">Anna uusi nimi</string>
   <string name="rename_local_fail_msg">Paikallista kopiota ei voitu uudelleennimetä; yritä eri nimellä</string>
   <string name="rename_server_fail_msg">Nimen muutos epäonnistui</string>
   <string name="create_dir_fail_msg">Kansion luonti epäonnistui</string>
@@ -167,10 +177,31 @@
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
   <string name="ssl_validator_title">Varoitus</string>
+  <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
   <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
   <string name="ssl_validator_certificate_not_available">Palvelimen varmenteen noutaminen epäonnistui</string>
   <string name="ssl_validator_question">Haluatko silti luottaa tähän varmenteeseen?</string>
   <string name="ssl_validator_not_saved">Varmenteen tallennus epäonnistui</string>
+  <string name="ssl_validator_btn_details_see">Tiedot</string>
+  <string name="ssl_validator_btn_details_hide">Piilota</string>
+  <string name="ssl_validator_label_subject">Myönnetty kohteelle:</string>
+  <string name="ssl_validator_label_issuer">Myöntäjä:</string>
+  <string name="ssl_validator_label_CN">Yleinen nimi:</string>
+  <string name="ssl_validator_label_O">Organisaatio:</string>
+  <string name="ssl_validator_label_OU">Organisaatioyksikkö:</string>
+  <string name="ssl_validator_label_C">Maa:</string>
+  <string name="ssl_validator_label_ST">Osavaltio:</string>
+  <string name="ssl_validator_label_L">Sijainti:</string>
+  <string name="ssl_validator_label_validity">Voimassaoloaika:</string>
+  <string name="ssl_validator_label_validity_from">Alkaen:</string>
+  <string name="ssl_validator_label_validity_to">Päättyen:</string>
+  <string name="ssl_validator_label_signature">Allekirjoitus:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
+  <string name="conflict_title">Päivitysristiriita</string>
+  <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
+  <string name="conflict_keep_both">Säilytä molemmat</string>
+  <string name="conflict_overwrite">Korvaa</string>
+  <string name="conflict_dont_upload">Älä lähetä</string>
 </resources>

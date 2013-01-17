@@ -367,7 +367,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), explanationIntent, 0);
         notification.setLatestEventInfo(getContext().getApplicationContext(), 
                                         getContext().getString(R.string.sync_foreign_files_forgotten_ticker), 
-                                        String.format(getContext().getString(R.string.sync_foreign_files_forgotten_content), mForgottenLocalFiles.size()), 
+                                        String.format(getContext().getString(R.string.sync_foreign_files_forgotten_content), mForgottenLocalFiles.size(), getContext().getString(R.string.app_name)), 
                                         notification.contentIntent);
         ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_foreign_files_forgotten_ticker, notification);
         

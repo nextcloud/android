@@ -1,2 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_login">Корисничко име:</string>
+  <string name="main_button_login">Пријава</string>
+  <string name="main_files">Фајлови</string>
+  <string name="main_music">Музика</string>
+  <string name="main_contacts">Контакти</string>
+  <string name="main_settings">Подешавања</string>
+  <string name="actionbar_upload">Пошаљи</string>
+  <string name="actionbar_upload_files">Фајлови</string>
+  <string name="actionbar_settings">Подешавања</string>
+  <string name="auth_username">Корисничко име</string>
+  <string name="auth_password">Лозинка</string>
+  <string name="sync_string_files">Фајлови</string>
+  <string name="setup_hint_username">Корисничко име</string>
+  <string name="setup_hint_password">Лозинка</string>
+  <string name="uploader_btn_upload_text">Пошаљи</string>
+  <string name="filedetails_download">Преузимање</string>
+  <string name="common_yes">Да</string>
+  <string name="common_cancel_upload">Прекини слање</string>
+  <string name="common_cancel">Откажи</string>
+  <string name="common_error">Грешка</string>
+  <string name="sync_string_contacts">Контакти</string>
+  <string name="common_share">Дељење</string>
+  <string name="common_rename">Преименуј</string>
+</resources>

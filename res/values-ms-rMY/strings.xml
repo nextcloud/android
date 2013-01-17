@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Hello Dunia, OwnCloudMainScreen</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Kata laluan:</string>
   <string name="main_login">Nama pengguna:</string>
@@ -16,6 +15,7 @@
   <string name="main_wrn_accsetup">Peranti anda tidak mempunyai akaun ownCloud. Anda perlu membina satu akaun untuk menggunakan aplikasi ini</string>
   <string name="actionbar_sync">Refresh</string>
   <string name="actionbar_upload">Muat naik</string>
+  <string name="actionbar_upload_files">Fail-fail</string>
   <string name="actionbar_mkdir">Bina direktori</string>
   <string name="actionbar_search">Cari</string>
   <string name="actionbar_settings">Set</string>
@@ -50,13 +50,19 @@
   <string name="filedetails_created">Telah dibina:</string>
   <string name="filedetails_modified">Telah diubah:</string>
   <string name="filedetails_download">Muatturun</string>
+  <string name="filedetails_sync_file">Refresh</string>
+  <string name="filedetails_redownload">Refresh</string>
   <string name="filedetails_open">Buka</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_upload">Batal muat naik</string>
   <string name="common_cancel">Batal</string>
   <string name="common_save_exit">Simpan &amp; Keluar</string>
   <string name="common_error">Ralat</string>
   <string name="uploader_info_dirname">Nama direktori</string>
   <string name="common_choose_account">Pilih akaun</string>
+  <string name="sync_string_contacts">Hubungi </string>
+  <string name="common_share">Kongsi</string>
+  <string name="ssl_validator_title">Amaran</string>
 </resources>

@@ -687,7 +687,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (v.getId() == R.id.refreshButton) {
             onFocusChange(findViewById(R.id.host_URL), false);
         } else if (v.getId() == R.id.viewPassword) {
-            TextView view = (TextView) findViewById(R.id.account_password);
+            EditText view = (EditText) findViewById(R.id.account_password);
+            int selectionStart = view.getSelectionStart();
+            int selectionEnd = view.getSelectionEnd();
             int input_type = view.getInputType();
             if ((input_type & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
                 input_type = InputType.TYPE_CLASS_TEXT
@@ -697,6 +699,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
             }
             view.setInputType(input_type);
+            view.setSelection(selectionStart, selectionEnd);
         }
     }
     

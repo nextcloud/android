@@ -45,7 +45,7 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
     
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = 5336333154035462033L;
+    private static final long serialVersionUID = -7805531062432602444L;
     
     public enum ResultCode { 
         OK,
@@ -79,7 +79,6 @@ public class RemoteOperationResult implements Serializable {
     private int mHttpCode = -1;
     private Exception mException = null;
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
-    private Object mExtraData = null;
     
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
@@ -175,14 +174,6 @@ public class RemoteOperationResult implements Serializable {
 
     public boolean isSslRecoverableException() {
         return mCode == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED;
-    }
-    
-    public void setExtraData(Object data) {
-        mExtraData = data;
-    }
-    
-    public Object getExtraData() {
-        return mExtraData;
     }
     
     private CertificateCombinedException getCertificateCombinedException(Exception e) {

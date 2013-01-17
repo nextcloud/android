@@ -328,6 +328,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * @param file          A file that could be in the queue of pending uploads
          */
         public boolean isUploading(Account account, OCFile file) {
+            if (account == null || file == null) return false;
             String targetKey = buildRemoteName(account, file);
             synchronized (mPendingUploads) {
                 if (file.isDirectory()) {

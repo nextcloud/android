@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Hallo Vergde, OwnCloundHovedSkjerm!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Passord:</string>
   <string name="main_login">Brukernavn:</string>
@@ -16,6 +15,7 @@
   <string name="main_wrn_accsetup">Det finnes ingen ownClound kontoer for din enhent. For å bruker denne appen må du opprette en,</string>
   <string name="actionbar_sync">Oppdater</string>
   <string name="actionbar_upload">Opplasting</string>
+  <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_mkdir">Opprett katalog</string>
   <string name="actionbar_search">Søk</string>
   <string name="actionbar_settings">Innstillinger</string>
@@ -26,6 +26,7 @@
   <string name="prefs_trackmydevice">Enhetssporing</string>
   <string name="prefs_trackmydevice_interval">Oppdateringsfrekvens</string>
   <string name="prefs_accounts">Kontoer</string>
+  <string name="auth_host_url">URL</string>
   <string name="auth_username">Brukernavn</string>
   <string name="auth_password">Passord</string>
   <string name="sync_string_files">Filer</string>
@@ -45,11 +46,14 @@
   <string name="filedetails_created">Opprette:</string>
   <string name="filedetails_modified">Endret:</string>
   <string name="filedetails_download">Last ned</string>
+  <string name="filedetails_sync_file">Oppdater</string>
   <string name="filedetails_redownload">Last ned igjen</string>
   <string name="filedetails_open">Åpne</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">Avbryt nedlasting</string>
+  <string name="common_cancel_upload">Avbryt opplasting</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Lager og avslutt</string>
   <string name="common_error">Feil</string>
@@ -66,14 +70,25 @@
   <string name="downloader_download_failed_ticker">Nedlasting feilet</string>
   <string name="common_choose_account">Velg konto</string>
   <string name="sync_string_contacts">Kontakter</string>
+  <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
+  <string name="use_ssl">Bruk sikker tilkobling</string>
   <string name="auth_trying_to_login">Prøver å logge inn...</string>
   <string name="auth_no_net_conn_title">Ingen nettverkstilgang</string>
   <string name="auth_connect_anyway">Koble til likevel</string>
   <string name="auth_testing_connection">Tester tilgang...</string>
+  <string name="auth_unauthorized">Ugyldig brukernavn / passord</string>
   <string name="crashlog_send_report">Send rapport</string>
   <string name="crashlog_dont_send_report">Ikke send rapport</string>
   <string name="common_share">Del</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_local">Kun lokalt</string>
+  <string name="ssl_validator_title">Advarsel</string>
+  <string name="ssl_validator_btn_details_see">Detaljer</string>
+  <string name="ssl_validator_btn_details_hide">Skjul</string>
+  <string name="ssl_validator_label_C">Land:</string>
+  <string name="ssl_validator_label_validity_from">Fra:</string>
+  <string name="ssl_validator_label_validity_to">Til:</string>
+  <string name="ssl_validator_label_signature">Signatur:</string>
+  <string name="conflict_keep_both">Behold begge</string>
 </resources>

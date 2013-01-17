@@ -137,7 +137,7 @@ public class FileObserverService extends Service {
                 ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?",
                 new String[] {String.valueOf(1)},
                 null);
-        if (!c.moveToFirst()) return;
+        if (c == null || !c.moveToFirst()) return;
         AccountManager acm = AccountManager.get(this);
         Account[] accounts = acm.getAccounts();
         do {

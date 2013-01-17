@@ -46,9 +46,9 @@ public class FileDataStorageManager implements DataStorageManager {
     private ContentResolver mContentResolver;
     private ContentProviderClient mContentProvider;
     private Account mAccount;
-
+    
     private static String TAG = "FileDataStorageManager";
-
+    
     public FileDataStorageManager(Account account, ContentResolver cr) {
         mContentProvider = null;
         mContentResolver = cr;
@@ -69,9 +69,21 @@ public class FileDataStorageManager implements DataStorageManager {
             file = createFileInstance(c);
         }
         c.close();
+        if (file == null && OCFile.PATH_SEPARATOR.equals(path)) {
+            return createRootDir(); // root should always exist
+        }
         return file;
     }
+
     
+    private OCFile createRootDir() {
+        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
+        file.setMimetype("DIR");
+        file.setParentId(DataStorageManager.ROOT_PARENT_ID);
+        saveFile(file);
+        return file;
+    }
+
     @Override
     public OCFile getFileById(long id) {
         Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
@@ -476,9 +488,9 @@ public class FileDataStorageManager implements DataStorageManager {
                         }
                     }
                 }
-                if (removeDBData) {
-                    removeFile(dir, true);
-                }
+            }
+            if (removeDBData) {
+                removeFile(dir, true);
             }
         }
     }

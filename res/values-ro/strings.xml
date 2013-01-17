@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Salut lume, OwnCloudMainScreen!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Parolă:</string>
   <string name="main_login">Nume utilizator:</string>
@@ -60,11 +59,13 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Descarcă</string>
+  <string name="filedetails_sync_file">Împrospătare</string>
   <string name="filedetails_redownload">Descarcă din nou</string>
   <string name="filedetails_open">Deschide</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Nu</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_upload">Anulează încărcarea</string>
   <string name="common_cancel">Anulare</string>
   <string name="common_save_exit">Salvare &amp; Ieșire</string>
   <string name="common_exit">Părăsire ownCloud</string>
@@ -137,4 +138,5 @@
   <string name="create_dir_fail_msg">Directorul nu a putut fi creat</string>
   <string name="wait_a_moment">Așteaptă un moment</string>
   <string name="filedisplay_no_file_selected">Nu a fost selectat nici un fișier</string>
+  <string name="ssl_validator_title">Atenție</string>
 </resources>

@@ -36,7 +36,13 @@
   <string name="uploader_wrn_no_content_title">هیچ مطلبی بارگزاری نشده‌ است</string>
   <string name="uploader_wrn_no_content_text">هیچ مطلبی دریافت نشده است. هیچ‌‌چیزی بارگزاری نشده.</string>
   <string name="uploader_info_uploading">در حال بارگزاری</string>
+  <string name="filedetails_download">بارگیری</string>
   <string name="filedetails_redownload">بارگزاری دوباره</string>
+  <string name="common_yes">بله</string>
+  <string name="common_ok">باشه</string>
+  <string name="common_cancel_upload">متوقف کردن بار گذاری</string>
+  <string name="common_cancel">منصرف شدن</string>
+  <string name="common_error">خطا</string>
   <string name="about_title">درباره</string>
   <string name="delete_account">حذف حساب</string>
   <string name="create_account">ساخت حساب</string>
@@ -47,6 +53,7 @@
   <string name="downloader_download_in_progress_ticker">در حال بارگیری ...</string>
   <string name="downloader_download_succeeded_ticker">بارگیری موفقیت‌آمیز بود</string>
   <string name="downloader_download_failed_ticker">بارگیری ناموفق بود</string>
+  <string name="sync_string_contacts">ارتباط‌ها</string>
   <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_login_details">جزئیات ورود</string>
   <string name="crashlog_send_report">ارسال گزارش</string>
@@ -56,4 +63,5 @@
   <string name="common_remove">حذف</string>
   <string name="wait_a_moment">لحظه‌ای صبر کنید</string>
   <string name="filedisplay_no_file_selected">هیچ پرونده‌ای انتخاب نشده است</string>
+  <string name="ssl_validator_title">اخطار</string>
 </resources>

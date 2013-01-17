@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="hello">Kaixo Mundua, OwnClouden Pantaila Nagusia!</string>
   <string name="app_name">ownCloud</string>
   <string name="main_password">Pasahitza:</string>
   <string name="main_login">Erabiltzaile izena:</string>
@@ -14,6 +13,7 @@
   <string name="main_settings">Ezarpenak</string>
   <string name="main_tit_accsetup">Konfiguratu kontua</string>
   <string name="main_wrn_accsetup"> Ez dago ownCloud konturik zure gailuan. Programa hau erabiltzeko, kontu bat sortu behar duzu.</string>
+  <string name="about_message">ownCloud Android bezeroa\n\nBertsioa: %1$s</string>
   <string name="actionbar_sync">Birkargatu</string>
   <string name="actionbar_upload">Igo fitxategia</string>
   <string name="actionbar_upload_from_apps">Beste app-en edukia</string>
@@ -62,17 +62,22 @@
   <string name="uploader_error_forbidden_content">ownCloudek ez du baimenik partekatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
   <string name="uploader_btn_create_dir_text">Sortu igotzeko karpeta bat</string>
+  <string name="file_list_empty">Ez dago fitxategirik karpeta honetan.\nFitxategi berriak \"Igo\" menu aukerarekin gehi daitezke.</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
   <string name="filedetails_type">Mota:</string>
   <string name="filedetails_created">Sortuta:</string>
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
+  <string name="filedetails_sync_file">Birkargatu</string>
   <string name="filedetails_redownload">Birdeskargatzen</string>
   <string name="filedetails_open">Ireki</string>
+  <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
+  <string name="common_cancel_download">Utzi deskarga bertan behera </string>
+  <string name="common_cancel_upload">Ezeztatu igoera</string>
   <string name="common_cancel">Ezeztatu</string>
   <string name="common_save_exit">Gorde eta Irten</string>
   <string name="common_exit">Utzi ownCloud</string>
@@ -100,11 +105,16 @@
   <string name="sync_string_contacts">Kontaktuak</string>
   <string name="sync_fail_ticker">Sinkronizazioak huts egin du</string>
   <string name="sync_fail_content">%1$s fitxategiaren sinkronizazioa ezin da burutu</string>
+  <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkituak </string>
+  <string name="sync_conflicts_in_favourites_content">sinkronizatu beharreko %1$d fitxategiak ezin dira sinkronizatu</string>
+  <string name="sync_fail_in_favourites_ticker">edukien sinkronizazioak huts egin du</string>
+  <string name="sync_fail_in_favourites_content">%1$d fitxategien edukiak ezin dira sinkronizatu (%2$d gatazka)</string>
   <string name="use_ssl">Erabili konexio segurua</string>
   <string name="location_no_provider">ownCloudek ezin du zure gailua jarraitu. Mesedez begiratu zure kokapen ezarpenak</string>
   <string name="pincode_enter_pin_code">Mesedez, sartu zure aplikazioaren PINa</string>
   <string name="pincode_enter_new_pin_code">Mesedez, sartu zure aplikazioaren PIN berria</string>
   <string name="pincode_configure_your_pin">Sartu ownCloud aplikazioaren PINa</string>
+  <string name="pincode_configure_your_pin_explanation">PINa aplikazioa abiarazten den bakoitzean eskatuko da</string>
   <string name="pincode_reenter_your_pincode">Sartu berriz ownCloud aplikazioarenPINa, mesedez</string>
   <string name="pincode_remove_your_pincode">Ezabatu zure ownCloud aplikazioaren PINa</string>
   <string name="pincode_mismatch">ownCloud aplikazioko bi PINak ez dira berdinak</string>
@@ -145,6 +155,9 @@
   <string name="auth_wrong_connection_title">Ezin izan da konexioa egin</string>
   <string name="auth_secure_connection">Konexio segurua ezarri da</string>
   <string name="auth_login_details">Saio hasierako ezarpenak</string>
+  <string name="auth_unauthorized">Erabiltzaile / pasahitz baliogabea</string>
+  <string name="auth_not_found">Okerreko bidea emanda</string>
+  <string name="auth_internal">Barne zerbitzari errorea, kodea: %1$d</string>
   <string name="crashlog_message">Programa ezustekoan bukatu da. Nahiko zenuke huts egitearen berri eman?</string>
   <string name="crashlog_send_report">Bidali txostena</string>
   <string name="crashlog_dont_send_report">Ez bidali txostena</string>
@@ -155,13 +168,18 @@
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
   <string name="confirmation_remove_alert">Nahi duzu %1$s ezabatu?</string>
+  <string name="confirmation_remove_folder_alert">Benetan %1$s eta bere eduki guztiak ezabatu nahi dituzu?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
+  <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
   <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
   <string name="confirmation_remove_remote_and_local">Biak urrunekoa eta bertakoa</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
   <string name="remove_fail_msg">Ezin izan da ezabaketa burutu</string>
+  <string name="rename_dialog_title">Idatzi izen berri bat</string>
   <string name="rename_local_fail_msg">Bertako kopia ezin da izenez aldatu, saiatu beste izen batekin</string>
   <string name="rename_server_fail_msg">Izen aldaketa ezin izan da burutu</string>
+  <string name="sync_file_fail_msg">Urruneko fitxategia ezin izan da arakatu</string>
+  <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
   <string name="create_dir_fail_msg">Karpeta ezin da sortu</string>
   <string name="wait_a_moment">Itxaron momentu bat</string>
   <string name="filedisplay_unexpected_bad_get_content">Ezusteko arazoa; mesedez, saiatu beste app batekin fitxategia hautatzeko</string>
@@ -175,6 +193,21 @@
   <string name="ssl_validator_certificate_not_available">Zerbitzariaren ziurtagiria ezin da lortu</string>
   <string name="ssl_validator_question">Nahi duzu, hala ere, ziurtagiriaz fidatu?</string>
   <string name="ssl_validator_not_saved">Ziurtagiria ezin da gorde</string>
+  <string name="ssl_validator_btn_details_see">Xehetasunak</string>
+  <string name="ssl_validator_btn_details_hide">Ezkutatu</string>
+  <string name="ssl_validator_label_CN">Izen arrunta:</string>
+  <string name="ssl_validator_label_O">Erakundea:</string>
+  <string name="ssl_validator_label_C">Herrialdea:</string>
+  <string name="ssl_validator_label_ST">Estatua:</string>
+  <string name="ssl_validator_label_L">Kokapena:</string>
+  <string name="ssl_validator_label_signature">Sinadura:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritmoa:</string>
   <string name="text_placeholder">Hau leku-marka da</string>
   <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
+  <string name="instant_upload_path">/BerehalakoIgoerak</string>
+  <string name="conflict_title">Igoera konfliktoa</string>
+  <string name="conflict_message">Urruneko %s fitxategia ez dago bertako fitxategiarekin sinkronizatuta. Jarraituz gero zerbitzariko fitxategiaren edukia ordeztuko da.</string>
+  <string name="conflict_keep_both">Mantendu biak</string>
+  <string name="conflict_overwrite">Gainidatzi</string>
+  <string name="conflict_dont_upload">Ez igo</string>
 </resources>

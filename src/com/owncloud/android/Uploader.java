@@ -30,7 +30,6 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -60,7 +59,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -325,58 +323,24 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
             Vector<OCFile> files = mStorageManager.getDirectoryContent(mFile);
-            if (files.size() > 0) {
-                List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
-                for (OCFile f : files) {
-                    HashMap<String, Object> h = new HashMap<String, Object>();
-                    if (f.isDirectory()) {
-                        h.put("dirname", f.getFileName());
-                        data.add(h);
-                    }
+            List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
+            for (OCFile f : files) {
+                HashMap<String, Object> h = new HashMap<String, Object>();
+                if (f.isDirectory()) {
+                    h.put("dirname", f.getFileName());
+                    data.add(h);
                 }
-                SimpleAdapter sa = new SimpleAdapter(this,
-                                                     data,
-                                                     R.layout.uploader_list_item_layout,
-                                                     new String[] {"dirname"},
-                                                     new int[] {R.id.textView1});
-                setListAdapter(sa);
-                Button btn = (Button) findViewById(R.id.uploader_choose_folder);
-                btn.setOnClickListener(this);
-                getListView().setOnItemClickListener(this);
             }
-        }
-        /*
-        mCursor = managedQuery(ProviderMeta.ProviderTableMeta.CONTENT_URI, null, ProviderTableMeta.FILE_NAME
-                + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?", new String[] { "/", mAccount.name }, null);
-
-        if (mCursor.moveToFirst()) {
-            mCursor = managedQuery(
-                    ProviderMeta.ProviderTableMeta.CONTENT_URI,
-                    null,
-                    ProviderTableMeta.FILE_CONTENT_TYPE + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND "
-                            + ProviderTableMeta.FILE_PARENT + "=?",
-                    new String[] { "DIR", mAccount.name,
-                            mCursor.getString(mCursor.getColumnIndex(ProviderTableMeta._ID)) }, null);
-
-            ListView lv = getListView();
-            lv.setOnItemClickListener(this);
-            SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.uploader_list_item_layout, mCursor,
-                    new String[] { ProviderTableMeta.FILE_NAME }, new int[] { R.id.textView1 });
-            setListAdapter(sca);
+            SimpleAdapter sa = new SimpleAdapter(this,
+                                                data,
+                                                R.layout.uploader_list_item_layout,
+                                                new String[] {"dirname"},
+                                                new int[] {R.id.textView1});
+            setListAdapter(sa);
             Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
-            /*
-             * disable this until new server interaction service wont be created
-             * // insert create new directory for multiple items uploading if
-             * (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-             * Button createDirBtn = new Button(this);
-             * createDirBtn.setId(android.R.id.button1);
-             * createDirBtn.setText(R.string.uploader_btn_create_dir_text);
-             * createDirBtn.setOnClickListener(this); ((LinearLayout)
-             * findViewById(R.id.linearLayout1)).addView( createDirBtn,
-             * LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT); }
-             *
-        }*/
+            getListView().setOnItemClickListener(this);
+        }
     }
 
     private boolean prepareStreamsToUpload() {
