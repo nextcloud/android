@@ -335,4 +335,10 @@ public class WebdavClient extends HttpClient {
         }
         return super.executeMethod(hostconfig, method, state);
     }
+
+    
+    public final Credentials getCredentials() {
+        return mCredentials;
+    }
+
 }

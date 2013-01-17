@@ -112,6 +112,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean mStatusCorrect, mIsSslConn;
     private RemoteOperationResult mLastSslUntrustedServerResult;
 
+    public static final String PARAM_ACCOUNTNAME = "param_Accountname";
+    
     public static final String PARAM_USERNAME = "param_Username";
     public static final String PARAM_HOSTNAME = "param_Hostname";
 
@@ -196,6 +198,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mStatusText = mStatusIcon = 0;
             mStatusCorrect = false;
             mIsSslConn = false;
+            
+            String accountName = getIntent().getExtras().getString(PARAM_ACCOUNTNAME);
+            String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType)) {
+                CheckBox oAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
+                oAuth2Check.setChecked(true);
+                changeViewByOAuth2Check(true);
+            } 
+            
+            if (accountName != null) {
+                ((TextView) findViewById(R.id.account_username)).setText(accountName.substring(0, accountName.lastIndexOf('@')));
+                tv.setText(accountName.substring(accountName.lastIndexOf('@') + 1));
+            }
         }
         iv.setOnClickListener(this);
         iv2.setOnClickListener(this);

@@ -23,8 +23,7 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -56,6 +55,9 @@ public abstract class RemoteOperation implements Runnable {
 	
 	/** Handler to the thread where mListener methods will be called */
 	private Handler mListenerHandler = null;
+
+	/** Activity */
+    private Activity mCallerActivity;
 
 	
 	/**
@@ -119,13 +121,14 @@ public abstract class RemoteOperation implements Runnable {
      * @param listenerHandler   Handler associated to the thread where the methods of the listener objects must be called.
      * @return                  Thread were the remote operation is executed.
      */
-    public final Thread execute(Account account, Context context, OnRemoteOperationListener listener, Handler listenerHandler) {
+    public final Thread execute(Account account, Context context, OnRemoteOperationListener listener, Handler listenerHandler, Activity callerActivity) {
         if (account == null)
             throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Account");
         if (context == null)
             throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Context");
         mAccount = account;
         mContext = context.getApplicationContext();
+        mCallerActivity = callerActivity;
         mClient = null;     // the client instance will be created from mAccount and mContext in the runnerThread to create below
         
         if (listener == null) {
@@ -207,15 +210,18 @@ public abstract class RemoteOperation implements Runnable {
         try{
             if (mClient == null) {
                 if (mAccount != null && mContext != null) {
-                    mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                    if (mCallerActivity != null) {
+                        mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity);
+                    } else {
+                        mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                    }
                 } else {
                     throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");
                 }
             }
-            result = run(mClient);
             
         } catch (IOException e) {
-            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+            Log.e(TAG, "Error while trying to access to " + mAccount.name, new AccountsException("I/O exception while trying to authorize the account", e));
             result = new RemoteOperationResult(e);
             
         } catch (AccountsException e) {
@@ -223,6 +229,9 @@ public abstract class RemoteOperation implements Runnable {
             result = new RemoteOperationResult(e);
         }
     	
+        if (result == null)
+            result = run(mClient);
+        
         final RemoteOperationResult resultToSend = result;
         if (mListenerHandler != null && mListener != null) {
         	mListenerHandler.post(new Runnable() {
@@ -233,6 +242,15 @@ public abstract class RemoteOperation implements Runnable {
             });
         }
     }
-	
-	
+
+
+    /**
+     * Returns the current client instance to access the remote server.
+     * 
+     * @return      Current client instance to access the remote server.
+     */
+    public final WebdavClient getClient() {
+        return mClient;
+    }
+
 }

@@ -316,7 +316,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             case R.id.download_file_item: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
-                operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler);
+                operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
                 return true;
             }
@@ -478,7 +478,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                                                                 AccountUtils.getCurrentOwnCloudAccount(getActivity()), 
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
-            operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler);
+            operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
             getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         }
     }
@@ -491,7 +491,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 RemoteOperation operation = new RemoveFileOperation( mTargetFile, 
                                                                     true, 
                                                                     mContainerActivity.getStorageManager());
-                operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler);
+                operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }

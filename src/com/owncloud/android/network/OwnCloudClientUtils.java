@@ -44,10 +44,13 @@ import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 
 public class OwnCloudClientUtils {
@@ -102,6 +105,31 @@ public class OwnCloudClientUtils {
         return client;
     }
     
+    
+    public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException {
+        Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
+        WebdavClient client = createOwnCloudClient(uri, appContext);
+        AccountManager am = AccountManager.get(appContext);
+        if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, null, currentActivity, null, null);
+            Bundle result = future.getResult();
+            String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
+            //String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
+            if (accessToken == null) throw new AuthenticatorException("WTF!");
+            client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
+            
+        } else {
+            String username = account.name.substring(0, account.name.lastIndexOf('@'));
+            //String password = am.getPassword(account);
+            //String password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, false);
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, null, currentActivity, null, null);
+            Bundle result = future.getResult();
+            String password = result.getString(AccountManager.KEY_AUTHTOKEN);
+            client.setBasicCredentials(username, password);
+        }
+        
+        return client;
+    }
     
     /**
      * Creates a WebdavClient to try a new account before saving it

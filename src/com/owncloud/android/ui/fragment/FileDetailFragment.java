@@ -18,20 +18,9 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.json.JSONObject;
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -66,7 +55,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -76,6 +64,7 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -90,10 +79,8 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
@@ -308,7 +295,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     
                 } else {
                     mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
-                    mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
+                    mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
                 
                     // update ui 
                     boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
@@ -422,7 +409,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 mLastRemoteOperation = new RemoveFileOperation( mFile, 
                                                                 true, 
                                                                 mStorageManager);
-                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
+                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
                 
                 boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
@@ -863,7 +850,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                                             mAccount, 
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
         }
@@ -949,7 +936,19 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mLastRemoteOperation)) {
+        if (!result.isSuccess() && result.getCode() == ResultCode.UNAUTHORIZED) {
+            AccountManager am = AccountManager.get(getSherlockActivity());
+            //am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, OwnCloudClientUtils.getAuthorizationTokenType(operation.getClient().getCredentials()));
+            Credentials cred = operation.getClient().getCredentials();
+            if (cred instanceof BearerCredentials) {
+                am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
+            } else {
+                am.clearPassword(mAccount);
+            }
+            operation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());  // need a new client instance, so avoid retry()
+                // TODO si el usuario no se autoriza de nuevo, esto genera un bucle infinito; o un error en la creación del objecto cliente
+            
+        } else {
             if (operation instanceof RemoveFileOperation) {
                 onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
                 

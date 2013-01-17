@@ -658,7 +658,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                             operation.execute(  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), 
                                                 FileDisplayActivity.this, 
                                                 FileDisplayActivity.this, 
-                                                mHandler);
+                                                mHandler,
+                                                FileDisplayActivity.this);
                             
                             dialog.dismiss();
                             
