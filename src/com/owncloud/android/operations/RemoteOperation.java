@@ -19,9 +19,15 @@ package com.owncloud.android.operations;
 
 import java.io.IOException;
 
+import org.apache.commons.httpclient.Credentials;
+
+import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.Activity;
 import android.content.Context;
@@ -203,34 +209,52 @@ public abstract class RemoteOperation implements Runnable {
 	 * Asynchronous execution of the operation 
 	 * started by {@link RemoteOperation#execute(WebdavClient, OnRemoteOperationListener, Handler)}, 
 	 * and result posting.
+	 * 
+	 * TODO refactor && clean the code; now it's a mess
 	 */
     @Override
     public final void run() {
         RemoteOperationResult result = null;
-        try{
-            if (mClient == null) {
-                if (mAccount != null && mContext != null) {
-                    if (mCallerActivity != null) {
-                        mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity);
+        boolean repeat = false;
+        do {
+            try{
+                if (mClient == null) {
+                    if (mAccount != null && mContext != null) {
+                        if (mCallerActivity != null) {
+                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity);
+                        } else {
+                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                        }
                     } else {
-                        mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                        throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");
                     }
-                } else {
-                    throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");
                 }
+            
+            } catch (IOException e) {
+                Log.e(TAG, "Error while trying to access to " + mAccount.name, new AccountsException("I/O exception while trying to authorize the account", e));
+                result = new RemoteOperationResult(e);
+            
+            } catch (AccountsException e) {
+                Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+                result = new RemoteOperationResult(e);
             }
-            
-        } catch (IOException e) {
-            Log.e(TAG, "Error while trying to access to " + mAccount.name, new AccountsException("I/O exception while trying to authorize the account", e));
-            result = new RemoteOperationResult(e);
-            
-        } catch (AccountsException e) {
-            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-            result = new RemoteOperationResult(e);
-        }
     	
-        if (result == null)
-            result = run(mClient);
+            if (result == null)
+                result = run(mClient);
+        
+            repeat = false;
+            if (mCallerActivity != null && mAccount != null && mContext != null && !result.isSuccess() && result.getCode() == ResultCode.UNAUTHORIZED) {
+                AccountManager am = AccountManager.get(mContext);
+                Credentials cred = mClient.getCredentials();
+                if (cred instanceof BearerCredentials) {
+                    am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
+                } else {
+                    am.clearPassword(mAccount);
+                }
+                mClient = null;
+                repeat = true;
+            }
+        } while (repeat);
         
         final RemoteOperationResult resultToSend = result;
         if (mListenerHandler != null && mListener != null) {

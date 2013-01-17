@@ -933,28 +933,14 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (!result.isSuccess() && result.getCode() == ResultCode.UNAUTHORIZED) {
-            AccountManager am = AccountManager.get(getSherlockActivity());
-            //am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, OwnCloudClientUtils.getAuthorizationTokenType(operation.getClient().getCredentials()));
-            Credentials cred = operation.getClient().getCredentials();
-            if (cred instanceof BearerCredentials) {
-                am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
-            } else {
-                am.clearPassword(mAccount);
-            }
-            operation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());  // need a new client instance, so avoid retry()
-                // TODO si el usuario no se autoriza de nuevo, esto genera un bucle infinito; o un error en la creación del objecto cliente
-            
-        } else {
-            if (operation instanceof RemoveFileOperation) {
-                onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+        if (operation instanceof RemoveFileOperation) {
+            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
                 
-            } else if (operation instanceof RenameFileOperation) {
-                onRenameFileOperationFinish((RenameFileOperation)operation, result);
+        } else if (operation instanceof RenameFileOperation) {
+            onRenameFileOperationFinish((RenameFileOperation)operation, result);
                 
-            } else if (operation instanceof SynchronizeFileOperation) {
-                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
-            }
+        } else if (operation instanceof SynchronizeFileOperation) {
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
         }
     }
     
