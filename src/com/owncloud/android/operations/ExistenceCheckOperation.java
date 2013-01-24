@@ -41,20 +41,6 @@ public class ExistenceCheckOperation extends RemoteOperation {
     private String mPath;
     private Context mContext;
     private boolean mSuccessIfAbsent;
-    private String mAccessToken;
-
-    
-    /**
-     * Simple constructor. Success when the path in the server exists.
-     * 
-     * @param path          Path to append to the URL owned by the client instance.
-     * @param context       Android application context.
-     * @param accessToken   Access token for Bearer Authentication -> TODO: move to other place
-     */
-    public ExistenceCheckOperation(String path, Context context, String accessToken) {
-        this(path, context, false);
-        mAccessToken = accessToken;
-    }
 
     
     /**
@@ -80,8 +66,6 @@ public class ExistenceCheckOperation extends RemoteOperation {
         HeadMethod head = null;
         try {
             head = new HeadMethod(client.getBaseUri() + mPath);
-            head.addRequestHeader("Authorization", "Bearer " + mAccessToken);   // TODO put in some general place
-            
             int status = client.executeMethod(head, TIMEOUT, TIMEOUT);
             client.exhaustResponse(head.getResponseBodyAsStream());
             boolean success = (status == HttpStatus.SC_OK && !mSuccessIfAbsent) || (status == HttpStatus.SC_NOT_FOUND && mSuccessIfAbsent);
@@ -106,9 +90,5 @@ public class ExistenceCheckOperation extends RemoteOperation {
                 && cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
-
-    public String getAccessToken() {
-        return mAccessToken;
-    }
 
 }

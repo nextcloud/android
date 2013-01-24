@@ -113,9 +113,9 @@ public class LandingActivity extends SherlockFragmentActivity implements
         dialog.dismiss();
         switch (which) {
         case DialogInterface.BUTTON_POSITIVE:
-            Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
+            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                    new String[] { AccountAuthenticator.AUTHORITY });
             startActivity(intent);
             break;
         case DialogInterface.BUTTON_NEGATIVE:

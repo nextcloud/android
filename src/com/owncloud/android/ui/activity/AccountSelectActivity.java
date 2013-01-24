@@ -94,10 +94,10 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 /// the account set as default changed since this activity was created 
             
                 // trigger synchronization
-                ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);
+                ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTHORITY, bundle);
                 
                 // restart the main activity
                 Intent i = new Intent(this, FileDisplayActivity.class);
@@ -135,7 +135,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
             Intent intent = new Intent(
                     android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                    new String[] { AccountAuthenticator.AUTHORITY });
             startActivity(intent);
             return true;
         }

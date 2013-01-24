@@ -18,8 +18,8 @@ public class OAuth2Context {
     public static final String OAUTH2_G_DEVICE_GETTOKEN_URL = "https://accounts.google.com/o/oauth2/token";
     public static final String OAUTH2_G_DEVICE_GETCODE_SCOPES = "https://www.googleapis.com/auth/userinfo.email";
     
-    public static final String OAUTH2_F_AUTHORIZATION_ENDPOINT_URL = "https://frko.surfnetlabs.nl/workshop/php-oauth/authorize.php";
-    public static final String OAUTH2_F_TOKEN_ENDPOINT_URL = "https://frko.surfnetlabs.nl/workshop/php-oauth/token.php";
+    //public static final String OAUTH2_F_AUTHORIZATION_ENDPOINT_URL = "https://frko.surfnetlabs.nl/workshop/php-oauth/authorize.php";
+    //public static final String OAUTH2_F_TOKEN_ENDPOINT_URL = "https://frko.surfnetlabs.nl/workshop/php-oauth/token.php";
     public static final String OAUTH2_F_CLIENT_ID = "oc-android-test";
     public static final String OAUTH2_F_SCOPE = "grades";
     
@@ -42,4 +42,15 @@ public class OAuth2Context {
     public static final String KEY_GRANT_TYPE = "grant_type";
     public static final String KEY_CODE = "code";
     public static final String KEY_CLIENT_ID = "client_id";
+    
+    public static final String CODE_USER_CODE  =  "user_code";
+    public static final String CODE_CLIENT_ID  =  "client_id";
+    public static final String CODE_SCOPE  =  "scope";    
+    public static final String CODE_VERIFICATION_URL  =  "verification_url";
+    public static final String CODE_EXPIRES_IN  =  "expires_in";
+    public static final String CODE_DEVICE_CODE = "device_code";
+    public static final String CODE_INTERVAL = "interval";
+    public static final String CODE_RESPONSE_TYPE = "response_type";
+    public static final String CODE_REDIRECT_URI = "redirect_uri";
+    
 }

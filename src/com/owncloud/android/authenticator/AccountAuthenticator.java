@@ -32,6 +32,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      * used by application and all extensions.
      */
     public static final String ACCOUNT_TYPE = "owncloud";
+    public static final String AUTHORITY = "org.owncloud";
     public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
     public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
@@ -93,13 +94,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             return e.getFailureBundle();
         }
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
-                response);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
 
         setIntentFlags(intent);
+        
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
         return bundle;
@@ -138,10 +139,14 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response,
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
+        /// validate parameters
         try {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
@@ -151,34 +156,29 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             e.printStackTrace();
             return e.getFailureBundle();
         }
+        
+        /// check if required token is stored
         final AccountManager am = AccountManager.get(mContext);
-        if (authTokenType.equals(AUTH_TOKEN_TYPE_ACCESS_TOKEN)) {
-            final String accessToken = am.peekAuthToken(account, authTokenType);
-            if (accessToken != null) {
-                final Bundle result = new Bundle();
-                result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-                result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
-                result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
-                return result;
-            }
-            
-        } else if (authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD)) {
-            final String password = am.getPassword(account);
-            if (password != null) {
-                final Bundle result = new Bundle();
-                result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-                result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
-                result.putString(AccountManager.KEY_AUTHTOKEN, password);
-                return result;
-            }
+        String accessToken;
+        if (authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD)) {
+            accessToken = am.getPassword(account);
+        } else {
+            accessToken = am.peekAuthToken(account, authTokenType);
         }
-
+        if (accessToken != null) {
+            final Bundle result = new Bundle();
+            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE, ACCOUNT_TYPE);
+            result.putString(AccountManager.KEY_AUTHTOKEN, accessToken);
+            return result;
+        }
+        
+        /// if not stored, return Intent to access the AuthenticatorActivity
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
-                response);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
-        intent.putExtra(AuthenticatorActivity.PARAM_USERNAME, account.name);    // TODO fix, this will pass the accountName, not the username
+        intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
 
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -224,8 +224,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private void setIntentFlags(Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
+        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
     }

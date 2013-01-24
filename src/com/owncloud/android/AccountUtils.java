@@ -97,10 +97,10 @@ public class AccountUtils {
      * @return webdav path for given OC version, null if OC version unknown
      */
     public static String getWebdavPath(OwnCloudVersion version, boolean supportsOAuth) {
-        if (supportsOAuth) {
-            return ODAV_PATH;
-        }
         if (version != null) {
+            if (supportsOAuth) {
+                return ODAV_PATH;
+            }
             if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
                 return WEBDAV_PATH_4_0;
             if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0

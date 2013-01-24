@@ -217,7 +217,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     private void createFirstAccount() {
         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTHORITY });
         startActivity(intent);  // the new activity won't be created until this.onStart() and this.onResume() are finished;
     }
 
@@ -346,12 +346,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     private void startSynchronization() {
-        ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);   // cancel the current synchronizations of any ownCloud account
+        ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);   // cancel the current synchronizations of any ownCloud account
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(
                 AccountUtils.getCurrentOwnCloudAccount(this),
-                AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                AccountAuthenticator.AUTHORITY, bundle);
     }
 
 

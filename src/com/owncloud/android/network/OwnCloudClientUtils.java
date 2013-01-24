@@ -130,26 +130,7 @@ public class OwnCloudClientUtils {
         
         return client;
     }
-    
-    /**
-     * Creates a WebdavClient to try a new account before saving it
-     * 
-     * @param uri       URL to the ownCloud server
-     * @param username  User name
-     * @param password  User password
-     * @param context   Android context where the WebdavClient is being created.
-     * @return          A WebdavClient object ready to be used
-     */
-    public static WebdavClient createOwnCloudClient(Uri uri, String username, String password, Context context) {
-        //Log.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
-        
-        WebdavClient client = createOwnCloudClient(uri, context);
-        
-        client.setBasicCredentials(username, password);
-        
-        return client;
-    }
-    
+
     
     /**
      * Creates a WebdavClient to access a URL and sets the desired parameters for ownCloud client connections.

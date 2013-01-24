@@ -138,8 +138,8 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                         // in API7 < this constatant is defined in
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
-                        Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
-                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTHORITY });
                         startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
                     } else {
                         // since in API7 there is no direct call for

@@ -53,7 +53,7 @@
                 android:layout_weight="1" >
 
                 <EditText
-                    android:id="@+id/host_URL"
+                    android:id="@+id/hostUrlInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_action_refresh_black"
+                    android:onClick="onRefreshClick"
                     android:layout_gravity="right|center_vertical"
                     android:visibility="invisible" />
 
@@ -100,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:onClick="onOff_check_Click"
+                android:onClick="onCheckClick"
                 android:text="@string/oauth_check_onoff"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -113,12 +114,27 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             
             <EditText
-                android:id="@+id/oAuth_URL"
+                android:id="@+id/oAuthEntryPoint_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/oauth_host_url"
+                android:enabled="false"
+                android:text="@string/oauth_url_endpoint_auth"
+                android:singleLine="true"
+                android:visibility="gone" >
+
+                <requestFocus />
+            </EditText>            
+
+            <EditText
+                android:id="@+id/oAuthEntryPoint_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="false"
+	            android:text="@string/oauth_url_endpoint_access"
                 android:singleLine="true"
                 android:visibility="gone" >
 
@@ -170,11 +186,12 @@
                     android:inputType="textPassword"/>
 
                 <ImageView
-                    android:id="@+id/viewPassword"
+                    android:id="@+id/viewPasswordButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
                     android:src="@android:drawable/ic_menu_view"
+					android:onClick="onViewPasswordClick"
                     android:visibility="invisible" />
 
             </FrameLayout>
