@@ -126,8 +126,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
-
-
     
     
     /**
@@ -264,7 +262,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         // state of oAuth2 components
         mOAuth2StatusIcon = savedInstanceState.getInt(KEY_OAUTH2_STATUS_ICON);
         mOAuth2StatusText = savedInstanceState.getInt(KEY_OAUTH2_STATUS_TEXT);
-        changeViewByOAuth2Check(mOAuth2Check.isChecked());
         
         /* Leave old OAuth flow
         // We store a JSon object with all the data returned from oAuth2 server when we get user_code.
@@ -305,6 +302,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         super.onResume();
+        changeViewByOAuth2Check(mOAuth2Check.isChecked());  
+            // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes
+        
         /* LEAVE OLD OAUTH FLOW ; 
         // (old oauth code) Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
         if (tokenReceiver == null) {
