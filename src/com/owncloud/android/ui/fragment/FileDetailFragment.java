@@ -507,8 +507,7 @@ public class FileDetailFragment extends SherlockFragment implements
             
             // set file details
             setFilename(mFile.getFileName());
-            setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
-                    .getMimetype()));
+            setFiletype(mFile.getMimetype());
             setFilesize(mFile.getFileLength());
             if(ocVersionSupportsTimeCreated()){
                 setTimeCreated(mFile.getCreationTimestamp());
@@ -560,8 +559,14 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setFiletype(String mimetype) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
-        if (tv != null)
-            tv.setText(mimetype);
+        if (tv != null) {
+            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);;        
+            tv.setText(printableMimetype);
+        }
+        ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
+        if (iv != null) {
+            iv.setImageResource(DisplayUtils.getResourceId(mimetype));
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (2) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -18,18 +19,25 @@
 
 package com.owncloud.android;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+import android.util.Log;
 
 /**
  * A helper class for some string operations.
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
 public class DisplayUtils {
-
-    private static final String[] suffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+    
+    private static String TAG = DisplayUtils.class.getSimpleName(); 
+    
+    private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
     private static HashMap<String, String> mimeType2HUmanReadable;
     static {
@@ -48,6 +56,22 @@ public class DisplayUtils {
 
     }
 
+    private static final String TYPE_APPLICATION = "application";
+    private static final String TYPE_AUDIO = "audio";
+    private static final String TYPE_IMAGE = "image";
+    private static final String TYPE_TXT = "txt";
+    private static final String TYPE_VIDEO = "video";
+    
+    private static final String SUBTYPE_PDF = "pdf";
+    private static final String[] SUBTYPES_DOCUMENT = { "msword", "mspowerpoint", "msexcel", 
+                                                        "vnd.oasis.opendocument.presentation",
+                                                        "vnd.oasis.opendocument.spreadsheet",
+                                                        "vnd.oasis.opendocument.text"
+                                                        };
+    private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
+    private static final String[] SUBTYPES_COMPRESSED = {"x-tar", "x-gzip", "zip"};
+    private static final Set<String> SUBTYPES_COMPRESSED_SET = new HashSet<String>(Arrays.asList(SUBTYPES_COMPRESSED));
+    
     /**
      * Converts the file size in bytes to human readable output.
      * 
@@ -57,12 +81,12 @@ public class DisplayUtils {
     public static String bytesToHumanReadable(long bytes) {
         double result = bytes;
         int attachedsuff = 0;
-        while (result > 1024 && attachedsuff < suffixes.length) {
+        while (result > 1024 && attachedsuff < sizeSuffixes.length) {
             result /= 1024.;
             attachedsuff++;
         }
         result = ((int) (result * 100)) / 100.;
-        return result + " " + suffixes[attachedsuff];
+        return result + " " + sizeSuffixes[attachedsuff];
     }
 
     /**
@@ -104,6 +128,58 @@ public class DisplayUtils {
             return mimetype.split("/")[1].toUpperCase() + " file";
         return "Unknown type";
     }
+    
+    
+    /**
+     * Returns the resource identifier of an image resource to use as icon associated to a 
+     * known MIME type.
+     * 
+     * @param mimetype      MIME type string.
+     * @return              Resource identifier of an image resource.
+     */
+    public static int getResourceId(String mimetype) {
+
+        if (mimetype == null || "DIR".equals(mimetype)) {
+            return R.drawable.ic_menu_archive;
+            
+        } else {
+            String [] parts = mimetype.split("/");
+            String type = parts[0];
+            String subtype = parts[1];
+            
+            if(TYPE_TXT.equals(type)) {
+                return R.drawable.file_doc;
+    
+            } else if(TYPE_IMAGE.equals(type)) {
+                return R.drawable.file_image;
+                
+            } else if(TYPE_VIDEO.equals(type)) {
+                return R.drawable.file_movie;
+                
+            } else if(TYPE_AUDIO.equals(type)) {  
+                return R.drawable.file_sound;
+                
+            } else if(TYPE_APPLICATION.equals(type)) {
+                
+                if (SUBTYPE_PDF.equals(subtype)) {
+                    return R.drawable.file_pdf;
+                    
+                } else if (SUBTYPES_DOCUMENT_SET.contains(subtype)) {
+                    return R.drawable.file_doc;
+
+                } else if (SUBTYPES_COMPRESSED_SET.contains(subtype)) {
+                    return R.drawable.file_zip;
+                }
+    
+            }
+            // problems: RAR, RTF, 3GP are send as application/octet-stream from the server ; extension in the filename should be explicitly reviewed
+        }
+
+        // default icon
+        return R.drawable.file;
+    }
+
+    
 
     /**
      * Converts Unix time to human readable format
