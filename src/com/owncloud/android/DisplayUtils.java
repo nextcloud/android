@@ -59,7 +59,7 @@ public class DisplayUtils {
     private static final String TYPE_APPLICATION = "application";
     private static final String TYPE_AUDIO = "audio";
     private static final String TYPE_IMAGE = "image";
-    private static final String TYPE_TXT = "txt";
+    private static final String TYPE_TXT = "text";
     private static final String TYPE_VIDEO = "video";
     
     private static final String SUBTYPE_PDF = "pdf";
