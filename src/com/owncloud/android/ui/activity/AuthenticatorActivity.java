@@ -35,6 +35,7 @@ import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
@@ -78,7 +79,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_USER_NAME = "USER_NAME";
     public static final String EXTRA_HOST_NAME = "HOST_NAME";
-
+    public static final String EXTRA_ACTION = "ACTION";
+    
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
     private static final String KEY_STATUS_TEXT = "STATUS_TEXT";
@@ -93,6 +95,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final int DIALOG_CERT_NOT_SAVED = 2;
     private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 3;
 
+    public static final byte ACTION_CREATE = 0;
+    public static final byte ACTION_UPDATE_TOKEN = 1;
+    
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
@@ -123,6 +128,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private CheckBox mOAuth2Check;
     private String mOAuthAccessToken;
     private View mOkButton;
+    private TextView mAuthStatusLayout;
     
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
@@ -149,6 +155,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mOkButton = findViewById(R.id.buttonOK);
+        mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
+        
 
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
@@ -190,6 +198,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {
             loadSavedInstanceState(savedInstanceState);
+        }
+        
+        if (getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE) == ACTION_UPDATE_TOKEN) {
+            /// lock things that should not change
+            mHostUrlInput.setEnabled(false);
+            mUsernameInput.setEnabled(false);
+            mOAuth2Check.setVisibility(View.GONE);
+            checkOcServer(); 
         }
         
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
@@ -244,7 +260,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
         mStatusText = savedInstanceState.getInt(KEY_STATUS_TEXT);
         mStatusIcon = savedInstanceState.getInt(KEY_STATUS_ICON);
-        updateOcServerCheckIconAndText();
+        updateConnStatus();
         
         /// UI settings depending upon connection
         mOkButton.setEnabled(mStatusCorrect);   // TODO really necessary?
@@ -370,8 +386,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             i++;
         }
         
-        /// Updating status widget to OK.
-        updateOAuth2IconAndText(R.drawable.ic_ok, R.string.auth_connection_established);
+        /// Updating status widget to OK. -- TODO REMOVE, UNNECESSARY
+        /*
+        mStatusIcon = R.drawable.ic_ok;
+        mStatusText = R.string.auth_connection_established;
+        updateAuthStatus();
+        */
         
         /// Showing the dialog with instructions for the user.
         showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
@@ -411,29 +431,35 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void onUrlInputFocusChanged(TextView hostInput, boolean hasFocus) {
         if (!hasFocus) {
-            String uri = hostInput.getText().toString().trim();
-            if (uri.length() != 0) {
-                mStatusText = R.string.auth_testing_connection;
-                mStatusIcon = R.drawable.progress_small;
-                updateOcServerCheckIconAndText();
-                /** TODO cancel previous connection check if the user tries to ammend a wrong URL  
-                if(mConnChkOperation != null) {
-                    mConnChkOperation.cancel();
-                } */
-                mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
-                WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
-                mHostBaseUrl = "";
-                mDiscoveredVersion = null;
-                mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
-            } else {
-                mRefreshButton.setVisibility(View.INVISIBLE);
-                mStatusText = 0;
-                mStatusIcon = 0;
-                updateOcServerCheckIconAndText();
-            }
+            checkOcServer();
+            
         } else {
             // avoids that the 'connect' button can be clicked if the test was previously passed
             mOkButton.setEnabled(false); 
+        }
+    }
+
+
+    private void checkOcServer() {
+        String uri = mHostUrlInput.getText().toString().trim();
+        if (uri.length() != 0) {
+            mStatusText = R.string.auth_testing_connection;
+            mStatusIcon = R.drawable.progress_small;
+            updateConnStatus();
+            /** TODO cancel previous connection check if the user tries to ammend a wrong URL  
+            if(mConnChkOperation != null) {
+                mConnChkOperation.cancel();
+            } */
+            mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
+            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
+            mHostBaseUrl = "";
+            mDiscoveredVersion = null;
+            mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
+        } else {
+            mRefreshButton.setVisibility(View.INVISIBLE);
+            mStatusText = 0;
+            mStatusIcon = 0;
+            updateConnStatus();
         }
     }
 
@@ -495,7 +521,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (mDiscoveredVersion == null || !mDiscoveredVersion.isVersionValid()  || mHostBaseUrl == null || mHostBaseUrl.length() == 0) {
             mStatusIcon = R.drawable.common_error;
             mStatusText = R.string.auth_wtf_reenter_URL;
-            updateOcServerCheckIconAndText();
+            updateConnStatus();
             mOkButton.setEnabled(false);
             Log.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
             return;
@@ -539,7 +565,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void startOauthorization() {
         // be gentle with the user
-        updateOAuth2IconAndText(R.drawable.progress_small, R.string.oauth_login_connection);
+        mStatusIcon = R.drawable.progress_small;
+        mStatusText = R.string.oauth_login_connection;
+        updateAuthStatus();
         
         // GET AUTHORIZATION request
         /*
@@ -594,86 +622,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param result        Result of the check.
      */
     private void onOcServerCheckFinish(OwnCloudServerCheckOperation operation, RemoteOperationResult result) {
-        /// update status connection icon and text
-        mStatusText = mStatusIcon = 0;
-        mStatusCorrect = false;
+        /// update status icon and text
+        updateStatusIconAndText(result);
+        updateConnStatus();
+
+        /// save result state
+        mStatusCorrect = result.isSuccess();
+        mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
         
-        switch (result.getCode()) {
-            case OK_SSL:
-                mIsSslConn = true;
-                mStatusIcon = android.R.drawable.ic_secure;
-                mStatusText = R.string.auth_secure_connection;
-                mStatusCorrect = true;
-                break;
-                
-            case OK_NO_SSL:
-            case OK:
-                mIsSslConn = false;
-                mStatusCorrect = true;
-                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://") ) {
-                    mStatusText = R.string.auth_connection_established;
-                    mStatusIcon = R.drawable.ic_ok;
-                } else {
-                    mStatusText = R.string.auth_nossl_plain_ok_title;
-                    mStatusIcon = android.R.drawable.ic_partial_secure;
-                }
-                break;
-                
-            /// very special case (TODO: move to a common place for all the remote operations)
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_ssl_unverified_server_title;
-                mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
-                break;
-                    
-            case BAD_OC_VERSION:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_bad_oc_version_title;
-                break;
-            case WRONG_CONNECTION:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_wrong_connection_title;
-                break;
-            case TIMEOUT:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_timeout_title;
-                break;
-            case INCORRECT_ADDRESS:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_incorrect_address_title;
-                break;
-                
-            case SSL_ERROR:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_ssl_general_error_title;
-                break;
-                
-            case HOST_NOT_AVAILABLE:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_unknown_host_title;
-                break;
-            case NO_NETWORK_CONNECTION:
-                mStatusIcon = R.drawable.no_network;
-                mStatusText = R.string.auth_no_net_conn_title;
-                break;
-            case INSTANCE_NOT_CONFIGURED:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_not_configured_title;
-                break;
-            case FILE_NOT_FOUND:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_incorrect_path_title;
-                break;
-            case UNHANDLED_HTTP_CODE:
-            case UNKNOWN_ERROR:
-                mStatusIcon = R.drawable.common_error;
-                mStatusText = R.string.auth_unknown_error_title;
-                break;
-            default:
-                Log.e(TAG, "Incorrect connection checker result type: " + result.getHttpCode());
+        /// very special case (TODO: move to a common place for all the remote operations)
+        if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+            mLastSslUntrustedServerResult = result;
+            showDialog(DIALOG_SSL_VALIDATOR); 
         }
-        updateOcServerCheckIconAndText();
         
         /// update the visibility of the 'retry connection' button
         if (!mStatusCorrect)
@@ -703,6 +664,94 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     /**
+     * Chooses the right icon and text to show to the user for the received operation result.
+     * 
+     * @param result    Result of a remote operation performed in this activity
+     */
+    private void updateStatusIconAndText(RemoteOperationResult result) {
+        mStatusText = mStatusIcon = 0;
+
+        switch (result.getCode()) {
+        case OK_SSL:
+            mStatusIcon = android.R.drawable.ic_secure;
+            mStatusText = R.string.auth_secure_connection;
+            break;
+            
+        case OK_NO_SSL:
+        case OK:
+            if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://") ) {
+                mStatusText = R.string.auth_connection_established;
+                mStatusIcon = R.drawable.ic_ok;
+            } else {
+                mStatusText = R.string.auth_nossl_plain_ok_title;
+                mStatusIcon = android.R.drawable.ic_partial_secure;
+            }
+            break;
+            
+        case SSL_RECOVERABLE_PEER_UNVERIFIED:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_ssl_unverified_server_title;
+            break;
+                
+        case BAD_OC_VERSION:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_bad_oc_version_title;
+            break;
+        case WRONG_CONNECTION:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_wrong_connection_title;
+            break;
+        case TIMEOUT:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_timeout_title;
+            break;
+        case INCORRECT_ADDRESS:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_incorrect_address_title;
+            break;
+            
+        case SSL_ERROR:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_ssl_general_error_title;
+            break;
+            
+        case UNAUTHORIZED:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_unauthorized;
+            break;
+        case HOST_NOT_AVAILABLE:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_unknown_host_title;
+            break;
+        case NO_NETWORK_CONNECTION:
+            mStatusIcon = R.drawable.no_network;
+            mStatusText = R.string.auth_no_net_conn_title;
+            break;
+        case INSTANCE_NOT_CONFIGURED:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_not_configured_title;
+            break;
+        case FILE_NOT_FOUND:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_incorrect_path_title;
+            break;
+        case OAUTH2_ERROR:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_bad_oauth_token;
+            break;
+        case UNHANDLED_HTTP_CODE:
+        case UNKNOWN_ERROR:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_unknown_error_title;
+            break;
+            
+        default:
+            break;
+        }
+    }
+
+
+    /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
      * 
@@ -716,7 +765,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
 
-        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, false);
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, true);
         if (result.isSuccess() && webdav_path != null) {
             /// be gentle with the user
             showDialog(DIALOG_LOGIN_PROGRESS);
@@ -815,6 +864,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             finish();
                 
         } else {
+            /*
             if (!isOAuth) {
                 mUsernameInput.setError(result.getLogMessage() + "        ");  
                                                     // the extra spaces are a workaround for an ugly bug: 
@@ -825,7 +875,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             
             } else {
                 mOAuthAuthEndpointText.setError(result.getLogMessage() + "        ");
-            }
+            }*/
+            updateStatusIconAndText(result);
+            updateAuthStatus();
             Log.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
@@ -963,7 +1015,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Updates the content and visibility state of the icon and text associated
      * to the last check on the ownCloud server.
      */
-    private void updateOcServerCheckIconAndText() {
+    private void updateConnStatus() {
         ImageView iv = (ImageView) findViewById(R.id.action_indicator);
         TextView tv = (TextView) findViewById(R.id.status_text);
 
@@ -977,6 +1029,30 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             tv.setVisibility(View.VISIBLE);
         }
     }
+    
+    
+    /**
+     * Updates the content and visibility state of the icon and text associated
+     * to the interactions with the OAuth authorization server.
+     */
+    private void updateAuthStatus() {
+        /*ImageView iv = (ImageView) findViewById(R.id.auth_status_icon);
+        TextView tv = (TextView) findViewById(R.id.auth_status_text);*/
+
+        if (mStatusIcon == 0 && mStatusText == 0) {
+            mAuthStatusLayout.setVisibility(View.INVISIBLE);
+            /*iv.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.INVISIBLE);*/
+        } else {
+            mAuthStatusLayout.setText(mStatusText);
+            mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mStatusIcon, 0, 0, 0);
+            /*iv.setImageResource(mStatusIcon);
+            tv.setText(mStatusText);
+            /*iv.setVisibility(View.VISIBLE);
+            tv.setVisibility(View.VISIBLE);^*/
+            mAuthStatusLayout.setVisibility(View.VISIBLE);
+        }
+    }     
 
     
     /**
@@ -1035,50 +1111,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     public void changeViewByOAuth2Check(Boolean checked) {
         
-        ImageView auth2ActionIndicator = (ImageView) findViewById(R.id.auth2_action_indicator); 
-        TextView oauth2StatusText = (TextView) findViewById(R.id.oauth2_status_text);         
-
         if (checked) {
             mOAuthAuthEndpointText.setVisibility(View.VISIBLE);
             mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mViewPasswordButton.setVisibility(View.GONE);
-            auth2ActionIndicator.setVisibility(View.INVISIBLE);
-            oauth2StatusText.setVisibility(View.INVISIBLE);
         } else {
             mOAuthAuthEndpointText.setVisibility(View.GONE);
             mOAuthTokenEndpointText.setVisibility(View.GONE);
             mUsernameInput.setVisibility(View.VISIBLE);
             mPasswordInput.setVisibility(View.VISIBLE);
             mViewPasswordButton.setVisibility(View.INVISIBLE);
-            auth2ActionIndicator.setVisibility(View.GONE);
-            oauth2StatusText.setVisibility(View.GONE);
         }     
 
     }    
-    
-    /**
-     * Updates the content and visibility state of the icon and text associated
-     * to the interactions with the OAuth authorization server.
-     * 
-     * @param   drawable_id     Resource id for the icon.
-     * @param   text_id         Resource id for the text.
-     */
-    private void updateOAuth2IconAndText(int drawable_id, int text_id) {
-        ImageView iv = (ImageView) findViewById(R.id.auth2_action_indicator);
-        TextView tv = (TextView) findViewById(R.id.oauth2_status_text);
-
-        if (drawable_id == 0 && text_id == 0) {
-            iv.setVisibility(View.INVISIBLE);
-            tv.setVisibility(View.INVISIBLE);
-        } else {
-            iv.setImageResource(drawable_id);
-            tv.setText(text_id);
-            iv.setVisibility(View.VISIBLE);
-            tv.setVisibility(View.VISIBLE);
-        }
-    }     
     
     /* Leave the old OAuth flow
     // Results from the first call to oAuth2 server : getting the user_code and verification_url.

@@ -98,6 +98,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
+        intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
 
         setIntentFlags(intent);
         
@@ -173,12 +174,14 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             return result;
         }
         
-        /// if not stored, return Intent to access the AuthenticatorActivity
+        /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
         intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
+        intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+        
 
         final Bundle bundle = new Bundle();
         bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -224,8 +227,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private void setIntentFlags(Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
+        //intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
     }
