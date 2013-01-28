@@ -177,10 +177,13 @@
 	<string name="auth_secure_connection">Secure connection established</string>
     <string name="auth_login_details">Login details</string>
     <string name="auth_unauthorized">Invalid credentials</string>
-	<string name="auth_bad_oauth_token">Bad response from authorization server</string>
+	<string name="auth_oauth_error">Unsuccessful authorization</string>
+	<string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
     <string name="auth_not_found">Wrong path given</string>
     <string name="auth_internal">Internal server error, code %1$d</string>
     <string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
+    <string name="auth_expired_oauth_token_toast">Your authorization expired.\nPlease, authorize again</string>
+    <string name="auth_expired_basic_auth_toast">Your saved credentials are invalid.\nPlease, enter the current credentials</string>
     
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit a crash report?</string>
     <string name="crashlog_send_report">Send report</string>

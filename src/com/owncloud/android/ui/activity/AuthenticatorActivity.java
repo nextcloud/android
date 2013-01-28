@@ -19,9 +19,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.authenticator.oauth2.OAuth2Context;
@@ -61,6 +58,8 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.owncloud.android.R;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -119,6 +118,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private Uri mNewCapturedUriFromOAuth2Redirection;
     
     private AccountManager mAccountMgr;
+    private boolean mJustCreated;
     
     private ImageView mRefreshButton;
     private ImageView mViewPasswordButton;
@@ -209,6 +209,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
+        mJustCreated = true;
     }
 
 
@@ -318,8 +319,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         super.onResume();
+        // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes; so keep the next lines here
         changeViewByOAuth2Check(mOAuth2Check.isChecked());  
-            // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes
+        if (getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE) == ACTION_UPDATE_TOKEN && mJustCreated) {
+            if (mOAuth2Check.isChecked())
+                Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+        }
+           
         
         /* LEAVE OLD OAUTH FLOW ; 
         // (old oauth code) Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
@@ -332,6 +340,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (mNewCapturedUriFromOAuth2Redirection != null) {
             getOAuth2AccessTokenFromCapturedRedirection();            
         }
+        
+        mJustCreated = false;
     }
     
     
@@ -358,46 +368,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void getOAuth2AccessTokenFromCapturedRedirection() {
         /// Parse data from OAuth redirection
-        Map<String, String> responseValues = new HashMap<String, String>();
         String queryParameters = mNewCapturedUriFromOAuth2Redirection.getQuery();
         mNewCapturedUriFromOAuth2Redirection = null;
-        String[] pairs = queryParameters.split("&");
-        int i = 0;
-        String key = "";
-        String value = "";
-        StringBuilder sb = new StringBuilder();
-        while (pairs.length > i) {
-            int j = 0;
-            String[] part = pairs[i].split("=");
-            while (part.length > j) {
-                String p = part[j];
-                if (j == 0) {
-                    key = p;
-                    sb.append(key + " = ");
-                } else if (j == 1) {
-                    value = p;
-                    responseValues.put(key, value);
-                    sb.append(value + "\n");
-                }
-
-                Log.v(TAG, "[" + i + "," + j + "] = " + p);
-                j++;
-            }
-            i++;
-        }
-        
-        /// Updating status widget to OK. -- TODO REMOVE, UNNECESSARY
-        /*
-        mStatusIcon = R.drawable.ic_ok;
-        mStatusText = R.string.auth_connection_established;
-        updateAuthStatus();
-        */
         
         /// Showing the dialog with instructions for the user.
         showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
 
         /// GET ACCESS TOKEN to the oAuth server 
-        RemoteOperation operation = new OAuth2GetAccessToken(responseValues);
+        RemoteOperation operation = new OAuth2GetAccessToken(queryParameters);
         WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth_url_endpoint_access)), getApplicationContext());
         operation.execute(client, this, mHandler);
     }
@@ -737,7 +715,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         case OAUTH2_ERROR:
             mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_bad_oauth_token;
+            mStatusText = R.string.auth_oauth_error;
+            break;
+        case OAUTH2_ERROR_ACCESS_DENIED:
+            mStatusIcon = R.drawable.common_error;
+            mStatusText = R.string.auth_oauth_error_access_denied;
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
@@ -779,11 +761,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthCheckOperation.execute(client, this, mHandler);
             
         } else {
-            if (webdav_path != null) {
-                mOAuthAuthEndpointText.setError("A valid authorization could not be obtained");
-            } else {
-                mOAuthAuthEndpointText.setError(getString(R.string.auth_bad_oc_version_title)); // should never happen 
-            }
+            updateStatusIconAndText(result);
+            updateAuthStatus();
+            Log.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
 

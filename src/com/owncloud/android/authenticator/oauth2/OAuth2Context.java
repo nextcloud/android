@@ -53,4 +53,6 @@ public class OAuth2Context {
     public static final String CODE_RESPONSE_TYPE = "response_type";
     public static final String CODE_REDIRECT_URI = "redirect_uri";
     
+    public static final String ERROR_ACCESS_DENIED = "access_denied";
+    
 }
