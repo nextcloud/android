@@ -253,6 +253,7 @@ public abstract class RemoteOperation implements Runnable {
                 }
                 mClient = null;
                 repeat = true;
+                result = null;
             }
         } while (repeat);
         

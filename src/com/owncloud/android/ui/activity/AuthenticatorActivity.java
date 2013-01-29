@@ -82,6 +82,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
+    private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_STATUS_TEXT = "STATUS_TEXT";
     private static final String KEY_STATUS_ICON = "STATUS_ICON";
     private static final String KEY_STATUS_CORRECT = "STATUS_CORRECT";
@@ -96,7 +97,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
-    
+
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
@@ -119,6 +120,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private AccountManager mAccountMgr;
     private boolean mJustCreated;
+    private byte mAction;
+    private Account mAccount;
     
     private ImageView mRefreshButton;
     private ImageView mViewPasswordButton;
@@ -171,6 +174,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// initialization
         mAccountMgr = AccountManager.get(this);
         mNewCapturedUriFromOAuth2Redirection = null;    // TODO save?
+        mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
+        mAccount = null;
 
         if (savedInstanceState == null) {
             /// connection state and info
@@ -184,15 +189,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOAuth2Check.setChecked(oAuthRequired);
             changeViewByOAuth2Check(oAuthRequired);
             
-            Account account = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
-            if (account != null) {
-                String ocVersion = mAccountMgr.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
+            mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
+            if (mAccount != null) {
+                String ocVersion = mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION);
                 if (ocVersion != null) {
                     mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
-                mHostBaseUrl = mAccountMgr.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
+                mHostBaseUrl = mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
                 mHostUrlInput.setText(mHostBaseUrl);
-                String userName = account.name.substring(0, account.name.lastIndexOf('@'));
+                String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
             }
 
@@ -200,7 +205,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             loadSavedInstanceState(savedInstanceState);
         }
         
-        if (getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE) == ACTION_UPDATE_TOKEN) {
+        if (mAction == ACTION_UPDATE_TOKEN) {
             /// lock things that should not change
             mHostUrlInput.setEnabled(false);
             mUsernameInput.setEnabled(false);
@@ -235,6 +240,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (mDiscoveredVersion != null) 
             outState.putString(KEY_OC_VERSION, mDiscoveredVersion.toString());
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
+        
+        /// account data, if updating
+        if (mAccount != null)
+            outState.putParcelable(KEY_ACCOUNT, mAccount);
         
         // Saving the state of oAuth2 components.
         outState.putInt(KEY_OAUTH2_STATUS_ICON, mOAuth2StatusIcon);
@@ -275,6 +284,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (ocVersion != null)
             mDiscoveredVersion = new OwnCloudVersion(ocVersion);
         mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
+        
+        // account data, if updating
+        mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
         
         // state of oAuth2 components
         mOAuth2StatusIcon = savedInstanceState.getInt(KEY_OAUTH2_STATUS_ICON);
@@ -321,7 +333,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         super.onResume();
         // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes; so keep the next lines here
         changeViewByOAuth2Check(mOAuth2Check.isChecked());  
-        if (getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE) == ACTION_UPDATE_TOKEN && mJustCreated) {
+        if (mAction == ACTION_UPDATE_TOKEN && mJustCreated) {
             if (mOAuth2Check.isChecked())
                 Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
             else
@@ -783,79 +795,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
         
-        boolean isOAuth = mOAuth2Check.isChecked();
-
         if (result.isSuccess()) {
             Log.d(TAG, "Successful access - time to save the account");
 
-            /// create and save new ownCloud account
-            Uri uri = Uri.parse(mHostBaseUrl);
-            String username = isOAuth ?
-                                "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong() :
-                                 mUsernameInput.getText().toString().trim();
-                             // TODO a better way to set an account name
-            String accountName = username + "@" + uri.getHost();
-            if (uri.getPort() >= 0) {
-                accountName += ":" + uri.getPort();
-            }
-            Account account = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
-            AccountManager accManager = AccountManager.get(this);
-            if (isOAuth) {
-                accManager.addAccountExplicitly(account, "", null);  // with our implementation, the password is never input in the app
-            } else {
-                accManager.addAccountExplicitly(account, mPasswordInput.getText().toString(), null);
-            }
-
-            /// add the new account as default in preferences, if there is none already
-            Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
-            if (defaultAccount == null) {
-                SharedPreferences.Editor editor = PreferenceManager
-                        .getDefaultSharedPreferences(this).edit();
-                editor.putString("select_oc_account", accountName);
-                editor.commit();
-            }
-
-
-            /// prepare result to return to the Authenticator
-            //  TODO check again what the Authenticator makes with it; probably has the same effect as addAccountExplicitly, but it's not well done
-            final Intent intent = new Intent();    // TODO check if the intent can be retrieved from getIntent(), passed from AccountAuthenticator     
-            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,    AccountAuthenticator.ACCOUNT_TYPE);
-            intent.putExtra(AccountManager.KEY_ACCOUNT_NAME,    account.name);
-            if (!isOAuth)
-                intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); // TODO check this; not sure it's right; maybe
-            intent.putExtra(AccountManager.KEY_USERDATA,        username);
-            if (isOAuth) {
-                accManager.setAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
-            }
-            /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
-            accManager.setUserData(account, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
-            accManager.setUserData(account, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
-            if (isOAuth)
-                accManager.setUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  // TODO this flag should be unnecessary
-
-            setAccountAuthenticatorResult(intent.getExtras());
-            setResult(RESULT_OK, intent);
-            
-            /// immediately request for the synchronization of the new account
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            ContentResolver.requestSync(account, AccountAuthenticator.AUTHORITY, bundle);
-
-            finish();
+            if (mAction == ACTION_CREATE) {
+                createAccount();
                 
-        } else {
-            /*
-            if (!isOAuth) {
-                mUsernameInput.setError(result.getLogMessage() + "        ");  
-                                                    // the extra spaces are a workaround for an ugly bug: 
-                                                    // 1. insert wrong credentials and connect
-                                                    // 2. put the focus on the user name field with using hardware controls (don't touch the screen); the error is shown UNDER the field
-                                                    // 3. touch the user name field; the software keyboard appears; the error popup is moved OVER the field and SHRINKED in width, losing the last word
-                                                    // Seen, at least, in Android 2.x devices            
-            
             } else {
-                mOAuthAuthEndpointText.setError(result.getLogMessage() + "        ");
-            }*/
+                updateToken();
+            }
+            
+            finish();
+            
+        } else {
             updateStatusIconAndText(result);
             updateAuthStatus();
             Log.d(TAG, "Access failed: " + result.getLogMessage());
@@ -863,7 +815,94 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     
+    /**
+     * Sets the proper response to get that the Account Authenticator that started this activity saves 
+     * a new authorization token for mAccount.
+     */
+    private void updateToken() {
+        Bundle response = new Bundle();
+        response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
+        response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
+        boolean isOAuth = mOAuth2Check.isChecked();
+        if (isOAuth) {
+            response.putString(AccountManager.KEY_AUTHTOKEN, mOAuthAccessToken);
+            // the next line is unnecessary; the AccountManager does it when receives the response Bundle
+            // mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
+        } else {
+            response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
+            // the next line is not really necessary, because we are using the password as if it was an auth token; but let's keep it there by now
+            mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
+        }
+        setAccountAuthenticatorResult(response);
+    }
+
+
+    /**
+     * Creates a new account through the Account Authenticator that started this activity. 
+     * 
+     * This makes the account permanent.
+     * 
+     * TODO Decide how to name the OAuth accounts
+     * TODO Minimize the direct interactions with the account manager; seems that not all the operations 
+     * in the current code are really necessary, provided that right extras are returned to the Account
+     * Authenticator through setAccountAuthenticatorResult  
+     */
+    private void createAccount() {
+        /// create and save new ownCloud account
+        boolean isOAuth = mOAuth2Check.isChecked();
+        
+        Uri uri = Uri.parse(mHostBaseUrl);
+        String username = mUsernameInput.getText().toString().trim();
+        if (isOAuth) {
+            username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();    // TODO change this to something readable
+        }            
+        String accountName = username + "@" + uri.getHost();
+        if (uri.getPort() >= 0) {
+            accountName += ":" + uri.getPort();
+        }
+        mAccount = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
+        if (isOAuth) {
+            mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with our implementation, the password is never input in the app
+        } else {
+            mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
+        }
+
+        /// add the new account as default in preferences, if there is none already
+        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (defaultAccount == null) {
+            SharedPreferences.Editor editor = PreferenceManager
+                    .getDefaultSharedPreferences(this).edit();
+            editor.putString("select_oc_account", accountName);
+            editor.commit();
+        }
+
+        /// prepare result to return to the Authenticator
+        //  TODO check again what the Authenticator makes with it; probably has the same effect as addAccountExplicitly, but it's not well done
+        final Intent intent = new Intent();       
+        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,    AccountAuthenticator.ACCOUNT_TYPE);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME,    mAccount.name);
+        if (!isOAuth)
+            intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); // TODO check this; not sure it's right; maybe
+        intent.putExtra(AccountManager.KEY_USERDATA,        username);
+        if (isOAuth) {
+            mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
+        }
+        /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
+        mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
+        mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
+        if (isOAuth)
+            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  // TODO this flag should be unnecessary
     
+        setAccountAuthenticatorResult(intent.getExtras());
+        setResult(RESULT_OK, intent);
+        
+        /// immediately request for the synchronization of the new account
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+    }
+
+
     /**
      * {@inheritDoc}
      * 
