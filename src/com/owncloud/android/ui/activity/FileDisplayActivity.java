@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
@@ -82,6 +83,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
+import com.owncloud.android.ui.dialog.ChangelogDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -124,6 +126,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
     private static final int DIALOG_SSL_VALIDATOR = 5;
     private static final int DIALOG_CERT_NOT_SAVED = 6;
+    private static final String DIALOG_CHANGELOG_TAG = "DIALOG_CHANGELOG";
 
     
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
@@ -206,10 +209,40 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         actionBar.setListNavigationCallbacks(mDirectories, this);
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
         
+        
+        // show changelog, if needed
+        showChangeLog();
+        
         Log.d(getClass().toString(), "onCreate() end");
     }
 
     
+    /**
+     * Shows a dialog with the change log of the current version after each app update
+     * 
+     *  TODO make it permanent; by now, only to advice the workaround app for 4.1.x
+     */
+    private void showChangeLog() {
+        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            final String KEY_VERSION = "version";
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            int currentVersionNumber = 0;
+            int savedVersionNumber = sharedPref.getInt(KEY_VERSION, 0);
+            try {
+                PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
+                currentVersionNumber    = pi.versionCode;
+            } catch (Exception e) {}
+     
+            if (currentVersionNumber > savedVersionNumber) {
+                ChangelogDialog.newInstance(true).show(getSupportFragmentManager(), DIALOG_CHANGELOG_TAG);
+                Editor editor   = sharedPref.edit();
+                editor.putInt(KEY_VERSION, currentVersionNumber);
+                editor.commit();
+            }
+        }
+    }
+    
+
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
