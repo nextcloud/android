@@ -9,6 +9,7 @@
   <string name="actionbar_upload">Пошаљи</string>
   <string name="actionbar_upload_files">Фајлови</string>
   <string name="actionbar_settings">Подешавања</string>
+  <string name="prefs_category_general">Опште</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Фајлови</string>

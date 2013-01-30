@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="main_music">مۆسیقا</string>
+  <string name="main_bookmarks">دڵخوازه‌کان</string>
+  <string name="main_settings">ده‌ستكاری</string>
+  <string name="actionbar_upload">بارکردن</string>
+  <string name="actionbar_settings">ده‌ستكاری</string>
+  <string name="auth_host_url">ناونیشانی به‌سته‌ر</string>
+  <string name="auth_username">ناوی به‌کارهێنه‌ر</string>
+  <string name="auth_password">وشەی تێپەربو</string>
+  <string name="setup_hint_username">ناوی به‌کارهێنه‌ر</string>
+  <string name="setup_hint_password">وشەی تێپەربو</string>
+  <string name="uploader_btn_upload_text">بارکردن</string>
+  <string name="filedetails_download">داگرتن</string>
+  <string name="filedetails_open">کردنه‌وه</string>
+  <string name="common_error">هه‌ڵه</string>
+  <string name="ssl_validator_title">ئاگاداری</string>
+</resources>

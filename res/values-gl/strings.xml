@@ -106,6 +106,8 @@
   <string name="sync_fail_ticker">Fallou a sincronización</string>
   <string name="sync_fail_content">Non se puido rematar a sincronización de %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflictos</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d ficheiros de kept-in-sync non se puideron sincronizar</string>
+  <string name="sync_fail_in_favourites_ticker">Fallou a sincronización de ficheiros Kept-in-sync</string>
   <string name="sync_fail_in_favourites_content">Os contidos dos ficheiros %1$d non se puideron sincronizar (%1$d conflictos)</string>
   <string name="use_ssl">Empregar a conexión segura</string>
   <string name="location_no_provider">ownCloud non pode seguir o teu dispositivo. Comproba as configuracións de de localización.</string>

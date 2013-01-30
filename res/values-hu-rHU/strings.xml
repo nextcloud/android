@@ -12,6 +12,8 @@
   <string name="main_bookmarks">Könyvjelzők</string>
   <string name="main_settings">Beállítások</string>
   <string name="main_tit_accsetup">Fiók beállítása</string>
+  <string name="main_wrn_accsetup">Nincs beállított fiók a készülékén. Ahhoz hogy használja ezt az App-ot használja, létre kell hozzon egyet.</string>
+  <string name="about_message">%1$s Android alkalmazás⏎ ⏎ verzió: %2$s</string>
   <string name="actionbar_sync">Frissítés</string>
   <string name="actionbar_upload">Feltöltés</string>
   <string name="actionbar_upload_files">Fájlok</string>
@@ -19,15 +21,27 @@
   <string name="actionbar_search">Keresés</string>
   <string name="actionbar_settings">beállítások</string>
   <string name="prefs_category_general">Általános</string>
+  <string name="prefs_category_trackmydevice">Eszközkövetés</string>
+  <string name="prefs_add_session">Új munkafolyamat létrehozása</string>
   <string name="prefs_create_img_thumbnails">Bélyegkép készítése</string>
   <string name="prefs_select_oc_account">Válassz egy felhasználó nevet</string>
+  <string name="prefs_summary_select_oc_account">Válassza ki, hogy az App milyen fiókot használjon.</string>
+  <string name="prefs_trackmydevice">Eszközkövetés</string>
+  <string name="prefs_trackmydevice_summary_off">Engedélyezze ennek az App-nak a helykövetést</string>
+  <string name="prefs_trackmydevice_summary_on">Ez az App eltárolja ennek a készüléknek az útvonalát</string>
+  <string name="prefs_trackmydevice_interval">Frissítés gyakorisága</string>
   <string name="prefs_trackmydevice_interval_summary">Minden %1$s percben</string>
   <string name="prefs_accounts">Fiókok</string>
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
   <string name="prefs_pincode">ownCloud App PIN</string>
+  <string name="prefs_pincode_summary">Védje meg az ügyfeleit</string>
+  <string name="prefs_instant_upload">Az instant feltöltés engedélyezése</string>
   <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
+  <string name="auth_register">Új vagyok ehhez: %1$s</string>
+  <string name="new_session_uri_error">A megadott cím helytelen</string>
+  <string name="new_session_session_name_error">A megadott munkafolyamatnév érvénytelen</string>
   <string name="sync_string_files">Fájlok</string>
   <string name="uploader_no_file_selected">A feltöltéshez nincs fájl kiválasztva</string>
   <string name="setup_hint_username">Felhasználói név</string>
@@ -38,10 +52,14 @@
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
+  <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
+  <string name="uploader_wrn_no_content_title">Nincs feltölthető tartalom</string>
+  <string name="uploader_wrn_no_content_text">Nem lett tartalom fogadva. Nincs mit feltölteni.</string>
   <string name="uploader_info_uploading">Feltöltés</string>
   <string name="uploader_btn_create_dir_text">Könyvtár létrehozása a feltöltésekhez</string>
+  <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
   <string name="filedetails_created">Készült:</string>
@@ -53,6 +71,7 @@
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
+  <string name="common_cancel_download">Letöltés megszakítása</string>
   <string name="common_cancel_upload">Feltöltés megszakítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
@@ -63,18 +82,66 @@
   <string name="upload_chooser_title">Feltöltés innen ...</string>
   <string name="uploader_info_dirname">Mappa név</string>
   <string name="uploader_upload_in_progress_ticker">Feltöltve ...</string>
+  <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Feltöltés sikerült</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s sikeresen fel lett töltve</string>
+  <string name="uploader_upload_succeeded_content_multiple">%1$d fájl sikeresen fel lett töltve</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
+  <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
+  <string name="uploader_upload_failed_content_multiple">Hibás feltöltés: %1$d/%2$d fájl feltöltve</string>
   <string name="downloader_download_in_progress_ticker">Letöltése ...</string>
+  <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
+  <string name="downloader_download_succeeded_content">%1$s sikeresen letöltve</string>
   <string name="downloader_download_failed_ticker">A letöltés sikertelen</string>
+  <string name="downloader_download_failed_content">A letöltésből %1$s nem lett befejezve</string>
   <string name="common_choose_account">Válasz azonosítót</string>
   <string name="sync_string_contacts">Kapcsolat</string>
   <string name="sync_fail_ticker">A szinkronizálás sikertelen</string>
   <string name="use_ssl">Biztonságos kapcsolat használata</string>
+  <string name="location_no_provider">%1$s nem tudja követni az eszközét. Kérem ellenőrizze a helybeállításait</string>
   <string name="pincode_enter_pin_code">Kérlek add meg az App PIN kódját</string>
   <string name="pincode_enter_new_pin_code">Kérlek add meg az új APP PIN kódját</string>
   <string name="pincode_configure_your_pin">ownCloud App PIN kója</string>
+  <string name="pincode_reenter_your_pincode">Kérlek, hogy add meg újra az alkalmazás PIN-edet</string>
+  <string name="pincode_remove_your_pincode">Alkalmazás PIN eltávolítása</string>
+  <string name="pincode_mismatch">Az alkalmazás PIN-ek nem egyeznek meg</string>
+  <string name="pincode_wrong">Helytelen alkalmazás PIN</string>
+  <string name="pincode_removed">Alkalmazás PIN eltávolítva</string>
+  <string name="pincode_stored">Alkalmazás PIN eltárolva</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 perc</item>
+    <item>30 perc</item>
+    <item>60 perc</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_trying_to_login">Bejelentkezés...</string>
+  <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
+  <string name="auth_no_net_conn_message">Nem található hálózati kapcsolat, ellenőrizze az internetkapcsolatát, és próbálja újra.</string>
+  <string name="auth_connect_anyway">Csatlakozás mindenképpen</string>
+  <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
+  <string name="auth_nossl_plain_ok_message">Az Alkalmazás nem tudott titkos kapcsolatot kialakítani a kiszolgálóval. A titkosítatlan kapcsolat elérhető. Folytathatja vagy kiléphet.</string>
+  <string name="auth_connection_established">A kapcsolat létrejött</string>
+  <string name="auth_testing_connection">Kapcsolat tesztelése...</string>
+  <string name="auth_not_configured_title">Hibás kiszolgáló beállítása</string>
+  <string name="auth_not_configured_message">Úgy tűnik a kiszolgáló nincs megfelelően beállítva. Lépjen kapcsolatba a rendszergazdával további információkért.</string>
+  <string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
+  <string name="auth_unknown_error_message">Ismeretlen hiba történt. Értesítse a terméktámogatást csatolva a az eszközének a naplóbejegyzéseit.</string>
+  <string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
+  <string name="auth_incorrect_path_message">A program nem találta a kiszolgálót a megadott útvonalon. Kérem ellenőrizze az útvonalat, majd próbálja újra.</string>
+  <string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
+  <string name="auth_login_details">Belépési adatok</string>
+  <string name="auth_unauthorized">Érvénytelen felhasználónév / jelszó</string>
+  <string name="crashlog_message">A program összeomlott. El akar küldeni egy összeomlási jelentést?</string>
+  <string name="crashlog_send_report">Jelentés küldése</string>
+  <string name="crashlog_dont_send_report">Ne küldjön jelentést</string>
+  <string name="extensions_avail_title">Kiegészítők elérhetők!</string>
+  <string name="extensions_avail_message">Úgy tűnik a programja támogatja a haladó kiterjesztéseket. Látni akarja az androidon elérhető kiterjesztéseket?</string>
+  <string name="fd_keep_in_sync">Frissítse a fájlokat</string>
   <string name="common_share">Megosztás</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
@@ -82,5 +149,22 @@
   <string name="confirmation_remove_local">Csak helyből</string>
   <string name="confirmation_remove_remote">Törlés a szerverről</string>
   <string name="confirmation_remove_remote_and_local">Törlés a szerverről és helyből</string>
+  <string name="remove_success_msg">Az eltávolítás sikertelen</string>
+  <string name="remove_fail_msg">Az eltávolítás meghiúsult</string>
+  <string name="rename_dialog_title">Adj meg egy új nevet</string>
+  <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
   <string name="ssl_validator_title">Figyelmeztetés</string>
+  <string name="ssl_validator_btn_details_see">Részletek</string>
+  <string name="ssl_validator_btn_details_hide">Elrejtés</string>
+  <string name="ssl_validator_label_O">Szervezet:</string>
+  <string name="ssl_validator_label_OU">Szervezeti egység:</string>
+  <string name="ssl_validator_label_C">Ország:</string>
+  <string name="ssl_validator_label_ST">Állam:</string>
+  <string name="ssl_validator_label_L">Hely:</string>
+  <string name="ssl_validator_label_signature">Aláírás:</string>
+  <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
+  <string name="conflict_title">Frissítési konfliktus</string>
+  <string name="conflict_keep_both">Mindkettő megtartása</string>
+  <string name="conflict_overwrite">Felülírás</string>
+  <string name="conflict_dont_upload">Ne töltse fel</string>
 </resources>

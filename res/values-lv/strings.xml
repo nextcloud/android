@@ -2,6 +2,7 @@
 <resources>
   <string name="main_files">Faili</string>
   <string name="main_music">Mūzika</string>
+  <string name="main_calendar">Kalendārs</string>
   <string name="main_settings">Iestatījumi</string>
   <string name="actionbar_upload">Augšuplādet</string>
   <string name="actionbar_upload_files">Faili</string>
@@ -14,6 +15,7 @@
   <string name="uploader_btn_upload_text">Augšuplādet</string>
   <string name="filedetails_download">Lejuplādēt</string>
   <string name="common_cancel_upload">Atcelt augšuplādi</string>
+  <string name="common_cancel">Atcelt</string>
   <string name="common_error">Kļūme</string>
   <string name="common_share">Līdzdalīt</string>
   <string name="common_rename">Pārdēvēt</string>

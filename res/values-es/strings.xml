@@ -103,7 +103,7 @@
   <string name="downloader_download_failed_content">La descarga de %1$s no se pudo completar</string>
   <string name="common_choose_account">Elige una cuenta</string>
   <string name="sync_string_contacts">Contactos</string>
-  <string name="sync_fail_ticker">Fallór la sincronización</string>
+  <string name="sync_fail_ticker">Falló la sincronización</string>
   <string name="sync_fail_content">La sincronización de %1$s s no se pudo completar</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
   <string name="sync_conflicts_in_favourites_content">Falló la sincronización de contenidos de %1$d ficheros</string>

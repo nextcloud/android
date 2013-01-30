@@ -195,11 +195,15 @@
   <string name="ssl_validator_not_saved">Ziurtagiria ezin da gorde</string>
   <string name="ssl_validator_btn_details_see">Xehetasunak</string>
   <string name="ssl_validator_btn_details_hide">Ezkutatu</string>
+  <string name="ssl_validator_label_subject">Honi bidalita:</string>
+  <string name="ssl_validator_label_issuer">Honek bidalita:</string>
   <string name="ssl_validator_label_CN">Izen arrunta:</string>
   <string name="ssl_validator_label_O">Erakundea:</string>
+  <string name="ssl_validator_label_OU">Erakunde atala:</string>
   <string name="ssl_validator_label_C">Herrialdea:</string>
   <string name="ssl_validator_label_ST">Estatua:</string>
   <string name="ssl_validator_label_L">Kokapena:</string>
+  <string name="ssl_validator_label_validity">Baliozkotasuna:</string>
   <string name="ssl_validator_label_signature">Sinadura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmoa:</string>
   <string name="text_placeholder">Hau leku-marka da</string>
