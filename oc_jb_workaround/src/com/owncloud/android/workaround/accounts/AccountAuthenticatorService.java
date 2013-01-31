@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+//import android.util.Log;
 
 public class AccountAuthenticatorService extends Service {
 
@@ -35,6 +36,10 @@ public class AccountAuthenticatorService extends Service {
     
     public static class AccountAuthenticator extends AbstractAccountAuthenticator {
 
+        public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
+        public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
+        public static final String KEY_LOGIN_OPTIONS = "loginOptions";
+    	
     	public AccountAuthenticator(Context context) {
             super(context);
         }
@@ -44,7 +49,24 @@ public class AccountAuthenticatorService extends Service {
                 String accountType, String authTokenType,
                 String[] requiredFeatures, Bundle options)
                 throws NetworkErrorException {
-            return getCommonResultBundle();
+        	//Log.e("WORKAROUND", "Yes, WORKAROUND takes the control here");
+            final Intent intent = new Intent("com.owncloud.android.workaround.accounts.CREATE");
+            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
+                    response);
+            intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
+            intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
+            intent.putExtra(KEY_LOGIN_OPTIONS, options);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+
+            final Bundle bundle = new Bundle();
+            bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+            return bundle;
+            //return getCommonResultBundle();
         }
 
         
@@ -89,7 +111,7 @@ public class AccountAuthenticatorService extends Service {
         public Bundle getAccountRemovalAllowed(
                 AccountAuthenticatorResponse response, Account account)
                 throws NetworkErrorException {
-            return getCommonResultBundle();
+            return super.getAccountRemovalAllowed(response, account);
         }
 
         private Bundle getCommonResultBundle() {

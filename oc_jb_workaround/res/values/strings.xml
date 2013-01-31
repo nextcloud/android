@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">ownCloud Jelly Bean Workaround for lost credentials</string>
-
+    <string name="oc_app_name">ownCloud</string>
+    
 </resources>

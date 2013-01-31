@@ -174,7 +174,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public Bundle hasFeatures(AccountAuthenticatorResponse response,
             Account account, String[] features) throws NetworkErrorException {
         final Bundle result = new Bundle();
-        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, false);
+        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, true);
         return result;
     }
 
