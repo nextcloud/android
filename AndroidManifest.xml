@@ -33,7 +33,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="13" />
@@ -127,8 +128,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".files.services.FileDownloader" >
-        </service>
+        <service android:name=".files.services.FileDownloader" />
+        <service android:name=".files.services.FileUploader" />
+        <service android:name=".media.MediaService" />
 
         <activity android:name=".ui.activity.FileDetailActivity" />
         <activity android:name=".ui.activity.PinCodeActivity" />
@@ -139,8 +141,6 @@
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
-        <service android:name=".files.services.FileUploader" >
-        </service>
         <service android:name=".files.services.InstantUploadService" />
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>

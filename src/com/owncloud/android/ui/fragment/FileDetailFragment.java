@@ -76,6 +76,7 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.media.MediaService;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -360,49 +361,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }
             case R.id.fdOpenBtn: {
-                String storagePath = mFile.getStoragePath();
-                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-                try {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    
-                } catch (Throwable t) {
-                    Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
-                    boolean toastIt = true; 
-                    String mimeType = "";
-                    try {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                        if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
-                            if (mimeType != null) {
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                            } else {
-                                // desperate try
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
-                            }
-                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                            startActivity(i);
-                            toastIt = false;
-                        }
-                        
-                    } catch (IndexOutOfBoundsException e) {
-                        Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                        
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                        
-                    } catch (Throwable th) {
-                        Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                        
-                    } finally {
-                        if (toastIt) {
-                            Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    
-                }
+                openFile();
                 break;
             }
             default:
@@ -415,7 +374,64 @@ public class FileDetailFragment extends SherlockFragment implements
         }*/
     }
     
-    
+    /**
+     * Opens mFile.
+     */
+    private void openFile() {
+        
+        Intent i = new Intent(getActivity(), MediaService.class);
+        i.putExtra(MediaService.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(MediaService.EXTRA_FILE, mFile);
+        i.setAction(MediaService.ACTION_PLAY_FILE);
+        getActivity().startService(i);
+
+        /*
+        String storagePath = mFile.getStoragePath();
+        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+        try {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
+            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivity(i);
+            
+        } catch (Throwable t) {
+            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+            boolean toastIt = true; 
+            String mimeType = "";
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
+                    if (mimeType != null) {
+                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                    } else {
+                        // desperate try
+                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*-/*");
+                    }
+                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivity(i);
+                    toastIt = false;
+                }
+                
+            } catch (IndexOutOfBoundsException e) {
+                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                
+            } catch (ActivityNotFoundException e) {
+                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                
+            } catch (Throwable th) {
+                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                
+            } finally {
+                if (toastIt) {
+                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            
+        }*/
+    }
+
+
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FTAG_CONFIRMATION)) {

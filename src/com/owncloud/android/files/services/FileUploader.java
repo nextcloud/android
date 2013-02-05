@@ -556,6 +556,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * 
      * @param upload    Upload operation starting.
      */
+    @SuppressWarnings("deprecation")
     private void notifyUploadStart(UploadFileOperation upload) {
         /// create status notification with a progress bar
         mLastPercent = 0;

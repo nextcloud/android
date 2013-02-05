@@ -142,6 +142,12 @@
     <string name="pincode_removed">App PIN removed</string>
     <string name="pincode_stored">App PIN stored</string>
     
+    <string name="media_state_playing">"%1$s (playing)"</string>
+    <string name="media_state_loading">"%1$s (loading)"</string>
+    <string name="media_event_done">"%1$s playback finished"</string>
+    <string name="media_err_nothing_to_play">No media file found</string>
+    <string name="media_err_not_in_owncloud">File not in a valid account</string>
+    
     <string-array name="prefs_trackmydevice_intervall_keys">
     	<item>15 Minutes</item>
     	<item>30 Minutes</item>
