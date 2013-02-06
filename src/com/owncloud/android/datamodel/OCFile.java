@@ -454,4 +454,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return 0;
     }
 
+    public boolean isAudio() {
+        return (mMimeType.startsWith("audio/"));
+    }
+
 }

@@ -1015,7 +1015,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     @Override
     public void onFileClick(OCFile file) {
-        
+
         // If we are on a large device -> update fragment
         if (mDualPane) {
             // buttons in the details view are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'

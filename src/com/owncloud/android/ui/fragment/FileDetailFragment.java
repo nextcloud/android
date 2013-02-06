@@ -28,6 +28,7 @@ import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
@@ -39,9 +40,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -50,18 +53,22 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +84,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.media.MediaService;
+import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -104,7 +112,8 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  */
 public class FileDetailFragment extends SherlockFragment implements
-        OnClickListener, ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
+        OnClickListener, OnTouchListener, 
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -124,6 +133,9 @@ public class FileDetailFragment extends SherlockFragment implements
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
     private DialogFragment mCurrentDialog;
+    private MediaServiceBinder mMediaServiceBinder = null;
+    private MediaController mMediaController = null;
+    private MediaServiceConnection mMediaServiceConnection = null;
 
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
@@ -192,6 +204,7 @@ public class FileDetailFragment extends SherlockFragment implements
             mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
             //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
             mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
+            mPreview.setOnTouchListener(this);
         }
         
         updateFileDetails(false);
@@ -234,6 +247,13 @@ public class FileDetailFragment extends SherlockFragment implements
         Log.i(getClass().toString(), "onSaveInstanceState() end");
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mFile != null && mFile.isAudio()) {
+            bindMediaService();
+        }
+    }
     
     @Override
     public void onResume() {
@@ -247,9 +267,14 @@ public class FileDetailFragment extends SherlockFragment implements
         mUploadFinishReceiver = new UploadFinishReceiver();
         filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
+
+        mPreview = (ImageView)mView.findViewById(R.id.fdPreview);   // this is here just because it is nullified in onPause()
         
-        mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
+        if (mMediaController != null) {
+            mMediaController.show();
+        }
     }
+
 
     @Override
     public void onPause() {
@@ -261,17 +286,33 @@ public class FileDetailFragment extends SherlockFragment implements
         getActivity().unregisterReceiver(mUploadFinishReceiver);
         mUploadFinishReceiver = null;
         
-        if (mPreview != null) {
+        if (mPreview != null) { // why?
             mPreview = null;
+        }
+        
+        if (mMediaController != null) {
+            mMediaController.hide();
         }
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mMediaServiceConnection != null) {
+            Log.d(TAG, "Unbinding from MediaService ...");
+            getActivity().unbindService(mMediaServiceConnection);
+            mMediaServiceBinder = null;
+            mMediaController = null;
+        }
+    }
+    
+    
     @Override
     public View getView() {
         return super.getView() == null ? mView : super.getView();
     }
 
-    
     
     @Override
     public void onClick(View v) {
@@ -374,18 +415,84 @@ public class FileDetailFragment extends SherlockFragment implements
         }*/
     }
     
+    
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown() && mFile.isAudio()) {
+            if (!mMediaServiceBinder.isPlaying(mFile)) {
+                Log.d(TAG, "starting playback of " + mFile.getStoragePath());
+                mMediaServiceBinder.start(mAccount, mFile);
+                // this is a patch; need to synchronize this with the onPrepared() coming from MediaPlayer in the MediaService
+                mMediaController.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMediaController.show(0);
+                    }
+                } , 300);
+            } else {
+                mMediaController.show(0);
+            }
+        }
+        return false;
+    }
+
+    
+    private void bindMediaService() {
+        Log.d(TAG, "Binding to MediaService...");
+        if (mMediaServiceConnection == null) {
+            mMediaServiceConnection = new MediaServiceConnection();
+        }
+        getActivity().bindService(  new Intent(getActivity(), 
+                                    MediaService.class),
+                                    mMediaServiceConnection, 
+                                    Context.BIND_AUTO_CREATE);
+    }
+    
+    /** Defines callbacks for service binding, passed to bindService() */
+    private class MediaServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                Log.d(TAG, "Media service connected");
+                mMediaServiceBinder = (MediaServiceBinder) service;
+                if (mMediaServiceBinder != null) {
+                    if (mMediaController == null) {
+                        mMediaController = new MediaController(getSherlockActivity());
+                    }
+                    mMediaController.setMediaPlayer(mMediaServiceBinder);
+                    mMediaController.setAnchorView(mPreview);
+                    mMediaController.setEnabled(true);
+                    
+                    Log.d(TAG, "Successfully bound to MediaService, MediaController ready");
+                    
+                } else {
+                    Log.e(TAG, "Unexpected response from MediaService while binding");
+                }
+            }
+        }
+        
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                Log.d(TAG, "Media service suddenly disconnected");
+                if (mMediaController != null) {
+                    mMediaController.hide();
+                    mMediaController.setMediaPlayer(null);  // TODO check this is not an error
+                    mMediaController = null;
+                }
+                mMediaServiceBinder = null;
+                mMediaServiceConnection = null;
+            }
+        }
+    }    
+
+
     /**
      * Opens mFile.
      */
     private void openFile() {
         
-        Intent i = new Intent(getActivity(), MediaService.class);
-        i.putExtra(MediaService.EXTRA_ACCOUNT, mAccount);
-        i.putExtra(MediaService.EXTRA_FILE, mFile);
-        i.setAction(MediaService.ACTION_PLAY_FILE);
-        getActivity().startService(i);
-
-        /*
         String storagePath = mFile.getStoragePath();
         String encodedStoragePath = WebdavUtils.encodePath(storagePath);
         try {
@@ -406,7 +513,7 @@ public class FileDetailFragment extends SherlockFragment implements
                         i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
                     } else {
                         // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*-/*");
+                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
                     }
                     i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     startActivity(i);
@@ -428,7 +535,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 }
             }
             
-        }*/
+        }
     }
 
 
@@ -512,6 +619,8 @@ public class FileDetailFragment extends SherlockFragment implements
      *
      * TODO Remove parameter when the transferring state of files is kept in database. 
      * 
+     * TODO REFACTORING! this method called 5 times before every time the fragment is shown! 
+     * 
      * @param transferring      Flag signaling if the file should be considered as downloading or uploading, 
      *                          although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and 
      *                          {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
@@ -519,7 +628,7 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     public void updateFileDetails(boolean transferring) {
 
-        if (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment) {
+        if (readyToShow()) {
             
             // set file details
             setFilename(mFile.getFileName());
@@ -559,6 +668,17 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     
+    /**
+     * Checks if the fragment is ready to show details of a OCFile
+     *  
+     * @return  'True' when the fragment is ready to show details of a file
+     */
+    private boolean readyToShow() {
+        return (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment);        
+    }
+
+
+
     /**
      * Updates the filename in view
      * @param filename to set
@@ -1073,5 +1193,6 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
+
 
 }

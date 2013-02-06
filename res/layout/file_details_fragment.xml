@@ -57,7 +57,7 @@
                 android:id="@+id/fdDetailsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fdFileHeaderContainer" >
+                android:layout_below="@id/fdFileHeaderContainer" >
 
                 <RelativeLayout
                     android:id="@+id/fdLabelContainer"

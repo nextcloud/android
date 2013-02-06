@@ -37,10 +37,8 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 
 import com.owncloud.android.AccountUtils;
@@ -156,6 +154,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     
     private OCFile mFile;
     private Account mAccount;
+
+    private IBinder mBinder;
     
     
 
@@ -173,7 +173,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-
+        mBinder = new MediaServiceBinder(this);
     }
 
     
@@ -206,6 +206,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /**
      * Processes a request to play a media file received as a parameter
      * 
+     * TODO If a new request is received when a file is being prepared, it is ignored. Is this what we want? 
+     * 
      * @param intent    Intent received in the request with the data to identify the file to play. 
      */
     private void processPlayFileRequest(Intent intent) {
@@ -215,14 +217,13 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             tryToGetAudioFocus();
             playMedia();
         }
-        // TODO think what happens if mState == State.PREPARING
     }
 
     
     /**
      * Processes a request to play a media file.
      */
-    void processPlayRequest() {
+    protected void processPlayRequest() {
         // request audio focus
         tryToGetAudioFocus();
 
@@ -245,7 +246,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * Makes sure the media player exists and has been reset. This will create the media player
      * if needed, or reset the existing media player if one already exists.
      */
-    void createMediaPlayerIfNeeded() {
+    protected void createMediaPlayerIfNeeded() {
         if (mPlayer == null) {
             mPlayer = new MediaPlayer();
 
@@ -277,7 +278,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /**
      * Processes a request to pause the current playback 
      */
-    private void processPauseRequest() {
+    protected void processPauseRequest() {
         if (mState == State.PLAYING) {
             mState = State.PAUSED;
             mPlayer.pause();
@@ -310,9 +311,12 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * @param   force       When 'true', the playback is stopped no matter the value of mState
      */
     void processStopRequest(boolean force) {
-        if (mState == State.PLAYING || mState == State.PAUSED || force) {
+        if (mState == State.PLAYING || mState == State.PAUSED || mState == State.STOPPED || force) {
             mState = State.STOPPED;
 
+            mFile = null;
+            mAccount = null;
+            
             releaseResources(true);
             giveUpAudioFocus();
             stopSelf();     // service is no longer necessary
@@ -645,10 +649,59 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     }
     
 
+    /**
+     * Provides a binder object that clients can use to perform operations on the MediaPlayer managed by the MediaService. 
+     */
     @Override
-    public IBinder onBind(Intent arg0) {
-        // TODO provide a binding API? may we use a service to play VIDEO?
-        return null;
+    public IBinder onBind(Intent arg) {
+        return mBinder;
+    }
+    
+    
+    /**
+     * Called when ALL the bound clients were onbound.
+     * 
+     * The service is destroyed if playback stopped or paused
+     */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        if (mState == State.PAUSED || mState == State.STOPPED)  {
+            Log.d(TAG, "Stopping service due to unbind in pause");
+            processStopRequest(false);
+        }
+        return false;   // not accepting rebinding (default behaviour)
+    }
+
+
+    /**
+     * Accesses the current MediaPlayer instance in the service.
+     * 
+     * To be handled carefully. Visibility is protected to be accessed only 
+     * 
+     * @return Current MediaPlayer instance handled by MediaService.
+     */
+    protected MediaPlayer getPlayer() {
+        return mPlayer;
+    }
+
+
+    /**
+     * Accesses the current OCFile loaded in the service.
+     * 
+     * @return  The current OCFile loaded in the service.
+     */
+    protected OCFile getCurrentFile() {
+        return mFile;
+    }
+
+    
+    /**
+     * Accesses the current {@link State} of the MediaService.
+     * 
+     * @return  The current {@link State} of the MediaService.
+     */
+    public State getState() {
+        return mState;
     }
 
 }
