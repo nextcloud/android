@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -27,6 +27,11 @@ import android.os.StatFs;
 import com.owncloud.android.datamodel.OCFile;
 
 
+/**
+ * Static methods to help in access to local file system.
+ * 
+ * @author David A. Velasco
+ */
 public class FileStorageUtils {
     
     public static final String getSavePath(String accountName) {

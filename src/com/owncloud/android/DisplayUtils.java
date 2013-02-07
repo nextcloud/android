@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (2) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
