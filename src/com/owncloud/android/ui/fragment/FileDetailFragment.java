@@ -71,6 +71,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.AccountUtils;
@@ -97,6 +98,7 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.ui.activity.VideoActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -133,6 +135,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
     private DialogFragment mCurrentDialog;
+    
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaController mMediaController = null;
     private MediaServiceConnection mMediaServiceConnection = null;
@@ -418,25 +421,56 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown() && mFile.isAudio()) {
-            if (!mMediaServiceBinder.isPlaying(mFile)) {
-                Log.d(TAG, "starting playback of " + mFile.getStoragePath());
-                mMediaServiceBinder.start(mAccount, mFile);
-                // this is a patch; need to synchronize this with the onPrepared() coming from MediaPlayer in the MediaService
-                mMediaController.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMediaController.show(0);
-                    }
-                } , 300);
-            } else {
-                mMediaController.show(0);
+        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown()) {
+            if (mFile.isAudio()) {
+                if (!mMediaServiceBinder.isPlaying(mFile)) {
+                    Log.d(TAG, "starting playback of " + mFile.getStoragePath());
+                    mMediaServiceBinder.start(mAccount, mFile);
+                    // this is a patch; need to synchronize this with the onPrepared() coming from MediaPlayer in the MediaService
+                    mMediaController.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMediaController.show(0);
+                        }
+                    } , 300);
+                } else {
+                    mMediaController.show(0);
+                }
+                
+            } else if (mFile.isVideo()) {
+                startVideoActivity();
             }
         }
         return false;
     }
 
     
+    private void startVideoActivity() {
+        Intent i = new Intent(getActivity(), VideoActivity.class);
+        i.putExtra(VideoActivity.EXTRA_PATH, mFile.getStoragePath());
+        startActivity(i);
+        
+        // TODO THROW AN ACTIVTIY JUST FOR PREVIEW VIDEO
+        /*
+        if (mMediaController == null) {
+            mMediaController = new MediaController(getActivity());
+            mMediaController.setAnchorView(mVideoPreview);
+            //mMediaController.setEnabled(true);
+        }
+        //mMediaController.setMediaPlayer(mMediaServiceBinder);
+        if (!mVideoPreviewIsLoaded) {
+            mVideoPreviewIsLoaded = true;
+            mMediaController.setMediaPlayer(mVideoPreview);
+            mVideoPreview.setMediaController(mMediaController);
+            mVideoPreview.setVideoPath(mFile.getStoragePath());
+            mVideoPreview.start();
+            //mMediaController.show(0);
+        } else {
+            mMediaController.show(0);
+        }*/
+    }
+
+
     private void bindMediaService() {
         Log.d(TAG, "Binding to MediaService...");
         if (mMediaServiceConnection == null) {
