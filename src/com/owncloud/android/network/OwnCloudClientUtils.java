@@ -140,32 +140,6 @@ public class OwnCloudClientUtils {
     
     
     /**
-     * Allows or disallows self-signed certificates in ownCloud servers to reach
-     * 
-     * @param allow     'True' to allow, 'false' to disallow
-     */
-    public static void allowSelfsignedCertificates(boolean allow) {
-        Protocol pr = null;
-        try {
-            pr = Protocol.getProtocol("https");
-            if (pr != null && mDefaultHttpsProtocol == null) {
-            	mDefaultHttpsProtocol = pr;
-            }
-        } catch (IllegalStateException e) {
-            // nothing to do here; really
-        }
-        boolean isAllowed = (pr != null && pr.getSocketFactory() instanceof EasySSLSocketFactory);
-        if (allow && !isAllowed) {
-            Protocol.registerProtocol("https", new Protocol("https", new EasySSLSocketFactory(), 443));
-        } else if (!allow && isAllowed) {
-        	if (mDefaultHttpsProtocol != null) {
-        		Protocol.registerProtocol("https", mDefaultHttpsProtocol);
-        	}
-        }
-    }
-
-    
-    /**
      * Registers or unregisters the proper components for advanced SSL handling.
      * @throws IOException 
      */
