@@ -19,7 +19,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
+    
     <color name="filelist_icon_backgorund">#DDDDDD</color>
+    <color name="owncloud_blue_bright">#00ddff</color>
     <color name="owncloud_white">#F7F7F7</color>
     
 </resources>
