@@ -421,7 +421,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown()) {
+        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null) {
             if (mFile.isAudio()) {
                 if (!mMediaServiceBinder.isPlaying(mFile)) {
                     Log.d(TAG, "starting playback of " + mFile.getStoragePath());
@@ -447,7 +447,8 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private void startVideoActivity() {
         Intent i = new Intent(getActivity(), VideoActivity.class);
-        i.putExtra(VideoActivity.EXTRA_PATH, mFile.getStoragePath());
+        i.putExtra(VideoActivity.EXTRA_FILE, mFile);
+        i.putExtra(VideoActivity.EXTRA_ACCOUNT, mAccount);
         startActivity(i);
         
         // TODO THROW AN ACTIVTIY JUST FOR PREVIEW VIDEO
@@ -480,6 +481,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                     MediaService.class),
                                     mMediaServiceConnection, 
                                     Context.BIND_AUTO_CREATE);
+            // follow the flow in MediaServiceConnection#onServiceConnected(...)
     }
     
     /** Defines callbacks for service binding, passed to bindService() */

@@ -146,6 +146,7 @@
     <string name="media_state_loading">"%1$s (loading)"</string>
     <string name="media_event_done">"%1$s playback finished"</string>
     <string name="media_err_nothing_to_play">No media file found</string>
+	<string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">File not in a valid account</string>
     
     <string-array name="prefs_trackmydevice_intervall_keys">
