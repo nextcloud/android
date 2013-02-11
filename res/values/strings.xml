@@ -142,6 +142,7 @@
     <string name="pincode_removed">App PIN removed</string>
     <string name="pincode_stored">App PIN stored</string>
     
+    <string name="media_notif_ticker">"%1$s music player"</string>
     <string name="media_state_playing">"%1$s (playing)"</string>
     <string name="media_state_loading">"%1$s (loading)"</string>
     <string name="media_event_done">"%1$s playback finished"</string>
