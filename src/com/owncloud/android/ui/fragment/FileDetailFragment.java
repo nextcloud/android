@@ -424,7 +424,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null) {
+        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown()) {
             if (mFile.isAudio()) {
                 if (!mMediaServiceBinder.isPlaying(mFile)) {
                     Log.d(TAG, "starting playback of " + mFile.getStoragePath());
