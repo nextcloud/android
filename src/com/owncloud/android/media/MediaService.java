@@ -132,6 +132,74 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private MediaController mMediaController;
     
 
+    
+    /**
+     * Helper method to get an error message suitable to show to users for errors occurred in media playback,
+     * 
+     * @param context   A context to access string resources.
+     * @param what      See {@link MediaPlayer.OnErrorListener#onError(MediaPlayer, int, int)
+     * @param extra     See {@link MediaPlayer.OnErrorListener#onError(MediaPlayer, int, int)
+     * @return          Message suitable to users.
+     */
+    public static String getMessageForMediaError(Context context, int what, int extra) {
+        int messageId;
+        
+        if (what == OC_MEDIA_ERROR) {
+            messageId = extra;
+                
+        } else if (extra == MediaPlayer.MEDIA_ERROR_UNSUPPORTED) {
+            /*  Added in API level 17
+                Bitstream is conforming to the related coding standard or file spec, but the media framework does not support the feature.
+                Constant Value: -1010 (0xfffffc0e)
+             */
+            messageId = R.string.media_err_unsupported;
+
+        } else if (extra == MediaPlayer.MEDIA_ERROR_IO) {
+            /*  Added in API level 17
+                File or network related operation errors.
+                Constant Value: -1004 (0xfffffc14) 
+             */
+            messageId = R.string.media_err_io;
+            
+        } else if (extra == MediaPlayer.MEDIA_ERROR_MALFORMED) {
+            /*  Added in API level 17
+                Bitstream is not conforming to the related coding standard or file spec.
+                Constant Value: -1007 (0xfffffc11) 
+             */
+            messageId = R.string.media_err_malformed;
+            
+        } else if (extra == MediaPlayer.MEDIA_ERROR_TIMED_OUT) {
+            /*  Added in API level 17
+                Some operation takes too long to complete, usually more than 3-5 seconds.
+                Constant Value: -110 (0xffffff92)
+            */
+            messageId = R.string.media_err_timeout;
+
+        } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
+            /*  Added in API level 3
+                The video is streamed and its container is not valid for progressive playback i.e the video's index (e.g moov atom) is not at the start of the file.
+                Constant Value: 200 (0x000000c8)
+            */
+            messageId = R.string.media_err_invalid_progressive_playback;
+                
+        } else {
+            /*  MediaPlayer.MEDIA_ERROR_UNKNOWN
+                Added in API level 1
+                Unspecified media player error.
+                Constant Value: 1 (0x00000001)
+            */
+            /*  MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+                Added in API level 1
+                Media server died. In this case, the application must release the MediaPlayer object and instantiate a new one.
+                Constant Value: 100 (0x00000064) 
+             */
+            messageId = R.string.media_err_unknown;
+        }
+        return context.getString(messageId);
+    }
+
+
+    
     /**
      * Initialize a service instance
      * 
@@ -501,26 +569,14 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         if (mMediaController != null) {
             mMediaController.hide();
         }
-        
-        int messageId;
-        if (what == OC_MEDIA_ERROR) {
-            messageId = extra;
-                
-        } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
-            messageId = R.string.media_err_invalid_progressive_playback;
-                
-        } else {
-            // what == MediaPlayer.MEDIA_ERROR_UNKNOWN or MEDIA_ERROR_SERVER_DIED
-            messageId = R.string.media_err_unknown;
-                
-        }
-        Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
+
+        String message = getMessageForMediaError(this, what, extra);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         
         processStopRequest(true);
         return true; 
     }
 
-    
     /**
      * Called by the system when another app tries to play some sound.
      * 

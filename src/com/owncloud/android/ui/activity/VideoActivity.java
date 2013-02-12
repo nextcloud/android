@@ -159,20 +159,9 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
         }
         
         if (mVideoPlayer.getWindowToken() != null) {
-            int messageId;
-            if (what == MediaService.OC_MEDIA_ERROR) {
-                messageId = extra;
-                
-            } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
-                messageId = android.R.string.VideoView_error_text_invalid_progressive_playback;
-                
-            } else {
-                // what == MediaPlayer.MEDIA_ERROR_UNKNOWN or MEDIA_ERROR_SERVER_DIED
-                messageId = android.R.string.VideoView_error_text_unknown;
-                
-            }
+            String message = MediaService.getMessageForMediaError(this, what, extra);
             new AlertDialog.Builder(this)
-                    .setMessage(messageId)
+                    .setMessage(message)
                     .setPositiveButton(android.R.string.VideoView_error_button,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
@@ -182,61 +171,6 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
                     .setCancelable(false)
                     .show();
         }
-        
-
-        /*
-        switch (what) {
-            case MediaPlayer.MEDIA_ERROR_UNKNOWN:
-                /*Added in API level 1
-                Unspecified media player error.
-                Constant Value: 1 (0x00000001)
-                *-/
-                break;
-                
-            case MediaPlayer.MEDIA_ERROR_SERVER_DIED:
-                /* Added in API level 1
-                Media server died. In this case, the application must release the MediaPlayer object and instantiate a new one.
-                Constant Value: 100 (0x00000064) *-/
-                break;
-            
-            case MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-                /* Added in API level 3
-                The video is streamed and its container is not valid for progressive playback i.e the video's index (e.g moov atom) is not at the start of the file.
-                See Also
-                MediaPlayer.OnErrorListener
-                Constant Value: 200 (0x000000c8)
-                *-/
-                break;
-
-            /// under this, seems they are values for  extra
-            case MediaPlayer.MEDIA_ERROR_UNSUPPORTED:
-                /* Added in API level 17
-                    Bitstream is conforming to the related coding standard or file spec, but the media framework does not support the feature.
-                    Constant Value: -1010 (0xfffffc0e)
-                 *-/
-                break;
-        
-            case MediaPlayer.MEDIA_ERROR_IO:
-                /* Added in API level 17
-                File or network related operation errors.
-                Constant Value: -1004 (0xfffffc14) *-/
-                break;
-
-            case MediaPlayer.MEDIA_ERROR_MALFORMED:
-                /* Added in API level 17
-                Bitstream is not conforming to the related coding standard or file spec.
-                Constant Value: -1007 (0xfffffc11) *-/
-                break;
-                
-            case MediaPlayer.MEDIA_ERROR_TIMED_OUT:
-                /*Added in API level 17
-                Some operation takes too long to complete, usually more than 3-5 seconds.
-                Constant Value: -110 (0xffffff92)
-                *-/
-                break;
-        }
-                */
-        
         return true;
     }
     

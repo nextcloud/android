@@ -149,8 +149,12 @@
     <string name="media_err_nothing_to_play">No media file found</string>
 	<string name="media_err_no_account">No account provided</string>
     <string name="media_err_not_in_owncloud">File not in a valid account</string>
-    <string name="media_err_invalid_progressive_playback">Media cannot be streamed</string>
-    <string name="media_err_unknown">Media cannot be played</string>
+    <string name="media_err_unsupported">Unsupported media codec</string>
+    <string name="media_err_io">Media file could not be read</string>
+    <string name="media_err_malformed">Media file not correctly encoded</string>
+    <string name="media_err_timeout">Too much time trying to play</string>
+    <string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
+    <string name="media_err_unknown">Media file cannot be played with the stock media player</string>
     <string name="media_err_security_ex">Security error trying to play %1$s</string>
 	<string name="media_err_io_ex">Input error trying to play %1$s</string>
 	<string name="media_err_unexpected">Unexpected error tryung to playe %1$s</string>
