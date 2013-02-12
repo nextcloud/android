@@ -169,6 +169,23 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         mService.startService(i);
     }
 
+
+    public void registerMediaController(MediaController mediaController) {
+        mService.setMediaContoller(mediaController);
+    }
+    
+    public void unregisterMediaController(MediaController mediaController) {
+        if (mService.getMediaController() == mediaController) {
+            mService.setMediaContoller(null);
+        }
+        
+    }
+
+    public boolean isInPlaybackState() {
+        MediaService.State currentState = mService.getState();
+        return (currentState == MediaService.State.PLAYING || currentState == MediaService.State.PAUSED);
+    }
+
 }
 
 

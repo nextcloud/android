@@ -97,6 +97,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.OnSwipeTouchListener;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.activity.VideoActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
@@ -111,7 +112,7 @@ import eu.alefzero.webdav.WebdavUtils;
  * This Fragment is used to display the details about a file.
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
 public class FileDetailFragment extends SherlockFragment implements
         OnClickListener, OnTouchListener, 
@@ -223,6 +224,7 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onAttach(activity);
         try {
             mContainerActivity = (ContainerActivity) activity;
+            
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getSimpleName());
         }
@@ -237,6 +239,7 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
+            mView.setOnTouchListener(new OnSwipeTouchListener(getActivity()));            
         }
     }
         
@@ -273,9 +276,6 @@ public class FileDetailFragment extends SherlockFragment implements
 
         mPreview = (ImageView)mView.findViewById(R.id.fdPreview);   // this is here just because it is nullified in onPause()
         
-        if (mMediaController != null) {
-            mMediaController.show();
-        }
     }
 
 
@@ -293,9 +293,6 @@ public class FileDetailFragment extends SherlockFragment implements
             mPreview = null;
         }
         
-        if (mMediaController != null) {
-            mMediaController.hide();
-        }
     }
 
 
@@ -304,9 +301,15 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onStop();
         if (mMediaServiceConnection != null) {
             Log.d(TAG, "Unbinding from MediaService ...");
+            if (mMediaServiceBinder != null && mMediaController != null) {
+                mMediaServiceBinder.unregisterMediaController(mMediaController);
+            }
             getActivity().unbindService(mMediaServiceConnection);
             mMediaServiceBinder = null;
-            mMediaController = null;
+            if (mMediaController != null) {
+                mMediaController.hide();
+                mMediaController = null;
+            }
         }
     }
     
@@ -427,14 +430,20 @@ public class FileDetailFragment extends SherlockFragment implements
                     Log.d(TAG, "starting playback of " + mFile.getStoragePath());
                     mMediaServiceBinder.start(mAccount, mFile);
                     // this is a patch; need to synchronize this with the onPrepared() coming from MediaPlayer in the MediaService
+                    /*
                     mMediaController.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             mMediaController.show(0);
                         }
                     } , 300);
+                    */
                 } else {
-                    mMediaController.show(0);
+                    if (mMediaController.isShowing()) {
+                        mMediaController.hide();
+                    } else {
+                        mMediaController.show(MediaService.MEDIA_CONTROL_LIFE);
+                    }
                 }
                 
             } else if (mFile.isVideo()) {
@@ -450,25 +459,6 @@ public class FileDetailFragment extends SherlockFragment implements
         i.putExtra(VideoActivity.EXTRA_FILE, mFile);
         i.putExtra(VideoActivity.EXTRA_ACCOUNT, mAccount);
         startActivity(i);
-        
-        // TODO THROW AN ACTIVTIY JUST FOR PREVIEW VIDEO
-        /*
-        if (mMediaController == null) {
-            mMediaController = new MediaController(getActivity());
-            mMediaController.setAnchorView(mVideoPreview);
-            //mMediaController.setEnabled(true);
-        }
-        //mMediaController.setMediaPlayer(mMediaServiceBinder);
-        if (!mVideoPreviewIsLoaded) {
-            mVideoPreviewIsLoaded = true;
-            mMediaController.setMediaPlayer(mVideoPreview);
-            mVideoPreview.setMediaController(mMediaController);
-            mVideoPreview.setVideoPath(mFile.getStoragePath());
-            mVideoPreview.start();
-            //mMediaController.show(0);
-        } else {
-            mMediaController.show(0);
-        }*/
     }
 
 
@@ -496,9 +486,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     if (mMediaController == null) {
                         mMediaController = new MediaController(getSherlockActivity());
                     }
-                    mMediaController.setMediaPlayer(mMediaServiceBinder);
-                    mMediaController.setAnchorView(mPreview);
-                    mMediaController.setEnabled(true);
+                    prepareMediaController();
                     
                     Log.d(TAG, "Successfully bound to MediaService, MediaController ready");
                     
@@ -508,13 +496,20 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
         
+        private void prepareMediaController() {
+            mMediaServiceBinder.registerMediaController(mMediaController);
+            mMediaController.setMediaPlayer(mMediaServiceBinder);
+            mMediaController.setAnchorView(getView());
+            mMediaController.setEnabled(mMediaServiceBinder.isInPlaybackState());
+        }
+
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log.d(TAG, "Media service suddenly disconnected");
+                Log.e(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.hide();
-                    mMediaController.setMediaPlayer(null);  // TODO check this is not an error
+                    mMediaController.setMediaPlayer(null);
                     mMediaController = null;
                 }
                 mMediaServiceBinder = null;

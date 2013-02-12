@@ -37,6 +37,7 @@ import android.widget.VideoView;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.media.MediaService;
 
 /**
  *  Activity implementing a basic video player.
@@ -55,10 +56,6 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
     /** Key to receive the ownCloud {@link Account} where the file to play is saved as an extra value in an {@link Intent} */
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     
-    // Time To keep the control panel visible when the user does not use it
-    private static final int MEDIA_CONTOL_LIFE = 5000;
-    
-    private static final int OC_MEDIA_ERROR = 0;
     private static final String TAG = null;
 
     private OCFile mFile;                       // video file to play
@@ -104,7 +101,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
                 mVideoPlayer.setVideoURI(Uri.parse(url));
                 
             } else {
-                onError(null, OC_MEDIA_ERROR, R.string.media_err_no_account);
+                onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
             }
             
             // create and prepare control panel for the user
@@ -114,7 +111,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
             mVideoPlayer.setMediaController(mMediaController);
             
         } else {
-            onError(null, OC_MEDIA_ERROR, R.string.media_err_nothing_to_play);
+            onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_nothing_to_play);
         }
     }    
     
@@ -128,8 +125,8 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
      */
     @Override
     public void onPrepared(MediaPlayer vp) {
-        mVideoPlayer.start();   // TODO maybe unnecessary
-        //mMediaController.show(5000);  // TODO maybe unnecessary; maybe not, it's up when the Surface notifies the VideoView about creation
+        mVideoPlayer.start();
+        mMediaController.show(5000);  
     }
     
     
@@ -163,7 +160,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
         
         if (mVideoPlayer.getWindowToken() != null) {
             int messageId;
-            if (what == OC_MEDIA_ERROR) {
+            if (what == MediaService.OC_MEDIA_ERROR) {
                 messageId = extra;
                 
             } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
@@ -252,7 +249,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
     @Override
     public boolean onTouchEvent (MotionEvent ev){ 
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            mMediaController.show(MEDIA_CONTOL_LIFE);
+            mMediaController.show(MediaService.MEDIA_CONTROL_LIFE);
             return true;        
         } else {
             return false;

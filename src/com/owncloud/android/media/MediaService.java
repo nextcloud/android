@@ -35,6 +35,7 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -66,13 +67,18 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /// Keys to add extras to the action
     public static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     public static final String EXTRA_ACCOUNT = MY_PACKAGE + ".extra.ACCOUNT";
+
+    /** Error code for specific messages - see regular error codes at {@link MediaPlayer} */
+    public static final int OC_MEDIA_ERROR = 0;
+
+    /** Time To keep the control panel visible when the user does not use it */
+    public static final int MEDIA_CONTROL_LIFE = 5000;
     
     /** Volume to set when audio focus is lost and ducking is allowed */
     private static final float DUCK_VOLUME = 0.1f;
 
     /** Media player instance */
     private MediaPlayer mPlayer = null;
-
     
     /** Reference to the system AudioManager */
     private AudioManager mAudioManager = null;
@@ -121,7 +127,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     /** Interface to access the service through binding */
     private IBinder mBinder;
-    
+
+    /** Control panel shown to the user to control the playback, to register through binding */
+    private MediaController mMediaController;
     
 
     /**
@@ -166,7 +174,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * @param intent    Intent received in the request with the data to identify the file to play. 
      */
     private void processPlayFileRequest(Intent intent) {
-        if (mState == State.PLAYING || mState == State.PAUSED || mState == State.STOPPED) {
+        if (mState != State.PREPARING) {
             mFile = intent.getExtras().getParcelable(EXTRA_FILE);
             mAccount = intent.getExtras().getParcelable(EXTRA_ACCOUNT);
             tryToGetAudioFocus();
@@ -237,12 +245,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * @param   force       When 'true', the playback is stopped no matter the value of mState
      */
     protected void processStopRequest(boolean force) {
-        if (mState == State.PLAYING || mState == State.PAUSED || mState == State.STOPPED || force) {
+        if (mState != State.PREPARING || force) {
             mState = State.STOPPED;
-
             mFile = null;
             mAccount = null;
-            
             releaseResources(true);
             giveUpAudioFocus();
             stopSelf();     // service is no longer necessary
@@ -374,26 +380,32 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             
         } catch (SecurityException e) {
             Log.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
-            // TODO message to the user
+            Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            processStopRequest(true);
             
         } catch (IOException e) {
             Log.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
-            // TODO message to the user
+            Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            processStopRequest(true);
             
         } catch (IllegalStateException e) {
             Log.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
-            // TODO message to the user
+            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            processStopRequest(true);
             
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
-            e.printStackTrace();
-            // TODO message to the user
+            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            processStopRequest(true);
         }
     }
 
     
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
+        if (mMediaController != null) {
+            mMediaController.hide();
+        }
         Toast.makeText(this, String.format(getString(R.string.media_event_done, mFile.getFileName())), Toast.LENGTH_LONG).show();
         processStopRequest(true);
         return;
@@ -408,7 +420,13 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public void onPrepared(MediaPlayer player) {
         mState = State.PLAYING;
         updateNotification(String.format(getString(R.string.media_state_playing), mFile.getFileName()));
+        if (mMediaController != null) {
+            mMediaController.setEnabled(true);
+        }
         configAndStartMediaPlayer();
+        if (mMediaController != null) {
+            mMediaController.show(MEDIA_CONTROL_LIFE);
+        }
     }
     
 
@@ -478,15 +496,27 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * Warns the user about the error and resets the media player.
      */
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        // TODO FOLLOW HERE!!!!!!
+        Log.e(TAG, "Error in audio playback, what = " + what + ", extra = " + extra);
         
-        Toast.makeText(getApplicationContext(), "Media player error! Resetting.",
-            Toast.LENGTH_SHORT).show();
-        Log.e(TAG, "Error: what=" + String.valueOf(what) + ", extra=" + String.valueOf(extra));
-
-        mState = State.STOPPED;
-        releaseResources(true);
-        giveUpAudioFocus();
+        if (mMediaController != null) {
+            mMediaController.hide();
+        }
+        
+        int messageId;
+        if (what == OC_MEDIA_ERROR) {
+            messageId = extra;
+                
+        } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
+            messageId = R.string.media_err_invalid_progressive_playback;
+                
+        } else {
+            // what == MediaPlayer.MEDIA_ERROR_UNKNOWN or MEDIA_ERROR_SERVER_DIED
+            messageId = R.string.media_err_unknown;
+                
+        }
+        Toast.makeText(getApplicationContext(), messageId, Toast.LENGTH_SHORT).show();
+        
+        processStopRequest(true);
         return true; 
     }
 
@@ -500,9 +530,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public void onAudioFocusChange(int focusChange) {
         if (focusChange > 0) {
             // focus gain; check AudioManager.AUDIOFOCUS_* values
-            Toast.makeText(getApplicationContext(), "gained audio focus.", Toast.LENGTH_SHORT).show();
             mAudioFocus = AudioFocus.FOCUS;
-
             // restart media player with new focus settings
             if (mState == State.PLAYING)
                 configAndStartMediaPlayer();
@@ -510,10 +538,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         } else if (focusChange < 0) {
             // focus loss; check AudioManager.AUDIOFOCUS_* values
             boolean canDuck = AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK == focusChange;
-            Toast.makeText(getApplicationContext(), "lost audio focus." + (canDuck ? "can duck" :
-                    "no duck"), Toast.LENGTH_SHORT).show();
                 mAudioFocus = canDuck ? AudioFocus.NO_FOCUS_CAN_DUCK : AudioFocus.NO_FOCUS;
-
                 // start/restart/pause media player with new focus settings
                 if (mPlayer != null && mPlayer.isPlaying())
                     configAndStartMediaPlayer();
@@ -586,6 +611,19 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      */
     protected State getState() {
         return mState;
+    }
+
+
+    protected void setMediaContoller(MediaController mediaController) {
+        if (mMediaController != null) {
+            mMediaController.hide();
+        }
+        mMediaController = mediaController;
+        
+    }
+
+    protected MediaController getMediaController() {
+        return mMediaController;
     }
 
 }
