@@ -116,7 +116,8 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class FileDetailFragment extends SherlockFragment implements
         OnClickListener, OnTouchListener, 
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener,
+        FileFragment {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -425,28 +426,7 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown()) {
-            if (mFile.isAudio()) {
-                if (!mMediaServiceBinder.isPlaying(mFile)) {
-                    Log.d(TAG, "starting playback of " + mFile.getStoragePath());
-                    mMediaServiceBinder.start(mAccount, mFile);
-                    // this is a patch; need to synchronize this with the onPrepared() coming from MediaPlayer in the MediaService
-                    /*
-                    mMediaController.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mMediaController.show(0);
-                        }
-                    } , 300);
-                    */
-                } else {
-                    if (mMediaController.isShowing()) {
-                        mMediaController.hide();
-                    } else {
-                        mMediaController.show(MediaService.MEDIA_CONTROL_LIFE);
-                    }
-                }
-                
-            } else if (mFile.isVideo()) {
+            if (mFile.isVideo()) {
                 startVideoActivity();
             }
         }
@@ -620,10 +600,9 @@ public class FileDetailFragment extends SherlockFragment implements
 
     
     /**
-     * Can be used to get the file that is currently being displayed.
-     * @return The file on the screen.
+     * {@inheritDoc}
      */
-    public OCFile getDisplayedFile(){
+    public OCFile getFile(){
         return mFile;
     }
     

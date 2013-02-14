@@ -48,6 +48,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -87,6 +88,8 @@ import com.owncloud.android.ui.dialog.ChangelogDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.FilePreviewFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 
 import com.owncloud.android.R;
@@ -289,8 +292,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (mCurrentFile != null) {
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG); // empty FileDetailFragment
+                if (FilePreviewFragment.canBePreviewed(mCurrentFile)) {
+                    transaction.replace(R.id.file_details_container, new FilePreviewFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                } else {
+                    transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                }
                 mCurrentFile = null;
+                
             } else {
                 transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment
             }
@@ -504,11 +512,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         if (mDualPane) {
             // Resets the FileDetailsFragment on Tablets so that it always displays
-            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileDetails != null && !fileDetails.isEmpty()) {
+            Fragment fileFragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fileFragment != null && (fileFragment instanceof FilePreviewFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.remove(fileDetails);
-                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG);
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment                
                 transaction.commit();
             }
         }
@@ -526,9 +533,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         if (mDualPane) {
-            FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            FileFragment fragment = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fragment != null) {
-                OCFile file = fragment.getDisplayedFile();
+                OCFile file = fragment.getFile();
                 if (file != null) {
                     outState.putParcelable(FileDetailFragment.EXTRA_FILE, file);
                 }
@@ -999,11 +1006,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         if (mDualPane) {
             // Resets the FileDetailsFragment on Tablets so that it always displays
-            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileDetails != null && !fileDetails.isEmpty()) {
+            Fragment fileFragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fileFragment != null && (fileFragment instanceof FilePreviewFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.remove(fileDetails);
-                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG);
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment                
                 transaction.commit();
             }
         }
@@ -1020,8 +1026,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane) {
             // buttons in the details view are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            if (FilePreviewFragment.canBePreviewed(file)) {
+                transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            } else {
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            }
+            //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.commit();
             
         } else {    // small or medium screen device -> new Activity
@@ -1090,9 +1100,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if (mFileList != null)
                 mFileList.listDirectory();
             if (mDualPane) {
-                FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-                if (fragment != null)
-                    fragment.updateFileDetails(false);
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (fragment != null && fragment instanceof FileDetailFragment) {
+                    ((FileDetailFragment)fragment).updateFileDetails(false);
+                }
             }
         }
 
@@ -1172,8 +1183,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             msg.show();
             OCFile removedFile = operation.getFile();
             if (mDualPane) {
-                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-                if (details != null && removedFile.equals(details.getDisplayedFile()) ) {
+                FileFragment details = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && removedFile.equals(details.getFile())) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
                     transaction.commit();
@@ -1205,9 +1216,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             if (mDualPane) {
-                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-                if (details != null && renamedFile.equals(details.getDisplayedFile()) ) {
-                    details.updateFileDetails(renamedFile, AccountUtils.getCurrentOwnCloudAccount(this));
+                FileFragment details = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
+                    ((FileDetailFragment) details).updateFileDetails(renamedFile, AccountUtils.getCurrentOwnCloudAccount(this));
                 }
             }
             if (mStorageManager.getFileById(renamedFile.getParentId()).equals(mCurrentDir)) {
@@ -1269,12 +1280,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             fileListFragment.listDirectory();
         }*/
         if (mDualPane) {
-            FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (details != null && file.equals(details.getDisplayedFile()) ) {
+            FileFragment details = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (details != null && details instanceof FileDetailFragment && file.equals(details.getFile()) ) {
                 if (downloading || uploading) {
-                    details.updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
+                    ((FileDetailFragment)details).updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
                 } else {
-                    details.updateFileDetails(downloading || uploading);
+                    ((FileDetailFragment)details).updateFileDetails(downloading || uploading);
                 }
             }
         }

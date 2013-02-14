@@ -27,6 +27,7 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FilePreviewFragment;
 
 import com.owncloud.android.R;
 
@@ -59,7 +61,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
-
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +84,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
 
-            OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-            Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-            FileDetailFragment mFileDetail = new FileDetailFragment(file, account);
-        
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment, mFileDetail, FileDetailFragment.FTAG);
-            ft.commit();
+            if (savedInstanceState == null) {
+                createChildFragment();
+            }
             
         }  else {
             backToDisplayActivity();   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
@@ -98,6 +96,23 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     }
     
     
+    private void createChildFragment() {
+        OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
+        Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
+        Fragment newFragment = null;
+        if (FilePreviewFragment.canBePreviewed(file)) {
+            newFragment = new FilePreviewFragment(file, account);
+            
+        } else {
+            newFragment = new FileDetailFragment(file, account);
+        }
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment, newFragment, FileDetailFragment.FTAG);
+        ft.commit();
+    }
+    
+
+
     /** Defines callbacks for service binding, passed to bindService() */
     private class DetailsServiceConnection implements ServiceConnection {
 
@@ -112,9 +127,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             } else {
                 return;
             }
-            FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fragment != null)
-                fragment.updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fragment != null && fragment instanceof FileDetailFragment) {
+                ((FileDetailFragment) fragment).updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
+            }
         }
 
         @Override
@@ -166,9 +182,11 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     protected void onResume() {
         
         super.onResume();
-        if (!mConfigurationChangedToLandscape) { 
-            FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            fragment.updateFileDetails(false);
+        if (!mConfigurationChangedToLandscape) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fragment != null && fragment instanceof FileDetailFragment) {
+                ((FileDetailFragment) fragment).updateFileDetails(false);
+            }
         }
     }
     

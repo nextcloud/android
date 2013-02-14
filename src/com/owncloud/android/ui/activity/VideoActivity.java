@@ -183,7 +183,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
     @Override
     public boolean onTouchEvent (MotionEvent ev){ 
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            mMediaController.show(MediaService.MEDIA_CONTROL_LIFE);
+            mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);
             return true;        
         } else {
             return false;

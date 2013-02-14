@@ -72,7 +72,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public static final int OC_MEDIA_ERROR = 0;
 
     /** Time To keep the control panel visible when the user does not use it */
-    public static final int MEDIA_CONTROL_LIFE = 5000;
+    public static final int MEDIA_CONTROL_SHORT_LIFE = 5000;
+    
+    /** Time To keep the control panel visible when the user does not use it */
+    public static final int MEDIA_CONTROL_PERMANENT = 0;
     
     /** Volume to set when audio focus is lost and ducking is allowed */
     private static final float DUCK_VOLUME = 0.1f;
@@ -496,7 +499,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         }
         configAndStartMediaPlayer();
         if (mMediaController != null) {
-            mMediaController.show(MEDIA_CONTROL_LIFE);
+            mMediaController.show(MEDIA_CONTROL_PERMANENT);
         }
     }
     
