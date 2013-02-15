@@ -308,7 +308,7 @@ public class FilePreviewFragment extends SherlockFragment implements
     
     private void prepareVideo() {
         // create helper to get more control on the playback
-        mVideoHelper = new VideoHelper(mSavedPlaybackPosition);
+        mVideoHelper = new VideoHelper();
         mVideoPreview.setOnPreparedListener(mVideoHelper);
         mVideoPreview.setOnCompletionListener(mVideoHelper);
         mVideoPreview.setOnErrorListener(mVideoHelper);
