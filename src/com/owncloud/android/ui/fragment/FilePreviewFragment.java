@@ -80,8 +80,12 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
@@ -126,19 +130,17 @@ import eu.alefzero.webdav.WebdavUtils;
  * @author David A. Velasco
  */
 public class FilePreviewFragment extends SherlockFragment implements
-        /*OnClickListener,*/ OnTouchListener , FileFragment 
-        /*ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener*/ {
+        /*OnClickListener,*/ OnTouchListener , FileFragment,  
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener /*, EditNameDialogListener*/ {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
 
-    //private FilePreviewFragment.ContainerActivity mContainerActivity;
-    
     private View mView;
     private OCFile mFile;
     private Account mAccount;
-    //private FileDataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private ImageView mImagePreview;
     public Bitmap mBitmap = null;
     private VideoView mVideoPreview;
@@ -147,9 +149,8 @@ public class FilePreviewFragment extends SherlockFragment implements
     //private DownloadFinishReceiver mDownloadFinishReceiver;
     //private UploadFinishReceiver mUploadFinishReceiver;
     
-    //private Handler mHandler;
-    //private RemoteOperation mLastRemoteOperation;
-    //private DialogFragment mCurrentDialog;
+    private Handler mHandler;
+    private RemoteOperation mLastRemoteOperation;
     
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaController mMediaController = null;
@@ -157,8 +158,6 @@ public class FilePreviewFragment extends SherlockFragment implements
     private VideoHelper mVideoHelper;
     
     private static final String TAG = FilePreviewFragment.class.getSimpleName();
-    public static final String FTAG = FilePreviewFragment.class.getSimpleName();; 
-    //public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
 
     
     /**
@@ -173,7 +172,7 @@ public class FilePreviewFragment extends SherlockFragment implements
         mFile = fileToDetail;
         mAccount = ocAccount;
         mSavedPlaybackPosition = 0;
-        //mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
+        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
     }
     
     
@@ -188,7 +187,7 @@ public class FilePreviewFragment extends SherlockFragment implements
         mFile = null;
         mAccount = null;
         mSavedPlaybackPosition = 0;
-        //mStorageManager = null;
+        mStorageManager = null;
     }
     
     
@@ -198,7 +197,8 @@ public class FilePreviewFragment extends SherlockFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mHandler = new Handler();
+        mHandler = new Handler();
+        setHasOptionsMenu(true);
     }
     
 
@@ -232,6 +232,8 @@ public class FilePreviewFragment extends SherlockFragment implements
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        if (!(activity instanceof FileFragment.ContainerActivity))
+            throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
     }
     
     
@@ -242,7 +244,7 @@ public class FilePreviewFragment extends SherlockFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FilePreviewFragment.EXTRA_FILE);
             mAccount = savedInstanceState.getParcelable(FilePreviewFragment.EXTRA_ACCOUNT);
@@ -306,6 +308,88 @@ public class FilePreviewFragment extends SherlockFragment implements
     }
     
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.file_actions_menu, menu);
+        List<Integer> toHide = new ArrayList<Integer>();    
+        
+        MenuItem item = null;
+        toHide.add(R.id.action_cancel_download);
+        toHide.add(R.id.action_cancel_upload);
+        toHide.add(R.id.action_download_file);
+        toHide.add(R.id.action_rename_file);    // by now
+
+        for (int i : toHide) {
+            item = menu.findItem(i);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+        
+    }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_open_file_with: {
+                openFile();
+                return true;
+            }
+            case R.id.action_remove_file: {
+                removeFile();
+                return true;
+            }
+            case R.id.action_see_details: {
+                seeDetails();
+                return true;
+            }
+            
+            /*
+            case R.id.action_toggle_keep_in_sync: {
+                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
+                mFile.setKeepInSync(cb.isChecked());
+                mStorageManager.saveFile(mFile);
+                
+                /// register the OCFile instance in the observer service to monitor local updates;
+                /// if necessary, the file is download 
+                Intent intent = new Intent(getActivity().getApplicationContext(),
+                                           FileObserverService.class);
+                intent.putExtra(FileObserverService.KEY_FILE_CMD,
+                           (cb.isChecked()?
+                                   FileObserverService.CMD_ADD_OBSERVED_FILE:
+                                   FileObserverService.CMD_DEL_OBSERVED_FILE));
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
+                intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
+                Log.e(TAG, "starting observer service");
+                getActivity().startService(intent);
+                
+                if (mFile.keepInSync()) {
+                    onClick(getView().findViewById(R.id.fdDownloadBtn));    // force an immediate synchronization
+                }
+                break;
+            }*/
+            default:
+                return false;
+        }
+    }
+
+    
+    private void seeDetails() {
+        stopPreview(false);
+        ((FileFragment.ContainerActivity)getActivity()).showFragmentWithDetails(mFile);        
+    }
+
+
     private void prepareVideo() {
         // create helper to get more control on the playback
         mVideoHelper = new VideoHelper();
@@ -441,6 +525,11 @@ public class FilePreviewFragment extends SherlockFragment implements
                 mMediaController = null;
             }
         }
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (mBitmap != null) {
             mBitmap.recycle();
         }
@@ -660,11 +749,15 @@ public class FilePreviewFragment extends SherlockFragment implements
 
     
 
-    /*-*
-     * Opens mFile.
-     *-/
+    /**
+     * Opens the previewed file with an external application.
+     * 
+     * TODO - improve this; instead of prioritize the actions available for the MIME type in the server, 
+     * we should get a list of available apps for MIME tpye in the server and join it with the list of 
+     * available apps for the MIME type known from the file extension, to let the user choose
+     */
     private void openFile() {
-        
+        stopPreview(true);
         String storagePath = mFile.getStoragePath();
         String encodedStoragePath = WebdavUtils.encodePath(storagePath);
         try {
@@ -708,48 +801,70 @@ public class FilePreviewFragment extends SherlockFragment implements
             }
             
         }
-    }
-    */
-
-    /*
-    @Override
-    public void onConfirmation(String callerTag) {
-        if (callerTag.equals(FTAG_CONFIRMATION)) {
-            if (mStorageManager.getFileById(mFile.getFileId()) != null) {
-                mLastRemoteOperation = new RemoveFileOperation( mFile, 
-                                                                true, 
-                                                                mStorageManager);
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                mLastRemoteOperation.execute(wc, this, mHandler);
-                
-                boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-            }
-        }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        finish();
     }
     
+    /**
+     * Starts a the removal of the previewed file.
+     * 
+     * Shows a confirmation dialog. The action continues in {@link #onConfirmation(String)} , {@link #onNeutral(String)} or {@link #onCancel(String)},
+     * depending upon the user selection in the dialog. 
+     */
+    private void removeFile() {
+        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
+                R.string.confirmation_remove_alert,
+                new String[]{mFile.getFileName()},
+                R.string.confirmation_remove_remote_and_local,
+                R.string.confirmation_remove_local,
+                R.string.common_cancel);
+        confDialog.setOnConfirmationListener(this);
+        confDialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+    }
+
+    
+    /**
+     * Performs the removal of the previewed file, both locally and in the server.
+     */
+    @Override
+    public void onConfirmation(String callerTag) {
+        if (mStorageManager.getFileById(mFile.getFileId()) != null) {   // check that the file is still there;
+            stopPreview(true);
+            mLastRemoteOperation = new RemoveFileOperation( mFile,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
+                                                            true, 
+                                                            mStorageManager);
+            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
+            mLastRemoteOperation.execute(wc, this, mHandler);
+            
+            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+        }
+    }
+    
+    
+    /**
+     * Removes the file from local storage
+     */
     @Override
     public void onNeutral(String callerTag) {
-        File f = null;
-        if (mFile.isDown() && (f = new File(mFile.getStoragePath())).exists()) {
+        // TODO this code should be made in a secondary thread,
+        if (mFile.isDown()) {   // checks it is still there
+            stopPreview(true);
+            File f = new File(mFile.getStoragePath());
             f.delete();
             mFile.setStoragePath(null);
             mStorageManager.saveFile(mFile);
-            updateFileDetails(mFile, mAccount);
+            finish();
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
     
+    /**
+     * User cancelled the removal action.
+     */
     @Override
     public void onCancel(String callerTag) {
-        Log.d(TAG, "REMOVAL CANCELED");
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        // nothing to do here
     }
-    */
+    
 
     /**
      * {@inheritDoc}
@@ -928,26 +1043,25 @@ public class FilePreviewFragment extends SherlockFragment implements
                 (file.isAudio() || file.isVideo() || file.isImage()));
     }
 
-    /*-*
+    /**
      * {@inheritDoc}
-     *-/
+     */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         if (operation.equals(mLastRemoteOperation)) {
             if (operation instanceof RemoveFileOperation) {
                 onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-                
+
+                /*
             } else if (operation instanceof RenameFileOperation) {
                 onRenameFileOperationFinish((RenameFileOperation)operation, result);
                 
             } else if (operation instanceof SynchronizeFileOperation) {
-                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);*/
             }
         }
     }
-    */
     
-    /*
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
         boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
@@ -955,15 +1069,7 @@ public class FilePreviewFragment extends SherlockFragment implements
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
             msg.show();
-            if (inDisplayActivity) {
-                // double pane
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FilePreviewFragment(null, null)); // empty FileDetailFragment
-                transaction.commit();
-                mContainerActivity.onFileStateChanged();
-            } else {
-                getActivity().finish();
-            }
+            finish();
                 
         } else {
             Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
@@ -973,7 +1079,38 @@ public class FilePreviewFragment extends SherlockFragment implements
             }
         }
     }
+
+    private void stopPreview(boolean stopAudio) {
+        if (mMediaController != null) {
+            mMediaController.hide();
+        }
+        if (mFile.isAudio() && stopAudio) {
+            mMediaServiceBinder.pause();
+            
+        } else if (mFile.isVideo()) {
+            mVideoPreview.stopPlayback();
+        }
+    }
+
+
+
+    /**
+     * Finishes the preview
+     */
+    private void finish() {
+        Activity container = getActivity();
+        if (container instanceof FileDisplayActivity) {
+            // double pane
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment
+            transaction.commit();
+            ((FileFragment.ContainerActivity)container).onFileStateChanged();
+        } else {
+            container.finish();
+        }
+    }
     
+    /*
     private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
         boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);

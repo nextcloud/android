@@ -165,19 +165,10 @@
                     android:layout_centerHorizontal="true"
                     android:text="@string/fd_keep_in_sync" />
 
-                <ImageView
-                    android:id="@+id/fdPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/fdKeepInSync"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/owncloud_logo" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/fdPreview"
+                    android:layout_below="@id/fdKeepInSync"
                     android:orientation="vertical" >
 
                     <LinearLayout

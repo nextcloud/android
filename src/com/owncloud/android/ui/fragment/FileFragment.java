@@ -21,6 +21,7 @@ package com.owncloud.android.ui.fragment;
 import android.support.v4.app.Fragment;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
 
 /**
  * Common methods for {@link Fragment}s containing {@link OCFile}s
@@ -36,4 +37,36 @@ public interface FileFragment {
      * @return The {@link OCFile} hold
      */
     public OCFile getFile();
+    
+    
+    /**
+     * Interface to implement by any Activity that includes some instance of FileFragment
+     * 
+     * @author David A. Velasco
+     */
+    public interface ContainerActivity extends TransferServiceGetter {
+
+        /**
+         * Callback method invoked when the detail fragment wants to notice its container 
+         * activity about a relevant state the file shown by the fragment.
+         * 
+         * Added to notify to FileDisplayActivity about the need of refresh the files list. 
+         * 
+         * Currently called when:
+         *  - a download is started;
+         *  - a rename is completed;
+         *  - a deletion is completed;
+         *  - the 'inSync' flag is changed;
+         */
+        public void onFileStateChanged();
+
+        /**
+         * Request the parent activity to show the details of an {@link OCFile}.
+         * 
+         * @param file      File to show details
+         */
+        public void showFragmentWithDetails(OCFile file);
+        
+    }
+    
 }

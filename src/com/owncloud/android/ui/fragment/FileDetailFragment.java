@@ -115,28 +115,26 @@ import eu.alefzero.webdav.WebdavUtils;
  * @author David A. Velasco
  */
 public class FileDetailFragment extends SherlockFragment implements
-        OnClickListener, OnTouchListener, 
+        OnClickListener, 
         ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener,
         FileFragment {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    private FileDetailFragment.ContainerActivity mContainerActivity;
+    private FileFragment.ContainerActivity mContainerActivity;
     
     private int mLayout;
     private View mView;
     private OCFile mFile;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
-    private ImageView mPreview;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
-    private DialogFragment mCurrentDialog;
     
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaController mMediaController = null;
@@ -208,8 +206,6 @@ public class FileDetailFragment extends SherlockFragment implements
             mView.findViewById(R.id.fdOpenBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
             //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
-            mPreview = (ImageView)mView.findViewById(R.id.fdPreview);
-            mPreview.setOnTouchListener(this);
         }
         
         updateFileDetails(false);
@@ -275,8 +271,6 @@ public class FileDetailFragment extends SherlockFragment implements
         filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
 
-        mPreview = (ImageView)mView.findViewById(R.id.fdPreview);   // this is here just because it is nullified in onPause()
-        
     }
 
 
@@ -289,10 +283,6 @@ public class FileDetailFragment extends SherlockFragment implements
         
         getActivity().unregisterReceiver(mUploadFinishReceiver);
         mUploadFinishReceiver = null;
-        
-        if (mPreview != null) { // why?
-            mPreview = null;
-        }
         
     }
 
@@ -404,8 +394,7 @@ public class FileDetailFragment extends SherlockFragment implements
                         mFile.isDown() ? R.string.confirmation_remove_local : -1,
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
-                mCurrentDialog = confDialog;
-                mCurrentDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+                confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 break;
             }
             case R.id.fdOpenBtn: {
@@ -422,17 +411,6 @@ public class FileDetailFragment extends SherlockFragment implements
         }*/
     }
     
-    
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (v == mPreview && event.getAction() == MotionEvent.ACTION_DOWN && mFile != null && mFile.isDown()) {
-            if (mFile.isVideo()) {
-                startVideoActivity();
-            }
-        }
-        return false;
-    }
-
     
     private void startVideoActivity() {
         Intent i = new Intent(getActivity(), VideoActivity.class);
@@ -564,8 +542,6 @@ public class FileDetailFragment extends SherlockFragment implements
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
             }
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
     
     @Override
@@ -577,15 +553,11 @@ public class FileDetailFragment extends SherlockFragment implements
             mStorageManager.saveFile(mFile);
             updateFileDetails(mFile, mAccount);
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
     
     @Override
     public void onCancel(String callerTag) {
         Log.d(TAG, "REMOVAL CANCELED");
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
     
     
@@ -661,11 +633,6 @@ public class FileDetailFragment extends SherlockFragment implements
                 setButtonsForTransferring();
                 
             } else if (mFile.isDown()) {
-                // Update preview
-                if (mFile.getMimetype().startsWith("image/")) {
-                    BitmapLoader bl = new BitmapLoader();
-                    bl.execute(new String[]{mFile.getStoragePath()});
-                }
                 
                 setButtonsForDown();
                 
@@ -818,30 +785,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     
-    /**
-     * Interface to implement by any Activity that includes some instance of FileDetailFragment
-     * 
-     * @author David A. Velasco
-     */
-    public interface ContainerActivity extends TransferServiceGetter {
-
-        /**
-         * Callback method invoked when the detail fragment wants to notice its container 
-         * activity about a relevant state the file shown by the fragment.
-         * 
-         * Added to notify to FileDisplayActivity about the need of refresh the files list. 
-         * 
-         * Currently called when:
-         *  - a download is started;
-         *  - a rename is completed;
-         *  - a deletion is completed;
-         *  - the 'inSync' flag is changed;
-         */
-        public void onFileStateChanged();
-        
-    }
-    
-
     /**
      * Once the file download has finished -> update view
      * @author Bartek Przybylski
@@ -1022,80 +965,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     
-    class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
-        @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
-		@Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap result = null;
-            if (params.length != 1) return result;
-            String storagePath = params[0];
-            try {
-
-                BitmapFactory.Options options = new Options();
-                options.inScaled = true;
-                options.inPurgeable = true;
-                options.inJustDecodeBounds = true;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
-                    options.inPreferQualityOverSpeed = false;
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    options.inMutable = false;
-                }
-
-                result = BitmapFactory.decodeFile(storagePath, options);
-                options.inJustDecodeBounds = false;
-
-                int width = options.outWidth;
-                int height = options.outHeight;
-                int scale = 1;
-                if (width >= 2048 || height >= 2048) {
-                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
-                    options.inSampleSize = scale;
-                }
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                int screenwidth;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                    display.getSize(size);
-                    screenwidth = size.x;
-                } else {
-                    screenwidth = display.getWidth();
-                }
-
-                Log.e("ASD", "W " + width + " SW " + screenwidth);
-
-                if (width > screenwidth) {
-                    scale = (int) Math.ceil((float)width / screenwidth);
-                    options.inSampleSize = scale;
-                }
-
-                result = BitmapFactory.decodeFile(storagePath, options);
-
-                Log.e("ASD", "W " + options.outWidth + " SW " + options.outHeight);
-
-            } catch (OutOfMemoryError e) {
-                result = null;
-                Log.e(TAG, "Out of memory occured for file with size " + storagePath);
-                
-            } catch (NoSuchFieldError e) {
-                result = null;
-                Log.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
-                
-            } catch (Throwable t) {
-                result = null;
-                Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
-            }
-            return result;
-        }
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            if (result != null && mPreview != null) {
-                mPreview.setImageBitmap(result);
-            }
-        }
-        
-    }
-
     /**
      * {@inheritDoc}
      */

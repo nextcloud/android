@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_sync_account" 	android:title="@string/actionbar_sync" 		android:icon="@drawable/ic_action_refresh" 				android:orderInCategory="2" />
+    <item android:id="@+id/action_create_dir" 		android:title="@string/actionbar_mkdir" 	android:icon="@drawable/ic_action_create_dir"			android:orderInCategory="2" />
+    <item android:id="@+id/action_upload" 			android:title="@string/actionbar_upload" 	android:icon="@drawable/ic_action_upload" 				android:orderInCategory="2" />
+    <item android:id="@+id/action_settings" 		android:title="@string/actionbar_settings" 	android:icon="@android:drawable/ic_menu_preferences" 	android:orderInCategory="2" />
+    <item android:id="@+id/action_about_app" 		android:title="@string/about_title" 		android:icon="@android:drawable/ic_menu_info_details" 	android:orderInCategory="2" />
+    
+    <!--  <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item>-->
+</menu>

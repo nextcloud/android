@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
@@ -137,7 +138,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     private static final String TAG = "FileDisplayActivity";
 
-    private static int[] mMenuIdentifiersToPatch = {R.id.about_app};
+    private static int[] mMenuIdentifiersToPatch = {R.id.action_about_app};
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -320,7 +321,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
-            inflater.inflate(R.menu.menu, menu);
+            inflater.inflate(R.menu.main_menu, menu);
             
             patchHiddenAccents(menu);
             
@@ -351,11 +352,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-            case R.id.createDirectoryItem: {
+            case R.id.action_create_dir: {
                 showDialog(DIALOG_CREATE_DIR);
                 break;
             }
-            case R.id.startSync: {
+            case R.id.action_sync_account: {
                 startSynchronization();
                 break;
             }
@@ -368,7 +369,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 startActivity(settingsIntent);
                 break;
             }
-            case R.id.about_app : {
+            case R.id.action_about_app: {
                 showDialog(DIALOG_ABOUT_APP);
                 break;
             }
@@ -1292,7 +1293,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
 
-    
+    @Override
+    public void showFragmentWithDetails(OCFile file) {
+        if (mDualPane) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG); 
+            transaction.commit();
+            
+        } else {
+            Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
+            startActivity(showDetailsIntent);
+        }
+    }
 
 
 }

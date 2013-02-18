@@ -40,8 +40,10 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.FilePreviewFragment;
 
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 
 /**
@@ -56,6 +58,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     public static final int DIALOG_SHORT_WAIT = 0;
 
     public static final String TAG = FileDetailActivity.class.getSimpleName();
+    
+    public static final String EXTRA_MODE = "MODE";
+    public static final int MODE_DETAILS = 0;
+    public static final int MODE_PREVIEW = 1;
     
     private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
@@ -99,8 +105,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private void createChildFragment() {
         OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
+        int mode = getIntent().getIntExtra(EXTRA_MODE, MODE_PREVIEW); 
+        
         Fragment newFragment = null;
-        if (FilePreviewFragment.canBePreviewed(file)) {
+        if (FilePreviewFragment.canBePreviewed(file) && mode == MODE_PREVIEW) {
             newFragment = new FilePreviewFragment(file, account);
             
         } else {
@@ -242,6 +250,14 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public FileUploaderBinder getFileUploaderBinder() {
         return mUploaderBinder;
+    }
+
+
+    @Override
+    public void showFragmentWithDetails(OCFile file) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment, new FileDetailFragment(file, (Account) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT)), FileDetailFragment.FTAG); 
+        transaction.commit();
     }
     
 }
