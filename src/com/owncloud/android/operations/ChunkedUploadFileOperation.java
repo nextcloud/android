@@ -28,6 +28,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.network.ProgressiveDataTransferer;
 
 import android.accounts.Account;
 import android.util.Log;
@@ -61,16 +62,16 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
             File file = new File(getStoragePath());
             raf = new RandomAccessFile(file, "r");
             channel = raf.getChannel();
-            ChunkFromFileChannelRequestEntity entity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE, file);
-            entity.addOnDatatransferProgressListeners(getDataTransferListeners());
+            mEntity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE, file);
+            ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(getDataTransferListeners());
             long offset = 0;
             String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);
             for (int chunkIndex = 0; chunkIndex < chunkCount ; chunkIndex++, offset += CHUNK_SIZE) {
                 mPutMethod = new PutMethod(uriPrefix + chunkCount + "-" + chunkIndex);
                 mPutMethod.addRequestHeader(OC_CHUNKED_HEADER, OC_CHUNKED_HEADER);
-                entity.setOffset(offset);
-                mPutMethod.setRequestEntity(entity);
+                ((ChunkFromFileChannelRequestEntity)mEntity).setOffset(offset);
+                mPutMethod.setRequestEntity(mEntity);
                 status = client.executeMethod(mPutMethod);
                 client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
                 Log.d(TAG, "Upload of " + getStoragePath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);

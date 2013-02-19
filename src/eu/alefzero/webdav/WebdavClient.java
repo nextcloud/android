@@ -165,7 +165,7 @@ public class WebdavClient extends HttpClient {
         try {
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.addOnDatatransferProgressListener(mDataTransferListener);
+            entity.addDatatransferProgressListener(mDataTransferListener);
             put.setRequestEntity(entity);
             status = executeMethod(put);
             

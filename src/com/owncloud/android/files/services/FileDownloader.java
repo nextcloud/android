@@ -49,6 +49,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.RemoteViews;
 
 import com.owncloud.android.R;
@@ -214,6 +215,55 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             }
         }
+
+        
+        /**
+         * Adds a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null) return;
+            String targetKey = buildRemoteName(account, file);
+            DownloadFileOperation target = null;
+            synchronized (mPendingDownloads) {
+                if (!file.isDirectory()) {
+                    target = mPendingDownloads.get(targetKey);
+                } else {
+                    // nothing to do for directories, right now
+                }
+            }
+            if (target != null) {
+                target.addDatatransferProgressListener(listener);
+            }
+        }
+        
+        
+        /**
+         * Removes a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null) return;
+            String targetKey = buildRemoteName(account, file);
+            DownloadFileOperation target = null;
+            synchronized (mPendingDownloads) {
+                if (!file.isDirectory()) {
+                    target = mPendingDownloads.get(targetKey);
+                } else {
+                    // nothing to do for directories, right now
+                }
+            }
+            if (target != null) {
+                target.removeDatatransferProgressListener(listener);
+            }
+        }
+        
     }
     
     

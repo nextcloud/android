@@ -34,6 +34,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
+import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -340,6 +341,32 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
         }
+
+
+        /**
+         * Adds a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null) return;
+            String targetKey = buildRemoteName(account, file);
+            UploadFileOperation target = null;
+            synchronized (mPendingUploads) {
+                if (!file.isDirectory()) {
+                    target = mPendingUploads.get(targetKey);
+                } else {
+                    // nothing to do for directories, right now
+                }
+            }
+            if (target != null) {
+                target.addDatatransferProgressListener(listener);
+            }
+        }
+        
+        
     }
     
     

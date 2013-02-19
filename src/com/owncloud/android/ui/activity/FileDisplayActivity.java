@@ -293,7 +293,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (mCurrentFile != null) {
-                if (FilePreviewFragment.canBePreviewed(mCurrentFile)) {
+                if (mCurrentFile.isDown() && FilePreviewFragment.canBePreviewed(mCurrentFile)) {
                     transaction.replace(R.id.file_details_container, new FilePreviewFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
                 } else {
                     transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
@@ -1027,7 +1027,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane) {
             // buttons in the details view are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (FilePreviewFragment.canBePreviewed(file)) {
+            if (file != null && file.isDown() && FilePreviewFragment.canBePreviewed(file)) {
                 transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             } else {
                 transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);

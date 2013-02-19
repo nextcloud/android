@@ -31,6 +31,8 @@ import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import com.owncloud.android.network.ProgressiveDataTransferer;
+
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import android.util.Log;
@@ -40,7 +42,7 @@ import android.util.Log;
  * A RequestEntity that represents a File.
  * 
  */
-public class FileRequestEntity implements RequestEntity {
+public class FileRequestEntity implements RequestEntity, ProgressiveDataTransferer {
 
     final File mFile;
     final String mContentType;
@@ -69,17 +71,26 @@ public class FileRequestEntity implements RequestEntity {
     public boolean isRepeatable() {
         return true;
     }
-    
-    public void addOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListeners.add(listener);
+
+    @Override
+    public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
     }
     
-    public void addOnDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
-        mDataTransferListeners.addAll(listeners);
+    @Override
+    public void addDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.addAll(listeners);
+        }
     }
     
-    public void removeOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListeners.remove(listener);
+    @Override
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
     }
     
     
@@ -102,9 +113,11 @@ public class FileRequestEntity implements RequestEntity {
                 out.write(tmp.array(), 0, readResult);
                 tmp.clear();
                 transferred += readResult;
-                it = mDataTransferListeners.iterator();
-                while (it.hasNext()) {
-                    it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
+                synchronized (mDataTransferListeners) {
+                    it = mDataTransferListeners.iterator();
+                    while (it.hasNext()) {
+                        it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
+                    }
                 }
             }
             

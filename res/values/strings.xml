@@ -259,7 +259,11 @@
 	<string name="ssl_validator_label_signature">Signature:</string>
 	<string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
 			
-    <string name="text_placeholder">This is a placeholder</string>
+    <string name="placeholder_sentence">This is a placeholder</string>
+    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_filetype">PNG Image</string>
+    <string name="placeholder_filesize">389 KB</string>
+    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
 	<string name="instant_upload_path">/InstantUpload</string>

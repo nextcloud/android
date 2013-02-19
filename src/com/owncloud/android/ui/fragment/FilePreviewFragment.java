@@ -1039,8 +1039,7 @@ public class FilePreviewFragment extends SherlockFragment implements
      * @return          'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && file.isDown() && 
-                (file.isAudio() || file.isVideo() || file.isImage()));
+        return (file != null && (file.isAudio() || file.isVideo() || file.isImage()));
     }
 
     /**

@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.fragment;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +66,12 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -105,6 +108,8 @@ import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
+
+import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
@@ -731,9 +736,23 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(false);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(false);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(false);
+            
+            // show the progress bar for the transfer
+            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
+            TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+            progressText.setVisibility(View.VISIBLE);
+            FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+            FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
+                progressText.setText(R.string.downloader_download_in_progress_ticker);
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile)) {
+                progressText.setText(R.string.uploader_upload_in_progress_ticker);
+            }
         }
     }
     
+
     /**
      * Enables or disables buttons for a file locally available 
      */
@@ -746,6 +765,10 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
+            
+            // hides the progress bar
+            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -761,6 +784,10 @@ public class FileDetailFragment extends SherlockFragment implements
             ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
             ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
+            
+            // hides the progress bar
+            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+            progressBar.setVisibility(View.GONE);
         }
     }
     
@@ -1070,6 +1097,16 @@ public class FileDetailFragment extends SherlockFragment implements
                     setButtonsForRemote();
                 }
             }
+        }
+    }
+
+
+    public ProgressBar getProgressBar() {
+        View v = getView();
+        if (v != null) {
+            return (ProgressBar) v.findViewById(R.id.fdProgressBar);
+        } else {
+            return null;
         }
     }
 

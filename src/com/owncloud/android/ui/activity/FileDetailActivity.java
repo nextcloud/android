@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.ui.activity;
 
+import java.lang.ref.WeakReference;
+
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -30,6 +32,7 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -40,18 +43,18 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.FilePreviewFragment;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
+
+import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 /**
  * This activity displays the details of a file like its name, its size and so
  * on.
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
 public class FileDetailActivity extends SherlockFragmentActivity implements FileDetailFragment.ContainerActivity {
     
@@ -62,11 +65,16 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     public static final String EXTRA_MODE = "MODE";
     public static final int MODE_DETAILS = 0;
     public static final int MODE_PREVIEW = 1;
+
+    private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     
     private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
+    private boolean mWaitingToPreview;
+
+    public ProgressListener mProgressListener;
     
 
     @Override
@@ -91,7 +99,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             actionBar.setDisplayHomeAsUpEnabled(true);
 
             if (savedInstanceState == null) {
+                mWaitingToPreview = false;
                 createChildFragment();
+            } else {
+                mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
             }
             
         }  else {
@@ -100,8 +111,11 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
         
     }
-    
-    
+
+    /**
+     * Creates the proper fragment depending upon the state of the handled {@link OCFile} and
+     * the requested {@link Intent}.
+     */
     private void createChildFragment() {
         OCFile file = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
@@ -109,7 +123,13 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
         Fragment newFragment = null;
         if (FilePreviewFragment.canBePreviewed(file) && mode == MODE_PREVIEW) {
-            newFragment = new FilePreviewFragment(file, account);
+            if (file.isDown()) {
+                newFragment = new FilePreviewFragment(file, account);
+            
+            } else {
+                newFragment = new FileDetailFragment(file, account);
+                mWaitingToPreview = true;
+            }
             
         } else {
             newFragment = new FileDetailFragment(file, account);
@@ -120,24 +140,48 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     }
     
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
+    }
+
 
     /** Defines callbacks for service binding, passed to bindService() */
     private class DetailsServiceConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            FileDetailFragment detailsFragment = (FileDetailFragment) fragment;
+                
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
                 Log.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
+                if (detailsFragment != null) {
+                    mProgressListener = new ProgressListener(detailsFragment.getProgressBar());
+                    mDownloaderBinder.addDatatransferProgressListener(
+                            mProgressListener, 
+                            (Account) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT), 
+                            (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE)
+                            );
+                }
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
                 Log.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
+                if (detailsFragment != null) {
+                    mProgressListener = new ProgressListener(detailsFragment.getProgressBar());
+                    mUploaderBinder.addDatatransferProgressListener(
+                            mProgressListener, 
+                            (Account) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT), 
+                            (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE)
+                            );
+                }
             } else {
                 return;
             }
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fragment != null && fragment instanceof FileDetailFragment) {
-                ((FileDetailFragment) fragment).updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
+            
+            if (detailsFragment != null) {
+                detailsFragment.updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
             }
         }
 
@@ -152,6 +196,39 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             }
         }
     };    
+    
+    
+    /**
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
+     * 
+     * @author David A. Velasco
+     */
+    private class ProgressListener implements OnDatatransferProgressListener {
+        int mLastPercent = 0;
+        WeakReference<ProgressBar> mProgressBar = null;
+        
+        ProgressListener(ProgressBar progressBar) {
+            mProgressBar = new WeakReference<ProgressBar>(progressBar);
+        }
+        
+        @Override
+        public void onTransferProgress(long progressRate) {
+            // old method, nothing here
+        };
+
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
+            if (percent != mLastPercent) {
+                ProgressBar pb = mProgressBar.get();
+                if (pb != null) {
+                    pb.setProgress(percent);
+                }
+            }
+            mLastPercent = percent;
+        }
+
+    };
     
 
     @Override
