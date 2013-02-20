@@ -365,7 +365,6 @@ public class FileDetailFragment extends SherlockFragment implements
                     // update ui 
                     boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                     getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                    setButtonsForTransferring(); // disable button immediately, although the synchronization does not result in a file transference
                     
                 }
                 break;
@@ -776,6 +775,8 @@ public class FileDetailFragment extends SherlockFragment implements
             // hides the progress bar
             ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
             progressBar.setVisibility(View.GONE);
+            TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+            progressText.setVisibility(View.GONE);
         }
     }
 
@@ -795,6 +796,8 @@ public class FileDetailFragment extends SherlockFragment implements
             // hides the progress bar
             ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
             progressBar.setVisibility(View.GONE);
+            TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+            progressText.setVisibility(View.GONE);
         }
     }
     
@@ -1092,6 +1095,7 @@ public class FileDetailFragment extends SherlockFragment implements
             
         } else {
             if (operation.transferWasRequested()) {
+                setButtonsForTransferring();
                 mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
                                                             // checking the service to see if the file is downloading results in FALSE
             } else {
