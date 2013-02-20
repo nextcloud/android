@@ -253,11 +253,9 @@ public class FileDetailFragment extends SherlockFragment implements
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.i(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mFile);
         outState.putParcelable(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
-        Log.i(getClass().toString(), "onSaveInstanceState() end");
     }
 
     @Override
@@ -294,10 +292,9 @@ public class FileDetailFragment extends SherlockFragment implements
         
         getActivity().unregisterReceiver(mUploadFinishReceiver);
         mUploadFinishReceiver = null;
-        
     }
 
-
+    
     @Override
     public void onStop() {
         super.onStop();
@@ -384,7 +381,6 @@ public class FileDetailFragment extends SherlockFragment implements
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
                 intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
                 intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
-                Log.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 
                 if (mFile.keepInSync()) {

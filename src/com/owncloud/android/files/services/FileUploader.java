@@ -649,6 +649,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
+        showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
         
@@ -702,6 +703,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
+            showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
             showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
             
