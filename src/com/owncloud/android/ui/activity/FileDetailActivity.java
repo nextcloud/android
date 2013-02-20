@@ -73,8 +73,6 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
     private boolean mWaitingToPreview;
-
-    public ProgressListener mProgressListener;
     
 
     @Override
@@ -151,36 +149,21 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            FileDetailFragment detailsFragment = (fragment instanceof FileDetailFragment) ? (FileDetailFragment) fragment : null;
                 
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
                 Log.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
-                if (detailsFragment != null) {
-                    mProgressListener = new ProgressListener(detailsFragment.getProgressBar());
-                    mDownloaderBinder.addDatatransferProgressListener(
-                            mProgressListener, 
-                            (Account) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT), 
-                            (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE)
-                            );
-                }
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
                 Log.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
-                if (detailsFragment != null) {
-                    mProgressListener = new ProgressListener(detailsFragment.getProgressBar());
-                    mUploaderBinder.addDatatransferProgressListener(
-                            mProgressListener, 
-                            (Account) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT), 
-                            (OCFile) getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE)
-                            );
-                }
             } else {
                 return;
             }
             
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            FileDetailFragment detailsFragment = (fragment instanceof FileDetailFragment) ? (FileDetailFragment) fragment : null;
             if (detailsFragment != null) {
+                detailsFragment.listenForTransferProgress();
                 detailsFragment.updateFileDetails(false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
             }
         }
@@ -198,39 +181,6 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     };    
     
     
-    /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
-     * 
-     * @author David A. Velasco
-     */
-    private class ProgressListener implements OnDatatransferProgressListener {
-        int mLastPercent = 0;
-        WeakReference<ProgressBar> mProgressBar = null;
-        
-        ProgressListener(ProgressBar progressBar) {
-            mProgressBar = new WeakReference<ProgressBar>(progressBar);
-        }
-        
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old method, nothing here
-        };
-
-        @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
-            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
-            if (percent != mLastPercent) {
-                ProgressBar pb = mProgressBar.get();
-                if (pb != null) {
-                    pb.setProgress(percent);
-                }
-            }
-            mLastPercent = percent;
-        }
-
-    };
-    
-
     @Override
     public void onDestroy() {
         super.onDestroy();

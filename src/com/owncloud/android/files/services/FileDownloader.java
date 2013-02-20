@@ -20,7 +20,9 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.util.AbstractList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -49,7 +51,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.RemoteViews;
 
 import com.owncloud.android.R;
@@ -136,6 +137,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
             newDownload.addDatatransferProgressListener(this);
+            newDownload.addDatatransferProgressListener((FileDownloaderBinder)mBinder);
             requestedDownloads.add(downloadKey);
             sendBroadcastNewDownload(newDownload);
             
@@ -165,13 +167,29 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         return mBinder;
     }
 
+
+    /**
+     * Called when ALL the bound clients were onbound.
+     */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        ((FileDownloaderBinder)mBinder).clearListeners();
+        return false;   // not accepting rebinding (default behaviour)
+    }
+
     
     /**
      *  Binder to let client components to perform operations on the queue of downloads.
      * 
      *  It provides by itself the available operations.
      */
-    public class FileDownloaderBinder extends Binder {
+    public class FileDownloaderBinder extends Binder implements OnDatatransferProgressListener {
+        
+        /** 
+         * Map of listeners that will be reported about progress of downloads from a {@link FileDownloaderBinder} instance 
+         */
+        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
+        
         
         /**
          * Cancels a pending or current download of a remote file.
@@ -190,6 +208,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
         
         
+        public void clearListeners() {
+            mBoundListeners.clear();
+        }
+
+
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download.
          * 
@@ -225,20 +248,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param file          {@link OCfile} of interest for listener. 
          */
         public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
-            if (account == null || file == null) return;
+            if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
-            DownloadFileOperation target = null;
-            synchronized (mPendingDownloads) {
-                if (!file.isDirectory()) {
-                    target = mPendingDownloads.get(targetKey);
-                } else {
-                    // nothing to do for directories, right now
-                }
-            }
-            if (target != null) {
-                target.addDatatransferProgressListener(listener);
-            }
+            mBoundListeners.put(targetKey, listener);
         }
+        
         
         
         /**
@@ -249,18 +263,27 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
          * @param file          {@link OCfile} of interest for listener. 
          */
         public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
-            if (account == null || file == null) return;
+            if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
-            DownloadFileOperation target = null;
-            synchronized (mPendingDownloads) {
-                if (!file.isDirectory()) {
-                    target = mPendingDownloads.get(targetKey);
-                } else {
-                    // nothing to do for directories, right now
-                }
+            if (mBoundListeners.get(targetKey) == listener) {
+                mBoundListeners.remove(targetKey);
             }
-            if (target != null) {
-                target.removeDatatransferProgressListener(listener);
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate) {
+            // old way, should not be in use any more
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
+                String fileName) {
+            String key = buildRemoteName(mCurrentDownload.getAccount(), mCurrentDownload.getFile());
+            OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
+            if (boundListener != null) {
+                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
             }
         }
         

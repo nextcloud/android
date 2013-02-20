@@ -20,7 +20,9 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.util.AbstractList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -33,6 +35,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -254,6 +257,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
                 mPendingUploads.putIfAbsent(uploadKey, newUpload);
                 newUpload.addDatatransferProgressListener(this);
+                newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
                 requestedUploads.add(uploadKey);
             }
             
@@ -291,13 +295,28 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public IBinder onBind(Intent arg0) {
         return mBinder;
     }
+    
+    /**
+     * Called when ALL the bound clients were onbound.
+     */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        ((FileDownloaderBinder)mBinder).clearListeners();
+        return false;   // not accepting rebinding (default behaviour)
+    }
+    
 
     /**
      *  Binder to let client components to perform operations on the queue of uploads.
      * 
      *  It provides by itself the available operations.
      */
-    public class FileUploaderBinder extends Binder {
+    public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
+        
+        /** 
+         * Map of listeners that will be reported about progress of uploads from a {@link FileDownloaderBinder} instance 
+         */
+        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
         
         /**
          * Cancels a pending or current upload of a remote file.
@@ -314,6 +333,14 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 upload.cancel();
             }
         }
+        
+        
+        
+        public void clearListeners() {
+            mBoundListeners.clear();
+        }
+
+
         
         
         /**
@@ -351,21 +378,44 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
          * @param file          {@link OCfile} of interest for listener. 
          */
         public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
-            if (account == null || file == null) return;
+            if (account == null || file == null || listener == null) return;
             String targetKey = buildRemoteName(account, file);
-            UploadFileOperation target = null;
-            synchronized (mPendingUploads) {
-                if (!file.isDirectory()) {
-                    target = mPendingUploads.get(targetKey);
-                } else {
-                    // nothing to do for directories, right now
-                }
-            }
-            if (target != null) {
-                target.addDatatransferProgressListener(listener);
-            }
+            mBoundListeners.put(targetKey, listener);
         }
         
+        
+        
+        /**
+         * Removes a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null || listener == null) return;
+            String targetKey = buildRemoteName(account, file);
+            if (mBoundListeners.get(targetKey) == listener) {
+                mBoundListeners.remove(targetKey);
+            }
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate) {
+            // old way, should not be in use any more
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
+                String fileName) {
+            String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
+            OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
+            if (boundListener != null) {
+                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
+            }
+        }
         
     }
     

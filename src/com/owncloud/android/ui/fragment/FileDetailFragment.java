@@ -137,6 +137,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
+    public ProgressListener mProgressListener;
     
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
@@ -160,6 +161,7 @@ public class FileDetailFragment extends SherlockFragment implements
         mAccount = null;
         mStorageManager = null;
         mLayout = R.layout.file_details_empty;
+        mProgressListener = null;
     }
     
     
@@ -176,6 +178,7 @@ public class FileDetailFragment extends SherlockFragment implements
         mAccount = ocAccount;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
+        mProgressListener = null;
     }
     
     
@@ -211,6 +214,8 @@ public class FileDetailFragment extends SherlockFragment implements
             mView.findViewById(R.id.fdOpenBtn).setOnClickListener(this);
             mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
             //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
+            ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
+            mProgressListener = new ProgressListener(progressBar);
         }
         
         updateFileDetails(false);
@@ -261,6 +266,7 @@ public class FileDetailFragment extends SherlockFragment implements
         if (mFile != null && mFile.isAudio()) {
             bindMediaService();
         }
+        listenForTransferProgress();
     }
     
     @Override
@@ -307,6 +313,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 mMediaController = null;
             }
         }
+        leaveTransferProgress();
     }
     
     
@@ -1099,16 +1106,66 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
-
-
-    public ProgressBar getProgressBar() {
-        View v = getView();
-        if (v != null) {
-            return (ProgressBar) v.findViewById(R.id.fdProgressBar);
-        } else {
-            return null;
+    
+    
+    public void listenForTransferProgress() {
+        if (mProgressListener != null) {
+            if (mContainerActivity.getFileDownloaderBinder() != null) {
+                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+            }
+            if (mContainerActivity.getFileUploaderBinder() != null) {
+                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+            }
         }
     }
+    
+    
+    public void leaveTransferProgress() {
+        if (mProgressListener != null) {
+            if (mContainerActivity.getFileDownloaderBinder() != null) {
+                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+            }
+            if (mContainerActivity.getFileUploaderBinder() != null) {
+                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+            }
+        }
+    }
+
+
+    
+    /**
+     * Helper class responsible for updating the progress bar shown for file uploading or downloading  
+     * 
+     * @author David A. Velasco
+     */
+    private class ProgressListener implements OnDatatransferProgressListener {
+        int mLastPercent = 0;
+        WeakReference<ProgressBar> mProgressBar = null;
+        
+        ProgressListener(ProgressBar progressBar) {
+            mProgressBar = new WeakReference<ProgressBar>(progressBar);
+        }
+        
+        @Override
+        public void onTransferProgress(long progressRate) {
+            // old method, nothing here
+        };
+
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
+            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
+            if (percent != mLastPercent) {
+                ProgressBar pb = mProgressBar.get();
+                if (pb != null) {
+                    pb.setProgress(percent);
+                    pb.postInvalidate();
+                }
+            }
+            mLastPercent = percent;
+        }
+
+    };
+    
 
 
 }
