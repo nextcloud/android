@@ -152,7 +152,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            FileDetailFragment detailsFragment = (FileDetailFragment) fragment;
+            FileDetailFragment detailsFragment = (fragment instanceof FileDetailFragment) ? (FileDetailFragment) fragment : null;
                 
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
                 Log.d(TAG, "Download service connected");
