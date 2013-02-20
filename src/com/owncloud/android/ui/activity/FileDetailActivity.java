@@ -140,6 +140,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putBoolean(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
     }
 
