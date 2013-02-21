@@ -35,9 +35,7 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
-import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -121,8 +119,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     /**
      * Builds a key for mPendingUploads from the account and file to upload
      * 
-     * @param account   Account where the file to download is stored
-     * @param file      File to download
+     * @param account   Account where the file to upload is stored
+     * @param file      File to upload
      */
     private String buildRemoteName(Account account, OCFile file) {
         return account.name + file.getRemotePath();
@@ -301,7 +299,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        ((FileDownloaderBinder)mBinder).clearListeners();
+        ((FileUploaderBinder)mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
     
@@ -314,7 +312,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public class FileUploaderBinder extends Binder implements OnDatatransferProgressListener {
         
         /** 
-         * Map of listeners that will be reported about progress of uploads from a {@link FileDownloaderBinder} instance 
+         * Map of listeners that will be reported about progress of uploads from a {@link FileUploaderBinder} instance 
          */
         private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
         
@@ -346,7 +344,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         /**
          * Returns True when the file described by 'file' is being uploaded to the ownCloud account 'account' or waiting for it
          * 
-         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading or waiting to download. 
+         * If 'file' is a directory, returns 'true' if some of its descendant files is uploading or waiting to upload. 
          * 
          * @param account       Owncloud account where the remote file will be stored.
          * @param file          A file that could be in the queue of pending uploads
@@ -356,7 +354,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             String targetKey = buildRemoteName(account, file);
             synchronized (mPendingUploads) {
                 if (file.isDirectory()) {
-                    // this can be slow if there are many downloads :(
+                    // this can be slow if there are many uploads :(
                     Iterator<String> it = mPendingUploads.keySet().iterator();
                     boolean found = false;
                     while (it.hasNext() && !found) {
@@ -371,7 +369,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
 
         /**
-         * Adds a listener interested in the progress of the download for a concrete file.
+         * Adds a listener interested in the progress of the upload for a concrete file.
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
@@ -386,7 +384,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         
         
         /**
-         * Removes a listener interested in the progress of the download for a concrete file.
+         * Removes a listener interested in the progress of the upload for a concrete file.
          * 
          * @param listener      Object to notify about progress of transfer.    
          * @param account       ownCloud account holding the file of interest.
@@ -569,7 +567,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimestamp());
         file.setModificationTimestampAtLastSyncForData(we.modifiedTimestamp());
-        // file.setEtag(mCurrentDownload.getEtag());    // TODO Etag, where available
+        // file.setEtag(mCurrentUpload.getEtag());    // TODO Etag, where available
     }
     
     
