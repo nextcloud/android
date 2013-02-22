@@ -833,6 +833,8 @@ public class FileDetailFragment extends SherlockFragment implements
                 if (mFile.getRemotePath().equals(downloadedRemotePath)) {
                     if (downloadWasFine) {
                         mFile = mStorageManager.getFileByPath(downloadedRemotePath);
+                        mContainerActivity.notifySuccessfulDownload(mFile);
+                        getActivity().removeStickyBroadcast(intent);
                     }
                     updateFileDetails(false);    // it updates the buttons; must be called although !downloadWasFine
                 }

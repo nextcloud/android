@@ -1312,4 +1312,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
 
+    @Override
+    public void notifySuccessfulDownload(OCFile file) {
+        // TODO refactoring once for all and remove this stupid method
+    }
+
+
 }
