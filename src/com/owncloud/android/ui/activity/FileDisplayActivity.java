@@ -1103,7 +1103,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if (mDualPane) {
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
                 if (fragment != null && fragment instanceof FileDetailFragment) {
-                    ((FileDetailFragment)fragment).updateFileDetails(false);
+                    FileDetailFragment detailFragment = (FileDetailFragment)fragment;
+                    detailFragment.listenForTransferProgress();
+                    detailFragment.updateFileDetails(false);
                 }
             }
         }
