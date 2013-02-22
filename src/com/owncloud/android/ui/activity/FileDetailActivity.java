@@ -61,7 +61,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     public static final int MODE_DETAILS = 0;
     public static final int MODE_PREVIEW = 1;
 
-    private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
+    public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     
     private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
@@ -303,12 +303,14 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     }
 
     @Override
-    public void notifySuccessfulDownload(OCFile file) {
-        if (mWaitingToPreview) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment, new FilePreviewFragment(file, mAccount), FileDetailFragment.FTAG); 
-            transaction.commit();
-            mWaitingToPreview = false;
+    public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
+        if (success) {
+            if (mWaitingToPreview) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment, new FilePreviewFragment(file, mAccount), FileDetailFragment.FTAG); 
+                transaction.commit();
+                mWaitingToPreview = false;
+            }
         }
     }
     

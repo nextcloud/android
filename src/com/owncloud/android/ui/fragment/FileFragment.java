@@ -18,6 +18,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -68,7 +69,7 @@ public interface FileFragment {
         public void showFragmentWithDetails(OCFile file);
         
         
-        public void notifySuccessfulDownload(OCFile file);
+        public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success);
         
     }
     

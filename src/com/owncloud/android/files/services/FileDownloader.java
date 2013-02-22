@@ -479,8 +479,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void sendBroadcastNewDownload(DownloadFileOperation download) {
         Intent added = new Intent(DOWNLOAD_ADDED_MESSAGE);
-        /*added.putExtra(ACCOUNT_NAME, download.getAccount().name);
-        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
+        added.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         sendStickyBroadcast(added);
     }
