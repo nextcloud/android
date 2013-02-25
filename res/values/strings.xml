@@ -88,6 +88,7 @@
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_exit">Leave %1$s</string>
     <string name="common_error">Error</string>
+    <string name="common_loading">Loading &#8230;</string>
     <string name="about_title">About</string>
     
     <string name="delete_account">Delete account</string>
@@ -109,6 +110,7 @@
     <string name="downloader_download_succeeded_content">%1$s was successfully downloaded</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Download of %1$s could not be completed</string>
+    <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_string_contacts">Contacts</string>
 	<string name="sync_fail_ticker">Synchronization failed</string>
@@ -275,6 +277,7 @@
     <string name="conflict_dont_upload">Don\'t upload</string>
     
     <string name="image_preview">Image preview</string>
+    <string name="preview_image_loading"></string>
     
     <!-- we need to improve the communication of errors to the user -->
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local directory</string>
