@@ -109,10 +109,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             // should not be necessary
             mParentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
         }
-        
+
+        createViewPager();
+
         if (savedInstanceState == null) {
             mWaitingToPreview = false;
-            createViewPager();
         } else {
             mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
         }
