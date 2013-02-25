@@ -21,11 +21,6 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.services.FileUploader;
-
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,16 +34,18 @@ import android.provider.MediaStore.Images.Media;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.services.FileUploader;
+
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     public static String INSTANT_UPLOAD_DIR = "/InstantUpload/";
     private static String TAG = "PhotoTakenBroadcastReceiver";
-    private static final String[] CONTENT_PROJECTION = { Media.DATA,
-                                                         Media.DISPLAY_NAME,
-                                                         Media.MIME_TYPE,
-                                                         Media.SIZE };
+    private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
     private static String NEW_PHOTO_ACTION = "com.android.camera.NEW_PICTURE";
-    
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "Received: " + intent.getAction());
@@ -68,8 +65,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false)) {
             DbHandler db = new DbHandler(context);
             String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
-            if (!db.removeIUPendingFile(localPath,
-                                        intent.getStringExtra(FileUploader.ACCOUNT_NAME))) {
+            if (!db.removeIUPendingFile(localPath)) {
                 Log.w(TAG, "Tried to remove non existing instant upload file " + localPath);
             }
             db.close();
@@ -88,10 +84,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        Cursor c = context.getContentResolver().query(intent.getData(),
-                                                      CONTENT_PROJECTION,
-                                                      null, null, null);
-        
+        Cursor c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
+
         if (!c.moveToFirst()) {
             Log.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
             return;
@@ -102,25 +96,28 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String mime_type = c.getString(c.getColumnIndex(Media.MIME_TYPE));
 
         c.close();
-        Log.e(TAG, file_path+"");
-        
-        if (!isOnline(context) ||
-            (instantUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
-            DbHandler db = new DbHandler(context);
-            db.putFileForLater(file_path, account.name);
-            db.close();
+        Log.e(TAG, file_path + "");
+
+        // same always temporally the picture to upload
+        DbHandler db = new DbHandler(context);
+        db.putFileForLater(file_path, account.name);
+        db.close();
+
+        if (!isOnline(context) || (instantUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
             return;
         }
-        
+
         // register for upload finishe message
-        // there is a litte problem with android API, we can register for particular
-        // intent in registerReceiver but we cannot unregister from precise intent
+        // there is a litte problem with android API, we can register for
+        // particular
+        // intent in registerReceiver but we cannot unregister from precise
+        // intent
         // we can unregister from entire listenings but thats suck a bit.
         // On the other hand this might be only for dynamicly registered
         // broadcast receivers, needs investigation.
         IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
         context.getApplicationContext().registerReceiver(this, filter);
-                
+
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
         i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
@@ -137,11 +134,10 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log.d(TAG, "Instant upload disabled, abording uploading");
             return;
         }
-        
-        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY) && 
-            isOnline(context) &&
-             (!instantUploadViaWiFiOnly(context) ||
-              (instantUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true)) ) {
+
+        if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
+                && isOnline(context)
+                && (!instantUploadViaWiFiOnly(context) || (instantUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
@@ -156,16 +152,15 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
                         String mimeType = null;
                         try {
-                            mimeType = MimeTypeMap.getSingleton()
-                                    .getMimeTypeFromExtension(
-                                            f.getName().substring(f.getName().lastIndexOf('.') + 1));
-                        
+                            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                                    f.getName().substring(f.getName().lastIndexOf('.') + 1));
+
                         } catch (Throwable e) {
                             Log.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
                         }
                         if (mimeType == null)
                             mimeType = "application/octet-stream";
-                        
+
                         Intent i = new Intent(context, FileUploader.class);
                         i.putExtra(FileUploader.KEY_ACCOUNT, account);
                         i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
@@ -173,35 +168,35 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
                         context.startService(i);
-                        
+
                     } else {
                         Log.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
                     }
-                } while(c.moveToNext());
+                } while (c.moveToNext());
             }
             c.close();
             db.close();
         }
-        
+
     }
 
-    private boolean isOnline(Context context) {
+    public static boolean isOnline(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
-    
-    private boolean isConnectedViaWiFi(Context context) {
+
+    public static boolean isConnectedViaWiFi(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null &&
-               cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI &&
-               cm.getActiveNetworkInfo().getState() == State.CONNECTED;
+        return cm != null && cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
+                && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
     }
-    
-    private boolean instantUploadEnabled(Context context) {
+
+    public static boolean instantUploadEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
     }
-    
-    private boolean instantUploadViaWiFiOnly(Context context) {
+
+    public static boolean instantUploadViaWiFiOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_wifi", false);
     }
 }

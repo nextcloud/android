@@ -58,6 +58,8 @@
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity">
         </activity>
+ 		<activity android:name=".ui.activity.InstantUploadActivity">
+        </activity>
         <activity android:name=".Uploader" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" >

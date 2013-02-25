@@ -40,22 +40,22 @@ public class InstantUploadService extends Service {
     public static String KEY_MIME_TYPE = "KEY_MIMETYPE";
     public static String KEY_DISPLAY_NAME = "KEY_FILENAME";
     public static String KEY_ACCOUNT = "KEY_ACCOUNT";
-    
+
     private static String TAG = "InstantUploadService";
-    private static String INSTANT_UPLOAD_DIR = "/InstantUpload";
+    // TODO make it configurable over the settings dialog
+    public static String INSTANT_UPLOAD_DIR = "/InstantUpload";
     private UploaderRunnable mUploaderRunnable;
-    
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
-    
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null ||
-            !intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_DISPLAY_NAME) ||
-            !intent.hasExtra(KEY_FILE_PATH) || !intent.hasExtra(KEY_FILE_SIZE) ||
-            !intent.hasExtra(KEY_MIME_TYPE)) {
+        if (intent == null || !intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_DISPLAY_NAME)
+                || !intent.hasExtra(KEY_FILE_PATH) || !intent.hasExtra(KEY_FILE_SIZE)
+                || !intent.hasExtra(KEY_MIME_TYPE)) {
             Log.w(TAG, "Not all required information was provided, abording");
             return Service.START_NOT_STICKY;
         }
