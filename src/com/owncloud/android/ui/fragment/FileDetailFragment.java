@@ -102,7 +102,7 @@ import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.OnSwipeTouchListener;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
-import com.owncloud.android.ui.activity.VideoActivity;
+import com.owncloud.android.ui.activity.PreviewVideoActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -420,9 +420,9 @@ public class FileDetailFragment extends SherlockFragment implements
     
     
     private void startVideoActivity() {
-        Intent i = new Intent(getActivity(), VideoActivity.class);
-        i.putExtra(VideoActivity.EXTRA_FILE, mFile);
-        i.putExtra(VideoActivity.EXTRA_ACCOUNT, mAccount);
+        Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
+        i.putExtra(PreviewVideoActivity.EXTRA_FILE, mFile);
+        i.putExtra(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
         startActivity(i);
     }
 

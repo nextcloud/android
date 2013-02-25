@@ -86,7 +86,9 @@
         <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
         </activity>
         
-		<activity	android:name=".ui.activity.VideoActivity"
+		<activity	android:name="com.owncloud.android.ui.activity.PreviewImageActivity" />
+		        
+        <activity	android:name="com.owncloud.android.ui.activity.PreviewVideoActivity"
 					android:label="@string/app_name"
 					android:screenOrientation="landscape"
 					android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >

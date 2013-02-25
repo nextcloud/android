@@ -49,7 +49,7 @@ import com.owncloud.android.media.MediaService;
  *  
  *  @author David A. Velasco
  */
-public class VideoActivity extends Activity implements OnCompletionListener, OnPreparedListener, OnErrorListener {
+public class PreviewVideoActivity extends Activity implements OnCompletionListener, OnPreparedListener, OnErrorListener {
 
     /** Key to receive an {@link OCFile} to play as an extra value in an {@link Intent} */
     public static final String EXTRA_FILE = "FILE";
@@ -165,7 +165,7 @@ public class VideoActivity extends Activity implements OnCompletionListener, OnP
                     .setPositiveButton(android.R.string.VideoView_error_button,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-                                    VideoActivity.this.onCompletion(null);
+                                    PreviewVideoActivity.this.onCompletion(null);
                                 }
                             })
                     .setCancelable(false)

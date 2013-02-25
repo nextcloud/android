@@ -1053,25 +1053,37 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     public void onFileClick(OCFile file) {
 
-        // If we are on a large device -> update fragment
-        if (mDualPane) {
-            // buttons in the details view are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (file != null && FilePreviewFragment.canBePreviewed(file)) {
-                if (file.isDown()) {
-                    transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
-                } else {
-                    transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
-                    mWaitingToPreview = file;
-                    requestForDownload();
-                }
+        if (file != null && FilePreviewFragment.canBePreviewed(file)) {
+            if (file.isDown()) {
+                // preview it
+                startPreview(file);
+                
             } else {
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                // automatic download, preview on finish
+                startDownloadForPreview(file);
+                
             }
-            //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        } else {
+            // details view
+            startDetails(file);
+        }
+    }
+    
+    private void startPreview(OCFile file) {
+        if (mDualPane && 
+                !file.isImage() // this is a trick to get a quick-to-implement 'full screen' preview for images in landscape
+                ) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.commit();
             
-        } else {    // small or medium screen device -> new Activity
+        } else if (file.isImage()) {
+            Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            startActivity(showDetailsIntent);
+            
+        } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
@@ -1079,7 +1091,37 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
     
+    private void startDownloadForPreview(OCFile file) {
+        if (mDualPane) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            transaction.commit();
+            mWaitingToPreview = file;
+            requestForDownload();
+            
+        } else {
+            Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            startActivity(showDetailsIntent);
+        }
+    }
+
     
+    private void startDetails(OCFile file) {
+        if (mDualPane && !file.isImage()) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            transaction.commit();
+        } else {
+            Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
+            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            startActivity(showDetailsIntent);
+        }
+    }
+
+
     /**
      * {@inheritDoc}
      */
