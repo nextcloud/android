@@ -44,4 +44,6 @@ public interface DataStorageManager {
     public void removeDirectory(OCFile dir, boolean removeDBData, boolean removeLocalContent);
 
     public void moveDirectory(OCFile dir, String newPath);
+
+    public Vector<OCFile> getDirectoryImages(OCFile mParentFolder);
 }

@@ -22,11 +22,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <android.support.v4.view.ViewPager 
+        android:id="@+id/fragmentPager"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" 
+		/>
+    
+    <!-- LinearLayout
         android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-            <!-- Preview: layout=@layout/preview_image_fragment -->
-    </LinearLayout>
+            <!- - Preview: layout=@layout/preview_image_fragment - ->
+    </LinearLayout -->
 
 </LinearLayout>

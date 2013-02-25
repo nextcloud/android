@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.ui.activity;
 
+import java.util.Vector;
+
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -27,20 +29,27 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileDownloadFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.FilePreviewFragment;
+import com.owncloud.android.ui.fragment.PreviewImageFragment;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
@@ -50,7 +59,7 @@ import com.owncloud.android.R;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity {
+public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -58,13 +67,18 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     
+    private OCFile mFile;
+    private OCFile mParentFolder;  
+    private Account mAccount;
+    private DataStorageManager mStorageManager;
+    
+    private ViewPager mViewPager; 
+    private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
+    
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
     private boolean mWaitingToPreview;
-    
-    private OCFile mFile;
-    private Account mAccount;
     
 
     @Override
@@ -87,12 +101,18 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mFile.getFileName());
-
+        
+        mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+        mParentFolder = mStorageManager.getFileById(mFile.getParentId());
+        if (mParentFolder == null) {
+            // should not be necessary
+            mParentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+        }
+        
         if (savedInstanceState == null) {
             mWaitingToPreview = false;
-            createChildFragment();
+            createViewPager();
         } else {
             mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
         }
@@ -104,26 +124,55 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         
     }
 
-    /**
-     * Creates the proper fragment depending upon the state of the handled {@link OCFile} and
-     * the requested {@link Intent}.
-     */
-    private void createChildFragment() {
-        Fragment newFragment = null;
-        if (mFile.isDown()) {
-            newFragment = new FilePreviewFragment(mFile, mAccount);
-            
-        } else {
-            newFragment = new FileDetailFragment(mFile, mAccount);
-            mWaitingToPreview = true;
-        }
-            
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment, newFragment, FileDetailFragment.FTAG);
-        ft.commit();
+    private void createViewPager() {
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder);
+        mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
+        mViewPager.setAdapter(mPreviewImagePagerAdapter);        
+        mViewPager.setOnPageChangeListener(this);
     }
     
 
+    /**
+     * Adapter class that provides Fragment instances  
+     * 
+     * @author David A. Velasco
+     */
+    public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
+        
+        Vector<OCFile> mImageFiles; 
+        
+        public PreviewImagePagerAdapter(FragmentManager fm, OCFile parentFolder) {
+            super(fm);
+            mImageFiles = mStorageManager.getDirectoryImages(parentFolder);
+        }
+    
+        @Override
+        public Fragment getItem(int i) {
+            Log.e(TAG, "GETTING PAGE " + i);
+            OCFile file = mImageFiles.get(i);
+            Fragment fragment = null;
+            if (file.isDown()) {
+                fragment = new PreviewImageFragment(file, mAccount);
+                mWaitingToPreview = false;
+            } else {
+                fragment = new FileDownloadFragment(file, mAccount);    // TODO
+                //mWaitingToPreview = true;
+            }
+            return fragment;
+        }
+    
+        @Override
+        public int getCount() {
+            return mImageFiles.size();
+        }
+    
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mImageFiles.get(position).getFileName();
+        }
+    }
+
+     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -274,6 +323,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+        showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         startActivity(showDetailsIntent);
     }
 
@@ -297,6 +347,42 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 mWaitingToPreview = false;
             }
         }
+    }
+
+    
+    /**
+     * This method will be invoked when a new page becomes selected. Animation is not necessarily complete.
+     * 
+     *  @param  Position        Position index of the new selected page
+     */
+    @Override
+    public void onPageSelected(int position) {
+        OCFile currentFile = ((FileFragment)mPreviewImagePagerAdapter.getItem(position)).getFile();
+        getSupportActionBar().setTitle(currentFile.getFileName());
+    }
+    
+    /**
+     * Called when the scroll state changes. Useful for discovering when the user begins dragging, 
+     * when the pager is automatically settling to the current page, or when it is fully stopped/idle.
+     * 
+     * @param   State       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
+     */
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
+
+    /**
+     * This method will be invoked when the current page is scrolled, either as part of a programmatically 
+     * initiated smooth scroll or a user initiated touch scroll.
+     * 
+     * @param   position                Position index of the first page currently being displayed. 
+     *                                  Page position+1 will be visible if positionOffset is nonzero.
+     *                                  
+     * @param   positionOffset          Value from [0, 1) indicating the offset from the page at position.
+     * @param   positionOffsetPixels    Value in pixels indicating the offset from position. 
+     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
     
 }

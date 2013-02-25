@@ -126,6 +126,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONCREATE " + ((mFile == null)? "(NULL)" : mFile.getFileName()));
         mHandler = new Handler();
         setHasOptionsMenu(true);
     }
@@ -193,6 +194,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onStart() {
         super.onStart();
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONSTART " + mFile.getFileName());
         if (mFile != null) {
            BitmapLoader bl = new BitmapLoader(mImageView);
            bl.execute(new String[]{mFile.getStoragePath()});
@@ -260,6 +262,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onResume() {
         super.onResume();
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONRESUME " + mFile.getFileName());
         /*
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(
@@ -276,6 +279,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
 
     @Override
     public void onPause() {
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONPAUSE " + mFile.getFileName());
         super.onPause();
         /*
         if (mVideoPreview.getVisibility() == View.VISIBLE) {
@@ -294,11 +298,13 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onStop() {
         super.onStop();
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONSTOP " + mFile.getFileName());
     }
     
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e(TAG, "PREVIEW_IMAGE_FRAGMENT ONDESTROY " + mFile.getFileName());
         if (mBitmap != null) {
             mBitmap.recycle();
         }
