@@ -1055,9 +1055,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public void onFileClick(OCFile file) {
 
         if (file != null && FilePreviewFragment.canBePreviewed(file)) {
-            if (file.isDown()) {
-                // preview it
-                startPreview(file);
+            if (file.isImage()) {
+                // preview image - it handles the download, if needed
+                startPreviewImage(file);
+                
+            } else if (file.isDown()) {
+                // general preview
+                startOtherPreview(file);
                 
             } else {
                 // automatic download, preview on finish
@@ -1069,20 +1073,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             startDetails(file);
         }
     }
+
+    private void startPreviewImage(OCFile file) {
+        Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
+        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+        startActivity(showDetailsIntent);
+    }
     
-    private void startPreview(OCFile file) {
-        if (mDualPane && 
-                !file.isImage() // this is a trick to get a quick-to-implement 'full screen' preview for images in landscape
-                ) {
+    private void startOtherPreview(OCFile file) {
+        if (mDualPane) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.commit();
-            
-        } else if (file.isImage()) {
-            Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
-            startActivity(showDetailsIntent);
             
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);

@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileDownloadFragment;
 
 /**
  * Adapter class that provides Fragment instances  

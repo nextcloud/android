@@ -58,6 +58,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
+    private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     
     private OCFile mFile;
     private OCFile mParentFolder;  
@@ -71,6 +72,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
     private OCFile mWaitingToPreview = null;
+
+    private boolean mRequestWaitingForBinder;
     
 
     @Override
@@ -102,9 +105,12 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             mParentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
         }
 
-        mWaitingToPreview = null;
         if (savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(KEY_WAITING_TO_PREVIEW);
+            mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
+        } else {
+            mWaitingToPreview = null;
+            mRequestWaitingForBinder = false;
         }
         
         createViewPager();
@@ -131,6 +137,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
+        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
     }
 
 
@@ -143,6 +150,12 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
                 Log.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
+                if (mRequestWaitingForBinder) {
+                   if (mWaitingToPreview != null) {
+                       requestForDownload();
+                   }
+                   mRequestWaitingForBinder = false;
+                }
                     
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
                 Log.d(TAG, "Upload service connected");
@@ -271,12 +284,16 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     private void requestForDownload() {
         Log.e(TAG, "REQUEST FOR DOWNLOAD : " + mWaitingToPreview.getFileName());
-        if (!mDownloaderBinder.isDownloading(mAccount, mWaitingToPreview)) {
+        if (mDownloaderBinder == null) {
+            mRequestWaitingForBinder = true;
+            
+        } else if (!mDownloaderBinder.isDownloading(mAccount, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
             i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
             startService(i);
         }
+        mViewPager.invalidate();
     }
 
     @Override
@@ -289,9 +306,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 Log.e(TAG, "BEFORE NOTIFY DATA SET CHANGED");
                 mPreviewImagePagerAdapter.notifyDataSetChanged();
                 Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
-                //Log.e(TAG, "BEFORE INVALIDATE");
-                //mViewPager.postInvalidate();
-                //Log.e(TAG, "AFTER INVALIDATE");
             }
         }
     }
@@ -312,7 +326,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         } else {
             mWaitingToPreview = currentFile;
             requestForDownload();
-            mViewPager.invalidate();
         }
     }
     

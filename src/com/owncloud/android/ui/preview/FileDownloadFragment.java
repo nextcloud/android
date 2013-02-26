@@ -16,7 +16,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
 
@@ -41,6 +41,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity;
 
 import com.owncloud.android.R;
 
