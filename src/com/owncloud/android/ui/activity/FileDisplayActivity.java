@@ -92,6 +92,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.FilePreviewFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;

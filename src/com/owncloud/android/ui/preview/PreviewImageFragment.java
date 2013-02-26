@@ -15,7 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.preview;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -56,7 +56,10 @@ import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.ui.activity.PreviewImageActivity;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
+import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;

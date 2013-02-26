@@ -3,7 +3,7 @@
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -15,9 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.activity;
-
-import java.util.Vector;
+package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Dialog;
@@ -28,10 +26,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -45,11 +39,9 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileDownloadFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.FilePreviewFragment;
-import com.owncloud.android.ui.fragment.PreviewImageFragment;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
@@ -78,7 +70,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
-    private boolean mWaitingToPreview;
+    private OCFile mWaitingToPreview = null;
     
 
     @Override
@@ -113,76 +105,35 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         createViewPager();
 
         if (savedInstanceState == null) {
-            mWaitingToPreview = false;
+            mWaitingToPreview = (mFile.isDown())?null:mFile;
         } else {
-            mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
+            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(KEY_WAITING_TO_PREVIEW);
         }
         
-        mDownloadConnection = new DetailsServiceConnection();
+        mDownloadConnection = new PreviewImageServiceConnection();
         bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
-        mUploadConnection = new DetailsServiceConnection();
+        mUploadConnection = new PreviewImageServiceConnection();
         bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
         
     }
 
     private void createViewPager() {
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder);
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder, mAccount, mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
         mViewPager.setAdapter(mPreviewImagePagerAdapter);        
         mViewPager.setOnPageChangeListener(this);
     }
     
 
-    /**
-     * Adapter class that provides Fragment instances  
-     * 
-     * @author David A. Velasco
-     */
-    public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
-        
-        Vector<OCFile> mImageFiles; 
-        
-        public PreviewImagePagerAdapter(FragmentManager fm, OCFile parentFolder) {
-            super(fm);
-            mImageFiles = mStorageManager.getDirectoryImages(parentFolder);
-        }
-    
-        @Override
-        public Fragment getItem(int i) {
-            Log.e(TAG, "GETTING PAGE " + i);
-            OCFile file = mImageFiles.get(i);
-            Fragment fragment = null;
-            if (file.isDown()) {
-                fragment = new PreviewImageFragment(file, mAccount);
-                mWaitingToPreview = false;
-            } else {
-                fragment = new FileDownloadFragment(file, mAccount);    // TODO
-                //mWaitingToPreview = true;
-            }
-            return fragment;
-        }
-    
-        @Override
-        public int getCount() {
-            return mImageFiles.size();
-        }
-    
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mImageFiles.get(position).getFileName();
-        }
-    }
-
-     
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
+        outState.putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
     }
 
 
     /** Defines callbacks for service binding, passed to bindService() */
-    private class DetailsServiceConnection implements ServiceConnection {
+    private class PreviewImageServiceConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
@@ -190,9 +141,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
                 Log.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
-                if (mWaitingToPreview) {
-                    requestForDownload();
-                }
                     
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
                 Log.d(TAG, "Upload service connected");
@@ -201,21 +149,15 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 return;
             }
             
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            FileDetailFragment detailsFragment = (fragment instanceof FileDetailFragment) ? (FileDetailFragment) fragment : null;
-            if (detailsFragment != null) {
-                detailsFragment.listenForTransferProgress();
-                detailsFragment.updateFileDetails(mWaitingToPreview);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
-            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -256,10 +198,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onResume() {
         super.onResume();
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-        if (fragment != null && fragment instanceof FileDetailFragment) {
-            ((FileDetailFragment) fragment).updateFileDetails(false);
-        }
     }
     
 
@@ -330,10 +268,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
     
     private void requestForDownload() {
-        if (!mDownloaderBinder.isDownloading(mAccount, mFile)) {
+        Log.e(TAG, "REQUEST FOR DOWNLOAD : " + mWaitingToPreview.getFileName());
+        if (!mDownloaderBinder.isDownloading(mAccount, mWaitingToPreview)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            i.putExtra(FileDownloader.EXTRA_FILE, mFile);
+            i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
             startService(i);
         }
     }
@@ -341,11 +280,16 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
         if (success) {
-            if (mWaitingToPreview) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment, new FilePreviewFragment(file, mAccount), FileDetailFragment.FTAG); 
-                transaction.commit();
-                mWaitingToPreview = false;
+            if (mWaitingToPreview != null && mWaitingToPreview.equals(file)) {
+                mWaitingToPreview = null;
+                int position = mViewPager.getCurrentItem();
+                mPreviewImagePagerAdapter.updateFile(position, file);
+                Log.e(TAG, "BEFORE NOTIFY DATA SET CHANGED");
+                mPreviewImagePagerAdapter.notifyDataSetChanged();
+                Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
+                //Log.e(TAG, "BEFORE INVALIDATE");
+                //mViewPager.postInvalidate();
+                //Log.e(TAG, "AFTER INVALIDATE");
             }
         }
     }
@@ -358,8 +302,15 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
      */
     @Override
     public void onPageSelected(int position) {
-        OCFile currentFile = ((FileFragment)mPreviewImagePagerAdapter.getItem(position)).getFile();
+        OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
         getSupportActionBar().setTitle(currentFile.getFileName());
+        if (currentFile.isDown()) {
+            mWaitingToPreview = null;
+        } else {
+            mWaitingToPreview = currentFile;
+            requestForDownload();
+            mViewPager.invalidate();
+        }
     }
     
     /**

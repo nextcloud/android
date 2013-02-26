@@ -65,6 +65,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
     public ProgressListener mProgressListener;
+    private boolean mListening;
     
     private static final String TAG = FileDownloadFragment.class.getSimpleName();
 
@@ -79,6 +80,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         mAccount = null;
         mStorageManager = null;
         mProgressListener = null;
+        mListening = false;
     }
     
     
@@ -95,6 +97,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         mAccount = ocAccount;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mProgressListener = null;
+        mListening = false;
     }
     
     
@@ -123,7 +126,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         view = inflater.inflate(R.layout.file_download_fragment, container, false);
         mView = view;
         
-        ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
+        ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
         mProgressListener = new ProgressListener(progressBar);
         
         return view;
@@ -136,6 +139,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONATTACH " + ((mFile == null)?" (NULL)":mFile.getFileName()));
         try {
             mContainerActivity = (ContainerActivity) activity;
             
@@ -151,6 +155,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONACTIVITYCREATED " + ((mFile == null)?" (NULL)":mFile.getFileName()));
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
         }
@@ -209,6 +214,9 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     
     @Override
     public View getView() {
+        if (!mListening) {
+            listenForTransferProgress();
+        }
         return super.getView() == null ? mView : super.getView();
     }
 
@@ -244,11 +252,14 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     
     /**
      * Updates the view depending upon the state of the downloading file.
+     * 
+     * @param   transferring    When true, the view must be updated assuming that the holded file is 
+     *                          downloading, no matter what the downloaderBinder says.
      */
-    public void updateView() {
+    public void updateView(boolean transferring) {
         // configure UI for depending upon local state of the file
         FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
+        if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile))) {
             setButtonsForTransferring();
             
         } else if (mFile.isDown()) {
@@ -270,9 +281,9 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         downloadButton.setText(R.string.common_cancel);
     
         // show the progress bar for the transfer
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
-        TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+        TextView progressText = (TextView)getView().findViewById(R.id.progressText);
         progressText.setText(R.string.downloader_download_in_progress_ticker);
     }
     
@@ -285,11 +296,11 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         downloadButton.setVisibility(View.GONE);
     
         // hides the progress bar
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         
         // updates the text message
-        TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+        TextView progressText = (TextView)getView().findViewById(R.id.progressText);
         progressText.setText(R.string.common_loading);
     }
 
@@ -303,11 +314,11 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         //downloadButton.setText(R.string.filedetails_download);
         
         // hides the progress bar
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
+        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         
         // updates the text message
-        TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
+        TextView progressText = (TextView)getView().findViewById(R.id.progressText);
         progressText.setText(R.string.downloader_not_downloaded_yet);
     }
     
@@ -326,9 +337,9 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
                     if (downloadWasFine) {
                         mFile = mStorageManager.getFileByPath(downloadedRemotePath);
                     }
-                    mContainerActivity.notifySuccessfulDownload(mFile, intent, downloadWasFine);
+                    updateView(false);
                     getActivity().removeStickyBroadcast(intent);
-                    updateView();
+                    mContainerActivity.notifySuccessfulDownload(mFile, intent, downloadWasFine);
                 }
             }
         }
@@ -336,12 +347,11 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     
     
     public void listenForTransferProgress() {
-        if (mProgressListener != null) {
+        if (mProgressListener != null && !mListening) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
-            }
-            if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mListening = true;
+                setButtonsForTransferring();
             }
         }
     }
@@ -351,9 +361,6 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
-            }
-            if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
             }
         }
     }
