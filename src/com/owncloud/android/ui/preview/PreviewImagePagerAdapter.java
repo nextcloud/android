@@ -110,6 +110,10 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 
+    public int getFilePosition(OCFile file) {
+        return mImageFiles.indexOf(file);
+    }
+    
     @Override
     public int getCount() {
         return mImageFiles.size();
@@ -129,11 +133,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public int getItemPosition(Object object) {
         Log.e(TAG, "getItemPosition ");
         if (mObsoleteFragments.contains(object)) {
+            mObsoleteFragments.remove(object);
             return POSITION_NONE;
         }
         return super.getItemPosition(object);
     }
-    
+
+
     /* *
      * Called when a change in the shown pages is going to start being made.
      * 

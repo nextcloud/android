@@ -102,14 +102,13 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             mParentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
         }
 
-        createViewPager();
-
-        if (savedInstanceState == null) {
-            mWaitingToPreview = (mFile.isDown())?null:mFile;
-        } else {
+        mWaitingToPreview = null;
+        if (savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(KEY_WAITING_TO_PREVIEW);
         }
         
+        createViewPager();
+
         mDownloadConnection = new PreviewImageServiceConnection();
         bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
         mUploadConnection = new PreviewImageServiceConnection();
@@ -120,8 +119,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     private void createViewPager() {
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder, mAccount, mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
+        int position = mPreviewImagePagerAdapter.getFilePosition(mFile);
+        Log.e(TAG, "Setting initial position " + position);
         mViewPager.setAdapter(mPreviewImagePagerAdapter);        
         mViewPager.setOnPageChangeListener(this);
+        mViewPager.setCurrentItem((position >= 0) ? position : 0);
     }
     
 
@@ -302,6 +304,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
      */
     @Override
     public void onPageSelected(int position) {
+        Log.e(TAG, "onPageSelected " + position);
         OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
         getSupportActionBar().setTitle(currentFile.getFileName());
         if (currentFile.isDown()) {
