@@ -15,113 +15,70 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.preview;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.entity.FileEntity;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.json.JSONObject;
-
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.MediaController;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileObserverService;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.OnSwipeTouchListener;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
-import com.owncloud.android.ui.activity.PreviewVideoActivity;
-import com.owncloud.android.ui.dialog.EditNameDialog;
-import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
+import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
- * This fragment shows a preview of a downloaded file.
+ * This fragment shows a preview of a downloaded media file (audio or video).
  * 
  * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will produce an {@link IllegalStateException}.
  * 
@@ -129,9 +86,9 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  * @author David A. Velasco
  */
-public class FilePreviewFragment extends SherlockFragment implements
-        /*OnClickListener,*/ OnTouchListener , FileFragment,  
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener /*, EditNameDialogListener*/ {
+public class PreviewMediaFragment extends SherlockFragment implements
+        OnTouchListener , FileFragment,  
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener  {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -142,12 +99,8 @@ public class FilePreviewFragment extends SherlockFragment implements
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     private ImageView mImagePreview;
-    public Bitmap mBitmap = null;
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
-    
-    //private DownloadFinishReceiver mDownloadFinishReceiver;
-    //private UploadFinishReceiver mUploadFinishReceiver;
     
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
@@ -157,7 +110,7 @@ public class FilePreviewFragment extends SherlockFragment implements
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
     
-    private static final String TAG = FilePreviewFragment.class.getSimpleName();
+    private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
     
     /**
@@ -168,7 +121,7 @@ public class FilePreviewFragment extends SherlockFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public FilePreviewFragment(OCFile fileToDetail, Account ocAccount) {
+    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount) {
         mFile = fileToDetail;
         mAccount = ocAccount;
         mSavedPlaybackPosition = 0;
@@ -183,7 +136,7 @@ public class FilePreviewFragment extends SherlockFragment implements
      * 
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
      */
-    public FilePreviewFragment() {
+    public PreviewMediaFragment() {
         mFile = null;
         mAccount = null;
         mSavedPlaybackPosition = 0;
@@ -212,11 +165,6 @@ public class FilePreviewFragment extends SherlockFragment implements
         
         mView = inflater.inflate(R.layout.file_preview, container, false);
         
-        //mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
-        //mView.findViewById(R.id.fdRenameBtn).setOnClickListener(this);
-        //mView.findViewById(R.id.fdDownloadBtn).setOnClickListener(this);
-        //mView.findViewById(R.id.fdOpenBtn).setOnClickListener(this);
-        //mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
         mImagePreview = (ImageView)mView.findViewById(R.id.image_preview);
         mImagePreview.setOnTouchListener(this);
         mVideoPreview = (VideoView)mView.findViewById(R.id.video_preview);
@@ -246,9 +194,9 @@ public class FilePreviewFragment extends SherlockFragment implements
 
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(FilePreviewFragment.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(FilePreviewFragment.EXTRA_ACCOUNT);
-            mSavedPlaybackPosition = savedInstanceState.getInt(FilePreviewFragment.EXTRA_PLAY_POSITION);
+            mFile = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
+            mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
             
         }
         if (mFile == null) {
@@ -280,11 +228,11 @@ public class FilePreviewFragment extends SherlockFragment implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         
-        outState.putParcelable(FilePreviewFragment.EXTRA_FILE, mFile);
-        outState.putParcelable(FilePreviewFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, mFile);
+        outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
         if (mVideoPreview.isPlaying()) {
-            outState.putInt(FilePreviewFragment.EXTRA_PLAY_POSITION , mVideoPreview.getCurrentPosition());
+            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mVideoPreview.getCurrentPosition());
         }
     }
     
@@ -296,10 +244,6 @@ public class FilePreviewFragment extends SherlockFragment implements
         if (mFile != null) {
            if (mFile.isAudio()) {
                bindMediaService();
-               
-           } else if (mFile.isImage()) {
-               BitmapLoader bl = new BitmapLoader(mImagePreview);
-               bl.execute(new String[]{mFile.getStoragePath()});
                
            } else if (mFile.isVideo()) {
                playVideo(); 
@@ -354,30 +298,6 @@ public class FilePreviewFragment extends SherlockFragment implements
                 return true;
             }
             
-            /*
-            case R.id.action_toggle_keep_in_sync: {
-                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
-                mFile.setKeepInSync(cb.isChecked());
-                mStorageManager.saveFile(mFile);
-                
-                /// register the OCFile instance in the observer service to monitor local updates;
-                /// if necessary, the file is download 
-                Intent intent = new Intent(getActivity().getApplicationContext(),
-                                           FileObserverService.class);
-                intent.putExtra(FileObserverService.KEY_FILE_CMD,
-                           (cb.isChecked()?
-                                   FileObserverService.CMD_ADD_OBSERVED_FILE:
-                                   FileObserverService.CMD_DEL_OBSERVED_FILE));
-                intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
-                intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
-                Log.e(TAG, "starting observer service");
-                getActivity().startService(intent);
-                
-                if (mFile.keepInSync()) {
-                    onClick(getView().findViewById(R.id.fdDownloadBtn));    // force an immediate synchronization
-                }
-                break;
-            }*/
             default:
                 return false;
         }
@@ -530,9 +450,6 @@ public class FilePreviewFragment extends SherlockFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mBitmap != null) {
-            mBitmap.recycle();
-        }
     }
     
     /*
@@ -564,7 +481,7 @@ public class FilePreviewFragment extends SherlockFragment implements
                         if (getActivity() instanceof FileDisplayActivity) {
                             // double pane
                             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.file_details_container, new FilePreviewFragment(null, null), FTAG); // empty FileDetailFragment
+                            transaction.replace(R.id.file_details_container, new PreviewMediaFragment(null, null), FTAG); // empty FileDetailFragment
                             transaction.commit();
                             mContainerActivity.onFileStateChanged();
                         } else {
@@ -916,130 +833,14 @@ public class FilePreviewFragment extends SherlockFragment implements
         
     }
 
-    /*
-    public void onDismiss(EditNameDialog dialog) {
-        if (dialog.getResult()) {
-            String newFilename = dialog.getNewFilename();
-            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-            mLastRemoteOperation = new RenameFileOperation( mFile, 
-                                                            mAccount, 
-                                                            newFilename, 
-                                                            new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
-            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-        }
-    }
-    */
-    
-    private class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
-
-        /**
-         * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
-         */
-        private final WeakReference<ImageView> mImageViewRef;
-        
-        
-        /**
-         * Constructor.
-         * 
-         * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
-         */
-        public BitmapLoader(ImageView imageView) {
-            mImageViewRef = new WeakReference<ImageView>(imageView);
-        }
-        
-        
-        @SuppressWarnings("deprecation")
-        @SuppressLint({ "NewApi", "NewApi", "NewApi" }) // to avoid Lint errors since Android SDK r20
-		@Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap result = null;
-            if (params.length != 1) return result;
-            String storagePath = params[0];
-            try {
-                // set desired options that will affect the size of the bitmap
-                BitmapFactory.Options options = new Options();
-                options.inScaled = true;
-                options.inPurgeable = true;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1) {
-                    options.inPreferQualityOverSpeed = false;
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-                    options.inMutable = false;
-                }
-                // make a false load of the bitmap - just to be able to read outWidth, outHeight and outMimeType
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(storagePath, options);   
-                
-                int width = options.outWidth;
-                int height = options.outHeight;
-                int scale = 1;
-                if (width >= 2048 || height >= 2048) {  
-                    // try to scale down the image to save memory  
-                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
-                    options.inSampleSize = scale;
-                }
-                Display display = getActivity().getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                int screenwidth;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                    display.getSize(size);
-                    screenwidth = size.x;
-                } else {
-                    screenwidth = display.getWidth();
-                }
-
-                Log.d(TAG, "image width: " + width + ", screen width: " + screenwidth);
-
-                if (width > screenwidth) {
-                    // second try to scale down the image , this time depending upon the screen size; WTF... 
-                    scale = (int) Math.ceil((float)width / screenwidth);
-                    options.inSampleSize = scale;
-                }
-
-                // really load the bitmap
-                options.inJustDecodeBounds = false; // the next decodeFile call will be real
-                result = BitmapFactory.decodeFile(storagePath, options);
-                Log.e(TAG, "loaded width: " + options.outWidth + ", loaded height: " + options.outHeight);
-
-            } catch (OutOfMemoryError e) {
-                result = null;
-                Log.e(TAG, "Out of memory occured for file with size " + storagePath);
-                
-            } catch (NoSuchFieldError e) {
-                result = null;
-                Log.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
-                
-            } catch (Throwable t) {
-                result = null;
-                Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
-            }
-            return result;
-        }
-        
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            if (result != null && mImageViewRef != null) {
-                final ImageView imageView = mImageViewRef.get();
-                imageView.setImageBitmap(result);
-                mBitmap  = result;
-            }
-        }
-        
-    }
-
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link FilePreviewFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment} to be previewed.
      * 
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && (file.isAudio() || file.isVideo() || file.isImage()));
+        return (file != null && (file.isAudio() || file.isVideo()));
     }
 
     /**
@@ -1050,13 +851,6 @@ public class FilePreviewFragment extends SherlockFragment implements
         if (operation.equals(mLastRemoteOperation)) {
             if (operation instanceof RemoveFileOperation) {
                 onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-
-                /*
-            } else if (operation instanceof RenameFileOperation) {
-                onRenameFileOperationFinish((RenameFileOperation)operation, result);
-                
-            } else if (operation instanceof SynchronizeFileOperation) {
-                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);*/
             }
         }
     }
@@ -1109,70 +903,4 @@ public class FilePreviewFragment extends SherlockFragment implements
         }
     }
     
-    /*
-    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-        
-        if (result.isSuccess()) {
-            updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
-            mContainerActivity.onFileStateChanged();
-            
-        } else {
-            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                // TODO throw again the new rename dialog
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (result.isSslRecoverableException()) {
-                    // TODO show the SSL warning dialog
-                }
-            }
-        }
-    }
-    
-    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-
-        if (!result.isSuccess()) {
-            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, mFile);
-                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
-                startActivity(i);
-                
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-            }
-            
-            if (mFile.isDown()) {
-                setButtonsForDown();
-                
-            } else {
-                setButtonsForRemote();
-            }
-            
-        } else {
-            if (operation.transferWasRequested()) {
-                mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
-                                                            // checking the service to see if the file is downloading results in FALSE
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (mFile.isDown()) {
-                    setButtonsForDown();
-                    
-                } else {
-                    setButtonsForRemote();
-                }
-            }
-        }
-    }
-    */
-
-
 }

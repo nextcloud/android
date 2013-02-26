@@ -40,7 +40,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FilePreviewFragment;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
 import com.owncloud.android.R;
 
@@ -120,9 +120,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         int mode = getIntent().getIntExtra(EXTRA_MODE, MODE_PREVIEW); 
         
         Fragment newFragment = null;
-        if (FilePreviewFragment.canBePreviewed(mFile) && mode == MODE_PREVIEW) {
+        if (PreviewMediaFragment.canBePreviewed(mFile) && mode == MODE_PREVIEW) {
             if (mFile.isDown()) {
-                newFragment = new FilePreviewFragment(mFile, mAccount);
+                newFragment = new PreviewMediaFragment(mFile, mAccount);
             
             } else {
                 newFragment = new FileDetailFragment(mFile, mAccount);
@@ -307,7 +307,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         if (success) {
             if (mWaitingToPreview) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment, new FilePreviewFragment(file, mAccount), FileDetailFragment.FTAG); 
+                transaction.replace(R.id.fragment, new PreviewMediaFragment(file, mAccount), FileDetailFragment.FTAG); 
                 transaction.commit();
                 mWaitingToPreview = false;
             }

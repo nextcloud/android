@@ -90,9 +90,9 @@ import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.FilePreviewFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
@@ -302,9 +302,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (mCurrentFile != null) {
-                if (FilePreviewFragment.canBePreviewed(mCurrentFile)) {
+                if (PreviewMediaFragment.canBePreviewed(mCurrentFile)) {
                     if (mCurrentFile.isDown()) {
-                        transaction.replace(R.id.file_details_container, new FilePreviewFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                        transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
                     } else {
                         transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
                         mWaitingToPreview = mCurrentFile;
@@ -528,7 +528,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane) {
             // Resets the FileDetailsFragment on Tablets so that it always displays
             Fragment fileFragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileFragment != null && (fileFragment instanceof FilePreviewFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
+            if (fileFragment != null && (fileFragment instanceof PreviewMediaFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment                
                 transaction.commit();
@@ -1039,7 +1039,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (mDualPane) {
             // Resets the FileDetailsFragment on Tablets so that it always displays
             Fragment fileFragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fileFragment != null && (fileFragment instanceof FilePreviewFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
+            if (fileFragment != null && (fileFragment instanceof PreviewMediaFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment                
                 transaction.commit();
@@ -1054,7 +1054,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     public void onFileClick(OCFile file) {
 
-        if (file != null && FilePreviewFragment.canBePreviewed(file)) {
+        if (file != null && PreviewMediaFragment.canBePreviewed(file)) {
             if (file.isImage()) {
                 // preview image - it handles the download, if needed
                 startPreviewImage(file);
@@ -1084,7 +1084,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private void startOtherPreview(OCFile file) {
         if (mDualPane) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.commit();
             
         } else {
@@ -1403,7 +1403,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         if (success) {
             if (mWaitingToPreview != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FilePreviewFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
                 transaction.commit();
                 mWaitingToPreview = null;
             }
