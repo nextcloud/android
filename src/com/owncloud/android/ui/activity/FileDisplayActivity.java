@@ -21,7 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
@@ -92,6 +91,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
 import com.owncloud.android.R;
@@ -1053,15 +1053,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     @Override
     public void onFileClick(OCFile file) {
-
-        if (file != null && PreviewMediaFragment.canBePreviewed(file)) {
-            if (file.isImage()) {
-                // preview image - it handles the download, if needed
-                startPreviewImage(file);
-                
-            } else if (file.isDown()) {
+        if (file != null && PreviewImageFragment.canBePreviewed(file)) {
+            // preview image - it handles the download, if needed
+            startPreviewImage(file);
+            
+        } else if (file != null && PreviewMediaFragment.canBePreviewed(file)) {
+            if (file.isDown()) {
                 // general preview
-                startOtherPreview(file);
+                startMediaPreview(file);
                 
             } else {
                 // automatic download, preview on finish
@@ -1081,7 +1080,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         startActivity(showDetailsIntent);
     }
     
-    private void startOtherPreview(OCFile file) {
+    private void startMediaPreview(OCFile file) {
         if (mDualPane) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);

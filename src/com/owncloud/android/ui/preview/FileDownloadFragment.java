@@ -52,7 +52,7 @@ import eu.alefzero.webdav.OnDatatransferProgressListener;
  * 
  * @author David A. Velasco
  */
-public class FileDownloadFragment extends SherlockFragment implements OnClickListener,FileFragment {
+public class FileDownloadFragment extends SherlockFragment implements OnClickListener, FileFragment {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -119,16 +119,14 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
             mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
         }
         
-        if(mFile != null && mAccount != null) {
-            //mLayout = R.layout.file_details_fragment;
-        }
-        
         View view = null;
         view = inflater.inflate(R.layout.file_download_fragment, container, false);
         mView = view;
         
         ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
         mProgressListener = new ProgressListener(progressBar);
+        
+        ((Button)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
         
         return view;
     }
@@ -229,6 +227,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
                 if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
                     downloaderBinder.cancel(mAccount, mFile);
+                    leaveTransferProgress();
                     if (mFile.isDown()) {
                         setButtonsForDown();
                     } else {
