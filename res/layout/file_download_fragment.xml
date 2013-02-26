@@ -18,14 +18,19 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical" >
+	android:layout_height="match_parent"
+	android:orientation="vertical" 
+	android:layout_gravity="center"
+	android:gravity="center_vertical"
+	android:padding="20dp"
+	>
 	
 	<TextView 
 	    android:id="@+id/progressText" 
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content" 
 		android:text="@string/downloader_not_downloaded_yet"
+		android:layout_marginBottom="15dp"
 	/>
 	
 	<ProgressBar android:id="@+id/progressBar"
@@ -34,6 +39,7 @@
 		android:progressDrawable="@android:drawable/progress_horizontal"
 		android:indeterminate="false" 
 		android:indeterminateOnly="false" 
+		android:layout_marginBottom="15dp"
 	/>
 	
 	<Button

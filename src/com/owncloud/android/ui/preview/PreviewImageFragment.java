@@ -58,8 +58,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
