@@ -223,12 +223,15 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
                 if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
                     downloaderBinder.cancel(mAccount, mFile);
+                    getActivity().finish(); // :)
+                    /*
                     leaveTransferProgress();
                     if (mFile.isDown()) {
                         setButtonsForDown();
                     } else {
                         setButtonsForRemote();
                     }
+                    */
                 }
                 break;
             }
