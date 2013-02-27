@@ -126,10 +126,16 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder, mAccount, mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(mFile);
-        Log.e(TAG, "Setting initial position " + position);
+        position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter);        
         mViewPager.setOnPageChangeListener(this);
-        mViewPager.setCurrentItem((position >= 0) ? position : 0);
+        Log.e(TAG, "Setting initial position " + position);
+        mViewPager.setCurrentItem(position);
+        if (position == 0 && !mFile.isDown()) {
+            // this is necessary because mViewPager.setCurrentItem(0) just after setting the adapter does not result in a call to #onPageSelected(0) 
+            mWaitingToPreview = mFile; 
+            mRequestWaitingForBinder = true;
+        }
     }
     
 
@@ -148,7 +154,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         public void onServiceConnected(ComponentName component, IBinder service) {
                 
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log.e(TAG, "PREVIEW_IMAGE Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                    if (mWaitingToPreview != null) {
