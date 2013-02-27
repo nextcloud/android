@@ -36,6 +36,8 @@ import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -53,6 +55,7 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -400,7 +403,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        Intent showDetailsIntent = null;
+        if (PreviewImageFragment.canBePreviewed(download.getFile())) {
+            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        } else {
+            showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        }
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -448,8 +456,22 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            // TODO put something smart in the contentIntent below
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            Intent showDetailsIntent = null;
+            if (downloadResult.isSuccess()) {
+                if (PreviewImageFragment.canBePreviewed(download.getFile())) {
+                    showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+                } else {
+                    showDetailsIntent = new Intent(this, FileDetailActivity.class);
+                }
+                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
+                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
+                showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                
+            } else {
+                // TODO put something smart in showDetailsIntent
+                showDetailsIntent = new Intent();
+            }
+            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
             finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             mNotificationManager.notify(tickerId, finalNotification);
         }
