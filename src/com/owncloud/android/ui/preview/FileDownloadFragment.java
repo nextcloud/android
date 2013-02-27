@@ -334,6 +334,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
                 mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mListening = false;
             }
         }
     }

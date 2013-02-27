@@ -116,11 +116,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         
         createViewPager();
 
-        mDownloadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
-        mUploadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
-        
     }
 
     private void createViewPager() {
@@ -143,6 +138,10 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     public void onStart() {
         super.onStart();
         Log.e(TAG, "PREVIEW ACTIVITY ON START");
+        mDownloadConnection = new PreviewImageServiceConnection();
+        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
+        mUploadConnection = new PreviewImageServiceConnection();
+        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
     }
     
     @Override
@@ -190,8 +189,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         if (mDownloadConnection != null) {
             unbindService(mDownloadConnection);
             mDownloadConnection = null;
@@ -200,6 +199,12 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             unbindService(mUploadConnection);
             mUploadConnection = null;
         }
+    }
+    
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
     
     
