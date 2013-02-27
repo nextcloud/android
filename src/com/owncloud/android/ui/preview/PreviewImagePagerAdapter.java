@@ -36,29 +36,29 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.fragment.FileFragment;
 
 /**
  * Adapter class that provides Fragment instances  
  * 
  * @author David A. Velasco
  */
-//public class PreviewImagePagerAdapter extends PagerAdapter {
-public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
+public class PreviewImagePagerAdapter extends PagerAdapter {
+//public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     
     private static final String TAG = PreviewImagePagerAdapter.class.getSimpleName();
             
     private Vector<OCFile> mImageFiles;
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
+    private Set<Integer> mObsoletePositions;
     private DataStorageManager mStorageManager;
     
-    /*
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     private Fragment mCurrentPrimaryItem = null;
-    */
 
     /**
      * Constructor.
@@ -68,8 +68,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param storageManager    Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, DataStorageManager storageManager) {
-        super(fragmentManager);
-
+        //super(fragmentManager);
+        
         if (fragmentManager == null) {
             throw new IllegalArgumentException("NULL FragmentManager instance");
         }
@@ -84,6 +84,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getDirectoryImages(parentFolder); 
         mObsoleteFragments = new HashSet<Object>();
+        mObsoletePositions = new HashSet<Integer>();
+        mFragmentManager = fragmentManager;
     }
 
     
@@ -102,9 +104,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = new PreviewImageFragment(file, mAccount);
+            fragment = new PreviewImageFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
         } else {
-            fragment = new FileDownloadFragment(file, mAccount);
+            fragment = new FileDownloadFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
         }
         return fragment;
     }
@@ -124,8 +126,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public void updateFile(int position, OCFile file) {
-        mImageFiles.set(position, file);
         mObsoleteFragments.add(instantiateItem(null, position));
+        mObsoletePositions.add(Integer.valueOf(position));
+        mImageFiles.set(position, file);
     }
     
     @Override
@@ -139,11 +142,27 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    /* *
+    /**
+     * Should not be used for not already started fragments...
+     *  
+     * @return
+     */
+    protected FileFragment getFragmentAt(int position) {
+        try {
+            return (FileFragment) instantiateItem(null, position);
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Wrong access to fragment in gallery ", e);
+            return null;
+        }
+    }
+
+
+    /**
      * Called when a change in the shown pages is going to start being made.
      * 
      * @param   container   The containing View which is displaying this adapter's page views.
-     * -/
+     */
     @Override
     public void startUpdate(ViewGroup container) {
         Log.e(TAG, "** startUpdate");
@@ -182,7 +201,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
         fragment.setMenuVisibility(false);
         mFragments.set(position, fragment);
-        Log.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
+        //Log.e(TAG, "** \t adding fragment at position " + position + ", containerId " + container.getId());
         mCurTransaction.add(container.getId(), fragment);
 
         return fragment;
@@ -288,6 +307,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 }
             }
         }
-    } */
+    }
     
 }

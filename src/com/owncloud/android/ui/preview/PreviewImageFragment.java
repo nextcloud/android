@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -91,19 +92,22 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
+    private boolean mIgnoreFirstSavedState;
     
     /**
      * Creates a fragment to preview an image.
      * 
      * When 'imageFile' or 'ocAccount' are null
      * 
-     * @param imageFile         An {@link OCFile} to preview as an image in the fragment
-     * @param ocAccount         An ownCloud account; needed to start downloads
+     * @param imageFile                 An {@link OCFile} to preview as an image in the fragment
+     * @param ocAccount                 An ownCloud account; needed to start downloads
+     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
      */
-    public PreviewImageFragment(OCFile fileToDetail, Account ocAccount) {
+    public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
         mFile = fileToDetail;
         mAccount = ocAccount;
-        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
+        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment
+        mIgnoreFirstSavedState = ignoreFirstSavedState;
     }
     
     
@@ -118,6 +122,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         mFile = null;
         mAccount = null;
         mStorageManager = null;
+        mIgnoreFirstSavedState = false;
     }
     
     
@@ -165,9 +170,12 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         super.onActivityCreated(savedInstanceState);
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
-            
+            if (!mIgnoreFirstSavedState) {
+                mFile = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
+                mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
+            } else {
+                mIgnoreFirstSavedState = false;
+            }
         }
         if (mFile == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");

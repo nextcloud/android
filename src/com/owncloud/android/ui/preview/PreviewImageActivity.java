@@ -20,9 +20,11 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -71,9 +73,10 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
-    private OCFile mWaitingToPreview = null;
 
     private boolean mRequestWaitingForBinder;
+    
+    private DownloadFinishReceiver mDownloadFinishReceiver;
     
 
     @Override
@@ -106,10 +109,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         }
 
         if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(KEY_WAITING_TO_PREVIEW);
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
-            mWaitingToPreview = null;
             mRequestWaitingForBinder = false;
         }
         
@@ -127,22 +128,26 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(mFile);
         position = (position >= 0) ? position : 0;
-        mViewPager.setAdapter(mPreviewImagePagerAdapter);        
+        mViewPager.setAdapter(mPreviewImagePagerAdapter); 
         mViewPager.setOnPageChangeListener(this);
         Log.e(TAG, "Setting initial position " + position);
         mViewPager.setCurrentItem(position);
         if (position == 0 && !mFile.isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the adapter does not result in a call to #onPageSelected(0) 
-            mWaitingToPreview = mFile; 
             mRequestWaitingForBinder = true;
         }
     }
     
-
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e(TAG, "PREVIEW ACTIVITY ON START");
+    }
+    
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
     }
 
@@ -157,10 +162,9 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 Log.e(TAG, "PREVIEW_IMAGE Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
-                   if (mWaitingToPreview != null) {
-                       requestForDownload();
-                   }
-                   mRequestWaitingForBinder = false;
+                    mRequestWaitingForBinder = false;
+                    Log.e(TAG, "Simulating reselection of current page after connection of download binder");
+                    onPageSelected(mViewPager.getCurrentItem());
                 }
                     
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
@@ -219,6 +223,24 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e(TAG, "PREVIEW ACTIVITY ONRESUME");
+        mDownloadFinishReceiver = new DownloadFinishReceiver();
+        IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+        registerReceiver(mDownloadFinishReceiver, filter);
+    }
+
+    
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Log.e(TAG, "PREVIEW ACTIVITY ONPOSTRESUME");
+    }
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(mDownloadFinishReceiver);
+        mDownloadFinishReceiver = null;
     }
     
 
@@ -288,22 +310,22 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     }
 
     
-    private void requestForDownload() {
-        Log.e(TAG, "REQUEST FOR DOWNLOAD : " + mWaitingToPreview.getFileName());
+    private void requestForDownload(OCFile file) {
+        Log.e(TAG, "REQUEST FOR DOWNLOAD : " + file.getFileName());
         if (mDownloaderBinder == null) {
-            mRequestWaitingForBinder = true;
+            Log.e(TAG, "requestForDownload called without binder to download service");
             
-        } else if (!mDownloaderBinder.isDownloading(mAccount, mWaitingToPreview)) {
+        } else if (!mDownloaderBinder.isDownloading(mAccount, file)) {
             Intent i = new Intent(this, FileDownloader.class);
             i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            i.putExtra(FileDownloader.EXTRA_FILE, mWaitingToPreview);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }
-        mViewPager.invalidate();
     }
 
     @Override
     public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
+        /*
         if (success) {
             if (mWaitingToPreview != null && mWaitingToPreview.equals(file)) {
                 mWaitingToPreview = null;
@@ -314,6 +336,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
             }
         }
+        */
     }
 
     
@@ -325,13 +348,16 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     public void onPageSelected(int position) {
         Log.e(TAG, "onPageSelected " + position);
-        OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
-        getSupportActionBar().setTitle(currentFile.getFileName());
-        if (currentFile.isDown()) {
-            mWaitingToPreview = null;
+        if (mDownloaderBinder == null) {
+            mRequestWaitingForBinder = true;
+            
         } else {
-            mWaitingToPreview = currentFile;
-            requestForDownload();
+            OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
+            getSupportActionBar().setTitle(currentFile.getFileName());
+            if (!currentFile.isDown()) {
+                requestForDownload(currentFile);
+                //updateCurrentDownloadFragment(true);        
+            }
         }
     }
     
@@ -358,5 +384,58 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
+    
+
+    private void updateCurrentDownloadFragment(boolean transferring) {
+        FileFragment fragment = mPreviewImagePagerAdapter.getFragmentAt(mViewPager.getCurrentItem());
+        if (fragment instanceof FileDownloadFragment) {
+            ((FileDownloadFragment) fragment).updateView(transferring); 
+            //mViewPager.invalidate();
+        }
+    }
+    
+    
+    /**
+     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * 
+     * Updates the UI when a download is started or finished, provided that it is relevant for the
+     * folder displayed in the gallery.
+     */
+    private class DownloadFinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+            String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+            if (mAccount.name.equals(accountName) && 
+                    downloadedRemotePath != null) {
+
+                OCFile file = mStorageManager.getFileByPath(downloadedRemotePath);
+                int position = mPreviewImagePagerAdapter.getFilePosition(file);
+                boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
+                boolean isCurrent =  (mViewPager.getCurrentItem() == position);
+                
+                if (position >= 0) {
+                    /// ITS MY BUSSINESS
+                    Log.e(TAG, "downloaded file FOUND in adapter");
+                    if (downloadWasFine) {
+                        mPreviewImagePagerAdapter.updateFile(position, file);
+                        //Log.e(TAG, "BEFORE NOTIFY DATA SET CHANGED");
+                        mPreviewImagePagerAdapter.notifyDataSetChanged();
+                        //Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
+                        
+                    } else if (isCurrent) {
+                        updateCurrentDownloadFragment(false);
+                    }
+                    
+                } else {
+                    Log.e(TAG, "DOWNLOADED FILE NOT FOUND IN ADAPTER ");
+                }
+                
+            }
+            removeStickyBroadcast(intent);
+        }
+
+    }
+    
     
 }
