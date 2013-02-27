@@ -169,7 +169,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             FileDetailFragment detailsFragment = (fragment instanceof FileDetailFragment) ? (FileDetailFragment) fragment : null;
             if (detailsFragment != null) {
                 detailsFragment.listenForTransferProgress();
-                detailsFragment.updateFileDetails(mWaitingToPreview);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
+                detailsFragment.updateFileDetails(mWaitingToPreview, false);   // let the fragment gets the mDownloadBinder through getDownloadBinder() (see FileDetailFragment#updateFileDetais())
             }
         }
 
@@ -225,7 +225,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         if (!mConfigurationChangedToLandscape) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fragment != null && fragment instanceof FileDetailFragment) {
-                ((FileDetailFragment) fragment).updateFileDetails(false);
+                ((FileDetailFragment) fragment).updateFileDetails(false, false);
             }
         }
     }

@@ -120,7 +120,7 @@ public class FileDetailFragment extends SherlockFragment implements
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     
-    private DownloadFinishReceiver mDownloadFinishReceiver;
+    //private DownloadFinishReceiver mDownloadFinishReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     public ProgressListener mProgressListener;
     
@@ -203,7 +203,7 @@ public class FileDetailFragment extends SherlockFragment implements
             mProgressListener = new ProgressListener(progressBar);
         }
         
-        updateFileDetails(false);
+        updateFileDetails(false, false);
         return view;
     }
     
@@ -255,13 +255,15 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onResume() {
         super.onResume();
         
+        /*
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(
                 FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mDownloadFinishReceiver, filter);
+        */
         
         mUploadFinishReceiver = new UploadFinishReceiver();
-        filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
 
     }
@@ -271,11 +273,17 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onPause() {
         super.onPause();
         
-        getActivity().unregisterReceiver(mDownloadFinishReceiver);
-        mDownloadFinishReceiver = null;
+        /*
+        if (mDownloadFinishReceiver != null) {
+            getActivity().unregisterReceiver(mDownloadFinishReceiver);
+            mDownloadFinishReceiver = null;
+        }
+        */
         
-        getActivity().unregisterReceiver(mUploadFinishReceiver);
-        mUploadFinishReceiver = null;
+        if (mUploadFinishReceiver != null) {
+            getActivity().unregisterReceiver(mUploadFinishReceiver);
+            mUploadFinishReceiver = null;
+        }
     }
 
     
@@ -583,7 +591,7 @@ public class FileDetailFragment extends SherlockFragment implements
             mStorageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
         }
         mAccount = ocAccount;
-        updateFileDetails(false);
+        updateFileDetails(false, false);
     }
     
 
@@ -597,11 +605,16 @@ public class FileDetailFragment extends SherlockFragment implements
      * @param transferring      Flag signaling if the file should be considered as downloading or uploading, 
      *                          although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and 
      *                          {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
-     * 
+     *                          
+     * @param refresh           If 'true', try to refresh the hold file from the database
      */
-    public void updateFileDetails(boolean transferring) {
+    public void updateFileDetails(boolean transferring, boolean refresh) {
 
         if (readyToShow()) {
+            
+            if (refresh && mStorageManager != null) {
+                mFile = mStorageManager.getFileByPath(mFile.getRemotePath());
+            }
             
             // set file details
             setFilename(mFile.getFileName());
@@ -802,10 +815,10 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     
-    /**
+    /* *
      * Once the file download has finished -> update view
      * @author Bartek Przybylski
-     */
+     * - /
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -825,6 +838,7 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
+    */
     
     
     /**
@@ -857,7 +871,7 @@ public class FileDetailFragment extends SherlockFragment implements
                         msg.show();
                     }
                     getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
-                    updateFileDetails(false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
+                    updateFileDetails(false, false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
                 }
             }
         }

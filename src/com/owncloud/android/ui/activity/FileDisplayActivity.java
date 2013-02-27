@@ -101,11 +101,11 @@ import eu.alefzero.webdav.WebdavClient;
  * Displays, what files the user has available in his ownCloud.
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
+    OCFileListFragment.ContainerActivity, FileFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir = null;
@@ -587,7 +587,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
             // Listen for download messages
             IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
-            //downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+            downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
             mDownloadFinishReceiver = new DownloadFinishReceiver();
             registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
@@ -982,42 +982,78 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     
     /**
-     * Once the file download has finished -> update view
+     * Class waiting for broadcast events from the {@link FielDownloader} service.
+     * 
+     * Updates the UI when a download is started or finished, provided that it is relevant for the
+     * current folder.
      */
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            boolean sameAccount = isSameAccount(context, intent);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-            if (accountName != null && AccountUtils.getCurrentOwnCloudAccount(context) != null) {
-                boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
-                boolean isDescendant = (mCurrentDir != null) && (downloadedRemotePath != null) && (downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
-                if (sameAccount && isDescendant) {
-                    OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
-                    if (fileListFragment != null) { 
-                        fileListFragment.listDirectory();
-                        if (    mWaitingToPreview != null && 
-                                mWaitingToPreview.getRemotePath().equals(downloadedRemotePath) && 
-                                intent.getAction().equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)    ) {
-                            
-                            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-                            if (fragment != null && fragment instanceof FileDetailFragment ) {
-                                FileDetailFragment detailFragment = (FileDetailFragment) fragment;
-                                if (detailFragment.getFile().getRemotePath().equals(downloadedRemotePath)) {
-                                    detailFragment.listenForTransferProgress();
-                                    detailFragment.updateFileDetails(true);
-                                }
-                            }
-                        }
-                    }
+            boolean isDescendant = isDescendant(downloadedRemotePath);
+            
+            if (sameAccount && isDescendant) {
+                updateLeftPanel();
+                if (mDualPane) {
+                    updateRightPanel(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
                 }
             }
+            
+            removeStickyBroadcast(intent);
+        }
+
+        private boolean isDescendant(String downloadedRemotePath) {
+            return (mCurrentDir != null && downloadedRemotePath != null && downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+        }
+
+        private boolean isSameAccount(Context context, Intent intent) {
+            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
+            return (accountName != null && accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name));
         }
     }
     
     
-    
-    
+    protected void updateLeftPanel() {
+        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (fileListFragment != null) { 
+            fileListFragment.listDirectory();
+        }
+    }
+
+    protected void updateRightPanel(String downloadEvent, String downloadedRemotePath, boolean success) {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+        boolean waitedPreview = (mWaitingToPreview != null && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
+        if (fragment != null && fragment instanceof FileDetailFragment) {
+            FileDetailFragment detailsFragment = (FileDetailFragment) fragment;
+            OCFile fileInFragment = detailsFragment.getFile();
+            if (fileInFragment != null && !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
+                // the user browsed to other file ; forget the automatic preview 
+                mWaitingToPreview = null;
+                
+            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
+                // grant that the right panel updates the progress bar
+                detailsFragment.listenForTransferProgress();
+                detailsFragment.updateFileDetails(true, false);
+                
+            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+                //  update the right panel 
+                if (success && waitedPreview) {
+                    mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                    transaction.commit();
+                    mWaitingToPreview = null;
+                    
+                } else {
+                    detailsFragment.updateFileDetails(false, (success));
+                }
+            }
+        }
+    }
+
+
     /**
      * {@inheritDoc}
      */
@@ -1026,7 +1062,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return mStorageManager;
     }
     
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1190,7 +1226,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 if (fragment != null && fragment instanceof FileDetailFragment) {
                     FileDetailFragment detailFragment = (FileDetailFragment)fragment;
                     detailFragment.listenForTransferProgress();
-                    detailFragment.updateFileDetails(false);
+                    detailFragment.updateFileDetails(false, false);
                 }
             }
         }
@@ -1373,7 +1409,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 if (downloading || uploading) {
                     ((FileDetailFragment)details).updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
                 } else {
-                    ((FileDetailFragment)details).updateFileDetails(downloading || uploading);
+                    ((FileDetailFragment)details).updateFileDetails(false, true);
                 }
             }
         }
@@ -1399,6 +1435,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     @Override
     public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
+        /*
         if (success) {
             if (mWaitingToPreview != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -1408,6 +1445,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
         mDownloadFinishReceiver.onReceive(this, intent);
+         */
     }
 
 
