@@ -43,8 +43,8 @@ import com.owncloud.android.ui.fragment.FileFragment;
  * 
  * @author David A. Velasco
  */
-public class PreviewImagePagerAdapter extends PagerAdapter {
-//public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
+//public class PreviewImagePagerAdapter extends PagerAdapter {
+public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     
     private static final String TAG = PreviewImagePagerAdapter.class.getSimpleName();
             
@@ -54,11 +54,13 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
     private Set<Integer> mObsoletePositions;
     private DataStorageManager mStorageManager;
     
+    /*
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
     private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
     private Fragment mCurrentPrimaryItem = null;
+    */
 
     /**
      * Constructor.
@@ -68,7 +70,7 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
      * @param storageManager    Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, DataStorageManager storageManager) {
-        //super(fragmentManager);
+        super(fragmentManager);
         
         if (fragmentManager == null) {
             throw new IllegalArgumentException("NULL FragmentManager instance");
@@ -85,7 +87,7 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
         mImageFiles = mStorageManager.getDirectoryImages(parentFolder); 
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
-        mFragmentManager = fragmentManager;
+        //mFragmentManager = fragmentManager;
     }
 
     
@@ -100,7 +102,6 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
 
     
     public Fragment getItem(int i) {
-        Log.e(TAG, "GETTING PAGE " + i);
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
@@ -133,7 +134,6 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
     
     @Override
     public int getItemPosition(Object object) {
-        Log.e(TAG, "getItemPosition ");
         if (mObsoleteFragments.contains(object)) {
             mObsoleteFragments.remove(object);
             return POSITION_NONE;
@@ -152,17 +152,16 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
             return (FileFragment) instantiateItem(null, position);
             
         } catch (Exception e) {
-            Log.e(TAG, "Wrong access to fragment in gallery ", e);
             return null;
         }
     }
 
 
-    /**
+    /* -*
      * Called when a change in the shown pages is going to start being made.
      * 
      * @param   container   The containing View which is displaying this adapter's page views.
-     */
+     *- /
     @Override
     public void startUpdate(ViewGroup container) {
         Log.e(TAG, "** startUpdate");
@@ -308,5 +307,5 @@ public class PreviewImagePagerAdapter extends PagerAdapter {
             }
         }
     }
-    
+    */
 }

@@ -105,7 +105,6 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONCREATE " + ((mFile == null)? "(NULL)" : mFile.getFileName()));
     }
     
 
@@ -142,7 +141,6 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONATTACH " + ((mFile == null)?" (NULL)":mFile.getFileName()));
         try {
             mContainerActivity = (ContainerActivity) activity;
             
@@ -158,7 +156,6 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONACTIVITYCREATED " + ((mFile == null)?" (NULL)":mFile.getFileName()));
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
         }
@@ -175,13 +172,11 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(TAG, "FILE_DOWNLOAD_FRAGMENT ONSTART " + mFile.getFileName());
         listenForTransferProgress();
     }
     
     @Override
     public void onResume() {
-        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONRESUME " + mFile.getFileName());
         super.onResume();
     }
 
@@ -189,21 +184,18 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(TAG, "PREVIEW_DOWNLOAD_FRAGMENT ONPAUSE " + mFile.getFileName());
     }
 
     
     @Override
     public void onStop() {
         super.onStop();
-        Log.e(TAG, "FILE_DOWNLOAD_FRAGMENT ONSTOP " + mFile.getFileName());
         leaveTransferProgress();
     }
     
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "FILE_DOWNLOAD_FRAGMENT ONDESTROY " + mFile.getFileName());
     }
     
     

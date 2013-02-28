@@ -134,7 +134,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
         mViewPager.setOnPageChangeListener(this);
-        Log.e(TAG, "Setting initial position " + position);
         mViewPager.setCurrentItem(position);
         if (position == 0 && !mFile.isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the adapter does not result in a call to #onPageSelected(0) 
@@ -146,7 +145,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(TAG, "PREVIEW ACTIVITY ON START");
         mDownloadConnection = new PreviewImageServiceConnection();
         bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
         mUploadConnection = new PreviewImageServiceConnection();
@@ -167,11 +165,10 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         public void onServiceConnected(ComponentName component, IBinder service) {
                 
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
-                Log.e(TAG, "PREVIEW_IMAGE Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
-                    Log.e(TAG, "Simulating reselection of current page after connection of download binder");
+                    Log.d(TAG, "Simulating reselection of current page after connection of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
                     
@@ -237,7 +234,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG, "PREVIEW ACTIVITY ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         registerReceiver(mDownloadFinishReceiver, filter);
@@ -247,7 +243,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        Log.e(TAG, "PREVIEW ACTIVITY ONPOSTRESUME");
     }
     
     @Override
@@ -325,9 +320,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
     
     private void requestForDownload(OCFile file) {
-        Log.e(TAG, "REQUEST FOR DOWNLOAD : " + file.getFileName());
         if (mDownloaderBinder == null) {
-            Log.e(TAG, "requestForDownload called without binder to download service");
+            Log.d(TAG, "requestForDownload called without binder to download service");
             
         } else if (!mDownloaderBinder.isDownloading(mAccount, file)) {
             Intent i = new Intent(this, FileDownloader.class);
@@ -344,7 +338,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
      */
     @Override
     public void onPageSelected(int position) {
-        Log.e(TAG, "onPageSelected " + position);
         if (mDownloaderBinder == null) {
             mRequestWaitingForBinder = true;
             
@@ -353,7 +346,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             getSupportActionBar().setTitle(currentFile.getFileName());
             if (!currentFile.isDown()) {
                 requestForDownload(currentFile);
-                //updateCurrentDownloadFragment(true);        
             }
         }
     }
@@ -413,12 +405,9 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 
                 if (position >= 0) {
                     /// ITS MY BUSSINESS
-                    Log.e(TAG, "downloaded file FOUND in adapter");
                     if (downloadWasFine) {
                         mPreviewImagePagerAdapter.updateFile(position, file);
-                        //Log.e(TAG, "BEFORE NOTIFY DATA SET CHANGED");
                         mPreviewImagePagerAdapter.notifyDataSetChanged();
-                        //Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
                         
                     } else if (isCurrent) {
                         updateCurrentDownloadFragment(false);
@@ -437,16 +426,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        Log.e(TAG, "TOUCH!!! **********************");
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            Log.e(TAG, "TOUCH DOWN!!! **********************");
-            
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            Log.e(TAG, "TOUCH UP!!! **********************");
-            toggleFullScreen();
-            
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            Log.e(TAG, "TOUCH MOVE!!! **********************");
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+           toggleFullScreen();
         }
         return true;
     }
