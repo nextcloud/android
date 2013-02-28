@@ -303,7 +303,7 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         leaveTransferProgress();
     }
-    
+
     
     @Override
     public View getView() {

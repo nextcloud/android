@@ -211,6 +211,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mDualPane = (findViewById(R.id.file_details_container) != null);
         if (mDualPane) {
             initFileDetailsInDualPane();
+        } else {
+            // quick patchES to fix problem in turn from landscape to portrait, when a file is selected in the right pane
+            // TODO serious refactorization in activities and fragments providing file browsing and handling 
+            if (mCurrentFile != null) {
+                onFileClick(mCurrentFile);
+                mCurrentFile = null;
+            }
+            Fragment rightPanel = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (rightPanel != null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.remove(rightPanel);
+                transaction.commit();
+            }
         }
             
         // Action bar setup
@@ -265,7 +278,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         startActivity(intent);  // the new activity won't be created until this.onStart() and this.onResume() are finished;
     }
 
-
+    
     /**
      *  Load of state dependent of the existence of an ownCloud account
      */
