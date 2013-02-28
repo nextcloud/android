@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -147,6 +148,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (ImageView)mView.findViewById(R.id.image);
+        mView.setOnTouchListener((OnTouchListener)getActivity());   // WATCH OUT
         return mView;
     }
     

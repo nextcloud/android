@@ -30,10 +30,14 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -53,7 +57,7 @@ import com.owncloud.android.R;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener {
+public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -77,6 +81,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     private boolean mRequestWaitingForBinder;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
+
+    private boolean mFullScreen;
     
 
     @Override
@@ -94,12 +100,15 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         if (!mFile.isImage()) {
             throw new IllegalArgumentException("Non-image file passed as argument");
         }
-        
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
     
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mFile.getFileName());
+        actionBar.hide();
+        
+        mFullScreen = true;
         
         mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
         mParentFolder = mStorageManager.getFileById(mFile.getParentId());
@@ -423,6 +432,36 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             removeStickyBroadcast(intent);
         }
 
+    }
+
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        Log.e(TAG, "TOUCH!!! **********************");
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            Log.e(TAG, "TOUCH DOWN!!! **********************");
+            
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            Log.e(TAG, "TOUCH UP!!! **********************");
+            toggleFullScreen();
+            
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            Log.e(TAG, "TOUCH MOVE!!! **********************");
+        }
+        return true;
+    }
+
+    
+    private void toggleFullScreen() {
+        ActionBar actionBar = getSupportActionBar();
+        if (mFullScreen) {
+            actionBar.show();
+            
+        } else {
+            actionBar.hide();
+            
+        }
+        mFullScreen = !mFullScreen;
     }
     
     
