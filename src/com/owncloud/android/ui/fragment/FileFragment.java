@@ -69,8 +69,6 @@ public interface FileFragment {
         public void showFragmentWithDetails(OCFile file);
         
         
-        public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success);
-        
     }
     
 }

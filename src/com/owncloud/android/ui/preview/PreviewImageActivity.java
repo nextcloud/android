@@ -328,23 +328,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         }
     }
 
-    @Override
-    public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
-        /*
-        if (success) {
-            if (mWaitingToPreview != null && mWaitingToPreview.equals(file)) {
-                mWaitingToPreview = null;
-                int position = mViewPager.getCurrentItem();
-                mPreviewImagePagerAdapter.updateFile(position, file);
-                Log.e(TAG, "BEFORE NOTIFY DATA SET CHANGED");
-                mPreviewImagePagerAdapter.notifyDataSetChanged();
-                Log.e(TAG, "AFTER NOTIFY DATA SET CHANGED");
-            }
-        }
-        */
-    }
-
-    
     /**
      * This method will be invoked when a new page becomes selected. Animation is not necessarily complete.
      * 

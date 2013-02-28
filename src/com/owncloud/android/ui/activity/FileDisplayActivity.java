@@ -561,7 +561,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         Log.d(getClass().toString(), "onResume() start");
         super.onResume();
 
@@ -605,7 +605,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     
     @Override
-    protected void onPause() {
+    public void onPause() {
         Log.d(getClass().toString(), "onPause() start");
         super.onPause();
         if (mSyncBroadcastReceiver != null) {
@@ -1430,22 +1430,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
             startActivity(showDetailsIntent);
         }
-    }
-
-
-    @Override
-    public void notifySuccessfulDownload(OCFile file, Intent intent, boolean success) {
-        /*
-        if (success) {
-            if (mWaitingToPreview != null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
-                transaction.commit();
-                mWaitingToPreview = null;
-            }
-        }
-        mDownloadFinishReceiver.onReceive(this, intent);
-         */
     }
 
 

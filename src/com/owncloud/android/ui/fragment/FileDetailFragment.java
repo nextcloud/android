@@ -69,7 +69,6 @@ import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -230,7 +229,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
-            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
+            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         }
     }
         
@@ -813,32 +812,6 @@ public class FileDetailFragment extends SherlockFragment implements
         }*/
         return false;
     }
-    
-    
-    /* *
-     * Once the file download has finished -> update view
-     * @author Bartek Przybylski
-     * - /
-    private class DownloadFinishReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
-
-            if (!isEmpty() && accountName.equals(mAccount.name)) {
-                boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
-                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-                if (mFile.getRemotePath().equals(downloadedRemotePath)) {
-                    if (downloadWasFine) {
-                        mFile = mStorageManager.getFileByPath(downloadedRemotePath);
-                    }
-                    mContainerActivity.notifySuccessfulDownload(mFile, intent, downloadWasFine);
-                    getActivity().removeStickyBroadcast(intent);
-                    updateFileDetails(false);    // it updates the buttons; must be called although !downloadWasFine
-                }
-            }
-        }
-    }
-    */
     
     
     /**
