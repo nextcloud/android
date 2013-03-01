@@ -282,7 +282,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "FRAGMENT, ONRESUME");
+        //Log.e(TAG, "FRAGMENT, ONRESUME");
         /*
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(
@@ -533,14 +533,6 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 int height = options.outHeight;
                 int scale = 1;
                 
-                /*
-                if (width >= 2048 || height >= 2048) {  
-                    // try to scale down the image to save memory  
-                    scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
-                    options.inSampleSize = scale;
-                }
-                */
-                
                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 int screenWidth;
@@ -555,14 +547,13 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 }
 
                 if (width > screenWidth) {
-                    // second try to scale down the image , this time depending upon the screen size; WTF... 
-                    scale = (int) Math.ceil((float)width / screenWidth);
-                    options.inSampleSize = scale;
+                    // second try to scale down the image , this time depending upon the screen size 
+                    scale = (int) Math.floor((float)width / screenWidth);
                 }
                 if (height > screenHeight) {
-                    scale = Math.max(scale, (int) Math.ceil((float)height / screenHeight));
+                    scale = Math.max(scale, (int) Math.floor((float)height / screenHeight));
                 }
-                
+                options.inSampleSize = scale;
 
                 // really load the bitmap
                 options.inJustDecodeBounds = false; // the next decodeFile call will be real

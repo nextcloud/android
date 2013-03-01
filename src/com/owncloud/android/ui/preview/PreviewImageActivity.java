@@ -237,7 +237,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG, "ACTIVITY, ONRESUME");
+        //Log.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         registerReceiver(mDownloadFinishReceiver, filter);
@@ -245,7 +245,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
     @Override
     protected void onPostResume() {
-        Log.e(TAG, "ACTIVITY, ONPOSTRESUME");
+        //Log.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
