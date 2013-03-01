@@ -240,6 +240,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         //Log.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+        filter.addAction(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
         registerReceiver(mDownloadFinishReceiver, filter);
     }
 
@@ -320,6 +321,9 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
         showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         startActivity(showDetailsIntent);
+        int pos = mPreviewImagePagerAdapter.getFilePosition(file);
+        file = mPreviewImagePagerAdapter.getFileAt(pos);
+        
     }
 
     
@@ -400,7 +404,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
                 
-                if (position >= 0) {
+                if (position >= 0 && intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
                     if (downloadWasFine) {
                         mPreviewImagePagerAdapter.updateFile(position, file);   
                         
