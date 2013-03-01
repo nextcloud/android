@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.ui.preview;
 
+import org.apache.commons.httpclient.methods.PostMethod;
+
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -28,6 +30,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -234,14 +237,15 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         registerReceiver(mDownloadFinishReceiver, filter);
     }
 
-    
     @Override
     protected void onPostResume() {
+        Log.e(TAG, "ACTIVITY, ONPOSTRESUME");
         super.onPostResume();
     }
     
@@ -346,6 +350,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             getSupportActionBar().setTitle(currentFile.getFileName());
             if (!currentFile.isDown()) {
                 requestForDownload(currentFile);
+            /*} else {
+                FileFragment fragment = mPreviewImagePagerAdapter.getFragmentAt(mViewPager.getCurrentItem());
+                if (fragment instanceof PreviewImageFragment) {
+                    ((PreviewImageFragment)fragment).showError();
+                }*/
             }
         }
     }

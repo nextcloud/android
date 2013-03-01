@@ -45,6 +45,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -77,7 +78,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class PreviewImageFragment extends SherlockFragment implements   FileFragment, 
                                                                         OnRemoteOperationListener, 
-                                                                        ConfirmationDialogFragment.ConfirmationDialogFragmentListener{
+                                                                        ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
@@ -86,6 +87,8 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     private ImageView mImageView;
+    private TextView mMessageView;
+
     public Bitmap mBitmap = null;
     
     private Handler mHandler;
@@ -94,6 +97,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
     private boolean mIgnoreFirstSavedState;
+
     
     /**
      * Creates a fragment to preview an image.
@@ -147,7 +151,9 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (ImageView)mView.findViewById(R.id.image);
-        mView.setOnTouchListener((OnTouchListener)getActivity());   // WATCH OUT
+        mView.setOnTouchListener((OnTouchListener)getActivity());   // WATCH OUT THAT CAST
+        mMessageView = (TextView)mView.findViewById(R.id.message);
+        mMessageView.setVisibility(View.GONE);
         return mView;
     }
     
@@ -205,7 +211,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     public void onStart() {
         super.onStart();
         if (mFile != null) {
-           BitmapLoader bl = new BitmapLoader(mImageView);
+           BitmapLoader bl = new BitmapLoader(mImageView, mMessageView);
            bl.execute(new String[]{mFile.getStoragePath()});
         }
     }
@@ -271,6 +277,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onResume() {
         super.onResume();
+        Log.e(TAG, "FRAGMENT, ONRESUME");
         /*
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter filter = new IntentFilter(
@@ -460,6 +467,16 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
          */
         private final WeakReference<ImageView> mImageViewRef;
+
+        /**
+         * Weak reference to the target {@link TextView} where error messages will be written.
+         * 
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
+         */
+        private final WeakReference<TextView> mMessageViewRef;
+
+        
+        private Throwable mThrowable;
         
         
         /**
@@ -467,8 +484,10 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public BitmapLoader(ImageView imageView) {
+        public BitmapLoader(ImageView imageView, TextView messageView) {
             mImageViewRef = new WeakReference<ImageView>(imageView);
+            mMessageViewRef = new WeakReference<TextView>(messageView);
+            mThrowable = null;
         }
         
         
@@ -497,44 +516,46 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 int width = options.outWidth;
                 int height = options.outHeight;
                 int scale = 1;
+                
+                /*
                 if (width >= 2048 || height >= 2048) {  
                     // try to scale down the image to save memory  
                     scale = (int) Math.ceil((Math.ceil(Math.max(height, width) / 2048.)));
                     options.inSampleSize = scale;
                 }
+                */
+                
                 Display display = getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
-                int screenwidth;
+                int screenWidth;
+                int screenHeight;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
                     display.getSize(size);
-                    screenwidth = size.x;
+                    screenWidth = size.x;
+                    screenHeight = size.y;
                 } else {
-                    screenwidth = display.getWidth();
+                    screenWidth = display.getWidth();
+                    screenHeight = display.getHeight();
                 }
 
-                Log.d(TAG, "image width: " + width + ", screen width: " + screenwidth);
-
-                if (width > screenwidth) {
+                if (width > screenWidth) {
                     // second try to scale down the image , this time depending upon the screen size; WTF... 
-                    scale = (int) Math.ceil((float)width / screenwidth);
+                    scale = (int) Math.ceil((float)width / screenWidth);
                     options.inSampleSize = scale;
                 }
+                if (height > screenHeight) {
+                    scale = Math.max(scale, (int) Math.ceil((float)height / screenHeight));
+                }
+                
 
                 // really load the bitmap
                 options.inJustDecodeBounds = false; // the next decodeFile call will be real
                 result = BitmapFactory.decodeFile(storagePath, options);
-                Log.e(TAG, "loaded width: " + options.outWidth + ", loaded height: " + options.outHeight);
+                //Log.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
 
-            } catch (OutOfMemoryError e) {
-                result = null;
-                Log.e(TAG, "Out of memory occured for file with size " + storagePath);
-                
-            } catch (NoSuchFieldError e) {
-                result = null;
-                Log.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
-                
             } catch (Throwable t) {
                 result = null;
+                mThrowable = t; // error processing is delayed to #onPostExecute(Bitmap)
                 Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
             }
             return result;
@@ -542,11 +563,46 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         
         @Override
         protected void onPostExecute(Bitmap result) {
-            if (result != null && mImageViewRef != null) {
+            if (mImageViewRef != null && result != null) {
                 final ImageView imageView = mImageViewRef.get();
-                imageView.setImageBitmap(result);
-                mBitmap  = result;
+                if (imageView != null) {
+                    imageView.setImageBitmap(result);
+                    mBitmap  = result;
+                    if (mMessageViewRef != null) {
+                        final TextView messageView = mMessageViewRef.get();
+                        if (messageView != null) {
+                            messageView.setVisibility(View.GONE);
+                        }
+                    }
+                } // else , silently finish, the fragment was destroyed
+                
+            } else if (mMessageViewRef != null && result == null) {
+                // error
+                int messageId;
+                if (mThrowable == null) {
+                    messageId = R.string.preview_image_error_unknown_format;
+                    Log.e(TAG, "File could not be loaded as a bitmap: " + mFile.getStoragePath());
+                
+                } else if (mThrowable instanceof OutOfMemoryError) {
+                    messageId = R.string.preview_image_error_unknown_format;
+                    Log.e(TAG, "Out of memory occured for file " + mFile.getStoragePath(), mThrowable);
+                    
+                } else if (mThrowable instanceof NoSuchFieldError) {
+                    messageId = R.string.common_error_unknown;
+                    Log.e(TAG, "Error from access to unexisting field despite protection; file " + mFile.getStoragePath(), mThrowable);
+                    
+                } else {
+                    messageId = R.string.common_error_unknown;
+                    Log.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), mThrowable);
+                }
+                final TextView messageView = mMessageViewRef.get();
+                if (messageView != null) {
+                    messageView.setText(messageId);
+                    messageView.setVisibility(View.VISIBLE);
+                } // else , silently finish, the fragment was destroyed
+                    
             }
+            
         }
         
     }
@@ -561,6 +617,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         return (file != null && file.isImage());
     }
 
+    
     /**
      * {@inheritDoc}
      */
@@ -596,5 +653,5 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         container.finish();
     }
     
-
+    
 }
