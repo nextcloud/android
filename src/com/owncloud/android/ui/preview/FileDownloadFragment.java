@@ -52,6 +52,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    private static final String EXTRA_ERROR = "ERROR";
 
     private FileFragment.ContainerActivity mContainerActivity;
     
@@ -64,8 +65,9 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     private boolean mListening;
     
     private static final String TAG = FileDownloadFragment.class.getSimpleName();
-
+    
     private boolean mIgnoreFirstSavedState;
+    private boolean mError;
     
 
     /**
@@ -80,6 +82,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         mProgressListener = null;
         mListening = false;
         mIgnoreFirstSavedState = false;
+        mError = false;
     }
     
     
@@ -99,6 +102,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         mProgressListener = null;
         mListening = false;
         mIgnoreFirstSavedState = ignoreFirstSavedState;
+        mError = false;
     }
     
     
@@ -117,6 +121,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
             if (!mIgnoreFirstSavedState) {
                 mFile = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE);
                 mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
+                mError = savedInstanceState.getBoolean(FileDownloadFragment.EXTRA_ERROR);
             } else {
                 mIgnoreFirstSavedState = false;
             }
@@ -130,6 +135,12 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         mProgressListener = new ProgressListener(progressBar);
         
         ((Button)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
+        
+        if (mError) {
+            setButtonsForRemote();
+        } else {
+            setButtonsForTransferring();
+        }
         
         return view;
     }
@@ -167,6 +178,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, mFile);
         outState.putParcelable(FileDownloadFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);
     }
 
     @Override
@@ -249,7 +261,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
      */
     public void updateView(boolean transferring) {
         // configure UI for depending upon local state of the file
-        FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+        FileDownloaderBinder downloaderBinder = (mContainerActivity == null) ? null : mContainerActivity.getFileDownloaderBinder();
         if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile))) {
             setButtonsForTransferring();
             
@@ -261,6 +273,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
             setButtonsForRemote();
         }
         getView().invalidate();
+        
     }
 
 
@@ -268,14 +281,17 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
-        Button downloadButton = (Button) getView().findViewById(R.id.cancelBtn);
-        downloadButton.setText(R.string.common_cancel);
+        getView().findViewById(R.id.cancelBtn).setVisibility(View.VISIBLE);
     
         // show the progress bar for the transfer
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
         TextView progressText = (TextView)getView().findViewById(R.id.progressText);
         progressText.setText(R.string.downloader_download_in_progress_ticker);
+        progressText.setVisibility(View.VISIBLE);
+                
+        // hides the error icon
+        getView().findViewById(R.id.errorText).setVisibility(View.GONE);
+        getView().findViewById(R.id.error_image).setVisibility(View.GONE);
     }
     
 
@@ -283,34 +299,37 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
      * Enables or disables buttons for a file locally available 
      */
     private void setButtonsForDown() {
-        Button downloadButton = (Button) getView().findViewById(R.id.cancelBtn);
-        downloadButton.setVisibility(View.GONE);
+        getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
     
         // hides the progress bar
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
+        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
         
         // updates the text message
         TextView progressText = (TextView)getView().findViewById(R.id.progressText);
         progressText.setText(R.string.common_loading);
+        progressText.setVisibility(View.VISIBLE);
+        
+        // hides the error icon
+        getView().findViewById(R.id.errorText).setVisibility(View.GONE);
+        getView().findViewById(R.id.error_image).setVisibility(View.GONE);
     }
 
     
     /**
      * Enables or disables buttons for a file not locally available 
+     * 
+     * Currently, this is only used when a download was failed
      */
     private void setButtonsForRemote() {
-        Button downloadButton = (Button) getView().findViewById(R.id.cancelBtn);
-        downloadButton.setVisibility(View.GONE);
-        //downloadButton.setText(R.string.filedetails_download);
+        getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
         
-        // hides the progress bar
-        ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
-        
-        // updates the text message
-        TextView progressText = (TextView)getView().findViewById(R.id.progressText);
-        progressText.setText(R.string.downloader_not_downloaded_yet);
+        // hides the progress bar and message
+        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+        getView().findViewById(R.id.progressText).setVisibility(View.GONE);
+
+        // shows the error icon and message
+        getView().findViewById(R.id.errorText).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.error_image).setVisibility(View.VISIBLE);
     }
     
 
@@ -366,6 +385,11 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
             mLastPercent = percent;
         }
 
+    }
+
+
+    public void setError(boolean error) {
+        mError = error;
     };
     
 

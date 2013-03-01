@@ -18,7 +18,9 @@
 package com.owncloud.android.ui.preview;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
@@ -30,6 +32,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +55,11 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
+    private Set<Integer> mDownloadErrors;
     private DataStorageManager mStorageManager;
     
+    private Map<Integer, FileFragment> mCachedFragments;
+
     /*
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
@@ -87,7 +93,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mImageFiles = mStorageManager.getDirectoryImages(parentFolder); 
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
+        mDownloadErrors = new HashSet<Integer>();
         //mFragmentManager = fragmentManager;
+        mCachedFragments = new HashMap<Integer, FileFragment>();
     }
 
     
@@ -106,9 +114,16 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         if (file.isDown()) {
             fragment = new PreviewImageFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
+            
+        } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
+            fragment = new FileDownloadFragment(file, mAccount, true);
+            ((FileDownloadFragment)fragment).setError(true);
+            mDownloadErrors.remove(Integer.valueOf(i));
+            
         } else {
             fragment = new FileDownloadFragment(file, mAccount, mObsoletePositions.contains(Integer.valueOf(i)));
         }
+        mObsoletePositions.remove(Integer.valueOf(i));
         return fragment;
     }
 
@@ -126,11 +141,33 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mImageFiles.get(position).getFileName();
     }
 
+    
     public void updateFile(int position, OCFile file) {
-        mObsoleteFragments.add(instantiateItem(null, position));
+        FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
+        if (fragmentToUpdate != null) {
+            mObsoleteFragments.add(fragmentToUpdate);
+        }
         mObsoletePositions.add(Integer.valueOf(position));
         mImageFiles.set(position, file);
     }
+    
+    
+    public void updateWithDownloadError(int position) {
+        FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
+        if (fragmentToUpdate != null) {
+            mObsoleteFragments.add(fragmentToUpdate);
+        }
+        mDownloadErrors.add(Integer.valueOf(position));
+    }
+    
+    public void clearErrorAt(int position) {
+        FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
+        if (fragmentToUpdate != null) {
+            mObsoleteFragments.add(fragmentToUpdate);
+        }
+        mDownloadErrors.remove(Integer.valueOf(position));
+    }
+    
     
     @Override
     public int getItemPosition(Object object) {
@@ -142,21 +179,26 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-    /**
-     * Should not be used for not already started fragments...
-     *  
-     * @return
-     */
-    protected FileFragment getFragmentAt(int position) {
-        try {
-            return (FileFragment) instantiateItem(null, position);
-            
-        } catch (Exception e) {
-            return null;
-        }
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Object fragment = super.instantiateItem(container, position);
+        mCachedFragments.put(Integer.valueOf(position), (FileFragment)fragment);
+        return fragment;
+    }
+    
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+       mCachedFragments.remove(Integer.valueOf(position));
+       super.destroyItem(container, position, object);
     }
 
 
+    public boolean pendingErrorAt(int position) {
+        return mDownloadErrors.contains(Integer.valueOf(position));
+    }
+
+
+    
     /* -*
      * Called when a change in the shown pages is going to start being made.
      * 

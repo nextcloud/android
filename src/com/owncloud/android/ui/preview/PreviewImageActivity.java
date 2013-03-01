@@ -349,12 +349,9 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             if (!currentFile.isDown()) {
-                requestForDownload(currentFile);
-            /*} else {
-                FileFragment fragment = mPreviewImagePagerAdapter.getFragmentAt(mViewPager.getCurrentItem());
-                if (fragment instanceof PreviewImageFragment) {
-                    ((PreviewImageFragment)fragment).showError();
-                }*/
+                if (!mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                    requestForDownload(currentFile);
+                }
             }
         }
     }
@@ -384,15 +381,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     }
     
 
-    private void updateCurrentDownloadFragment(boolean transferring) {
-        FileFragment fragment = mPreviewImagePagerAdapter.getFragmentAt(mViewPager.getCurrentItem());
-        if (fragment instanceof FileDownloadFragment) {
-            ((FileDownloadFragment) fragment).updateView(transferring); 
-            //mViewPager.invalidate();
-        }
-    }
-    
-    
     /**
      * Class waiting for broadcast events from the {@link FielDownloader} service.
      * 
@@ -410,20 +398,19 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 OCFile file = mStorageManager.getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
-                boolean isCurrent =  (mViewPager.getCurrentItem() == position);
+                //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
                 
                 if (position >= 0) {
-                    /// ITS MY BUSSINESS
                     if (downloadWasFine) {
-                        mPreviewImagePagerAdapter.updateFile(position, file);
-                        mPreviewImagePagerAdapter.notifyDataSetChanged();
+                        mPreviewImagePagerAdapter.updateFile(position, file);   
                         
-                    } else if (isCurrent) {
-                        updateCurrentDownloadFragment(false);
+                    } else {
+                        mPreviewImagePagerAdapter.updateWithDownloadError(position);
                     }
+                    mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
                     
                 } else {
-                    Log.e(TAG, "DOWNLOADED FILE NOT FOUND IN ADAPTER ");
+                    Log.d(TAG, "Download finished, but the fragment is offscreen");
                 }
                 
             }
