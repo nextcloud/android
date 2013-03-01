@@ -20,9 +20,12 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
@@ -466,7 +469,18 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     /** @return  'True' if the file contains an image */
     public boolean isImage() {
-        return (mMimeType != null && mMimeType.startsWith("image/"));
+        return ((mMimeType != null && mMimeType.startsWith("image/")) ||
+                 getMimeTypeFromName().startsWith("image/"));
+    }
+    
+    public String getMimeTypeFromName() {
+        String extension = "";
+        int pos = mRemotePath.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = mRemotePath.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
     }
 
 }
