@@ -45,6 +45,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +89,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     private FileDataStorageManager mStorageManager;
     private ImageView mImageView;
     private TextView mMessageView;
+    private ProgressBar mProgressWheel;
 
     public Bitmap mBitmap = null;
     
@@ -151,9 +153,12 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (ImageView)mView.findViewById(R.id.image);
+        mImageView.setVisibility(View.GONE);
         mView.setOnTouchListener((OnTouchListener)getActivity());   // WATCH OUT THAT CAST
         mMessageView = (TextView)mView.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
+        mProgressWheel = (ProgressBar)mView.findViewById(R.id.progressWheel);
+        mProgressWheel.setVisibility(View.VISIBLE);
         return mView;
     }
     
@@ -211,7 +216,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     public void onStart() {
         super.onStart();
         if (mFile != null) {
-           BitmapLoader bl = new BitmapLoader(mImageView, mMessageView);
+           BitmapLoader bl = new BitmapLoader(mImageView, mMessageView, mProgressWheel);
            bl.execute(new String[]{mFile.getStoragePath()});
         }
     }
@@ -476,7 +481,18 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         private final WeakReference<TextView> mMessageViewRef;
 
         
-        private Throwable mThrowable;
+        /**
+         * Weak reference to the target {@link Progressbar} shown while the load is in progress.
+         * 
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load finishes.
+         */
+        private final WeakReference<ProgressBar> mProgressWheelRef;
+
+        
+        /**
+         * Error message to show when a load fails 
+         */
+        private int mErrorMessageId;
         
         
         /**
@@ -484,10 +500,10 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
          * 
          * @param imageView     Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public BitmapLoader(ImageView imageView, TextView messageView) {
+        public BitmapLoader(ImageView imageView, TextView messageView, ProgressBar progressWheel) {
             mImageViewRef = new WeakReference<ImageView>(imageView);
             mMessageViewRef = new WeakReference<TextView>(messageView);
-            mThrowable = null;
+            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
         
         
@@ -553,56 +569,78 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 result = BitmapFactory.decodeFile(storagePath, options);
                 //Log.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
 
+                if (result == null) {
+                    mErrorMessageId = R.string.preview_image_error_unknown_format;
+                    Log.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                }
+                
+            } catch (OutOfMemoryError e) {
+                mErrorMessageId = R.string.preview_image_error_unknown_format;
+                Log.e(TAG, "Out of memory occured for file " + storagePath, e);
+                    
+            } catch (NoSuchFieldError e) {
+                mErrorMessageId = R.string.common_error_unknown;
+                Log.e(TAG, "Error from access to unexisting field despite protection; file " + storagePath, e);
+                    
             } catch (Throwable t) {
-                result = null;
-                mThrowable = t; // error processing is delayed to #onPostExecute(Bitmap)
-                Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
+                mErrorMessageId = R.string.common_error_unknown;
+                Log.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), t);
+                
             }
             return result;
         }
         
         @Override
         protected void onPostExecute(Bitmap result) {
-            if (mImageViewRef != null && result != null) {
+            hideProgressWheel();
+            if (result != null) {
+                showLoadedImage(result);
+            } else {
+                showErrorMessage();
+            }
+        }
+        
+        private void showLoadedImage(Bitmap result) {
+            if (mImageViewRef != null) {
                 final ImageView imageView = mImageViewRef.get();
                 if (imageView != null) {
                     imageView.setImageBitmap(result);
+                    imageView.setVisibility(View.VISIBLE);
                     mBitmap  = result;
-                    if (mMessageViewRef != null) {
-                        final TextView messageView = mMessageViewRef.get();
-                        if (messageView != null) {
-                            messageView.setVisibility(View.GONE);
-                        }
-                    }
                 } // else , silently finish, the fragment was destroyed
-                
-            } else if (mMessageViewRef != null && result == null) {
-                // error
-                int messageId;
-                if (mThrowable == null) {
-                    messageId = R.string.preview_image_error_unknown_format;
-                    Log.e(TAG, "File could not be loaded as a bitmap: " + mFile.getStoragePath());
-                
-                } else if (mThrowable instanceof OutOfMemoryError) {
-                    messageId = R.string.preview_image_error_unknown_format;
-                    Log.e(TAG, "Out of memory occured for file " + mFile.getStoragePath(), mThrowable);
-                    
-                } else if (mThrowable instanceof NoSuchFieldError) {
-                    messageId = R.string.common_error_unknown;
-                    Log.e(TAG, "Error from access to unexisting field despite protection; file " + mFile.getStoragePath(), mThrowable);
-                    
-                } else {
-                    messageId = R.string.common_error_unknown;
-                    Log.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), mThrowable);
-                }
+            }
+            if (mMessageViewRef != null) {
                 final TextView messageView = mMessageViewRef.get();
                 if (messageView != null) {
-                    messageView.setText(messageId);
+                    messageView.setVisibility(View.GONE);
+                } // else , silently finish, the fragment was destroyed
+            }
+        }
+        
+        private void showErrorMessage() {
+            if (mImageViewRef != null) {
+                final ImageView imageView = mImageViewRef.get();
+                if (imageView != null) {
+                    // shows the default error icon
+                    imageView.setVisibility(View.VISIBLE);
+                } // else , silently finish, the fragment was destroyed
+            }
+            if (mMessageViewRef != null) {
+                final TextView messageView = mMessageViewRef.get();
+                if (messageView != null) {
+                    messageView.setText(mErrorMessageId);
                     messageView.setVisibility(View.VISIBLE);
                 } // else , silently finish, the fragment was destroyed
-                    
             }
-            
+        }
+        
+        private void hideProgressWheel() {
+            if (mProgressWheelRef != null) {
+                final ProgressBar progressWheel = mProgressWheelRef.get();
+                if (progressWheel != null) {
+                    progressWheel.setVisibility(View.GONE);
+                }
+            }
         }
         
     }
