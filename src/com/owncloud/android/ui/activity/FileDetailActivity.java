@@ -258,7 +258,11 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private void backToDisplayActivity() {
         Intent intent = new Intent(this, FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
+        OCFile targetFile = null;
+        if (mFile != null) {
+            targetFile = mStorageManager.getFileById(mFile.getParentId());
+        }
+        intent.putExtra(FileDetailFragment.EXTRA_FILE, targetFile);
         intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
         startActivity(intent);
         finish();
