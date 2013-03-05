@@ -98,7 +98,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage(), result.getException());
                 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                    Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + mResultTokenMap.get(OAuth2Context.OAUTH2_TOKEN_RECEIVED_ERROR));
+                    Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Context.OAUTH2_TOKEN_RECEIVED_ERROR) : "NULL"));
                     
             } else {
                 Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
