@@ -98,7 +98,7 @@
   <string name="downloader_download_in_progress_ticker">Зкачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>
-  <string name="downloader_download_succeeded_content">%1$ успішно завантажено</string>
+  <string name="downloader_download_succeeded_content">%1$s успішно завантажено</string>
   <string name="downloader_download_failed_ticker">Завантаження не вдалося</string>
   <string name="downloader_download_failed_content">Завантаження %1$ не вдається завершити</string>
   <string name="common_choose_account">Оберіть обліковий запис</string>
