@@ -145,7 +145,7 @@ public class DisplayUtils {
         } else {
             String [] parts = mimetype.split("/");
             String type = parts[0];
-            String subtype = parts[1];
+            String subtype = (parts.length > 0) ? parts[1] : "";
             
             if(TYPE_TXT.equals(type)) {
                 return R.drawable.file_doc;
