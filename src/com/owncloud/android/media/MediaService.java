@@ -62,7 +62,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private static final String MY_PACKAGE = MediaService.class.getPackage() != null ? MediaService.class.getPackage().getName() : "com.owncloud.android.media";
     
     /// Intent actions that we are prepared to handle
-    public static final String ACTION_PLAY_FILE = MY_PACKAGE + ".android.media.action.PLAY_FILE";
+    public static final String ACTION_PLAY_FILE = MY_PACKAGE + ".action.PLAY_FILE";
+    public static final String ACTION_STOP_ALL = MY_PACKAGE + ".action.STOP_ALL";
 
     /// Keys to add extras to the action
     public static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
@@ -231,6 +232,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         String action = intent.getAction();
         if (action.equals(ACTION_PLAY_FILE)) { 
             processPlayFileRequest(intent);
+            
+        } else if (action.equals(ACTION_STOP_ALL)) {
+            processStopRequest(true);
         }
 
         return START_NOT_STICKY; // don't want it to restart in case it's killed.

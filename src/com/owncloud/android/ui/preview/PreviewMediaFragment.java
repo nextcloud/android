@@ -70,8 +70,6 @@ import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.ui.fragment.FileFragment.ContainerActivity;
 
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
@@ -246,12 +244,20 @@ public class PreviewMediaFragment extends SherlockFragment implements
                bindMediaService();
                
            } else if (mFile.isVideo()) {
+               stopAudio();
                playVideo(); 
            }
         }
     }
     
     
+    private void stopAudio() {
+        Intent i = new Intent(getSherlockActivity(), MediaService.class);
+        i.setAction(MediaService.ACTION_STOP_ALL);
+        getSherlockActivity().startService(i);
+    }
+
+
     /**
      * {@inheritDoc}
      */
