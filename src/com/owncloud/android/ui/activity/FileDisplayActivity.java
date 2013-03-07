@@ -143,10 +143,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         super.onCreate(savedInstanceState);
 
         /// Load of parameters from received intent
-        mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); // no check necessary, mCurrenDir == null if the parameter is not in the intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-        if (account != null)
-            AccountUtils.setCurrentOwnCloudAccount(this, account.name);
+        if (account != null && AccountUtils.setCurrentOwnCloudAccount(this, account.name)) {
+            mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); 
+        }
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
@@ -187,7 +187,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         // Drop-down navigation 
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         OCFile currFile = mCurrentDir;
-        while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
+        while(mStorageManager != null && currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
             mDirectories.add(currFile.getFileName());
             currFile = mStorageManager.getFileById(currFile.getParentId());
         }
