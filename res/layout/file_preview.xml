@@ -19,36 +19,46 @@
   
 -->
 
-<!--
-     ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fdScrollView"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/owncloud_white" 
-    android:gravity="center_horizontal"
--->
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/owncloud_white"
     android:gravity="center"
     tools:context=".ui.fragment.FilePreviewFragment" >
 
-    <ImageView
-        android:id="@+id/image_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/owncloud_logo" />
+    <FrameLayout 
+        android:id="@+id/visual_area"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentTop="true"
+        >
     
-   	<VideoView  
-   	    android:id="@+id/video_preview"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"  
-		android:layout_gravity="center" />
+	    <ImageView
+	        android:id="@+id/image_preview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="16dp"
+	        android:layout_gravity="center"
+	        android:contentDescription="@string/preview_image_description"
+	        android:src="@drawable/owncloud_logo" />
+	    
+	   	<VideoView  
+	   	    android:id="@+id/video_preview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"  
+			android:layout_gravity="center" 
+			android:visibility="gone"
+			/>
+	   	
+   	</FrameLayout>
+   	
+   	<com.owncloud.android.media.MediaControlView 
+   	    android:id="@+id/media_controller"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_below="@id/visual_area"
+   	    />
 
 </RelativeLayout>
