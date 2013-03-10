@@ -15,7 +15,8 @@
     <string name="main_settings">Settings</string>
     <string name="main_tit_accsetup">Setup Account</string>
     <string name="main_wrn_accsetup">There is no account set up on your device. In order to use this App, you need to create one.</string>
-    <string name="about_message">%1$s Android App\n\nversion: %2$s</string>
+    <string name="about_android">Android App </string>
+    <string name="about_version">version: </string>
     <string name="actionbar_sync">Refresh</string>
     <string name="actionbar_upload">Upload</string>
     <string name="actionbar_upload_from_apps">Content from other apps</string>

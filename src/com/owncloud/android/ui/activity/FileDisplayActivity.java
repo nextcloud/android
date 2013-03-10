@@ -122,7 +122,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
-    private static final int DIALOG_ABOUT_APP = 2;
     public static final int DIALOG_SHORT_WAIT = 3;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
     private static final int DIALOG_SSL_VALIDATOR = 5;
@@ -136,7 +135,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
 
     private static final String TAG = "FileDisplayActivity";
 
-    private static int[] mMenuIdentifiersToPatch = {R.id.about_app};
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -320,31 +318,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
-            
-            patchHiddenAccents(menu);
-            
             return true;
     }
-
-    /**
-     * Workaround for this: <a href="http://code.google.com/p/android/issues/detail?id=3974">http://code.google.com/p/android/issues/detail?id=3974</a> 
-     * 
-     * @param menu      Menu to patch
-     */
-    private void patchHiddenAccents(Menu menu) {
-        for (int i = 0; i < mMenuIdentifiersToPatch.length ; i++) {
-            MenuItem aboutItem = menu.findItem(mMenuIdentifiersToPatch[i]);
-            if (aboutItem != null && aboutItem.getIcon() instanceof BitmapDrawable) {
-                // Clip off the bottom three (density independent) pixels of transparent padding
-                Bitmap original = ((BitmapDrawable) aboutItem.getIcon()).getBitmap();
-                float scale = getResources().getDisplayMetrics().density;
-                int clippedHeight = (int) (original.getHeight() - (3 * scale));
-                Bitmap scaled = Bitmap.createBitmap(original, 0, 0, original.getWidth(), clippedHeight);
-                aboutItem.setIcon(new BitmapDrawable(getResources(), scaled));
-            }
-        }
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -365,10 +340,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         case R.id.action_settings: {
             Intent settingsIntent = new Intent(this, Preferences.class);
             startActivity(settingsIntent);
-            break;
-        }
-        case R.id.about_app: {
-            showDialog(DIALOG_ABOUT_APP);
             break;
         }
         case android.R.id.home: {
@@ -648,22 +619,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             });
             //builder.setNegativeButton(android.R.string.cancel, this);
             dialog = builder.create();
-            break;
-        }
-        case DIALOG_ABOUT_APP: {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.about_title));
-            PackageInfo pkg;
-            try {
-                pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                builder.setMessage(String.format(getString(R.string.about_message), getString(R.string.app_name), pkg.versionName));
-                builder.setIcon(android.R.drawable.ic_menu_info_details);
-                dialog = builder.create();
-            } catch (NameNotFoundException e) {
-                builder = null;
-                dialog = null;
-                Log.e(TAG, "Error while showing about dialog", e);
-            }
             break;
         }
         case DIALOG_CREATE_DIR: {
