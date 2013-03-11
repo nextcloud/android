@@ -212,7 +212,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         
         // show changelog, if needed
-        showChangeLog();
+        //showChangeLog();
         
         Log.d(getClass().toString(), "onCreate() end");
     }
