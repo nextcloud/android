@@ -68,9 +68,10 @@ public class ChangelogDialog extends SherlockDialogFragment {
         
         /// build the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        
         Dialog dialog = builder.setView(webview)
                                 .setIcon(R.drawable.icon)
-                                .setTitle(R.string.whats_new)
+                                //.setTitle(R.string.whats_new)
                                 .setPositiveButton(R.string.common_ok,
                                         new DialogInterface.OnClickListener() {
                                     @Override

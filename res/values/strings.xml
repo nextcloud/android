@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ownCloud</string>
-    <string name="whats_new">What\'s new</string>
     <string name="main_password">Password:</string>
     <string name="main_login">Username:</string>
     <string name="main_button_login">Login</string>
@@ -26,7 +25,6 @@
     <string name="actionbar_settings">Settings</string>
     
     <string name="prefs_category_general">General</string>
-    <string name="prefs_category_trackmydevice">Device tracking</string>
     <string name="prefs_add_session">Add new session</string>
     <string name="prefs_create_img_thumbnails">Create image thumbnails</string>
     <string name="prefs_select_oc_account">Select an account</string>
