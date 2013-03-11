@@ -33,11 +33,6 @@
         >
 
         <ImageButton 
-            android:id="@+id/previousBtn" 
-            style="@android:style/MediaButton.Previous" 
-            android:contentDescription="@string/media_previous_description"
-            />
-        <ImageButton 
             android:id="@+id/rewindBtn" 
             style="@android:style/MediaButton.Rew" 
             android:contentDescription="@string/media_rewind_description"
@@ -51,11 +46,6 @@
             android:id="@+id/forwardBtn" 
             style="@android:style/MediaButton.Ffwd" 
             android:contentDescription="@string/media_forward_description"
-            />
-        <ImageButton 
-            android:id="@+id/nextBtn" 
-            style="@android:style/MediaButton.Next" 
-            android:contentDescription="@string/media_next_description"
             />
 
     </LinearLayout>

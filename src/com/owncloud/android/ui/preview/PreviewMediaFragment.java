@@ -329,18 +329,13 @@ public class PreviewMediaFragment extends SherlockFragment implements
     }
     
     private void playVideo() {
+        // create and prepare control panel for the user
+        mMediaController.setMediaPlayer(mVideoPreview);
+        
         // load the video file in the video player ; when done, VideoHelper#onPrepared() will be called
         mVideoPreview.setVideoPath(mFile.getStoragePath()); 
 
-        // create and prepare control panel for the user
-        //mMediaController = new MediaController(getActivity());
-        if (mMediaController != null) {
-            mMediaController.setMediaPlayer(mVideoPreview);
-            //mMediaController.setAnchorView(mVideoPreview);
-            //mVideoPreview.setMediaController(mMediaController);
-        } else {
-            Toast.makeText(getActivity(), "No media controller to play video", Toast.LENGTH_SHORT).show();
-        }
+        //mVideoPreview.setMediaController(mMediaController);
     }
     
 
@@ -357,6 +352,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
         public void onPrepared(MediaPlayer vp) {
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             mVideoPreview.start();
+            mMediaController.setEnabled(true);
+            mMediaController.updatePausePlay();
             //mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);  
         }
         
@@ -486,6 +483,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             if (!mMediaServiceBinder.isPlaying()) {
                 mMediaServiceBinder.start();
             }
+            /*
             if (!mMediaController.isShowing() && isVisible()) {
                 //mMediaController.show(MediaService.MEDIA_CONTROL_PERMANENT);
                 // TODO - fix strange bug; steps to trigger :
@@ -495,6 +493,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
                 // 4. go to notification bar and click on the "ownCloud music app" notification
                 // PUM!
             }
+            */
         }
     }
 
@@ -540,10 +539,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
             //mMediaServiceBinder.registerMediaController(mMediaController);
             if (mMediaController != null) {
                 mMediaController.setMediaPlayer(mMediaServiceBinder);
-                //mMediaController.setAnchorView(getView());
-                mMediaController.setEnabled(mMediaServiceBinder.isInPlaybackState());
-            } else {
-                Toast.makeText(getActivity(), "No media controller to prepare when connected to media service", Toast.LENGTH_SHORT).show();
+                mMediaController.setEnabled(true);
+                mMediaController.updatePausePlay();
             }
         }
 
