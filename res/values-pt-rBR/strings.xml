@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">ownCloud</string>
-  <string name="main_password">Senha</string>
-  <string name="main_login">Nome de usuário</string>
+  <string name="main_password">Senha:</string>
+  <string name="main_login">Nome de usuário:</string>
   <string name="main_button_login">Login</string>
-  <string name="main_welcome">Bem-vindo ao seu ownCloud</string>
+  <string name="main_welcome">Bem-vindo</string>
   <string name="main_files">Arquivos</string>
   <string name="main_music">Música</string>
-  <string name="main_contacts">Contato</string>
+  <string name="main_contacts">Contatos</string>
   <string name="main_calendar">Calendário</string>
   <string name="main_bookmarks">Favoritos</string>
   <string name="main_settings">Ajustes</string>
@@ -85,17 +85,17 @@
   <string name="about_title">Sobre</string>
   <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
-  <string name="upload_chooser_title">Enviando de ...</string>
+  <string name="upload_chooser_title">Enviar de …</string>
   <string name="uploader_info_dirname">Nome do diretório</string>
-  <string name="uploader_upload_in_progress_ticker">Enviando ...</string>
+  <string name="uploader_upload_in_progress_ticker">Enviando …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Envio bem sucedido</string>
   <string name="uploader_upload_succeeded_content_single">%1$s foi enviado com sucesso</string>
   <string name="uploader_upload_succeeded_content_multiple">%1$d arquivos foram enviados com sucesso</string>
-  <string name="uploader_upload_failed_ticker">Envio falhou</string>
+  <string name="uploader_upload_failed_ticker">Falha no envio</string>
   <string name="uploader_upload_failed_content_single">Envio de %1$s não pôde ser completado</string>
   <string name="uploader_upload_failed_content_multiple">Envio falhou: %1$d/%2$d arquivos foram enviados</string>
-  <string name="downloader_download_in_progress_ticker">Baixando ...</string>
+  <string name="downloader_download_in_progress_ticker">Baixando …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
   <string name="downloader_download_succeeded_ticker">Download bem sucedido</string>
   <string name="downloader_download_succeeded_content">%1$s foi baixado com sucesso</string>
@@ -106,22 +106,25 @@
   <string name="sync_fail_ticker">Sincronização falhou</string>
   <string name="sync_fail_content">Sincronização de %1$s não pôde ser completada</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d arquivos \"manter sincronizados\" não puderam ser sincronizados</string>
+  <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
+  <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
   <string name="use_ssl">Usar Conexão Segura</string>
-  <string name="location_no_provider">ownCloud não pode rastrear seu dispositivo. Por favor verifique suas configurações de localização</string>
-  <string name="pincode_enter_pin_code">Por favor insira o PIN da sua aplicação</string>
-  <string name="pincode_enter_new_pin_code">Por favor, insira seu novo App PIN</string>
-  <string name="pincode_configure_your_pin">Digite ownCloud App PIN</string>
+  <string name="location_no_provider">%1$s não pode rastrear seu dispositivo. Por favor verifique suas configurações de localização</string>
+  <string name="pincode_enter_pin_code">Por favor, insira o seu PIN de Aplicativo</string>
+  <string name="pincode_enter_new_pin_code">Por favor, insira seu novo PIN de Aplicativo</string>
+  <string name="pincode_configure_your_pin">Insira seu PIN de Aplicativo</string>
   <string name="pincode_configure_your_pin_explanation">O PIN (senha) será solicitado toda vez que o aplicativo for iniciado</string>
-  <string name="pincode_reenter_your_pincode">Redigite ownCloud App PIN, por favor</string>
-  <string name="pincode_remove_your_pincode">Remova seu ownCloud App PIN</string>
-  <string name="pincode_mismatch">Ambos ownCloud App PIN não são o mesmo</string>
-  <string name="pincode_wrong">ownCloud App PIN incorreto</string>
-  <string name="pincode_removed">ownCloud App PIN removido</string>
-  <string name="pincode_stored">ownCloud App PIN armazenado</string>
+  <string name="pincode_reenter_your_pincode">Por favor, reinsira seu PIN de Aplicativo</string>
+  <string name="pincode_remove_your_pincode">Remova seu PIN de Aplicativo</string>
+  <string name="pincode_mismatch">Os PINs de Aplicativo não são iguais</string>
+  <string name="pincode_wrong">PIN de Aplicativo incorreto</string>
+  <string name="pincode_removed">PIN de Aplicativo removido</string>
+  <string name="pincode_stored">PIN de Aplicativo armazenado</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Minutos</item>
-    <item>30 Minutos</item>
-    <item>60 Minutos</item>
+    <item>15 minutos</item>
+    <item>30 minutos</item>
+    <item>60 minutos</item>
   </string-array>
   <string-array name="prefs_trackmydevice_intervall_values">
     <item>15</item>
@@ -133,17 +136,17 @@
   <string name="auth_no_net_conn_message">Nenhuma conexão foi detectada, verifique sua conexão com a Internet e tente novamente.</string>
   <string name="auth_connect_anyway">Conectar mesmo assim</string>
   <string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
-  <string name="auth_nossl_plain_ok_message">Aplicação não pôde estabelecer uma conexão segura. Entretanto conexão não-segura está disponível. Você pode continuar ou cancelar.</string>
+  <string name="auth_nossl_plain_ok_message">O aplicativo não pôde estabelecer uma conexão segura. Uma conexão não-segura está disponível. Você pode continuar ou cancelar.</string>
   <string name="auth_connection_established">Conexão estabelecida</string>
   <string name="auth_testing_connection">Testando conexão...</string>
-  <string name="auth_not_configured_title">Configuração ownCloud mal formada</string>
-  <string name="auth_not_configured_message">Parece que sua instância ownCloud não está corretamente configurada. Contate seu administrador para mais detalhes.</string>
-  <string name="auth_unknown_error_title">Erro desconhecido ocorreu!</string>
-  <string name="auth_unknown_error_message">Erro desconhecido ocorreu. Por favor contate os desenvolvedores e inclua dos logs do seu dispositivo.</string>
+  <string name="auth_not_configured_title">Configuração do servidor mal formada</string>
+  <string name="auth_not_configured_message">Parece que a instância do seu servidor não está corretamente configurada. Contate seu administrador para mais detalhes.</string>
+  <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
+  <string name="auth_unknown_error_message">Ocorreu um erro desconhecido. Por favor contate o suporte e inclua registros do seu dispositivo.</string>
   <string name="auth_unknown_host_title">Não pôde encontrar host</string>
   <string name="auth_unknown_host_message">Couldn\'t find the entered host. Por favor verifique o nome de host, disponibilidade do servidor e tente novamente.</string>
-  <string name="auth_incorrect_path_title">Instância ownCloud não encontrada</string>
-  <string name="auth_incorrect_path_message">Aplicação não pôde encontrar uma instância ownCloud no caminho dado. Por favor, verifique e tente novamente.</string>
+  <string name="auth_incorrect_path_title">Instância de servidor não encontrada</string>
+  <string name="auth_incorrect_path_message">O aplicativo não pôde encontrar uma instância de servidor no caminho indicado. Por favor, verifique-o e tente novamente.</string>
   <string name="auth_timeout_title">O servidor demorou demais a responder</string>
   <string name="auth_incorrect_address_title">URL mal formada</string>
   <string name="auth_ssl_general_error_title">Inicialização SSL falhou</string>
@@ -155,7 +158,7 @@
   <string name="auth_unauthorized">Login / senha inválida</string>
   <string name="auth_not_found">Caminho dado está errado</string>
   <string name="auth_internal">Erro interno do servidor, código %1$d</string>
-  <string name="crashlog_message">Aplicação terminou inesperadamente. Gostaria de submeter um relatório de erros?</string>
+  <string name="crashlog_message">O aplicativo terminou inesperadamente. Gostaria de enviar um relatório de erros?</string>
   <string name="crashlog_send_report">Enviar relatório</string>
   <string name="crashlog_dont_send_report">Não enviar relatório</string>
   <string name="extensions_avail_title">Extensões disponíveis!</string>
@@ -179,7 +182,7 @@
   <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
   <string name="create_dir_fail_msg">Diretório não pôde ser criado</string>
   <string name="wait_a_moment">Aguarde um momento</string>
-  <string name="filedisplay_unexpected_bad_get_content">Problema inesperado ; por favor, tente usar outro app para selecionar o arquivo</string>
+  <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
   <string name="ssl_validator_title">Aviso</string>
   <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>

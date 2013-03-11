@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="main_settings">Instellings</string>
+  <string name="actionbar_settings">Instellings</string>
+  <string name="auth_username">Gebruikersnaam</string>
+  <string name="auth_password">Wagwoord</string>
+  <string name="setup_hint_username">Gebruikersnaam</string>
+  <string name="setup_hint_password">Wagwoord</string>
+</resources>
