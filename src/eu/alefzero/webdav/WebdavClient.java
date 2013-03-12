@@ -42,6 +42,8 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
+import com.owncloud.android.Log_OC;
+
 import android.net.Uri;
 import android.util.Log;
 
@@ -59,7 +61,7 @@ public class WebdavClient extends HttpClient {
      */
     public WebdavClient(HttpConnectionManager connectionMgr) {
         super(connectionMgr);
-        Log.d(TAG, "Creating WebdavClient");
+        Log_OC.d(TAG, "Creating WebdavClient");
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
     }
@@ -107,7 +109,7 @@ public class WebdavClient extends HttpClient {
             } else {
                 exhaustResponse(get.getResponseBodyAsStream());
             }
-            Log.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
+            Log_OC.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
         } catch (Exception e) {
             logException(e, "dowloading " + remoteFilePath);
             
@@ -189,7 +191,7 @@ public class WebdavClient extends HttpClient {
         try {
             status = executeMethod(head);
             boolean result = status == HttpStatus.SC_OK;
-            Log.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+            Log_OC.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
             
         } catch (Exception e) {
@@ -212,12 +214,12 @@ public class WebdavClient extends HttpClient {
         int status = -1;
         MkColMethod mkcol = new MkColMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
-            Log.d(TAG, "Creating directory " + path);
+            Log_OC.d(TAG, "Creating directory " + path);
             status = executeMethod(mkcol);
-            Log.d(TAG, "Status returned: " + status);
+            Log_OC.d(TAG, "Status returned: " + status);
             result = mkcol.succeeded();
             
-            Log.d(TAG, "MKCOL to " + path + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+            Log_OC.d(TAG, "MKCOL to " + path + " finished with HTTP status " + status + (!result?"(FAIL)":""));
             exhaustResponse(mkcol.getResponseBodyAsStream());
             
         } catch (Exception e) {
@@ -240,7 +242,7 @@ public class WebdavClient extends HttpClient {
         HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
             int status = executeMethod(head);
-            Log.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
+            Log_OC.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
             return (status == HttpStatus.SC_OK);
             
@@ -293,7 +295,7 @@ public class WebdavClient extends HttpClient {
                 responseBodyAsStream.close();
             
             } catch (IOException io) {
-                Log.e(TAG, "Unexpected exception while exhausting not interesting HTTP response; will be IGNORED", io);
+                Log_OC.e(TAG, "Unexpected exception while exhausting not interesting HTTP response; will be IGNORED", io);
             }
         }
     }
@@ -307,13 +309,13 @@ public class WebdavClient extends HttpClient {
      */
     private void logException(Exception e, String doing) {
         if (e instanceof HttpException) {
-            Log.e(TAG, "HTTP violation while " + doing, e);
+            Log_OC.e(TAG, "HTTP violation while " + doing, e);
 
         } else if (e instanceof IOException) {
-            Log.e(TAG, "Unrecovered transport exception while " + doing, e);
+            Log_OC.e(TAG, "Unrecovered transport exception while " + doing, e);
 
         } else {
-            Log.e(TAG, "Unexpected exception while " + doing, e);
+            Log_OC.e(TAG, "Unexpected exception while " + doing, e);
         }
     }
 

@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -96,13 +97,13 @@ public class ConnectionCheckOperation extends RemoteOperation {
         }
         
         if (mLatestResult.isSuccess()) {
-            Log.i(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
+            Log_OC.i(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
             
         } else if (mLatestResult.getException() != null) {
-            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage(), mLatestResult.getException());
+            Log_OC.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage(), mLatestResult.getException());
             
         } else {
-            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
+            Log_OC.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
         }
 
         return retval;
@@ -127,7 +128,7 @@ public class ConnectionCheckOperation extends RemoteOperation {
             client.setBaseUri(Uri.parse("https://" + mUrl + AccountUtils.STATUS_PATH));
             boolean httpsSuccess = tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH); 
             if (!httpsSuccess && !mLatestResult.isSslRecoverableException()) {
-                Log.d(TAG, "establishing secure connection failed, trying non secure connection");
+                Log_OC.d(TAG, "establishing secure connection failed, trying non secure connection");
                 client.setBaseUri(Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH));
                 tryConnection(client, "http://" + mUrl + AccountUtils.STATUS_PATH);
             }

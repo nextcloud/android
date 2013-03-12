@@ -44,6 +44,7 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -78,7 +79,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate() start");
+        Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
@@ -125,7 +126,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             mCurrentDialog = null;
         }
             
-        Log.d(TAG, "onCreate() end");
+        Log_OC.d(TAG, "onCreate() end");
     }
 
 
@@ -181,10 +182,10 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log.d(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
-        Log.d(TAG, "onSaveInstanceState() end");
+        Log_OC.d(TAG, "onSaveInstanceState() end");
     }
 
     
@@ -355,7 +356,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onConfirmation(String callerTag) {
-        Log.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
+        Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
         if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
             // return the list of selected files to the caller activity (success), signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
@@ -370,7 +371,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onNeutral(String callerTag) {
-        Log.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
+        Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
         mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }
@@ -379,7 +380,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     @Override
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
-        Log.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
+        Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
         mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }    

@@ -69,6 +69,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -227,11 +228,11 @@ public class FileDetailFragment extends SherlockFragment implements
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        Log.i(getClass().toString(), "onSaveInstanceState() start");
+        Log_OC.i(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mFile);
         outState.putParcelable(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
-        Log.i(getClass().toString(), "onSaveInstanceState() end");
+        Log_OC.i(getClass().toString(), "onSaveInstanceState() end");
     }
 
     
@@ -335,7 +336,7 @@ public class FileDetailFragment extends SherlockFragment implements
                                    FileObserverService.CMD_DEL_OBSERVED_FILE));
                 intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
                 intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
-                Log.e(TAG, "starting observer service");
+                Log_OC.e(TAG, "starting observer service");
                 getActivity().startService(intent);
                 
                 if (mFile.keepInSync()) {
@@ -370,7 +371,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     startActivity(i);
                     
                 } catch (Throwable t) {
-                    Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+                    Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
                     boolean toastIt = true; 
                     String mimeType = "";
                     try {
@@ -389,13 +390,13 @@ public class FileDetailFragment extends SherlockFragment implements
                         }
                         
                     } catch (IndexOutOfBoundsException e) {
-                        Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                        Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
                         
                     } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                        Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
                         
                     } catch (Throwable th) {
-                        Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                        Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
                         
                     } finally {
                         if (toastIt) {
@@ -407,7 +408,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }
             default:
-                Log.e(TAG, "Incorrect view clicked!");
+                Log_OC.e(TAG, "Incorrect view clicked!");
         }
         
         /* else if (v.getId() == R.id.fdShareBtn) {
@@ -450,7 +451,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onCancel(String callerTag) {
-        Log.d(TAG, "REMOVAL CANCELED");
+        Log_OC.d(TAG, "REMOVAL CANCELED");
         mCurrentDialog.dismiss();
         mCurrentDialog = null;
     }
@@ -772,7 +773,7 @@ public class FileDetailFragment extends SherlockFragment implements
             OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
             String url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + AccountUtils.getWebdavPath(ocv);
 
-            Log.d("share", "sharing for version " + ocv.toString());
+            Log_OC.d("share", "sharing for version " + ocv.toString());
 
             if (ocv.compareTo(new OwnCloudVersion(0x040000)) >= 0) {
                 String APPS_PATH = "/apps/files_sharing/";
@@ -795,7 +796,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 post.addRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8" );
                 post.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
                 List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-                Log.d("share", mPath+"");
+                Log_OC.d("share", mPath+"");
                 formparams.add(new BasicNameValuePair("sources",mPath));
                 formparams.add(new BasicNameValuePair("uid_shared_with", "public"));
                 formparams.add(new BasicNameValuePair("permissions", "0"));
@@ -805,39 +806,39 @@ public class FileDetailFragment extends SherlockFragment implements
                 try {
                     PropFindMethod find = new PropFindMethod(url+"/");
                     find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                    Log.d("sharer", ""+ url+"/");
+                    Log_OC.d("sharer", ""+ url+"/");
                     
                     for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
+                        Log_OC.d("sharer-h", a.getName() + ":"+a.getValue());
                     }
                     
                     int status2 = wc.executeMethod(find);
 
-                    Log.d("sharer", "propstatus "+status2);
+                    Log_OC.d("sharer", "propstatus "+status2);
                     
                     GetMethod get = new GetMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + "/");
                     get.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
                     
                     status2 = wc.executeMethod(get);
 
-                    Log.d("sharer", "getstatus "+status2);
-                    Log.d("sharer", "" + get.getResponseBodyAsString());
+                    Log_OC.d("sharer", "getstatus "+status2);
+                    Log_OC.d("sharer", "" + get.getResponseBodyAsString());
                     
                     for (org.apache.commons.httpclient.Header a : get.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
+                        Log_OC.d("sharer", a.getName() + ":"+a.getValue());
                     }
 
                     status = wc.executeMethod(post);
                     for (org.apache.commons.httpclient.Header a : post.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
+                        Log_OC.d("sharer-h", a.getName() + ":"+a.getValue());
                     }
                     for (org.apache.commons.httpclient.Header a : post.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
+                        Log_OC.d("sharer", a.getName() + ":"+a.getValue());
                     }
                     String resp = post.getResponseBodyAsString();
-                    Log.d("share", ""+post.getURI().toString());
-                    Log.d("share", "returned status " + status);
-                    Log.d("share", " " +resp);
+                    Log_OC.d("share", ""+post.getURI().toString());
+                    Log_OC.d("share", "returned status " + status);
+                    Log_OC.d("share", " " +resp);
                     
                     if(status != HttpStatus.SC_OK ||resp == null || resp.equals("") || resp.startsWith("false")) {
                         return;
@@ -849,7 +850,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     
                     String token = jsonObject.getString("data");
                     String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
-                    Log.d("Actions:shareFile ok", "url: " + uri);   
+                    Log_OC.d("Actions:shareFile ok", "url: " + uri);   
                     
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -864,7 +865,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
             String newFilename = dialog.getNewFilename();
-            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
             mLastRemoteOperation = new RenameFileOperation( mFile, 
                                                             mAccount, 
                                                             newFilename, 
@@ -917,7 +918,7 @@ public class FileDetailFragment extends SherlockFragment implements
                     screenwidth = display.getWidth();
                 }
 
-                Log.e("ASD", "W " + width + " SW " + screenwidth);
+                Log_OC.e("ASD", "W " + width + " SW " + screenwidth);
 
                 if (width > screenwidth) {
                     scale = (int) Math.ceil((float)width / screenwidth);
@@ -926,19 +927,19 @@ public class FileDetailFragment extends SherlockFragment implements
 
                 result = BitmapFactory.decodeFile(storagePath, options);
 
-                Log.e("ASD", "W " + options.outWidth + " SW " + options.outHeight);
+                Log_OC.e("ASD", "W " + options.outWidth + " SW " + options.outHeight);
 
             } catch (OutOfMemoryError e) {
                 result = null;
-                Log.e(TAG, "Out of memory occured for file with size " + storagePath);
+                Log_OC.e(TAG, "Out of memory occured for file with size " + storagePath);
                 
             } catch (NoSuchFieldError e) {
                 result = null;
-                Log.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
+                Log_OC.e(TAG, "Error from access to unexisting field despite protection " + storagePath);
                 
             } catch (Throwable t) {
                 result = null;
-                Log.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
+                Log_OC.e(TAG, "Unexpected error while creating image preview " + storagePath, t);
             }
             return result;
         }

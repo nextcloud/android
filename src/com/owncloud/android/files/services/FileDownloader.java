@@ -52,6 +52,7 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -124,7 +125,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 /*!intent.hasExtra(EXTRA_FILE_PATH) ||
                 !intent.hasExtra(EXTRA_REMOTE_PATH)*/
            ) {
-            Log.e(TAG, "Not enough information provided in intent");
+            Log_OC.e(TAG, "Not enough information provided in intent");
             return START_NOT_STICKY;
         }
         Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
@@ -140,7 +141,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             sendBroadcastNewDownload(newDownload);
             
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, "Not enough information provided in intent: " + e.getMessage());
+            Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
             return START_NOT_STICKY;
         }
         

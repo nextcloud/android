@@ -66,6 +66,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
@@ -138,7 +139,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(getClass().toString(), "onCreate() start");
+        Log_OC.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
 
         /// Load of parameters from received intent
@@ -215,7 +216,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         // show changelog, if needed
         showChangeLog();
         
-        Log.d(getClass().toString(), "onCreate() end");
+        Log_OC.d(getClass().toString(), "onCreate() end");
     }
 
     
@@ -418,7 +419,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             startService(i);
             
         } else {
-            Log.d("FileDisplay", "User clicked on 'Update' with no selection");
+            Log_OC.d("FileDisplay", "User clicked on 'Update' with no selection");
             Toast t = Toast.makeText(this, getString(R.string.filedisplay_no_file_selected), Toast.LENGTH_LONG);
             t.show();
             return;
@@ -440,12 +441,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 filepath = filemanagerstring;
             
         } catch (Exception e) {
-            Log.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
+            Log_OC.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
             e.printStackTrace();
             
         } finally {
             if (filepath == null) {
-                Log.e("FileDisplay", "Couldnt resolve path to file");
+                Log_OC.e("FileDisplay", "Couldnt resolve path to file");
                 Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
                 t.show();
                 return;
@@ -504,7 +505,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log.d(getClass().toString(), "onSaveInstanceState() start");
+        Log_OC.d(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         if (mDualPane) {
@@ -516,12 +517,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 }
             }
         }
-        Log.d(getClass().toString(), "onSaveInstanceState() end");
+        Log_OC.d(getClass().toString(), "onSaveInstanceState() end");
     }
 
     @Override
     protected void onResume() {
-        Log.d(getClass().toString(), "onResume() start");
+        Log_OC.d(getClass().toString(), "onResume() start");
         super.onResume();
 
         if (AccountUtils.accountsAreSetup(this)) {
@@ -558,13 +559,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             showDialog(DIALOG_SETUP_ACCOUNT);
             
         }
-        Log.d(getClass().toString(), "onResume() end");
+        Log_OC.d(getClass().toString(), "onResume() end");
     }
 
     
     @Override
     protected void onPause() {
-        Log.d(getClass().toString(), "onPause() start");
+        Log_OC.d(getClass().toString(), "onPause() start");
         super.onPause();
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
@@ -582,7 +583,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             dismissDialog(DIALOG_SETUP_ACCOUNT);
         }
         
-        Log.d(getClass().toString(), "onPause() end");
+        Log_OC.d(getClass().toString(), "onPause() end");
     }
 
     
@@ -816,7 +817,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                             msg.show();
                         
                         } catch (NotFoundException e) {
-                            Log.e(TAG, "Error while trying to show fail message ", e);
+                            Log_OC.e(TAG, "Error while trying to show fail message ", e);
                         }
                     }
                 });
@@ -859,7 +860,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             boolean inProgress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
             String accountName = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
 
-            Log.d("FileDisplay", "sync of account " + accountName + " is in_progress: " + inProgress);
+            Log_OC.d("FileDisplay", "sync of account " + accountName + " is in_progress: " + inProgress);
 
             if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {
 
@@ -1052,10 +1053,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -1074,10 +1075,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
         }

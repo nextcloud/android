@@ -19,6 +19,7 @@
 
 package com.owncloud.android.extensions;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,7 +63,7 @@ public class ExtensionsAvailableDialog extends DialogFragment implements
             getActivity().finish();
             break;
         default:
-            Log.e("EAD", "Button with unknown id clicked " + v.getId());
+            Log_OC.e("EAD", "Button with unknown id clicked " + v.getId());
         }
     }
 

@@ -23,6 +23,7 @@ import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -91,11 +92,11 @@ public class RemoveFileOperation extends RemoteOperation {
             }
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
             result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status);
-            Log.i(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage(), e);
             
         } finally {
             if (delete != null)

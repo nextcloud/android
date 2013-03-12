@@ -33,6 +33,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -104,7 +105,7 @@ public class DownloadFileOperation extends RemoteOperation {
                     .getMimeTypeFromExtension(
                             mFile.getRemotePath().substring(mFile.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
             }
         }
         if (mimeType == null) {
@@ -148,11 +149,11 @@ public class DownloadFileOperation extends RemoteOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             else
                 result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
         }
         
         return result;

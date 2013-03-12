@@ -28,6 +28,7 @@ import java.util.Random;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 
 import android.accounts.Account;
@@ -74,7 +75,7 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                 mPutMethod.setRequestEntity(entity);
                 status = client.executeMethod(mPutMethod);
                 client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
-                Log.d(TAG, "Upload of " + getStoragePath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
+                Log_OC.d(TAG, "Upload of " + getStoragePath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
                 if (!isSuccess(status))
                     break;
             }

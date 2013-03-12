@@ -19,6 +19,7 @@
 
 package com.owncloud.android.files;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.files.services.FileObserverService;
 
 import android.content.BroadcastReceiver;
@@ -33,15 +34,15 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log.wtf(TAG, "Incorrect action sent " + intent.getAction());
+            Log_OC.wtf(TAG, "Incorrect action sent " + intent.getAction());
             return;
         }
-        Log.d(TAG, "Starting file observer service...");
+        Log_OC.d(TAG, "Starting file observer service...");
         Intent i = new Intent(context, FileObserverService.class);
         i.putExtra(FileObserverService.KEY_FILE_CMD,
                    FileObserverService.CMD_INIT_OBSERVED_LIST);
         context.startService(i);
-        Log.d(TAG, "DONE");
+        Log_OC.d(TAG, "DONE");
     }
 
 }

@@ -24,6 +24,8 @@ import org.apache.jackrabbit.webdav.property.DavProperty;
 import org.apache.jackrabbit.webdav.property.DavPropertyName;
 import org.apache.jackrabbit.webdav.property.DavPropertySet;
 
+import com.owncloud.android.Log_OC;
+
 import android.net.Uri;
 import android.util.Log;
 
@@ -89,7 +91,7 @@ public class WebdavEntry {
             }
 
         } else {
-            Log.e("WebdavEntry",
+            Log_OC.e("WebdavEntry",
                     "General fuckup, no status for webdav response");
         }
     }

@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.Log_OC;
 
 public class ConfirmationDialogFragment extends SherlockDialogFragment {
 
@@ -73,7 +74,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
         int negBtn = getArguments().getInt(ARG_NEGATIVE_BTN_RES, -1);
         
         if (confirmationTarget == null || resourceId == -1) {
-            Log.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
+            Log_OC.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
             return null;
         }
 

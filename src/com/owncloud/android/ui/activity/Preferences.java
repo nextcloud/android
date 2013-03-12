@@ -37,6 +37,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.OwnCloudSession;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
@@ -57,8 +58,10 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
+    private CheckBoxPreference pLogging;
     private Preference pAboutApp;
     private int mSelectedMenuItem;
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -103,10 +106,33 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                    pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
                    pAboutApp.setSummary(getString(R.string.about_version)+" "+pkg.versionName);
                } catch (NameNotFoundException e) {
-                   Log.e(TAG, "Error while showing about dialog", e);
+                   Log_OC.e(TAG, "Error while showing about dialog", e);
                }
-           }
-        }
+       }
+       pLogging = (CheckBoxPreference) findPreference("log_to_file");
+       
+       if (pLogging != null) {
+           pLogging.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+               @Override
+               public boolean onPreferenceChange(Preference preference, Object newValue) {
+                   
+                   String logpath = getApplicationContext().getFilesDir().getAbsolutePath();
+                
+                   if(!pLogging.isChecked()) {
+                       Log_OC.d("Debug", "start logging");
+                       Log_OC.v("PATH", logpath);
+                       Log_OC.startLogging(logpath);
+                   }
+                   else {
+                       Log_OC.d("Debug", "stop logging");
+                       Log_OC.stopLogging();
+                   }
+                   return true;
+               }
+           });
+       
+       }
+      }
     }
 
     @Override
@@ -150,7 +176,7 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
             startActivity(intent);
             break;
         default:
-            Log.w(TAG, "Unknown menu item triggered");
+            Log_OC.w(TAG, "Unknown menu item triggered");
             return false;
         }
         return true;

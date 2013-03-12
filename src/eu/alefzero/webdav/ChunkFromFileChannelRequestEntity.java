@@ -30,6 +30,8 @@ import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import com.owncloud.android.Log_OC;
+
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import android.util.Log;
@@ -123,7 +125,7 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity {
             }
             
         } catch (IOException io) {
-            Log.e(TAG, io.getMessage());
+            Log_OC.e(TAG, io.getMessage());
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         }

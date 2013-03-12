@@ -18,6 +18,8 @@
  */
 package com.owncloud.android.location;
 
+import com.owncloud.android.Log_OC;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.BroadcastReceiver;
@@ -60,10 +62,10 @@ public class LocationServiceLauncherReciever extends BroadcastReceiver {
         deviceTrackingIntent
                 .setAction("com.owncloud.android.location.LocationUpdateService");
         if (!isDeviceTrackingServiceRunning(context) && trackDevice) {
-            Log.d(TAG, "Starting device tracker service");
+            Log_OC.d(TAG, "Starting device tracker service");
             context.startService(deviceTrackingIntent);
         } else if (isDeviceTrackingServiceRunning(context) && !trackDevice) {
-            Log.d(TAG, "Stopping device tracker service");
+            Log_OC.d(TAG, "Stopping device tracker service");
             context.stopService(deviceTrackingIntent);
         }
     }

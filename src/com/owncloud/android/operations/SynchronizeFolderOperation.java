@@ -37,6 +37,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -132,7 +133,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
         try {
-            Log.d(TAG, "Synchronizing " + mAccount.name + ", fetching files in " + mRemotePath);
+            Log_OC.d(TAG, "Synchronizing " + mAccount.name + ", fetching files in " + mRemotePath);
             
             // remote request 
             query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
@@ -209,9 +210,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         } else {
                             mFailsInFavouritesFound++;
                             if (contentsResult.getException() != null) {
-                                Log.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                                Log_OC.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
                             } else {
-                                Log.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                                Log_OC.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
                             }
                         }
                     }   // won't let these fails break the synchronization process
@@ -225,7 +226,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 for (int i=0; i < mChildren.size(); ) {
                     file = mChildren.get(i);
                     if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
-                        Log.d(TAG, "removing file: " + file);
+                        Log_OC.d(TAG, "removing file: " + file);
                         mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
                         mChildren.remove(i);
                     } else {
@@ -248,12 +249,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             } else {
                 result = new RemoteOperationResult(false, status);
             }
-            Log.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
             
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (query != null)
@@ -329,7 +330,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     file.setStoragePath(expectedPath);
                     
                 } catch (Exception e) {
-                    Log.e(TAG, "Exception while copying foreign file " + expectedPath, e);
+                    Log_OC.e(TAG, "Exception while copying foreign file " + expectedPath, e);
                     mForgottenLocalFiles.put(file.getRemotePath(), storagePath);
                     file.setStoragePath(null);
                     
@@ -337,12 +338,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     try {
                         if (in != null) in.close();
                     } catch (Exception e) {
-                        Log.d(TAG, "Weird exception while closing input stream for " + storagePath + " (ignoring)", e);
+                        Log_OC.d(TAG, "Weird exception while closing input stream for " + storagePath + " (ignoring)", e);
                     }
                     try {
                         if (out != null) out.close();
                     } catch (Exception e) {
-                        Log.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                        Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
                     }
                 }
             }

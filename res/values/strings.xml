@@ -41,6 +41,8 @@
     <string name="prefs_pincode_summary">Protect your client</string>
     <string name="prefs_instant_upload">Enable instant uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload photos taken by camera</string>
+    <string name="prefs_log_title">Enable Logging</string>
+    <string name="prefs_log_summary">This is used to log problems</string>
     <string name="auth_host_url">URL</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>

@@ -32,6 +32,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.operations.RemoteOperation;
@@ -214,12 +215,12 @@ public class UploadFileOperation extends RemoteOperation {
                             try {
                                 if (in != null) in.close();
                             } catch (Exception e) {
-                                Log.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
+                                Log_OC.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
                             }
                             try {
                                 if (out != null) out.close();
                             } catch (Exception e) {
-                                Log.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
+                                Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
                             }
                         }
                     }
@@ -282,7 +283,7 @@ public class UploadFileOperation extends RemoteOperation {
                 temporalFile.delete();
             }
             if (result.isSuccess()) {
-                Log.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
                     
             } else {
                 if (result.getException() != null) {
@@ -292,9 +293,9 @@ public class UploadFileOperation extends RemoteOperation {
                     } else if (!localCopyPassed) {
                         complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name) + ")";
                     }
-                    Log.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
                 } else {
-                    Log.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
                 }
             }
         }

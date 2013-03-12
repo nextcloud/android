@@ -41,6 +41,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -182,16 +183,16 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
     public void onClick(View v) {
         if (v.getId() == R.id.ok) {
             /// perform movement operation in background thread
-            Log.d(TAG, "Clicked MOVE, start movement");
+            Log_OC.d(TAG, "Clicked MOVE, start movement");
             new MoveFilesTask().execute();            
             
         } else if (v.getId() == R.id.cancel) {
             /// just finish
-            Log.d(TAG, "Clicked CANCEL, bye");
+            Log_OC.d(TAG, "Clicked CANCEL, bye");
             finish();
             
         } else {
-            Log.e(TAG, "Clicked phantom button, id: " + v.getId());
+            Log_OC.e(TAG, "Clicked phantom button, id: " + v.getId());
         }
     }
 

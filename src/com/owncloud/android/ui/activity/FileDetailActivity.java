@@ -41,6 +41,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -105,10 +106,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -121,10 +122,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
         }

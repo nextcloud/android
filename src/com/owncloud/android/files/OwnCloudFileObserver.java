@@ -21,6 +21,7 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -71,9 +72,9 @@ public class OwnCloudFileObserver extends FileObserver {
     
     @Override
     public void onEvent(int event, String path) {
-        Log.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
+        Log_OC.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
         if ((event & mMask) == 0) {
-            Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
+            Log_OC.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
             return;

@@ -38,6 +38,7 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -75,7 +76,7 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient (Account account, Context context) {
-        Log.d(TAG, "Creating WebdavClient associated to " + account.name);
+        Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(context, account));
         WebdavClient client = createOwnCloudClient(uri, context);
@@ -100,7 +101,7 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, String username, String password, Context context) {
-        Log.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
+        Log_OC.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
         
         WebdavClient client = createOwnCloudClient(uri, context);
         
@@ -118,16 +119,16 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        Log.d(TAG, "Creating WebdavClient for " + uri);
+        Log_OC.d(TAG, "Creating WebdavClient for " + uri);
         
         //allowSelfsignedCertificates(true);
         try {
             registerAdvancedSslContext(true, context);
         }  catch (GeneralSecurityException e) {
-            Log.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in the system will be used for HTTPS connections", e);
+            Log_OC.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in the system will be used for HTTPS connections", e);
             
         } catch (IOException e) {
-            Log.e(TAG, "The local server truststore could not be read. Default SSL management in the system will be used for HTTPS connections", e);
+            Log_OC.e(TAG, "The local server truststore could not be read. Default SSL management in the system will be used for HTTPS connections", e);
         }
         
         WebdavClient client = new WebdavClient(getMultiThreadedConnManager());
@@ -205,7 +206,7 @@ public class OwnCloudClientUtils {
             //mKnownServersStore = KeyStore.getInstance("BKS");
             mKnownServersStore = KeyStore.getInstance(KeyStore.getDefaultType());
             File localTrustStoreFile = new File(context.getFilesDir(), LOCAL_TRUSTSTORE_FILENAME);
-            Log.d(TAG, "Searching known-servers store at " + localTrustStoreFile.getAbsolutePath());
+            Log_OC.d(TAG, "Searching known-servers store at " + localTrustStoreFile.getAbsolutePath());
             if (localTrustStoreFile.exists()) {
                 InputStream in = new FileInputStream(localTrustStoreFile);
                 try {

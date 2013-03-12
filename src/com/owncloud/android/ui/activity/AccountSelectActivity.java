@@ -50,6 +50,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 
 import com.owncloud.android.R;
@@ -153,7 +154,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
         try {
             map = (HashMap<String, String>) getListAdapter().getItem(index);
         } catch (ClassCastException e) {
-            Log.wtf(TAG, "getitem(index) from list adapter did not return hashmap, bailing out");
+            Log_OC.wtf(TAG, "getitem(index) from list adapter did not return hashmap, bailing out");
             return false;
         }
         

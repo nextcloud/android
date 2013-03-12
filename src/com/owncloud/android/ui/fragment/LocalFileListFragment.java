@@ -35,6 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -76,10 +77,10 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView() start");
+        Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        Log.i(TAG, "onCreateView() end");
+        Log_OC.i(TAG, "onCreateView() end");
         return v;
     }    
 
@@ -89,30 +90,30 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(TAG, "onActivityCreated() start");
+        Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onCreate(savedInstanceState);
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
         
         if (savedInstanceState != null) {
-            Log.i(TAG, "savedInstanceState is not null");
+            Log_OC.i(TAG, "savedInstanceState is not null");
             int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
             setReferencePosition(position);
         }
         
-        Log.i(TAG, "onActivityCreated() stop");
+        Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
     
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.i(TAG, "onSaveInstanceState() start");
+        Log_OC.i(TAG, "onSaveInstanceState() start");
         
         savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
         
         
-        Log.i(TAG, "onSaveInstanceState() stop");
+        Log_OC.i(TAG, "onSaveInstanceState() stop");
     }
     
     
@@ -144,7 +145,7 @@ public class LocalFileListFragment extends FragmentListView {
             }
             
         } else {
-            Log.w(TAG, "Null object in ListAdapter!!");
+            Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
     }
 
@@ -203,7 +204,7 @@ public class LocalFileListFragment extends FragmentListView {
         
         // if that's not a directory -> List its parent
         if(!directory.isDirectory()){
-            Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
+            Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
             directory = directory.getParentFile();
         }
 
@@ -225,7 +226,7 @@ public class LocalFileListFragment extends FragmentListView {
         String [] result = null;
         SparseBooleanArray positions = mList.getCheckedItemPositions();
         if (positions.size() > 0) {
-            Log.d(TAG, "Returning " + positions.size() + " selected files");
+            Log_OC.d(TAG, "Returning " + positions.size() + " selected files");
             result = new String[positions.size()];
             for (int i=0; i<positions.size(); i++) {
                 result[i] = ((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath();

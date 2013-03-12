@@ -21,6 +21,8 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
+import com.owncloud.android.Log_OC;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -262,7 +264,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory 
      */
     public void setFileName(String name) {
-        Log.d(TAG, "OCFile name changin from " + mRemotePath);
+        Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(PATH_SEPARATOR)) {
             String parent = (new File(getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
@@ -270,7 +272,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             if (isDirectory()) {
                 mRemotePath += PATH_SEPARATOR;
             }
-            Log.d(TAG, "OCFile name changed to " + mRemotePath);
+            Log_OC.d(TAG, "OCFile name changed to " + mRemotePath);
         }
     }
 
