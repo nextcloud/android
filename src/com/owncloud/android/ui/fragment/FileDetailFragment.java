@@ -39,15 +39,12 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +55,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,8 +69,6 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.media.MediaService;
-import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -86,7 +80,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.PreviewVideoActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -119,17 +112,12 @@ public class FileDetailFragment extends SherlockFragment implements
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     
-    //private DownloadFinishReceiver mDownloadFinishReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     public ProgressListener mProgressListener;
     
     private Handler mHandler;
     private RemoteOperation mLastRemoteOperation;
     
-    private MediaServiceBinder mMediaServiceBinder = null;
-    private MediaController mMediaController = null;
-    private MediaServiceConnection mMediaServiceConnection = null;
-
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -244,23 +232,12 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onStart() {
         super.onStart();
-        if (mFile != null && mFile.isAudio()) {
-            bindMediaService();
-        }
         listenForTransferProgress();
     }
     
     @Override
     public void onResume() {
         super.onResume();
-        
-        /*
-        mDownloadFinishReceiver = new DownloadFinishReceiver();
-        IntentFilter filter = new IntentFilter(
-                FileDownloader.DOWNLOAD_FINISH_MESSAGE);
-        getActivity().registerReceiver(mDownloadFinishReceiver, filter);
-        */
-        
         mUploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
@@ -271,14 +248,6 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onPause() {
         super.onPause();
-        
-        /*
-        if (mDownloadFinishReceiver != null) {
-            getActivity().unregisterReceiver(mDownloadFinishReceiver);
-            mDownloadFinishReceiver = null;
-        }
-        */
-        
         if (mUploadFinishReceiver != null) {
             getActivity().unregisterReceiver(mUploadFinishReceiver);
             mUploadFinishReceiver = null;
@@ -289,18 +258,6 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onStop() {
         super.onStop();
-        if (mMediaServiceConnection != null) {
-            Log.d(TAG, "Unbinding from MediaService ...");
-            if (mMediaServiceBinder != null && mMediaController != null) {
-                mMediaServiceBinder.unregisterMediaController(mMediaController);
-            }
-            getActivity().unbindService(mMediaServiceConnection);
-            mMediaServiceBinder = null;
-            if (mMediaController != null) {
-                mMediaController.hide();
-                mMediaController = null;
-            }
-        }
         leaveTransferProgress();
     }
 
@@ -410,71 +367,6 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     
-    private void startVideoActivity() {
-        Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
-        i.putExtra(PreviewVideoActivity.EXTRA_FILE, mFile);
-        i.putExtra(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
-        startActivity(i);
-    }
-
-
-    private void bindMediaService() {
-        Log.d(TAG, "Binding to MediaService...");
-        if (mMediaServiceConnection == null) {
-            mMediaServiceConnection = new MediaServiceConnection();
-        }
-        getActivity().bindService(  new Intent(getActivity(), 
-                                    MediaService.class),
-                                    mMediaServiceConnection, 
-                                    Context.BIND_AUTO_CREATE);
-            // follow the flow in MediaServiceConnection#onServiceConnected(...)
-    }
-    
-    /** Defines callbacks for service binding, passed to bindService() */
-    private class MediaServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log.d(TAG, "Media service connected");
-                mMediaServiceBinder = (MediaServiceBinder) service;
-                if (mMediaServiceBinder != null) {
-                    if (mMediaController == null) {
-                        mMediaController = new MediaController(getSherlockActivity());
-                    }
-                    prepareMediaController();
-                    
-                    Log.d(TAG, "Successfully bound to MediaService, MediaController ready");
-                    
-                } else {
-                    Log.e(TAG, "Unexpected response from MediaService while binding");
-                }
-            }
-        }
-        
-        private void prepareMediaController() {
-            mMediaServiceBinder.registerMediaController(mMediaController);
-            mMediaController.setMediaPlayer(mMediaServiceBinder);
-            mMediaController.setAnchorView(getView());
-            mMediaController.setEnabled(mMediaServiceBinder.isInPlaybackState());
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log.e(TAG, "Media service suddenly disconnected");
-                if (mMediaController != null) {
-                    mMediaController.hide();
-                    mMediaController.setMediaPlayer(null);
-                    mMediaController = null;
-                }
-                mMediaServiceBinder = null;
-                mMediaServiceConnection = null;
-            }
-        }
-    }    
-
-
     /**
      * Opens mFile.
      */

@@ -133,7 +133,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private IBinder mBinder;
 
     /** Control panel shown to the user to control the playback, to register through binding */
-    private MediaController mMediaController;
+    private MediaControlView mMediaController;
     
 
     
@@ -481,9 +481,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
-        if (mMediaController != null) {
-            mMediaController.hide();
-        }
         Toast.makeText(this, String.format(getString(R.string.media_event_done, mFile.getFileName())), Toast.LENGTH_LONG).show();
         processStopRequest(true);
         return;
@@ -503,7 +500,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         }
         configAndStartMediaPlayer();
         if (mMediaController != null) {
-            mMediaController.show(MEDIA_CONTROL_PERMANENT);
+            mMediaController.updatePausePlay();
         }
     }
     
@@ -576,10 +573,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public boolean onError(MediaPlayer mp, int what, int extra) {
         Log.e(TAG, "Error in audio playback, what = " + what + ", extra = " + extra);
         
-        if (mMediaController != null) {
-            mMediaController.hide();
-        }
-
         String message = getMessageForMediaError(this, what, extra);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         
@@ -680,15 +673,11 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     }
 
 
-    protected void setMediaContoller(MediaController mediaController) {
-        if (mMediaController != null) {
-            mMediaController.hide();
-        }
+    protected void setMediaContoller(MediaControlView mediaController) {
         mMediaController = mediaController;
-        
     }
 
-    protected MediaController getMediaController() {
+    protected MediaControlView getMediaController() {
         return mMediaController;
     }
 

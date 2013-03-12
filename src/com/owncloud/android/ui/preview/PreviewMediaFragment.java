@@ -47,7 +47,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -67,7 +66,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -105,7 +103,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
     private RemoteOperation mLastRemoteOperation;
     
     private MediaServiceBinder mMediaServiceBinder = null;
-    //private MediaController mMediaController = null;
     private MediaControlView mMediaController = null;
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
@@ -171,7 +168,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
         
         mMediaController = (MediaControlView)mView.findViewById(R.id.media_controller);
         
-        //updateFileDetails(false);
         return mView;
     }
     
@@ -334,8 +330,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
         
         // load the video file in the video player ; when done, VideoHelper#onPrepared() will be called
         mVideoPreview.setVideoPath(mFile.getStoragePath()); 
-
-        //mVideoPreview.setMediaController(mMediaController);
     }
     
 
@@ -354,7 +348,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
             mVideoPreview.start();
             mMediaController.setEnabled(true);
             mMediaController.updatePausePlay();
-            //mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);  
         }
         
         
@@ -381,12 +374,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
             Log.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
-            
-            /*
-            if (mMediaController != null) {
-                mMediaController.hide();
-            }
-            */
             
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(getActivity(), what, extra);
@@ -426,17 +413,11 @@ public class PreviewMediaFragment extends SherlockFragment implements
         if (mMediaServiceConnection != null) {
             Log.d(TAG, "Unbinding from MediaService ...");
             if (mMediaServiceBinder != null && mMediaController != null) {
-                //mMediaServiceBinder.unregisterMediaController(mMediaController);
+                mMediaServiceBinder.unregisterMediaController(mMediaController);
             }
             getActivity().unbindService(mMediaServiceConnection);
             mMediaServiceConnection = null;
             mMediaServiceBinder = null;
-            /*
-            if (mMediaController != null) {
-                mMediaController.hide();
-                mMediaController = null;
-            }
-            */
         }
     }
     
@@ -482,18 +463,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
         } else {
             if (!mMediaServiceBinder.isPlaying()) {
                 mMediaServiceBinder.start();
+                mMediaController.updatePausePlay();
             }
-            /*
-            if (!mMediaController.isShowing() && isVisible()) {
-                //mMediaController.show(MediaService.MEDIA_CONTROL_PERMANENT);
-                // TODO - fix strange bug; steps to trigger :
-                // 1. remove the "isVisible()" control
-                // 2. start the app and preview an audio file
-                // 3. exit from the app (home button, for instance) while the audio file is still being played 
-                // 4. go to notification bar and click on the "ownCloud music app" notification
-                // PUM!
-            }
-            */
         }
     }
 
@@ -519,11 +490,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
                 Log.d(TAG, "Media service connected");
                 mMediaServiceBinder = (MediaServiceBinder) service;
                 if (mMediaServiceBinder != null) {
-                    /*
-                    if (mMediaController == null) {
-                        mMediaController = new MediaController(getSherlockActivity());
-                    }
-                    */
                     prepareMediaController();
                     playAudio();    // do not wait for the touch of nobody to play audio
                     
@@ -534,9 +500,9 @@ public class PreviewMediaFragment extends SherlockFragment implements
                 }
             }
         }
-        
+
         private void prepareMediaController() {
-            //mMediaServiceBinder.registerMediaController(mMediaController);
+            mMediaServiceBinder.registerMediaController(mMediaController);
             if (mMediaController != null) {
                 mMediaController.setMediaPlayer(mMediaServiceBinder);
                 mMediaController.setEnabled(true);
@@ -549,9 +515,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
                 Log.e(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
-                    //mMediaController.hide();
                     mMediaController.setMediaPlayer(null);
-                    //mMediaController = null;
                 } else {
                     Toast.makeText(getActivity(), "No media controller to release when disconnected from media service", Toast.LENGTH_SHORT).show();
                 }
@@ -748,9 +712,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
     }
 
     private void stopPreview(boolean stopAudio) {
-        if (mMediaController != null) {
-            //mMediaController.hide();
-        }
         if (mFile.isAudio() && stopAudio) {
             mMediaServiceBinder.pause();
             
