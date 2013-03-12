@@ -24,7 +24,7 @@
     <string name="actionbar_mkdir">Create directory</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_settings">Settings</string>
-    <string name="actionbar_see_details">See details</string>
+    <string name="actionbar_see_details">Details</string>
     
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_trackmydevice">Device tracking</string>
