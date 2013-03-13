@@ -31,14 +31,15 @@
     <FrameLayout 
         android:id="@+id/visual_area"
    	    android:layout_width="match_parent"
-   	    android:layout_height="wrap_content"
+   	    android:layout_height="0dp"
    	    android:layout_alignParentTop="true"
+   	    android:layout_above="@+id/media_controller"
         >
     
 	    <ImageView
 	        android:id="@+id/image_preview"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
 	        android:layout_margin="16dp"
 	        android:layout_gravity="center"
 	        android:contentDescription="@string/preview_image_description"
@@ -46,8 +47,8 @@
 	    
 	   	<VideoView  
 	   	    android:id="@+id/video_preview"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"  
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"  
 			android:layout_gravity="center" 
 			android:visibility="gone"
 			/>
@@ -55,10 +56,10 @@
    	</FrameLayout>
    	
    	<com.owncloud.android.media.MediaControlView 
-   	    android:id="@+id/media_controller"
+   	    android:id="@id/media_controller"
    	    android:layout_width="match_parent"
    	    android:layout_height="wrap_content"
-   	    android:layout_below="@id/visual_area"
+   	    android:layout_alignParentBottom="true"
    	    />
 
 </RelativeLayout>
