@@ -90,6 +90,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_PLAY_POSITION = "PLAY_POSITION";
+    private static final String EXTRA_PLAYING = "PLAYING";
 
     private View mView;
     private OCFile mFile;
@@ -106,6 +107,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     private MediaControlView mMediaController = null;
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
+    private boolean mAutoplay;
     
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -123,6 +125,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         mAccount = ocAccount;
         mSavedPlaybackPosition = 0;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
+        mAutoplay = true;
     }
     
     
@@ -138,6 +141,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         mAccount = null;
         mSavedPlaybackPosition = 0;
         mStorageManager = null;
+        mAutoplay = true;
     }
     
     
@@ -195,6 +199,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             mFile = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
+            mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
             
         }
         if (mFile == null) {
@@ -229,8 +234,9 @@ public class PreviewMediaFragment extends SherlockFragment implements
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
-        if (mVideoPreview.isPlaying()) {
+        if (mFile.isVideo()) {
             outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mVideoPreview.getCurrentPosition());
+            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mVideoPreview.isPlaying());
         }
     }
     
@@ -345,7 +351,9 @@ public class PreviewMediaFragment extends SherlockFragment implements
         @Override
         public void onPrepared(MediaPlayer vp) {
             mVideoPreview.seekTo(mSavedPlaybackPosition);
-            mVideoPreview.start();
+            if (mAutoplay) { 
+                mVideoPreview.start();
+            }
             mMediaController.setEnabled(true);
             mMediaController.updatePausePlay();
         }
