@@ -167,8 +167,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
         mView = inflater.inflate(R.layout.file_preview, container, false);
         
         mImagePreview = (ImageView)mView.findViewById(R.id.image_preview);
-        mImagePreview.setOnTouchListener(this);
         mVideoPreview = (VideoView)mView.findViewById(R.id.video_preview);
+        mVideoPreview.setOnTouchListener(this);
         
         mMediaController = (MediaControlView)mView.findViewById(R.id.media_controller);
         
@@ -368,7 +368,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public void onCompletion(MediaPlayer  mp) {
-            // nothing, right now
+            mVideoPreview.seekTo(0);
+            mMediaController.updatePausePlay();
         }
         
         
@@ -404,18 +405,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
 
     
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-
-    @Override
     public void onStop() {
         super.onStop();
         if (mMediaServiceConnection != null) {
@@ -437,31 +426,34 @@ public class PreviewMediaFragment extends SherlockFragment implements
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) { 
-            if (v == mImagePreview &&
-                    mMediaServiceBinder != null && mFile.isAudio() && mMediaServiceBinder.isPlaying(mFile)) {
-                toggleMediaController(MediaService.MEDIA_CONTROL_PERMANENT);
-                return true;
-                
-            } else if (v == mVideoPreview) {
-                toggleMediaController(MediaService.MEDIA_CONTROL_SHORT_LIFE);
-                return true;        
-            }
+        if (event.getAction() == MotionEvent.ACTION_DOWN && v == mVideoPreview) {
+            startFullScreenVideo();
+            return true;        
         }
         return false;
     }
 
     
-    private void toggleMediaController(int time) {
-        /*
-        if (mMediaController.isShowing()) {
-            mMediaController.hide();
-        } else {
-            mMediaController.show(time);
-        }
-        */
+    private void startFullScreenVideo() {
+        Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
+        i.putExtra(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(PreviewVideoActivity.EXTRA_FILE, mFile);
+        i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
+        mVideoPreview.pause();
+        i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
+        startActivityForResult(i, 0);
     }
 
+    
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            mSavedPlaybackPosition = data.getExtras().getInt(PreviewVideoActivity.EXTRA_START_POSITION);
+            mAutoplay = data.getExtras().getBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY); 
+        }
+    }
+    
 
     private void playAudio() {
         if (!mMediaServiceBinder.isPlaying(mFile)) {

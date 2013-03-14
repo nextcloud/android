@@ -16,7 +16,7 @@
  *
  */
 
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -53,13 +53,22 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
 
     /** Key to receive an {@link OCFile} to play as an extra value in an {@link Intent} */
     public static final String EXTRA_FILE = "FILE";
+    
     /** Key to receive the ownCloud {@link Account} where the file to play is saved as an extra value in an {@link Intent} */
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     
-    private static final String TAG = null;
+    /** Key to receive a flag signaling if the video should be started immediately */
+    public static final String EXTRA_AUTOPLAY = "AUTOPLAY";
+    
+    /** Key to receive the position of the playback where the video should be put at start */
+    public static final String EXTRA_START_POSITION = "START_POSITION";
+    
+    private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
     private OCFile mFile;                       // video file to play
     private Account mAccount;                   // ownCloud account holding mFile
+    private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
+    private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private VideoView mVideoPlayer;             // view to play the file; both performs and show the playback
     private MediaController mMediaController;   // panel control used by the user to control the playback
           
@@ -79,8 +88,11 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
         
         setContentView(R.layout.video_layout);
     
-        mFile = getIntent().getExtras().getParcelable(EXTRA_FILE);
-        mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
+        Bundle extras = getIntent().getExtras();
+        mFile = extras.getParcelable(EXTRA_FILE);
+        mAccount = extras.getParcelable(EXTRA_ACCOUNT);
+        mSavedPlaybackPosition = extras.getInt(EXTRA_START_POSITION);
+        mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY);
           
         mVideoPlayer = (VideoView) findViewById(R.id.videoPlayer);
 
@@ -97,6 +109,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
                 mVideoPlayer.setVideoPath(mFile.getStoragePath());
                 
             } else if (mAccount != null) {
+                // not working now
                 String url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
                 mVideoPlayer.setVideoURI(Uri.parse(url));
                 
@@ -116,6 +129,16 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     }    
     
     
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        i.putExtra(EXTRA_AUTOPLAY, mVideoPlayer.isPlaying());
+        i.putExtra(EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
+        setResult(RESULT_OK, i);
+        super.onBackPressed();
+    }
+
+    
     /** 
      * Called when the file is ready to be played.
      * 
@@ -125,7 +148,10 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
      */
     @Override
     public void onPrepared(MediaPlayer vp) {
-        mVideoPlayer.start();
+        mVideoPlayer.seekTo(mSavedPlaybackPosition);
+        if (mAutoplay) { 
+            mVideoPlayer.start();
+        }
         mMediaController.show(5000);  
     }
     
@@ -133,13 +159,13 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     /**
      * Called when the file is finished playing.
      *  
-     * Finishes the activity.
+     * Rewinds the video
      * 
      * @param   mp    {@link MediaPlayer} instance performing the playback.
      */
     @Override
     public void onCompletion(MediaPlayer  mp) {
-        this.finish(); 
+        mVideoPlayer.seekTo(0);
     }
     
     
