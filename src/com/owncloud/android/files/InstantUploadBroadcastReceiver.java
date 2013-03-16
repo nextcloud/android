@@ -38,10 +38,10 @@ import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.utils.FileStorageUtils;
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
-    public static String INSTANT_UPLOAD_DIR = "/InstantUpload/";
     private static String TAG = "PhotoTakenBroadcastReceiver";
     private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
     private static String NEW_PHOTO_ACTION = "com.android.camera.NEW_PICTURE";
@@ -100,7 +100,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         // same always temporally the picture to upload
         DbHandler db = new DbHandler(context);
-        db.putFileForLater(file_path, account.name);
+        db.putFileForLater(file_path, account.name, null);
         db.close();
 
         if (!isOnline(context) || (instantUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
@@ -121,7 +121,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
         i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, INSTANT_UPLOAD_DIR + file_name);
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(file_name));
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
@@ -164,7 +164,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         Intent i = new Intent(context, FileUploader.class);
                         i.putExtra(FileUploader.KEY_ACCOUNT, account);
                         i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
-                        i.putExtra(FileUploader.KEY_REMOTE_FILE, INSTANT_UPLOAD_DIR + f.getName());
+                        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(f.getName()));
                         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
                         i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
                         context.startService(i);

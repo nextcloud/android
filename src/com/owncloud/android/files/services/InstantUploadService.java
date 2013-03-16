@@ -23,15 +23,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.owncloud.android.network.OwnCloudClientUtils;
-
-import eu.alefzero.webdav.WebdavClient;
-
 import android.accounts.Account;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.utils.FileStorageUtils;
+
+import eu.alefzero.webdav.WebdavClient;
 
 public class InstantUploadService extends Service {
 
@@ -43,7 +44,7 @@ public class InstantUploadService extends Service {
 
     private static String TAG = "InstantUploadService";
     // TODO make it configurable over the settings dialog
-    public static String INSTANT_UPLOAD_DIR = "/InstantUpload";
+    public static final String INSTANT_UPLOAD_DIR = "/InstantUpload";
     private UploaderRunnable mUploaderRunnable;
 
     @Override
@@ -59,54 +60,50 @@ public class InstantUploadService extends Service {
             Log.w(TAG, "Not all required information was provided, abording");
             return Service.START_NOT_STICKY;
         }
-        
+
         if (mUploaderRunnable == null) {
             mUploaderRunnable = new UploaderRunnable();
         }
-        
+
         String filename = intent.getStringExtra(KEY_DISPLAY_NAME);
         String filepath = intent.getStringExtra(KEY_FILE_PATH);
         String mimetype = intent.getStringExtra(KEY_MIME_TYPE);
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
         long filesize = intent.getLongExtra(KEY_FILE_SIZE, -1);
-        
+
         mUploaderRunnable.addElementToQueue(filename, filepath, mimetype, filesize, account);
-        
+
         // starting new thread for new download doesnt seems like a good idea
         // maybe some thread pool or single background thread would be better
         Log.d(TAG, "Starting instant upload thread");
         new Thread(mUploaderRunnable).start();
-        
+
         return Service.START_STICKY;
     }
-    
+
     private class UploaderRunnable implements Runnable {
-        
+
         Object mLock;
         List<HashMap<String, Object>> mHashMapList;
-        
+
         public UploaderRunnable() {
             mHashMapList = new LinkedList<HashMap<String, Object>>();
             mLock = new Object();
         }
-        
-        public void addElementToQueue(String filename,
-                                      String filepath,
-                                      String mimetype,
-                                      long length,
-                                      Account account) {
+
+        public void addElementToQueue(String filename, String filepath, String mimetype, long length, Account account) {
             HashMap<String, Object> new_map = new HashMap<String, Object>();
             new_map.put(KEY_ACCOUNT, account);
             new_map.put(KEY_DISPLAY_NAME, filename);
             new_map.put(KEY_FILE_PATH, filepath);
             new_map.put(KEY_MIME_TYPE, mimetype);
             new_map.put(KEY_FILE_SIZE, length);
-            
+
             synchronized (mLock) {
                 mHashMapList.add(new_map);
             }
         }
-        
+
         private HashMap<String, Object> getFirstObject() {
             synchronized (mLock) {
                 if (mHashMapList.size() == 0)
@@ -116,10 +113,10 @@ public class InstantUploadService extends Service {
                 return ret;
             }
         }
-        
+
         public void run() {
             HashMap<String, Object> working_map;
-            
+
             while ((working_map = getFirstObject()) != null) {
                 Account account = (Account) working_map.get(KEY_ACCOUNT);
                 String filename = (String) working_map.get(KEY_DISPLAY_NAME);
@@ -127,15 +124,15 @@ public class InstantUploadService extends Service {
                 String mimetype = (String) working_map.get(KEY_MIME_TYPE);
                 
                 WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(account, getApplicationContext());
-                
-                wdc.createDirectory(INSTANT_UPLOAD_DIR);    // fail could just mean that it already exists; put will be tried anyway
+
+                wdc.createDirectory(INSTANT_UPLOAD_DIR); // fail could just mean that it already exists put will be tried anyway
                 try {
-                    wdc.putFile(filepath, INSTANT_UPLOAD_DIR + "/" + filename, mimetype);
+                    wdc.putFile(filepath, FileStorageUtils.getInstantUploadFilePath(filename), mimetype);
                 } catch (Exception e) {
                     // nothing to do; this service is deprecated, indeed
                 }
             }
         }
     }
-    
+
 }

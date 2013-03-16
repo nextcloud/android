@@ -34,7 +34,7 @@ public class DbHandler {
     private SQLiteDatabase mDB;
     private OpenerHelper mHelper;
     private final String mDatabaseName = "ownCloud";
-    private final int mDatabaseVersion = 2;
+    private final int mDatabaseVersion = 3;
 
     private final String TABLE_INSTANT_UPLOAD = "instant_upload";
 
@@ -50,19 +50,21 @@ public class DbHandler {
         mDB.close();
     }
 
-    public boolean putFileForLater(String filepath, String account) {
+    public boolean putFileForLater(String filepath, String account, String message) {
         ContentValues cv = new ContentValues();
         cv.put("path", filepath);
         cv.put("account", account);
         cv.put("attempt", UPLOAD_STATUS_UPLOAD_LATER);
+        cv.put("message", message);
         long result = mDB.insert(TABLE_INSTANT_UPLOAD, null, cv);
         Log.d(TABLE_INSTANT_UPLOAD, "putFileForLater returns with: " + result + " for file: " + filepath);
         return result != -1;
     }
 
-    public int updateFileState(String filepath, Integer status) {
+    public int updateFileState(String filepath, Integer status, String message) {
         ContentValues cv = new ContentValues();
         cv.put("attempt", status);
+        cv.put("message", message);
         int result = mDB.update(TABLE_INSTANT_UPLOAD, cv, "path=?", new String[] { filepath });
         Log.d(TABLE_INSTANT_UPLOAD, "updateFileState returns with: " + result + " for file: " + filepath);
         return result;
@@ -100,12 +102,15 @@ public class DbHandler {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL("CREATE TABLE " + TABLE_INSTANT_UPLOAD + " (" + " _id INTEGER PRIMARY KEY, " + " path TEXT,"
-                    + " account TEXT,attempt INTEGER);");
+                    + " account TEXT,attempt INTEGER,message TEXT);");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN attempt;");
+            if (oldVersion < 2) {
+                db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN attempt INTEGER;");
+            }
+            db.execSQL("ALTER TABLE " + TABLE_INSTANT_UPLOAD + " ADD COLUMN message TEXT;");
 
         }
     }

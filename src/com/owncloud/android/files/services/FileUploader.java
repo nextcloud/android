@@ -54,7 +54,6 @@ import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -422,28 +421,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             // / create remote folder for instant uploads
             if (mCurrentUpload.isRemoteFolderToBeCreated()) {
-                mUploadClient.createDirectory(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR); // ignoring
-                                                                                                  // result;
-                                                                                                  // fail
-                                                                                                  // could
-                                                                                                  // just
-                                                                                                  // mean
-                                                                                                  // that
-                                                                                                  // it
-                                                                                                  // already
-                                                                                                  // exists,
-                                                                                                  // but
-                                                                                                  // local
-                                                                                                  // database
-                                                                                                  // is
-                                                                                                  // not
-                                                                                                  // synchronized;
-                                                                                                  // the
-                                                                                                  // upload
-                                                                                                  // will
-                                                                                                  // be
-                                                                                                  // tried
-                                                                                                  // anyway
+                mUploadClient.createDirectory(InstantUploadService.INSTANT_UPLOAD_DIR);
+                // ignoring result fail could just mean that it already exists,
+                // but local database is not synchronized the upload will be
+                // tried anyway
             }
 
             // / perform the upload
@@ -543,11 +524,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     private boolean checkAndFixInstantUploadDirectory(FileDataStorageManager storageManager) {
-        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
+        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadService.INSTANT_UPLOAD_DIR);
         if (instantUploadDir == null) {
             // first instant upload in the account, or never account not
             // synchronized after the remote InstantUpload folder was created
-            OCFile newDir = new OCFile(InstantUploadBroadcastReceiver.INSTANT_UPLOAD_DIR);
+            OCFile newDir = new OCFile(InstantUploadService.INSTANT_UPLOAD_DIR);
             newDir.setMimetype("DIR");
             OCFile path = storageManager.getFileByPath(OCFile.PATH_SEPARATOR);
 
@@ -738,8 +719,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mNotificationManager.notify(R.string.uploader_upload_failed_ticker, finalNotification);
 
             DbHandler db = new DbHandler(this.getBaseContext());
-            if (db.updateFileState(upload.getOriginalStoragePath(), DbHandler.UPLOAD_STATUS_UPLOAD_FAILED) == 0) {
-                db.putFileForLater(upload.getOriginalStoragePath(), upload.getAccount().name);
+            String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
+            Log.e(TAG, message+" Http-Code: "+uploadResult.getHttpCode());            
+            if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                message = getString(R.string.failed_upload_quota_exceeded_text);
+            } 
+            if (db.updateFileState(upload.getOriginalStoragePath(), DbHandler.UPLOAD_STATUS_UPLOAD_FAILED, message) == 0) {
+                db.putFileForLater(upload.getOriginalStoragePath(), upload.getAccount().name, message);
             }
             db.close();
 
