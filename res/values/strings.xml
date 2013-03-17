@@ -242,5 +242,5 @@
     <string name="failed_upload_load_more_images">Load more Picrures</string>
     <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
 	<string name="failed_upload_failure_text">Failure Message: </string>
-	<string name="failed_upload_quota_exceeded_text">Pleas check your server configuration,maye your quota is exceeded.</string>
+	<string name="failed_upload_quota_exceeded_text">Please check your server configuration,maybe your quota is exceeded.</string>
 </resources>

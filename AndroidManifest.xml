@@ -60,6 +60,7 @@
         </activity>
  		<activity android:name=".ui.activity.InstantUploadActivity">
         </activity>
+        <activity android:name=".ui.activity.FailedUploadActivity" android:theme="@android:style/Theme.Dialog" android:excludeFromRecents="true"/>
         <activity android:name=".Uploader" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" >

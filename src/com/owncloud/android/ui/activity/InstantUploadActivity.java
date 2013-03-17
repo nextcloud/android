@@ -55,8 +55,8 @@ import com.owncloud.android.utils.FileStorageUtils;
  * uploaded instantly. The images can be selected for delete or for a try again
  * upload
  * 
- * The entrypoint for this activity is the 'Failed upload Notification" and a
- * submenue underneath the 'Upload' menuentry
+ * The entry-point for this activity is the 'Failed upload Notification" and a
+ * sub-menu underneath the 'Upload' menu-item
  * 
  * @author andomaex / Matthias Baumann
  * 
