@@ -41,6 +41,7 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.activity.AuthenticatorActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -662,8 +663,20 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
             Notification finalNotification = new Notification(R.drawable.icon, getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            // TODO put something smart in the contentIntent below
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            if (uploadResult.getCode() == ResultCode.UNAUTHORIZED) {
+                // let the user update credentials with one click
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount());
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                finalNotification.contentIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+                mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
+            } else {
+                // TODO put something smart in the contentIntent below
+                finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            }
             
             String content = null; 
             if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL ||

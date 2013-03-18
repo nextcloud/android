@@ -316,7 +316,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     getContext().getString(R.string.sync_fail_ticker), 
                     String.format(getContext().getString(R.string.sync_fail_content_unauthorized), getAccount().name), 
                     notification.contentIntent);
-            Log.e(TAG, "NEEDS TO UPDATE CREDENTIALS");
         } else {
             notification.setLatestEventInfo(getContext().getApplicationContext(), 
                     getContext().getString(R.string.sync_fail_ticker), 
