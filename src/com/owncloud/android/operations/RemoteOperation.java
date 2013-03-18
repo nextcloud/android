@@ -244,6 +244,7 @@ public abstract class RemoteOperation implements Runnable {
         
             repeat = false;
             if (mCallerActivity != null && mAccount != null && mContext != null && !result.isSuccess() && result.getCode() == ResultCode.UNAUTHORIZED) {
+                /// fail due to lack of authorization in an operation performed in foreground
                 AccountManager am = AccountManager.get(mContext);
                 Credentials cred = mClient.getCredentials();
                 if (cred instanceof BearerCredentials) {
@@ -252,7 +253,7 @@ public abstract class RemoteOperation implements Runnable {
                     am.clearPassword(mAccount);
                 }
                 mClient = null;
-                repeat = true;
+                repeat = true;  // when repeated, the creation of a new OwnCloudClient after erasing the saved credentials will trigger the login activity
                 result = null;
             }
         } while (repeat);

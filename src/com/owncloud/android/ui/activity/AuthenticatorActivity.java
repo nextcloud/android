@@ -186,8 +186,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// retrieve extras from intent
             String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
             boolean oAuthRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType);
-            mOAuth2Check.setChecked(oAuthRequired);
-            changeViewByOAuth2Check(oAuthRequired);
             
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
@@ -199,7 +197,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
+                oAuthRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
             }
+            mOAuth2Check.setChecked(oAuthRequired);
+            changeViewByOAuth2Check(oAuthRequired);
+            
 
         } else {
             loadSavedInstanceState(savedInstanceState);
@@ -826,11 +828,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         boolean isOAuth = mOAuth2Check.isChecked();
         if (isOAuth) {
             response.putString(AccountManager.KEY_AUTHTOKEN, mOAuthAccessToken);
-            // the next line is unnecessary; the AccountManager does it when receives the response Bundle
-            // mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
+            // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
+            mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
         } else {
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
-            // the next line is not really necessary, because we are using the password as if it was an auth token; but let's keep it there by now
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
         setAccountAuthenticatorResult(response);

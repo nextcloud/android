@@ -111,6 +111,7 @@
     <string name="sync_string_contacts">Contacts</string>
 	<string name="sync_fail_ticker">Synchronization failed</string>
     <string name="sync_fail_content">Synchronization of %1$s could not be completed</string>
+    <string name="sync_fail_content_unauthorized">Invalid credentials for %1$s</string>
 	<string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
 	<string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>

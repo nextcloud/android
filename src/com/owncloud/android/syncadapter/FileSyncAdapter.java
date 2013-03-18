@@ -19,7 +19,6 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,11 +34,11 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.activity.AuthenticatorActivity;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+
 import android.accounts.Account;
 import android.accounts.AccountsException;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -249,6 +248,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             RemoteOperationResult.ResultCode code = failedResult.getCode();
             return (code.equals(RemoteOperationResult.ResultCode.SSL_ERROR) ||
                     code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) ||
+                    code.equals(RemoteOperationResult.ResultCode.UNAUTHORIZED) ||
                     code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION) ||
                     code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED));
         }
@@ -299,12 +299,29 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        // TODO put something smart in the contentIntent below
+        boolean needsToUpdateCredentials = (mLastFailedResult != null && mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED);
+        // TODO put something smart in the contentIntent below for all the possible errors
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
-        notification.setLatestEventInfo(getContext().getApplicationContext(), 
-                                        getContext().getString(R.string.sync_fail_ticker), 
-                                        String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
-                                        notification.contentIntent);
+        if (needsToUpdateCredentials) {
+            // let the user update credentials with one click
+            Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+            notification.contentIntent = PendingIntent.getActivity(getContext(), (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                    getContext().getString(R.string.sync_fail_ticker), 
+                    String.format(getContext().getString(R.string.sync_fail_content_unauthorized), getAccount().name), 
+                    notification.contentIntent);
+            Log.e(TAG, "NEEDS TO UPDATE CREDENTIALS");
+        } else {
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                    getContext().getString(R.string.sync_fail_ticker), 
+                    String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
+                    notification.contentIntent);
+        }
         ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_ticker, notification);
     }
 
