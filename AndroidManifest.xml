@@ -3,9 +3,11 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012-2013 ownCloud Inc.
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
+  the Free Software Foundation, either version 2 of the License, or
   (at your option) any later version.
 
   This program is distributed in the hope that it will be useful,
@@ -17,8 +19,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="103018"
-    android:versionName="1.3.18" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="103022"
+    android:versionName="1.3.22" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -124,11 +126,13 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="oauth-mobile-app" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

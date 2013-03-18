@@ -1,9 +1,10 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -35,6 +36,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
@@ -82,6 +84,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
+import com.owncloud.android.ui.dialog.ChangelogDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -124,6 +127,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
     private static final int DIALOG_SSL_VALIDATOR = 5;
     private static final int DIALOG_CERT_NOT_SAVED = 6;
+    private static final String DIALOG_CHANGELOG_TAG = "DIALOG_CHANGELOG";
 
     
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
@@ -141,10 +145,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mHandler = new Handler();
 
         /// Load of parameters from received intent
-        mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); // no check necessary, mCurrenDir == null if the parameter is not in the intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-        if (account != null)
-            AccountUtils.setCurrentOwnCloudAccount(this, account.name);
+        if (account != null && AccountUtils.setCurrentOwnCloudAccount(this, account.name)) {
+            mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); 
+        }
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
@@ -185,7 +189,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         // Drop-down navigation 
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         OCFile currFile = mCurrentDir;
-        while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
+        while(mStorageManager != null && currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
             mDirectories.add(currFile.getFileName());
             currFile = mStorageManager.getFileById(currFile.getParentId());
         }
@@ -208,10 +212,40 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         actionBar.setListNavigationCallbacks(mDirectories, this);
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
         
+        
+        // show changelog, if needed
+        //showChangeLog();
+        
         Log.d(getClass().toString(), "onCreate() end");
     }
 
     
+    /**
+     * Shows a dialog with the change log of the current version after each app update
+     * 
+     *  TODO make it permanent; by now, only to advice the workaround app for 4.1.x
+     */
+    private void showChangeLog() {
+        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            final String KEY_VERSION = "version";
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            int currentVersionNumber = 0;
+            int savedVersionNumber = sharedPref.getInt(KEY_VERSION, 0);
+            try {
+                PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
+                currentVersionNumber    = pi.versionCode;
+            } catch (Exception e) {}
+     
+            if (currentVersionNumber > savedVersionNumber) {
+                ChangelogDialog.newInstance(true).show(getSupportFragmentManager(), DIALOG_CHANGELOG_TAG);
+                Editor editor   = sharedPref.edit();
+                editor.putInt(KEY_VERSION, currentVersionNumber);
+                editor.commit();
+            }
+        }
+    }
+    
+
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */

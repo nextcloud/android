@@ -1,9 +1,10 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -489,8 +490,7 @@ public class FileDetailFragment extends SherlockFragment implements
             
             // set file details
             setFilename(mFile.getFileName());
-            setFiletype(DisplayUtils.convertMIMEtoPrettyPrint(mFile
-                    .getMimetype()));
+            setFiletype(mFile.getMimetype());
             setFilesize(mFile.getFileLength());
             if(ocVersionSupportsTimeCreated()){
                 setTimeCreated(mFile.getCreationTimestamp());
@@ -542,8 +542,14 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setFiletype(String mimetype) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
-        if (tv != null)
-            tv.setText(mimetype);
+        if (tv != null) {
+            String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);;        
+            tv.setText(printableMimetype);
+        }
+        ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
+        if (iv != null) {
+            iv.setImageResource(DisplayUtils.getResourceId(mimetype));
+        }
     }
 
     /**

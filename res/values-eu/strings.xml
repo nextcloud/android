@@ -59,7 +59,7 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Irten</string>
   <string name="uploader_wrn_no_content_title">Ez dago igotzeko edukirik</string>
   <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
-  <string name="uploader_error_forbidden_content">ownCloudek ez du baimenik partekatutako edukian sartzeko</string>
+  <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
   <string name="uploader_btn_create_dir_text">Sortu igotzeko karpeta bat</string>
   <string name="file_list_empty">Ez dago fitxategirik karpeta honetan.\nFitxategi berriak \"Igo\" menu aukerarekin gehi daitezke.</string>
@@ -195,11 +195,17 @@
   <string name="ssl_validator_not_saved">Ziurtagiria ezin da gorde</string>
   <string name="ssl_validator_btn_details_see">Xehetasunak</string>
   <string name="ssl_validator_btn_details_hide">Ezkutatu</string>
+  <string name="ssl_validator_label_subject">Honi bidalita:</string>
+  <string name="ssl_validator_label_issuer">Honek bidalita:</string>
   <string name="ssl_validator_label_CN">Izen arrunta:</string>
   <string name="ssl_validator_label_O">Erakundea:</string>
+  <string name="ssl_validator_label_OU">Erakunde atala:</string>
   <string name="ssl_validator_label_C">Herrialdea:</string>
   <string name="ssl_validator_label_ST">Estatua:</string>
   <string name="ssl_validator_label_L">Kokapena:</string>
+  <string name="ssl_validator_label_validity">Baliozkotasuna:</string>
+  <string name="ssl_validator_label_validity_from">Noiztik:</string>
+  <string name="ssl_validator_label_validity_to">Noiz arte:</string>
   <string name="ssl_validator_label_signature">Sinadura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmoa:</string>
   <string name="text_placeholder">Hau leku-marka da</string>

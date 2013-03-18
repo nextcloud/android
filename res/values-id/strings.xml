@@ -1,13 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Password:</string>
+  <string name="main_login">Nama Pengguna:</string>
   <string name="main_button_login">login</string>
+  <string name="main_welcome">Selamat Datang</string>
+  <string name="main_files">Berkas</string>
+  <string name="main_music">Musik</string>
   <string name="main_contacts">kontak</string>
+  <string name="main_calendar">Kalendar</string>
+  <string name="main_bookmarks">Bookmark</string>
   <string name="main_settings">pengaturan</string>
+  <string name="main_tit_accsetup">Mengatur Akun</string>
+  <string name="main_wrn_accsetup">Tidak ada akun yang diatur di alat anda. Dalam rangka menggunakan App ini, anda hrus membuatnya.</string>
+  <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="prefs_category_general">umum</string>
   <string name="auth_host_url">tautan</string>
   <string name="auth_username">nama pengguna</string>
   <string name="auth_password">kata kunci</string>
+  <string name="sync_string_files">Berkas</string>
   <string name="setup_hint_username">nama pengguna</string>
   <string name="setup_hint_password">kata kunci</string>
   <string name="filedetails_download">unduh</string>

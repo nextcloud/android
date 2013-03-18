@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">owncloud</string>
+  <string name="app_name">ownCloud</string>
   <string name="main_password">Palavra-passe:</string>
   <string name="main_login">Nome de Utilizador:</string>
   <string name="main_button_login">Login</string>
@@ -12,8 +12,8 @@
   <string name="main_bookmarks">Marcadores</string>
   <string name="main_settings">Definições</string>
   <string name="main_tit_accsetup">Configurar conta</string>
-  <string name="main_wrn_accsetup">Não há contas ownCloud no seu aparelho. Para usar esta Aplicação, precisa de criar uma.</string>
-  <string name="about_message">cliente Android ownCloud\n\nversão: %1$s</string>
+  <string name="main_wrn_accsetup">Não há contas no seu aparelho. Para usar esta Aplicação, precisa de criar uma.</string>
+  <string name="about_message">cliente Android  %1$s\n\nversão: %1$s</string>
   <string name="actionbar_sync">Actualizar</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Conteúdo das outras apps</string>
@@ -41,7 +41,7 @@
   <string name="auth_host_url">URL ownCloud</string>
   <string name="auth_username">Nome de Utilizador</string>
   <string name="auth_password">Palavra-passe</string>
-  <string name="auth_register">Sou novo na ownCloud</string>
+  <string name="auth_register">Sou novo na  %1$s</string>
   <string name="new_session_uri_error">URL dado errado</string>
   <string name="new_session_session_name_error">Nome de sessão errado</string>
   <string name="sync_string_files">Ficheiros</string>
@@ -50,16 +50,16 @@
   <string name="setup_hint_password">Palavra-passe</string>
   <string name="setup_hint_address">Endereço web</string>
   <string name="setup_hint_show_password">Mostrar palavra-passe?</string>
-  <string name="setup_title">Ligar à sua ownCloud</string>
+  <string name="setup_title">Ligar à sua  %1$s</string>
   <string name="setup_btn_connect">Ligar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
-  <string name="uploader_wrn_no_account_text">Não tem nenhuma conta ownCloud no seu dispositivo. Configure uma conta.</string>
+  <string name="uploader_wrn_no_account_text">Não tem nenhuma conta  %1$s no seu dispositivo. Configure uma conta.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
   <string name="uploader_wrn_no_content_title">Sem conteúdo para carregar</string>
   <string name="uploader_wrn_no_content_text">Não foi recebido nenhum conteúdo. Nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">O ownCloud não está autorizado a aceder aos ficheiro partilhados.</string>
+  <string name="uploader_error_forbidden_content">O  %1$s não está autorizado a aceder aos ficheiro partilhados.</string>
   <string name="uploader_info_uploading">A enviar</string>
   <string name="uploader_btn_create_dir_text">Criar directoria para envio</string>
   <string name="file_list_empty">Não existem ficheiros nesta pasta.\nPode adicionar ficheiros com a opção \"Enviar\" no menu.</string>
@@ -80,7 +80,7 @@
   <string name="common_cancel_upload">Cancelar envio</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar &amp; Sair</string>
-  <string name="common_exit">Sair de ownCloud</string>
+  <string name="common_exit">Sair de  %1$s</string>
   <string name="common_error">Erro</string>
   <string name="about_title">Sobre</string>
   <string name="delete_account">Apagar conta</string>

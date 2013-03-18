@@ -14,6 +14,7 @@
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_files">Файлове</string>
   <string name="actionbar_settings">Настройки</string>
+  <string name="prefs_category_general">Общи</string>
   <string name="auth_host_url">Уеб адрес</string>
   <string name="auth_password">Парола</string>
   <string name="sync_string_files">Файлове</string>
@@ -21,7 +22,10 @@
   <string name="uploader_btn_upload_text">Качване</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
   <string name="filedetails_download">Изтегляне</string>
+  <string name="common_cancel_upload">Спри качването</string>
+  <string name="common_error">Грешка</string>
   <string name="sync_string_contacts">Контакти</string>
+  <string name="common_share">Споделяне</string>
   <string name="common_rename">Преименуване</string>
   <string name="common_remove">Премахване</string>
 </resources>

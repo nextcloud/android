@@ -1,9 +1,9 @@
 /* ownCloud Android client application
- *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -160,32 +160,6 @@ public class OwnCloudClientUtils {
         return client;
     }
     
-    
-    /**
-     * Allows or disallows self-signed certificates in ownCloud servers to reach
-     * 
-     * @param allow     'True' to allow, 'false' to disallow
-     */
-    public static void allowSelfsignedCertificates(boolean allow) {
-        Protocol pr = null;
-        try {
-            pr = Protocol.getProtocol("https");
-            if (pr != null && mDefaultHttpsProtocol == null) {
-            	mDefaultHttpsProtocol = pr;
-            }
-        } catch (IllegalStateException e) {
-            // nothing to do here; really
-        }
-        boolean isAllowed = (pr != null && pr.getSocketFactory() instanceof EasySSLSocketFactory);
-        if (allow && !isAllowed) {
-            Protocol.registerProtocol("https", new Protocol("https", new EasySSLSocketFactory(), 443));
-        } else if (!allow && isAllowed) {
-        	if (mDefaultHttpsProtocol != null) {
-        		Protocol.registerProtocol("https", mDefaultHttpsProtocol);
-        	}
-        }
-    }
-
     
     /**
      * Registers or unregisters the proper components for advanced SSL handling.

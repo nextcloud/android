@@ -13,7 +13,7 @@
   <string name="main_settings">Inställningar</string>
   <string name="main_tit_accsetup">Skapa konto</string>
   <string name="main_wrn_accsetup">Det finns inget konto för ownCloud på denna enhet. För att kunna använda ownCloud så måste du skapa ett konto.</string>
-  <string name="about_message">ownCloud Android klient\n\nversion: %1$s</string>
+  <string name="about_message">%1$s Android klient\n\nversion: %2$s</string>
   <string name="actionbar_sync">Uppdatera</string>
   <string name="actionbar_upload">Ladda upp</string>
   <string name="actionbar_upload_from_apps">Innehåll från andra program</string>
@@ -41,7 +41,7 @@
   <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Användare</string>
   <string name="auth_password">Lösenord</string>
-  <string name="auth_register">ownCloud är nytt för mig</string>
+  <string name="auth_register">%1$s är nytt för mig</string>
   <string name="new_session_uri_error">Felaktig URL angavs</string>
   <string name="new_session_session_name_error">Felaktigt sessionsnamn</string>
   <string name="sync_string_files">Filer</string>
@@ -50,16 +50,16 @@
   <string name="setup_hint_password">Lösenord</string>
   <string name="setup_hint_address">Webbadress</string>
   <string name="setup_hint_show_password">Visa lösenord?</string>
-  <string name="setup_title">Anslut till ownCloud</string>
+  <string name="setup_title">Anslut till %1$s</string>
   <string name="setup_btn_connect">Anslut</string>
   <string name="uploader_btn_upload_text">Ladda upp</string>
   <string name="uploader_wrn_no_account_title">Hittar inget konto</string>
-  <string name="uploader_wrn_no_account_text">Det finns inga konton för ownCloud på denna enhet. Var god skapa ett konto först.</string>
+  <string name="uploader_wrn_no_account_text">Det finns inga konton för %1$s på denna enhet. Var god skapa ett konto först.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
   <string name="uploader_wrn_no_content_title">Inget att ladda upp</string>
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
-  <string name="uploader_error_forbidden_content">ownCloud har inte rättighet till det delade innehållet</string>
+  <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
   <string name="uploader_btn_create_dir_text">Skapa mapp för att ladda upp</string>
   <string name="file_list_empty">Det finns inga filer i denna mapp.\nNya filer kan läggas till med \"Ladda upp\" i menyn.</string>
@@ -80,7 +80,7 @@
   <string name="common_cancel_upload">Avbryt uppladdning</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Spara &amp; Avsluta</string>
-  <string name="common_exit">Lämna ownCloud</string>
+  <string name="common_exit">Lämna %1$s</string>
   <string name="common_error">Fel</string>
   <string name="about_title">Om</string>
   <string name="delete_account">Radera konto</string>
@@ -110,7 +110,7 @@
   <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
   <string name="sync_fail_in_favourites_content">Innehållet i %1$d filer kunde inte synkas (%2$d konflikter)</string>
   <string name="use_ssl">Använd säker anslutning</string>
-  <string name="location_no_provider">ownCloud  kan inte spåra denna enhet. Kontrollera dina platsinställningar</string>
+  <string name="location_no_provider">%1$s  kan inte spåra denna enhet. Kontrollera dina platsinställningar</string>
   <string name="pincode_enter_pin_code">Ange din PIN</string>
   <string name="pincode_enter_new_pin_code">Ange din nya PIN</string>
   <string name="pincode_configure_your_pin">Ange ownCloud PIN</string>

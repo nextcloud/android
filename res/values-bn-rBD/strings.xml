@@ -55,5 +55,6 @@
   <string name="common_error">সমস্যা</string>
   <string name="uploader_info_dirname">ডিরেক্টরির নাম</string>
   <string name="common_choose_account">একাউন্ট নির্বাচন</string>
+  <string name="common_share">ভাগাভাগি কর</string>
   <string name="common_rename">পূনঃনামকরণ</string>
 </resources>

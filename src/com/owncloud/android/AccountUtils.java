@@ -1,9 +1,10 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -61,7 +62,9 @@ public class AccountUtils {
                     break;
                 }
             }
-        } else if (ocAccounts.length != 0) {
+        }
+        
+        if (defaultAccount == null && ocAccounts.length != 0) {
             // we at least need to take first account as fallback
             defaultAccount = ocAccounts[0];
         }
@@ -84,11 +87,26 @@ public class AccountUtils {
     }
     
     
-    public static void setCurrentOwnCloudAccount(Context context, String name) {
-        SharedPreferences.Editor appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(context).edit();
-        appPrefs.putString("select_oc_account", name);
-        appPrefs.commit();
+    public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
+        boolean result = false;
+        if (accountName != null) {
+            Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                    AccountAuthenticator.ACCOUNT_TYPE);
+            boolean found = false;
+            for (Account account : ocAccounts) {
+                found = (account.name.equals(accountName));
+                if (found) {
+                    SharedPreferences.Editor appPrefs = PreferenceManager
+                            .getDefaultSharedPreferences(context).edit();
+                    appPrefs.putString("select_oc_account", accountName);
+    
+                    appPrefs.commit();
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     /**

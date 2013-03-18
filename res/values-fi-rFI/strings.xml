@@ -72,6 +72,7 @@
   <string name="filedetails_sync_file">Päivitä</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
   <string name="filedetails_open">Avaa</string>
+  <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
@@ -105,6 +106,9 @@
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
   <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
+  <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
+  <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
   <string name="use_ssl">Käytä salattua yhteyttä</string>
   <string name="location_no_provider">ownCloud ei voi jäljittää laitettasi. Tarkista laitteesi sijaintiasetukset</string>
   <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
@@ -164,7 +168,9 @@
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko poistaa kohteen %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Haluatko poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
+  <string name="confirmation_remove_folder_local">Vain paikallinen sisältö</string>
   <string name="confirmation_remove_remote">Poista palvelimelta</string>
   <string name="confirmation_remove_remote_and_local">Sekä etä- että paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
@@ -172,6 +178,8 @@
   <string name="rename_dialog_title">Anna uusi nimi</string>
   <string name="rename_local_fail_msg">Paikallista kopiota ei voitu uudelleennimetä; yritä eri nimellä</string>
   <string name="rename_server_fail_msg">Nimen muutos epäonnistui</string>
+  <string name="sync_file_fail_msg">Etäpään tiedostoa ei voitu tarkistaa</string>
+  <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
   <string name="create_dir_fail_msg">Kansion luonti epäonnistui</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
@@ -180,6 +188,8 @@
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
   <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">- Palvelimen varmenteen kelvolliset päivät ovat tulevaisuudessa</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- Osoite ei vastaa sertifikaatissa mainittua isäntänimeä</string>
   <string name="ssl_validator_certificate_not_available">Palvelimen varmenteen noutaminen epäonnistui</string>
   <string name="ssl_validator_question">Haluatko silti luottaa tähän varmenteeseen?</string>
   <string name="ssl_validator_not_saved">Varmenteen tallennus epäonnistui</string>
@@ -198,7 +208,9 @@
   <string name="ssl_validator_label_validity_to">Päättyen:</string>
   <string name="ssl_validator_label_signature">Allekirjoitus:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
+  <string name="text_placeholder">Tämä on paikkavaraus</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
+  <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Päivitysristiriita</string>
   <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
   <string name="conflict_keep_both">Säilytä molemmat</string>

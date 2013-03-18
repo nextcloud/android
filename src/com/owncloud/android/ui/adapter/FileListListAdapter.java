@@ -1,9 +1,10 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
+ *   the Free Software Foundation, either version 2 of the License, or
  *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
@@ -115,11 +116,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            if (file.getMimetype() == null || !file.getMimetype().equals("DIR")) {
-                fileIcon.setImageResource(R.drawable.file);
-            } else {
-                fileIcon.setImageResource(R.drawable.ic_menu_archive);
-            }
+            fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype()));
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
