@@ -88,11 +88,19 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
         
         setContentView(R.layout.video_layout);
     
-        Bundle extras = getIntent().getExtras();
-        mFile = extras.getParcelable(EXTRA_FILE);
-        mAccount = extras.getParcelable(EXTRA_ACCOUNT);
-        mSavedPlaybackPosition = extras.getInt(EXTRA_START_POSITION);
-        mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY);
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            mFile = extras.getParcelable(EXTRA_FILE);
+            mAccount = extras.getParcelable(EXTRA_ACCOUNT);
+            mSavedPlaybackPosition = extras.getInt(EXTRA_START_POSITION);
+            mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY);
+            
+        } else {
+            mFile = savedInstanceState.getParcelable(EXTRA_FILE);
+            mAccount = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
+            mSavedPlaybackPosition = savedInstanceState.getInt(EXTRA_START_POSITION);
+            mAutoplay = savedInstanceState.getBoolean(EXTRA_AUTOPLAY);
+        }
           
         mVideoPlayer = (VideoView) findViewById(R.id.videoPlayer);
 
@@ -129,8 +137,22 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     }    
     
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(PreviewVideoActivity.EXTRA_FILE, mFile);
+        outState.putParcelable(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
+        outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
+        outState.putBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY , mVideoPlayer.isPlaying());
+    }
+
+    
     @Override
     public void onBackPressed() {
+        Log.e(TAG, "onBackPressed");
         Intent i = new Intent();
         i.putExtra(EXTRA_AUTOPLAY, mVideoPlayer.isPlaying());
         i.putExtra(EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -208,12 +230,17 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
      */
     @Override
     public boolean onTouchEvent (MotionEvent ev){ 
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);
+        /*if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (mMediaController.isShowing()) {
+                mMediaController.hide();
+            } else {
+                mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);
+            }
             return true;        
         } else {
             return false;
-        }
+        }*/
+        return false;
     }
 
 

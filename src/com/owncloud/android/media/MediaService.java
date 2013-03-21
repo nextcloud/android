@@ -73,7 +73,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public static final int OC_MEDIA_ERROR = 0;
 
     /** Time To keep the control panel visible when the user does not use it */
-    public static final int MEDIA_CONTROL_SHORT_LIFE = 5000;
+    public static final int MEDIA_CONTROL_SHORT_LIFE = 4000;
     
     /** Time To keep the control panel visible when the user does not use it */
     public static final int MEDIA_CONTROL_PERMANENT = 0;
