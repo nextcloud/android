@@ -85,7 +85,9 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.ChangelogDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -101,7 +103,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
+    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir = null;
@@ -345,8 +347,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.createDirectoryItem: {
-                showDialog(DIALOG_CREATE_DIR);
-                break;
+                //showDialog(DIALOG_CREATE_DIR);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", this);
+                dialog.show(getSupportFragmentManager(), "createdirdialog");
             }
             case R.id.startSync: {
                 startSynchronization();
@@ -1282,7 +1285,32 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
 
-    
-
+    @Override
+    public void onDismiss(EditNameDialog dialog) {
+        //dialog.dismiss();
+        if (dialog.getResult()) {
+            String newDirectoryName = dialog.getNewFilename().trim();
+            Log.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
+            if (newDirectoryName.length() > 0) {
+                String path;
+                if (mCurrentDir == null) {
+                    // this is just a patch; we should ensure that mCurrentDir never is null
+                    if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
+                        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
+                        mStorageManager.saveFile(file);
+                    }
+                    mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+                }
+                path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
+                
+                // Create directory
+                path += newDirectoryName + OCFile.PATH_SEPARATOR;
+                Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
+                thread.start();
+                
+                showDialog(DIALOG_SHORT_WAIT);
+            }
+        }
+    }
 
 }
