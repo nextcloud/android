@@ -62,7 +62,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
             }
             
             if (result == null) { 
-                NameValuePair[] nameValuePairs = new NameValuePair[5];
+                NameValuePair[] nameValuePairs = new NameValuePair[4];
                 nameValuePairs[0] = new NameValuePair(OAuth2Constants.KEY_GRANT_TYPE, mGrantType);
                 nameValuePairs[1] = new NameValuePair(OAuth2Constants.KEY_CODE, mOAuth2ParsedAuthorizationResponse.get(OAuth2Constants.KEY_CODE));            
                 nameValuePairs[2] = new NameValuePair(OAuth2Constants.KEY_REDIRECT_URI, mRedirectUri);       

@@ -88,7 +88,7 @@
         </activity>
 
         <service
-            android:name=".authenticator.AccountAuthenticatorService"
+            android:name=".authentication.AccountAuthenticatorService"
             android:exported="true">
             <intent-filter  android:priority="100">
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -120,7 +120,7 @@
         </provider>
 
         <activity
-            android:name=".ui.activity.AuthenticatorActivity"
+            android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
             android:theme="@style/Theme.ownCloud.noActionBar" 
             android:launchMode="singleTask">
@@ -165,9 +165,6 @@
             </intent-filter>
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
-        
-        <service android:name=".authenticator.oauth2.services.OAuth2GetTokenService" >
-        </service>
         
     </application>
 
