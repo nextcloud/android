@@ -38,7 +38,7 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 
 import eu.alefzero.webdav.WebdavClient;
 

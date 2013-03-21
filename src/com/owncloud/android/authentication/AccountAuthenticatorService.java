@@ -17,7 +17,7 @@
  *
  */
 
-package com.owncloud.android.authenticator;
+package com.owncloud.android.authentication;
 
 import android.app.Service;
 import android.content.Intent;

@@ -56,7 +56,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;

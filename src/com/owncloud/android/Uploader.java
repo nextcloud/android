@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;

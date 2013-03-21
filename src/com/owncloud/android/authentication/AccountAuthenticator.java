@@ -17,9 +17,8 @@
  *
  */
 
-package com.owncloud.android.authenticator;
+package com.owncloud.android.authentication;
 
-import com.owncloud.android.ui.activity.AuthenticatorActivity;
 
 import android.accounts.*;
 import android.content.Context;
@@ -27,6 +26,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+
+/**
+ *  Authenticator for ownCloud accounts.
+ * 
+ *  Controller class accessed from the system AccountManager, providing integration of ownCloud accounts with the Android system.
+ * 
+ *  TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
+ *  TODO - review completeness 
+ * 
+ * @author David A. Velasco
+ */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
     /**
      * Is used by android system to assign accounts to authenticators. Should be
@@ -46,7 +56,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     /**
      * Value under this key should handle path to webdav php script. Will be
      * removed and usage should be replaced by combining
-     * {@link com.owncloud.android.authenticator.AuthenticatorActivity.KEY_OC_BASE_URL} and
+     * {@link com.owncloud.android.authentication.AuthenticatorActivity.KEY_OC_BASE_URL} and
      * {@link com.owncloud.android.utils.OwnCloudVersion}
      * 
      * @deprecated

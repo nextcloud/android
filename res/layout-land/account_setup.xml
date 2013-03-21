@@ -125,7 +125,7 @@
 	                android:layout_weight="1"
 	                android:ems="10"
                 	android:enabled="false"
-	                android:text="@string/oauth_url_endpoint_auth"
+	                android:text="@string/oauth2_url_endpoint_auth"
 	                android:singleLine="true"
 	                android:visibility="gone" >
 	
@@ -139,7 +139,7 @@
 	                android:layout_weight="1"
 	                android:ems="10"
                 	android:enabled="false"
-	                android:text="@string/oauth_url_endpoint_access"
+	                android:text="@string/oauth2_url_endpoint_access"
 	                android:singleLine="true"
 	                android:visibility="gone" >
 	

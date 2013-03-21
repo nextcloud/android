@@ -17,11 +17,9 @@
  *
  */
 
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.authentication;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.authenticator.oauth2.OAuth2Context;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -112,10 +110,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private ExistenceCheckOperation mAuthCheckOperation;
     private RemoteOperationResult mLastSslUntrustedServerResult;
 
-    //private Thread mOAuth2GetCodeThread;
-    //private OAuth2GetAuthorizationToken mOAuth2GetCodeRunnable;     
-    //private TokenReceiver tokenReceiver;
-    //private JSONObject mCodeResponseJson; 
     private Uri mNewCapturedUriFromOAuth2Redirection;
     
     private AccountManager mAccountMgr;
@@ -173,7 +167,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// initialization
         mAccountMgr = AccountManager.get(this);
-        mNewCapturedUriFromOAuth2Redirection = null;    // TODO save?
+        mNewCapturedUriFromOAuth2Redirection = null;
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
 
@@ -251,11 +245,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         outState.putInt(KEY_OAUTH2_STATUS_ICON, mOAuth2StatusIcon);
         outState.putInt(KEY_OAUTH2_STATUS_TEXT, mOAuth2StatusText);
         
-        /* Leave old OAuth flow
-        if (codeResponseJson != null){
-            outState.putString(KEY_OAUTH2_CODE_RESULT, codeResponseJson.toString());
-        }
-        */
     }
 
 
@@ -293,19 +282,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         // state of oAuth2 components
         mOAuth2StatusIcon = savedInstanceState.getInt(KEY_OAUTH2_STATUS_ICON);
         mOAuth2StatusText = savedInstanceState.getInt(KEY_OAUTH2_STATUS_TEXT);
-        
-        /* Leave old OAuth flow
-        // We store a JSon object with all the data returned from oAuth2 server when we get user_code.
-        // Is better than store variable by variable. We use String object to serialize from/to it.
-           try {
-            if (savedInstanceState.containsKey(KEY_OAUTH2_CODE_RESULT)) {
-                codeResponseJson = new JSONObject(savedInstanceState.getString(KEY_OAUTH2_CODE_RESULT));
-            }
-        } catch (JSONException e) {
-            Log.e(TAG, "onCreate->JSONException: " + e.toString());
-        }*/
         // END of getting the state of oAuth2 components.
-        
     }
 
     
@@ -320,7 +297,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onNewIntent (Intent intent) {
         Log.d(TAG, "onNewIntent()");
         Uri data = intent.getData();
-        if (data != null && data.toString().startsWith(OAuth2Context.MY_REDIRECT_URI)) {
+        if (data != null && data.toString().startsWith(getString(R.string.oauth2_redirect_uri))) {
             mNewCapturedUriFromOAuth2Redirection = data;
         }
     }
@@ -341,39 +318,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             else
                 Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
         }
-           
         
-        /* LEAVE OLD OAUTH FLOW ; 
-        // (old oauth code) Registering token receiver. We must listening to the service that is pooling to the oAuth server for a token.
-        if (tokenReceiver == null) {
-            IntentFilter tokenFilter = new IntentFilter(OAuth2GetTokenService.TOKEN_RECEIVED_MESSAGE);                
-            tokenReceiver = new TokenReceiver();
-            this.registerReceiver(tokenReceiver,tokenFilter);
-        } */
-        // (new oauth code)
         if (mNewCapturedUriFromOAuth2Redirection != null) {
             getOAuth2AccessTokenFromCapturedRedirection();            
         }
         
         mJustCreated = false;
     }
-    
-    
-    @Override protected void onDestroy() {       
-        super.onDestroy();
-
-        /* LEAVE OLD OAUTH FLOW
-        // We must stop the service thats it's pooling to oAuth2 server for a token.
-        Intent tokenService = new Intent(this, OAuth2GetTokenService.class);
-        stopService(tokenService);
-        
-        // We stop listening the result of the pooling service.
-        if (tokenReceiver != null) {
-            unregisterReceiver(tokenReceiver);
-            tokenReceiver = null;
-        }*/
-
-    }    
     
     
     /**
@@ -389,8 +340,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
 
         /// GET ACCESS TOKEN to the oAuth server 
-        RemoteOperation operation = new OAuth2GetAccessToken(queryParameters);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth_url_endpoint_access)), getApplicationContext());
+        RemoteOperation operation = new OAuth2GetAccessToken(   getString(R.string.oauth2_client_id), 
+                                                                getString(R.string.oauth2_redirect_uri), // TODO check - necessary here?      
+                                                                getString(R.string.oauth2_grant_type),
+                                                                queryParameters);
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
         operation.execute(client, this, mHandler);
     }
     
@@ -488,7 +442,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param view      Cancel button
      */
     public void onCancelClick(View view) {
-        setResult(RESULT_CANCELED);     // TODO review how is this related to AccountAuthenticator
+        setResult(RESULT_CANCELED);     // TODO review how is this related to AccountAuthenticator (debugging)
         finish();
     }
     
@@ -562,26 +516,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         updateAuthStatus();
         
         // GET AUTHORIZATION request
-        /*
-        mOAuth2GetCodeRunnable = new OAuth2GetAuthorizationToken(, this);
-        mOAuth2GetCodeRunnable.setListener(this, mHandler);
-        mOAuth2GetCodeThread = new Thread(mOAuth2GetCodeRunnable);
-        mOAuth2GetCodeThread.start();
-        */
-        
-        //if (mGrantType.equals(OAuth2Context.OAUTH2_AUTH_CODE_GRANT_TYPE)) {
-        Uri uri = Uri.parse(getString(R.string.oauth_url_endpoint_auth));
+        Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
         Uri.Builder uriBuilder = uri.buildUpon();
-        uriBuilder.appendQueryParameter(OAuth2Context.CODE_RESPONSE_TYPE, OAuth2Context.OAUTH2_CODE_RESPONSE_TYPE);
-        uriBuilder.appendQueryParameter(OAuth2Context.CODE_REDIRECT_URI, OAuth2Context.MY_REDIRECT_URI);   
-        uriBuilder.appendQueryParameter(OAuth2Context.CODE_CLIENT_ID, OAuth2Context.OAUTH2_F_CLIENT_ID);
-        uriBuilder.appendQueryParameter(OAuth2Context.CODE_SCOPE, OAuth2Context.OAUTH2_F_SCOPE);
-        //uriBuilder.appendQueryParameter(OAuth2Context.CODE_STATE, whateverwewant);
+        uriBuilder.appendQueryParameter(OAuth2Constants.KEY_RESPONSE_TYPE, getString(R.string.oauth2_response_type));
+        uriBuilder.appendQueryParameter(OAuth2Constants.KEY_REDIRECT_URI, getString(R.string.oauth2_redirect_uri));   
+        uriBuilder.appendQueryParameter(OAuth2Constants.KEY_CLIENT_ID, getString(R.string.oauth2_client_id));
+        uriBuilder.appendQueryParameter(OAuth2Constants.KEY_SCOPE, getString(R.string.oauth2_scope));
+        //uriBuilder.appendQueryParameter(OAuth2Constants.KEY_STATE, whateverwewant);
         uri = uriBuilder.build();
         Log.d(TAG, "Starting browser to view " + uri.toString());
         Intent i = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(i);
-        //}
     }
 
     
@@ -767,7 +712,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showDialog(DIALOG_LOGIN_PROGRESS);
             
             /// time to test the retrieved access token on the ownCloud server
-            mOAuthAccessToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Context.KEY_ACCESS_TOKEN);
+            mOAuthAccessToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log.d(TAG, "Got ACCESS TOKEN: " + mOAuthAccessToken);
             mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
             WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this);
@@ -844,9 +789,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * This makes the account permanent.
      * 
      * TODO Decide how to name the OAuth accounts
-     * TODO Minimize the direct interactions with the account manager; seems that not all the operations 
-     * in the current code are really necessary, provided that right extras are returned to the Account
-     * Authenticator through setAccountAuthenticatorResult  
      */
     private void createAccount() {
         /// create and save new ownCloud account
@@ -855,7 +797,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
         if (isOAuth) {
-            username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();    // TODO change this to something readable
+            username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
         }            
         String accountName = username + "@" + uri.getHost();
         if (uri.getPort() >= 0) {
@@ -957,21 +899,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         case DIALOG_OAUTH2_LOGIN_PROGRESS: {
-            /// oAuth2 dialog. We show here to the user the URL and user_code that the user must validate in a web browser. - OLD!
-            // TODO optimize this dialog
             ProgressDialog working_dialog = new ProgressDialog(this);
-            /* Leave the old OAuth flow
-            try {
-                if (mCodeResponseJson != null && mCodeResponseJson.has(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL)) {
-                    working_dialog.setMessage(String.format(getString(R.string.oauth_code_validation_message), 
-                            mCodeResponseJson.getString(OAuth2GetCodeRunnable.CODE_VERIFICATION_URL), 
-                            mCodeResponseJson.getString(OAuth2GetCodeRunnable.CODE_USER_CODE)));
-                } else {*/
-                    working_dialog.setMessage(String.format("Getting authorization")); 
-                /*}
-            } catch (JSONException e) {
-                Log.e(TAG, "onCreateDialog->JSONException: " + e.toString());
-            }*/
+            working_dialog.setMessage(String.format("Getting authorization")); 
             working_dialog.setIndeterminate(true);
             working_dialog.setCancelable(true);
             working_dialog
@@ -979,15 +908,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     Log.i(TAG, "Login canceled");
-                    /*if (mOAuth2GetCodeThread != null) {
-                        mOAuth2GetCodeThread.interrupt();
-                        finish();
-                    } */
-                    /*if (tokenReceiver != null) {
-                        unregisterReceiver(tokenReceiver);
-                        tokenReceiver = null;
-                        finish();
-                    }*/
                     finish();
                 }
             });
@@ -1056,20 +976,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the interactions with the OAuth authorization server.
      */
     private void updateAuthStatus() {
-        /*ImageView iv = (ImageView) findViewById(R.id.auth_status_icon);
-        TextView tv = (TextView) findViewById(R.id.auth_status_text);*/
-
         if (mStatusIcon == 0 && mStatusText == 0) {
             mAuthStatusLayout.setVisibility(View.INVISIBLE);
-            /*iv.setVisibility(View.INVISIBLE);
-            tv.setVisibility(View.INVISIBLE);*/
         } else {
             mAuthStatusLayout.setText(mStatusText);
             mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mStatusIcon, 0, 0, 0);
-            /*iv.setImageResource(mStatusIcon);
-            tv.setText(mStatusText);
-            /*iv.setVisibility(View.VISIBLE);
-            tv.setVisibility(View.VISIBLE);^*/
             mAuthStatusLayout.setVisibility(View.VISIBLE);
         }
     }     
@@ -1146,95 +1057,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }     
 
     }    
-    
-    /* Leave the old OAuth flow
-    // Results from the first call to oAuth2 server : getting the user_code and verification_url.
-    @Override
-    public void onOAuth2GetCodeResult(ResultOAuthType type, JSONObject responseJson) {
-        if ((type == ResultOAuthType.OK_SSL)||(type == ResultOAuthType.OK_NO_SSL)) {
-            mCodeResponseJson = responseJson;
-            if (mCodeResponseJson != null) {
-                getOAuth2AccessTokenFromJsonResponse();
-            }  // else - nothing to do here - wait for callback !!!
-        
-        } else if (type == ResultOAuthType.HOST_NOT_AVAILABLE) {
-            updateOAuth2IconAndText(R.drawable.common_error, R.string.oauth_connection_url_unavailable);
-        }
-    }
-
-    // If the results of getting the user_code and verification_url are OK, we get the received data and we start
-    // the polling service to oAuth2 server to get a valid token.
-    private void getOAuth2AccessTokenFromJsonResponse() {
-        String deviceCode = null;
-        String verificationUrl = null;
-        String userCode = null;
-        int expiresIn = -1;
-        int interval = -1;
-
-        Log.d(TAG, "ResponseOAuth2->" + mCodeResponseJson.toString());
-
-        try {
-            // We get data that we must show to the user or we will use internally.
-            verificationUrl = mCodeResponseJson.getString(OAuth2GetAuthorizationToken.CODE_VERIFICATION_URL);
-            userCode = mCodeResponseJson.getString(OAuth2GetAuthorizationToken.CODE_USER_CODE);
-            expiresIn = mCodeResponseJson.getInt(OAuth2GetAuthorizationToken.CODE_EXPIRES_IN);                
-
-            // And we get data that we must use to get a token.
-            deviceCode = mCodeResponseJson.getString(OAuth2GetAuthorizationToken.CODE_DEVICE_CODE);
-            interval = mCodeResponseJson.getInt(OAuth2GetAuthorizationToken.CODE_INTERVAL);
-
-        } catch (JSONException e) {
-            Log.e(TAG, "Exception accesing data in Json object" + e.toString());
-        }
-
-        // Updating status widget to OK.
-        updateOAuth2IconAndText(R.drawable.ic_ok, R.string.auth_connection_established);
-        
-        // Showing the dialog with instructions for the user.
-        showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
-
-        // Loggin all the data.
-        Log.d(TAG, "verificationUrl->" + verificationUrl);
-        Log.d(TAG, "userCode->" + userCode);
-        Log.d(TAG, "deviceCode->" + deviceCode);
-        Log.d(TAG, "expiresIn->" + expiresIn);
-        Log.d(TAG, "interval->" + interval);
-
-        // Starting the pooling service.
-        try {
-            Intent tokenService = new Intent(this, OAuth2GetTokenService.class);
-            tokenService.putExtra(OAuth2GetTokenService.TOKEN_URI, OAuth2Context.OAUTH2_G_DEVICE_GETTOKEN_URL);
-            tokenService.putExtra(OAuth2GetTokenService.TOKEN_DEVICE_CODE, deviceCode);
-            tokenService.putExtra(OAuth2GetTokenService.TOKEN_INTERVAL, interval);
-
-            startService(tokenService);
-        }
-        catch (Exception e) {
-            Log.e(TAG, "tokenService creation problem :", e);
-        }
-        
-    }   
-    */
-    
-    /* Leave the old OAuth flow
-    // We get data from the oAuth2 token service with this broadcast receiver.
-    private class TokenReceiver extends BroadcastReceiver {
-        /**
-         * The token is received.
-         *  @author
-         * {@link BroadcastReceiver} to enable oAuth2 token receiving.
-         *-/
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            @SuppressWarnings("unchecked")
-            HashMap<String, String> tokenResponse = (HashMap<String, String>)intent.getExtras().get(OAuth2GetTokenService.TOKEN_RECEIVED_DATA);
-            Log.d(TAG, "TokenReceiver->" + tokenResponse.get(OAuth2GetTokenService.TOKEN_ACCESS_TOKEN));
-            dismissDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
-
-        }
-    }
-    */
-
     
     /**
      * Called from SslValidatorDialog when a new server certificate was correctly saved.

@@ -31,7 +31,8 @@ import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
@@ -41,7 +42,6 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.activity.AuthenticatorActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.utils.OwnCloudVersion;

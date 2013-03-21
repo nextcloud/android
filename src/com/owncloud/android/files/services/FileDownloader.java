@@ -27,6 +27,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -35,7 +36,6 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.activity.AuthenticatorActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 

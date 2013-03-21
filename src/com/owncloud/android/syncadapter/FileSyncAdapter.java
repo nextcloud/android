@@ -28,6 +28,7 @@ import java.util.Map;
 import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -35,7 +36,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.activity.AuthenticatorActivity;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 
 import android.accounts.Account;

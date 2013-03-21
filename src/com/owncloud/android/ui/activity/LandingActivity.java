@@ -18,7 +18,7 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.ui.adapter.LandingScreenAdapter;
 
 import android.accounts.Account;

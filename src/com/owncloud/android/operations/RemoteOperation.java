@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.Credentials;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
