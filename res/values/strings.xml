@@ -161,13 +161,12 @@
     <string name="media_err_unknown">Media file cannot be played with the stock media player</string>
     <string name="media_err_security_ex">Security error trying to play %1$s</string>
 	<string name="media_err_io_ex">Input error trying to play %1$s</string>
-	<string name="media_err_unexpected">Unexpected error tryung to playe %1$s</string>
+	<string name="media_err_unexpected">Unexpected error trying to play %1$s</string>
 	<string name="media_previous_description">Previous track button</string>
 	<string name="media_rewind_description">Rewind button</string>
 	<string name="media_play_pause_description">Play or pause button</string>
 	<string name="media_forward_description">Fast forward button</string>
 	<string name="media_next_description">Next track button</string>
-	
     <string-array name="prefs_trackmydevice_intervall_keys">
     	<item>15 Minutes</item>
     	<item>30 Minutes</item>
