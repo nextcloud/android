@@ -35,12 +35,10 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.MediaController;
 import android.widget.Toast;
 
 import java.io.IOException;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDetailActivity;
@@ -68,6 +66,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /// Keys to add extras to the action
     public static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     public static final String EXTRA_ACCOUNT = MY_PACKAGE + ".extra.ACCOUNT";
+    public static String EXTRA_START_POSITION = MY_PACKAGE + ".extra.START_POSITION";
+    public static final String EXTRA_PLAY_ON_LOAD = MY_PACKAGE + ".extra.PLAY_ON_LOAD";
+
 
     /** Error code for specific messages - see regular error codes at {@link MediaPlayer} */
     public static final int OC_MEDIA_ERROR = 0;
@@ -129,6 +130,12 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /** Account holding the file being played */
     private Account mAccount;
 
+    /** Flag signaling if the audio should be played immediately when the file is prepared */ 
+    protected boolean mPlayOnPrepared;
+
+    /** Position, in miliseconds, where the audio should be started */
+    private int mStartPosition;
+    
     /** Interface to access the service through binding */
     private IBinder mBinder;
 
@@ -252,6 +259,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         if (mState != State.PREPARING) {
             mFile = intent.getExtras().getParcelable(EXTRA_FILE);
             mAccount = intent.getExtras().getParcelable(EXTRA_ACCOUNT);
+            mPlayOnPrepared = intent.getExtras().getBoolean(EXTRA_PLAY_ON_LOAD, false);
+            mStartPosition = intent.getExtras().getInt(EXTRA_START_POSITION, 0);
             tryToGetAudioFocus();
             playMedia();
         }
@@ -482,7 +491,15 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     /** Called when media player is done playing current song. */
     public void onCompletion(MediaPlayer player) {
         Toast.makeText(this, String.format(getString(R.string.media_event_done, mFile.getFileName())), Toast.LENGTH_LONG).show();
-        processStopRequest(true);
+        if (mMediaController != null) {
+            // somebody is still bound to the service
+            player.seekTo(0);
+            processPauseRequest();
+            mMediaController.updatePausePlay();
+        } else {
+            // nobody is bound
+            processStopRequest(true);
+        }
         return;
     }
     
@@ -498,7 +515,12 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         if (mMediaController != null) {
             mMediaController.setEnabled(true);
         }
+        player.seekTo(mStartPosition);
         configAndStartMediaPlayer();
+        if (!mPlayOnPrepared) {
+            processPauseRequest();
+        }
+        
         if (mMediaController != null) {
             mMediaController.updatePausePlay();
         }

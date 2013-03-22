@@ -66,19 +66,16 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     
     @Override
     public boolean canPause() {
-        //Log.e(TAG, TAG + " - canPause -> true");
         return true;
     }
 
     @Override
     public boolean canSeekBackward() {
-        //Log.e(TAG, TAG + " - canSeekBackward -> true");
         return true;
     }
 
     @Override
     public boolean canSeekForward() {
-        //Log.e(TAG, TAG + " - canSeekForward -> true");
         return true;
     }
 
@@ -86,11 +83,9 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     public int getBufferPercentage() {
         MediaPlayer currentPlayer = mService.getPlayer();
         if (currentPlayer != null) {
-            //Log.e(TAG, TAG + " - getBufferPercentage -> 100");
             return 100;
             // TODO update for streamed playback; add OnBufferUpdateListener in MediaService
         } else {
-            //Log.e(TAG, TAG + " - getBufferPercentage -> 0");
             return 0;
         }
     }
@@ -100,10 +95,8 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         MediaPlayer currentPlayer = mService.getPlayer();
         if (currentPlayer != null) {
             int pos = currentPlayer.getCurrentPosition();
-            //Log.e(TAG, TAG + " - getCurrentPosition -> " + pos);
             return pos;
         } else {
-            //Log.e(TAG, TAG + " - getCurrentPosition -> 0");
             return 0;
         }
     }
@@ -113,10 +106,8 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         MediaPlayer currentPlayer = mService.getPlayer();
         if (currentPlayer != null) {
             int dur = currentPlayer.getDuration();
-            //Log.e(TAG, TAG + " - getDuration -> " + dur);
             return dur;
         } else {
-            //Log.e(TAG, TAG + " - getDuration -> 0");
             return 0;
         }
     }
@@ -132,8 +123,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     @Override
     public boolean isPlaying() {
         MediaService.State currentState = mService.getState();
-        //Log.e(TAG, TAG + " - isPlaying -> " + (currentState == State.PLAYING || currentState == State.PREPARING));
-        return (currentState == State.PLAYING || currentState == State.PREPARING);
+        return (currentState == State.PLAYING || (currentState == State.PREPARING && mService.mPlayOnPrepared));
     }
 
     
@@ -159,12 +149,13 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         mService.processPlayRequest();  // this will finish the service if there is no file preloaded to play
     }
     
-    
-    public void start(Account account, OCFile file) {
+    public void start(Account account, OCFile file, boolean playImmediately, int position) {
         Log.d(TAG, "Loading and starting through binder...");
         Intent i = new Intent(mService, MediaService.class);
         i.putExtra(MediaService.EXTRA_ACCOUNT, account);
         i.putExtra(MediaService.EXTRA_FILE, file);
+        i.putExtra(MediaService.EXTRA_PLAY_ON_LOAD, playImmediately);
+        i.putExtra(MediaService.EXTRA_START_POSITION, position);
         i.setAction(MediaService.ACTION_PLAY_FILE);
         mService.startService(i);
     }

@@ -85,6 +85,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "ACTIVITY\t\tonCreate");
         
         setContentView(R.layout.video_layout);
     
@@ -143,6 +144,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.e(TAG, "ACTIVITY\t\tonSaveInstanceState");
         outState.putParcelable(PreviewVideoActivity.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
         outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -152,7 +154,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     
     @Override
     public void onBackPressed() {
-        Log.e(TAG, "onBackPressed");
+        Log.e(TAG, "ACTIVTIY\t\tonBackPressed");
         Intent i = new Intent();
         i.putExtra(EXTRA_AUTOPLAY, mVideoPlayer.isPlaying());
         i.putExtra(EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -160,6 +162,39 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
         super.onBackPressed();
     }
 
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "ACTIVTIY\t\tonResume");
+    }
+
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e(TAG, "ACTIVTIY\t\tonStart");
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "ACTIVITY\t\tonDestroy");
+    }
+    
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG, "ACTIVTIY\t\tonStop");
+    }
+    
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG, "ACTIVTIY\t\tonPause");
+    }
+    
     
     /** 
      * Called when the file is ready to be played.
@@ -169,7 +204,8 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
      * @param   mp    {@link MediaPlayer} instance performing the playback.
      */
     @Override
-    public void onPrepared(MediaPlayer vp) {
+    public void onPrepared(MediaPlayer mp) {
+        Log.e(TAG, "ACTIVITY\t\tonPrepare");
         mVideoPlayer.seekTo(mSavedPlaybackPosition);
         if (mAutoplay) { 
             mVideoPlayer.start();

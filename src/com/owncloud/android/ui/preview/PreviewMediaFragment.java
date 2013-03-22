@@ -230,13 +230,15 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
         if (mFile.isVideo()) {
             outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mVideoPreview.getCurrentPosition());
             outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mVideoPreview.isPlaying());
+        } else {
+            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mMediaServiceBinder.getCurrentPosition());
+            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
         }
     }
     
@@ -382,8 +384,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
-            Log.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
-            
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(getActivity(), what, extra);
                 new AlertDialog.Builder(getActivity())
@@ -407,6 +407,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onStop() {
         super.onStop();
+        
         if (mMediaServiceConnection != null) {
             Log.d(TAG, "Unbinding from MediaService ...");
             if (mMediaServiceBinder != null && mMediaController != null) {
@@ -417,12 +418,6 @@ public class PreviewMediaFragment extends SherlockFragment implements
             mMediaServiceBinder = null;
         }
     }
-    
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-    
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -458,10 +453,10 @@ public class PreviewMediaFragment extends SherlockFragment implements
     private void playAudio() {
         if (!mMediaServiceBinder.isPlaying(mFile)) {
             Log.d(TAG, "starting playback of " + mFile.getStoragePath());
-            mMediaServiceBinder.start(mAccount, mFile);
+            mMediaServiceBinder.start(mAccount, mFile, mAutoplay, mSavedPlaybackPosition);
             
         } else {
-            if (!mMediaServiceBinder.isPlaying()) {
+            if (!mMediaServiceBinder.isPlaying() && mAutoplay) {
                 mMediaServiceBinder.start();
                 mMediaController.updatePausePlay();
             }
