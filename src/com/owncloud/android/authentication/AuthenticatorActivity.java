@@ -344,7 +344,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                                                                 getString(R.string.oauth2_redirect_uri), // TODO check - necessary here?      
                                                                 getString(R.string.oauth2_grant_type),
                                                                 queryParameters);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
+        //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext());
         operation.execute(client, this, mHandler);
     }
     
@@ -516,7 +517,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         updateAuthStatus();
         
         // GET AUTHORIZATION request
-        Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
+        //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
+        Uri uri = Uri.parse(mOAuthAuthEndpointText.getText().toString().trim());
         Uri.Builder uriBuilder = uri.buildUpon();
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_RESPONSE_TYPE, getString(R.string.oauth2_response_type));
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_REDIRECT_URI, getString(R.string.oauth2_redirect_uri));   
