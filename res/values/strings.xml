@@ -56,6 +56,7 @@
     <string name="setup_title">Connect to your %1$s</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
+    <string name="uploader_top_message">Choose upload directory:</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please setup an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>

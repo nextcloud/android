@@ -22,7 +22,7 @@
 	android:layout_height="wrap_content" android:orientation="vertical"
 	android:layout_width="wrap_content" android:background="#fefefe"
 	android:gravity="center">
-	<TextView android:layout_width="fill_parent" android:text="Choose upload directory"
+	<TextView android:layout_width="fill_parent" android:text="@string/uploader_top_message"
 		android:layout_height="wrap_content" android:id="@+id/textView1" android:textColor="@android:color/black"
 		android:gravity="center_horizontal"></TextView>
 	<FrameLayout android:layout_height="fill_parent"
