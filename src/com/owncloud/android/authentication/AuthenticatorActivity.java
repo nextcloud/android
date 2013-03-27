@@ -87,6 +87,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
     private static final String KEY_OAUTH2_STATUS_TEXT = "OAUTH2_STATUS_TEXT";
     private static final String KEY_OAUTH2_STATUS_ICON = "OAUTH2_STATUS_ICON";
+    
+    private static final String OAUTH_MODE_ON = "on";
+    private static final String OAUTH_MODE_OFF = "off";
+    private static final String OAUTH_MODE_OPTIONAL = "optional";
 
     private static final int DIALOG_LOGIN_PROGRESS = 0;
     private static final int DIALOG_SSL_VALIDATOR = 1;
@@ -154,7 +158,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
-
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
         if (b != null) {
@@ -179,7 +182,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             
             /// retrieve extras from intent
             String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
-            boolean oAuthRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType);
+            boolean oAuthRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType) || OAUTH_MODE_ON.equals(getString(R.string.oauth2_mode));
             
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
@@ -199,6 +202,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {
             loadSavedInstanceState(savedInstanceState);
+        }
+        
+        if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
+            mOAuth2Check.setVisibility(View.GONE);
         }
         
         if (mAction == ACTION_UPDATE_TOKEN) {
