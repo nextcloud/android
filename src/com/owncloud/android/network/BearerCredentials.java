@@ -38,10 +38,10 @@ public class BearerCredentials implements Credentials {
      * @param token     The bearer token
      */
     public BearerCredentials(String token) {
-        if (token == null) {
+        /*if (token == null) {
             throw new IllegalArgumentException("Bearer token may not be null");            
-        }
-        mAccessToken = token;
+        }*/
+        mAccessToken = (token == null) ? "" : token;
     }
 
 
