@@ -18,6 +18,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import java.io.File;
 import java.util.Vector;
 
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -59,6 +61,7 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
     private CheckBoxPreference pLogging;
+    private Preference pLoggingHistory;
     private Preference pAboutApp;
     private int mSelectedMenuItem;
 
@@ -109,14 +112,14 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
        }
-       pLogging = (CheckBoxPreference) findPreference("log_to_file");
        
+       pLogging = (CheckBoxPreference) findPreference("log_to_file");
        if (pLogging != null) {
            pLogging.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                @Override
                public boolean onPreferenceChange(Preference preference, Object newValue) {
                    
-                   String logpath = getApplicationContext().getFilesDir().getAbsolutePath();
+                   String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
                 
                    if(!pLogging.isChecked()) {
                        Log_OC.d("Debug", "start logging");
@@ -130,7 +133,19 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                    return true;
                }
            });
+       }
        
+       pLoggingHistory = (Preference) findPreference("log_history");
+       if (pLoggingHistory != null) {
+           pLoggingHistory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
        }
       }
     }

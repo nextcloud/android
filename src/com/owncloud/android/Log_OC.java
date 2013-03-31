@@ -11,8 +11,10 @@ import java.util.Locale;
 import android.util.Log;
 
 
+
 public class Log_OC {
     
+
     private static boolean isEnabled = false;
     private static File logFile;
     private static File folder;
@@ -59,8 +61,7 @@ public class Log_OC {
     }
     
     public static void startLogging(String logPath) {
-        
-        folder = new File(logPath+File.separator+"log");
+        folder = new File(logPath);
         logFile = new File(folder+File.separator+"log.txt");
         
         if (!folder.exists()) {
@@ -83,7 +84,8 @@ public class Log_OC {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss",Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
         if (logFile != null) {
-            logFile.renameTo(new File(folder+File.separator+"log_"+currentDateandTime));
+            logFile.renameTo(new File(folder+File.separator+"Owncloud_"+currentDateandTime+".log"));
+          
             isEnabled = false;
             try {
                 buf.close();
@@ -111,8 +113,8 @@ public class Log_OC {
                buf.newLine(); 
            } catch (IOException e) { 
                e.printStackTrace(); 
-           } 
-      }
+        } 
+    }
 }
 
     

@@ -142,6 +142,7 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
+        <activity android:name=".ui.activity.LogHistoryActivity"/>
         
         <service android:name=".files.services.FileUploader" >
         </service>
