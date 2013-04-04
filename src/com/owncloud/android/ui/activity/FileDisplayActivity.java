@@ -1,5 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -749,27 +750,33 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             break;
         }
         case DIALOG_CHOOSE_UPLOAD_SOURCE: {
-            final String [] items = {   getString(R.string.actionbar_upload_files), 
-                                        getString(R.string.actionbar_upload_from_apps) }; 
+            final String[] items = {    getString(R.string.actionbar_upload_files),
+                                        getString(R.string.actionbar_upload_from_apps), 
+                                        getString(R.string.actionbar_failed_instant_upload) };
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_upload);
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     if (item == 0) {
-                        //if (!mDualPane) { 
-                            Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
-                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
-                            startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
-                        //} else {
-                            // TODO create and handle new fragment LocalFileListFragment
-                        //}
+                        // if (!mDualPane) {
+                        Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
+                        action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT,
+                                AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
+                        startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                        // } else {
+                        // TODO create and handle new fragment
+                        // LocalFileListFragment
+                        // }
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                        action = action.setType("*/*")
-                                .addCategory(Intent.CATEGORY_OPENABLE);
-                        startActivityForResult(
-                                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+                        startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                                 ACTION_SELECT_CONTENT_FROM_APPS);
+                    } else if (item == 2) {
+                        Account account = AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this);
+                        Intent action = new Intent(FileDisplayActivity.this, InstantUploadActivity.class);
+                        action.putExtra(FileUploader.KEY_ACCOUNT, account);
+                        startActivity(action);
                     }
                 }
             });
@@ -1458,3 +1465,4 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     
 }
+

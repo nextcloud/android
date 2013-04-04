@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">ownCloud</string>
     <string name="whats_new">What\'s new</string>
     <string name="main_password">Password:</string>
@@ -14,9 +15,7 @@
     <string name="main_settings">Settings</string>
     <string name="main_tit_accsetup">Setup Account</string>
     <string name="main_wrn_accsetup">There is no account set up on your device. In order to use this App, you need to create one.</string>
-    
     <string name="about_message">%1$s Android App\n\nversion: %2$s</string>
-    
     <string name="actionbar_sync">Refresh</string>
     <string name="actionbar_upload">Upload</string>
     <string name="actionbar_upload_from_apps">Content from other apps</string>
@@ -43,7 +42,6 @@
     <string name="prefs_pincode_summary">Protect your client</string>
     <string name="prefs_instant_upload">Enable instant uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload photos taken by camera</string>
-    
     <string name="auth_host_url">URL</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
@@ -63,12 +61,12 @@
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please setup an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
-	<string name="uploader_wrn_no_content_title">No content to upload</string>
-	<string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
+    <string name="uploader_wrn_no_content_title">No content to upload</string>
+    <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
     <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
     <string name="uploader_info_uploading">Uploading</string>
     <string name="uploader_btn_create_dir_text">Create directory for upload</string>
-	<string name="file_list_empty">There are no files in this folder.\nNew files can be added with the \"Upload\" menu option.</string>
+    <string name="file_list_empty">There are no files in this folder.\nNew files can be added with the \"Upload\" menu option.</string>
     <string name="filedetails_select_file">Tap on a file to display additional information.</string>
     <string name="filedetails_size">Size:</string>
     <string name="filedetails_type">Type:</string>
@@ -76,7 +74,7 @@
     <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Refresh</string>
-	<string name="filedetails_redownload">Redownload</string>
+    <string name="filedetails_redownload">Redownload</string>
     <string name="filedetails_open">Open</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
     <string name="common_yes">Yes</string>
@@ -84,22 +82,20 @@
     <string name="common_ok">OK</string>
     <string name="common_cancel_download">Cancel download</string>
     <string name="common_cancel_upload">Cancel upload</string>
-	<string name="common_cancel">Cancel</string>
+    <string name="common_cancel">Cancel</string>
     <string name="common_save_exit">Save &amp; Exit</string>
     <string name="common_exit">Leave %1$s</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="about_title">About</string>
-    
     <string name="delete_account">Delete account</string>
     <string name="create_account">Create account</string>
-    
     <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Directory name</string>
-	<string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>    
-	<string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>    
-	<string name="uploader_upload_succeeded_ticker">Upload succeeded</string>
+    <string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>
+    <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Upload succeeded</string>
     <string name="uploader_upload_succeeded_content_single">%1$s was successfully uploaded</string>
     <string name="uploader_upload_succeeded_content_multiple">%1$d files were successfully uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>
@@ -114,34 +110,30 @@
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_string_contacts">Contacts</string>
-	<string name="sync_fail_ticker">Synchronization failed</string>
+    <string name="sync_fail_ticker">Synchronization failed</string>
     <string name="sync_fail_content">Synchronization of %1$s could not be completed</string>
-	<string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
-	<string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
+    <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
-	<string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)</string>
-	<string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
-	<string name="sync_foreign_files_forgotten_content">%1$d files out of the %2$s directory could not be copied into</string>
-	<string name="sync_foreign_files_forgotten_explanation">"As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded in previous versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and remove the link to %3$s, or move the file(s) into the %1$s directory and retain the link to %4$s.\n\nListed below are the local file(s), and the the remote file(s) in %5$s they were linked to.</string>
-    
+    <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)</string>
+    <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
+    <string name="sync_foreign_files_forgotten_content">%1$d files out of the %2$s directory could not be copied into</string>
+    <string name="sync_foreign_files_forgotten_explanation">"As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded in previous versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and remove the link to %3$s, or move the file(s) into the %1$s directory and retain the link to %4$s.\n\nListed below are the local file(s), and the the remote file(s) in %5$s they were linked to.</string>
     <string name="foreign_files_move">"Move all"</string>
     <string name="foreign_files_success">"All files were moved"</string>
     <string name="foreign_files_fail">"Some files could not be moved"</string>
     <string name="foreign_files_local_text">"Local: %1$s"</string>
-	<string name="foreign_files_remote_text">"Remote: %1$s"</string>
-
-	<string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>	
-    	
-	<string name="use_ssl">Use Secure Connection</string>
+    <string name="foreign_files_remote_text">"Remote: %1$s"</string>
+    <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>
+    <string name="use_ssl">Use Secure Connection</string>
     <string name="location_no_provider">%1$s cannot track your device. Please check your location settings</string>
-    
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
     <string name="pincode_enter_new_pin_code">Please, insert your new App PIN</string>
     <string name="pincode_configure_your_pin">Enter your App PIN</string>
-    <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string> 
+    <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string>
     <string name="pincode_reenter_your_pincode">Please, reenter your App PIN</string>
     <string name="pincode_remove_your_pincode">Remove your App PIN</string>
-    <string name="pincode_mismatch">The App PINs are not the same</string> 
+    <string name="pincode_mismatch">The App PINs are not the same</string>
     <string name="pincode_wrong">Incorrect App PIN</string>
     <string name="pincode_removed">App PIN removed</string>
     <string name="pincode_stored">App PIN stored</string>
@@ -168,16 +160,16 @@
 	<string name="media_forward_description">Fast forward button</string>
 	<string name="media_next_description">Next track button</string>
     <string-array name="prefs_trackmydevice_intervall_keys">
-    	<item>15 Minutes</item>
-    	<item>30 Minutes</item>
-    	<item>60 Minutes</item>
-	</string-array>
-	
+        <item>15 Minutes</item>
+        <item>30 Minutes</item>
+        <item>60 Minutes</item>
+    </string-array>
     <string-array name="prefs_trackmydevice_intervall_values">
-    	<item>15</item>
-    	<item>30</item>
-    	<item>60</item>
-	</string-array>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+
     <string name="auth_trying_to_login">Trying to login…</string>
     <string name="auth_no_net_conn_title">No network connection</string>
     <string name="auth_no_net_conn_message">No network connection has been detected, check your Internet connection and try again.</string>
@@ -196,51 +188,41 @@
     <string name="auth_incorrect_path_message">Application couldn\'t find a server instance at the given path. Please check your path and try again.</string>
     <string name="auth_timeout_title">The server took too long to respond</string>
     <string name="auth_incorrect_address_title">Malformed URL</string>
-	<string name="auth_ssl_general_error_title">SSL initialization failed</string>
-	<string name="auth_ssl_unverified_server_title">Unverified SSL server\'s identity</string>
-	<string name="auth_bad_oc_version_title">Unrecognized server version</string>
-	<string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
-	<string name="auth_secure_connection">Secure connection established</string>
+    <string name="auth_ssl_general_error_title">SSL initialization failed</string>
+    <string name="auth_ssl_unverified_server_title">Unverified SSL server\'s identity</string>
+    <string name="auth_bad_oc_version_title">Unrecognized server version</string>
+    <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
+    <string name="auth_secure_connection">Secure connection established</string>
     <string name="auth_login_details">Login details</string>
     <string name="auth_unauthorized">Invalid login / password</string>
     <string name="auth_not_found">Wrong path given</string>
     <string name="auth_internal">Internal server error, code %1$d</string>
-    
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit a crash report?</string>
     <string name="crashlog_send_report">Send report</string>
     <string name="crashlog_dont_send_report">Don\'t send report</string>
-    
     <string name="extensions_avail_title">Extensions available!</string>
     <string name="extensions_avail_message">Looks like your server instance is supporting advanced extensions. Would you like to see extensions available for android ?</string>
     <string name="fd_keep_in_sync">Keep file up to date</string>
     <string name="common_share">Share</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
-    
-	  <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
-	  <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents ?"</string>
-	  <string name="confirmation_remove_local">Local only</string>
-	  <string name="confirmation_remove_folder_local">Local contents only</string>
-	  <string name="confirmation_remove_remote">Remove from server</string>
-	  <string name="confirmation_remove_remote_and_local">Remote and local</string>
-
+    <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
+    <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents ?"</string>
+    <string name="confirmation_remove_local">Local only</string>
+    <string name="confirmation_remove_folder_local">Local contents only</string>
+    <string name="confirmation_remove_remote">Remove from server</string>
+    <string name="confirmation_remove_remote_and_local">Remote and local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
-    
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">"Local copy could not be renamed; try a different name"</string>
     <string name="rename_server_fail_msg">"Rename could not be completed"</string>
-        
-    <string name="sync_file_fail_msg">Remote file could not be checked</string> 
-    <string name="sync_file_nothing_to_do_msg">File contents already synchronized</string> 
-    
+    <string name="sync_file_fail_msg">Remote file could not be checked</string>
+    <string name="sync_file_nothing_to_do_msg">File contents already synchronized</string>
     <string name="create_dir_fail_msg">Directory could not be created</string>
-    
     <string name="wait_a_moment">Wait a moment</string>
-	
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
-    
     <string name="ssl_validator_title">Warning</string>
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
@@ -256,10 +238,10 @@
     <string name="ssl_validator_label_issuer">Issued by:</string>
     <string name="ssl_validator_label_CN">Common name:</string>
     <string name="ssl_validator_label_O">Organization:</string>
-	<string name="ssl_validator_label_OU">Organizational unit:</string>
-	<string name="ssl_validator_label_C">Country:</string>
-	<string name="ssl_validator_label_ST">State:</string>
-	<string name="ssl_validator_label_L">Location:</string>
+    <string name="ssl_validator_label_OU">Organizational unit:</string>
+    <string name="ssl_validator_label_C">Country:</string>
+    <string name="ssl_validator_label_ST">State:</string>
+    <string name="ssl_validator_label_L">Location:</string>
     <string name="ssl_validator_label_validity">Validity:</string>
     <string name="ssl_validator_label_validity_from">From:</string>
 	<string name="ssl_validator_label_validity_to">To:</string>
@@ -274,8 +256,7 @@
     <string name="placeholder_media_time">12:23:45</string>
     
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
-	<string name="instant_upload_path">/InstantUpload</string>
-    
+    <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Update conflict</string>
     <string name="conflict_message">Remote file %s is not synchronized with local file. Continuing will replace content of file on server.</string>
     <string name="conflict_keep_both">Keep both</string>
@@ -288,5 +269,15 @@
     
     <!-- we need to improve the communication of errors to the user -->
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local directory</string>
-    
+    <string name="actionbar_failed_instant_upload">Failed InstantUpload"</string>
+    <string name="failed_upload_headline_text">Failed instant uploads</string>
+    <string name="failed_upload_headline_hint">Summary of all failed instant uploads</string>
+    <string name="failed_upload_all_cb">select all</string>
+    <string name="failed_upload_headline_retryall_btn">retry all selected</string>
+    <string name="failed_upload_headline_delete_all_btn">delete all  selected from uploadqueue</string>
+    <string name="failed_upload_retry_text">retry to upload the image: </string>
+    <string name="failed_upload_load_more_images">Load more Picrures</string>
+    <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
+	<string name="failed_upload_failure_text">Failure Message: </string>
+	<string name="failed_upload_quota_exceeded_text">Please check your server configuration,maybe your quota is exceeded.</string>
 </resources>
