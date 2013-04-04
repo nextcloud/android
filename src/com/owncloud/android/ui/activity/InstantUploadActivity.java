@@ -75,6 +75,7 @@ public class InstantUploadActivity extends Activity {
     private static final String LOG_TAG = InstantUploadActivity.class.getSimpleName();
     private LinearLayout listView;
     private static final String retry_chexbox_tag = "retry_chexbox_tag";
+    public static final boolean IS_ENABLED = false;
     private static int MAX_LOAD_IMAGES = 5;
     private int lastLoadImageIdx = 0;
 

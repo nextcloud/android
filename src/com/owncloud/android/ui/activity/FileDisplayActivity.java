@@ -753,9 +753,21 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             break;
         }
         case DIALOG_CHOOSE_UPLOAD_SOURCE: {
-            final String[] items = {    getString(R.string.actionbar_upload_files),
-                                        getString(R.string.actionbar_upload_from_apps), 
-                                        getString(R.string.actionbar_failed_instant_upload) };
+            
+            String[] items = null;
+            
+            String[] allTheItems = { getString(R.string.actionbar_upload_files),
+                                     getString(R.string.actionbar_upload_from_apps),
+                                     getString(R.string.actionbar_failed_instant_upload) };
+            
+            String[] commonItems = { getString(R.string.actionbar_upload_files),
+                                     getString(R.string.actionbar_upload_from_apps) };
+            
+            if (InstantUploadActivity.IS_ENABLED)
+                items = allTheItems;
+            else 
+                items = commonItems;
+            
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_upload);
             builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -775,7 +787,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
                         startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                                 ACTION_SELECT_CONTENT_FROM_APPS);
-                    } else if (item == 2) {
+                    } else if (item == 2 && InstantUploadActivity.IS_ENABLED) {
                         Account account = AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this);
                         Intent action = new Intent(FileDisplayActivity.this, InstantUploadActivity.class);
                         action.putExtra(FileUploader.KEY_ACCOUNT, account);

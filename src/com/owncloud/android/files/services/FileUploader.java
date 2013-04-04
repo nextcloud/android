@@ -801,7 +801,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             // we add only for instant-uploads the InstantUploadActivity and the
             // db entry
             Intent detailUploadIntent = null;
-            if (upload.isInstant()) {
+            if (upload.isInstant() && InstantUploadActivity.IS_ENABLED) {
                 detailUploadIntent = new Intent(this, InstantUploadActivity.class);
                 detailUploadIntent.putExtra(FileUploader.KEY_ACCOUNT, upload.getAccount());
             } else {
