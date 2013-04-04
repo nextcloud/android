@@ -53,6 +53,7 @@
   <string name="setup_title">Mit Deiner %1$s verbinden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
+  <string name="uploader_top_message">Wähle Zielverzeichnis:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Accounts auf Deinem Gerät eingerichtet. Bitte richte zuerst ein Konto ein.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
@@ -106,8 +107,8 @@
   <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
   <string name="sync_fail_content">Bei der Synchronisation konnte %1$s nicht übertragen werden</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
-  <string name="sync_conflicts_in_favourites_content">%1$d synchrongehaltene Dateien konnte nicht synchronisiert werden.</string>
-  <string name="sync_fail_in_favourites_ticker">Synchronhalten schlug fehl.</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d synchron zu haltende Dateien konnte nicht synchronisiert werden.</string>
+  <string name="sync_fail_in_favourites_ticker">Synchron halten schlug fehl.</string>
   <string name="sync_fail_in_favourites_content">Inhalte von %1$d konnte nicht synchronisiert werden (%2$d Konflikte)</string>
   <string name="use_ssl">Sichere Verbindung benutzen</string>
   <string name="location_no_provider">%1$s kann Dein Gerät nicht verfolgen. Bitte überprüfe Deine Standorteinstellungen</string>
@@ -181,7 +182,7 @@
   <string name="sync_file_fail_msg">Die entfernte Datei konnte nicht überprüft werden</string>
   <string name="sync_file_nothing_to_do_msg">Dateiinhalte bereits synchronisiert</string>
   <string name="create_dir_fail_msg">Das Verzeichnis konnte nicht erstellt werden.</string>
-  <string name="wait_a_moment">Bitte warten Sie einen Moment.</string>
+  <string name="wait_a_moment">Bitte warte einen Moment.</string>
   <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
   <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>
   <string name="ssl_validator_title">Warnung</string>

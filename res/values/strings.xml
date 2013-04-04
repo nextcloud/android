@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">ownCloud</string>
-    <string name="whats_new">What\'s new</string>
     <string name="main_password">Password:</string>
     <string name="main_login">Username:</string>
     <string name="main_button_login">Login</string>
@@ -26,7 +25,6 @@
     <string name="actionbar_see_details">Details</string>
     
     <string name="prefs_category_general">General</string>
-    <string name="prefs_category_trackmydevice">Device tracking</string>
     <string name="prefs_add_session">Add new session</string>
     <string name="prefs_create_img_thumbnails">Create image thumbnails</string>
     <string name="prefs_select_oc_account">Select an account</string>
@@ -57,6 +55,7 @@
     <string name="setup_title">Connect to your %1$s</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
+    <string name="uploader_top_message">Choose upload directory:</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please setup an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>

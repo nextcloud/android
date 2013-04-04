@@ -72,9 +72,11 @@
   <string name="filedetails_sync_file">刷新</string>
   <string name="filedetails_redownload">重新下载</string>
   <string name="filedetails_open">打开</string>
+  <string name="filedetails_renamed_in_upload_msg">文件在上传过程中被重命名为 %1$s </string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>
+  <string name="common_cancel_download">取消下载</string>
   <string name="common_cancel_upload">取消上传</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">保存 &amp; 退出</string>
@@ -103,6 +105,8 @@
   <string name="sync_string_contacts">联系人</string>
   <string name="sync_fail_ticker">同步失败</string>
   <string name="sync_fail_content">不能完成 %1$s 的同步</string>
+  <string name="sync_conflicts_in_favourites_ticker">存在冲突</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d 计划同步文件无法同步</string>
   <string name="use_ssl">使用安全连接</string>
   <string name="location_no_provider">ownCloud 不能跟踪您的设备。请检查您的位置设置</string>
   <string name="pincode_enter_pin_code">请插入您的应用 PIN</string>

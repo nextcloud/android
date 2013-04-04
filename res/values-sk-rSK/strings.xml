@@ -3,7 +3,7 @@
   <string name="app_name">ownCloud</string>
   <string name="main_password">Heslo:</string>
   <string name="main_login">Meno:</string>
-  <string name="main_button_login">Login</string>
+  <string name="main_button_login">Prihlásenie</string>
   <string name="main_welcome">Vitajte vo svojom ownCloud</string>
   <string name="main_files">Súbory</string>
   <string name="main_music">Hudba</string>
@@ -12,7 +12,7 @@
   <string name="main_bookmarks">Záložky</string>
   <string name="main_settings">Nastavenia</string>
   <string name="main_tit_accsetup">Nastavenie účtu</string>
-  <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty ownCloud. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
+  <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
   <string name="about_message">%1$s Android App\n\nverzia: %2$s</string>
   <string name="actionbar_sync">Obnoviť</string>
   <string name="actionbar_upload">Nahraj súbor</string>
@@ -25,7 +25,7 @@
   <string name="prefs_category_trackmydevice">Sledovanie zariadenia</string>
   <string name="prefs_add_session">Vytvoriť nové sedenie</string>
   <string name="prefs_create_img_thumbnails">Vytvor náhľad obrázku</string>
-  <string name="prefs_select_oc_account">Výbor účet</string>
+  <string name="prefs_select_oc_account">Vyber účet</string>
   <string name="prefs_summary_select_oc_account">Vyberte účet pre túto aplikáciu.</string>
   <string name="prefs_trackmydevice">Sledovanie zariadenia</string>
   <string name="prefs_trackmydevice_summary_off">Povoliť sledovanie polohy zariadenia</string>
@@ -39,21 +39,21 @@
   <string name="prefs_instant_upload">Zapnúť okamžité odosielanie</string>
   <string name="prefs_instant_upload_summary">Okamžite odosielať fotky z fotoaparátu</string>
   <string name="auth_host_url">ownCloud URL</string>
-  <string name="auth_username">Používateľská meno</string>
+  <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
-  <string name="auth_register">Som nový v ownCloud</string>
-  <string name="new_session_uri_error">Zadané nesprávne URL</string>
+  <string name="auth_register">Som nový v %1$s</string>
+  <string name="new_session_uri_error">Zadaná nesprávna URL</string>
   <string name="new_session_session_name_error">Nesprávny názov sedenia</string>
   <string name="sync_string_files">Súbory</string>
   <string name="uploader_no_file_selected">Nebol označený žiadny súbor pre odoslanie</string>
-  <string name="setup_hint_username">Meno užívateľa</string>
+  <string name="setup_hint_username">Meno používateľa</string>
   <string name="setup_hint_password">Heslo</string>
   <string name="setup_hint_address">Web adresa</string>
   <string name="setup_hint_show_password">Zobraziť heslo?</string>
   <string name="setup_title">Pripojiť k ownCloud</string>
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
-  <string name="uploader_wrn_no_account_title">Účet sa nenašie</string>
+  <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny ownCloud účet. Zadajte ho prosím.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Koniec</string>
@@ -61,7 +61,7 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
-  <string name="uploader_btn_create_dir_text">Vytvoriť adresár pre nahrávanie</string>
+  <string name="uploader_btn_create_dir_text">Vytvoriť priečinok pre nahrávanie</string>
   <string name="file_list_empty">Priečinok neobsahuje súbory.\nNové súbory môžete pridať cez \"Upload\".</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
@@ -86,7 +86,7 @@
   <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
-  <string name="uploader_info_dirname">Názov adresára</string>
+  <string name="uploader_info_dirname">Názov priečinka</string>
   <string name="uploader_upload_in_progress_ticker">Odosielam ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Odoslanie bolo úspešné</string>
@@ -112,11 +112,11 @@
   <string name="use_ssl">Použiť zabezpečené pripojenie</string>
   <string name="location_no_provider">ownCloud nemôže sledovať polohu vášho zariadenia. Skontrolujte nastavenia umiestnenia.</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
-  <string name="pincode_enter_new_pin_code">Zadajte nové PIN aplikácie</string>
-  <string name="pincode_configure_your_pin">Zadajte PIN ownCloud aplikácie</string>
+  <string name="pincode_enter_new_pin_code">Zadajte nový PIN aplikácie</string>
+  <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
-  <string name="pincode_reenter_your_pincode">Zadajte znovu PIN ownCloud aplikácie</string>
-  <string name="pincode_remove_your_pincode">Zrušiť PIN pre ownCloud aplikáciu</string>
+  <string name="pincode_reenter_your_pincode">Zadajte znovu PIN aplikácie</string>
+  <string name="pincode_remove_your_pincode">Zrušiť PIN pre aplikáciu</string>
   <string name="pincode_mismatch">PIN sa neshodujú</string>
   <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
   <string name="pincode_removed">PIN aplikácie bol odstránený</string>
@@ -132,7 +132,7 @@
     <item>60</item>
   </string-array>
   <string name="auth_trying_to_login">Pokus o pripojenie...</string>
-  <string name="auth_no_net_conn_title">Bez siete</string>
+  <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
   <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
@@ -140,12 +140,12 @@
   <string name="auth_connection_established">Pripojenie vytvorené</string>
   <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia ownCloud</string>
-  <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte správcu pre získanie viac informácií.</string>
+  <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
   <string name="auth_unknown_error_message">Nastala neznáma chyba. Kontaktujte podporu a pripojte záznam z Vášho zariadenia.</string>
   <string name="auth_unknown_host_title">Nemožno nájsť hosta</string>
   <string name="auth_unknown_host_message">Nemôžm sa pripojiť k serveru. Skontrolujte nastavenia servera, či beží a skúste to znovu.</string>
-  <string name="auth_incorrect_path_title">ownCloud instance not found</string>
+  <string name="auth_incorrect_path_title">ownCloud inštancia nebola nájdená</string>
   <string name="auth_incorrect_path_message">Aplikácia na zadanej adrese nenašla inštanciu ownCloud. Skontrolujte cestu a skúste to znovu.</string>
   <string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
   <string name="auth_incorrect_address_title">Poškodená URL</string>

@@ -86,7 +86,9 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.ChangelogDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -106,7 +108,7 @@ import eu.alefzero.webdav.WebdavClient;
  */
 
 public class FileDisplayActivity extends SherlockFragmentActivity implements
-    OCFileListFragment.ContainerActivity, FileFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
+    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
     
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir = null;
@@ -152,10 +154,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         super.onCreate(savedInstanceState);
 
         /// Load of parameters from received intent
-        mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); // no check necessary, mCurrenDir == null if the parameter is not in the intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-        if (account != null)
-            AccountUtils.setCurrentOwnCloudAccount(this, account.name);
+        if (account != null && AccountUtils.setCurrentOwnCloudAccount(this, account.name)) {
+            mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); 
+        }
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
@@ -200,7 +202,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         // Drop-down navigation 
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         OCFile currFile = mCurrentDir;
-        while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
+        while(mStorageManager != null && currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
             mDirectories.add(currFile.getFileName());
             currFile = mStorageManager.getFileById(currFile.getParentId());
         }
@@ -238,7 +240,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         
         // show changelog, if needed
-        showChangeLog();
+        //showChangeLog();
         
         Log.d(getClass().toString(), "onCreate() end");
     }
@@ -381,7 +383,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                showDialog(DIALOG_CREATE_DIR);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", this);
+                dialog.show(getSupportFragmentManager(), "createdirdialog");
                 break;
             }
             case R.id.action_sync_account: {
@@ -1452,6 +1455,32 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
 
+    public void onDismiss(EditNameDialog dialog) {
+        //dialog.dismiss();
+        if (dialog.getResult()) {
+            String newDirectoryName = dialog.getNewFilename().trim();
+            Log.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
+            if (newDirectoryName.length() > 0) {
+                String path;
+                if (mCurrentDir == null) {
+                    // this is just a patch; we should ensure that mCurrentDir never is null
+                    if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
+                        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
+                        mStorageManager.saveFile(file);
+                    }
+                    mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+                }
+                path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
+                
+                // Create directory
+                path += newDirectoryName + OCFile.PATH_SEPARATOR;
+                Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
+                thread.start();
+                
+                showDialog(DIALOG_SHORT_WAIT);
+            }
+        }
+    }
 
     private void requestForDownload() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);

@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="main_settings">सेटिंग्स</string>
+  <string name="actionbar_settings">सेटिंग्स</string>
   <string name="auth_username">प्रयोक्ता का नाम</string>
   <string name="auth_password">पासवर्ड</string>
   <string name="setup_hint_username">प्रयोक्ता का नाम</string>

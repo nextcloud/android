@@ -53,6 +53,7 @@
   <string name="setup_title">Mit Ihrer %1$s verbinden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
+  <string name="uploader_top_message">Wähle Zielverzeichnis:</string>
   <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Konten auf Ihrem Gerät eingerichtet. Bitte richten Sie zuerst ein Konto ein.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
@@ -187,7 +188,7 @@
   <string name="extensions_avail_title">Erweiterung verfügbar!</string>
   <string name="extensions_avail_message">Scheinbar unterstützt Ihr Server weitere Erweiterungen. Möchten Sie die verfügbaren Erweiterungen für Android sehen?</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
-  <string name="common_share">Freigeben</string>
+  <string name="common_share">Teilen</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
   <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
