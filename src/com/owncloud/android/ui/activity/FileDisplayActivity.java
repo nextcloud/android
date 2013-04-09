@@ -121,6 +121,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private OCFileListFragment mFileList;
     
     private boolean mDualPane;
+    private boolean mBackFromCreatingFirstAccount;
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
@@ -215,6 +216,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         // show changelog, if needed
         //showChangeLog();
+        mBackFromCreatingFirstAccount = false;
         
         Log.d(getClass().toString(), "onCreate() end");
     }
@@ -554,6 +556,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 if (mDualPane) {
                     initFileDetailsInDualPane();
                 }
+                mBackFromCreatingFirstAccount = true;
             }
             
             // Listen for sync messages
@@ -923,6 +926,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
+                if (mBackFromCreatingFirstAccount) {
+                    // awful patch to fix problem with visibility of progress circle with the first refresh of the first account
+                    // TODO - kill this Activity when the first account has to be created instead of stack the account creation on it
+                    getSupportActionBar().hide();
+                    getSupportActionBar().show();
+                    mBackFromCreatingFirstAccount = false;
+                }
                 removeStickyBroadcast(intent);
                 
             }
