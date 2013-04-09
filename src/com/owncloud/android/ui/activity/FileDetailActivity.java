@@ -116,7 +116,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             
             
         }  else {
-            backToDisplayActivity();   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
+            backToDisplayActivity(false);   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
         }
         
         
@@ -244,7 +244,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
         switch(item.getItemId()){
         case android.R.id.home:
-            backToDisplayActivity();
+            backToDisplayActivity(true);
             returnValue = true;
             break;
         default:
@@ -256,12 +256,12 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
 
 
 
-    private void backToDisplayActivity() {
+    private void backToDisplayActivity(boolean moveToParent) {
         Intent intent = new Intent(this, FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         OCFile targetFile = null;
         if (mFile != null) {
-            targetFile = mStorageManager.getFileById(mFile.getParentId());
+            targetFile = moveToParent ? mStorageManager.getFileById(mFile.getParentId()) : mFile;
         }
         intent.putExtra(FileDetailFragment.EXTRA_FILE, targetFile);
         intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
