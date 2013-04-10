@@ -35,6 +35,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -352,6 +353,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public void onPrepared(MediaPlayer vp) {
+            Log.e(TAG, "onPrepared");
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             if (mAutoplay) { 
                 mVideoPreview.start();
@@ -370,7 +372,23 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public void onCompletion(MediaPlayer  mp) {
-            mVideoPreview.seekTo(0);
+            Log.e(TAG, "completed");
+            if (mp != null) {
+                mVideoPreview.seekTo(0);
+                // next lines are necessary to work around undesired video loops
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD) {
+                    mVideoPreview.pause();   
+                    
+                } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD_MR1) {
+                    // mVideePreview.pause() is not enough
+                    
+                    mMediaController.setEnabled(false);
+                    mVideoPreview.stopPlayback();
+                    mAutoplay = false;
+                    mSavedPlaybackPosition = 0;
+                    mVideoPreview.setVideoPath(mFile.getStoragePath());
+                }
+            } // else : called from onError()
             mMediaController.updatePausePlay();
         }
         
