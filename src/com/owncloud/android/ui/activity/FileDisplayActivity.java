@@ -214,7 +214,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         mFileList = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
         mDualPane = (findViewById(R.id.file_details_container) != null);
         if (mDualPane) {
-            initFileDetailsInDualPane();
+            if (savedInstanceState == null) initFileDetailsInDualPane();
         } else {
             // quick patchES to fix problem in turn from landscape to portrait, when a file is selected in the right pane
             // TODO serious refactorization in activities and fragments providing file browsing and handling 
@@ -579,6 +579,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         Log.d(getClass().toString(), "onSaveInstanceState() end");
     }
 
+    
     @Override
     public void onResume() {
         Log.d(getClass().toString(), "onResume() start");

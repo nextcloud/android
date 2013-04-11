@@ -235,8 +235,10 @@ public class PreviewMediaFragment extends SherlockFragment implements
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
         if (mFile.isVideo()) {
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mVideoPreview.getCurrentPosition());
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mVideoPreview.isPlaying());
+            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+            mAutoplay = mVideoPreview.isPlaying();
+            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mSavedPlaybackPosition);
+            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mAutoplay);
         } else {
             outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mMediaServiceBinder.getCurrentPosition());
             outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
