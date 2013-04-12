@@ -123,9 +123,17 @@ public class DownloadFileOperation extends RemoteOperation {
     
     
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
-        mDataTransferListeners.add(listener);
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
     }
     
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
+    }
+
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
@@ -190,9 +198,11 @@ public class DownloadFileOperation extends RemoteOperation {
                     }
                     fos.write(bytes, 0, readResult);
                     transferred += readResult;
-                    it = mDataTransferListeners.iterator();
-                    while (it.hasNext()) {
-                        it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
+                    synchronized (mDataTransferListeners) {
+                        it = mDataTransferListeners.iterator();
+                        while (it.hasNext()) {
+                            it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
+                        }
                     }
                 }
                 savedFile = true;
@@ -220,5 +230,6 @@ public class DownloadFileOperation extends RemoteOperation {
     public void cancel() {
         mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
     }
+
 
 }

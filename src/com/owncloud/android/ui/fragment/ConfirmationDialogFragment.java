@@ -36,6 +36,8 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
     public final static String ARG_NEUTRAL_BTN_RES = "neutral_btn_res";
     public final static String ARG_NEGATIVE_BTN_RES = "negative_btn_res";
     
+    public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
+
     private ConfirmationDialogFragmentListener mListener;
     
     /**
@@ -90,6 +92,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             mListener.onConfirmation(getTag()); 
+                            dialog.dismiss();
                         }
                     });
         if (neuBtn != -1)
@@ -97,6 +100,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             mListener.onNeutral(getTag()); 
+                            dialog.dismiss();
                         }
                     });
         if (negBtn != -1)
@@ -105,6 +109,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mListener.onCancel(getTag());
+                            dialog.dismiss();
                         }
                     });
       return builder.create();

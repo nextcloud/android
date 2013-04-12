@@ -21,7 +21,9 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.util.AbstractList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -35,6 +37,8 @@ import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 import android.accounts.Account;
 import android.app.Notification;
@@ -52,6 +56,7 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -136,6 +141,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
             newDownload.addDatatransferProgressListener(this);
+            newDownload.addDatatransferProgressListener((FileDownloaderBinder)mBinder);
             requestedDownloads.add(downloadKey);
             sendBroadcastNewDownload(newDownload);
             
@@ -165,13 +171,29 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         return mBinder;
     }
 
+
+    /**
+     * Called when ALL the bound clients were onbound.
+     */
+    @Override
+    public boolean onUnbind(Intent intent) {
+        ((FileDownloaderBinder)mBinder).clearListeners();
+        return false;   // not accepting rebinding (default behaviour)
+    }
+
     
     /**
      *  Binder to let client components to perform operations on the queue of downloads.
      * 
      *  It provides by itself the available operations.
      */
-    public class FileDownloaderBinder extends Binder {
+    public class FileDownloaderBinder extends Binder implements OnDatatransferProgressListener {
+        
+        /** 
+         * Map of listeners that will be reported about progress of downloads from a {@link FileDownloaderBinder} instance 
+         */
+        private Map<String, OnDatatransferProgressListener> mBoundListeners = new HashMap<String, OnDatatransferProgressListener>();
+        
         
         /**
          * Cancels a pending or current download of a remote file.
@@ -190,6 +212,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
         
         
+        public void clearListeners() {
+            mBoundListeners.clear();
+        }
+
+
         /**
          * Returns True when the file described by 'file' in the ownCloud account 'account' is downloading or waiting to download.
          * 
@@ -215,6 +242,55 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
             }
         }
+
+        
+        /**
+         * Adds a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void addDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null || listener == null) return;
+            String targetKey = buildRemoteName(account, file);
+            mBoundListeners.put(targetKey, listener);
+        }
+        
+        
+        
+        /**
+         * Removes a listener interested in the progress of the download for a concrete file.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         * @param account       ownCloud account holding the file of interest.
+         * @param file          {@link OCfile} of interest for listener. 
+         */
+        public void removeDatatransferProgressListener (OnDatatransferProgressListener listener, Account account, OCFile file) {
+            if (account == null || file == null || listener == null) return;
+            String targetKey = buildRemoteName(account, file);
+            if (mBoundListeners.get(targetKey) == listener) {
+                mBoundListeners.remove(targetKey);
+            }
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate) {
+            // old way, should not be in use any more
+        }
+
+
+        @Override
+        public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
+                String fileName) {
+            String key = buildRemoteName(mCurrentDownload.getAccount(), mCurrentDownload.getFile());
+            OnDatatransferProgressListener boundListener = mBoundListeners.get(key);
+            if (boundListener != null) {
+                boundListener.onTransferProgress(progressRate, totalTransferredSoFar, totalToTransfer, fileName);
+            }
+        }
+        
     }
     
     
@@ -328,7 +404,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        Intent showDetailsIntent = null;
+        if (PreviewImageFragment.canBePreviewed(download.getFile())) {
+            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+        } else {
+            showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        }
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
         showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -376,8 +457,22 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            // TODO put something smart in the contentIntent below
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            Intent showDetailsIntent = null;
+            if (downloadResult.isSuccess()) {
+                if (PreviewImageFragment.canBePreviewed(download.getFile())) {
+                    showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+                } else {
+                    showDetailsIntent = new Intent(this, FileDetailActivity.class);
+                }
+                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
+                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
+                showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                
+            } else {
+                // TODO put something smart in showDetailsIntent
+                showDetailsIntent = new Intent();
+            }
+            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
             finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             mNotificationManager.notify(tickerId, finalNotification);
         }
@@ -407,8 +502,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void sendBroadcastNewDownload(DownloadFileOperation download) {
         Intent added = new Intent(DOWNLOAD_ADDED_MESSAGE);
-        /*added.putExtra(ACCOUNT_NAME, download.getAccount().name);
-        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());*/
+        added.putExtra(ACCOUNT_NAME, download.getAccount().name);
+        added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         sendStickyBroadcast(added);
     }

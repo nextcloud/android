@@ -83,6 +83,8 @@
   <string name="common_save_exit">Speichern &amp; Schließen</string>
   <string name="common_exit">%1$s verlassen</string>
   <string name="common_error">Fehler</string>
+  <string name="common_loading">Wird geladen &#8230;</string>
+  <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
@@ -102,6 +104,7 @@
   <string name="downloader_download_succeeded_content">%1$s wurde erfolgreich heruntergeladen</string>
   <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
   <string name="downloader_download_failed_content">Herunterladen von %1$s konnte nicht abgeschlossen werden</string>
+  <string name="downloader_not_downloaded_yet">Noch nicht heruntergeladen</string>
   <string name="common_choose_account">Konto auswählen</string>
   <string name="sync_string_contacts">Kontakte</string>
   <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
@@ -122,6 +125,26 @@
   <string name="pincode_wrong">Falsche App-PIN</string>
   <string name="pincode_removed">Die App-PIN wurde entfernt</string>
   <string name="pincode_stored">Die App-PIN wurde gespeichert</string>
+  <string name="media_notif_ticker">"%1$s Musik Player"</string>
+  <string name="media_state_playing">"%1$s (wird abgespielt)"</string>
+  <string name="media_state_loading">"%1$s (wird geladen)"</string>
+  <string name="media_event_done">"%1$s Wiedergabe beendet"</string>
+  <string name="media_err_nothing_to_play">Keine Media-Datei gefunden</string>
+  <string name="media_err_no_account">Ungültiger Account</string>
+  <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Account</string>
+  <string name="media_err_unsupported">Nicht unterstützter Medien-Codec</string>
+  <string name="media_err_io">Media-Datei konnte nicht gelesen werden</string>
+  <string name="media_err_malformed">Die Media-Datei ist noch nicht kodiert</string>
+  <string name="media_err_timeout">Zeitüberschreitung ist beim Abspielen aufgetreten</string>
+  <string name="media_err_invalid_progressive_playback">Media-Datei konnte nicht gestreamt werden</string>
+  <string name="media_err_unknown">Media-Datei kann nicht vom Standard Player wiedergegeben werden</string>
+  <string name="media_err_security_ex">Sicherheits-Fehler ist beim Abspielen aufgetreten %1$s</string>
+  <string name="media_err_io_ex">Eingabe-Fehler ist beim Abspielen aufgetreten %1$s</string>
+  <string name="media_err_unexpected">Unerwarteter Fehler bei der Wiedergabe %1$s</string>
+  <string name="media_rewind_description">Zurückspulen</string>
+  <string name="media_play_pause_description">Wiedergabe oder Pause</string>
+  <string name="media_forward_description">Vorspulen</string>
+	
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minuten</item>
     <item>30 Minuten</item>
@@ -217,6 +240,9 @@
   <string name="conflict_keep_both">Beide behalten</string>
   <string name="conflict_overwrite">Überschreiben</string>
   <string name="conflict_dont_upload">Nicht hochladen</string>
+  <string name="preview_image_description">Bildvorschau</string>
+  <string name="preview_image_error_unknown_format">Das Bild kann nicht angezeigt werden</string>
+  <string name="preview_image_error_out_of_memory">"Nicht genug Speicherplatz um das Bild anzuzeigen</string>
   
   <string name="actionbar_failed_instant_upload">Fehlgeschlagene Sofortuploads</string>  
   <string name="failed_upload_headline_text">Fehlgeschlagene Sofortuploads</string>

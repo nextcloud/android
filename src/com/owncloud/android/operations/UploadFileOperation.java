@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.http.HttpStatus;
 
 import android.accounts.Account;
@@ -37,6 +38,9 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.network.ProgressiveDataTransferer;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -69,8 +73,14 @@ public class UploadFileOperation extends RemoteOperation {
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
 
-    public UploadFileOperation(Account account, OCFile file, boolean isInstant, boolean forceOverwrite,
-            int localBehaviour) {
+    protected RequestEntity mEntity = null;
+
+    
+    public UploadFileOperation( Account account,
+                                OCFile file,
+                                boolean isInstant, 
+                                boolean forceOverwrite,
+                                int localBehaviour) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -147,9 +157,23 @@ public class UploadFileOperation extends RemoteOperation {
     public Set<OnDatatransferProgressListener> getDataTransferListeners() {
         return mDataTransferListeners;
     }
-
-    public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListeners.add(listener);
+    
+    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
+        if (mEntity != null) {
+            ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListener(listener);
+        }
+    }
+    
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
+        if (mEntity != null) {
+            ((ProgressiveDataTransferer)mEntity).removeDatatransferProgressListener(listener);
+        }
     }
 
     @Override
@@ -348,9 +372,11 @@ public class UploadFileOperation extends RemoteOperation {
         int status = -1;
         try {
             File f = new File(mFile.getStoragePath());
-            FileRequestEntity entity = new FileRequestEntity(f, getMimeType());
-            entity.addOnDatatransferProgressListeners(mDataTransferListeners);
-            mPutMethod.setRequestEntity(entity);
+            mEntity  = new FileRequestEntity(f, getMimeType());
+            synchronized (mDataTransferListeners) {
+                ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
+            }
+            mPutMethod.setRequestEntity(mEntity);
             status = client.executeMethod(mPutMethod);
             client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
 

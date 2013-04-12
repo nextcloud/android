@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012-2013  ownCloud Inc.
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/owncloud_white"
+    android:gravity="center"
+    tools:context=".ui.fragment.FilePreviewFragment" >
+
+    <FrameLayout 
+        android:id="@+id/visual_area"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="0dp"
+   	    android:layout_alignParentTop="true"
+   	    android:layout_above="@+id/media_controller"
+        >
+    
+	    <ImageView
+	        android:id="@+id/image_preview"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_margin="16dp"
+	        android:layout_gravity="center"
+	        android:contentDescription="@string/preview_image_description"
+	        android:src="@drawable/owncloud_logo" />
+	    
+	   	<VideoView  
+	   	    android:id="@+id/video_preview"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"  
+			android:layout_gravity="center" 
+			android:visibility="gone"
+			/>
+	   	
+   	</FrameLayout>
+   	
+   	<com.owncloud.android.media.MediaControlView 
+   	    android:id="@id/media_controller"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentBottom="true"
+   	    />
+
+</RelativeLayout>
