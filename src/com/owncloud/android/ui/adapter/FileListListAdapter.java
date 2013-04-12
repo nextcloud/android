@@ -55,7 +55,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-
+    //total size of a directory (recursive)
+    private Long totalSizeOfDirectoriesRecursive = null;
+    private Long lastModifiedOfAllSubdirectories = null;
+    
     public FileListListAdapter(OCFile file, DataStorageManager storage_man,
             Context context, TransferServiceGetter transferServiceGetter) {
         mStorageManager = storage_man;
@@ -163,9 +166,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
                 
-            } else {
-               fileSizeV.setVisibility(View.GONE);
-               lastModV.setVisibility(View.GONE);
+            } 
+            else {
+               fileSizeV.setVisibility(View.VISIBLE);
+               getDirectorySizeNumber(file,true);
+               fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
+               lastModV.setVisibility(View.VISIBLE);
+               lastModV.setText(DisplayUtils.unixTimeToHumanReadable((lastModifiedOfAllSubdirectories == null) ? 0 :lastModifiedOfAllSubdirectories));
                checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
@@ -174,6 +181,39 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
+    
+    /**
+     * - This method counts recursively all subdirectories and their files from the root directory. 
+     * - It also shows a timestamp of the last modificated file inside the root directory
+     * 
+     *   @param OCFile  : startDirectory
+     *   @param boolean :  counting starts from here ?
+     */
+    private void getDirectorySizeNumber(OCFile directory,boolean startOfRecursive) {
+        if (startOfRecursive) {
+            totalSizeOfDirectoriesRecursive = null;
+        }
+        Vector<OCFile> files  = mStorageManager.getDirectoryContent(directory);
+        for (OCFile file : files) {
+            if(!file.isDirectory()) {
+                if (totalSizeOfDirectoriesRecursive == null) {
+                    totalSizeOfDirectoriesRecursive = file.getFileLength();
+                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
+                    continue;
+                }
+                
+                totalSizeOfDirectoriesRecursive += file.getFileLength();
+                if (lastModifiedOfAllSubdirectories < file.getModificationTimestamp()) {
+                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
+                }
+            }
+            else {
+                this.getDirectorySizeNumber(file, false);
+            }
+        }
+    }
+    
+    
     @Override
     public int getViewTypeCount() {
         return 1;
