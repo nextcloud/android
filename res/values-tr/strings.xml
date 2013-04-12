@@ -15,6 +15,7 @@
   <string name="main_wrn_accsetup">Cihazınızda ownCloud hesabı bulunmamaktadır. Bu uygulamayı kullanabilmeniz için ownCloud hesabı oluşturmalısınız.</string>
   <string name="actionbar_sync">Eşitleme hesabi</string>
   <string name="actionbar_upload">Dosya yükle</string>
+  <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_mkdir">Klasör yarat</string>
   <string name="actionbar_search">Arama</string>
@@ -56,9 +57,11 @@
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
   <string name="uploader_wrn_no_content_title">Yüklenecek içerik yok</string>
+  <string name="uploader_wrn_no_content_text">Yüklenecek içerik yok. Yüklenecek dosya yok.</string>
   <string name="uploader_error_forbidden_content">ownCloud, paylaşılan içeriğe erişim izni vermiyor</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
   <string name="uploader_btn_create_dir_text">Yükleme için dizin oluştur</string>
+  <string name="file_list_empty">Klasörde dosya yok. Yeni dosyalar yükle\'ye tıklayarak eklenebilir.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya tıklayınız.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -99,12 +102,14 @@
   <string name="common_choose_account">Hesap seçiniz</string>
   <string name="sync_string_contacts">Kontaklar</string>
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
+  <string name="sync_fail_content">%1$s Senkronizasyonu tamamlanamadı</string>
   <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>
   <string name="use_ssl">Güvenli bağlanti kullan</string>
   <string name="location_no_provider">ownCloud cihazınızı takip edemiyor. Lütfen konum ayarlarınızı kontrol ediniz</string>
   <string name="pincode_enter_pin_code">Lütfen uygulama PIN\'ınızı giriniz</string>
   <string name="pincode_enter_new_pin_code">Lütfen yeni uygulama PIN\'ınızı giriniz</string>
   <string name="pincode_configure_your_pin">ownCloud App PIN giriniz</string>
+  <string name="pincode_configure_your_pin_explanation">PIN uygulama yeniden başladığında tekrar sorulacak</string>
   <string name="pincode_reenter_your_pincode">Lütfen, ownCloud App PIN ni tekrar giriniz</string>
   <string name="pincode_remove_your_pincode">ownCloud App PIN\'nizi kaldırınız.</string>
   <string name="pincode_mismatch">Her iki ownCloud App PIN aynı değil.</string>
@@ -171,7 +176,10 @@
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
   <string name="ssl_validator_title">Uyarı</string>
+  <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
+  <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikası güvenilmez</string>
   <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi geçmiş</string>
+  <string name="ssl_validator_reason_hostname_not_verified">- URL adresi sunucu isminin sertifikası ile uyuşmuyor</string>
   <string name="ssl_validator_certificate_not_available">Sunucu sertifikası elde edilemedi</string>
   <string name="ssl_validator_question">Sertifikaya yine de güvenmek istiyor musunuz?</string>
   <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
@@ -189,6 +197,7 @@
   <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
   <string name="text_placeholder">Bu bir yer tutucudur</string>
   <string name="instant_upload_on_wifi">Resimleri sadece WiFi bağlantısında yükle</string>
+  <string name="instant_upload_path">/AnındaYükle</string>
   <string name="conflict_title">Çakışmayı güncelle</string>
   <string name="conflict_keep_both">İkisini de koru</string>
   <string name="conflict_overwrite">Üzerine yaz</string>

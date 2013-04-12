@@ -23,9 +23,9 @@ import java.io.File;
 
 import android.accounts.Account;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -66,7 +66,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.R;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -80,17 +79,20 @@ import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.ChangelogDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
+import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 
+import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -100,9 +102,9 @@ import eu.alefzero.webdav.WebdavClient;
  * 
  */
 
-public class FileDisplayActivity extends SherlockFragmentActivity implements OCFileListFragment.ContainerActivity,
-        FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener {
-
+public class FileDisplayActivity extends SherlockFragmentActivity implements
+    OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
+    
     private ArrayAdapter<String> mDirectories;
     private OCFile mCurrentDir = null;
     private OCFile mCurrentFile = null;
@@ -119,6 +121,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     private OCFileListFragment mFileList;
     
     private boolean mDualPane;
+    private boolean mBackFromCreatingFirstAccount;
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
     private static final int DIALOG_CREATE_DIR = 1;
@@ -132,8 +135,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
-    private static final int ACTION_SELECT_FAILED_INSTANT_UPLOAD = 2;
-
+    
     private static final String TAG = "FileDisplayActivity";
 
     private static int[] mMenuIdentifiersToPatch = {R.id.about_app};
@@ -144,10 +146,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         super.onCreate(savedInstanceState);
 
         /// Load of parameters from received intent
-        mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); // no check necessary, mCurrenDir == null if the parameter is not in the intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-        if (account != null)
-            AccountUtils.setCurrentOwnCloudAccount(this, account.name);
+        if (account != null && AccountUtils.setCurrentOwnCloudAccount(this, account.name)) {
+            mCurrentDir = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE); 
+        }
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
@@ -159,13 +161,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             /// no account available: FORCE ACCOUNT CREATION
             mStorageManager = null;
             createFirstAccount();
-
-        } else { // / at least an account is available
-
-            initDataFromCurrentAccount(); // it checks mCurrentDir and
-                                          // mCurrentFile with the current
-                                          // account
-
+            
+        } else {    /// at least an account is available
+            
+            initDataFromCurrentAccount();   // it checks mCurrentDir and mCurrentFile with the current account
+            
         }
         
         mUploadConnection = new ListServiceConnection(); 
@@ -190,7 +190,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         // Drop-down navigation 
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         OCFile currFile = mCurrentDir;
-        while (currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
+        while(mStorageManager != null && currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
             mDirectories.add(currFile.getFileName());
             currFile = mStorageManager.getFileById(currFile.getParentId());
         }
@@ -215,7 +215,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         
         
         // show changelog, if needed
-        showChangeLog();
+        //showChangeLog();
+        mBackFromCreatingFirstAccount = false;
         
         Log.d(getClass().toString(), "onCreate() end");
     }
@@ -293,13 +294,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (mCurrentFile != null) {
-                transaction.replace(R.id.file_details_container,
-                        new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)),
-                        FileDetailFragment.FTAG); // empty FileDetailFragment
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG); // empty FileDetailFragment
                 mCurrentFile = null;
             } else {
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null),
-                        FileDetailFragment.FTAG); // empty FileDetailFragment
+                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG); // empty FileDetailFragment
             }
             transaction.commit();
         }
@@ -350,35 +348,36 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
-        case R.id.createDirectoryItem: {
-            showDialog(DIALOG_CREATE_DIR);
-            break;
-        }
-        case R.id.startSync: {
-            startSynchronization();
-            break;
-        }
-        case R.id.action_upload: {
-            showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
-            break;
-        }
-        case R.id.action_settings: {
-            Intent settingsIntent = new Intent(this, Preferences.class);
-            startActivity(settingsIntent);
-            break;
-        }
-        case R.id.about_app: {
-            showDialog(DIALOG_ABOUT_APP);
-            break;
-        }
-        case android.R.id.home: {
-            if (mCurrentDir != null && mCurrentDir.getParentId() != 0) {
-                onBackPressed();
+            case R.id.createDirectoryItem: {
+                //showDialog(DIALOG_CREATE_DIR);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", this);
+                dialog.show(getSupportFragmentManager(), "createdirdialog");
             }
-            break;
-        }
-        default:
-            retval = super.onOptionsItemSelected(item);
+            case R.id.startSync: {
+                startSynchronization();
+                break;
+            }
+            case R.id.action_upload: {
+                showDialog(DIALOG_CHOOSE_UPLOAD_SOURCE);
+                break;
+            }
+            case R.id.action_settings: {
+                Intent settingsIntent = new Intent(this, Preferences.class);
+                startActivity(settingsIntent);
+                break;
+            }
+            case R.id.about_app : {
+                showDialog(DIALOG_ABOUT_APP);
+                break;
+            }
+            case android.R.id.home: {
+                if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
+                    onBackPressed(); 
+                }
+                break;
+            }
+            default:
+                retval = super.onOptionsItemSelected(item);
         }
         return retval;
     }
@@ -411,13 +410,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
      * Called, when the user selected something for uploading
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS
-                && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+        
+        if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestSimpleUpload(data, resultCode);
-
-        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES
-                && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            
+        } else if (requestCode == ACTION_SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
             
         }
@@ -433,7 +430,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             }
             if (!remotePathBase.endsWith(OCFile.PATH_SEPARATOR))
                 remotePathBase += OCFile.PATH_SEPARATOR;
-            for (int j = 0; j < remotePaths.length; j++) {
+            for (int j = 0; j< remotePaths.length; j++) {
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
@@ -482,7 +479,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         }
 
         Intent i = new Intent(this, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+        i.putExtra(FileUploader.KEY_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(this));
         String remotepath = new String();
         for (int j = mDirectories.getCount() - 2; j >= 0; --j) {
             remotepath += OCFile.PATH_SEPARATOR + mDirectories.getItem(j);
@@ -511,23 +509,20 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         mCurrentDir = mFileList.getCurrentFile();
         
         if (mDualPane) {
-            // Resets the FileDetailsFragment on Tablets so that it always
-            // displays
-            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(
-                    FileDetailFragment.FTAG);
+            // Resets the FileDetailsFragment on Tablets so that it always displays
+            FileDetailFragment fileDetails = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
             if (fileDetails != null && !fileDetails.isEmpty()) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.remove(fileDetails);
-                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null),
-                        FileDetailFragment.FTAG);
+                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG);
                 transaction.commit();
             }
         }
-
-        if (mCurrentDir.getParentId() == 0) {
-            ActionBar actionBar = getSupportActionBar();
+        
+        if(mCurrentDir.getParentId() == 0){
+            ActionBar actionBar = getSupportActionBar(); 
             actionBar.setDisplayHomeAsUpEnabled(false);
-        }
+        } 
     }
 
     @Override
@@ -561,6 +556,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 if (mDualPane) {
                     initFileDetailsInDualPane();
                 }
+                mBackFromCreatingFirstAccount = true;
             }
             
             // Listen for sync messages
@@ -673,75 +669,76 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             builder.setTitle(R.string.uploader_info_dirname);
             int typed_color = getResources().getColor(R.color.setup_text_typed);
             dirNameInput.setTextColor(typed_color);
-            builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    String directoryName = dirNameInput.getText().toString();
-                    if (directoryName.trim().length() == 0) {
-                        dialog.cancel();
-                        return;
-                    }
-
-                    // Figure out the path where the dir needs to be created
-                    String path;
-                    if (mCurrentDir == null) {
-                        // this is just a patch; we should ensure that
-                        // mCurrentDir never is null
-                        if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
-                            OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
-                            mStorageManager.saveFile(file);
+            builder.setPositiveButton(android.R.string.ok,
+                    new OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            String directoryName = dirNameInput.getText().toString();
+                            if (directoryName.trim().length() == 0) {
+                                dialog.cancel();
+                                return;
+                            }
+    
+                            // Figure out the path where the dir needs to be created
+                            String path;
+                            if (mCurrentDir == null) {
+                                // this is just a patch; we should ensure that mCurrentDir never is null
+                                if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
+                                    OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
+                                    mStorageManager.saveFile(file);
+                                }
+                                mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+                            }
+                            path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
+                            
+                            // Create directory
+                            path += directoryName + OCFile.PATH_SEPARATOR;
+                            Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
+                            thread.start();
+                            
+                            dialog.dismiss();
+                            
+                            showDialog(DIALOG_SHORT_WAIT);
                         }
-                        mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
-                    }
-                    path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
-
-                    // Create directory
-                    path += directoryName + OCFile.PATH_SEPARATOR;
-                    Thread thread = new Thread(new DirectoryCreator(path, AccountUtils
-                            .getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                    thread.start();
-
-                    dialog.dismiss();
-
-                    showDialog(DIALOG_SHORT_WAIT);
-                }
-            });
-            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
+                    });
+            builder.setNegativeButton(R.string.common_cancel,
+                    new OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
             dialog = builder.create();
             break;
         }
         case DIALOG_SHORT_WAIT: {
             ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(getResources().getString(R.string.wait_a_moment));
+            working_dialog.setMessage(getResources().getString(
+                    R.string.wait_a_moment));
             working_dialog.setIndeterminate(true);
             working_dialog.setCancelable(false);
             dialog = working_dialog;
             break;
         }
         case DIALOG_CHOOSE_UPLOAD_SOURCE: {
-            final String[] items = { getString(R.string.actionbar_upload_files),
-                    getString(R.string.actionbar_upload_from_apps), getString(R.string.actionbar_failed_instant_upload) };
+            final String [] items = {   getString(R.string.actionbar_upload_files), 
+                                        getString(R.string.actionbar_upload_from_apps) }; 
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_upload);
             builder.setItems(items, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     if (item == 0) {
-                        // if (!mDualPane) {
-                        Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
-                        action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT,
-                                AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
-                        startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
-                        // } else {
-                        // TODO create and handle new fragment
-                        // LocalFileListFragment
-                        // }
+                        //if (!mDualPane) { 
+                            Intent action = new Intent(FileDisplayActivity.this, UploadFilesActivity.class);
+                            action.putExtra(UploadFilesActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this));
+                            startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                        //} else {
+                            // TODO create and handle new fragment LocalFileListFragment
+                        //}
                     } else if (item == 1) {
                         Intent action = new Intent(Intent.ACTION_GET_CONTENT);
-                        action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
-                        startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                        action = action.setType("*/*")
+                                .addCategory(Intent.CATEGORY_OPENABLE);
+                        startActivityForResult(
+                                Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                                 ACTION_SELECT_CONTENT_FROM_APPS);
                     } else if (item == 2) {
                         Account account = AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this);
@@ -763,11 +760,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                };
-            });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    };
+                });
             dialog = builder.create();
             break;
         }
@@ -789,10 +786,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         if (cursor != null) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
-        }
+        } 
         return null;
     }
     
@@ -856,12 +854,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                     public void run() {
                         dismissDialog(DIALOG_SHORT_WAIT);
                         try {
-                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg,
-                                    Toast.LENGTH_LONG);
+                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
                             msg.show();
                         
                         } catch (NotFoundException e) {
-                            Log.e(TAG, "Error while trying to show fail message ", e);
+                            Log.e(TAG, "Error while trying to show fail message " , e);
                         }
                     }
                 });
@@ -879,16 +876,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(android.R.color.white));
+    
+            ((TextView) v).setTextColor(getResources().getColorStateList(
+                    android.R.color.white));
             return v;
         }
-
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+    
+        public View getDropDownView(int position, View convertView,
+                ViewGroup parent) {
             View v = super.getDropDownView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(android.R.color.white));
-
+    
+            ((TextView) v).setTextColor(getResources().getColorStateList(
+                    android.R.color.white));
+    
             return v;
         }
     
@@ -901,24 +901,27 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean inProgress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
-            String accountName = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
+            boolean inProgress = intent.getBooleanExtra(
+                    FileSyncService.IN_PROGRESS, false);
+            String accountName = intent
+                    .getStringExtra(FileSyncService.ACCOUNT_NAME);
 
-            Log.d("FileDisplay", "sync of account " + accountName + " is in_progress: " + inProgress);
+            Log.d("FileDisplay", "sync of account " + accountName
+                    + " is in_progress: " + inProgress);
 
-            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {
-
-                String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH);
-
+            if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
+            
+                String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
+                 
                 boolean fillBlankRoot = false;
                 if (mCurrentDir == null) {
                     mCurrentDir = mStorageManager.getFileByPath("/");
                     fillBlankRoot = (mCurrentDir != null);
                 }
 
-                if ((synchFolderRemotePath != null && mCurrentDir != null && (mCurrentDir.getRemotePath()
-                        .equals(synchFolderRemotePath))) || fillBlankRoot) {
-                    if (!fillBlankRoot)
+                if ((synchFolderRemotePath != null && mCurrentDir != null && (mCurrentDir.getRemotePath().equals(synchFolderRemotePath)))
+                        || fillBlankRoot ) {
+                    if (!fillBlankRoot) 
                         mCurrentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
                     OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.fileList);
@@ -928,16 +931,22 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
+                if (mBackFromCreatingFirstAccount) {
+                    // awful patch to fix problem with visibility of progress circle with the first refresh of the first account
+                    // TODO - kill this Activity when the first account has to be created instead of stack the account creation on it
+                    getSupportActionBar().hide();
+                    getSupportActionBar().show();
+                    mBackFromCreatingFirstAccount = false;
+                }
                 removeStickyBroadcast(intent);
                 
             }
-
-            RemoteOperationResult synchResult = (RemoteOperationResult) intent
-                    .getSerializableExtra(FileSyncService.SYNC_RESULT);
+            
+            RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
             if (synchResult != null) {
                 if (synchResult.getCode().equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
                     mLastSslUntrustedServerResult = synchResult;
-                    showDialog(DIALOG_SSL_VALIDATOR);
+                    showDialog(DIALOG_SSL_VALIDATOR); 
                 }
             }
         }
@@ -955,12 +964,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
             boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
-            boolean isDescendant = (mCurrentDir != null) && (uploadedRemotePath != null)
-                    && (uploadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            boolean isDescendant = (mCurrentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
             if (sameAccount && isDescendant) {
-                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fileList);
-                if (fileListFragment != null) {
+                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
                 }
             }
@@ -978,12 +985,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             boolean sameAccount = accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name);
-            boolean isDescendant = (mCurrentDir != null) && (downloadedRemotePath != null)
-                    && (downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
+            boolean isDescendant = (mCurrentDir != null) && (downloadedRemotePath != null) && (downloadedRemotePath.startsWith(mCurrentDir.getRemotePath()));
             if (sameAccount && isDescendant) {
-                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.fileList);
-                if (fileListFragment != null) {
+                OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+                if (fileListFragment != null) { 
                     fileListFragment.listDirectory();
                 }
             }
@@ -1017,8 +1022,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             if (fileDetails != null && !fileDetails.isEmpty()) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.remove(fileDetails);
-                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null),
-                        FileDetailFragment.FTAG);
+                transaction.add(R.id.file_details_container, new FileDetailFragment(null, null), FileDetailFragment.FTAG);
                 transaction.commit();
             }
         }
@@ -1035,14 +1039,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         if (mDualPane) {
             // buttons in the details view are problematic when trying to reuse an existing fragment; create always a new one solves some of them, BUT no all; downloads are 'dangerous'
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction
-                    .replace(R.id.file_details_container,
-                            new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)),
-                            FileDetailFragment.FTAG);
+            transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.commit();
-
-        } else { // small or medium screen device -> new Activity
+            
+        } else {    // small or medium screen device -> new Activity
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
@@ -1065,9 +1066,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
      */
     @Override
     public void onFileStateChanged() {
-        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(
-                R.id.fileList);
-        if (fileListFragment != null) {
+        OCFileListFragment fileListFragment = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
+        if (fileListFragment != null) { 
             fileListFragment.listDirectory();
         }
     }
@@ -1109,8 +1109,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             if (mFileList != null)
                 mFileList.listDirectory();
             if (mDualPane) {
-                FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(
-                        FileDetailFragment.FTAG);
+                FileDetailFragment fragment = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
                 if (fragment != null)
                     fragment.updateFileDetails(false);
             }
@@ -1150,6 +1149,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         startSynchronization();                
     }
 
+
     @Override
     public void onFailedSavingCertificate() {
         showDialog(DIALOG_CERT_NOT_SAVED);
@@ -1166,13 +1166,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         if (operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
-
+            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
+                
         } else if (operation instanceof RenameFileOperation) {
-            onRenameFileOperationFinish((RenameFileOperation) operation, result);
-
+            onRenameFileOperationFinish((RenameFileOperation)operation, result);
+            
         } else if (operation instanceof SynchronizeFileOperation) {
-            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
+            onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
         }
     }
 
@@ -1191,12 +1191,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             msg.show();
             OCFile removedFile = operation.getFile();
             if (mDualPane) {
-                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(
-                        FileDetailFragment.FTAG);
-                if (details != null && removedFile.equals(details.getDisplayedFile())) {
+                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && removedFile.equals(details.getDisplayedFile()) ) {
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty
-                                                                                                          // FileDetailFragment
+                    transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
                     transaction.commit();
                 }
             }
@@ -1205,11 +1203,11 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             }
                 
         } else {
-            Toast msg = Toast.makeText(this, R.string.remove_fail_msg, Toast.LENGTH_LONG);
+            Toast msg = Toast.makeText(this, R.string.remove_fail_msg, Toast.LENGTH_LONG); 
             msg.show();
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR);
+                showDialog(DIALOG_SSL_VALIDATOR); 
             }
         }
     }
@@ -1226,9 +1224,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             if (mDualPane) {
-                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(
-                        FileDetailFragment.FTAG);
-                if (details != null && renamedFile.equals(details.getDisplayedFile())) {
+                FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                if (details != null && renamedFile.equals(details.getDisplayedFile()) ) {
                     details.updateFileDetails(renamedFile, AccountUtils.getCurrentOwnCloudAccount(this));
                 }
             }
@@ -1238,19 +1235,20 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             
         } else {
             if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                Toast msg = Toast.makeText(this, R.string.rename_local_fail_msg, Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(this, R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
                 // TODO throw again the new rename dialog
             } else {
-                Toast msg = Toast.makeText(this, R.string.rename_server_fail_msg, Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(this, R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
                 if (result.isSslRecoverableException()) {
                     mLastSslUntrustedServerResult = result;
-                    showDialog(DIALOG_SSL_VALIDATOR);
+                    showDialog(DIALOG_SSL_VALIDATOR); 
                 }
             }
         }
     }
+
 
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
         dismissDialog(DIALOG_SHORT_WAIT);
@@ -1263,7 +1261,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 startActivity(i);
                 
             } else {
-                Toast msg = Toast.makeText(this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
             }
             
@@ -1273,7 +1271,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
                 onTransferStateChanged(syncedFile, true, true);
                 
             } else {
-                Toast msg = Toast.makeText(this, R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(this, R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
                 msg.show();
             }
         }
@@ -1290,9 +1288,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
             fileListFragment.listDirectory();
         }*/
         if (mDualPane) {
-            FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(
-                    FileDetailFragment.FTAG);
-            if (details != null && file.equals(details.getDisplayedFile())) {
+            FileDetailFragment details = (FileDetailFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (details != null && file.equals(details.getDisplayedFile()) ) {
                 if (downloading || uploading) {
                     details.updateFileDetails(file, AccountUtils.getCurrentOwnCloudAccount(this));
                 } else {
@@ -1303,7 +1300,32 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements OCF
     }
 
 
-    
-
+    @Override
+    public void onDismiss(EditNameDialog dialog) {
+        //dialog.dismiss();
+        if (dialog.getResult()) {
+            String newDirectoryName = dialog.getNewFilename().trim();
+            Log.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
+            if (newDirectoryName.length() > 0) {
+                String path;
+                if (mCurrentDir == null) {
+                    // this is just a patch; we should ensure that mCurrentDir never is null
+                    if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
+                        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
+                        mStorageManager.saveFile(file);
+                    }
+                    mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+                }
+                path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
+                
+                // Create directory
+                path += newDirectoryName + OCFile.PATH_SEPARATOR;
+                Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
+                thread.start();
+                
+                showDialog(DIALOG_SHORT_WAIT);
+            }
+        }
+    }
 
 }
