@@ -102,11 +102,11 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
            /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
-               pAboutApp.setTitle(getString(R.string.app_name)+" "+getString(R.string.about_android));
+               pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
                PackageInfo pkg;
                try {
                    pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                   pAboutApp.setSummary(getString(R.string.about_version)+" "+pkg.versionName);
+                   pAboutApp.setSummary(String.format(getString(R.string.about_version), pkg.versionName));
                } catch (NameNotFoundException e) {
                    Log_OC.e(TAG, "Error while showing about dialog", e);
                }
