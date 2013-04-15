@@ -38,11 +38,8 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,7 +96,6 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
-import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
@@ -144,8 +140,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     
     private static final String TAG = "FileDisplayActivity";
 
-    private static int[] mMenuIdentifiersToPatch = {R.id.action_about_app};
-    
     private OCFile mWaitingToPreview;
     private Handler mHandler;
 
