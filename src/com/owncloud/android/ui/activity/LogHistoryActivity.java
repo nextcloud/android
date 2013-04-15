@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
@@ -36,11 +35,12 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.LogListAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 
 public class LogHistoryActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
-    String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+    String logpath = FileStorageUtils.getLogPath();
     File logDIR = null;
     
     @Override
