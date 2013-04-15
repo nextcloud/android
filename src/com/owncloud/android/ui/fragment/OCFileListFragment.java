@@ -53,7 +53,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -241,7 +240,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.action_rename_file: {
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), mTargetFile.getFileName(), this);
+                String fileName = mTargetFile.getFileName();
+                int extensionStart = mTargetFile.isDirectory() ? -1 : fileName.lastIndexOf(".");
+                int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
                 return true;
             }

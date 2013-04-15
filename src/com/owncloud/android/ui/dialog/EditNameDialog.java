@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
@@ -42,8 +43,10 @@ public class EditNameDialog extends SherlockDialogFragment implements DialogInte
 
     public static final String TAG = EditNameDialog.class.getSimpleName();
     
-    protected static final String ARG_TITLE = "title";
-    protected static final String ARG_NAME = "name";
+    protected static final String ARG_TITLE = "TITLE";
+    protected static final String ARG_NAME = "NAME";
+    protected static final String ARG_SELECTION_START = "SELECTION_START";
+    protected static final String ARG_SELECTION_END = "SELECTION_END";
     
     private String mNewFilename;
     private boolean mResult;
@@ -52,16 +55,20 @@ public class EditNameDialog extends SherlockDialogFragment implements DialogInte
     /**
      * Public factory method to get dialog instances.
      * 
-     * @param title         Text to show as title in the dialog.
-     * @param name          Optional text to include in the text input field when the dialog is shown.
-     * @param listener      Instance to notify when the dialog is dismissed.
+     * @param title             Text to show as title in the dialog.
+     * @param name              Optional text to include in the text input field when the dialog is shown.
+     * @param listener          Instance to notify when the dialog is dismissed.
+     * @param selectionStart    Index to the first character to be selected in the input field; negative value for none
+     * @param selectionEnd      Index to the last character to be selected in the input field; negative value for none
      * @return              New dialog instance, ready to show.
      */
-    static public EditNameDialog newInstance(String title, String name, EditNameDialogListener listener) {
+    static public EditNameDialog newInstance(String title, String name, int selectionStart, int selectionEnd, EditNameDialogListener listener) {
         EditNameDialog f = new EditNameDialog();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);
         args.putString(ARG_NAME, name);
+        args.putInt(ARG_SELECTION_START, selectionStart);
+        args.putInt(ARG_SELECTION_END, selectionEnd);
         f.setArguments(args);
         f.setOnDismissListener(listener);
         return f;
@@ -81,7 +88,7 @@ public class EditNameDialog extends SherlockDialogFragment implements DialogInte
         // Inflate the layout for the dialog
         LayoutInflater inflater = getSherlockActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.edit_box_dialog, null);  // null parent view because it will go in the dialog layout
-        TextView inputText = ((TextView)v.findViewById(R.id.user_input));
+        EditText inputText = ((EditText)v.findViewById(R.id.user_input));
         inputText.setText(currentName);
         
         // Set it to the dialog 
@@ -99,6 +106,11 @@ public class EditNameDialog extends SherlockDialogFragment implements DialogInte
         Dialog d = builder.create();
 
         inputText.requestFocus();
+        int selectionStart = getArguments().getInt(ARG_SELECTION_START, -1);
+        int selectionEnd = getArguments().getInt(ARG_SELECTION_END, -1);
+        if (selectionStart >= 0 && selectionEnd >= 0) {
+            inputText.setSelection(Math.min(selectionStart, selectionEnd), Math.max(selectionStart, selectionEnd));
+        }
         d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;
     }    

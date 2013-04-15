@@ -357,7 +357,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", this);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", -1, -1, this);
                 dialog.show(getSupportFragmentManager(), "createdirdialog");
                 break;
             }
