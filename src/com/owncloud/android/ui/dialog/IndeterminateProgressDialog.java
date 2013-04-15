@@ -61,7 +61,7 @@ public class IndeterminateProgressDialog extends SherlockDialogFragment {
         dialog.setIndeterminate(true);
         
         /// set message
-        int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.text_placeholder);
+        int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
         dialog.setMessage(getString(messageId));
         
         /// set cancellation behavior

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012-2013 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<menu 	xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<item 	android:id="@+id/action_open_file_with"			android:title="@string/filedetails_open"			android:icon="@android:drawable/ic_menu_edit"					android:orderInCategory="1" />
+	<item 	android:id="@+id/action_download_file" 			android:title="@string/filedetails_download"																		android:orderInCategory="1" />
+	<item 	android:id="@+id/action_cancel_download"		android:title="@string/common_cancel_download"	 	android:icon="@android:drawable/ic_menu_close_clear_cancel"		android:orderInCategory="1" />
+	<item 	android:id="@+id/action_cancel_upload" 			android:title="@string/common_cancel_upload"		android:icon="@android:drawable/ic_menu_close_clear_cancel"		android:orderInCategory="1" />
+	<item 	android:id="@+id/action_rename_file"			android:title="@string/common_rename"				android:icon="@android:drawable/ic_menu_set_as"					android:orderInCategory="1" />
+    <item 	android:id="@+id/action_remove_file"			android:title="@string/common_remove"				android:icon="@android:drawable/ic_menu_delete"					android:orderInCategory="1" />
+    <item 	android:id="@+id/action_see_details"			android:title="@string/actionbar_see_details"		android:icon="@android:drawable/ic_menu_view"					android:orderInCategory="1" />
+    
+</menu>

@@ -348,8 +348,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
                 String[] args = {getString(R.string.app_name)};
                 ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no);
                 dialog.setOnConfirmationListener(UploadFilesActivity.this);
-                mCurrentDialog = dialog;
-                mCurrentDialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
+                dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
             }
         }
     }
@@ -364,16 +363,12 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
 
 
     @Override
     public void onNeutral(String callerTag) {
         Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
 
 
@@ -381,8 +376,6 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }    
 
     

@@ -61,7 +61,9 @@ public class AccountUtils {
                     break;
                 }
             }
-        } else if (ocAccounts.length != 0) {
+        }
+        
+        if (defaultAccount == null && ocAccounts.length != 0) {
             // we at least need to take first account as fallback
             defaultAccount = ocAccounts[0];
         }
@@ -84,11 +86,26 @@ public class AccountUtils {
     }
     
     
-    public static void setCurrentOwnCloudAccount(Context context, String name) {
-        SharedPreferences.Editor appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(context).edit();
-        appPrefs.putString("select_oc_account", name);
-        appPrefs.commit();
+    public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
+        boolean result = false;
+        if (accountName != null) {
+            Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                    AccountAuthenticator.ACCOUNT_TYPE);
+            boolean found = false;
+            for (Account account : ocAccounts) {
+                found = (account.name.equals(accountName));
+                if (found) {
+                    SharedPreferences.Editor appPrefs = PreferenceManager
+                            .getDefaultSharedPreferences(context).edit();
+                    appPrefs.putString("select_oc_account", accountName);
+    
+                    appPrefs.commit();
+                    result = true;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     /**

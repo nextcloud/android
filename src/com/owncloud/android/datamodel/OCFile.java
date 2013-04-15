@@ -25,7 +25,7 @@ import com.owncloud.android.Log_OC;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
@@ -455,6 +455,32 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             return f.lastModified();
         }
         return 0;
+    }
+
+    /** @return  'True' if the file contains audio */
+    public boolean isAudio() {
+        return (mMimeType != null && mMimeType.startsWith("audio/"));
+    }
+
+    /** @return  'True' if the file contains video */
+    public boolean isVideo() {
+        return (mMimeType != null && mMimeType.startsWith("video/"));
+    }
+
+    /** @return  'True' if the file contains an image */
+    public boolean isImage() {
+        return ((mMimeType != null && mMimeType.startsWith("image/")) ||
+                 getMimeTypeFromName().startsWith("image/"));
+    }
+    
+    public String getMimeTypeFromName() {
+        String extension = "";
+        int pos = mRemotePath.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = mRemotePath.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
     }
 
 }

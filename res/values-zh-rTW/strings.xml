@@ -4,7 +4,7 @@
   <string name="main_password">密碼：</string>
   <string name="main_login">使用者名稱：</string>
   <string name="main_button_login">登入</string>
-  <string name="main_welcome">歡迎來到您的ownCloud</string>
+  <string name="main_welcome">歡迎</string>
   <string name="main_files">檔案</string>
   <string name="main_music">音樂</string>
   <string name="main_contacts">通訊錄</string>
@@ -12,30 +12,40 @@
   <string name="main_bookmarks">書籤</string>
   <string name="main_settings">設定</string>
   <string name="main_tit_accsetup">設定帳號</string>
-  <string name="main_wrn_accsetup">您尚未在裝置上設定您的ownCloud帳號. 您必需建立一組帳號才能繼續使用.</string>
-  <string name="actionbar_sync">更新</string>
+  <string name="main_wrn_accsetup">您尚未在裝置上設定您的 ownCloud 帳號，您必需建立一組帳號才能繼續使用。</string>
+  <string name="actionbar_sync">重新整理</string>
   <string name="actionbar_upload">上傳檔案</string>
   <string name="actionbar_upload_files">檔案</string>
   <string name="actionbar_mkdir">建立目錄</string>
   <string name="actionbar_search">搜尋</string>
   <string name="actionbar_settings">設定</string>
   <string name="prefs_category_general">一般</string>
+  <string name="prefs_category_trackmydevice">裝置追蹤</string>
+  <string name="prefs_add_session">增加新連線</string>
   <string name="prefs_create_img_thumbnails">建立圖片縮圖</string>
   <string name="prefs_select_oc_account">選擇一個帳號</string>
+  <string name="prefs_summary_select_oc_account">您要使用哪幾個帳號？</string>
+  <string name="prefs_trackmydevice">裝置追蹤</string>
+  <string name="prefs_trackmydevice_summary_off">啓用此應用程式以追蹤所在位置</string>
+  <string name="prefs_trackmydevice_summary_on">此應用程式會追蹤這個裝置</string>
   <string name="prefs_trackmydevice_interval">更新間隔</string>
   <string name="prefs_trackmydevice_interval_summary">每 %1$s 分鐘更新</string>
   <string name="prefs_accounts">帳號</string>
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode_summary">保護您的ownCloud用戶端</string>
   <string name="prefs_instant_upload">啟用即時上傳</string>
-  <string name="auth_host_url">網址URL</string>
+  <string name="auth_host_url">URL</string>
   <string name="auth_username">使用者名稱</string>
   <string name="auth_password">密碼</string>
-  <string name="new_session_uri_error">錯誤的URL</string>
+  <string name="new_session_uri_error">錯誤的位址</string>
+  <string name="new_session_session_name_error">錯誤的連線名稱</string>
   <string name="sync_string_files">檔案</string>
+  <string name="uploader_no_file_selected">未選擇任何要上傳的檔案</string>
   <string name="setup_hint_username">使用者名稱</string>
   <string name="setup_hint_password">密碼</string>
-  <string name="setup_title">連線至您的ownCloud</string>
+  <string name="setup_hint_address">網頁位址</string>
+  <string name="setup_hint_show_password">顯示密碼？</string>
+  <string name="setup_title">連線至您的 %1$s</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上傳</string>
   <string name="uploader_wrn_no_account_title">找不到帳號</string>
@@ -44,6 +54,7 @@
   <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
   <string name="uploader_info_uploading">上傳中</string>
   <string name="uploader_btn_create_dir_text">建立上傳目錄</string>
+  <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
   <string name="filedetails_type">類型:</string>
   <string name="filedetails_created">建立:</string>
@@ -54,8 +65,10 @@
   <string name="filedetails_open">開啟</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
+  <string name="common_ok">好</string>
   <string name="common_cancel_upload">取消上傳</string>
   <string name="common_cancel">取消</string>
+  <string name="common_save_exit">儲存並離開</string>
   <string name="common_exit">離開ownCloud</string>
   <string name="common_error">錯誤</string>
   <string name="about_title">關於</string>
@@ -73,16 +86,48 @@
   <string name="downloader_download_failed_ticker">下載失敗</string>
   <string name="common_choose_account">選擇帳號</string>
   <string name="sync_string_contacts">通訊錄</string>
+  <string name="use_ssl">使用安全連線</string>
+  <string name="location_no_provider">%1$s 無法追蹤您的裝置，請檢查定位服務設定</string>
+  <string name="pincode_enter_pin_code">請輸入您的 App PIN</string>
+  <string name="pincode_enter_new_pin_code">請輸入您的新 App PIN</string>
+  <string name="pincode_configure_your_pin">輸入您的 App PIN</string>
+  <string name="pincode_reenter_your_pincode">請重新輸入您的 App PIN</string>
+  <string name="pincode_remove_your_pincode">移除您的 App PIN</string>
+  <string name="pincode_mismatch">App PIN 不相符</string>
+  <string name="pincode_wrong">App PIN 不正確</string>
+  <string name="pincode_removed">App PIN 已移除</string>
+  <string name="pincode_stored">App PIN 已儲存</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 分鐘</item>
+    <item>30 分鐘</item>
+    <item>60 分鐘</item>
+  </string-array>
   <string-array name="prefs_trackmydevice_intervall_values">
     <item>15</item>
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">嘗試登入...</string>
+  <string name="auth_no_net_conn_title">沒有網際網路連線</string>
+  <string name="auth_no_net_conn_message">沒有偵測到網際網路連線，請檢查您的連線然後再試一次。</string>
+  <string name="auth_connect_anyway">繼續連線</string>
+  <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
+  <string name="auth_nossl_plain_ok_message">無法與伺服器建立安全連線，可以使用不安全連線（未加密）以繼續，您可以繼續或取消。</string>
+  <string name="auth_connection_established">連線已建立</string>
+  <string name="auth_testing_connection">測試連線...</string>
+  <string name="auth_not_configured_title">伺服器設定有問題</string>
+  <string name="auth_not_configured_message">看起來您的伺服器並未被正確設定，請聯絡服務管理者以取得協助。</string>
+  <string name="auth_unknown_error_title">發生未知的錯誤！</string>
+  <string name="auth_unknown_error_message">發生未知的錯誤，請聯絡支援服務並附上您的記錄檔。</string>
+  <string name="auth_incorrect_path_title">找不到伺服器</string>
+  <string name="auth_incorrect_path_message">在指定的路徑找不到伺服器，請檢查您的路徑然後再試一次。</string>
   <string name="auth_incorrect_address_title">URL 不正確</string>
   <string name="auth_ssl_general_error_title">SSL 初始化失敗</string>
   <string name="auth_ssl_unverified_server_title">未經驗證的 SSL 伺服器身份</string>
   <string name="auth_bad_oc_version_title">無法辨識的ownCloud伺服器版本</string>
   <string name="auth_wrong_connection_title">無法建立連線</string>
+  <string name="auth_secure_connection">安全連線已建立</string>
+  <string name="auth_login_details">登入細節</string>
   <string name="fd_keep_in_sync">讓檔案保持最新的</string>
   <string name="common_share">分享</string>
   <string name="common_rename">重新命名</string>

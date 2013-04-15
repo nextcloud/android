@@ -568,4 +568,21 @@ public class FileDataStorageManager implements DataStorageManager {
         }
     }
 
+    @Override
+    public Vector<OCFile> getDirectoryImages(OCFile directory) {
+        Vector<OCFile> ret = new Vector<OCFile>(); 
+        if (directory != null) {
+            // TODO better implementation, filtering in the access to database (if possible) instead of here 
+            Vector<OCFile> tmp = getDirectoryContent(directory);
+            OCFile current = null; 
+            for (int i=0; i<tmp.size(); i++) {
+                current = tmp.get(i);
+                if (current.isImage()) {
+                    ret.add(current);
+                }
+            }
+        }
+        return ret;
+    }
+
 }

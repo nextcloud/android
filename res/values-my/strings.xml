@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="main_files">ဖိုင်များ</string>
+  <string name="main_calendar">ပြက္ခဒိန်</string>
+  <string name="actionbar_upload_files">ဖိုင်များ</string>
+  <string name="auth_username">သုံးစွဲသူအမည်</string>
+  <string name="auth_password">စကားဝှက်</string>
+  <string name="sync_string_files">ဖိုင်များ</string>
+  <string name="setup_hint_username">သုံးစွဲသူအမည်</string>
+  <string name="setup_hint_password">စကားဝှက်</string>
+  <string name="filedetails_download">ဒေါင်းလုတ်</string>
+  <string name="common_yes">ဟုတ်</string>
+  <string name="common_no">မဟုတ်ဘူး</string>
+  <string name="common_cancel">ပယ်ဖျက်မည်</string>
+</resources>

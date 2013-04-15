@@ -110,6 +110,7 @@ public class WebdavClient extends HttpClient {
                 exhaustResponse(get.getResponseBodyAsStream());
             }
             Log_OC.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
+            
         } catch (Exception e) {
             logException(e, "dowloading " + remoteFilePath);
             
@@ -135,7 +136,7 @@ public class WebdavClient extends HttpClient {
             ret = (status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED || status == HttpStatus.SC_NO_CONTENT);
             exhaustResponse(delete.getResponseBodyAsStream());
             
-            Log.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
+            Log_OC.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
             
         } catch (Exception e) {
             logException(e, "deleting " + remoteFilePath);
@@ -168,7 +169,7 @@ public class WebdavClient extends HttpClient {
         try {
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.addOnDatatransferProgressListener(mDataTransferListener);
+            entity.addDatatransferProgressListener(mDataTransferListener);
             put.setRequestEntity(entity);
             status = executeMethod(put);
             
@@ -251,7 +252,6 @@ public class WebdavClient extends HttpClient {
         }
     }
 
-
     /**
      * Requests the received method with the received timeout (milliseconds).
      * 
@@ -299,7 +299,6 @@ public class WebdavClient extends HttpClient {
             }
         }
     }
-
 
     /**
      * Logs an exception triggered in a HTTP request. 

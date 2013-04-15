@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">%1$s</string>
+  <string name="app_name">ownCloud</string>
   <string name="main_password">Palavra-passe:</string>
   <string name="main_login">Nome de Utilizador:</string>
   <string name="main_button_login">Login</string>
@@ -12,7 +12,7 @@
   <string name="main_bookmarks">Marcadores</string>
   <string name="main_settings">Definições</string>
   <string name="main_tit_accsetup">Configurar conta</string>
-  <string name="main_wrn_accsetup">Não há contas ownCloud no seu aparelho. Para usar esta Aplicação, precisa de criar uma.</string>
+  <string name="main_wrn_accsetup">Não há contas no seu aparelho. Para usar esta Aplicação, precisa de criar uma.</string>
   <string name="about_message">cliente Android  %1$s\n\nversão: %1$s</string>
   <string name="actionbar_sync">Actualizar</string>
   <string name="actionbar_upload">Enviar</string>

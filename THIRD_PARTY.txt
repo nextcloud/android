@@ -1,0 +1,64 @@
+###################################################################
+  ownCloud Android client                                       
+
+  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2012  Bartek Przybylski
+###################################################################
+
+
+###########
+# LICENSE #
+###########
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+The source distribution of this program should include a full copy
+of the GNU GPL version 2 license in the LICENSE.txt file located 
+in its root directory. If not, see <http://www.gnu.org/licenses/>.
+
+
+########################
+# THIRD PARTY LICENSES #
+########################
+
+Both the source and binary distributions of this software contain
+some third party software. All the third party software included
+or linked is redistributed under the terms and conditions of their 
+original licenses. These licenses are compatible the GPL license 
+that govern this software, for the purposes they are being used.
+
+The third party software included and used by this project is:
+
+ * Apache JackRabbit, version 2.2.5.
+   Copyright (C) 2004-2010 The Apache Software Foundation.
+   Licensed under Apache License, Version 2.0.
+   Placed at libs/jackrabbit-webdav-2.2.5-jar-with-dependencies.jar
+   The jar file must be included in the ownCloud client APK.
+   Original license document included at libs/LICENSE.txt
+   See http://jackrabbit.apache.org/
+ 
+ * Transifex client.JavaMail API, version 1.4.3
+   Copyright (C) Transifex.
+   Licensed under GNU General Public License.
+   Placed at third_party/transifex-client.
+   Used as a helper tool, not included in the ownCloud client APK.
+   Original license document included at third_party/transifex-client/LICENSE.
+   See http://help.transifex.com/features/client/
+
+ * ActionBarSherlock, master branch.
+   Copyright (C) 2012 Jake Wharton.
+   Licensed under Apache License, Version 2.0.
+   The official repository is linked as a submodule in the 
+   ownCloud/android repository.
+   A binary JAR file must be generated from this linked project
+   and included in the ownCloud client APK.
+   See http://http://actionbarsherlock.com/
+ 

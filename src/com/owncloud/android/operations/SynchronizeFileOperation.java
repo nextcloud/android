@@ -163,7 +163,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
           
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage(), result.getException());
+            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", file " + (mLocalFile != null ? mLocalFile.getRemotePath() : "NULL") + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (propfind != null)

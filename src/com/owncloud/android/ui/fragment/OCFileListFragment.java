@@ -82,8 +82,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     private Handler mHandler;
     private OCFile mTargetFile;
     
-    private DialogFragment mCurrentDialog;
-    
     /**
      * {@inheritDoc}
      */
@@ -164,7 +162,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.file_context_menu, menu);
+        inflater.inflate(R.menu.file_actions_menu, menu);
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
         List<Integer> toHide = new ArrayList<Integer>();    
@@ -173,46 +171,47 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         MenuItem item = null;
         if (targetFile.isDirectory()) {
             // contextual menu for folders
-            toHide.add(R.id.open_file_item);
-            toHide.add(R.id.download_file_item);
-            toHide.add(R.id.cancel_download_item);
-            toHide.add(R.id.cancel_upload_item);
+            toHide.add(R.id.action_open_file_with);
+            toHide.add(R.id.action_download_file);
+            toHide.add(R.id.action_cancel_download);
+            toHide.add(R.id.action_cancel_upload);
+            toHide.add(R.id.action_see_details);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
-                toDisable.add(R.id.rename_file_item);
-                toDisable.add(R.id.remove_file_item);
+                toDisable.add(R.id.action_rename_file);
+                toDisable.add(R.id.action_remove_file);
                 
             }
             
         } else {
             // contextual menu for regular files
             if (targetFile.isDown()) {
-                toHide.add(R.id.cancel_download_item);
-                toHide.add(R.id.cancel_upload_item);
-                item = menu.findItem(R.id.download_file_item);
+                toHide.add(R.id.action_cancel_download);
+                toHide.add(R.id.action_cancel_upload);
+                item = menu.findItem(R.id.action_download_file);
                 if (item != null) {
                     item.setTitle(R.string.filedetails_sync_file);
                 }
             } else {
-                toHide.add(R.id.open_file_item);
+                toHide.add(R.id.action_open_file_with);
             }
             if ( mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)) {
-                toHide.add(R.id.download_file_item);
-                toHide.add(R.id.cancel_upload_item);
-                toDisable.add(R.id.open_file_item);
-                toDisable.add(R.id.rename_file_item);
-                toDisable.add(R.id.remove_file_item);
+                toHide.add(R.id.action_download_file);
+                toHide.add(R.id.action_cancel_upload);
+                toDisable.add(R.id.action_open_file_with);
+                toDisable.add(R.id.action_rename_file);
+                toDisable.add(R.id.action_remove_file);
                     
             } else if ( mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)) {
-                toHide.add(R.id.download_file_item);
-                toHide.add(R.id.cancel_download_item);
-                toDisable.add(R.id.open_file_item);
-                toDisable.add(R.id.rename_file_item);
-                toDisable.add(R.id.remove_file_item);
+                toHide.add(R.id.action_download_file);
+                toHide.add(R.id.action_cancel_download);
+                toDisable.add(R.id.action_open_file_with);
+                toDisable.add(R.id.action_rename_file);
+                toDisable.add(R.id.action_remove_file);
                     
             } else {
-                toHide.add(R.id.cancel_download_item);
-                toHide.add(R.id.cancel_upload_item);
+                toHide.add(R.id.action_cancel_download);
+                toHide.add(R.id.action_cancel_upload);
             }
         }
 
@@ -241,12 +240,12 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
-            case R.id.rename_file_item: {
+            case R.id.action_rename_file: {
                 EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), mTargetFile.getFileName(), this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
                 return true;
             }
-            case R.id.remove_file_item: {
+            case R.id.action_remove_file: {
                 int messageStringId = R.string.confirmation_remove_alert;
                 int posBtnStringId = R.string.confirmation_remove_remote;
                 int neuBtnStringId = -1;
@@ -265,11 +264,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                         neuBtnStringId,
                         R.string.common_cancel);
                 confDialog.setOnConfirmationListener(this);
-                mCurrentDialog = confDialog;
-                mCurrentDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
+                confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
                 return true;
             }
-            case R.id.open_file_item: {
+            case R.id.action_open_file_with: {
                 String storagePath = mTargetFile.getStoragePath();
                 String encodedStoragePath = WebdavUtils.encodePath(storagePath);
                 try {
@@ -315,7 +313,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 }
                 return true;
             }
-            case R.id.download_file_item: {
+            case R.id.action_download_file: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
                 WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getSherlockActivity().getApplicationContext());
@@ -323,7 +321,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
                 return true;
             }
-            case R.id.cancel_download_item: {
+            case R.id.action_cancel_download: {
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
                 if (downloaderBinder != null && downloaderBinder.isDownloading(account, mTargetFile)) {
@@ -333,7 +331,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 }
                 return true;
             }
-            case R.id.cancel_upload_item: {
+            case R.id.action_cancel_upload: {
                 FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
                 if (uploaderBinder != null && uploaderBinder.isUploading(account, mTargetFile)) {
@@ -341,6 +339,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                     listDirectory();
                     mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
                 }
+                return true;
+            }
+            case R.id.action_see_details: {
+                ((FileFragment.ContainerActivity)getActivity()).showFragmentWithDetails(mTargetFile);
                 return true;
             }
             default:
@@ -500,10 +502,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }
-            if (mCurrentDialog != null) {
-                mCurrentDialog.dismiss();
-                mCurrentDialog = null;
-            }
         }
     }
     
@@ -519,10 +517,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             mTargetFile.setStoragePath(null);
             mContainerActivity.getStorageManager().saveFile(mTargetFile);
         }
-        if (mCurrentDialog != null) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
-        }
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
@@ -530,10 +524,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     @Override
     public void onCancel(String callerTag) {
         Log_OC.d(TAG, "REMOVAL CANCELED");
-        if (mCurrentDialog != null) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
-        }
     }
 
 
