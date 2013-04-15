@@ -65,6 +65,10 @@ public class FileStorageUtils {
         }
 
     }
+    
+    public static final String getLogPath()  {
+        return Environment.getExternalStorageDirectory() + File.separator + "owncloud" + File.separator + "log";
+    }
 
     // to ensure we will not add the slash twice between filename and
     // folder-name

@@ -35,6 +35,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.services.FileUploader;
@@ -48,7 +49,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "Received: " + intent.getAction());
+        Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
@@ -56,7 +57,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         } else if (intent.getAction().equals(FileUploader.UPLOAD_FINISH_MESSAGE)) {
             handleUploadFinished(context, intent);
         } else {
-            Log.e(TAG, "Incorrect intent sent: " + intent.getAction());
+            Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
         }
     }
 
@@ -66,7 +67,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             DbHandler db = new DbHandler(context);
             String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
             if (!db.removeIUPendingFile(localPath)) {
-                Log.w(TAG, "Tried to remove non existing instant upload file " + localPath);
+                Log_OC.w(TAG, "Tried to remove non existing instant upload file " + localPath);
             }
             db.close();
         }
@@ -74,20 +75,20 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private void handleNewPhotoAction(Context context, Intent intent) {
         if (!instantUploadEnabled(context)) {
-            Log.d(TAG, "Instant upload disabled, abording uploading");
+            Log_OC.d(TAG, "Instant upload disabled, abording uploading");
             return;
         }
 
         Account account = AccountUtils.getCurrentOwnCloudAccount(context);
         if (account == null) {
-            Log.w(TAG, "No owncloud account found for instant upload, aborting");
+            Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
             return;
         }
 
         Cursor c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
 
         if (!c.moveToFirst()) {
-            Log.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
+            Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
             return;
         }
 
@@ -96,7 +97,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String mime_type = c.getString(c.getColumnIndex(Media.MIME_TYPE));
 
         c.close();
-        Log.e(TAG, file_path + "");
+        Log_OC.e(TAG, file_path + "");
 
         // same always temporally the picture to upload
         DbHandler db = new DbHandler(context);
@@ -131,7 +132,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private void handleConnectivityAction(Context context, Intent intent) {
         if (!instantUploadEnabled(context)) {
-            Log.d(TAG, "Instant upload disabled, abording uploading");
+            Log_OC.d(TAG, "Instant upload disabled, abording uploading");
             return;
         }
 
@@ -156,7 +157,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                                     f.getName().substring(f.getName().lastIndexOf('.') + 1));
 
                         } catch (Throwable e) {
-                            Log.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
+                            Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + f.getName());
                         }
                         if (mimeType == null)
                             mimeType = "application/octet-stream";
@@ -170,7 +171,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                         context.startService(i);
 
                     } else {
-                        Log.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
+                        Log_OC.w(TAG, "Instant upload file " + f.getAbsolutePath() + " dont exist anymore");
                     }
                 } while (c.moveToNext());
             }

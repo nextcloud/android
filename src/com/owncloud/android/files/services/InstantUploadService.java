@@ -23,16 +23,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.network.OwnCloudClientUtils;
+
+import eu.alefzero.webdav.WebdavClient;
+
 import android.accounts.Account;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import eu.alefzero.webdav.WebdavClient;
 
 public class InstantUploadService extends Service {
 
@@ -57,7 +57,7 @@ public class InstantUploadService extends Service {
         if (intent == null || !intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_DISPLAY_NAME)
                 || !intent.hasExtra(KEY_FILE_PATH) || !intent.hasExtra(KEY_FILE_SIZE)
                 || !intent.hasExtra(KEY_MIME_TYPE)) {
-            Log.w(TAG, "Not all required information was provided, abording");
+            Log_OC.w(TAG, "Not all required information was provided, abording");
             return Service.START_NOT_STICKY;
         }
 
@@ -75,7 +75,7 @@ public class InstantUploadService extends Service {
 
         // starting new thread for new download doesnt seems like a good idea
         // maybe some thread pool or single background thread would be better
-        Log.d(TAG, "Starting instant upload thread");
+        Log_OC.d(TAG, "Starting instant upload thread");
         new Thread(mUploaderRunnable).start();
 
         return Service.START_STICKY;

@@ -19,6 +19,7 @@
 
 package com.owncloud.android.authenticator;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.activity.AuthenticatorActivity;
 
 import android.accounts.*;
@@ -75,12 +76,12 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             String accountType, String authTokenType,
             String[] requiredFeatures, Bundle options)
             throws NetworkErrorException {
-        Log.i(TAG, "Adding account with type " + accountType
+        Log_OC.i(TAG, "Adding account with type " + accountType
                 + " and auth token " + authTokenType);
         try {
             validateAccountType(accountType);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + accountType + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + accountType + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();
@@ -107,7 +108,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         try {
             validateAccountType(account.type);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + account.type + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();
@@ -139,7 +140,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + account.type + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();

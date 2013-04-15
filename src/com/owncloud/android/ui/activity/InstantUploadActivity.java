@@ -44,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
@@ -132,7 +133,7 @@ public class InstantUploadActivity extends Activity {
                     rowLayout.addView(getImageButton(imp_path, lastLoadImageIdx));
                     rowLayout.addView(getFileButton(imp_path, message, lastLoadImageIdx));
                     listView.addView(rowLayout);
-                    Log.d(LOG_TAG, imp_path + " on idx: " + lastLoadImageIdx);
+                    Log_OC.d(LOG_TAG, imp_path + " on idx: " + lastLoadImageIdx);
                     if (lastLoadImageIdx % MAX_LOAD_IMAGES == 0) {
                         break;
                     }
@@ -183,12 +184,12 @@ public class InstantUploadActivity extends Activity {
     private List<CheckBox> getCheckboxList() {
         List<CheckBox> list = new ArrayList<CheckBox>();
         for (int i = 0; i < listView.getChildCount(); i++) {
-            Log.d(LOG_TAG, "ListView has Childs: " + listView.getChildCount());
+            Log_OC.d(LOG_TAG, "ListView has Childs: " + listView.getChildCount());
             View childView = listView.getChildAt(i);
             if (childView != null && childView instanceof ViewGroup) {
                 View checkboxView = getChildViews((ViewGroup) childView);
                 if (checkboxView != null && checkboxView instanceof CheckBox) {
-                    Log.d(LOG_TAG, "found Child: " + checkboxView.getId() + " " + checkboxView.getClass());
+                    Log_OC.d(LOG_TAG, "found Child: " + checkboxView.getId() + " " + checkboxView.getClass());
                     list.add((CheckBox) checkboxView);
                 }
             }
@@ -251,12 +252,12 @@ public class InstantUploadActivity extends Activity {
                     for (CheckBox checkbox : list) {
                         boolean to_retry = checkbox.isChecked();
 
-                        Log.d(LOG_TAG, "Checkbox for " + checkbox.getId() + " was checked: " + to_retry);
+                        Log_OC.d(LOG_TAG, "Checkbox for " + checkbox.getId() + " was checked: " + to_retry);
                         String img_path = fileList.get(checkbox.getId());
                         if (to_retry) {
 
                             final String msg = "Image-Path " + checkbox.getId() + " was checked: " + img_path;
-                            Log.d(LOG_TAG, msg);
+                            Log_OC.d(LOG_TAG, msg);
                             startUpload(img_path);
                         }
 
@@ -292,12 +293,12 @@ public class InstantUploadActivity extends Activity {
                     for (CheckBox checkbox : list) {
                         boolean to_be_delete = checkbox.isChecked();
 
-                        Log.d(LOG_TAG, "Checkbox for " + checkbox.getId() + " was checked: " + to_be_delete);
+                        Log_OC.d(LOG_TAG, "Checkbox for " + checkbox.getId() + " was checked: " + to_be_delete);
                         String img_path = fileList.get(checkbox.getId());
-                        Log.d(LOG_TAG, "Image-Path " + checkbox.getId() + " was checked: " + img_path);
+                        Log_OC.d(LOG_TAG, "Image-Path " + checkbox.getId() + " was checked: " + img_path);
                         if (to_be_delete) {
                             boolean deleted = dbh.removeIUPendingFile(img_path);
-                            Log.d(LOG_TAG, "removing " + checkbox.getId() + " was : " + deleted);
+                            Log_OC.d(LOG_TAG, "removing " + checkbox.getId() + " was : " + deleted);
 
                         }
 
@@ -391,7 +392,7 @@ public class InstantUploadActivity extends Activity {
         // scale and add a thumbnail to the imagebutton
         int base_scale_size = 32;
         if (img_path != null) {
-            Log.d(LOG_TAG, "add " + img_path + " to Image Button");
+            Log_OC.d(LOG_TAG, "add " + img_path + " to Image Button");
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             Bitmap bitmap = BitmapFactory.decodeFile(img_path, options);
@@ -406,16 +407,16 @@ public class InstantUploadActivity extends Activity {
                 scale++;
             }
 
-            Log.d(LOG_TAG, "scale Imgae with: " + scale);
+            Log_OC.d(LOG_TAG, "scale Imgae with: " + scale);
             BitmapFactory.Options options2 = new BitmapFactory.Options();
             options2.inSampleSize = scale;
             bitmap = BitmapFactory.decodeFile(img_path, options2);
 
             if (bitmap != null) {
-                Log.d(LOG_TAG, "loaded Bitmap Bytes: " + bitmap.getRowBytes());
+                Log_OC.d(LOG_TAG, "loaded Bitmap Bytes: " + bitmap.getRowBytes());
                 imageButton.setImageBitmap(bitmap);
             } else {
-                Log.d(LOG_TAG, "could not load imgage: " + img_path);
+                Log_OC.d(LOG_TAG, "could not load imgage: " + img_path);
             }
         }
         return imageButton;
@@ -459,7 +460,7 @@ public class InstantUploadActivity extends Activity {
             i.putExtra(com.owncloud.android.files.services.FileUploader.KEY_INSTANT_UPLOAD, true);
 
             final String msg = "try to upload file with name :" + filename;
-            Log.d(LOG_TAG, msg);
+            Log_OC.d(LOG_TAG, msg);
             Toast toast = Toast.makeText(InstantUploadActivity.this, getString(R.string.failed_upload_retry_text)
                     + filename, Toast.LENGTH_LONG);
             toast.show();

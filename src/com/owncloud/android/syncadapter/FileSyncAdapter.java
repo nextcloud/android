@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -110,7 +111,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             return;
         }
         
-        Log.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
+        Log_OC.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
         sendStickyBroadcast(true, null, null);  // message to signal the start of the synchronization to the UI
         
         try {
@@ -120,7 +121,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(OCFile.PATH_SEPARATOR, DataStorageManager.ROOT_PARENT_ID);
                 
             } else {
-                Log.d(TAG, "Leaving synchronization before any remote request due to cancellation was requested");
+                Log_OC.d(TAG, "Leaving synchronization before any remote request due to cancellation was requested");
             }
             
             
@@ -157,7 +158,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     @Override
     public void onSyncCanceled() {
-        Log.d(TAG, "Synchronization of " + getAccount().name + " has been requested to cancel");
+        Log_OC.d(TAG, "Synchronization of " + getAccount().name + " has been requested to cancel");
         mCancellation = true;
         super.onSyncCanceled();
     }
@@ -261,7 +262,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
             }
         }
-        if (mCancellation && i <files.size()) Log.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
+        if (mCancellation && i <files.size()) Log_OC.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
     }
 
     

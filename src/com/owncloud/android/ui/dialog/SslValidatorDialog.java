@@ -38,6 +38,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.network.CertificateCombinedException;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -110,13 +111,13 @@ public class SslValidatorDialog extends Dialog {
                             if (mListener != null)
                                 mListener.onSavedCertificate();
                             else
-                                Log.d(TAG, "Nobody there to notify the certificate was saved");
+                                Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
                             
                         } catch (Exception e) {
                             dismiss();
                             if (mListener != null)
                                 mListener.onFailedSavingCertificate();
-                            Log.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
+                            Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
                         }
                     }
                 });

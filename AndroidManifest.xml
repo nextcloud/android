@@ -143,7 +143,7 @@
         <service android:name=".files.services.FileDownloader" />
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
-
+        
         <activity android:name=".ui.activity.FileDetailActivity" />
         <activity android:name=".ui.activity.PinCodeActivity" />
         <activity android:name=".extensions.ExtensionsAvailableActivity"></activity>
@@ -152,6 +152,8 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
+        
+        <activity android:name=".ui.activity.LogHistoryActivity"/>
         
         <service android:name=".files.services.InstantUploadService" />
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
@@ -170,5 +172,5 @@
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
     </application>
-
+    
 </manifest>

@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 
@@ -81,7 +82,7 @@ public class ExtensionsListActivity extends ListActivity {
             final JSONArray ar;
             try {
                 hc.executeMethod(gm);
-                Log.e("ASD", gm.getResponseBodyAsString() + "");
+                Log_OC.e("ASD", gm.getResponseBodyAsString() + "");
                 ar = new JSONObject(gm.getResponseBodyAsString())
                         .getJSONArray("apps");
             } catch (Exception e) {

@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.authenticator.AuthenticationRunnable;
 import com.owncloud.android.authenticator.OnAuthenticationResultListener;
@@ -157,7 +158,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     .setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
-                            Log.i(TAG, "Login canceled");
+                            Log_OC.i(TAG, "Login canceled");
                             if (mAuthThread != null) {
                                 mAuthThread.interrupt();
                                 finish();
@@ -185,7 +186,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         default:
-            Log.e(TAG, "Incorrect dialog called with id = " + id);
+            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
         return dialog;
     }
@@ -201,7 +202,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         default:
-            Log.e(TAG, "Incorrect dialog called with id = " + id);
+            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
     }
 
@@ -214,7 +215,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 url = new URL(message);
             } catch (MalformedURLException e) {
                 // should never happen
-                Log.e(getClass().getName(), "Malformed URL: " + message);
+                Log_OC.e(getClass().getName(), "Malformed URL: " + message);
                 return;
             }
 
@@ -418,7 +419,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mStatusText = R.string.auth_incorrect_path_title;
             break;
         default:
-            Log.e(TAG, "Incorrect connection checker result type: " + type);
+            Log_OC.e(TAG, "Incorrect connection checker result type: " + type);
         }
         setResultIconAndText(mStatusIcon, mStatusText);
         if (!mStatusCorrect)
@@ -585,7 +586,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mStatusText = R.string.auth_unknown_error_title;
                 break;
 	        default:
-	            Log.e(TAG, "Incorrect connection checker result type: " + result.getHttpCode());
+	            Log_OC.e(TAG, "Incorrect connection checker result type: " + result.getHttpCode());
 	        }
 	        setResultIconAndText(mStatusIcon, mStatusText);
 	        if (!mStatusCorrect)

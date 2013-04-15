@@ -20,6 +20,7 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
@@ -29,7 +30,6 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
@@ -79,7 +79,7 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
                 i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 break;
             default:
-                Log.wtf(TAG, "Unhandled conflict decision " + decision);
+                Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
         i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);

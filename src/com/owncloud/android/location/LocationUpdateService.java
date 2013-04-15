@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 public class LocationUpdateService extends IntentService implements
@@ -76,7 +77,7 @@ public class LocationUpdateService extends IntentService implements
 
         // If we do shall track the device -> Stop
         if (!trackDevice) {
-            Log.d(TAG, "Devicetracking is disabled");
+            Log_OC.d(TAG, "Devicetracking is disabled");
             stopSelf();
             return;
         }
@@ -87,7 +88,7 @@ public class LocationUpdateService extends IntentService implements
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "Location changed: " + location);
+        Log_OC.d(TAG, "Location changed: " + location);
 
     }
 

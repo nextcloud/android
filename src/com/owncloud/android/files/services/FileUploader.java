@@ -51,6 +51,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -151,7 +152,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         HandlerThread thread = new HandlerThread("FileUploaderThread", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -171,12 +172,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!intent.hasExtra(KEY_ACCOUNT) || !intent.hasExtra(KEY_UPLOAD_TYPE)
                 || !(intent.hasExtra(KEY_LOCAL_FILE) || intent.hasExtra(KEY_FILE))) {
-            Log.e(TAG, "Not enough information provided in intent");
+            Log_OC.e(TAG, "Not enough information provided in intent");
             return Service.START_NOT_STICKY;
         }
         int uploadType = intent.getIntExtra(KEY_UPLOAD_TYPE, -1);
         if (uploadType == -1) {
-            Log.e(TAG, "Incorrect upload type provided");
+            Log_OC.e(TAG, "Incorrect upload type provided");
             return Service.START_NOT_STICKY;
         }
         Account account = intent.getParcelableExtra(KEY_ACCOUNT);
@@ -227,20 +228,20 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         }
 
         if (intent.hasExtra(KEY_FILE) && files == null) {
-            Log.e(TAG, "Incorrect array for OCFiles provided in upload intent");
+            Log_OC.e(TAG, "Incorrect array for OCFiles provided in upload intent");
             return Service.START_NOT_STICKY;
 
         } else if (!intent.hasExtra(KEY_FILE)) {
             if (localPaths == null) {
-                Log.e(TAG, "Incorrect array for local paths provided in upload intent");
+                Log_OC.e(TAG, "Incorrect array for local paths provided in upload intent");
                 return Service.START_NOT_STICKY;
             }
             if (remotePaths == null) {
-                Log.e(TAG, "Incorrect array for remote paths provided in upload intent");
+                Log_OC.e(TAG, "Incorrect array for remote paths provided in upload intent");
                 return Service.START_NOT_STICKY;
             }
             if (localPaths.length != remotePaths.length) {
-                Log.e(TAG, "Different number of remote paths and local paths!");
+                Log_OC.e(TAG, "Different number of remote paths and local paths!");
                 return Service.START_NOT_STICKY;
             }
 
@@ -280,15 +281,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
 
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, "Not enough information provided in intent: " + e.getMessage());
+            Log_OC.e(TAG, "Not enough information provided in intent: " + e.getMessage());
             return START_NOT_STICKY;
 
         } catch (IllegalStateException e) {
-            Log.e(TAG, "Bad information provided in intent: " + e.getMessage());
+            Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
             return START_NOT_STICKY;
 
         } catch (Exception e) {
-            Log.e(TAG, "Unexpected exception while processing upload intent", e);
+            Log_OC.e(TAG, "Unexpected exception while processing upload intent", e);
             return START_NOT_STICKY;
 
         }
@@ -299,7 +300,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             msg.obj = requestedUploads;
             mServiceHandler.sendMessage(msg);
         }
-        Log.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
+        Log_OC.i(TAG, "mPendingUploads size:" + mPendingUploads.size());
         return Service.START_NOT_STICKY;
     }
 
@@ -516,7 +517,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             } finally {
                 synchronized (mPendingUploads) {
                     mPendingUploads.remove(uploadKey);
-                    Log.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
+                    Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                 }
             }
 
@@ -562,12 +563,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
 
             result = new RemoteOperationResult(isMultiStatus, status);
-            Log.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
+            Log_OC.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
                     + result.getLogMessage());
 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
+            Log_OC.e(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
                     + result.getLogMessage(), e);
 
         } finally {
@@ -642,7 +643,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
                         remotePath.substring(remotePath.lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + remotePath);
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + remotePath);
             }
         }
         if (mimeType == null) {
@@ -736,7 +737,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * @param upload Finished upload operation
      */
     private void notifyUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
-        Log.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
+        Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
         if (uploadResult.isCancelled()) {
             // / cancelled operation -> silent removal of progress notification
             mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
@@ -817,7 +818,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 try {
                     db = new DbHandler(this.getBaseContext());
                     String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
-                    Log.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
+                    Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                     if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
                         message = getString(R.string.failed_upload_quota_exceeded_text);
                     }

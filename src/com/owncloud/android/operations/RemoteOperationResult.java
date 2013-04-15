@@ -35,6 +35,7 @@ import org.apache.jackrabbit.webdav.DavException;
 
 import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.network.CertificateCombinedException;
 
 /**
@@ -91,7 +92,7 @@ public class RemoteOperationResult implements Serializable {
                 break;
             default:
                 mCode = ResultCode.UNHANDLED_HTTP_CODE;
-                Log.d(TAG, "RemoteOperationResult has prcessed UNHANDLED_HTTP_CODE: " + httpCode);
+                Log_OC.d(TAG, "RemoteOperationResult has prcessed UNHANDLED_HTTP_CODE: " + httpCode);
             }
         }
     }

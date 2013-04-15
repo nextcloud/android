@@ -18,27 +18,30 @@
  */
 package com.owncloud.android.ui.activity;
 
+import java.io.File;
 import java.util.Vector;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.util.Log;
+import android.preference.PreferenceManager;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.OwnCloudSession;
-import com.owncloud.android.db.DbHandler;
-
 import com.owncloud.android.R;
+import com.owncloud.android.db.DbHandler;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -46,20 +49,23 @@ import com.owncloud.android.R;
  * @author Bartek Przybylski
  * 
  */
-public class Preferences extends SherlockPreferenceActivity implements
-        OnPreferenceChangeListener{
+public class Preferences extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
+    
     private static final String TAG = "OwnCloudPreferences";
     private final int mNewSession = 47;
     private final int mEditSession = 48;
     private DbHandler mDbHandler;
     private Vector<OwnCloudSession> mSessions;
-    //private Account[] mAccounts;
-    //private ListPreference mAccountList;
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
+    private CheckBoxPreference pLogging;
+    private Preference pLoggingHistory;
+    private Preference pAboutApp;
     private int mSelectedMenuItem;
 
+
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,76 +87,79 @@ public class Preferences extends SherlockPreferenceActivity implements
         });
         
         pCode = (CheckBoxPreference) findPreference("set_pincode");
-         
-        
         if (pCode != null){
-            
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                                          
                     Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
                     i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
                     i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
-                    
                     startActivity(i);
-                    
                     return true;
                 }
-            });            
+            });
             
-        }
-        
+           /* About App */
+       pAboutApp = (Preference) findPreference("about_app");
+       if (pAboutApp != null) { 
+               pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
+               PackageInfo pkg;
+               try {
+                   pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
+                   pAboutApp.setSummary(String.format(getString(R.string.about_version), pkg.versionName));
+               } catch (NameNotFoundException e) {
+                   Log_OC.e(TAG, "Error while showing about dialog", e);
+               }
+       }
+       
+       pLogging = (CheckBoxPreference) findPreference("log_to_file");
+       if (pLogging != null) {
+           pLogging.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+               @Override
+               public boolean onPreferenceChange(Preference preference, Object newValue) {
+                   
+                   String logpath = Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log";
+                
+                   if(!pLogging.isChecked()) {
+                       Log_OC.d("Debug", "start logging");
+                       Log_OC.v("PATH", logpath);
+                       Log_OC.startLogging(logpath);
+                   }
+                   else {
+                       Log_OC.d("Debug", "stop logging");
+                       Log_OC.stopLogging();
+                   }
+                   return true;
+               }
+           });
+       }
+       
+       pLoggingHistory = (Preference) findPreference("log_history");
+       if (pLoggingHistory != null) {
+           pLoggingHistory.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(getApplicationContext(),LogHistoryActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+       }
+      }
     }
-
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
-        SharedPreferences appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean("set_pincode", false);
         pCode.setChecked(state);
-        
         super.onResume();
     }
 
-
-
-    /**
-     * Populates the account selector
-     *-/
-    private void populateAccountList() {
-        AccountManager accMan = AccountManager.get(this);
-        mAccounts = accMan.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
-        mAccountList = (ListPreference) findPreference("select_oc_account");
-        mAccountList.setOnPreferenceChangeListener(this);
-
-        // Display the name of the current account if there is any
-        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
-        if (defaultAccount != null) {
-            mAccountList.setSummary(defaultAccount.name);
-        }
-        
-        // Transform accounts into array of string for preferences to use
-        String[] accNames = new String[mAccounts.length];
-        for (int i = 0; i < mAccounts.length; i++) {
-            Account account = mAccounts[i];
-            accNames[i] = account.name;
-        }
-
-        mAccountList.setEntries(accNames);
-        mAccountList.setEntryValues(accNames);
-    }*/
-
-    
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        //MenuInflater inflater = getSherlock().getMenuInflater();
-        //inflater.inflate(R.menu.prefs_menu, menu);
         return true;
     }
 
@@ -181,7 +190,7 @@ public class Preferences extends SherlockPreferenceActivity implements
             startActivity(intent);
             break;
         default:
-            Log.w(TAG, "Unknown menu item triggered");
+            Log_OC.w(TAG, "Unknown menu item triggered");
             return false;
         }
         return true;
@@ -197,8 +206,6 @@ public class Preferences extends SherlockPreferenceActivity implements
         mDbHandler.close();
         super.onDestroy();
     }
-
-    
     
     @Override
     /**
@@ -231,7 +238,4 @@ public class Preferences extends SherlockPreferenceActivity implements
         } 
         return true;
     }
-    
-    
-
 }

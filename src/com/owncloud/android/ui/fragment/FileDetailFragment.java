@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+//import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -60,9 +61,34 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.Point;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -90,6 +116,7 @@ import com.owncloud.android.R;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
+
 
 /**
  * This Fragment is used to display the details about a file.
@@ -122,8 +149,8 @@ public class FileDetailFragment extends SherlockFragment implements
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG = "FileDetails"; 
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
-
     
+
     /**
      * Creates an empty details fragment.
      * 
@@ -268,7 +295,6 @@ public class FileDetailFragment extends SherlockFragment implements
         return super.getView() == null ? mView : super.getView();
     }
 
-    
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -358,7 +384,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 break;
             }
             default:
-                Log.e(TAG, "Incorrect view clicked!");
+                Log_OC.e(TAG, "Incorrect view clicked!");
         }
         
         /* else if (v.getId() == R.id.fdShareBtn) {
@@ -485,7 +511,6 @@ public class FileDetailFragment extends SherlockFragment implements
         mAccount = ocAccount;
         updateFileDetails(false, false);
     }
-    
 
     /**
      * Updates the view with all relevant details about that file.
@@ -549,7 +574,6 @@ public class FileDetailFragment extends SherlockFragment implements
     private boolean readyToShow() {
         return (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment);        
     }
-
 
 
     /**
@@ -642,7 +666,6 @@ public class FileDetailFragment extends SherlockFragment implements
             }
         }
     }
-    
 
     /**
      * Enables or disables buttons for a file locally available 
@@ -706,7 +729,7 @@ public class FileDetailFragment extends SherlockFragment implements
         return false;
     }
     
-    
+
     /**
      * Once the file upload has finished -> update view
      * 
@@ -1031,7 +1054,5 @@ public class FileDetailFragment extends SherlockFragment implements
         }
 
     };
-    
-
 
 }

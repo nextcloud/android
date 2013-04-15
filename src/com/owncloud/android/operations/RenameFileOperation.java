@@ -27,6 +27,7 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 import android.accounts.Account;
 import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -138,11 +139,11 @@ public class RenameFileOperation extends RemoteOperation {
             
             move.getResponseBodyAsString(); // exhaust response, although not interesting
             result = new RemoteOperationResult(move.succeeded(), status);
-            Log.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + result.getLogMessage(), e);
             
         } finally {
             if (move != null)
@@ -206,7 +207,7 @@ public class RenameFileOperation extends RemoteOperation {
         try {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
         } catch (IOException e) {
-            Log.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
+            Log_OC.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
             return false;
         }
         boolean result = (testFile.exists() && testFile.isFile());

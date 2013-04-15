@@ -46,8 +46,9 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
+
 import com.owncloud.android.R;
 
 /**
@@ -119,9 +120,8 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             backToDisplayActivity(false);   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
         }
         
-        
     }
-
+    
     /**
      * Creates the proper fragment depending upon the state of the handled {@link OCFile} and
      * the requested {@link Intent}.
@@ -163,7 +163,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             mDownloadFinishReceiver = null;
         }
     }
-    
+
     
     @Override
     public void onResume() {
@@ -190,14 +190,14 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         public void onServiceConnected(ComponentName component, IBinder service) {
                 
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mWaitingToPreview) {
                     requestForDownload();
                 }
                     
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -214,10 +214,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -248,13 +248,11 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             returnValue = true;
             break;
         default:
-        	returnValue = super.onOptionsItemSelected(item);
+            returnValue = super.onOptionsItemSelected(item);
         }
         
         return returnValue;
     }
-
-
 
     private void backToDisplayActivity(boolean moveToParent) {
         Intent intent = new Intent(this, FileDisplayActivity.class);
@@ -289,7 +287,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         return dialog;
     }
     
-    
+
     /**
      * {@inheritDoc}
      */
@@ -388,7 +386,6 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
                 }
             }
         } // TODO else if (fragment != null && fragment )
-        
         
     }
 
