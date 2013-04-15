@@ -818,7 +818,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 try {
                     db = new DbHandler(this.getBaseContext());
                     String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
-                    Log.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
+                    Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                     if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
                         message = getString(R.string.failed_upload_quota_exceeded_text);
                     }

@@ -19,6 +19,7 @@
 package com.owncloud.android.media;
 
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService.State;
 
@@ -26,7 +27,6 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
-import android.util.Log;
 import android.widget.MediaController;
 
 
@@ -129,13 +129,13 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     
     @Override
     public void pause() {
-        Log.d(TAG, "Pausing through binder...");
+        Log_OC.d(TAG, "Pausing through binder...");
         mService.processPauseRequest();
     }
 
     @Override
     public void seekTo(int pos) {
-        Log.d(TAG, "Seeking " + pos + " through binder...");
+        Log_OC.d(TAG, "Seeking " + pos + " through binder...");
         MediaPlayer currentPlayer = mService.getPlayer();
         MediaService.State currentState = mService.getState();
         if (currentPlayer != null && currentState != State.PREPARING && currentState != State.STOPPED) {
@@ -145,12 +145,12 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
 
     @Override
     public void start() {
-        Log.d(TAG, "Starting through binder...");
+        Log_OC.d(TAG, "Starting through binder...");
         mService.processPlayRequest();  // this will finish the service if there is no file preloaded to play
     }
     
     public void start(Account account, OCFile file, boolean playImmediately, int position) {
-        Log.d(TAG, "Loading and starting through binder...");
+        Log_OC.d(TAG, "Loading and starting through binder...");
         Intent i = new Intent(mService, MediaService.class);
         i.putExtra(MediaService.EXTRA_ACCOUNT, account);
         i.putExtra(MediaService.EXTRA_FILE, file);

@@ -30,7 +30,6 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
