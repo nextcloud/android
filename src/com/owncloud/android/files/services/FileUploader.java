@@ -655,15 +655,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
         OCFile parentDir = storageManager.getFileByPath(parentPath);
-        if (parentDir == null) {
-            Toast t = Toast
-                    .makeText(
-                            getApplicationContext(),
-                            "The first time the InstantUpload is running you must be online, so the target folder can successfully created by the upload process",
-                            30);
-            t.show();
-            return null;
-        }
         long parentDirId = parentDir.getFileId();
         newFile.setParentId(parentDirId);
         return newFile;
