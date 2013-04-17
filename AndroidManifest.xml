@@ -154,7 +154,6 @@
         
         <activity android:name=".ui.activity.LogHistoryActivity"/>
         
-        <service android:name=".files.services.InstantUploadService" />
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.android.camera.NEW_PICTURE" />

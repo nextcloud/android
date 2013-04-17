@@ -440,7 +440,7 @@ public class InstantUploadActivity extends Activity {
      */
     private void startUpload(String img_path) {
         // extract filename
-        String filename = FileStorageUtils.getInstantUploadFilePath(img_path);
+        String filename = FileStorageUtils.getInstantUploadFilePath(this, img_path);
         if (canInstantUpload()) {
             Account account = AccountUtils.getCurrentOwnCloudAccount(InstantUploadActivity.this);
             // add file again to upload queue

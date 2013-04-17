@@ -20,13 +20,14 @@ package com.owncloud.android.utils;
 import java.io.File;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.InstantUploadService;
 
 /**
  * Static methods to help in access to local file system.
@@ -69,25 +70,9 @@ public class FileStorageUtils {
         return Environment.getExternalStorageDirectory() + File.separator + "owncloud" + File.separator + "log";
     }
 
-    // to ensure we will not add the slash twice between filename and
-    // folder-name
-    private static String getFileName(String filepath) {
-        if (filepath != null && !"".equals(filepath)) {
-            int psi = filepath.lastIndexOf('/');
-            String filename = filepath;
-            if (psi > -1) {
-                filename = filepath.substring(psi + 1, filepath.length());
-                Log.d(LOG_TAG, "extracted filename :" + filename);
-            }
-            return filename;
-        } else {
-            // Toast
-            Log.w(LOG_TAG, "the given filename was null or empty");
-            return null;
-        }
-    }
-
-    public static String getInstantUploadFilePath(String fileName) {
-        return InstantUploadService.INSTANT_UPLOAD_DIR + "/" + getFileName(fileName);
+    public static String getInstantUploadFilePath(Context context, String fileName) {
+        String uploadPath = context.getString(R.string.instant_upload_path);
+        String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
+        return value;
     }
 }

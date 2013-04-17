@@ -45,7 +45,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -67,6 +66,7 @@ import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -499,7 +499,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             // / create remote folder for instant uploads
             if (mCurrentUpload.isRemoteFolderToBeCreated()) {
-                mUploadClient.createDirectory(InstantUploadService.INSTANT_UPLOAD_DIR);
+                mUploadClient.createDirectory(FileStorageUtils.getInstantUploadFilePath(this, ""));
                 // ignoring result fail could just mean that it already exists,
                 // but local database is not synchronized the upload will be
                 // tried anyway
@@ -601,11 +601,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     }
 
     private boolean checkAndFixInstantUploadDirectory(FileDataStorageManager storageManager) {
-        OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadService.INSTANT_UPLOAD_DIR);
+        String instantUploadDirPath = FileStorageUtils.getInstantUploadFilePath(this, "");
+        OCFile instantUploadDir = storageManager.getFileByPath(instantUploadDirPath);
         if (instantUploadDir == null) {
             // first instant upload in the account. never account not
             // synchronized after the remote InstantUpload folder was created
-            OCFile newDir = new OCFile(InstantUploadService.INSTANT_UPLOAD_DIR);
+            OCFile newDir = new OCFile(instantUploadDirPath);
             newDir.setMimetype("DIR");
             OCFile path = storageManager.getFileByPath(OCFile.PATH_SEPARATOR);
 
@@ -613,7 +614,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 newDir.setParentId(path.getFileId());
                 storageManager.saveFile(newDir);
                 return true;
-            } else {
+            } else {    // this should not happen anymore
                 return false;
             }
 
