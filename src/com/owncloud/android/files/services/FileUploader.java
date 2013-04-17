@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -250,7 +249,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes != null) ? mimeTypes[i]
                         : (String) null), storageManager);
                 if (files[i] == null) {
-                    // TODO @andromaex add failure Notiification
+                    // TODO @andomaex add failure Notiification
                     return Service.START_NOT_STICKY;
                 }
             }
@@ -604,7 +603,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private boolean checkAndFixInstantUploadDirectory(FileDataStorageManager storageManager) {
         OCFile instantUploadDir = storageManager.getFileByPath(InstantUploadService.INSTANT_UPLOAD_DIR);
         if (instantUploadDir == null) {
-            // first instant upload in the account, or never account not
+            // first instant upload in the account. never account not
             // synchronized after the remote InstantUpload folder was created
             OCFile newDir = new OCFile(InstantUploadService.INSTANT_UPLOAD_DIR);
             newDir.setMimetype("DIR");

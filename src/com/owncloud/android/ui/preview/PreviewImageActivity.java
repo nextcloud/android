@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -362,7 +361,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     /**
      * Called when the scroll state changes. Useful for discovering when the user begins dragging, 
-     * when the pager is automatically settling to the current page, or when it is fully stopped/idle.
+     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
      * 
      * @param   State       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */

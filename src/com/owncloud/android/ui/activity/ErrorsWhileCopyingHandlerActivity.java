@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -53,7 +52,7 @@ import com.owncloud.android.utils.FileStorageUtils;
  * Activity reporting errors occurred when local files uploaded to an ownCloud account with an app in
  * version under 1.3.16 where being copied to the ownCloud local folder.
  * 
- * Allows the user move the files to the ownCloud local folder, or let them unlinked to the remote
+ * Allows the user move the files to the ownCloud local folder. let them unlinked to the remote
  * files.
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.

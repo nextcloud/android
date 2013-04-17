@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -107,7 +106,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                     }
                 }
                 
-                if (result == null) {   // true if the server was not checked, or nothing was wrong with the remote request
+                if (result == null) {   // true if the server was not checked. nothing was wrong with the remote request
               
                     /// check changes in server and local file
                     boolean serverChanged = false;

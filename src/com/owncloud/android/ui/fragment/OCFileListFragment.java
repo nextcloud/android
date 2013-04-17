@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -385,7 +384,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     
     /**
      * Lists the given directory on the view. When the input parameter is null,
-     * it will either refresh the last known directory, or list the root
+     * it will either refresh the last known directory. list the root
      * if there never was a directory.
      * 
      * @param directory File to be listed

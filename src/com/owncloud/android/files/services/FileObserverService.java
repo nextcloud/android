@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -262,7 +261,7 @@ public class FileObserverService extends Service {
             OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
             if (observer != null) {
                 if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE) &&
-                        new File(downloadPath).exists()) {  // the download could be successful, or not; in both cases, the file could be down, due to a former download or upload   
+                        new File(downloadPath).exists()) {  // the download could be successful. not; in both cases, the file could be down, due to a former download or upload   
                     observer.startWatching();
                     Log_OC.d(TAG, "Watching again " + downloadPath);
                 

@@ -2,9 +2,8 @@
  *   Copyright (C) 2012  ownCloud
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -63,7 +62,7 @@ public class WebdavEntry {
                 }
             }
             
-            // check if it's a folder in the standard way: see RFC2518 12.2 , or RFC4918 14.3 
+            // check if it's a folder in the standard way: see RFC2518 12.2 . RFC4918 14.3 
             prop = propSet.get(DavPropertyName.RESOURCETYPE);
             if (prop!= null) {
                 Object value = prop.getValue();

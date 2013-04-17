@@ -1,10 +1,9 @@
 /* ownCloud Android client application
- *   Copyright 2013 ownCloud Inc.
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -291,7 +290,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     
     /**
      * Makes sure the media player exists and has been reset. This will create the media player
-     * if needed, or reset the existing media player if one already exists.
+     * if needed. reset the existing media player if one already exists.
      */
     protected void createMediaPlayerIfNeeded() {
         if (mPlayer == null) {
