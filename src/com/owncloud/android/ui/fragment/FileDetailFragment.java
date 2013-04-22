@@ -321,7 +321,7 @@ public class FileDetailFragment extends SherlockFragment implements
             toShow.add(R.id.action_open_file_with);
             toShow.add(R.id.action_sync_file);
             
-        } else {
+        } else if (mFile != null) {
             toHide.add(R.id.action_open_file_with);
             toHide.add(R.id.action_cancel_download);
             toHide.add(R.id.action_cancel_upload);
@@ -330,6 +330,16 @@ public class FileDetailFragment extends SherlockFragment implements
             toShow.add(R.id.action_rename_file);
             toShow.add(R.id.action_remove_file);
             toShow.add(R.id.action_download_file);
+            
+        } else {
+            toHide.add(R.id.action_open_file_with);
+            toHide.add(R.id.action_cancel_download);
+            toHide.add(R.id.action_cancel_upload);
+            toHide.add(R.id.action_sync_file);
+            toHide.add(R.id.action_download_file);
+            toHide.add(R.id.action_rename_file);
+            toHide.add(R.id.action_remove_file);
+            
         }
 
         MenuItem item = null;
