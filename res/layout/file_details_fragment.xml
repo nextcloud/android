@@ -178,57 +178,32 @@
       				android:text="@string/downloader_download_in_progress_ticker"
       				/>
     			
-    			<ProgressBar android:id="@+id/fdProgressBar"
-					android:layout_width="match_parent" 
-					android:layout_height="wrap_content"
-					android:progressDrawable="@android:drawable/progress_horizontal"
-					android:indeterminate="false" 
-					android:indeterminateOnly="false" 
-					/>
-				    								
 			    <LinearLayout
+			        android:id="@+id/fdProgressBlock"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:gravity="center_horizontal"
 					android:layout_marginTop="12dp"
+					android:layout_marginBottom="12dp"
+					android:orientation="horizontal"
 					>
 				    				
+    				<ProgressBar 
+    				    android:id="@+id/fdProgressBar"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:progressDrawable="@android:drawable/progress_horizontal"
+						android:indeterminate="false" 
+						android:indeterminateOnly="false" 
+					/>
+				    								
 					<Button
-						android:id="@+id/fdDownloadBtn"
-						android:layout_width="0dp"
+						android:id="@+id/fdCancelBtn"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/filedetails_download" />
-						
-					<Button
-						android:id="@+id/fdOpenBtn"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/filedetails_open" />
-						
-				</LinearLayout>
-		
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center_horizontal"
-					android:layout_marginTop="12dp"
-					>
-					
-					<Button
-						android:id="@+id/fdRenameBtn"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/common_rename" />
-						
-				    <Button
-						android:id="@+id/fdRemoveBtn"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/common_remove" />
+						android:layout_marginLeft="12dp"
+						android:text="@string/common_cancel" />
 						
 				</LinearLayout>
 	

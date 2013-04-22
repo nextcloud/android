@@ -282,6 +282,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         toHide.add(R.id.action_cancel_download);
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
+        toHide.add(R.id.action_sync_file);
         toHide.add(R.id.action_rename_file);    // by now
 
         for (int i : toHide) {
