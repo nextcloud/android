@@ -173,6 +173,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             toHide.add(R.id.action_download_file);
             toHide.add(R.id.action_cancel_download);
             toHide.add(R.id.action_cancel_upload);
+            toHide.add(R.id.action_sync_file);
             toHide.add(R.id.action_see_details);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
@@ -186,12 +187,11 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             if (targetFile.isDown()) {
                 toHide.add(R.id.action_cancel_download);
                 toHide.add(R.id.action_cancel_upload);
-                item = menu.findItem(R.id.action_download_file);
-                if (item != null) {
-                    item.setTitle(R.string.filedetails_sync_file);
-                }
+                toHide.add(R.id.action_download_file);
+                
             } else {
                 toHide.add(R.id.action_open_file_with);
+                toHide.add(R.id.action_sync_file);
             }
             if ( mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)) {
                 toHide.add(R.id.action_download_file);
@@ -314,7 +314,8 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 }
                 return true;
             }
-            case R.id.action_download_file: {
+            case R.id.action_download_file: 
+            case R.id.action_sync_file: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
                 WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getSherlockActivity().getApplicationContext());
