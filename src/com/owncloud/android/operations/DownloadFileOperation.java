@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,6 +32,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -42,7 +42,6 @@ import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**
@@ -104,7 +103,7 @@ public class DownloadFileOperation extends RemoteOperation {
                     .getMimeTypeFromExtension(
                             mFile.getRemotePath().substring(mFile.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + mFile.getRemotePath());
             }
         }
         if (mimeType == null) {
@@ -123,9 +122,17 @@ public class DownloadFileOperation extends RemoteOperation {
     
     
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
-        mDataTransferListeners.add(listener);
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
     }
     
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
+    }
+
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
@@ -148,11 +155,11 @@ public class DownloadFileOperation extends RemoteOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             else
                 result = new RemoteOperationResult(isSuccess(status), status);
-            Log.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
         }
         
         return result;
@@ -190,9 +197,11 @@ public class DownloadFileOperation extends RemoteOperation {
                     }
                     fos.write(bytes, 0, readResult);
                     transferred += readResult;
-                    it = mDataTransferListeners.iterator();
-                    while (it.hasNext()) {
-                        it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
+                    synchronized (mDataTransferListeners) {
+                        it = mDataTransferListeners.iterator();
+                        while (it.hasNext()) {
+                            it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
+                        }
                     }
                 }
                 savedFile = true;
@@ -220,5 +229,6 @@ public class DownloadFileOperation extends RemoteOperation {
     public void cancel() {
         mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
     }
+
 
 }

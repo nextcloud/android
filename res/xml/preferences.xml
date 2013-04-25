@@ -6,9 +6,8 @@
   Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,8 +31,19 @@
     <CheckBoxPreference android:key="instant_uploading" 
                         android:title="@string/prefs_instant_upload"  
                         android:summary="@string/prefs_instant_upload_summary"/>
-    <CheckBoxPreference android:dependency="instant_uploading" android:disableDependentsState="true" android:title="@string/instant_upload_on_wifi" android:key="instant_upload_on_wifi"/>
-    
+    <CheckBoxPreference android:dependency="instant_uploading" 
+        				android:disableDependentsState="true" 
+        				android:title="@string/instant_upload_on_wifi" 
+        				android:key="instant_upload_on_wifi"/>
+    <CheckBoxPreference android:key="log_to_file" 
+                        android:title="@string/prefs_log_title"  
+                        android:summary="@string/prefs_log_summary"/>
+	<Preference 		android:key="log_history" 
+                        android:title="@string/prefs_log_title_history"  
+                        android:summary="@string/prefs_log_summary_history"/>
+	<Preference 		android:id="@+id/about_app" 
+        				android:title="@string/about_title" 
+        				android:key="about_app" />
 	</PreferenceCategory>
     
 

@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,9 +22,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.Log_OC;
 
 public class ConfirmationDialogFragment extends SherlockDialogFragment {
 
@@ -36,6 +35,8 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
     public final static String ARG_NEUTRAL_BTN_RES = "neutral_btn_res";
     public final static String ARG_NEGATIVE_BTN_RES = "negative_btn_res";
     
+    public static final String FTAG_CONFIRMATION = "CONFIRMATION_FRAGMENT";
+
     private ConfirmationDialogFragmentListener mListener;
     
     /**
@@ -73,7 +74,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
         int negBtn = getArguments().getInt(ARG_NEGATIVE_BTN_RES, -1);
         
         if (confirmationTarget == null || resourceId == -1) {
-            Log.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
+            Log_OC.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
             return null;
         }
 
@@ -90,6 +91,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             mListener.onConfirmation(getTag()); 
+                            dialog.dismiss();
                         }
                     });
         if (neuBtn != -1)
@@ -97,6 +99,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             mListener.onNeutral(getTag()); 
+                            dialog.dismiss();
                         }
                     });
         if (negBtn != -1)
@@ -105,6 +108,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             mListener.onCancel(getTag());
+                            dialog.dismiss();
                         }
                     });
       return builder.create();

@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,11 +18,11 @@
 
 package com.owncloud.android.extensions;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class ExtensionsAvailableDialog extends DialogFragment implements
             getActivity().finish();
             break;
         default:
-            Log.e("EAD", "Button with unknown id clicked " + v.getId());
+            Log_OC.e("EAD", "Button with unknown id clicked " + v.getId());
         }
     }
 

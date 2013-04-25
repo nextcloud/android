@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -61,7 +60,7 @@ public class IndeterminateProgressDialog extends SherlockDialogFragment {
         dialog.setIndeterminate(true);
         
         /// set message
-        int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.text_placeholder);
+        int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
         dialog.setMessage(getString(messageId));
         
         /// set cancellation behavior

@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -27,6 +26,7 @@ import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.DataStorageManager;
@@ -37,7 +37,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
-
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.Notification;
@@ -49,13 +48,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
  * platform ContactOperations provider.
  * 
  * @author Bartek Przybylski
+ * @author David A. Velasco
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
@@ -117,7 +116,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             return;
         }
         
-        Log.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
+        Log_OC.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
         sendStickyBroadcast(true, null, null);  // message to signal the start of the synchronization to the UI
         
         try {
@@ -127,7 +126,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(OCFile.PATH_SEPARATOR, DataStorageManager.ROOT_PARENT_ID);
                 
             } else {
-                Log.d(TAG, "Leaving synchronization before any remote request due to cancellation was requested");
+                Log_OC.d(TAG, "Leaving synchronization before any remote request due to cancellation was requested");
             }
             
             
@@ -154,7 +153,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
         
     }
-
     
     /**
      * Called by system SyncManager when a synchronization is required to be cancelled.
@@ -164,7 +162,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     @Override
     public void onSyncCanceled() {
-        Log.d(TAG, "Synchronization of " + getAccount().name + " has been requested to cancel");
+        Log_OC.d(TAG, "Synchronization of " + getAccount().name + " has been requested to cancel");
         mCancellation = true;
         super.onSyncCanceled();
     }
@@ -180,7 +178,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             mLastFailedResult = result; 
         }
     }
-
     
     
     /**
@@ -249,7 +246,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             RemoteOperationResult.ResultCode code = failedResult.getCode();
             return (code.equals(RemoteOperationResult.ResultCode.SSL_ERROR) ||
                     code.equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) ||
-                    code.equals(RemoteOperationResult.ResultCode.UNAUTHORIZED) ||
                     code.equals(RemoteOperationResult.ResultCode.BAD_OC_VERSION) ||
                     code.equals(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED));
         }
@@ -269,7 +265,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
             }
         }
-        if (mCancellation && i <files.size()) Log.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
+        if (mCancellation && i <files.size()) Log_OC.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
     }
 
     
@@ -318,9 +314,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                     notification.contentIntent);
         } else {
             notification.setLatestEventInfo(getContext().getApplicationContext(), 
-                    getContext().getString(R.string.sync_fail_ticker), 
-                    String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
-                    notification.contentIntent);
+                                            getContext().getString(R.string.sync_fail_ticker), 
+                                            String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
+                                            notification.contentIntent);
         }
         ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_ticker, notification);
     }
@@ -355,7 +351,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_conflicts_in_favourites_ticker, notification);
         } 
     }
-
     
     /**
      * Notifies the user about local copies of files out of the ownCloud local directory that were 'forgotten' because 

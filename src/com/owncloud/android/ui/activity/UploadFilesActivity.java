@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,7 +25,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -44,6 +42,7 @@ import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -78,7 +77,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate() start");
+        Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
@@ -125,7 +124,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             mCurrentDialog = null;
         }
             
-        Log.d(TAG, "onCreate() end");
+        Log_OC.d(TAG, "onCreate() end");
     }
 
 
@@ -181,10 +180,10 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log.d(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
-        Log.d(TAG, "onSaveInstanceState() end");
+        Log_OC.d(TAG, "onSaveInstanceState() end");
     }
 
     
@@ -347,15 +346,14 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
                 String[] args = {getString(R.string.app_name)};
                 ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no);
                 dialog.setOnConfirmationListener(UploadFilesActivity.this);
-                mCurrentDialog = dialog;
-                mCurrentDialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
+                dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
             }
         }
     }
 
     @Override
     public void onConfirmation(String callerTag) {
-        Log.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
+        Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
         if (callerTag.equals(QUERY_TO_MOVE_DIALOG_TAG)) {
             // return the list of selected files to the caller activity (success), signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
@@ -363,25 +361,19 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             setResult(RESULT_OK_AND_MOVE, data);
             finish();
         }
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
     }
 
 
     @Override
     public void onNeutral(String callerTag) {
-        Log.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
     }
 
 
     @Override
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
-        Log.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
-        mCurrentDialog.dismiss();
-        mCurrentDialog = null;
+        Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
     }    
 
     

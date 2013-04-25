@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,6 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package eu.alefzero.webdav;
 
 import java.io.BufferedInputStream;
@@ -47,11 +47,12 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.apache.jackrabbit.webdav.client.methods.DavMethod;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
+import com.owncloud.android.Log_OC;
+
 import com.owncloud.android.network.BearerAuthScheme;
 import com.owncloud.android.network.BearerCredentials;
 
 import android.net.Uri;
-import android.util.Log;
 
 public class WebdavClient extends HttpClient {
     private Uri mUri;
@@ -67,7 +68,7 @@ public class WebdavClient extends HttpClient {
      */
     public WebdavClient(HttpConnectionManager connectionMgr) {
         super(connectionMgr);
-        Log.d(TAG, "Creating WebdavClient");
+        Log_OC.d(TAG, "Creating WebdavClient");
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
     }
@@ -92,7 +93,6 @@ public class WebdavClient extends HttpClient {
         mCredentials = new UsernamePasswordCredentials(username, password);
         getState().setCredentials(AuthScope.ANY, mCredentials);
     }
-    
     
     /**
      * Downloads a file in remoteFilepath to the local targetPath.
@@ -125,7 +125,8 @@ public class WebdavClient extends HttpClient {
             } else {
                 exhaustResponse(get.getResponseBodyAsStream());
             }
-            Log.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
+            Log_OC.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
+            
         } catch (Exception e) {
             logException(e, "dowloading " + remoteFilePath);
             
@@ -137,6 +138,7 @@ public class WebdavClient extends HttpClient {
         }
         return ret;
     }
+    
     
     /**
      * Deletes a remote file via webdav
@@ -151,7 +153,7 @@ public class WebdavClient extends HttpClient {
             ret = (status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED || status == HttpStatus.SC_NO_CONTENT);
             exhaustResponse(delete.getResponseBodyAsStream());
             
-            Log.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
+            Log_OC.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
             
         } catch (Exception e) {
             logException(e, "deleting " + remoteFilePath);
@@ -184,7 +186,7 @@ public class WebdavClient extends HttpClient {
         try {
             File f = new File(localFile);
             FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.addOnDatatransferProgressListener(mDataTransferListener);
+            entity.addDatatransferProgressListener(mDataTransferListener);
             put.setRequestEntity(entity);
             status = executeMethod(put);
             
@@ -207,7 +209,7 @@ public class WebdavClient extends HttpClient {
         try {
             status = executeMethod(head);
             boolean result = status == HttpStatus.SC_OK;
-            Log.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
+            Log_OC.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
             
         } catch (Exception e) {
@@ -219,7 +221,6 @@ public class WebdavClient extends HttpClient {
         return status;
     }
 
-    
     /**
      * Check if a file exists in the OC server
      * 
@@ -230,7 +231,7 @@ public class WebdavClient extends HttpClient {
         HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
             int status = executeMethod(head);
-            Log.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
+            Log_OC.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
             return (status == HttpStatus.SC_OK);
             
@@ -238,8 +239,7 @@ public class WebdavClient extends HttpClient {
             head.releaseConnection();    // let the connection available for other methods
         }
     }
-
-
+    
     /**
      * Requests the received method with the received timeout (milliseconds).
      * 
@@ -283,11 +283,10 @@ public class WebdavClient extends HttpClient {
                 responseBodyAsStream.close();
             
             } catch (IOException io) {
-                Log.e(TAG, "Unexpected exception while exhausting not interesting HTTP response; will be IGNORED", io);
+                Log_OC.e(TAG, "Unexpected exception while exhausting not interesting HTTP response; will be IGNORED", io);
             }
         }
     }
-
 
     /**
      * Logs an exception triggered in a HTTP request. 
@@ -297,13 +296,13 @@ public class WebdavClient extends HttpClient {
      */
     private void logException(Exception e, String doing) {
         if (e instanceof HttpException) {
-            Log.e(TAG, "HTTP violation while " + doing, e);
+            Log_OC.e(TAG, "HTTP violation while " + doing, e);
 
         } else if (e instanceof IOException) {
-            Log.e(TAG, "Unrecovered transport exception while " + doing, e);
+            Log_OC.e(TAG, "Unrecovered transport exception while " + doing, e);
 
         } else {
-            Log.e(TAG, "Unexpected exception while " + doing, e);
+            Log_OC.e(TAG, "Unexpected exception while " + doing, e);
         }
     }
 
@@ -327,7 +326,6 @@ public class WebdavClient extends HttpClient {
     public Uri getBaseUri() {
         return mUri;
     }
-    
 
     @Override
     public int executeMethod(HostConfiguration hostconfig, final HttpMethod method, final HttpState state) throws IOException, HttpException  {

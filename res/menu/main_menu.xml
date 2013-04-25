@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2012-2013 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_sync_account" 	android:title="@string/actionbar_sync" 		android:icon="@drawable/ic_action_refresh" 				android:orderInCategory="2" />
+    <item android:id="@+id/action_create_dir" 		android:title="@string/actionbar_mkdir" 	android:icon="@drawable/ic_action_create_dir"			android:orderInCategory="2" />
+    <item android:id="@+id/action_upload" 			android:title="@string/actionbar_upload" 	android:icon="@drawable/ic_action_upload" 				android:orderInCategory="2" />
+    <item android:id="@+id/action_settings" 		android:title="@string/actionbar_settings" 	android:icon="@android:drawable/ic_menu_preferences" 	android:orderInCategory="2" />
+    
+    <!--  <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item>-->
+</menu>

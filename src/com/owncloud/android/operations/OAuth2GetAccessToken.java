@@ -8,10 +8,9 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.OAuth2Constants;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-
-import android.util.Log;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -98,16 +97,16 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 postMethod.releaseConnection();    // let the connection available for other methods
             
             if (result.isSuccess()) {
-                Log.i(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
+                Log_OC.i(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
             
             } else if (result.getException() != null) {
-                Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage(), result.getException());
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage(), result.getException());
                 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                    Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
                     
             } else {
-                Log.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
             }
         }
         
@@ -135,7 +134,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                     sb.append(value + "\n");
                 }
 
-                Log.v(TAG, "[" + i + "," + j + "] = " + p);
+                Log_OC.v(TAG, "[" + i + "," + j + "] = " + p);
                 j++;
             }
             i++;

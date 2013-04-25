@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,6 +19,7 @@
 package com.owncloud.android.authentication;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.OwnCloudVersion;
@@ -47,7 +47,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.Window;
@@ -302,7 +301,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     @Override
     protected void onNewIntent (Intent intent) {
-        Log.d(TAG, "onNewIntent()");
+        Log_OC.d(TAG, "onNewIntent()");
         Uri data = intent.getData();
         if (data != null && data.toString().startsWith(getString(R.string.oauth2_redirect_uri))) {
             mNewCapturedUriFromOAuth2Redirection = data;
@@ -477,7 +476,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mStatusText = R.string.auth_wtf_reenter_URL;
             updateConnStatus();
             mOkButton.setEnabled(false);
-            Log.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
+            Log_OC.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
             return;
         }
         
@@ -533,7 +532,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_SCOPE, getString(R.string.oauth2_scope));
         //uriBuilder.appendQueryParameter(OAuth2Constants.KEY_STATE, whateverwewant);
         uri = uriBuilder.build();
-        Log.d(TAG, "Starting browser to view " + uri.toString());
+        Log_OC.d(TAG, "Starting browser to view " + uri.toString());
         Intent i = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(i);
     }
@@ -722,7 +721,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             
             /// time to test the retrieved access token on the ownCloud server
             mOAuthAccessToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
-            Log.d(TAG, "Got ACCESS TOKEN: " + mOAuthAccessToken);
+            Log_OC.d(TAG, "Got ACCESS TOKEN: " + mOAuthAccessToken);
             mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
             WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this);
             client.setBearerCredentials(mOAuthAccessToken);
@@ -731,7 +730,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             updateStatusIconAndText(result);
             updateAuthStatus();
-            Log.d(TAG, "Access failed: " + result.getLogMessage());
+            Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
 
@@ -752,7 +751,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         
         if (result.isSuccess()) {
-            Log.d(TAG, "Successful access - time to save the account");
+            Log_OC.d(TAG, "Successful access - time to save the account");
 
             if (mAction == ACTION_CREATE) {
                 createAccount();
@@ -766,7 +765,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             updateStatusIconAndText(result);
             updateAuthStatus();
-            Log.d(TAG, "Access failed: " + result.getLogMessage());
+            Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
 
@@ -874,7 +873,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         default:
-            Log.e(TAG, "Incorrect dialog called with id = " + id);
+            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
     }
 
@@ -897,7 +896,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                         @Override
                         public void onCancel(DialogInterface dialog) {
                             /// TODO study if this is enough
-                            Log.i(TAG, "Login canceled");
+                            Log_OC.i(TAG, "Login canceled");
                             if (mOperationThread != null) {
                                 mOperationThread.interrupt();
                                 finish();
@@ -916,7 +915,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             .setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    Log.i(TAG, "Login canceled");
+                    Log_OC.i(TAG, "Login canceled");
                     finish();
                 }
             });
@@ -942,7 +941,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             break;
         }
         default:
-            Log.e(TAG, "Incorrect dialog called with id = " + id);
+            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
         return dialog;
     }

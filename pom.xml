@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.owncloud.android</groupId>
+    <artifactId>owncloud</artifactId>
+    <version>1.3.21-SNAPSHOT</version>
+    <packaging>apk</packaging>
+    <name>Owncloud Android</name>
+
+    <properties>
+        <java-version>1.6</java-version>
+        <google.android-version>4.1.1.4</google.android-version>
+        <google.android.support-version>r7</google.android.support-version>
+        <actionbarsherlock-version>4.2.0</actionbarsherlock-version>
+    </properties>
+
+    <url>https://github.com/owncloud/android</url>
+    <description>Owncloud for Android</description>
+    <scm>
+        <connection>scm:git:git@github.com:owncloud/android.git</connection>
+        <developerConnection>scm:git:git@github.com:owncloud/android.git</developerConnection>
+        <url>https://github.com/owncloud/android</url>
+    </scm>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${google.android-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>support-v4</artifactId>
+            <version>${google.android.support-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.actionbarsherlock</groupId>
+            <artifactId>actionbarsherlock</artifactId>
+            <version>${actionbarsherlock-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.actionbarsherlock</groupId>
+            <artifactId>actionbarsherlock</artifactId>
+            <version>${actionbarsherlock-version}</version>
+            <type>apklib</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-webdav</artifactId>
+            <version>2.5.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+
+        <sourceDirectory>src</sourceDirectory>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <sdk>
+                        <!-- platform or api level (api level 4 = platform 1.6)-->
+                        <path>${env.ANDROID_HOME}</path>
+                        <platform>17</platform>
+                    </sdk>
+                </configuration>
+                <extensions>true</extensions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
+

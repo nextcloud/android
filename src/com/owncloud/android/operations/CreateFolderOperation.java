@@ -2,9 +2,8 @@
  *   Copyright (C) 2012 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,10 +19,9 @@ package com.owncloud.android.operations;
 
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-
-import android.util.Log;
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
@@ -79,12 +77,12 @@ public class CreateFolderOperation extends RemoteOperation {
             }
 
             result = new RemoteOperationResult(mkcol.succeeded(), status);
-            Log.d(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage());
+            Log_OC.d(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage());
             client.exhaustResponse(mkcol.getResponseBodyAsStream());
                 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage(), e);
             
         } finally {
             if (mkcol != null)

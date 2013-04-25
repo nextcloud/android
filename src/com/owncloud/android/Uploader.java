@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,6 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package com.owncloud.android;
 
 import java.io.File;
@@ -49,7 +49,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore.Images.Media;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -100,10 +99,10 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
             Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
             if (accounts.length == 0) {
-                Log.i(TAG, "No ownCloud account is available");
+                Log_OC.i(TAG, "No ownCloud account is available");
                 showDialog(DIALOG_NO_ACCOUNT);
             } else if (accounts.length > 1) {
-                Log.i(TAG, "More then one ownCloud is available");
+                Log_OC.i(TAG, "More then one ownCloud is available");
                 showDialog(DIALOG_MULTIPLE_ACCOUNT);
             } else {
                 mAccount = accounts[0];
@@ -254,7 +253,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
-        Log.d(TAG, "on item click");
+        Log_OC.d(TAG, "on item click");
         Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
@@ -277,7 +276,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             mUploadPath = "";   // first element in mParents is root dir, represented by ""; init mUploadPath with "/" results in a "//" prefix
             for (String p : mParents)
                 mUploadPath += p + OCFile.PATH_SEPARATOR;
-            Log.d(TAG, "Uploading file to dir " + mUploadPath);
+            Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
 
             uploadFiles();
 
@@ -293,7 +292,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
+        Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
         if (requestCode == REQUEST_CODE_SETUP_ACCOUNT) {
             dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
@@ -319,7 +318,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         for (String a : mParents)
             full_path += a + "/";
         
-        Log.d(TAG, "Populating view with content of : " + full_path);
+        Log_OC.d(TAG, "Populating view with content of : " + full_path);
         
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {

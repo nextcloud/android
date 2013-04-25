@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,6 +17,8 @@
  */
 package com.owncloud.android.location;
 
+import com.owncloud.android.Log_OC;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.BroadcastReceiver;
@@ -25,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class LocationServiceLauncherReciever extends BroadcastReceiver {
 
@@ -60,10 +60,10 @@ public class LocationServiceLauncherReciever extends BroadcastReceiver {
         deviceTrackingIntent
                 .setAction("com.owncloud.android.location.LocationUpdateService");
         if (!isDeviceTrackingServiceRunning(context) && trackDevice) {
-            Log.d(TAG, "Starting device tracker service");
+            Log_OC.d(TAG, "Starting device tracker service");
             context.startService(deviceTrackingIntent);
         } else if (isDeviceTrackingServiceRunning(context) && !trackDevice) {
-            Log.d(TAG, "Stopping device tracker service");
+            Log_OC.d(TAG, "Stopping device tracker service");
             context.stopService(deviceTrackingIntent);
         }
     }

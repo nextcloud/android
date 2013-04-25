@@ -2,9 +2,8 @@
  *   Copyright (C) 2012  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,7 +27,7 @@ import org.apache.commons.httpclient.auth.AuthenticationException;
 import org.apache.commons.httpclient.auth.InvalidCredentialsException;
 import org.apache.commons.httpclient.auth.MalformedChallengeException;
 
-import android.util.Log;
+import com.owncloud.android.Log_OC;
 
 /**
  * Bearer authentication scheme as defined in RFC 6750.
@@ -120,7 +119,7 @@ public class BearerAuthScheme implements AuthScheme /*extends RFC2617Scheme*/ {
      * @deprecated Use {@link #authenticate(Credentials, HttpMethod)}
      */
     public String authenticate(Credentials credentials, String method, String uri) throws AuthenticationException {
-        Log.d(TAG, "enter BearerScheme.authenticate(Credentials, String, String)");
+        Log_OC.d(TAG, "enter BearerScheme.authenticate(Credentials, String, String)");
 
         BearerCredentials bearer = null;
         try {
@@ -155,7 +154,7 @@ public class BearerAuthScheme implements AuthScheme /*extends RFC2617Scheme*/ {
      * @return a basic authorization string
      */
     public String authenticate(Credentials credentials, HttpMethod method) throws AuthenticationException {
-        Log.d(TAG, "enter BearerScheme.authenticate(Credentials, HttpMethod)");
+        Log_OC.d(TAG, "enter BearerScheme.authenticate(Credentials, HttpMethod)");
 
         if (method == null) {
             throw new IllegalArgumentException("Method may not be null");
@@ -199,7 +198,7 @@ public class BearerAuthScheme implements AuthScheme /*extends RFC2617Scheme*/ {
      * @since 3.0
      */
     public static String authenticate(BearerCredentials credentials, String charset) {
-        Log.d(TAG, "enter BearerAuthScheme.authenticate(BearerCredentials, String)");
+        Log_OC.d(TAG, "enter BearerAuthScheme.authenticate(BearerCredentials, String)");
 
         if (credentials == null) {
             throw new IllegalArgumentException("Credentials may not be null"); 

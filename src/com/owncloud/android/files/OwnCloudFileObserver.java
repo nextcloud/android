@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,6 +20,7 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -33,7 +33,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.FileObserver;
-import android.util.Log;
 
 public class OwnCloudFileObserver extends FileObserver {
 
@@ -69,9 +68,9 @@ public class OwnCloudFileObserver extends FileObserver {
     
     @Override
     public void onEvent(int event, String path) {
-        Log.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
+        Log_OC.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
         if ((event & mMask) == 0) {
-            Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
+            Log_OC.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
             return;

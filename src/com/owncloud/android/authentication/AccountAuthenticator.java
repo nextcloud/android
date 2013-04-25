@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,13 +18,11 @@
 
 package com.owncloud.android.authentication;
 
-
 import android.accounts.*;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
+import com.owncloud.android.Log_OC;
 
 /**
  *  Authenticator for ownCloud accounts.
@@ -38,6 +35,7 @@ import android.util.Log;
  * @author David A. Velasco
  */
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
+    
     /**
      * Is used by android system to assign accounts to authenticators. Should be
      * used by application and all extensions.
@@ -53,6 +51,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";
     public static final String KEY_ACCOUNT = "account";
+    
     /**
      * Value under this key should handle path to webdav php script. Will be
      * removed and usage should be replaced by combining
@@ -94,12 +93,12 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             String accountType, String authTokenType,
             String[] requiredFeatures, Bundle options)
             throws NetworkErrorException {
-        Log.i(TAG, "Adding account with type " + accountType
+        Log_OC.i(TAG, "Adding account with type " + accountType
                 + " and auth token " + authTokenType);
         try {
             validateAccountType(accountType);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + accountType + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + accountType + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();
@@ -127,7 +126,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         try {
             validateAccountType(account.type);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + account.type + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();
@@ -163,7 +162,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
         } catch (AuthenticatorException e) {
-            Log.e(TAG, "Failed to validate account type " + account.type + ": "
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
                     + e.getMessage());
             e.printStackTrace();
             return e.getFailureBundle();
@@ -238,8 +237,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
     private void setIntentFlags(Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // incompatible with the authorization code grant in OAuth
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
     }

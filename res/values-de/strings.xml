@@ -53,6 +53,7 @@
   <string name="setup_title">Mit Deiner %1$s verbinden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
+  <string name="uploader_top_message">Wähle Zielverzeichnis:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Accounts auf Deinem Gerät eingerichtet. Bitte richte zuerst ein Konto ein.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
@@ -216,4 +217,16 @@
   <string name="conflict_keep_both">Beide behalten</string>
   <string name="conflict_overwrite">Überschreiben</string>
   <string name="conflict_dont_upload">Nicht hochladen</string>
+  
+  <string name="actionbar_failed_instant_upload">Fehlgeschlagene Sofortuploads</string>  
+  <string name="failed_upload_headline_text">Fehlgeschlagene Sofortuploads</string>
+  <string name="failed_upload_headline_hint">Auflistung aller fehlgeschlagenen Softuploads</string>
+  <string name="failed_upload_all_cb">Alle auswählen</string>
+  <string name="failed_upload_headline_retryall_btn">Ausgewählte wiederholen</string>
+  <string name="failed_upload_headline_delete_all_btn">Ausgewählte löschen </string>
+  <string name="failed_upload_retry_text">Versuche ausgewählte erneut hochzuladen</string>
+  <string name="failed_upload_load_more_images">Weitere Bilder laden</string>
+  <string name="failed_upload_retry_do_nothing_text">Upload nicht gestarted, Sie sind nicht online für ein Softupload</string>
+  <string name="failed_upload_failure_text">Fehlermeldung: </string>
+  <string name="failed_upload_quota_exceeded_text">Bitte überprüfen sie ihre Serverkonfiguration, möglicherweise ist ihre Upload Limit überschritten</string>
 </resources>

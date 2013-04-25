@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,16 +31,17 @@ import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.network.ProgressiveDataTransferer;
 
-import android.util.Log;
+import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 
 /**
  * A RequestEntity that represents a File.
  * 
  */
-public class FileRequestEntity implements RequestEntity {
+public class FileRequestEntity implements RequestEntity, ProgressiveDataTransferer {
 
     final File mFile;
     final String mContentType;
@@ -70,17 +70,26 @@ public class FileRequestEntity implements RequestEntity {
     public boolean isRepeatable() {
         return true;
     }
-    
-    public void addOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListeners.add(listener);
+
+    @Override
+    public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
     }
     
-    public void addOnDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
-        mDataTransferListeners.addAll(listeners);
+    @Override
+    public void addDatatransferProgressListeners(Collection<OnDatatransferProgressListener> listeners) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.addAll(listeners);
+        }
     }
     
-    public void removeOnDatatransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListeners.remove(listener);
+    @Override
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
     }
     
     
@@ -103,14 +112,16 @@ public class FileRequestEntity implements RequestEntity {
                 out.write(tmp.array(), 0, readResult);
                 tmp.clear();
                 transferred += readResult;
-                it = mDataTransferListeners.iterator();
-                while (it.hasNext()) {
-                    it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
+                synchronized (mDataTransferListeners) {
+                    it = mDataTransferListeners.iterator();
+                    while (it.hasNext()) {
+                        it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
+                    }
                 }
             }
             
         } catch (IOException io) {
-            Log.e("FileRequestException", io.getMessage());
+            Log_OC.e("FileRequestException", io.getMessage());
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         } finally {

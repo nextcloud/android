@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,6 +20,7 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.Credentials;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -32,7 +32,6 @@ import android.accounts.AccountsException;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -93,7 +92,7 @@ public abstract class RemoteOperation implements Runnable {
         try {
             mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
         } catch (Exception e) {
-            Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+            Log_OC.e(TAG, "Error while trying to access to " + mAccount.name, e);
             return new RemoteOperationResult(e);
         }
         return run(mClient);
@@ -231,11 +230,11 @@ public abstract class RemoteOperation implements Runnable {
                 }
             
             } catch (IOException e) {
-                Log.e(TAG, "Error while trying to access to " + mAccount.name, new AccountsException("I/O exception while trying to authorize the account", e));
+                Log_OC.e(TAG, "Error while trying to access to " + mAccount.name, new AccountsException("I/O exception while trying to authorize the account", e));
                 result = new RemoteOperationResult(e);
             
             } catch (AccountsException e) {
-                Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+                Log_OC.e(TAG, "Error while trying to access to " + mAccount.name, e);
                 result = new RemoteOperationResult(e);
             }
     	

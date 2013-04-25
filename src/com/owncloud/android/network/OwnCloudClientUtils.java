@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -39,6 +38,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.Log_OC;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -51,7 +51,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 public class OwnCloudClientUtils {
     
@@ -86,7 +85,7 @@ public class OwnCloudClientUtils {
      * @throws IOException                  If there was some I/O error while getting the authorization token for the account.
      */
     public static WebdavClient createOwnCloudClient (Account account, Context appContext) throws OperationCanceledException, AuthenticatorException, IOException {
-        //Log.d(TAG, "Creating WebdavClient associated to " + account.name);
+        //Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
         WebdavClient client = createOwnCloudClient(uri, appContext);
@@ -130,7 +129,6 @@ public class OwnCloudClientUtils {
         
         return client;
     }
-
     
     /**
      * Creates a WebdavClient to access a URL and sets the desired parameters for ownCloud client connections.
@@ -140,16 +138,16 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        //Log.d(TAG, "Creating WebdavClient for " + uri);
+        //Log_OC.d(TAG, "Creating WebdavClient for " + uri);
         
         //allowSelfsignedCertificates(true);
         try {
             registerAdvancedSslContext(true, context);
         }  catch (GeneralSecurityException e) {
-            Log.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in the system will be used for HTTPS connections", e);
+            Log_OC.e(TAG, "Advanced SSL Context could not be loaded. Default SSL management in the system will be used for HTTPS connections", e);
             
         } catch (IOException e) {
-            Log.e(TAG, "The local server truststore could not be read. Default SSL management in the system will be used for HTTPS connections", e);
+            Log_OC.e(TAG, "The local server truststore could not be read. Default SSL management in the system will be used for HTTPS connections", e);
         }
         
         WebdavClient client = new WebdavClient(getMultiThreadedConnManager());
@@ -227,7 +225,7 @@ public class OwnCloudClientUtils {
             //mKnownServersStore = KeyStore.getInstance("BKS");
             mKnownServersStore = KeyStore.getInstance(KeyStore.getDefaultType());
             File localTrustStoreFile = new File(context.getFilesDir(), LOCAL_TRUSTSTORE_FILENAME);
-            Log.d(TAG, "Searching known-servers store at " + localTrustStoreFile.getAbsolutePath());
+            Log_OC.d(TAG, "Searching known-servers store at " + localTrustStoreFile.getAbsolutePath());
             if (localTrustStoreFile.exists()) {
                 InputStream in = new FileInputStream(localTrustStoreFile);
                 try {
