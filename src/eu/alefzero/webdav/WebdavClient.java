@@ -95,134 +95,9 @@ public class WebdavClient extends HttpClient {
     }
     
     /**
-     * Downloads a file in remoteFilepath to the local targetPath.
-     * 
-     * @param remoteFilepath    Path to the file in the remote server, URL DECODED. 
-     * @param targetFile        Local path to save the downloaded file.
-     * @return                  'True' when the file is successfully downloaded.
-     */
-    public boolean downloadFile(String remoteFilePath, File targetFile) {
-        boolean ret = false;
-        GetMethod get = new GetMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilePath));
-
-        try {
-            int status = executeMethod(get);
-            if (status == HttpStatus.SC_OK) {
-                targetFile.createNewFile();
-                BufferedInputStream bis = new BufferedInputStream(
-                        get.getResponseBodyAsStream());
-                FileOutputStream fos = new FileOutputStream(targetFile);
-
-                byte[] bytes = new byte[4096];
-                int readResult;
-                while ((readResult = bis.read(bytes)) != -1) {
-                    if (mDataTransferListener != null)
-                        mDataTransferListener.onTransferProgress(readResult);
-                    fos.write(bytes, 0, readResult);
-                }
-                fos.close();
-                ret = true;
-            } else {
-                exhaustResponse(get.getResponseBodyAsStream());
-            }
-            Log_OC.e(TAG, "Download of " + remoteFilePath + " to " + targetFile + " finished with HTTP status " + status + (!ret?"(FAIL)":""));
-            
-        } catch (Exception e) {
-            logException(e, "dowloading " + remoteFilePath);
-            
-        } finally {
-            if (!ret && targetFile.exists()) {
-                targetFile.delete();
-            }
-            get.releaseConnection();    // let the connection available for other methods
-        }
-        return ret;
-    }
-    
-    
-    /**
-     * Deletes a remote file via webdav
-     * @param remoteFilePath       Remote file path of the file to delete, in URL DECODED format.
-     * @return
-     */
-    public boolean deleteFile(String remoteFilePath) {
-        boolean ret = false;
-        DavMethod delete = new DeleteMethod(mUri.toString() + WebdavUtils.encodePath(remoteFilePath));
-        try {
-            int status = executeMethod(delete);
-            ret = (status == HttpStatus.SC_OK || status == HttpStatus.SC_ACCEPTED || status == HttpStatus.SC_NO_CONTENT);
-            exhaustResponse(delete.getResponseBodyAsStream());
-            
-            Log_OC.e(TAG, "DELETE of " + remoteFilePath + " finished with HTTP status " + status +  (!ret?"(FAIL)":""));
-            
-        } catch (Exception e) {
-            logException(e, "deleting " + remoteFilePath);
-            
-        } finally {
-            delete.releaseConnection();    // let the connection available for other methods
-        }
-        return ret;
-    }
-
-    
-    public void setDataTransferProgressListener(OnDatatransferProgressListener listener) {
-        mDataTransferListener = listener;
-    }
-    
-    /**
-     * Creates or update a file in the remote server with the contents of a local file.
-     * 
-     * @param localFile         Path to the local file to upload.
-     * @param remoteTarget      Remote path to the file to create or update, URL DECODED
-     * @param contentType       MIME type of the file.
-     * @return                  Status HTTP code returned by the server.
-     * @throws IOException      When a transport error that could not be recovered occurred while uploading the file to the server.
-     * @throws HttpException    When a violation of the HTTP protocol occurred. 
-     */
-    public int putFile(String localFile, String remoteTarget, String contentType) throws HttpException, IOException {
-        int status = -1;
-        PutMethod put = new PutMethod(mUri.toString() + WebdavUtils.encodePath(remoteTarget));
-        
-        try {
-            File f = new File(localFile);
-            FileRequestEntity entity = new FileRequestEntity(f, contentType);
-            entity.addDatatransferProgressListener(mDataTransferListener);
-            put.setRequestEntity(entity);
-            status = executeMethod(put);
-            
-            exhaustResponse(put.getResponseBodyAsStream());
-            
-        } finally {
-            put.releaseConnection();    // let the connection available for other methods
-        }
-        return status;
-    }
-    
-    /**
-     * Tries to log in to the current URI, with the current credentials
-     * 
-     * @return A {@link HttpStatus}-Code of the result. SC_OK is good.
-     */
-    public int tryToLogin() {
-        int status = 0;
-        HeadMethod head = new HeadMethod(mUri.toString());
-        try {
-            status = executeMethod(head);
-            boolean result = status == HttpStatus.SC_OK;
-            Log_OC.d(TAG, "HEAD for " + mUri + " finished with HTTP status " + status + (!result?"(FAIL)":""));
-            exhaustResponse(head.getResponseBodyAsStream());
-            
-        } catch (Exception e) {
-            logException(e, "trying to login at " + mUri.toString());
-            
-        } finally {
-            head.releaseConnection();
-        }
-        return status;
-    }
-
-    /**
      * Check if a file exists in the OC server
+     * 
+     * TODO replace with ExistenceOperation
      * 
      * @return              'true' if the file exists; 'false' it doesn't exist
      * @throws  Exception   When the existence could not be determined
@@ -289,25 +164,6 @@ public class WebdavClient extends HttpClient {
     }
 
     /**
-     * Logs an exception triggered in a HTTP request. 
-     * 
-     * @param e         Caught exception.
-     * @param doing     Suffix to add at the end of the logged message.
-     */
-    private void logException(Exception e, String doing) {
-        if (e instanceof HttpException) {
-            Log_OC.e(TAG, "HTTP violation while " + doing, e);
-
-        } else if (e instanceof IOException) {
-            Log_OC.e(TAG, "Unrecovered transport exception while " + doing, e);
-
-        } else {
-            Log_OC.e(TAG, "Unexpected exception while " + doing, e);
-        }
-    }
-
-    
-    /**
      * Sets the connection and wait-for-data timeouts to be applied by default to the methods performed by this client.
      */
     public void setDefaultTimeouts(int defaultDataTimeout, int defaultConnectionTimeout) {
@@ -327,16 +183,6 @@ public class WebdavClient extends HttpClient {
         return mUri;
     }
 
-    @Override
-    public int executeMethod(HostConfiguration hostconfig, final HttpMethod method, final HttpState state) throws IOException, HttpException  {
-        if (mCredentials instanceof BearerCredentials) {
-            method.getHostAuthState().setAuthScheme(AuthPolicy.getAuthScheme(BearerAuthScheme.AUTH_POLICY));
-            method.getHostAuthState().setAuthAttempted(true);
-        }
-        return super.executeMethod(hostconfig, method, state);
-    }
-
-    
     public final Credentials getCredentials() {
         return mCredentials;
     }
