@@ -35,8 +35,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -83,7 +82,6 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
-import com.owncloud.android.ui.dialog.ChangelogDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
@@ -94,6 +92,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.ui.preview.PreviewVideoActivity;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -206,21 +205,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         setContentView(R.layout.files);    
         mFileList = (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.fileList);
         mDualPane = (findViewById(R.id.file_details_container) != null);
-        if (mDualPane) {
-            if (savedInstanceState == null) initFileDetailsInDualPane();
-        } else {
-            // quick patchES to fix problem in turn from landscape to portrait, when a file is selected in the right pane
-            // TODO serious refactorization in activities and fragments providing file browsing and handling 
-            if (mCurrentFile != null) {
-                onFileClick(mCurrentFile);
-                mCurrentFile = null;
-            }
-            Fragment rightPanel = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (rightPanel != null) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.remove(rightPanel);
-                transaction.commit();
-            }
+        if (mDualPane && savedInstanceState == null) {
+            initFileDetailsInDualPane();
         }
             
         // Action bar setup
@@ -233,40 +219,37 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
         
         
-        // show changelog, if needed
-        //showChangeLog();
         mBackFromCreatingFirstAccount = false;
         
         Log_OC.d(getClass().toString(), "onCreate() end");
     }
 
     
-    /**
-     * Shows a dialog with the change log of the current version after each app update
-     * 
-     *  TODO make it permanent; by now, only to advice the workaround app for 4.1.x
-     */
-    private void showChangeLog() {
-        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            final String KEY_VERSION = "version";
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            int currentVersionNumber = 0;
-            int savedVersionNumber = sharedPref.getInt(KEY_VERSION, 0);
-            try {
-                PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
-                currentVersionNumber    = pi.versionCode;
-            } catch (Exception e) {}
-     
-            if (currentVersionNumber > savedVersionNumber) {
-                ChangelogDialog.newInstance(true).show(getSupportFragmentManager(), DIALOG_CHANGELOG_TAG);
-                Editor editor   = sharedPref.edit();
-                editor.putInt(KEY_VERSION, currentVersionNumber);
-                editor.commit();
-            }
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        
+        FileFragment fragment = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+        if (fragment != null 
+                && fragment.getFile() != null 
+                && (newConfig.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                && newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
+            
+            onFileClick(fragment.getFile(), true);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.remove((Fragment)fragment);
+            transaction.commit();
+        
+        } else {
+            finish();
+            Intent intent = new Intent(this, FileDisplayActivity.class);
+            intent .putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
+            intent .putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            startActivity(intent);
         }
     }
     
-
+    
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
@@ -315,7 +298,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             if (mCurrentFile != null) {
                 if (PreviewMediaFragment.canBePreviewed(mCurrentFile)) {
                     if (mCurrentFile.isDown()) {
-                        transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                        int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                        boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                        transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this), startPlaybackPosition, autoplay), FileDetailFragment.FTAG);
                     } else {
                         transaction.replace(R.id.file_details_container, new FileDetailFragment(mCurrentFile, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
                         mWaitingToPreview = mCurrentFile;
@@ -1036,7 +1021,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 if (success && waitedPreview) {
                     mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+                    transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, AccountUtils.getCurrentOwnCloudAccount(this), 0, true), FileDetailFragment.FTAG);
                     transaction.commit();
                     mWaitingToPreview = null;
                     
@@ -1082,7 +1067,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      * {@inheritDoc}
      */
     @Override
-    public void onFileClick(OCFile file) {
+    public void onFileClick(OCFile file, boolean onOrientationChange) {
         if (file != null && PreviewImageFragment.canBePreviewed(file)) {
             // preview image - it handles the download, if needed
             startPreviewImage(file);
@@ -1090,16 +1075,28 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         } else if (file != null && PreviewMediaFragment.canBePreviewed(file)) {
             if (file.isDown()) {
                 // general preview
-                startMediaPreview(file);
+                if (!onOrientationChange) {
+                    startMediaPreview(file, 0, true, onOrientationChange);
+                } else {
+                    int startPlaybackPosition = 0;
+                    boolean autoplay = true;
+                    Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                    if (fragment != null && file.isVideo()) {
+                        PreviewMediaFragment videoFragment = (PreviewMediaFragment)fragment;
+                        startPlaybackPosition = videoFragment.getPosition();
+                        autoplay = videoFragment.isPlaying();
+                    }
+                    startMediaPreview(file, startPlaybackPosition, autoplay, onOrientationChange);
+                }
                 
             } else {
                 // automatic download, preview on finish
-                startDownloadForPreview(file);
+                startDownloadForPreview(file, onOrientationChange);
                 
             }
         } else {
             // details view
-            startDetails(file);
+            startDetails(file, onOrientationChange);
         }
     }
 
@@ -1110,22 +1107,24 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         startActivity(showDetailsIntent);
     }
     
-    private void startMediaPreview(OCFile file) {
-        if (mDualPane) {
+    private void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay, boolean onOrientationChange) {
+        if (mDualPane && !onOrientationChange) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
+            transaction.replace(R.id.file_details_container, new PreviewMediaFragment(file, AccountUtils.getCurrentOwnCloudAccount(this), startPlaybackPosition, autoplay), FileDetailFragment.FTAG);
             transaction.commit();
             
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
             showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            showDetailsIntent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, startPlaybackPosition);
+            showDetailsIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
             startActivity(showDetailsIntent);
         }
     }
     
-    private void startDownloadForPreview(OCFile file) {
-        if (mDualPane) {
+    private void startDownloadForPreview(OCFile file, boolean onOrientationChange) {
+        if (mDualPane && !onOrientationChange) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.commit();
@@ -1141,8 +1140,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     
-    private void startDetails(OCFile file) {
-        if (mDualPane && !file.isImage()) {
+    private void startDetails(OCFile file, boolean onOrientationChange) {
+        if (mDualPane && !file.isImage() && !onOrientationChange) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.file_details_container, new FileDetailFragment(file, AccountUtils.getCurrentOwnCloudAccount(this)), FileDetailFragment.FTAG);
             transaction.commit();

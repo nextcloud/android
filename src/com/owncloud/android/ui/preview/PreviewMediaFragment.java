@@ -120,12 +120,12 @@ public class PreviewMediaFragment extends SherlockFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount) {
+    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition, boolean autoplay) {
         mFile = fileToDetail;
         mAccount = ocAccount;
-        mSavedPlaybackPosition = 0;
+        mSavedPlaybackPosition = startPlaybackPosition;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
-        mAutoplay = true;
+        mAutoplay = autoplay;
     }
     
     
@@ -751,6 +751,17 @@ public class PreviewMediaFragment extends SherlockFragment implements
         } else {
             container.finish();
         }
+    }
+
+
+    public int getPosition() {
+        mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+        return mSavedPlaybackPosition;
+    }
+    
+    public boolean isPlaying() {
+        mAutoplay = mVideoPreview.isPlaying();
+        return mAutoplay;
     }
     
 }

@@ -144,7 +144,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 mContainerActivity.onDirectoryClick(file);
             
             } else {    /// Click on a file
-                mContainerActivity.onFileClick(file);
+                mContainerActivity.onFileClick(file, false);
             }
             
         } else {
@@ -440,7 +440,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
          *  
          * @param file
          */
-        public void onFileClick(OCFile file);
+        public void onFileClick(OCFile file, boolean realClick);
 
         /**
          * Getter for the current DataStorageManager in the container activity
