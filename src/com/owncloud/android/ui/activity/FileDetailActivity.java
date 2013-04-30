@@ -18,7 +18,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -79,11 +78,16 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
 
     private FileDataStorageManager mStorageManager;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+
+    private Configuration mNewConfigurationChangeToApplyOnStart;
+
+    private boolean mStarted;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStarted = false;
 
         mFile = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         mAccount = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
@@ -134,10 +138,42 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         ft.commit();
     }
     
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log_OC.e(TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        if (mStarted) {
+            checkConfigurationChange(newConfig);
+        } else {
+            mNewConfigurationChangeToApplyOnStart = newConfig;
+        }
+    }
+    
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
+    }
+    
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log_OC.e(TAG, "onStart");
+        if (mNewConfigurationChangeToApplyOnStart != null) {
+            checkConfigurationChange(mNewConfigurationChangeToApplyOnStart);
+            mNewConfigurationChangeToApplyOnStart = null;
+        }
+        mStarted = true;
+    }
+
+    private void checkConfigurationChange(Configuration newConfig) {
         finish();
         Intent intent = null;
         if ((newConfig.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
@@ -170,18 +206,17 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         }
         startActivity(intent);
     }
-    
-    
+
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
+    public void onStop() {
+        super.onStop();
+        Log_OC.e(TAG, "onStop");
+        mStarted = false;
     }
-    
-    
     @Override
     public void onPause() {
         super.onPause();
+        Log_OC.e(TAG, "onPause");
         if (mDownloadFinishReceiver != null) {
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
@@ -192,6 +227,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void onResume() {
         super.onResume();
+        Log_OC.e(TAG, "onResume");
         // TODO this is probably unnecessary
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
         if (fragment != null && fragment instanceof FileDetailFragment) {
@@ -250,6 +286,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log_OC.e(TAG,  "onDestroy");
         if (mDownloadConnection != null) {
             unbindService(mDownloadConnection);
             mDownloadConnection = null;

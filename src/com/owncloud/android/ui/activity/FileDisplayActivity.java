@@ -140,11 +140,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
 
     private OCFile mWaitingToPreview;
     private Handler mHandler;
+    
+    private Configuration mNewConfigurationChangeToApplyOnStart;
+    private boolean mStarted;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
+        mStarted = false;
 
         /// Load of parameters from received intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
@@ -228,24 +232,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     public void onConfigurationChanged (Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        
-        FileFragment fragment = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-        if (fragment != null 
-                && fragment.getFile() != null 
-                && (newConfig.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
-                && newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
-            
-            onFileClick(fragment.getFile(), true);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.remove((Fragment)fragment);
-            transaction.commit();
-        
+        if (mStarted) {
+            checkConfigurationChange(newConfig);
         } else {
-            finish();
-            Intent intent = new Intent(this, FileDisplayActivity.class);
-            intent .putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
-            intent .putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
-            startActivity(intent);
+            mNewConfigurationChangeToApplyOnStart = newConfig;
         }
     }
     
@@ -318,6 +308,46 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
     
     
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mNewConfigurationChangeToApplyOnStart != null) {
+            checkConfigurationChange(mNewConfigurationChangeToApplyOnStart);
+            mNewConfigurationChangeToApplyOnStart = null;
+        }
+        mStarted = true;
+    }
+    
+    @Override
+    public void onStop() {
+        super.onStop();
+        mStarted = false;
+    }
+    
+    
+    private void checkConfigurationChange(Configuration newConfig) {
+        FileFragment fragment = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+        if (fragment != null 
+                && fragment.getFile() != null 
+                && (newConfig.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                && newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE) {
+            
+            onFileClick(fragment.getFile(), true);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.remove((Fragment)fragment);
+            transaction.commit();
+        
+        } else {
+            finish();
+            Intent intent = new Intent(this, FileDisplayActivity.class);
+            intent .putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
+            intent .putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+            if (fragment != null && fragment.getFile() != null )
+            startActivity(intent);
+        }
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -398,6 +428,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      * Called, when the user selected something for uploading
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestSimpleUpload(data, resultCode);
