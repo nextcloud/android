@@ -155,18 +155,12 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:onClick="onCancelClick"
-                android:text="@string/common_cancel" />
-
-            <Button
                 android:id="@+id/buttonOK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:layout_marginLeft="16dip"
+		        android:layout_marginRight="16dip"
                 android:enabled="false"
                 android:onClick="onOkClick"
                 android:text="@string/setup_btn_connect"
