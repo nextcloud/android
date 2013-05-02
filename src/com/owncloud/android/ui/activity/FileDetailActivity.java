@@ -82,33 +82,47 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     private Configuration mNewConfigurationChangeToApplyOnStart;
 
     private boolean mStarted;
+
+    private boolean mDualPane;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mStarted = false;
-
+        
         mFile = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
         mAccount = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
         mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
         
-        setContentView(R.layout.file_activity_details);
-    
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // check if configuration is proper for this activity; tablets in landscape should pass the torch to FileDisplayActivity 
+        Configuration conf = getResources().getConfiguration();
+        mDualPane = (conf.orientation == Configuration.ORIENTATION_LANDSCAPE && 
+                        (conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                    );
 
-        if (savedInstanceState == null) {
-            mWaitingToPreview = false;
-            createChildFragment();
+        if (mDualPane) {
+            // only happens when notifications (downloads, uploads) are clicked at the notification bar
+            changeToDualView(false);
+            
         } else {
-            mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
-        }
+            setContentView(R.layout.file_activity_details);
         
-        mDownloadConnection = new DetailsServiceConnection();
-        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
-        mUploadConnection = new DetailsServiceConnection();
-        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+    
+            if (savedInstanceState == null) {
+                mWaitingToPreview = false;
+                createChildFragment();
+            } else {
+                mWaitingToPreview = savedInstanceState.getBoolean(KEY_WAITING_TO_PREVIEW);
+            }
+            
+            mDownloadConnection = new DetailsServiceConnection();
+            bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
+            mUploadConnection = new DetailsServiceConnection();
+            bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
+        }
     }
     
     /**
@@ -304,8 +318,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
         switch(item.getItemId()){
         case android.R.id.home:
-            //backToDisplayActivity();
-            onBackPressed();
+            changeToDualView(true);
             returnValue = true;
             break;
         default:
@@ -315,14 +328,17 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         return returnValue;
     }
 
-    //private void backToDisplayActivity() {
     @Override
     public void onBackPressed() {
+        changeToDualView(true);
+    }
+    
+    private void changeToDualView(boolean moveToParent) {
         Intent intent = new Intent(this, FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         OCFile targetFile = null;
         if (mFile != null) {
-            targetFile = mStorageManager.getFileById(mFile.getParentId());
+            targetFile = moveToParent ? mStorageManager.getFileById(mFile.getParentId()) : mFile;;
         }
         intent.putExtra(FileDetailFragment.EXTRA_FILE, targetFile);
         intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
