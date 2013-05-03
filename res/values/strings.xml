@@ -47,7 +47,7 @@
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete History</string>
     
-    <string name="auth_host_url">URL</string>
+    <string name="auth_host_url">Server address</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
     <string name="auth_register">I am new to %1$s</string>

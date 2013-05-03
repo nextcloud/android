@@ -176,47 +176,21 @@
 						android:onClick="onViewPasswordClick"
                         android:visibility="invisible" />
                 </FrameLayout>
+                
+	            <TextView
+	                android:id="@+id/auth_status_text"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1" 
+	                android:text="@string/text_placeholder"
+	                android:layout_marginLeft="5dp"
+	                android:layout_marginRight="5dp"
+					android:drawableLeft="@android:drawable/stat_notify_sync"
+	    			android:drawablePadding="5dip"
+	    			android:visibility="invisible"                
+	                />
+                
             </LinearLayout>
-            
-            <!-- LinearLayout
-                android:id="@+id/auth_status_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="invisible" 
-                >
-
-                <ImageView
-                    android:id="@+id/auth_status_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@android:drawable/stat_notify_sync"
-                    />
-
-                <TextView
-                    android:id="@+id/auth_status_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/text_placeholder"
-                    />
-                
-            </LinearLayout -->
-                
-            <TextView
-                android:id="@+id/auth_status_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" 
-                android:text="@string/text_placeholder"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-				android:drawableLeft="@android:drawable/stat_notify_sync"
-    			android:drawablePadding="5dip"
-    			android:visibility="invisible"                
-                />
-                    
             
         </LinearLayout>
     </FrameLayout>
@@ -233,18 +207,12 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:onClick="onCancelClick"
-                android:text="@string/common_cancel" />
-
-            <Button
                 android:id="@+id/buttonOK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:layout_marginLeft="16dip"
+		        android:layout_marginRight="16dip"
                 android:enabled="false"
                 android:onClick="onOkClick"
                 android:text="@string/setup_btn_connect"
