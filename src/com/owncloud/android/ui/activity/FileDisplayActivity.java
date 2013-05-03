@@ -340,9 +340,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         } else {
             finish();
             Intent intent = new Intent(this, FileDisplayActivity.class);
-            intent .putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
-            intent .putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
-            if (fragment != null && fragment.getFile() != null )
+            intent.putExtra(FileDetailFragment.EXTRA_FILE, mCurrentDir);
+            intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
             startActivity(intent);
         }
     }
