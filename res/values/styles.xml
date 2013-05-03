@@ -101,6 +101,10 @@
 		<item name="android:singleLine">true</item>
   		    
     </style>
+	
+	<style name="OAuthDialog" parent="@android:style/Theme.Dialog">
+		<item name="android:windowNoTitle">false</item>	
+	</style>    
 		
 	<color name="setup_text_hint">#777777</color>
 	<color name="setup_text_typed">#000000</color>

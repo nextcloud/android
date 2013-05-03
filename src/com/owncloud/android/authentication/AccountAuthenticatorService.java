@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012 Bartek Przybylski
+ *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,26 @@
  *
  */
 
-package com.owncloud.android.authenticator;
+package com.owncloud.android.authentication;
 
-public interface OnConnectCheckListener {
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
-    enum ResultType {
-        OK_SSL, OK_NO_SSL, SSL_INIT_ERROR, HOST_NOT_AVAILABLE, TIMEOUT, NO_NETWORK_CONNECTION, INCORRECT_ADDRESS, INSTANCE_NOT_CONFIGURED, FILE_NOT_FOUND, UNKNOWN_ERROR, WRONG_CONNECTION,  SSL_UNVERIFIED_SERVER, BAD_OC_VERSION
+public class AccountAuthenticatorService extends Service {
+
+    private AccountAuthenticator mAuthenticator;
+    static final public String ACCOUNT_TYPE = "owncloud";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mAuthenticator = new AccountAuthenticator(this);
     }
 
-    public void onConnectionCheckResult(ResultType type);
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mAuthenticator.getIBinder();
+    }
 
 }

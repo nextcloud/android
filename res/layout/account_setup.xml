@@ -17,50 +17,52 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
 	<LinearLayout
-	    android:layout_width="fill_parent"
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
 	    android:focusable="true"
 	    android:gravity="center"
 	    android:orientation="vertical" >
-	    
-	    <FrameLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="0dip"
-	        android:layout_gravity="center"
-	        android:layout_marginBottom="50dip"
-	        android:layout_marginLeft="16dip"
-	        android:layout_marginRight="16dip"
-	        android:layout_weight="1" >
-	
-	        <LinearLayout
-	            android:id="@+id/LinearLayout1"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center"
-	            android:orientation="vertical" >
-	
-	            <ImageView
-	                android:id="@+id/imageView1"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginBottom="10dp"
-	                android:layout_weight="1"
-	                android:src="@drawable/owncloud_logo" />
-	
+
+    	<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dip"
+			android:layout_gravity="center"
+			android:layout_marginBottom="50dip"
+			android:layout_marginLeft="16dip"
+			android:layout_marginRight="16dip"
+			android:layout_weight="1" >
+		
+			<LinearLayout
+				android:id="@+id/LinearLayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:orientation="vertical" >
+		
+				<ImageView
+					android:id="@+id/imageView1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:layout_weight="1"
+					android:src="@drawable/owncloud_logo" />
+		
 	            <FrameLayout
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
 	                android:layout_weight="1" >
 	
 	                <EditText
-	                    android:id="@+id/host_URL"
+	                    android:id="@+id/hostUrlInput"
 	                    android:layout_width="match_parent"
 	                    android:layout_height="wrap_content"
 	                    android:ems="10"
@@ -102,7 +104,16 @@
 	
 	            </LinearLayout>
 	
-	            <TextView
+	            <CheckBox
+	                android:id="@+id/oauth_onOff_check"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:checked="false"
+	                android:onClick="onCheckClick"
+	                android:text="@string/oauth_check_onoff"
+	                android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+				<TextView
 	                android:id="@+id/textView2"
 	                android:layout_width="wrap_content"
 	                android:layout_height="0dp"
@@ -111,6 +122,32 @@
 	                android:textAppearance="?android:attr/textAppearanceSmall" />
 	
 	            <EditText
+	                android:id="@+id/oAuthEntryPoint_1"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:ems="10"
+	                android:text="@string/oauth2_url_endpoint_auth"
+	                android:singleLine="true"
+	                android:visibility="gone" >
+	
+	                <requestFocus />
+	            </EditText>            
+	
+	            <EditText
+	                android:id="@+id/oAuthEntryPoint_2"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:ems="10"
+		            android:text="@string/oauth2_url_endpoint_access"
+	                android:singleLine="true"
+	                android:visibility="gone" >
+	
+	                <requestFocus />
+	            </EditText>            
+	
+				<EditText
 	                android:id="@+id/account_username"
 	                android:layout_width="match_parent"
 	                android:layout_height="0dp"
@@ -133,16 +170,30 @@
 	                    android:inputType="textPassword"/>
 	
 	                <ImageView
-	                    android:id="@+id/viewPassword"
+	                    android:id="@+id/viewPasswordButton"
 	                    android:layout_width="wrap_content"
 	                    android:layout_height="wrap_content"
 	                    android:layout_gravity="right|center_vertical"
 	                    android:src="@android:drawable/ic_menu_view"
+						android:onClick="onViewPasswordClick"
 	                    android:visibility="invisible" />
 	
 	            </FrameLayout>
-	
-	            </LinearLayout>
+		
+	            <TextView
+	                android:id="@+id/auth_status_text"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1" 
+	                android:text="@string/text_placeholder"
+	                android:layout_marginLeft="5dp"
+	                android:layout_marginRight="5dp"
+					android:drawableLeft="@android:drawable/stat_notify_sync"
+	    			android:drawablePadding="5dip"
+	    			android:visibility="invisible"                
+	                />
+	                    
+	           </LinearLayout>
 	
 	    </FrameLayout>
 	
@@ -152,7 +203,7 @@
 	
 	        <LinearLayout
 	            android:id="@+id/buttons_layout"
-	            android:layout_width="fill_parent"
+	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:weightSum="1">
 	
@@ -181,9 +232,22 @@
 				android:paddingBottom="10dp"
 				android:textColor="#0000FF"
 				android:background="@android:color/transparent" />
+			
+			<Button
+				android:id="@+id/account_register"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/buttons_layout"
+				android:layout_centerHorizontal="true"
+				android:onClick="onRegisterClick"
+				android:paddingTop="10dp"
+				android:paddingBottom="10dp"
+				android:textColor="#0000FF"
+				android:background="@android:color/transparent" />
+				<!-- android:text="@string/app_name @string/auth_register" /-->
 	        
 	    </RelativeLayout>
-	    
+
 	</LinearLayout>
-	
+			
 </ScrollView>

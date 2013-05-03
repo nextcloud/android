@@ -15,6 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package com.owncloud.android;
 
 import java.io.File;
@@ -25,12 +26,11 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -49,7 +49,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore.Images.Media;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -60,7 +59,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -140,8 +138,8 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                         // in API7 < this constatant is defined in
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
-                        Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
-                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTHORITY });
                         startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
                     } else {
                         // since in API7 there is no direct call for
@@ -357,12 +355,13 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
     public void uploadFiles() {
         try {
+            /* TODO - mCreateDir can never be true at this moment; we will replace wdc.createDirectory by CreateFolderOperation when that is fixed 
             WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-
             // create last directory in path if necessary
             if (mCreateDir) {
                 wdc.createDirectory(mUploadPath);
             }
+            */
 
             String[] local = new String[mStreamsToUpload.size()], remote = new String[mStreamsToUpload.size()];
 

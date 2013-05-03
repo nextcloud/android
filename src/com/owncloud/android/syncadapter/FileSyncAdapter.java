@@ -19,7 +19,6 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -38,6 +38,7 @@ import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import android.accounts.Account;
+import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -47,13 +48,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * SyncAdapter implementation for syncing sample SyncAdapter contacts to the
  * platform ContactOperations provider.
  * 
  * @author Bartek Przybylski
+ * @author David A. Velasco
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
@@ -103,8 +104,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setStorageManager(new FileDataStorageManager(account, getContentProvider()));
         try {
             this.initClientForCurrentAccount();
-        } catch (UnknownHostException e) {
-            /// the account is unknown for the Synchronization Manager. unreachable for this context; don't try this again
+        } catch (IOException e) {
+            /// the account is unknown for the Synchronization Manager, or unreachable for this context; don't try this again
+            mSyncResult.tooManyRetries = true;
+            notifyFailedSynchronization();
+            return;
+        } catch (AccountsException e) {
+            /// the account is unknown for the Synchronization Manager, or unreachable for this context; don't try this again
             mSyncResult.tooManyRetries = true;
             notifyFailedSynchronization();
             return;
@@ -147,7 +153,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
         
     }
-
     
     /**
      * Called by system SyncManager when a synchronization is required to be cancelled.
@@ -173,7 +178,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             mLastFailedResult = result; 
         }
     }
-
     
     
     /**
@@ -292,12 +296,28 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        // TODO put something smart in the contentIntent below
+        boolean needsToUpdateCredentials = (mLastFailedResult != null && mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED);
+        // TODO put something smart in the contentIntent below for all the possible errors
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
-        notification.setLatestEventInfo(getContext().getApplicationContext(), 
-                                        getContext().getString(R.string.sync_fail_ticker), 
-                                        String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
-                                        notification.contentIntent);
+        if (needsToUpdateCredentials) {
+            // let the user update credentials with one click
+            Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+            notification.contentIntent = PendingIntent.getActivity(getContext(), (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                    getContext().getString(R.string.sync_fail_ticker), 
+                    String.format(getContext().getString(R.string.sync_fail_content_unauthorized), getAccount().name), 
+                    notification.contentIntent);
+        } else {
+            notification.setLatestEventInfo(getContext().getApplicationContext(), 
+                                            getContext().getString(R.string.sync_fail_ticker), 
+                                            String.format(getContext().getString(R.string.sync_fail_content), getAccount().name), 
+                                            notification.contentIntent);
+        }
         ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_ticker, notification);
     }
 
@@ -331,7 +351,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_conflicts_in_favourites_ticker, notification);
         } 
     }
-
     
     /**
      * Notifies the user about local copies of files out of the ownCloud local directory that were 'forgotten' because 

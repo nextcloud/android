@@ -40,7 +40,6 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.util.Log;
 
 public class FileDataStorageManager implements DataStorageManager {
 

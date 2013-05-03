@@ -19,24 +19,8 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.json.JSONObject;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
-//import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -47,7 +31,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,42 +43,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.graphics.Point;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -108,14 +64,11 @@ import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.utils.OwnCloudVersion;
 
 import com.owncloud.android.R;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
-
 
 /**
  * This Fragment is used to display the details about a file.
@@ -162,7 +115,6 @@ public class FileDetailFragment extends SherlockFragment implements
         mLayout = R.layout.file_details_empty;
         mProgressListener = null;
     }
-    
     
     /**
      * Creates a details fragment.
@@ -294,6 +246,7 @@ public class FileDetailFragment extends SherlockFragment implements
         return super.getView() == null ? mView : super.getView();
     }
 
+    
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -330,12 +283,12 @@ public class FileDetailFragment extends SherlockFragment implements
                     
                 } else {
                     mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
-                    WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                    mLastRemoteOperation.execute(wc, this, mHandler);
+                    mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
                 
                     // update ui 
                     boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                     getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                    setButtonsForTransferring(); // disable button immediately, although the synchronization does not result in a file transference
                     
                 }
                 break;
@@ -389,12 +342,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
         
-        /* else if (v.getId() == R.id.fdShareBtn) {
-            Thread t = new Thread(new ShareRunnable(mFile.getRemotePath()));
-            t.start();
-        }*/
     }
-    
     
     /**
      * Opens mFile.
@@ -410,7 +358,7 @@ public class FileDetailFragment extends SherlockFragment implements
             startActivity(i);
             
         } catch (Throwable t) {
-            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
             boolean toastIt = true; 
             String mimeType = "";
             try {
@@ -429,13 +377,13 @@ public class FileDetailFragment extends SherlockFragment implements
                 }
                 
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
                 
             } catch (ActivityNotFoundException e) {
-                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
                 
             } catch (Throwable th) {
-                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
                 
             } finally {
                 if (toastIt) {
@@ -446,7 +394,6 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
 
-
     @Override
     public void onConfirmation(String callerTag) {
         if (callerTag.equals(FTAG_CONFIRMATION)) {
@@ -454,8 +401,7 @@ public class FileDetailFragment extends SherlockFragment implements
                 mLastRemoteOperation = new RemoveFileOperation( mFile, 
                                                                 true, 
                                                                 mStorageManager);
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                mLastRemoteOperation.execute(wc, this, mHandler);
+                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
                 
                 boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
                 getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
@@ -476,7 +422,7 @@ public class FileDetailFragment extends SherlockFragment implements
     
     @Override
     public void onCancel(String callerTag) {
-        Log.d(TAG, "REMOVAL CANCELED");
+        Log_OC.d(TAG, "REMOVAL CANCELED");
     }
     
     
@@ -566,7 +512,6 @@ public class FileDetailFragment extends SherlockFragment implements
         }
         getView().invalidate();
     }
-    
     
     /**
      * Checks if the fragment is ready to show details of a OCFile
@@ -769,120 +714,15 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
 
-    // this is a temporary class for sharing purposes, it need to be replaced in transfer service
-    @SuppressWarnings("unused")
-    private class ShareRunnable implements Runnable {
-        private String mPath;
-
-        public ShareRunnable(String path) {
-            mPath = path;
-        }
-        
-        public void run() {
-            AccountManager am = AccountManager.get(getActivity());
-            Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
-            String url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + AccountUtils.getWebdavPath(ocv);
-
-            Log.d("share", "sharing for version " + ocv.toString());
-
-            if (ocv.compareTo(new OwnCloudVersion(0x040000)) >= 0) {
-                String APPS_PATH = "/apps/files_sharing/";
-                String SHARE_PATH = "ajax/share.php";
-
-                String SHARED_PATH = "/apps/files_sharing/get.php?token=";
-                
-                final String WEBDAV_SCRIPT = "webdav.php";
-                final String WEBDAV_FILES_LOCATION = "/files/";
-                
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getActivity().getApplicationContext());
-                HttpConnectionManagerParams params = new HttpConnectionManagerParams();
-                params.setMaxConnectionsPerHost(wc.getHostConfiguration(), 5);
-
-                //wc.getParams().setParameter("http.protocol.single-cookie-header", true);
-                //wc.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-                PostMethod post = new PostMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + APPS_PATH + SHARE_PATH);
-
-                post.addRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8" );
-                post.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-                Log.d("share", mPath+"");
-                formparams.add(new BasicNameValuePair("sources",mPath));
-                formparams.add(new BasicNameValuePair("uid_shared_with", "public"));
-                formparams.add(new BasicNameValuePair("permissions", "0"));
-                post.setRequestEntity(new StringRequestEntity(URLEncodedUtils.format(formparams, HTTP.UTF_8)));
-
-                int status;
-                try {
-                    PropFindMethod find = new PropFindMethod(url+"/");
-                    find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                    Log.d("sharer", ""+ url+"/");
-                    
-                    for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
-                    }
-                    
-                    int status2 = wc.executeMethod(find);
-
-                    Log.d("sharer", "propstatus "+status2);
-                    
-                    GetMethod get = new GetMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + "/");
-                    get.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                    
-                    status2 = wc.executeMethod(get);
-
-                    Log.d("sharer", "getstatus "+status2);
-                    Log.d("sharer", "" + get.getResponseBodyAsString());
-                    
-                    for (org.apache.commons.httpclient.Header a : get.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
-                    }
-
-                    status = wc.executeMethod(post);
-                    for (org.apache.commons.httpclient.Header a : post.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
-                    }
-                    for (org.apache.commons.httpclient.Header a : post.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
-                    }
-                    String resp = post.getResponseBodyAsString();
-                    Log.d("share", ""+post.getURI().toString());
-                    Log.d("share", "returned status " + status);
-                    Log.d("share", " " +resp);
-                    
-                    if(status != HttpStatus.SC_OK ||resp == null || resp.equals("") || resp.startsWith("false")) {
-                        return;
-                     }
-
-                    JSONObject jsonObject = new JSONObject (resp);
-                    String jsonStatus = jsonObject.getString("status");
-                    if(!jsonStatus.equals("success")) throw new Exception("Error while sharing file status != success");
-                    
-                    String token = jsonObject.getString("data");
-                    String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
-                    Log.d("Actions:shareFile ok", "url: " + uri);   
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                
-            } else if (ocv.compareTo(new OwnCloudVersion(0x030000)) >= 0) {
-                
-            }
-        }
-    }
-    
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
             String newFilename = dialog.getNewFilename();
-            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
             mLastRemoteOperation = new RenameFileOperation( mFile, 
                                                             mAccount, 
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
         }
@@ -998,7 +838,7 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
-    
+
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
@@ -1057,4 +897,110 @@ public class FileDetailFragment extends SherlockFragment implements
 
     };
 
+    /*
+    // this is a temporary class for sharing purposes, it need to be replaced in transfer service
+    @SuppressWarnings("unused")
+    private class ShareRunnable implements Runnable {
+        private String mPath;
+
+        public ShareRunnable(String path) {
+            mPath = path;
+        }
+        
+        public void run() {
+            AccountManager am = AccountManager.get(getActivity());
+            Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
+            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
+            String url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + AccountUtils.getWebdavPath(ocv);
+
+            Log_OC.d("share", "sharing for version " + ocv.toString());
+
+            if (ocv.compareTo(new OwnCloudVersion(0x040000)) >= 0) {
+                String APPS_PATH = "/apps/files_sharing/";
+                String SHARE_PATH = "ajax/share.php";
+
+                String SHARED_PATH = "/apps/files_sharing/get.php?token=";
+                
+                final String WEBDAV_SCRIPT = "webdav.php";
+                final String WEBDAV_FILES_LOCATION = "/files/";
+                
+                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getActivity().getApplicationContext());
+                HttpConnectionManagerParams params = new HttpConnectionManagerParams();
+                params.setMaxConnectionsPerHost(wc.getHostConfiguration(), 5);
+
+                //wc.getParams().setParameter("http.protocol.single-cookie-header", true);
+                //wc.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+
+                PostMethod post = new PostMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + APPS_PATH + SHARE_PATH);
+
+                post.addRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8" );
+                post.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+                Log_OC.d("share", mPath+"");
+                formparams.add(new BasicNameValuePair("sources",mPath));
+                formparams.add(new BasicNameValuePair("uid_shared_with", "public"));
+                formparams.add(new BasicNameValuePair("permissions", "0"));
+                post.setRequestEntity(new StringRequestEntity(URLEncodedUtils.format(formparams, HTTP.UTF_8)));
+
+                int status;
+                try {
+                    PropFindMethod find = new PropFindMethod(url+"/");
+                    find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                    Log_OC.d("sharer", ""+ url+"/");
+                    
+                    for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
+                        Log_OC.d("sharer-h", a.getName() + ":"+a.getValue());
+                    }
+                    
+                    int status2 = wc.executeMethod(find);
+
+                    Log_OC.d("sharer", "propstatus "+status2);
+                    
+                    GetMethod get = new GetMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + "/");
+                    get.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
+                    
+                    status2 = wc.executeMethod(get);
+
+                    Log_OC.d("sharer", "getstatus "+status2);
+                    Log_OC.d("sharer", "" + get.getResponseBodyAsString());
+                    
+                    for (org.apache.commons.httpclient.Header a : get.getResponseHeaders()) {
+                        Log_OC.d("sharer", a.getName() + ":"+a.getValue());
+                    }
+
+                    status = wc.executeMethod(post);
+                    for (org.apache.commons.httpclient.Header a : post.getRequestHeaders()) {
+                        Log_OC.d("sharer-h", a.getName() + ":"+a.getValue());
+                    }
+                    for (org.apache.commons.httpclient.Header a : post.getResponseHeaders()) {
+                        Log_OC.d("sharer", a.getName() + ":"+a.getValue());
+                    }
+                    String resp = post.getResponseBodyAsString();
+                    Log_OC.d("share", ""+post.getURI().toString());
+                    Log_OC.d("share", "returned status " + status);
+                    Log_OC.d("share", " " +resp);
+                    
+                    if(status != HttpStatus.SC_OK ||resp == null || resp.equals("") || resp.startsWith("false")) {
+                        return;
+                     }
+
+                    JSONObject jsonObject = new JSONObject (resp);
+                    String jsonStatus = jsonObject.getString("status");
+                    if(!jsonStatus.equals("success")) throw new Exception("Error while sharing file status != success");
+                    
+                    String token = jsonObject.getString("data");
+                    String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
+                    Log_OC.d("Actions:shareFile ok", "url: " + uri);   
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            } else if (ocv.compareTo(new OwnCloudVersion(0x030000)) >= 0) {
+                
+            }
+        }
+    }
+    */
+    
 }

@@ -16,8 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -29,9 +27,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -52,6 +48,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -170,12 +167,12 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
-                    Log.d(TAG, "Simulating reselection of current page after connection of download binder");
+                    Log_OC.d(TAG, "Simulating reselection of current page after connection of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
                     
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -186,10 +183,10 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service suddenly disconnected");
+                Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service suddenly disconnected");
+                Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -328,7 +325,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
-            Log.d(TAG, "requestForDownload called without binder to download service");
+            Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
         } else if (!mDownloaderBinder.isDownloading(mAccount, file)) {
             Intent i = new Intent(this, FileDownloader.class);
@@ -413,7 +410,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                     mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
                     
                 } else {
-                    Log.d(TAG, "Download finished, but the fragment is offscreen");
+                    Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
                 }
                 
             }

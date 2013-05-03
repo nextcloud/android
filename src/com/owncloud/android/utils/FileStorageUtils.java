@@ -24,7 +24,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;

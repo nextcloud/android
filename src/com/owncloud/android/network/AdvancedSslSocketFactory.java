@@ -41,8 +41,6 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.Log_OC;
 
-import android.util.Log;
-
 /**
  * AdvancedSSLProtocolSocketFactory allows to create SSL {@link Socket}s with 
  * a custom SSLContext and an optional Hostname Verifier.

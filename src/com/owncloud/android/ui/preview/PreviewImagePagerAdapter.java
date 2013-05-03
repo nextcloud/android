@@ -16,7 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,16 +23,9 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.DataStorageManager;

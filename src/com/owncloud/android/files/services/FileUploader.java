@@ -19,6 +19,7 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,8 +32,29 @@ import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.operations.ChunkedUploadFileOperation;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.activity.FileDetailActivity;
+import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.utils.OwnCloudVersion;
+
+import eu.alefzero.webdav.OnDatatransferProgressListener;
+import eu.alefzero.webdav.WebdavEntry;
+import eu.alefzero.webdav.WebdavUtils;
+
+import com.owncloud.android.network.OwnCloudClientUtils;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -47,32 +69,17 @@ import android.os.Message;
 import android.os.Process;
 import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.ChunkedUploadFileOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
-import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.OwnCloudVersion;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavEntry;
-import eu.alefzero.webdav.WebdavUtils;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
@@ -490,37 +497,48 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             notifyUploadStart(mCurrentUpload);
 
-            // / prepare client object to send requests to the ownCloud server
-            if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
-                mLastAccount = mCurrentUpload.getAccount();
-                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                mUploadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
-            }
-
-            // / create remote folder for instant uploads
-            if (mCurrentUpload.isRemoteFolderToBeCreated()) {
-                mUploadClient.createDirectory(FileStorageUtils.getInstantUploadFilePath(this, ""));
-                // ignoring result fail could just mean that it already exists,
-                // but local database is not synchronized the upload will be
-                // tried anyway
-            }
-
-            // / perform the upload
             RemoteOperationResult uploadResult = null;
+            
             try {
+                /// prepare client object to send requests to the ownCloud server
+                if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
+                    mLastAccount = mCurrentUpload.getAccount();
+                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mUploadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
+                }
+            
+                /// create remote folder for instant uploads
+                if (mCurrentUpload.isRemoteFolderToBeCreated()) {
+                    RemoteOperation operation = new CreateFolderOperation(  FileStorageUtils.getInstantUploadFilePath(this, ""), 
+                                                                            mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR).getFileId(), // TODO generalize this : INSTANT_UPLOAD_DIR could not be a child of root
+                                                                            mStorageManager);
+                    operation.execute(mUploadClient);      // ignoring result; fail could just mean that it already exists, but local database is not synchronized; the upload will be tried anyway
+                }
+
+            
+                /// perform the upload
                 uploadResult = mCurrentUpload.execute(mUploadClient);
                 if (uploadResult.isSuccess()) {
                     saveUploadedFile();
                 }
-
+                
+            } catch (AccountsException e) {
+                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                uploadResult = new RemoteOperationResult(e);
+                
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                uploadResult = new RemoteOperationResult(e);
+                
             } finally {
                 synchronized (mPendingUploads) {
                     mPendingUploads.remove(uploadKey);
                     Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                 }
             }
-
-            // notify result
+            
+            /// notify result
+            
             notifyUploadResult(uploadResult, mCurrentUpload);
             sendFinalBroadcast(mCurrentUpload, uploadResult);
 
@@ -775,7 +793,21 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             Notification finalNotification = new Notification(R.drawable.icon,
                     getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-
+            if (uploadResult.getCode() == ResultCode.UNAUTHORIZED) {
+                // let the user update credentials with one click
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount());
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                finalNotification.contentIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+                mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
+            } else {
+                // TODO put something smart in the contentIntent below
+                finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
+            }
+            
             String content = null;
             if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL
                     || uploadResult.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
