@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,12 +31,12 @@ import javax.security.auth.x500.X500Principal;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.network.CertificateCombinedException;
 import com.owncloud.android.network.OwnCloudClientUtils;
@@ -64,7 +63,7 @@ public class SslValidatorDialog extends Dialog {
      * @param context       Android context where the dialog will live.
      * @param result        Result of a failed remote operation.
      * @param listener      Object to notice when the server certificate was added to the local certificates store.
-     * @return              A new SslValidatorDialog instance, or NULL if the operation can not be recovered
+     * @return              A new SslValidatorDialog instance. NULL if the operation can not be recovered
      *                      by setting the certificate as reliable.
      */
     public static SslValidatorDialog newInstance(Context context, RemoteOperationResult result, OnSslValidatorListener listener) {
@@ -110,13 +109,13 @@ public class SslValidatorDialog extends Dialog {
                             if (mListener != null)
                                 mListener.onSavedCertificate();
                             else
-                                Log.d(TAG, "Nobody there to notify the certificate was saved");
+                                Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
                             
                         } catch (Exception e) {
                             dismiss();
                             if (mListener != null)
                                 mListener.onFailedSavingCertificate();
-                            Log.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
+                            Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
                         }
                     }
                 });

@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,7 +32,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +48,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.Log_OC;
 
 import com.owncloud.android.R;
 
@@ -95,10 +94,10 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 /// the account set as default changed since this activity was created 
             
                 // trigger synchronization
-                ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);
+                ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTHORITY, bundle);
                 
                 // restart the main activity
                 Intent i = new Intent(this, FileDisplayActivity.class);
@@ -136,7 +135,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
             Intent intent = new Intent(
                     android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                    new String[] { AccountAuthenticator.AUTHORITY });
             startActivity(intent);
             return true;
         }
@@ -153,7 +152,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
         try {
             map = (HashMap<String, String>) getListAdapter().getItem(index);
         } catch (ClassCastException e) {
-            Log.wtf(TAG, "getitem(index) from list adapter did not return hashmap, bailing out");
+            Log_OC.wtf(TAG, "getitem(index) from list adapter did not return hashmap, bailing out");
             return false;
         }
         

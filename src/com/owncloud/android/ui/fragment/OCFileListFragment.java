@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
@@ -42,7 +41,6 @@ import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 import android.accounts.Account;
@@ -52,8 +50,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -100,14 +96,14 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(TAG, "onActivityCreated() start");
+        Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onActivityCreated(savedInstanceState);
         mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity(), mContainerActivity);
         setListAdapter(mAdapter);
         
         if (savedInstanceState != null) {
-            Log.i(TAG, "savedInstanceState is not null");
+            Log_OC.i(TAG, "savedInstanceState is not null");
             int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
             setReferencePosition(position);
         }
@@ -117,18 +113,18 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         
         mHandler = new Handler();
         
-        Log.i(TAG, "onActivityCreated() stop");
+        Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
     
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.i(TAG, "onSaveInstanceState() start");
+        Log_OC.i(TAG, "onSaveInstanceState() start");
         
         savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
         
-        Log.i(TAG, "onSaveInstanceState() stop");
+        Log_OC.i(TAG, "onSaveInstanceState() stop");
     }
     
     
@@ -149,7 +145,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             }
             
         } else {
-            Log.d(TAG, "Null object in ListAdapter!!");
+            Log_OC.d(TAG, "Null object in ListAdapter!!");
         }
         
     }
@@ -240,7 +236,10 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.action_rename_file: {
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), mTargetFile.getFileName(), this);
+                String fileName = mTargetFile.getFileName();
+                int extensionStart = mTargetFile.isDirectory() ? -1 : fileName.lastIndexOf(".");
+                int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
                 return true;
             }
@@ -276,7 +275,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                     startActivity(i);
                     
                 } catch (Throwable t) {
-                    Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mTargetFile.getMimetype());
+                    Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mTargetFile.getMimetype());
                     boolean toastIt = true; 
                     String mimeType = "";
                     try {
@@ -295,13 +294,13 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                         }
                         
                     } catch (IndexOutOfBoundsException e) {
-                        Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                        Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
                         
                     } catch (ActivityNotFoundException e) {
-                        Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                        Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
                         
                     } catch (Throwable th) {
-                        Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                        Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
                         
                     } finally {
                         if (toastIt) {
@@ -315,8 +314,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
             case R.id.action_download_file: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getSherlockActivity().getApplicationContext());
-                operation.execute(wc, mContainerActivity, mHandler);
+                operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
                 return true;
             }
@@ -382,7 +380,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     
     /**
      * Lists the given directory on the view. When the input parameter is null,
-     * it will either refresh the last known directory, or list the root
+     * it will either refresh the last known directory. list the root
      * if there never was a directory.
      * 
      * @param directory File to be listed
@@ -404,7 +402,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         
             // If that's not a directory -> List its parent
             if(!directory.isDirectory()){
-                Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
+                Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
@@ -477,13 +475,12 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
             String newFilename = dialog.getNewFilename();
-            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
             RemoteOperation operation = new RenameFileOperation(mTargetFile, 
                                                                 AccountUtils.getCurrentOwnCloudAccount(getActivity()), 
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-            operation.execute(wc, mContainerActivity, mHandler);
+            operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
             getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         }
     }
@@ -496,8 +493,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 RemoteOperation operation = new RemoveFileOperation( mTargetFile, 
                                                                     true, 
                                                                     mContainerActivity.getStorageManager());
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity().getApplicationContext());
-                operation.execute(wc, mContainerActivity, mHandler);
+                operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 
                 getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
             }
@@ -522,7 +518,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     
     @Override
     public void onCancel(String callerTag) {
-        Log.d(TAG, "REMOVAL CANCELED");
+        Log_OC.d(TAG, "REMOVAL CANCELED");
     }
 
 

@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,7 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -52,7 +51,7 @@ import com.owncloud.android.utils.FileStorageUtils;
  * Activity reporting errors occurred when local files uploaded to an ownCloud account with an app in
  * version under 1.3.16 where being copied to the ownCloud local folder.
  * 
- * Allows the user move the files to the ownCloud local folder, or let them unlinked to the remote
+ * Allows the user move the files to the ownCloud local folder. let them unlinked to the remote
  * files.
  * 
  * Shown when the error notification summarizing the list of errors is clicked by the user.
@@ -182,16 +181,16 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
     public void onClick(View v) {
         if (v.getId() == R.id.ok) {
             /// perform movement operation in background thread
-            Log.d(TAG, "Clicked MOVE, start movement");
+            Log_OC.d(TAG, "Clicked MOVE, start movement");
             new MoveFilesTask().execute();            
             
         } else if (v.getId() == R.id.cancel) {
             /// just finish
-            Log.d(TAG, "Clicked CANCEL, bye");
+            Log_OC.d(TAG, "Clicked CANCEL, bye");
             finish();
             
         } else {
-            Log.e(TAG, "Clicked phantom button, id: " + v.getId());
+            Log_OC.e(TAG, "Clicked phantom button, id: " + v.getId());
         }
     }
 

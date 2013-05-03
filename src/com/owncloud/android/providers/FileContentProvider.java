@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,6 +20,7 @@ package com.owncloud.android.providers;
 
 import java.util.HashMap;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
@@ -37,7 +37,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -213,7 +212,7 @@ public class FileContentProvider extends ContentProvider {
         @Override
         public void onCreate(SQLiteDatabase db) {
             // files table
-            Log.i("SQL", "Entering in onCreate");
+            Log_OC.i("SQL", "Entering in onCreate");
             db.execSQL("CREATE TABLE " + ProviderTableMeta.DB_NAME + "("
                     + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                     + ProviderTableMeta.FILE_NAME + " TEXT, "
@@ -234,17 +233,17 @@ public class FileContentProvider extends ContentProvider {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.i("SQL", "Entering in onUpgrade");
+            Log_OC.i("SQL", "Entering in onUpgrade");
             boolean upgraded = false; 
             if (oldVersion == 1 && newVersion >= 2) {
-                Log.i("SQL", "Entering in the #1 ADD in onUpgrade");
+                Log_OC.i("SQL", "Entering in the #1 ADD in onUpgrade");
                 db.execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
                            " ADD COLUMN " + ProviderTableMeta.FILE_KEEP_IN_SYNC  + " INTEGER " +
                            " DEFAULT 0");
                 upgraded = true;
             }
             if (oldVersion < 3 && newVersion >= 3) {
-                Log.i("SQL", "Entering in the #2 ADD in onUpgrade");
+                Log_OC.i("SQL", "Entering in the #2 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     db.execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
@@ -263,7 +262,7 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
             if (oldVersion < 4 && newVersion >= 4) {
-                Log.i("SQL", "Entering in the #3 ADD in onUpgrade");
+                Log_OC.i("SQL", "Entering in the #3 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
@@ -281,7 +280,7 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
             if (!upgraded)
-                Log.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
         }
 
     }

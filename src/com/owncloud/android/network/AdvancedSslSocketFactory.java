@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -40,7 +39,7 @@ import org.apache.commons.httpclient.params.HttpConnectionParams;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
-import android.util.Log;
+import com.owncloud.android.Log_OC;
 
 /**
  * AdvancedSSLProtocolSocketFactory allows to create SSL {@link Socket}s with 
@@ -104,13 +103,13 @@ public class AdvancedSslSocketFactory implements ProtocolSocketFactory {
             final InetAddress localAddress, final int localPort,
             final HttpConnectionParams params) throws IOException,
             UnknownHostException, ConnectTimeoutException {
-        Log.d(TAG, "Creating SSL Socket with remote " + host + ":" + port + ", local " + localAddress + ":" + localPort + ", params: " + params);
+        Log_OC.d(TAG, "Creating SSL Socket with remote " + host + ":" + port + ", local " + localAddress + ":" + localPort + ", params: " + params);
         if (params == null) {
             throw new IllegalArgumentException("Parameters may not be null");
         } 
         int timeout = params.getConnectionTimeout();
         SocketFactory socketfactory = mSslContext.getSocketFactory();
-        Log.d(TAG, " ... with connection timeout " + timeout + " and socket timeout " + params.getSoTimeout());
+        Log_OC.d(TAG, " ... with connection timeout " + timeout + " and socket timeout " + params.getSoTimeout());
         Socket socket = socketfactory.createSocket();
         SocketAddress localaddr = new InetSocketAddress(localAddress, localPort);
         SocketAddress remoteaddr = new InetSocketAddress(host, port);
@@ -126,7 +125,7 @@ public class AdvancedSslSocketFactory implements ProtocolSocketFactory {
      */
     public Socket createSocket(String host, int port) throws IOException,
             UnknownHostException {
-        Log.d(TAG, "Creating SSL Socket with remote " + host + ":" + port);
+        Log_OC.d(TAG, "Creating SSL Socket with remote " + host + ":" + port);
         Socket socket = mSslContext.getSocketFactory().createSocket(host, port);
         verifyPeerIdentity(host, port, socket);
         return socket; 

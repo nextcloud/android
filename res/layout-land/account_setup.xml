@@ -6,9 +6,8 @@
   Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -60,10 +59,9 @@
                     android:layout_weight="1" >
 
                     <EditText
-                        android:id="@+id/host_URL"
+                        android:id="@+id/hostUrlInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/auth_host_url"
                         android:inputType="textNoSuggestions">
@@ -76,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center_vertical"
                         android:src="@drawable/ic_action_refresh_black"
+                    	android:onClick="onRefreshClick"
                         android:visibility="invisible" />
                 </FrameLayout>
 
@@ -101,6 +100,15 @@
                         android:visibility="invisible" />
                 </LinearLayout>
 
+                <CheckBox
+                    android:id="@+id/oauth_onOff_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:onClick="onCheckClick"
+                    android:text="@string/oauth_check_onoff"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
@@ -109,6 +117,34 @@
                     android:text="@string/auth_login_details"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
+	            <EditText
+	                android:id="@+id/oAuthEntryPoint_1"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:ems="10"
+                	android:enabled="false"
+	                android:text="@string/oauth2_url_endpoint_auth"
+	                android:singleLine="true"
+	                android:visibility="gone" >
+	
+	                <requestFocus />
+	            </EditText>            
+	
+	            <EditText
+	                android:id="@+id/oAuthEntryPoint_2"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:ems="10"
+                	android:enabled="false"
+	                android:text="@string/oauth2_url_endpoint_access"
+	                android:singleLine="true"
+	                android:visibility="gone" >
+	
+	                <requestFocus />
+	            </EditText>            
+	
                 <EditText
                     android:id="@+id/account_username"
                     android:layout_width="match_parent"
@@ -127,20 +163,35 @@
                         android:id="@+id/account_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/auth_password"
                         android:inputType="textPassword"/>
 
                     <ImageView
-                        android:id="@+id/viewPassword"
+                        android:id="@+id/viewPasswordButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center_vertical"
                         android:src="@android:drawable/ic_menu_view"
+						android:onClick="onViewPasswordClick"
                         android:visibility="invisible" />
                 </FrameLayout>
+                
+	            <TextView
+	                android:id="@+id/auth_status_text"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1" 
+	                android:text="@string/text_placeholder"
+	                android:layout_marginLeft="5dp"
+	                android:layout_marginRight="5dp"
+					android:drawableLeft="@android:drawable/stat_notify_sync"
+	    			android:drawablePadding="5dip"
+	    			android:visibility="invisible"                
+	                />
+                
             </LinearLayout>
+            
         </LinearLayout>
     </FrameLayout>
 
@@ -156,18 +207,12 @@
             android:weightSum="1">
 
             <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:onClick="onCancelClick"
-                android:text="@string/common_cancel" />
-
-            <Button
                 android:id="@+id/buttonOK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                android:layout_marginLeft="16dip"
+		        android:layout_marginRight="16dip"
                 android:enabled="false"
                 android:onClick="onOkClick"
                 android:text="@string/setup_btn_connect"

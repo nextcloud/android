@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,12 +28,12 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
@@ -85,7 +84,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "ACTIVITY\t\tonCreate");
+        Log_OC.e(TAG, "ACTIVITY\t\tonCreate");
         
         setContentView(R.layout.video_layout);
     
@@ -144,7 +143,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.e(TAG, "ACTIVITY\t\tonSaveInstanceState");
+        Log_OC.e(TAG, "ACTIVITY\t\tonSaveInstanceState");
         outState.putParcelable(PreviewVideoActivity.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
         outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -154,7 +153,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     
     @Override
     public void onBackPressed() {
-        Log.e(TAG, "ACTIVTIY\t\tonBackPressed");
+        Log_OC.e(TAG, "ACTIVTIY\t\tonBackPressed");
         Intent i = new Intent();
         i.putExtra(EXTRA_AUTOPLAY, mVideoPlayer.isPlaying());
         i.putExtra(EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
@@ -166,33 +165,33 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "ACTIVTIY\t\tonResume");
+        Log_OC.e(TAG, "ACTIVTIY\t\tonResume");
     }
 
     
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(TAG, "ACTIVTIY\t\tonStart");
+        Log_OC.e(TAG, "ACTIVTIY\t\tonStart");
     }
     
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "ACTIVITY\t\tonDestroy");
+        Log_OC.e(TAG, "ACTIVITY\t\tonDestroy");
     }
     
     @Override
     public void onStop() {
         super.onStop();
-        Log.e(TAG, "ACTIVTIY\t\tonStop");
+        Log_OC.e(TAG, "ACTIVTIY\t\tonStop");
     }
     
     
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(TAG, "ACTIVTIY\t\tonPause");
+        Log_OC.e(TAG, "ACTIVTIY\t\tonPause");
     }
     
     
@@ -205,7 +204,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
      */
     @Override
     public void onPrepared(MediaPlayer mp) {
-        Log.e(TAG, "ACTIVITY\t\tonPrepare");
+        Log_OC.e(TAG, "ACTIVITY\t\tonPrepare");
         mVideoPlayer.seekTo(mSavedPlaybackPosition);
         if (mAutoplay) { 
             mVideoPlayer.start();
@@ -236,7 +235,7 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
      */
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        Log.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
+        Log_OC.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
         
         if (mMediaController != null) {
             mMediaController.hide();

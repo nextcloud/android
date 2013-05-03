@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,7 +23,6 @@ import java.io.File;
 import android.accounts.Account;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -36,13 +34,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,11 +44,9 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +58,9 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -76,7 +69,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -85,7 +78,6 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
-import com.owncloud.android.ui.dialog.ChangelogDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
@@ -96,9 +88,6 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-
-import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Displays, what files the user has available in his ownCloud.
@@ -129,30 +118,25 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private boolean mBackFromCreatingFirstAccount;
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
-    private static final int DIALOG_CREATE_DIR = 1;
-    private static final int DIALOG_ABOUT_APP = 2;
-    public static final int DIALOG_SHORT_WAIT = 3;
-    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
-    private static final int DIALOG_SSL_VALIDATOR = 5;
-    private static final int DIALOG_CERT_NOT_SAVED = 6;
-    private static final String DIALOG_CHANGELOG_TAG = "DIALOG_CHANGELOG";
-
+    public static final int DIALOG_SHORT_WAIT = 1;
+    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 2;
+    private static final int DIALOG_SSL_VALIDATOR = 3;
+    private static final int DIALOG_CERT_NOT_SAVED = 4;
     
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
     
     private static final String TAG = "FileDisplayActivity";
 
-    private static int[] mMenuIdentifiersToPatch = {R.id.action_about_app};
-    
     private OCFile mWaitingToPreview;
     private Handler mHandler;
 
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(getClass().toString(), "onCreate() start");
+        Log_OC.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
+
+        mHandler = new Handler();
 
         /// Load of parameters from received intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
@@ -162,7 +146,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
         if(savedInstanceState != null) {
-            // TODO - test if savedInstanceState should take precedence over file in the intent ALWAYS (now), NEVER, or SOME TIMES
+            // TODO - test if savedInstanceState should take precedence over file in the intent ALWAYS (now), NEVER. SOME TIMES
             mCurrentDir = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDetailActivity.KEY_WAITING_TO_PREVIEW);
 
@@ -240,46 +224,18 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
         
         
-        // show changelog, if needed
-        //showChangeLog();
         mBackFromCreatingFirstAccount = false;
         
-        Log.d(getClass().toString(), "onCreate() end");
+        Log_OC.d(getClass().toString(), "onCreate() end");
     }
 
     
-    /**
-     * Shows a dialog with the change log of the current version after each app update
-     * 
-     *  TODO make it permanent; by now, only to advice the workaround app for 4.1.x
-     */
-    private void showChangeLog() {
-        if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            final String KEY_VERSION = "version";
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            int currentVersionNumber = 0;
-            int savedVersionNumber = sharedPref.getInt(KEY_VERSION, 0);
-            try {
-                PackageInfo pi          = getPackageManager().getPackageInfo(getPackageName(), 0);
-                currentVersionNumber    = pi.versionCode;
-            } catch (Exception e) {}
-     
-            if (currentVersionNumber > savedVersionNumber) {
-                ChangelogDialog.newInstance(true).show(getSupportFragmentManager(), DIALOG_CHANGELOG_TAG);
-                Editor editor   = sharedPref.edit();
-                editor.putInt(KEY_VERSION, currentVersionNumber);
-                editor.commit();
-            }
-        }
-    }
-    
-
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
     private void createFirstAccount() {
         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTHORITY });
         startActivity(intent);  // the new activity won't be created until this.onStart() and this.onResume() are finished;
     }
 
@@ -355,37 +311,15 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         MenuInflater inflater = getSherlock().getMenuInflater();
             inflater.inflate(R.menu.main_menu, menu);
             
-            patchHiddenAccents(menu);
-            
             return true;
     }
-
-    /**
-     * Workaround for this: <a href="http://code.google.com/p/android/issues/detail?id=3974">http://code.google.com/p/android/issues/detail?id=3974</a> 
-     * 
-     * @param menu      Menu to patch
-     */
-    private void patchHiddenAccents(Menu menu) {
-        for (int i = 0; i < mMenuIdentifiersToPatch.length ; i++) {
-            MenuItem aboutItem = menu.findItem(mMenuIdentifiersToPatch[i]);
-            if (aboutItem != null && aboutItem.getIcon() instanceof BitmapDrawable) {
-                // Clip off the bottom three (density independent) pixels of transparent padding
-                Bitmap original = ((BitmapDrawable) aboutItem.getIcon()).getBitmap();
-                float scale = getResources().getDisplayMetrics().density;
-                int clippedHeight = (int) (original.getHeight() - (3 * scale));
-                Bitmap scaled = Bitmap.createBitmap(original, 0, 0, original.getWidth(), clippedHeight);
-                aboutItem.setIcon(new BitmapDrawable(getResources(), scaled));
-            }
-        }
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
             case R.id.action_create_dir: {
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", this);
+                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", -1, -1, this);
                 dialog.show(getSupportFragmentManager(), "createdirdialog");
                 break;
             }
@@ -402,10 +336,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 startActivity(settingsIntent);
                 break;
             }
-            case R.id.action_about_app: {
-                showDialog(DIALOG_ABOUT_APP);
-                break;
-            }
             case android.R.id.home: {
                 if(mCurrentDir != null && mCurrentDir.getParentId() != 0){
                     onBackPressed(); 
@@ -419,12 +349,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     private void startSynchronization() {
-        ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);   // cancel the current synchronizations of any ownCloud account
+        ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);   // cancel the current synchronizations of any ownCloud account
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(
                 AccountUtils.getCurrentOwnCloudAccount(this),
-                AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                AccountAuthenticator.AUTHORITY, bundle);
     }
 
 
@@ -480,7 +410,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             startService(i);
             
         } else {
-            Log.d("FileDisplay", "User clicked on 'Update' with no selection");
+            Log_OC.d("FileDisplay", "User clicked on 'Update' with no selection");
             Toast t = Toast.makeText(this, getString(R.string.filedisplay_no_file_selected), Toast.LENGTH_LONG);
             t.show();
             return;
@@ -502,12 +432,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 filepath = filemanagerstring;
             
         } catch (Exception e) {
-            Log.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
+            Log_OC.e("FileDisplay", "Unexpected exception when trying to read the result of Intent.ACTION_GET_CONTENT", e);
             e.printStackTrace();
             
         } finally {
             if (filepath == null) {
-                Log.e("FileDisplay", "Couldnt resolve path to file");
+                Log_OC.e("FileDisplay", "Couldnt resolve path to file");
                 Toast t = Toast.makeText(this, getString(R.string.filedisplay_unexpected_bad_get_content), Toast.LENGTH_LONG);
                 t.show();
                 return;
@@ -563,7 +493,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in onRestoreInstanceState when there are Fragments involved
-        Log.d(getClass().toString(), "onSaveInstanceState() start");
+        Log_OC.d(getClass().toString(), "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDetailFragment.EXTRA_FILE, mCurrentDir);
         if (mDualPane) {
@@ -576,13 +506,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             }
         }
         outState.putParcelable(FileDetailActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
-        Log.d(getClass().toString(), "onSaveInstanceState() end");
+        Log_OC.d(getClass().toString(), "onSaveInstanceState() end");
     }
-
     
     @Override
-    public void onResume() {
-        Log.d(getClass().toString(), "onResume() start");
+    protected void onResume() {
+        Log_OC.d(getClass().toString(), "onResume() start");
         super.onResume();
 
         if (AccountUtils.accountsAreSetup(this)) {
@@ -621,13 +550,13 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             showDialog(DIALOG_SETUP_ACCOUNT);
             
         }
-        Log.d(getClass().toString(), "onResume() end");
+        Log_OC.d(getClass().toString(), "onResume() end");
     }
 
     
     @Override
-    public void onPause() {
-        Log.d(getClass().toString(), "onPause() start");
+    protected void onPause() {
+        Log_OC.d(getClass().toString(), "onPause() start");
         super.onPause();
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
@@ -645,7 +574,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             dismissDialog(DIALOG_SETUP_ACCOUNT);
         }
         
-        Log.d(getClass().toString(), "onPause() end");
+        Log_OC.d(getClass().toString(), "onPause() end");
     }
 
     
@@ -681,69 +610,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 }
             });
             //builder.setNegativeButton(android.R.string.cancel, this);
-            dialog = builder.create();
-            break;
-        }
-        case DIALOG_ABOUT_APP: {
-            builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.about_title));
-            PackageInfo pkg;
-            try {
-                pkg = getPackageManager().getPackageInfo(getPackageName(), 0);
-                builder.setMessage(String.format(getString(R.string.about_message), getString(R.string.app_name), pkg.versionName));
-                builder.setIcon(android.R.drawable.ic_menu_info_details);
-                dialog = builder.create();
-            } catch (NameNotFoundException e) {
-                builder = null;
-                dialog = null;
-                Log.e(TAG, "Error while showing about dialog", e);
-            }
-            break;
-        }
-        case DIALOG_CREATE_DIR: {
-            builder = new Builder(this);
-            final EditText dirNameInput = new EditText(getBaseContext());
-            builder.setView(dirNameInput);
-            builder.setTitle(R.string.uploader_info_dirname);
-            int typed_color = getResources().getColor(R.color.setup_text_typed);
-            dirNameInput.setTextColor(typed_color);
-            builder.setPositiveButton(android.R.string.ok,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String directoryName = dirNameInput.getText().toString();
-                            if (directoryName.trim().length() == 0) {
-                                dialog.cancel();
-                                return;
-                            }
-    
-                            // Figure out the path where the dir needs to be created
-                            String path;
-                            if (mCurrentDir == null) {
-                                // this is just a patch; we should ensure that mCurrentDir never is null
-                                if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
-                                    OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
-                                    mStorageManager.saveFile(file);
-                                }
-                                mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
-                            }
-                            path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
-                            
-                            // Create directory
-                            path += directoryName + OCFile.PATH_SEPARATOR;
-                            Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                            thread.start();
-                            
-                            dialog.dismiss();
-                            
-                            showDialog(DIALOG_SHORT_WAIT);
-                        }
-                    });
-            builder.setNegativeButton(R.string.common_cancel,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
             dialog = builder.create();
             break;
         }
@@ -867,57 +733,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         return !mDirectories.isEmpty();
     }
 
-    private class DirectoryCreator implements Runnable {
-        private String mTargetPath;
-        private Account mAccount;
-        private Handler mHandler; 
-    
-        public DirectoryCreator(String targetPath, Account account, Handler handler) {
-            mTargetPath = targetPath;
-            mAccount = account;
-            mHandler = handler;
-        }
-    
-        @Override
-        public void run() {
-            WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-            boolean created = wdc.createDirectory(mTargetPath);
-            if (created) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() { 
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        
-                        // Save new directory in local database
-                        OCFile newDir = new OCFile(mTargetPath);
-                        newDir.setMimetype("DIR");
-                        newDir.setParentId(mCurrentDir.getFileId());
-                        mStorageManager.saveFile(newDir);
-    
-                        // Display the new folder right away
-                        mFileList.listDirectory();
-                    }
-                });
-                
-            } else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                        
-                        } catch (NotFoundException e) {
-                            Log.e(TAG, "Error while trying to show fail message " , e);
-                        }
-                    }
-                });
-            }
-        }
-    
-    }
-
     // Custom array adapter to override text colors
     private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
     
@@ -952,13 +767,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean inProgress = intent.getBooleanExtra(
-                    FileSyncService.IN_PROGRESS, false);
-            String accountName = intent
-                    .getStringExtra(FileSyncService.ACCOUNT_NAME);
+            boolean inProgress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
+            String accountName = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
 
-            Log.d("FileDisplay", "sync of account " + accountName
-                    + " is in_progress: " + inProgress);
+            Log_OC.d("FileDisplay", "sync of account " + accountName + " is in_progress: " + inProgress);
 
             if (accountName.equals(AccountUtils.getCurrentOwnCloudAccount(context).name)) {  
             
@@ -1252,14 +1064,14 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mWaitingToPreview != null) {
                     requestForDownload();
                 }
                 
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -1280,10 +1092,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -1335,6 +1147,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+
+        } else if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
         }
     }
 
@@ -1374,6 +1189,30 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
 
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            mFileList.listDirectory();
+            
+        } else {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                    
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
+        }
+    }
+    
+    
     /**
      * Updates the view associated to the activity after the finish of an operation trying to rename a 
      * file. 
@@ -1482,7 +1321,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         //dialog.dismiss();
         if (dialog.getResult()) {
             String newDirectoryName = dialog.getNewFilename().trim();
-            Log.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
+            Log_OC.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
             if (newDirectoryName.length() > 0) {
                 String path;
                 if (mCurrentDir == null) {
@@ -1497,14 +1336,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                thread.start();
+                RemoteOperation operation = new CreateFolderOperation(path, mCurrentDir.getFileId(), mStorageManager);
+                operation.execute(  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), 
+                                    FileDisplayActivity.this, 
+                                    FileDisplayActivity.this, 
+                                    mHandler,
+                                    FileDisplayActivity.this);
                 
                 showDialog(DIALOG_SHORT_WAIT);
             }
         }
     }
-
+    
+    
     private void requestForDownload() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {

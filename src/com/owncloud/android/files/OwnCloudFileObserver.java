@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,21 +20,19 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 
-import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.FileObserver;
-import android.util.Log;
 
 public class OwnCloudFileObserver extends FileObserver {
 
@@ -71,14 +68,13 @@ public class OwnCloudFileObserver extends FileObserver {
     
     @Override
     public void onEvent(int event, String path) {
-        Log.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
+        Log_OC.d(TAG, "Got file modified with event " + event + " and path " + mPath + ((path != null) ? File.separator + path : ""));
         if ((event & mMask) == 0) {
-            Log.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
+            Log_OC.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath + ((path != null) ? File.separator + path : "") +
                          " with registered for " + mMask + " and original path " +
                          mPath);
             return;
         }
-        WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
         FileDataStorageManager storageManager = new FileDataStorageManager(mOCAccount, mContext.getContentResolver());
         OCFile file = storageManager.getFileByLocalPath(mPath);     // a fresh object is needed; many things could have occurred to the file since it was registered to observe
                                                                     // again, assuming that local files are linked to a remote file AT MOST, SOMETHING TO BE DONE; 
@@ -89,7 +85,7 @@ public class OwnCloudFileObserver extends FileObserver {
                                                                     true, 
                                                                     true, 
                                                                     mContext);
-        RemoteOperationResult result = sfo.execute(wc);
+        RemoteOperationResult result = sfo.execute(mOCAccount, mContext);
         if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
             Intent i = new Intent(mContext, ConflictsResolveActivity.class);

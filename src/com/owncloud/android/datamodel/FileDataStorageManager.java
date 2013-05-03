@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -40,7 +40,6 @@ import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
-import android.util.Log;
 
 public class FileDataStorageManager implements DataStorageManager {
 
@@ -156,7 +155,7 @@ public class FileDataStorageManager implements DataStorageManager {
                             cv, ProviderTableMeta._ID + "=?",
                             new String[] { String.valueOf(file.getFileId()) });
                 } catch (RemoteException e) {
-                    Log.e(TAG,
+                    Log_OC.e(TAG,
                             "Fail to insert insert file to database "
                                     + e.getMessage());
                 }
@@ -171,7 +170,7 @@ public class FileDataStorageManager implements DataStorageManager {
                     result_uri = getContentProvider().insert(
                             ProviderTableMeta.CONTENT_URI_FILE, cv);
                 } catch (RemoteException e) {
-                    Log.e(TAG,
+                    Log_OC.e(TAG,
                             "Fail to insert insert file to database "
                                     + e.getMessage());
                 }
@@ -256,10 +255,10 @@ public class FileDataStorageManager implements DataStorageManager {
             }
             
         } catch (OperationApplicationException e) {
-            Log.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
+            Log_OC.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
             
         } catch (RemoteException e) {
-            Log.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
+            Log_OC.e(TAG, "Fail to update/insert list of files to database " + e.getMessage());
         }
         
         // update new id in file objects for insertions
@@ -269,7 +268,7 @@ public class FileDataStorageManager implements DataStorageManager {
                 if (results[i].uri != null) {
                     newId = Long.parseLong(results[i].uri.getPathSegments().get(1));
                     files.get(i).setFileId(newId);
-                    //Log.v(TAG, "Found and added id in insertion for " + files.get(i).getRemotePath());
+                    //Log_OC.v(TAG, "Found and added id in insertion for " + files.get(i).getRemotePath());
                 }
             }
         }
@@ -321,7 +320,7 @@ public class FileDataStorageManager implements DataStorageManager {
                             ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                             new String[] { mAccount.name }, null);
                 } catch (RemoteException e) {
-                    Log.e(TAG, e.getMessage());
+                    Log_OC.e(TAG, e.getMessage());
                     return ret;
                 }
             } else {
@@ -364,7 +363,7 @@ public class FileDataStorageManager implements DataStorageManager {
                                 + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                         new String[] { value, mAccount.name }, null);
             } catch (RemoteException e) {
-                Log.e(TAG,
+                Log_OC.e(TAG,
                         "Couldn't determine file existance, assuming non existance: "
                                 + e.getMessage());
                 return false;
@@ -394,7 +393,7 @@ public class FileDataStorageManager implements DataStorageManager {
                                 + "=?", new String[] { value, mAccount.name },
                         null);
             } catch (RemoteException e) {
-                Log.e(TAG, "Could not get file details: " + e.getMessage());
+                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
                 c = null;
             }
         }
@@ -517,7 +516,7 @@ public class FileDataStorageManager implements DataStorageManager {
                                                     ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ?",
                                                     new String[] { mAccount.name, dir.getRemotePath() + "%" }, null);
                 } catch (RemoteException e) {
-                    Log.e(TAG, e.getMessage());
+                    Log_OC.e(TAG, e.getMessage());
                 }
             } else {
                 c = getContentResolver().query(ProviderTableMeta.CONTENT_URI, 
@@ -558,10 +557,10 @@ public class FileDataStorageManager implements DataStorageManager {
                 }
                 
             } catch (OperationApplicationException e) {
-                Log.e(TAG, "Fail to update descendants of " + dir.getFileId() + " in database", e);
+                Log_OC.e(TAG, "Fail to update descendants of " + dir.getFileId() + " in database", e);
                 
             } catch (RemoteException e) {
-                Log.e(TAG, "Fail to update desendants of " + dir.getFileId() + " in database", e);
+                Log_OC.e(TAG, "Fail to update desendants of " + dir.getFileId() + " in database", e);
             }
             
         }

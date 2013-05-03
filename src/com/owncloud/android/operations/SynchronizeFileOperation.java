@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,8 +25,8 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -106,7 +105,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                     }
                 }
                 
-                if (result == null) {   // true if the server was not checked, or nothing was wrong with the remote request
+                if (result == null) {   // true if the server was not checked. nothing was wrong with the remote request
               
                     /// check changes in server and local file
                     boolean serverChanged = false;
@@ -158,11 +157,11 @@ public class SynchronizeFileOperation extends RemoteOperation {
           
             }
             
-            Log.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", file " + mLocalFile.getRemotePath() + ": " + result.getLogMessage());
           
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Synchronizing " + mAccount.name + ", file " + (mLocalFile != null ? mLocalFile.getRemotePath() : "NULL") + ": " + result.getLogMessage(), result.getException());
+            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", file " + (mLocalFile != null ? mLocalFile.getRemotePath() : "NULL") + ": " + result.getLogMessage(), result.getException());
 
         } finally {
             if (propfind != null)
