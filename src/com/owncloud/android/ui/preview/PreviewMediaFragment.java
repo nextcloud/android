@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -106,6 +107,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
     private boolean mAutoplay;
+    public boolean mPrepared;
     
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -118,12 +120,12 @@ public class PreviewMediaFragment extends SherlockFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount) {
+    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition, boolean autoplay) {
         mFile = fileToDetail;
         mAccount = ocAccount;
-        mSavedPlaybackPosition = 0;
+        mSavedPlaybackPosition = startPlaybackPosition;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
-        mAutoplay = true;
+        mAutoplay = autoplay;
     }
     
     
@@ -161,6 +163,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        Log_OC.e(TAG, "onCreateView");
+
         
         mView = inflater.inflate(R.layout.file_preview, container, false);
         
@@ -180,6 +184,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log_OC.e(TAG, "onAttach");
+        
         if (!(activity instanceof FileFragment.ContainerActivity))
             throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
     }
@@ -191,6 +197,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log_OC.e(TAG, "onActivityCreated");
 
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
@@ -228,6 +235,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log_OC.e(TAG, "onSaveInstanceState");
+        
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
@@ -246,6 +255,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onStart() {
         super.onStart();
+        Log_OC.e(TAG, "onStart");
 
         if (mFile != null) {
            if (mFile.isAudio()) {
@@ -280,6 +290,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         toHide.add(R.id.action_cancel_download);
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
+        toHide.add(R.id.action_sync_file);
         toHide.add(R.id.action_rename_file);    // by now
 
         for (int i : toHide) {
@@ -359,6 +370,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             }
             mMediaController.setEnabled(true);
             mMediaController.updatePausePlay();
+            mPrepared = true;
         }
         
         
@@ -422,9 +434,29 @@ public class PreviewMediaFragment extends SherlockFragment implements
 
     
     @Override
+    public void onPause() {
+        super.onPause();
+        Log_OC.e(TAG, "onPause");
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log_OC.e(TAG, "onResume");
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log_OC.e(TAG, "onDestroy");
+    }
+    
+    @Override
     public void onStop() {
+        Log_OC.e(TAG, "onStop");
         super.onStop();
-        
+
+        mPrepared = false;
         if (mMediaServiceConnection != null) {
             Log_OC.d(TAG, "Unbinding from MediaService ...");
             if (mMediaServiceBinder != null && mMediaController != null) {
@@ -456,9 +488,14 @@ public class PreviewMediaFragment extends SherlockFragment implements
         startActivityForResult(i, 0);
     }
 
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        Log_OC.e(TAG, "onConfigurationChanged " + this);
+    }
     
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log_OC.e(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             mSavedPlaybackPosition = data.getExtras().getInt(PreviewVideoActivity.EXTRA_START_POSITION);
@@ -747,6 +784,22 @@ public class PreviewMediaFragment extends SherlockFragment implements
         } else {
             container.finish();
         }
+    }
+
+
+    public int getPosition() {
+        if (mPrepared) {
+            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+        }
+        Log_OC.e(TAG, "getting position: " + mSavedPlaybackPosition);
+        return mSavedPlaybackPosition;
+    }
+    
+    public boolean isPlaying() {
+        if (mPrepared) {
+            mAutoplay = mVideoPreview.isPlaying();
+        }
+        return mAutoplay;
     }
     
 }
