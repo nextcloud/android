@@ -25,7 +25,6 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;

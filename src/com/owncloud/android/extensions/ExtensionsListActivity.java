@@ -35,7 +35,6 @@ import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.SimpleAdapter;
 
 public class ExtensionsListActivity extends ListActivity {

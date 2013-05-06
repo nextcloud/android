@@ -19,6 +19,7 @@
 package com.owncloud.android.files.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -34,12 +36,14 @@ import eu.alefzero.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 import android.accounts.Account;
+import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -113,7 +117,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         mBinder = new FileDownloaderBinder();
     }
 
-    
     /**
      * Entry point to add one or several files to the queue of downloads.
      * 
@@ -256,7 +259,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
         
         
-        
         /**
          * Removes a listener interested in the progress of the download for a concrete file.
          * 
@@ -321,7 +323,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         }
     }
     
-    
 
     /**
      * Core download method: requests a file to download and stores it.
@@ -338,21 +339,28 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             
             notifyDownloadStart(mCurrentDownload);
 
-            /// prepare client object to send the request to the ownCloud server
-            if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
-                mLastAccount = mCurrentDownload.getAccount();
-                mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
-            }
-
-            /// perform the download
             RemoteOperationResult downloadResult = null;
             try {
+                /// prepare client object to send the request to the ownCloud server
+                if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
+                    mLastAccount = mCurrentDownload.getAccount();
+                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
+                }
+
+                /// perform the download
                 downloadResult = mCurrentDownload.execute(mDownloadClient);
                 if (downloadResult.isSuccess()) {
                     saveDownloadedFile();
                 }
             
+            } catch (AccountsException e) {
+                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                downloadResult = new RemoteOperationResult(e);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Error while trying to get autorization for " + mLastAccount.name, e);
+                downloadResult = new RemoteOperationResult(e);
+                
             } finally {
                 synchronized(mPendingDownloads) {
                     mPendingDownloads.remove(downloadKey);
@@ -455,23 +463,41 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            Intent showDetailsIntent = null;
-            if (downloadResult.isSuccess()) {
-                if (PreviewImageFragment.canBePreviewed(download.getFile())) {
-                    showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-                } else {
-                    showDetailsIntent = new Intent(this, FileDetailActivity.class);
-                }
-                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
-                showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
-                showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED);
+            if (needsToUpdateCredentials) {
+                // let the user update credentials with one click
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, download.getAccount());
+                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
+                finalNotification.contentIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+                finalNotification.setLatestEventInfo(   getApplicationContext(), 
+                                                        getString(tickerId), 
+                                                        String.format(getString(contentId), new File(download.getSavePath()).getName()),
+                                                        finalNotification.contentIntent);
+                mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
                 
             } else {
-                // TODO put something smart in showDetailsIntent
-                showDetailsIntent = new Intent();
+                Intent showDetailsIntent = null;
+                if (downloadResult.isSuccess()) {
+                    if (PreviewImageFragment.canBePreviewed(download.getFile())) {
+                        showDetailsIntent = new Intent(this, PreviewImageActivity.class);
+                    } else {
+                        showDetailsIntent = new Intent(this, FileDetailActivity.class);
+                    }
+                    showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, download.getFile());
+                    showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, download.getAccount());
+                    showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    
+                } else {
+                    // TODO put something smart in showDetailsIntent
+                    showDetailsIntent = new Intent();
+                }
+                finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
+                finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             }
-            finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
-            finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
             mNotificationManager.notify(tickerId, finalNotification);
         }
     }

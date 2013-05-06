@@ -23,7 +23,6 @@ import java.io.File;
 import android.accounts.Account;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -46,11 +45,9 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +61,7 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -73,7 +70,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -93,8 +90,6 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
-
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Displays, what files the user has available in his ownCloud.
@@ -125,13 +120,10 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     private boolean mBackFromCreatingFirstAccount;
     
     private static final int DIALOG_SETUP_ACCOUNT = 0;
-    private static final int DIALOG_CREATE_DIR = 1;
-    public static final int DIALOG_SHORT_WAIT = 3;
-    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 4;
-    private static final int DIALOG_SSL_VALIDATOR = 5;
-    private static final int DIALOG_CERT_NOT_SAVED = 6;
-    private static final String DIALOG_CHANGELOG_TAG = "DIALOG_CHANGELOG";
-
+    public static final int DIALOG_SHORT_WAIT = 1;
+    private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 2;
+    private static final int DIALOG_SSL_VALIDATOR = 3;
+    private static final int DIALOG_CERT_NOT_SAVED = 4;
     
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
     private static final int ACTION_SELECT_MULTIPLE_FILES = 2;
@@ -149,6 +141,8 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         Log_OC.d(getClass().toString(), "onCreate() start");
         super.onCreate(savedInstanceState);
         mStarted = false;
+
+        mHandler = new Handler();
 
         /// Load of parameters from received intent
         Account account = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
@@ -245,7 +239,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
      */
     private void createFirstAccount() {
         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTHORITY });
         startActivity(intent);  // the new activity won't be created until this.onStart() and this.onResume() are finished;
     }
 
@@ -400,12 +394,12 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     }
 
     private void startSynchronization() {
-        ContentResolver.cancelSync(null, AccountAuthenticator.AUTH_TOKEN_TYPE);   // cancel the current synchronizations of any ownCloud account
+        ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);   // cancel the current synchronizations of any ownCloud account
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(
                 AccountUtils.getCurrentOwnCloudAccount(this),
-                AccountAuthenticator.AUTH_TOKEN_TYPE, bundle);
+                AccountAuthenticator.AUTHORITY, bundle);
     }
 
 
@@ -560,7 +554,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         outState.putParcelable(FileDetailActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         Log_OC.d(getClass().toString(), "onSaveInstanceState() end");
     }
-
     
     @Override
     protected void onResume() {
@@ -663,53 +656,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 }
             });
             //builder.setNegativeButton(android.R.string.cancel, this);
-            dialog = builder.create();
-            break;
-        }
-        case DIALOG_CREATE_DIR: {
-            builder = new Builder(this);
-            final EditText dirNameInput = new EditText(getBaseContext());
-            builder.setView(dirNameInput);
-            builder.setTitle(R.string.uploader_info_dirname);
-            int typed_color = getResources().getColor(R.color.setup_text_typed);
-            dirNameInput.setTextColor(typed_color);
-            builder.setPositiveButton(android.R.string.ok,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            String directoryName = dirNameInput.getText().toString();
-                            if (directoryName.trim().length() == 0) {
-                                dialog.cancel();
-                                return;
-                            }
-    
-                            // Figure out the path where the dir needs to be created
-                            String path;
-                            if (mCurrentDir == null) {
-                                // this is just a patch; we should ensure that mCurrentDir never is null
-                                if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
-                                    OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
-                                    mStorageManager.saveFile(file);
-                                }
-                                mCurrentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
-                            }
-                            path = FileDisplayActivity.this.mCurrentDir.getRemotePath();
-                            
-                            // Create directory
-                            path += directoryName + OCFile.PATH_SEPARATOR;
-                            Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                            thread.start();
-                            
-                            dialog.dismiss();
-                            
-                            showDialog(DIALOG_SHORT_WAIT);
-                        }
-                    });
-            builder.setNegativeButton(R.string.common_cancel,
-                    new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
             dialog = builder.create();
             break;
         }
@@ -831,57 +777,6 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
     public boolean popDirname() {
         mDirectories.remove(mDirectories.getItem(0));
         return !mDirectories.isEmpty();
-    }
-
-    private class DirectoryCreator implements Runnable {
-        private String mTargetPath;
-        private Account mAccount;
-        private Handler mHandler; 
-    
-        public DirectoryCreator(String targetPath, Account account, Handler handler) {
-            mTargetPath = targetPath;
-            mAccount = account;
-            mHandler = handler;
-        }
-    
-        @Override
-        public void run() {
-            WebdavClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-            boolean created = wdc.createDirectory(mTargetPath);
-            if (created) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() { 
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        
-                        // Save new directory in local database
-                        OCFile newDir = new OCFile(mTargetPath);
-                        newDir.setMimetype("DIR");
-                        newDir.setParentId(mCurrentDir.getFileId());
-                        mStorageManager.saveFile(newDir);
-    
-                        // Display the new folder right away
-                        mFileList.listDirectory();
-                    }
-                });
-                
-            } else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dismissDialog(DIALOG_SHORT_WAIT);
-                        try {
-                            Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
-                            msg.show();
-                        
-                        } catch (NotFoundException e) {
-                            Log_OC.e(TAG, "Error while trying to show fail message ", e);
-                        }
-                    }
-                });
-            }
-        }
-    
     }
 
     // Custom array adapter to override text colors
@@ -1312,6 +1207,9 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
             
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
+
+        } else if (operation instanceof CreateFolderOperation) {
+            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
         }
     }
 
@@ -1351,6 +1249,30 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         }
     }
 
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying create a new folder
+     * 
+     * @param operation     Creation operation performed.
+     * @param result        Result of the creation.
+     */
+    private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            mFileList.listDirectory();
+            
+        } else {
+            dismissDialog(DIALOG_SHORT_WAIT);
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+                    
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
+        }
+    }
+    
+    
     /**
      * Updates the view associated to the activity after the finish of an operation trying to rename a 
      * file. 
@@ -1459,7 +1381,7 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
         //dialog.dismiss();
         if (dialog.getResult()) {
             String newDirectoryName = dialog.getNewFilename().trim();
-            Log.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
+            Log_OC.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
             if (newDirectoryName.length() > 0) {
                 String path;
                 if (mCurrentDir == null) {
@@ -1474,14 +1396,19 @@ public class FileDisplayActivity extends SherlockFragmentActivity implements
                 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                Thread thread = new Thread(new DirectoryCreator(path,  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), new Handler()));
-                thread.start();
+                RemoteOperation operation = new CreateFolderOperation(path, mCurrentDir.getFileId(), mStorageManager);
+                operation.execute(  AccountUtils.getCurrentOwnCloudAccount(FileDisplayActivity.this), 
+                                    FileDisplayActivity.this, 
+                                    FileDisplayActivity.this, 
+                                    mHandler,
+                                    FileDisplayActivity.this);
                 
                 showDialog(DIALOG_SHORT_WAIT);
             }
         }
     }
-
+    
+    
     private void requestForDownload() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
         if (!mDownloaderBinder.isDownloading(account, mWaitingToPreview)) {

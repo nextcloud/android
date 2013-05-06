@@ -2,8 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,7 +26,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
@@ -59,16 +58,6 @@ import com.owncloud.android.utils.FileStorageUtils;
  * sub-menu underneath the 'Upload' menu-item
  * 
  * @author andomaex / Matthias Baumann
- * 
- *         This program is free software: you can redistribute it and/or modify
- *         it under the terms of the GNU General Public License as published by
- *         the Free Software Foundation, either version 3 of the License. (at
- *         your option) any later version.
- * 
- *         This program is distributed in the hope that it will be useful, but
- *         WITHOUT ANY WARRANTY; without even the implied warranty of
- *         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- *         General Public License for more de/
  */
 public class InstantUploadActivity extends Activity {
 
@@ -363,7 +352,7 @@ public class InstantUploadActivity extends Activity {
 
             @Override
             public boolean onLongClick(View v) {
-                Log.d(LOG_TAG, message);
+                Log_OC.d(LOG_TAG, message);
                 Toast toast = Toast.makeText(InstantUploadActivity.this, getString(R.string.failed_upload_retry_text)
                         + message, Toast.LENGTH_LONG);
                 toast.show();

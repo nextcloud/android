@@ -30,21 +30,20 @@ import eu.alefzero.webdav.WebdavClient;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.util.Log;
 
-public class ConnectionCheckOperation extends RemoteOperation {
+public class OwnCloudServerCheckOperation extends RemoteOperation {
     
     /** Maximum time to wait for a response from the server when the connection is being tested, in MILLISECONDs.  */
     public static final int TRY_CONNECTION_TIMEOUT = 5000;
     
-    private static final String TAG = ConnectionCheckOperation.class.getSimpleName();
+    private static final String TAG = OwnCloudServerCheckOperation.class.getSimpleName();
     
     private String mUrl;
     private RemoteOperationResult mLatestResult;
     private Context mContext;
     private OwnCloudVersion mOCVersion;
 
-    public ConnectionCheckOperation(String url, Context context) {
+    public OwnCloudServerCheckOperation(String url, Context context) {
         mUrl = url;
         mContext = context;
         mOCVersion = null;

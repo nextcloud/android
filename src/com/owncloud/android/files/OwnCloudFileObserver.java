@@ -23,19 +23,16 @@ import java.io.File;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 
-import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.FileObserver;
-import android.util.Log;
 
 public class OwnCloudFileObserver extends FileObserver {
 
@@ -78,7 +75,6 @@ public class OwnCloudFileObserver extends FileObserver {
                          mPath);
             return;
         }
-        WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mOCAccount, mContext);
         FileDataStorageManager storageManager = new FileDataStorageManager(mOCAccount, mContext.getContentResolver());
         OCFile file = storageManager.getFileByLocalPath(mPath);     // a fresh object is needed; many things could have occurred to the file since it was registered to observe
                                                                     // again, assuming that local files are linked to a remote file AT MOST, SOMETHING TO BE DONE; 
@@ -89,7 +85,7 @@ public class OwnCloudFileObserver extends FileObserver {
                                                                     true, 
                                                                     true, 
                                                                     mContext);
-        RemoteOperationResult result = sfo.execute(wc);
+        RemoteOperationResult result = sfo.execute(mOCAccount, mContext);
         if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
             Intent i = new Intent(mContext, ConflictsResolveActivity.class);

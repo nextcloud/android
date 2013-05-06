@@ -40,7 +40,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 public class FileObserverService extends Service {
 

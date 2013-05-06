@@ -42,7 +42,6 @@ import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**

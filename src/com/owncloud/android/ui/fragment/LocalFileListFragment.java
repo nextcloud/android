@@ -25,7 +25,6 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;

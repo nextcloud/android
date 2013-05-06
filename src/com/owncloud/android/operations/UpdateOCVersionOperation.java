@@ -25,11 +25,10 @@ import org.json.JSONObject;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.util.Log;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.authenticator.AccountAuthenticator;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.OwnCloudVersion;
 

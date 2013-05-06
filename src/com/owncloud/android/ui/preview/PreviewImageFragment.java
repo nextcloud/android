@@ -36,7 +36,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +53,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -62,8 +60,8 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 
@@ -339,7 +337,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
             startActivity(i);
             
         } catch (Throwable t) {
-            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
             boolean toastIt = true; 
             String mimeType = "";
             try {
@@ -358,13 +356,13 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 }
                 
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
                 
             } catch (ActivityNotFoundException e) {
-                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
                 
             } catch (Throwable th) {
-                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
                 
             } finally {
                 if (toastIt) {
@@ -404,8 +402,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
             mLastRemoteOperation = new RemoveFileOperation( mFile,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
                                                             true, 
                                                             mStorageManager);
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             getActivity().showDialog(PreviewImageActivity.DIALOG_SHORT_WAIT);
         }
@@ -557,24 +554,24 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 // really load the bitmap
                 options.inJustDecodeBounds = false; // the next decodeFile call will be real
                 result = BitmapFactory.decodeFile(storagePath, options);
-                //Log.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
+                //Log_OC.d(TAG, "Image loaded - width: " + options.outWidth + ", loaded height: " + options.outHeight);
 
                 if (result == null) {
                     mErrorMessageId = R.string.preview_image_error_unknown_format;
-                    Log.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                    Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                 }
                 
             } catch (OutOfMemoryError e) {
                 mErrorMessageId = R.string.preview_image_error_unknown_format;
-                Log.e(TAG, "Out of memory occured for file " + storagePath, e);
+                Log_OC.e(TAG, "Out of memory occured for file " + storagePath, e);
                     
             } catch (NoSuchFieldError e) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log.e(TAG, "Error from access to unexisting field despite protection; file " + storagePath, e);
+                Log_OC.e(TAG, "Error from access to unexisting field despite protection; file " + storagePath, e);
                     
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), t);
+                Log_OC.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), t);
                 
             }
             return result;

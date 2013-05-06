@@ -24,7 +24,6 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 //import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 
 import android.accounts.Account;
-import android.util.Log;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
@@ -42,7 +41,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class RenameFileOperation extends RemoteOperation {
     
-    private static final String TAG = RemoveFileOperation.class.getSimpleName();
+    private static final String TAG = RenameFileOperation.class.getSimpleName();
 
     private static final int RENAME_READ_TIMEOUT = 10000;
     private static final int RENAME_CONNECTION_TIMEOUT = 5000;

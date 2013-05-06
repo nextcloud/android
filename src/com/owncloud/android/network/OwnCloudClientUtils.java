@@ -37,19 +37,24 @@ import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.Log_OC;
 
 import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
+import android.os.Bundle;
 
 public class OwnCloudClientUtils {
     
-    final private static String TAG = "OwnCloudClientFactory";
+    final private static String TAG = OwnCloudClientUtils.class.getSimpleName();
     
     /** Default timeout for waiting data from the server */
     public static final int DEFAULT_DATA_TIMEOUT = 60000;
@@ -70,45 +75,60 @@ public class OwnCloudClientUtils {
     /**
      * Creates a WebdavClient setup for an ownCloud account
      * 
-     * @param account   The ownCloud account
-     * @param context   The application context
-     * @return          A WebdavClient object ready to be used
-     */
-    public static WebdavClient createOwnCloudClient (Account account, Context context) {
-        Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
-       
-        Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(context, account));
-        WebdavClient client = createOwnCloudClient(uri, context);
-        
-        String username = account.name.substring(0, account.name.lastIndexOf('@'));
-        String password = AccountManager.get(context).getPassword(account);
-        //String password = am.blockingGetAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE, true);
-        
-        client.setCredentials(username, password);
-        
-        return client;
-    }
-    
-    
-    /**
-     * Creates a WebdavClient to try a new account before saving it
+     * Do not call this method from the main thread.
      * 
-     * @param uri       URL to the ownCloud server
-     * @param username  User name
-     * @param password  User password
-     * @param context   Android context where the WebdavClient is being created.
-     * @return          A WebdavClient object ready to be used
+     * @param account                       The ownCloud account
+     * @param appContext                    Android application context
+     * @return                              A WebdavClient object ready to be used
+     * @throws AuthenticatorException       If the authenticator failed to get the authorization token for the account.
+     * @throws OperationCanceledException   If the authenticator operation was cancelled while getting the authorization token for the account. 
+     * @throws IOException                  If there was some I/O error while getting the authorization token for the account.
      */
-    public static WebdavClient createOwnCloudClient(Uri uri, String username, String password, Context context) {
-        Log_OC.d(TAG, "Creating WebdavClient for " + username + "@" + uri);
+    public static WebdavClient createOwnCloudClient (Account account, Context appContext) throws OperationCanceledException, AuthenticatorException, IOException {
+        //Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
+       
+        Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
+        WebdavClient client = createOwnCloudClient(uri, appContext);
+        AccountManager am = AccountManager.get(appContext);
+        if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
+            String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
+            client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
         
-        WebdavClient client = createOwnCloudClient(uri, context);
-        
-        client.setCredentials(username, password);
+        } else {
+            String username = account.name.substring(0, account.name.lastIndexOf('@'));
+            //String password = am.getPassword(account);
+            String password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, false);
+            client.setBasicCredentials(username, password);
+        }
         
         return client;
     }
     
+    
+    public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException {
+        Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
+        WebdavClient client = createOwnCloudClient(uri, appContext);
+        AccountManager am = AccountManager.get(appContext);
+        if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, null, currentActivity, null, null);
+            Bundle result = future.getResult();
+            String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
+            //String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
+            if (accessToken == null) throw new AuthenticatorException("WTF!");
+            client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
+            
+        } else {
+            String username = account.name.substring(0, account.name.lastIndexOf('@'));
+            //String password = am.getPassword(account);
+            //String password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, false);
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, null, currentActivity, null, null);
+            Bundle result = future.getResult();
+            String password = result.getString(AccountManager.KEY_AUTHTOKEN);
+            client.setBasicCredentials(username, password);
+        }
+        
+        return client;
+    }
     
     /**
      * Creates a WebdavClient to access a URL and sets the desired parameters for ownCloud client connections.
@@ -118,7 +138,7 @@ public class OwnCloudClientUtils {
      * @return          A WebdavClient object ready to be used
      */
     public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        Log_OC.d(TAG, "Creating WebdavClient for " + uri);
+        //Log_OC.d(TAG, "Creating WebdavClient for " + uri);
         
         //allowSelfsignedCertificates(true);
         try {
@@ -243,5 +263,6 @@ public class OwnCloudClientUtils {
         }
         return mConnManager;
     }
+
 
 }

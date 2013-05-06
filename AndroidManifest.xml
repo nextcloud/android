@@ -91,7 +91,7 @@
         <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
         </activity>
         
-		<activity	android:name="com.owncloud.android.ui.preview.PreviewImageActivity" />
+        <activity	android:name="com.owncloud.android.ui.preview.PreviewImageActivity" />
 		        
         <activity	android:name="com.owncloud.android.ui.preview.PreviewVideoActivity"
 					android:label="@string/app_name"
@@ -99,7 +99,7 @@
 		</activity>        
 
         <service
-            android:name=".authenticator.AccountAuthenticatorService"
+            android:name=".authentication.AccountAuthenticatorService"
             android:exported="true">
             <intent-filter  android:priority="100">
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -131,9 +131,16 @@
         </provider>
 
         <activity
-            android:name=".ui.activity.AuthenticatorActivity"
+            android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar" >
+            android:theme="@style/Theme.ownCloud.noActionBar" 
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/oauth2_redirect_scheme" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -170,6 +177,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
+        
     </application>
-    
+
 </manifest>
