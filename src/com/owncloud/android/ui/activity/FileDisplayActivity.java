@@ -116,7 +116,6 @@ public class FileDisplayActivity extends FileActivity implements
     private OCFileListFragment mFileList;
     
     private boolean mDualPane;
-    private boolean mBackFromCreatingFirstAccount;
     
     public static final int DIALOG_SHORT_WAIT = 0;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
@@ -194,8 +193,6 @@ public class FileDisplayActivity extends FileActivity implements
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
         setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
-        
-        mBackFromCreatingFirstAccount = false;
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -733,13 +730,6 @@ public class FileDisplayActivity extends FileActivity implements
                 setFile(currentDir);
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
-                if (mBackFromCreatingFirstAccount) {
-                    // awful patch to fix problem with visibility of progress circle with the first refresh of the first account
-                    // TODO - kill this Activity when the first account has to be created instead of stack the account creation on it
-                    getSupportActionBar().hide();
-                    getSupportActionBar().show();
-                    mBackFromCreatingFirstAccount = false;
-                }
                 removeStickyBroadcast(intent);
                 
             }
