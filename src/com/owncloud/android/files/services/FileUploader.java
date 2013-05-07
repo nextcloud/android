@@ -43,7 +43,6 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileDetailActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -74,6 +73,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -706,8 +706,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             showDetailsIntent = new Intent(this, FileDetailActivity.class);
             showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         }
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(),
                 (int) System.currentTimeMillis(), showDetailsIntent, 0);
@@ -769,8 +769,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 showDetailsIntent = new Intent(this, FileDetailActivity.class); 
                 showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
             }
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, upload.getFile());
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, upload.getAccount());
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
+            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
             showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(),
                     (int) System.currentTimeMillis(), showDetailsIntent, 0);
