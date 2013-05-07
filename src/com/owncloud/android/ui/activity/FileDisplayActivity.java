@@ -270,8 +270,8 @@ public class FileDisplayActivity extends FileActivity implements
         } else {
             finish();
             Intent intent = new Intent(this, FileDisplayActivity.class);
-            intent.putExtra(FileDetailFragment.EXTRA_FILE, getFile());
-            intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+            intent.putExtra(EXTRA_FILE, getFile());
+            intent.putExtra(EXTRA_ACCOUNT, getAccount());
             startActivity(intent);
         }
     }
@@ -482,7 +482,7 @@ public class FileDisplayActivity extends FileActivity implements
             if (fragment != null) {
                 OCFile file = fragment.getFile();
                 if (file != null) {
-                    outState.putParcelable(FileActivity.EXTRA_FILE, file);
+                    outState.putParcelable(EXTRA_FILE, file);
                 }
             }
         }
@@ -920,8 +920,8 @@ public class FileDisplayActivity extends FileActivity implements
 
     private void startPreviewImage(OCFile file) {
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+        showDetailsIntent.putExtra(EXTRA_FILE, file);
+        showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
     }
     
@@ -933,8 +933,8 @@ public class FileDisplayActivity extends FileActivity implements
             
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+            showDetailsIntent.putExtra(EXTRA_FILE, file);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
             showDetailsIntent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, startPlaybackPosition);
             showDetailsIntent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, autoplay);
             startActivity(showDetailsIntent);
@@ -951,8 +951,8 @@ public class FileDisplayActivity extends FileActivity implements
             
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+            showDetailsIntent.putExtra(EXTRA_FILE, file);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
             startActivity(showDetailsIntent);
         }
     }
@@ -965,8 +965,8 @@ public class FileDisplayActivity extends FileActivity implements
             transaction.commit();
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+            showDetailsIntent.putExtra(EXTRA_FILE, file);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
             startActivity(showDetailsIntent);
         }
     }
@@ -1263,8 +1263,8 @@ public class FileDisplayActivity extends FileActivity implements
             
         } else {
             Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-            showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, getAccount());
+            showDetailsIntent.putExtra(EXTRA_FILE, file);
+            showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
             showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
             startActivity(showDetailsIntent);
         }

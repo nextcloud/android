@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -57,7 +56,6 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -66,6 +64,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
@@ -74,7 +73,6 @@ import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.R;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
@@ -87,9 +85,6 @@ public class FileDetailFragment extends SherlockFragment implements
         OnClickListener, 
         ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener,
         FileFragment {
-
-    public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
     private FileFragment.ContainerActivity mContainerActivity;
     
@@ -154,8 +149,8 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onCreateView(inflater, container, savedInstanceState);
         
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_ACCOUNT);
+            mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
+            mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
         
         if(mFile != null && mAccount != null) {
@@ -207,8 +202,8 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(FileDetailFragment.EXTRA_FILE, mFile);
-        outState.putParcelable(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
     }
 
     @Override

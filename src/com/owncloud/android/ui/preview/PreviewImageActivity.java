@@ -43,8 +43,8 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.AccountUtils;
@@ -88,8 +88,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-        mAccount = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
+        mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
+        mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
         if (mFile == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
         }
@@ -313,8 +313,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     @Override
     public void showFragmentWithDetails(OCFile file) {
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
         showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
