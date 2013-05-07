@@ -467,4 +467,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         
     }
 
+    @Override
+    protected void onAccountChanged() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

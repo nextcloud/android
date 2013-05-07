@@ -23,7 +23,6 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -56,7 +55,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
 
     
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
@@ -74,8 +73,12 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     }
 
     
+    /**
+     * Validate the ownCloud {@link Account} associated to the Activity any time it is 
+     * started, and if not valid tries to move to a different Account.
+     */
     @Override
-    public void onStart() {
+    protected void onStart() {
         Log_OC.e(TAG, "onStart en FileActivity");
         super.onStart();
         /// Validate account, and try to fix if wrong
@@ -98,15 +101,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
-    private void createFirstAccountOldStyle() {
-        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-        intent.putExtra(android.provider.Settings.EXTRA_AUTHORITIES, new String[] { AccountAuthenticator.AUTHORITY });
-        startActivity(intent); 
-        
-        finish();
-    }
-
-    
     private void createFirstAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(AccountAuthenticator.ACCOUNT_TYPE, 
@@ -119,6 +113,9 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     }
 
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

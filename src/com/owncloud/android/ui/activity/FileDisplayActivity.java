@@ -135,7 +135,7 @@ public class FileDisplayActivity extends FileActivity implements
     private boolean mStarted;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
         
@@ -239,7 +239,7 @@ public class FileDisplayActivity extends FileActivity implements
     
     
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         if (mNewConfigurationChangeToApplyOnStart != null) {
             checkConfigurationChange(mNewConfigurationChangeToApplyOnStart);
@@ -249,7 +249,7 @@ public class FileDisplayActivity extends FileActivity implements
     }
     
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         mStarted = false;
     }
@@ -278,7 +278,7 @@ public class FileDisplayActivity extends FileActivity implements
 
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         if (mDownloadConnection != null)
             unbindService(mDownloadConnection);
@@ -356,7 +356,7 @@ public class FileDisplayActivity extends FileActivity implements
     /**
      * Called, when the user selected something for uploading
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         
         if (requestCode == ACTION_SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
