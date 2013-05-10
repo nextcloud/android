@@ -178,6 +178,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mStatusText = mStatusIcon = 0;
             mStatusCorrect = false;
             mIsSslConn = false;
+            updateConnStatus();
+            updateAuthStatus();
             
             /// retrieve extras from intent
             String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
@@ -270,7 +272,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         updateConnStatus();
         
         /// UI settings depending upon connection
-        mOkButton.setEnabled(mStatusCorrect);   // TODO really necessary?
+        mOkButton.setEnabled(mStatusCorrect);  
         if (!mStatusCorrect)
             mRefreshButton.setVisibility(View.VISIBLE); // seems that setting visibility is necessary
         else
@@ -347,7 +349,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// GET ACCESS TOKEN to the oAuth server 
         RemoteOperation operation = new OAuth2GetAccessToken(   getString(R.string.oauth2_client_id), 
-                                                                getString(R.string.oauth2_redirect_uri), // TODO check - necessary here?      
+                                                                getString(R.string.oauth2_redirect_uri),       
                                                                 getString(R.string.oauth2_grant_type),
                                                                 queryParameters);
         //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
@@ -964,16 +966,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the last check on the ownCloud server.
      */
     private void updateConnStatus() {
-        ImageView iv = (ImageView) findViewById(R.id.action_indicator);
-        TextView tv = (TextView) findViewById(R.id.status_text);
+        TextView tv = (TextView) findViewById(R.id.server_status_text);
 
         if (mStatusIcon == 0 && mStatusText == 0) {
-            iv.setVisibility(View.INVISIBLE);
             tv.setVisibility(View.INVISIBLE);
         } else {
-            iv.setImageResource(mStatusIcon);
             tv.setText(mStatusText);
-            iv.setVisibility(View.VISIBLE);
+            tv.setCompoundDrawablesWithIntrinsicBounds(mStatusIcon, 0, 0, 0);
             tv.setVisibility(View.VISIBLE);
         }
     }

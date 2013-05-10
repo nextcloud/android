@@ -200,7 +200,6 @@
     <string name="auth_bad_oc_version_title">Unrecognized server version</string>
     <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
     <string name="auth_secure_connection">Secure connection established</string>
-    <string name="auth_login_details">Login details</string>
     <string name="auth_unauthorized">Invalid credentials</string>
 	<string name="auth_oauth_error">Unsuccessful authorization</string>
 	<string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
