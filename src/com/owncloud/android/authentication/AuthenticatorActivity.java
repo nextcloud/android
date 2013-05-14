@@ -47,15 +47,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.owncloud.android.R;
 
@@ -68,7 +71,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-        implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener {
+        implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -166,6 +169,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// bind view elements to listeners
         mHostUrlInput.setOnFocusChangeListener(this);
         mPasswordInput.setOnFocusChangeListener(this);
+        mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mPasswordInput.setOnEditorActionListener(this);
         
         /// initialization
         mAccountMgr = AccountManager.get(this);
@@ -1079,6 +1084,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     public void onFailedSavingCertificate() {
         showDialog(DIALOG_CERT_NOT_SAVED);
+    }
+
+
+    /**
+     *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
+     * 
+     *  Used to trigger the authorization check when the user presses 'enter' after writing the password.
+     */
+    @Override
+    public boolean onEditorAction(TextView inputField, int actionId, KeyEvent event) {
+        if (inputField != null && inputField.equals(mPasswordInput) && 
+                actionId == EditorInfo.IME_ACTION_DONE) {
+            if (mOkButton.isEnabled()) {
+                mOkButton.performClick();
+            }
+        }
+        return false;   // always return false to grant that the software keyboard is hidden anyway
     }
 
 }
