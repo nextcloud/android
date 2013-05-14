@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:src="@drawable/ic_action_refresh_black"
+            	android:onClick="onRefreshClick"
                 android:visibility="invisible" />
         </FrameLayout>
 

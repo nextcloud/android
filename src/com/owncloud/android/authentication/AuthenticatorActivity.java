@@ -1006,7 +1006,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param view      Refresh 'button'
      */
     public void onRefreshClick(View view) {
-        onFocusChange(mRefreshButton, false);
+        onFocusChange(mHostUrlInput, false);
     }
     
     
