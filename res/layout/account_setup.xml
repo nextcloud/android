@@ -44,30 +44,17 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/logo" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <EditText
-                android:id="@+id/hostUrlInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/auth_host_url"
-                android:inputType="textUri" >
-
-                <requestFocus />
-            </EditText>
-
-            <ImageView
-                android:id="@+id/refreshButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:src="@drawable/ic_action_refresh_black"
-            	android:onClick="onRefreshClick"
-                android:visibility="invisible" />
-        </FrameLayout>
+		<EditText
+			android:id="@+id/hostUrlInput"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/auth_host_url"
+			android:inputType="textUri"
+			android:drawablePadding="5dp"
+			>
+			<requestFocus />
+		</EditText>
 
         <TextView
             android:id="@+id/server_status_text"

@@ -42,14 +42,18 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
@@ -123,7 +127,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private byte mAction;
     private Account mAccount;
     
-    private ImageView mRefreshButton;
     private ImageView mViewPasswordButton;
     private EditText mHostUrlInput;
     private EditText mUsernameInput;
@@ -149,7 +152,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
-        mRefreshButton = (ImageView) findViewById(R.id.refreshButton);
         mViewPasswordButton = (ImageView) findViewById(R.id.viewPasswordButton);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
@@ -168,6 +170,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// bind view elements to listeners
         mHostUrlInput.setOnFocusChangeListener(this);
+        mHostUrlInput.setOnTouchListener(new RightDrawableOnTouchListener() {
+            @Override
+            public boolean onDrawableTouch(final MotionEvent event) {
+                AuthenticatorActivity.this.onRefreshClick(mHostUrlInput);
+                return true;
+            }
+        });
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
@@ -278,10 +287,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// UI settings depending upon connection
         mOkButton.setEnabled(mStatusCorrect);  
-        if (!mStatusCorrect)
-            mRefreshButton.setVisibility(View.VISIBLE); // seems that setting visibility is necessary
-        else
-            mRefreshButton.setVisibility(View.INVISIBLE);
+        if (!mStatusCorrect) {
+            mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
+        } else {
+            mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
         
         /// server data
         String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
@@ -416,7 +426,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mDiscoveredVersion = null;
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
-            mRefreshButton.setVisibility(View.INVISIBLE);
+            mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             mStatusText = 0;
             mStatusIcon = 0;
             updateConnStatus();
@@ -589,10 +599,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         
         /// update the visibility of the 'retry connection' button
-        if (!mStatusCorrect)
-            mRefreshButton.setVisibility(View.VISIBLE);
-        else
-            mRefreshButton.setVisibility(View.INVISIBLE);
+        if (!mStatusCorrect) {
+            mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
+        } else {
+            mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
         
         /// retrieve discovered version and normalize server URL
         mDiscoveredVersion = operation.getDiscoveredVersion();
@@ -1103,4 +1114,39 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return false;   // always return false to grant that the software keyboard is hidden anyway
     }
 
+    
+    private abstract static class RightDrawableOnTouchListener implements OnTouchListener  {
+
+        private int fuzz = 10;
+        
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Drawable rightDrawable = null;
+                if (view instanceof TextView) {
+                    Drawable[] drawables = ((TextView)view).getCompoundDrawables();
+                    if (drawables.length > 2) {
+                        rightDrawable = drawables[2];
+                    }
+                }
+                if (rightDrawable != null) {
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+                    final Rect bounds = rightDrawable.getBounds();
+                    if (x >= (view.getRight() - bounds.width() - fuzz) && x <= (view.getRight() - view.getPaddingRight() + fuzz)
+                        && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
+                        
+                        return onDrawableTouch(event);
+                    }
+                }
+            }
+            return false;
+        }
+        
+        public abstract boolean onDrawableTouch(final MotionEvent event);
+    }
+    
 }
