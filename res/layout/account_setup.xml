@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-	android:padding="16dip"
+	android:padding="8dip"
     android:fillViewport="true"
     android:orientation="vertical"
     >
@@ -31,6 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+		android:layout_margin="8dip"
         android:gravity="center"
         android:orientation="vertical" 
         android:focusable="true"
@@ -165,8 +166,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:onClick="onRegisterClick"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:text="@string/auth_register"
             android:textColor="#0000FF" />
     </LinearLayout>
