@@ -87,7 +87,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
     private static final String KEY_ACCOUNT = "ACCOUNT";
-    private static final String KEY_SERVER_CHECKED_AND_VALID = "SERVER_CHECKED_AND_VALID";
+    private static final String KEY_SERVER_VALID = "SERVER_VALID";
+    private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
     private static final String KEY_SERVER_CHECK_IN_PROGRESS = "SERVER_CHECK_IN_PROGRESS"; 
     private static final String KEY_SERVER_STATUS_TEXT = "SERVER_STATUS_TEXT";
     private static final String KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON";
@@ -112,7 +113,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private OwnCloudVersion mDiscoveredVersion;
     
     private int mServerStatusText, mServerStatusIcon;
-    private boolean mServerCheckedAndValid, mIsSslConn;
+    private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private int mAuthStatusText, mAuthStatusIcon;    
     
     private final Handler mHandler = new Handler();
@@ -179,7 +180,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (savedInstanceState == null) {
             /// connection state and info
             mServerStatusText = mServerStatusIcon = 0;
-            mServerCheckedAndValid = false;
+            mServerIsValid = false;
+            mServerIsChecked = false;
             mIsSslConn = false;
             mAuthStatusText = mAuthStatusIcon = 0;
             
@@ -205,7 +207,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {
             /// connection state and info
-            mServerCheckedAndValid = savedInstanceState.getBoolean(KEY_SERVER_CHECKED_AND_VALID);
+            mServerIsValid = savedInstanceState.getBoolean(KEY_SERVER_VALID);
+            mServerIsChecked = savedInstanceState.getBoolean(KEY_SERVER_CHECKED);
             mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
             mServerStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON);
             mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
@@ -231,6 +234,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         showServerStatus();
         showAuthStatus();
+        if (mServerIsChecked && !mServerIsValid) showRefreshButton();
+        mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
         
         if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
             mOAuth2Check.setVisibility(View.GONE);
@@ -241,7 +246,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setEnabled(false);
             mUsernameInput.setEnabled(false);
             mOAuth2Check.setVisibility(View.GONE);
-            if (!mServerCheckedAndValid && mOcServerChkOperation == null) {
+            if (!mServerIsValid && mOcServerChkOperation == null) {
                 checkOcServer(); 
             }
         }
@@ -278,8 +283,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// connection state and info
         outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
         outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
-        outState.putBoolean(KEY_SERVER_CHECKED_AND_VALID, mServerCheckedAndValid);
-        outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerCheckedAndValid && mOcServerChkOperation != null));
+        outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
+        outState.putBoolean(KEY_SERVER_CHECKED, mServerIsChecked);
+        outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mOcServerChkOperation != null));
         outState.putBoolean(KEY_IS_SSL_CONN, mIsSslConn);
         outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
@@ -396,7 +402,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri = mHostUrlInput.getText().toString().trim();
-        mServerCheckedAndValid = false;
+        mServerIsValid = false;
+        mServerIsChecked = false;
         mOkButton.setEnabled(false);
         mDiscoveredVersion = null;
         hideRefreshButton();
@@ -567,12 +574,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void onOcServerCheckFinish(OwnCloudServerCheckOperation operation, RemoteOperationResult result) {
         if (operation.equals(mOcServerChkOperation)) {
             /// save result state
-            mServerCheckedAndValid = result.isSuccess();
+            mServerIsChecked = true;
+            mServerIsValid = result.isSuccess();
             mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
             mOcServerChkOperation = null;
             
             /// update status icon and text
-            if (mServerCheckedAndValid) {
+            if (mServerIsValid) {
                 hideRefreshButton();
             } else {
                 showRefreshButton();
@@ -591,7 +599,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
             
             /// allow or not the user try to access the server
-            mOkButton.setEnabled(mServerCheckedAndValid);
+            mOkButton.setEnabled(mServerIsValid);
             
         }   // else nothing ; only the last check operation is considered; 
             // multiple can be triggered if the user amends a URL before a previous check can be triggered
