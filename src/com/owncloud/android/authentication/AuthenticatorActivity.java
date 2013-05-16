@@ -1010,11 +1010,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * to the interactions with the OAuth authorization server.
      */
     private void showAuthStatus() {
-        if (mServerStatusIcon == 0 && mServerStatusText == 0) {
+        if (mAuthStatusIcon == 0 && mAuthStatusText == 0) {
             mAuthStatusLayout.setVisibility(View.INVISIBLE);
         } else {
-            mAuthStatusLayout.setText(mServerStatusText);
-            mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mServerStatusIcon, 0, 0, 0);
+            mAuthStatusLayout.setText(mAuthStatusText);
+            mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mAuthStatusIcon, 0, 0, 0);
             mAuthStatusLayout.setVisibility(View.VISIBLE);
         }
     }     
