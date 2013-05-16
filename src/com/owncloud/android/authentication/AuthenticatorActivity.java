@@ -414,15 +414,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri = mHostUrlInput.getText().toString().trim();
+        mServerCheckedAndValid = false;
+        mOkButton.setEnabled(false);
+        mDiscoveredVersion = null;
         if (uri.length() != 0) {
-            mServerCheckedAndValid = false;
-            mOkButton.setEnabled(false);
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
             mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
             WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
-            mDiscoveredVersion = null;
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
             mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -1028,7 +1028,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param view      Refresh 'button'
      */
     public void onRefreshClick(View view) {
-        onFocusChange(mHostUrlInput, false);
+        checkOcServer();
     }
     
     
