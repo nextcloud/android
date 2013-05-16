@@ -48,9 +48,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -142,8 +140,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
 
-    private HostUrlWatcher mHostUrlChangedListener;
-    
     
     /**
      * {@inheritDoc}
@@ -267,20 +263,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mPasswordInput.setOnEditorActionListener(this);
     }
     
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //mHostUrlChangedListener = new  HostUrlWatcher();
-        //mHostUrlInput.addTextChangedListener(mHostUrlChangedListener);    
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mHostUrlInput.removeTextChangedListener(mHostUrlChangedListener);
-    }
-    
-
     /**
      * Saves relevant state before {@link #onPause()}
      * 
@@ -1231,24 +1213,4 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         public abstract boolean onDrawableTouch(final MotionEvent event);
     }
     
-    
-    private class HostUrlWatcher implements TextWatcher {
-
-        @Override
-        public void afterTextChanged(Editable s) {
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (mServerCheckedAndValid) {
-                mServerCheckedAndValid = false;
-                mOkButton.setEnabled(false);    // avoids that the 'connect' button can be clicked if the test was previously passed
-            }
-        }
-        
-    }
 }
