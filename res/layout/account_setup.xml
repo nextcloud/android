@@ -105,28 +105,16 @@
             android:hint="@string/auth_username"
             android:inputType="textNoSuggestions" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <EditText
-                android:id="@+id/account_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/auth_password"
-                android:inputType="textPassword" />
-
-            <ImageView
-                android:id="@+id/viewPasswordButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:onClick="onViewPasswordClick"
-                android:src="@android:drawable/ic_menu_view"
-                android:visibility="invisible" />
-        </FrameLayout>
-
+		<EditText
+		    android:id="@+id/account_password"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:ems="10"
+			android:hint="@string/auth_password"
+			android:inputType="textPassword"
+			android:drawablePadding="5dp"
+			/>
+        
         <TextView
             android:id="@+id/auth_status_text"
             android:layout_width="match_parent"
