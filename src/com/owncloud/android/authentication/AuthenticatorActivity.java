@@ -48,7 +48,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -263,6 +265,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 return true;
             }
         });
+        mHostUrlInput.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mOkButton.setEnabled(false);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            
+        });
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
@@ -396,6 +412,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void onUrlInputFocusLost(TextView hostInput) {
         if (!mHostBaseUrl.equals(normalizeUrl(mHostUrlInput.getText().toString()))) {
             checkOcServer();
+        } else {
+            mOkButton.setEnabled(mServerIsValid);
         }
     }
 
