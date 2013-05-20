@@ -50,10 +50,10 @@
 			    android:id="@+id/LinearLayout1"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:layout_margin="8dp"
 			    android:focusable="true"
 			    android:gravity="center"
-			    android:orientation="vertical" >
+			    android:orientation="vertical"
+			    android:padding="8dp" >
 		
 				<EditText
 					android:id="@+id/hostUrlInput"
