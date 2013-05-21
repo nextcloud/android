@@ -141,7 +141,7 @@
             android:enabled="false"
             android:onClick="onOkClick"
             android:text="@string/setup_btn_connect"
-            android:textColor="@android:color/black" />
+            />
 
         <Button
             android:id="@+id/account_register"
