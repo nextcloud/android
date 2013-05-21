@@ -269,7 +269,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                mOkButton.setEnabled(false);
+                if (!mHostBaseUrl.equals(normalizeUrl(mHostUrlInput.getText().toString()))) {
+                    mOkButton.setEnabled(false);
+                }
             }
 
             @Override
@@ -640,7 +642,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 url = url.substring(0, url.length() - 1);
             }
         }
-        return url;
+        return (url != null ? url : "");
     }
 
     /**
