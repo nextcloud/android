@@ -42,20 +42,29 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.owncloud.android.R;
 
@@ -68,7 +77,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-        implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener {
+        implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -80,12 +89,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
     private static final String KEY_ACCOUNT = "ACCOUNT";
-    private static final String KEY_STATUS_TEXT = "STATUS_TEXT";
-    private static final String KEY_STATUS_ICON = "STATUS_ICON";
-    private static final String KEY_STATUS_CORRECT = "STATUS_CORRECT";
+    private static final String KEY_SERVER_VALID = "SERVER_VALID";
+    private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
+    private static final String KEY_SERVER_CHECK_IN_PROGRESS = "SERVER_CHECK_IN_PROGRESS"; 
+    private static final String KEY_SERVER_STATUS_TEXT = "SERVER_STATUS_TEXT";
+    private static final String KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON";
     private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
-    private static final String KEY_OAUTH2_STATUS_TEXT = "OAUTH2_STATUS_TEXT";
-    private static final String KEY_OAUTH2_STATUS_ICON = "OAUTH2_STATUS_ICON";
+    private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
+    private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     
     private static final String OAUTH_MODE_ON = "on";
     private static final String OAUTH_MODE_OFF = "off";
@@ -103,9 +114,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
     
-    private int mStatusText, mStatusIcon;
-    private boolean mStatusCorrect, mIsSslConn;
-    private int mOAuth2StatusText, mOAuth2StatusIcon;    
+    private int mServerStatusText, mServerStatusIcon;
+    private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
+    private int mAuthStatusText, mAuthStatusIcon;    
     
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
@@ -120,7 +131,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private byte mAction;
     private Account mAccount;
     
-    private ImageView mRefreshButton;
     private ImageView mViewPasswordButton;
     private EditText mHostUrlInput;
     private EditText mUsernameInput;
@@ -132,7 +142,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
-    
+
     
     /**
      * {@inheritDoc}
@@ -146,7 +156,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
-        mRefreshButton = (ImageView) findViewById(R.id.refreshButton);
         mViewPasswordButton = (ImageView) findViewById(R.id.viewPasswordButton);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
@@ -163,21 +172,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
         }
 
-        /// bind view elements to listeners
-        mHostUrlInput.setOnFocusChangeListener(this);
-        mPasswordInput.setOnFocusChangeListener(this);
-        
         /// initialization
         mAccountMgr = AccountManager.get(this);
         mNewCapturedUriFromOAuth2Redirection = null;
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
+        mHostBaseUrl = "";
 
         if (savedInstanceState == null) {
             /// connection state and info
-            mStatusText = mStatusIcon = 0;
-            mStatusCorrect = false;
+            mServerStatusText = mServerStatusIcon = 0;
+            mServerIsValid = false;
+            mServerIsChecked = false;
             mIsSslConn = false;
+            mAuthStatusText = mAuthStatusIcon = 0;
             
             /// retrieve extras from intent
             String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
@@ -189,7 +197,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 if (ocVersion != null) {
                     mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
-                mHostBaseUrl = mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+                mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
@@ -200,8 +208,36 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             
 
         } else {
-            loadSavedInstanceState(savedInstanceState);
+            /// connection state and info
+            mServerIsValid = savedInstanceState.getBoolean(KEY_SERVER_VALID);
+            mServerIsChecked = savedInstanceState.getBoolean(KEY_SERVER_CHECKED);
+            mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
+            mServerStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON);
+            mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
+            mAuthStatusText = savedInstanceState.getInt(KEY_AUTH_STATUS_TEXT);
+            mAuthStatusIcon = savedInstanceState.getInt(KEY_AUTH_STATUS_ICON);
+            
+            /// server data
+            String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
+            if (ocVersion != null) {
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
+            }
+            mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
+            
+            // account data, if updating
+            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
+            
+            // check if server check was interrupted by a configuration change
+            if (savedInstanceState.getBoolean(KEY_SERVER_CHECK_IN_PROGRESS, false)) {
+                checkOcServer();
+            }
+            
         }
+        
+        showServerStatus();
+        showAuthStatus();
+        if (mServerIsChecked && !mServerIsValid) showRefreshButton();
+        mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
         
         if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
             mOAuth2Check.setVisibility(View.GONE);
@@ -212,14 +248,44 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setEnabled(false);
             mUsernameInput.setEnabled(false);
             mOAuth2Check.setVisibility(View.GONE);
-            checkOcServer(); 
+            if (!mServerIsValid && mOcServerChkOperation == null) {
+                checkOcServer(); 
+            }
         }
         
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
         mJustCreated = true;
+        
+        /// bind view elements to listeners
+        mHostUrlInput.setOnFocusChangeListener(this);
+        mHostUrlInput.setOnTouchListener(new RightDrawableOnTouchListener() {
+            @Override
+            public boolean onDrawableTouch(final MotionEvent event) {
+                AuthenticatorActivity.this.onRefreshClick(mHostUrlInput);
+                return true;
+            }
+        });
+        mHostUrlInput.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!mHostBaseUrl.equals(normalizeUrl(mHostUrlInput.getText().toString()))) {
+                    mOkButton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            
+        });
+        mPasswordInput.setOnFocusChangeListener(this);
+        mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mPasswordInput.setOnEditorActionListener(this);
     }
-
-
+    
     /**
      * Saves relevant state before {@link #onPause()}
      * 
@@ -233,65 +299,29 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         super.onSaveInstanceState(outState);
         
         /// connection state and info
-        outState.putInt(KEY_STATUS_TEXT, mStatusText);
-        outState.putInt(KEY_STATUS_ICON, mStatusIcon);
-        outState.putBoolean(KEY_STATUS_CORRECT, mStatusCorrect);
+        outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
+        outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
+        outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
+        outState.putBoolean(KEY_SERVER_CHECKED, mServerIsChecked);
+        outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mOcServerChkOperation != null));
         outState.putBoolean(KEY_IS_SSL_CONN, mIsSslConn);
-
+        outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
+        outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
+        
         /// server data
-        if (mDiscoveredVersion != null) 
+        if (mDiscoveredVersion != null) {
             outState.putString(KEY_OC_VERSION, mDiscoveredVersion.toString());
+        }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
         
         /// account data, if updating
-        if (mAccount != null)
+        if (mAccount != null) {
             outState.putParcelable(KEY_ACCOUNT, mAccount);
-        
-        // Saving the state of oAuth2 components.
-        outState.putInt(KEY_OAUTH2_STATUS_ICON, mOAuth2StatusIcon);
-        outState.putInt(KEY_OAUTH2_STATUS_TEXT, mOAuth2StatusText);
+        }
         
     }
 
 
-    /**
-     * Loads saved state
-     * 
-     * See {@link #onSaveInstanceState(Bundle)}.
-     * 
-     * @param savedInstanceState    Saved state, as received in {@link #onCreate(Bundle)}.
-     */
-    private void loadSavedInstanceState(Bundle savedInstanceState) {
-        /// connection state and info
-        mStatusCorrect = savedInstanceState.getBoolean(KEY_STATUS_CORRECT);
-        mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
-        mStatusText = savedInstanceState.getInt(KEY_STATUS_TEXT);
-        mStatusIcon = savedInstanceState.getInt(KEY_STATUS_ICON);
-        updateConnStatus();
-        
-        /// UI settings depending upon connection
-        mOkButton.setEnabled(mStatusCorrect);   // TODO really necessary?
-        if (!mStatusCorrect)
-            mRefreshButton.setVisibility(View.VISIBLE); // seems that setting visibility is necessary
-        else
-            mRefreshButton.setVisibility(View.INVISIBLE);
-        
-        /// server data
-        String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
-        if (ocVersion != null)
-            mDiscoveredVersion = new OwnCloudVersion(ocVersion);
-        mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
-        
-        // account data, if updating
-        mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
-        
-        // state of oAuth2 components
-        mOAuth2StatusIcon = savedInstanceState.getInt(KEY_OAUTH2_STATUS_ICON);
-        mOAuth2StatusText = savedInstanceState.getInt(KEY_OAUTH2_STATUS_TEXT);
-        // END of getting the state of oAuth2 components.
-    }
-
-    
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION request
      * is caught here.
@@ -347,7 +377,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// GET ACCESS TOKEN to the oAuth server 
         RemoteOperation operation = new OAuth2GetAccessToken(   getString(R.string.oauth2_client_id), 
-                                                                getString(R.string.oauth2_redirect_uri), // TODO check - necessary here?      
+                                                                getString(R.string.oauth2_redirect_uri),       
                                                                 getString(R.string.oauth2_grant_type),
                                                                 queryParameters);
         //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
@@ -361,8 +391,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Handles the change of focus on the text inputs for the server URL and the password
      */
     public void onFocusChange(View view, boolean hasFocus) {
-        if (view.getId() == R.id.hostUrlInput) {
-            onUrlInputFocusChanged((TextView) view, hasFocus);
+        if (view.getId() == R.id.hostUrlInput && !hasFocus) {
+            onUrlInputFocusLost((TextView) view);
             
         } else if (view.getId() == R.id.account_password) {
             onPasswordFocusChanged((TextView) view, hasFocus);
@@ -380,39 +410,34 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * When hasFocus:    user 'comes back' to write again the server URL.
      * 
      * @param hostInput     TextView with the URL input field receiving the change of focus.
-     * @param hasFocus      'True' if focus is received, 'false' if is lost
      */
-    private void onUrlInputFocusChanged(TextView hostInput, boolean hasFocus) {
-        if (!hasFocus) {
+    private void onUrlInputFocusLost(TextView hostInput) {
+        if (!mHostBaseUrl.equals(normalizeUrl(mHostUrlInput.getText().toString()))) {
             checkOcServer();
-            
         } else {
-            // avoids that the 'connect' button can be clicked if the test was previously passed
-            mOkButton.setEnabled(false); 
+            mOkButton.setEnabled(mServerIsValid);
         }
     }
 
 
     private void checkOcServer() {
         String uri = mHostUrlInput.getText().toString().trim();
+        mServerIsValid = false;
+        mServerIsChecked = false;
+        mOkButton.setEnabled(false);
+        mDiscoveredVersion = null;
+        hideRefreshButton();
         if (uri.length() != 0) {
-            mStatusText = R.string.auth_testing_connection;
-            mStatusIcon = R.drawable.progress_small;
-            updateConnStatus();
-            /** TODO cancel previous connection check if the user tries to ammend a wrong URL  
-            if(mConnChkOperation != null) {
-                mConnChkOperation.cancel();
-            } */
+            mServerStatusText = R.string.auth_testing_connection;
+            mServerStatusIcon = R.drawable.progress_small;
+            showServerStatus();
             mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
             WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
-            mHostBaseUrl = "";
-            mDiscoveredVersion = null;
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
-            mRefreshButton.setVisibility(View.INVISIBLE);
-            mStatusText = 0;
-            mStatusIcon = 0;
-            updateConnStatus();
+            mServerStatusText = 0;
+            mServerStatusIcon = 0;
+            showServerStatus();
         }
     }
 
@@ -472,9 +497,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onOkClick(View view) {
         // this check should be unnecessary
         if (mDiscoveredVersion == null || !mDiscoveredVersion.isVersionValid()  || mHostBaseUrl == null || mHostBaseUrl.length() == 0) {
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_wtf_reenter_URL;
-            updateConnStatus();
+            mServerStatusIcon = R.drawable.common_error;
+            mServerStatusText = R.string.auth_wtf_reenter_URL;
+            showServerStatus();
             mOkButton.setEnabled(false);
             Log_OC.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
             return;
@@ -518,9 +543,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void startOauthorization() {
         // be gentle with the user
-        mStatusIcon = R.drawable.progress_small;
-        mStatusText = R.string.oauth_login_connection;
-        updateAuthStatus();
+        mAuthStatusIcon = R.drawable.progress_small;
+        mAuthStatusText = R.string.oauth_login_connection;
+        showAuthStatus();
         
         // GET AUTHORIZATION request
         //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
@@ -567,44 +592,133 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param result        Result of the check.
      */
     private void onOcServerCheckFinish(OwnCloudServerCheckOperation operation, RemoteOperationResult result) {
-        /// update status icon and text
-        updateStatusIconAndText(result);
-        updateConnStatus();
-
-        /// save result state
-        mStatusCorrect = result.isSuccess();
-        mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
-        
-        /// very special case (TODO: move to a common place for all the remote operations)
-        if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-            mLastSslUntrustedServerResult = result;
-            showDialog(DIALOG_SSL_VALIDATOR); 
-        }
-        
-        /// update the visibility of the 'retry connection' button
-        if (!mStatusCorrect)
-            mRefreshButton.setVisibility(View.VISIBLE);
-        else
-            mRefreshButton.setVisibility(View.INVISIBLE);
-        
-        /// retrieve discovered version and normalize server URL
-        mDiscoveredVersion = operation.getDiscoveredVersion();
-        mHostBaseUrl = mHostUrlInput.getText().toString().trim();
-        if (!mHostBaseUrl.toLowerCase().startsWith("http://") &&
-            !mHostBaseUrl.toLowerCase().startsWith("https://")) {
+        if (operation.equals(mOcServerChkOperation)) {
+            /// save result state
+            mServerIsChecked = true;
+            mServerIsValid = result.isSuccess();
+            mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
+            mOcServerChkOperation = null;
             
-            if (mIsSslConn) {
-                mHostBaseUrl = "https://" + mHostBaseUrl;
+            /// update status icon and text
+            if (mServerIsValid) {
+                hideRefreshButton();
             } else {
-                mHostBaseUrl = "http://" + mHostBaseUrl;
+                showRefreshButton();
+            }
+            updateServerStatusIconAndText(result);
+            showServerStatus();
+    
+            /// very special case (TODO: move to a common place for all the remote operations)
+            if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                mLastSslUntrustedServerResult = result;
+                showDialog(DIALOG_SSL_VALIDATOR); 
             }
             
+            /// retrieve discovered version and normalize server URL
+            mDiscoveredVersion = operation.getDiscoveredVersion();
+            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
+            
+            /// allow or not the user try to access the server
+            mOkButton.setEnabled(mServerIsValid);
+            
+        }   // else nothing ; only the last check operation is considered; 
+            // multiple can be triggered if the user amends a URL before a previous check can be triggered
+    }
+
+
+    private String normalizeUrl(String url) {
+        if (url != null && url.length() > 0) {
+            url = url.trim();
+            if (!url.toLowerCase().startsWith("http://") &&
+                    !url.toLowerCase().startsWith("https://")) {
+                if (mIsSslConn) {
+                    url = "https://" + url;
+                } else {
+                    url = "http://" + url;
+                }
+                
+            }
+            if (url.endsWith("/")) {
+                url = url.substring(0, url.length() - 1);
+            }
         }
-        if (mHostBaseUrl.endsWith("/"))
-            mHostBaseUrl = mHostBaseUrl.substring(0, mHostBaseUrl.length() - 1);
-        
-        /// allow or not the user try to access the server
-        mOkButton.setEnabled(mStatusCorrect);
+        return (url != null ? url : "");
+    }
+
+    /**
+     * Chooses the right icon and text to show to the user for the received operation result.
+     * 
+     * @param result    Result of a remote operation performed in this activity
+     */
+    private void updateServerStatusIconAndText(RemoteOperationResult result) {
+        mServerStatusIcon = R.drawable.common_error;    // the most common case in the switch below
+
+        switch (result.getCode()) {
+        case OK_SSL:
+            mServerStatusIcon = android.R.drawable.ic_secure;
+            mServerStatusText = R.string.auth_secure_connection;
+            break;
+            
+        case OK_NO_SSL:
+        case OK:
+            if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://") ) {
+                mServerStatusText = R.string.auth_connection_established;
+                mServerStatusIcon = R.drawable.ic_ok;
+            } else {
+                mServerStatusText = R.string.auth_nossl_plain_ok_title;
+                mServerStatusIcon = android.R.drawable.ic_partial_secure;
+            }
+            break;
+            
+        case NO_NETWORK_CONNECTION:
+            mServerStatusIcon = R.drawable.no_network;
+            mServerStatusText = R.string.auth_no_net_conn_title;
+            break;
+            
+        case SSL_RECOVERABLE_PEER_UNVERIFIED:
+            mServerStatusText = R.string.auth_ssl_unverified_server_title;
+            break;
+        case BAD_OC_VERSION:
+            mServerStatusText = R.string.auth_bad_oc_version_title;
+            break;
+        case WRONG_CONNECTION:
+            mServerStatusText = R.string.auth_wrong_connection_title;
+            break;
+        case TIMEOUT:
+            mServerStatusText = R.string.auth_timeout_title;
+            break;
+        case INCORRECT_ADDRESS:
+            mServerStatusText = R.string.auth_incorrect_address_title;
+            break;
+        case SSL_ERROR:
+            mServerStatusText = R.string.auth_ssl_general_error_title;
+            break;
+        case UNAUTHORIZED:
+            mServerStatusText = R.string.auth_unauthorized;
+            break;
+        case HOST_NOT_AVAILABLE:
+            mServerStatusText = R.string.auth_unknown_host_title;
+            break;
+        case INSTANCE_NOT_CONFIGURED:
+            mServerStatusText = R.string.auth_not_configured_title;
+            break;
+        case FILE_NOT_FOUND:
+            mServerStatusText = R.string.auth_incorrect_path_title;
+            break;
+        case OAUTH2_ERROR:
+            mServerStatusText = R.string.auth_oauth_error;
+            break;
+        case OAUTH2_ERROR_ACCESS_DENIED:
+            mServerStatusText = R.string.auth_oauth_error_access_denied;
+            break;
+        case UNHANDLED_HTTP_CODE:
+        case UNKNOWN_ERROR:
+            mServerStatusText = R.string.auth_unknown_error_title;
+            break;
+        default:
+            mServerStatusText = 0;
+            mServerStatusIcon = 0;
+        }
     }
 
 
@@ -613,89 +727,74 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * 
      * @param result    Result of a remote operation performed in this activity
      */
-    private void updateStatusIconAndText(RemoteOperationResult result) {
-        mStatusText = mStatusIcon = 0;
+    private void updateAuthStatusIconAndText(RemoteOperationResult result) {
+        mAuthStatusIcon = R.drawable.common_error;    // the most common case in the switch below
 
         switch (result.getCode()) {
         case OK_SSL:
-            mStatusIcon = android.R.drawable.ic_secure;
-            mStatusText = R.string.auth_secure_connection;
+            mAuthStatusIcon = android.R.drawable.ic_secure;
+            mAuthStatusText = R.string.auth_secure_connection;
             break;
             
         case OK_NO_SSL:
         case OK:
             if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://") ) {
-                mStatusText = R.string.auth_connection_established;
-                mStatusIcon = R.drawable.ic_ok;
+                mAuthStatusText = R.string.auth_connection_established;
+                mAuthStatusIcon = R.drawable.ic_ok;
             } else {
-                mStatusText = R.string.auth_nossl_plain_ok_title;
-                mStatusIcon = android.R.drawable.ic_partial_secure;
+                mAuthStatusText = R.string.auth_nossl_plain_ok_title;
+                mAuthStatusIcon = android.R.drawable.ic_partial_secure;
             }
             break;
             
-        case SSL_RECOVERABLE_PEER_UNVERIFIED:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_ssl_unverified_server_title;
+        case NO_NETWORK_CONNECTION:
+            mAuthStatusIcon = R.drawable.no_network;
+            mAuthStatusText = R.string.auth_no_net_conn_title;
             break;
-                
+            
+        case SSL_RECOVERABLE_PEER_UNVERIFIED:
+            mAuthStatusText = R.string.auth_ssl_unverified_server_title;
+            break;
         case BAD_OC_VERSION:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_bad_oc_version_title;
+            mAuthStatusText = R.string.auth_bad_oc_version_title;
             break;
         case WRONG_CONNECTION:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_wrong_connection_title;
+            mAuthStatusText = R.string.auth_wrong_connection_title;
             break;
         case TIMEOUT:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_timeout_title;
+            mAuthStatusText = R.string.auth_timeout_title;
             break;
         case INCORRECT_ADDRESS:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_incorrect_address_title;
+            mAuthStatusText = R.string.auth_incorrect_address_title;
             break;
-            
         case SSL_ERROR:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_ssl_general_error_title;
+            mAuthStatusText = R.string.auth_ssl_general_error_title;
             break;
-            
         case UNAUTHORIZED:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_unauthorized;
+            mAuthStatusText = R.string.auth_unauthorized;
             break;
         case HOST_NOT_AVAILABLE:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_unknown_host_title;
-            break;
-        case NO_NETWORK_CONNECTION:
-            mStatusIcon = R.drawable.no_network;
-            mStatusText = R.string.auth_no_net_conn_title;
+            mAuthStatusText = R.string.auth_unknown_host_title;
             break;
         case INSTANCE_NOT_CONFIGURED:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_not_configured_title;
+            mAuthStatusText = R.string.auth_not_configured_title;
             break;
         case FILE_NOT_FOUND:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_incorrect_path_title;
+            mAuthStatusText = R.string.auth_incorrect_path_title;
             break;
         case OAUTH2_ERROR:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_oauth_error;
+            mAuthStatusText = R.string.auth_oauth_error;
             break;
         case OAUTH2_ERROR_ACCESS_DENIED:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_oauth_error_access_denied;
+            mAuthStatusText = R.string.auth_oauth_error_access_denied;
             break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
-            mStatusIcon = R.drawable.common_error;
-            mStatusText = R.string.auth_unknown_error_title;
+            mAuthStatusText = R.string.auth_unknown_error_title;
             break;
-            
         default:
-            break;
+            mAuthStatusText = 0;
+            mAuthStatusIcon = 0;
         }
     }
 
@@ -728,8 +827,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthCheckOperation.execute(client, this, mHandler);
             
         } else {
-            updateStatusIconAndText(result);
-            updateAuthStatus();
+            updateAuthStatusIconAndText(result);
+            showAuthStatus();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
@@ -763,8 +862,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             finish();
             
         } else {
-            updateStatusIconAndText(result);
-            updateAuthStatus();
+            updateAuthStatusIconAndText(result);
+            showAuthStatus();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
     }
@@ -963,19 +1062,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Updates the content and visibility state of the icon and text associated
      * to the last check on the ownCloud server.
      */
-    private void updateConnStatus() {
-        ImageView iv = (ImageView) findViewById(R.id.action_indicator);
-        TextView tv = (TextView) findViewById(R.id.status_text);
+    private void showServerStatus() {
+        TextView tv = (TextView) findViewById(R.id.server_status_text);
 
-        if (mStatusIcon == 0 && mStatusText == 0) {
-            iv.setVisibility(View.INVISIBLE);
+        if (mServerStatusIcon == 0 && mServerStatusText == 0) {
             tv.setVisibility(View.INVISIBLE);
+            
         } else {
-            iv.setImageResource(mStatusIcon);
-            tv.setText(mStatusText);
-            iv.setVisibility(View.VISIBLE);
+            tv.setText(mServerStatusText);
+            tv.setCompoundDrawablesWithIntrinsicBounds(mServerStatusIcon, 0, 0, 0);
             tv.setVisibility(View.VISIBLE);
         }
+        
     }
     
     
@@ -983,16 +1081,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * Updates the content and visibility state of the icon and text associated
      * to the interactions with the OAuth authorization server.
      */
-    private void updateAuthStatus() {
-        if (mStatusIcon == 0 && mStatusText == 0) {
+    private void showAuthStatus() {
+        if (mAuthStatusIcon == 0 && mAuthStatusText == 0) {
             mAuthStatusLayout.setVisibility(View.INVISIBLE);
+            
         } else {
-            mAuthStatusLayout.setText(mStatusText);
-            mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mStatusIcon, 0, 0, 0);
+            mAuthStatusLayout.setText(mAuthStatusText);
+            mAuthStatusLayout.setCompoundDrawablesWithIntrinsicBounds(mAuthStatusIcon, 0, 0, 0);
             mAuthStatusLayout.setVisibility(View.VISIBLE);
         }
     }     
 
+    
+    private void showRefreshButton() {
+        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
+    }
+    
+    private void hideRefreshButton() {
+        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+    }
     
     /**
      * Called when the refresh button in the input field for ownCloud host is clicked.
@@ -1002,7 +1109,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param view      Refresh 'button'
      */
     public void onRefreshClick(View view) {
-        onFocusChange(mRefreshButton, false);
+        checkOcServer();
     }
     
     
@@ -1082,4 +1189,56 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showDialog(DIALOG_CERT_NOT_SAVED);
     }
 
+
+    /**
+     *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
+     * 
+     *  Used to trigger the authorization check when the user presses 'enter' after writing the password.
+     */
+    @Override
+    public boolean onEditorAction(TextView inputField, int actionId, KeyEvent event) {
+        if (inputField != null && inputField.equals(mPasswordInput) && 
+                actionId == EditorInfo.IME_ACTION_DONE) {
+            if (mOkButton.isEnabled()) {
+                mOkButton.performClick();
+            }
+        }
+        return false;   // always return false to grant that the software keyboard is hidden anyway
+    }
+
+    
+    private abstract static class RightDrawableOnTouchListener implements OnTouchListener  {
+
+        private int fuzz = 10;
+        
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                Drawable rightDrawable = null;
+                if (view instanceof TextView) {
+                    Drawable[] drawables = ((TextView)view).getCompoundDrawables();
+                    if (drawables.length > 2) {
+                        rightDrawable = drawables[2];
+                    }
+                }
+                if (rightDrawable != null) {
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+                    final Rect bounds = rightDrawable.getBounds();
+                    if (x >= (view.getRight() - bounds.width() - fuzz) && x <= (view.getRight() - view.getPaddingRight() + fuzz)
+                        && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
+                        
+                        return onDrawableTouch(event);
+                    }
+                }
+            }
+            return false;
+        }
+        
+        public abstract boolean onDrawableTouch(final MotionEvent event);
+    }
+    
 }

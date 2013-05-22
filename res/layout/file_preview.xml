@@ -42,7 +42,7 @@
 	        android:layout_margin="16dp"
 	        android:layout_gravity="center"
 	        android:contentDescription="@string/preview_image_description"
-	        android:src="@drawable/owncloud_logo" />
+	        android:src="@drawable/logo" />
 	    
 	   	<VideoView  
 	   	    android:id="@+id/video_preview"

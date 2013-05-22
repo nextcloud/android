@@ -17,222 +17,172 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:oc="http://schemas.android.com/apk/res/com.owncloud.android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:focusable="true"
-    android:gravity="center|fill"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:padding="8dip"
+    >
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
-        android:layout_weight="1" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="7dp"
-                android:layout_weight="1"
-                android:src="@drawable/owncloud_logo" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <EditText
-                        android:id="@+id/hostUrlInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/auth_host_url"
-                        android:inputType="textNoSuggestions">
-                        <requestFocus />
-                    </EditText>
-
-                    <ImageView
-                        android:id="@+id/refreshButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:src="@drawable/ic_action_refresh_black"
-                    	android:onClick="onRefreshClick"
-                        android:visibility="invisible" />
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_weight="1" >
-
-                    <ImageView
-                        android:id="@+id/action_indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:src="@android:drawable/stat_notify_sync"
-                        android:visibility="invisible" />
-
-                    <TextView
-                        android:id="@+id/status_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:visibility="invisible" />
-                </LinearLayout>
-
-                <CheckBox
-                    android:id="@+id/oauth_onOff_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:onClick="onCheckClick"
-                    android:text="@string/oauth_check_onoff"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/auth_login_details"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-	            <EditText
-	                android:id="@+id/oAuthEntryPoint_1"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:ems="10"
-                	android:enabled="false"
-	                android:text="@string/oauth2_url_endpoint_auth"
-	                android:singleLine="true"
-	                android:visibility="gone" >
-	
-	                <requestFocus />
-	            </EditText>            
-	
-	            <EditText
-	                android:id="@+id/oAuthEntryPoint_2"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1"
-	                android:ems="10"
-                	android:enabled="false"
-	                android:text="@string/oauth2_url_endpoint_access"
-	                android:singleLine="true"
-	                android:visibility="gone" >
-	
-	                <requestFocus />
-	            </EditText>            
-	
-                <EditText
-                    android:id="@+id/account_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/auth_username"
-                    android:inputType="textNoSuggestions" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-
-                    <EditText
-                        android:id="@+id/account_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="@string/auth_password"
-                        android:inputType="textPassword"/>
-
-                    <ImageView
-                        android:id="@+id/viewPasswordButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:src="@android:drawable/ic_menu_view"
-						android:onClick="onViewPasswordClick"
-                        android:visibility="invisible" />
-                </FrameLayout>
-                
-	            <TextView
-	                android:id="@+id/auth_status_text"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_weight="1" 
-	                android:text="@string/text_placeholder"
-	                android:layout_marginLeft="5dp"
-	                android:layout_marginRight="5dp"
-					android:drawableLeft="@android:drawable/stat_notify_sync"
-	    			android:drawablePadding="5dip"
-	    			android:visibility="invisible"                
-	                />
-                
-            </LinearLayout>
-            
-        </LinearLayout>
-    </FrameLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
-
-        <LinearLayout
-            android:id="@+id/buttons_layout"        
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
-
-            <Button
-                android:id="@+id/buttonOK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:layout_marginLeft="16dip"
-		        android:layout_marginRight="16dip"
-                android:enabled="false"
-                android:onClick="onOkClick"
-                android:text="@string/setup_btn_connect"
-                android:textColor="@android:color/black" />
-            
-        </LinearLayout>
+        android:layout_above="@id/buttonOK"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
         
-		<Button
-			android:id="@+id/account_register"
-			android:layout_width="wrap_content"
+		<ImageView
+			android:id="@+id/imageView1"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/buttons_layout"
-			android:layout_centerHorizontal="true"
-			android:onClick="onRegisterClick"
-			android:paddingTop="10dp"
-			android:paddingBottom="10dp"
-			android:textColor="#0000FF"
-			android:background="@android:color/transparent" />
-			<!-- android:text="@string/app_name @string/auth_register" /-->
-        
-    </RelativeLayout>
+			android:layout_weight="1"
+			android:layout_gravity="center"
+			android:src="@drawable/logo" 
+			/>
+		
+		<ScrollView
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:fillViewport="true"
+		    android:orientation="vertical" >
+						
+			<LinearLayout
+			    android:id="@+id/LinearLayout1"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:focusable="true"
+			    android:gravity="center"
+			    android:orientation="vertical"
+			    android:padding="8dp" >
+		
+				<EditText
+					android:id="@+id/hostUrlInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/auth_host_url"
+					android:inputType="textUri"
+					android:drawablePadding="5dp"
+					>
+					<requestFocus />
+				</EditText>
+		
+				<TextView
+					android:id="@+id/server_status_text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
+					android:drawableLeft="@android:drawable/stat_notify_sync"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:text="@string/auth_testing_connection" />
+		             
+				<CheckBox
+					android:id="@+id/oauth_onOff_check"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:checked="false"
+					android:onClick="onCheckClick"
+					android:text="@string/oauth_check_onoff"
+					android:textAppearance="?android:attr/textAppearanceSmall"
+					android:visibility="gone"
+					/>
+		
+				<EditText
+					android:id="@+id/oAuthEntryPoint_1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:enabled="false"
+					android:text="@string/oauth2_url_endpoint_auth"
+					android:singleLine="true"
+					android:inputType="textUri"
+					android:visibility="gone" >
+					<requestFocus />
+				</EditText>            
+				
+				<EditText
+					android:id="@+id/oAuthEntryPoint_2"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:enabled="false"
+					android:text="@string/oauth2_url_endpoint_access"
+					android:singleLine="true"
+					android:inputType="textUri"
+					android:visibility="gone" >
+					<requestFocus />
+				</EditText>            
+		
+				<EditText
+					android:id="@+id/account_username"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:hint="@string/auth_username"
+					android:inputType="textNoSuggestions" />
+		
+				<FrameLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					>
+					<EditText
+						android:id="@+id/account_password"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:ems="10"
+						android:hint="@string/auth_password"
+						android:inputType="textPassword"/>
+					
+					<ImageView
+						android:id="@+id/viewPasswordButton"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="right|center_vertical"
+						android:src="@android:drawable/ic_menu_view"
+						android:onClick="onViewPasswordClick"
+						android:visibility="invisible" />
+				</FrameLayout>
+		     
+				<TextView
+					android:id="@+id/auth_status_text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center_vertical"
+					android:text="@string/auth_unauthorized"
+					android:drawableLeft="@android:drawable/stat_notify_sync"
+					android:drawablePadding="5dip"
+					/>
 
-</LinearLayout>
+			</LinearLayout>
+		
+		</ScrollView>
+						           
+	</LinearLayout>
+       
+	<Button
+		android:id="@id/buttonOK"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@id/account_register"
+		android:layout_centerHorizontal="true"
+		android:enabled="false"
+		android:onClick="onOkClick"
+		android:text="@string/setup_btn_connect"
+		/>
+
+	<Button
+		android:id="@+id/account_register"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:background="@android:color/transparent"
+		android:textColor="#0000FF"
+		android:onClick="onRegisterClick"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"
+		android:text="@string/auth_register" 
+		/>
+	
+</RelativeLayout>
