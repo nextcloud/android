@@ -44,7 +44,7 @@ The third party software included and used by this project is:
    Original license document included at libs/LICENSE.txt
    See http://jackrabbit.apache.org/
  
- * Transifex client.JavaMail API, version 1.4.3
+ * Transifex client.
    Copyright (C) Transifex.
    Licensed under GNU General Public License.
    Placed at third_party/transifex-client.
