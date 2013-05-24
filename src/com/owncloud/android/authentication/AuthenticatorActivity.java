@@ -476,9 +476,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void showViewPasswordButton() {
-        int drawable = android.R.drawable.ic_menu_view;
+        //int drawable = android.R.drawable.ic_menu_view;
+        int drawable = R.drawable.ic_view;
         if (isPasswordVisible()) {
-            drawable = android.R.drawable.ic_secure;
+            //drawable = android.R.drawable.ic_secure;
+            drawable = R.drawable.ic_hide;
         }
         mPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0);
     }
