@@ -127,19 +127,23 @@ public class FileDetailActivity extends FileActivity implements FileFragment.Con
         Fragment newFragment = null;
         OCFile file = getFile();
         Account account = getAccount();
-        if (PreviewMediaFragment.canBePreviewed(file) && mode == MODE_PREVIEW) {
-            if (file.isDown()) {
+        if (mode == MODE_DETAILS) { 
+            newFragment = new FileDetailFragment(file, account);
+            
+        } else if (file.isDown()) {
+            if (PreviewMediaFragment.canBePreviewed(file)) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
                 newFragment = new PreviewMediaFragment(file, account, startPlaybackPosition, autoplay);
             
             } else {
                 newFragment = new FileDetailFragment(file, account);
-                mWaitingToPreview = true;
+                // TODO open with
             }
             
         } else {
             newFragment = new FileDetailFragment(file, account);
+            mWaitingToPreview = true;   // download will requested 
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, newFragment, FileDetailFragment.FTAG);
@@ -450,15 +454,18 @@ public class FileDetailActivity extends FileActivity implements FileFragment.Con
                 //  refresh the details fragment 
                 if (success && mWaitingToPreview) {
                     setFile(mStorageManager.getFileById(getFile().getFileId()));   // update the file from database, for the local storage path
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment, new PreviewMediaFragment(getFile(), getAccount(), 0, true), FileDetailFragment.FTAG);
-                    transaction.commit();
+                    if (PreviewMediaFragment.canBePreviewed(getFile())) {
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment, new PreviewMediaFragment(getFile(), getAccount(), 0, true), FileDetailFragment.FTAG);
+                        transaction.commit();
+                    } else {
+                        detailsFragment.updateFileDetails(false, (success));
+                    }
                     mWaitingToPreview = false;
-                    
+
                 } else {
                     detailsFragment.updateFileDetails(false, (success));
-                    // TODO error message if !success ¿?
-                }
+               }
             }
         } // TODO else if (fragment != null && fragment )
         

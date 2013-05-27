@@ -828,9 +828,15 @@ public class FileDisplayActivity extends FileActivity implements
                 //  update the right panel 
                 if (success && waitedPreview) {
                     mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, getAccount(), 0, true), FileDetailFragment.FTAG);
-                    transaction.commit();
+                    if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, getAccount(), 0, true), FileDetailFragment.FTAG);
+                        transaction.commit();
+                    } else {
+                        // file cannot be previewed
+                        detailsFragment.updateFileDetails(false, (success));
+                        
+                    }
                     mWaitingToPreview = null;
                     
                 } else {
@@ -876,35 +882,40 @@ public class FileDisplayActivity extends FileActivity implements
      */
     @Override
     public void onFileClick(OCFile file, boolean onOrientationChange) {
-        if (file != null && PreviewImageFragment.canBePreviewed(file)) {
-            // preview image - it handles the download, if needed
-            startPreviewImage(file);
-            
-        } else if (file != null && PreviewMediaFragment.canBePreviewed(file)) {
-            if (file.isDown()) {
-                // general preview
-                if (!onOrientationChange) {
-                    startMediaPreview(file, 0, true, onOrientationChange);
-                } else {
-                    int startPlaybackPosition = 0;
-                    boolean autoplay = true;
-                    Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-                    if (fragment != null && file.isVideo()) {
-                        PreviewMediaFragment videoFragment = (PreviewMediaFragment)fragment;
-                        startPlaybackPosition = videoFragment.getPosition();
-                        autoplay = videoFragment.isPlaying();
+        if (file != null) {
+            if (PreviewImageFragment.canBePreviewed(file)) {
+                // preview image - it handles the download, if needed
+                startPreviewImage(file);
+                
+            } else if (PreviewMediaFragment.canBePreviewed(file)) {
+                if (file.isDown()) {
+                    // general preview
+                    if (!onOrientationChange) {
+                        startMediaPreview(file, 0, true, onOrientationChange);
+                    } else {
+                        int startPlaybackPosition = 0;
+                        boolean autoplay = true;
+                        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+                        if (fragment != null && file.isVideo()) {
+                            PreviewMediaFragment videoFragment = (PreviewMediaFragment)fragment;
+                            startPlaybackPosition = videoFragment.getPosition();
+                            autoplay = videoFragment.isPlaying();
+                        }
+                        startMediaPreview(file, startPlaybackPosition, autoplay, onOrientationChange);
                     }
-                    startMediaPreview(file, startPlaybackPosition, autoplay, onOrientationChange);
+                    
+                } else {
+                    // automatic download, preview on finish
+                    startDownloadForPreview(file, onOrientationChange);
+                    
                 }
                 
+            } else if (file.isDown()) {
+                // details view
+                startDetails(file, onOrientationChange);
             } else {
-                // automatic download, preview on finish
                 startDownloadForPreview(file, onOrientationChange);
-                
             }
-        } else {
-            // details view
-            startDetails(file, onOrientationChange);
         }
     }
 
