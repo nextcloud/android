@@ -24,12 +24,10 @@ import java.util.List;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
@@ -37,7 +35,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -73,7 +70,6 @@ import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.R;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -344,7 +340,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_open_file_with: {
-                openFile();
+                mContainerActivity.openFile(mFile);
                 return true;
             }
             case R.id.action_remove_file: {
@@ -465,56 +461,6 @@ public class FileDetailFragment extends SherlockFragment implements
             // update ui 
             boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-            
-        }
-    }
-
-    /**
-     * Opens mFile.
-     */
-    private void openFile() {
-        
-        String storagePath = mFile.getStoragePath();
-        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
-            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivity(i);
-            
-        } catch (Throwable t) {
-            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
-            boolean toastIt = true; 
-            String mimeType = "";
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
-                    if (mimeType != null) {
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                    } else {
-                        // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
-                    }
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    toastIt = false;
-                }
-                
-            } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                
-            } catch (ActivityNotFoundException e) {
-                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                
-            } catch (Throwable th) {
-                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                
-            } finally {
-                if (toastIt) {
-                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
-                }
-            }
             
         }
     }

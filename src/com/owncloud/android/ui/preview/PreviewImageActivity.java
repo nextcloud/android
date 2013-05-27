@@ -56,7 +56,7 @@ import com.owncloud.android.R;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -439,6 +439,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             
         }
         mFullScreen = !mFullScreen;
+    }
+
+    @Override
+    protected void onAccountChanged() {
+        // TODO
     }
     
     

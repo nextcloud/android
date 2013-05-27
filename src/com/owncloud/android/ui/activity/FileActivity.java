@@ -23,20 +23,28 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileHandler;
+
+import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity {
+public abstract class FileActivity extends SherlockFragmentActivity implements FileHandler {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -52,6 +60,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
+    
+    private FileHandlerImpl mFileHandler;
 
     
     @Override
@@ -70,6 +80,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         if (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name)) {
             onAccountChanged();
         }
+        
+        mFileHandler = new FileHandlerImpl();
     }
 
     
@@ -201,6 +213,11 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         }
         
     }
+    
+    
+    public void openFile(OCFile file) {
+        mFileHandler.openFile(file);
+    }
 
 
     /**
@@ -209,4 +226,57 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected abstract void onAccountChanged();
+    
+    
+    public class FileHandlerImpl implements FileHandler {
+        
+        public void openFile(OCFile file) {
+            if (file != null) {
+                String storagePath = file.getStoragePath();
+                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
+                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivity(i);
+                    
+                } catch (Throwable t) {
+                    Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
+                    boolean toastIt = true; 
+                    String mimeType = "";
+                    try {
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                        if (mimeType == null || !mimeType.equals(file.getMimetype())) {
+                            if (mimeType != null) {
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
+                            } else {
+                                // desperate try
+                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
+                            }
+                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                            startActivity(i);
+                            toastIt = false;
+                        }
+                        
+                    } catch (IndexOutOfBoundsException e) {
+                        Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                        
+                    } catch (ActivityNotFoundException e) {
+                        Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                        
+                    } catch (Throwable th) {
+                        Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                        
+                    } finally {
+                        if (toastIt) {
+                            Toast.makeText(FileActivity.this, "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            } else {
+                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            }
+        }
+    }
 }

@@ -26,6 +26,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
@@ -266,49 +267,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 return true;
             }
             case R.id.action_open_file_with: {
-                String storagePath = mTargetFile.getStoragePath();
-                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-                try {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mTargetFile.getMimetype());
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    
-                } catch (Throwable t) {
-                    Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mTargetFile.getMimetype());
-                    boolean toastIt = true; 
-                    String mimeType = "";
-                    try {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                        if (mimeType == null || !mimeType.equals(mTargetFile.getMimetype())) {
-                            if (mimeType != null) {
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                            } else {
-                                // desperate try
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
-                            }
-                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                            startActivity(i);
-                            toastIt = false;
-                        }
-                        
-                    } catch (IndexOutOfBoundsException e) {
-                        Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                        
-                    } catch (ActivityNotFoundException e) {
-                        Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                        
-                    } catch (Throwable th) {
-                        Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                        
-                    } finally {
-                        if (toastIt) {
-                            Toast.makeText(getActivity(), "There is no application to handle file " + mTargetFile.getFileName(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    
-                }
+                mContainerActivity.openFile(mTargetFile);
                 return true;
             }
             case R.id.action_download_file: 
@@ -422,7 +381,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener {
+    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener, FileHandler {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list

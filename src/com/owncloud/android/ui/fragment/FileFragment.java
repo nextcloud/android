@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 
 /**
@@ -44,7 +45,7 @@ public interface FileFragment {
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter {
+    public interface ContainerActivity extends TransferServiceGetter, FileHandler {
 
         /**
          * Callback method invoked when the detail fragment wants to notice its container 
