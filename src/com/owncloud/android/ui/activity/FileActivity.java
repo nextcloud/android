@@ -31,6 +31,7 @@ import android.webkit.MimeTypeMap;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileHandler;
@@ -46,6 +47,7 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
+    public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.ACCOUNT";
     
     public static final String TAG = FileActivity.class.getSimpleName(); 
     
@@ -249,9 +251,9 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
                 
                 Intent chooserIntent = null;
                 if (intentForGuessedMimeType != null) {
-                    chooserIntent = Intent.createChooser(intentForGuessedMimeType, null);
+                    chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
                 } else {
-                    chooserIntent = Intent.createChooser(intentForSavedMimeType, null);
+                    chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
                 }
                 
                 startActivity(chooserIntent);

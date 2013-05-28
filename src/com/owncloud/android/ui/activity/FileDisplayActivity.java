@@ -213,17 +213,15 @@ public class FileDisplayActivity extends FileActivity implements
         if (mDualPane && getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG) == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (mChosenFile != null) {
-                if (PreviewMediaFragment.canBePreviewed(mChosenFile)) {
-                    if (mChosenFile.isDown()) {
-                        int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
-                        boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                        transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mChosenFile, getAccount(), startPlaybackPosition, autoplay), FileDetailFragment.FTAG);
-                    } else {
-                        transaction.replace(R.id.file_details_container, new FileDetailFragment(mChosenFile, getAccount()), FileDetailFragment.FTAG);
+                if (!mChosenFile.isDown()) {
+                    transaction.replace(R.id.file_details_container, new FileDetailFragment(mChosenFile, getAccount()), FileDetailFragment.FTAG);
+                    if (getIntent().getBooleanExtra(EXTRA_WAITING_TO_PREVIEW, false)) {
                         mWaitingToPreview = mChosenFile;
                     }
-                } else {
-                    transaction.replace(R.id.file_details_container, new FileDetailFragment(mChosenFile, getAccount()), FileDetailFragment.FTAG);
+                } else if (PreviewMediaFragment.canBePreviewed(mChosenFile)) {
+                    int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                    boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                    transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mChosenFile, getAccount(), startPlaybackPosition, autoplay), FileDetailFragment.FTAG);
                 }
                 mChosenFile = null;
                 
@@ -833,8 +831,8 @@ public class FileDisplayActivity extends FileActivity implements
                         transaction.replace(R.id.file_details_container, new PreviewMediaFragment(mWaitingToPreview, getAccount(), 0, true), FileDetailFragment.FTAG);
                         transaction.commit();
                     } else {
-                        // file cannot be previewed
                         detailsFragment.updateFileDetails(false, (success));
+                        openFile(mWaitingToPreview);
                         
                     }
                     mWaitingToPreview = null;

@@ -204,6 +204,9 @@ public class FileDetailActivity extends FileActivity implements FileFragment.Con
                 intent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, videoFragment.getPosition());
                 intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, videoFragment.isPlaying());
             }
+            if (mWaitingToPreview) {
+                intent.putExtra(FileDisplayActivity.EXTRA_WAITING_TO_PREVIEW, mWaitingToPreview);
+            }
         
         } else {
             intent = new Intent(this, FileDetailActivity.class);
@@ -460,6 +463,7 @@ public class FileDetailActivity extends FileActivity implements FileFragment.Con
                         transaction.commit();
                     } else {
                         detailsFragment.updateFileDetails(false, (success));
+                        openFile(getFile());
                     }
                     mWaitingToPreview = false;
 
