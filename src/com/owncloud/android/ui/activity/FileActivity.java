@@ -23,12 +23,10 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.AccountUtils;
@@ -234,46 +232,30 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
             if (file != null) {
                 String storagePath = file.getStoragePath();
                 String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-                try {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    
-                } catch (Throwable t) {
-                    Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
-                    boolean toastIt = true; 
-                    String mimeType = "";
-                    try {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                        if (mimeType == null || !mimeType.equals(file.getMimetype())) {
-                            if (mimeType != null) {
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                            } else {
-                                // desperate try
-                                i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
-                            }
-                            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                            startActivity(i);
-                            toastIt = false;
-                        }
-                        
-                    } catch (IndexOutOfBoundsException e) {
-                        Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                        
-                    } catch (ActivityNotFoundException e) {
-                        Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                        
-                    } catch (Throwable th) {
-                        Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                        
-                    } finally {
-                        if (toastIt) {
-                            Toast.makeText(FileActivity.this, "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
-                        }
+                
+                Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
+                intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
+                intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                
+                Intent intentForGuessedMimeType = null;
+                if (storagePath.lastIndexOf('.') >= 0) {
+                    String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                    if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
+                        intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
+                        intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
+                        intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     }
                 }
+                
+                Intent chooserIntent = null;
+                if (intentForGuessedMimeType != null) {
+                    chooserIntent = Intent.createChooser(intentForGuessedMimeType, null);
+                } else {
+                    chooserIntent = Intent.createChooser(intentForSavedMimeType, null);
+                }
+                
+                startActivity(chooserIntent);
+                
             } else {
                 Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
             }
