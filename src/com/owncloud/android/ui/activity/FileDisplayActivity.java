@@ -908,9 +908,9 @@ public class FileDisplayActivity extends FileActivity implements
                     
                 }
                 
-            } else if (file.isDown()) {
-                // details view
-                startDetails(file, onOrientationChange);
+            } else if (file.isDown() && !onOrientationChange) {
+                openFile(file);
+                
             } else {
                 startDownloadForPreview(file, onOrientationChange);
             }
