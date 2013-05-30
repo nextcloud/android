@@ -34,13 +34,14 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -59,8 +60,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author Bartek Przybylski
  * 
  */
-public class OCFileListFragment extends FragmentListView implements EditNameDialogListener, ConfirmationDialogFragmentListener {
-    private static final String TAG = "FileListFragment";
+public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
+    private static final String TAG = OCFileListFragment.class.getSimpleName();
     private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
@@ -77,6 +78,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log_OC.e(TAG, "onAttach");
         try {
             mContainerActivity = (ContainerActivity) activity;
         } catch (ClassCastException e) {
@@ -90,52 +92,62 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onActivityCreated() start");
-        
         super.onActivityCreated(savedInstanceState);
+        Log_OC.e(TAG, "onActivityCreated() start");
         mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity(), mContainerActivity);
         setListAdapter(mAdapter);
-        
-        if (savedInstanceState != null) {
-            Log_OC.i(TAG, "savedInstanceState is not null");
-            int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
-            setReferencePosition(position);
-        }
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
-        
-        Log_OC.i(TAG, "onActivityCreated() stop");
     }
-    
     
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onSaveInstanceState() start");
+    /**
+     * Call this, when the user presses the up button
+     */
+    public void onBrowseUp() {
+        OCFile parentDir = null;
         
-        savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
-        
-        Log_OC.i(TAG, "onSaveInstanceState() stop");
+        if(mFile != null){
+            DataStorageManager storageManager = mContainerActivity.getStorageManager();
+            parentDir = storageManager.getFileById(mFile.getParentId());
+            mFile = parentDir;
+        }
+        listDirectory(parentDir);
     }
-    
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
-            /// Click on a directory
-            if (file.getMimetype().equals("DIR")) {
-                // just local updates
+            if (file.isDirectory()) { 
+                // update state and view of this fragment
                 mFile = file;
                 listDirectory(file);
-                // any other updates are let to the container Activity
-                mContainerActivity.onDirectoryClick(file);
-            
-            } else {    /// Click on a file
-                mContainerActivity.onFileClick(file, false);
+                // then, notify parent activity to let it update its state and view, and other fragments
+                mContainerActivity.onBrowsedDownTo(file);
+                
+            } else { /// Click on a file
+                if (PreviewImageFragment.canBePreviewed(file)) {
+                    // preview image - it handles the download, if needed
+                    mContainerActivity.startImagePreview(file);
+                    
+                } else if (file.isDown()) {
+                    if (PreviewMediaFragment.canBePreviewed(file)) {
+                        // media preview
+                        mContainerActivity.startMediaPreview(file, 0, true);
+                    } else {
+                        // open with
+                        mContainerActivity.openFile(file);
+                    }
+                    
+                } else {
+                    // automatic download, preview on finish
+                    mContainerActivity.startDownloadForPreview(file);
+                }
+                    
             }
             
         } else {
@@ -292,7 +304,7 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
                 return true;
             }
             case R.id.action_see_details: {
-                ((FileFragment.ContainerActivity)getActivity()).showFragmentWithDetails(mTargetFile);
+                ((FileFragment.ContainerActivity)getActivity()).showDetails(mTargetFile);
                 return true;
             }
             default:
@@ -300,20 +312,6 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
         }
     }
     
-
-    /**
-     * Call this, when the user presses the up button
-     */
-    public void onNavigateUp() {
-        OCFile parentDir = null;
-        
-        if(mFile != null){
-            DataStorageManager storageManager = mContainerActivity.getStorageManager();
-            parentDir = storageManager.getFileById(mFile.getParentId());
-            mFile = parentDir;
-        }
-        listDirectory(parentDir);
-    }
 
     /**
      * Use this to query the {@link OCFile} that is currently
@@ -377,18 +375,17 @@ public class OCFileListFragment extends FragmentListView implements EditNameDial
     public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener, FileHandler {
 
         /**
-         * Callback method invoked when a directory is clicked by the user on the files list
+         * Callback method invoked when a the user browsed into a different folder through the list of files
          *  
          * @param file
          */
-        public void onDirectoryClick(OCFile file);
+        public void onBrowsedDownTo(OCFile folder);
         
-        /**
-         * Callback method invoked when a file (non directory) is clicked by the user on the files list
-         *  
-         * @param file
-         */
-        public void onFileClick(OCFile file, boolean realClick);
+        public void startDownloadForPreview(OCFile file);
+
+        public void startMediaPreview(OCFile file, int i, boolean b);
+
+        public void startImagePreview(OCFile file);
 
         /**
          * Getter for the current DataStorageManager in the container activity

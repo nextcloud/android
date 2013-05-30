@@ -42,7 +42,6 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.activity.FileDetailActivity;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
@@ -74,6 +73,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -703,8 +703,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (PreviewImageFragment.canBePreviewed(upload.getFile())) {
             showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         } else {
-            showDetailsIntent = new Intent(this, FileDetailActivity.class);
-            showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
+            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         }
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
@@ -766,8 +765,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             if (PreviewImageFragment.canBePreviewed(upload.getFile())) {
                 showDetailsIntent = new Intent(this, PreviewImageActivity.class); 
             } else {
-                showDetailsIntent = new Intent(this, FileDetailActivity.class); 
-                showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
+                showDetailsIntent = new Intent(this, FileDisplayActivity.class); 
             }
             showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());

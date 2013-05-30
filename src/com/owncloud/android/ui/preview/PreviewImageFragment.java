@@ -47,7 +47,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -74,14 +73,12 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  * @author David A. Velasco
  */
-public class PreviewImageFragment extends SherlockFragment implements   FileFragment, 
-                                                                        OnRemoteOperationListener, 
+public class PreviewImageFragment extends FileFragment implements   OnRemoteOperationListener, 
                                                                         ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
     private View mView;
-    private OCFile mFile;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     private ImageView mImageView;
@@ -108,7 +105,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
      */
     public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
-        mFile = fileToDetail;
+        super(fileToDetail);
         mAccount = ocAccount;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment
         mIgnoreFirstSavedState = ignoreFirstSavedState;
@@ -123,7 +120,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
      */
     public PreviewImageFragment() {
-        mFile = null;
+        super();
         mAccount = null;
         mStorageManager = null;
         mIgnoreFirstSavedState = false;
@@ -180,19 +177,19 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                mFile = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
+                setFile((OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE));
                 mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
             } else {
                 mIgnoreFirstSavedState = false;
             }
         }
-        if (mFile == null) {
+        if (getFile() == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
         }
         if (mAccount == null) {
             throw new IllegalStateException("Instanced with a NULL ownCloud Account");
         }
-        if (!mFile.isDown()) {
+        if (!getFile().isDown()) {
             throw new IllegalStateException("There is no local file to preview");
         }
     }
@@ -204,7 +201,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(PreviewImageFragment.EXTRA_FILE, mFile);
+        outState.putParcelable(PreviewImageFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewImageFragment.EXTRA_ACCOUNT, mAccount);
     }
     
@@ -212,9 +209,9 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onStart() {
         super.onStart();
-        if (mFile != null) {
+        if (getFile() != null) {
            BitmapLoader bl = new BitmapLoader(mImageView, mMessageView, mProgressWheel);
-           bl.execute(new String[]{mFile.getStoragePath()});
+           bl.execute(new String[]{getFile().getStoragePath()});
         }
     }
     
@@ -272,42 +269,19 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
 
     
     private void seeDetails() {
-        ((FileFragment.ContainerActivity)getActivity()).showFragmentWithDetails(mFile);        
+        ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        //Log.e(TAG, "FRAGMENT, ONRESUME");
-        /*
-        mDownloadFinishReceiver = new DownloadFinishReceiver();
-        IntentFilter filter = new IntentFilter(
-                FileDownloader.DOWNLOAD_FINISH_MESSAGE);
-        getActivity().registerReceiver(mDownloadFinishReceiver, filter);
-        
-        mUploadFinishReceiver = new UploadFinishReceiver();
-        filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-        getActivity().registerReceiver(mUploadFinishReceiver, filter);
-        */
-
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
-        /*
-        if (mVideoPreview.getVisibility() == View.VISIBLE) {
-            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
-        }*/
-        /*
-        getActivity().unregisterReceiver(mDownloadFinishReceiver);
-        mDownloadFinishReceiver = null;
-        
-        getActivity().unregisterReceiver(mUploadFinishReceiver);
-        mUploadFinishReceiver = null;
-        */
     }
 
 
@@ -328,22 +302,23 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
      * available apps for the MIME type known from the file extension, to let the user choose
      */
     private void openFile() {
-        String storagePath = mFile.getStoragePath();
+        OCFile file = getFile();
+        String storagePath = file.getStoragePath();
         String encodedStoragePath = WebdavUtils.encodePath(storagePath);
         try {
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
+            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
             i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivity(i);
             
         } catch (Throwable t) {
-            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
             boolean toastIt = true; 
             String mimeType = "";
             try {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
+                if (mimeType == null || !mimeType.equals(file.getMimetype())) {
                     if (mimeType != null) {
                         i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
                     } else {
@@ -366,7 +341,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                 
             } finally {
                 if (toastIt) {
-                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
                 }
             }
             
@@ -384,7 +359,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     private void removeFile() {
         ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
                 R.string.confirmation_remove_alert,
-                new String[]{mFile.getFileName()},
+                new String[]{getFile().getFileName()},
                 R.string.confirmation_remove_remote_and_local,
                 R.string.confirmation_remove_local,
                 R.string.common_cancel);
@@ -398,8 +373,8 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
      */
     @Override
     public void onConfirmation(String callerTag) {
-        if (mStorageManager.getFileById(mFile.getFileId()) != null) {   // check that the file is still there;
-            mLastRemoteOperation = new RemoveFileOperation( mFile,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
+        if (mStorageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
+            mLastRemoteOperation = new RemoveFileOperation( getFile(),      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
                                                             true, 
                                                             mStorageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
@@ -415,11 +390,12 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     @Override
     public void onNeutral(String callerTag) {
         // TODO this code should be made in a secondary thread,
-        if (mFile.isDown()) {   // checks it is still there
-            File f = new File(mFile.getStoragePath());
+        OCFile file = getFile();
+        if (file.isDown()) {   // checks it is still there
+            File f = new File(file.getStoragePath());
             f.delete();
-            mFile.setStoragePath(null);
-            mStorageManager.saveFile(mFile);
+            file.setStoragePath(null);
+            mStorageManager.saveFile(file);
             finish();
         }
     }
@@ -431,33 +407,6 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
     public void onCancel(String callerTag) {
         // nothing to do here
     }
-    
-
-    /**
-     * {@inheritDoc}
-     */
-    public OCFile getFile(){
-        return mFile;
-    }
-    
-    /*
-    /**
-     * Use this method to signal this Activity that it shall update its view.
-     * 
-     * @param file : An {@link OCFile}
-     *-/
-    public void updateFileDetails(OCFile file, Account ocAccount) {
-        mFile = file;
-        if (ocAccount != null && ( 
-                mStorageManager == null || 
-                (mAccount != null && !mAccount.equals(ocAccount))
-           )) {
-            mStorageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
-        }
-        mAccount = ocAccount;
-        updateFileDetails(false);
-    }
-    */
     
 
     private class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
@@ -571,7 +520,7 @@ public class PreviewImageFragment extends SherlockFragment implements   FileFrag
                     
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Unexpected error loading " + mFile.getStoragePath(), t);
+                Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
                 
             }
             return result;

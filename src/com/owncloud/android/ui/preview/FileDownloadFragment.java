@@ -31,8 +31,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -47,7 +45,7 @@ import eu.alefzero.webdav.OnDatatransferProgressListener;
  * 
  * @author David A. Velasco
  */
-public class FileDownloadFragment extends SherlockFragment implements OnClickListener, FileFragment {
+public class FileDownloadFragment extends FileFragment implements OnClickListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -56,9 +54,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     private FileFragment.ContainerActivity mContainerActivity;
     
     private View mView;
-    private OCFile mFile;
     private Account mAccount;
-    private FileDataStorageManager mStorageManager;
     
     public ProgressListener mProgressListener;
     private boolean mListening;
@@ -75,9 +71,8 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
      * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
      */
     public FileDownloadFragment() {
-        mFile = null;
+        super();
         mAccount = null;
-        mStorageManager = null;
         mProgressListener = null;
         mListening = false;
         mIgnoreFirstSavedState = false;
@@ -95,9 +90,8 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}; TODO better solution 
      */
     public FileDownloadFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
-        mFile = fileToDetail;
+        super(fileToDetail);
         mAccount = ocAccount;
-        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mProgressListener = null;
         mListening = false;
         mIgnoreFirstSavedState = ignoreFirstSavedState;
@@ -118,7 +112,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                mFile = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE);
+                setFile((OCFile)savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE));
                 mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
                 mError = savedInstanceState.getBoolean(FileDownloadFragment.EXTRA_ERROR);
             } else {
@@ -167,7 +161,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
-            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
+            //mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
         }
     }
         
@@ -175,7 +169,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(FileDownloadFragment.EXTRA_FILE, mFile);
+        outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
         outState.putParcelable(FileDownloadFragment.EXTRA_ACCOUNT, mAccount);
         outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);
     }
@@ -224,8 +218,8 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
         switch (v.getId()) {
             case R.id.cancelBtn: {
                 FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
-                    downloaderBinder.cancel(mAccount, mFile);
+                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
+                    downloaderBinder.cancel(mAccount, getFile());
                     getActivity().finish(); // :)
                     /*
                     leaveTransferProgress();
@@ -245,14 +239,6 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
 
     
     /**
-     * {@inheritDoc}
-     */
-    public OCFile getFile(){
-        return mFile;
-    }
-    
-    
-    /**
      * Updates the view depending upon the state of the downloading file.
      * 
      * @param   transferring    When true, the view must be updated assuming that the holded file is 
@@ -261,10 +247,10 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     public void updateView(boolean transferring) {
         // configure UI for depending upon local state of the file
         FileDownloaderBinder downloaderBinder = (mContainerActivity == null) ? null : mContainerActivity.getFileDownloaderBinder();
-        if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile))) {
+        if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile()))) {
             setButtonsForTransferring();
             
-        } else if (mFile.isDown()) {
+        } else if (getFile().isDown()) {
             
             setButtonsForDown();
             
@@ -335,7 +321,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     public void listenForTransferProgress() {
         if (mProgressListener != null && !mListening) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
                 mListening = true;
                 setButtonsForTransferring();
             }
@@ -346,7 +332,7 @@ public class FileDownloadFragment extends SherlockFragment implements OnClickLis
     public void leaveTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
                 mListening = false;
             }
         }

@@ -34,7 +34,6 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileHandler;
 
 import eu.alefzero.webdav.WebdavUtils;
 
@@ -43,7 +42,7 @@ import eu.alefzero.webdav.WebdavUtils;
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity implements FileHandler {
+public abstract class FileActivity extends SherlockFragmentActivity {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -61,8 +60,6 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
     
-    private FileHandlerImpl mFileHandler;
-
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +78,6 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
             onAccountChanged();
         }
         
-        mFileHandler = new FileHandlerImpl();
     }
 
     
@@ -91,7 +87,7 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
      */
     @Override
     protected void onStart() {
-        Log_OC.e(TAG, "onStart en FileActivity");
+        Log_OC.d(TAG, "onStart en FileActivity");
         super.onStart();
         /// Validate account, and try to fix if wrong
         if (mAccount == null || !AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name)) {
@@ -215,11 +211,6 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
     }
     
     
-    public void openFile(OCFile file) {
-        mFileHandler.openFile(file);
-    }
-
-
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
      * 
@@ -228,39 +219,38 @@ public abstract class FileActivity extends SherlockFragmentActivity implements F
     protected abstract void onAccountChanged();
     
     
-    public class FileHandlerImpl implements FileHandler {
-        
-        public void openFile(OCFile file) {
-            if (file != null) {
-                String storagePath = file.getStoragePath();
-                String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-                
-                Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-                intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-                intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                
-                Intent intentForGuessedMimeType = null;
-                if (storagePath.lastIndexOf('.') >= 0) {
-                    String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                    if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                        intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                        intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                        intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    }
+
+    public void openFile(OCFile file) {
+        if (file != null) {
+            String storagePath = file.getStoragePath();
+            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
+            
+            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
+            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
+            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            
+            Intent intentForGuessedMimeType = null;
+            if (storagePath.lastIndexOf('.') >= 0) {
+                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
+                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
+                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
+                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
+                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 }
-                
-                Intent chooserIntent = null;
-                if (intentForGuessedMimeType != null) {
-                    chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
-                } else {
-                    chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
-                }
-                
-                startActivity(chooserIntent);
-                
-            } else {
-                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
             }
+            
+            Intent chooserIntent = null;
+            if (intentForGuessedMimeType != null) {
+                chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
+            } else {
+                chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
+            }
+            
+            startActivity(chooserIntent);
+            
+        } else {
+            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
         }
     }
+    
 }

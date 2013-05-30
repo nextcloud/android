@@ -15,36 +15,28 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/owncloud_white"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:baselineAligned="false" 
+    >
 
-    <LinearLayout
-        android:id="@+id/file_list_container"
+	<fragment
+		android:id="@+id/list_of_files_fragment"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		class="com.owncloud.android.ui.fragment.OCFileListFragment" 
+		/>
+
+    <FrameLayout android:id="@+id/right_fragment_container"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" >
-
-        <fragment
-            android:id="@+id/fileList"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            class="com.owncloud.android.ui.fragment.OCFileListFragment" >
-
-            <!-- Preview: layout=@layout/list_layout -->
-        </fragment>
-    </LinearLayout>
-
-    <LinearLayout android:id="@+id/file_details_container"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="2" >
-
-        <!-- Preview: layout=@layout/file_details_empty -->
-    </LinearLayout>
+        android:layout_weight="2" 
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>
