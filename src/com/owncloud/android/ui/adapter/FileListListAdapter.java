@@ -20,16 +20,6 @@ package com.owncloud.android.ui.adapter;
 
 import java.util.Vector;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
-
-import com.owncloud.android.R;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -40,6 +30,15 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.DisplayUtils;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -168,11 +167,20 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 
             } 
             else {
-               fileSizeV.setVisibility(View.VISIBLE);
+               
                getDirectorySizeNumber(file,true);
-               fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
-               lastModV.setVisibility(View.VISIBLE);
-               lastModV.setText(DisplayUtils.unixTimeToHumanReadable((lastModifiedOfAllSubdirectories == null) ? 0 :lastModifiedOfAllSubdirectories));
+               if (lastModifiedOfAllSubdirectories == null)
+               {
+                   lastModV.setVisibility(View.GONE);
+                   fileSizeV.setVisibility(View.GONE);
+               }
+               else
+               {
+                   lastModV.setVisibility(View.VISIBLE);
+                   lastModV.setText(DisplayUtils.unixTimeToHumanReadable(lastModifiedOfAllSubdirectories));
+                   fileSizeV.setVisibility(View.VISIBLE);
+                   fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
+               }
                checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
