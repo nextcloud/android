@@ -103,13 +103,12 @@
 
 		<EditText
 		    android:id="@+id/account_password"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:ems="10"
-			android:hint="@string/auth_password"
-			android:inputType="textPassword"
-			android:drawablePadding="5dp"
-			/>
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:drawablePadding="5dp"
+		    android:ems="10"
+		    android:hint="@string/auth_password"
+		    android:inputType="textPassword" />
         
         <TextView
             android:id="@+id/auth_status_text"

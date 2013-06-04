@@ -1242,7 +1242,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private abstract static class RightDrawableOnTouchListener implements OnTouchListener  {
 
-        private int fuzz = 10;
+        private int fuzz = 75;
         
         /**
          * {@inheritDoc}
