@@ -37,12 +37,13 @@ public class AccountUtils {
     public static final String STATUS_PATH = "/status.php";
 
     /**
-     * Can be used to get the currently selected ownCloud account in the
-     * preferences
+     * Can be used to get the currently selected ownCloud {@link Account} in the
+     * application preferences.
      * 
-     * @param context The current appContext
-     * @return The current account or first available, if none is available,
-     *         then null.
+     * @param   context     The current application {@link Context}
+     * @return              The ownCloud {@link Account} currently saved in preferences, or the first 
+     *                      {@link Account} available, if valid (still registered in the system as ownCloud 
+     *                      account). If none is available and valid, returns null.
      */
     public static Account getCurrentOwnCloudAccount(Context context) {
         Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
@@ -54,6 +55,7 @@ public class AccountUtils {
         String accountName = appPreferences
                 .getString("select_oc_account", null);
 
+        // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
         if (accountName != null) {
             for (Account account : ocAccounts) {
                 if (account.name.equals(accountName)) {
@@ -64,7 +66,7 @@ public class AccountUtils {
         }
         
         if (defaultAccount == null && ocAccounts.length != 0) {
-            // we at least need to take first account as fallback
+            // take first account as fallback
             defaultAccount = ocAccounts[0];
         }
 

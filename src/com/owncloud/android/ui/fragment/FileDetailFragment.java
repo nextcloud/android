@@ -137,7 +137,7 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        //super.onCreateView(inflater, container, savedInstanceState);
         
         if (savedInstanceState != null) {
             setFile((OCFile)savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
@@ -149,7 +149,8 @@ public class FileDetailFragment extends FileFragment implements
         }
         
         View view = null;
-        view = inflater.inflate(mLayout, container, false);
+        //view = inflater.inflate(mLayout, container, false);
+        view = inflater.inflate(mLayout, null);
         mView = view;
         
         if (mLayout == R.layout.file_details_fragment) {
@@ -438,15 +439,7 @@ public class FileDetailFragment extends FileFragment implements
             uploaderBinder.cancel(mAccount, file);
             if (!file.fileExists()) {
                 // TODO make something better
-                if (getActivity() instanceof FileDisplayActivity) {
-                    // double pane
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.right_fragment_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                    transaction.commit();
-                    mContainerActivity.onFileStateChanged();
-                } else {
-                    getActivity().finish();
-                }
+                ((FileDisplayActivity)getActivity()).cleanSecondFragment();
                 
             } else if (file.isDown()) {
                 setButtonsForDown();
@@ -794,22 +787,13 @@ public class FileDetailFragment extends FileFragment implements
     
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
             msg.show();
-            if (inDisplayActivity) {
-                // double pane
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.right_fragment_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                transaction.commit();
-                mContainerActivity.onFileStateChanged();
-            } else {
-                getActivity().finish();
-            }
-                
+            ((FileDisplayActivity)getActivity()).cleanSecondFragment();
+
         } else {
             Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
             msg.show();
@@ -820,7 +804,6 @@ public class FileDetailFragment extends FileFragment implements
     }
     
     private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         
         if (result.isSuccess()) {
@@ -843,7 +826,6 @@ public class FileDetailFragment extends FileFragment implements
     }
     
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         OCFile file = getFile();
         if (!result.isSuccess()) {

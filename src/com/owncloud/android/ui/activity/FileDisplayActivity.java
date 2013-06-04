@@ -42,8 +42,8 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -98,7 +98,6 @@ public class FileDisplayActivity extends FileActivity implements
     OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
     
     private ArrayAdapter<String> mDirectories;
-    private OCFile mChosenFile = null;
 
     /** Access point to the cached database for the current ownCloud {@link Account} */
     private DataStorageManager mStorageManager = null;
@@ -112,6 +111,8 @@ public class FileDisplayActivity extends FileActivity implements
     private RemoteOperationResult mLastSslUntrustedServerResult = null;
     
     private boolean mDualPane;
+    private View mLeftFragmentContainer;
+    private View mRightFragmentContainer;
     
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     
@@ -127,13 +128,18 @@ public class FileDisplayActivity extends FileActivity implements
     
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
+    private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
+    private static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
+
     private OCFile mWaitingToPreview;
     private Handler mHandler;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
-        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        
+        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
         
         mHandler = new Handler();
 
@@ -148,7 +154,7 @@ public class FileDisplayActivity extends FileActivity implements
             requestPinCode();
         }
 
-        // file observer
+        /// file observer
         Intent observer_intent = new Intent(this, FileObserverService.class);
         observer_intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_INIT_OBSERVED_LIST);
         startService(observer_intent);
@@ -162,15 +168,17 @@ public class FileDisplayActivity extends FileActivity implements
         }
         
         /// USER INTERFACE
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
             
         // Inflate and set the layout view
         setContentView(R.layout.files);    
-        mDualPane = (findViewById(R.id.right_fragment_container) != null);
+        mDualPane = getResources().getBoolean(R.bool.large_land_layout);
+        mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
+        mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
-            Fragment secondFragment = chooseSecondFragment(mChosenFile);
-            mChosenFile = null;
-            initFragments(secondFragment);
+            createMinFragments();
+            if (!isRedirectingToSetupAccount()) {
+                initFragmentsWithFile();
+            }
         }
         
         // Action bar setup
@@ -191,44 +199,6 @@ public class FileDisplayActivity extends FileActivity implements
     }
 
     
-    private void initFragments(Fragment secondFragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (!mDualPane) {
-            transaction.add(R.id.single_fragment_container, new OCFileListFragment());
-        } // else: for dual pane, the fragment for list of files is inflated directly from the layout ; see res\larg-land\files.xml
-        
-        /// Second fragment
-        if (secondFragment != null) {
-            if (mDualPane) {
-                transaction.add(R.id.right_fragment_container, secondFragment);
-            } else {
-                transaction.replace(R.id.single_fragment_container, secondFragment);
-                transaction.addToBackStack(null);
-            }
-        }
-        transaction.commit();
-    }
-
-
-    private Fragment chooseSecondFragment(OCFile file) {
-        Fragment secondFragment = null;
-        if (file != null) {
-            if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
-                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
-                boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
-                secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
-                
-            } else {
-                secondFragment = new FileDetailFragment(file, getAccount());
-            }
-                
-        } else if (mDualPane) {
-            secondFragment = new FileDetailFragment(null, null); // empty FileDetailFragment
-        }
-        return secondFragment;
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -237,14 +207,201 @@ public class FileDisplayActivity extends FileActivity implements
         if (mUploadConnection != null)
             unbindService(mUploadConnection);
     }
+    
+    
+    /**
+     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     */ 
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+            
+            /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
+            OCFile file = getFile();
+            if (file != null) {
+                file = mStorageManager.getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
+            }
+            if (file == null) {
+                // fall back to root folder
+                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never should return null
+            }
+            setFile(file);
+            
+            if (findViewById(android.R.id.content) != null && !stateWasRecovered) {
+                Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
+                initFragmentsWithFile();
+            } else {
+                Log_OC.e(TAG, "Fragment initializacion ignored in onAccountChanged due to lack of CONTENT VIEW");
+            }
+            
+        } else {
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+        }
+    }
+    
+    
+    private void createMinFragments() {
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+        transaction.commit();
+    }
+
+    private void initFragmentsWithFile() {
+        if (getAccount() != null && getFile() != null) {
+            /// Second fragment
+            OCFile file = getFile(); 
+            Fragment secondFragment = chooseInitialSecondFragment(file);
+            if (secondFragment != null) {
+                setSecondFragment(secondFragment);
+            }
+            
+        } else {
+            Log.wtf(TAG, "initFragments() called with invalid NULLs!");
+            if (getAccount() == null) {
+                Log.wtf(TAG, "\t account is NULL");
+            }
+            if (getFile() == null) {
+                Log.wtf(TAG, "\t file is NULL");
+            }
+        }
+    }
+
+    private Fragment chooseInitialSecondFragment(OCFile file) {
+        Fragment secondFragment = null;
+        if (file != null && !file.isDirectory()) {
+            if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
+                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
+                
+            } else {
+                secondFragment = new FileDetailFragment(file, getAccount());
+            }
+        }
+        return secondFragment;
+    }
 
     
+    /**
+     * Replaces the second fragment managed by the activity with the received as
+     * a parameter.
+     * 
+     * Assumes never will be more than two fragments managed at the same time. 
+     * 
+     * @param fragment      New second Fragment to set.
+     */
+    private void setSecondFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.right_fragment_container, fragment, TAG_SECOND_FRAGMENT);
+        transaction.commit();
+    }
+    
+    
+    private void updateFragmentsVisibility(boolean existsSecondFragment) {
+        if (mDualPane) {
+            if (mLeftFragmentContainer.getVisibility() != View.VISIBLE) {
+                mLeftFragmentContainer.setVisibility(View.VISIBLE);
+            }
+            if (mRightFragmentContainer.getVisibility() != View.VISIBLE) {
+                mRightFragmentContainer.setVisibility(View.VISIBLE);
+            }
+            
+        } else if (existsSecondFragment) {
+            if (mLeftFragmentContainer.getVisibility() != View.GONE) {
+                mLeftFragmentContainer.setVisibility(View.GONE);
+            }
+            if (mRightFragmentContainer.getVisibility() != View.VISIBLE) {
+                mRightFragmentContainer.setVisibility(View.VISIBLE);
+            }
+            
+        } else {
+            if (mLeftFragmentContainer.getVisibility() != View.VISIBLE) {
+                mLeftFragmentContainer.setVisibility(View.VISIBLE);
+            }
+            if (mRightFragmentContainer.getVisibility() != View.GONE) {
+                mRightFragmentContainer.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    
+    private OCFileListFragment getListOfFilesFragment() {
+        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (listOfFiles != null) {
+            return (OCFileListFragment)listOfFiles;
+        }
+        Log_OC.wtf(TAG, "Access to unexisting list of files fragment!!");
+        return null;
+    }
+    
+    protected FileFragment getSecondFragment() {
+        Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
+        if (second != null) {
+            return (FileFragment)second;
+        }
+        return null;
+    }
+
+    public void cleanSecondFragment() {
+        Fragment second = getSecondFragment();
+        if (second != null) {
+            FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
+            tr.remove(second);
+            tr.commit();
+            updateFragmentsVisibility(false);
+        }
+    }
+    
+    protected void refeshListOfFilesFragment() {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        if (fileListFragment != null) { 
+            fileListFragment.listDirectory();
+        }
+    }
+
+    protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath, boolean success) {
+        FileFragment secondFragment = getSecondFragment();
+        boolean waitedPreview = (mWaitingToPreview != null && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
+        if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
+            FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
+            OCFile fileInFragment = detailsFragment.getFile();
+            if (fileInFragment != null && !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
+                // the user browsed to other file ; forget the automatic preview 
+                mWaitingToPreview = null;
+                
+            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
+                // grant that the right panel updates the progress bar
+                detailsFragment.listenForTransferProgress();
+                detailsFragment.updateFileDetails(true, false);
+                
+            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+                //  update the right panel 
+                if (success && waitedPreview) {
+                    mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
+                    if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
+                        startMediaPreview(mWaitingToPreview, 0, true);
+                       
+                    } else {
+                        detailsFragment.updateFileDetails(false, (success));
+                        openFile(mWaitingToPreview);
+                    }
+                    mWaitingToPreview = null;
+                    
+                } else {
+                    detailsFragment.updateFileDetails(false, (success));
+                }
+            }
+        }
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
-            inflater.inflate(R.menu.main_menu, menu);
-            
-            return true;
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
@@ -399,63 +556,23 @@ public class FileDisplayActivity extends FileActivity implements
         startService(i);
     }
 
-    private OCFileListFragment getListOfFilesFragment() {
-        if (mDualPane) {
-            return (OCFileListFragment) getSupportFragmentManager().findFragmentById(R.id.list_of_files_fragment);
-        } else {
-            Fragment singleFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
-            if (singleFragment instanceof OCFileListFragment) {
-                return (OCFileListFragment)singleFragment;
-            } else {
-                return null;
-            }
-        }
-    }
-    
-    protected FileFragment getSecondFragment() {
-        if (mDualPane) {
-            return (FileFragment) getSupportFragmentManager().findFragmentById(R.id.right_fragment_container);
-        } else {
-            Fragment singleFragment = getSupportFragmentManager().findFragmentById(R.id.single_fragment_container);
-            if (singleFragment != null && !(singleFragment instanceof OCFileListFragment)) {
-                return (FileFragment)singleFragment;
-            } else {
-                return null;
-            }
-        }
-    }
-
     @Override
     public void onBackPressed() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (listOfFiles != null) {
-            if (mDirectories.getCount() <= 1) {
-                finish();
-                return;
+        if (mDualPane || getSecondFragment() == null) {
+            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+            if (listOfFiles != null) {  // should never be null, indeed
+                if (mDirectories.getCount() <= 1) {
+                    finish();
+                    return;
+                }
+                popDirname();
+                listOfFiles.onBrowseUp();
+                setFile(listOfFiles.getCurrentFile());
             }
-            popDirname();
-            listOfFiles.onBrowseUp();
-            setFile(listOfFiles.getCurrentFile());
-            cleanSecondFragment();
-            
-        } else {
-            super.onBackPressed();
         }
+        cleanSecondFragment();
         updateNavigationElementsInActionBar(getFile(), null);
     }
-
-    private void cleanSecondFragment() {
-        if (mDualPane) {
-            // Resets the FileDetailsFragment on tablets
-            Fragment fileFragment = getSupportFragmentManager().findFragmentById(R.id.right_fragment_container);
-            if (fileFragment != null && (fileFragment instanceof PreviewMediaFragment || !((FileDetailFragment) fileFragment).isEmpty())) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.right_fragment_container, new FileDetailFragment(null, null)); // empty FileDetailFragment                
-                transaction.commit();
-            }
-        }
-    }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -470,6 +587,7 @@ public class FileDisplayActivity extends FileActivity implements
     protected void onStart() {
         super.onStart();
         FileFragment second = getSecondFragment();
+        updateFragmentsVisibility(second != null);
         updateNavigationElementsInActionBar(getFile(), (second == null) ? null : second.getFile());
     }
     
@@ -768,7 +886,7 @@ public class FileDisplayActivity extends FileActivity implements
             
             if (sameAccount && isDescendant) {
                 refeshListOfFilesFragment();
-                updateSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
             }
             
             removeStickyBroadcast(intent);
@@ -785,49 +903,6 @@ public class FileDisplayActivity extends FileActivity implements
     }
     
     
-    protected void refeshListOfFilesFragment() {
-        OCFileListFragment fileListFragment = getListOfFilesFragment();
-        if (fileListFragment != null) { 
-            fileListFragment.listDirectory();
-        }
-    }
-
-    protected void updateSecondFragment(String downloadEvent, String downloadedRemotePath, boolean success) {
-        FileFragment secondFragment = getSecondFragment();
-        boolean waitedPreview = (mWaitingToPreview != null && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath));
-        if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
-            FileDetailFragment detailsFragment = (FileDetailFragment) secondFragment;
-            OCFile fileInFragment = detailsFragment.getFile();
-            if (fileInFragment != null && !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
-                // the user browsed to other file ; forget the automatic preview 
-                mWaitingToPreview = null;
-                
-            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
-                // grant that the right panel updates the progress bar
-                detailsFragment.listenForTransferProgress();
-                detailsFragment.updateFileDetails(true, false);
-                
-            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
-                //  update the right panel 
-                if (success && waitedPreview) {
-                    mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
-                    if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                        startMediaPreview(mWaitingToPreview, 0, true);
-                       
-                    } else {
-                        detailsFragment.updateFileDetails(false, (success));
-                        openFile(mWaitingToPreview);
-                    }
-                    mWaitingToPreview = null;
-                    
-                } else {
-                    detailsFragment.updateFileDetails(false, (success));
-                }
-            }
-        }
-    }
-
-
     /**
      * {@inheritDoc}
      */
@@ -873,6 +948,7 @@ public class FileDisplayActivity extends FileActivity implements
     public void startMediaPreview(OCFile file, int startPlaybackPosition, boolean autoplay) {
         Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
         setSecondFragment(mediaFragment);
+        updateFragmentsVisibility(true);
         updateNavigationElementsInActionBar(getFile(), file);
     }
     
@@ -889,6 +965,7 @@ public class FileDisplayActivity extends FileActivity implements
         setSecondFragment(detailFragment);
         mWaitingToPreview = file;
         requestForDownload();
+        updateFragmentsVisibility(true);
         updateNavigationElementsInActionBar(getFile(), file);
     }
 
@@ -903,33 +980,8 @@ public class FileDisplayActivity extends FileActivity implements
     public void showDetails(OCFile file) {
         Fragment detailFragment = new FileDetailFragment(file, getAccount());
         setSecondFragment(detailFragment);
+        updateFragmentsVisibility(true);
         updateNavigationElementsInActionBar(getFile(), file);
-    }
-    
-    
-    /**
-     * Replaces the second fragment managed by the activity with the received as
-     * a parameter.
-     * 
-     * Assumes never will be more than two fragments managed at the same time. 
-     * 
-     * @param fragment      New second Fragment to set.
-     */
-    private void setSecondFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        if (mDualPane) {
-            transaction.replace(R.id.right_fragment_container, fragment);
-        } else {
-            transaction.replace(R.id.single_fragment_container, fragment);
-            while (fm.getBackStackEntryCount() > 0) {
-                fm.popBackStackImmediate();
-            }
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-        
-        /// TODO UPDATE ACTION BAR ACCORDING TO SECONDFRAGMENT!!
     }
     
     
@@ -938,12 +990,12 @@ public class FileDisplayActivity extends FileActivity implements
      */
     private void updateNavigationElementsInActionBar(OCFile currentDir, OCFile currentFile) {
         ActionBar actionBar = getSupportActionBar(); 
-        if (currentFile == null) {
+        if (currentFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectoris is updated
+            actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
             
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -1100,11 +1152,9 @@ public class FileDisplayActivity extends FileActivity implements
             msg.show();
             OCFile removedFile = operation.getFile();
             getSecondFragment();
-            if (mDualPane) {
-                FileFragment second = getSecondFragment();
-                if (second != null && removedFile.equals(second.getFile())) {
-                    cleanSecondFragment();  // TODO this only cleans in DUAL PANE!!
-                }
+            FileFragment second = getSecondFragment();
+            if (second != null && removedFile.equals(second.getFile())) {
+                cleanSecondFragment();
             }
             if (mStorageManager.getFileById(removedFile.getParentId()).equals(getFile())) {
                 refeshListOfFilesFragment();
@@ -1156,7 +1206,7 @@ public class FileDisplayActivity extends FileActivity implements
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             if (mDualPane) {
-                FileFragment details = (FileFragment) getSupportFragmentManager().findFragmentById(R.id.right_fragment_container);
+                FileFragment details = getSecondFragment();
                 if (details != null && details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
                     ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
                 }
@@ -1216,7 +1266,7 @@ public class FileDisplayActivity extends FileActivity implements
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         if (mDualPane) {
-            FileFragment details = (FileFragment) getSupportFragmentManager().findFragmentById(R.id.right_fragment_container);
+            FileFragment details = getSecondFragment();
             if (details != null && details instanceof FileDetailFragment && file.equals(details.getFile()) ) {
                 if (downloading || uploading) {
                     ((FileDetailFragment)details).updateFileDetails(file, getAccount());
@@ -1270,42 +1320,4 @@ public class FileDisplayActivity extends FileActivity implements
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onAccountChanged() {
-        if (getAccount() != null) {
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            
-            /// Check if the 'main' @OCFile handled by the Activity is a directory
-            OCFile currentDir = getFile();
-            if(currentDir != null && !currentDir.isDirectory()) {
-                mChosenFile = getFile();
-                currentDir = mStorageManager.getFileById(currentDir.getParentId());
-            }
-            
-            /// Check if currentDir and mChosenFile are in the current account, and update them
-            if (currentDir != null) {
-                currentDir = mStorageManager.getFileByPath(currentDir.getRemotePath());   // currentDir = null if not in the current Account
-            }
-            if (mChosenFile != null) {
-                if (mChosenFile.fileExists()) {
-                    mChosenFile = mStorageManager.getFileByPath(mChosenFile.getRemotePath());   // mChosenFile = null if not in the current Account
-                }   // else : keep mChosenFile with the received value; this is currently the case of an upload in progress, when the user presses the status notification in a landscape tablet
-            }
-            
-            /// Default to root if mCurrentDir was not found
-            if (currentDir == null) {
-                currentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
-            }
-            
-            setFile(currentDir);
-            
-        } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
-        }
-    }
-
-    
 }

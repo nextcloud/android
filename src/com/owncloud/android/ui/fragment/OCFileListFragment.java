@@ -61,8 +61,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * 
  */
 public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
+    
     private static final String TAG = OCFileListFragment.class.getSimpleName();
-    private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     

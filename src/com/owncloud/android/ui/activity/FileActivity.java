@@ -46,7 +46,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
-    public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.ACCOUNT";
+    public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     
     public static final String TAG = FileActivity.class.getSimpleName(); 
     
@@ -60,12 +60,18 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
     
-    
+
+    /**
+     * Loads the cownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
+     * the {@link FileActivity}.
+     * 
+     * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user 
+     * is requested to create a new one.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        /// Load of saved instance state: keep this always before initDataFromCurrentAccount()
+
         if(savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
             mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -73,39 +79,53 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
         }
-        
-        if (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name)) {
-            onAccountChanged();
+
+        grantValidAccount();
+        if (mAccount != null) {
+            onAccountSet(savedInstanceState != null);
         }
-        
     }
 
     
     /**
-     * Validate the ownCloud {@link Account} associated to the Activity any time it is 
-     * started, and if not valid tries to move to a different Account.
+     *  Since ownCloud {@link Account}s can be managed from the system setting menu, 
+     *  the existence of the {@link Account} associated to the instance must be checked 
+     *  every time it is restarted.
      */
     @Override
-    protected void onStart() {
-        Log_OC.d(TAG, "onStart en FileActivity");
-        super.onStart();
-        /// Validate account, and try to fix if wrong
-        if (mAccount == null || !AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name)) {
-            if (!AccountUtils.accountsAreSetup(getApplicationContext())) {
-                /// no account available: force account creation
-                mAccount = null;
-                createFirstAccount();
-                mRedirectingToSetupAccount = true;
-                
-            } else {
-                /// get 'last current account' as default account
-                mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-                onAccountChanged();
-            }
+    protected void onRestart() {
+        super.onRestart();
+        
+        Account oldAccount = mAccount;
+        grantValidAccount();
+        if (mAccount != null && !mAccount.equals(oldAccount)) {
+            onAccountSet(false);
         }
     }
     
         
+    /**
+     *  Validates the ownCloud {@link Account} associated to the Activity any time it is restarted.
+     * 
+     *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
+     * 
+     *  If no valid ownCloud {@link Account} exists, mAccount is set to NULL and the user is requested 
+     *  to create a new ownCloud {@link Account}.
+     */
+    private void grantValidAccount() {
+        boolean validAccount = (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
+        if (!validAccount) {
+            // get most recently used account as default account
+            mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+            if (mAccount == null) {
+                /// no account available: force account creation
+                createFirstAccount();
+                mRedirectingToSetupAccount = true;
+            }
+        }
+    }
+    
+    
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
@@ -191,7 +211,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                     String type = result.getString(AccountManager.KEY_ACCOUNT_TYPE);
                     if (AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name)) {
                         FileActivity.this.mAccount = new Account(name, type);
-                        FileActivity.this.onAccountChanged();
+                        FileActivity.this.onAccountSet(false);
                     }
                 } catch (OperationCanceledException e) {
                     Log_OC.e(TAG, "Account creation canceled");
@@ -216,7 +236,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      * 
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected abstract void onAccountChanged();
+    protected abstract void onAccountSet(boolean stateWasRecovered);
     
     
 

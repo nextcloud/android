@@ -442,7 +442,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     }
 
     @Override
-    protected void onAccountChanged() {
+    protected void onAccountSet(boolean stateWasRecovered) {
         // TODO
     }
     

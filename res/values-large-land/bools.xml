@@ -16,7 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!-- Default boolean values -->
+<!-- Large screen, landscape orientation boolean values -->
 <resources>
-    <bool name="large_land_layout">false</bool>
+    <bool name="large_land_layout">true</bool>
 </resources>
