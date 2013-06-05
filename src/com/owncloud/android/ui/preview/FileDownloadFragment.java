@@ -27,7 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -127,7 +127,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
         mProgressListener = new ProgressListener(progressBar);
         
-        ((Button)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
+        ((ImageButton)mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
         
         if (mError) {
             setButtonsForRemote();

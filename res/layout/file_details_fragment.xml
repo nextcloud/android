@@ -183,7 +183,7 @@
 			        android:id="@+id/fdProgressBlock"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:gravity="center_horizontal"
+					android:gravity="center"
 					android:layout_marginTop="12dp"
 					android:layout_marginBottom="12dp"
 					android:orientation="horizontal"
@@ -199,12 +199,14 @@
 						android:indeterminateOnly="false" 
 					/>
 				    								
-					<Button
+					<ImageButton
 						android:id="@+id/fdCancelBtn"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginLeft="12dp"
-						android:text="@string/common_cancel" />
+						android:src="@drawable/btn_cancel"
+						android:background="@android:color/transparent"
+						/>
 						
 				</LinearLayout>
 	
