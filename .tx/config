@@ -1,5 +1,5 @@
 [main]
-host = https://www.transifex.com
+host = https://www.transifex.net
 
 [owncloud.android]
 file_filter = res/values-<lang>/strings.xml
