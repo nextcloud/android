@@ -255,13 +255,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
 
     private void backToDisplayActivity() {
-        /*
-        Intent intent = new Intent(this, FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
-        startActivity(intent);
-        */
         finish();
     }
     

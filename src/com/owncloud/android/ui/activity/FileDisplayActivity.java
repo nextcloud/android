@@ -186,7 +186,9 @@ public class FileDisplayActivity extends FileActivity implements
         OCFile currFile = getFile();
         if (mStorageManager != null) {
             while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
-                mDirectories.add(currFile.getFileName());
+                if (currFile.isDirectory()) {
+                    mDirectories.add(currFile.getFileName());
+                }
                 currFile = mStorageManager.getFileById(currFile.getParentId());
             }
         }
@@ -294,7 +296,7 @@ public class FileDisplayActivity extends FileActivity implements
      */
     private void setSecondFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.right_fragment_container, fragment, TAG_SECOND_FRAGMENT);
+        transaction.replace(R.id.right_fragment_container, fragment, TAG_SECOND_FRAGMENT);
         transaction.commit();
     }
     
@@ -428,7 +430,8 @@ public class FileDisplayActivity extends FileActivity implements
             }
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
-                if((getFile() != null && getFile().getParentId() != 0) || 
+                OCFile currentDir = getCurrentDir();
+                if((currentDir != null && currentDir.getParentId() != 0) || 
                         (second != null && second.getFile() != null)) {
                     onBackPressed(); 
                 }
@@ -558,8 +561,8 @@ public class FileDisplayActivity extends FileActivity implements
 
     @Override
     public void onBackPressed() {
+        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (mDualPane || getSecondFragment() == null) {
-            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
             if (listOfFiles != null) {  // should never be null, indeed
                 if (mDirectories.getCount() <= 1) {
                     finish();
@@ -567,11 +570,13 @@ public class FileDisplayActivity extends FileActivity implements
                 }
                 popDirname();
                 listOfFiles.onBrowseUp();
-                setFile(listOfFiles.getCurrentFile());
             }
         }
+        if (listOfFiles != null) {  // should never be null, indeed
+            setFile(listOfFiles.getCurrentFile());
+        }
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(getFile(), null);
+        updateNavigationElementsInActionBar(null);
     }
 
     @Override
@@ -588,7 +593,7 @@ public class FileDisplayActivity extends FileActivity implements
         super.onStart();
         FileFragment second = getSecondFragment();
         updateFragmentsVisibility(second != null);
-        updateNavigationElementsInActionBar(getFile(), (second == null) ? null : second.getFile());
+        updateNavigationElementsInActionBar((second == null) ? null : second.getFile());
     }
     
     @Override
@@ -615,7 +620,7 @@ public class FileDisplayActivity extends FileActivity implements
         // List current directory
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {
-            listOfFiles.listDirectory(getFile());   // TODO we should find the way to avoid the need of this (maybe it's not necessary yet; to check)
+            listOfFiles.listDirectory(getCurrentDir());   // TODO we should find the way to avoid the need of this (maybe it's not necessary yet; to check)
         }
     
         Log_OC.d(TAG, "onResume() end");
@@ -818,7 +823,7 @@ public class FileDisplayActivity extends FileActivity implements
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
                  
                 boolean fillBlankRoot = false;
-                OCFile currentDir = getFile();
+                OCFile currentDir = getCurrentDir();
                 if (currentDir == null) {
                     currentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
                     fillBlankRoot = (currentDir != null);
@@ -862,7 +867,8 @@ public class FileDisplayActivity extends FileActivity implements
             String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
             boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
-            boolean isDescendant = (getFile() != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(getFile().getRemotePath()));
+            OCFile currentDir = getCurrentDir();
+            boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
             if (sameAccount && isDescendant) {
                 refeshListOfFilesFragment();
             }
@@ -893,7 +899,8 @@ public class FileDisplayActivity extends FileActivity implements
         }
 
         private boolean isDescendant(String downloadedRemotePath) {
-            return (getFile() != null && downloadedRemotePath != null && downloadedRemotePath.startsWith(getFile().getRemotePath()));
+            OCFile currentDir = getCurrentDir();
+            return (currentDir != null && downloadedRemotePath != null && downloadedRemotePath.startsWith(currentDir.getRemotePath()));
         }
 
         private boolean isSameAccount(Context context, Intent intent) {
@@ -921,7 +928,7 @@ public class FileDisplayActivity extends FileActivity implements
     public void onBrowsedDownTo(OCFile directory) {
         pushDirname(directory);
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(directory, null);
+        updateNavigationElementsInActionBar(null);
     }
     
     /**
@@ -949,7 +956,8 @@ public class FileDisplayActivity extends FileActivity implements
         Fragment mediaFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
         setSecondFragment(mediaFragment);
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(getFile(), file);
+        updateNavigationElementsInActionBar(file);
+        setFile(file);
     }
     
     /**
@@ -966,7 +974,8 @@ public class FileDisplayActivity extends FileActivity implements
         mWaitingToPreview = file;
         requestForDownload();
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(getFile(), file);
+        updateNavigationElementsInActionBar(file);
+        setFile(file);
     }
 
     
@@ -981,17 +990,19 @@ public class FileDisplayActivity extends FileActivity implements
         Fragment detailFragment = new FileDetailFragment(file, getAccount());
         setSecondFragment(detailFragment);
         updateFragmentsVisibility(true);
-        updateNavigationElementsInActionBar(getFile(), file);
+        updateNavigationElementsInActionBar(file);
+        setFile(file);
     }
     
     
     /**
      * TODO
      */
-    private void updateNavigationElementsInActionBar(OCFile currentDir, OCFile currentFile) {
+    private void updateNavigationElementsInActionBar(OCFile currentFile) {
         ActionBar actionBar = getSupportActionBar(); 
         if (currentFile == null || mDualPane) {
             // only list of files - set for browsing through folders
+            OCFile currentDir = getCurrentDir();
             actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -1011,7 +1022,7 @@ public class FileDisplayActivity extends FileActivity implements
      */
     @Override
     public OCFile getInitialDirectory() {
-        return getFile();
+        return getCurrentDir();
     }
     
     
@@ -1156,7 +1167,7 @@ public class FileDisplayActivity extends FileActivity implements
             if (second != null && removedFile.equals(second.getFile())) {
                 cleanSecondFragment();
             }
-            if (mStorageManager.getFileById(removedFile.getParentId()).equals(getFile())) {
+            if (mStorageManager.getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
                 refeshListOfFilesFragment();
             }
                 
@@ -1211,7 +1222,7 @@ public class FileDisplayActivity extends FileActivity implements
                     ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
                 }
             }
-            if (mStorageManager.getFileById(renamedFile.getParentId()).equals(getFile())) {
+            if (mStorageManager.getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
                 refeshListOfFilesFragment();
             }
             
@@ -1283,20 +1294,11 @@ public class FileDisplayActivity extends FileActivity implements
             String newDirectoryName = dialog.getNewFilename().trim();
             Log_OC.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
             if (newDirectoryName.length() > 0) {
-                String path;
-                if (getFile() == null) {
-                    // this is just a patch; we should ensure that mCurrentDir never is null
-                    if (!mStorageManager.fileExists(OCFile.PATH_SEPARATOR)) {
-                        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
-                        mStorageManager.saveFile(file);
-                    }
-                    setFile(mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR));
-                }
-                path = FileDisplayActivity.this.getFile().getRemotePath();
+                String path = getCurrentDir().getRemotePath();
                 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                RemoteOperation operation = new CreateFolderOperation(path, getFile().getFileId(), mStorageManager);
+                RemoteOperation operation = new CreateFolderOperation(path, getCurrentDir().getFileId(), mStorageManager);
                 operation.execute(  getAccount(), 
                                     FileDisplayActivity.this, 
                                     FileDisplayActivity.this, 
@@ -1318,6 +1320,19 @@ public class FileDisplayActivity extends FileActivity implements
             startService(i);
         }
     }
-
+    
+    
+    private OCFile getCurrentDir() {
+        OCFile file = getFile();
+        if (file != null) {
+            if (file.isDirectory()) {
+                return file;
+            } else {
+                return mStorageManager.getFileById(file.getParentId());
+            }
+        } else {
+            return null;
+        }
+    }
 
 }
