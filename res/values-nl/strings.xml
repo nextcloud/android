@@ -3,7 +3,7 @@
   <string name="app_name">ownCloud</string>
   <string name="main_password">Wachtwoord:</string>
   <string name="main_login">Gebruikersnaam:</string>
-  <string name="main_button_login">Inloggen</string>
+  <string name="main_button_login">Login</string>
   <string name="main_welcome">Welkom in je ownCloud</string>
   <string name="main_files">Bestanden</string>
   <string name="main_music">Muziek</string>
@@ -21,8 +21,8 @@
   <string name="actionbar_mkdir">Creëer map</string>
   <string name="actionbar_search">Zoeken</string>
   <string name="actionbar_settings">Instellingen</string>
+  <string name="actionbar_see_details">Details</string>
   <string name="prefs_category_general">Algemeen</string>
-  <string name="prefs_category_trackmydevice">Apparaat volgen</string>
   <string name="prefs_add_session">Voeg nieuwe sessie toe</string>
   <string name="prefs_create_img_thumbnails">Maak afbeeldingsminiaturen</string>
   <string name="prefs_select_oc_account">Selecteer een account</string>
@@ -53,6 +53,7 @@
   <string name="setup_title">Verbinden met je ownCloud</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
+  <string name="uploader_top_message">Selecteer upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn nog geen ownCloud accounts op je apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
@@ -82,6 +83,8 @@
   <string name="common_save_exit">Opslaan &amp; Afsluiten</string>
   <string name="common_exit">Verlaat ownCloud</string>
   <string name="common_error">Fout</string>
+  <string name="common_loading">Laden...</string>
+  <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
@@ -101,6 +104,7 @@
   <string name="downloader_download_succeeded_content">%1$s werd succesvol gedownload</string>
   <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
   <string name="downloader_download_failed_content">Download van %1$s kon niet worden voltooid</string>
+  <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
   <string name="common_choose_account">Kies account</string>
   <string name="sync_string_contacts">Contactpersonen</string>
   <string name="sync_fail_ticker">Synchronisatie mislukt</string>
@@ -109,6 +113,15 @@
   <string name="sync_conflicts_in_favourites_content">%1$d in-synch-houden bestanden konden niet worden gesync\'d</string>
   <string name="sync_fail_in_favourites_ticker">In-sync-houden bestanden mislukt</string>
   <string name="sync_fail_in_favourites_content">Inhoud van %1$d bestanden kon niet worden gesynchroniseerd (%2$d conflicten)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d bestanden uit de %2$s directory konden niet worden gekopieerd naar</string>
+  <string name="sync_foreign_files_forgotten_explanation">\"Vanaf versie 1.3.16, worden bestanden ge-upload vanaf dit apparaat ook gekopieerd naar de lokale %1$s map om gegevensverlies te voorkomen wanneer een enkel bestand wordt gesynchroniseerd met meerdere accounts.\n\nDoor deze verandering zijn alle bestanden die met een voorgaande versie van deze app zijn ge-uploaded gekopieerd naar de %2$s map. Maar door een fout is dit niet helemaal gelukt bij de account synchronisatie. U kunt de bestanden laten zoals ze zijn en de %3$s verwijderen, of de bestanden verplaatsen naar de %1$s map en de links naar %4$s behouden.\n\nHieronder staan de lokalen bestanden, en de externe bestanden in %5$s waarnaar ze doorverwezen.</string>
+  <string name="foreign_files_move">Alle verplaatsen</string>
+  <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
+  <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
+  <string name="foreign_files_local_text">Lokaal: %1$s</string>
+  <string name="foreign_files_remote_text">Extern: %1$s</string>
+  <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de gekopieerde bestanden ook te plaatsen in map %1$s. Wilt u ze erheen verplaatsten? </string>
   <string name="use_ssl">Gebruik veilige verbinding</string>
   <string name="location_no_provider">ownCloud kan het apparaat niet volgen. Configureer de locatie instellingen (location settings).</string>
   <string name="pincode_enter_pin_code">Voer App PIN in</string>
@@ -121,6 +134,27 @@
   <string name="pincode_wrong">Foutieve ownCloud applicatie PIN</string>
   <string name="pincode_removed">ownCloud App PIN verwijderd</string>
   <string name="pincode_stored">ownCloud App PIN opgeslagen</string>
+  <string name="media_notif_ticker">%1$s muziekspeler</string>
+  <string name="media_state_playing">%1$s (speelt)</string>
+  <string name="media_state_loading">%1$s (laden)</string>
+  <string name="media_event_done">%1$s playback geëindigd</string>
+  <string name="media_err_nothing_to_play">Geen mediabestand gevonden</string>
+  <string name="media_err_no_account">Geen account opgegeven</string>
+  <string name="media_err_not_in_owncloud">Bestand niet in een geldig account</string>
+  <string name="media_err_unsupported">Niet ondersteunde media codec</string>
+  <string name="media_err_io">Mediabestand kon niet worden gelezen</string>
+  <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
+  <string name="media_err_timeout">Te veel tijd geprobeerd te spelen</string>
+  <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
+  <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
+  <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
+  <string name="media_err_io_ex">Invoerfout bij afspelen %1$1s</string>
+  <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
+  <string name="media_previous_description">Vorige nummer knop</string>
+  <string name="media_rewind_description">terugpoel knop</string>
+  <string name="media_play_pause_description">Speel of pauze knop</string>
+  <string name="media_forward_description">Doorspoel knop</string>
+  <string name="media_next_description">Volgende nummer knop</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minuten</item>
     <item>30 minuten</item>
@@ -208,7 +242,12 @@
   <string name="ssl_validator_label_validity_to">Aan:</string>
   <string name="ssl_validator_label_signature">Handtekening:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
-  <string name="text_placeholder">Dit is een gereserveerde ruimte</string>
+  <string name="placeholder_sentence">Dit is een plaatshouder</string>
+  <string name="placeholder_filename">plaatshouder.txt</string>
+  <string name="placeholder_filetype">PNG Afbeelding</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Update conflict</string>
@@ -216,4 +255,20 @@
   <string name="conflict_keep_both">Beide bewaren</string>
   <string name="conflict_overwrite">Overschrijven</string>
   <string name="conflict_dont_upload">Niet uploaden</string>
+  <string name="preview_image_description">Afbeelding voorbeeld</string>
+  <string name="preview_image_error_unknown_format">Deze afbeelding kan niet weergegeven worden</string>
+  <string name="preview_image_error_out_of_memory">\"Niet voldoende geheugen om deze afbeelding weer te geven</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
+  <string name="actionbar_failed_instant_upload">Mislukte Directe Upload</string>
+  <string name="failed_upload_headline_text">Mislukte directe uploads</string>
+  <string name="failed_upload_headline_hint">Samenvatting van alle mislukte directe uploads</string>
+  <string name="failed_upload_all_cb">alles selecteren</string>
+  <string name="failed_upload_headline_retryall_btn">opnieuw proberen alles te selecteren</string>
+  <string name="failed_upload_headline_delete_all_btn">verwijderen alle geselecteerde van de upload wachtrij</string>
+  <string name="failed_upload_retry_text">probeer de afbeelding opnieuw te uploaden:</string>
+  <string name="failed_upload_load_more_images">Laadt meer Afbeeldingen</string>
+  <string name="failed_upload_retry_do_nothing_text">doe niks, u bent niet online voor directe upload</string>
+  <string name="failed_upload_failure_text">Mislukkings Bericht:</string>
+  <string name="failed_upload_quota_exceeded_text">Controleer uw server instellingen, misschien is uw quota overschreden.</string>
 </resources>

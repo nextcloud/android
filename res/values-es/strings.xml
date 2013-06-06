@@ -135,15 +135,25 @@
   <string name="pincode_removed">PIN de aplicación borrado</string>
   <string name="pincode_stored">PIN de aplicación guardado</string>
   <string name="media_notif_ticker">Reproductor de música %1$s</string>
+  <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
+  <string name="media_event_done">%1$s reproducción finalizada</string>
+  <string name="media_err_nothing_to_play">No se encuentra archivo de medio</string>
+  <string name="media_err_no_account">No se ha proporcionado cuenta</string>
   <string name="media_err_not_in_owncloud">El archivo no esta en una cuenta valida </string>
+  <string name="media_err_unsupported">Codec No Soportado</string>
   <string name="media_err_io">El archivo de medios no pudo ser leído </string>
+  <string name="media_err_malformed">Archivo no codificado correctamente</string>
+  <string name="media_err_timeout">Demasiado tiempo intentando reproducir</string>
+  <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transmitido</string>
   <string name="media_err_unknown">El archivo de medios no se puede reproducir con el reproductor de medios por defecto </string>
   <string name="media_err_security_ex">Error de seguridad al intentar reproducir %1$s</string>
   <string name="media_err_io_ex">Error de entrada al intentar reproducir %1$s</string>
   <string name="media_err_unexpected">Error inesperado intentando reproducir %1$s</string>
   <string name="media_previous_description">Botón de canción anterior </string>
+  <string name="media_rewind_description">Botón Rebobinado</string>
   <string name="media_play_pause_description">Botón de reproducción o pausa </string>
+  <string name="media_forward_description">Botón avance rápido</string>
   <string name="media_next_description">Botón de siguiente canción </string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minutos</item>
@@ -232,7 +242,12 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="placeholder_sentence">Esto es un marcador de posición</string>
+  <string name="placeholder_filename">marcadordeposición.txt</string>
   <string name="placeholder_filetype">Imagen PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
@@ -240,6 +255,7 @@
   <string name="conflict_keep_both">Mantener ambas</string>
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
+  <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
   <string name="preview_image_error_out_of_memory">No hay suficiente memoria para mostrar esta imagen</string>
   <!--we need to improve the communication of errors to the user-->
@@ -249,7 +265,10 @@
   <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas fallidas</string>
   <string name="failed_upload_all_cb">Seleccionar todos</string>
   <string name="failed_upload_headline_retryall_btn">Reintentar todos los seleccionados</string>
+  <string name="failed_upload_headline_delete_all_btn">Eliminar todo de la cola de subida</string>
+  <string name="failed_upload_retry_text">Reintentar subida de imagen:</string>
   <string name="failed_upload_load_more_images">Cargar mas imágenes</string>
+  <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
 </resources>

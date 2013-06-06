@@ -53,6 +53,7 @@
   <string name="setup_title">Połącz z %1$s</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
+  <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Nie wykryto kont %1$s na twoim urządzeniu. Załóż konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
@@ -138,6 +139,22 @@
   <string name="media_state_loading">%1$s (wczytywane)</string>
   <string name="media_event_done">%1$s odtwarzanie zakończone</string>
   <string name="media_err_nothing_to_play">Nie znaleziono plików multimedialnych</string>
+  <string name="media_err_no_account">Nie znaleziono konta</string>
+  <string name="media_err_not_in_owncloud">Plik na nieprawidłowym koncie</string>
+  <string name="media_err_unsupported">Nieobsługiwany kodek multimediów</string>
+  <string name="media_err_io">Błąd odczytu pliku multimedialnego</string>
+  <string name="media_err_malformed">Błąd kodowania pliku multimedialnego</string>
+  <string name="media_err_timeout">Przekroczono czas próby odtworzenia multimediów</string>
+  <string name="media_err_invalid_progressive_playback">Ni udało się przesłać pliku multimedialnego</string>
+  <string name="media_err_unknown">Plik multimediów nie może być odtworzony we wbudowanym odtwarzaczu</string>
+  <string name="media_err_security_ex">Błąd zabezpieczeń podczas próby odtworzenia %1$s</string>
+  <string name="media_err_io_ex">Błąd wprowadzania podczas próby odtworzenia %1$s</string>
+  <string name="media_err_unexpected">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
+  <string name="media_previous_description">Przycisk przejścia do poprzedniego utworu</string>
+  <string name="media_rewind_description">Przycisk przewijania</string>
+  <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
+  <string name="media_forward_description">Przycisk przewijania do przodu</string>
+  <string name="media_next_description">Przycisk przejścia do kolejnego utworu</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minut</item>
     <item>30 minut</item>
@@ -225,6 +242,9 @@
   <string name="ssl_validator_label_validity_to">Do:</string>
   <string name="ssl_validator_label_signature">Sygnatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algorytm:</string>
+  <string name="placeholder_sentence">Tekst zastępczy</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">Obraz PNG</string>
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
@@ -235,9 +255,20 @@
   <string name="conflict_keep_both">Zatrzymaj oba</string>
   <string name="conflict_overwrite">Zastąp</string>
   <string name="conflict_dont_upload">Nie wysyłaj</string>
+  <string name="preview_image_description">Podgląd</string>
+  <string name="preview_image_error_unknown_format">Obraz nie może zostać wyświetlony</string>
+  <string name="preview_image_error_out_of_memory">\"Brak wystarczającej ilości pamięci do wyświetlenia obrazu</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego %2$s katalogu</string>
+  <string name="actionbar_failed_instant_upload">Autoprzesyłanie nieudane\"</string>
+  <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
+  <string name="failed_upload_headline_hint">Podsumowanie wszystkich nieudanych transferów</string>
   <string name="failed_upload_all_cb">zaznacz wszystkie</string>
   <string name="failed_upload_headline_retryall_btn">spróbuj zaznaczyć wszystkie</string>
+  <string name="failed_upload_headline_delete_all_btn">usuń wszystko z kolejki wysyłania</string>
+  <string name="failed_upload_retry_text">ponów wysyłanie obrazu:</string>
   <string name="failed_upload_load_more_images">Wczytaj więcej obrazów</string>
+  <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
+  <string name="failed_upload_failure_text">Komunikat błędu:</string>
+  <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
 </resources>

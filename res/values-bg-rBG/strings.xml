@@ -11,21 +11,116 @@
   <string name="main_calendar">Календар</string>
   <string name="main_bookmarks">Предпочитани</string>
   <string name="main_settings">Настройки</string>
+  <string name="actionbar_sync">Опресняване</string>
   <string name="actionbar_upload">Качване</string>
+  <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
+  <string name="actionbar_mkdir">Нова директория</string>
+  <string name="actionbar_search">Търсене</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="prefs_category_general">Общи</string>
+  <string name="prefs_add_session">Добавяне на нова сесия</string>
+  <string name="prefs_create_img_thumbnails">Създавае на миниатюри</string>
+  <string name="prefs_select_oc_account">Изберете профил</string>
+  <string name="prefs_trackmydevice_interval">Интервал за обновяване</string>
+  <string name="prefs_trackmydevice_interval_summary">Обнови всеки %1$s минути</string>
+  <string name="prefs_accounts">Профили</string>
+  <string name="prefs_instant_upload_summary">Своевременно качване на снимки направени с камерата</string>
   <string name="auth_host_url">Уеб адрес</string>
+  <string name="auth_username">Потребител</string>
   <string name="auth_password">Парола</string>
   <string name="sync_string_files">Файлове</string>
+  <string name="uploader_no_file_selected">Не е избран файл за качване</string>
+  <string name="setup_hint_username">Потребител</string>
   <string name="setup_hint_password">Парола</string>
+  <string name="setup_hint_address">Уеб адрес</string>
+  <string name="setup_hint_show_password">Показва паролата?</string>
+  <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
+  <string name="uploader_wrn_no_account_title">Няма открит профил</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">Инсталиране</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
+  <string name="uploader_wrn_no_content_title">Няма съдържание за качване</string>
+  <string name="uploader_wrn_no_content_text">Не беше получено съдържание. Няма какво да се качи.</string>
+  <string name="uploader_info_uploading">Качване</string>
+  <string name="uploader_btn_create_dir_text">Създаване на директория за качване</string>
+  <string name="filedetails_select_file">Натиснете върху файл за да видите повече информация.</string>
+  <string name="filedetails_size">Размер:</string>
+  <string name="filedetails_type">Тип:</string>
+  <string name="filedetails_created">Създаден:</string>
+  <string name="filedetails_modified">Променен:</string>
   <string name="filedetails_download">Изтегляне</string>
+  <string name="filedetails_sync_file">Опресняване</string>
+  <string name="filedetails_open">Отвори</string>
+  <string name="common_yes">Да</string>
+  <string name="common_no">Не</string>
+  <string name="common_ok">ОК</string>
   <string name="common_cancel_upload">Спри качването</string>
+  <string name="common_cancel">Отказ</string>
+  <string name="common_save_exit">Запази и Излез</string>
   <string name="common_error">Грешка</string>
+  <string name="about_title">Относно</string>
+  <string name="delete_account">Изтрий акаунт</string>
+  <string name="create_account">Създай акаунт</string>
+  <string name="upload_chooser_title">Качено от ...</string>
+  <string name="uploader_info_dirname">Име на папка</string>
+  <string name="uploader_upload_in_progress_ticker">Качване ...</string>
+  <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
+  <string name="uploader_upload_succeeded_ticker">Качване е успешно</string>
+  <string name="uploader_upload_failed_ticker">Качването е неуспешно</string>
+  <string name="uploader_upload_failed_content_single">Качването на %1$s не може да бъде завършено</string>
+  <string name="uploader_upload_failed_content_multiple">Качването неуспешно: %1$d/%2$d файла бяха качени</string>
+  <string name="downloader_download_in_progress_ticker">Сваляне ...</string>
+  <string name="downloader_download_in_progress_content">%1$d%% Сваляне %2$s</string>
+  <string name="downloader_download_failed_ticker">Свалянето е неуспешно</string>
+  <string name="downloader_download_failed_content">Свалянето на %1$s не може да бъде завършено</string>
+  <string name="common_choose_account">Изберете акаунт</string>
   <string name="sync_string_contacts">Контакти</string>
+  <string name="sync_fail_ticker">Синхронизацияте е неуспешна</string>
+  <string name="sync_fail_content">Синхронизацията на %1$s не може да бъде осъществена</string>
+  <string name="use_ssl">Използвай Сигурна Връзка</string>
+  <string name="pincode_enter_pin_code">Моля въведете Вашия App ПИН</string>
+  <string name="pincode_enter_new_pin_code">Моля въведете Вашият нов App ПИН</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 Минути</item>
+    <item>30 Минути</item>
+    <item>60 Минути</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_trying_to_login">Опит за влизане...</string>
+  <string name="auth_no_net_conn_title">Няма мрежова свързаност</string>
+  <string name="auth_connect_anyway">Свързване въпреки това</string>
+  <string name="auth_nossl_plain_ok_title">Защитена връзка не е налична</string>
+  <string name="auth_connection_established">Осъществена връзка</string>
+  <string name="auth_testing_connection">Проверка на свързаност...</string>
+  <string name="auth_unknown_error_title">Появи се неизвестна грешка!</string>
+  <string name="auth_unknown_host_title">Невъзможност за намиране на хоста</string>
+  <string name="auth_unknown_host_message">Не възможност за намиране на въведения хост. Моля проверете името му и дали е в изправност и опитайте отново.</string>
+  <string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
+  <string name="auth_incorrect_address_title">Грешен URL</string>
+  <string name="auth_ssl_general_error_title">Инициализацията на SSL е неуспешна</string>
+  <string name="auth_ssl_unverified_server_title">Непроверена идентичност на SSL сървъра</string>
+  <string name="auth_wrong_connection_title">Невъзможност за осъществяване на връзка</string>
+  <string name="auth_secure_connection">Осъществена защитена връзка</string>
+  <string name="crashlog_send_report">Изпрати доклад</string>
+  <string name="crashlog_dont_send_report">Не изпращай доклад</string>
+  <string name="extensions_avail_title">Има разширения!</string>
+  <string name="fd_keep_in_sync">Дръж файлът обновен</string>
   <string name="common_share">Споделяне</string>
   <string name="common_rename">Преименуване</string>
   <string name="common_remove">Премахване</string>
+  <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
+  <string name="confirmation_remove_local">Само локално</string>
+  <string name="confirmation_remove_remote">Премахни от сървъра</string>
+  <string name="rename_server_fail_msg">Преименуването не може да се осъществи</string>
+  <string name="create_dir_fail_msg">Папката не може да бъде създадена</string>
+  <string name="wait_a_moment">Изчакайте малко</string>
+  <string name="filedisplay_no_file_selected">Не е избран файл</string>
+  <string name="ssl_validator_title">Внимание</string>
+  <string name="ssl_validator_header">Самоличността на сайта не може да бъде проверена</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>
