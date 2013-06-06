@@ -6,9 +6,8 @@
   Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -50,7 +49,8 @@
         android:theme="@style/Theme.ownCloud"> 
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,7 +91,7 @@
         <activity android:name=".ui.activity.PreferencesNewSessionewSession" >
         </activity>
         
-		<activity	android:name="com.owncloud.android.ui.preview.PreviewImageActivity" />
+        <activity	android:name="com.owncloud.android.ui.preview.PreviewImageActivity" />
 		        
         <activity	android:name="com.owncloud.android.ui.preview.PreviewVideoActivity"
 					android:label="@string/app_name"
@@ -99,7 +99,7 @@
 		</activity>        
 
         <service
-            android:name=".authenticator.AccountAuthenticatorService"
+            android:name=".authentication.AccountAuthenticatorService"
             android:exported="true">
             <intent-filter  android:priority="100">
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -131,9 +131,16 @@
         </provider>
 
         <activity
-            android:name=".ui.activity.AuthenticatorActivity"
+            android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
-            android:theme="@style/Theme.ownCloud.noActionBar" >
+            android:theme="@style/Theme.ownCloud.noActionBar" 
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/oauth2_redirect_scheme" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -143,8 +150,8 @@
         <service android:name=".files.services.FileDownloader" />
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
-
-        <activity android:name=".ui.activity.FileDetailActivity" />
+        
+        <activity android:name=".ui.activity.FileDetailActivity" android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activity.PinCodeActivity" />
         <activity android:name=".extensions.ExtensionsAvailableActivity"></activity>
         <activity android:name=".extensions.ExtensionsListActivity"></activity>
@@ -153,7 +160,8 @@
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
         
-        <service android:name=".files.services.InstantUploadService" />
+        <activity android:name=".ui.activity.LogHistoryActivity"/>
+        
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.android.camera.NEW_PICTURE" />
@@ -169,6 +177,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
+        
     </application>
 
 </manifest>

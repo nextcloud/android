@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc. 
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,6 +29,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -40,7 +40,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,7 +59,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
@@ -71,8 +69,8 @@ import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**
@@ -109,6 +107,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     private MediaServiceConnection mMediaServiceConnection = null;
     private VideoHelper mVideoHelper;
     private boolean mAutoplay;
+    public boolean mPrepared;
     
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
@@ -121,12 +120,12 @@ public class PreviewMediaFragment extends SherlockFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount) {
+    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition, boolean autoplay) {
         mFile = fileToDetail;
         mAccount = ocAccount;
-        mSavedPlaybackPosition = 0;
+        mSavedPlaybackPosition = startPlaybackPosition;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
-        mAutoplay = true;
+        mAutoplay = autoplay;
     }
     
     
@@ -164,6 +163,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        Log_OC.e(TAG, "onCreateView");
+
         
         mView = inflater.inflate(R.layout.file_preview, container, false);
         
@@ -183,6 +184,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log_OC.e(TAG, "onAttach");
+        
         if (!(activity instanceof FileFragment.ContainerActivity))
             throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
     }
@@ -194,6 +197,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log_OC.e(TAG, "onActivityCreated");
 
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
@@ -231,6 +235,8 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log_OC.e(TAG, "onSaveInstanceState");
+        
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, mFile);
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
         
@@ -249,6 +255,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
     @Override
     public void onStart() {
         super.onStart();
+        Log_OC.e(TAG, "onStart");
 
         if (mFile != null) {
            if (mFile.isAudio()) {
@@ -283,6 +290,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         toHide.add(R.id.action_cancel_download);
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
+        toHide.add(R.id.action_sync_file);
         toHide.add(R.id.action_rename_file);    // by now
 
         for (int i : toHide) {
@@ -355,13 +363,14 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public void onPrepared(MediaPlayer vp) {
-            Log.e(TAG, "onPrepared");
+            Log_OC.e(TAG, "onPrepared");
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             if (mAutoplay) { 
                 mVideoPreview.start();
             }
             mMediaController.setEnabled(true);
             mMediaController.updatePausePlay();
+            mPrepared = true;
         }
         
         
@@ -374,7 +383,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
          */
         @Override
         public void onCompletion(MediaPlayer  mp) {
-            Log.e(TAG, "completed");
+            Log_OC.e(TAG, "completed");
             if (mp != null) {
                 mVideoPreview.seekTo(0);
                 // next lines are necessary to work around undesired video loops
@@ -425,11 +434,31 @@ public class PreviewMediaFragment extends SherlockFragment implements
 
     
     @Override
+    public void onPause() {
+        super.onPause();
+        Log_OC.e(TAG, "onPause");
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log_OC.e(TAG, "onResume");
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log_OC.e(TAG, "onDestroy");
+    }
+    
+    @Override
     public void onStop() {
+        Log_OC.e(TAG, "onStop");
         super.onStop();
-        
+
+        mPrepared = false;
         if (mMediaServiceConnection != null) {
-            Log.d(TAG, "Unbinding from MediaService ...");
+            Log_OC.d(TAG, "Unbinding from MediaService ...");
             if (mMediaServiceBinder != null && mMediaController != null) {
                 mMediaServiceBinder.unregisterMediaController(mMediaController);
             }
@@ -459,9 +488,14 @@ public class PreviewMediaFragment extends SherlockFragment implements
         startActivityForResult(i, 0);
     }
 
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        Log_OC.e(TAG, "onConfigurationChanged " + this);
+    }
     
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log_OC.e(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             mSavedPlaybackPosition = data.getExtras().getInt(PreviewVideoActivity.EXTRA_START_POSITION);
@@ -472,7 +506,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
 
     private void playAudio() {
         if (!mMediaServiceBinder.isPlaying(mFile)) {
-            Log.d(TAG, "starting playback of " + mFile.getStoragePath());
+            Log_OC.d(TAG, "starting playback of " + mFile.getStoragePath());
             mMediaServiceBinder.start(mAccount, mFile, mAutoplay, mSavedPlaybackPosition);
             
         } else {
@@ -485,7 +519,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
 
 
     private void bindMediaService() {
-        Log.d(TAG, "Binding to MediaService...");
+        Log_OC.d(TAG, "Binding to MediaService...");
         if (mMediaServiceConnection == null) {
             mMediaServiceConnection = new MediaServiceConnection();
         }
@@ -502,16 +536,16 @@ public class PreviewMediaFragment extends SherlockFragment implements
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log.d(TAG, "Media service connected");
+                Log_OC.d(TAG, "Media service connected");
                 mMediaServiceBinder = (MediaServiceBinder) service;
                 if (mMediaServiceBinder != null) {
                     prepareMediaController();
                     playAudio();    // do not wait for the touch of nobody to play audio
                     
-                    Log.d(TAG, "Successfully bound to MediaService, MediaController ready");
+                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
                     
                 } else {
-                    Log.e(TAG, "Unexpected response from MediaService while binding");
+                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
                 }
             }
         }
@@ -528,7 +562,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log.e(TAG, "Media service suddenly disconnected");
+                Log_OC.e(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
                 } else {
@@ -560,7 +594,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             startActivity(i);
             
         } catch (Throwable t) {
-            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
+            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
             boolean toastIt = true; 
             String mimeType = "";
             try {
@@ -579,13 +613,13 @@ public class PreviewMediaFragment extends SherlockFragment implements
                 }
                 
             } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
+                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
                 
             } catch (ActivityNotFoundException e) {
-                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
+                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
                 
             } catch (Throwable th) {
-                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
+                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
                 
             } finally {
                 if (toastIt) {
@@ -625,8 +659,7 @@ public class PreviewMediaFragment extends SherlockFragment implements
             mLastRemoteOperation = new RemoveFileOperation( mFile,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
                                                             true, 
                                                             mStorageManager);
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
@@ -751,6 +784,22 @@ public class PreviewMediaFragment extends SherlockFragment implements
         } else {
             container.finish();
         }
+    }
+
+
+    public int getPosition() {
+        if (mPrepared) {
+            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+        }
+        Log_OC.e(TAG, "getting position: " + mSavedPlaybackPosition);
+        return mSavedPlaybackPosition;
+    }
+    
+    public boolean isPlaying() {
+        if (mPrepared) {
+            mAutoplay = mVideoPreview.isPlaying();
+        }
+        return mAutoplay;
     }
     
 }

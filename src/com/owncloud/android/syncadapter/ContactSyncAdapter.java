@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,7 +25,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 
 import com.owncloud.android.AccountUtils;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

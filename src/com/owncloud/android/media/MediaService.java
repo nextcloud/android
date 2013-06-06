@@ -1,10 +1,9 @@
 /* ownCloud Android client application
- *   Copyright 2013 ownCloud Inc.
+ *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -34,15 +33,15 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDetailActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
 
 /**
  * Service that handles media playback, both audio and video. 
@@ -218,7 +217,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      */
     @Override
     public void onCreate() {
-        Log.d(TAG, "Creating ownCloud media service");
+        Log_OC.d(TAG, "Creating ownCloud media service");
 
         mWifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE)).
                 createWifiLock(WifiManager.WIFI_MODE_FULL, MEDIA_WIFI_LOCK_TAG);
@@ -291,7 +290,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     
     /**
      * Makes sure the media player exists and has been reset. This will create the media player
-     * if needed, or reset the existing media player if one already exists.
+     * if needed. reset the existing media player if one already exists.
      */
     protected void createMediaPlayerIfNeeded() {
         if (mPlayer == null) {
@@ -466,22 +465,22 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             }
             
         } catch (SecurityException e) {
-            Log.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
+            Log_OC.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
             Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IOException e) {
-            Log.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
+            Log_OC.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
             Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IllegalStateException e) {
-            Log.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
+            Log_OC.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
             Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
+            Log_OC.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
             Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
             processStopRequest(true);
         }
@@ -534,8 +533,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     private void updateNotification(String content) {
         // TODO check if updating the Intent is really necessary
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
                                                                 (int)System.currentTimeMillis(), 
@@ -571,8 +570,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
                                                                 (int)System.currentTimeMillis(), 
@@ -593,7 +592,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      * Warns the user about the error and resets the media player.
      */
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        Log.e(TAG, "Error in audio playback, what = " + what + ", extra = " + extra);
+        Log_OC.e(TAG, "Error in audio playback, what = " + what + ", extra = " + extra);
         
         String message = getMessageForMediaError(this, what, extra);
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

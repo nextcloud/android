@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,11 +31,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -46,9 +46,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.R;
+import com.owncloud.android.ui.preview.PreviewVideoActivity;
 
 /**
  * This activity displays the details of a file like its name, its size and so
@@ -57,7 +55,7 @@ import com.owncloud.android.R;
  * @author Bartek Przybylski
  * @author David A. Velasco
  */
-public class FileDetailActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity {
+public class FileDetailActivity extends FileActivity implements FileFragment.ContainerActivity {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -69,39 +67,42 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
 
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     
-    private boolean mConfigurationChangedToLandscape = false;
     private FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadConnection, mUploadConnection = null;
     private FileUploaderBinder mUploaderBinder = null;
     private boolean mWaitingToPreview;
     
-    private OCFile mFile;
-    private Account mAccount;
-
     private FileDataStorageManager mStorageManager;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+
+    private Configuration mNewConfigurationChangeToApplyOnStart;
+
+    private boolean mStarted;
+
+    private boolean mDualPane;
     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mFile = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-        mAccount = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
-        mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
+        mStarted = false;
         
-        // check if configuration changed to large-land ; for a tablet being changed from portrait to landscape when in FileDetailActivity 
+        // check if configuration is proper for this activity; tablets in landscape should pass the torch to FileDisplayActivity 
         Configuration conf = getResources().getConfiguration();
-        mConfigurationChangedToLandscape = (conf.orientation == Configuration.ORIENTATION_LANDSCAPE && 
-                                                (conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
-                                           );
+        mDualPane = (conf.orientation == Configuration.ORIENTATION_LANDSCAPE && 
+                        (conf.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                    );
 
-        if (!mConfigurationChangedToLandscape) {
+        if (mDualPane) {
+            // only happens when notifications (downloads, uploads) are clicked at the notification bar
+            backToDisplayActivity(false);
+            
+        } else {
             setContentView(R.layout.file_activity_details);
         
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-
+    
             if (savedInstanceState == null) {
                 mWaitingToPreview = false;
                 createChildFragment();
@@ -113,15 +114,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
             mUploadConnection = new DetailsServiceConnection();
             bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
-            
-            
-        }  else {
-            backToDisplayActivity(false);   // the 'back' won't be effective until this.onStart() and this.onResume() are completed;
         }
-        
-        
     }
-
+    
     /**
      * Creates the proper fragment depending upon the state of the handled {@link OCFile} and
      * the requested {@link Intent}.
@@ -130,24 +125,44 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         int mode = getIntent().getIntExtra(EXTRA_MODE, MODE_PREVIEW); 
         
         Fragment newFragment = null;
-        if (PreviewMediaFragment.canBePreviewed(mFile) && mode == MODE_PREVIEW) {
-            if (mFile.isDown()) {
-                newFragment = new PreviewMediaFragment(mFile, mAccount);
+        OCFile file = getFile();
+        Account account = getAccount();
+        if (PreviewMediaFragment.canBePreviewed(file) && mode == MODE_PREVIEW) {
+            if (file.isDown()) {
+                int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
+                boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
+                newFragment = new PreviewMediaFragment(file, account, startPlaybackPosition, autoplay);
             
             } else {
-                newFragment = new FileDetailFragment(mFile, mAccount);
+                newFragment = new FileDetailFragment(file, account);
                 mWaitingToPreview = true;
             }
             
         } else {
-            newFragment = new FileDetailFragment(mFile, mAccount);
+            newFragment = new FileDetailFragment(file, account);
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, newFragment, FileDetailFragment.FTAG);
         ft.commit();
     }
     
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log_OC.e(TAG, "onActivityResult");
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
+    @Override
+    public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (mStarted) {
+            checkConfigurationChange(newConfig);
+        } else {
+            mNewConfigurationChangeToApplyOnStart = newConfig;
+        }
+    }
+    
+    
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -156,25 +171,79 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     
     
     @Override
+    public void onStart() {
+        super.onStart();
+        Log_OC.e(TAG, "onStart");
+        if (mNewConfigurationChangeToApplyOnStart != null && !isRedirectingToSetupAccount()) {
+            checkConfigurationChange(mNewConfigurationChangeToApplyOnStart);
+            mNewConfigurationChangeToApplyOnStart = null;
+        }
+        mStarted = true;
+    }
+
+    private void checkConfigurationChange(Configuration newConfig) {
+        finish();
+        Intent intent = null;
+        OCFile file = getFile();
+        Account account = getAccount();
+        if ((newConfig.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                && newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            
+            intent = new Intent(this, FileDisplayActivity.class);
+            intent.putExtra(EXTRA_FILE, file);
+            intent.putExtra(EXTRA_ACCOUNT, account);
+            intent.putExtra(EXTRA_MODE, getIntent().getIntExtra(EXTRA_MODE, MODE_PREVIEW));
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fragment != null && file != null && fragment instanceof PreviewMediaFragment && file.isVideo()) {
+                PreviewMediaFragment videoFragment = (PreviewMediaFragment)fragment;
+                intent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, videoFragment.getPosition());
+                intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, videoFragment.isPlaying());
+            }
+        
+        } else {
+            intent = new Intent(this, FileDetailActivity.class);
+            intent .putExtra(EXTRA_FILE, file);
+            intent .putExtra(EXTRA_ACCOUNT, account);
+            intent.putExtra(EXTRA_MODE, getIntent().getIntExtra(EXTRA_MODE, MODE_PREVIEW));
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+            if (fragment != null && file != null && fragment instanceof PreviewMediaFragment && file.isVideo()) {
+                PreviewMediaFragment videoFragment = (PreviewMediaFragment)fragment;
+                intent.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, videoFragment.getPosition());
+                intent.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, videoFragment.isPlaying());
+            }
+            // and maybe 'waiting to preview' flag
+        }
+        startActivity(intent);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log_OC.e(TAG, "onStop");
+        mStarted = false;
+    }
+    @Override
     public void onPause() {
         super.onPause();
+        Log_OC.e(TAG, "onPause");
         if (mDownloadFinishReceiver != null) {
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
     }
-    
+
     
     @Override
     public void onResume() {
         super.onResume();
-        if (!mConfigurationChangedToLandscape) {
-            // TODO this is probably unnecessary
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
-            if (fragment != null && fragment instanceof FileDetailFragment) {
-                ((FileDetailFragment) fragment).updateFileDetails(false, false);
-            }
+        Log_OC.e(TAG, "onResume");
+        // TODO this is probably unnecessary
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+        if (fragment != null && fragment instanceof FileDetailFragment) {
+            ((FileDetailFragment) fragment).updateFileDetails(false, false);
         }
+            
         // Listen for download messages
         IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
         downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
@@ -190,14 +259,14 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         public void onServiceConnected(ComponentName component, IBinder service) {
                 
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service connected");
+                Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mWaitingToPreview) {
                     requestForDownload();
                 }
                     
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -214,10 +283,10 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(FileDetailActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service disconnected");
+                Log_OC.d(TAG, "Download service disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(FileDetailActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service disconnected");
+                Log_OC.d(TAG, "Upload service disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -227,6 +296,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log_OC.e(TAG,  "onDestroy");
         if (mDownloadConnection != null) {
             unbindService(mDownloadConnection);
             mDownloadConnection = null;
@@ -248,27 +318,30 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             returnValue = true;
             break;
         default:
-        	returnValue = super.onOptionsItemSelected(item);
+            returnValue = super.onOptionsItemSelected(item);
         }
         
         return returnValue;
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        backToDisplayActivity(true);
+    }
+    
     private void backToDisplayActivity(boolean moveToParent) {
         Intent intent = new Intent(this, FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         OCFile targetFile = null;
-        if (mFile != null) {
-            targetFile = moveToParent ? mStorageManager.getFileById(mFile.getParentId()) : mFile;
+        OCFile file = getFile();
+        if (file != null) {
+            targetFile = moveToParent ? mStorageManager.getFileById(file.getParentId()) : file;
         }
-        intent.putExtra(FileDetailFragment.EXTRA_FILE, targetFile);
-        intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        intent.putExtra(EXTRA_FILE, targetFile);
+        intent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(intent);
         finish();
     }
-    
     
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -289,7 +362,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         return dialog;
     }
     
-    
+
     /**
      * {@inheritDoc}
      */
@@ -317,16 +390,16 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
     @Override
     public void showFragmentWithDetails(OCFile file) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment, new FileDetailFragment(file, mAccount), FileDetailFragment.FTAG); 
+        transaction.replace(R.id.fragment, new FileDetailFragment(file, getAccount()), FileDetailFragment.FTAG); 
         transaction.commit();
     }
 
     
     private void requestForDownload() {
-        if (!mDownloaderBinder.isDownloading(mAccount, mFile)) {
+        if (!mDownloaderBinder.isDownloading(getAccount(), getFile())) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
-            i.putExtra(FileDownloader.EXTRA_FILE, mFile);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
+            i.putExtra(FileDownloader.EXTRA_FILE, getFile());
             startService(i);
         }
     }
@@ -343,7 +416,7 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
         public void onReceive(Context context, Intent intent) {
             boolean sameAccount = isSameAccount(context, intent);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            boolean samePath = (mFile != null && mFile.getRemotePath().equals(downloadedRemotePath));
+            boolean samePath = (getFile() != null && getFile().getRemotePath().equals(downloadedRemotePath));
             
             if (sameAccount && samePath) {
                 updateChildFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
@@ -376,9 +449,9 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
                 //  refresh the details fragment 
                 if (success && mWaitingToPreview) {
-                    mFile = mStorageManager.getFileById(mFile.getFileId());   // update the file from database, for the local storage path
+                    setFile(mStorageManager.getFileById(getFile().getFileId()));   // update the file from database, for the local storage path
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment, new PreviewMediaFragment(mFile, mAccount), FileDetailFragment.FTAG);
+                    transaction.replace(R.id.fragment, new PreviewMediaFragment(getFile(), getAccount(), 0, true), FileDetailFragment.FTAG);
                     transaction.commit();
                     mWaitingToPreview = false;
                     
@@ -389,7 +462,20 @@ public class FileDetailActivity extends SherlockFragmentActivity implements File
             }
         } // TODO else if (fragment != null && fragment )
         
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void onAccountChanged() {
+        mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
         
+        FileFragment fragment = (FileFragment) getSupportFragmentManager().findFragmentByTag(FileDetailFragment.FTAG);
+        if (fragment != null && mStorageManager.getFileById(fragment.getFile().getFileId()) == null) {
+            /// the account was forced to be changed; probably was deleted from system settings
+            backToDisplayActivity(false);
+        }
     }
 
 }

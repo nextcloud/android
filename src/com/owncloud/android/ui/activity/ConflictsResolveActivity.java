@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,6 +19,7 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
@@ -29,7 +29,6 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
@@ -79,7 +78,7 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
                 i.putExtra(FileUploader.KEY_LOCAL_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 break;
             default:
-                Log.wtf(TAG, "Unhandled conflict decision " + decision);
+                Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
         i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);

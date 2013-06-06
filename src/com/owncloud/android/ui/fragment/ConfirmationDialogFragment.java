@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,9 +22,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.Log_OC;
 
 public class ConfirmationDialogFragment extends SherlockDialogFragment {
 
@@ -75,7 +74,7 @@ public class ConfirmationDialogFragment extends SherlockDialogFragment {
         int negBtn = getArguments().getInt(ARG_NEGATIVE_BTN_RES, -1);
         
         if (confirmationTarget == null || resourceId == -1) {
-            Log.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
+            Log_OC.wtf(getTag(), "Calling confirmation dialog without resource or arguments");
             return null;
         }
 

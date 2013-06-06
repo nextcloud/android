@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,7 +18,7 @@
 
 package com.owncloud.android;
 
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
@@ -32,6 +31,7 @@ public class AccountUtils {
     public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
     public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
     public static final String WEBDAV_PATH_4_0 = "/remote.php/webdav";
+    private static final String ODAV_PATH = "/remote.php/odav";
     public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
     public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
@@ -113,8 +113,11 @@ public class AccountUtils {
      * @param version version of owncloud
      * @return webdav path for given OC version, null if OC version unknown
      */
-    public static String getWebdavPath(OwnCloudVersion version) {
+    public static String getWebdavPath(OwnCloudVersion version, boolean supportsOAuth) {
         if (version != null) {
+            if (supportsOAuth) {
+                return ODAV_PATH;
+            }
             if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
                 return WEBDAV_PATH_4_0;
             if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0
@@ -137,8 +140,9 @@ public class AccountUtils {
             AccountManager ama = AccountManager.get(context);
             String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
             String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
+            boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
             OwnCloudVersion ver = new OwnCloudVersion(strver);
-            String webdavpath = getWebdavPath(ver);
+            String webdavpath = getWebdavPath(ver, supportsOAuth);
 
             if (webdavpath == null) return null;
             return baseurl + webdavpath;

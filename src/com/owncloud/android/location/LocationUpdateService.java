@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,9 +27,9 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 public class LocationUpdateService extends IntentService implements
@@ -76,7 +75,7 @@ public class LocationUpdateService extends IntentService implements
 
         // If we do shall track the device -> Stop
         if (!trackDevice) {
-            Log.d(TAG, "Devicetracking is disabled");
+            Log_OC.d(TAG, "Devicetracking is disabled");
             stopSelf();
             return;
         }
@@ -87,7 +86,7 @@ public class LocationUpdateService extends IntentService implements
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "Location changed: " + location);
+        Log_OC.d(TAG, "Location changed: " + location);
 
     }
 

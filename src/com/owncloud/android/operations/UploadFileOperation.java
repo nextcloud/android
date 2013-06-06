@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,8 +32,8 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.http.HttpStatus;
 
+import com.owncloud.android.Log_OC;
 import android.accounts.Account;
-import android.util.Log;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
@@ -246,15 +245,13 @@ public class UploadFileOperation extends RemoteOperation {
                                 if (in != null)
                                     in.close();
                             } catch (Exception e) {
-                                Log.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath
-                                        + " (ignoring)", e);
+                                Log_OC.d(TAG, "Weird exception while closing input stream for " + mOriginalStoragePath + " (ignoring)", e);
                             }
                             try {
                                 if (out != null)
                                     out.close();
                             } catch (Exception e) {
-                                Log.d(TAG, "Weird exception while closing output stream for " + expectedPath
-                                        + " (ignoring)", e);
+                                Log_OC.d(TAG, "Weird exception while closing output stream for " + expectedPath + " (ignoring)", e);
                             }
                         }
                     }
@@ -322,8 +319,7 @@ public class UploadFileOperation extends RemoteOperation {
                 temporalFile.delete();
             }
             if (result.isSuccess()) {
-                Log.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
-
+                Log_OC.i(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
             } else {
                 if (result.getException() != null) {
                     String complement = "";
@@ -333,12 +329,9 @@ public class UploadFileOperation extends RemoteOperation {
                         complement = " (while copying local file to " + FileStorageUtils.getSavePath(mAccount.name)
                                 + ")";
                     }
-                    Log.e(TAG,
-                            "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage()
-                                    + complement, result.getException());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage() + complement, result.getException());
                 } else {
-                    Log.e(TAG,
-                            "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + ": " + result.getLogMessage());
                 }
             }
         }
