@@ -53,6 +53,7 @@
   <string name="setup_title">Conectar co seu %1$s</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
+  <string name="uploader_top_message">Escolla o directorio para o envío:</string>
   <string name="uploader_wrn_no_account_title">Non se atoparon contas</string>
   <string name="uploader_wrn_no_account_text">Non hai contas de %1$s no seu dispositivo. Cree unha nova conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
@@ -109,8 +110,8 @@
   <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
   <string name="sync_fail_content">Non foi posíbel completar a sincronización de %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflictos</string>
-  <string name="sync_conflicts_in_favourites_content">Non foi posíbel sincronizar %1$d ficheiros «kept-in-sync»</string>
-  <string name="sync_fail_in_favourites_ticker">Produciuse un fallou ao sincronizar ficheiros «kept-in-sync»</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d ficheiros «manter sincronizados» non foi posíbel sincronizalos</string>
+  <string name="sync_fail_in_favourites_ticker">Produciuse unha falla no mantemento sincronizado de ficheiros</string>
   <string name="sync_fail_in_favourites_content">Non foi posíbel sincronizar o contido de %1$d ficheiros (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Algúns ficheiros locais foron esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">Non é posíbel copiar %1$d ficheiros do directorio %2$s en</string>
@@ -136,7 +137,24 @@
   <string name="media_notif_ticker">%1$s reprodutor musical</string>
   <string name="media_state_playing">%1$s (reproducindo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
+  <string name="media_event_done">Rematou a reprodución de %1$s</string>
+  <string name="media_err_nothing_to_play">Non se atopan ficheiros multimedia</string>
   <string name="media_err_no_account">Non foi fornecida unha conta</string>
+  <string name="media_err_not_in_owncloud">O ficheiro non está nunha conta axeitada</string>
+  <string name="media_err_unsupported">Códec multimedia non admitido</string>
+  <string name="media_err_io">Non é posíbel ler o ficheiro multimedia</string>
+  <string name="media_err_malformed">O ficheiro multimedia non está codificado correctamente</string>
+  <string name="media_err_timeout">Tempo de máis tentando reproducir</string>
+  <string name="media_err_invalid_progressive_playback">Non é posíbel enviar como fluxo o ficheiro multimedia</string>
+  <string name="media_err_unknown">Non é posíbel reproducir o ficheiro multimedia co reprodutor «stock»</string>
+  <string name="media_err_security_ex">Produciuse un erro de seguranza tentando reproducir %1$s</string>
+  <string name="media_err_io_ex">Produciuse un erro de entrada tentando reproducir %1$s</string>
+  <string name="media_err_unexpected">Produciuse un erro non agardado tentando reproducir %1$s</string>
+  <string name="media_previous_description">Botón de pista anterior</string>
+  <string name="media_rewind_description">Botón de retroceso</string>
+  <string name="media_play_pause_description">Botón de reprodución/pausa</string>
+  <string name="media_forward_description">Botón de avance rápido</string>
+  <string name="media_next_description">Botón de pista seguinte</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minutos</item>
     <item>30 minutos</item>
@@ -224,7 +242,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Sinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
-  <string name="placeholder_sentence">Isto é unha marca de posición</string>
+  <string name="placeholder_sentence">Isto é un marcador de posición</string>
+  <string name="placeholder_filename">marcador_de_posición.txt</string>
   <string name="placeholder_filetype">Imaxe PNG</string>
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -237,7 +256,19 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">Non enviar</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
+  <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
+  <string name="preview_image_error_out_of_memory">«Non hai memoria abondo para amosar esta imaxe</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no directorio local %2$s</string>
+  <string name="actionbar_failed_instant_upload">produciuse un fallo de EnvíoInstantáneo»</string>
+  <string name="failed_upload_headline_text">Envíos instantáneos fallados</string>
+  <string name="failed_upload_headline_hint">Resumo de todos os envíos instantáneos fallados</string>
   <string name="failed_upload_all_cb">seleccionar todo</string>
+  <string name="failed_upload_headline_retryall_btn">tentar de novo todo o seleccionado</string>
+  <string name="failed_upload_headline_delete_all_btn">eliminar todo o seleccionado da cola de envío</string>
+  <string name="failed_upload_retry_text">tentar de novo o envío da imaxe:</string>
+  <string name="failed_upload_load_more_images">Cargar máis imaxes</string>
+  <string name="failed_upload_retry_do_nothing_text">non facer nada que non estea en liña para o envío instantáneo</string>
+  <string name="failed_upload_failure_text">Mensaxe de fallo:</string>
+  <string name="failed_upload_quota_exceeded_text">Comprobe a configuración do seu servidor. é probábel que xa excedera a cota.</string>
 </resources>

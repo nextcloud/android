@@ -21,7 +21,7 @@
   <string name="actionbar_mkdir">Vytvořit adresář</string>
   <string name="actionbar_search">Hledat</string>
   <string name="actionbar_settings">Nastavení</string>
-  <string name="actionbar_see_details">Detaily</string>
+  <string name="actionbar_see_details">Podrobnosti</string>
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_add_session">Přidat nové sezení</string>
   <string name="prefs_create_img_thumbnails">Vytvořit náhledy obrázků</string>
@@ -134,7 +134,27 @@
   <string name="pincode_wrong">Neplatný PIN</string>
   <string name="pincode_removed">PIN ownCloud aplikace odstraněn</string>
   <string name="pincode_stored">PIN ownCloud aplikace uložen</string>
-  <string name="media_err_nothing_to_play">Žádný multimediální soubor nenalezen</string>
+  <string name="media_notif_ticker">Hudební přehrávač %1$s</string>
+  <string name="media_state_playing">%1$s (přehrává)</string>
+  <string name="media_state_loading">%1$s (načítá)</string>
+  <string name="media_event_done">%1$s přehrávání dokončeno</string>
+  <string name="media_err_nothing_to_play">Nenalezen žádný multimediální soubor</string>
+  <string name="media_err_no_account">Neposkytnut žádný účet</string>
+  <string name="media_err_not_in_owncloud">Soubor není v platném účtu</string>
+  <string name="media_err_unsupported">Nepodporovaný kodek</string>
+  <string name="media_err_io">Multimediální soubor nelze přečíst</string>
+  <string name="media_err_malformed">Multimediální soubor není správně kódován</string>
+  <string name="media_err_timeout">Příliš mnoho času bylo zkoušeno přehrání</string>
+  <string name="media_err_invalid_progressive_playback">Multimediální soubor nelze proudově odesílat</string>
+  <string name="media_err_unknown">Multimediální soubor nemůže být přehrán s výchozím přehrávačem</string>
+  <string name="media_err_security_ex">Chyba zabezpečení při pokusu o přehrání %1$s</string>
+  <string name="media_err_io_ex">Chyba vstupu při pokusu o přehrání %1$s</string>
+  <string name="media_err_unexpected">Neočekávaná chyba při pokusu o přehrání %1$s</string>
+  <string name="media_previous_description">Tlačítko Předchozí stopa</string>
+  <string name="media_rewind_description">Tlačítko Přetočit</string>
+  <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
+  <string name="media_forward_description">Tlačítko Rychle vpřed</string>
+  <string name="media_next_description">Tlačítko Následující stopa</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minut</item>
     <item>30 Minut</item>
@@ -223,7 +243,11 @@
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Alogritmus:</string>
   <string name="placeholder_sentence">Zástupný text</string>
-  <string name="placeholder_filetype">PNG obrázek</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">Obrázek PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Odesílat obrázky pouze skrze WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt při aktualizaci</string>
@@ -232,12 +256,19 @@
   <string name="conflict_overwrite">Přepsat</string>
   <string name="conflict_dont_upload">Nenahrávat</string>
   <string name="preview_image_description">Náhled obrázku</string>
+  <string name="preview_image_error_unknown_format">Obrázek nemůže být zobrazen</string>
+  <string name="preview_image_error_out_of_memory">\"Nedostatek paměti pro zobrazení obrázku</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
+  <string name="actionbar_failed_instant_upload">Selhalo Okamžité odeslání\"</string>
+  <string name="failed_upload_headline_text">Selhaná okamžitá odeslání</string>
+  <string name="failed_upload_headline_hint">Souhrn všech selhaných okamžitých odeslání</string>
   <string name="failed_upload_all_cb">vybrat vše</string>
   <string name="failed_upload_headline_retryall_btn">zkusit znovu vybrané</string>
-  <string name="failed_upload_headline_delete_all_btn">smazat vybrané z nahrávací fronty</string>
+  <string name="failed_upload_headline_delete_all_btn">smazat vybrané z fronty k nahrání</string>
+  <string name="failed_upload_retry_text">zkusit znovu odeslat obrázek:</string>
   <string name="failed_upload_load_more_images">Načíst více obrázků</string>
+  <string name="failed_upload_retry_do_nothing_text">nic nedělat nejste připojení pro okamžité odeslání</string>
   <string name="failed_upload_failure_text">Chybová zpráva:</string>
-  <string name="failed_upload_quota_exceeded_text">Zkontrolujte prosím konfiguraci vašeho serveru, možná jste překročili kvótu.</string>
+  <string name="failed_upload_quota_exceeded_text">Zkontrolujte prosím nastavení vašeho serveru, možná jste překročili kvótu.</string>
 </resources>

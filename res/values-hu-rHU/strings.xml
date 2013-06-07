@@ -21,6 +21,7 @@
   <string name="actionbar_mkdir">Mappa létrehozása</string>
   <string name="actionbar_search">Keresés</string>
   <string name="actionbar_settings">Beállítások</string>
+  <string name="actionbar_see_details">Részletek</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_add_session">Új munkafolyamat létrehozása</string>
   <string name="prefs_create_img_thumbnails">Bélyegkép készítése</string>
@@ -52,6 +53,7 @@
   <string name="setup_title">Kapcsolódás ehhez: %1$s</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
+  <string name="uploader_top_message">Feltöltési mappa választása:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_text">Nem található %1$s fiók ezen a készüléken. Hozzon létre egy fiókot előbb.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
@@ -81,6 +83,8 @@
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
   <string name="common_exit">%1$s elhagyása</string>
   <string name="common_error">Hiba</string>
+  <string name="common_loading">Betöltés ...</string>
+  <string name="common_error_unknown">Ismeretlen hiba</string>
   <string name="about_title">Rólunk</string>
   <string name="delete_account">Fiók törlése</string>
   <string name="create_account">Fiók létrehozása</string>
@@ -100,6 +104,7 @@
   <string name="downloader_download_succeeded_content">%1$s sikeresen letöltve</string>
   <string name="downloader_download_failed_ticker">A letöltés sikertelen</string>
   <string name="downloader_download_failed_content">A letöltésből %1$s nem lett befejezve</string>
+  <string name="downloader_not_downloaded_yet">Még nem töltötte le</string>
   <string name="common_choose_account">Válasszon azonosítót</string>
   <string name="sync_string_contacts">Címtár</string>
   <string name="sync_fail_ticker">A szinkronizálás sikertelen</string>
@@ -129,6 +134,27 @@
   <string name="pincode_wrong">Rossz a megadott PIN</string>
   <string name="pincode_removed">Az alkalmazás PIN-ját eltávolítottuk</string>
   <string name="pincode_stored">Az alkalmazás PIN-jét eltároltuk</string>
+  <string name="media_notif_ticker">%1$s zene lejátszó</string>
+  <string name="media_state_playing">%1$s (lejátszás)</string>
+  <string name="media_state_loading">%1$s (betöltés)</string>
+  <string name="media_event_done">%1$s lejátszás véget ért</string>
+  <string name="media_err_nothing_to_play">Nincs média fájl találat</string>
+  <string name="media_err_no_account">Nincs felhasználói fiók</string>
+  <string name="media_err_not_in_owncloud">A fájl nincs egy felhasználó fiókban</string>
+  <string name="media_err_unsupported">Nem támogatott média kodek</string>
+  <string name="media_err_io">Media fájl nem olvasható</string>
+  <string name="media_err_malformed">Médiafájl kódolása nem megfelelő</string>
+  <string name="media_err_timeout">Túl sok időn keresztül próbál játszani</string>
+  <string name="media_err_invalid_progressive_playback">A média fájlt nem lehet streamelni.</string>
+  <string name="media_err_unknown">A média fájlt nem tudja lejátszani a jelenlegi médialejátszó</string>
+  <string name="media_err_security_ex">Biztonsági hiba amikor megpróbálja lejátszani a %1$s</string>
+  <string name="media_err_io_ex">Bemeneteli hiba amikor megpróbálja lejátszani a %1$s</string>
+  <string name="media_err_unexpected">Váratlan hiba amikor megpróbálja lejátszani a %1$s</string>
+  <string name="media_previous_description">Előző zeneszám gomb</string>
+  <string name="media_rewind_description">Következő button</string>
+  <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
+  <string name="media_forward_description">Gyors előre gomb</string>
+  <string name="media_next_description">Következő zeneszám gomb</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 perc</item>
     <item>30 perc</item>
@@ -216,6 +242,12 @@
   <string name="ssl_validator_label_validity_to">Eddig a dátumig:</string>
   <string name="ssl_validator_label_signature">Aláírás:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
+  <string name="placeholder_sentence">Ez egy helyőrző</string>
+  <string name="placeholder_filename">helyörző.txt</string>
+  <string name="placeholder_filetype">PNG kép</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Képeket csak WiFi kapcsolaton keresztül töltsünk föl</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Frissítési ütközés</string>
@@ -223,6 +255,20 @@
   <string name="conflict_keep_both">Mindkettő megtartása</string>
   <string name="conflict_overwrite">Felülírás</string>
   <string name="conflict_dont_upload">Ne töltsük föl</string>
+  <string name="preview_image_description">Előnézeti kép</string>
+  <string name="preview_image_error_unknown_format">Ez a kép nem jelenik meg</string>
+  <string name="preview_image_error_out_of_memory">\"Nincs elég memória megmutatni ezt a képet</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s-t nem sikerült átmásolni ide: %2$s </string>
+  <string name="actionbar_failed_instant_upload">Sikertelen azonnali feltöltés\"</string>
+  <string name="failed_upload_headline_text">Sikertelen Azonnali feltöltés</string>
+  <string name="failed_upload_headline_hint">Összefoglaló az összes sikertelen instant feltöltésről</string>
+  <string name="failed_upload_all_cb">Összes kijelölése</string>
+  <string name="failed_upload_headline_retryall_btn">újra az összes kiválasztott</string>
+  <string name="failed_upload_headline_delete_all_btn">törölje az összes kiválasztottat a feltöltési sorból</string>
+  <string name="failed_upload_retry_text">újra feltölteni a képet:</string>
+  <string name="failed_upload_load_more_images">További képek betöltése</string>
+  <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
+  <string name="failed_upload_failure_text">Hibaüzenet</string>
+  <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>
 </resources>

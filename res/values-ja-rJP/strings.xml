@@ -53,6 +53,7 @@
   <string name="setup_title">ownCloudに接続</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
+  <string name="uploader_top_message">アップロードディレクトリを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">デバイスにownCloudのアカウントがありません。まず最初にアカウントを登録してください。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
@@ -103,6 +104,7 @@
   <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
   <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
   <string name="downloader_download_failed_content">%1$s のダウンロードは完了しませんでした</string>
+  <string name="downloader_not_downloaded_yet">未ダウンロード</string>
   <string name="common_choose_account">アカウントを選択</string>
   <string name="sync_string_contacts">コンタクト</string>
   <string name="sync_fail_ticker">同期失敗</string>
@@ -132,6 +134,27 @@
   <string name="pincode_wrong">無効なownCloudアプリのパスワードです</string>
   <string name="pincode_removed">ownCloudアプリのパスワードを削除しました</string>
   <string name="pincode_stored">ownCloudアプリのパスワードを保存しました</string>
+  <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
+  <string name="media_state_playing">%1$s (プレイ中)</string>
+  <string name="media_state_loading">%1$s (読込中)</string>
+  <string name="media_event_done">%1$s プレイバック終了</string>
+  <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
+  <string name="media_err_no_account">アカウントが提供されていません</string>
+  <string name="media_err_not_in_owncloud">ファイルが有効なアカウントにありません</string>
+  <string name="media_err_unsupported">サポートされていないメディアコーデック</string>
+  <string name="media_err_io">メディアファイルを読み込めませんでした</string>
+  <string name="media_err_malformed">メディアファイルが正確にエンコードされていません</string>
+  <string name="media_err_timeout">プレイを試みた回数が多すぎます</string>
+  <string name="media_err_invalid_progressive_playback">メディアファイルをストリーミングできません</string>
+  <string name="media_err_unknown">メディアファイルをStock Media Playerでプレイ出来ません</string>
+  <string name="media_err_security_ex">プレイに際してセキュリティエラー %1$s</string>
+  <string name="media_err_io_ex">プレイに際して入力エラー %1$s</string>
+  <string name="media_err_unexpected">プレイに際して予期しないエラー %1$s</string>
+  <string name="media_previous_description">前のトラックボタン</string>
+  <string name="media_rewind_description">巻き戻しボタン</string>
+  <string name="media_play_pause_description">プレイ/ポーズボタン</string>
+  <string name="media_forward_description">早送りボタン</string>
+  <string name="media_next_description">次のトラックボタン</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15分</item>
     <item>30分</item>
@@ -220,6 +243,11 @@
   <string name="ssl_validator_label_signature">署名:</string>
   <string name="ssl_validator_label_signature_algorithm">アルゴリズム:</string>
   <string name="placeholder_sentence">これはプレースホルダです</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">PNG 画像</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新の競合</string>
@@ -227,7 +255,20 @@
   <string name="conflict_keep_both">両方を保持</string>
   <string name="conflict_overwrite">上書き</string>
   <string name="conflict_dont_upload">アップロードしない</string>
+  <string name="preview_image_description">イメージプレビュー</string>
+  <string name="preview_image_error_unknown_format">この画像は表示できません</string>
+  <string name="preview_image_error_out_of_memory">「この画像を表示するのに十分なメモリがありません</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s は %2$s ローカルディレクトリにコピー出来ませんでした</string>
+  <string name="actionbar_failed_instant_upload">インスタントアップロードに失敗」</string>
+  <string name="failed_upload_headline_text">インスタントアップロードに失敗</string>
+  <string name="failed_upload_headline_hint">全ての失敗したインスタントアップロードの要約</string>
   <string name="failed_upload_all_cb">すべて選択</string>
+  <string name="failed_upload_headline_retryall_btn">すべての選択を再試行</string>
+  <string name="failed_upload_headline_delete_all_btn">アップロードキューからすべての選択を削除</string>
+  <string name="failed_upload_retry_text">画像のアップロードを再試行:</string>
+  <string name="failed_upload_load_more_images">更に画像を読み込む</string>
+  <string name="failed_upload_retry_do_nothing_text">オンラインでなく、インスタントアップロードのために何もしません</string>
+  <string name="failed_upload_failure_text">失敗メッセージ:</string>
+  <string name="failed_upload_quota_exceeded_text">サーバーの設定を確認してください。許容を超過している可能性があります。</string>
 </resources>
