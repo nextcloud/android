@@ -21,11 +21,11 @@
   <string name="actionbar_mkdir">Ustvari mapo</string>
   <string name="actionbar_search">Poišči</string>
   <string name="actionbar_settings">Nastavitve</string>
+  <string name="actionbar_see_details">Podrobnosti</string>
   <string name="prefs_category_general">Splošno</string>
-  <string name="prefs_category_trackmydevice">Sledenje napravi</string>
   <string name="prefs_add_session">Dodaj novo sejo</string>
   <string name="prefs_create_img_thumbnails">Ustvari sličice slik</string>
-  <string name="prefs_select_oc_account">Izberite račun</string>
+  <string name="prefs_select_oc_account">Izberi račun</string>
   <string name="prefs_summary_select_oc_account">Izberite račun, ki ga naj program uporabi.</string>
   <string name="prefs_trackmydevice">Sledenje napravi</string>
   <string name="prefs_trackmydevice_summary_off">Omogoči sledenje mestu naprave preko oblaka ownCloud.</string>
@@ -63,7 +63,7 @@
   <string name="uploader_info_uploading">Pošiljanje</string>
   <string name="uploader_btn_create_dir_text">Ustvari mapo za pošiljanje</string>
   <string name="file_list_empty">V tej mapi ni datotek.\nNove datoteke je mogoče dodati preko možnosti menija \"Pošlji\".</string>
-  <string name="filedetails_select_file">Pritisnite n datoteko za prikaz dodatnih podrobnosti.</string>
+  <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>
   <string name="filedetails_created">Ustvarjeno:</string>
@@ -76,12 +76,13 @@
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>
-  <string name="common_cancel_download">Prekliči prenos</string>
+  <string name="common_cancel_download">Prekliči prejem</string>
   <string name="common_cancel_upload">Prekliči pošiljanje</string>
   <string name="common_cancel">Prekliči</string>
-  <string name="common_save_exit">Shrani &amp; končaj</string>
+  <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_exit">Zapusti ownCloud</string>
   <string name="common_error">Napaka</string>
+  <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku ownCloud</string>
   <string name="delete_account">Izbriši račun</string>
   <string name="create_account">Ustvari račun</string>
@@ -94,7 +95,7 @@
   <string name="uploader_upload_succeeded_content_multiple">%1$d datotek je uspešno poslanih</string>
   <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
   <string name="uploader_upload_failed_content_single">Pošiljanja %1$s ni mogoče dokončati</string>
-  <string name="uploader_upload_failed_content_multiple">Pošiljanje je spodletelo: Poslanih je %1$d/%2$d datotek.</string>
+  <string name="uploader_upload_failed_content_multiple">Pošiljanje je spodletelo: poslanih je %1$d/%2$d datotek.</string>
   <string name="downloader_download_in_progress_ticker">Prejemanje …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
   <string name="downloader_download_succeeded_ticker">Prejemanje je uspešno končano</string>
@@ -105,14 +106,23 @@
   <string name="sync_string_contacts">Stiki</string>
   <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
   <string name="sync_fail_content">Usklajevanja %1$s ni mogoče dokončati</string>
-  <string name="sync_conflicts_in_favourites_ticker">Najdeni spori</string>
+  <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
   <string name="sync_conflicts_in_favourites_content">%1$d vedno-ažurnih datotek ni bilo mogoče uskladiti</string>
   <string name="sync_fail_in_favourites_ticker">Usklajevanje vedno-ažurnih datotek je spodletelo</string>
   <string name="sync_fail_in_favourites_content">Vsebino %1$d datotek ni bilo mogoče uskladiti (%2$d sporov)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
+  <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
+  <string name="sync_foreign_files_forgotten_explanation">\"Od različice 1.3.16 naprej so datoteke, ki so poslane s te naprave, kopirane tudi v krajevno mapo %1$s. S tem preprečimo morebitno izgubo podatkov, kadar se usklajuje le ena datoteka med več različnimi računi.\n\nZaradi te spremembe se vse datoteke, ki so bile poslane v prejšnji različici, kopirajo v mapo %2$s. Vendar pa je med kopiranjem prišlo do napake in tega opravila ni bilo mogoče izvesti v celoti med usklajevanjem računov. Datoteke je mogoče pustiti kot so in odstraniti povezavo z %3$s, ali pa jih premakniti v mapo %1$s in ohraniti povezavo do %4$s.\n\nSpodaj je seznam krajevnih datotek in njihovih oddaljenih povezav v %5$s.</string>
+  <string name="foreign_files_move">Premakni vse</string>
+  <string name="foreign_files_success">Vse datoteke so uspešno premaknjene na novo mesto</string>
+  <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
+  <string name="foreign_files_local_text">Krajevno: %1$s</string>
+  <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
+  <string name="upload_query_move_foreign_files">Na strežniku ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želite datoteke raje premakniti na novo mesto? </string>
   <string name="use_ssl">Uporabi varno povezavo</string>
   <string name="location_no_provider">Z ownCloud ni mogoče slediti napravi. Preverite nastavitve vašega mesta nahajanja.</string>
-  <string name="pincode_enter_pin_code">Vnesite PIN programa</string>
-  <string name="pincode_enter_new_pin_code">Vnesite nov PIN programa</string>
+  <string name="pincode_enter_pin_code">Vnesite kodo PIN programa</string>
+  <string name="pincode_enter_new_pin_code">Vnesite novo kodo PIN programa</string>
   <string name="pincode_configure_your_pin">Vnesite kodo PIN programa ownCloud</string>
   <string name="pincode_configure_your_pin_explanation">Koda PIN bo zahtevana vsakič pred zagonom programa.</string>
   <string name="pincode_reenter_your_pincode">Ponovno vnesite kodo PIN programa ownCloud</string>
@@ -131,7 +141,7 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Poskus prijave …</string>
+  <string name="auth_trying_to_login">Poteka poskus prijave …</string>
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_no_net_conn_message">Omrežna povezava ni zaznana. Preverite internetno povezavo in poskusite znova.</string>
   <string name="auth_connect_anyway">Vseeno poveži</string>
@@ -144,7 +154,7 @@
   <string name="auth_unknown_error_title">Prišlo je do neznane napake</string>
   <string name="auth_unknown_error_message">Prišlo je do neznane napake. Na napako opozorite razvijalce in jim posredujete dnevniške zapise z naprave.</string>
   <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
-  <string name="auth_unknown_host_message">Vpisanega gostitelja ni bilo mogoče nati. Preverite ime gostitelja in razpoložljivost strežnika ter poskusite znova.</string>
+  <string name="auth_unknown_host_message">Vpisanega gostitelja ni mogoče najti. Preveriti je treba ime gostitelja in razpoložljivost strežnika.</string>
   <string name="auth_incorrect_path_title">Namestitve ownCloud ni mogoče najti</string>
   <string name="auth_incorrect_path_message">Na podani poti ni bilo mogoče najti namestitve ownCloud. Preverite vpisano pot in poskusite znova.</string>
   <string name="auth_timeout_title">Strežnik je potreboval preveč časa za odgovor</string>
@@ -167,9 +177,9 @@
   <string name="common_share">Souporaba</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
-  <string name="confirmation_remove_alert">Ali ste prepričani, da želite odstraniti %1$s ?</string>
+  <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Ali ste prepričani, da želite odstraniti %1$s in njeno vsebino?</string>
-  <string name="confirmation_remove_local">Samo krajevno</string>
+  <string name="confirmation_remove_local">Le krajevno</string>
   <string name="confirmation_remove_folder_local">Samo lokalne vsebine</string>
   <string name="confirmation_remove_remote">Odstrani s strežnika</string>
   <string name="confirmation_remove_remote_and_local">Oddaljeno in krajevno</string>
@@ -201,19 +211,21 @@
   <string name="ssl_validator_label_O">Organizacija:</string>
   <string name="ssl_validator_label_OU">Organizacijska enota:</string>
   <string name="ssl_validator_label_C">Država:</string>
-  <string name="ssl_validator_label_ST">Zvezna država:</string>
-  <string name="ssl_validator_label_L">Lokacija:</string>
+  <string name="ssl_validator_label_ST">Regija:</string>
+  <string name="ssl_validator_label_L">Mesto:</string>
   <string name="ssl_validator_label_validity">Veljavnost:</string>
   <string name="ssl_validator_label_validity_from">Od:</string>
   <string name="ssl_validator_label_validity_to">Do:</string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritem:</string>
-  <string name="text_placeholder">To je vsebnik predmetov.</string>
-  <string name="instant_upload_on_wifi">Pošiljaj slike le preko protokola Wi-Fi</string>
+  <string name="placeholder_sentence">To je vsebnik predmetov.</string>
+  <string name="instant_upload_on_wifi">Pošiljaj slike le preko povezav Wi-Fi</string>
   <string name="instant_upload_path">/NeposrednoNalaganje</string>
-  <string name="conflict_title">Posodobi konflikt</string>
-  <string name="conflict_message">Oddaljena datoteka %s ni usklajena z lokalno datoteko. Če nadaljujete, bo datoteka na strežniku zamenjana z vašo lokalno.</string>
+  <string name="conflict_title">Posodobi podatke spora</string>
+  <string name="conflict_message">Oddaljena datoteka %s ni usklajena s krajevno. Z nadaljevanem bo datoteka na strežniku zamenjana s krajevno.</string>
   <string name="conflict_keep_both">Ohrani obe</string>
   <string name="conflict_overwrite">Prepiši</string>
-  <string name="conflict_dont_upload">Ne naloži</string>
+  <string name="conflict_dont_upload">Ne pošlji</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s.</string>
 </resources>

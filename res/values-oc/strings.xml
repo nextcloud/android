@@ -19,7 +19,6 @@
   <string name="actionbar_search">Cèrca</string>
   <string name="actionbar_settings">Configuracion</string>
   <string name="prefs_category_general">General</string>
-  <string name="prefs_category_trackmydevice">Traqua lo daquòs</string>
   <string name="prefs_add_session">Apond una session novèla</string>
   <string name="prefs_create_img_thumbnails">Crea imatgonels</string>
   <string name="prefs_select_oc_account">Selecciona un compte</string>
@@ -75,4 +74,5 @@
   <string name="extensions_avail_title">Extensions disponibles !</string>
   <string name="common_share">Parteja</string>
   <string name="common_rename">Torna nomenar</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

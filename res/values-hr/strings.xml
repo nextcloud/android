@@ -35,6 +35,7 @@
   <string name="filedetails_sync_file">Osvježi</string>
   <string name="filedetails_redownload">Osvježi</string>
   <string name="common_yes">Da</string>
+  <string name="common_no">Ne</string>
   <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
@@ -43,4 +44,5 @@
   <string name="common_share">Podijeli</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

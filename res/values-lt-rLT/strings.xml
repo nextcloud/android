@@ -20,6 +20,7 @@
   <string name="actionbar_mkdir">Kurti aplanką</string>
   <string name="actionbar_search">Paieška</string>
   <string name="actionbar_settings">Nustatymai</string>
+  <string name="prefs_category_general">Bendras</string>
   <string name="prefs_add_session">Pridėti naują sesiją</string>
   <string name="prefs_create_img_thumbnails">Sukurti paveikslėlių miniatiūras</string>
   <string name="prefs_select_oc_account">Pasirinkite paskyrą</string>
@@ -59,6 +60,7 @@
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
+  <string name="common_cancel_download">Atšaukti parsiuntimą</string>
   <string name="common_cancel_upload">Atšaukti siuntimą</string>
   <string name="common_cancel">Atšaukti</string>
   <string name="common_error">Klaida</string>
@@ -149,4 +151,5 @@
   <string name="conflict_keep_both">Palikti abu</string>
   <string name="conflict_overwrite">Perrašyti</string>
   <string name="conflict_dont_upload">Nebesiųsti</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

@@ -21,8 +21,8 @@
   <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_search">Etsi</string>
   <string name="actionbar_settings">Asetukset</string>
+  <string name="actionbar_see_details">Tiedot</string>
   <string name="prefs_category_general">Yleiset</string>
-  <string name="prefs_category_trackmydevice">Laitteen jäljitys</string>
   <string name="prefs_add_session">Lisää uusi istunto</string>
   <string name="prefs_create_img_thumbnails">Luo kuvista pikkukuvat</string>
   <string name="prefs_select_oc_account">Valitse tili</string>
@@ -82,6 +82,8 @@
   <string name="common_save_exit">Tallenna ja poistu</string>
   <string name="common_exit">Jätä ownCloud</string>
   <string name="common_error">Virhe</string>
+  <string name="common_loading">Ladataan…</string>
+  <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
   <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
@@ -109,6 +111,11 @@
   <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
   <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
   <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
+  <string name="foreign_files_move">Siirrä kaikki</string>
+  <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
+  <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
+  <string name="foreign_files_local_text">Paikallinen: %1$s</string>
+  <string name="foreign_files_remote_text">Etä: %1$s</string>
   <string name="use_ssl">Käytä salattua yhteyttä</string>
   <string name="location_no_provider">ownCloud ei voi jäljittää laitettasi. Tarkista laitteesi sijaintiasetukset</string>
   <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
@@ -121,6 +128,15 @@
   <string name="pincode_wrong">Väärä ownCloud-sovelluksen PIN</string>
   <string name="pincode_removed">ownCloud-sovelluksen PIN poistettu</string>
   <string name="pincode_stored">ownCloud-sovelluksen PIN-koodi tallennettu</string>
+  <string name="media_state_playing">%1$s (toistetaan)</string>
+  <string name="media_state_loading">%1$s (ladataan)</string>
+  <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
+  <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_previous_description">Edellinen kappale -painike</string>
+  <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
+  <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
+  <string name="media_forward_description">Eteenpäin kelaus -painike</string>
+  <string name="media_next_description">Seuraava kappale -painike</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minuuttia</item>
     <item>30 minuuttia</item>
@@ -208,7 +224,7 @@
   <string name="ssl_validator_label_validity_to">Päättyen:</string>
   <string name="ssl_validator_label_signature">Allekirjoitus:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
-  <string name="text_placeholder">Tämä on paikkavaraus</string>
+  <string name="placeholder_filetype">PNG-kuva</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Päivitysristiriita</string>
@@ -216,4 +232,9 @@
   <string name="conflict_keep_both">Säilytä molemmat</string>
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
+  <string name="preview_image_error_unknown_format">Kuvaa ei voi näyttää</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="failed_upload_all_cb">valitse kaikki</string>
+  <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
+  <string name="failed_upload_failure_text">Virheviesti:</string>
 </resources>

@@ -6,4 +6,5 @@
   <string name="auth_password">Wagwoord</string>
   <string name="setup_hint_username">Gebruikersnaam</string>
   <string name="setup_hint_password">Wagwoord</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

@@ -21,8 +21,8 @@
   <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
   <string name="actionbar_search">ค้นหา</string>
   <string name="actionbar_settings">ตั้งค่า</string>
+  <string name="actionbar_see_details">รายละเอียด</string>
   <string name="prefs_category_general">ทั่วไป</string>
-  <string name="prefs_category_trackmydevice">ตรวจหาอุปกรณ์</string>
   <string name="prefs_add_session">เพิ่มเซสชั่นใหม่</string>
   <string name="prefs_create_img_thumbnails">สร้างรูปภาพขนาดย่อ</string>
   <string name="prefs_select_oc_account">เลือกบัญชี</string>
@@ -109,6 +109,13 @@
   <string name="sync_conflicts_in_favourites_content">%1$d ไฟล์ kept-in-sync ไม่สามารถผสานเชื่อมข้อมูลได้</string>
   <string name="sync_fail_in_favourites_ticker">ไฟล์ Kept-in-sync ล้มเหลว</string>
   <string name="sync_fail_in_favourites_content">เนื้อหาของไฟล์ %1$d ไม่สามารถผสานเชื่อมข้อมูลได้ (ความขัดแย้ง %2$d รายการ)</string>
+  <string name="sync_foreign_files_forgotten_ticker">มีบางแฟ้มข้อมูลในเครื่องถูกลืม</string>
+  <string name="foreign_files_move">ย้ายทั้งหมด</string>
+  <string name="foreign_files_success">ทุกแฟ้มข้อมูลถูกย้ายเรียบร้อยแล้ว</string>
+  <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
+  <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
+  <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
+  <string name="upload_query_move_foreign_files">ไม่มีพื้นที่เหลือเพียงพอสำหรับคัดลอกแฟ้มข้อมูลที่เลือกไว้ไปที่โฟลเดอร์ %1$s คุณต้องการย้ายมันแทนหรือไม่</string>
   <string name="use_ssl">ใช้การเชื่อมต่อที่มีการรักษาความปลอดภัย</string>
   <string name="location_no_provider">ownCloud ไม่สามารถตรวจหาอุปกรณ์ของคุณได้ กรุณาตรวจสอบการตั้งค่าตำแหน่งที่อยู่ของคุณ</string>
   <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
@@ -208,7 +215,7 @@
   <string name="ssl_validator_label_validity_to">ถึง:</string>
   <string name="ssl_validator_label_signature">ลายเซ็นต์:</string>
   <string name="ssl_validator_label_signature_algorithm">อัลกอริทึ่ม:</string>
-  <string name="text_placeholder">นี่เป็นตัวยึด</string>
+  <string name="placeholder_sentence">นี่เป็นตัวยึด</string>
   <string name="instant_upload_on_wifi">อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</string>
   <string name="instant_upload_path">/อัพโหลดทันที</string>
   <string name="conflict_title">ปรับปรุงปัญหาความขัดแย้ง</string>
@@ -216,4 +223,6 @@
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถถูกคัดลอกไปที่ %2$s ไดเรกทอรีท้องถิ่น</string>
 </resources>

@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="main_music">Music</string>
-  <string name="auth_password">Passcode</string>
-  <string name="setup_hint_password">Passcode</string>
-  <string name="filedetails_download">Download</string>
-  <!--we need to improve the communication of errors to the user-->
-</resources>

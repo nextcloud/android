@@ -2,6 +2,7 @@
 <resources>
   <string name="main_files">Skrár</string>
   <string name="main_music">Tónlist</string>
+  <string name="main_calendar">Dagatal</string>
   <string name="main_bookmarks">Bókamerki</string>
   <string name="main_settings">Stillingar</string>
   <string name="actionbar_upload">Senda inn</string>
@@ -25,4 +26,5 @@
   <string name="common_rename">Endurskýra</string>
   <string name="common_remove">Fjarlægja</string>
   <string name="ssl_validator_title">Aðvörun</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

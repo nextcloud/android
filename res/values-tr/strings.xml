@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">ownCloud</string>
-  <string name="main_password">Şifre:</string>
+  <string name="main_password">Parola:</string>
   <string name="main_login">Kullanıcı Adı:</string>
   <string name="main_button_login">Giriş</string>
   <string name="main_welcome">ownCloud\'ınıza hoşgeldiniz</string>
@@ -13,6 +13,7 @@
   <string name="main_settings">Ayarlar</string>
   <string name="main_tit_accsetup">Kurulum Hesabi</string>
   <string name="main_wrn_accsetup">Cihazınızda ownCloud hesabı bulunmamaktadır. Bu uygulamayı kullanabilmeniz için ownCloud hesabı oluşturmalısınız.</string>
+  <string name="about_message">%1$s Android Uygulaması\n\nsürüm: %2$s</string>
   <string name="actionbar_sync">Eşitleme hesabi</string>
   <string name="actionbar_upload">Dosya yükle</string>
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
@@ -21,7 +22,6 @@
   <string name="actionbar_search">Arama</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="prefs_category_general">Genel</string>
-  <string name="prefs_category_trackmydevice">Cihaz tabiki</string>
   <string name="prefs_add_session">Yeni oturum ekle</string>
   <string name="prefs_create_img_thumbnails">Küçük resim oluştur</string>
   <string name="prefs_select_oc_account">Oturum seç</string>
@@ -71,6 +71,7 @@
   <string name="filedetails_sync_file">Tazele</string>
   <string name="filedetails_redownload">Tekrar indir</string>
   <string name="filedetails_open">Aç</string>
+  <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">OK</string>
@@ -80,6 +81,7 @@
   <string name="common_save_exit">Kaydet %amp; Kapat</string>
   <string name="common_exit">Çıkış</string>
   <string name="common_error">Hata</string>
+  <string name="common_error_unknown">Bilinmeyen hata</string>
   <string name="about_title">Hakkında</string>
   <string name="delete_account">Hesabı sil</string>
   <string name="create_account">Hesap oluştur</string>
@@ -104,6 +106,18 @@
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
   <string name="sync_fail_content">%1$s Senkronizasyonu tamamlanamadı</string>
   <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>
+  <string name="sync_conflicts_in_favourites_content">%1$d korumalı senkronizasyon dosyası, senkronize edilemedi</string>
+  <string name="sync_fail_in_favourites_ticker">Korunan dosya senkronizasyonu başarısız</string>
+  <string name="sync_fail_in_favourites_content">%1$d dosya  senkronize edilemedi  (%2$d hata)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d dosyalar  %2$s dizinine kopyalanamadı</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümü itibariyle bu cihazdan yüklenen dosyalar yerel %1$s dizinine kopyalanıyor. Bu sayede bir dosyanın birden fazla hesap tarafından eşleştirilmesi durumunda veri kaybının önüne geçilmiştir.\n\nBu değişiklikten dolayı bir önceki sürümlerde kopyalanan tüm dosyalar %2$s dizinine kopyalandı. Fakat hesabın eşleştirilmesi sırasında oluşan bir hata bu işlemin bitmesini engelledi. Siz bu dosya(lar)ı olduğu gibi bırakabilirsiniz, %3$s dizinine bağlantıyı silebilir veya dosya(lar)ı  %1$s  dizinine taşıdıktan sonra %4$s dizinine bağlantıyı tutabilirsiniz.\n\nAşağıda yerel dosya(lar) ve %5$s dizinine bağlanmış uzak dosya(lar) listelendi.</string>
+  <string name="foreign_files_move">Tümünü taşı</string>
+  <string name="foreign_files_success">Tüm dosyalar taşındı</string>
+  <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
+  <string name="foreign_files_local_text">Yerel: %1$s</string>
+  <string name="foreign_files_remote_text">Uzak: %1$s</string>
+  <string name="upload_query_move_foreign_files">Seçilen dosyaları %1$s dizinine kopyalamak için yeterli alan yok. Bunun yerine dosyayı taşımak ister misiniz?</string>
   <string name="use_ssl">Güvenli bağlanti kullan</string>
   <string name="location_no_provider">ownCloud cihazınızı takip edemiyor. Lütfen konum ayarlarınızı kontrol ediniz</string>
   <string name="pincode_enter_pin_code">Lütfen uygulama PIN\'ınızı giriniz</string>
@@ -151,6 +165,8 @@
   <string name="auth_secure_connection">Güvenli bağlantı sağlandı.</string>
   <string name="auth_login_details">Giriş detayları</string>
   <string name="auth_unauthorized">Geçersiz kullanıcı adı/parola</string>
+  <string name="auth_not_found">Hatalı dosya yolu</string>
+  <string name="auth_internal">İç sunucu hatası, kod %1$d</string>
   <string name="crashlog_message">Uygulama umulmadık bir şekilde sonlandı. Hata raporunu göndermek ister misiniz ?</string>
   <string name="crashlog_send_report">Rapor gönder</string>
   <string name="crashlog_dont_send_report">Rapor gönderme</string>
@@ -171,6 +187,8 @@
   <string name="rename_dialog_title">Yeni bir isim girin</string>
   <string name="rename_local_fail_msg">Yerel kopya adlandırılamaz; farklı bir ad deneyin</string>
   <string name="rename_server_fail_msg">Yeniden  adlandırılma tamamlanmadı</string>
+  <string name="sync_file_fail_msg">Dosya teslim edilemedi</string>
+  <string name="sync_file_nothing_to_do_msg">Dosyalar başarıyla senkronize edildi</string>
   <string name="create_dir_fail_msg">Dizin oluşturulamadı</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
@@ -179,12 +197,16 @@
   <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikası güvenilmez</string>
   <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi geçmiş</string>
+  <string name="ssl_validator_reason_cert_not_yet_valid">Sunucu sertifikasının geçerli olacağı tarih</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL adresi sunucu isminin sertifikası ile uyuşmuyor</string>
   <string name="ssl_validator_certificate_not_available">Sunucu sertifikası elde edilemedi</string>
   <string name="ssl_validator_question">Sertifikaya yine de güvenmek istiyor musunuz?</string>
   <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
   <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
   <string name="ssl_validator_btn_details_hide">Gizle</string>
+  <string name="ssl_validator_label_subject">Verilen:</string>
+  <string name="ssl_validator_label_issuer">Veren:</string>
+  <string name="ssl_validator_label_CN">Ortak ad:</string>
   <string name="ssl_validator_label_O">Organizasyon:</string>
   <string name="ssl_validator_label_OU">Organizasyon birimi:</string>
   <string name="ssl_validator_label_C">Ülke:</string>
@@ -195,11 +217,13 @@
   <string name="ssl_validator_label_validity_to">Kime:</string>
   <string name="ssl_validator_label_signature">İmza:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
-  <string name="text_placeholder">Bu bir yer tutucudur</string>
   <string name="instant_upload_on_wifi">Resimleri sadece WiFi bağlantısında yükle</string>
   <string name="instant_upload_path">/AnındaYükle</string>
   <string name="conflict_title">Çakışmayı güncelle</string>
+  <string name="conflict_message">Uzaktaki %s dosyası, yerel dosya ile senkronize edilemedi.  işleme devam etmek sunucudaki dosyanın içeriğini değiştirecektir.</string>
   <string name="conflict_keep_both">İkisini de koru</string>
   <string name="conflict_overwrite">Üzerine yaz</string>
   <string name="conflict_dont_upload">Yükleme</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel dizine kopyalanamadı</string>
 </resources>

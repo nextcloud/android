@@ -58,6 +58,7 @@
   <string name="common_cancel">ۋاز كەچ</string>
   <string name="common_save_exit">ساقلاپ چېكىن</string>
   <string name="common_error">خاتالىق</string>
+  <string name="common_error_unknown">يوچۇن خاتالىق</string>
   <string name="uploader_info_dirname">مۇندەرىجە ئىسمى</string>
   <string name="common_choose_account">ھېسابات تاللاڭ</string>
   <string name="sync_string_contacts">ئالاقەداشلار</string>

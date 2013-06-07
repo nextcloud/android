@@ -21,8 +21,8 @@
   <string name="actionbar_mkdir">Создать директорию</string>
   <string name="actionbar_search">Найти</string>
   <string name="actionbar_settings">Настройки</string>
+  <string name="actionbar_see_details">Детали</string>
   <string name="prefs_category_general">Главные</string>
-  <string name="prefs_category_trackmydevice">Отслеживание устройства</string>
   <string name="prefs_add_session">Добавить новую сессию</string>
   <string name="prefs_create_img_thumbnails">Создать картинки для предпросмотра</string>
   <string name="prefs_select_oc_account">Выбрать аккаунт</string>
@@ -82,6 +82,7 @@
   <string name="common_save_exit">Сохранить &amp; Выйти</string>
   <string name="common_exit">Выйти из ownCloud</string>
   <string name="common_error">Ошибка</string>
+  <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать аккаунт</string>
@@ -109,6 +110,15 @@
   <string name="sync_conflicts_in_favourites_content">%1$d файлы, которые должны быть синхронизированными не могут синхронизироваться</string>
   <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
   <string name="sync_fail_in_favourites_content">Содержание %1$d файла(ов) не может быть синхронизировано (%2$d конфликта(ов))</string>
+  <string name="sync_foreign_files_forgotten_ticker">Несколько локальных файлов были забыты</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d файлы из %2$s папки не могут быть скопированы в</string>
+  <string name="sync_foreign_files_forgotten_explanation">\"Как в версии 1.3.16, файлы, загруженные с этого устройства, были скопированы в локальную папку %1$s для предотвращения потери даных, когда один файл синхронизирован с множеством аккаунтов. В связи с этим изменением, все файлы, загруженные в предыдущих версиях этого приложения, были скопированы в папку %2$s. Тем не менее, ошибка помешала завершению этой операции в процессе синхронизации аккаунта. Вы можете оставить файл(ы) как есть и удалить ссылку на %3$s, или переместить файл(ы) в папку %1$s и сохранить ссылку на %4$s. Ниже перечисленые локальный файл(ы), и удаленный файл (ы) в 5% $ х связаны.</string>
+  <string name="foreign_files_move">Переместить всё</string>
+  <string name="foreign_files_success">Все файлы были перемещены</string>
+  <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
+  <string name="foreign_files_local_text">Локально: %1$s</string>
+  <string name="foreign_files_remote_text">Удаленно: %1$s</string>
+  <string name="upload_query_move_foreign_files">Отсутствует достаточное количество места для копирования выделенных файлов в папку %1$s. Хотите ли Вы переместить их в другое место?</string>
   <string name="use_ssl">Использовать защищённое соединение</string>
   <string name="location_no_provider">ownCloud не может отслеживать ваше устройство. Проверьте настройки вашего местоположения</string>
   <string name="pincode_enter_pin_code">Вставьте PIN вашего приложения</string>
@@ -208,7 +218,7 @@
   <string name="ssl_validator_label_validity_to">До:</string>
   <string name="ssl_validator_label_signature">Подпись:</string>
   <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
-  <string name="text_placeholder">Это заполнитель</string>
+  <string name="placeholder_sentence">Это заполнитель</string>
   <string name="instant_upload_on_wifi">Загружать изображения только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Конфликт обновления</string>
@@ -216,4 +226,6 @@
   <string name="conflict_keep_both">Оставить оба</string>
   <string name="conflict_overwrite">Заменить</string>
   <string name="conflict_dont_upload">Не загружать</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в %2$s локальною папку</string>
 </resources>

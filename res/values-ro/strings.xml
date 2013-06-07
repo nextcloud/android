@@ -21,7 +21,6 @@
   <string name="actionbar_search">Căutare</string>
   <string name="actionbar_settings">Setări</string>
   <string name="prefs_category_general">General</string>
-  <string name="prefs_category_trackmydevice">Urmărire dispozitiv</string>
   <string name="prefs_add_session">Adaugă sesiune nouă</string>
   <string name="prefs_select_oc_account">Selectează un cont</string>
   <string name="prefs_summary_select_oc_account">Alege contul pe care ar trebui să-l folosească aplicația.</string>
@@ -139,4 +138,5 @@
   <string name="wait_a_moment">Așteaptă un moment</string>
   <string name="filedisplay_no_file_selected">Nu a fost selectat nici un fișier</string>
   <string name="ssl_validator_title">Atenție</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

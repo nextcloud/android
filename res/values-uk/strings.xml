@@ -21,8 +21,8 @@
   <string name="actionbar_mkdir">Створити теку</string>
   <string name="actionbar_search">Пошук</string>
   <string name="actionbar_settings">Налаштування</string>
+  <string name="actionbar_see_details">Деталі</string>
   <string name="prefs_category_general">Основне</string>
-  <string name="prefs_category_trackmydevice">Стеження за пристроєм</string>
   <string name="prefs_add_session">Додати нову сесію</string>
   <string name="prefs_create_img_thumbnails">Створити відбитки зображень</string>
   <string name="prefs_select_oc_account">Обрати обліковий запис</string>
@@ -109,6 +109,15 @@
   <string name="sync_conflicts_in_favourites_content">%1$d файли, які мають бути синхронізованими не можуть синхронізуватися</string>
   <string name="sync_fail_in_favourites_ticker">Синхронізувати файли не вдалося</string>
   <string name="sync_fail_in_favourites_content">Зміст %1$d файлів не може бути синхронізований (%2$d конфліктів)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Деякі локальні файли були забуті</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d файлів з каталогу %2$s не можуть бути в нього скопійовані</string>
+  <string name="sync_foreign_files_forgotten_explanation">\"Починаючи з версії 1.3.16, файли, завантажені з цього пристрою копіюються в локальну папку %1$s для запобігання втрати даних під час синхронізації одного файлу з кількома обліковими записами.\n\nУ зв\'язку з цією зміною, всі файли, завантажені в попередніх версіях цього додатку були скопійовані в теку %2$s. Однак сталася помилка при завершенні цієї операції під час синхронізації. Ви можете або залишити файл(и) як є та видалити посилання на %3$s, або перемістити файл(и) в директорію %1$s і зберегти посилання на %4$s.\n\nНижче наведені локальні файл(и) та віддалені файл(и) у %5$s з якою вони були пов\'язані.</string>
+  <string name="foreign_files_move">Перемістити все</string>
+  <string name="foreign_files_success">Всі файли були переміщені</string>
+  <string name="foreign_files_fail">Деякі файли не можуть бути переміщені</string>
+  <string name="foreign_files_local_text">Локально: %1$s</string>
+  <string name="foreign_files_remote_text">Віддалено: %1$s</string>
+  <string name="upload_query_move_foreign_files">Недостатньо місця для копіювання обраних файлів у теку %1$s. Чи бажаєте ви перемістити їх замість копіювання?</string>
   <string name="use_ssl">Використовувати безпечне з\'єднання</string>
   <string name="location_no_provider">ownCloud не може стежити за Вашим пристроєм. Будь ласка, перевірте свої налаштування місцезнаходження</string>
   <string name="pincode_enter_pin_code">Будь ласка, введіть свій програмний PIN</string>
@@ -208,7 +217,7 @@
   <string name="ssl_validator_label_validity_to">До:</string>
   <string name="ssl_validator_label_signature">Підпис:</string>
   <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
-  <string name="text_placeholder">Це заповнювач</string>
+  <string name="placeholder_sentence">Це заповнювач</string>
   <string name="instant_upload_on_wifi">Завантажувати зображення тільки через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Конфлікт оновлення</string>
@@ -216,4 +225,6 @@
   <string name="conflict_keep_both">Залишити обидва</string>
   <string name="conflict_overwrite">Замінити</string>
   <string name="conflict_dont_upload">Не завантажувати</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати в локальний каталог %2$s</string>
 </resources>

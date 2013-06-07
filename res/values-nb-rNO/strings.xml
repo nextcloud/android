@@ -21,7 +21,6 @@
   <string name="actionbar_search">Søk</string>
   <string name="actionbar_settings">Innstillinger</string>
   <string name="prefs_category_general">Generelt</string>
-  <string name="prefs_category_trackmydevice">Enhetssporing</string>
   <string name="prefs_add_session">Legg til ny sesjon</string>
   <string name="prefs_create_img_thumbnails">Opprett miniatyrbilder</string>
   <string name="prefs_select_oc_account">Velg konto</string>
@@ -140,6 +139,6 @@
   <string name="ssl_validator_label_validity_from">Fra:</string>
   <string name="ssl_validator_label_validity_to">Til:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
-  <string name="text_placeholder">Dette er en plassholder</string>
   <string name="conflict_keep_both">Behold begge</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

@@ -22,7 +22,6 @@
   <string name="actionbar_search">검색</string>
   <string name="actionbar_settings">설정</string>
   <string name="prefs_category_general">일반</string>
-  <string name="prefs_category_trackmydevice">장치 추적</string>
   <string name="prefs_add_session">새 세션 추가</string>
   <string name="prefs_create_img_thumbnails">미리 보기 그림 만들기</string>
   <string name="prefs_select_oc_account">계정 선택</string>
@@ -109,6 +108,14 @@
   <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없었습니다 (충돌 %2$d개)</string>
+  <string name="sync_foreign_files_forgotten_ticker">몇몇 로컬 파일이 사라졌습니다.</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d 파일을 %2$s 디렉토리에 복사하지 못하였습니다.</string>
+  <string name="foreign_files_move">모두 옮김</string>
+  <string name="foreign_files_success">모든 파일 옮김</string>
+  <string name="foreign_files_fail">몇몇 파일을 옮기지 못했습니다.</string>
+  <string name="foreign_files_local_text">로컬: %1$s</string>
+  <string name="foreign_files_remote_text">원격: %1$s</string>
+  <string name="upload_query_move_foreign_files">선택한 파일을 %1$s폴더에 넣기에는 공간이 충분하지 않습니다. 다른곳으로 옮기시겠습니까?</string>
   <string name="use_ssl">암호화된 연결 사용</string>
   <string name="location_no_provider">%1$s에서 장치 위치를 추적할 수 없습니다. 위치 설정을 확인하십시오.</string>
   <string name="pincode_enter_pin_code">앱 암호를 입력하십시오</string>
@@ -208,7 +215,6 @@
   <string name="ssl_validator_label_validity_to">끝:</string>
   <string name="ssl_validator_label_signature">서명:</string>
   <string name="ssl_validator_label_signature_algorithm">알고리즘:</string>
-  <string name="text_placeholder">자리 비움자</string>
   <string name="instant_upload_on_wifi">WiFi 사용 중일때만 사진 업로드</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">업데이트 충돌</string>
@@ -216,4 +222,6 @@
   <string name="conflict_keep_both">모두 저장</string>
   <string name="conflict_overwrite">덮어쓰기</string>
   <string name="conflict_dont_upload">업로드하지 않음</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s를 %2$s 로컬 디렉토리로 복사하지 못했습니다.</string>
 </resources>

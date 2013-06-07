@@ -219,6 +219,7 @@
   <string name="ssl_validator_label_validity_to">先:</string>
   <string name="ssl_validator_label_signature">署名:</string>
   <string name="ssl_validator_label_signature_algorithm">アルゴリズム:</string>
+  <string name="placeholder_sentence">これはプレースホルダです</string>
   <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新の競合</string>
