@@ -97,6 +97,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
+    private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
 
     private static final String OAUTH_MODE_ON = "on";
     private static final String OAUTH_MODE_OFF = "off";
@@ -142,6 +143,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
+    
+    private boolean mRefreshButtonEnabled;
 
 
     /**
@@ -230,13 +233,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             // check if server check was interrupted by a configuration change
             if (savedInstanceState.getBoolean(KEY_SERVER_CHECK_IN_PROGRESS, false)) {
                 checkOcServer();
-            }
+            }            
+            
+            // refresh button enabled
+            mRefreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
 
         }
 
         showServerStatus();
         showAuthStatus();
-        if (mServerIsChecked && !mServerIsValid) showRefreshButton();
+        if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
         if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
@@ -284,6 +290,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
+
     }
 
     /**
@@ -318,6 +325,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mAccount != null) {
             outState.putParcelable(KEY_ACCOUNT, mAccount);
         }
+        
+        // refresh button enabled
+        outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
 
     }
 
@@ -394,6 +404,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (view.getId() == R.id.hostUrlInput) {   
             if (!hasFocus) {
                 onUrlInputFocusLost((TextView) view);
+                if (!mServerIsValid) {
+                    showRefreshButton();
+                }
             }
             else {
                 hideRefreshButton();
@@ -1100,10 +1113,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private void showRefreshButton() {
         mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
+        mRefreshButtonEnabled = true;
     }
 
     private void hideRefreshButton() {
         mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        mRefreshButtonEnabled = false;
     }
 
     /**
