@@ -267,4 +267,12 @@ public class RemoteOperationResult implements Serializable {
 
     }
 
+    public boolean isServerFail() {
+        return (mHttpCode >= HttpStatus.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    public boolean isException() {
+        return (mException != null);
+    }
+
 }
