@@ -137,13 +137,19 @@
   <string name="media_notif_ticker">%1$s lecteur de musique</string>
   <string name="media_state_playing">%1$s (lecture)</string>
   <string name="media_state_loading">%1$s (chargement)</string>
+  <string name="media_event_done">%1$s pourcentage de lecture finie</string>
   <string name="media_err_nothing_to_play">Fichier média introuvable </string>
   <string name="media_err_no_account">Aucun compte n\'a été trouvé</string>
   <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
   <string name="media_err_unsupported">Le codec de ce média n\'est pas supporté </string>
   <string name="media_err_io">Le fichier média ne peut pas être lu</string>
   <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
+  <string name="media_err_timeout">Trop de temps a essayer de jouer</string>
   <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
+  <string name="media_err_unknown">Fichier média ne peut être joué avec le stock de media player</string>
+  <string name="media_err_security_ex">taux %1$s erreurs de sécurité essayant de jouer</string>
+  <string name="media_err_io_ex">Taux %1$s d\'erreurs de saisie essayant de jouer</string>
+  <string name="media_err_unexpected">Taux %1$s d\'erreurs inattendues essayant de jouer</string>
   <string name="media_previous_description">Chanson précédente</string>
   <string name="media_rewind_description">Bouton de rem-bobinage</string>
   <string name="media_play_pause_description">Bouton de Lecture ou de Pause</string>
@@ -254,8 +260,15 @@
   <string name="preview_image_error_out_of_memory">\"Mémoire insuffisante pour afficher cette image</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié vers le dossier local suivant %2$s</string>
+  <string name="actionbar_failed_instant_upload">Téléchargement instantané échoué</string>
+  <string name="failed_upload_headline_text">Téléchargements instantanés échoués</string>
+  <string name="failed_upload_headline_hint">Résumé de tous les téléchargements instantanés échoués</string>
   <string name="failed_upload_all_cb">Tous sélectionner</string>
   <string name="failed_upload_headline_retryall_btn">réessayer de tous sélectionner</string>
+  <string name="failed_upload_headline_delete_all_btn">Supprimez tous les sélectionnés de la file d\'attente de téléchargement</string>
+  <string name="failed_upload_retry_text">Ré-essayer de charger l\'image:</string>
+  <string name="failed_upload_load_more_images">Charger plus d\'images</string>
+  <string name="failed_upload_retry_do_nothing_text">Ne rien faire vous n\'êtes pas connecté pour le téléchargement instantané</string>
   <string name="failed_upload_failure_text">Message d\'échec:</string>
   <string name="failed_upload_quota_exceeded_text">Veuillez vérifier la configuration de votre serveur, peut-être que votre quota est dépassé.</string>
 </resources>
