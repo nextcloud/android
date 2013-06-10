@@ -61,7 +61,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
@@ -95,6 +94,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_SERVER_STATUS_TEXT = "SERVER_STATUS_TEXT";
     private static final String KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON";
     private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
+    private static final String KEY_PASSWORD_VISIBLE = "PASSWORD_VISIBLE";
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
@@ -132,7 +132,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private byte mAction;
     private Account mAccount;
 
-    private ImageView mViewPasswordButton;
     private EditText mHostUrlInput;
     private EditText mUsernameInput;
     private EditText mPasswordInput;
@@ -159,7 +158,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
-        mViewPasswordButton = (ImageView) findViewById(R.id.viewPasswordButton);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
@@ -219,7 +217,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mIsSslConn = savedInstanceState.getBoolean(KEY_IS_SSL_CONN);
             mAuthStatusText = savedInstanceState.getInt(KEY_AUTH_STATUS_TEXT);
             mAuthStatusIcon = savedInstanceState.getInt(KEY_AUTH_STATUS_ICON);
-
+            if (savedInstanceState.getBoolean(KEY_PASSWORD_VISIBLE, false)) {
+                showPassword();
+            }
+            
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
             if (ocVersion != null) {
@@ -267,7 +268,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mHostUrlInput.setOnTouchListener(new RightDrawableOnTouchListener() {
             @Override
             public boolean onDrawableTouch(final MotionEvent event) {
-                AuthenticatorActivity.this.onRefreshClick(mHostUrlInput);
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    AuthenticatorActivity.this.onRefreshClick();
+                }
                 return true;
             }
         });
@@ -290,7 +293,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
-
+        mPasswordInput.setOnTouchListener(new RightDrawableOnTouchListener() {
+            @Override
+            public boolean onDrawableTouch(final MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    AuthenticatorActivity.this.onViewPasswordClick();
+                }
+                return true;
+            }
+        });
     }
 
     /**
@@ -312,6 +323,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         outState.putBoolean(KEY_SERVER_CHECKED, mServerIsChecked);
         outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mOcServerChkOperation != null));
         outState.putBoolean(KEY_IS_SSL_CONN, mIsSslConn);
+        outState.putBoolean(KEY_PASSWORD_VISIBLE, isPasswordVisible());
         outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
 
@@ -472,16 +484,43 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      */
     private void onPasswordFocusChanged(TextView passwordInput, boolean hasFocus) {
         if (hasFocus) {
-            mViewPasswordButton.setVisibility(View.VISIBLE);
+            showViewPasswordButton();
         } else {
-            int input_type = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
-            passwordInput.setInputType(input_type);
-            mViewPasswordButton.setVisibility(View.INVISIBLE);
+            hidePassword();
+            hidePasswordButton();
         }
     }
 
 
+    private void showViewPasswordButton() {
+        //int drawable = android.R.drawable.ic_menu_view;
+        int drawable = R.drawable.ic_view;
+        if (isPasswordVisible()) {
+            //drawable = android.R.drawable.ic_secure;
+            drawable = R.drawable.ic_hide;
+        }
+        mPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0);
+    }
 
+    private boolean isPasswordVisible() {
+        return ((mPasswordInput.getInputType() & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+    }
+    
+    private void hidePasswordButton() {
+        mPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+    }
+
+    private void showPassword() {
+        mPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        showViewPasswordButton();
+    }
+    
+    private void hidePassword() {
+        mPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        showViewPasswordButton();
+    }
+    
+    
     /**
      * Cancels the authenticator activity
      * 
@@ -1128,30 +1167,24 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * 
      * @param view      Refresh 'button'
      */
-    public void onRefreshClick(View view) {
+    public void onRefreshClick() {
         checkOcServer();
     }
-
-
+    
+    
     /**
      * Called when the eye icon in the password field is clicked.
      * 
      * Toggles the visibility of the password in the field. 
-     * 
-     * @param view      'View password' 'button'
      */
-    public void onViewPasswordClick(View view) {
+    public void onViewPasswordClick() {
         int selectionStart = mPasswordInput.getSelectionStart();
         int selectionEnd = mPasswordInput.getSelectionEnd();
-        int input_type = mPasswordInput.getInputType();
-        if ((input_type & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-            input_type = InputType.TYPE_CLASS_TEXT
-                    | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+        if (isPasswordVisible()) {
+            hidePassword();
         } else {
-            input_type = InputType.TYPE_CLASS_TEXT
-                    | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+            showPassword();
         }
-        mPasswordInput.setInputType(input_type);
         mPasswordInput.setSelection(selectionStart, selectionEnd);
     }    
 
@@ -1182,13 +1215,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
-            mViewPasswordButton.setVisibility(View.GONE);
         } else {
             mOAuthAuthEndpointText.setVisibility(View.GONE);
             mOAuthTokenEndpointText.setVisibility(View.GONE);
             mUsernameInput.setVisibility(View.VISIBLE);
             mPasswordInput.setVisibility(View.VISIBLE);
-            mViewPasswordButton.setVisibility(View.INVISIBLE);
         }     
 
     }    
@@ -1229,30 +1260,28 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private abstract static class RightDrawableOnTouchListener implements OnTouchListener  {
 
-        private int fuzz = 10;
-
+        private int fuzz = 75;
+        
         /**
          * {@inheritDoc}
          */
         @Override
         public boolean onTouch(View view, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Drawable rightDrawable = null;
-                if (view instanceof TextView) {
-                    Drawable[] drawables = ((TextView)view).getCompoundDrawables();
-                    if (drawables.length > 2) {
-                        rightDrawable = drawables[2];
-                    }
+            Drawable rightDrawable = null;
+            if (view instanceof TextView) {
+                Drawable[] drawables = ((TextView)view).getCompoundDrawables();
+                if (drawables.length > 2) {
+                    rightDrawable = drawables[2];
                 }
-                if (rightDrawable != null) {
-                    final int x = (int) event.getX();
-                    final int y = (int) event.getY();
-                    final Rect bounds = rightDrawable.getBounds();
-                    if (x >= (view.getRight() - bounds.width() - fuzz) && x <= (view.getRight() - view.getPaddingRight() + fuzz)
-                            && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
-
-                        return onDrawableTouch(event);
-                    }
+            }
+            if (rightDrawable != null) {
+                final int x = (int) event.getX();
+                final int y = (int) event.getY();
+                final Rect bounds = rightDrawable.getBounds();
+                if (x >= (view.getRight() - bounds.width() - fuzz) && x <= (view.getRight() - view.getPaddingRight() + fuzz)
+                    && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
+                    
+                    return onDrawableTouch(event);
                 }
             }
             return false;
