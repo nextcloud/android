@@ -379,19 +379,21 @@ public class FileDisplayActivity extends FileActivity implements
                 detailsFragment.updateFileDetails(true, false);
                 
             } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
-                //  update the right panel 
-                if (success && waitedPreview) {
-                    mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
-                    if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
-                        startMediaPreview(mWaitingToPreview, 0, true);
-                       
-                    } else {
-                        detailsFragment.updateFileDetails(false, (success));
-                        openFile(mWaitingToPreview);
+                //  update the right panel
+                boolean detailsFragmentChanged = false;
+                if (waitedPreview) {
+                    if (success) {
+                        mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
+                        if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
+                            startMediaPreview(mWaitingToPreview, 0, true);
+                            detailsFragmentChanged = true;
+                        } else {
+                            openFile(mWaitingToPreview);
+                        }
                     }
                     mWaitingToPreview = null;
-                    
-                } else {
+                }
+                if (!detailsFragmentChanged) {
                     detailsFragment.updateFileDetails(false, (success));
                 }
             }
