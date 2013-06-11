@@ -109,8 +109,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
-
-    public static final String WEBDAV_PATH= "/remote.php/webdav";
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
@@ -658,9 +656,13 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
 
     private String trimUrlWebdav(String url){       
-        if(url.toLowerCase().endsWith(WEBDAV_PATH)){
-            url = url.substring(0, url.length() - WEBDAV_PATH.length());             
-        }
+        if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0.length());             
+        } else if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_2_0)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_2_0.length());             
+        } else if (url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_1_2)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_1_2.length());             
+        } 
         return (url != null ? url : "");
     }
     
