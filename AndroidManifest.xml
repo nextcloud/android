@@ -50,7 +50,7 @@
         <activity
             android:name=".ui.activity.FileDisplayActivity"
             android:label="@string/app_name"
-            android:configChanges="orientation|screenSize">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -151,7 +151,6 @@
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
         
-        <activity android:name=".ui.activity.FileDetailActivity" android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.activity.PinCodeActivity" />
         <activity android:name=".extensions.ExtensionsAvailableActivity"></activity>
         <activity android:name=".extensions.ExtensionsListActivity"></activity>

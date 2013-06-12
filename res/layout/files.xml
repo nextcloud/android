@@ -18,19 +18,25 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/owncloud_white"
-    android:orientation="vertical"
-    android:id="@+id/file_list_view">
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    >
 
-    <fragment
-        android:id="@+id/fileList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        class="com.owncloud.android.ui.fragment.OCFileListFragment" >
-
-        <!-- Preview: layout=@layout/list_layout -->
-    </fragment>
-
-</LinearLayout>
+	<FrameLayout 
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:id="@+id/left_fragment_container"
+	    />
+	
+	<FrameLayout 
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="2"
+		android:id="@+id/right_fragment_container"
+	    />
+	
+ </LinearLayout>

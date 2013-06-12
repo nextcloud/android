@@ -19,7 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import android.app.Activity;
@@ -42,9 +41,8 @@ import com.owncloud.android.R;
  * @author David A. Velasco
  * 
  */
-public class LocalFileListFragment extends FragmentListView {
+public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = "LocalFileListFragment";
-    private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -94,24 +92,7 @@ public class LocalFileListFragment extends FragmentListView {
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
         
-        if (savedInstanceState != null) {
-            Log_OC.i(TAG, "savedInstanceState is not null");
-            int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
-            setReferencePosition(position);
-        }
-        
         Log_OC.i(TAG, "onActivityCreated() stop");
-    }
-    
-    
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log_OC.i(TAG, "onSaveInstanceState() start");
-        
-        savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
-        
-        
-        Log_OC.i(TAG, "onSaveInstanceState() stop");
     }
     
     
