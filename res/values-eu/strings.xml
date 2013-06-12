@@ -110,7 +110,6 @@
   <string name="sync_fail_in_favourites_content">%1$d fitxategien edukiak ezin dira sinkronizatu (%2$d gatazka)</string>
   <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
   <string name="sync_foreign_files_forgotten_content">%2$s karpetako %1$d fitxategi ezin dira dira kopiatu</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"1.3.16 bertsioan, gailu honetatik igotzen diren fitxategiak bertako %1$s karpetara mugitzen dira datu galera ekiditzeko fitxategi bat kontu ezberdinekin sinkronizatzen denean.\n\nAldaketa hau dela eta, programa honen aurreko bertsioetan igotako fitxategi guztiak %2$s karpetara kopiatu dira. Hala ere, errore batek hau burutzea ekidin du kontuaren sinkronizazioa egiten ari zen bitartean. Orain fitxategiak dauden bezala utz ditzakezu eta %3$s rako lotura ezabatu, edo fitxategiak %1$s karpetara mugi ditzakezu eta %4$srako lotura mantendu.\n\nBehean bertako fitxategien zerrenda eta %5$s era lotuta zeuden urruneko fitxategiena.</string>
   <string name="foreign_files_move">Mugitu denak</string>
   <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
   <string name="foreign_files_fail">Fitxategi batzuk ezin dira mugitu</string>

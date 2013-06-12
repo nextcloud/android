@@ -112,7 +112,6 @@
   <string name="sync_fail_in_favourites_content">Vsebino %1$d datotek ni bilo mogoče uskladiti (%2$d sporov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Nekatere krajevne datoteke so spregledane</string>
   <string name="sync_foreign_files_forgotten_content">Skupno %1$d datotek iz mape %2$s ni mogoče kopirati v</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"Od različice 1.3.16 naprej so datoteke, ki so poslane s te naprave, kopirane tudi v krajevno mapo %1$s. S tem preprečimo morebitno izgubo podatkov, kadar se usklajuje le ena datoteka med več različnimi računi.\n\nZaradi te spremembe se vse datoteke, ki so bile poslane v prejšnji različici, kopirajo v mapo %2$s. Vendar pa je med kopiranjem prišlo do napake in tega opravila ni bilo mogoče izvesti v celoti med usklajevanjem računov. Datoteke je mogoče pustiti kot so in odstraniti povezavo z %3$s, ali pa jih premakniti v mapo %1$s in ohraniti povezavo do %4$s.\n\nSpodaj je seznam krajevnih datotek in njihovih oddaljenih povezav v %5$s.</string>
   <string name="foreign_files_move">Premakni vse</string>
   <string name="foreign_files_success">Vse datoteke so uspešno premaknjene na novo mesto</string>
   <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>

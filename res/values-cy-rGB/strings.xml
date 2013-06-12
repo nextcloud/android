@@ -110,7 +110,6 @@
   <string name="sync_fail_in_favourites_content">Methwyd cydamseru cynnwys ffeiliau %1$d (gwrthdaro %2$d )</string>
   <string name="sync_foreign_files_forgotten_ticker">Anghofiwyd am rai ffeiliau lleol</string>
   <string name="sync_foreign_files_forgotten_content">Methwyd copio %1$d ffeil o gyfeiriadur %2$s i mewn i</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"O fersiwn 1.3.16 ymlaen, bydd ffeiliau lwythir i fyny o\'r ddyfais hon yn cael eu copïo i blygell lleol %1$s yn lle bod data\'n cael ei golli pan fydd ffeil unigol yn cael ei chydamseru mewn nifer o gyfrifon.\n\nOherwydd y newid, cafodd ffeiliau lwythwyd i fyny drwy fersiynau blaenorol o\'r ap eu copïo i blygell %2$s. Serch hynny, methwyd cwblhau\'r dasg oherwydd gwall wrth gydamseru. Gallwch naill ai adael y ffeil(iau) fel y maen nhw, a thynnu\'r ddolen i %3$s, neu symud y ffeil(iau)  i gyfeiriadur %1$s a chadw\'r ddolen i %4$s.\n\nYn y rhestr isod mae\'r ffeil(iau) lleol, a\'r ffeiliau pell yn %5$s yr oedd dolen iddyn nhw.</string>
   <string name="foreign_files_move">Symud y cyfan</string>
   <string name="foreign_files_success">Symudwyd pob ffeil</string>
   <string name="foreign_files_fail">Methwyd symud rhai ffeiliau</string>

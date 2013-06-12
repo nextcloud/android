@@ -111,7 +111,6 @@
   <string name="sync_fail_in_favourites_content">Nội dung tập tin %1$d không thể đồng bộ (%2$d xung đột)</string>
   <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
   <string name="sync_foreign_files_forgotten_content">Các tập tin %1$d ở ngoài thư mục %2$s không thể được chép vào</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"Từ phiên bản 1.3.16, các tập tin tải lên từ thiết bị này được chép vào thư mục cục bộ %1$s để đề phòng mất dữ liệu khi một tập tin được đồng bộ với nhiều tài khoản.\n\nDo thay đổi này, tất cả các tập tin được tải lên ở phiên bản trước của ứng dụng này được chép vào thư mục %2$s. Tuy nhiên, đã có lỗi ngăn cản việc này trong lúc đồng bộ tài khoản. Bạn có thể để (các) tập tin như vậy và xóa liên kết đến %3$s, hoặc di chuyển (các) tập tin vào thư mục %1$s và giữ lại liên kết tới %4$s.\n\nDanh sách bên dưới là (các) tập tin cục bộ và (các) tập tin ở xa trong %5$s mà chúng được liên kết tới.</string>
   <string name="foreign_files_move">Di chuyển tất cả</string>
   <string name="foreign_files_success">Tất cả tập tin đã được chuyển đi</string>
   <string name="foreign_files_fail">Một vài tập tin không thể chuyển đi</string>

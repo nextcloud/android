@@ -115,7 +115,6 @@
   <string name="sync_fail_in_favourites_content">Faili %1$d sisu ei suudeta sünkroniseerida (konflikt %2$d)</string>
   <string name="sync_foreign_files_forgotten_ticker">Osad kohalikud faili ununesid</string>
   <string name="sync_foreign_files_forgotten_content">%1$d faili %2$s kataloogist ei suudeta kopeerida</string>
-  <string name="sync_foreign_files_forgotten_explanation">Alates versioonist 1.3.16 failid, mis on üles laetud kopeeritakse kohalikku kataloogi %1$s vältimaks andmete kadu, kui ühte faili sünkroniseeritakse mitmelt kontolt.\n\nSelle muudatusega seoses kõik failid, mis on üles laetud rakenduse vanemate versioonidega, kopeeriti kataloogi %2$s. Selle tegevuse peatas viga, mis tekkis konto sünkroniseerimise käigus. Sa saad jätta failid nagu nad on ning eemaldata viide %3$s või tõsta failid %1$s kataloogi ja säilitada viide %4$s.\n\nAllpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s millele nad viitavad.</string>
   <string name="foreign_files_move">Tõsta ümber</string>
   <string name="foreign_files_success">Kõik failid tõsteti ümber</string>
   <string name="foreign_files_fail">Osasid faile ei saa ümber tõsta</string>

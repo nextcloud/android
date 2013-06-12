@@ -115,7 +115,6 @@
   <string name="sync_fail_in_favourites_content">Inhoud van %1$d bestanden kon niet worden gesynchroniseerd (%2$d conflicten)</string>
   <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
   <string name="sync_foreign_files_forgotten_content">%1$d bestanden uit de %2$s directory konden niet worden gekopieerd naar</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"Vanaf versie 1.3.16, worden bestanden ge-upload vanaf dit apparaat ook gekopieerd naar de lokale %1$s map om gegevensverlies te voorkomen wanneer een enkel bestand wordt gesynchroniseerd met meerdere accounts.\n\nDoor deze verandering zijn alle bestanden die met een voorgaande versie van deze app zijn ge-uploaded gekopieerd naar de %2$s map. Maar door een fout is dit niet helemaal gelukt bij de account synchronisatie. U kunt de bestanden laten zoals ze zijn en de %3$s verwijderen, of de bestanden verplaatsen naar de %1$s map en de links naar %4$s behouden.\n\nHieronder staan de lokalen bestanden, en de externe bestanden in %5$s waarnaar ze doorverwezen.</string>
   <string name="foreign_files_move">Alle verplaatsen</string>
   <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
   <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
