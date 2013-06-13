@@ -224,7 +224,13 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
             if (mAccount == null) {
-                finish();
+                if (isTaskRoot()) {
+                    Log_OC.e(TAG, "FINISHING");
+                    finish();
+                } else {
+                    Log_OC.e(TAG, "MOVING BACK");
+                    moveTaskToBack(true);
+                }
             }
         }
         
