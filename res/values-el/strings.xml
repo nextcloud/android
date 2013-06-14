@@ -82,6 +82,8 @@
   <string name="common_save_exit">Αποθήκευση &amp; Έξοδος</string>
   <string name="common_exit">Κλείσιμο</string>
   <string name="common_error">Σφάλμα</string>
+  <string name="common_loading">Φόρτωση ...</string>
+  <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>

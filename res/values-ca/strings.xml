@@ -115,6 +115,7 @@
   <string name="sync_fail_in_favourites_content">El contingut de %1$d arxius no es va poder sincronitzar (%2$d conflictes)</string>
   <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
   <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de %2$s carpetes</string>
+  <string name="sync_foreign_files_forgotten_explanation">Des de la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per prevenir pèrdues de dades quan es sincronitza un únic fitxer amb diversos comptes.\n\nDegut a aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta aplicació es copiaven a la carpeta %2$s. Malgrat tot, un error impedia aquesta operació durant la sinconització del compte. Podeu deixar els fitxer(s) tal i com estan i eliminar l\'enllaç a %3$2, o moure els fitxer(s) a la carpeta %1$s i retenir l\'enllaç a %4$s.\n\nA baix hi ha els fitxers local(s) i els fitxer(s) remots a %5$s als que estaven enllaçats.</string>
   <string name="foreign_files_move">Mou-los tots</string>
   <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
   <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
