@@ -40,8 +40,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 //public class PreviewImagePagerAdapter extends PagerAdapter {
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     
-    private static final String TAG = PreviewImagePagerAdapter.class.getSimpleName();
-            
     private Vector<OCFile> mImageFiles;
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
@@ -50,14 +48,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private DataStorageManager mStorageManager;
     
     private Map<Integer, FileFragment> mCachedFragments;
-
-    /*
-    private final FragmentManager mFragmentManager;
-    private FragmentTransaction mCurTransaction = null;
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
-    private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
-    private Fragment mCurrentPrimaryItem = null;
-    */
 
     /**
      * Constructor.
@@ -188,8 +178,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mDownloadErrors.contains(Integer.valueOf(position));
     }
 
-
-    
     /* -*
      * Called when a change in the shown pages is going to start being made.
      * 

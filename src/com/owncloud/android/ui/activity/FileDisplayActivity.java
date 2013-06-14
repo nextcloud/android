@@ -215,7 +215,7 @@ public class FileDisplayActivity extends FileActivity implements
                 file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
             }
             setFile(file);
-            
+            mDirectories.clear();
             while(file != null && file.getFileName() != OCFile.PATH_SEPARATOR) {
                 if (file.isDirectory()) {
                     mDirectories.add(file.getFileName());
@@ -248,6 +248,11 @@ public class FileDisplayActivity extends FileActivity implements
             Fragment secondFragment = chooseInitialSecondFragment(file);
             if (secondFragment != null) {
                 setSecondFragment(secondFragment);
+                updateFragmentsVisibility(true);
+                updateNavigationElementsInActionBar(file);
+                
+            } else {
+                cleanSecondFragment();
             }
             
         } else {
@@ -343,8 +348,9 @@ public class FileDisplayActivity extends FileActivity implements
             FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
             tr.remove(second);
             tr.commit();
-            updateFragmentsVisibility(false);
         }
+        updateFragmentsVisibility(false);
+        updateNavigationElementsInActionBar(null);
     }
     
     protected void refeshListOfFilesFragment() {
@@ -569,7 +575,6 @@ public class FileDisplayActivity extends FileActivity implements
             setFile(listOfFiles.getCurrentFile());
         }
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(null);
     }
 
     @Override
@@ -581,13 +586,6 @@ public class FileDisplayActivity extends FileActivity implements
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FileFragment second = getSecondFragment();
-        updateFragmentsVisibility(second != null);
-        updateNavigationElementsInActionBar((second == null) ? null : second.getFile());
-    }
     
     @Override
     protected void onResume() {
@@ -921,7 +919,6 @@ public class FileDisplayActivity extends FileActivity implements
     public void onBrowsedDownTo(OCFile directory) {
         pushDirname(directory);
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(null);
     }
     
     /**

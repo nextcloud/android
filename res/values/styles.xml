@@ -17,7 +17,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 	<style name="Animations" />
 
 	<!-- Default ownCloud app style -->
@@ -29,9 +29,15 @@
 	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.Sherlock.Light.NoActionBar">
       <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
-  </style>
+    </style>
 	
-
+	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.Sherlock.NoActionBar">
+      <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+      <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+      <item name="android:windowFullscreen">true</item>
+    </style>
+	
+	
 	<style name="Theme.ownCloud.Widget.ActionBar" parent="style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
     	<item name="android:background">@drawable/main_header_bg</item>
     	<item name="background">@drawable/main_header_bg</item>
