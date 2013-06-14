@@ -60,6 +60,12 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal that the activity will is finishing to enforce the creation of an ownCloud {@link Account} */
     private boolean mRedirectingToSetupAccount = false;
     
+    /** Flag to signal when the value of mAccount was set */ 
+    private boolean mAccountWasSet;
+    
+    /** Flag to signal when the value of mAccount was restored from a saved state */ 
+    private boolean mAccountWasRestored;
+    
 
     /**
      * Loads the cownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
@@ -80,9 +86,14 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
         }
 
+        Account oldAccount = mAccount;
         grantValidAccount();
         if (mAccount != null) {
-            onAccountSet(savedInstanceState != null);
+            mAccountWasSet = true;
+            mAccountWasRestored = (savedInstanceState != null && mAccount.equals(oldAccount));
+        } else {
+            mAccountWasSet = false;
+            mAccountWasRestored = false;
         }
     }
 
@@ -99,11 +110,15 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         Account oldAccount = mAccount;
         grantValidAccount();
         if (mAccount != null && !mAccount.equals(oldAccount)) {
-            onAccountSet(false);
+            mAccountWasSet = true;
+            mAccountWasRestored = false;
+        } else {
+            mAccountWasSet = false;
+            mAccountWasRestored = false;
         }
     }
+
     
-        
     /**
      *  Validates the ownCloud {@link Account} associated to the Activity any time it is restarted.
      * 
@@ -122,6 +137,16 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                 createFirstAccount();
                 mRedirectingToSetupAccount = true;
             }
+        }
+    }
+    
+    
+    @Override 
+    protected void onStart() {
+        // maybe better in onPostCreate() ?
+        super.onStart();
+        if (mAccountWasSet) {
+            onAccountSet(mAccountWasRestored);
         }
     }
     
@@ -214,7 +239,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                         FileActivity.this.onAccountSet(false);
                     }
                 } catch (OperationCanceledException e) {
-                    Log_OC.e(TAG, "Account creation canceled");
+                    Log_OC.d(TAG, "Account creation canceled");
                     
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Account creation finished in exception: ", e);
@@ -224,13 +249,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
             if (mAccount == null) {
-                if (isTaskRoot()) {
-                    Log_OC.e(TAG, "FINISHING");
-                    finish();
-                } else {
-                    Log_OC.e(TAG, "MOVING BACK");
-                    moveTaskToBack(true);
-                }
+                moveTaskToBack(true);
             }
         }
         

@@ -137,9 +137,9 @@ public class FileDisplayActivity extends FileActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         
         mHandler = new Handler();
 
@@ -176,26 +176,12 @@ public class FileDisplayActivity extends FileActivity implements
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
-            if (!isRedirectingToSetupAccount()) {
-                initFragmentsWithFile();
-            }
         }
         
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        OCFile currFile = getFile();
-        if (mStorageManager != null) {
-            while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
-                if (currFile.isDirectory()) {
-                    mDirectories.add(currFile.getFileName());
-                }
-                currFile = mStorageManager.getFileById(currFile.getParentId());
-            }
-        }
-        mDirectories.add(OCFile.PATH_SEPARATOR);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
+        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
+        setSupportProgressBarIndeterminateVisibility(false);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -226,15 +212,20 @@ public class FileDisplayActivity extends FileActivity implements
             }
             if (file == null) {
                 // fall back to root folder
-                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never should return null
+                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
             }
             setFile(file);
             
-            if (findViewById(android.R.id.content) != null && !stateWasRecovered) {
+            while(file != null && file.getFileName() != OCFile.PATH_SEPARATOR) {
+                if (file.isDirectory()) {
+                    mDirectories.add(file.getFileName());
+                }
+                file = mStorageManager.getFileById(file.getParentId());
+            }
+            mDirectories.add(OCFile.PATH_SEPARATOR);
+            if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
-            } else {
-                Log_OC.e(TAG, "Fragment initializacion ignored in onAccountChanged due to lack of CONTENT VIEW");
             }
             
         } else {
@@ -589,7 +580,7 @@ public class FileDisplayActivity extends FileActivity implements
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
