@@ -110,8 +110,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
-
-
+    
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
@@ -451,7 +450,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
 
     private void checkOcServer() {
-        String uri = mHostUrlInput.getText().toString().trim();
+        String uri = trimUrlWebdav(mHostUrlInput.getText().toString().trim());
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
@@ -693,15 +692,33 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 } else {
                     url = "http://" + url;
                 }
-
             }
+
+            // OC-208: Add suffix remote.php/webdav to normalize (OC-34)            
+            url = trimUrlWebdav(url);
+
             if (url.endsWith("/")) {
                 url = url.substring(0, url.length() - 1);
             }
+
         }
+        Log_OC.d(TAG, "URL Normalize " + url);
         return (url != null ? url : "");
     }
 
+
+    private String trimUrlWebdav(String url){       
+        if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0.length());             
+        } else if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_2_0)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_2_0.length());             
+        } else if (url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_1_2)){
+            url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_1_2.length());             
+        } 
+        return (url != null ? url : "");
+    }
+    
+    
     /**
      * Chooses the right icon and text to show to the user for the received operation result.
      * 
