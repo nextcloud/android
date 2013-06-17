@@ -216,17 +216,23 @@ public class FileDisplayActivity extends FileActivity implements
             }
             setFile(file);
             mDirectories.clear();
-            while(file != null && file.getFileName() != OCFile.PATH_SEPARATOR) {
-                if (file.isDirectory()) {
-                    mDirectories.add(file.getFileName());
+            OCFile fileIt = file;
+            while(fileIt != null && fileIt.getFileName() != OCFile.PATH_SEPARATOR) {
+                if (fileIt.isDirectory()) {
+                    mDirectories.add(fileIt.getFileName());
                 }
-                file = mStorageManager.getFileById(file.getParentId());
+                fileIt = mStorageManager.getFileById(fileIt.getParentId());
             }
             mDirectories.add(OCFile.PATH_SEPARATOR);
             if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
+                
+            } else {
+                updateFragmentsVisibility(!file.isDirectory());
+                updateNavigationElementsInActionBar(file.isDirectory() ? null : file);
             }
+            
             
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
@@ -243,6 +249,14 @@ public class FileDisplayActivity extends FileActivity implements
 
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
+            /// First fragment
+            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+            if (listOfFiles != null) {
+                listOfFiles.listDirectory(getCurrentDir());   
+            } else {
+                Log.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+            }
+            
             /// Second fragment
             OCFile file = getFile(); 
             Fragment secondFragment = chooseInitialSecondFragment(file);
@@ -607,12 +621,6 @@ public class FileDisplayActivity extends FileActivity implements
         downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
-    
-        // List current directory
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (listOfFiles != null) {
-            listOfFiles.listDirectory(getCurrentDir());   // TODO we should find the way to avoid the need of this (maybe it's not necessary yet; to check)
-        }
     
         Log_OC.d(TAG, "onResume() end");
     }
@@ -988,9 +996,9 @@ public class FileDisplayActivity extends FileActivity implements
     /**
      * TODO
      */
-    private void updateNavigationElementsInActionBar(OCFile currentFile) {
+    private void updateNavigationElementsInActionBar(OCFile chosenFile) {
         ActionBar actionBar = getSupportActionBar(); 
-        if (currentFile == null || mDualPane) {
+        if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
             actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
@@ -1001,18 +1009,9 @@ public class FileDisplayActivity extends FileActivity implements
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(currentFile.getFileName());
+            actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         }
-    }
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public OCFile getInitialDirectory() {
-        return getCurrentDir();
     }
     
     
@@ -1317,12 +1316,11 @@ public class FileDisplayActivity extends FileActivity implements
         if (file != null) {
             if (file.isDirectory()) {
                 return file;
-            } else {
+            } else if (mStorageManager != null) {
                 return mStorageManager.getFileById(file.getParentId());
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
 }

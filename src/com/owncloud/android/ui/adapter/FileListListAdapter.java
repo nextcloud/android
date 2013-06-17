@@ -51,19 +51,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private DataStorageManager mStorageManager;
+    private DataStorageManager mStorageManager = null;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
 
-    public FileListListAdapter(OCFile file, DataStorageManager storage_man,
-            Context context, TransferServiceGetter transferServiceGetter) {
-        mStorageManager = storage_man;
+    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        swapDirectory(file, mStorageManager);
-        /*mFile = file;
-        mFiles = mStorageManager.getDirectoryContent(mFile);*/
     }
 
     @Override

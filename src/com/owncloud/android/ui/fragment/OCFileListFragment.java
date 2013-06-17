@@ -94,7 +94,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
-        mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity(), mContainerActivity);
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
@@ -124,7 +124,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         if (file != null) {
             if (file.isDirectory()) { 
                 // update state and view of this fragment
-                mFile = file;
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
                 mContainerActivity.onBrowsedDownTo(file);
@@ -385,14 +384,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * Getter for the current DataStorageManager in the container activity
          */
         public DataStorageManager getStorageManager();
-        
-        
-        /**
-         * Callback method invoked when the parent activity is fully created to get the directory to list firstly.
-         * 
-         * @return  Directory to list firstly. Can be NULL.
-         */
-        public OCFile getInitialDirectory();
         
         
         /**
