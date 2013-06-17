@@ -44,7 +44,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDetailActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.AccountUtils;
@@ -56,7 +56,7 @@ import com.owncloud.android.R;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -255,13 +255,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
 
     private void backToDisplayActivity() {
-        /*
-        Intent intent = new Intent(this, FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
-        startActivity(intent);
-        */
         finish();
     }
     
@@ -311,11 +304,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
 
     @Override
-    public void showFragmentWithDetails(OCFile file) {
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+    public void showDetails(OCFile file) {
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
-        showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
         file = mPreviewImagePagerAdapter.getFileAt(pos);
@@ -439,6 +432,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             
         }
         mFullScreen = !mFullScreen;
+    }
+
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        // TODO
     }
     
     

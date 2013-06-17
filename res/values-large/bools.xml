@@ -1,4 +1,0 @@
-<!-- Large screen boolean values -->
-<resources>
-    <bool name="large_layout">true</bool>
-</resources>

@@ -41,7 +41,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDetailActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 
 /**
  * Service that handles media playback, both audio and video. 
@@ -532,7 +532,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     @SuppressWarnings("deprecation")
     private void updateNotification(String content) {
         // TODO check if updating the Intent is really necessary
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -569,7 +569,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

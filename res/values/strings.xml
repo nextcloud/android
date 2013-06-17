@@ -20,6 +20,7 @@
     <string name="actionbar_upload">Upload</string>
     <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Files</string>
+    <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">Create directory</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_settings">Settings</string>
@@ -81,7 +82,6 @@
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Refresh</string>
     <string name="filedetails_redownload">Redownload</string>
-    <string name="filedetails_open">Open</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
