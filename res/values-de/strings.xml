@@ -139,21 +139,21 @@
   <string name="media_event_done">%1$s Beendet</string>
   <string name="media_err_nothing_to_play">Keine Meidendatei gefunden</string>
   <string name="media_err_no_account">Kein Konto angeben</string>
-  <string name="media_err_not_in_owncloud">Datei ist nicht in einem validen account</string>
+  <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Account</string>
   <string name="media_err_unsupported">Codierung wird nicht unterstützt</string>
   <string name="media_err_io">Fehler beim Lesen der Datei</string>
   <string name="media_err_malformed">Mediendatei nicht korrekt encodiert</string>
   <string name="media_err_timeout">Zeitüberschreitung beim spielen</string>
   <string name="media_err_invalid_progressive_playback">Mediendatei konnte nicht gestreamt werden</string>
-  <string name="media_err_unknown">Diese Mediendatei konnte nicht mit dem standart Media Player geöffnet werden</string>
-  <string name="media_err_security_ex">Sicherheitsfehler beim versuch %1$s zu spielen</string>
-  <string name="media_err_io_ex">Eingabefehler beim versuch %1$s zu spielen</string>
-  <string name="media_err_unexpected">Ein Unerwarteter Fehler ist aufgetreten beim versuch %1$s abzuspielen</string>
+  <string name="media_err_unknown">Diese Mediendatei konnte nicht mit dem Standardplayer geöffnet werden</string>
+  <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s zu spielen</string>
+  <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s zu spielen</string>
+  <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s abzuspielen</string>
   <string name="media_previous_description">Vorheriges Lied Knopf</string>
   <string name="media_rewind_description">Zurückspielen Knopf</string>
   <string name="media_play_pause_description">Play-/Pause Knopf</string>
   <string name="media_forward_description">Vorspulen Knopf</string>
-  <string name="media_next_description">Nächster Titel Knop</string>
+  <string name="media_next_description">Nächster Titel Knopf</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minuten</item>
     <item>30 Minuten</item>
@@ -260,13 +260,13 @@
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
   <string name="actionbar_failed_instant_upload">Fehlgeschlagener SofortUpload\"</string>
-  <string name="failed_upload_headline_text">Soforthochladen fehlgeschlagen</string>
-  <string name="failed_upload_headline_hint">Übersicht aller fehlgeschlagenen sofort Uploads</string>
+  <string name="failed_upload_headline_text">SofortUpload fehlgeschlagen</string>
+  <string name="failed_upload_headline_hint">Übersicht aller fehlgeschlagenen SofortUploads</string>
   <string name="failed_upload_all_cb">Alles auswählen</string>
   <string name="failed_upload_headline_retryall_btn">Alles auswählen erneut versuchen</string>
   <string name="failed_upload_headline_delete_all_btn">Auswahl aus der Upload Warteschlange entfernen</string>
   <string name="failed_upload_retry_text">Hochladen des Bildes erneut versuchen:</string>
   <string name="failed_upload_load_more_images">Weitere Bilder laden</string>
   <string name="failed_upload_failure_text">Fehlermeldung:</string>
-  <string name="failed_upload_quota_exceeded_text">Bitte überprüfen Sie Ihre Servereinstellungen. Eventuell ist ihr Postfach voll.</string>
+  <string name="failed_upload_quota_exceeded_text">Bitte überprüfe Deine Servereinstellungen. Eventuell ist Dein Nutzungslimit überschritten.</string>
 </resources>

@@ -139,8 +139,8 @@
   <string name="media_event_done">%1$s Wiedergabe beendet</string>
   <string name="media_err_nothing_to_play">Keine Mediadatei gefunden</string>
   <string name="media_err_no_account">Kein Account angegeben</string>
-  <string name="media_err_not_in_owncloud">Datei nicht in einem validen Account</string>
-  <string name="media_err_unsupported">Nicht unterstützter Media-Kodierung</string>
+  <string name="media_err_not_in_owncloud">Datei nicht in einem gültigen Account</string>
+  <string name="media_err_unsupported">Nicht unterstützter Media-codec</string>
   <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
   <string name="media_err_malformed">Mediendatei nicht korrekt kodiert</string>
   <string name="media_err_timeout">Zu lange schon versucht abzuspielen</string>
@@ -149,7 +149,7 @@
   <string name="media_err_security_ex">Sicherheitsfehler beim abspielen von %1$s</string>
   <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s abzuspielen</string>
   <string name="media_err_unexpected">Unerwarteter Fehler beim Versuch %1$s abzuspielen</string>
-  <string name="media_previous_description">Voriger Titel Button</string>
+  <string name="media_previous_description">Vorheriger Titel Button</string>
   <string name="media_rewind_description">Zurückspulen Button</string>
   <string name="media_play_pause_description">Abspielen oder Pausieren Button</string>
   <string name="media_forward_description">Vorspulen Button</string>
