@@ -1,10 +1,12 @@
+
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 2 of the License, or
+ *   (at your option) any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,16 +21,6 @@ package com.owncloud.android.ui.adapter;
 
 import java.util.Vector;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
-
-import com.owncloud.android.R;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -39,6 +31,15 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.owncloud.android.AccountUtils;
+import com.owncloud.android.DisplayUtils;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -54,7 +55,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-
+    //total size of a directory (recursive)
+    private Long totalSizeOfDirectoriesRecursive = null;
+    private Long lastModifiedOfAllSubdirectories = null;
+    
     public FileListListAdapter(OCFile file, DataStorageManager storage_man,
             Context context, TransferServiceGetter transferServiceGetter) {
         mStorageManager = storage_man;
@@ -162,9 +166,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
                 
-            } else {
-               fileSizeV.setVisibility(View.GONE);
-               lastModV.setVisibility(View.GONE);
+            } 
+            else {
+               
+               getDirectorySizeNumber(file,true);
+               if (lastModifiedOfAllSubdirectories == null)
+               {
+                   lastModV.setVisibility(View.GONE);
+                   fileSizeV.setVisibility(View.GONE);
+               }
+               else
+               {
+                   lastModV.setVisibility(View.VISIBLE);
+                   lastModV.setText(DisplayUtils.unixTimeToHumanReadable(lastModifiedOfAllSubdirectories));
+                   fileSizeV.setVisibility(View.VISIBLE);
+                   fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
+               }
                checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
@@ -173,6 +190,39 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
+    
+    /**
+     * - This method counts recursively all subdirectories and their files from the root directory. 
+     * - It also shows a timestamp of the last modificated file inside the root directory
+     * 
+     *   @param OCFile  : startDirectory
+     *   @param boolean :  counting starts from here ?
+     */
+    private void getDirectorySizeNumber(OCFile directory,boolean startOfRecursive) {
+        if (startOfRecursive) {
+            totalSizeOfDirectoriesRecursive = null;
+        }
+        Vector<OCFile> files  = mStorageManager.getDirectoryContent(directory);
+        for (OCFile file : files) {
+            if(!file.isDirectory()) {
+                if (totalSizeOfDirectoriesRecursive == null) {
+                    totalSizeOfDirectoriesRecursive = file.getFileLength();
+                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
+                    continue;
+                }
+                
+                totalSizeOfDirectoriesRecursive += file.getFileLength();
+                if (lastModifiedOfAllSubdirectories < file.getModificationTimestamp()) {
+                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
+                }
+            }
+            else {
+                this.getDirectorySizeNumber(file, false);
+            }
+        }
+    }
+    
+    
     @Override
     public int getViewTypeCount() {
         return 1;
