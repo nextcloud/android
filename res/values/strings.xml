@@ -16,7 +16,7 @@
     <string name="main_wrn_accsetup">There is no account set up on your device. In order to use this App, you need to create one.</string>
     <string name="about_android">%1$s Android App</string>
     <string name="about_version">version %1$s</string>
-    <string name="actionbar_sync">Refresh</string>
+    <string name="actionbar_sync">Refresh account</string>
     <string name="actionbar_upload">Upload</string>
     <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Files</string>
@@ -80,7 +80,7 @@
     <string name="filedetails_created">Created:</string>
     <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_sync_file">Refresh</string>
+    <string name="filedetails_sync_file">Refresh file</string>
     <string name="filedetails_redownload">Redownload</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
     <string name="common_yes">Yes</string>
