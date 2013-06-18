@@ -20,9 +20,9 @@ package com.owncloud.android.ui.adapter;
 
 import java.io.File;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;

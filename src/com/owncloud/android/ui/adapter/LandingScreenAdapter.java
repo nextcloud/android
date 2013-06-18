@@ -17,7 +17,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.Preferences;
 

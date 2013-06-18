@@ -28,7 +28,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.protocol.HttpContext;
 
-import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
 

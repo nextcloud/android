@@ -32,9 +32,9 @@ import android.view.MotionEvent;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 

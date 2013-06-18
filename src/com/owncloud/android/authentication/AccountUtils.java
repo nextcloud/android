@@ -16,9 +16,8 @@
  *
  */
 
-package com.owncloud.android;
+package com.owncloud.android.authentication;
 
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
