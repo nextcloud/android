@@ -222,7 +222,14 @@ public class FileDisplayActivity extends FileActivity implements
             /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
             OCFile file = getFile();
             if (file != null) {
-                file = mStorageManager.getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
+                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
+                    // upload in progress - right now, files are not inserted in the local cache until the upload is successful
+                    if (mStorageManager.getFileById(file.getParentId()) == null) {
+                        file = null;    // not able to know the directory where the file is uploading
+                    }
+                } else {
+                    file = mStorageManager.getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
+                }
             }
             if (file == null) {
                 // fall back to root folder
@@ -273,7 +280,9 @@ public class FileDisplayActivity extends FileActivity implements
     private Fragment chooseInitialSecondFragment(OCFile file) {
         Fragment secondFragment = null;
         if (file != null && !file.isDirectory()) {
-            if (file.isDown() && PreviewMediaFragment.canBePreviewed(file)) {
+            if (file.isDown() && PreviewMediaFragment.canBePreviewed(file) 
+                    && file.getLastSyncDateForProperties() > 0  // temporal fix
+                    ) {
                 int startPlaybackPosition = getIntent().getIntExtra(PreviewVideoActivity.EXTRA_START_POSITION, 0);
                 boolean autoplay = getIntent().getBooleanExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, true);
                 secondFragment = new PreviewMediaFragment(file, getAccount(), startPlaybackPosition, autoplay);
