@@ -35,6 +35,7 @@ import android.widget.VideoView;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 
@@ -117,9 +118,14 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
                 mVideoPlayer.setVideoPath(mFile.getStoragePath());
                 
             } else if (mAccount != null) {
-                // not working now
-                String url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
-                mVideoPlayer.setVideoURI(Uri.parse(url));
+                // not working yet
+                String url;
+                try {
+                    url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
+                    mVideoPlayer.setVideoURI(Uri.parse(url));
+                } catch (AccountNotFoundException e) {
+                    onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
+                }
                 
             } else {
                 onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);

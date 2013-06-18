@@ -22,6 +22,7 @@ import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountsException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -135,21 +136,36 @@ public class AccountUtils {
      * @param context
      * @param account
      * @return url or null on failure
+     * @throws AccountNotFoundException     When 'account' is unknown for the AccountManager
      */
-    public static String constructFullURLForAccount(Context context, Account account) {
-        try {
-            AccountManager ama = AccountManager.get(context);
-            String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-            String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
-            boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
-            OwnCloudVersion ver = new OwnCloudVersion(strver);
-            String webdavpath = getWebdavPath(ver, supportsOAuth);
+    public static String constructFullURLForAccount(Context context, Account account) throws AccountNotFoundException {
+        AccountManager ama = AccountManager.get(context);
+        String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
+        String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
+        boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
+        OwnCloudVersion ver = new OwnCloudVersion(strver);
+        String webdavpath = getWebdavPath(ver, supportsOAuth);
 
-            if (webdavpath == null) return null;
-            return baseurl + webdavpath;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        if (baseurl == null || webdavpath == null) 
+            throw new AccountNotFoundException(account, "Account not found", null);
+        
+        return baseurl + webdavpath;
+    }
+    
+    
+    public static class AccountNotFoundException extends AccountsException {
+        
+        private static final long serialVersionUID = 4276870654168776992L;
+        
+        private Account mFailedAccount; 
+                
+        public AccountNotFoundException(Account failedAccount, String message, Throwable cause) {
+            super(message, cause);
+            mFailedAccount = failedAccount;
+        }
+        
+        public Account getFailedAccount() {
+            return mFailedAccount;
         }
     }
 

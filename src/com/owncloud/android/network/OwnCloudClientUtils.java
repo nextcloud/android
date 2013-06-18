@@ -38,6 +38,7 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.Log_OC;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -83,8 +84,9 @@ public class OwnCloudClientUtils {
      * @throws AuthenticatorException       If the authenticator failed to get the authorization token for the account.
      * @throws OperationCanceledException   If the authenticator operation was cancelled while getting the authorization token for the account. 
      * @throws IOException                  If there was some I/O error while getting the authorization token for the account.
+     * @throws AccountNotFoundException     If 'account' is unknown for the AccountManager
      */
-    public static WebdavClient createOwnCloudClient (Account account, Context appContext) throws OperationCanceledException, AuthenticatorException, IOException {
+    public static WebdavClient createOwnCloudClient (Account account, Context appContext) throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         //Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
@@ -105,7 +107,7 @@ public class OwnCloudClientUtils {
     }
     
     
-    public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException {
+    public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
         WebdavClient client = createOwnCloudClient(uri, appContext);
         AccountManager am = AccountManager.get(appContext);
