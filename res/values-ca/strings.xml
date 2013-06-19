@@ -13,8 +13,6 @@
   <string name="main_settings">Configuració</string>
   <string name="main_tit_accsetup">Configuració de comptes</string>
   <string name="main_wrn_accsetup">No hi ha comptes d\'ownCloud en el dispositiu. Per usar l\'aplicació, n\'heu de crear un.</string>
-  <string name="about_message">Client ownCloud per Android\n\nversió: %1$s</string>
-  <string name="actionbar_sync">Sincronitza el compte</string>
   <string name="actionbar_upload">Puja un fitxer</string>
   <string name="actionbar_upload_from_apps">Contingut d\'altres aplicacions</string>
   <string name="actionbar_upload_files">Fitxers</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Protegiu el client ownCloud</string>
   <string name="prefs_instant_upload">Activa la pujada instantània</string>
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
-  <string name="auth_host_url">URL de ownCloud</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
   <string name="auth_register">Sóc nou a ownCloud</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Baixa</string>
-  <string name="filedetails_sync_file">Refrescar</string>
   <string name="filedetails_redownload">Baixa de nou</string>
-  <string name="filedetails_open">Obre</string>
   <string name="filedetails_renamed_in_upload_msg">L\'arxiu s\'ha canviat de nom a %1$s durant la càrrega</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
@@ -165,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
   <string name="auth_connect_anyway">Connecta igualment</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració de ownCloud està malformada</string>
   <string name="auth_not_configured_message">Sembla que la instància ownCloud no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
@@ -188,8 +181,6 @@
   <string name="auth_bad_oc_version_title">Versió del servidor ownCloud desconeguda</string>
   <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
   <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
-  <string name="auth_login_details">Detalls de connexió</string>
-  <string name="auth_unauthorized">Login / contrasenya incorrectes</string>
   <string name="auth_not_found">Camí equivocat</string>
   <string name="auth_internal">Error intern del servidor, codi %1$d</string>
   <string name="crashlog_message">L\'aplicació s\'ha aturat de manera no prevista. Voleu enviar el registre d\'errors?</string>

@@ -13,8 +13,6 @@
   <string name="main_settings">Impostazioni</string>
   <string name="main_tit_accsetup">Configurazione account</string>
   <string name="main_wrn_accsetup">Non ci sono account ownCloud su questo dispositivo. Per utilizzare questa applicazione, devi crearne uno.</string>
-  <string name="about_message">%1$s per Android\n\nversione: %2$s</string>
-  <string name="actionbar_sync">Sincronizza account</string>
   <string name="actionbar_upload">Carica un file</string>
   <string name="actionbar_upload_from_apps">Contenuti da altre applicazioni</string>
   <string name="actionbar_upload_files">File</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Proteggi il tuo client ownCloud</string>
   <string name="prefs_instant_upload">Caricamento immediato</string>
   <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
-  <string name="auth_host_url">URL ownCloud</string>
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
   <string name="auth_register">Sono nuovo di ownCloud</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Creato:</string>
   <string name="filedetails_modified">Modificato:</string>
   <string name="filedetails_download">Scarica</string>
-  <string name="filedetails_sync_file">Aggiorna</string>
   <string name="filedetails_redownload">Scarica nuovamente</string>
-  <string name="filedetails_open">Apri</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
@@ -165,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
   <string name="auth_no_net_conn_message">Non sono state rilevate connessioni di rete, controlla la tua connessione a  Internet e prova ancora.</string>
   <string name="auth_connect_anyway">Connetti comunque</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
   <string name="auth_nossl_plain_ok_message">L\'applicazione non è in grado di stabilire una connessione sicura al server. È comunque disponibile una connessione non sicura. Puoi continuare o annullare.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
-  <string name="auth_testing_connection">Test della connessione in corso...</string>
   <string name="auth_not_configured_title">Configurazione non corretta di ownCloud</string>
   <string name="auth_not_configured_message">Sembra che l\'istanza di ownCloud non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
@@ -188,8 +181,6 @@
   <string name="auth_bad_oc_version_title">Versione del server ownCloud non riconosciuta</string>
   <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
   <string name="auth_secure_connection">Connessione sicura stabilita</string>
-  <string name="auth_login_details">Dettagli di accesso</string>
-  <string name="auth_unauthorized">Credenziali di accesso non valide</string>
   <string name="auth_not_found">Il percorso fornito non è valido</string>
   <string name="auth_internal">Errore interno del server, codice %1$d</string>
   <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>

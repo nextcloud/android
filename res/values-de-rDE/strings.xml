@@ -13,8 +13,6 @@
   <string name="main_settings">Einstellungen</string>
   <string name="main_tit_accsetup">Konto einrichten</string>
   <string name="main_wrn_accsetup">Auf Ihrem Gerät sind keine Konten eingerichtet. Bitte erstellen Sie ein Konto, um diese App zu nutzen.</string>
-  <string name="about_message">%1$s Android App\n\nVersion: %2$s</string>
-  <string name="actionbar_sync">Aktualisieren</string>
   <string name="actionbar_upload">Datei hochladen</string>
   <string name="actionbar_upload_from_apps">Inhalt von anderen Apps</string>
   <string name="actionbar_upload_files">Dateien</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Schützen Sie Ihren Client</string>
   <string name="prefs_instant_upload">Aktiviert den sofortigen Upload</string>
   <string name="prefs_instant_upload_summary">Laden Sie Ihre Fotos von der Kamera sofort hoch</string>
-  <string name="auth_host_url">URL</string>
+  <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
   <string name="auth_register">Ich bin neu bei %1$s</string>
@@ -70,9 +68,7 @@
   <string name="filedetails_created">Erstellt:</string>
   <string name="filedetails_modified">Geändert:</string>
   <string name="filedetails_download">Herunterladen</string>
-  <string name="filedetails_sync_file">Aktualisieren</string>
   <string name="filedetails_redownload">Neu laden</string>
-  <string name="filedetails_open">Öffnen</string>
   <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
@@ -164,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Anmeldungsversuch...</string>
   <string name="auth_no_net_conn_title">Keine Netzwerkverbindung</string>
   <string name="auth_no_net_conn_message">Es konnte keine Netzwerkverbindung gefunden werden, bitte überprüfen Sie Ihre Internetverbindung.</string>
   <string name="auth_connect_anyway">Trotzdem verbinden</string>
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_nossl_plain_ok_message">Die App konnte keine sichere Verbindung zum Server herstellen. Eine unsichere Verbindung ist verfügbar. Möchten Sie fortfahren oder abbrechen?</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
-  <string name="auth_testing_connection">Verbindung testen...</string>
   <string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
   <string name="auth_not_configured_message">Es scheint, als wäre Ihre Server-Installation nicht richtig konfiguriert. Bitte kontaktieren Sie Ihren Administrator, um weitere Details zu erhalten.</string>
   <string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
@@ -187,8 +181,6 @@
   <string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
   <string name="auth_wrong_connection_title">Konnte keine Verbindung aufbauen.</string>
   <string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
-  <string name="auth_login_details">Anmeldedetails</string>
-  <string name="auth_unauthorized">Benutzername oder Passwort ungültig</string>
   <string name="auth_not_found">Falsche Pfadangabe</string>
   <string name="auth_internal">Interner Server Fehler, Fehlercode %1$d</string>
   <string name="crashlog_message">Die Anwendung ist abgestürzt. Möchten Sie einen Bericht senden?</string>

@@ -13,8 +13,6 @@
   <string name="main_settings">Preferencias</string>
   <string name="main_tit_accsetup">Activar a conta</string>
   <string name="main_wrn_accsetup">Non hai ningunha conta configurada no seu dispositivo. Para empregar o aplicativo necesita crear unha.</string>
-  <string name="about_message">O aplicativo  %1$s para Android\n\nversión: %2$s</string>
-  <string name="actionbar_sync">Actualizar</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Contido doutros aplicativos</string>
   <string name="actionbar_upload_files">Ficheiros</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Protexe o seu cliente</string>
   <string name="prefs_instant_upload">Activar o envío instantáneo</string>
   <string name="prefs_instant_upload_summary">Enviar instantaneamente as fotos tiradas coa cámara</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Nome de usuario</string>
   <string name="auth_password">Contrasinal</string>
   <string name="auth_register">Son novo en  %1$s</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar</string>
   <string name="filedetails_redownload">Descargar de novo</string>
-  <string name="filedetails_open">Abrir</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
   <string name="common_yes">Si</string>
   <string name="common_no">Non</string>
@@ -165,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Tentando acceder…</string>
   <string name="auth_no_net_conn_title">Sen conexión de rede</string>
   <string name="auth_no_net_conn_message">Non se detectaron conexións de rede. Comprobe a conexión a Internet e tenteo de novo.</string>
   <string name="auth_connect_anyway">Conectar igualmente</string>
   <string name="auth_nossl_plain_ok_title">Non hai conexión seguras dispoñíbeis.</string>
   <string name="auth_nossl_plain_ok_message">O aplicativo non puido facer unha conexión segura co servidor. Inda que non é segura, hai unha conexión posíbel. Pode continuar ou cancelala.</string>
   <string name="auth_connection_established">Estabeleceuse a conexión</string>
-  <string name="auth_testing_connection">Comprobando a conexión…</string>
   <string name="auth_not_configured_title">Configuración errada do servidor</string>
   <string name="auth_not_configured_message">Semella que a súa instancia do servidor non está configurada correctamente. Contacte co seu administrador para máis detalles.</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
@@ -188,8 +181,6 @@
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
   <string name="auth_secure_connection">Estabeleceuse unha conexión segura</string>
-  <string name="auth_login_details">Detalles do acceso</string>
-  <string name="auth_unauthorized">Usuario ou contrasinal incorrectos</string>
   <string name="auth_not_found">Deuse unha ruta incorrecta</string>
   <string name="auth_internal">Produciuse un erro interno do servidor, código %1$d</string>
   <string name="crashlog_message">O aplicativo deixou de funcionar de xeito inesperado. Quere enviar un informe desta quebra?</string>

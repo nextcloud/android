@@ -13,7 +13,6 @@
   <string name="main_settings">Nustatymai</string>
   <string name="main_tit_accsetup">Nustatyti paskyrą</string>
   <string name="main_wrn_accsetup">Jūsų prietaise nėra nė vienos ownCloud paskyros. Kad galėtumėte naudoti šią programą, turite sukurti paskyrą.</string>
-  <string name="actionbar_sync">Atnaujinti</string>
   <string name="actionbar_upload">Įkelti</string>
   <string name="actionbar_upload_from_apps">Turinys iš kitų programų</string>
   <string name="actionbar_upload_files">Failai</string>
@@ -31,7 +30,6 @@
   <string name="prefs_pincode">ownCloud programos PIN kodas</string>
   <string name="prefs_pincode_summary">Apsaugokite savo ownCloud klientą</string>
   <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Prisijungimo vardas</string>
   <string name="auth_password">Slaptažodis</string>
   <string name="new_session_uri_error">Neteisingas URL</string>
@@ -54,9 +52,7 @@
   <string name="filedetails_created">Sukurta:</string>
   <string name="filedetails_modified">Modifikuota:</string>
   <string name="filedetails_download">Atsisiųsti</string>
-  <string name="filedetails_sync_file">Atnaujinti</string>
   <string name="filedetails_redownload">Atnaujinti</string>
-  <string name="filedetails_open">Atidaryti</string>
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
@@ -99,12 +95,10 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Bandoma prisijungti...</string>
   <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
   <string name="auth_connect_anyway">Vis tiek prisijungti</string>
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
-  <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
   <string name="auth_not_configured_title">Sugadinta ownCloud konfigūracija</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
   <string name="auth_timeout_title">Serveris per ilgai neatsako</string>
@@ -113,7 +107,6 @@
   <string name="auth_bad_oc_version_title">Nežinoma ownCloud serverio versija</string>
   <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
   <string name="auth_secure_connection">Užmegztas saugus ryšys</string>
-  <string name="auth_login_details">Prisijungimo duomenys</string>
   <string name="crashlog_message">Programa netikėtai sustojo. Ar norite nusiųsti šio lūžimo ataskaitą programos kūrėjams?</string>
   <string name="crashlog_send_report">Siųsti ataskaitą </string>
   <string name="crashlog_dont_send_report">Nesiųsti ataskaitos</string>

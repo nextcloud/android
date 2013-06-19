@@ -13,8 +13,6 @@
   <string name="main_settings">تنظیمات</string>
   <string name="main_tit_accsetup">نصب حساب کاربری</string>
   <string name="main_wrn_accsetup">حساب کاربری ownCloud در دستگاه شما وجود ندارد. برای استفاده از این برنامه می‌بایست یکی ایجاد کنید.</string>
-  <string name="about_message">%1$s برنامه ی اندروید\n\nنسخه: %2$s</string>
-  <string name="actionbar_sync">بازنمایی</string>
   <string name="actionbar_upload">بارگزاری</string>
   <string name="actionbar_upload_from_apps">محتوا از دیگر برنامه ها</string>
   <string name="actionbar_upload_files">پرونده‌ها</string>
@@ -35,7 +33,7 @@
   <string name="prefs_pincode">PIN برنامه</string>
   <string name="prefs_instant_upload">فعال کردن بارگذاری فوری</string>
   <string name="prefs_instant_upload_summary">فورا عکسهایی را که با دوربین گرفته شده است را آپلود کن</string>
-  <string name="auth_host_url">آدرس ownCloud </string>
+  <string name="auth_host_url">آدرس سرور</string>
   <string name="auth_username">نام کاربری</string>
   <string name="auth_password">رمز عبور</string>
   <string name="auth_register">من تازه وارد %1$s شدم</string>
@@ -65,9 +63,7 @@
   <string name="filedetails_created">ایجاد شده توسط:</string>
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
-  <string name="filedetails_sync_file">بازنمایی</string>
   <string name="filedetails_redownload">بارگزاری دوباره</string>
-  <string name="filedetails_open">باز کردن</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
@@ -130,21 +126,17 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">تلاش برای ورود</string>
   <string name="auth_no_net_conn_title">هیچ ارتباطی به شبکه موجود نیست</string>
   <string name="auth_no_net_conn_message">هیچ شبکه ی ارتباطی ای یافت نشد، ارتباط اینترنت خودتان را بررسی کنید و دوباره امتحان کنید.</string>
   <string name="auth_connect_anyway">ارتباط به هر طریق</string>
   <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
   <string name="auth_nossl_plain_ok_message">برنامه نمی تواند یک ارتباط امن با سرور ایجاد کند. ارتباط نا امن در دسترس است.شما می تواند ادامه داده یا منصرف شوید.</string>
   <string name="auth_connection_established">اتصال برقرار شد</string>
-  <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
   <string name="auth_unknown_error_title">خطای ناشناخته رخ داده است!</string>
   <string name="auth_incorrect_path_title">نمونه ی سرور یافت نشد</string>
   <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
   <string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
-  <string name="auth_login_details">جزئیات ورود</string>
-  <string name="auth_unauthorized">نام کاربری / رمز عبور نا معتبر است</string>
   <string name="auth_not_found">مسیر داده شده اشتباه است</string>
   <string name="auth_internal">خطای سرور داخلی، کد %1$d</string>
   <string name="crashlog_message">برنامه به شکل غیر منتظره خاتمه یافت.آیا می خواهید این مشکل را گزارش کنید؟</string>

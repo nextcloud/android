@@ -17,7 +17,6 @@
   <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="prefs_category_general">umum</string>
-  <string name="auth_host_url">tautan</string>
   <string name="auth_username">nama pengguna</string>
   <string name="auth_password">kata kunci</string>
   <string name="sync_string_files">Berkas</string>
@@ -26,7 +25,6 @@
   <string name="uploader_btn_upload_text">Unggah</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
   <string name="filedetails_download">unduh</string>
-  <string name="filedetails_open">buka</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>

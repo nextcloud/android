@@ -13,8 +13,6 @@
   <string name="main_settings">Gosodiadau</string>
   <string name="main_tit_accsetup">Gosod Cyfrif</string>
   <string name="main_wrn_accsetup">Does dim cyfrif wedi\'i sefydlu ar eich dyfais. I ddefnyddio\'r Ap hwn, mae angen i chi greu un.</string>
-  <string name="about_message">%1$s Ap Android\n\nfersiwn: %2$s</string>
-  <string name="actionbar_sync">Adnewyddu</string>
   <string name="actionbar_upload">Llwytho i fyny</string>
   <string name="actionbar_upload_from_apps">Cynnwys o becynnau eraill</string>
   <string name="actionbar_upload_files">Ffeiliau</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">Amddiffyn eich cleient</string>
   <string name="prefs_instant_upload">Galluogi llwytho i fyny\'n syth</string>
   <string name="prefs_instant_upload_summary">Llwytho lluniau dynnwyd â chamera i fyny\'n syth</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Enw defnyddiwr</string>
   <string name="auth_password">Cyfrinair</string>
   <string name="auth_register">Rwy\'n newydd i %1$s</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">Crewyd:</string>
   <string name="filedetails_modified">Addaswyd:</string>
   <string name="filedetails_download">Llwytho i lawr</string>
-  <string name="filedetails_sync_file">Adnewyddu</string>
   <string name="filedetails_redownload">Ail-lwytho i lawr</string>
-  <string name="filedetails_open">Agor</string>
   <string name="filedetails_renamed_in_upload_msg">Ailenwyd y ffeil i %1$s wrth lwytho i fyny</string>
   <string name="common_yes">Ie</string>
   <string name="common_no">Na</string>
@@ -138,14 +133,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Yn ceisio mewngofnodi...</string>
   <string name="auth_no_net_conn_title">Dim cysylltiad rhwydwaith</string>
   <string name="auth_no_net_conn_message">Dim cysylltiad rhwydwaith wedi ei ganfod, gwiriwch eich gosodiadau rhyngrwyd a cheisio eto.</string>
   <string name="auth_connect_anyway">Cysylltu beth bynnag</string>
   <string name="auth_nossl_plain_ok_title">Nid oes cysylltiad diogel ar gael.</string>
   <string name="auth_nossl_plain_ok_message">Nid yw\'r rhaglen yn medru sefydlu cysylltiad diogel â\'r gweinydd. Mae cysylltiad anniogel ar gael. Gallwch barhau neu ddiddymu.</string>
   <string name="auth_connection_established">Sefydlwyd y cysylltiad</string>
-  <string name="auth_testing_connection">Profi\'r cysylltiad...</string>
   <string name="auth_not_configured_title">Cyfluniad gweinydd wedi\'i gamffurfio</string>
   <string name="auth_not_configured_message">Ymddengys nad yw eich gweinydd wedi\'i gyflunio\'n gywir. Cysylltwch â\'ch gweinyddwr am fanylion pellach.</string>
   <string name="auth_unknown_error_title">Digwyddodd gwall anhysbys!</string>
@@ -161,8 +154,6 @@
   <string name="auth_bad_oc_version_title">Fersiwn gweinydd heb ei gydnabod</string>
   <string name="auth_wrong_connection_title">Methwyd creu cysylltiad</string>
   <string name="auth_secure_connection">Sefydlwyd cysylltiad diogel</string>
-  <string name="auth_login_details">Manylion mewngofnodi</string>
-  <string name="auth_unauthorized">Mewngofnodiad / cyfrinair annilys </string>
   <string name="auth_not_found">Cyflwynwyd llwybr anghywir</string>
   <string name="auth_internal">Gwall gweinydd mewnol, cod %1$d</string>
   <string name="crashlog_message">Caeodd y rhaglen yn annisgwyl. Hoffech chi anfon adroddiad chwalu?</string>

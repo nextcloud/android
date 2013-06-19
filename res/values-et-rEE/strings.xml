@@ -13,8 +13,6 @@
   <string name="main_settings">Seaded</string>
   <string name="main_tit_accsetup">Konto seadistamine</string>
   <string name="main_wrn_accsetup">Sinu seadmes pole ühtegi ownCloudi kontot. Selle rakenduse kasutamiseks pead sa ühe looma.</string>
-  <string name="about_message">ownCloud Androidi klient\n\nversioon: %1$s</string>
-  <string name="actionbar_sync">Värskenda</string>
   <string name="actionbar_upload">Lae fail üles</string>
   <string name="actionbar_upload_from_apps">Sisu teistest rakendustest</string>
   <string name="actionbar_upload_files">Failid</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Kaitse oma ownCloudi klienti</string>
   <string name="prefs_instant_upload">Luba kohene üleslaadimine</string>
   <string name="prefs_instant_upload_summary">Lae kaamera poolt tehtud fotod automaatselt üles</string>
-  <string name="auth_host_url">ownCloudi URL</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
   <string name="auth_register">Olen uus ownCloudi kasutaja</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Loodud:</string>
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
-  <string name="filedetails_sync_file">Värskenda</string>
   <string name="filedetails_redownload">Lae uuesti alla</string>
-  <string name="filedetails_open">Ava</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
@@ -164,14 +159,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Proovitakse sisse logida...</string>
   <string name="auth_no_net_conn_title">Võrguühendust pole</string>
   <string name="auth_no_net_conn_message">Internetiühendust ei leitud, kontrolli oma interneti ühendust ja proovi uuesti.</string>
   <string name="auth_connect_anyway">Ühenda sellegipoolest</string>
   <string name="auth_nossl_plain_ok_title">Turvaline ühendus pole saadaval</string>
   <string name="auth_nossl_plain_ok_message">Rakendus ei suutnud serveriga turvalist ühendust luua. Kuid saadaval on mitteturvaline ühendus. Sa võid jätkata või loobuda.</string>
   <string name="auth_connection_established">Saadi ühendus</string>
-  <string name="auth_testing_connection">Ühenduse testimine...</string>
   <string name="auth_not_configured_title">Vigases vormingus ownCloud seadistus</string>
   <string name="auth_not_configured_message">Näib, et sinu ownCloud pole korralikult seadistatud. Lisainfo saamiseks võta ühendust oma administraatoriga.</string>
   <string name="auth_unknown_error_title">Tekkis tundmatu tõrge!</string>
@@ -187,8 +180,6 @@
   <string name="auth_bad_oc_version_title">Tundmatu ownCloud serveri versioon</string>
   <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
   <string name="auth_secure_connection">Saavutati turvaline ühendus</string>
-  <string name="auth_login_details">Sisselogimise andmed</string>
-  <string name="auth_unauthorized">Vigane kasutajanimi /parool</string>
   <string name="auth_not_found">Sisestati vale asukoht</string>
   <string name="auth_internal">Sisemine serveri viga, kood %1$d</string>
   <string name="crashlog_message">Rakdnus suleti ootamatult. Kas sa sooviksid saata kokkujooksmise kohta teavitust arendajale?</string>

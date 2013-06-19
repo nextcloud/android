@@ -13,8 +13,6 @@
   <string name="main_settings">Ajustes</string>
   <string name="main_tit_accsetup">Configuración de cuenta</string>
   <string name="main_wrn_accsetup">No hay cuentas en tu dispositivo. Para usar esta aplicación, necesitas crear una.</string>
-  <string name="about_message">%1$s para Android\n\nversión: %2$s</string>
-  <string name="actionbar_sync">Sincronización de cuenta</string>
   <string name="actionbar_upload">Subir archivo</string>
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Proteja su cliente</string>
   <string name="prefs_instant_upload">Habilita la subida instantánea</string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente las fotos tomadas por la cámara</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
   <string name="auth_register">Soy nuevo en %1$s</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
-  <string name="filedetails_sync_file">Actualizar</string>
   <string name="filedetails_redownload">Volver a descargar</string>
-  <string name="filedetails_open">Abrir</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
@@ -165,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Intentado iniciar sesión...</string>
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_no_net_conn_message">No se ha detectado una conexión de red, chequea tu conexión a internet e intenta nuevamente.</string>
   <string name="auth_connect_anyway">Conectar de todos modos</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_nossl_plain_ok_message">La aplicación no pudo establecer una conexión segura al servidor. Aunque no haya una conexión segura disponible, puedes continuar o cancelar.</string>
   <string name="auth_connection_established">Conexión establecida</string>
-  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_not_configured_message">Parece que tu servidor no está correctamente configurado. Contacta a tu administrador para más detalles.</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
@@ -188,8 +181,6 @@
   <string name="auth_bad_oc_version_title">No se reconoce  la versión del servidor </string>
   <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
-  <string name="auth_login_details">Detalles de inicio de sesión</string>
-  <string name="auth_unauthorized">Nombre / contraseña incorrectos</string>
   <string name="auth_not_found">Ruta errónea</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
   <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Desea enviar un reporte de error?</string>

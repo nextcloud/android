@@ -13,8 +13,6 @@
   <string name="main_settings">Ezarpenak</string>
   <string name="main_tit_accsetup">Konfiguratu kontua</string>
   <string name="main_wrn_accsetup"> Ez dago ownCloud konturik zure gailuan. Programa hau erabiltzeko, kontu bat sortu behar duzu.</string>
-  <string name="about_message">ownCloud Android bezeroa\n\nBertsioa: %1$s</string>
-  <string name="actionbar_sync">Birkargatu</string>
   <string name="actionbar_upload">Igo fitxategia</string>
   <string name="actionbar_upload_from_apps">Beste app-en edukia</string>
   <string name="actionbar_upload_files">Fitxategiak</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">Babestu zure ownCloud bezeroa</string>
   <string name="prefs_instant_upload">Gaitu berehalako igoera</string>
   <string name="prefs_instant_upload_summary">Igo berehala kamerak ateratako argazkiak</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria naiz ownCloud-en</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">Sortuta:</string>
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
-  <string name="filedetails_sync_file">Birkargatu</string>
   <string name="filedetails_redownload">Birdeskargatzen</string>
-  <string name="filedetails_open">Ireki</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
@@ -138,14 +133,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Saioa hasten saiatzen...</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_no_net_conn_message">Ez da sare konexiorik antzeman, egiaztatu zure interneteko konexioa eta saiatu berriz.</string>
   <string name="auth_connect_anyway">Konektatu hala ere</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_nossl_plain_ok_message">Aplikazioak ezin izan du zerbitzariarekin konexio seguru bat ezarri. Hala ere konexio ez segurua egin daiteke. Jarraitu edo ezeztatu dezakezu.</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
-  <string name="auth_testing_connection">Konexioa probatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako ownCloud konfigurazioa</string>
   <string name="auth_not_configured_message">Badirudi zure ownCloud instantzia ez dagoela ongi konfiguratuta. Jarri zure harremanetan administradorearkin informazio gehiago izateko.</string>
   <string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>
@@ -161,8 +154,6 @@
   <string name="auth_bad_oc_version_title">ownCloud zerbitzari bertsio ezezaguna</string>
   <string name="auth_wrong_connection_title">Ezin izan da konexioa egin</string>
   <string name="auth_secure_connection">Konexio segurua ezarri da</string>
-  <string name="auth_login_details">Saio hasierako ezarpenak</string>
-  <string name="auth_unauthorized">Erabiltzaile / pasahitz baliogabea</string>
   <string name="auth_not_found">Okerreko bidea emanda</string>
   <string name="auth_internal">Barne zerbitzari errorea, kodea: %1$d</string>
   <string name="crashlog_message">Programa ezustekoan bukatu da. Nahiko zenuke huts egitearen berri eman?</string>

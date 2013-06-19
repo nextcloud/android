@@ -13,7 +13,6 @@
   <string name="main_settings">Tetapan-tetapan</string>
   <string name="main_tit_accsetup">Set akaun</string>
   <string name="main_wrn_accsetup">Peranti anda tidak mempunyai akaun ownCloud. Anda perlu membina satu akaun untuk menggunakan aplikasi ini</string>
-  <string name="actionbar_sync">Refresh</string>
   <string name="actionbar_upload">Muat naik</string>
   <string name="actionbar_upload_files">Fail-fail</string>
   <string name="actionbar_mkdir">Bina direktori</string>
@@ -27,7 +26,7 @@
   <string name="prefs_trackmydevice">Peranti sedang dijejaki</string>
   <string name="prefs_trackmydevice_interval_summary">Kemaskini setiap %1$s minit</string>
   <string name="prefs_accounts">Akaun</string>
-  <string name="auth_host_url">URL ownCloud</string>
+  <string name="auth_host_url">Alamat pelayan</string>
   <string name="auth_username">Nama pengguna</string>
   <string name="auth_password">Kata laluan</string>
   <string name="new_session_uri_error">URL yang diberikan adalah salah</string>
@@ -49,9 +48,7 @@
   <string name="filedetails_created">Telah dibina:</string>
   <string name="filedetails_modified">Telah diubah:</string>
   <string name="filedetails_download">Muatturun</string>
-  <string name="filedetails_sync_file">Refresh</string>
   <string name="filedetails_redownload">Refresh</string>
-  <string name="filedetails_open">Buka</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">OK</string>

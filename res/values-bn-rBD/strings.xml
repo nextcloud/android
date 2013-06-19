@@ -9,7 +9,6 @@
   <string name="main_bookmarks">ঠিকা</string>
   <string name="main_settings">নিয়ামকসমূহ</string>
   <string name="main_tit_accsetup">একাউন্ট সেটআপ</string>
-  <string name="actionbar_sync">নবোদ্যম</string>
   <string name="actionbar_upload">আপলোড</string>
   <string name="actionbar_upload_files">ফাইল</string>
   <string name="actionbar_mkdir">ডিরেক্টরি তৈরী কর</string>
@@ -22,7 +21,7 @@
   <string name="prefs_trackmydevice">ডিভাইস ট্র্যাকিং</string>
   <string name="prefs_trackmydevice_interval">পরিবর্ধনের মধ্যবিরতি</string>
   <string name="prefs_accounts">একাউন্ট</string>
-  <string name="auth_host_url">URL</string>
+  <string name="auth_host_url">সার্ভার ঠিকানা</string>
   <string name="auth_username">ব্যবহারকারি</string>
   <string name="auth_password">কূটশব্দ</string>
   <string name="new_session_uri_error">ভুল ঠিকানা প্রদান করা হয়েছে</string>
@@ -44,8 +43,6 @@
   <string name="filedetails_created">তৈরীর নির্ঘন্টঃ</string>
   <string name="filedetails_modified">পরিবর্তিতঃ</string>
   <string name="filedetails_download">ডাউনলোড</string>
-  <string name="filedetails_sync_file">নবোদ্যম</string>
-  <string name="filedetails_open">খোল</string>
   <string name="common_yes">হ্যাঁ</string>
   <string name="common_no">না</string>
   <string name="common_ok">তথাস্তু</string>

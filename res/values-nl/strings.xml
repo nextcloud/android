@@ -13,8 +13,6 @@
   <string name="main_settings">Instellingen</string>
   <string name="main_tit_accsetup">Account configureren.</string>
   <string name="main_wrn_accsetup">Er zijn nog geen ownCloud accounts op dit apparaat. Als je deze app wilt gebruiken zul je een account moeten aanmaken.</string>
-  <string name="about_message">ownCloud Android client\n\nversie: %1$s</string>
-  <string name="actionbar_sync">Verversen</string>
   <string name="actionbar_upload">Uploaden</string>
   <string name="actionbar_upload_from_apps">Inhoud van andere apps</string>
   <string name="actionbar_upload_files">Bestanden</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Beveilig je ownCloud client</string>
   <string name="prefs_instant_upload">Schakel direct uploaden in</string>
   <string name="prefs_instant_upload_summary">Upload afbeeldingen van camera automatisch</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
   <string name="auth_register">Ik ben nieuw op ownCloud</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Aangemaakt:</string>
   <string name="filedetails_modified">Aangepast:</string>
   <string name="filedetails_download">Download</string>
-  <string name="filedetails_sync_file">Verversen</string>
   <string name="filedetails_redownload">Opnieuw downloaden</string>
-  <string name="filedetails_open">Open</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand was hernoemt naar %1$s tijdens het uploaden</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
@@ -164,14 +159,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Proberen om in te loggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_no_net_conn_message">Er kon geen netwerkverbinding worden gevonden, controleer je internet verbinding en probeer het opnieuw.</string>
   <string name="auth_connect_anyway">Toch verbinden</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_nossl_plain_ok_message">De applicatie kon geen beveiligde verbinding met de server maken. Er is echter wel een onbeveiligde verbinding beschikbaar. Je kunt verdergaan of annuleren.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-  <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve ownCloud configuratie</string>
   <string name="auth_not_configured_message">Het lijkt erop dat je ownCloud instantie niet correct geconfigureerd is. Neem contact op met je beheerder voor meer details.</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
@@ -187,8 +180,6 @@
   <string name="auth_bad_oc_version_title">Onherkende ownCloud server versie</string>
   <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen.</string>
   <string name="auth_secure_connection">Veilige verbinding tot stand gebracht</string>
-  <string name="auth_login_details">Inloggegevens</string>
-  <string name="auth_unauthorized">login / password niet juist</string>
   <string name="auth_not_found">Verkeerde pad opgegeven</string>
   <string name="auth_internal">Interne server fout, code %1$d</string>
   <string name="crashlog_message">De applicatie is onverwacht beëindigd. Wilt je een crash report versturen?</string>

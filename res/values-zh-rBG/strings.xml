@@ -13,8 +13,6 @@
   <string name="main_settings">设置</string>
   <string name="main_tit_accsetup">设置帐号</string>
   <string name="main_wrn_accsetup">您的设备上没有 ownCloud 帐号。要使用此应用，您需要创建一个帐号。</string>
-  <string name="about_message">ownCloud Android 客户端⏎ ⏎ 版本：%1$s</string>
-  <string name="actionbar_sync">刷新</string>
   <string name="actionbar_upload">上传</string>
   <string name="actionbar_upload_from_apps">其他应用的内容</string>
   <string name="actionbar_upload_files">文件</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">保护您的 ownCloud 客户端</string>
   <string name="prefs_instant_upload">启用即时上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍下的相片</string>
-  <string name="auth_host_url">ownCloud 网址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="auth_register">我是 ownCloud 新人</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">修改于：</string>
   <string name="filedetails_download">下载</string>
-  <string name="filedetails_sync_file">刷新</string>
   <string name="filedetails_redownload">重新下载</string>
-  <string name="filedetails_open">打开</string>
   <string name="filedetails_renamed_in_upload_msg">文件在上传过程中被重命名为 %1$s </string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
@@ -138,14 +133,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">尝试登录...</string>
   <string name="auth_no_net_conn_title">无网络连接</string>
   <string name="auth_no_net_conn_message">没有检测到网络连接，请检查您的互联网连接并重试。</string>
   <string name="auth_connect_anyway">强制连接</string>
   <string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
   <string name="auth_nossl_plain_ok_message">应用未能建立到服务器的安全连接。但是非安全连接可用。您可以继续或取消。</string>
   <string name="auth_connection_established">连接已建立</string>
-  <string name="auth_testing_connection">测试连接...</string>
   <string name="auth_not_configured_title">ownCloud 配置格式不正确</string>
   <string name="auth_not_configured_message">似乎您的 ownCloud 实例未正确配置。详情联系您的管理员。</string>
   <string name="auth_unknown_error_title">发生了未知错误！</string>
@@ -161,8 +154,6 @@
   <string name="auth_bad_oc_version_title">未知 ownCloud 服务器版本</string>
   <string name="auth_wrong_connection_title">不能建立连接</string>
   <string name="auth_secure_connection">安全连接已建立</string>
-  <string name="auth_login_details">登录细节</string>
-  <string name="auth_unauthorized">无效登录/密码</string>
   <string name="auth_not_found">路径错误</string>
   <string name="auth_internal">服务器内部错误，错误代码：%1$d</string>
   <string name="crashlog_message">应用非预期终止。您愿意提交崩溃报告吗？</string>

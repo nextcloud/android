@@ -12,7 +12,6 @@
   <string name="main_bookmarks">خەتكۈچلەر</string>
   <string name="main_settings">تەڭشەكلەر</string>
   <string name="main_tit_accsetup">ھېسابات تەڭشەك</string>
-  <string name="actionbar_sync">يېڭىلا</string>
   <string name="actionbar_upload">يۈكلە</string>
   <string name="actionbar_upload_files">ھۆججەتلەر</string>
   <string name="actionbar_mkdir">مۇندەرىجە قۇر</string>
@@ -25,7 +24,6 @@
   <string name="prefs_trackmydevice">ئۈسكۈنە ئىزلاش</string>
   <string name="prefs_trackmydevice_interval">يېڭىلاش ئارىلىقى</string>
   <string name="prefs_accounts">ھېساباتلار</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">ئىشلەتكۈچى ئاتى</string>
   <string name="auth_password">ئىم</string>
   <string name="new_session_uri_error">خاتا ئادرېس كىرگۈزۈۇلدى</string>
@@ -49,8 +47,6 @@
   <string name="filedetails_created">قۇرۇلغان ۋاقتى:</string>
   <string name="filedetails_modified">ئۆزگەرتكەن ۋاقىت:</string>
   <string name="filedetails_download">چۈشۈر</string>
-  <string name="filedetails_sync_file">يېڭىلا</string>
-  <string name="filedetails_open">ئاچ</string>
   <string name="common_yes">ھەئە</string>
   <string name="common_no">ياق</string>
   <string name="common_ok">جەزملە</string>

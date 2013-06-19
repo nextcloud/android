@@ -13,7 +13,6 @@
   <string name="main_settings">تعديلات</string>
   <string name="main_tit_accsetup">إعداد حساب</string>
   <string name="main_wrn_accsetup">لا يوجد أي حساب على الجهاز الخاص بك. من اجل استخدام هذا التطبيق، تحتاج إلى إنشاء واحد.</string>
-  <string name="actionbar_sync">تحديث</string>
   <string name="actionbar_upload">رفع</string>
   <string name="actionbar_upload_from_apps">محتويات من تطبيقات أخرى</string>
   <string name="actionbar_upload_files">الملفات</string>
@@ -30,7 +29,6 @@
   <string name="prefs_trackmydevice_summary_on">هذا التطبيق يتتبع هذا الجهاز</string>
   <string name="prefs_trackmydevice_interval"> الفاصل الزمني للتحديث</string>
   <string name="prefs_accounts">حسابات</string>
-  <string name="auth_host_url">عنوان الموقع</string>
   <string name="auth_username">إسم المستخدم</string>
   <string name="auth_password">كلمات السر</string>
   <string name="new_session_uri_error">العنوان المعطى غير صحيحة</string>
@@ -54,8 +52,6 @@
   <string name="filedetails_type">النوع</string>
   <string name="filedetails_modified">عُدل</string>
   <string name="filedetails_download">انزال</string>
-  <string name="filedetails_sync_file">تحديث</string>
-  <string name="filedetails_open">افتح</string>
   <string name="common_yes">نعم</string>
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>
@@ -79,16 +75,13 @@
   <string name="use_ssl">استخدم اتصال آمن</string>
   <string name="pincode_enter_pin_code">فضلا, ادخل كلمة السر</string>
   <string name="pincode_enter_new_pin_code">فضلا, ادخل كلمة كلمة سر جديدة</string>
-  <string name="auth_trying_to_login">محاولة تسجيل الدخول</string>
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_connect_anyway">اتصل على أية حال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
   <string name="auth_connection_established">يتم إنشاء الاتصال</string>
-  <string name="auth_testing_connection">اختبار إمكانية الاتصال</string>
   <string name="auth_unknown_error_title">حدث خطأ غير معروف</string>
   <string name="auth_wrong_connection_title">لا يمكن إنشاء اتصال</string>
   <string name="auth_secure_connection">تم إنشاء اتصال آمن</string>
-  <string name="auth_login_details">تفاصيل تسجيل الدخول</string>
   <string name="crashlog_dont_send_report">لا ترسل تقرير</string>
   <string name="common_share">شارك</string>
   <string name="common_rename">إعادة تسميه</string>

@@ -13,8 +13,6 @@
   <string name="main_settings">Asetukset</string>
   <string name="main_tit_accsetup">Aseta tili</string>
   <string name="main_wrn_accsetup">Laitteessasi ei ole ownCloud-tilejä. Luo tili käyttääksesi tätä sovellusta.</string>
-  <string name="about_message">ownCloudin Android-sovellus\n\nversio: %1$s</string>
-  <string name="actionbar_sync">Päivitä</string>
   <string name="actionbar_upload">Lähetä tiedosto</string>
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
   <string name="actionbar_upload_files">Tiedostot</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Suojaa ownCloud-asiakasohjelmasi</string>
   <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
-  <string name="auth_host_url">ownCloud-osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
   <string name="auth_register">Olen uusi ownCloudin kanssa</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">Luotu:</string>
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
-  <string name="filedetails_sync_file">Päivitä</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
-  <string name="filedetails_open">Avaa</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
@@ -147,14 +142,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_no_net_conn_message">Verkkoyhteyttä ei havaittu. Tarkista internetyhteyden tila ja yritä uudelleen.</string>
   <string name="auth_connect_anyway">Yhdistä silti</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_nossl_plain_ok_message">Sovellus ei voinut luoda salattua yhteyttä palvelimeen. Kuitenkin salaamaton yhteys on olemassa. Jatka sitä käyttäen tai lopeta tähän.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
-  <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt ownCloud-asetukset</string>
   <string name="auth_not_configured_message">Vaikuttaa ettei ownCloud ole oikein määritetty. Ota yhteyttä ylläpitäjään.</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
@@ -170,8 +163,6 @@
   <string name="auth_bad_oc_version_title">Tuntematon ownCloud-palvelimen versio</string>
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
-  <string name="auth_login_details">Kirjautumistiedot</string>
-  <string name="auth_unauthorized">Virheellinen tunnus tai salasana</string>
   <string name="auth_not_found">Väärä polku</string>
   <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>

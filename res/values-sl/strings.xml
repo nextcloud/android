@@ -13,8 +13,6 @@
   <string name="main_settings">Nastavitve</string>
   <string name="main_tit_accsetup">Nastavi račun</string>
   <string name="main_wrn_accsetup">Na vaši napravi ni računa ownCloud. Za uporabo tega programa je treba račun ustvariti.</string>
-  <string name="about_message">Odjemalec ownCloud za Android\n\nrazličica: %1$s</string>
-  <string name="actionbar_sync">Osveži</string>
   <string name="actionbar_upload">Pošlji datoteko</string>
   <string name="actionbar_upload_from_apps">Vsebina iz drugih programov</string>
   <string name="actionbar_upload_files">Datoteke</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Zaščitite odjemalec ownCloud</string>
   <string name="prefs_instant_upload">Omogoči takojšnje pošiljanje</string>
   <string name="prefs_instant_upload_summary">Takojšnje pošiljanje posnetih fotografij</string>
-  <string name="auth_host_url">Naslov URL ownCloud</string>
+  <string name="auth_host_url">Naslov strežnika</string>
   <string name="auth_username">Uporabniško ime</string>
   <string name="auth_password">Geslo</string>
   <string name="auth_register">Sem nov v oblaku ownCloud</string>
@@ -69,9 +67,7 @@
   <string name="filedetails_created">Ustvarjeno:</string>
   <string name="filedetails_modified">Spremenjeno:</string>
   <string name="filedetails_download">Prejmi</string>
-  <string name="filedetails_sync_file">Osveži</string>
   <string name="filedetails_redownload">Osveži</string>
-  <string name="filedetails_open">Odpri</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
@@ -140,14 +136,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Poteka poskus prijave …</string>
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_no_net_conn_message">Omrežna povezava ni zaznana. Preverite internetno povezavo in poskusite znova.</string>
   <string name="auth_connect_anyway">Vseeno poveži</string>
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
   <string name="auth_nossl_plain_ok_message">Programu ni uspelo vzpostaviti varne povezave s strežnikom. Nadaljujete lahko z ne-varno povezavo ali pa prekinete.</string>
   <string name="auth_connection_established">Povezava je vzpostavljena</string>
-  <string name="auth_testing_connection">Preizkušanje povezave ...</string>
   <string name="auth_not_configured_title">Nastavitve ownCloud so napačno oblikovane</string>
   <string name="auth_not_configured_message">Zdi se, da vaš ownCloud ni pravilno nastavljen. Za dodatna pojasnila se obrnite na skrbnika.</string>
   <string name="auth_unknown_error_title">Prišlo je do neznane napake</string>
@@ -163,8 +157,6 @@
   <string name="auth_bad_oc_version_title">Neprepoznana različica strežnika ownCloud</string>
   <string name="auth_wrong_connection_title">Povezave ni mogoče vzpostaviti</string>
   <string name="auth_secure_connection">Varna povezava je vzpostavljena</string>
-  <string name="auth_login_details">Podrobnost prijave</string>
-  <string name="auth_unauthorized">Neveljavna prijava / geslo</string>
   <string name="auth_not_found">Podana je bila napačna pot</string>
   <string name="auth_internal">Notranja napaka strežnika, koda %1$d</string>
   <string name="crashlog_message">Program se je nepričakovano zaprl. Ali bi želeli poslati poročilo o sesutju?</string>

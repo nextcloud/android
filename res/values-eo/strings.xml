@@ -13,8 +13,6 @@
   <string name="main_settings">Agordo</string>
   <string name="main_tit_accsetup">Agordi konton</string>
   <string name="main_wrn_accsetup">Estas neniu konto de ownCloud en via aparato. Por povi uzi ĉi tiun aplikaĵon, vi devas krei iun.</string>
-  <string name="about_message">Android-aplikaĵo %1$s\n\neldono: %2$s</string>
-  <string name="actionbar_sync">Refreŝigi</string>
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
   <string name="actionbar_upload_files">Dosieroj</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">Protekti vian ownCloud-klienton</string>
   <string name="prefs_instant_upload">Kapabligi tujan alŝuton</string>
   <string name="prefs_instant_upload_summary">Tuje alŝuti fotojn faritajn per fotilo</string>
-  <string name="auth_host_url">URL de ownCloud</string>
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
   <string name="auth_register">Mi estas nova ĉe ownCloud</string>
@@ -67,9 +64,7 @@
   <string name="filedetails_created">Kreita je:</string>
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
-  <string name="filedetails_sync_file">Refreŝigi</string>
   <string name="filedetails_redownload">Reelŝuti</string>
-  <string name="filedetails_open">Malfermi</string>
   <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
@@ -128,13 +123,11 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Provante ensaluti...</string>
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
   <string name="auth_no_net_conn_message">Neniu reta konekto detektiĝis; kontrolu vian Interretan konekton kaj provu denove.</string>
   <string name="auth_connect_anyway">Konekti ĉiuokaze</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
-  <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita ownCloud-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_error_message">Nekonata eraro okazis. Bonvolu kontakti verkintojn kaj inkluzivigi registrojn el via aparato.</string>
@@ -148,8 +141,6 @@
   <string name="auth_bad_oc_version_title">Nerekonita eldono de ownCloud-servilo</string>
   <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
   <string name="auth_secure_connection">Sekura konekto stariĝis</string>
-  <string name="auth_login_details">Ensalutaj detaloj</string>
-  <string name="auth_unauthorized">Nevalida ensalutonomo/pasvorto</string>
   <string name="auth_not_found">Malĝusta vojo doniĝis</string>
   <string name="auth_internal">Ena servila eraro: kodo %1$d</string>
   <string name="crashlog_message">Aplikaĵo finis neatendite. Ĉu vi volus sendi paneoraporton?</string>

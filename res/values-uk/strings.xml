@@ -13,8 +13,6 @@
   <string name="main_settings">Налаштування</string>
   <string name="main_tit_accsetup">Налаштування облікового запису</string>
   <string name="main_wrn_accsetup">На Вашому пристрої відсутні облікові запси ownCloud. Для того, щоб користуватися цим ПО, Вам потрібно створити обліковий запис.</string>
-  <string name="about_message">%1$s Android клієнт\n\nверсія: %2$s</string>
-  <string name="actionbar_sync">Оновити</string>
   <string name="actionbar_upload">Відвантажити</string>
   <string name="actionbar_upload_from_apps">Вміст із інших програм</string>
   <string name="actionbar_upload_files">Файли</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Захист Вашог ownCloud клієнта</string>
   <string name="prefs_instant_upload">Включити негайне завантаження</string>
   <string name="prefs_instant_upload_summary">Негайно завантажувати фото, зроблені камерою</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Я новачок в ownCloud</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">Створено:</string>
   <string name="filedetails_modified">Змінено:</string>
   <string name="filedetails_download">Завантажити</string>
-  <string name="filedetails_sync_file">Оновити</string>
   <string name="filedetails_redownload">Оновити</string>
-  <string name="filedetails_open">Відкрити</string>
   <string name="filedetails_renamed_in_upload_msg">Файл був переіменований в %1$s протягом вивантаження</string>
   <string name="common_yes">Так</string>
   <string name="common_no">Ні</string>
@@ -139,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Спроба входу…</string>
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
   <string name="auth_no_net_conn_message">Не знайдено підключення до мережі, перевірте своє підключення до Інтернету та спробуйте ще.</string>
   <string name="auth_connect_anyway">Все одно з\'єднатися</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
   <string name="auth_nossl_plain_ok_message">Програма не може встановити безпечне з\'єднання з сервером. Проте, не захищене з\'єднання можливе. Ви можете продовжити або відмінити.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
-  <string name="auth_testing_connection">Перевірка з\'єднання…</string>
   <string name="auth_not_configured_title">Не вірні налаштування ownCloud </string>
   <string name="auth_not_configured_message">Здається, Ваш ownCloud примірник не правильно налаштовано. Зверніться до адміністратора для більш докладної інформації.</string>
   <string name="auth_unknown_error_title">Виникла невідома помилка!</string>
@@ -162,8 +155,6 @@
   <string name="auth_bad_oc_version_title">Не вдалося визначити версію ownCloud серверу</string>
   <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
   <string name="auth_secure_connection">Встановлено захищене з\'єднання</string>
-  <string name="auth_login_details">Дані для входу</string>
-  <string name="auth_unauthorized">Невірний Логін / Пароль</string>
   <string name="auth_not_found">Вказано невірний шлях</string>
   <string name="auth_internal">Внутрішня помилка серверу, код %1$d</string>
   <string name="crashlog_message">Програма несподівано закрилася. Чи бажаєте Ви надіслати доповідь про аварію?</string>

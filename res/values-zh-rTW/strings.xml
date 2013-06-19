@@ -13,7 +13,6 @@
   <string name="main_settings">設定</string>
   <string name="main_tit_accsetup">設定帳號</string>
   <string name="main_wrn_accsetup">您尚未在裝置上設定您的 ownCloud 帳號，您必需建立一組帳號才能繼續使用。</string>
-  <string name="actionbar_sync">重新整理</string>
   <string name="actionbar_upload">上傳檔案</string>
   <string name="actionbar_upload_from_apps">其他應用程序的內容</string>
   <string name="actionbar_upload_files">檔案</string>
@@ -34,7 +33,7 @@
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode_summary">保護您的ownCloud用戶端</string>
   <string name="prefs_instant_upload">啟用即時上傳</string>
-  <string name="auth_host_url">URL</string>
+  <string name="auth_host_url">伺服器位址</string>
   <string name="auth_username">使用者名稱</string>
   <string name="auth_password">密碼</string>
   <string name="new_session_uri_error">錯誤的位址</string>
@@ -62,9 +61,7 @@
   <string name="filedetails_created">建立:</string>
   <string name="filedetails_modified">修改:</string>
   <string name="filedetails_download">下載</string>
-  <string name="filedetails_sync_file">更新</string>
   <string name="filedetails_redownload">重新下載</string>
-  <string name="filedetails_open">開啟</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>
@@ -116,14 +113,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">嘗試登入...</string>
   <string name="auth_no_net_conn_title">沒有網際網路連線</string>
   <string name="auth_no_net_conn_message">沒有偵測到網際網路連線，請檢查您的連線然後再試一次。</string>
   <string name="auth_connect_anyway">繼續連線</string>
   <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
   <string name="auth_nossl_plain_ok_message">無法與伺服器建立安全連線，可以使用不安全連線（未加密）以繼續，您可以繼續或取消。</string>
   <string name="auth_connection_established">連線已建立</string>
-  <string name="auth_testing_connection">測試連線...</string>
   <string name="auth_not_configured_title">伺服器設定有問題</string>
   <string name="auth_not_configured_message">看起來您的伺服器並未被正確設定，請聯絡服務管理者以取得協助。</string>
   <string name="auth_unknown_error_title">發生未知的錯誤！</string>
@@ -138,8 +133,6 @@
   <string name="auth_bad_oc_version_title">無法辨識的ownCloud伺服器版本</string>
   <string name="auth_wrong_connection_title">無法建立連線</string>
   <string name="auth_secure_connection">安全連線已建立</string>
-  <string name="auth_login_details">登入細節</string>
-  <string name="auth_unauthorized">登入信息/密碼無效</string>
   <string name="crashlog_send_report">發送報告</string>
   <string name="crashlog_dont_send_report">不要發送報告</string>
   <string name="fd_keep_in_sync">讓檔案保持最新的</string>

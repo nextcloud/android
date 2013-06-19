@@ -13,8 +13,6 @@
   <string name="main_settings">Nastavenia</string>
   <string name="main_tit_accsetup">Nastavenie účtu</string>
   <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
-  <string name="about_message">%1$s Android App\n\nverzia: %2$s</string>
-  <string name="actionbar_sync">Obnoviť</string>
   <string name="actionbar_upload">Nahraj súbor</string>
   <string name="actionbar_upload_from_apps">Obsah z inej aplikácie</string>
   <string name="actionbar_upload_files">Súbory</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">Chrániť klienta ownCloud</string>
   <string name="prefs_instant_upload">Zapnúť okamžité odosielanie</string>
   <string name="prefs_instant_upload_summary">Okamžite odosielať fotky z fotoaparátu</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
   <string name="auth_register">Som nový v %1$s</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">Vytvorený:</string>
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
-  <string name="filedetails_sync_file">Obnoviť</string>
   <string name="filedetails_redownload">Obnoviť</string>
-  <string name="filedetails_open">Otvoriť</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
@@ -139,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Pokus o pripojenie...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
   <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_nossl_plain_ok_message">Aplikácia nemôže nadviazať zabezpečené spojenie so serverom. Nezabezpečené pripojenie je k dispozícii. Môžete pokračovať alebo prerušiť spojenie.</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
-  <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia ownCloud</string>
   <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
@@ -162,8 +155,6 @@
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
-  <string name="auth_login_details">Podrobnosti prihlásenia</string>
-  <string name="auth_unauthorized">Neplatné prihlasovacie meno / heslo</string>
   <string name="auth_not_found">Je zadaná neplatná cesta</string>
   <string name="auth_internal">Interná chyba servera, kód %1$d</string>
   <string name="crashlog_message">Aplikácia neočakávane ukončila činnosť. Chcete poslať správu o chybe?</string>

@@ -10,7 +10,6 @@
   <string name="main_calendar">Kalendar</string>
   <string name="main_bookmarks">Zabilješke</string>
   <string name="main_settings">Postavke</string>
-  <string name="actionbar_sync">Osvježi</string>
   <string name="actionbar_upload">Učitaj</string>
   <string name="actionbar_upload_files">Datoteke</string>
   <string name="actionbar_mkdir">Kreiraj direktorij</string>
@@ -20,7 +19,6 @@
   <string name="prefs_add_session">Dodaj novo pretraživanje</string>
   <string name="prefs_select_oc_account">Izaberi račun</string>
   <string name="prefs_accounts">Korisnićki računi</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
@@ -32,7 +30,6 @@
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
   <string name="filedetails_download">Preuzimanje</string>
-  <string name="filedetails_sync_file">Osvježi</string>
   <string name="filedetails_redownload">Osvježi</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
@@ -40,7 +37,6 @@
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
   <string name="sync_string_contacts">Kontakti</string>
-  <string name="auth_trying_to_login">Trying to login…</string>
   <string name="common_share">Podijeli</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>

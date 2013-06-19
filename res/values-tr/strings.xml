@@ -13,8 +13,6 @@
   <string name="main_settings">Ayarlar</string>
   <string name="main_tit_accsetup">Kurulum Hesabi</string>
   <string name="main_wrn_accsetup">Cihazınızda ownCloud hesabı bulunmamaktadır. Bu uygulamayı kullanabilmeniz için ownCloud hesabı oluşturmalısınız.</string>
-  <string name="about_message">%1$s Android Uygulaması\n\nsürüm: %2$s</string>
-  <string name="actionbar_sync">Eşitleme hesabi</string>
   <string name="actionbar_upload">Dosya yükle</string>
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">İstemcinizi koruyun</string>
   <string name="prefs_instant_upload">Anında yükleme etkinleştir</string>
   <string name="prefs_instant_upload_summary">Anında çekilen fotoğrafları yükle</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
   <string name="auth_register">ownCloud\'da yeniyim.</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">Yaratma:</string>
   <string name="filedetails_modified">Değiştirme:</string>
   <string name="filedetails_download">İndir</string>
-  <string name="filedetails_sync_file">Tazele</string>
   <string name="filedetails_redownload">Tekrar indir</string>
-  <string name="filedetails_open">Aç</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
@@ -139,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Giriş için deneniyor</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_no_net_conn_message">Ağ bağlantısı bulunamadı. İnternet bağlantı ayarlarınızı kontrol edin ve tekrar deneyin.</string>
   <string name="auth_connect_anyway">Her halükarda bağlan</string>
   <string name="auth_nossl_plain_ok_title">Günvenli bağlantı mevcut değil.</string>
   <string name="auth_nossl_plain_ok_message">Uygulama sunucu ile güvenli bağlantı kuramadı. Buna rağmen güvensiz bağlantı mevcut. Devam edebilirsiniz veya iptal edebilirsiniz.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
-  <string name="auth_testing_connection">Bağlantı kontrol ediliyor ...</string>
   <string name="auth_not_configured_title">Hatalı ownCloud ayarı.</string>
   <string name="auth_not_configured_message">Görünüşe bakılırsa ownCloud servisiniz doğru ayarlanmamış. Detaylı bilgi için sistem yöneticinize başvurunuz.</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>
@@ -162,8 +155,6 @@
   <string name="auth_bad_oc_version_title">Bilinmeyen ownCloud sunucu sürümü</string>
   <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
   <string name="auth_secure_connection">Güvenli bağlantı sağlandı.</string>
-  <string name="auth_login_details">Giriş detayları</string>
-  <string name="auth_unauthorized">Geçersiz kullanıcı adı/parola</string>
   <string name="auth_not_found">Hatalı dosya yolu</string>
   <string name="auth_internal">İç sunucu hatası, kod %1$d</string>
   <string name="crashlog_message">Uygulama umulmadık bir şekilde sonlandı. Hata raporunu göndermek ister misiniz ?</string>

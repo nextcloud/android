@@ -13,7 +13,6 @@
   <string name="main_settings">Innstillinger</string>
   <string name="main_tit_accsetup">Sett opp konto</string>
   <string name="main_wrn_accsetup">Det finnes ingen ownClound kontoer for din enhent. For å bruker denne appen må du opprette en,</string>
-  <string name="actionbar_sync">Oppdater</string>
   <string name="actionbar_upload">Last opp</string>
   <string name="actionbar_upload_from_apps">Innhold fra andre applikasjoner</string>
   <string name="actionbar_upload_files">Filer</string>
@@ -29,7 +28,7 @@
   <string name="prefs_trackmydevice_interval_summary">Oppdater hvert %1$s minutt</string>
   <string name="prefs_accounts">Kontoer</string>
   <string name="prefs_instant_upload_summary">Last opp bilder tatt med kamera øyeblikkelig</string>
-  <string name="auth_host_url">URL</string>
+  <string name="auth_host_url">Server-adresse</string>
   <string name="auth_username">Brukernavn</string>
   <string name="auth_password">Passord</string>
   <string name="sync_string_files">Filer</string>
@@ -53,9 +52,7 @@
   <string name="filedetails_created">Opprettet:</string>
   <string name="filedetails_modified">Endret:</string>
   <string name="filedetails_download">Last ned</string>
-  <string name="filedetails_sync_file">Oppdater</string>
   <string name="filedetails_redownload">Last ned igjen</string>
-  <string name="filedetails_open">Åpne</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
@@ -98,12 +95,10 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Prøver å logge inn...</string>
   <string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
   <string name="auth_connect_anyway">Koble til likevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
   <string name="auth_connection_established">Tilkobling opprettet</string>
-  <string name="auth_testing_connection">Tester tilkobling...</string>
   <string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
   <string name="auth_unknown_host_title">Fant ikke tjener</string>
   <string name="auth_unknown_host_message">Fant ikke spesifisert tjener.  Vennligst sjekk tjenernavnet og server-tilgjengeligheten, og prøv på nytt.</string>
@@ -113,8 +108,6 @@
   <string name="auth_ssl_unverified_server_title">Uverifisert SSL-servers identitet</string>
   <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
   <string name="auth_secure_connection">Sikker tilkobling opprettet</string>
-  <string name="auth_login_details">Innloggingsdetaljer</string>
-  <string name="auth_unauthorized">Ugyldig brukernavn / passord</string>
   <string name="crashlog_send_report">Send rapport</string>
   <string name="crashlog_dont_send_report">Ikke send rapport</string>
   <string name="extensions_avail_title">Utvidelser tilgjengelig!</string>

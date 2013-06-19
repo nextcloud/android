@@ -13,8 +13,6 @@
   <string name="main_settings">設定</string>
   <string name="main_tit_accsetup">アカウントを設定</string>
   <string name="main_wrn_accsetup">このデバイスには、ownCloudのアカウントがありません。このアプリケーションを使用するにはアカウントを作成してください。</string>
-  <string name="about_message">ownCloud Android クライアント\n\nバージョン: %1$s</string>
-  <string name="actionbar_sync">同期</string>
   <string name="actionbar_upload">ファイルをアップロード</string>
   <string name="actionbar_upload_from_apps">他アプリからのコンテンツ</string>
   <string name="actionbar_upload_files">ファイル</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">ownCloudクライアントを保護する</string>
   <string name="prefs_instant_upload">自動アップロードを有効</string>
   <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">ユーザー名</string>
   <string name="auth_password">パスワード</string>
   <string name="auth_register">私は、ownCloudの新規ユーザーです。</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">作成:</string>
   <string name="filedetails_modified">更新:</string>
   <string name="filedetails_download">ダウンロード</string>
-  <string name="filedetails_sync_file">同期</string>
   <string name="filedetails_redownload">再ダウンロード</string>
-  <string name="filedetails_open">開く</string>
   <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
@@ -165,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">ログイン中...</string>
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_no_net_conn_message">ネットワーク接続が見つかりません、インターネット接続を確認してからお試しください。</string>
   <string name="auth_connect_anyway">接続する</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_nossl_plain_ok_message">サーバーとの暗号化通信を確立できませんでした。しかし、通常の通信が利用できます。続けますか？</string>
   <string name="auth_connection_established">接続が確立しました</string>
-  <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">ownCloudサーバーの間違った設定</string>
   <string name="auth_not_configured_message">ownCloudサーバー設定が正しくないようです。詳しくは管理者にご相談ください。</string>
   <string name="auth_unknown_error_title">不明なエラーに発生しました</string>
@@ -188,8 +181,6 @@
   <string name="auth_bad_oc_version_title">認識出来ないownCloudサーバのバージョンです</string>
   <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
   <string name="auth_secure_connection">暗号化通信を確立しました</string>
-  <string name="auth_login_details">ログインの詳細</string>
-  <string name="auth_unauthorized">無効なログイン／パスワード</string>
   <string name="auth_not_found">誤ったパスが指定されました</string>
   <string name="auth_internal">内部サーバエラー、コード %1$d</string>
   <string name="crashlog_message">アプリケーションが予期せず終了しました。クラッシュレポートを送ってもよろしいでしょうか？</string>

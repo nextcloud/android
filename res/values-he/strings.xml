@@ -13,8 +13,6 @@
   <string name="main_settings">הגדרות</string>
   <string name="main_tit_accsetup">הגדרת חשבון</string>
   <string name="main_wrn_accsetup">לא הוגדר חשבון בהתקן שלך. כדי להשתמש ביישום זה עליך ליצור אחד.</string>
-  <string name="about_message">יישום האנדרויד של %1$s\n\nגרסה: %2$s</string>
-  <string name="actionbar_sync">רענון</string>
   <string name="actionbar_upload">העלאה</string>
   <string name="actionbar_upload_from_apps">תוכן מיישומים אחרים</string>
   <string name="actionbar_upload_files">קבצים</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">הגנה על הלקוח שלך</string>
   <string name="prefs_instant_upload">הפעלת העלאות מהירות</string>
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שמצולמות במצלמה שלך</string>
-  <string name="auth_host_url">כתובת</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
   <string name="auth_register">%1$s חדש לי</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_sync_file">רענון</string>
   <string name="filedetails_redownload">הורדה מחדש</string>
-  <string name="filedetails_open">פתיחה</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
@@ -148,14 +143,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">מתבצע ניסיון כניסה…</string>
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_no_net_conn_message">לא נבחר חיבור לאינטרנט, נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
   <string name="auth_connect_anyway">להתחבר בכל זאת</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_nossl_plain_ok_message">היישום לא יכול לקיים חיבור מאובטח לשרת. עם זאת קיים חיבור שאינו מאובטח. ניתן להמשיך או לבטל.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
-  <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_not_configured_message">מסתבר כי עותק השרת שלך אינו מוגדר נכון. נא ליצור קשר עם המנהל שלך לקבלת פרטים נוספים.</string>
   <string name="auth_unknown_error_title">אירעה שגיאה בלתי ידועה!</string>
@@ -171,8 +164,6 @@
   <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
   <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
   <string name="auth_secure_connection">נוצר חיבור מאובטח</string>
-  <string name="auth_login_details">פרטי הכניסה</string>
-  <string name="auth_unauthorized">שם משתמש / ססמה שגויים</string>
   <string name="auth_not_found">הנתיב שצוין שגוי</string>
   <string name="auth_internal">שגיאת שרת פנימית, קוד </string>
   <string name="crashlog_message">היישום הושבת באופן בלתי צפוי. האם לשלוח דוח קריסה?</string>

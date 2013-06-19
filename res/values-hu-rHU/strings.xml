@@ -13,8 +13,6 @@
   <string name="main_settings">Beállítások</string>
   <string name="main_tit_accsetup">Fiók beállítása</string>
   <string name="main_wrn_accsetup">Nincs beállított fiók a készülékén. Ahhoz, hogy használja ezt a programot, létre kell hozzon egyet.</string>
-  <string name="about_message">%1$s Android alkalmazás\nverzió: %2$s</string>
-  <string name="actionbar_sync">Frissítés</string>
   <string name="actionbar_upload">Feltöltés</string>
   <string name="actionbar_upload_from_apps">Más alkalmazásokból származó tartalom</string>
   <string name="actionbar_upload_files">Fájlok</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
   <string name="prefs_instant_upload">Az azonnali feltöltés engedélyezése</string>
   <string name="prefs_instant_upload_summary">Az eszköz által készített fényképek azonnali feltöltése</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
   <string name="auth_register">Új kapcsolat: %1$s</string>
@@ -70,9 +67,7 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
-  <string name="filedetails_sync_file">Frissítés</string>
   <string name="filedetails_redownload">Ismételt letöltés</string>
-  <string name="filedetails_open">Megnyitás</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
@@ -164,14 +159,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Bejelentkezés...</string>
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
   <string name="auth_no_net_conn_message">Nem található hálózati kapcsolat, ellenőrizze az internetkapcsolatát, és próbálja újra.</string>
   <string name="auth_connect_anyway">Csatlakozás mindenképpen</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
   <string name="auth_nossl_plain_ok_message">Az alkalmazás nem tudott titkosított kapcsolatot kialakítani a kiszolgálóval. A nem titkosított kapcsolat elérhető. Folytathatja vagy kiléphet.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
-  <string name="auth_testing_connection">Kapcsolat tesztelése...</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
   <string name="auth_not_configured_message">Úgy tűnik a kiszolgáló nincs megfelelően beállítva. Lépjen kapcsolatba a rendszergazdával további információkért.</string>
   <string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
@@ -187,8 +180,6 @@
   <string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
   <string name="auth_wrong_connection_title">A kapcsolat nem hozható létre</string>
   <string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
-  <string name="auth_login_details">Belépési adatok</string>
-  <string name="auth_unauthorized">Érvénytelen felhasználónév / jelszó</string>
   <string name="auth_not_found">Rossz a megadott útvonal</string>
   <string name="auth_internal">Belső hiba történt a kiszolgálón, hibakód: %1$d</string>
   <string name="crashlog_message">A program összeomlott. El akar küldeni egy összeomlási jelentést?</string>

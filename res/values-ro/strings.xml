@@ -13,7 +13,6 @@
   <string name="main_settings">Setări</string>
   <string name="main_tit_accsetup">Configurează cont</string>
   <string name="main_wrn_accsetup">Nu există conturi ownCloud pe dispozitivul tău. Pentru a folosi această aplicație, trebuie să creezi un cont.</string>
-  <string name="actionbar_sync">Împrospătare</string>
   <string name="actionbar_upload">Încarcă</string>
   <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
   <string name="actionbar_upload_files">Fișiere</string>
@@ -32,7 +31,6 @@
   <string name="prefs_accounts">Conturi</string>
   <string name="prefs_manage_accounts">Administrare conturi</string>
   <string name="prefs_instant_upload">Activează încărcarea instant</string>
-  <string name="auth_host_url">URL ownCloud</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
   <string name="auth_register">Sunt novice în ownCloud</string>
@@ -58,9 +56,7 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Descarcă</string>
-  <string name="filedetails_sync_file">Împrospătare</string>
   <string name="filedetails_redownload">Descarcă din nou</string>
-  <string name="filedetails_open">Deschide</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Nu</string>
   <string name="common_ok">OK</string>
@@ -109,10 +105,8 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">În curs de autentificare...</string>
   <string name="auth_nossl_plain_ok_title">Conexiune securizată indisponibilă</string>
   <string name="auth_connection_established">Conexiune stabilită</string>
-  <string name="auth_testing_connection">Se testează conexiunea...</string>
   <string name="auth_not_configured_title">Configurație ownCloud incorectă</string>
   <string name="auth_not_configured_message">Se pare că instanța ta ownCloud nu este configurată corect. Contactează administratorul pentru mai multe detalii.</string>
   <string name="auth_unknown_error_title">A apărut o eroare necunoscută!</string>
@@ -120,7 +114,6 @@
   <string name="auth_ssl_general_error_title">Inițializarea SSL a eșuat</string>
   <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
   <string name="auth_secure_connection">Conexiune sigură stabilită</string>
-  <string name="auth_login_details">Detalii autentificare</string>
   <string name="crashlog_message">Aplicația s-a terminat într-un mod neașteptat. Dorești să trimiți un raport despre asta?</string>
   <string name="crashlog_send_report">Trimite raport</string>
   <string name="crashlog_dont_send_report">Nu trimite raport</string>

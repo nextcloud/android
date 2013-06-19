@@ -13,8 +13,6 @@
   <string name="main_settings">Cài đặt</string>
   <string name="main_tit_accsetup">Thiết lập tài khoản</string>
   <string name="main_wrn_accsetup">Trên thiết bị của bạn không có tài khoản ownCloud. Để sử dụng ứng dụng này bạn cần phải tạo một tài khoản.</string>
-  <string name="about_message">ownCloud Android máy trạm⏎ ⏎ phiên bản: %1$s</string>
-  <string name="actionbar_sync">Đồng bộ tài khoản</string>
   <string name="actionbar_upload">Tải lên</string>
   <string name="actionbar_upload_from_apps">Nội dung từ các ứng dụng khác</string>
   <string name="actionbar_upload_files">Các tập tin</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Bảo vệ ownCloud client của bạn</string>
   <string name="prefs_instant_upload">Kích hoạt tính năng tải lên ngay lập tức</string>
   <string name="prefs_instant_upload_summary">Ngay lập tức tải lên các hình ảnh được chụp bởi camera</string>
-  <string name="auth_host_url">ownCloud URL</string>
   <string name="auth_username">Tên người dùng</string>
   <string name="auth_password">Mật khẩu</string>
   <string name="auth_register">Tôi mới đến ownCloud</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">Đã tạo:</string>
   <string name="filedetails_modified">Đã chỉnh sửa:</string>
   <string name="filedetails_download">Tải về</string>
-  <string name="filedetails_sync_file">Làm mới</string>
   <string name="filedetails_redownload">Làm mới</string>
-  <string name="filedetails_open">Mở</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
@@ -139,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Đang cố gắng để đăng nhập…</string>
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_no_net_conn_message">Không tìm thấy kết nối mạng, kiểm tra lại kết nối mạng và thử lại.</string>
   <string name="auth_connect_anyway">Kết nối nào</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_nossl_plain_ok_message">Ứng dụng không thể thiết lập một kết nối an toàn đến máy chủ. Một kết nối không an toàn đang có giá trị. Bạn có thể tiếp tục hoặc hủy bỏ.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
-  <string name="auth_testing_connection">Đang kiểm tra kết nối...</string>
   <string name="auth_not_configured_title">Thay đổi cấu hình ownCloud </string>
   <string name="auth_not_configured_message">Có vẻ như phiên bản ownCloud của bạn cấu hình không đúng. Liên hệ với quản trị viên để biết thêm chi tiết.</string>
   <string name="auth_unknown_error_title">Không xác định được lỗi!</string>
@@ -162,8 +155,6 @@
   <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ ownCloud</string>
   <string name="auth_wrong_connection_title">Không thể thiết lập kết nối</string>
   <string name="auth_secure_connection">Kết nối an toàn đã được thiết lập</string>
-  <string name="auth_login_details">Chi tiết đăng nhập</string>
-  <string name="auth_unauthorized">Sai tên đăng nhập/ mật khẩu</string>
   <string name="auth_not_found">Đường dẫn đã cho không đúng</string>
   <string name="auth_internal">Lỗi máy chủ nội bộ, mã lỗi %1$d</string>
   <string name="crashlog_message">Ứng dụng chấm dứt đột ngột. Bạn có muốn gửi báo cáo sự cố?</string>

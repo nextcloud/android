@@ -13,8 +13,6 @@
   <string name="main_settings">პარამეტრები</string>
   <string name="main_tit_accsetup">შექმენით ანგარიში</string>
   <string name="main_wrn_accsetup">ანგარიში არ არის მითითებული თქვენს მოწყობილობაში. ამ აპლიკაციის გამოსაყენებლად, თქვენ უნდა შექმნათ ის ერთხელ.</string>
-  <string name="about_message">%1$s ანდროიდის აპლიკაცია⏎\n⏎\nვერსია: %2$s</string>
-  <string name="actionbar_sync">განახლება</string>
   <string name="actionbar_upload">ატვირთვა</string>
   <string name="actionbar_upload_from_apps">კონტენტი სხვა აპლიკაცისებიდან</string>
   <string name="actionbar_upload_files">ფაილები</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">თქვენი კლიენტის დაცვა</string>
   <string name="prefs_instant_upload">ჩართე ეგრევე ატვირთვის ფუნქცია</string>
   <string name="prefs_instant_upload_summary">კამერით გადაღებული ფოტოების ეგრევე ატვირთვა</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>
   <string name="auth_register">მე ვარ ახალი %1$s–ში</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">შექმნილია:</string>
   <string name="filedetails_modified">მოდიფიცირებულია:</string>
   <string name="filedetails_download">ჩამოტვირთვა</string>
-  <string name="filedetails_sync_file">განახლება</string>
   <string name="filedetails_redownload">ხელთავიდან გადმოწერა</string>
-  <string name="filedetails_open">გახსნა</string>
   <string name="filedetails_renamed_in_upload_msg">ფაილ %1$s–ზე გადარქმეულ იქნა სახელი ატვირთვის დროს</string>
   <string name="common_yes">კი</string>
   <string name="common_no">არა</string>
@@ -139,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">ცდილობს შესვლას...</string>
   <string name="auth_no_net_conn_title">ქსელური კავშირი არ არის</string>
   <string name="auth_no_net_conn_message">ქსელური კავშირი ვერ ინახა, გთხოვთ შეამოწმოთ თქვენი ინტერნეტ კავშირი და სცადოთ ხელთავიდან.</string>
   <string name="auth_connect_anyway">დაუკავშირდი მაინც</string>
   <string name="auth_nossl_plain_ok_title">დაცული კავშირი არ არსებობს.</string>
   <string name="auth_nossl_plain_ok_message">აპლიკაციამ ვერ მოახდინა სერვერთან დაცული კავშირის დამყარება. აღმოჩენილ იქნა დაუცველი კავშირი. თქვენ შეგძლიათ გააგრძელოთ ან უარყოთ.</string>
   <string name="auth_connection_established">კავშირი დამყარდა</string>
-  <string name="auth_testing_connection">კავშირის ტესტირება...</string>
   <string name="auth_not_configured_title">არასწორი სერვერის კონფიგურაცია</string>
   <string name="auth_not_configured_message">ეს ნიშნავს იმას რომ სერვერის ინსტანცია არასწორად არის კონფიგურირებული. დაუკავშირდით თქვენს ადმინისტრატორს დატალური ინფორმაციისთვის.</string>
   <string name="auth_unknown_error_title">აღმოჩენილია უცნობი შეცდომა!</string>
@@ -162,8 +155,6 @@
   <string name="auth_bad_oc_version_title">ამოუცნობი სერვერის ვერსია</string>
   <string name="auth_wrong_connection_title">კავშირის დამყარება ვერ მოხერხდა</string>
   <string name="auth_secure_connection">დაცული კავშირი დამყარდა</string>
-  <string name="auth_login_details">შესვლის დეტალები</string>
-  <string name="auth_unauthorized">არასწორი ლოგინ/პაროლი</string>
   <string name="auth_not_found">არასწორი გზა</string>
   <string name="auth_internal">სერვერის შიდა შეცდომა, კოდით %1$d</string>
   <string name="crashlog_message">აპლიკაცია გაითიშა მოულოდნელად. გინდათ გააგზავნოთ ქრეშ რეპორტი?</string>

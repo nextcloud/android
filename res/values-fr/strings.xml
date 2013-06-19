@@ -13,8 +13,6 @@
   <string name="main_settings">Paramètres</string>
   <string name="main_tit_accsetup">Paramètres du compte</string>
   <string name="main_wrn_accsetup">Aucun compte ownCloud n\'est encore paramétré. Pour utiliser cette application, il vous faut en ajouter un.</string>
-  <string name="about_message">client ownCloud pour Android\n\nversion : %1$s</string>
-  <string name="actionbar_sync">Synchronisation du compte</string>
   <string name="actionbar_upload">Téléverser un fichier</string>
   <string name="actionbar_upload_from_apps">Contenu d\'une autre application</string>
   <string name="actionbar_upload_files">Fichiers</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Protéger l\'accès aux données maniplulées par le client ownCloud</string>
   <string name="prefs_instant_upload">Activer le téléversement instantané</string>
   <string name="prefs_instant_upload_summary">Import instantané des photos prises par la caméra</string>
-  <string name="auth_host_url">URL ownCloud</string>
+  <string name="auth_host_url">Adresse du serveur</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
   <string name="auth_register">Je suis nouveau sur ownCloud</string>
@@ -70,9 +68,7 @@
   <string name="filedetails_created">Créé le :</string>
   <string name="filedetails_modified">Modifié le :</string>
   <string name="filedetails_download">Télécharger</string>
-  <string name="filedetails_sync_file">Rafraîchir</string>
   <string name="filedetails_redownload">Télécharger à nouveau</string>
-  <string name="filedetails_open">Ouvrir</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
@@ -164,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
   <string name="auth_no_net_conn_message">Aucune connexion réseau n\'a été trouvée, veuillez vérifier votre connectivité à internet puis réessayez.</string>
   <string name="auth_connect_anyway">Se connecter malgré tout</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
   <string name="auth_nossl_plain_ok_message">L\'application ne peut établir de connexion sécurisée avec le serveur. Cependant, une connexion non sécurisée est disponible. Vous pouvez continuer en utilisant celle-ci ou annuler.</string>
   <string name="auth_connection_established">Connexion établie</string>
-  <string name="auth_testing_connection">Test de la connexion…</string>
   <string name="auth_not_configured_title">Configuration ownCloud erronée</string>
   <string name="auth_not_configured_message">Il semblerait que votre instance ownCloud ne soit pas correctement configurée. Veuillez contacter votre administrateur pour plus de détails.</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite</string>
@@ -187,8 +181,6 @@
   <string name="auth_bad_oc_version_title">La version ownCloud du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
-  <string name="auth_login_details">Détails des informations de connexion</string>
-  <string name="auth_unauthorized">Login / mot de passe invalides</string>
   <string name="auth_not_found">Le chemin fourni est erroné</string>
   <string name="auth_internal">Erreur interne du serveur, code %1$d</string>
   <string name="crashlog_message">L\'application s\'est fermée de façon inattendue, voulez-vous envoyer un rapport d\'erreur ?</string>

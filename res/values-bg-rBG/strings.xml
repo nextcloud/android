@@ -11,7 +11,6 @@
   <string name="main_calendar">Календар</string>
   <string name="main_bookmarks">Предпочитани</string>
   <string name="main_settings">Настройки</string>
-  <string name="actionbar_sync">Опресняване</string>
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
@@ -26,7 +25,6 @@
   <string name="prefs_trackmydevice_interval_summary">Обнови всеки %1$s минути</string>
   <string name="prefs_accounts">Профили</string>
   <string name="prefs_instant_upload_summary">Своевременно качване на снимки направени с камерата</string>
-  <string name="auth_host_url">Уеб адрес</string>
   <string name="auth_username">Потребител</string>
   <string name="auth_password">Парола</string>
   <string name="sync_string_files">Файлове</string>
@@ -50,8 +48,6 @@
   <string name="filedetails_created">Създаден:</string>
   <string name="filedetails_modified">Променен:</string>
   <string name="filedetails_download">Изтегляне</string>
-  <string name="filedetails_sync_file">Опресняване</string>
-  <string name="filedetails_open">Отвори</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>
@@ -91,12 +87,10 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Опит за влизане...</string>
   <string name="auth_no_net_conn_title">Няма мрежова свързаност</string>
   <string name="auth_connect_anyway">Свързване въпреки това</string>
   <string name="auth_nossl_plain_ok_title">Защитена връзка не е налична</string>
   <string name="auth_connection_established">Осъществена връзка</string>
-  <string name="auth_testing_connection">Проверка на свързаност...</string>
   <string name="auth_unknown_error_title">Появи се неизвестна грешка!</string>
   <string name="auth_unknown_host_title">Невъзможност за намиране на хоста</string>
   <string name="auth_unknown_host_message">Не възможност за намиране на въведения хост. Моля проверете името му и дали е в изправност и опитайте отново.</string>

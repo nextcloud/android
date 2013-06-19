@@ -13,8 +13,6 @@
   <string name="main_settings">Настройки</string>
   <string name="main_tit_accsetup">Настроить аккаунт</string>
   <string name="main_wrn_accsetup">На вашем устройстве нет ownCloud аккаунтов. Вам нужно создать аккаунт, чтобы пользоваться этим приложеним.</string>
-  <string name="about_message">ownCloud клиент для Android\n\nверсия: %1$s</string>
-  <string name="actionbar_sync">Обновить</string>
   <string name="actionbar_upload">Загрузка</string>
   <string name="actionbar_upload_from_apps">Содержимое от других приложений</string>
   <string name="actionbar_upload_files">Файлы</string>
@@ -38,7 +36,6 @@
   <string name="prefs_pincode_summary">Защитить ваш клиент ownCloud</string>
   <string name="prefs_instant_upload">Включить моментальную загрузку</string>
   <string name="prefs_instant_upload_summary">Моментально загружать фотографии, полученные с камеры</string>
-  <string name="auth_host_url">Ссылка на ownCloud</string>
   <string name="auth_username">Пользователь</string>
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Я новичёк в ownCloud</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">Создан:</string>
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
-  <string name="filedetails_sync_file">Обновить</string>
   <string name="filedetails_redownload">Скачать заново</string>
-  <string name="filedetails_open">Открыть</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
@@ -140,14 +135,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
   <string name="auth_no_net_conn_message">Сетевое соединение не обнаружено , проверьте соединение с Интернет и попробуйте ещё раз.</string>
   <string name="auth_connect_anyway">Соединить всё равно</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_nossl_plain_ok_message">Приложение не может установить защищённое соединение с сервером. Однако доступно не защищённое соединение. Вы можете продолжить или прервать.</string>
   <string name="auth_connection_established">Соединение установлено</string>
-  <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация ownCloud</string>
   <string name="auth_not_configured_message">Похоже что ваш экземпляр ownCloud не был корректно сконфигурирован. Обратитесь за деталями к вашему администратору.</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
@@ -163,8 +156,6 @@
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера ownCloud</string>
   <string name="auth_wrong_connection_title">Невозможно установить соединение</string>
   <string name="auth_secure_connection">Защищённое соединение установлено</string>
-  <string name="auth_login_details">Детали входа</string>
-  <string name="auth_unauthorized">Неправильный логин / пароль</string>
   <string name="auth_not_found">Указан неверный путь</string>
   <string name="auth_internal">Внутренняя ошибка сервера, код %1$d</string>
   <string name="crashlog_message">Приложение завершилось неожиданно. Хотите отправить аварийный отчёт?</string>

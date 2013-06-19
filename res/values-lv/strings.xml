@@ -13,8 +13,6 @@
   <string name="main_settings">Iestatījumi</string>
   <string name="main_tit_accsetup">Iestatīt kontu</string>
   <string name="main_wrn_accsetup">Uz šīs ierīces nav iestatīta konta. Lai lietotu šo lietotni, tāds ir jāizveido.</string>
-  <string name="about_message">%1$s Android lietotne\n\nversija: %2$s</string>
-  <string name="actionbar_sync">Atsvaidzināt</string>
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
@@ -37,7 +35,6 @@
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
   <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
   <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="auth_register">Esmu %1$s iesācējs</string>
@@ -68,9 +65,7 @@
   <string name="filedetails_created">Izveidota:</string>
   <string name="filedetails_modified">Modificēta:</string>
   <string name="filedetails_download">Lejupielādēt</string>
-  <string name="filedetails_sync_file">Atsvaidzināt</string>
   <string name="filedetails_redownload">Atkārtoti lejupielādēt</string>
-  <string name="filedetails_open">Atvērt</string>
   <string name="filedetails_renamed_in_upload_msg">Datne tika pārsaukta uz %1$s augšupielādes laikā</string>
   <string name="common_yes">Jā</string>
   <string name="common_no">Nē</string>
@@ -130,14 +125,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Mēģina ierakstīties...</string>
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_no_net_conn_message">Nav atklātu tīkla savienojumu. Pārbaudiet interneta savienojumus un mēģiniet vēlreiz.</string>
   <string name="auth_connect_anyway">Tomēr savienoties</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_nossl_plain_ok_message">Lietotne nevar izveidot drošu savienojumu ar serveri. Ir pieejams nedrošs savienojums. Jūs varat turpināt vai atcelt.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
-  <string name="auth_testing_connection">Testē savienojumu...</string>
   <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
   <string name="auth_not_configured_message">Izskatās, ka jūsu servera instance nav pareizi konfigurēta. Sazinieties ar servera administratoru, lai uzzinātu vairāk.</string>
   <string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
@@ -153,8 +146,6 @@
   <string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
   <string name="auth_wrong_connection_title">Nevarēja izveidot savienojumu</string>
   <string name="auth_secure_connection">Ir izveidots drošs savienojums</string>
-  <string name="auth_login_details">Sīkāka informācija par ierakstīšanos</string>
-  <string name="auth_unauthorized">Nederīgs lietotājvārds/parole</string>
   <string name="auth_not_found">Dots nepareizs ceļš</string>
   <string name="auth_internal">Iekšējā servera kļūda, kods %1$d</string>
   <string name="crashlog_message">Lietotne negaidīti beidza darbu. Vai vēlaties iesniegt kļūdas ziņojumu?</string>
