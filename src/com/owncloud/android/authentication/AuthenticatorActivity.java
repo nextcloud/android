@@ -935,7 +935,33 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             finish();
 
-        } else {
+        } else if (result.isServerFail() || result.isException()) {
+            /// if server fail or exception in authorization, the UI is updated as when a server check failed
+            mServerIsChecked = true;
+            mServerIsValid = false;
+            mIsSslConn = false;
+            mOcServerChkOperation = null;
+            mDiscoveredVersion = null;
+            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
+
+            // update status icon and text
+            updateServerStatusIconAndText(result);
+            showServerStatus();
+            mAuthStatusIcon = 0;
+            mAuthStatusText = 0;
+            showAuthStatus();
+            
+            // update input controls state
+            showRefreshButton();
+            mOkButton.setEnabled(false);
+
+            // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
+            if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                mLastSslUntrustedServerResult = result;
+                showDialog(DIALOG_SSL_VALIDATOR); 
+            }
+
+        } else {    // authorization fail due to client side - probably wrong credentials
             updateAuthStatusIconAndText(result);
             showAuthStatus();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
