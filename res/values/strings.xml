@@ -14,11 +14,13 @@
     <string name="main_settings">Settings</string>
     <string name="main_tit_accsetup">Setup Account</string>
     <string name="main_wrn_accsetup">There is no account set up on your device. In order to use this App, you need to create one.</string>
-    <string name="about_message">%1$s Android App\n\nversion: %2$s</string>
-    <string name="actionbar_sync">Refresh</string>
+    <string name="about_android">%1$s Android App</string>
+    <string name="about_version">version %1$s</string>
+    <string name="actionbar_sync">Refresh account</string>
     <string name="actionbar_upload">Upload</string>
     <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Files</string>
+    <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">Create directory</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_settings">Settings</string>
@@ -40,7 +42,13 @@
     <string name="prefs_pincode_summary">Protect your client</string>
     <string name="prefs_instant_upload">Enable instant uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload photos taken by camera</string>
-    <string name="auth_host_url">URL</string>
+    <string name="prefs_log_title">Enable Logging</string>
+    <string name="prefs_log_summary">This is used to log problems</string>
+    <string name="prefs_log_title_history">Logging History</string>
+    <string name="prefs_log_summary_history">This shows the recorded logs</string>
+    <string name="prefs_log_delete_history_button">Delete History</string>
+    
+    <string name="auth_host_url">Server address</string>
     <string name="auth_username">Username</string>
     <string name="auth_password">Password</string>
     <string name="auth_register">I am new to %1$s</string>
@@ -72,9 +80,8 @@
     <string name="filedetails_created">Created:</string>
     <string name="filedetails_modified">Modified:</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_sync_file">Refresh</string>
+    <string name="filedetails_sync_file">Refresh file</string>
     <string name="filedetails_redownload">Redownload</string>
-    <string name="filedetails_open">Open</string>
     <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
@@ -111,8 +118,9 @@
     <string name="sync_string_contacts">Contacts</string>
     <string name="sync_fail_ticker">Synchronization failed</string>
     <string name="sync_fail_content">Synchronization of %1$s could not be completed</string>
-    <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
+    <string name="sync_fail_content_unauthorized">Invalid credentials for %1$s</string>
+	<string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
+	<string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
     <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
@@ -169,14 +177,14 @@
         <item>60</item>
     </string-array>
 
-    <string name="auth_trying_to_login">Trying to login…</string>
+    <string name="auth_trying_to_login">Trying to login...</string>
     <string name="auth_no_net_conn_title">No network connection</string>
     <string name="auth_no_net_conn_message">No network connection has been detected, check your Internet connection and try again.</string>
     <string name="auth_connect_anyway">Connect anyway</string>
     <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
     <string name="auth_nossl_plain_ok_message">The Application cannot establish a secure connection to the server. A non secure connection is available. You may continue or cancel.</string>
     <string name="auth_connection_established">Connection established</string>
-    <string name="auth_testing_connection">Testing connection…</string>
+    <string name="auth_testing_connection">Testing connection...</string>
     <string name="auth_not_configured_title">Malformed server configuration</string>
     <string name="auth_not_configured_message">It seems that your server instance is not correctly configured. Contact your administrator for more details.</string>
     <string name="auth_unknown_error_title">Unknown error occurred!</string>
@@ -192,10 +200,15 @@
     <string name="auth_bad_oc_version_title">Unrecognized server version</string>
     <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
     <string name="auth_secure_connection">Secure connection established</string>
-    <string name="auth_login_details">Login details</string>
-    <string name="auth_unauthorized">Invalid login / password</string>
+    <string name="auth_unauthorized">Invalid credentials</string>
+	<string name="auth_oauth_error">Unsuccessful authorization</string>
+	<string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
     <string name="auth_not_found">Wrong path given</string>
     <string name="auth_internal">Internal server error, code %1$d</string>
+    <string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
+    <string name="auth_expired_oauth_token_toast">Your authorization expired.\nPlease, authorize again</string>
+    <string name="auth_expired_basic_auth_toast">Your saved credentials are invalid.\nPlease, enter the current credentials</string>
+    
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit a crash report?</string>
     <string name="crashlog_send_report">Send report</string>
     <string name="crashlog_dont_send_report">Don\'t send report</string>
@@ -222,6 +235,13 @@
     <string name="wait_a_moment">Wait a moment</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
+    
+    <string name="oauth_host_url">oAuth2 URL</string> 
+    <string name="oauth_check_onoff">Login with oAuth2.</string> 
+    <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
+    <string name="oauth_code_validation_message">Please, open a web browser and go to:\n%1$s.\nValidate this code there:\n%2$s</string>
+    <string name="oauth_connection_url_unavailable">Connection to this URL not available.</string> 
+        
     <string name="ssl_validator_title">Warning</string>
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>

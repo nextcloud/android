@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,11 +20,10 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
-import android.content.Intent;
-import android.net.Uri;
+import com.owncloud.android.Log_OC;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 public class OCFile implements Parcelable, Comparable<OCFile> {
@@ -265,7 +263,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * Does nothing if the new name is null, empty or includes "/" ; or if the file is the root directory 
      */
     public void setFileName(String name) {
-        Log.d(TAG, "OCFile name changin from " + mRemotePath);
+        Log_OC.d(TAG, "OCFile name changin from " + mRemotePath);
         if (name != null && name.length() > 0 && !name.contains(PATH_SEPARATOR) && !mRemotePath.equals(PATH_SEPARATOR)) {
             String parent = (new File(getRemotePath())).getParent();
             parent = (parent.endsWith(PATH_SEPARATOR)) ? parent : parent + PATH_SEPARATOR;
@@ -273,7 +271,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             if (isDirectory()) {
                 mRemotePath += PATH_SEPARATOR;
             }
-            Log.d(TAG, "OCFile name changed to " + mRemotePath);
+            Log_OC.d(TAG, "OCFile name changed to " + mRemotePath);
         }
     }
 

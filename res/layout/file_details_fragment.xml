@@ -6,9 +6,8 @@
   Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,8 +19,9 @@
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/fdScrollView"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent" >
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	>
 
 	<RelativeLayout
 		android:layout_width="match_parent"
@@ -179,57 +179,34 @@
       				android:text="@string/downloader_download_in_progress_ticker"
       				/>
     			
-    			<ProgressBar android:id="@+id/fdProgressBar"
-					android:layout_width="match_parent" 
-					android:layout_height="wrap_content"
-					android:progressDrawable="@android:drawable/progress_horizontal"
-					android:indeterminate="false" 
-					android:indeterminateOnly="false" 
-					/>
-				    								
 			    <LinearLayout
+			        android:id="@+id/fdProgressBlock"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:gravity="center_horizontal"
+					android:gravity="center"
 					android:layout_marginTop="12dp"
+					android:layout_marginBottom="12dp"
+					android:orientation="horizontal"
 					>
 				    				
-					<Button
-						android:id="@+id/fdDownloadBtn"
+    				<ProgressBar 
+    				    android:id="@+id/fdProgressBar"
 						android:layout_width="0dp"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
-						android:text="@string/filedetails_download" />
-						
-					<Button
-						android:id="@+id/fdOpenBtn"
-						android:layout_width="0dp"
+						android:progressDrawable="@android:drawable/progress_horizontal"
+						android:indeterminate="false" 
+						android:indeterminateOnly="false" 
+					/>
+				    								
+					<ImageButton
+						android:id="@+id/fdCancelBtn"
+						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/filedetails_open" />
-						
-				</LinearLayout>
-		
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:gravity="center_horizontal"
-					android:layout_marginTop="12dp"
-					>
-					
-					<Button
-						android:id="@+id/fdRenameBtn"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/common_rename" />
-						
-				    <Button
-						android:id="@+id/fdRemoveBtn"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:layout_weight="1"
-						android:text="@string/common_remove" />
+						android:layout_marginLeft="12dp"
+						android:src="@drawable/btn_cancel"
+						android:background="@android:color/transparent"
+						/>
 						
 				</LinearLayout>
 	

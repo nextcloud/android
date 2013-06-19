@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -32,11 +31,10 @@ import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.network.ProgressiveDataTransferer;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
-
-import android.util.Log;
 
 
 /**
@@ -123,7 +121,7 @@ public class FileRequestEntity implements RequestEntity, ProgressiveDataTransfer
             }
             
         } catch (IOException io) {
-            Log.e("FileRequestException", io.getMessage());
+            Log_OC.e("FileRequestException", io.getMessage());
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
         } finally {

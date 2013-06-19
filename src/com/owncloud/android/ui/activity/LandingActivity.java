@@ -2,9 +2,8 @@
  *   Copyright (C) 2011 Bartek Przybylski
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,7 +17,7 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.ui.adapter.LandingScreenAdapter;
 
 import android.accounts.Account;
@@ -113,9 +112,9 @@ public class LandingActivity extends SherlockFragmentActivity implements
         dialog.dismiss();
         switch (which) {
         case DialogInterface.BUTTON_POSITIVE:
-            Intent intent = new Intent("android.settings.ADD_ACCOUNT_SETTINGS");
+            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTH_TOKEN_TYPE });
+                    new String[] { AccountAuthenticator.AUTHORITY });
             startActivity(intent);
             break;
         case DialogInterface.BUTTON_NEGATIVE:

@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,13 +19,11 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import com.owncloud.android.ui.FragmentListView;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -43,9 +41,8 @@ import com.owncloud.android.R;
  * @author David A. Velasco
  * 
  */
-public class LocalFileListFragment extends FragmentListView {
+public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = "LocalFileListFragment";
-    private static final String SAVED_LIST_POSITION = "LIST_POSITION"; 
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -76,10 +73,10 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView() start");
+        Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        Log.i(TAG, "onCreateView() end");
+        Log_OC.i(TAG, "onCreateView() end");
         return v;
     }    
 
@@ -89,30 +86,13 @@ public class LocalFileListFragment extends FragmentListView {
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(TAG, "onActivityCreated() start");
+        Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onCreate(savedInstanceState);
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
         setListAdapter(mAdapter);
         
-        if (savedInstanceState != null) {
-            Log.i(TAG, "savedInstanceState is not null");
-            int position = savedInstanceState.getInt(SAVED_LIST_POSITION);
-            setReferencePosition(position);
-        }
-        
-        Log.i(TAG, "onActivityCreated() stop");
-    }
-    
-    
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        Log.i(TAG, "onSaveInstanceState() start");
-        
-        savedInstanceState.putInt(SAVED_LIST_POSITION, getReferencePosition());
-        
-        
-        Log.i(TAG, "onSaveInstanceState() stop");
+        Log_OC.i(TAG, "onActivityCreated() stop");
     }
     
     
@@ -144,7 +124,7 @@ public class LocalFileListFragment extends FragmentListView {
             }
             
         } else {
-            Log.w(TAG, "Null object in ListAdapter!!");
+            Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
     }
 
@@ -183,7 +163,7 @@ public class LocalFileListFragment extends FragmentListView {
     
     /**
      * Lists the given directory on the view. When the input parameter is null,
-     * it will either refresh the last known directory, or list the root
+     * it will either refresh the last known directory. list the root
      * if there never was a directory.
      * 
      * @param directory     Directory to be listed
@@ -203,7 +183,7 @@ public class LocalFileListFragment extends FragmentListView {
         
         // if that's not a directory -> List its parent
         if(!directory.isDirectory()){
-            Log.w(TAG, "You see, that is not a directory -> " + directory.toString());
+            Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
             directory = directory.getParentFile();
         }
 
@@ -225,7 +205,7 @@ public class LocalFileListFragment extends FragmentListView {
         String [] result = null;
         SparseBooleanArray positions = mList.getCheckedItemPositions();
         if (positions.size() > 0) {
-            Log.d(TAG, "Returning " + positions.size() + " selected files");
+            Log_OC.d(TAG, "Returning " + positions.size() + " selected files");
             result = new String[positions.size()];
             for (int i=0; i<positions.size(); i++) {
                 result[i] = ((File) mList.getItemAtPosition(positions.keyAt(i))).getAbsolutePath();

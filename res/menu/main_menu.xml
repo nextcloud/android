@@ -6,9 +6,8 @@
   Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 2 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,7 +23,6 @@
     <item android:id="@+id/action_create_dir" 		android:title="@string/actionbar_mkdir" 	android:icon="@drawable/ic_action_create_dir"			android:orderInCategory="2" />
     <item android:id="@+id/action_upload" 			android:title="@string/actionbar_upload" 	android:icon="@drawable/ic_action_upload" 				android:orderInCategory="2" />
     <item android:id="@+id/action_settings" 		android:title="@string/actionbar_settings" 	android:icon="@android:drawable/ic_menu_preferences" 	android:orderInCategory="2" />
-    <item android:id="@+id/action_about_app" 		android:title="@string/about_title" 		android:icon="@android:drawable/ic_menu_info_details" 	android:orderInCategory="2" />
     
     <!--  <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item>-->
 </menu>

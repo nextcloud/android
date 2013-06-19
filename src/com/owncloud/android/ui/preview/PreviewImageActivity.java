@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013  ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,8 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import org.apache.commons.httpclient.methods.PostMethod;
-
 import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -30,9 +27,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -48,11 +43,12 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.activity.FileDetailActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.AccountUtils;
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
@@ -60,7 +56,7 @@ import com.owncloud.android.R;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends SherlockFragmentActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -92,8 +88,8 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_FILE);
-        mAccount = getIntent().getParcelableExtra(FileDetailFragment.EXTRA_ACCOUNT);
+        mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
+        mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
         if (mFile == null) {
             throw new IllegalStateException("Instanced with a NULL OCFile");
         }
@@ -171,12 +167,12 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                 mDownloaderBinder = (FileDownloaderBinder) service;
                 if (mRequestWaitingForBinder) {
                     mRequestWaitingForBinder = false;
-                    Log.d(TAG, "Simulating reselection of current page after connection of download binder");
+                    Log_OC.d(TAG, "Simulating reselection of current page after connection of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
                     
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service connected");
+                Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
             } else {
                 return;
@@ -187,10 +183,10 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(PreviewImageActivity.this, FileDownloader.class))) {
-                Log.d(TAG, "Download service suddenly disconnected");
+                Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
-                Log.d(TAG, "Upload service suddenly disconnected");
+                Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
         }
@@ -259,13 +255,6 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
 
     private void backToDisplayActivity() {
-        /*
-        Intent intent = new Intent(this, FileDisplayActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        intent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
-        startActivity(intent);
-        */
         finish();
     }
     
@@ -315,11 +304,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
 
 
     @Override
-    public void showFragmentWithDetails(OCFile file) {
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, file);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
-        showDetailsIntent.putExtra(FileDetailActivity.EXTRA_MODE, FileDetailActivity.MODE_DETAILS);
+    public void showDetails(OCFile file) {
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, AccountUtils.getCurrentOwnCloudAccount(this));
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
         file = mPreviewImagePagerAdapter.getFileAt(pos);
@@ -329,7 +318,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     private void requestForDownload(OCFile file) {
         if (mDownloaderBinder == null) {
-            Log.d(TAG, "requestForDownload called without binder to download service");
+            Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
         } else if (!mDownloaderBinder.isDownloading(mAccount, file)) {
             Intent i = new Intent(this, FileDownloader.class);
@@ -362,7 +351,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
     
     /**
      * Called when the scroll state changes. Useful for discovering when the user begins dragging, 
-     * when the pager is automatically settling to the current page, or when it is fully stopped/idle.
+     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
      * 
      * @param   State       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
      */
@@ -414,7 +403,7 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
                     mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
                     
                 } else {
-                    Log.d(TAG, "Download finished, but the fragment is offscreen");
+                    Log_OC.d(TAG, "Download finished, but the fragment is offscreen");
                 }
                 
             }
@@ -443,6 +432,11 @@ public class PreviewImageActivity extends SherlockFragmentActivity implements Fi
             
         }
         mFullScreen = !mFullScreen;
+    }
+
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        // TODO
     }
     
     

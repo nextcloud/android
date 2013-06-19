@@ -2,9 +2,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -25,8 +24,8 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 //import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
 
 import android.accounts.Account;
-import android.util.Log;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -42,7 +41,7 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class RenameFileOperation extends RemoteOperation {
     
-    private static final String TAG = RemoveFileOperation.class.getSimpleName();
+    private static final String TAG = RenameFileOperation.class.getSimpleName();
 
     private static final int RENAME_READ_TIMEOUT = 10000;
     private static final int RENAME_CONNECTION_TIMEOUT = 5000;
@@ -105,7 +104,7 @@ public class RenameFileOperation extends RemoteOperation {
             }
         
             // check if a file with the new name already exists
-            if (client.existsFile(mNewRemotePath) ||                             // remote check could fail by network failure, or by indeterminate behavior of HEAD for folders ... 
+            if (client.existsFile(mNewRemotePath) ||                             // remote check could fail by network failure. by indeterminate behavior of HEAD for folders ... 
                     mStorageManager.getFileByPath(mNewRemotePath) != null) {     // ... so local check is convenient
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
@@ -138,11 +137,11 @@ public class RenameFileOperation extends RemoteOperation {
             
             move.getResponseBodyAsString(); // exhaust response, although not interesting
             result = new RemoteOperationResult(move.succeeded(), status);
-            Log.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + result.getLogMessage(), e);
             
         } finally {
             if (move != null)
@@ -192,21 +191,27 @@ public class RenameFileOperation extends RemoteOperation {
      * 
      * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities specific for the interactions with the file system
      * 
-     * @return      'True' if a temporal file named with the name to set could be created in the file system where 
-     *              local files are stored.
+     * @return              'True' if a temporal file named with the name to set could be created in the file system where 
+     *                      local files are stored.
+     * @throws IOException  When the temporal folder can not be created.
      */
-    private boolean isValidNewName() {
+    private boolean isValidNewName() throws IOException {
         // check tricky names
         if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
             return false;
         }
         // create a test file
-        String tmpFolder = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolder + mNewName);
+        String tmpFolderName = FileStorageUtils.getTemporalPath("");
+        File testFile = new File(tmpFolderName + mNewName);
+        File tmpFolder = testFile.getParentFile();
+        tmpFolder.mkdirs();
+        if (!tmpFolder.isDirectory()) {
+            throw new IOException("Unexpected error: temporal directory could not be created");
+        }
         try {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
         } catch (IOException e) {
-            Log.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
+            Log_OC.i(TAG, "Test for validity of name " + mNewName + " in the file system failed");
             return false;
         }
         boolean result = (testFile.exists() && testFile.isFile());

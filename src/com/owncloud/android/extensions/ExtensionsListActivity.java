@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 
@@ -35,7 +35,6 @@ import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.SimpleAdapter;
 
 public class ExtensionsListActivity extends ListActivity {
@@ -81,7 +80,7 @@ public class ExtensionsListActivity extends ListActivity {
             final JSONArray ar;
             try {
                 hc.executeMethod(gm);
-                Log.e("ASD", gm.getResponseBodyAsString() + "");
+                Log_OC.e("ASD", gm.getResponseBodyAsString() + "");
                 ar = new JSONObject(gm.getResponseBodyAsString())
                         .getJSONArray("apps");
             } catch (Exception e) {

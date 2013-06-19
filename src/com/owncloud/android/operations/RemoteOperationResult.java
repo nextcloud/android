@@ -3,9 +3,8 @@
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,8 +32,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 
-import android.util.Log;
-
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.network.CertificateCombinedException;
 
 /**
@@ -49,10 +47,37 @@ public class RemoteOperationResult implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
     private static final long serialVersionUID = -7805531062432602444L;
+    
     private static final String TAG = "RemoteOperationResult";
-
-    public enum ResultCode {
-        OK, OK_SSL, OK_NO_SSL, UNHANDLED_HTTP_CODE, UNAUTHORIZED, FILE_NOT_FOUND, INSTANCE_NOT_CONFIGURED, UNKNOWN_ERROR, WRONG_CONNECTION, TIMEOUT, INCORRECT_ADDRESS, HOST_NOT_AVAILABLE, NO_NETWORK_CONNECTION, SSL_ERROR, SSL_RECOVERABLE_PEER_UNVERIFIED, BAD_OC_VERSION, CANCELLED, INVALID_LOCAL_FILE_NAME, INVALID_OVERWRITE, CONFLICT, SYNC_CONFLICT, LOCAL_STORAGE_FULL, LOCAL_STORAGE_NOT_MOVED, LOCAL_STORAGE_NOT_COPIED, QUOTA_EXCEEDED
+    
+    public enum ResultCode { 
+        OK,
+        OK_SSL,
+        OK_NO_SSL,
+        UNHANDLED_HTTP_CODE,
+        UNAUTHORIZED,        
+        FILE_NOT_FOUND, 
+        INSTANCE_NOT_CONFIGURED, 
+        UNKNOWN_ERROR, 
+        WRONG_CONNECTION,  
+        TIMEOUT, 
+        INCORRECT_ADDRESS, 
+        HOST_NOT_AVAILABLE, 
+        NO_NETWORK_CONNECTION, 
+        SSL_ERROR,
+        SSL_RECOVERABLE_PEER_UNVERIFIED,
+        BAD_OC_VERSION,
+        CANCELLED, 
+        INVALID_LOCAL_FILE_NAME, 
+        INVALID_OVERWRITE,
+        CONFLICT, 
+        OAUTH2_ERROR,
+        SYNC_CONFLICT,
+        LOCAL_STORAGE_FULL, 
+        LOCAL_STORAGE_NOT_MOVED, 
+        LOCAL_STORAGE_NOT_COPIED, 
+        OAUTH2_ERROR_ACCESS_DENIED,
+        QUOTA_EXCEEDED
     }
 
     private boolean mSuccess = false;
@@ -91,7 +116,7 @@ public class RemoteOperationResult implements Serializable {
                 break;
             default:
                 mCode = ResultCode.UNHANDLED_HTTP_CODE;
-                Log.d(TAG, "RemoteOperationResult has prcessed UNHANDLED_HTTP_CODE: " + httpCode);
+                Log_OC.d(TAG, "RemoteOperationResult has prcessed UNHANDLED_HTTP_CODE: " + httpCode);
             }
         }
     }
@@ -240,6 +265,14 @@ public class RemoteOperationResult implements Serializable {
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";
 
+    }
+
+    public boolean isServerFail() {
+        return (mHttpCode >= HttpStatus.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    public boolean isException() {
+        return (mException != null);
     }
 
 }

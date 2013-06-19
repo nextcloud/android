@@ -4,9 +4,8 @@
 
   Copyright (C) 2012-2013  ownCloud Inc.
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -33,23 +32,37 @@
 		android:layout_marginBottom="15dp"
 	/>
 	
-	<ProgressBar android:id="@+id/progressBar"
-		android:layout_width="match_parent" 
+    <LinearLayout
+        android:id="@+id/fdProgressBlock"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:progressDrawable="@android:drawable/progress_horizontal"
-		android:indeterminate="false" 
-		android:indeterminateOnly="false" 
+		android:gravity="center"
+		android:layout_marginTop="12dp"
 		android:layout_marginBottom="15dp"
-	/>
-	
-	<Button
-		android:id="@+id/cancelBtn"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/common_cancel" 
-		android:layout_marginBottom="15dp"
-	/>
-	
+		android:orientation="horizontal"
+		>
+	    				
+		<ProgressBar android:id="@+id/progressBar"
+			android:layout_width="0dp" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:progressDrawable="@android:drawable/progress_horizontal"
+			android:indeterminate="false" 
+			android:indeterminateOnly="false" 
+			
+		/>
+
+		<ImageButton
+			android:id="@+id/cancelBtn"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="12dp"
+			android:src="@drawable/btn_cancel"
+			android:background="@android:color/transparent"
+		/>
+
+	</LinearLayout>
+			
 	<ImageView
 		android:id="@+id/error_image"
 		android:layout_width="wrap_content"
