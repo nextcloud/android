@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Skydda ownCloud-klienten</string>
   <string name="prefs_instant_upload">Aktivera direktuppladdning</string>
   <string name="prefs_instant_upload_summary">Direktuppladdning av kamerabilder</string>
+  <string name="auth_host_url">Serveradress</string>
   <string name="auth_username">Användare</string>
   <string name="auth_password">Lösenord</string>
   <string name="auth_register">%1$s är nytt för mig</string>

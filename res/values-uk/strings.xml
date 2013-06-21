@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Захист Вашог ownCloud клієнта</string>
   <string name="prefs_instant_upload">Включити негайне завантаження</string>
   <string name="prefs_instant_upload_summary">Негайно завантажувати фото, зроблені камерою</string>
+  <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Я новачок в ownCloud</string>

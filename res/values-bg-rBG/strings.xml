@@ -25,6 +25,7 @@
   <string name="prefs_trackmydevice_interval_summary">Обнови всеки %1$s минути</string>
   <string name="prefs_accounts">Профили</string>
   <string name="prefs_instant_upload_summary">Своевременно качване на снимки направени с камерата</string>
+  <string name="auth_host_url">Адрес на сървъра</string>
   <string name="auth_username">Потребител</string>
   <string name="auth_password">Парола</string>
   <string name="sync_string_files">Файлове</string>

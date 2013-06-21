@@ -13,9 +13,12 @@
   <string name="main_settings">Ajustes</string>
   <string name="main_tit_accsetup">Configuración de cuenta</string>
   <string name="main_wrn_accsetup">No hay cuentas en tu dispositivo. Para usar esta aplicación, necesitas crear una.</string>
+  <string name="about_version">versión %1$s</string>
+  <string name="actionbar_sync">Actualizar cuenta</string>
   <string name="actionbar_upload">Subir archivo</string>
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
+  <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_search">Buscar</string>
   <string name="actionbar_settings">Ajustes</string>
@@ -36,6 +39,10 @@
   <string name="prefs_pincode_summary">Proteja su cliente</string>
   <string name="prefs_instant_upload">Habilita la subida instantánea</string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente las fotos tomadas por la cámara</string>
+  <string name="prefs_log_title">Habilitar registro</string>
+  <string name="prefs_log_title_history">Historia del Registro</string>
+  <string name="prefs_log_delete_history_button">Eliminar Historial</string>
+  <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
   <string name="auth_register">Soy nuevo en %1$s</string>
@@ -67,6 +74,7 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
+  <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_redownload">Volver a descargar</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
   <string name="common_yes">Sí</string>
@@ -104,6 +112,7 @@
   <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Falló la sincronización</string>
   <string name="sync_fail_content">La sincronización de %1$s s no se pudo completar</string>
+  <string name="sync_fail_content_unauthorized">Credenciales inválidas para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
   <string name="sync_conflicts_in_favourites_content">Falló la sincronización de contenidos de %1$d ficheros</string>
   <string name="sync_fail_in_favourites_ticker">Fallos en la sincronización de contenidos</string>
@@ -166,6 +175,7 @@
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_nossl_plain_ok_message">La aplicación no pudo establecer una conexión segura al servidor. Aunque no haya una conexión segura disponible, puedes continuar o cancelar.</string>
   <string name="auth_connection_established">Conexión establecida</string>
+  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_not_configured_message">Parece que tu servidor no está correctamente configurado. Contacta a tu administrador para más detalles.</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
@@ -181,6 +191,7 @@
   <string name="auth_bad_oc_version_title">No se reconoce  la versión del servidor </string>
   <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
+  <string name="auth_unauthorized">Credenciales inválidas</string>
   <string name="auth_not_found">Ruta errónea</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
   <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Desea enviar un reporte de error?</string>
@@ -209,6 +220,10 @@
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No fué seleccionado ningún archivo</string>
+  <string name="oauth_check_onoff">Ingresar con oAuth2.</string>
+  <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
+  <string name="oauth_code_validation_message">Por favor, abra un navegador web y vaya a:\n%1$s.\nValidarse ahí con este código:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Conexión a está URL no disponible.</string>
   <string name="ssl_validator_title">Atención</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>

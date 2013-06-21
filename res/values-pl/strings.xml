@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Chroń klienta</string>
   <string name="prefs_instant_upload">Włącz natychmiastowe wysyłanie</string>
   <string name="prefs_instant_upload_summary">Natychmiast wysyłaj zdjęcia zrobione aparatem</string>
+  <string name="auth_host_url">Adres Serwera</string>
   <string name="auth_username">Nazwa użytkownika</string>
   <string name="auth_password">Hasło</string>
   <string name="auth_register">Jestem nowym użytkownikiem %1$s</string>

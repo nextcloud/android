@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">İstemcinizi koruyun</string>
   <string name="prefs_instant_upload">Anında yükleme etkinleştir</string>
   <string name="prefs_instant_upload_summary">Anında çekilen fotoğrafları yükle</string>
+  <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
   <string name="auth_register">ownCloud\'da yeniyim.</string>

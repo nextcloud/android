@@ -29,6 +29,7 @@
   <string name="prefs_trackmydevice_interval">Интервал на ажурирање</string>
   <string name="prefs_trackmydevice_interval_summary">Ажурирај секои %1$s минути</string>
   <string name="prefs_accounts">Сметки</string>
+  <string name="auth_host_url">Адреса на сервер</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="new_session_uri_error">Дадена неточна адреса</string>

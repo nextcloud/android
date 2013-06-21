@@ -29,6 +29,7 @@
   <string name="prefs_trackmydevice_summary_on">هذا التطبيق يتتبع هذا الجهاز</string>
   <string name="prefs_trackmydevice_interval"> الفاصل الزمني للتحديث</string>
   <string name="prefs_accounts">حسابات</string>
+  <string name="auth_host_url">عنوان الخادم</string>
   <string name="auth_username">إسم المستخدم</string>
   <string name="auth_password">كلمات السر</string>
   <string name="new_session_uri_error">العنوان المعطى غير صحيحة</string>

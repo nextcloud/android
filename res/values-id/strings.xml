@@ -17,6 +17,7 @@
   <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="prefs_category_general">umum</string>
+  <string name="auth_host_url">alamat server</string>
   <string name="auth_username">nama pengguna</string>
   <string name="auth_password">kata kunci</string>
   <string name="sync_string_files">Berkas</string>

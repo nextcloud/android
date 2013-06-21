@@ -13,9 +13,13 @@
   <string name="main_settings">Asetukset</string>
   <string name="main_tit_accsetup">Aseta tili</string>
   <string name="main_wrn_accsetup">Laitteessasi ei ole ownCloud-tilejä. Luo tili käyttääksesi tätä sovellusta.</string>
+  <string name="about_android">%1$s-Android-sovellus</string>
+  <string name="about_version">versio %1$s</string>
+  <string name="actionbar_sync">Päivitä tili</string>
   <string name="actionbar_upload">Lähetä tiedosto</string>
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
   <string name="actionbar_upload_files">Tiedostot</string>
+  <string name="actionbar_open_with">Avaa sovelluksella</string>
   <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_search">Etsi</string>
   <string name="actionbar_settings">Asetukset</string>
@@ -36,6 +40,8 @@
   <string name="prefs_pincode_summary">Suojaa ownCloud-asiakasohjelmasi</string>
   <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
+  <string name="prefs_log_delete_history_button">Poista historia</string>
+  <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
   <string name="auth_register">Olen uusi ownCloudin kanssa</string>
@@ -50,6 +56,7 @@
   <string name="setup_title">Yhdistä omaan ownCloudiin</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu ownCloud-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -66,6 +73,7 @@
   <string name="filedetails_created">Luotu:</string>
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
+  <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="common_yes">Kyllä</string>
@@ -148,6 +156,7 @@
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_nossl_plain_ok_message">Sovellus ei voinut luoda salattua yhteyttä palvelimeen. Kuitenkin salaamaton yhteys on olemassa. Jatka sitä käyttäen tai lopeta tähän.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
+  <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt ownCloud-asetukset</string>
   <string name="auth_not_configured_message">Vaikuttaa ettei ownCloud ole oikein määritetty. Ota yhteyttä ylläpitäjään.</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
@@ -165,6 +174,7 @@
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
   <string name="auth_not_found">Väärä polku</string>
   <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
+  <string name="auth_wtf_reenter_URL">Odottamaton tila; anna palvelimen osoite uudelleen</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>
   <string name="crashlog_send_report">Lähetä ilmoitus</string>
   <string name="crashlog_dont_send_report">Älä lähetä ilmoitusta</string>
@@ -191,6 +201,8 @@
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
+  <string name="oauth_check_onoff">Kirjaudu oAuth2:lla.</string>
+  <string name="oauth_login_connection">Yhdistetään oAuth2-palvelimeen…</string>
   <string name="ssl_validator_title">Varoitus</string>
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
@@ -224,6 +236,7 @@
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_error_unknown_format">Kuvaa ei voi näyttää</string>
+  <string name="preview_image_error_out_of_memory">\"Muisti ei riitä tämän kuvan näyttämiseen</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>

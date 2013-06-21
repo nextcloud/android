@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">保护您的 ownCloud 客户端</string>
   <string name="prefs_instant_upload">启用即时上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍下的相片</string>
+  <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="auth_register">我是 ownCloud 新人</string>

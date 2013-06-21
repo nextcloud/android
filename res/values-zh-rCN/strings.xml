@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">保护您的owncloud客户端</string>
   <string name="prefs_instant_upload">开启即时上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的照片</string>
+  <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="auth_register">我是新手</string>

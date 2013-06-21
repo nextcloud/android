@@ -13,9 +13,12 @@
   <string name="main_settings">Definições</string>
   <string name="main_tit_accsetup">Configurar conta</string>
   <string name="main_wrn_accsetup">Não há contas no seu aparelho. Para usar esta Aplicação, precisa de criar uma.</string>
+  <string name="about_version">versão %1$s</string>
+  <string name="actionbar_sync">Recarregar a conta</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Conteúdo das outras apps</string>
   <string name="actionbar_upload_files">Ficheiros</string>
+  <string name="actionbar_open_with">Abrir com</string>
   <string name="actionbar_mkdir">Criar pasta</string>
   <string name="actionbar_search">Procurar</string>
   <string name="actionbar_settings">Definições</string>
@@ -36,6 +39,10 @@
   <string name="prefs_pincode_summary">Proteja o seu cliente ownCloud</string>
   <string name="prefs_instant_upload">Activar envio instantâneo</string>
   <string name="prefs_instant_upload_summary">Enviar automaticamente as fotografias tiradas pela camera</string>
+  <string name="prefs_log_title">Ativar Rastreio</string>
+  <string name="prefs_log_title_history">Historico do rastreio</string>
+  <string name="prefs_log_delete_history_button">Eliminar Histórico</string>
+  <string name="auth_host_url">Endereço do servidor</string>
   <string name="auth_username">Nome de Utilizador</string>
   <string name="auth_password">Palavra-passe</string>
   <string name="auth_register">Sou novo na  %1$s</string>
@@ -104,6 +111,7 @@
   <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Falhou a sincronização</string>
   <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
+  <string name="sync_fail_content_unauthorized">Credenciais inválidas para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Foram encontrados conflitos</string>
   <string name="sync_conflicts_in_favourites_content">Não foi possível sincronizar o ficheiro %1$d</string>
   <string name="sync_fail_in_favourites_ticker">Falhou a operação de manter os ficheiros sincronizados</string>
@@ -159,12 +167,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">A tentar entrar...</string>
   <string name="auth_no_net_conn_title">Sem ligação à rede</string>
   <string name="auth_no_net_conn_message">Não foi detectada uma ligação de dados, por favor verifique se está se encontra activada.</string>
   <string name="auth_connect_anyway">Ligar de qualquer maneira</string>
   <string name="auth_nossl_plain_ok_title">Ligação segura indisponível</string>
   <string name="auth_nossl_plain_ok_message">Não foi possível estabelecer uma ligação segura ao servidor, no entanto pode continuar ou cancelar.</string>
   <string name="auth_connection_established">Ligação estabelecida</string>
+  <string name="auth_testing_connection">A testar a ligação...</string>
   <string name="auth_not_configured_title">Configuração do ownCloud incorrecta.</string>
   <string name="auth_not_configured_message">Parece haver um ou mais erros na configuração do ownCloud, por favor contacte o administrador para mais detalhes.</string>
   <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
@@ -180,6 +190,7 @@
   <string name="auth_bad_oc_version_title">Versão do servidor ownCloud não reconhecida</string>
   <string name="auth_wrong_connection_title">Não consegue estabelecer ligação</string>
   <string name="auth_secure_connection">Ligação segura estabelecida</string>
+  <string name="auth_unauthorized">Credenciais inválidas</string>
   <string name="auth_not_found">Foi dado um caminho inválido</string>
   <string name="auth_internal">Erro interno de servidor, código: %1$d</string>
   <string name="crashlog_message">A aplicação terminou de forma inesperada. Deseja enviar o relatório do erro?</string>
@@ -208,6 +219,8 @@
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Erro inesperado. Por favor tente outra aplicação para seleccionar o ficheiro.</string>
   <string name="filedisplay_no_file_selected">Não selecionou nenhum ficheiro</string>
+  <string name="oauth_check_onoff">Entrar usando oAuth2</string>
+  <string name="oauth_login_connection">A ligar ao servidor oAuth2</string>
   <string name="ssl_validator_title">Aviso</string>
   <string name="ssl_validator_header">Não foi possível verificar a identidade do site.</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é de confiança</string>

@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">Babestu zure ownCloud bezeroa</string>
   <string name="prefs_instant_upload">Gaitu berehalako igoera</string>
   <string name="prefs_instant_upload_summary">Igo berehala kamerak ateratako argazkiak</string>
+  <string name="auth_host_url">Zerbitzariaren helbidea</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria naiz ownCloud-en</string>

@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">Beskyt din ownCloud klient</string>
   <string name="prefs_instant_upload">Slå øjeblikkelig upload til</string>
   <string name="prefs_instant_upload_summary">Upload billeder taget med kamera med det samme</string>
+  <string name="auth_host_url">Serveradresse</string>
   <string name="auth_username">Brugernavn</string>
   <string name="auth_password">Kodeord</string>
   <string name="auth_register">Jeg er ny til ownCloud</string>

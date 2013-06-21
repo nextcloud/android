@@ -13,9 +13,13 @@
   <string name="main_settings">Preferencias</string>
   <string name="main_tit_accsetup">Activar a conta</string>
   <string name="main_wrn_accsetup">Non hai ningunha conta configurada no seu dispositivo. Para empregar o aplicativo necesita crear unha.</string>
+  <string name="about_android">Aplicativo Android %1$s</string>
+  <string name="about_version">versión %1$s</string>
+  <string name="actionbar_sync">Actualizar a conta</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Contido doutros aplicativos</string>
   <string name="actionbar_upload_files">Ficheiros</string>
+  <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear un directorio</string>
   <string name="actionbar_search">Buscar</string>
   <string name="actionbar_settings">Preferencias</string>
@@ -36,6 +40,12 @@
   <string name="prefs_pincode_summary">Protexe o seu cliente</string>
   <string name="prefs_instant_upload">Activar o envío instantáneo</string>
   <string name="prefs_instant_upload_summary">Enviar instantaneamente as fotos tiradas coa cámara</string>
+  <string name="prefs_log_title">Activar o rexistro</string>
+  <string name="prefs_log_summary">Isto empregase para rexistrar os problemas</string>
+  <string name="prefs_log_title_history">Historial do rexistro</string>
+  <string name="prefs_log_summary_history">Isto amosa os rexistros gravados</string>
+  <string name="prefs_log_delete_history_button">Eliminar o historial</string>
+  <string name="auth_host_url">Enderezo do servidor</string>
   <string name="auth_username">Nome de usuario</string>
   <string name="auth_password">Contrasinal</string>
   <string name="auth_register">Son novo en  %1$s</string>
@@ -67,6 +77,7 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
+  <string name="filedetails_sync_file">Actualizar o ficheiro</string>
   <string name="filedetails_redownload">Descargar de novo</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
   <string name="common_yes">Si</string>
@@ -104,6 +115,7 @@
   <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
   <string name="sync_fail_content">Non foi posíbel completar a sincronización de %1$s</string>
+  <string name="sync_fail_content_unauthorized">Credenciais incorrectas para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflictos</string>
   <string name="sync_conflicts_in_favourites_content">%1$d ficheiros «manter sincronizados» non foi posíbel sincronizalos</string>
   <string name="sync_fail_in_favourites_ticker">Produciuse unha falla no mantemento sincronizado de ficheiros</string>
@@ -160,12 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Tentando acceder...</string>
   <string name="auth_no_net_conn_title">Sen conexión de rede</string>
   <string name="auth_no_net_conn_message">Non se detectaron conexións de rede. Comprobe a conexión a Internet e tenteo de novo.</string>
   <string name="auth_connect_anyway">Conectar igualmente</string>
   <string name="auth_nossl_plain_ok_title">Non hai conexión seguras dispoñíbeis.</string>
   <string name="auth_nossl_plain_ok_message">O aplicativo non puido facer unha conexión segura co servidor. Inda que non é segura, hai unha conexión posíbel. Pode continuar ou cancelala.</string>
   <string name="auth_connection_established">Estabeleceuse a conexión</string>
+  <string name="auth_testing_connection">Probando a conexión...</string>
   <string name="auth_not_configured_title">Configuración errada do servidor</string>
   <string name="auth_not_configured_message">Semella que a súa instancia do servidor non está configurada correctamente. Contacte co seu administrador para máis detalles.</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
@@ -181,8 +195,14 @@
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
   <string name="auth_secure_connection">Estabeleceuse unha conexión segura</string>
+  <string name="auth_unauthorized">Credenciais incorrectas</string>
+  <string name="auth_oauth_error">A autorización non foi aceptada</string>
+  <string name="auth_oauth_error_access_denied">O acceso foi denegado polo servidor de autorización</string>
   <string name="auth_not_found">Deuse unha ruta incorrecta</string>
   <string name="auth_internal">Produciuse un erro interno do servidor, código %1$d</string>
+  <string name="auth_wtf_reenter_URL">Estado inesperado, introduza de novo o enderezo URL do servidor</string>
+  <string name="auth_expired_oauth_token_toast">A súa autorización caducou.\nAutorícese de novo</string>
+  <string name="auth_expired_basic_auth_toast">Os seus credenciais gardados son incorrectos.\nIntroduza os seus credenciais actuais</string>
   <string name="crashlog_message">O aplicativo deixou de funcionar de xeito inesperado. Quere enviar un informe desta quebra?</string>
   <string name="crashlog_send_report">Enviar un informe</string>
   <string name="crashlog_dont_send_report">Non enviar un informe</string>
@@ -209,6 +229,11 @@
   <string name="wait_a_moment">Agarde un chisco</string>
   <string name="filedisplay_unexpected_bad_get_content">Produciuse un erro non agardado. Seleccione o ficheiro con outro aplicativo diferente</string>
   <string name="filedisplay_no_file_selected">Non se escolleu ningún ficheiro</string>
+  <string name="oauth_host_url">URL do oAuth2</string>
+  <string name="oauth_check_onoff">Acceder con oAuth2.</string>
+  <string name="oauth_login_connection">Conectando co servidor oAuth2…</string>
+  <string name="oauth_code_validation_message">Abra un navegador  web e vaia a:\n%1$s.\nValide alí este código:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Non está dispoñíbel a conexión con este URL</string>
   <string name="ssl_validator_title">Aviso</string>
   <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>

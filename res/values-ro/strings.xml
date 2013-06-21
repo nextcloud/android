@@ -31,6 +31,7 @@
   <string name="prefs_accounts">Conturi</string>
   <string name="prefs_manage_accounts">Administrare conturi</string>
   <string name="prefs_instant_upload">Activează încărcarea instant</string>
+  <string name="auth_host_url">Adresa server-ului</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
   <string name="auth_register">Sunt novice în ownCloud</string>

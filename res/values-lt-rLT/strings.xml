@@ -30,6 +30,7 @@
   <string name="prefs_pincode">ownCloud programos PIN kodas</string>
   <string name="prefs_pincode_summary">Apsaugokite savo ownCloud klientą</string>
   <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
+  <string name="auth_host_url">Serverio adresas</string>
   <string name="auth_username">Prisijungimo vardas</string>
   <string name="auth_password">Slaptažodis</string>
   <string name="new_session_uri_error">Neteisingas URL</string>

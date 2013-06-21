@@ -24,6 +24,7 @@
   <string name="prefs_trackmydevice">ئۈسكۈنە ئىزلاش</string>
   <string name="prefs_trackmydevice_interval">يېڭىلاش ئارىلىقى</string>
   <string name="prefs_accounts">ھېساباتلار</string>
+  <string name="auth_host_url">مۇلازىمېتىر ئادرىسى</string>
   <string name="auth_username">ئىشلەتكۈچى ئاتى</string>
   <string name="auth_password">ئىم</string>
   <string name="new_session_uri_error">خاتا ئادرېس كىرگۈزۈۇلدى</string>

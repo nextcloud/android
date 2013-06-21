@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Chraňte svého klienta ownCloud</string>
   <string name="prefs_instant_upload">Povolit okamžité odeslání</string>
   <string name="prefs_instant_upload_summary">Okamžitě odesílat vytvořené fotografie</string>
+  <string name="auth_host_url">Adresa serveru</string>
   <string name="auth_username">Uživatelské jméno</string>
   <string name="auth_password">Heslo</string>
   <string name="auth_register">Jsem nový na ownCloud.</string>

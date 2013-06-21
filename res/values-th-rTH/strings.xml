@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ownCloud ของคุณ</string>
   <string name="prefs_instant_upload">เปิดใช้งานระบบอัพโหลดได้ทันที</string>
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพจากกล้องขึ้นไปทันที</string>
+  <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
   <string name="auth_register">ข้าพเจ้าเพิ่งใช้งาน ownCloud</string>

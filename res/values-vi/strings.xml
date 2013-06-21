@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Bảo vệ ownCloud client của bạn</string>
   <string name="prefs_instant_upload">Kích hoạt tính năng tải lên ngay lập tức</string>
   <string name="prefs_instant_upload_summary">Ngay lập tức tải lên các hình ảnh được chụp bởi camera</string>
+  <string name="auth_host_url">Địa chỉ máy chủ</string>
   <string name="auth_username">Tên người dùng</string>
   <string name="auth_password">Mật khẩu</string>
   <string name="auth_register">Tôi mới đến ownCloud</string>

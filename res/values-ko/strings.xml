@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">내 클라이언트 보호</string>
   <string name="prefs_instant_upload">자동 업로드 사용</string>
   <string name="prefs_instant_upload_summary">카메라로 촬영한 사진 자동 업로드</string>
+  <string name="auth_host_url">서버 주소</string>
   <string name="auth_username">사용자 이름</string>
   <string name="auth_password">암호</string>
   <string name="auth_register">%1$s의 새로운 사용자입니다</string>

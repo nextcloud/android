@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">თქვენი კლიენტის დაცვა</string>
   <string name="prefs_instant_upload">ჩართე ეგრევე ატვირთვის ფუნქცია</string>
   <string name="prefs_instant_upload_summary">კამერით გადაღებული ფოტოების ეგრევე ატვირთვა</string>
+  <string name="auth_host_url">სერვერის მისამართი</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>
   <string name="auth_register">მე ვარ ახალი %1$s–ში</string>

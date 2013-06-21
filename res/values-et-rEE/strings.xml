@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Kaitse oma ownCloudi klienti</string>
   <string name="prefs_instant_upload">Luba kohene üleslaadimine</string>
   <string name="prefs_instant_upload_summary">Lae kaamera poolt tehtud fotod automaatselt üles</string>
+  <string name="auth_host_url">Serveri aadress</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
   <string name="auth_register">Olen uus ownCloudi kasutaja</string>

@@ -35,6 +35,7 @@
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
   <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
   <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
+  <string name="auth_host_url">Servera adrese</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="auth_register">Esmu %1$s iesācējs</string>

@@ -8,6 +8,7 @@
   <string name="actionbar_upload">Senda inn</string>
   <string name="actionbar_upload_files">Skrár</string>
   <string name="actionbar_settings">Stillingar</string>
+  <string name="auth_host_url">Host nafn netþjóns</string>
   <string name="auth_username">Notendanafn</string>
   <string name="auth_password">Lykilorð</string>
   <string name="sync_string_files">Skrár</string>

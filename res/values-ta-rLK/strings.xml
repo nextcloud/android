@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">உங்களுடைய ownCloud சேவைப் பயனரை பாதுகாக்க</string>
   <string name="prefs_instant_upload">உடனடி பதிவேற்றலை இயலுமைப்படுத்துக</string>
   <string name="prefs_instant_upload_summary">கமராவினால் எடுக்கப்பட்ட படங்கள் உடனடியாக பதிவேற்றப்பட்டன</string>
+  <string name="auth_host_url">சேவையக முகவரி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>
   <string name="auth_register">ownCloud இற்கு நான் புதிது</string>

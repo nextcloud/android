@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
   <string name="prefs_instant_upload">Az azonnali feltöltés engedélyezése</string>
   <string name="prefs_instant_upload_summary">Az eszköz által készített fényképek azonnali feltöltése</string>
+  <string name="auth_host_url">A kiszolgáló címe</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
   <string name="auth_register">Új kapcsolat: %1$s</string>

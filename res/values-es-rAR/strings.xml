@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Protejé tu cliente</string>
   <string name="prefs_instant_upload">Habilitar la subida inmediata</string>
   <string name="prefs_instant_upload_summary">Subir inmediatamente las fotos sacadas con la cámara</string>
+  <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
   <string name="auth_register">Soy nuevo en %1$s</string>

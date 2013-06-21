@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Προστατέψτε την ownCloud εφαρμογή</string>
   <string name="prefs_instant_upload">Ενεργοποιήστε την άμεση μεταφόρτωση</string>
   <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση των φωτογραφιών που τραβάει η φωτογρ. μηχανή</string>
+  <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
   <string name="auth_register">Είμαι νέος στο ownCloud</string>

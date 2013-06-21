@@ -36,6 +36,7 @@
   <string name="prefs_pincode_summary">Beveilig je ownCloud client</string>
   <string name="prefs_instant_upload">Schakel direct uploaden in</string>
   <string name="prefs_instant_upload_summary">Upload afbeeldingen van camera automatisch</string>
+  <string name="auth_host_url">Server adres</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
   <string name="auth_register">Ik ben nieuw op ownCloud</string>
