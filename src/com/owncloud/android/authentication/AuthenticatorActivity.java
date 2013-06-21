@@ -253,7 +253,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mAction == ACTION_UPDATE_TOKEN) {
             /// lock things that should not change
             mHostUrlInput.setEnabled(false);
+            mHostUrlInput.setFocusable(false);
             mUsernameInput.setEnabled(false);
+            mUsernameInput.setFocusable(false);
             mOAuth2Check.setVisibility(View.GONE);
             if (!mServerIsValid && mOcServerChkOperation == null) {
                 checkOcServer(); 
