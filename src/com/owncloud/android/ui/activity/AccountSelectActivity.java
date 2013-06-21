@@ -49,6 +49,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.Log_OC;
 
 import com.owncloud.android.R;
@@ -142,11 +143,17 @@ public class AccountSelectActivity extends SherlockListActivity implements
         return false;
     }
 
+    /**
+     * Called when the user clicked on an item into the context menu created at 
+     * {@link #onCreateContextMenu(ContextMenu, View, ContextMenuInfo)} for every
+     * ownCloud {@link Account} , containing 'secondary actions' for them.
+     * 
+     * {@inheritDoc}}
+     */
     @SuppressWarnings("unchecked")
     @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-                .getMenuInfo();
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
         HashMap<String, String> map = null;
         try {
@@ -158,11 +165,18 @@ public class AccountSelectActivity extends SherlockListActivity implements
         
         String accountName = map.get("NAME");
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Account accounts[] = am
-                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+        Account accounts[] = am.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
         for (Account a : accounts) {
             if (a.name.equals(accountName)) {
-                am.removeAccount(a, this, mHandler);
+                if (item.getItemId() == R.id.change_password) {
+                    Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
+                    updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+                    startActivity(updateAccountCredentials);
+                    
+                } else if (item.getItemId() == R.id.delete_account) {
+                    am.removeAccount(a, this, mHandler);
+                }
             }
         }
 
