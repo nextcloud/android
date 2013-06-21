@@ -190,6 +190,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
         intent.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
+        intent.putExtra(AuthenticatorActivity.EXTRA_ENFORCED_UPDATE, true);
         intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_TOKEN);
         
 

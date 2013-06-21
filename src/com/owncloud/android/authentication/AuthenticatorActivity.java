@@ -84,6 +84,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public static final String EXTRA_USER_NAME = "USER_NAME";
     public static final String EXTRA_HOST_NAME = "HOST_NAME";
     public static final String EXTRA_ACTION = "ACTION";
+    public static final String EXTRA_ENFORCED_UPDATE = "ENFORCE_UPDATE";
 
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
@@ -110,7 +111,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
-    
+
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
@@ -205,7 +206,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
             mOAuth2Check.setChecked(oAuthRequired);
             changeViewByOAuth2Check(oAuthRequired);
-
+            mJustCreated = true;
 
         } else {
             /// connection state and info
@@ -260,7 +261,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
 
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
-        mJustCreated = true;
 
         /// bind view elements to listeners
         mHostUrlInput.setOnFocusChangeListener(this);
@@ -369,7 +369,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         super.onResume();
         // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes; so keep the next lines here
         changeViewByOAuth2Check(mOAuth2Check.isChecked());  
-        if (mAction == ACTION_UPDATE_TOKEN && mJustCreated) {
+        if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
             if (mOAuth2Check.isChecked())
                 Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
             else
