@@ -76,6 +76,7 @@
   <string name="common_save_exit">Konservi kaj forlasi</string>
   <string name="common_exit">Forlasi ownCloud-on</string>
   <string name="common_error">Eraro</string>
+  <string name="common_error_unknown">Nekonata eraro</string>
   <string name="about_title">Pri</string>
   <string name="delete_account">Forigi konton</string>
   <string name="create_account">Krei konton</string>
