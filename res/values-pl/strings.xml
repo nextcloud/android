@@ -13,9 +13,13 @@
   <string name="main_settings">Ustawienia</string>
   <string name="main_tit_accsetup">Załóż konto</string>
   <string name="main_wrn_accsetup">Nie wykryto kont ownCloud. Aby korzystać z tej aplikacji, musisz utworzyć konto.</string>
+  <string name="about_android">%1$s Aplikacja Android</string>
+  <string name="about_version">wersja %1$s</string>
+  <string name="actionbar_sync">Odśwież konto</string>
   <string name="actionbar_upload">Wyślij plik</string>
   <string name="actionbar_upload_from_apps">Zasoby innych aplikacji</string>
   <string name="actionbar_upload_files">Pliki</string>
+  <string name="actionbar_open_with">Otwórz za pomocą</string>
   <string name="actionbar_mkdir">Nowy katalog</string>
   <string name="actionbar_search">Szukaj</string>
   <string name="actionbar_settings">Ustawienia</string>
@@ -36,6 +40,11 @@
   <string name="prefs_pincode_summary">Chroń klienta</string>
   <string name="prefs_instant_upload">Włącz natychmiastowe wysyłanie</string>
   <string name="prefs_instant_upload_summary">Natychmiast wysyłaj zdjęcia zrobione aparatem</string>
+  <string name="prefs_log_title">Włączone Logi</string>
+  <string name="prefs_log_summary">To jest używane do logów problemów</string>
+  <string name="prefs_log_title_history">Zapisuj historię</string>
+  <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
+  <string name="prefs_log_delete_history_button">Usuń histrorię</string>
   <string name="auth_host_url">Adres Serwera</string>
   <string name="auth_username">Nazwa użytkownika</string>
   <string name="auth_password">Hasło</string>
@@ -68,6 +77,7 @@
   <string name="filedetails_created">Utworzono:</string>
   <string name="filedetails_modified">Zmodyfikowano:</string>
   <string name="filedetails_download">Pobierz</string>
+  <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_redownload">Pobierz ponownie</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
   <string name="common_yes">Tak</string>
@@ -105,6 +115,7 @@
   <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Błąd synchronizacji</string>
   <string name="sync_fail_content">Nie można było ukończyć synchronizacji %1$s </string>
+  <string name="sync_fail_content_unauthorized">Błędne dane logowania dla %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
   <string name="sync_conflicts_in_favourites_content">%1$d synchronizowanych plików nie może zostać zsynchronizowanych</string>
   <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
@@ -161,12 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Próbuję się zalogować...</string>
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_no_net_conn_message">Nie znaleziono połączenia sieciowego. Sprawdź połączenie internetowe i spróbuj ponownie.</string>
   <string name="auth_connect_anyway">Połącz mimo wszystko</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_nossl_plain_ok_message">Aplikacja nie można ustanowić bezpiecznego połączenia z serwerem. Niezabezpieczone połączenie jest dostępne. Możesz kontynuować lub anulować.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
+  <string name="auth_testing_connection">Testowanie połączenia…</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
   <string name="auth_not_configured_message">Wygląda na to, że twoja instancja ownCloud nie jest poprawnie skonfigurowana. Aby uzyskać więcej informacji, skontaktuj się z administratorem.</string>
   <string name="auth_unknown_error_title">Wystąpił nieznany błąd!</string>
@@ -182,6 +195,9 @@
   <string name="auth_bad_oc_version_title">Nie rozpoznano wersji serwera</string>
   <string name="auth_wrong_connection_title">Nie można ustanowić połączenia</string>
   <string name="auth_secure_connection">Nawiązano bezpieczne połączenie</string>
+  <string name="auth_unauthorized">Błędne dane logowania </string>
+  <string name="auth_oauth_error">Nieudana autoryzacja</string>
+  <string name="auth_oauth_error_access_denied">Dostęp zabroniony przez serwer autoryzacji</string>
   <string name="auth_not_found">Wprowadzono nieprawidłową ścieżkę</string>
   <string name="auth_internal">Wewnętrzny błąd serwera, kod %1$d</string>
   <string name="crashlog_message">Aplikacja została nieoczekiwanie zakończona. Czy chcesz przesłać raport awarii?</string>
@@ -210,6 +226,9 @@
   <string name="wait_a_moment">Poczekaj chwilę</string>
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
   <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Loguj przez oAuth2</string>
+  <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>
   <string name="ssl_validator_title">Uwaga</string>
   <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>

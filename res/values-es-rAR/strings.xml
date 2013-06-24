@@ -78,6 +78,7 @@
   <string name="common_save_exit">Guardar y salir</string>
   <string name="common_exit">Salir de %1$s</string>
   <string name="common_error">Error</string>
+  <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
