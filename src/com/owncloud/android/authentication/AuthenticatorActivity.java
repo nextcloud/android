@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.security.spec.MGF1ParameterSpec;
+
 import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
@@ -61,6 +63,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
@@ -133,6 +136,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private Account mAccount;
 
     private EditText mHostUrlInput;
+    private ImageButton mRefreshButton;
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private CheckBox mOAuth2Check;
@@ -159,6 +163,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
+        mRefreshButton = (ImageButton) findViewById(R.id.refeshButton);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
@@ -179,6 +184,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
         mHostBaseUrl = "";
+        boolean refreshButtonEnabled = false;
 
         if (savedInstanceState == null) {
             /// connection state and info
@@ -207,6 +213,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mOAuth2Check.setChecked(oAuthRequired);
             changeViewByOAuth2Check(oAuthRequired);
             mJustCreated = true;
+            
+            if (mAction == ACTION_UPDATE_TOKEN) {
+                checkOcServer(); 
+            }
 
         } else {
             /// connection state and info
@@ -237,18 +247,13 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }            
             
             // refresh button enabled
-            mRefreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
+            refreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
+            
 
         }
 
         showServerStatus();
         showAuthStatus();
-        if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
-        mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
-
-        if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
-            mOAuth2Check.setVisibility(View.GONE);
-        }
 
         if (mAction == ACTION_UPDATE_TOKEN) {
             /// lock things that should not change
@@ -257,24 +262,20 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setEnabled(false);
             mUsernameInput.setFocusable(false);
             mOAuth2Check.setVisibility(View.GONE);
-            if (!mServerIsValid && mOcServerChkOperation == null) {
-                checkOcServer(); 
-            }
+        }
+        
+        //if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
+        if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
+        mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
+
+        if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
+            mOAuth2Check.setVisibility(View.GONE);
         }
 
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
 
         /// bind view elements to listeners
         mHostUrlInput.setOnFocusChangeListener(this);
-        mHostUrlInput.setOnTouchListener(new RightDrawableOnTouchListener() {
-            @Override
-            public boolean onDrawableTouch(final MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    AuthenticatorActivity.this.onRefreshClick();
-                }
-                return true;
-            }
-        });
         mHostUrlInput.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -340,7 +341,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         
         // refresh button enabled
-        outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
+        //outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
+        outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
 
     }
 
@@ -1196,13 +1198,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
 
     private void showRefreshButton() {
-        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
-        mRefreshButtonEnabled = true;
+        /*mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
+        mRefreshButtonEnabled = true;*/
+        mRefreshButton.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshButton() {
-        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        mRefreshButtonEnabled = false;
+        /*mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        mRefreshButtonEnabled = false;*/
+        mRefreshButton.setVisibility(View.GONE);
     }
 
     /**
@@ -1212,7 +1216,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * 
      * @param view      Refresh 'button'
      */
-    public void onRefreshClick() {
+    public void onRefreshClick(View view) {
         checkOcServer();
     }
     
