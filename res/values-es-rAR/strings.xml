@@ -13,9 +13,13 @@
   <string name="main_settings">Configuración</string>
   <string name="main_tit_accsetup">Configurar cuenta</string>
   <string name="main_wrn_accsetup">No hay cuentas en tu dispositivo. Para usar esta aplicación, tenés que crear una.</string>
+  <string name="about_android">App Android %1$s</string>
+  <string name="about_version">versión %1$s</string>
+  <string name="actionbar_sync">Actualizar cuenta</string>
   <string name="actionbar_upload">Subir</string>
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
+  <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_search">Buscar</string>
   <string name="actionbar_settings">Configuración</string>
@@ -36,6 +40,11 @@
   <string name="prefs_pincode_summary">Protejé tu cliente</string>
   <string name="prefs_instant_upload">Habilitar la subida inmediata</string>
   <string name="prefs_instant_upload_summary">Subir inmediatamente las fotos sacadas con la cámara</string>
+  <string name="prefs_log_title">Habilitar registro</string>
+  <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
+  <string name="prefs_log_title_history">Historia del Registro</string>
+  <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
+  <string name="prefs_log_delete_history_button">Eliminar Historial</string>
   <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
@@ -51,6 +60,7 @@
   <string name="setup_title">Conectate a tu %1$s</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_top_message">Elegí el directorio de subida:</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Creá una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
@@ -67,6 +77,7 @@
   <string name="filedetails_created">Creado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
+  <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_redownload">Volver a descargar</string>
   <string name="filedetails_renamed_in_upload_msg">El archivo fue renombrado como %1$s durante la subida</string>
   <string name="common_yes">Sí</string>
@@ -78,6 +89,7 @@
   <string name="common_save_exit">Guardar y salir</string>
   <string name="common_exit">Salir de %1$s</string>
   <string name="common_error">Error</string>
+  <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
   <string name="delete_account">Eliminar cuenta</string>
@@ -98,16 +110,19 @@
   <string name="downloader_download_succeeded_content">%1$s fue descargado con éxito</string>
   <string name="downloader_download_failed_ticker">Error al descargar</string>
   <string name="downloader_download_failed_content">No fue posible completar la descarga de %1$s</string>
+  <string name="downloader_not_downloaded_yet">No descargado</string>
   <string name="common_choose_account">Elegí una cuenta</string>
   <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Error en la sincronización</string>
   <string name="sync_fail_content">No se pudo completar la sincronización de %1$s </string>
+  <string name="sync_fail_content_unauthorized">Credenciales inválidas para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
   <string name="sync_conflicts_in_favourites_content">No se pudieron sincronizar %1$d archivos</string>
   <string name="sync_fail_in_favourites_ticker">Fallo la sincronización de archivos</string>
   <string name="sync_fail_in_favourites_content">%1$d archivos no pudieron ser sincronizados (%2$d conflictos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales fueron olvidados</string>
   <string name="sync_foreign_files_forgotten_content">%1$d archivos del directorio %2$s no pudieron ser copiados en</string>
+  <string name="sync_foreign_files_forgotten_explanation">Desde la versión 1.3.16, los archivos subidos desde este dispositivo se copian a un directorio local %1$s para prevenir la pérdida de datos cuando un único archivo es sincronizado con múltiples cuentas. \n\nDebido a este cambio, todos los archivos subidos en versiones previas de esta aplicación fueron copiados al directorio %2$s. No obstante, debido a un error, esta operación no pudo ser completada durante la sincronización de la cuenta. Podés dejar los archivos así y borrar el enlace a %3$s, o podés mover el/los archivos al directorio %1$s y conservar el enlace a %4$s. \n\nAbajo, encontrás la lista con los enlaces a los archivos locales y remotos en %5$s a los que están enlazados.</string>
   <string name="foreign_files_move">Mover todos</string>
   <string name="foreign_files_success">Todos los archivos fueron movidos</string>
   <string name="foreign_files_fail">Algunos archivos no pudieron ser movidos</string>
@@ -126,6 +141,27 @@
   <string name="pincode_wrong">El PIN de la aplicación es incorrecto</string>
   <string name="pincode_removed">El PIN de la aplicación fue borrado</string>
   <string name="pincode_stored">El PIN de la aplicación fue almacenado</string>
+  <string name="media_notif_ticker">Reproductor de música %1$s</string>
+  <string name="media_state_playing">%1$s (reproduciendo)</string>
+  <string name="media_state_loading">%1$s (cargando)</string>
+  <string name="media_event_done">%1$s reproducción finalizada</string>
+  <string name="media_err_nothing_to_play">No se encuentra archivo de medio</string>
+  <string name="media_err_no_account">No se proporcionó cuenta</string>
+  <string name="media_err_not_in_owncloud">El archivo no está en una cuenta válida </string>
+  <string name="media_err_unsupported">Codec no soportado</string>
+  <string name="media_err_io">El archivo de medios no pudo ser leído </string>
+  <string name="media_err_malformed">Archivo no está correctamente codificado</string>
+  <string name="media_err_timeout">Demasiado tiempo intentando reproducir</string>
+  <string name="media_err_invalid_progressive_playback">Archivo de medios no puede ser transmitido</string>
+  <string name="media_err_unknown">El archivo de medios no se puede reproducir con el reproductor de medios por defecto </string>
+  <string name="media_err_security_ex">Error de seguridad al intentar reproducir %1$s</string>
+  <string name="media_err_io_ex">Error de entrada al intentar reproducir %1$s</string>
+  <string name="media_err_unexpected">Error inesperado intentando reproducir %1$s</string>
+  <string name="media_previous_description">Botón de canción anterior </string>
+  <string name="media_rewind_description">Botón rebobinado</string>
+  <string name="media_play_pause_description">Botón de reproducción o pausa </string>
+  <string name="media_forward_description">Botón avance rápido</string>
+  <string name="media_next_description">Botón de siguiente canción </string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minutos</item>
     <item>30 minutos</item>
@@ -136,12 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Intentando iniciar sesión...</string>
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_no_net_conn_message">No se ha detectado una conexión de red, revisá tu conexión a internet e intentá nuevamente.</string>
   <string name="auth_connect_anyway">Conectar de todos modos</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
   <string name="auth_nossl_plain_ok_message">La aplicación no pudo establecer una conexión segura al servidor. Aunque no haya una conexión segura disponible, podés continuar o cancelar.</string>
   <string name="auth_connection_established">Conexión establecida</string>
+  <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_not_configured_message">Parece ser que la instancia de tu servidor no está configurada correctamente. Comunicate con el administrador para más detalles.</string>
   <string name="auth_unknown_error_title">¡Ocurrió un error desconocido!</string>
@@ -157,8 +195,14 @@
   <string name="auth_bad_oc_version_title">No es posible reconocer la versión del servidor</string>
   <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
+  <string name="auth_unauthorized">Credenciales inválidas</string>
+  <string name="auth_oauth_error">Autorización no satisfactoria</string>
+  <string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
   <string name="auth_not_found">Ruta incorrecta</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
+  <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introducí la URL del servidor de nuevo</string>
+  <string name="auth_expired_oauth_token_toast">Tu autorización expiró. Por favor, autorizá de nuevo</string>
+  <string name="auth_expired_basic_auth_toast">Tus credenciales guardadas son inválidas. Por favor, introducí tus credenciales actuales</string>
   <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Querés mandar un reporte de error?</string>
   <string name="crashlog_send_report">Enviar reporte</string>
   <string name="crashlog_dont_send_report">No enviar reporte</string>
@@ -185,6 +229,11 @@
   <string name="wait_a_moment">Esperá un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, intentá con otra aplicación para abrir el archivo</string>
   <string name="filedisplay_no_file_selected">No se seleccionó ningún archivo</string>
+  <string name="oauth_host_url">URL oAuth2</string>
+  <string name="oauth_check_onoff">Ingresar con oAuth2.</string>
+  <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
+  <string name="oauth_code_validation_message">Por favor, abrí un navegador web y andá a: %1$s. \nValidá este código ahí: %2$s</string>
+  <string name="oauth_connection_url_unavailable">Conexión a esta URL no disponible.</string>
   <string name="ssl_validator_title">Alerta</string>
   <string name="ssl_validator_header">La identidad del sitio no pudo ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es confiable</string>
@@ -210,6 +259,11 @@
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
   <string name="placeholder_sentence">Este es un texto temporario</string>
+  <string name="placeholder_filename">marcadordeposición.txt</string>
+  <string name="placeholder_filetype">Imagen PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes solamente a través de WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
@@ -217,6 +271,20 @@
   <string name="conflict_keep_both">Mantener ambas</string>
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
+  <string name="preview_image_description">Previsualización de imagen</string>
+  <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
+  <string name="preview_image_error_out_of_memory">No hay suficiente memoria para mostrar esta imagen</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado al directorio local %2$s</string>
+  <string name="actionbar_failed_instant_upload">Error en Carga instantánea </string>
+  <string name="failed_upload_headline_text">Error en Cargas instantánea </string>
+  <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas con error</string>
+  <string name="failed_upload_all_cb">Seleccionar todos</string>
+  <string name="failed_upload_headline_retryall_btn">Reintentar con todos los seleccionados</string>
+  <string name="failed_upload_headline_delete_all_btn">Eliminar todo de la cola de subida</string>
+  <string name="failed_upload_retry_text">Reintentar subida de imagen:</string>
+  <string name="failed_upload_load_more_images">Cargar mas imágenes</string>
+  <string name="failed_upload_retry_do_nothing_text">No hacer nada, no estás conectado para subida instantánea</string>
+  <string name="failed_upload_failure_text">Mensaje de error:</string>
+  <string name="failed_upload_quota_exceeded_text">Por favor, revisá la configuración de servidor, posiblemente tu cuota se haya excedido.</string>
 </resources>

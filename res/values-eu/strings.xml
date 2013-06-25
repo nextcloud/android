@@ -19,6 +19,7 @@
   <string name="actionbar_mkdir">Sortu karpeta</string>
   <string name="actionbar_search">Bilatu</string>
   <string name="actionbar_settings">Ezarpenak</string>
+  <string name="actionbar_see_details">Xehetasunak</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_add_session">Gehitu saio berria</string>
   <string name="prefs_create_img_thumbnails">Sortu irudien koadro txikiak</string>
@@ -50,6 +51,7 @@
   <string name="setup_title">Konektatu zure ownCloudera</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
+  <string name="uploader_top_message">Hautatu igoera direktorioa:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_text">Zure gailuan ez dago ownCloud konturik. Mesedez konfiguratu kontu bat lehenengo.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Konfiguratu</string>
@@ -77,6 +79,8 @@
   <string name="common_save_exit">Gorde eta Irten</string>
   <string name="common_exit">Utzi ownCloud</string>
   <string name="common_error">Errorea</string>
+  <string name="common_loading">Kargatzen ...</string>
+  <string name="common_error_unknown">Errore ezezaguna</string>
   <string name="about_title">Honi buruz</string>
   <string name="delete_account">Ezabatu kontua</string>
   <string name="create_account">Sortu kontua</string>
@@ -96,6 +100,7 @@
   <string name="downloader_download_succeeded_content">%1$s ongi deskargatu da</string>
   <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
   <string name="downloader_download_failed_content">%1$s fitxategiaren deskarga ezin izan da burutu</string>
+  <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
   <string name="common_choose_account">Hautatu kontua</string>
   <string name="sync_string_contacts">Kontaktuak</string>
   <string name="sync_fail_ticker">Sinkronizazioak huts egin du</string>
@@ -124,6 +129,18 @@
   <string name="pincode_wrong">ownCloud aplikazioaren PINa ezda zuzena</string>
   <string name="pincode_removed">ownCloud aplikazioaren PINa kendu da</string>
   <string name="pincode_stored">ownCloud aplikazioaren PINa gorde da</string>
+  <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
+  <string name="media_state_playing">%1$s (jotzen)</string>
+  <string name="media_state_loading">%1$s (kargatzen)</string>
+  <string name="media_event_done">%1$s erreprodukzioa amaitua</string>
+  <string name="media_err_nothing_to_play">Ez da euskarri fitxategia aurkitu</string>
+  <string name="media_err_no_account">Ez da konturik eman</string>
+  <string name="media_err_not_in_owncloud">Fitxategiak ez du baliozko kontu bat</string>
+  <string name="media_err_unsupported">Onartzen ez de euskarri kodeka</string>
+  <string name="media_err_io">Euskarri fitxategia ezin da bihurtu</string>
+  <string name="media_err_malformed">Euskarri fitxategia ezin da kodetu</string>
+  <string name="media_err_timeout">Denbora gehiegi erreproduzitzen saiatzen</string>
+  <string name="media_err_invalid_progressive_playback">Euskarri fitxategia ezin da jariotu</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minutu</item>
     <item>30 Minutu</item>
