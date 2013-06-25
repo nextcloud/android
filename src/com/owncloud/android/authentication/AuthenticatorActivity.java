@@ -143,6 +143,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private TextView mOAuthTokenEndpointText;
     
     private boolean mRefreshButtonEnabled;
+    
+    private boolean mHostUrlInputEnabled;
 
 
     /**
@@ -165,6 +167,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
+        
+        /// set Host Url Input Enabled
+        mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
 
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
@@ -178,6 +183,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
         mHostBaseUrl = "";
+        if (!mHostUrlInputEnabled)
+        {
+            mHostUrlInput.setText(getString(R.string.server_url));
+            mHostUrlInput.setVisibility(View.GONE);
+            checkOcServer();
+        }
 
         if (savedInstanceState == null) {
             /// connection state and info
@@ -451,6 +462,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private void checkOcServer() {
         String uri = trimUrlWebdav(mHostUrlInput.getText().toString().trim());
+        
+        if (!mHostUrlInputEnabled){
+            uri = getString(R.string.server_url);
+        }
+        
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
