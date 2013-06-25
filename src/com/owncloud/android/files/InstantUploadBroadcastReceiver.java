@@ -20,8 +20,8 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.services.FileUploader;
 

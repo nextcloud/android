@@ -28,7 +28,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectionKeepAliveStrategy;
 import org.apache.http.protocol.HttpContext;
 
-import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
 
@@ -142,10 +143,8 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         return null;
     }
 
-    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException {
-        if (AccountUtils.constructFullURLForAccount(getContext(), account) == null) {
-            throw new UnknownHostException();
-        }
+    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
+        AccountUtils.constructFullURLForAccount(getContext(), account);
         mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
     }
     
