@@ -54,6 +54,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
@@ -131,6 +132,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private byte mAction;
     private Account mAccount;
 
+    private Button mCheckServerButton;
     private EditText mHostUrlInput;
     private EditText mUsernameInput;
     private EditText mPasswordInput;
@@ -159,6 +161,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
+        mCheckServerButton = (Button) findViewById(R.id.checkServerButton);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
@@ -170,6 +173,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         /// set Host Url Input Enabled
         mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
+        
 
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
@@ -183,10 +187,23 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
         mHostBaseUrl = "";
+        
+        // URL Branding
         if (!mHostUrlInputEnabled)
         {
             mHostUrlInput.setText(getString(R.string.server_url));
             mHostUrlInput.setVisibility(View.GONE);
+            
+            mCheckServerButton.setVisibility(View.VISIBLE);
+            mCheckServerButton.setOnClickListener(new OnClickListener() {
+                
+                @Override
+                public void onClick(View v) {
+                    checkOcServer();
+                    
+                }
+            });
+            
             checkOcServer();
         }
 
@@ -1212,11 +1229,19 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private void showRefreshButton() {
         mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
         mRefreshButtonEnabled = true;
+        
+        if (!mHostUrlInputEnabled){
+           mCheckServerButton.setVisibility(View.VISIBLE); 
+        }
     }
 
     private void hideRefreshButton() {
         mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         mRefreshButtonEnabled = false;
+        
+        if (!mHostUrlInputEnabled){
+            mCheckServerButton.setVisibility(View.INVISIBLE); 
+        }
     }
 
     /**

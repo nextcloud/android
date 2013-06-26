@@ -40,6 +40,14 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/logo" />
 
+        <Button
+            android:id="@+id/checkServerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/auth_check_server"
+            android:visibility="gone" />
+
 		<EditText
 			android:id="@+id/hostUrlInput"
 			android:layout_width="match_parent"
