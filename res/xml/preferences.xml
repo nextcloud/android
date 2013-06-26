@@ -35,12 +35,13 @@
         				android:disableDependentsState="true" 
         				android:title="@string/instant_upload_on_wifi" 
         				android:key="instant_upload_on_wifi"/>
-    <CheckBoxPreference android:key="log_to_file" 
+    <!-- DISABLED FOR RELEASE UNTIL FIXED 
+    CheckBoxPreference android:key="log_to_file" 
                         android:title="@string/prefs_log_title"  
                         android:summary="@string/prefs_log_summary"/>
 	<Preference 		android:key="log_history" 
                         android:title="@string/prefs_log_title_history"  
-                        android:summary="@string/prefs_log_summary_history"/>
+                        android:summary="@string/prefs_log_summary_history"/ -->
 	<Preference 		android:id="@+id/about_app" 
         				android:title="@string/about_title" 
         				android:key="about_app" />
