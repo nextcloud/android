@@ -18,7 +18,6 @@
 
 package com.owncloud.android.authentication;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -1271,7 +1270,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */
     public void onSavedCertificate() {
-        mOperationThread = mOcServerChkOperation.retry(this, mHandler);                
+        checkOcServer();
     }
 
     /**

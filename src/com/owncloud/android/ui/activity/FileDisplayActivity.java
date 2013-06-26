@@ -1043,6 +1043,7 @@ public class FileDisplayActivity extends FileActivity implements
     @Override
     public void onFileStateChanged() {
         refeshListOfFilesFragment();
+        updateNavigationElementsInActionBar(getSecondFragment().getFile());
     }
 
     
