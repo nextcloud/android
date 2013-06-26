@@ -13,16 +13,14 @@
   <string name="main_settings">Ρυθμίσεις</string>
   <string name="main_tit_accsetup">Ρύθμιση Λογαριασμού</string>
   <string name="main_wrn_accsetup">Δεν υπάρχουν λογαριασμοί ownCloud στη συσκευή σας. Για να χρησιμοποιήσετε την εφαρμογή, πρέπει να δημιουργήσετε ένα.</string>
-  <string name="about_message">ownCloud εφαρμογή για Android\n\nέκδοση: %1$s</string>
-  <string name="actionbar_sync">Ανανέωση </string>
   <string name="actionbar_upload">Μεταφόρτωση</string>
   <string name="actionbar_upload_from_apps">Περιεχόμενο από άλλες εφαρμογές</string>
   <string name="actionbar_upload_files">Αρχεία</string>
   <string name="actionbar_mkdir">Δημιουργία καταλόγου</string>
   <string name="actionbar_search">Αναζήτηση</string>
   <string name="actionbar_settings">Ρυθμίσεις</string>
+  <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="prefs_category_general">Γενικά</string>
-  <string name="prefs_category_trackmydevice">Παρακολούθηση συσκευής</string>
   <string name="prefs_add_session">Προσθήκη νέας συνεδρίας</string>
   <string name="prefs_create_img_thumbnails">Δημιουργία μικρογραφιών εικόνων</string>
   <string name="prefs_select_oc_account">Επιλογή λογαριασμού</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Προστατέψτε την ownCloud εφαρμογή</string>
   <string name="prefs_instant_upload">Ενεργοποιήστε την άμεση μεταφόρτωση</string>
   <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση των φωτογραφιών που τραβάει η φωτογρ. μηχανή</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
   <string name="auth_register">Είμαι νέος στο ownCloud</string>
@@ -69,9 +67,7 @@
   <string name="filedetails_created">Δημιουργήθηκε:</string>
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
-  <string name="filedetails_sync_file">Ανανέωση </string>
   <string name="filedetails_redownload">Κατέβασμα ξανά</string>
-  <string name="filedetails_open">Άνοιγμα</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά την μεταφόρτωση</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
@@ -82,6 +78,8 @@
   <string name="common_save_exit">Αποθήκευση &amp; Έξοδος</string>
   <string name="common_exit">Κλείσιμο</string>
   <string name="common_error">Σφάλμα</string>
+  <string name="common_loading">Φόρτωση ...</string>
+  <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
@@ -109,6 +107,14 @@
   <string name="sync_conflicts_in_favourites_content">%1$d αρχεία σε αναμονή συγχρονισμού, δεν μπόρεσαν να συγχρονιστούν</string>
   <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή συγχρονισμού απέτυχαν</string>
   <string name="sync_fail_in_favourites_content">Τα περιεχόμενα των %1$d αρχείων δεν μπόρεσαν να συγχρονιστούν (%2$d διενέξεις)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Ορισμένα τοπικά αρχεία ξεχάστηκαν</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d αρχεια απο τον %2$s χωρο αποθηκευσης δεν μπορουν να αντιγραφθουν σε</string>
+  <string name="foreign_files_move">Μετακινηση ολων</string>
+  <string name="foreign_files_success">Ολα τα αρχεια μετακινηθηκαν</string>
+  <string name="foreign_files_fail">Μερικα αρχεια δεν μπορεσαν να μετακινηθουν</string>
+  <string name="foreign_files_local_text">Τοπικα: %1$s</string>
+  <string name="foreign_files_remote_text">Remote: %1$s</string>
+  <string name="upload_query_move_foreign_files">Δεν υπαρχει αρκετος χωρος για να αντιγραφθουν τα επιλεγμενα αρχεια στον χωρο αποθηκευσης  %1$s. Θελετε να μετακινηθουν μερικα?</string>
   <string name="use_ssl">Χρήση ασφαλούς σύνδεσης</string>
   <string name="location_no_provider">Το ownCloud δεν μπορεί να ανιχνεύσει την τοποθεσία της συσκευής. Παρακαλώ ελέγξτε τις ρυθμίσεις σύνδεσης. </string>
   <string name="pincode_enter_pin_code">Παρακαλώ, εισάγετε το PIN σας</string>
@@ -131,14 +137,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
   <string name="auth_no_net_conn_message">Δεν ανιχνεύθηκε σύνδεση δικτύου, ελέγξτε την σύνδεση στο Internet και προσπαθήστε ξανά.</string>
   <string name="auth_connect_anyway">Συνδεθείτε παρ\' αυτά</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
   <string name="auth_nossl_plain_ok_message">Αδυναμία καθιέρωσης ασφαλούς σύνδεσης με τον διακομιστή. Παρόλο που είναι διαθέσιμη μη ασφαλή σύνδεση. Μπορείτε να συνεχίσετε ή να ακυρώσετε.</string>
   <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
-  <string name="auth_testing_connection">Έλεγχος σύνδεσης...</string>
   <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις ownCloud</string>
   <string name="auth_not_configured_message">Φαίνεται ότι το ownCloud δεν είναι σωστά ρυθμισμένο. Παρακαλώ επικοινωνήστε με τον διαχειριστή σας, για περισσότερες πληροφορίες. </string>
   <string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα</string>
@@ -154,8 +158,6 @@
   <string name="auth_bad_oc_version_title">Μη αναγνωρίσιμη έκδοση διακομιστή ownCloud</string>
   <string name="auth_wrong_connection_title">Δεν ήταν δυνατή η σύνδεση</string>
   <string name="auth_secure_connection">Επιτεύχθηκε ασφαλής σύνδεση</string>
-  <string name="auth_login_details">Λεπτομέρειες σύνδεσης</string>
-  <string name="auth_unauthorized">Μη έγκυρο συνθηματικό εισόδου</string>
   <string name="auth_not_found">Δόθηκε εσφαλμένη διαδρομή</string>
   <string name="auth_internal">Εσωτερικό σφάλμα διακομιστή, κωδικός %1$d</string>
   <string name="crashlog_message">Η εφαρμογή τερματίστηκε ξαφνικά. Θα θέλατε να υποβάλετε αναφορά σφάλματος;</string>
@@ -208,7 +210,7 @@
   <string name="ssl_validator_label_validity_to">Μέχρι</string>
   <string name="ssl_validator_label_signature">Υπογραφή:</string>
   <string name="ssl_validator_label_signature_algorithm">Αλγόριθμος:</string>
-  <string name="text_placeholder">Αυτό είναι ένα σημείο κράτησης θέσης</string>
+  <string name="placeholder_sentence">Αυτό είναι ένα σημείο κράτησης θέσης</string>
   <string name="instant_upload_on_wifi">Μεταφόρτωση εικόνων μόνο μέσω WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Ενημέρωση σύγκρουσης</string>
@@ -216,4 +218,6 @@
   <string name="conflict_keep_both">Διατήρηση και των δύο</string>
   <string name="conflict_overwrite">Αντικατάσταση</string>
   <string name="conflict_dont_upload">Δεν μεταφορτώθηκε</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s δεν μπορεσε να αντιγραφθεί στον %2$s τοπικο καταλόγο </string>
 </resources>

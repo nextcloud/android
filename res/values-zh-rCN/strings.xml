@@ -13,16 +13,14 @@
   <string name="main_settings">设置</string>
   <string name="main_tit_accsetup">设置账号</string>
   <string name="main_wrn_accsetup">设备上无 ownCloud 账号，要使用此 App，需要先创建一个账号。</string>
-  <string name="about_message">ownCloud安卓客户端\n\n版本： %1$s</string>
-  <string name="actionbar_sync">刷新</string>
   <string name="actionbar_upload">上传</string>
   <string name="actionbar_upload_from_apps">来自其它app的内容</string>
   <string name="actionbar_upload_files">文件</string>
   <string name="actionbar_mkdir">创建目录</string>
   <string name="actionbar_search">搜索</string>
   <string name="actionbar_settings">设置</string>
+  <string name="actionbar_see_details">详细信息</string>
   <string name="prefs_category_general">常规</string>
-  <string name="prefs_category_trackmydevice">设备跟踪</string>
   <string name="prefs_add_session">添加新设备</string>
   <string name="prefs_create_img_thumbnails">创建图片缩略图</string>
   <string name="prefs_select_oc_account">选择账号</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">保护您的owncloud客户端</string>
   <string name="prefs_instant_upload">开启即时上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的照片</string>
-  <string name="auth_host_url">ownCloud 网址</string>
+  <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="auth_register">我是新手</string>
@@ -53,6 +51,7 @@
   <string name="setup_title">连接到你的 ownCloud</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
+  <string name="uploader_top_message">选择上传目录：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上未找到账号，请先创建账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
@@ -69,9 +68,7 @@
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">已修改：</string>
   <string name="filedetails_download">下载</string>
-  <string name="filedetails_sync_file">刷新</string>
   <string name="filedetails_redownload">重新下载</string>
-  <string name="filedetails_open">打开</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
@@ -82,6 +79,8 @@
   <string name="common_save_exit">保存并退出</string>
   <string name="common_exit">离开ownCloud。</string>
   <string name="common_error">错误</string>
+  <string name="common_loading">加载中...</string>
+  <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
@@ -101,6 +100,7 @@
   <string name="downloader_download_succeeded_content">%1$s 成功下载</string>
   <string name="downloader_download_failed_ticker">下载失败</string>
   <string name="downloader_download_failed_content">下载1$s 未能完成</string>
+  <string name="downloader_not_downloaded_yet">未下载完毕</string>
   <string name="common_choose_account">选择账户</string>
   <string name="sync_string_contacts">联系人</string>
   <string name="sync_fail_ticker">同步失败</string>
@@ -109,6 +109,14 @@
   <string name="sync_conflicts_in_favourites_content">%1$d 文件无法同步</string>
   <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
   <string name="sync_fail_in_favourites_content">无法同步 %1$d 文件内容(与 %2$d 冲突)</string>
+  <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
+  <string name="sync_foreign_files_forgotten_content">%2$s目录中的%1$d个文件不能被复制到</string>
+  <string name="foreign_files_move">移动所有</string>
+  <string name="foreign_files_success">所有文件已被移动</string>
+  <string name="foreign_files_fail">某些文件无法被移动</string>
+  <string name="foreign_files_local_text">本地: %1$s</string>
+  <string name="foreign_files_remote_text">远程:%1$s</string>
+  <string name="upload_query_move_foreign_files">没有足够的空间来将选定的文件复制到%1$s文件夹. 是否使用使用移动来代替复制?</string>
   <string name="use_ssl">使用安全链接</string>
   <string name="location_no_provider">ownCloud不能跟踪你的设备。请检查你的位置设置。</string>
   <string name="pincode_enter_pin_code">请输入您的App PIN码</string>
@@ -121,6 +129,27 @@
   <string name="pincode_wrong">ownCloud App PIN码不正确</string>
   <string name="pincode_removed">ownCloud App PIN码已移除</string>
   <string name="pincode_stored">ownCloud App PIN码已保存。</string>
+  <string name="media_notif_ticker">%1$s 音乐播放器</string>
+  <string name="media_state_playing">%1$s (播放中)</string>
+  <string name="media_state_loading">%1$s (载入中)</string>
+  <string name="media_event_done">%1$s 播放完毕</string>
+  <string name="media_err_nothing_to_play">没有发现播放文件</string>
+  <string name="media_err_no_account">未提供账号</string>
+  <string name="media_err_not_in_owncloud">文件不在合法账户</string>
+  <string name="media_err_unsupported">不支持的编码格式</string>
+  <string name="media_err_io">文件不可读</string>
+  <string name="media_err_malformed">文件编码错误</string>
+  <string name="media_err_timeout">太多时间尝试播放</string>
+  <string name="media_err_invalid_progressive_playback">文件不支持流播</string>
+  <string name="media_err_unknown">当前媒体播放器不支持。</string>
+  <string name="media_err_security_ex">尝试播放%1$s时保护错误</string>
+  <string name="media_err_io_ex">尝试播放%1$s时输入错误</string>
+  <string name="media_err_unexpected">尝试播放%1$s时未知错误</string>
+  <string name="media_previous_description">前一首按钮</string>
+  <string name="media_rewind_description">后退按钮</string>
+  <string name="media_play_pause_description">播放暂停按钮</string>
+  <string name="media_forward_description">快进按钮</string>
+  <string name="media_next_description">下一首按钮</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minutes</item>
     <item>30 Minutes</item>
@@ -131,14 +160,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">尝试登录</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_no_net_conn_message">未检测到网络连接，检查互联网连接设置后重试。</string>
   <string name="auth_connect_anyway">总是连接</string>
   <string name="auth_nossl_plain_ok_title">安全链接无效。</string>
   <string name="auth_nossl_plain_ok_message">应用无法建立安全链接到服务器，但是未加密连接可用，你可以继续或取消。</string>
   <string name="auth_connection_established">连接已建立。</string>
-  <string name="auth_testing_connection">测试连接……</string>
   <string name="auth_not_configured_title">ownCloud配置不正确。</string>
   <string name="auth_not_configured_message">看起来owncloud实例配置不正确，请联系您的管理员获取更多信息。</string>
   <string name="auth_unknown_error_title">发生未知错误！</string>
@@ -154,8 +181,6 @@
   <string name="auth_bad_oc_version_title">不可辨识的owncloud服务器版本</string>
   <string name="auth_wrong_connection_title">无法建立连接</string>
   <string name="auth_secure_connection">加密连接已建立</string>
-  <string name="auth_login_details">登录信息</string>
-  <string name="auth_unauthorized">错误的用户名或密码</string>
   <string name="auth_not_found">错误的路径</string>
   <string name="auth_internal">内部服务器错误，代码 %1$d</string>
   <string name="crashlog_message">应用崩溃，是否提交崩溃报告？</string>
@@ -208,7 +233,12 @@
   <string name="ssl_validator_label_validity_to">到：</string>
   <string name="ssl_validator_label_signature">签名：</string>
   <string name="ssl_validator_label_signature_algorithm">算法：</string>
-  <string name="text_placeholder">占位符一枚</string>
+  <string name="placeholder_sentence">占位符</string>
+  <string name="placeholder_filename">点位符.txt</string>
+  <string name="placeholder_filetype">PNG图像格式</string>
+  <string name="placeholder_filesize">389字节</string>
+  <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">仅通过WIFI上传图片。</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">上传冲突</string>
@@ -216,4 +246,20 @@
   <string name="conflict_keep_both">保留两者</string>
   <string name="conflict_overwrite">覆盖</string>
   <string name="conflict_dont_upload">不上传</string>
+  <string name="preview_image_description">图片预览</string>
+  <string name="preview_image_error_unknown_format">不能显示图片</string>
+  <string name="preview_image_error_out_of_memory">没有足够内存显示图片</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s无法被复制到%2$s本地目录</string>
+  <string name="actionbar_failed_instant_upload">限时上传失败</string>
+  <string name="failed_upload_headline_text">限时上传失败</string>
+  <string name="failed_upload_headline_hint">限时上传失败汇总</string>
+  <string name="failed_upload_all_cb">全选</string>
+  <string name="failed_upload_headline_retryall_btn">重试全选</string>
+  <string name="failed_upload_headline_delete_all_btn">从上传列表删除所有选定项</string>
+  <string name="failed_upload_retry_text">重试上传图片</string>
+  <string name="failed_upload_load_more_images">载入更多图片</string>
+  <string name="failed_upload_retry_do_nothing_text">不在线时不开启即时上传</string>
+  <string name="failed_upload_failure_text">失败消息</string>
+  <string name="failed_upload_quota_exceeded_text">请检查服务器设置。可能走出配额。</string>
 </resources>

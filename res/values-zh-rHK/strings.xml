@@ -1,2 +1,55 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="main_files">文件</string>
+  <string name="main_music">音樂</string>
+  <string name="main_contacts">聯絡人</string>
+  <string name="main_calendar">日曆</string>
+  <string name="main_bookmarks">收藏</string>
+  <string name="main_settings">設定</string>
+  <string name="main_tit_accsetup">設定帳號</string>
+  <string name="actionbar_upload">上傳</string>
+  <string name="actionbar_upload_files">文件</string>
+  <string name="actionbar_mkdir">建立目錄</string>
+  <string name="actionbar_search">尋找</string>
+  <string name="actionbar_settings">設定</string>
+  <string name="prefs_category_general">一般</string>
+  <string name="prefs_add_session">新增連線階段</string>
+  <string name="prefs_select_oc_account">選擇帳號</string>
+  <string name="prefs_trackmydevice_interval_summary">每%1$s分鐘更新一次</string>
+  <string name="prefs_accounts">帳號</string>
+  <string name="auth_username">用戶名稱</string>
+  <string name="auth_password">密碼</string>
+  <string name="sync_string_files">文件</string>
+  <string name="uploader_no_file_selected">沒有選擇文件以供上傳</string>
+  <string name="setup_hint_username">用戶名稱</string>
+  <string name="setup_hint_password">密碼</string>
+  <string name="setup_hint_address">網絡地址</string>
+  <string name="setup_hint_show_password">顯示密碼</string>
+  <string name="setup_btn_connect">連線</string>
+  <string name="uploader_btn_upload_text">上傳</string>
+  <string name="uploader_wrn_no_account_title">找不到帳戶</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
+  <string name="uploader_info_uploading">正在上傳</string>
+  <string name="filedetails_size">大小</string>
+  <string name="filedetails_type">類別</string>
+  <string name="filedetails_created">建立於:</string>
+  <string name="filedetails_modified">修改於:</string>
+  <string name="filedetails_download">下載</string>
+  <string name="common_yes">Yes</string>
+  <string name="common_no">No</string>
+  <string name="common_ok">確定</string>
+  <string name="common_cancel">取消</string>
+  <string name="common_error">錯誤</string>
+  <string name="uploader_info_dirname">目錄名稱</string>
+  <string name="common_choose_account">選擇帳戶</string>
+  <string name="sync_string_contacts">聯絡人</string>
+  <string name="use_ssl">安全連線</string>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="common_share">分享</string>
+  <!--we need to improve the communication of errors to the user-->
+</resources>

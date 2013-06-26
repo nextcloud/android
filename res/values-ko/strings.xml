@@ -13,8 +13,6 @@
   <string name="main_settings">설정</string>
   <string name="main_tit_accsetup">계정 설정</string>
   <string name="main_wrn_accsetup">이 장치에 ownCloud 계정이 설정되어 있지 않습니다. 이 앱을 사용하려면 계정을 설정하십시오.</string>
-  <string name="about_message">%1$s Android 앱\n\n버전: %2$s</string>
-  <string name="actionbar_sync">새로 고침</string>
   <string name="actionbar_upload">업로드</string>
   <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
   <string name="actionbar_upload_files">파일</string>
@@ -22,7 +20,6 @@
   <string name="actionbar_search">검색</string>
   <string name="actionbar_settings">설정</string>
   <string name="prefs_category_general">일반</string>
-  <string name="prefs_category_trackmydevice">장치 추적</string>
   <string name="prefs_add_session">새 세션 추가</string>
   <string name="prefs_create_img_thumbnails">미리 보기 그림 만들기</string>
   <string name="prefs_select_oc_account">계정 선택</string>
@@ -38,7 +35,7 @@
   <string name="prefs_pincode_summary">내 클라이언트 보호</string>
   <string name="prefs_instant_upload">자동 업로드 사용</string>
   <string name="prefs_instant_upload_summary">카메라로 촬영한 사진 자동 업로드</string>
-  <string name="auth_host_url">URL</string>
+  <string name="auth_host_url">서버 주소</string>
   <string name="auth_username">사용자 이름</string>
   <string name="auth_password">암호</string>
   <string name="auth_register">%1$s의 새로운 사용자입니다</string>
@@ -69,9 +66,7 @@
   <string name="filedetails_created">만든 날짜:</string>
   <string name="filedetails_modified">수정한 날짜:</string>
   <string name="filedetails_download">다운로드</string>
-  <string name="filedetails_sync_file">새로 고침</string>
   <string name="filedetails_redownload">다시 다운로드</string>
-  <string name="filedetails_open">열기</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
   <string name="common_yes">예</string>
   <string name="common_no">아니요</string>
@@ -109,6 +104,14 @@
   <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없었습니다 (충돌 %2$d개)</string>
+  <string name="sync_foreign_files_forgotten_ticker">몇몇 로컬 파일이 사라졌습니다.</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d 파일을 %2$s 디렉토리에 복사하지 못하였습니다.</string>
+  <string name="foreign_files_move">모두 옮김</string>
+  <string name="foreign_files_success">모든 파일 옮김</string>
+  <string name="foreign_files_fail">몇몇 파일을 옮기지 못했습니다.</string>
+  <string name="foreign_files_local_text">로컬: %1$s</string>
+  <string name="foreign_files_remote_text">원격: %1$s</string>
+  <string name="upload_query_move_foreign_files">선택한 파일을 %1$s폴더에 넣기에는 공간이 충분하지 않습니다. 다른곳으로 옮기시겠습니까?</string>
   <string name="use_ssl">암호화된 연결 사용</string>
   <string name="location_no_provider">%1$s에서 장치 위치를 추적할 수 없습니다. 위치 설정을 확인하십시오.</string>
   <string name="pincode_enter_pin_code">앱 암호를 입력하십시오</string>
@@ -131,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">로그인 중...</string>
   <string name="auth_no_net_conn_title">네트워크에 연결할 수 없습니다</string>
   <string name="auth_no_net_conn_message">네트워크 연결을 시도할 수 없습니다. 인터넷 연결을 확인하고 다시 시도하십시오.</string>
   <string name="auth_connect_anyway">그래도 접속하기</string>
   <string name="auth_nossl_plain_ok_title">암호화된 연결을 사용할 수 없습니다.</string>
   <string name="auth_nossl_plain_ok_message">서버와 암호화된 통신을 시도할 수 없었습니다. 암호화되지 않은 연결을 사용할 수 있습니다. 그래도 접속하거나 취소할 수 있습니다.</string>
   <string name="auth_connection_established">연결됨</string>
-  <string name="auth_testing_connection">연결 테스트 중...</string>
   <string name="auth_not_configured_title">서버 설정이 잘못됨</string>
   <string name="auth_not_configured_message">서버 인스턴스가 잘못 설정된 것 같습니다. 서버 관리자에게 문의하십시오.</string>
   <string name="auth_unknown_error_title">알 수 없는 오류가 발생하였습니다!</string>
@@ -154,8 +155,6 @@
   <string name="auth_bad_oc_version_title">확인할 수 없는 서버 버전</string>
   <string name="auth_wrong_connection_title">연결을 수립할 수 없음</string>
   <string name="auth_secure_connection">암호화된 연결 사용 중</string>
-  <string name="auth_login_details">로그인 정보</string>
-  <string name="auth_unauthorized">잘못된 로그인/암호</string>
   <string name="auth_not_found">경로가 잘못되었습니다</string>
   <string name="auth_internal">내부 서버 오류, 코드 %1$d</string>
   <string name="crashlog_message">프로그램이 예상치 못하게 종료되었습니다. 충돌 보고서를 전송하시겠습니까?</string>
@@ -208,7 +207,6 @@
   <string name="ssl_validator_label_validity_to">끝:</string>
   <string name="ssl_validator_label_signature">서명:</string>
   <string name="ssl_validator_label_signature_algorithm">알고리즘:</string>
-  <string name="text_placeholder">자리 비움자</string>
   <string name="instant_upload_on_wifi">WiFi 사용 중일때만 사진 업로드</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">업데이트 충돌</string>
@@ -216,4 +214,6 @@
   <string name="conflict_keep_both">모두 저장</string>
   <string name="conflict_overwrite">덮어쓰기</string>
   <string name="conflict_dont_upload">업로드하지 않음</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s를 %2$s 로컬 디렉토리로 복사하지 못했습니다.</string>
 </resources>

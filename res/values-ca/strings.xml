@@ -13,16 +13,18 @@
   <string name="main_settings">Configuració</string>
   <string name="main_tit_accsetup">Configuració de comptes</string>
   <string name="main_wrn_accsetup">No hi ha comptes d\'ownCloud en el dispositiu. Per usar l\'aplicació, n\'heu de crear un.</string>
-  <string name="about_message">Client ownCloud per Android\n\nversió: %1$s</string>
-  <string name="actionbar_sync">Sincronitza el compte</string>
+  <string name="about_android">%1$s aplicació per Android</string>
+  <string name="about_version">versió %1$s</string>
+  <string name="actionbar_sync">Actualitza compte</string>
   <string name="actionbar_upload">Puja un fitxer</string>
   <string name="actionbar_upload_from_apps">Contingut d\'altres aplicacions</string>
   <string name="actionbar_upload_files">Fitxers</string>
+  <string name="actionbar_open_with">Obre amb</string>
   <string name="actionbar_mkdir">Crea una carpeta</string>
   <string name="actionbar_search">Cerca</string>
   <string name="actionbar_settings">Configuració</string>
+  <string name="actionbar_see_details">Detalls</string>
   <string name="prefs_category_general">General</string>
-  <string name="prefs_category_trackmydevice">Seguiment del dispositiu</string>
   <string name="prefs_add_session">Afegeix una sessió nova</string>
   <string name="prefs_create_img_thumbnails">Crea miniatures d\'imatges</string>
   <string name="prefs_select_oc_account">Seleccioneu un compte</string>
@@ -38,7 +40,12 @@
   <string name="prefs_pincode_summary">Protegiu el client ownCloud</string>
   <string name="prefs_instant_upload">Activa la pujada instantània</string>
   <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
-  <string name="auth_host_url">URL de ownCloud</string>
+  <string name="prefs_log_title">Habilita el registre</string>
+  <string name="prefs_log_summary">Això s\'usa per registrar problemes</string>
+  <string name="prefs_log_title_history">Història del registre</string>
+  <string name="prefs_log_summary_history">Això mostra els registres desats</string>
+  <string name="prefs_log_delete_history_button">Esborra la història</string>
+  <string name="auth_host_url">Adreça del servidor</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
   <string name="auth_register">Sóc nou a ownCloud</string>
@@ -53,6 +60,7 @@
   <string name="setup_title">Connecta amb ownCloud</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Puja</string>
+  <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
   <string name="uploader_wrn_no_account_text">No hi ha comptes ownCloud en el dispositiu. Configureu un compte primer</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
@@ -69,9 +77,8 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Baixa</string>
-  <string name="filedetails_sync_file">Refrescar</string>
+  <string name="filedetails_sync_file">Actualitza el fitxer</string>
   <string name="filedetails_redownload">Baixa de nou</string>
-  <string name="filedetails_open">Obre</string>
   <string name="filedetails_renamed_in_upload_msg">L\'arxiu s\'ha canviat de nom a %1$s durant la càrrega</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
@@ -82,6 +89,8 @@
   <string name="common_save_exit">Desa &amp; Surt</string>
   <string name="common_exit">Surt de ownCloud</string>
   <string name="common_error">Error</string>
+  <string name="common_loading">Carregant...</string>
+  <string name="common_error_unknown">Error desconegut</string>
   <string name="about_title">Quant a</string>
   <string name="delete_account">Elimina compte</string>
   <string name="create_account">Crea un compte</string>
@@ -101,14 +110,25 @@
   <string name="downloader_download_succeeded_content">%1$s s\'han baixat correctament</string>
   <string name="downloader_download_failed_ticker">La baixada ha fallat</string>
   <string name="downloader_download_failed_content">La baixada de %1$s no s\'ha pogut acabar</string>
+  <string name="downloader_not_downloaded_yet">No baixat encara</string>
   <string name="common_choose_account">Escolliu el compte</string>
   <string name="sync_string_contacts">Contactes</string>
   <string name="sync_fail_ticker">La sincronització ha fallat</string>
   <string name="sync_fail_content">La sincronització de %1$s no s\'ha pogut acabar</string>
+  <string name="sync_fail_content_unauthorized">Credencials no vàlides per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
   <string name="sync_conflicts_in_favourites_content">%1$d mantinguts els arxius que no podien ser sincronitzats</string>
   <string name="sync_fail_in_favourites_ticker">Es mantenent els arxius a sincronitzar erronis</string>
   <string name="sync_fail_in_favourites_content">El contingut de %1$d arxius no es va poder sincronitzar (%2$d conflictes)</string>
+  <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de %2$s carpetes</string>
+  <string name="sync_foreign_files_forgotten_explanation">Des de la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per prevenir pèrdues de dades quan es sincronitza un únic fitxer amb diversos comptes.\n\nDegut a aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta aplicació es copiaven a la carpeta %2$s. Malgrat tot, un error impedia aquesta operació durant la sinconització del compte. Podeu deixar els fitxer(s) tal i com estan i eliminar l\'enllaç a %3$2, o moure els fitxer(s) a la carpeta %1$s i retenir l\'enllaç a %4$s.\n\nA baix hi ha els fitxers local(s) i els fitxer(s) remots a %5$s als que estaven enllaçats.</string>
+  <string name="foreign_files_move">Mou-los tots</string>
+  <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
+  <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
+  <string name="foreign_files_local_text">Local: %1$s</string>
+  <string name="foreign_files_remote_text">Remot: %1$s</string>
+  <string name="upload_query_move_foreign_files">No hi ha prou espai per copiar els fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
   <string name="use_ssl">Usa connexió segura</string>
   <string name="location_no_provider">ownCloud no pot fer el seguiment de l\'equip. Comproveu la configuració d\'ubicuació</string>
   <string name="pincode_enter_pin_code">Escriviu el PIN de l\'aplicació</string>
@@ -121,6 +141,27 @@
   <string name="pincode_wrong">El PIN de l\'aplicació ownCloud no és correcte</string>
   <string name="pincode_removed">S\'ha eliminat el PIN de l\'aplicació ownCloud</string>
   <string name="pincode_stored">S\'ha desat el PIN de l\'aplicació ownCloud</string>
+  <string name="media_notif_ticker">reproductor de música %1$s</string>
+  <string name="media_state_playing">%1$s (sonant)</string>
+  <string name="media_state_loading">%1$s (carregant)</string>
+  <string name="media_event_done">reproducció acabada %1$s</string>
+  <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimedia</string>
+  <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
+  <string name="media_err_not_in_owncloud">El fitxer no és en un compte vàlid</string>
+  <string name="media_err_unsupported">El codec multimèdia no és compatible</string>
+  <string name="media_err_io">El fitxer multimèdia no es pot llegir</string>
+  <string name="media_err_malformed">El fitxer multimèdia no està codificat correctament</string>
+  <string name="media_err_timeout">Massa temps intentant reprduïr-lo</string>
+  <string name="media_err_invalid_progressive_playback">El fitxer multimèdia no es pot transmetre</string>
+  <string name="media_err_unknown">El fitxer multimèdia no es pot reproduir amb el reproductor per defecte</string>
+  <string name="media_err_security_ex">Error de seguretat en intentar reproduir %1$s</string>
+  <string name="media_err_io_ex">Error d\'entrada intentant reproduir %1$s</string>
+  <string name="media_err_unexpected">Error inesperat intentant reproduir %1$s</string>
+  <string name="media_previous_description">Botó de cançó anterior</string>
+  <string name="media_rewind_description">Botó de rebobinat</string>
+  <string name="media_play_pause_description">Botó de reproducció o pausa</string>
+  <string name="media_forward_description">Botó de reproducció ràpida</string>
+  <string name="media_next_description">Botó de cançó següent</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minuts</item>
     <item>30 Minuts</item>
@@ -131,14 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
+  <string name="auth_trying_to_login">Intentant l\'accés...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
   <string name="auth_connect_anyway">Connecta igualment</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
+  <string name="auth_testing_connection">Comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració de ownCloud està malformada</string>
   <string name="auth_not_configured_message">Sembla que la instància ownCloud no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
@@ -154,10 +195,14 @@
   <string name="auth_bad_oc_version_title">Versió del servidor ownCloud desconeguda</string>
   <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
   <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
-  <string name="auth_login_details">Detalls de connexió</string>
-  <string name="auth_unauthorized">Login / contrasenya incorrectes</string>
+  <string name="auth_unauthorized">Credencials no vàlides</string>
+  <string name="auth_oauth_error">Autorització sense èxit</string>
+  <string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
   <string name="auth_not_found">Camí equivocat</string>
   <string name="auth_internal">Error intern del servidor, codi %1$d</string>
+  <string name="auth_wtf_reenter_URL">Estat inesperat; escriviu l\'adreça de nou</string>
+  <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut.\nAcrediteu-vos de nou</string>
+  <string name="auth_expired_basic_auth_toast">Les credencials desades no són correctes.\nEscriviu les credencials actuals</string>
   <string name="crashlog_message">L\'aplicació s\'ha aturat de manera no prevista. Voleu enviar el registre d\'errors?</string>
   <string name="crashlog_send_report">Envia el registre d\'errors</string>
   <string name="crashlog_dont_send_report">No envïis el registre d\'errors</string>
@@ -172,7 +217,7 @@
   <string name="confirmation_remove_local">Només local</string>
   <string name="confirmation_remove_folder_local">Només contiguts locals</string>
   <string name="confirmation_remove_remote">Elimina del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Tant el remot com el local</string>
+  <string name="confirmation_remove_remote_and_local">Remot i local</string>
   <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
   <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
   <string name="rename_dialog_title">Introdueix un nom nou</string>
@@ -184,6 +229,11 @@
   <string name="wait_a_moment">Espereu</string>
   <string name="filedisplay_unexpected_bad_get_content">S\'ha produït un problema inesperat; proveu una altra aplicació per seleccionar el fitxer</string>
   <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
+  <string name="oauth_host_url">URL de oAuth2</string>
+  <string name="oauth_check_onoff">Accés per oAuth2.</string>
+  <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>
+  <string name="oauth_code_validation_message">Obriu un navegador i accediu a:\n%1$s.\nValideu-hi aquest codi:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">La connexió amb la URL no està disponible.</string>
   <string name="ssl_validator_title">Avís</string>
   <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
@@ -208,7 +258,12 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Signatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
-  <string name="text_placeholder">Això és un text variable</string>
+  <string name="placeholder_sentence">Això és un text variable</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">Imatge PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Puja les fotos només via WiFi</string>
   <string name="instant_upload_path">/CarregaInstantània</string>
   <string name="conflict_title">Conflicte d\'actualització</string>
@@ -216,4 +271,20 @@
   <string name="conflict_keep_both">Mantén-los ambdós</string>
   <string name="conflict_overwrite">Sobrescriu</string>
   <string name="conflict_dont_upload">No el pugis</string>
+  <string name="preview_image_description">Visualització prèvia d\'imatge</string>
+  <string name="preview_image_error_unknown_format">Auquesta imatge no es pot mostrar</string>
+  <string name="preview_image_error_out_of_memory">\"No teniu suficient memòria per mostrar aquesta imatge</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
+  <string name="actionbar_failed_instant_upload">ha fallat la pujada instantània\"</string>
+  <string name="failed_upload_headline_text">Fallada de pujades instantànies</string>
+  <string name="failed_upload_headline_hint">Resum de totes les pujades instantànies que han fallat</string>
+  <string name="failed_upload_all_cb">selecciona-ho tot</string>
+  <string name="failed_upload_headline_retryall_btn">reintenta els seleccionats</string>
+  <string name="failed_upload_headline_delete_all_btn">elimina tots els seleccionats de la cua de pujada</string>
+  <string name="failed_upload_retry_text">intenta pujar de nou la imatge:</string>
+  <string name="failed_upload_load_more_images">Carrega més imatges</string>
+  <string name="failed_upload_retry_do_nothing_text">no facis res, no estàs en lína per la pujada instantània</string>
+  <string name="failed_upload_failure_text">Missatge d\'Error:</string>
+  <string name="failed_upload_quota_exceeded_text">Comproveu la configuració del servidor, potser heu excedit la quota.</string>
 </resources>

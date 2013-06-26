@@ -13,16 +13,14 @@
   <string name="main_settings">Nastavenia</string>
   <string name="main_tit_accsetup">Nastavenie účtu</string>
   <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
-  <string name="about_message">%1$s Android App\n\nverzia: %2$s</string>
-  <string name="actionbar_sync">Obnoviť</string>
   <string name="actionbar_upload">Nahraj súbor</string>
   <string name="actionbar_upload_from_apps">Obsah z inej aplikácie</string>
   <string name="actionbar_upload_files">Súbory</string>
   <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_search">Hľadaj</string>
   <string name="actionbar_settings">Nastavenia</string>
+  <string name="actionbar_see_details">Podrobnosti</string>
   <string name="prefs_category_general">Všeobecné</string>
-  <string name="prefs_category_trackmydevice">Sledovanie zariadenia</string>
   <string name="prefs_add_session">Vytvoriť nové sedenie</string>
   <string name="prefs_create_img_thumbnails">Vytvor náhľad obrázku</string>
   <string name="prefs_select_oc_account">Vyber účet</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Chrániť klienta ownCloud</string>
   <string name="prefs_instant_upload">Zapnúť okamžité odosielanie</string>
   <string name="prefs_instant_upload_summary">Okamžite odosielať fotky z fotoaparátu</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_host_url">Adresa servera</string>
   <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
   <string name="auth_register">Som nový v %1$s</string>
@@ -53,6 +51,7 @@
   <string name="setup_title">Pripojiť k ownCloud</string>
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
+  <string name="uploader_top_message">Vyberte priečinok pre nahrané súbory:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny ownCloud účet. Zadajte ho prosím.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
@@ -69,9 +68,7 @@
   <string name="filedetails_created">Vytvorený:</string>
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
-  <string name="filedetails_sync_file">Obnoviť</string>
   <string name="filedetails_redownload">Obnoviť</string>
-  <string name="filedetails_open">Otvoriť</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
@@ -82,6 +79,8 @@
   <string name="common_save_exit">Uložiť a ukončiť</string>
   <string name="common_exit">Opustiť ownCloud</string>
   <string name="common_error">Chyba</string>
+  <string name="common_loading">Načítavam...</string>
+  <string name="common_error_unknown">Neznáma chyba</string>
   <string name="about_title">O</string>
   <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
@@ -101,6 +100,7 @@
   <string name="downloader_download_succeeded_content">%1$s bol úspešne stiahnutý</string>
   <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
   <string name="downloader_download_failed_content">Sťahovanie %1$s nebolo dokončené</string>
+  <string name="downloader_not_downloaded_yet">Ešte nie je stiahnuté</string>
   <string name="common_choose_account">Zvoliť účet</string>
   <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
@@ -109,6 +109,14 @@
   <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
   <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d súborov z priečinka %2$s nemožno skopírovať do</string>
+  <string name="foreign_files_move">Premiestniť všetko</string>
+  <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
+  <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
+  <string name="foreign_files_local_text">Lokálne: %1$s</string>
+  <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
+  <string name="upload_query_move_foreign_files">Nie je dostatok miesta na kopírovanie vybraných súborov do priečinka %1$s. Želáte si miesto kopírovania zmeniť?</string>
   <string name="use_ssl">Použiť zabezpečené pripojenie</string>
   <string name="location_no_provider">ownCloud nemôže sledovať polohu vášho zariadenia. Skontrolujte nastavenia umiestnenia.</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
@@ -121,6 +129,11 @@
   <string name="pincode_wrong">Nesprávny PIN aplikácie</string>
   <string name="pincode_removed">PIN aplikácie bol odstránený</string>
   <string name="pincode_stored">PIN aplikácie bol uložený</string>
+  <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
+  <string name="media_state_playing">%1$s (prehráva)</string>
+  <string name="media_state_loading">%1$s (načítava)</string>
+  <string name="media_event_done">%1$s prehrávanie dokončené</string>
+  <string name="media_err_nothing_to_play">Nenájdený žiaden multimediálny súbor</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minút</item>
     <item>30 minút</item>
@@ -131,14 +144,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Pokus o pripojenie...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
   <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_nossl_plain_ok_message">Aplikácia nemôže nadviazať zabezpečené spojenie so serverom. Nezabezpečené pripojenie je k dispozícii. Môžete pokračovať alebo prerušiť spojenie.</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
-  <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia ownCloud</string>
   <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
@@ -154,8 +165,6 @@
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
-  <string name="auth_login_details">Podrobnosti prihlásenia</string>
-  <string name="auth_unauthorized">Neplatné prihlasovacie meno / heslo</string>
   <string name="auth_not_found">Je zadaná neplatná cesta</string>
   <string name="auth_internal">Interná chyba servera, kód %1$d</string>
   <string name="crashlog_message">Aplikácia neočakávane ukončila činnosť. Chcete poslať správu o chybe?</string>
@@ -208,7 +217,6 @@
   <string name="ssl_validator_label_validity_to">Do: </string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
-  <string name="text_placeholder">To je zástupný znak</string>
   <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt pri aktualizácii</string>
@@ -216,4 +224,6 @@
   <string name="conflict_keep_both">Ponechať oba</string>
   <string name="conflict_overwrite">Prepísať</string>
   <string name="conflict_dont_upload">Nenahrávajte</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
 </resources>

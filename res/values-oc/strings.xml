@@ -12,14 +12,12 @@
   <string name="main_bookmarks">Marcapaginas</string>
   <string name="main_settings">Configuracion</string>
   <string name="main_tit_accsetup">Compte de configuracion</string>
-  <string name="actionbar_sync">Refresca</string>
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
   <string name="actionbar_mkdir">Crea un repertòri</string>
   <string name="actionbar_search">Cèrca</string>
   <string name="actionbar_settings">Configuracion</string>
   <string name="prefs_category_general">General</string>
-  <string name="prefs_category_trackmydevice">Traqua lo daquòs</string>
   <string name="prefs_add_session">Apond una session novèla</string>
   <string name="prefs_create_img_thumbnails">Crea imatgonels</string>
   <string name="prefs_select_oc_account">Selecciona un compte</string>
@@ -27,7 +25,6 @@
   <string name="prefs_trackmydevice">Traqua lo daquòs</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Maneja comptes</string>
-  <string name="auth_host_url">URL del ownCloud</string>
   <string name="auth_username">Nom d\'usancièr</string>
   <string name="auth_password">Senhal</string>
   <string name="new_session_uri_error">As donat un URL fals</string>
@@ -49,9 +46,7 @@
   <string name="filedetails_created">Creat :</string>
   <string name="filedetails_modified">Modificat :</string>
   <string name="filedetails_download">Avalcarga</string>
-  <string name="filedetails_sync_file">Refresca</string>
   <string name="filedetails_redownload">Torna avalcargar</string>
-  <string name="filedetails_open">Dubrís</string>
   <string name="common_yes">Òc</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'accòrdi</string>
@@ -69,10 +64,10 @@
   <string name="sync_string_contacts">Contactes</string>
   <string name="use_ssl">Utiliza una conneccion segura</string>
   <string name="pincode_enter_pin_code">Dintras ton PIN d\'App, se te plai</string>
-  <string name="auth_login_details">Detalhs de login</string>
   <string name="crashlog_send_report">Rapòrt mandat</string>
   <string name="crashlog_dont_send_report">Mandes pas de rapòrt</string>
   <string name="extensions_avail_title">Extensions disponibles !</string>
   <string name="common_share">Parteja</string>
   <string name="common_rename">Torna nomenar</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

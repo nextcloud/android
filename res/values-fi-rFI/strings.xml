@@ -13,16 +13,18 @@
   <string name="main_settings">Asetukset</string>
   <string name="main_tit_accsetup">Aseta tili</string>
   <string name="main_wrn_accsetup">Laitteessasi ei ole ownCloud-tilejä. Luo tili käyttääksesi tätä sovellusta.</string>
-  <string name="about_message">ownCloudin Android-sovellus\n\nversio: %1$s</string>
-  <string name="actionbar_sync">Päivitä</string>
+  <string name="about_android">%1$s-Android-sovellus</string>
+  <string name="about_version">versio %1$s</string>
+  <string name="actionbar_sync">Päivitä tili</string>
   <string name="actionbar_upload">Lähetä tiedosto</string>
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
   <string name="actionbar_upload_files">Tiedostot</string>
+  <string name="actionbar_open_with">Avaa sovelluksella</string>
   <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_search">Etsi</string>
   <string name="actionbar_settings">Asetukset</string>
+  <string name="actionbar_see_details">Tiedot</string>
   <string name="prefs_category_general">Yleiset</string>
-  <string name="prefs_category_trackmydevice">Laitteen jäljitys</string>
   <string name="prefs_add_session">Lisää uusi istunto</string>
   <string name="prefs_create_img_thumbnails">Luo kuvista pikkukuvat</string>
   <string name="prefs_select_oc_account">Valitse tili</string>
@@ -38,7 +40,8 @@
   <string name="prefs_pincode_summary">Suojaa ownCloud-asiakasohjelmasi</string>
   <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
-  <string name="auth_host_url">ownCloud-osoite</string>
+  <string name="prefs_log_delete_history_button">Poista historia</string>
+  <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
   <string name="auth_register">Olen uusi ownCloudin kanssa</string>
@@ -53,6 +56,7 @@
   <string name="setup_title">Yhdistä omaan ownCloudiin</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu ownCloud-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -69,9 +73,8 @@
   <string name="filedetails_created">Luotu:</string>
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
-  <string name="filedetails_sync_file">Päivitä</string>
+  <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_redownload">Lataa uudelleen</string>
-  <string name="filedetails_open">Avaa</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
@@ -82,6 +85,8 @@
   <string name="common_save_exit">Tallenna ja poistu</string>
   <string name="common_exit">Jätä ownCloud</string>
   <string name="common_error">Virhe</string>
+  <string name="common_loading">Ladataan…</string>
+  <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
   <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
@@ -109,6 +114,11 @@
   <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
   <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
   <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
+  <string name="foreign_files_move">Siirrä kaikki</string>
+  <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
+  <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
+  <string name="foreign_files_local_text">Paikallinen: %1$s</string>
+  <string name="foreign_files_remote_text">Etä: %1$s</string>
   <string name="use_ssl">Käytä salattua yhteyttä</string>
   <string name="location_no_provider">ownCloud ei voi jäljittää laitettasi. Tarkista laitteesi sijaintiasetukset</string>
   <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
@@ -121,6 +131,15 @@
   <string name="pincode_wrong">Väärä ownCloud-sovelluksen PIN</string>
   <string name="pincode_removed">ownCloud-sovelluksen PIN poistettu</string>
   <string name="pincode_stored">ownCloud-sovelluksen PIN-koodi tallennettu</string>
+  <string name="media_state_playing">%1$s (toistetaan)</string>
+  <string name="media_state_loading">%1$s (ladataan)</string>
+  <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
+  <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_previous_description">Edellinen kappale -painike</string>
+  <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
+  <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
+  <string name="media_forward_description">Eteenpäin kelaus -painike</string>
+  <string name="media_next_description">Seuraava kappale -painike</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minuuttia</item>
     <item>30 minuuttia</item>
@@ -131,7 +150,6 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_no_net_conn_message">Verkkoyhteyttä ei havaittu. Tarkista internetyhteyden tila ja yritä uudelleen.</string>
   <string name="auth_connect_anyway">Yhdistä silti</string>
@@ -154,10 +172,9 @@
   <string name="auth_bad_oc_version_title">Tuntematon ownCloud-palvelimen versio</string>
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
-  <string name="auth_login_details">Kirjautumistiedot</string>
-  <string name="auth_unauthorized">Virheellinen tunnus tai salasana</string>
   <string name="auth_not_found">Väärä polku</string>
   <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
+  <string name="auth_wtf_reenter_URL">Odottamaton tila; anna palvelimen osoite uudelleen</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>
   <string name="crashlog_send_report">Lähetä ilmoitus</string>
   <string name="crashlog_dont_send_report">Älä lähetä ilmoitusta</string>
@@ -184,6 +201,8 @@
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
+  <string name="oauth_check_onoff">Kirjaudu oAuth2:lla.</string>
+  <string name="oauth_login_connection">Yhdistetään oAuth2-palvelimeen…</string>
   <string name="ssl_validator_title">Varoitus</string>
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
@@ -208,7 +227,7 @@
   <string name="ssl_validator_label_validity_to">Päättyen:</string>
   <string name="ssl_validator_label_signature">Allekirjoitus:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
-  <string name="text_placeholder">Tämä on paikkavaraus</string>
+  <string name="placeholder_filetype">PNG-kuva</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Päivitysristiriita</string>
@@ -216,4 +235,10 @@
   <string name="conflict_keep_both">Säilytä molemmat</string>
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
+  <string name="preview_image_error_unknown_format">Kuvaa ei voi näyttää</string>
+  <string name="preview_image_error_out_of_memory">\"Muisti ei riitä tämän kuvan näyttämiseen</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="failed_upload_all_cb">valitse kaikki</string>
+  <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
+  <string name="failed_upload_failure_text">Virheviesti:</string>
 </resources>

@@ -1,20 +1,129 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="app_name">ownCloud</string>
+  <string name="main_password">Passord:</string>
+  <string name="main_login">Brukarnamn:</string>
+  <string name="main_button_login">Logg inn</string>
   <string name="main_files">Filer</string>
   <string name="main_music">Musikk</string>
   <string name="main_contacts">Kotaktar</string>
+  <string name="main_calendar">Kalender</string>
+  <string name="main_bookmarks">Bokmerkje</string>
   <string name="main_settings">Innstillingar</string>
+  <string name="main_tit_accsetup">Set opp konto</string>
   <string name="actionbar_upload">Last opp</string>
+  <string name="actionbar_upload_from_apps">Innhald frå andre program</string>
   <string name="actionbar_upload_files">Filer</string>
+  <string name="actionbar_mkdir">Opprett mappe</string>
+  <string name="actionbar_search">Søk</string>
   <string name="actionbar_settings">Innstillingar</string>
+  <string name="prefs_category_general">Generelt</string>
+  <string name="prefs_add_session">Legg til ny økt</string>
+  <string name="prefs_create_img_thumbnails">Lag miniatyrbilete</string>
+  <string name="prefs_select_oc_account">Vel ein konto</string>
+  <string name="prefs_trackmydevice_interval_summary">Oppdater med %1$s minutts mellomrom</string>
+  <string name="prefs_accounts">Kontoar</string>
+  <string name="prefs_instant_upload_summary">Last opp kamerabilete med ein gong du tek dei</string>
+  <string name="auth_host_url">Tenaradresse</string>
   <string name="auth_username">Brukarnamn</string>
   <string name="auth_password">Passord</string>
   <string name="sync_string_files">Filer</string>
+  <string name="uploader_no_file_selected">Inga fil valt for opplasting</string>
   <string name="setup_hint_username">Brukarnamn</string>
   <string name="setup_hint_password">Passord</string>
+  <string name="setup_hint_address">Nettadresse</string>
+  <string name="setup_hint_show_password">Vis passord?</string>
+  <string name="setup_btn_connect">Kopla til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
+  <string name="uploader_wrn_no_account_title">Fann ingen konto</string>
+  <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
+  <string name="uploader_wrn_no_content_title">Inga innhald å lasta opp</string>
+  <string name="uploader_wrn_no_content_text">Mottok ikkje noko innhald. Ingenting å lasta opp.</string>
+  <string name="uploader_info_uploading">Lastar opp</string>
+  <string name="uploader_btn_create_dir_text">Opprett mappe for opplasting</string>
+  <string name="filedetails_select_file">Trykk på ei fil for å visa meir informasjon.</string>
+  <string name="filedetails_size">Storleik:</string>
+  <string name="filedetails_type">Type:</string>
+  <string name="filedetails_created">Oppretta:</string>
+  <string name="filedetails_modified">Endra:</string>
   <string name="filedetails_download">Last ned</string>
-  <string name="common_cancel">Kanseller</string>
+  <string name="common_yes">Ja</string>
+  <string name="common_no">Nei</string>
+  <string name="common_ok">Greitt</string>
+  <string name="common_cancel_download">Avbryt nedlasting</string>
+  <string name="common_cancel_upload">Avbryt opplasting</string>
+  <string name="common_cancel">Avbryt</string>
+  <string name="common_save_exit">Lagra &amp; avslutt</string>
   <string name="common_error">Feil</string>
+  <string name="about_title">Om</string>
+  <string name="delete_account">Slett konto</string>
+  <string name="create_account">Opprett konto</string>
+  <string name="upload_chooser_title">Last opp frå …</string>
+  <string name="uploader_info_dirname">Mappenamn</string>
+  <string name="uploader_upload_in_progress_ticker">Lastar opp …</string>
+  <string name="uploader_upload_in_progress_content">%1$d%% lastar opp %2$s</string>
+  <string name="uploader_upload_succeeded_ticker">Opplasting fullført</string>
+  <string name="uploader_upload_failed_ticker">Feil ved opplasting</string>
+  <string name="uploader_upload_failed_content_single">Klarte ikkje å lasta %1$s ferdig opp</string>
+  <string name="uploader_upload_failed_content_multiple">Feil ved opplasting: Lasta opp %1$d av %2$d filer</string>
+  <string name="downloader_download_in_progress_ticker">Lastar ned …</string>
+  <string name="downloader_download_in_progress_content">%1$d%% lastar ned %2$s</string>
+  <string name="downloader_download_failed_ticker">Feil ved nedlasting</string>
+  <string name="downloader_download_failed_content">Klarte ikkje å lasta %1$s ferdig ned</string>
+  <string name="common_choose_account">Vel konto</string>
   <string name="sync_string_contacts">Kotaktar</string>
+  <string name="sync_fail_ticker">Feil ved synkronisering</string>
+  <string name="sync_fail_content">Klarte ikkje å synkronisera ferdig %1$s</string>
+  <string name="use_ssl">Bruk trygg tilkopling</string>
+  <string name="pincode_enter_pin_code">Ver venleg og skriv inn programpinkoden</string>
+  <string name="pincode_enter_new_pin_code">Ver venleg og skriv inn den nye programpinkoden</string>
+  <string-array name="prefs_trackmydevice_intervall_keys">
+    <item>15 minutt</item>
+    <item>30 minutt</item>
+    <item>60 minutt</item>
+  </string-array>
+  <string-array name="prefs_trackmydevice_intervall_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+  </string-array>
+  <string name="auth_no_net_conn_title">Inga nettilkopling</string>
+  <string name="auth_connect_anyway">Kopla til uansett</string>
+  <string name="auth_nossl_plain_ok_title">Trygg tilkopling ikkje tilgjengeleg.</string>
+  <string name="auth_nossl_plain_ok_message">Applikasjonen klarte ikkje å oppretta ei trygg tilkopling til tenaren. Ei ikkje-trygg tilkopling er mogleg. Du kan fortsetja eller avbryta.</string>
+  <string name="auth_connection_established">Tilkopling oppretta</string>
+  <string name="auth_unknown_error_title">Ein ukjend feil oppstod!</string>
+  <string name="auth_unknown_host_title">Klarte ikkje å finna tenaren</string>
+  <string name="auth_unknown_host_message">Klarte ikkje å finna tenaren du skreiv inn. Ver venleg og sjekk vertsnamnet og om tenaren er tilgjengeleg og prøv igjen.</string>
+  <string name="auth_timeout_title">Tenaren brukte for lang tid på å svara</string>
+  <string name="auth_incorrect_address_title">Ugyldig URL</string>
+  <string name="auth_ssl_general_error_title">Feil ved SSL-oppstart</string>
+  <string name="auth_ssl_unverified_server_title">SSL-tenaren har ein ikkje-stadfesta identitet</string>
+  <string name="auth_wrong_connection_title">Klarte ikkje å oppretta ei tilkopling</string>
+  <string name="auth_secure_connection">Trygg tilkopling oppretta</string>
+  <string name="crashlog_send_report">Send rapport</string>
+  <string name="crashlog_dont_send_report">Ikkje send rapport</string>
+  <string name="extensions_avail_title">Utvidingar tilgjengeleg!</string>
+  <string name="fd_keep_in_sync">Hald fila oppdatert</string>
+  <string name="common_share">Del</string>
+  <string name="common_rename">Endra namn</string>
+  <string name="common_remove">Fjern</string>
+  <string name="confirmation_remove_alert">Vil du verkeleg fjerna %1$s?</string>
+  <string name="confirmation_remove_local">Berre lokalt</string>
+  <string name="confirmation_remove_remote">Fjern frå tenaren</string>
+  <string name="rename_server_fail_msg">Klarte ikkje å fullføra omdøyping</string>
+  <string name="create_dir_fail_msg">Klarte ikkje å oppretta mappa</string>
+  <string name="wait_a_moment">Vent litt</string>
+  <string name="filedisplay_no_file_selected">Inga fil valt</string>
+  <string name="ssl_validator_title">Åtvaring</string>
+  <string name="ssl_validator_header">Klarte ikkje å stadfesta identiteten til nettstaden</string>
+  <string name="ssl_validator_reason_cert_not_trusted">– Tenarsertifikatet er ikkje klarert</string>
+  <string name="ssl_validator_reason_cert_expired">– Tenarsertifikatet er utløpt</string>
+  <string name="ssl_validator_reason_hostname_not_verified">– URL-en stemmer ikkje med tenarnamnet i sertifikatet</string>
+  <string name="ssl_validator_certificate_not_available">Klarte ikkje å henta sertifikatet til tenaren</string>
+  <string name="ssl_validator_question">Vil du stola på dette sertifikatet uansett?</string>
+  <string name="ssl_validator_not_saved">Klarte ikkje å lagra sertifikatet</string>
+  <string name="instant_upload_on_wifi">Berre last opp bilete over WiFi</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

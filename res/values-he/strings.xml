@@ -13,16 +13,14 @@
   <string name="main_settings">הגדרות</string>
   <string name="main_tit_accsetup">הגדרת חשבון</string>
   <string name="main_wrn_accsetup">לא הוגדר חשבון בהתקן שלך. כדי להשתמש ביישום זה עליך ליצור אחד.</string>
-  <string name="about_message">יישום האנדרויד של %1$s\n\nגרסה: %2$s</string>
-  <string name="actionbar_sync">רענון</string>
   <string name="actionbar_upload">העלאה</string>
   <string name="actionbar_upload_from_apps">תוכן מיישומים אחרים</string>
   <string name="actionbar_upload_files">קבצים</string>
   <string name="actionbar_mkdir">יצירת תיקייה</string>
   <string name="actionbar_search">חיפוש</string>
   <string name="actionbar_settings">הגדרות</string>
+  <string name="actionbar_see_details">פרטים</string>
   <string name="prefs_category_general">כללי</string>
-  <string name="prefs_category_trackmydevice">מעקב אחר מכשירים</string>
   <string name="prefs_add_session">הוספת הפעלה חדשה</string>
   <string name="prefs_create_img_thumbnails">יצירת תמונות ממוזערות</string>
   <string name="prefs_select_oc_account">נא לבחור בחשבון</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">הגנה על הלקוח שלך</string>
   <string name="prefs_instant_upload">הפעלת העלאות מהירות</string>
   <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שמצולמות במצלמה שלך</string>
-  <string name="auth_host_url">כתובת</string>
+  <string name="auth_host_url">כתובת שרת</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
   <string name="auth_register">%1$s חדש לי</string>
@@ -53,6 +51,7 @@
   <string name="setup_title">התחברות ל־%1$s שלך</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
+  <string name="uploader_top_message">נא לבחור את תיקיית ההעלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">אין חשבונות %1$s בהתקן שלך. נא להגדיר חשבון תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
@@ -69,9 +68,7 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_sync_file">רענון</string>
   <string name="filedetails_redownload">הורדה מחדש</string>
-  <string name="filedetails_open">פתיחה</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
@@ -82,6 +79,8 @@
   <string name="common_save_exit">לשמור ולצאת</string>
   <string name="common_exit">לעזוב את %1$s</string>
   <string name="common_error">שגיאה</string>
+  <string name="common_loading">בטעינה …</string>
+  <string name="common_error_unknown">שגיאה בלתי ידועה</string>
   <string name="about_title">על אודות</string>
   <string name="delete_account">מחיקת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
@@ -109,6 +108,12 @@
   <string name="sync_conflicts_in_favourites_content">לא ניתן לסנכרן %1$d קבצים שהוגדרו לסנכרון</string>
   <string name="sync_fail_in_favourites_ticker">קבצים שהוגדרו לסנכרון נכשלו</string>
   <string name="sync_fail_in_favourites_content">לא ניתן לסנכרם את תוכנם של %1$d מהקבצים (%2$d התנגשויות)</string>
+  <string name="sync_foreign_files_forgotten_ticker">חלק מהקבצים המקומיים נשכחו</string>
+  <string name="foreign_files_move">להעביר הכול</string>
+  <string name="foreign_files_success">כל הקבצים הועברו</string>
+  <string name="foreign_files_fail">לא ניתן להעביר חלק מהקבצים</string>
+  <string name="foreign_files_local_text">מקומי: %1$s</string>
+  <string name="foreign_files_remote_text">מרוחק: %1$s</string>
   <string name="use_ssl">להשתמש בחיבור מאובטח</string>
   <string name="location_no_provider">ל־%1$s אין אפשרות לעקוב אחר ההתקן שלך. נא לבדוק את הגדרות המיקום שלך</string>
   <string name="pincode_enter_pin_code">נא להזין את קוד היישום שלך</string>
@@ -121,6 +126,14 @@
   <string name="pincode_wrong">קוד היישום שגוי</string>
   <string name="pincode_removed">קוד היישום הוסר</string>
   <string name="pincode_stored">קוד היישום אוחסן</string>
+  <string name="media_notif_ticker">נגנן המוזיקה %1$s</string>
+  <string name="media_state_playing">%1$s (מתנגן)</string>
+  <string name="media_state_loading">%1$s (בטעינה)</string>
+  <string name="media_err_nothing_to_play">לא נמצא קובץ מדיה</string>
+  <string name="media_err_no_account">לא צוין חשבון</string>
+  <string name="media_err_not_in_owncloud">הקובץ אינו בחשבון תקני</string>
+  <string name="media_err_unsupported">מקודד המדיה אינו נתמך</string>
+  <string name="media_err_io">לא ניתן לקרוא את קובץ המדיה</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>רבע שעה</item>
     <item>חצי שעה</item>
@@ -131,14 +144,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">מתבצע ניסיון כניסה…</string>
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_no_net_conn_message">לא נבחר חיבור לאינטרנט, נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
   <string name="auth_connect_anyway">להתחבר בכל זאת</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_nossl_plain_ok_message">היישום לא יכול לקיים חיבור מאובטח לשרת. עם זאת קיים חיבור שאינו מאובטח. ניתן להמשיך או לבטל.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
-  <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_not_configured_message">מסתבר כי עותק השרת שלך אינו מוגדר נכון. נא ליצור קשר עם המנהל שלך לקבלת פרטים נוספים.</string>
   <string name="auth_unknown_error_title">אירעה שגיאה בלתי ידועה!</string>
@@ -154,8 +165,6 @@
   <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
   <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
   <string name="auth_secure_connection">נוצר חיבור מאובטח</string>
-  <string name="auth_login_details">פרטי הכניסה</string>
-  <string name="auth_unauthorized">שם משתמש / ססמה שגויים</string>
   <string name="auth_not_found">הנתיב שצוין שגוי</string>
   <string name="auth_internal">שגיאת שרת פנימית, קוד </string>
   <string name="crashlog_message">היישום הושבת באופן בלתי צפוי. האם לשלוח דוח קריסה?</string>
@@ -208,7 +217,9 @@
   <string name="ssl_validator_label_validity_to">סיום:</string>
   <string name="ssl_validator_label_signature">חתימה:</string>
   <string name="ssl_validator_label_signature_algorithm">אלגוריתם:</string>
-  <string name="text_placeholder">זהו ממלא מקום</string>
+  <string name="placeholder_sentence">זהו ממלא מקום</string>
+  <string name="placeholder_filetype">תמונת PNG</string>
+  <string name="placeholder_filesize">389 ק״ב</string>
   <string name="instant_upload_on_wifi">העלאת תמונות דרך WiFi בלבד</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">התנגשות עדכון</string>
@@ -216,4 +227,14 @@
   <string name="conflict_keep_both">להשאיר את שניהם</string>
   <string name="conflict_overwrite">לשכתב</string>
   <string name="conflict_dont_upload">לא להעלות</string>
+  <string name="preview_image_error_out_of_memory">\"אין די זיכרון כדי להציג את התמונה הזאת</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="failed_upload_headline_hint">הסיכום של כל ההעלאות המהירות שנכשלו</string>
+  <string name="failed_upload_all_cb">לבחור הכול</string>
+  <string name="failed_upload_headline_retryall_btn">לנסות שוב את כל הנבחרים</string>
+  <string name="failed_upload_headline_delete_all_btn">למחוק את כל הנבחרים מתור ההעלאה</string>
+  <string name="failed_upload_retry_text">לנסות להעלות את התמונה מחדש:</string>
+  <string name="failed_upload_load_more_images">טעינת תמונות נוספות</string>
+  <string name="failed_upload_failure_text">הודעת התקלה:</string>
+  <string name="failed_upload_quota_exceeded_text">נא לבדוק את תצורת שרת שלך, יתכן שחרגת מהמיכסה שלך.</string>
 </resources>
