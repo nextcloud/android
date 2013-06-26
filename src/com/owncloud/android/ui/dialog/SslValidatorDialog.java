@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.dialog;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -111,7 +112,13 @@ public class SslValidatorDialog extends Dialog {
                             else
                                 Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
                             
-                        } catch (Exception e) {
+                        } catch (GeneralSecurityException e) {
+                            dismiss();
+                            if (mListener != null)
+                                mListener.onFailedSavingCertificate();
+                            Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
+                            
+                        } catch (IOException e) {
                             dismiss();
                             if (mListener != null)
                                 mListener.onFailedSavingCertificate();

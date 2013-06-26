@@ -1270,7 +1270,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */
     public void onSavedCertificate() {
-        mOperationThread = mOcServerChkOperation.retry(this, mHandler);                
+        checkOcServer();
     }
 
     /**
