@@ -24,8 +24,8 @@ import java.io.IOException;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
