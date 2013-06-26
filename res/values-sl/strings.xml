@@ -51,6 +51,7 @@
   <string name="setup_title">Poveži se z oblakom ownCloud</string>
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Pošlji</string>
+  <string name="uploader_top_message">Izberite mapo, v katero boste prenesli dokumente:</string>
   <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
   <string name="uploader_wrn_no_account_text">Na napravi ni računov ownCloud. Nastaviti je treba vsaj en račun.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
@@ -78,6 +79,7 @@
   <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_exit">Zapusti ownCloud</string>
   <string name="common_error">Napaka</string>
+  <string name="common_loading">Nalaganje...</string>
   <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku ownCloud</string>
   <string name="delete_account">Izbriši račun</string>
@@ -98,6 +100,7 @@
   <string name="downloader_download_succeeded_content">%1$s je uspešno prejet</string>
   <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
   <string name="downloader_download_failed_content">Prejemanja %1$s ni mogoče dokončati</string>
+  <string name="downloader_not_downloaded_yet">Prenos še ni zaključen</string>
   <string name="common_choose_account">Izbor računa</string>
   <string name="sync_string_contacts">Stiki</string>
   <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
@@ -126,6 +129,7 @@
   <string name="pincode_wrong">Nepravilen kodo PIN programa ownCloud</string>
   <string name="pincode_removed">Koda PIN programa ownCloud je odstranjena</string>
   <string name="pincode_stored">Koda PIN programa ownCloud je shranjena</string>
+  <string name="media_err_no_account">Niste navedli uporabniškega računa</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minut</item>
     <item>30 minut</item>

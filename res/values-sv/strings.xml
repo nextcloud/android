@@ -94,7 +94,7 @@
   <string name="uploader_upload_in_progress_ticker">Laddar upp ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Uppladdning klar</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s var uppladdade</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s laddades upp</string>
   <string name="uploader_upload_succeeded_content_multiple">%1$d filer uppladdade</string>
   <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
   <string name="uploader_upload_failed_content_single">Uppladdning av %1$s kunde inte slutföras</string>
