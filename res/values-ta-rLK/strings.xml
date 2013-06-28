@@ -13,16 +13,14 @@
   <string name="main_settings">அமைப்புகள்</string>
   <string name="main_tit_accsetup">கணக்கு அமைப்பு</string>
   <string name="main_wrn_accsetup">உங்களுடைய சாதனத்தில் ownCloud கணக்குகள் இல்லை. இந்த செயலிகளை பயன்படுத்துவதற்கு நீங்கள் கணக்கொன்றை உருவாக்க வேண்டும்.</string>
-  <string name="about_message">ownCloud Android சேவைப் பயனர்⏎ ⏎ பதிப்பு: %1$s</string>
-  <string name="actionbar_sync">மீள் ஏற்றுக</string>
   <string name="actionbar_upload">பதிவேற்றுக</string>
   <string name="actionbar_upload_from_apps">மற்ற செயலிகளிலிருந்து உள்ளடக்கம்</string>
   <string name="actionbar_upload_files">கோப்புகள்</string>
   <string name="actionbar_mkdir">அடைவை உருவாக்குக</string>
   <string name="actionbar_search">தேடுதல்</string>
   <string name="actionbar_settings">அமைப்புகள்</string>
+  <string name="actionbar_see_details">விவரங்கள்</string>
   <string name="prefs_category_general">பொதுவான</string>
-  <string name="prefs_category_trackmydevice">சாதனம் கண்காணிப்பு</string>
   <string name="prefs_add_session">புதிய அமர்வை சேர்க்க</string>
   <string name="prefs_create_img_thumbnails">படத்தின் சிறிய வடிவத்தை உருவாக்கு</string>
   <string name="prefs_select_oc_account">கணக்கொன்றை தெரிவுசெய்க</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">உங்களுடைய ownCloud சேவைப் பயனரை பாதுகாக்க</string>
   <string name="prefs_instant_upload">உடனடி பதிவேற்றலை இயலுமைப்படுத்துக</string>
   <string name="prefs_instant_upload_summary">கமராவினால் எடுக்கப்பட்ட படங்கள் உடனடியாக பதிவேற்றப்பட்டன</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_host_url">சேவையக முகவரி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>
   <string name="auth_register">ownCloud இற்கு நான் புதிது</string>
@@ -69,9 +67,7 @@
   <string name="filedetails_created">உருவாக்கப்பட்டது:</string>
   <string name="filedetails_modified">மாற்றப்பட்டது:</string>
   <string name="filedetails_download">பதிவிறக்குக</string>
-  <string name="filedetails_sync_file">மீள் ஏற்றுக</string>
   <string name="filedetails_redownload">மீள் ஏற்றுக</string>
-  <string name="filedetails_open">திறக்க</string>
   <string name="filedetails_renamed_in_upload_msg">பதிவேற்றும்போது கோப்பின் பெயரானது %1$s ஆக பெயர்மாற்றப்பட்டது</string>
   <string name="common_yes">ஆம்</string>
   <string name="common_no">இல்லை</string>
@@ -129,14 +125,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">புகுபதிகைக்கு முயற்சிக்கின்றது...</string>
   <string name="auth_no_net_conn_title">வ​லைய​மைப்பு இணைப்பு இல்லை</string>
   <string name="auth_no_net_conn_message">எந்தவொரு வலையமைப்பு இணைப்பும் கண்டுப்பிடிக்கப்படவில்லை, இணைய இணைப்பை சரிபார்த்துவிட்டு மீண்டும் முயற்சிக்கவும். </string>
   <string name="auth_connect_anyway">எப்படியாவது இணைக்க</string>
   <string name="auth_nossl_plain_ok_title">பாதுகாப்பான இணைப்பு காணப்படவில்லை.</string>
   <string name="auth_nossl_plain_ok_message">செயலியினால் சேவையகத்துடன் பாதுகாப்பான இணைப்பை ஏற்படுத்த முடியவில்லை.  பாதுகாப்பற்ற இணைப்புகளும் காணப்படுகின்றன. நீங்கள் தொடரலாம் அல்லது இரத்துசெய்யலாம்.</string>
   <string name="auth_connection_established">இணைப்பு நிறுவப்பட்டது</string>
-  <string name="auth_testing_connection">இணைப்பு சோதிக்கப்படுகிறது.....</string>
   <string name="auth_not_configured_title">பிறழ்வான ownCloud தகவமைப்பு</string>
   <string name="auth_not_configured_message">உங்களுடைய ownCloud சரியாக தகவமைக்கப்படாததாக தெரிகிறது. மேலதிக தகவல்களுக்கு நிர்வாகியை தொடர்புகொள்ளவும்</string>
   <string name="auth_unknown_error_title">அறியப்படாத வழு ஏற்பட்டுள்ளது!</string>
@@ -152,7 +146,6 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத ownCloud சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="auth_login_details">புகுபதிகை விவரங்கள்</string>
   <string name="crashlog_message">செயலி எதிர்பாராமல் முடிவுற்றது. உங்களுக்கு முறிவு அறிக்கை ஒன்றை சமர்ப்பிப்பதற்கு விருப்பம்மா?</string>
   <string name="crashlog_send_report">அறிக்கையை அனுப்பவும்</string>
   <string name="crashlog_dont_send_report">அறிக்கையை அனுப்பவேண்டாம்</string>
@@ -203,11 +196,12 @@
   <string name="ssl_validator_label_validity_to">இற்கு</string>
   <string name="ssl_validator_label_signature">கையொப்பம்:</string>
   <string name="ssl_validator_label_signature_algorithm">நெறிமுறை</string>
-  <string name="text_placeholder">இது ஒரு placeholder</string>
+  <string name="placeholder_sentence">இது ஒரு placeholder</string>
   <string name="instant_upload_on_wifi">WiFi ஊடாக மட்டும் படங்களை பதிவேற்றுக</string>
   <string name="conflict_title">இற்றைப்படுத்தலில் முரண்பாடு</string>
   <string name="conflict_message">இடத்துரி கோப்புடன் தொலைவு கோப்பு %s ஒத்திசைவாக்கப்படவில்லை. தொடர்ந்து மேற்கொண்டால் சேவையகத்தில் உள்ள கோப்பின் உள்ளடக்கம் மாற்றப்படும்.</string>
   <string name="conflict_keep_both">இரண்டையும் வைக்க </string>
   <string name="conflict_overwrite">மேலெழுதல்</string>
   <string name="conflict_dont_upload">பதிவேற்ற வேண்டாம்</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

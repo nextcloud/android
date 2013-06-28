@@ -3,7 +3,7 @@
   <string name="app_name">ownCloud</string>
   <string name="main_password">Wachtwoord:</string>
   <string name="main_login">Gebruikersnaam:</string>
-  <string name="main_button_login">Inloggen</string>
+  <string name="main_button_login">Login</string>
   <string name="main_welcome">Welkom in je ownCloud</string>
   <string name="main_files">Bestanden</string>
   <string name="main_music">Muziek</string>
@@ -13,16 +13,18 @@
   <string name="main_settings">Instellingen</string>
   <string name="main_tit_accsetup">Account configureren.</string>
   <string name="main_wrn_accsetup">Er zijn nog geen ownCloud accounts op dit apparaat. Als je deze app wilt gebruiken zul je een account moeten aanmaken.</string>
-  <string name="about_message">ownCloud Android client\n\nversie: %1$s</string>
-  <string name="actionbar_sync">Verversen</string>
+  <string name="about_android">%1$s Android App</string>
+  <string name="about_version">versie %1$s</string>
+  <string name="actionbar_sync">Account verversen</string>
   <string name="actionbar_upload">Uploaden</string>
   <string name="actionbar_upload_from_apps">Inhoud van andere apps</string>
   <string name="actionbar_upload_files">Bestanden</string>
+  <string name="actionbar_open_with">Open met</string>
   <string name="actionbar_mkdir">Creëer map</string>
   <string name="actionbar_search">Zoeken</string>
   <string name="actionbar_settings">Instellingen</string>
+  <string name="actionbar_see_details">Details</string>
   <string name="prefs_category_general">Algemeen</string>
-  <string name="prefs_category_trackmydevice">Apparaat volgen</string>
   <string name="prefs_add_session">Voeg nieuwe sessie toe</string>
   <string name="prefs_create_img_thumbnails">Maak afbeeldingsminiaturen</string>
   <string name="prefs_select_oc_account">Selecteer een account</string>
@@ -38,7 +40,12 @@
   <string name="prefs_pincode_summary">Beveilig je ownCloud client</string>
   <string name="prefs_instant_upload">Schakel direct uploaden in</string>
   <string name="prefs_instant_upload_summary">Upload afbeeldingen van camera automatisch</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="prefs_log_title">Loggen aanzetten</string>
+  <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
+  <string name="prefs_log_title_history">Log-geschiedenis</string>
+  <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
+  <string name="prefs_log_delete_history_button">Verwijder Geschiedenis</string>
+  <string name="auth_host_url">Server adres</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
   <string name="auth_register">Ik ben nieuw op ownCloud</string>
@@ -53,6 +60,7 @@
   <string name="setup_title">Verbinden met je ownCloud</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
+  <string name="uploader_top_message">Selecteer upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn nog geen ownCloud accounts op je apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
@@ -69,9 +77,8 @@
   <string name="filedetails_created">Aangemaakt:</string>
   <string name="filedetails_modified">Aangepast:</string>
   <string name="filedetails_download">Download</string>
-  <string name="filedetails_sync_file">Verversen</string>
+  <string name="filedetails_sync_file">Bestand verversen</string>
   <string name="filedetails_redownload">Opnieuw downloaden</string>
-  <string name="filedetails_open">Open</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand was hernoemt naar %1$s tijdens het uploaden</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
@@ -82,6 +89,8 @@
   <string name="common_save_exit">Opslaan &amp; Afsluiten</string>
   <string name="common_exit">Verlaat ownCloud</string>
   <string name="common_error">Fout</string>
+  <string name="common_loading">Laden...</string>
+  <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
@@ -101,14 +110,25 @@
   <string name="downloader_download_succeeded_content">%1$s werd succesvol gedownload</string>
   <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
   <string name="downloader_download_failed_content">Download van %1$s kon niet worden voltooid</string>
+  <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
   <string name="common_choose_account">Kies account</string>
   <string name="sync_string_contacts">Contactpersonen</string>
   <string name="sync_fail_ticker">Synchronisatie mislukt</string>
   <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
+  <string name="sync_fail_content_unauthorized">Ongeldige inloggegevens voor %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d in-synch-houden bestanden konden niet worden gesync\'d</string>
   <string name="sync_fail_in_favourites_ticker">In-sync-houden bestanden mislukt</string>
   <string name="sync_fail_in_favourites_content">Inhoud van %1$d bestanden kon niet worden gesynchroniseerd (%2$d conflicten)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d bestanden uit de %2$s directory konden niet worden gekopieerd naar</string>
+  <string name="sync_foreign_files_forgotten_explanation">Vanaf versie 1.3.16 worden bestanden die geüpload zijn vanaf dit apparaat gekopieerd naar de lokale %1$s map om gegevensverlies te voorkomen wanneer een enkel bestand wordt gesynchroniseerd met meerdere accounts.\n\nDoor deze wijziging zijn alle bestanden die met een voorgaande versie van deze app zijn geüpload gekopieërd naar de %2$s map. Echter, door een fout kon deze bewerking niet volledig uitgevoerd worden tijdens het synchroniseren van het account. U kunt het bestand / de bestanden laten zoals ze zijn en de link naar %3$s verwijderen, of het bestand / de bestanden verplaatsen naar de %1$s map en de links naar %4$s behouden.\n\nHieronder staan de locale bestanden, en de externe bestanden in %5$s waarnaar ze doorverwezen.</string>
+  <string name="foreign_files_move">Alle verplaatsen</string>
+  <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
+  <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
+  <string name="foreign_files_local_text">Lokaal: %1$s</string>
+  <string name="foreign_files_remote_text">Extern: %1$s</string>
+  <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de gekopieerde bestanden ook te plaatsen in map %1$s. Wilt u ze erheen verplaatsten? </string>
   <string name="use_ssl">Gebruik veilige verbinding</string>
   <string name="location_no_provider">ownCloud kan het apparaat niet volgen. Configureer de locatie instellingen (location settings).</string>
   <string name="pincode_enter_pin_code">Voer App PIN in</string>
@@ -121,6 +141,27 @@
   <string name="pincode_wrong">Foutieve ownCloud applicatie PIN</string>
   <string name="pincode_removed">ownCloud App PIN verwijderd</string>
   <string name="pincode_stored">ownCloud App PIN opgeslagen</string>
+  <string name="media_notif_ticker">%1$s muziekspeler</string>
+  <string name="media_state_playing">%1$s (speelt)</string>
+  <string name="media_state_loading">%1$s (laden)</string>
+  <string name="media_event_done">%1$s playback geëindigd</string>
+  <string name="media_err_nothing_to_play">Geen mediabestand gevonden</string>
+  <string name="media_err_no_account">Geen account opgegeven</string>
+  <string name="media_err_not_in_owncloud">Bestand niet in een geldig account</string>
+  <string name="media_err_unsupported">Niet ondersteunde media codec</string>
+  <string name="media_err_io">Mediabestand kon niet worden gelezen</string>
+  <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
+  <string name="media_err_timeout">Te veel tijd geprobeerd te spelen</string>
+  <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
+  <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
+  <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
+  <string name="media_err_io_ex">Invoerfout bij afspelen %1$1s</string>
+  <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
+  <string name="media_previous_description">Vorige nummer knop</string>
+  <string name="media_rewind_description">terugpoel knop</string>
+  <string name="media_play_pause_description">Speel of pauze knop</string>
+  <string name="media_forward_description">Doorspoel knop</string>
+  <string name="media_next_description">Volgende nummer knop</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minuten</item>
     <item>30 minuten</item>
@@ -131,14 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Proberen om in te loggen...</string>
+  <string name="auth_trying_to_login">Bezig met inloggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_no_net_conn_message">Er kon geen netwerkverbinding worden gevonden, controleer je internet verbinding en probeer het opnieuw.</string>
   <string name="auth_connect_anyway">Toch verbinden</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_nossl_plain_ok_message">De applicatie kon geen beveiligde verbinding met de server maken. Er is echter wel een onbeveiligde verbinding beschikbaar. Je kunt verdergaan of annuleren.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-  <string name="auth_testing_connection">Probeer verbinding...</string>
+  <string name="auth_testing_connection">Verbinding aan het testen...</string>
   <string name="auth_not_configured_title">Foutieve ownCloud configuratie</string>
   <string name="auth_not_configured_message">Het lijkt erop dat je ownCloud instantie niet correct geconfigureerd is. Neem contact op met je beheerder voor meer details.</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
@@ -154,10 +195,14 @@
   <string name="auth_bad_oc_version_title">Onherkende ownCloud server versie</string>
   <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen.</string>
   <string name="auth_secure_connection">Veilige verbinding tot stand gebracht</string>
-  <string name="auth_login_details">Inloggegevens</string>
-  <string name="auth_unauthorized">login / password niet juist</string>
+  <string name="auth_unauthorized">Ongeldige inloggegevens</string>
+  <string name="auth_oauth_error">Authorisatie niet succesvol</string>
+  <string name="auth_oauth_error_access_denied">Toegang geweigerd door authorizatieserver</string>
   <string name="auth_not_found">Verkeerde pad opgegeven</string>
   <string name="auth_internal">Interne server fout, code %1$d</string>
+  <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer a.u.b de server-URL nogmaals in.</string>
+  <string name="auth_expired_oauth_token_toast">Uw authorisatie is verlopen.</string>
+  <string name="auth_expired_basic_auth_toast">Uw opgeslagen inloggegevens zijn ongeldig.\n\nVoer a.u.b. uw huidige inloggegevens in.</string>
   <string name="crashlog_message">De applicatie is onverwacht beëindigd. Wilt je een crash report versturen?</string>
   <string name="crashlog_send_report">Rapport verzenden</string>
   <string name="crashlog_dont_send_report">Rapport niet verzenden</string>
@@ -184,6 +229,11 @@
   <string name="wait_a_moment">Even geduld</string>
   <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
   <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Login met oAuth2.</string>
+  <string name="oauth_login_connection">Verbinden met oAuth2-server.</string>
+  <string name="oauth_code_validation_message">Open a.u.b. een webbrpwser en ga naar:\n%1$s.\nValideer deze code daar:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Verbinding met deze URL is niet beschikbaar.</string>
   <string name="ssl_validator_title">Waarschuwing</string>
   <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Het server certificaat wordt niet vertrouwd</string>
@@ -208,7 +258,12 @@
   <string name="ssl_validator_label_validity_to">Aan:</string>
   <string name="ssl_validator_label_signature">Handtekening:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
-  <string name="text_placeholder">Dit is een gereserveerde ruimte</string>
+  <string name="placeholder_sentence">Dit is een plaatshouder</string>
+  <string name="placeholder_filename">plaatshouder.txt</string>
+  <string name="placeholder_filetype">PNG Afbeelding</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Update conflict</string>
@@ -216,4 +271,20 @@
   <string name="conflict_keep_both">Beide bewaren</string>
   <string name="conflict_overwrite">Overschrijven</string>
   <string name="conflict_dont_upload">Niet uploaden</string>
+  <string name="preview_image_description">Afbeelding voorbeeld</string>
+  <string name="preview_image_error_unknown_format">Deze afbeelding kan niet weergegeven worden</string>
+  <string name="preview_image_error_out_of_memory">\"Niet voldoende geheugen om deze afbeelding weer te geven</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
+  <string name="actionbar_failed_instant_upload">Mislukte Directe Upload</string>
+  <string name="failed_upload_headline_text">Mislukte directe uploads</string>
+  <string name="failed_upload_headline_hint">Samenvatting van alle mislukte directe uploads</string>
+  <string name="failed_upload_all_cb">alles selecteren</string>
+  <string name="failed_upload_headline_retryall_btn">opnieuw proberen alles te selecteren</string>
+  <string name="failed_upload_headline_delete_all_btn">verwijderen alle geselecteerde van de upload wachtrij</string>
+  <string name="failed_upload_retry_text">probeer de afbeelding opnieuw te uploaden:</string>
+  <string name="failed_upload_load_more_images">Laadt meer Afbeeldingen</string>
+  <string name="failed_upload_retry_do_nothing_text">doe niks, u bent niet online voor directe upload</string>
+  <string name="failed_upload_failure_text">Mislukkings Bericht:</string>
+  <string name="failed_upload_quota_exceeded_text">Controleer uw server instellingen, misschien is uw quota overschreden.</string>
 </resources>

@@ -30,11 +30,12 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -209,9 +210,14 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
                     mVideoPlayer.setVideoPath(file.getStoragePath());
                     
                 } else {
-                    // not working now
-                    String url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
-                    mVideoPlayer.setVideoURI(Uri.parse(url));
+                    // not working yet
+                    String url;
+                    try {
+                        url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
+                        mVideoPlayer.setVideoURI(Uri.parse(url));
+                    } catch (AccountNotFoundException e) {
+                        onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
+                    }
                 }
                 
                 // create and prepare control panel for the user

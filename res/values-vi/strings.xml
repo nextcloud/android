@@ -1,28 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="app_name">ownCloud</string>
-  <string name="main_password">Mật khẩu :</string>
-  <string name="main_login">Tên người dùng :</string>
+  <string name="main_password">Mật khẩu:</string>
+  <string name="main_login">Tên người dùng:</string>
   <string name="main_button_login">Đăng nhập</string>
   <string name="main_welcome">Chào mừng bạn đến với OwnCloud</string>
   <string name="main_files">Tập tin</string>
   <string name="main_music">Âm nhạc</string>
-  <string name="main_contacts">Danh sách liên lạc</string>
+  <string name="main_contacts">Danh bạ</string>
   <string name="main_calendar">Lịch</string>
-  <string name="main_bookmarks">Bookmarks</string>
+  <string name="main_bookmarks">Đánh dấu</string>
   <string name="main_settings">Cài đặt</string>
   <string name="main_tit_accsetup">Thiết lập tài khoản</string>
   <string name="main_wrn_accsetup">Trên thiết bị của bạn không có tài khoản ownCloud. Để sử dụng ứng dụng này bạn cần phải tạo một tài khoản.</string>
-  <string name="about_message">ownCloud Android máy trạm⏎ ⏎ phiên bản: %1$s</string>
-  <string name="actionbar_sync">Đồng bộ tài khoản</string>
   <string name="actionbar_upload">Tải lên</string>
   <string name="actionbar_upload_from_apps">Nội dung từ các ứng dụng khác</string>
   <string name="actionbar_upload_files">Các tập tin</string>
   <string name="actionbar_mkdir">Tạo thư mục</string>
   <string name="actionbar_search">Tìm kiếm</string>
   <string name="actionbar_settings">Cài đặt</string>
+  <string name="actionbar_see_details">Chi tiết</string>
   <string name="prefs_category_general">Tổng hợp</string>
-  <string name="prefs_category_trackmydevice">Thiết bị theo dõi</string>
   <string name="prefs_add_session">Thêm phiên làm việc mới</string>
   <string name="prefs_create_img_thumbnails">Tạo hình ảnh thu nhỏ</string>
   <string name="prefs_select_oc_account">Chọn một tài khoản</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">Bảo vệ ownCloud client của bạn</string>
   <string name="prefs_instant_upload">Kích hoạt tính năng tải lên ngay lập tức</string>
   <string name="prefs_instant_upload_summary">Ngay lập tức tải lên các hình ảnh được chụp bởi camera</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_host_url">Địa chỉ máy chủ</string>
   <string name="auth_username">Tên người dùng</string>
   <string name="auth_password">Mật khẩu</string>
   <string name="auth_register">Tôi mới đến ownCloud</string>
@@ -69,9 +67,7 @@
   <string name="filedetails_created">Đã tạo:</string>
   <string name="filedetails_modified">Đã chỉnh sửa:</string>
   <string name="filedetails_download">Tải về</string>
-  <string name="filedetails_sync_file">Làm mới</string>
   <string name="filedetails_redownload">Làm mới</string>
-  <string name="filedetails_open">Mở</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
@@ -109,6 +105,14 @@
   <string name="sync_conflicts_in_favourites_content">%1$d file trong hàng đợi đồng bộ không thể được đồng bộ</string>
   <string name="sync_fail_in_favourites_ticker">Các file trong hàng đợi đồng bộ không thành công</string>
   <string name="sync_fail_in_favourites_content">Nội dung tập tin %1$d không thể đồng bộ (%2$d xung đột)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
+  <string name="sync_foreign_files_forgotten_content">Các tập tin %1$d ở ngoài thư mục %2$s không thể được chép vào</string>
+  <string name="foreign_files_move">Di chuyển tất cả</string>
+  <string name="foreign_files_success">Tất cả tập tin đã được chuyển đi</string>
+  <string name="foreign_files_fail">Một vài tập tin không thể chuyển đi</string>
+  <string name="foreign_files_local_text">Cục bộ: %1$s</string>
+  <string name="foreign_files_remote_text">Từ xa: %1$s</string>
+  <string name="upload_query_move_foreign_files">Không đủ chỗ trống để chép các tập tin đã chọn vào thư mục %1$s. Bạn có muốn di chuyển chúng thay vì sao chép?</string>
   <string name="use_ssl">Sử dụng kết nối an toàn</string>
   <string name="location_no_provider">ownCloud không thể theo dõi điện thoại của bạn. Vui lòng kiểm tra cài đặt vị trí của bạn</string>
   <string name="pincode_enter_pin_code">Vui lòng, nhập mã PIN ứng dụng của bạn</string>
@@ -131,14 +135,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Đang cố gắng để đăng nhập…</string>
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_no_net_conn_message">Không tìm thấy kết nối mạng, kiểm tra lại kết nối mạng và thử lại.</string>
   <string name="auth_connect_anyway">Kết nối nào</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_nossl_plain_ok_message">Ứng dụng không thể thiết lập một kết nối an toàn đến máy chủ. Một kết nối không an toàn đang có giá trị. Bạn có thể tiếp tục hoặc hủy bỏ.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
-  <string name="auth_testing_connection">Đang kiểm tra kết nối...</string>
   <string name="auth_not_configured_title">Thay đổi cấu hình ownCloud </string>
   <string name="auth_not_configured_message">Có vẻ như phiên bản ownCloud của bạn cấu hình không đúng. Liên hệ với quản trị viên để biết thêm chi tiết.</string>
   <string name="auth_unknown_error_title">Không xác định được lỗi!</string>
@@ -154,8 +156,6 @@
   <string name="auth_bad_oc_version_title">Không chấp nhận phiên bản máy chủ ownCloud</string>
   <string name="auth_wrong_connection_title">Không thể thiết lập kết nối</string>
   <string name="auth_secure_connection">Kết nối an toàn đã được thiết lập</string>
-  <string name="auth_login_details">Chi tiết đăng nhập</string>
-  <string name="auth_unauthorized">Sai tên đăng nhập/ mật khẩu</string>
   <string name="auth_not_found">Đường dẫn đã cho không đúng</string>
   <string name="auth_internal">Lỗi máy chủ nội bộ, mã lỗi %1$d</string>
   <string name="crashlog_message">Ứng dụng chấm dứt đột ngột. Bạn có muốn gửi báo cáo sự cố?</string>
@@ -208,7 +208,7 @@
   <string name="ssl_validator_label_validity_to">Tới :</string>
   <string name="ssl_validator_label_signature">Chữ ký :</string>
   <string name="ssl_validator_label_signature_algorithm">Thuật toán :</string>
-  <string name="text_placeholder">Vị trí này đã được đặt chỗ trước</string>
+  <string name="placeholder_sentence">Vị trí này đã được đặt chỗ trước</string>
   <string name="instant_upload_on_wifi">Tải hình ảnh lên thông qua WiFi</string>
   <string name="instant_upload_path">/Upload tức thì</string>
   <string name="conflict_title">Cập nhật xung đột</string>
@@ -216,4 +216,6 @@
   <string name="conflict_keep_both">Giữ cho cả hai</string>
   <string name="conflict_overwrite">Ghi đè lên</string>
   <string name="conflict_dont_upload">Không tải lên</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s không thể sao chép vào %2$s thư mục cục bộ</string>
 </resources>

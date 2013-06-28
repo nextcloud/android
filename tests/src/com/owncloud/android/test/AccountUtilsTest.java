@@ -20,7 +20,7 @@ package com.owncloud.android.test;
 
 import android.test.AndroidTestCase;
 
-import com.owncloud.android.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 public class AccountUtilsTest extends AndroidTestCase {
