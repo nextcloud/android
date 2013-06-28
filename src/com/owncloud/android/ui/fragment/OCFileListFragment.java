@@ -63,6 +63,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
+
+    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ? OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
+    private static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -95,12 +98,24 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
         mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
+        if (savedInstanceState != null) {
+            mFile = savedInstanceState.getParcelable(EXTRA_FILE);
+        }
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
+    }
+    
+    /**
+     * Saves the current listed folder.
+     */
+    @Override
+    public void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(EXTRA_FILE, mFile);
     }
     
 
