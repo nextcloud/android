@@ -845,8 +845,9 @@ public class FileDisplayActivity extends FileActivity implements
                     if (fileListFragment != null) {
                         fileListFragment.listDirectory(currentDir);
                     }
+                    if (getSecondFragment() == null)
+                        setFile(currentDir);
                 }
-                setFile(currentDir);
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
                 removeStickyBroadcast(intent);

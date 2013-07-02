@@ -65,10 +65,10 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal when the value of mAccount was restored from a saved state */ 
     private boolean mAccountWasRestored;
-    
 
+    
     /**
-     * Loads the cownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
+     * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
      * the {@link FileActivity}.
      * 
      * Grants that a valid ownCloud {@link Account} is associated to the instance, or that the user 
@@ -78,23 +78,16 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Account account;
         if(savedInstanceState != null) {
+            account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         } else {
-            mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
+            account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
         }
 
-        Account oldAccount = mAccount;
-        grantValidAccount();
-        if (mAccount != null) {
-            mAccountWasSet = true;
-            mAccountWasRestored = (savedInstanceState != null && mAccount.equals(oldAccount));
-        } else {
-            mAccountWasSet = false;
-            mAccountWasRestored = false;
-        }
+        setAccount(account, savedInstanceState != null);
     }
 
     
@@ -106,44 +99,16 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        
-        Account oldAccount = mAccount;
-        grantValidAccount();
-        if (mAccount != null && !mAccount.equals(oldAccount)) {
-            mAccountWasSet = true;
-            mAccountWasRestored = false;
-        } else {
-            mAccountWasSet = false;
-            mAccountWasRestored = false;
+        boolean validAccount = (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
+        if (!validAccount) {
+            swapToDefaultAccount();
         }
+        
     }
 
     
-    /**
-     *  Validates the ownCloud {@link Account} associated to the Activity any time it is restarted.
-     * 
-     *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     * 
-     *  If no valid ownCloud {@link Account} exists, mAccount is set to NULL and the user is requested 
-     *  to create a new ownCloud {@link Account}.
-     */
-    private void grantValidAccount() {
-        boolean validAccount = (mAccount != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), mAccount.name));
-        if (!validAccount) {
-            // get most recently used account as default account
-            mAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
-            if (mAccount == null) {
-                /// no account available: force account creation
-                createFirstAccount();
-                mRedirectingToSetupAccount = true;
-            }
-        }
-    }
-    
-    
     @Override 
     protected void onStart() {
-        // maybe better in onPostCreate() ?
         super.onStart();
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
@@ -151,6 +116,58 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     }
     
     
+    /**
+     *  Sets and validates the ownCloud {@link Account} associated to the Activity. 
+     * 
+     *  If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
+     *  
+     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}. 
+     * 
+     *  @param account          New {@link Account} to set.
+     *  @param savedAccount     When 'true', account was retrieved from a saved instance state.
+     */
+    private void setAccount(Account account, boolean savedAccount) {
+        Account oldAccount = mAccount;
+        boolean validAccount = (account != null && AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), account.name));
+        if (validAccount) {
+            mAccount = account;
+            mAccountWasSet = true;
+            mAccountWasRestored = (savedAccount || mAccount.equals(oldAccount));
+            
+        } else {
+            swapToDefaultAccount();
+        }
+    }
+
+    
+    /**
+     *  Tries to swap the current ownCloud {@link Account} for other valid and existing. 
+     * 
+     *  If no valid ownCloud {@link Account} exists, the the user is requested 
+     *  to create a new ownCloud {@link Account}.
+     *  
+     *  POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
+     *   
+     *  @return     'True' if the checked {@link Account} was valid.
+     */
+    private void swapToDefaultAccount() {
+        // default to the most recently used account
+        Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        if (newAccount == null) {
+            /// no account available: force account creation
+            createFirstAccount();
+            mRedirectingToSetupAccount = true;
+            mAccountWasSet = false;
+            mAccountWasRestored = false;
+            
+        } else {
+            mAccountWasSet = true;
+            mAccountWasRestored = (newAccount.equals(mAccount));
+            mAccount = newAccount;
+        }
+    }
+
+
     /**
      * Launches the account creation activity. To use when no ownCloud account is available
      */
@@ -228,6 +245,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         @Override
         public void run(AccountManagerFuture<Bundle> future) {
             FileActivity.this.mRedirectingToSetupAccount = false;
+            boolean accountWasSet = false;
             if (future != null) {
                 try {
                     Bundle result;
@@ -235,8 +253,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
                     String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                     String type = result.getString(AccountManager.KEY_ACCOUNT_TYPE);
                     if (AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name)) {
-                        FileActivity.this.mAccount = new Account(name, type);
-                        FileActivity.this.onAccountSet(false);
+                        setAccount(new Account(name, type), false);
+                        accountWasSet = true;
                     }
                 } catch (OperationCanceledException e) {
                     Log_OC.d(TAG, "Account creation canceled");
@@ -248,7 +266,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             } else {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
-            if (mAccount == null) {
+            if (!accountWasSet) {
                 moveTaskToBack(true);
             }
         }
