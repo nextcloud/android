@@ -29,10 +29,10 @@ import android.os.Bundle;
 import android.webkit.MimeTypeMap;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 
 import eu.alefzero.webdav.WebdavUtils;

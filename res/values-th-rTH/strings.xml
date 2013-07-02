@@ -13,16 +13,14 @@
   <string name="main_settings">ตั้งค่า</string>
   <string name="main_tit_accsetup">ตั้งค่าบัญชี</string>
   <string name="main_wrn_accsetup">ไม่มีบัญชี ownCloud ของคุณอยู่บนอุปกรณ์ของคุณ หากต้องการใช้งานแอปตัวนี้ คุณจำเป็นต้องสร้างบัญชีใหม่</string>
-  <string name="about_message">โปรแกรมไคลเอนต์ ownCloud สำหรับใช้งานกับแอนดรอยด์\n\nรุ่น: %1$s</string>
-  <string name="actionbar_sync">รีเฟรช</string>
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
   <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
   <string name="actionbar_upload_files">ไฟล์</string>
   <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
   <string name="actionbar_search">ค้นหา</string>
   <string name="actionbar_settings">ตั้งค่า</string>
+  <string name="actionbar_see_details">รายละเอียด</string>
   <string name="prefs_category_general">ทั่วไป</string>
-  <string name="prefs_category_trackmydevice">ตรวจหาอุปกรณ์</string>
   <string name="prefs_add_session">เพิ่มเซสชั่นใหม่</string>
   <string name="prefs_create_img_thumbnails">สร้างรูปภาพขนาดย่อ</string>
   <string name="prefs_select_oc_account">เลือกบัญชี</string>
@@ -38,7 +36,7 @@
   <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ownCloud ของคุณ</string>
   <string name="prefs_instant_upload">เปิดใช้งานระบบอัพโหลดได้ทันที</string>
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพจากกล้องขึ้นไปทันที</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
   <string name="auth_register">ข้าพเจ้าเพิ่งใช้งาน ownCloud</string>
@@ -69,9 +67,7 @@
   <string name="filedetails_created">สร้างเมื่อ:</string>
   <string name="filedetails_modified">แก้ไขเมื่อ:</string>
   <string name="filedetails_download">ดาวน์โหลด</string>
-  <string name="filedetails_sync_file">รีเฟรช</string>
   <string name="filedetails_redownload">ดาวน์โหลดใหม่อีกครั้ง</string>
-  <string name="filedetails_open">เปิด</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
@@ -109,6 +105,13 @@
   <string name="sync_conflicts_in_favourites_content">%1$d ไฟล์ kept-in-sync ไม่สามารถผสานเชื่อมข้อมูลได้</string>
   <string name="sync_fail_in_favourites_ticker">ไฟล์ Kept-in-sync ล้มเหลว</string>
   <string name="sync_fail_in_favourites_content">เนื้อหาของไฟล์ %1$d ไม่สามารถผสานเชื่อมข้อมูลได้ (ความขัดแย้ง %2$d รายการ)</string>
+  <string name="sync_foreign_files_forgotten_ticker">มีบางแฟ้มข้อมูลในเครื่องถูกลืม</string>
+  <string name="foreign_files_move">ย้ายทั้งหมด</string>
+  <string name="foreign_files_success">ทุกแฟ้มข้อมูลถูกย้ายเรียบร้อยแล้ว</string>
+  <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
+  <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
+  <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
+  <string name="upload_query_move_foreign_files">ไม่มีพื้นที่เหลือเพียงพอสำหรับคัดลอกแฟ้มข้อมูลที่เลือกไว้ไปที่โฟลเดอร์ %1$s คุณต้องการย้ายมันแทนหรือไม่</string>
   <string name="use_ssl">ใช้การเชื่อมต่อที่มีการรักษาความปลอดภัย</string>
   <string name="location_no_provider">ownCloud ไม่สามารถตรวจหาอุปกรณ์ของคุณได้ กรุณาตรวจสอบการตั้งค่าตำแหน่งที่อยู่ของคุณ</string>
   <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
@@ -131,14 +134,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_no_net_conn_message">ไม่พบการเชื่อมต่อเครือข่ายใด กรุณาตรวจสอบสถานะการเชื่อมต่ออินเทอร์เน็ตของคุณ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_connect_anyway">เชื่อมต่ออยู่แล้ว</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
   <string name="auth_nossl_plain_ok_message">แอพพลิเคชั่นยังไม่ได้ติดตั้งการเชื่อมต่อแบบปลอดภัยกับเซิร์ฟเวอร์ ถึงแม้ว่าจะมีการเชื่อมต่อแบบที่ยังไม่ได้กำหนดให้มีความปลอดภัย คุณสามารถดำเนินการต่อไป หรือยกเลิกได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
-  <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed ownCloud</string>
   <string name="auth_not_configured_message">ดูเหมือนว่าค่าตัวอย่าง ownCloud ของคุณยังไม่ได้ถูกกำหนดค่าอย่างถูกต้อง กรุณาติดต่อผู้ดูแลระบบของคุณ สำหรับรายละเอียดเพิ่มเติม</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>
@@ -154,8 +155,6 @@
   <string name="auth_bad_oc_version_title">รุ่นของเซิร์ฟเวอร์ ownCloud ไม่เป็นที่รู้จัก</string>
   <string name="auth_wrong_connection_title">ไม่สามารถเชื่อมต่อได้</string>
   <string name="auth_secure_connection">ดำเนินการติดตั้งการเชื่อมต่อแบบปลอดภัยเรียบร้อย</string>
-  <string name="auth_login_details">รายละเอียดการเข้าสู่ระบบ</string>
-  <string name="auth_unauthorized">ชื่อล็อคอิน/รหัสผ่าน ไม่ถูกต้อง</string>
   <string name="auth_not_found">กรอกตำแหน่งพาธไม่ถูกต้อง</string>
   <string name="auth_internal">เกิดข้อผิดพลาดภายในเซิร์ฟเวอร์ รหัส %1$d</string>
   <string name="crashlog_message">แอพพลิเคชั่นได้สิ้นสุดการทำงานอย่างไม่คาดคิด คุณต้องการแจ้งข้อมูลความบกพร่องดังกล่าวหรือไม่?</string>
@@ -208,7 +207,7 @@
   <string name="ssl_validator_label_validity_to">ถึง:</string>
   <string name="ssl_validator_label_signature">ลายเซ็นต์:</string>
   <string name="ssl_validator_label_signature_algorithm">อัลกอริทึ่ม:</string>
-  <string name="text_placeholder">นี่เป็นตัวยึด</string>
+  <string name="placeholder_sentence">นี่เป็นตัวยึด</string>
   <string name="instant_upload_on_wifi">อัพโหลดรูปภาพผ่านทาง WiFi เท่านั้น</string>
   <string name="instant_upload_path">/อัพโหลดทันที</string>
   <string name="conflict_title">ปรับปรุงปัญหาความขัดแย้ง</string>
@@ -216,4 +215,6 @@
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถถูกคัดลอกไปที่ %2$s ไดเรกทอรีท้องถิ่น</string>
 </resources>

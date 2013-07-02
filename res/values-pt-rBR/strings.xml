@@ -13,16 +13,18 @@
   <string name="main_settings">Ajustes</string>
   <string name="main_tit_accsetup">Configuração de conta</string>
   <string name="main_wrn_accsetup">Não existem contas ownCloud no seu dispositivo. Para usar este aplicativo, você precisa criar uma.</string>
-  <string name="about_message">Cliente ownCloud para Android\n\nversão: %1$s</string>
-  <string name="actionbar_sync">Atualizar</string>
+  <string name="about_android">%1$s Android App</string>
+  <string name="about_version">versão %1$s</string>
+  <string name="actionbar_sync">Atualização de conta</string>
   <string name="actionbar_upload">Upload</string>
   <string name="actionbar_upload_from_apps">Conteúdo de outros apps</string>
   <string name="actionbar_upload_files">Arquivos</string>
+  <string name="actionbar_open_with">Abrir com</string>
   <string name="actionbar_mkdir">Criar pasta</string>
   <string name="actionbar_search">Procurar</string>
   <string name="actionbar_settings">Ajustes</string>
+  <string name="actionbar_see_details">Detalhes</string>
   <string name="prefs_category_general">Geral</string>
-  <string name="prefs_category_trackmydevice">Rastreamento de dispositivo</string>
   <string name="prefs_add_session">Adicionar nova sessão</string>
   <string name="prefs_create_img_thumbnails">Criar miniaturas de imagens</string>
   <string name="prefs_select_oc_account">Selecione uma conta</string>
@@ -38,7 +40,12 @@
   <string name="prefs_pincode_summary">Proteja seu cliente ownCloud</string>
   <string name="prefs_instant_upload">Habilitar upload instantâneo</string>
   <string name="prefs_instant_upload_summary">Instantaneamente faça upload das fotos tiradas pela câmera</string>
-  <string name="auth_host_url">URL ownCloud</string>
+  <string name="prefs_log_title">Habilitar conexão</string>
+  <string name="prefs_log_summary">Isto é usado para registrar os problemas</string>
+  <string name="prefs_log_title_history">História de Registro</string>
+  <string name="prefs_log_summary_history">Isso mostra os registros gravados</string>
+  <string name="prefs_log_delete_history_button">Excluir Histórico</string>
+  <string name="auth_host_url">Endereço do servidor</string>
   <string name="auth_username">Nome de usuário</string>
   <string name="auth_password">Senha</string>
   <string name="auth_register">Sou novo no ownCloud</string>
@@ -53,6 +60,7 @@
   <string name="setup_title">Conecte ao seu ownCloud</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Upload</string>
+  <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem contas ownCloud no seu dispositivo. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
@@ -69,9 +77,8 @@
   <string name="filedetails_created">Criado:</string>
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Download</string>
-  <string name="filedetails_sync_file">Atualizar</string>
+  <string name="filedetails_sync_file">Atualizar arquivo</string>
   <string name="filedetails_redownload">Baixar novamente</string>
-  <string name="filedetails_open">Abrir</string>
   <string name="filedetails_renamed_in_upload_msg">Arquivo foi renomeado para %1$s durante o upload</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
@@ -82,6 +89,8 @@
   <string name="common_save_exit">Salvar &amp; Sair</string>
   <string name="common_exit">Sair do ownCloud</string>
   <string name="common_error">Erro</string>
+  <string name="common_loading">Carregando ...</string>
+  <string name="common_error_unknown">Erro desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
@@ -101,14 +110,25 @@
   <string name="downloader_download_succeeded_content">%1$s foi baixado com sucesso</string>
   <string name="downloader_download_failed_ticker">Download falhou</string>
   <string name="downloader_download_failed_content">Download de %1$s não pôde ser concluído</string>
+  <string name="downloader_not_downloaded_yet">Não baixado ainda</string>
   <string name="common_choose_account">Escolha a conta</string>
   <string name="sync_string_contacts">Contatos</string>
   <string name="sync_fail_ticker">Sincronização falhou</string>
   <string name="sync_fail_content">Sincronização de %1$s não pôde ser completada</string>
+  <string name="sync_fail_content_unauthorized">Credenciais inválidas para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
   <string name="sync_conflicts_in_favourites_content">%1$d arquivos \"manter sincronizados\" não puderam ser sincronizados</string>
   <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
   <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d arquivos da pasta %2$s não foram copiados</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas. \n\nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro evita a conclusão desta operação durante a conta de sincronização. Você pode tanto deixar os arquivos como é e remover o link para %3$s, ou mover o arquivos para o diretório %1$s e manter o link para %4$s. \n\nListados abaixo estão os arquivos locais, e os arquivos remotos em %5$s que estavam vinculados.</string>
+  <string name="foreign_files_move">Mover todos</string>
+  <string name="foreign_files_success">Todos os arquivos foram movidos</string>
+  <string name="foreign_files_fail">Alguns arquivos não puderam ser movidos</string>
+  <string name="foreign_files_local_text">Local: %1$s</string>
+  <string name="foreign_files_remote_text">Remoto: %1$s</string>
+  <string name="upload_query_move_foreign_files">Não há espaço suficiente para copiar os arquivos selecionados para a pasta %1$s. Ao invés disso, gostaria de movê-los?</string>
   <string name="use_ssl">Usar Conexão Segura</string>
   <string name="location_no_provider">%1$s não pode rastrear seu dispositivo. Por favor verifique suas configurações de localização</string>
   <string name="pincode_enter_pin_code">Por favor, insira o seu PIN de Aplicativo</string>
@@ -121,6 +141,27 @@
   <string name="pincode_wrong">PIN de Aplicativo incorreto</string>
   <string name="pincode_removed">PIN de Aplicativo removido</string>
   <string name="pincode_stored">PIN de Aplicativo armazenado</string>
+  <string name="media_notif_ticker">%1$s reprodutor de música</string>
+  <string name="media_state_playing">%1$s (reproduzindo)</string>
+  <string name="media_state_loading">%1$s (carregando)</string>
+  <string name="media_event_done">%1$s reprodução finalizada</string>
+  <string name="media_err_nothing_to_play">Nenhum arquivo de mídia encontrado</string>
+  <string name="media_err_no_account">Nenhuma conta fornecida</string>
+  <string name="media_err_not_in_owncloud">Arquivo não está em uma conta válida</string>
+  <string name="media_err_unsupported">Codec de mídia não suportado</string>
+  <string name="media_err_io">Arquivo de mídia não pode ser lido</string>
+  <string name="media_err_malformed">Arquivo de mídia não corretamente codificado</string>
+  <string name="media_err_timeout">Muito tempo tentando reproduzir</string>
+  <string name="media_err_invalid_progressive_playback">Arquivo de mídia não pode ser transmitido</string>
+  <string name="media_err_unknown">Arquivo de mídia não pode ser reproduzido com o estoque media player</string>
+  <string name="media_err_security_ex">Erro de segurança tentando reproduzir %1$s</string>
+  <string name="media_err_io_ex">Erro de entrada tentando reproduzir %1$s</string>
+  <string name="media_err_unexpected">Erro inesperado tentando reproduzir %1$s</string>
+  <string name="media_previous_description">Botão para trilha anterior</string>
+  <string name="media_rewind_description">Botão rebobinar</string>
+  <string name="media_play_pause_description">Botão reproduzir parar</string>
+  <string name="media_forward_description">Botão de adiantamento rápido</string>
+  <string name="media_next_description">Botão próxima trilha</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minutos</item>
     <item>30 minutos</item>
@@ -131,7 +172,7 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Tentando fazer login...</string>
+  <string name="auth_trying_to_login">Tentando fazer o login ...</string>
   <string name="auth_no_net_conn_title">Sem conexão de rede</string>
   <string name="auth_no_net_conn_message">Nenhuma conexão foi detectada, verifique sua conexão com a Internet e tente novamente.</string>
   <string name="auth_connect_anyway">Conectar mesmo assim</string>
@@ -154,10 +195,14 @@
   <string name="auth_bad_oc_version_title">Versão do servidor ownCloud é irreconhecível</string>
   <string name="auth_wrong_connection_title">Não foi possível estabelecer conexão</string>
   <string name="auth_secure_connection">Conexão segura estabelecida</string>
-  <string name="auth_login_details">Detalhes de login</string>
-  <string name="auth_unauthorized">Login / senha inválida</string>
+  <string name="auth_unauthorized">Credenciais inválidas</string>
+  <string name="auth_oauth_error">Autorização sem sucesso</string>
+  <string name="auth_oauth_error_access_denied">Acesso negado pelo servidor de autorização</string>
   <string name="auth_not_found">Caminho dado está errado</string>
   <string name="auth_internal">Erro interno do servidor, código %1$d</string>
+  <string name="auth_wtf_reenter_URL">Estado inesperado, por favor, digite a URL do servidor novamente</string>
+  <string name="auth_expired_oauth_token_toast">Sua autorização expirou. ⏎\nPor favor, pedir autorização novamente</string>
+  <string name="auth_expired_basic_auth_toast">Suas credenciais salvas são inválidos. ⏎\nPor favor, insira as credenciais atuais</string>
   <string name="crashlog_message">O aplicativo terminou inesperadamente. Gostaria de enviar um relatório de erros?</string>
   <string name="crashlog_send_report">Enviar relatório</string>
   <string name="crashlog_dont_send_report">Não enviar relatório</string>
@@ -184,6 +229,11 @@
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Entrar com oAuth2.</string>
+  <string name="oauth_login_connection">Conectando-se a oAuth2 servidor ...</string>
+  <string name="oauth_code_validation_message">Por favor, abra um navegador e vá para: ⏎\n%1$s. ⏎\nValidar este código lá: ⏎\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">O acesso a este URL não está disponível.</string>
   <string name="ssl_validator_title">Aviso</string>
   <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
@@ -208,7 +258,12 @@
   <string name="ssl_validator_label_validity_to">Para:</string>
   <string name="ssl_validator_label_signature">Assinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
-  <string name="text_placeholder">Isso é um marcador de espaço</string>
+  <string name="placeholder_sentence">Este é um espaço reservado</string>
+  <string name="placeholder_filename">espaçoreservado.txt</string>
+  <string name="placeholder_filetype">Imagem PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Fazer upload de fotos somente via WiFi</string>
   <string name="instant_upload_path">/Upload instantâneo</string>
   <string name="conflict_title">Conflito de atualização</string>
@@ -216,4 +271,20 @@
   <string name="conflict_keep_both">Manter ambos</string>
   <string name="conflict_overwrite">Sobrescrever</string>
   <string name="conflict_dont_upload">Não fazer upload</string>
+  <string name="preview_image_description">Pré-visualização da imagem</string>
+  <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
+  <string name="preview_image_error_out_of_memory">\"Não há memoria suficiente para mostrar esta imagem</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s não pode ser copiado a pasta local %2$s</string>
+  <string name="actionbar_failed_instant_upload">Falha no envio imediato</string>
+  <string name="failed_upload_headline_text">Falhas nos envios imediatos</string>
+  <string name="failed_upload_headline_hint">Sumario de todas as falhas nos envios imediatos</string>
+  <string name="failed_upload_all_cb">selecionar tudo</string>
+  <string name="failed_upload_headline_retryall_btn">tentar novamente todos os selecionados</string>
+  <string name="failed_upload_headline_delete_all_btn">excluir todos os selecionados da lista de envio</string>
+  <string name="failed_upload_retry_text">tentar novamente envio da imagem:</string>
+  <string name="failed_upload_load_more_images">Carregar mais Imagens</string>
+  <string name="failed_upload_retry_do_nothing_text">não fazer nada voce não está conectado para envio instantâneo </string>
+  <string name="failed_upload_failure_text">Mensagem de Falha:</string>
+  <string name="failed_upload_quota_exceeded_text">Por favor verifique a configuração do servidor, talvez a sua cota esteja vencida.</string>
 </resources>
