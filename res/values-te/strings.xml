@@ -4,6 +4,7 @@
   <string name="main_music">సంగీతం</string>
   <string name="main_settings">అమరికలు</string>
   <string name="actionbar_settings">అమరికలు</string>
+  <string name="auth_host_url">సేవకి చిరునామా</string>
   <string name="auth_username">వాడుకరి పేరు</string>
   <string name="auth_password">సంకేతపదం</string>
   <string name="setup_hint_username">వాడుకరి పేరు</string>
