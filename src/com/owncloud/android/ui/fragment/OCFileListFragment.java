@@ -63,6 +63,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
+
+    private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ? OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
+    private static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -94,13 +97,25 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
-        mAdapter = new FileListListAdapter(mContainerActivity.getInitialDirectory(), mContainerActivity.getStorageManager(), getActivity(), mContainerActivity);
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
+        if (savedInstanceState != null) {
+            mFile = savedInstanceState.getParcelable(EXTRA_FILE);
+        }
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
+    }
+    
+    /**
+     * Saves the current listed folder.
+     */
+    @Override
+    public void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(EXTRA_FILE, mFile);
     }
     
 
@@ -124,7 +139,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         if (file != null) {
             if (file.isDirectory()) { 
                 // update state and view of this fragment
-                mFile = file;
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
                 mContainerActivity.onBrowsedDownTo(file);
@@ -385,14 +399,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * Getter for the current DataStorageManager in the container activity
          */
         public DataStorageManager getStorageManager();
-        
-        
-        /**
-         * Callback method invoked when the parent activity is fully created to get the directory to list firstly.
-         * 
-         * @return  Directory to list firstly. Can be NULL.
-         */
-        public OCFile getInitialDirectory();
         
         
         /**
