@@ -107,6 +107,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
+
     }
     
     /**
@@ -370,6 +371,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
+
         }
     }
     
