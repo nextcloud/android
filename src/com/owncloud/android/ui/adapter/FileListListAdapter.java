@@ -169,19 +169,23 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } 
             else {
                
-               getDirectorySizeNumber(file,true);
-               if (lastModifiedOfAllSubdirectories == null)
-               {
-                   lastModV.setVisibility(View.GONE);
-                   fileSizeV.setVisibility(View.GONE);
-               }
-               else
-               {
-                   lastModV.setVisibility(View.VISIBLE);
-                   lastModV.setText(DisplayUtils.unixTimeToHumanReadable(lastModifiedOfAllSubdirectories));
-                   fileSizeV.setVisibility(View.VISIBLE);
-                   fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
-               }
+                fileSizeV.setVisibility(View.VISIBLE);
+                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+//               getDirectorySizeNumber(file,true);
+//               if (lastModifiedOfAllSubdirectories == null)
+//               {
+//                   lastModV.setVisibility(View.GONE);
+//                   fileSizeV.setVisibility(View.GONE);
+//               }
+//               else
+//               {
+//                   lastModV.setVisibility(View.VISIBLE);
+//                   lastModV.setText(DisplayUtils.unixTimeToHumanReadable(lastModifiedOfAllSubdirectories));
+//                   fileSizeV.setVisibility(View.VISIBLE);
+//                   fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
+//               }
                checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
