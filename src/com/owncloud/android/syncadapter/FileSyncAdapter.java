@@ -37,6 +37,8 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.utils.FileStorageUtils;
+
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.Notification;
@@ -263,8 +265,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             OCFile newFile = files.get(i);
             if (newFile.isDirectory()) {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
+                
+                // Update folder size on DB
+                FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContext().getContentResolver());
+                FileStorageUtils.saveFolderSize(newFile.getFileId(), storageManager);       
             }
         }
+       
         if (mCancellation && i <files.size()) Log_OC.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
     }
 

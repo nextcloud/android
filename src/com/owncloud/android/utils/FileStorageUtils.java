@@ -18,6 +18,7 @@
 package com.owncloud.android.utils;
 
 import java.io.File;
+import java.util.Vector;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,7 +26,9 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 /**
@@ -73,5 +76,22 @@ public class FileStorageUtils {
         String uploadPath = context.getString(R.string.instant_upload_path);
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
+    }
+    
+    public static void saveFolderSize(long id, DataStorageManager storageManager)
+    {
+        long folderSize = 0;
+        
+        Vector<OCFile> files = storageManager.getFilesbyParent(id);
+        
+        Log_OC.d(LOG_TAG, "Folder " + String.valueOf(id) + "--- Number of Files = " + String.valueOf(files.size()));
+        
+        for (OCFile f: files)
+        {
+            folderSize = folderSize + f.getFileLength();
+            Log_OC.d(LOG_TAG, "Folder Size = " + String.valueOf(folderSize));
+        }
+        
+        storageManager.updatefolderSize(id, folderSize);
     }
 }
