@@ -232,6 +232,8 @@
   <string name="oauth_host_url">oAuth2 URL</string>
   <string name="oauth_check_onoff">Loguj przez oAuth2</string>
   <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>
+  <string name="oauth_code_validation_message">Proszę Otwórz przeglądarkę internetową i przejdź do:\n%1$s.\nSprawdź ten kod tam:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Połączenie do tego adresu URL jest niedostępne.</string>
   <string name="ssl_validator_title">Uwaga</string>
   <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
