@@ -41,6 +41,10 @@
   <string name="prefs_instant_upload">Aktivera direktuppladdning</string>
   <string name="prefs_instant_upload_summary">Direktuppladdning av kamerabilder</string>
   <string name="prefs_log_title">Aktivera loggning</string>
+  <string name="prefs_log_summary">Används för att logga problem</string>
+  <string name="prefs_log_title_history">Logghistorik</string>
+  <string name="prefs_log_summary_history">Visar sparade loggar</string>
+  <string name="prefs_log_delete_history_button">Radera historik</string>
   <string name="auth_host_url">Serveradress</string>
   <string name="auth_username">Användare</string>
   <string name="auth_password">Lösenord</string>
@@ -73,6 +77,7 @@
   <string name="filedetails_created">Skapad:</string>
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
+  <string name="filedetails_sync_file">Ladda om fil</string>
   <string name="filedetails_redownload">Ladda ner igen</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
   <string name="common_yes">Ja</string>
@@ -94,7 +99,7 @@
   <string name="uploader_upload_in_progress_ticker">Laddar upp ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Uppladdning klar</string>
-  <string name="uploader_upload_succeeded_content_single">%1$s var uppladdade</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s laddades upp</string>
   <string name="uploader_upload_succeeded_content_multiple">%1$d filer uppladdade</string>
   <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
   <string name="uploader_upload_failed_content_single">Uppladdning av %1$s kunde inte slutföras</string>
@@ -110,6 +115,7 @@
   <string name="sync_string_contacts">Kontakter</string>
   <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
+  <string name="sync_fail_content_unauthorized">Ogiltiga inloggningsuppgifter för %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
   <string name="sync_conflicts_in_favourites_content">%1$d Flaggad som Håll-filen-uppdaterad kan inte synkas</string>
   <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
@@ -166,12 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Försöker logga in...</string>
   <string name="auth_no_net_conn_title">Ingen anslutning till nätverket</string>
   <string name="auth_no_net_conn_message">Ingen nätverksanslutning har upptäckts, kontrollera din Internet-anslutning och försök igen.</string>
   <string name="auth_connect_anyway">Anslut ändå</string>
   <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
   <string name="auth_nossl_plain_ok_message">Applikationen kunde inte etablera en krypterad anslutning till servern. Okrypterad anslutning kan finnas tillgänglig. Du kan fortsätta eller avbryta.</string>
   <string name="auth_connection_established">Anslutning etablerad</string>
+  <string name="auth_testing_connection">Testar anslutning...</string>
   <string name="auth_not_configured_title">Felaktig konfiguration</string>
   <string name="auth_not_configured_message">Det verkar som om din version av ownCloud inte är korrekt konfigurerad. Kontakta din administratör för mer information.</string>
   <string name="auth_unknown_error_title">Okänt fel uppstod</string>
@@ -187,8 +195,14 @@
   <string name="auth_bad_oc_version_title">Okänd ownCloud serverversion</string>
   <string name="auth_wrong_connection_title">Kunde inte etablera anslutning</string>
   <string name="auth_secure_connection">Säker anslutning etablerad</string>
+  <string name="auth_unauthorized">Ogiltiga inloggningsuppgifter</string>
+  <string name="auth_oauth_error">Behörighet saknas</string>
+  <string name="auth_oauth_error_access_denied">Nekad åtkomst av server</string>
   <string name="auth_not_found">Felaktig  sökväg angavs</string>
   <string name="auth_internal">Internt serverfel, kod %1$d</string>
+  <string name="auth_wtf_reenter_URL">Oväntat tillstånd; Ange serverns URL igen</string>
+  <string name="auth_expired_oauth_token_toast">Din inloggning har gått ut.\nVar god, logga in igen</string>
+  <string name="auth_expired_basic_auth_toast">Dina sparade uppgifter är felaktiga.\nVar god ange aktuella uppgifter</string>
   <string name="crashlog_message">Applikationen avslutades oväntat. Vill du skicka en felrapport?</string>
   <string name="crashlog_send_report">Skicka rapport</string>
   <string name="crashlog_dont_send_report">Skicka inte rapport</string>
@@ -215,6 +229,11 @@
   <string name="wait_a_moment">Var god vänta</string>
   <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
   <string name="filedisplay_no_file_selected">Ingen fil vald</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Logga in med oAuth2.</string>
+  <string name="oauth_login_connection">Ansluter till oAuth2 servern…</string>
+  <string name="oauth_code_validation_message">Öppna en webbläsare och gå till:\n%1$s.\nAnge denna kod för validering:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Anslutning till denna URL är inte tillgänglig.</string>
   <string name="ssl_validator_title">Varning</string>
   <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
