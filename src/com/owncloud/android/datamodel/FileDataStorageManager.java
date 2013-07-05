@@ -640,12 +640,9 @@ public class FileDataStorageManager implements DataStorageManager {
         
         Vector<OCFile> files = getFilesbyParent(id);
         
-        Log_OC.d(TAG, "Folder " + String.valueOf(id) + "--- Number of Files = " + String.valueOf(files.size()));
-        
         for (OCFile f: files)
         {
             folderSize = folderSize + f.getFileLength();
-            Log_OC.d(TAG, "Folder Size = " + String.valueOf(folderSize));
         }
         
         updatefolderSize(id, folderSize);
