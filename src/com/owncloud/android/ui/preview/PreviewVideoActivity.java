@@ -18,7 +18,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,15 +27,18 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
+import com.owncloud.android.ui.activity.FileActivity;
 
 /**
  *  Activity implementing a basic video player.
@@ -48,14 +50,8 @@ import com.owncloud.android.media.MediaService;
  *  
  *  @author David A. Velasco
  */
-public class PreviewVideoActivity extends Activity implements OnCompletionListener, OnPreparedListener, OnErrorListener {
+public class PreviewVideoActivity extends FileActivity implements OnCompletionListener, OnPreparedListener, OnErrorListener {
 
-    /** Key to receive an {@link OCFile} to play as an extra value in an {@link Intent} */
-    public static final String EXTRA_FILE = "FILE";
-    
-    /** Key to receive the ownCloud {@link Account} where the file to play is saved as an extra value in an {@link Intent} */
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
-    
     /** Key to receive a flag signaling if the video should be started immediately */
     public static final String EXTRA_AUTOPLAY = "AUTOPLAY";
     
@@ -64,8 +60,8 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
-    private OCFile mFile;                       // video file to play
-    private Account mAccount;                   // ownCloud account holding mFile
+    private DataStorageManager mStorageManager;
+    
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private VideoView mVideoPlayer;             // view to play the file; both performs and show the playback
@@ -90,14 +86,10 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            mFile = extras.getParcelable(EXTRA_FILE);
-            mAccount = extras.getParcelable(EXTRA_ACCOUNT);
             mSavedPlaybackPosition = extras.getInt(EXTRA_START_POSITION);
             mAutoplay = extras.getBoolean(EXTRA_AUTOPLAY);
             
         } else {
-            mFile = savedInstanceState.getParcelable(EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(EXTRA_ACCOUNT);
             mSavedPlaybackPosition = savedInstanceState.getInt(EXTRA_START_POSITION);
             mAutoplay = savedInstanceState.getBoolean(EXTRA_AUTOPLAY);
         }
@@ -111,29 +103,6 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
           
         // keep the screen on while the playback is performed (prevents screen off by battery save)
         mVideoPlayer.setKeepScreenOn(true);
-        
-        if (mFile != null) {
-            if (mFile.isDown()) {
-                mVideoPlayer.setVideoPath(mFile.getStoragePath());
-                
-            } else if (mAccount != null) {
-                // not working now
-                String url = AccountUtils.constructFullURLForAccount(this, mAccount) + mFile.getRemotePath();
-                mVideoPlayer.setVideoURI(Uri.parse(url));
-                
-            } else {
-                onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
-            }
-            
-            // create and prepare control panel for the user
-            mMediaController = new MediaController(this);
-            mMediaController.setMediaPlayer(mVideoPlayer);
-            mMediaController.setAnchorView(mVideoPlayer);
-            mVideoPlayer.setMediaController(mMediaController);
-            
-        } else {
-            onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_nothing_to_play);
-        }
     }    
     
     
@@ -144,8 +113,6 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log_OC.e(TAG, "ACTIVITY\t\tonSaveInstanceState");
-        outState.putParcelable(PreviewVideoActivity.EXTRA_FILE, mFile);
-        outState.putParcelable(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
         outState.putInt(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPlayer.getCurrentPosition());
         outState.putBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY , mVideoPlayer.isPlaying());
     }
@@ -161,39 +128,6 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
         super.onBackPressed();
     }
 
-    
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log_OC.e(TAG, "ACTIVTIY\t\tonResume");
-    }
-
-    
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log_OC.e(TAG, "ACTIVTIY\t\tonStart");
-    }
-    
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log_OC.e(TAG, "ACTIVITY\t\tonDestroy");
-    }
-    
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log_OC.e(TAG, "ACTIVTIY\t\tonStop");
-    }
-    
-    
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log_OC.e(TAG, "ACTIVTIY\t\tonPause");
-    }
-    
     
     /** 
      * Called when the file is ready to be played.
@@ -258,25 +192,48 @@ public class PreviewVideoActivity extends Activity implements OnCompletionListen
     }
     
     
-    /**  
-     * Screen touches trigger the appearance of the control panel for a limited time.
-     *
-     * {@inheritDoc}
-     */
     @Override
-    public boolean onTouchEvent (MotionEvent ev){ 
-        /*if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            if (mMediaController.isShowing()) {
-                mMediaController.hide();
-            } else {
-                mMediaController.show(MediaService.MEDIA_CONTROL_SHORT_LIFE);
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            OCFile file = getFile();
+            /// Validate handled file  (first image to preview)
+            if (file == null) {
+                throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            return true;        
+            if (!file.isVideo()) {
+                throw new IllegalArgumentException("Non-video file passed as argument");
+            }
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+            file = mStorageManager.getFileById(file.getFileId()); 
+            if (file != null) {
+                if (file.isDown()) {
+                    mVideoPlayer.setVideoPath(file.getStoragePath());
+                    
+                } else {
+                    // not working yet
+                    String url;
+                    try {
+                        url = AccountUtils.constructFullURLForAccount(this, getAccount()) + file.getRemotePath();
+                        mVideoPlayer.setVideoURI(Uri.parse(url));
+                    } catch (AccountNotFoundException e) {
+                        onError(null, MediaService.OC_MEDIA_ERROR, R.string.media_err_no_account);
+                    }
+                }
+                
+                // create and prepare control panel for the user
+                mMediaController = new MediaController(this);
+                mMediaController.setMediaPlayer(mVideoPlayer);
+                mMediaController.setAnchorView(mVideoPlayer);
+                mVideoPlayer.setMediaController(mMediaController);
+                
+            } else {
+                finish();
+            }
         } else {
-            return false;
-        }*/
-        return false;
-    }
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+            finish();
+        }
+   }
 
 
 }

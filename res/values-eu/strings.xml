@@ -13,16 +13,18 @@
   <string name="main_settings">Ezarpenak</string>
   <string name="main_tit_accsetup">Konfiguratu kontua</string>
   <string name="main_wrn_accsetup"> Ez dago ownCloud konturik zure gailuan. Programa hau erabiltzeko, kontu bat sortu behar duzu.</string>
-  <string name="about_message">ownCloud Android bezeroa\n\nBertsioa: %1$s</string>
-  <string name="actionbar_sync">Birkargatu</string>
+  <string name="about_android">%1$s Android Aplikazioa</string>
+  <string name="about_version">%1$s bertsioa</string>
+  <string name="actionbar_sync">Freskatu kontua</string>
   <string name="actionbar_upload">Igo fitxategia</string>
   <string name="actionbar_upload_from_apps">Beste app-en edukia</string>
   <string name="actionbar_upload_files">Fitxategiak</string>
+  <string name="actionbar_open_with">Ireki honekin</string>
   <string name="actionbar_mkdir">Sortu karpeta</string>
   <string name="actionbar_search">Bilatu</string>
   <string name="actionbar_settings">Ezarpenak</string>
+  <string name="actionbar_see_details">Xehetasunak</string>
   <string name="prefs_category_general">Orokorra</string>
-  <string name="prefs_category_trackmydevice">Gailuaren jarraipena</string>
   <string name="prefs_add_session">Gehitu saio berria</string>
   <string name="prefs_create_img_thumbnails">Sortu irudien koadro txikiak</string>
   <string name="prefs_select_oc_account">Aukeratu kontu bat</string>
@@ -38,7 +40,12 @@
   <string name="prefs_pincode_summary">Babestu zure ownCloud bezeroa</string>
   <string name="prefs_instant_upload">Gaitu berehalako igoera</string>
   <string name="prefs_instant_upload_summary">Igo berehala kamerak ateratako argazkiak</string>
-  <string name="auth_host_url">ownCloud URL</string>
+  <string name="prefs_log_title">Gaitu erregistroa</string>
+  <string name="prefs_log_summary">Arazoen erregistroa gordetzeko erabiltzen da</string>
+  <string name="prefs_log_title_history">Erregistro historia</string>
+  <string name="prefs_log_summary_history">Honek gordetako erregistroak bistaratzen ditu.</string>
+  <string name="prefs_log_delete_history_button">Ezabatu historia</string>
+  <string name="auth_host_url">Zerbitzariaren helbidea</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria naiz ownCloud-en</string>
@@ -53,6 +60,7 @@
   <string name="setup_title">Konektatu zure ownCloudera</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
+  <string name="uploader_top_message">Hautatu igoera direktorioa:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_text">Zure gailuan ez dago ownCloud konturik. Mesedez konfiguratu kontu bat lehenengo.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Konfiguratu</string>
@@ -69,9 +77,8 @@
   <string name="filedetails_created">Sortuta:</string>
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
-  <string name="filedetails_sync_file">Birkargatu</string>
+  <string name="filedetails_sync_file">Freskatu fitxaegia</string>
   <string name="filedetails_redownload">Birdeskargatzen</string>
-  <string name="filedetails_open">Ireki</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
@@ -82,6 +89,8 @@
   <string name="common_save_exit">Gorde eta Irten</string>
   <string name="common_exit">Utzi ownCloud</string>
   <string name="common_error">Errorea</string>
+  <string name="common_loading">Kargatzen ...</string>
+  <string name="common_error_unknown">Errore ezezaguna</string>
   <string name="about_title">Honi buruz</string>
   <string name="delete_account">Ezabatu kontua</string>
   <string name="create_account">Sortu kontua</string>
@@ -101,6 +110,7 @@
   <string name="downloader_download_succeeded_content">%1$s ongi deskargatu da</string>
   <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
   <string name="downloader_download_failed_content">%1$s fitxategiaren deskarga ezin izan da burutu</string>
+  <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
   <string name="common_choose_account">Hautatu kontua</string>
   <string name="sync_string_contacts">Kontaktuak</string>
   <string name="sync_fail_ticker">Sinkronizazioak huts egin du</string>
@@ -109,6 +119,14 @@
   <string name="sync_conflicts_in_favourites_content">sinkronizatu beharreko %1$d fitxategiak ezin dira sinkronizatu</string>
   <string name="sync_fail_in_favourites_ticker">edukien sinkronizazioak huts egin du</string>
   <string name="sync_fail_in_favourites_content">%1$d fitxategien edukiak ezin dira sinkronizatu (%2$d gatazka)</string>
+  <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
+  <string name="sync_foreign_files_forgotten_content">%2$s karpetako %1$d fitxategi ezin dira dira kopiatu</string>
+  <string name="foreign_files_move">Mugitu denak</string>
+  <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
+  <string name="foreign_files_fail">Fitxategi batzuk ezin dira mugitu</string>
+  <string name="foreign_files_local_text">Bertakoa: %1$s</string>
+  <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
+  <string name="upload_query_move_foreign_files">Ez dago leku nahikorik hautatutako fitxategiak %1$s karpetan kopiatzeko. Nahi al duzu kopiatu ordez bertara mugitzea?</string>
   <string name="use_ssl">Erabili konexio segurua</string>
   <string name="location_no_provider">ownCloudek ezin du zure gailua jarraitu. Mesedez begiratu zure kokapen ezarpenak</string>
   <string name="pincode_enter_pin_code">Mesedez, sartu zure aplikazioaren PINa</string>
@@ -121,6 +139,26 @@
   <string name="pincode_wrong">ownCloud aplikazioaren PINa ezda zuzena</string>
   <string name="pincode_removed">ownCloud aplikazioaren PINa kendu da</string>
   <string name="pincode_stored">ownCloud aplikazioaren PINa gorde da</string>
+  <string name="media_notif_ticker">%1$s musika erreproduzigailua</string>
+  <string name="media_state_playing">%1$s (jotzen)</string>
+  <string name="media_state_loading">%1$s (kargatzen)</string>
+  <string name="media_event_done">%1$s erreprodukzioa amaitua</string>
+  <string name="media_err_nothing_to_play">Ez da euskarri fitxategia aurkitu</string>
+  <string name="media_err_no_account">Ez da konturik eman</string>
+  <string name="media_err_not_in_owncloud">Fitxategiak ez du baliozko kontu bat</string>
+  <string name="media_err_unsupported">Onartzen ez de euskarri kodeka</string>
+  <string name="media_err_io">Euskarri fitxategia ezin da bihurtu</string>
+  <string name="media_err_malformed">Euskarri fitxategia ezin da kodetu</string>
+  <string name="media_err_timeout">Denbora gehiegi erreproduzitzen saiatzen</string>
+  <string name="media_err_invalid_progressive_playback">Euskarri fitxategia ezin da jariotu</string>
+  <string name="media_err_security_ex">Segurtasun errorea %1$s erreproduzitzen saiatzean</string>
+  <string name="media_err_io_ex">Sarrera errorea %1$s erreproduzitzen saiatzean</string>
+  <string name="media_err_unexpected">Ezusteko errorea %1$s erreproduzitzen saiatzean</string>
+  <string name="media_previous_description">Aurreko pista botoia</string>
+  <string name="media_rewind_description">Atzeratu botoia</string>
+  <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
+  <string name="media_forward_description">Azkar aurreratu botoia</string>
+  <string name="media_next_description">Hurrengo pista botoia</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minutu</item>
     <item>30 Minutu</item>
@@ -138,7 +176,7 @@
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_nossl_plain_ok_message">Aplikazioak ezin izan du zerbitzariarekin konexio seguru bat ezarri. Hala ere konexio ez segurua egin daiteke. Jarraitu edo ezeztatu dezakezu.</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
-  <string name="auth_testing_connection">Konexioa probatzen...</string>
+  <string name="auth_testing_connection">Konexioa frogatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako ownCloud konfigurazioa</string>
   <string name="auth_not_configured_message">Badirudi zure ownCloud instantzia ez dagoela ongi konfiguratuta. Jarri zure harremanetan administradorearkin informazio gehiago izateko.</string>
   <string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>
@@ -154,8 +192,6 @@
   <string name="auth_bad_oc_version_title">ownCloud zerbitzari bertsio ezezaguna</string>
   <string name="auth_wrong_connection_title">Ezin izan da konexioa egin</string>
   <string name="auth_secure_connection">Konexio segurua ezarri da</string>
-  <string name="auth_login_details">Saio hasierako ezarpenak</string>
-  <string name="auth_unauthorized">Erabiltzaile / pasahitz baliogabea</string>
   <string name="auth_not_found">Okerreko bidea emanda</string>
   <string name="auth_internal">Barne zerbitzari errorea, kodea: %1$d</string>
   <string name="crashlog_message">Programa ezustekoan bukatu da. Nahiko zenuke huts egitearen berri eman?</string>
@@ -208,7 +244,11 @@
   <string name="ssl_validator_label_validity_to">Noiz arte:</string>
   <string name="ssl_validator_label_signature">Sinadura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmoa:</string>
-  <string name="text_placeholder">Hau leku-marka da</string>
+  <string name="placeholder_sentence">Hau leku-marka da</string>
+  <string name="placeholder_filetype">PNG Irudia</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
   <string name="instant_upload_path">/BerehalakoIgoerak</string>
   <string name="conflict_title">Igoera konfliktoa</string>
@@ -216,4 +256,19 @@
   <string name="conflict_keep_both">Mantendu biak</string>
   <string name="conflict_overwrite">Gainidatzi</string>
   <string name="conflict_dont_upload">Ez igo</string>
+  <string name="preview_image_description">Irudi aurreikuspena</string>
+  <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
+  <string name="preview_image_error_out_of_memory">\"Ez dago orrialde hau erakusteko memoria aski</string>
+  <!--we need to improve the communication of errors to the user-->
+  <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s bertako karpetara kopiatu</string>
+  <string name="actionbar_failed_instant_upload">UnekoIgoerak huts egin du\"</string>
+  <string name="failed_upload_headline_text">Uneko igoerek huts egin dute</string>
+  <string name="failed_upload_headline_hint">Huts egindako igoeren laburpena</string>
+  <string name="failed_upload_all_cb">Hautatu dena</string>
+  <string name="failed_upload_headline_retryall_btn">Berriz saiatu hautatutakoak</string>
+  <string name="failed_upload_headline_delete_all_btn">kendu hautatutakoak igoera-ilaratik</string>
+  <string name="failed_upload_retry_text">Berriz saiatu irudia igotzen:</string>
+  <string name="failed_upload_load_more_images">Kargatu irudi gehiago</string>
+  <string name="failed_upload_failure_text">Hutsegite mezua:</string>
+  <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
 </resources>

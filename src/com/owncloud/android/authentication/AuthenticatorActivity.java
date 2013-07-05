@@ -18,7 +18,6 @@
 
 package com.owncloud.android.authentication;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -54,7 +53,6 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
@@ -85,6 +83,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public static final String EXTRA_USER_NAME = "USER_NAME";
     public static final String EXTRA_HOST_NAME = "HOST_NAME";
     public static final String EXTRA_ACTION = "ACTION";
+    public static final String EXTRA_ENFORCED_UPDATE = "ENFORCE_UPDATE";
 
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
@@ -111,7 +110,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
-    
+
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
@@ -132,8 +131,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private byte mAction;
     private Account mAccount;
 
-    private Button mCheckServerButton;
     private EditText mHostUrlInput;
+    private View mRefreshButton;
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private CheckBox mOAuth2Check;
@@ -161,7 +160,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
-        mCheckServerButton = (Button) findViewById(R.id.checkServerButton);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
@@ -187,24 +185,18 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAction = getIntent().getByteExtra(EXTRA_ACTION, ACTION_CREATE); 
         mAccount = null;
         mHostBaseUrl = "";
+        boolean refreshButtonEnabled = false;
         
-        // URL Branding
+        // URL input configuration applied
         if (!mHostUrlInputEnabled)
         {
             mHostUrlInput.setText(getString(R.string.server_url));
-            mHostUrlInput.setVisibility(View.GONE);
+            findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             
-            mCheckServerButton.setVisibility(View.VISIBLE);
-            mCheckServerButton.setOnClickListener(new OnClickListener() {
-                
-                @Override
-                public void onClick(View v) {
-                    checkOcServer();
-                    
-                }
-            });
-            
-            checkOcServer();
+            mRefreshButton = findViewById(R.id.centeredRefreshButton);
+
+        } else {
+            mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         }
 
         if (savedInstanceState == null) {
@@ -233,7 +225,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
             mOAuth2Check.setChecked(oAuthRequired);
             changeViewByOAuth2Check(oAuthRequired);
-
+            mJustCreated = true;
+            
+            if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
+                checkOcServer(); 
+            }
 
         } else {
             /// connection state and info
@@ -264,43 +260,35 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }            
             
             // refresh button enabled
-            mRefreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
+            refreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
+            
 
         }
 
         showServerStatus();
         showAuthStatus();
-        if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
+
+        if (mAction == ACTION_UPDATE_TOKEN) {
+            /// lock things that should not change
+            mHostUrlInput.setEnabled(false);
+            mHostUrlInput.setFocusable(false);
+            mUsernameInput.setEnabled(false);
+            mUsernameInput.setFocusable(false);
+            mOAuth2Check.setVisibility(View.GONE);
+        }
+        
+        //if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
+        if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
         if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
             mOAuth2Check.setVisibility(View.GONE);
         }
 
-        if (mAction == ACTION_UPDATE_TOKEN) {
-            /// lock things that should not change
-            mHostUrlInput.setEnabled(false);
-            mUsernameInput.setEnabled(false);
-            mOAuth2Check.setVisibility(View.GONE);
-            if (!mServerIsValid && mOcServerChkOperation == null) {
-                checkOcServer(); 
-            }
-        }
-
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
-        mJustCreated = true;
 
         /// bind view elements to listeners
         mHostUrlInput.setOnFocusChangeListener(this);
-        mHostUrlInput.setOnTouchListener(new RightDrawableOnTouchListener() {
-            @Override
-            public boolean onDrawableTouch(final MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    AuthenticatorActivity.this.onRefreshClick();
-                }
-                return true;
-            }
-        });
         mHostUrlInput.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -366,7 +354,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         
         // refresh button enabled
-        outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
+        //outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
+        outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
 
     }
 
@@ -397,7 +386,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         super.onResume();
         // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes; so keep the next lines here
         changeViewByOAuth2Check(mOAuth2Check.isChecked());  
-        if (mAction == ACTION_UPDATE_TOKEN && mJustCreated) {
+        if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
             if (mOAuth2Check.isChecked())
                 Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
             else
@@ -1227,21 +1216,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
 
     private void showRefreshButton() {
-        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
-        mRefreshButtonEnabled = true;
-        
-        if (!mHostUrlInputEnabled){
-           mCheckServerButton.setVisibility(View.VISIBLE); 
-        }
+        mRefreshButton.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshButton() {
-        mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        mRefreshButtonEnabled = false;
-        
-        if (!mHostUrlInputEnabled){
-            mCheckServerButton.setVisibility(View.INVISIBLE); 
-        }
+        mRefreshButton.setVisibility(View.GONE);
     }
 
     /**
@@ -1251,7 +1230,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * 
      * @param view      Refresh 'button'
      */
-    public void onRefreshClick() {
+    public void onRefreshClick(View view) {
         checkOcServer();
     }
     
@@ -1312,7 +1291,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */
     public void onSavedCertificate() {
-        mOperationThread = mOcServerChkOperation.retry(this, mHandler);                
+        checkOcServer();
     }
 
     /**

@@ -13,24 +13,30 @@
   <string name="main_settings">pengaturan</string>
   <string name="main_tit_accsetup">Mengatur Akun</string>
   <string name="main_wrn_accsetup">Tidak ada akun yang diatur di alat anda. Dalam rangka menggunakan App ini, anda hrus membuatnya.</string>
+  <string name="actionbar_upload">Unggah</string>
   <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="prefs_category_general">umum</string>
-  <string name="auth_host_url">tautan</string>
+  <string name="auth_host_url">alamat server</string>
   <string name="auth_username">nama pengguna</string>
   <string name="auth_password">kata kunci</string>
   <string name="sync_string_files">Berkas</string>
   <string name="setup_hint_username">nama pengguna</string>
   <string name="setup_hint_password">kata kunci</string>
+  <string name="uploader_btn_upload_text">Unggah</string>
+  <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
   <string name="filedetails_download">unduh</string>
-  <string name="filedetails_open">buka</string>
   <string name="common_yes">Ya</string>
+  <string name="common_no">Tidak</string>
+  <string name="common_ok">Oke</string>
   <string name="common_cancel_upload">Batal mengunggah</string>
   <string name="common_cancel">batal</string>
   <string name="common_error">kesalahan</string>
   <string name="sync_string_contacts">kontak</string>
   <string name="common_share">berbagi</string>
+  <string name="common_rename">Ubah nama</string>
   <string name="common_remove">hilangkan</string>
   <string name="ssl_validator_title">peringatan</string>
   <string name="ssl_validator_btn_details_hide">sembunyikan</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>

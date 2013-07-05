@@ -18,15 +18,15 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -35,32 +35,15 @@ import android.os.Bundle;
  * application. 
  * 
  * @author Bartek Przybylski
- *
+ * @author David A. Velasco
  */
-public class ConflictsResolveActivity extends SherlockFragmentActivity implements OnConflictDecisionMadeListener {
-
-    public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
 
     private String TAG = ConflictsResolveActivity.class.getSimpleName();
-    
-    //private String mRemotePath;
-    
-    //private String mLocalPath;
-    
-    private OCFile mFile;
-    private Account mOCAccount;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        //mRemotePath = getIntent().getStringExtra("remotepath");
-        //mLocalPath = getIntent().getStringExtra("localpath");
-        mFile = getIntent().getParcelableExtra(EXTRA_FILE);
-        mOCAccount = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
-        ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(mFile.getRemotePath(), this);
-        d.showDialog(this);
     }
 
     @Override
@@ -81,11 +64,40 @@ public class ConflictsResolveActivity extends SherlockFragmentActivity implement
                 Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
-        i.putExtra(FileUploader.KEY_ACCOUNT, mOCAccount);
-        i.putExtra(FileUploader.KEY_FILE, mFile);
+        i.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
+        i.putExtra(FileUploader.KEY_FILE, getFile());
         i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
         
         startService(i);
         finish();
+    }
+
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            OCFile file = getFile();
+            if (getFile() == null) {
+                Log_OC.e(TAG, "No conflictive file received");
+                finish();
+            } else {
+                /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
+                DataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+                file = storageManager.getFileByPath(file.getRemotePath());   // file = null if not in the current Account
+                if (file != null) {
+                    setFile(file);
+                    ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(file.getRemotePath(), this);
+                    d.showDialog(this);
+                    
+                } else {
+                    // account was changed to a different one - just finish
+                    finish();
+                }
+            }
+            
+        } else {
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+            finish();
+        }
+        
     }
 }

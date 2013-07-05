@@ -61,6 +61,7 @@ import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -477,8 +478,8 @@ public class PreviewMediaFragment extends FileFragment implements
     
     private void startFullScreenVideo() {
         Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
-        i.putExtra(PreviewVideoActivity.EXTRA_ACCOUNT, mAccount);
-        i.putExtra(PreviewVideoActivity.EXTRA_FILE, getFile());
+        i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
+        i.putExtra(FileActivity.EXTRA_FILE, getFile());
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
         mVideoPreview.pause();
         i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
@@ -661,7 +662,6 @@ public class PreviewMediaFragment extends FileFragment implements
                                                             mStorageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
-            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         }
     }
@@ -716,7 +716,6 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
         getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
         
         if (result.isSuccess()) {

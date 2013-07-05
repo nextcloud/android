@@ -16,7 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.accounts.Account;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -33,9 +32,9 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -47,12 +46,11 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
 /**
- *  Used as an utility to preview image files contained in an ownCloud account.
+ *  Holds a swiping galley where image files contained in an ownCloud directory are shown
  *  
  *  @author David A. Velasco
  */
@@ -65,9 +63,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     
-    private OCFile mFile;
-    private OCFile mParentFolder;  
-    private Account mAccount;
     private DataStorageManager mStorageManager;
     
     private ViewPager mViewPager; 
@@ -88,53 +83,35 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
-        mAccount = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
-        if (mFile == null) {
-            throw new IllegalStateException("Instanced with a NULL OCFile");
-        }
-        if (mAccount == null) {
-            throw new IllegalStateException("Instanced with a NULL ownCloud Account");
-        }
-        if (!mFile.isImage()) {
-            throw new IllegalArgumentException("Non-image file passed as argument");
-        }
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.preview_image_activity);
-    
+        
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(mFile.getFileName());
         actionBar.hide();
         
         mFullScreen = true;
-        
-        mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
-        mParentFolder = mStorageManager.getFileById(mFile.getParentId());
-        if (mParentFolder == null) {
-            // should not be necessary
-            mParentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
-        }
-
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
             mRequestWaitingForBinder = false;
         }
-        
-        createViewPager();
-
     }
 
-    private void createViewPager() {
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), mParentFolder, mAccount, mStorageManager);
+    private void initViewPager() {
+        OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
+        if (parentFolder == null) {
+            // should not be necessary
+            parentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+        }
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
-        int position = mPreviewImagePagerAdapter.getFilePosition(mFile);
+        int position = mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setCurrentItem(position);
-        if (position == 0 && !mFile.isDown()) {
+        if (position == 0 && !getFile().isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the adapter does not result in a call to #onPageSelected(0) 
             mRequestWaitingForBinder = true;
         }
@@ -320,9 +297,9 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         if (mDownloaderBinder == null) {
             Log_OC.d(TAG, "requestForDownload called without binder to download service");
             
-        } else if (!mDownloaderBinder.isDownloading(mAccount, file)) {
+        } else if (!mDownloaderBinder.isDownloading(getAccount(), file)) {
             Intent i = new Intent(this, FileDownloader.class);
-            i.putExtra(FileDownloader.EXTRA_ACCOUNT, mAccount);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, getAccount());
             i.putExtra(FileDownloader.EXTRA_FILE, file);
             startService(i);
         }
@@ -385,7 +362,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         public void onReceive(Context context, Intent intent) {
             String accountName = intent.getStringExtra(FileDownloader.ACCOUNT_NAME);
             String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            if (mAccount.name.equals(accountName) && 
+            if (getAccount().name.equals(accountName) && 
                     downloadedRemotePath != null) {
 
                 OCFile file = mStorageManager.getFileByPath(downloadedRemotePath);
@@ -436,7 +413,33 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
-        // TODO
+        if (getAccount() != null) {
+            OCFile file = getFile();
+            /// Validate handled file  (first image to preview)
+            if (file == null) {
+                throw new IllegalStateException("Instanced with a NULL OCFile");
+            }
+            if (!file.isImage()) {
+                throw new IllegalArgumentException("Non-image file passed as argument");
+            }
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+            file = mStorageManager.getFileById(file.getFileId()); 
+            if (file != null) {
+                /// Refresh the activity according to the Account and OCFile set
+                setFile(file);  // reset after getting it fresh from mStorageManager
+                getSupportActionBar().setTitle(getFile().getFileName());
+                //if (!stateWasRecovered) {
+                    initViewPager();
+                //}
+
+            } else {
+                // handled file not in the current Account
+                finish();
+            }
+            
+        } else {
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+        }
     }
     
     

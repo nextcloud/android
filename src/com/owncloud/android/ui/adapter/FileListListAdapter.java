@@ -1,12 +1,10 @@
-
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 2 of the License, or
- *   (at your option) any later version.
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,8 +17,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -32,14 +28,17 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.owncloud.android.AccountUtils;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
+
+import java.util.Vector;
+
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -59,15 +58,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Long totalSizeOfDirectoriesRecursive = null;
     private Long lastModifiedOfAllSubdirectories = null;
     
-    public FileListListAdapter(OCFile file, DataStorageManager storage_man,
-            Context context, TransferServiceGetter transferServiceGetter) {
-        mStorageManager = storage_man;
+    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        swapDirectory(file, mStorageManager);
-        /*mFile = file;
-        mFiles = mStorageManager.getDirectoryContent(mFile);*/
     }
 
     @Override
@@ -104,6 +98,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
+    
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -112,6 +107,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_item, null);
         }
+    
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
@@ -135,7 +131,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 localStateView.setVisibility(View.INVISIBLE);
             }
-
             
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
@@ -189,7 +184,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         return view;
     }
-
+    
     
     /**
      * - This method counts recursively all subdirectories and their files from the root directory. 

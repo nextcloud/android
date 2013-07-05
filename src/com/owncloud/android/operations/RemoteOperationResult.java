@@ -32,7 +32,11 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 
+import android.accounts.Account;
+import android.accounts.AccountsException;
+
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.network.CertificateCombinedException;
 
 /**
@@ -46,7 +50,8 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = -7805531062432602444L;
+    private static final long serialVersionUID = 6106167714625712390L;
+
     
     private static final String TAG = "RemoteOperationResult";
     
@@ -77,7 +82,9 @@ public class RemoteOperationResult implements Serializable {
         LOCAL_STORAGE_NOT_MOVED, 
         LOCAL_STORAGE_NOT_COPIED, 
         OAUTH2_ERROR_ACCESS_DENIED,
-        QUOTA_EXCEEDED
+        QUOTA_EXCEEDED, 
+        ACCOUNT_NOT_FOUND, 
+        ACCOUNT_EXCEPTION
     }
 
     private boolean mSuccess = false;
@@ -142,6 +149,12 @@ public class RemoteOperationResult implements Serializable {
         } else if (e instanceof UnknownHostException) {
             mCode = ResultCode.HOST_NOT_AVAILABLE;
 
+        } else if (e instanceof AccountNotFoundException) {
+            mCode = ResultCode.ACCOUNT_NOT_FOUND;
+            
+        } else if (e instanceof AccountsException) {
+            mCode = ResultCode.ACCOUNT_EXCEPTION;
+            
         } else if (e instanceof SSLException || e instanceof RuntimeException) {
             CertificateCombinedException se = getCertificateCombinedException(e);
             if (se != null) {
@@ -242,6 +255,13 @@ public class RemoteOperationResult implements Serializable {
             } else if (mException instanceof IOException) {
                 return "Unrecovered transport exception";
 
+            } else if (mException instanceof AccountNotFoundException) {
+                Account failedAccount = ((AccountNotFoundException)mException).getFailedAccount();
+                return mException.getMessage() + " (" + (failedAccount != null ? failedAccount.name : "NULL") + ")";
+                
+            } else if (mException instanceof AccountsException) {
+                return "Exception while using account";
+                
             } else {
                 return "Unexpected exception";
             }

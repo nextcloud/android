@@ -54,26 +54,46 @@
 			    android:gravity="center"
 			    android:orientation="vertical"
 			    android:padding="8dp" >
-
+			    
 				<Button
-				    android:id="@+id/checkServerButton"
+				    android:id="@+id/centeredRefreshButton"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:layout_gravity="center_horizontal"
+            		android:onClick="onRefreshClick"
 				    android:text="@string/auth_check_server"
 				    android:visibility="gone" />
 		
-				<EditText
-					android:id="@+id/hostUrlInput"
+			    <FrameLayout 
+	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:ems="10"
-					android:hint="@string/auth_host_url"
-					android:inputType="textUri"
-					android:drawablePadding="5dp"
-					>
-					<requestFocus />
-				</EditText>
+			        >
+					<EditText
+						android:id="@+id/hostUrlInput"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="@string/auth_host_url"
+						android:inputType="textUri"
+						android:drawablePadding="5dp"
+						android:paddingRight="55dp"
+						>
+						<requestFocus />
+					</EditText>
+					<ImageButton
+					    android:id="@+id/embeddedRefreshButton"
+					    android:layout_width="48dp"
+					    android:layout_height="48dp"
+					    android:layout_gravity="center_vertical|right"
+					    android:layout_marginRight="5dp"
+					    android:padding="0dp"
+					    android:scaleType="fitCenter"
+					    android:src="@drawable/ic_action_refresh_black"
+            			android:onClick="onRefreshClick"
+					    android:visibility="gone"
+						android:background="@android:color/transparent"
+					    />
+				</FrameLayout>
 		
 				<TextView
 					android:id="@+id/server_status_text"

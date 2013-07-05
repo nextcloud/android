@@ -137,9 +137,9 @@ public class FileDisplayActivity extends FileActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         
         mHandler = new Handler();
 
@@ -176,26 +176,12 @@ public class FileDisplayActivity extends FileActivity implements
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
-            if (!isRedirectingToSetupAccount()) {
-                initFragmentsWithFile();
-            }
         }
         
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        OCFile currFile = getFile();
-        if (mStorageManager != null) {
-            while(currFile != null && currFile.getFileName() != OCFile.PATH_SEPARATOR) {
-                if (currFile.isDirectory()) {
-                    mDirectories.add(currFile.getFileName());
-                }
-                currFile = mStorageManager.getFileById(currFile.getParentId());
-            }
-        }
-        mDirectories.add(OCFile.PATH_SEPARATOR);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(false);        // always AFTER setContentView(...) ; to workaround bug in its implementation
+        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
+        setSupportProgressBarIndeterminateVisibility(false);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -233,16 +219,27 @@ public class FileDisplayActivity extends FileActivity implements
             }
             if (file == null) {
                 // fall back to root folder
-                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never should return null
+                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
             }
             setFile(file);
-            
-            if (findViewById(android.R.id.content) != null && !stateWasRecovered) {
+            mDirectories.clear();
+            OCFile fileIt = file;
+            while(fileIt != null && fileIt.getFileName() != OCFile.PATH_SEPARATOR) {
+                if (fileIt.isDirectory()) {
+                    mDirectories.add(fileIt.getFileName());
+                }
+                fileIt = mStorageManager.getFileById(fileIt.getParentId());
+            }
+            mDirectories.add(OCFile.PATH_SEPARATOR);
+            if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
+                
             } else {
-                Log_OC.e(TAG, "Fragment initializacion ignored in onAccountChanged due to lack of CONTENT VIEW");
+                updateFragmentsVisibility(!file.isDirectory());
+                updateNavigationElementsInActionBar(file.isDirectory() ? null : file);
             }
+            
             
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
@@ -259,11 +256,24 @@ public class FileDisplayActivity extends FileActivity implements
 
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
+            /// First fragment
+            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+            if (listOfFiles != null) {
+                listOfFiles.listDirectory(getCurrentDir());   
+            } else {
+                Log.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
+            }
+            
             /// Second fragment
             OCFile file = getFile(); 
             Fragment secondFragment = chooseInitialSecondFragment(file);
             if (secondFragment != null) {
                 setSecondFragment(secondFragment);
+                updateFragmentsVisibility(true);
+                updateNavigationElementsInActionBar(file);
+                
+            } else {
+                cleanSecondFragment();
             }
             
         } else {
@@ -361,8 +371,9 @@ public class FileDisplayActivity extends FileActivity implements
             FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
             tr.remove(second);
             tr.commit();
-            updateFragmentsVisibility(false);
         }
+        updateFragmentsVisibility(false);
+        updateNavigationElementsInActionBar(null);
     }
     
     protected void refeshListOfFilesFragment() {
@@ -587,7 +598,6 @@ public class FileDisplayActivity extends FileActivity implements
             setFile(listOfFiles.getCurrentFile());
         }
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(null);
     }
 
     @Override
@@ -598,14 +608,7 @@ public class FileDisplayActivity extends FileActivity implements
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
-    
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FileFragment second = getSecondFragment();
-        updateFragmentsVisibility(second != null);
-        updateNavigationElementsInActionBar((second == null) ? null : second.getFile());
-    }
+
     
     @Override
     protected void onResume() {
@@ -627,12 +630,6 @@ public class FileDisplayActivity extends FileActivity implements
         downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
-    
-        // List current directory
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (listOfFiles != null) {
-            listOfFiles.listDirectory(getCurrentDir());   // TODO we should find the way to avoid the need of this (maybe it's not necessary yet; to check)
-        }
     
         Log_OC.d(TAG, "onResume() end");
     }
@@ -848,8 +845,9 @@ public class FileDisplayActivity extends FileActivity implements
                     if (fileListFragment != null) {
                         fileListFragment.listDirectory(currentDir);
                     }
+                    if (getSecondFragment() == null)
+                        setFile(currentDir);
                 }
-                setFile(currentDir);
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
                 removeStickyBroadcast(intent);
@@ -939,7 +937,6 @@ public class FileDisplayActivity extends FileActivity implements
     public void onBrowsedDownTo(OCFile directory) {
         pushDirname(directory);
         cleanSecondFragment();
-        updateNavigationElementsInActionBar(null);
     }
     
     /**
@@ -1009,9 +1006,9 @@ public class FileDisplayActivity extends FileActivity implements
     /**
      * TODO
      */
-    private void updateNavigationElementsInActionBar(OCFile currentFile) {
+    private void updateNavigationElementsInActionBar(OCFile chosenFile) {
         ActionBar actionBar = getSupportActionBar(); 
-        if (currentFile == null || mDualPane) {
+        if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
             actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
@@ -1022,7 +1019,7 @@ public class FileDisplayActivity extends FileActivity implements
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(currentFile.getFileName());
+            actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         }
     }
@@ -1032,17 +1029,9 @@ public class FileDisplayActivity extends FileActivity implements
      * {@inheritDoc}
      */
     @Override
-    public OCFile getInitialDirectory() {
-        return getCurrentDir();
-    }
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onFileStateChanged() {
         refeshListOfFilesFragment();
+        updateNavigationElementsInActionBar(getSecondFragment().getFile());
     }
 
     
@@ -1338,12 +1327,11 @@ public class FileDisplayActivity extends FileActivity implements
         if (file != null) {
             if (file.isDirectory()) {
                 return file;
-            } else {
+            } else if (mStorageManager != null) {
                 return mStorageManager.getFileById(file.getParentId());
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
 }

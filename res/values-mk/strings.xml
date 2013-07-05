@@ -13,14 +13,12 @@
   <string name="main_settings">Параметри</string>
   <string name="main_tit_accsetup">Постави сметка</string>
   <string name="main_wrn_accsetup">Нема конфигурирано сметка на овој уред, за да можете да ја користите апликацијава треба да направите сметка.</string>
-  <string name="actionbar_sync">Освежи</string>
   <string name="actionbar_upload">Подигни</string>
   <string name="actionbar_upload_files">Датотеки</string>
   <string name="actionbar_mkdir">Создади папка</string>
   <string name="actionbar_search">Барај</string>
   <string name="actionbar_settings">Параметри</string>
   <string name="prefs_category_general">Општо</string>
-  <string name="prefs_category_trackmydevice">Следење на уред</string>
   <string name="prefs_add_session">Додади нова сесија</string>
   <string name="prefs_create_img_thumbnails">Направи мали слики</string>
   <string name="prefs_select_oc_account">Избери сметка</string>
@@ -31,7 +29,7 @@
   <string name="prefs_trackmydevice_interval">Интервал на ажурирање</string>
   <string name="prefs_trackmydevice_interval_summary">Ажурирај секои %1$s минути</string>
   <string name="prefs_accounts">Сметки</string>
-  <string name="auth_host_url">Адреса</string>
+  <string name="auth_host_url">Адреса на сервер</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="new_session_uri_error">Дадена неточна адреса</string>
@@ -46,7 +44,6 @@
   <string name="filedetails_created">Создадено:</string>
   <string name="filedetails_modified">Изменето:</string>
   <string name="filedetails_download">Преземање</string>
-  <string name="filedetails_open">Отвори</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
@@ -58,4 +55,5 @@
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="ssl_validator_title">Предупредување</string>
+  <!--we need to improve the communication of errors to the user-->
 </resources>
