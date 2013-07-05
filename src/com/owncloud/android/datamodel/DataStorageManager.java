@@ -49,6 +49,8 @@ public interface DataStorageManager {
     
     public Vector<OCFile> getFilesbyParent(long id);
     
+    public void saveFolderSize(long id);
+    
     public int updatefolderSize(long id, long size);
   
 }
