@@ -33,7 +33,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
@@ -56,10 +55,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-    //total size of a directory (recursive)
-    private Long totalSizeOfDirectoriesRecursive = null;
-    private Long lastModifiedOfAllSubdirectories = null;
-    
+
     public FileListListAdapter(OCFile file, DataStorageManager storage_man,
             Context context, TransferServiceGetter transferServiceGetter) {
         mStorageManager = storage_man;
@@ -137,11 +133,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 localStateView.setVisibility(View.INVISIBLE);
             }
 
-            
+
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            
+
             if (!file.isDirectory()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
@@ -154,7 +150,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
-                
+
                 ListView parentList = (ListView)parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
@@ -166,68 +162,24 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
-                
+
             } 
             else {
-               
+
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-//               getDirectorySizeNumber(file,true);
-//               if (lastModifiedOfAllSubdirectories == null)
-//               {
-//                   lastModV.setVisibility(View.GONE);
-//                   fileSizeV.setVisibility(View.GONE);
-//               }
-//               else
-//               {
-//                   lastModV.setVisibility(View.VISIBLE);
-//                   lastModV.setText(DisplayUtils.unixTimeToHumanReadable(lastModifiedOfAllSubdirectories));
-//                   fileSizeV.setVisibility(View.VISIBLE);
-//                   fileSizeV.setText(DisplayUtils.bytesToHumanReadable((totalSizeOfDirectoriesRecursive == null) ? 0 : totalSizeOfDirectoriesRecursive));
-//               }
-               checkBoxV.setVisibility(View.GONE);
-               view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+
+                checkBoxV.setVisibility(View.GONE);
+                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
         }
 
         return view;
     }
 
-    
-    /**
-     * - This method counts recursively all subdirectories and their files from the root directory. 
-     * - It also shows a timestamp of the last modificated file inside the root directory
-     * 
-     *   @param OCFile  : startDirectory
-     *   @param boolean :  counting starts from here ?
-     */
-    private void getDirectorySizeNumber(OCFile directory,boolean startOfRecursive) {
-        if (startOfRecursive) {
-            totalSizeOfDirectoriesRecursive = null;
-        }
-        Vector<OCFile> files  = mStorageManager.getDirectoryContent(directory);
-        for (OCFile file : files) {
-            if(!file.isDirectory()) {
-                if (totalSizeOfDirectoriesRecursive == null) {
-                    totalSizeOfDirectoriesRecursive = file.getFileLength();
-                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
-                    continue;
-                }
-                
-                totalSizeOfDirectoriesRecursive += file.getFileLength();
-                if (lastModifiedOfAllSubdirectories < file.getModificationTimestamp()) {
-                    lastModifiedOfAllSubdirectories = file.getModificationTimestamp();
-                }
-            }
-            else {
-                this.getDirectorySizeNumber(file, false);
-            }
-        }
-    }
-    
-    
+
     @Override
     public int getViewTypeCount() {
         return 1;
@@ -261,5 +213,5 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         notifyDataSetChanged();
     }
-    
+
 }

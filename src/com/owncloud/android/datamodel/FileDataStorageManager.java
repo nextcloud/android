@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -179,13 +180,16 @@ public class FileDataStorageManager implements DataStorageManager {
                 long new_id = Long.parseLong(result_uri.getPathSegments()
                         .get(1));
                 file.setFileId(new_id);
-            }
+            }            
         }
 
         if (file.isDirectory() && file.needsUpdatingWhileSaving())
             for (OCFile f : getDirectoryContent(file))
                 saveFile(f);
-
+        
+        Log_OC.d(TAG, ".........file Time= " + DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+        updateSubtreeSize(file.getParentId());
+        
         return overriden;
     }
 
@@ -494,6 +498,8 @@ public class FileDataStorageManager implements DataStorageManager {
             if (removeDBData) {
                 removeFile(dir, true);
             }
+            
+            updateSubtreeSize(dir.getParentId());
         }
     }
 
