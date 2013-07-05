@@ -106,9 +106,11 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String helpWeb   =(String) getText(R.string.url_help);
-                    Uri uriUrl = Uri.parse(helpWeb);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);
+                    if (helpWeb != null && helpWeb.length() > 0) {
+                        Uri uriUrl = Uri.parse(helpWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                    }
                     return true;
                 }
             });
@@ -162,22 +164,24 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
             });
         }
         
-        /*
         Preference pImprint =  findPreference("imprint");
-        if (pImprint != null){
+        if (pImprint != null) {
             pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    /*String imprintWeb = (String) getText(R.string.url_imprint);
-                    Uri uriUrl = Uri.parse(imprintWeb);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                    startActivity(intent);*-/
-                    ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
+                    String imprintWeb = (String) getText(R.string.url_imprint);
+                    if (imprintWeb != null && imprintWeb.length() > 0) {
+                        Uri uriUrl = Uri.parse(imprintWeb);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                        startActivity(intent);
+                    }
+                    //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
                 }
             });
+        }
             
-           /* About App */
+        /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
