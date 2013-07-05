@@ -465,6 +465,8 @@ public class FileDataStorageManager implements DataStorageManager {
                 f.delete();
             }
         }
+        
+        updateSubtreeSize(file.getParentId());
     }
 
     @Override
@@ -621,13 +623,33 @@ public class FileDataStorageManager implements DataStorageManager {
 
         return ret;
     }
-
+    
     /**
-     * Update the size value of a folder
+     * Calculate and save the folderSize on DB
+     * @param id
      */
     @Override
-    public int updatefolderSize(long id, long size)
-    {
+    public void saveFolderSize(long id) {
+        long folderSize = 0;
+        
+        Vector<OCFile> files = getFilesbyParent(id);
+        
+        Log_OC.d(TAG, "Folder " + String.valueOf(id) + "--- Number of Files = " + String.valueOf(files.size()));
+        
+        for (OCFile f: files)
+        {
+            folderSize = folderSize + f.getFileLength();
+            Log_OC.d(TAG, "Folder Size = " + String.valueOf(folderSize));
+        }
+        
+        updatefolderSize(id, folderSize);
+    }
+
+    /**
+     * Update the size value of a folder on DB
+     */
+    @Override
+    public int updatefolderSize(long id, long size) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
         int result = getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
@@ -635,5 +657,26 @@ public class FileDataStorageManager implements DataStorageManager {
         return result;
     }
 
+    /** 
+     * Update the size of a subtree of folder from a file to the root
+     * @param parentId: parent of the file
+     */
+    private void updateSubtreeSize(long parentId) {
+        
+        OCFile file; 
+
+        while (parentId != 0) {
+            
+            Log_OC.d(TAG, "parent = " + parentId);
+            // Update the size of the parent
+            saveFolderSize(parentId);
+            
+            // search the next parent
+            file = getFileById(parentId);            
+            parentId = file.getParentId();
+            
+        }              
+        
+    }
     
 }
