@@ -17,15 +17,14 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
 import java.util.Vector;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -58,8 +57,8 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
-    private CheckBoxPreference pLogging;
-    private Preference pLoggingHistory;
+    //private CheckBoxPreference pLogging;
+    //private Preference pLoggingHistory;
     private Preference pAboutApp;
     private int mSelectedMenuItem;
 
@@ -94,6 +93,86 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                     i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
                     i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
                     startActivity(i);
+                    
+                    return true;
+                }
+            });            
+            
+        }
+        
+        Preference pHelp =  findPreference("help");
+        if (pHelp != null ){
+            pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String helpWeb   =(String) getText(R.string.url_help);
+                    Uri uriUrl = Uri.parse(helpWeb);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+        }
+        
+       Preference pRecommend =  findPreference("recommend");
+        if (pRecommend != null){
+            pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    
+                    Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                    intent.setType("text/plain");
+                    //Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
+                    String appName = getString(R.string.app_name);
+                    //String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@')); 
+                    //String recommendSubject = String.format(getString(R.string.recommend_subject), username, appName);
+                    String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
+                    //String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), username);
+                    String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), getString(R.string.url_app_download));
+                    intent.putExtra(Intent.EXTRA_TEXT, recommendText);
+                    
+                    intent.setData(Uri.parse(getString(R.string.mail_recommend))); 
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                    startActivity(intent);
+                    
+                    
+                    return(true);
+                    
+                }
+            });
+        }
+        Preference pFeedback =  findPreference("feedback");
+        if (pFeedback != null){
+            pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String feedbackMail   =(String) getText(R.string.mail_feedback);
+                    String feedback   =(String) getText(R.string.prefs_feedback);
+                    Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
+                    
+                    intent.setData(Uri.parse(feedbackMail)); 
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                    startActivity(intent);
+                    
+                    return true;
+                }
+            });
+        }
+        
+        /*
+        Preference pImprint =  findPreference("imprint");
+        if (pImprint != null){
+            pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    /*String imprintWeb = (String) getText(R.string.url_imprint);
+                    Uri uriUrl = Uri.parse(imprintWeb);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(intent);*-/
+                    ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
                 }
             });
@@ -148,7 +227,6 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
        }
        */
        
-      }
     }
 
     @Override
