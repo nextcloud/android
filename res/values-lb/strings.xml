@@ -44,6 +44,7 @@
   <string name="common_error">Fehler</string>
   <string name="sync_string_contacts">Kontakter</string>
   <string name="common_share">Deelen</string>
+  <string name="common_remove">Läschen</string>
   <string name="ssl_validator_title">Warnung</string>
   <!--we need to improve the communication of errors to the user-->
 </resources>
