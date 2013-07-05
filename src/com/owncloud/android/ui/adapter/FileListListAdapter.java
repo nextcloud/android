@@ -98,7 +98,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return 0;
     }
 
-    
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;

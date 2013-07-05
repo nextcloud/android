@@ -73,6 +73,7 @@ public class CreateFolderOperation extends RemoteOperation {
                 OCFile newDir = new OCFile(mRemotePath);
                 newDir.setMimetype("DIR");
                 newDir.setParentId(mParentDirId);
+                newDir.setModificationTimestamp(System.currentTimeMillis());
                 mStorageManager.saveFile(newDir);
             }
 
