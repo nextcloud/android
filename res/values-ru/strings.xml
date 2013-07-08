@@ -51,6 +51,7 @@
   <string name="setup_title">Соединение с вашим ownCloud</string>
   <string name="setup_btn_connect">Соединить</string>
   <string name="uploader_btn_upload_text">Загрузка</string>
+  <string name="uploader_top_message">Выбрать место для загрузки:</string>
   <string name="uploader_wrn_no_account_title">Аккаунты не найдены</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов ownCloud. Настройте сначала аккаунт.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Установка</string>
