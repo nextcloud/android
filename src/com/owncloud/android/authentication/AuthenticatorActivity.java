@@ -432,9 +432,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (view.getId() == R.id.hostUrlInput) {   
             if (!hasFocus) {
                 onUrlInputFocusLost((TextView) view);
-                if (!mServerIsValid) {
-                    showRefreshButton();
-                }
             }
             else {
                 hideRefreshButton();
@@ -462,6 +459,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             checkOcServer();
         } else {
             mOkButton.setEnabled(mServerIsValid);
+            if (!mServerIsValid) {
+                showRefreshButton();
+            }
         }
     }
 
