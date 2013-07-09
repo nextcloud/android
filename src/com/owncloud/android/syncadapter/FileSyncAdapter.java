@@ -267,8 +267,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
                 
                 // Update folder size on DB
-                FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContext().getContentResolver());
-                storageManager.saveFolderSize(newFile.getFileId());       
+                getStorageManager().calculateFolderSize(newFile.getFileId());       
             }
         }
        
