@@ -161,6 +161,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
+        mHostUrlInput.setText(getString(R.string.server_url));  // valid although R.string.server_url is an empty string
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
@@ -190,9 +191,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         // URL input configuration applied
         if (!mHostUrlInputEnabled)
         {
-            mHostUrlInput.setText(getString(R.string.server_url));
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
-            
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
 
         } else {
