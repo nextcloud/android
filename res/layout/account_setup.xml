@@ -53,11 +53,13 @@
 	        android:id="@+id/hostUrlFrame"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
 	        >
 			<EditText
 				android:id="@+id/hostUrlInput"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
 				android:hint="@string/auth_host_url"
 				android:inputType="textUri"
 				android:drawablePadding="5dp"
@@ -75,7 +77,7 @@
 			    android:scaleType="fitCenter"
 			    android:src="@drawable/ic_action_refresh_black"
             	android:onClick="onRefreshClick"
-				android:visibility="gone"
+				android:visibility="visible"
 				android:background="@android:color/transparent"
 			    />
 		</FrameLayout>
