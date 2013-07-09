@@ -137,10 +137,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
-        super.onCreate(savedInstanceState);
-        
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        
+
+        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+
         mHandler = new Handler();
 
         /// bindings to transference services

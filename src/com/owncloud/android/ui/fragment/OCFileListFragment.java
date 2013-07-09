@@ -118,7 +118,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         super.onSaveInstanceState(outState);
         outState.putParcelable(EXTRA_FILE, mFile);
     }
-    
+
 
     /**
      * Call this, when the user presses the up button
