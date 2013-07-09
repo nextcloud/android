@@ -137,13 +137,18 @@ public class FileDataStorageManager implements DataStorageManager {
         cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.keepInSync() ? 1 : 0);
 
         boolean sameRemotePath = fileExists(file.getRemotePath());
+        boolean changesSizeOfAncestors = false;
         if (sameRemotePath ||
                 fileExists(file.getFileId())        ) {           // for renamed files; no more delete and create
 
+            OCFile oldFile = null;
             if (sameRemotePath) {
-                OCFile oldFile = getFileByPath(file.getRemotePath());
+                oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
+            } else {
+                oldFile = getFileById(file.getFileId());
             }
+            changesSizeOfAncestors = (oldFile.getFileLength() != file.getFileLength());
 
             overriden = true;
             if (getContentResolver() != null) {
@@ -162,6 +167,7 @@ public class FileDataStorageManager implements DataStorageManager {
                 }
             }
         } else {
+            changesSizeOfAncestors = true;
             Uri result_uri = null;
             if (getContentResolver() != null) {
                 result_uri = getContentResolver().insert(
@@ -183,12 +189,17 @@ public class FileDataStorageManager implements DataStorageManager {
             }            
         }
 
-        if (file.isDirectory() && file.needsUpdatingWhileSaving())
-            for (OCFile f : getDirectoryContent(file))
-                saveFile(f);
+        if (file.isDirectory()) {
+            calculateFolderSize(file.getFileId());
+            if (file.needsUpdatingWhileSaving()) {
+                for (OCFile f : getDirectoryContent(file))
+                    saveFile(f);
+            }
+        }
         
-        Log_OC.d(TAG, ".........file Time= " + DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-        updateSubtreeSize(file.getParentId());
+        if (changesSizeOfAncestors || file.isDirectory()) {
+            updateSizesToTheRoot(file.getParentId());
+        }
         
         return overriden;
     }
@@ -307,46 +318,56 @@ public class FileDataStorageManager implements DataStorageManager {
     public ContentProviderClient getContentProvider() {
         return mContentProvider;
     }
-
+    
     @Override
     public Vector<OCFile> getDirectoryContent(OCFile f) {
-        Vector<OCFile> ret = new Vector<OCFile>();
         if (f != null && f.isDirectory() && f.getFileId() != -1) {
+            return getDirectoryContent(f.getFileId());
 
-            Uri req_uri = Uri.withAppendedPath(
-                    ProviderTableMeta.CONTENT_URI_DIR,
-                    String.valueOf(f.getFileId()));
-            Cursor c = null;
-
-            if (getContentProvider() != null) {
-                try {
-                    c = getContentProvider().query(req_uri, null,
-                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                            new String[] { mAccount.name }, null);
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, e.getMessage());
-                    return ret;
-                }
-            } else {
-                c = getContentResolver().query(req_uri, null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
-                        new String[] { mAccount.name }, null);
-            }
-
-            if (c.moveToFirst()) {
-                do {
-                    OCFile child = createFileInstance(c);
-                    ret.add(child);
-                } while (c.moveToNext());
-            }
-
-            c.close();
-
-            Collections.sort(ret);
-
+        } else {
+            return new Vector<OCFile>();
         }
+    }
+
+    private Vector<OCFile> getDirectoryContent(long parentId) {
+
+        Vector<OCFile> ret = new Vector<OCFile>();
+
+        Uri req_uri = Uri.withAppendedPath(
+                ProviderTableMeta.CONTENT_URI_DIR,
+                String.valueOf(parentId));
+        Cursor c = null;
+
+        if (getContentProvider() != null) {
+            try {
+                c = getContentProvider().query(req_uri, null, 
+                        ProviderTableMeta.FILE_PARENT + "=?" ,
+                        new String[] { String.valueOf(parentId)}, null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage());
+                return ret;
+            }
+        } else {
+            c = getContentResolver().query(req_uri, null, 
+                    ProviderTableMeta.FILE_PARENT + "=?" ,
+                    new String[] { String.valueOf(parentId)}, null);
+        }
+
+        if (c.moveToFirst()) {
+            do {
+                OCFile child = createFileInstance(c);
+                ret.add(child);
+            } while (c.moveToNext());
+        }
+
+        c.close();
+
+        Collections.sort(ret);
+
         return ret;
     }
+    
+    
 
     private boolean fileExists(String cmp_key, String value) {
         Cursor c;
@@ -470,7 +491,9 @@ public class FileDataStorageManager implements DataStorageManager {
             }
         }
         
-        updateSubtreeSize(file.getParentId());
+        if (file.getFileLength() > 0) {
+            updateSizesToTheRoot(file.getParentId());
+        }
     }
 
     @Override
@@ -499,7 +522,9 @@ public class FileDataStorageManager implements DataStorageManager {
                 removeFile(dir, true);
             }
             
-            updateSubtreeSize(dir.getParentId());
+            if (dir.getFileLength() > 0) {
+                updateSizesToTheRoot(dir.getParentId());
+            }
         }
     }
 
@@ -591,72 +616,42 @@ public class FileDataStorageManager implements DataStorageManager {
         return ret;
     }
 
-    @Override
-    public Vector<OCFile> getFilesbyParent(long parentId) {
-
-        Vector<OCFile> ret = new Vector<OCFile>();
-
-        Uri req_uri = Uri.withAppendedPath(
-                ProviderTableMeta.CONTENT_URI_DIR,
-                String.valueOf(parentId));
-        Cursor c = null;
-
-        if (getContentProvider() != null) {
-            try {
-                c = getContentProvider().query(req_uri, null, 
-                        ProviderTableMeta.FILE_PARENT + "=?" ,
-                        new String[] { String.valueOf(parentId)}, null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage());
-                return ret;
-            }
-        } else {
-            c = getContentResolver().query(req_uri, null, 
-                    ProviderTableMeta.FILE_PARENT + "=?" ,
-                    new String[] { String.valueOf(parentId)}, null);
-        }
-
-        if (c.moveToFirst()) {
-            do {
-                OCFile child = createFileInstance(c);
-                ret.add(child);
-            } while (c.moveToNext());
-        }
-
-        c.close();
-
-        Collections.sort(ret);
-
-        return ret;
-    }
-    
     /**
      * Calculate and save the folderSize on DB
      * @param id
      */
     @Override
-    public void saveFolderSize(long id) {
+    public void calculateFolderSize(long id) {
         long folderSize = 0;
         
-        Vector<OCFile> files = getFilesbyParent(id);
+        Vector<OCFile> files = getDirectoryContent(id);
         
         for (OCFile f: files)
         {
             folderSize = folderSize + f.getFileLength();
         }
         
-        updatefolderSize(id, folderSize);
+        updateSize(id, folderSize);
     }
 
     /**
-     * Update the size value of a folder on DB
+     * Update the size value of an OCFile in DB
      */
-    @Override
-    public int updatefolderSize(long id, long size) {
+    private int updateSize(long id, long size) {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
-        int result = getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
-                new String[] { String.valueOf(id) });
+        int result = -1;
+        if (getContentResolver() != null) {
+             result = getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
+                     new String[] { String.valueOf(id) });
+        } else {
+            try {
+                result = getContentProvider().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
+                        new String[] { String.valueOf(id) });
+            } catch (RemoteException e) {
+                Log_OC.e(TAG,"Fail to update size column into database " + e.getMessage());
+            }
+        }
         return result;
     }
 
@@ -664,7 +659,7 @@ public class FileDataStorageManager implements DataStorageManager {
      * Update the size of a subtree of folder from a file to the root
      * @param parentId: parent of the file
      */
-    private void updateSubtreeSize(long parentId) {
+    private void updateSizesToTheRoot(long parentId) {
         
         OCFile file; 
 
@@ -672,7 +667,7 @@ public class FileDataStorageManager implements DataStorageManager {
             
             Log_OC.d(TAG, "parent = " + parentId);
             // Update the size of the parent
-            saveFolderSize(parentId);
+            calculateFolderSize(parentId);
             
             // search the next parent
             file = getFileById(parentId);            
