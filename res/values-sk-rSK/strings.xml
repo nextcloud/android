@@ -13,9 +13,12 @@
   <string name="main_settings">Nastavenia</string>
   <string name="main_tit_accsetup">Nastavenie účtu</string>
   <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
+  <string name="about_android">%1$s Android App</string>
+  <string name="about_version">verzia %1$s</string>
   <string name="actionbar_upload">Nahraj súbor</string>
   <string name="actionbar_upload_from_apps">Obsah z inej aplikácie</string>
   <string name="actionbar_upload_files">Súbory</string>
+  <string name="actionbar_open_with">Otvoriť v</string>
   <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_search">Hľadaj</string>
   <string name="actionbar_settings">Nastavenia</string>
@@ -36,6 +39,7 @@
   <string name="prefs_pincode_summary">Chrániť klienta ownCloud</string>
   <string name="prefs_instant_upload">Zapnúť okamžité odosielanie</string>
   <string name="prefs_instant_upload_summary">Okamžite odosielať fotky z fotoaparátu</string>
+  <string name="prefs_log_delete_history_button">Zmazať históriu</string>
   <string name="auth_host_url">Adresa servera</string>
   <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
@@ -105,12 +109,14 @@
   <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
   <string name="sync_fail_content">Synchronizáciu %1$s nemožno dokončiť</string>
+  <string name="sync_fail_content_unauthorized">Neplatné poverenia pre %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
   <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
   <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
   <string name="sync_foreign_files_forgotten_content">%1$d súborov z priečinka %2$s nemožno skopírovať do</string>
+  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nĎalej lokálny súbor(y) a vzdialený súbor(y) sú spojené v priečinku %5$s.</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
   <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
@@ -134,6 +140,14 @@
   <string name="media_state_loading">%1$s (načítava)</string>
   <string name="media_event_done">%1$s prehrávanie dokončené</string>
   <string name="media_err_nothing_to_play">Nenájdený žiaden multimediálny súbor</string>
+  <string name="media_err_no_account">Účet neposkytnutý</string>
+  <string name="media_err_not_in_owncloud">Súbor nie je v platnom účte</string>
+  <string name="media_err_unsupported">Nepodporovaný kodek</string>
+  <string name="media_err_io">Mediálny súbor nemožno čítať</string>
+  <string name="media_err_malformed">Mediálny súbor nemá správne kódovanie</string>
+  <string name="media_err_invalid_progressive_playback">Mediálny súbor nemožno streamovať</string>
+  <string name="media_err_unknown">Mediálny súbor nemožno prehrať s východzím prehrávačom</string>
+  <string name="media_err_security_ex">Chyba zabezpečenia pri pokuse o prehranie %1$s</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minút</item>
     <item>30 minút</item>
@@ -144,12 +158,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Pokus o prihlásenie ...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
   <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_nossl_plain_ok_message">Aplikácia nemôže nadviazať zabezpečené spojenie so serverom. Nezabezpečené pripojenie je k dispozícii. Môžete pokračovať alebo prerušiť spojenie.</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
+  <string name="auth_testing_connection">Testovanie pripojenia ...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia ownCloud</string>
   <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
@@ -165,6 +181,8 @@
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
+  <string name="auth_unauthorized">Neplatné poverenia</string>
+  <string name="auth_oauth_error">Neúspešná autorizácia</string>
   <string name="auth_not_found">Je zadaná neplatná cesta</string>
   <string name="auth_internal">Interná chyba servera, kód %1$d</string>
   <string name="crashlog_message">Aplikácia neočakávane ukončila činnosť. Chcete poslať správu o chybe?</string>
@@ -193,6 +211,9 @@
   <string name="wait_a_moment">Počkať chvíľu</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
   <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Prihlásiť prostredníctvom oAuth2.</string>
+  <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
   <string name="ssl_validator_title">Upozornenie</string>
   <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
@@ -217,6 +238,10 @@
   <string name="ssl_validator_label_validity_to">Do: </string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
+  <string name="placeholder_filetype">PNG obrázok</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt pri aktualizácii</string>
@@ -226,4 +251,7 @@
   <string name="conflict_dont_upload">Nenahrávajte</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
+  <string name="failed_upload_all_cb">vybrať všetko</string>
+  <string name="failed_upload_headline_retryall_btn">opakovať všetky vybrané</string>
+  <string name="failed_upload_failure_text">Chybová správa:</string>
 </resources>
