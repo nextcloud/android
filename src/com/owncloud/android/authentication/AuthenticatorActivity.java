@@ -60,7 +60,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
@@ -133,7 +132,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private Account mAccount;
 
     private EditText mHostUrlInput;
-    private ImageButton mRefreshButton;
+    private View mRefreshButton;
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private CheckBox mOAuth2Check;
@@ -145,6 +144,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private TextView mOAuthTokenEndpointText;
     
     private boolean mRefreshButtonEnabled;
+    
+    private boolean mHostUrlInputEnabled;
 
 
     /**
@@ -160,7 +161,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
-        mRefreshButton = (ImageButton) findViewById(R.id.refeshButton);
+        mHostUrlInput.setText(getString(R.string.server_url));  // valid although R.string.server_url is an empty string
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
@@ -168,6 +169,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
+        
+        /// set Host Url Input Enabled
+        mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
+        
 
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
@@ -182,6 +187,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAccount = null;
         mHostBaseUrl = "";
         boolean refreshButtonEnabled = false;
+        
+        // URL input configuration applied
+        if (!mHostUrlInputEnabled)
+        {
+            findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
+            mRefreshButton = findViewById(R.id.centeredRefreshButton);
+
+        } else {
+            mRefreshButton = findViewById(R.id.embeddedRefreshButton);
+        }
 
         if (savedInstanceState == null) {
             /// connection state and info
@@ -211,7 +226,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             changeViewByOAuth2Check(oAuthRequired);
             mJustCreated = true;
             
-            if (mAction == ACTION_UPDATE_TOKEN) {
+            if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
                 checkOcServer(); 
             }
 
@@ -416,9 +431,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (view.getId() == R.id.hostUrlInput) {   
             if (!hasFocus) {
                 onUrlInputFocusLost((TextView) view);
-                if (!mServerIsValid) {
-                    showRefreshButton();
-                }
             }
             else {
                 hideRefreshButton();
@@ -446,12 +458,20 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             checkOcServer();
         } else {
             mOkButton.setEnabled(mServerIsValid);
+            if (!mServerIsValid) {
+                showRefreshButton();
+            }
         }
     }
 
 
     private void checkOcServer() {
         String uri = trimUrlWebdav(mHostUrlInput.getText().toString().trim());
+        
+        if (!mHostUrlInputEnabled){
+            uri = getString(R.string.server_url);
+        }
+        
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
@@ -1195,14 +1215,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
 
     private void showRefreshButton() {
-        /*mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_action_refresh_black, 0);
-        mRefreshButtonEnabled = true;*/
         mRefreshButton.setVisibility(View.VISIBLE);
     }
 
     private void hideRefreshButton() {
-        /*mHostUrlInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        mRefreshButtonEnabled = false;*/
         mRefreshButton.setVisibility(View.GONE);
     }
 

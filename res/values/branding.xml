@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_url"></string>
+    <bool name="show_server_url_input">true</bool>
+</resources>
