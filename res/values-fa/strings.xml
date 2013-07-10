@@ -134,8 +134,15 @@
   <string name="auth_connection_established">اتصال برقرار شد</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
   <string name="auth_unknown_error_title">خطای ناشناخته رخ داده است!</string>
+  <string name="auth_unknown_host_title">میزبان را نمیتواند پیدا نماید.</string>
+  <string name="auth_unknown_host_message">میزبان وارد شده را نمیتواند پیدا کند. لطفا نام میزبان و در دسترس بودن سرور را بررسی و دوباره تلاش نمایید.</string>
   <string name="auth_incorrect_path_title">نمونه ی سرور یافت نشد</string>
+  <string name="auth_timeout_title">زمان زیادی برای پاسخ سرور صورت گرفت.</string>
+  <string name="auth_incorrect_address_title">آدرس ناقص</string>
+  <string name="auth_ssl_general_error_title">مقداردهی SSL ناموفق بود.</string>
+  <string name="auth_ssl_unverified_server_title">هویت تائید نشده سرویس SSL دهنده.</string>
   <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
+  <string name="auth_wrong_connection_title">نمیتوان ارتباط برقرار نمود.</string>
   <string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
   <string name="auth_not_found">مسیر داده شده اشتباه است</string>
   <string name="auth_internal">خطای سرور داخلی، کد %1$d</string>
@@ -164,6 +171,7 @@
   <string name="ssl_validator_header">هویت این سایت نمی تواند تایید شود</string>
   <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
   <string name="ssl_validator_reason_cert_expired">- گواهی سرور انقضا یافته</string>
+  <string name="ssl_validator_reason_hostname_not_verified">URL با آدرس هاست موجود در گواهی نامه مطابقت ندارد.</string>
   <string name="ssl_validator_question">آیا می خواهید در هر صورت به این مدرک اطمینان کنید؟</string>
   <string name="ssl_validator_not_saved">گواهی نمی تواند ذخیره شود</string>
   <string name="ssl_validator_btn_details_see">جزییات</string>

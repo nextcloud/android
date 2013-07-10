@@ -13,9 +13,11 @@
   <string name="main_settings">Ρυθμίσεις</string>
   <string name="main_tit_accsetup">Ρύθμιση Λογαριασμού</string>
   <string name="main_wrn_accsetup">Δεν υπάρχουν λογαριασμοί ownCloud στη συσκευή σας. Για να χρησιμοποιήσετε την εφαρμογή, πρέπει να δημιουργήσετε ένα.</string>
+  <string name="about_version">έκδοση %1$s</string>
   <string name="actionbar_upload">Μεταφόρτωση</string>
   <string name="actionbar_upload_from_apps">Περιεχόμενο από άλλες εφαρμογές</string>
   <string name="actionbar_upload_files">Αρχεία</string>
+  <string name="actionbar_open_with">Άνοιγμα με</string>
   <string name="actionbar_mkdir">Δημιουργία καταλόγου</string>
   <string name="actionbar_search">Αναζήτηση</string>
   <string name="actionbar_settings">Ρυθμίσεις</string>
@@ -36,6 +38,7 @@
   <string name="prefs_pincode_summary">Προστατέψτε την ownCloud εφαρμογή</string>
   <string name="prefs_instant_upload">Ενεργοποιήστε την άμεση μεταφόρτωση</string>
   <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση των φωτογραφιών που τραβάει η φωτογρ. μηχανή</string>
+  <string name="prefs_log_delete_history_button">Διαγραφή Ιστορικού</string>
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
@@ -67,6 +70,7 @@
   <string name="filedetails_created">Δημιουργήθηκε:</string>
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
+  <string name="filedetails_sync_file">Ανανέωση αρχείου</string>
   <string name="filedetails_redownload">Κατέβασμα ξανά</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά την μεταφόρτωση</string>
   <string name="common_yes">Ναι</string>
@@ -127,6 +131,7 @@
   <string name="pincode_wrong">Εσφαλμένο PIN της εφαρμογής ownCloud</string>
   <string name="pincode_removed">Αφαιρέθηκε το PIN της εφαρμογής ownCloud</string>
   <string name="pincode_stored">Το PIN της εφαρμογής ownCloud αποθηκεύτηκε</string>
+  <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Λεπτά</item>
     <item>30 Λεπτά</item>
@@ -211,6 +216,11 @@
   <string name="ssl_validator_label_signature">Υπογραφή:</string>
   <string name="ssl_validator_label_signature_algorithm">Αλγόριθμος:</string>
   <string name="placeholder_sentence">Αυτό είναι ένα σημείο κράτησης θέσης</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">Εικόνα PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Μεταφόρτωση εικόνων μόνο μέσω WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Ενημέρωση σύγκρουσης</string>
@@ -220,4 +230,5 @@
   <string name="conflict_dont_upload">Δεν μεταφορτώθηκε</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s δεν μπορεσε να αντιγραφθεί στον %2$s τοπικο καταλόγο </string>
+  <string name="failed_upload_all_cb">επιλογή όλων</string>
 </resources>
