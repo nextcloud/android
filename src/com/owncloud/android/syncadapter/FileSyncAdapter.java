@@ -220,6 +220,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             List<OCFile> children = synchFolderOp.getChildren();
             fetchChildren(children);    // beware of the 'hidden' recursion here!
             
+            sendStickyBroadcast(true, remotePath, null);
+            
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
                 mSyncResult.stats.numAuthExceptions++;
@@ -267,7 +269,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
                 
                 // Update folder size on DB
-                getStorageManager().calculateFolderSize(newFile.getFileId());       
+                getStorageManager().calculateFolderSize(newFile.getFileId());                   
             }
         }
        
