@@ -61,6 +61,7 @@
   <string name="common_cancel_upload">Atšaukti siuntimą</string>
   <string name="common_cancel">Atšaukti</string>
   <string name="common_error">Klaida</string>
+  <string name="common_error_unknown">Neatpažinta klaida</string>
   <string name="about_title">Apie</string>
   <string name="delete_account">Ištrinti paskyrą</string>
   <string name="create_account">Sukurti paskyrą</string>
