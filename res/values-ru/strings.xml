@@ -13,9 +13,13 @@
   <string name="main_settings">Настройки</string>
   <string name="main_tit_accsetup">Настроить аккаунт</string>
   <string name="main_wrn_accsetup">На вашем устройстве нет ownCloud аккаунтов. Вам нужно создать аккаунт, чтобы пользоваться этим приложеним.</string>
+  <string name="about_android">%1$s Приложение Андроид</string>
+  <string name="about_version">Версия %1$s</string>
+  <string name="actionbar_sync">Обновить учетную запись</string>
   <string name="actionbar_upload">Загрузка</string>
   <string name="actionbar_upload_from_apps">Содержимое от других приложений</string>
   <string name="actionbar_upload_files">Файлы</string>
+  <string name="actionbar_open_with">Открыть с помощью</string>
   <string name="actionbar_mkdir">Создать директорию</string>
   <string name="actionbar_search">Найти</string>
   <string name="actionbar_settings">Настройки</string>
@@ -36,6 +40,11 @@
   <string name="prefs_pincode_summary">Защитить ваш клиент ownCloud</string>
   <string name="prefs_instant_upload">Включить моментальную загрузку</string>
   <string name="prefs_instant_upload_summary">Моментально загружать фотографии, полученные с камеры</string>
+  <string name="prefs_log_title">Включить запись журнала</string>
+  <string name="prefs_log_summary">Это используется для  регистрации проблем</string>
+  <string name="prefs_log_title_history">Записывать историю</string>
+  <string name="prefs_log_summary_history">Здесь показаны журналы</string>
+  <string name="prefs_log_delete_history_button">Удалить историю</string>
   <string name="auth_host_url">Адрес сервера</string>
   <string name="auth_username">Пользователь</string>
   <string name="auth_password">Пароль</string>
@@ -68,6 +77,7 @@
   <string name="filedetails_created">Создан:</string>
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
+  <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_redownload">Скачать заново</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="common_yes">Да</string>
@@ -79,6 +89,7 @@
   <string name="common_save_exit">Сохранить &amp; Выйти</string>
   <string name="common_exit">Выйти из ownCloud</string>
   <string name="common_error">Ошибка</string>
+  <string name="common_loading">Загружается...</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="delete_account">Удалить аккаунт</string>
@@ -99,16 +110,19 @@
   <string name="downloader_download_succeeded_content">%1$s успешно скачан</string>
   <string name="downloader_download_failed_ticker">Скачивание не удалась</string>
   <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
+  <string name="downloader_not_downloaded_yet">Ещё не загружено</string>
   <string name="common_choose_account">Выберите аккаунт</string>
   <string name="sync_string_contacts">Контакты</string>
   <string name="sync_fail_ticker">Синхронизация прошла неудачно</string>
   <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
+  <string name="sync_fail_content_unauthorized">Неверные учётные данные для %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
   <string name="sync_conflicts_in_favourites_content">%1$d файлы, которые должны быть синхронизированными не могут синхронизироваться</string>
   <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
   <string name="sync_fail_in_favourites_content">Содержание %1$d файла(ов) не может быть синхронизировано (%2$d конфликта(ов))</string>
   <string name="sync_foreign_files_forgotten_ticker">Несколько локальных файлов были забыты</string>
   <string name="sync_foreign_files_forgotten_content">%1$d файлы из %2$s папки не могут быть скопированы в</string>
+  <string name="sync_foreign_files_forgotten_explanation">файлы, загруженные с этого устройства, скопированы в локальную папку %1$s для предотвращения потери данных, когда отдельный файл синхронизируется с нескольких учётных записей. По причине этого изменения, все файлы, загруженные в предыдущих версиях этого приложения, были скопированы в папку %2$s. Однако, ошибка помешала завершению этой операции при синхронизации учётной записи. Вы можете либо оставить файлы как есть, или переместить их в папку %1$s и сохранить ссылку в %4$s. \nВ списке указаны локальные файлы, привязанные к файлам на сервере в папке %5$s.</string>
   <string name="foreign_files_move">Переместить всё</string>
   <string name="foreign_files_success">Все файлы были перемещены</string>
   <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
@@ -127,6 +141,27 @@
   <string name="pincode_wrong">Неверный ownCloud App PIN</string>
   <string name="pincode_removed">ownCloud App PIN удалён</string>
   <string name="pincode_stored">ownCloud App PIN сохранён</string>
+  <string name="media_notif_ticker">%1$s музыкальный проигрыватель</string>
+  <string name="media_state_playing">%1$s (проигрывается)</string>
+  <string name="media_state_loading">%1$s (загружается)</string>
+  <string name="media_event_done">%1$s воспроизведение завершено</string>
+  <string name="media_err_nothing_to_play">Не найден медиа-файл</string>
+  <string name="media_err_no_account">Не настроена учётная запись</string>
+  <string name="media_err_not_in_owncloud">Файл в неверной учётной записи</string>
+  <string name="media_err_unsupported">Неподдерживаемый кодек</string>
+  <string name="media_err_io">Файл не может быть прочитан</string>
+  <string name="media_err_malformed">Файл </string>
+  <string name="media_err_timeout">Воспроизведение ожидается слишком долго</string>
+  <string name="media_err_invalid_progressive_playback">Невозможно воспроизвести файл как поток</string>
+  <string name="media_err_unknown">Файл не может быть проигран  стандартным плеером</string>
+  <string name="media_err_security_ex">Ошибка безопасности при воспроизведении %1$s</string>
+  <string name="media_err_io_ex">Ошибка ввода при воспроизведении %1$s</string>
+  <string name="media_err_unexpected">Неожиданная ошибка при воспроизведении %1$s</string>
+  <string name="media_previous_description">Предыдущая</string>
+  <string name="media_rewind_description">Перемотка назад</string>
+  <string name="media_play_pause_description">Воспроизведение или пауза</string>
+  <string name="media_forward_description">Перемотка вперед</string>
+  <string name="media_next_description">Следующая композиция</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Минут</item>
     <item>30 Минут</item>
@@ -137,12 +172,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Попытка авторизации...</string>
   <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
   <string name="auth_no_net_conn_message">Сетевое соединение не обнаружено , проверьте соединение с Интернет и попробуйте ещё раз.</string>
   <string name="auth_connect_anyway">Соединить всё равно</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_nossl_plain_ok_message">Приложение не может установить защищённое соединение с сервером. Однако доступно не защищённое соединение. Вы можете продолжить или прервать.</string>
   <string name="auth_connection_established">Соединение установлено</string>
+  <string name="auth_testing_connection">Проверка соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация ownCloud</string>
   <string name="auth_not_configured_message">Похоже что ваш экземпляр ownCloud не был корректно сконфигурирован. Обратитесь за деталями к вашему администратору.</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
@@ -158,8 +195,14 @@
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера ownCloud</string>
   <string name="auth_wrong_connection_title">Невозможно установить соединение</string>
   <string name="auth_secure_connection">Защищённое соединение установлено</string>
+  <string name="auth_unauthorized">Неверные учётные данные</string>
+  <string name="auth_oauth_error">Ошибка авторизации</string>
+  <string name="auth_oauth_error_access_denied">Сервер отказал в доступе</string>
   <string name="auth_not_found">Указан неверный путь</string>
   <string name="auth_internal">Внутренняя ошибка сервера, код %1$d</string>
+  <string name="auth_wtf_reenter_URL">Неожиданный ответ; пожалуйста, введите адрес сервера ещё раз</string>
+  <string name="auth_expired_oauth_token_toast">Закончился срок действия сессии. Пожалуйста, авторизуйтесь заново</string>
+  <string name="auth_expired_basic_auth_toast">Ваши сохранённые учётные данные неверны. Пожалуйста, введите их заново</string>
   <string name="crashlog_message">Приложение завершилось неожиданно. Хотите отправить аварийный отчёт?</string>
   <string name="crashlog_send_report">Отправить отчёт</string>
   <string name="crashlog_dont_send_report">Не отправлять отчёт</string>
@@ -186,6 +229,11 @@
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
+  <string name="oauth_host_url">адрес oAuth2</string>
+  <string name="oauth_check_onoff">Войти через oAuth2</string>
+  <string name="oauth_login_connection">Подключение к серверу oAuth2...</string>
+  <string name="oauth_code_validation_message">Пожалуйста, откройте ссылку\n%1$s\nв браузере и подтвердите этот: %2$s</string>
+  <string name="oauth_connection_url_unavailable">Подключение к этому серверу недоступно</string>
   <string name="ssl_validator_title">Предупреждение</string>
   <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
@@ -211,6 +259,11 @@
   <string name="ssl_validator_label_signature">Подпись:</string>
   <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
   <string name="placeholder_sentence">Это заполнитель</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">Изображение PNG</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Загружать изображения только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Конфликт обновления</string>
@@ -218,6 +271,20 @@
   <string name="conflict_keep_both">Оставить оба</string>
   <string name="conflict_overwrite">Заменить</string>
   <string name="conflict_dont_upload">Не загружать</string>
+  <string name="preview_image_description">Предпросмотр</string>
+  <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
+  <string name="preview_image_error_out_of_memory">Недостаточно памяти для показа изображения</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в %2$s локальною папку</string>
+  <string name="actionbar_failed_instant_upload">Быстрая загрузка не удалась</string>
+  <string name="failed_upload_headline_text">Быстрые загрузки не удались</string>
+  <string name="failed_upload_headline_hint">Список всех неудачных загрузок</string>
+  <string name="failed_upload_all_cb">Выбрать всё</string>
+  <string name="failed_upload_headline_retryall_btn">Ещё раз попробовать всё выделенное</string>
+  <string name="failed_upload_headline_delete_all_btn">Удалить всё| выбранное из очереди загрузки</string>
+  <string name="failed_upload_retry_text">Попробовать ещё раз загрузить изображение</string>
+  <string name="failed_upload_load_more_images">Загрузить больше картинок</string>
+  <string name="failed_upload_retry_do_nothing_text">Ничего не делать, если не в сети</string>
+  <string name="failed_upload_failure_text">Сообщение об ошибке</string>
+  <string name="failed_upload_quota_exceeded_text">Проверьте настройки сервера, возможно ваш лимит превышен</string>
 </resources>
