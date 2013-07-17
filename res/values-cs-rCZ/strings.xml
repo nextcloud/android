@@ -39,7 +39,6 @@
   <string name="auth_host_url">Adresa serveru</string>
   <string name="auth_username">Uživatelské jméno</string>
   <string name="auth_password">Heslo</string>
-  <string name="auth_register">Jsem nový na ownCloud.</string>
   <string name="new_session_uri_error">Zadané neplatné URL</string>
   <string name="new_session_session_name_error">Neplatný název sezení</string>
   <string name="sync_string_files">Soubory</string>

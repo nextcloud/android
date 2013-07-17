@@ -38,7 +38,6 @@
   <string name="auth_host_url">სერვერის მისამართი</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>
-  <string name="auth_register">მე ვარ ახალი %1$s–ში</string>
   <string name="new_session_uri_error">შეყვანილ იქნა არასწორი მისამართი</string>
   <string name="new_session_session_name_error">არასწორი სესიის სახელი</string>
   <string name="sync_string_files">ფაილები</string>

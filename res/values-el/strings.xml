@@ -42,7 +42,6 @@
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
-  <string name="auth_register">Είμαι νέος στο ownCloud</string>
   <string name="new_session_uri_error">Εσφαλμένη διεύθυνση URL</string>
   <string name="new_session_session_name_error">Εσφαλμένο όνομα συνεδρίας</string>
   <string name="sync_string_files">Αρχεία</string>

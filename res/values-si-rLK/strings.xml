@@ -36,7 +36,6 @@
   <string name="auth_host_url">සේවාදායකයේ ලිපිනය</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
-  <string name="auth_register">මම ownCloudට නවකයෙක්මි</string>
   <string name="new_session_uri_error">දී ඇති යෙදුම වැරදි</string>
   <string name="new_session_session_name_error">වැරදි සැසිවාර නමක්</string>
   <string name="sync_string_files">ගොනු</string>

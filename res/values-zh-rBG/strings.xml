@@ -39,7 +39,6 @@
   <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
-  <string name="auth_register">我是 ownCloud 新人</string>
   <string name="new_session_uri_error">错误的网址</string>
   <string name="new_session_session_name_error">错误会话名</string>
   <string name="sync_string_files">文件</string>

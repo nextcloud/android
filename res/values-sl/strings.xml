@@ -43,7 +43,6 @@
   <string name="auth_host_url">Naslov strežnika</string>
   <string name="auth_username">Uporabniško ime</string>
   <string name="auth_password">Geslo</string>
-  <string name="auth_register">Sem nov v oblaku ownCloud</string>
   <string name="new_session_uri_error">Podan je napačen naslov URL</string>
   <string name="new_session_session_name_error">Napačno ime seje</string>
   <string name="sync_string_files">Datoteke</string>

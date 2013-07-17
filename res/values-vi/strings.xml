@@ -39,7 +39,6 @@
   <string name="auth_host_url">Địa chỉ máy chủ</string>
   <string name="auth_username">Tên người dùng</string>
   <string name="auth_password">Mật khẩu</string>
-  <string name="auth_register">Tôi mới đến ownCloud</string>
   <string name="new_session_uri_error">Bạn nhập sai URL</string>
   <string name="new_session_session_name_error">Sai tên phiên làm việc</string>
   <string name="sync_string_files">Tập tin</string>

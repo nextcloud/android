@@ -39,7 +39,6 @@
   <string name="auth_host_url">A kiszolgáló címe</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
-  <string name="auth_register">Új kapcsolat: %1$s</string>
   <string name="new_session_uri_error">A megadott cím helytelen</string>
   <string name="new_session_session_name_error">A megadott munkafolyamatnév érvénytelen</string>
   <string name="sync_string_files">Fájlok</string>

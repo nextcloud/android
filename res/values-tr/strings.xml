@@ -38,7 +38,6 @@
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
-  <string name="auth_register">ownCloud\'da yeniyim.</string>
   <string name="new_session_uri_error">Geçersiz URL girildi</string>
   <string name="new_session_session_name_error">Yanlış oturum ismi</string>
   <string name="sync_string_files">Dosyalar</string>

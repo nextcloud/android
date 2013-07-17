@@ -37,7 +37,6 @@
   <string name="prefs_instant_upload_summary">Llwytho lluniau dynnwyd â chamera i fyny\'n syth</string>
   <string name="auth_username">Enw defnyddiwr</string>
   <string name="auth_password">Cyfrinair</string>
-  <string name="auth_register">Rwy\'n newydd i %1$s</string>
   <string name="new_session_uri_error">Cyflwynwyd cyfeiriad anghywir</string>
   <string name="new_session_session_name_error">Enw sesiwn anghywir</string>
   <string name="sync_string_files">Ffeiliau</string>

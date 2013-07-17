@@ -38,7 +38,6 @@
   <string name="auth_host_url">Servila adreso</string>
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
-  <string name="auth_register">Mi estas nova ĉe ownCloud</string>
   <string name="new_session_uri_error">Malĝusta URL doniĝis</string>
   <string name="new_session_session_name_error">Malĝusta sesionomo</string>
   <string name="sync_string_files">Dosieroj</string>

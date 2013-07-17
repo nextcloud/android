@@ -38,7 +38,6 @@
   <string name="auth_host_url">Serveradresse</string>
   <string name="auth_username">Brugernavn</string>
   <string name="auth_password">Kodeord</string>
-  <string name="auth_register">Jeg er ny til ownCloud</string>
   <string name="new_session_uri_error">Forkert URL givet</string>
   <string name="new_session_session_name_error">Forkert session navn</string>
   <string name="sync_string_files">Filer</string>

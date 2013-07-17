@@ -39,7 +39,6 @@
   <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
-  <string name="auth_register">ข้าพเจ้าเพิ่งใช้งาน ownCloud</string>
   <string name="new_session_uri_error">ที่อยู่ URL ไม่ถูกต้อง</string>
   <string name="new_session_session_name_error">ชื่อเซสชั่นไม่ถูกต้อง</string>
   <string name="sync_string_files">ไฟล์</string>

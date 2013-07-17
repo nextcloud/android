@@ -39,7 +39,6 @@
   <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
-  <string name="auth_register">Я новачок в ownCloud</string>
   <string name="new_session_uri_error">Надано невірний URL</string>
   <string name="new_session_session_name_error">Невірне ім\'я сесії</string>
   <string name="sync_string_files">Файли</string>

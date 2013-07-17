@@ -48,7 +48,6 @@
   <string name="auth_host_url">Serveri aadress</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
-  <string name="auth_register">Olen uus ownCloudi kasutaja</string>
   <string name="new_session_uri_error">Anti vale URL</string>
   <string name="new_session_session_name_error">Vale sessiooni nimi</string>
   <string name="sync_string_files">Failid</string>
@@ -115,7 +114,6 @@
   <string name="sync_string_contacts">Kontaktid</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
-  <string name="sync_fail_content_unauthorized">Vigased kasutajaandmed %1$s jaoks</string>
   <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
   <string name="sync_conflicts_in_favourites_content">%1$d sünkroniseeritavad faile ei suudeta sünkroniseerida</string>
   <string name="sync_fail_in_favourites_ticker">Sünkroniseeritavad failid ebaõnnestusid</string>
@@ -172,14 +170,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Proovitakse sisse logida...</string>
   <string name="auth_no_net_conn_title">Võrguühendust pole</string>
   <string name="auth_no_net_conn_message">Internetiühendust ei leitud, kontrolli oma interneti ühendust ja proovi uuesti.</string>
   <string name="auth_connect_anyway">Ühenda sellegipoolest</string>
   <string name="auth_nossl_plain_ok_title">Turvaline ühendus pole saadaval</string>
   <string name="auth_nossl_plain_ok_message">Rakendus ei suutnud serveriga turvalist ühendust luua. Kuid saadaval on mitteturvaline ühendus. Sa võid jätkata või loobuda.</string>
   <string name="auth_connection_established">Saadi ühendus</string>
-  <string name="auth_testing_connection">Ühenduse testimine...</string>
   <string name="auth_not_configured_title">Vigases vormingus ownCloud seadistus</string>
   <string name="auth_not_configured_message">Näib, et sinu ownCloud pole korralikult seadistatud. Lisainfo saamiseks võta ühendust oma administraatoriga.</string>
   <string name="auth_unknown_error_title">Tekkis tundmatu tõrge!</string>
@@ -195,14 +191,12 @@
   <string name="auth_bad_oc_version_title">Tundmatu ownCloud serveri versioon</string>
   <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
   <string name="auth_secure_connection">Saavutati turvaline ühendus</string>
-  <string name="auth_unauthorized">Vigased kasutajaandmed</string>
   <string name="auth_oauth_error">Autoriseerimine ebaõnnestus</string>
   <string name="auth_oauth_error_access_denied">Ligipääs keelatud autoriseeriva serveri poolt</string>
   <string name="auth_not_found">Sisestati vale asukoht</string>
   <string name="auth_internal">Sisemine serveri viga, kood %1$d</string>
   <string name="auth_wtf_reenter_URL">Ootamatu seisund; palun sisesta serveri URL uuesti</string>
   <string name="auth_expired_oauth_token_toast">Sinu autoriseering on aegunud.⏎\nPalun autoriseeri uuesti</string>
-  <string name="auth_expired_basic_auth_toast">Sinu salvestatud kasutajaandmed pole korrektsed.⏎\nPalun sisesta uued konto andmed.</string>
   <string name="crashlog_message">Rakdnus suleti ootamatult. Kas sa sooviksid saata kokkujooksmise kohta teavitust arendajale?</string>
   <string name="crashlog_send_report">Saada veateade</string>
   <string name="crashlog_dont_send_report">Ära saada veateadet</string>

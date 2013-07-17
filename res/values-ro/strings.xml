@@ -34,7 +34,6 @@
   <string name="auth_host_url">Adresa server-ului</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
-  <string name="auth_register">Sunt novice în ownCloud</string>
   <string name="new_session_uri_error">URL specificat greșit</string>
   <string name="new_session_session_name_error">Numele sesiunii este greșit</string>
   <string name="sync_string_files">Fișiere</string>

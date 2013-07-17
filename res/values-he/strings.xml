@@ -39,7 +39,6 @@
   <string name="auth_host_url">כתובת שרת</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
-  <string name="auth_register">%1$s חדש לי</string>
   <string name="new_session_uri_error">הכתובת שצוינה שגויה</string>
   <string name="new_session_session_name_error">שם ההפעלה שגוי</string>
   <string name="sync_string_files">קבצים</string>

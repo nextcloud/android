@@ -48,7 +48,6 @@
   <string name="auth_host_url">Zerbitzariaren helbidea</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
-  <string name="auth_register">Berria naiz ownCloud-en</string>
   <string name="new_session_uri_error">Emandako URLa gaizki dago</string>
   <string name="new_session_session_name_error">Saio izen okerra</string>
   <string name="sync_string_files">Fitxategiak</string>
@@ -169,14 +168,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Saioa hasten saiatzen...</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_no_net_conn_message">Ez da sare konexiorik antzeman, egiaztatu zure interneteko konexioa eta saiatu berriz.</string>
   <string name="auth_connect_anyway">Konektatu hala ere</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_nossl_plain_ok_message">Aplikazioak ezin izan du zerbitzariarekin konexio seguru bat ezarri. Hala ere konexio ez segurua egin daiteke. Jarraitu edo ezeztatu dezakezu.</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
-  <string name="auth_testing_connection">Konexioa frogatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako ownCloud konfigurazioa</string>
   <string name="auth_not_configured_message">Badirudi zure ownCloud instantzia ez dagoela ongi konfiguratuta. Jarri zure harremanetan administradorearkin informazio gehiago izateko.</string>
   <string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>

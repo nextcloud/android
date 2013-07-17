@@ -44,7 +44,6 @@
   <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
-  <string name="auth_register">Olen uusi ownCloudin kanssa</string>
   <string name="new_session_uri_error">Väärä osoite</string>
   <string name="new_session_session_name_error">Väärä istuntonimi</string>
   <string name="sync_string_files">Tiedostot</string>
@@ -156,7 +155,6 @@
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_nossl_plain_ok_message">Sovellus ei voinut luoda salattua yhteyttä palvelimeen. Kuitenkin salaamaton yhteys on olemassa. Jatka sitä käyttäen tai lopeta tähän.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
-  <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt ownCloud-asetukset</string>
   <string name="auth_not_configured_message">Vaikuttaa ettei ownCloud ole oikein määritetty. Ota yhteyttä ylläpitäjään.</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
