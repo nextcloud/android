@@ -91,6 +91,7 @@
   <string name="common_loading">بارگذاری ...</string>
   <string name="common_error_unknown">خطای نامشخص</string>
   <string name="about_title">درباره</string>
+  <string name="change_password">تغییر گذر واژه</string>
   <string name="delete_account">حذف حساب</string>
   <string name="create_account">ساخت حساب</string>
   <string name="upload_chooser_title">بارگزاری از ...</string>
@@ -175,6 +176,7 @@
   <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
   <string name="auth_nossl_plain_ok_message">برنامه نمی تواند یک ارتباط امن با سرور ایجاد کند. ارتباط نا امن در دسترس است.شما می تواند ادامه داده یا منصرف شوید.</string>
   <string name="auth_connection_established">اتصال برقرار شد</string>
+  <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
   <string name="auth_not_configured_message">به نظر میرسد که سرور شما به درستی پیکربندی نشده است. برای جزئیات بیشتر با مدیر خود تماس بگیرید.</string>
   <string name="auth_unknown_error_title">خطای نامشخص رخ داده است!</string>

@@ -91,6 +91,7 @@
   <string name="common_loading">読込中...</string>
   <string name="common_error_unknown">不明なエラー</string>
   <string name="about_title">ownCloudについて</string>
+  <string name="change_password">パスワードを変更</string>
   <string name="delete_account">アカウントを削除</string>
   <string name="create_account">アカウントを作成</string>
   <string name="upload_chooser_title">アップロード …</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">ログイン中...</string>
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_no_net_conn_message">ネットワーク接続が見つかりません、インターネット接続を確認してからお試しください。</string>
   <string name="auth_connect_anyway">接続する</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
   <string name="auth_nossl_plain_ok_message">サーバーとの暗号化通信を確立できませんでした。しかし、通常の通信が利用できます。続けますか？</string>
   <string name="auth_connection_established">接続が確立しました</string>
+  <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">ownCloudサーバーの間違った設定</string>
   <string name="auth_not_configured_message">ownCloudサーバー設定が正しくないようです。詳しくは管理者にご相談ください。</string>
   <string name="auth_unknown_error_title">不明なエラーに発生しました</string>

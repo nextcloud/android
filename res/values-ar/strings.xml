@@ -60,6 +60,7 @@
   <string name="common_cancel">الغاء</string>
   <string name="common_error">خطأ</string>
   <string name="about_title">حول</string>
+  <string name="change_password">عدل كلمة السر</string>
   <string name="delete_account">حذف الحساب</string>
   <string name="create_account">حساب جديد</string>
   <string name="upload_chooser_title">رفع من</string>

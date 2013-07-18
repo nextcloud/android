@@ -81,6 +81,7 @@
   <string name="common_loading">Načítání...</string>
   <string name="common_error_unknown">Neznámá chyba</string>
   <string name="about_title">O aplikaci</string>
+  <string name="change_password">Změnit heslo</string>
   <string name="delete_account">Smazat účet</string>
   <string name="create_account">Vytvořit účet</string>
   <string name="upload_chooser_title">Odeslat z...</string>
@@ -160,12 +161,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Zkouším se přihlásit...</string>
   <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
   <string name="auth_no_net_conn_message">Nebylo nalezeno připojení k síti, zkontrolujte svoje připojení a zkuste to znovu.</string>
   <string name="auth_connect_anyway">I přesto připojit</string>
   <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
   <string name="auth_nossl_plain_ok_message">Aplikace nemůže navázat zabezpečené spojení se serverem. Ačkoliv nezabezpečené spojení je k dispozici. Můžete pokračovat, či přerušit spojení.</string>
   <string name="auth_connection_established">Spojení navázáno</string>
+  <string name="auth_testing_connection">Zkouším spojení...</string>
   <string name="auth_not_configured_title">Neplatné nastavení ownCloudu</string>
   <string name="auth_not_configured_message">Vypadá to že nastavení Vaší instance ownCloud není správné. Kontaktujte svého správce pro více informací.</string>
   <string name="auth_unknown_error_title">Nastala neznámá chyba</string>

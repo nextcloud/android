@@ -91,6 +91,7 @@
   <string name="common_loading">Laden...</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
+  <string name="change_password">Wijzig wachtwoord</string>
   <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
   <string name="upload_chooser_title">Upload van ...</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Proberen om in te loggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_no_net_conn_message">Er kon geen netwerkverbinding worden gevonden, controleer je internet verbinding en probeer het opnieuw.</string>
   <string name="auth_connect_anyway">Toch verbinden</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_nossl_plain_ok_message">De applicatie kon geen beveiligde verbinding met de server maken. Er is echter wel een onbeveiligde verbinding beschikbaar. Je kunt verdergaan of annuleren.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
+  <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve ownCloud configuratie</string>
   <string name="auth_not_configured_message">Het lijkt erop dat je ownCloud instantie niet correct geconfigureerd is. Neem contact op met je beheerder voor meer details.</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>

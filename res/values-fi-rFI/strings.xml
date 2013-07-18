@@ -87,6 +87,7 @@
   <string name="common_loading">Ladataan…</string>
   <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
+  <string name="change_password">Vaihda salasana</string>
   <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
   <string name="upload_chooser_title">Lataus täältä:</string>
@@ -149,12 +150,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_no_net_conn_message">Verkkoyhteyttä ei havaittu. Tarkista internetyhteyden tila ja yritä uudelleen.</string>
   <string name="auth_connect_anyway">Yhdistä silti</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_nossl_plain_ok_message">Sovellus ei voinut luoda salattua yhteyttä palvelimeen. Kuitenkin salaamaton yhteys on olemassa. Jatka sitä käyttäen tai lopeta tähän.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
+  <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt ownCloud-asetukset</string>
   <string name="auth_not_configured_message">Vaikuttaa ettei ownCloud ole oikein määritetty. Ota yhteyttä ylläpitäjään.</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>

@@ -77,6 +77,7 @@
   <string name="common_exit">Forlad ownCloud</string>
   <string name="common_error">Fejl</string>
   <string name="about_title">Om</string>
+  <string name="change_password">Skift kodeord</string>
   <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
@@ -133,12 +134,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Forsøger at logge ind...</string>
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
   <string name="auth_no_net_conn_message">Der blev ikke fundet nogen netværksforbindelse, tjek din internetforbindelse, og prøv igen</string>
   <string name="auth_connect_anyway">Forbind alligevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_nossl_plain_ok_message">Applikationen kunne ikke oprette en sikker forbindelse med serveren. Selvom en sikker forbindelse ikke er tilgængeligt, kan du vælge at fortsætte eller annullere.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
+  <string name="auth_testing_connection">Afprøver forbindelse ...</string>
   <string name="auth_not_configured_title">Misdannet ownCloud konfiguration</string>
   <string name="auth_not_configured_message">Det ser ud til, at din ownCloud instans ikke er konfigureret korrekt. KOntakt din administrator for flere detaljer.</string>
   <string name="auth_unknown_error_title">Ukendt fejl opstod!</string>

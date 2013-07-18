@@ -91,6 +91,7 @@
   <string name="common_loading">Wczytuję ...</string>
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
+  <string name="change_password">Zmień hasło</string>
   <string name="delete_account">Usuń konto</string>
   <string name="create_account">Utwórz konto</string>
   <string name="upload_chooser_title">Wyślij plik z …</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Próbuję się zalogować...</string>
   <string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
   <string name="auth_no_net_conn_message">Nie znaleziono połączenia sieciowego. Sprawdź połączenie internetowe i spróbuj ponownie.</string>
   <string name="auth_connect_anyway">Połącz mimo wszystko</string>
   <string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
   <string name="auth_nossl_plain_ok_message">Aplikacja nie można ustanowić bezpiecznego połączenia z serwerem. Niezabezpieczone połączenie jest dostępne. Możesz kontynuować lub anulować.</string>
   <string name="auth_connection_established">Połączenie nawiązane</string>
+  <string name="auth_testing_connection">Testowanie połączenia…</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
   <string name="auth_not_configured_message">Wygląda na to, że twoja instancja ownCloud nie jest poprawnie skonfigurowana. Aby uzyskać więcej informacji, skontaktuj się z administratorem.</string>
   <string name="auth_unknown_error_title">Wystąpił nieznany błąd!</string>

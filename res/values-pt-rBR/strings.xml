@@ -91,6 +91,7 @@
   <string name="common_loading">Carregando ...</string>
   <string name="common_error_unknown">Erro desconhecido</string>
   <string name="about_title">Sobre</string>
+  <string name="change_password">Alterar senha</string>
   <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
   <string name="upload_chooser_title">Enviar de …</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Tentando fazer login...</string>
   <string name="auth_no_net_conn_title">Sem conexão de rede</string>
   <string name="auth_no_net_conn_message">Nenhuma conexão foi detectada, verifique sua conexão com a Internet e tente novamente.</string>
   <string name="auth_connect_anyway">Conectar mesmo assim</string>
   <string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
   <string name="auth_nossl_plain_ok_message">O aplicativo não pôde estabelecer uma conexão segura. Uma conexão não-segura está disponível. Você pode continuar ou cancelar.</string>
   <string name="auth_connection_established">Conexão estabelecida</string>
+  <string name="auth_testing_connection">Testando conexão...</string>
   <string name="auth_not_configured_title">Configuração do servidor mal formada</string>
   <string name="auth_not_configured_message">Parece que a instância do seu servidor não está corretamente configurada. Contate seu administrador para mais detalhes.</string>
   <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>

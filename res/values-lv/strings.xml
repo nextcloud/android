@@ -77,6 +77,7 @@
   <string name="common_exit">Pamest %1$s</string>
   <string name="common_error">Kļūda</string>
   <string name="about_title">Par</string>
+  <string name="change_password">Mainīt paroli</string>
   <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>

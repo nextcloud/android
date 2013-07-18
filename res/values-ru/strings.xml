@@ -91,6 +91,7 @@
   <string name="common_loading">Загружается...</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
+  <string name="change_password">Сменить пароль</string>
   <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать аккаунт</string>
   <string name="upload_chooser_title">Загрузить из...</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
   <string name="auth_no_net_conn_message">Сетевое соединение не обнаружено , проверьте соединение с Интернет и попробуйте ещё раз.</string>
   <string name="auth_connect_anyway">Соединить всё равно</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_nossl_plain_ok_message">Приложение не может установить защищённое соединение с сервером. Однако доступно не защищённое соединение. Вы можете продолжить или прервать.</string>
   <string name="auth_connection_established">Соединение установлено</string>
+  <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация ownCloud</string>
   <string name="auth_not_configured_message">Похоже что ваш экземпляр ownCloud не был корректно сконфигурирован. Обратитесь за деталями к вашему администратору.</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>

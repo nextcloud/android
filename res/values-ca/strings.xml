@@ -91,6 +91,7 @@
   <string name="common_loading">Carregant...</string>
   <string name="common_error_unknown">Error desconegut</string>
   <string name="about_title">Quant a</string>
+  <string name="change_password">Canvia la contrasenya</string>
   <string name="delete_account">Elimina compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Puja fitxer des de ...</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
   <string name="auth_connect_anyway">Connecta igualment</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
+  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració de ownCloud està malformada</string>
   <string name="auth_not_configured_message">Sembla que la instància ownCloud no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>

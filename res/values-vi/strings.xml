@@ -78,6 +78,7 @@
   <string name="common_exit">Rời khỏi ownCloud</string>
   <string name="common_error">Lỗi</string>
   <string name="about_title">Giới thiệu</string>
+  <string name="change_password">Đổi mật khẩu</string>
   <string name="delete_account">Xóa tài khoản</string>
   <string name="create_account">Tạo tài khoản</string>
   <string name="upload_chooser_title">Tải lên từ ...</string>
@@ -134,12 +135,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Đang cố gắng để đăng nhập…</string>
   <string name="auth_no_net_conn_title">Không có kết nối mạng</string>
   <string name="auth_no_net_conn_message">Không tìm thấy kết nối mạng, kiểm tra lại kết nối mạng và thử lại.</string>
   <string name="auth_connect_anyway">Kết nối nào</string>
   <string name="auth_nossl_plain_ok_title">Bảo mật kết nối không có giá trị.</string>
   <string name="auth_nossl_plain_ok_message">Ứng dụng không thể thiết lập một kết nối an toàn đến máy chủ. Một kết nối không an toàn đang có giá trị. Bạn có thể tiếp tục hoặc hủy bỏ.</string>
   <string name="auth_connection_established">Kết nối đã thiết lập</string>
+  <string name="auth_testing_connection">Đang kiểm tra kết nối...</string>
   <string name="auth_not_configured_title">Thay đổi cấu hình ownCloud </string>
   <string name="auth_not_configured_message">Có vẻ như phiên bản ownCloud của bạn cấu hình không đúng. Liên hệ với quản trị viên để biết thêm chi tiết.</string>
   <string name="auth_unknown_error_title">Không xác định được lỗi!</string>

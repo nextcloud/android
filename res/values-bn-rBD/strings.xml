@@ -50,6 +50,7 @@
   <string name="common_cancel">বাতিল</string>
   <string name="common_save_exit">সংরক্ষণ কর এবং &amp;প্রস্থান</string>
   <string name="common_error">সমস্যা</string>
+  <string name="change_password">কূটশব্দ পরিবর্তন করুন</string>
   <string name="uploader_info_dirname">ডিরেক্টরির নাম</string>
   <string name="common_choose_account">একাউন্ট নির্বাচন</string>
   <string name="sync_string_contacts">ঠিকানাপঞ্জী</string>

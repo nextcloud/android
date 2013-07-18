@@ -91,6 +91,7 @@
   <string name="common_loading">Chargement ...</string>
   <string name="common_error_unknown">Erreur Inconnue </string>
   <string name="about_title">À propos de</string>
+  <string name="change_password">Changer de mot de passe</string>
   <string name="delete_account">Effacer ce compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
@@ -170,12 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
   <string name="auth_no_net_conn_message">Aucune connexion réseau n\'a été trouvée, veuillez vérifier votre connectivité à internet puis réessayez.</string>
   <string name="auth_connect_anyway">Se connecter malgré tout</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
   <string name="auth_nossl_plain_ok_message">L\'application ne peut établir de connexion sécurisée avec le serveur. Cependant, une connexion non sécurisée est disponible. Vous pouvez continuer en utilisant celle-ci ou annuler.</string>
   <string name="auth_connection_established">Connexion établie</string>
+  <string name="auth_testing_connection">Test de la connexion…</string>
   <string name="auth_not_configured_title">Configuration ownCloud erronée</string>
   <string name="auth_not_configured_message">Il semblerait que votre instance ownCloud ne soit pas correctement configurée. Veuillez contacter votre administrateur pour plus de détails.</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite</string>
