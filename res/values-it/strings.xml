@@ -45,7 +45,7 @@
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
-  <string name="auth_check_server">Verifica il Server</string>
+  <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo del server</string>
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
@@ -93,7 +93,7 @@
   <string name="common_loading">Caricamento in corso...</string>
   <string name="common_error_unknown">Errore sconosciuto</string>
   <string name="about_title">Informazioni</string>
-  <string name="change_password">Modifica password</string>
+  <string name="change_password">Modifica la password</string>
   <string name="delete_account">Elimina account</string>
   <string name="create_account">Crea account</string>
   <string name="upload_chooser_title">Carica file da...</string>
@@ -181,7 +181,7 @@
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
   <string name="auth_nossl_plain_ok_message">L\'applicazione non è in grado di stabilire una connessione sicura al server. È comunque disponibile una connessione non sicura. Puoi continuare o annullare.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
-  <string name="auth_testing_connection">Test della connessione in corso...</string>
+  <string name="auth_testing_connection">Prova di connessione in corso...</string>
   <string name="auth_not_configured_title">Configurazione non corretta di ownCloud</string>
   <string name="auth_not_configured_message">Sembra che l\'istanza di ownCloud non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
@@ -204,7 +204,7 @@
   <string name="auth_internal">Errore interno del server, codice %1$d</string>
   <string name="auth_wtf_reenter_URL">Stato inatteso; inserisci nuovamente l\'URL del server</string>
   <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta.\nRichiedi l\'autorizzazione</string>
-  <string name="auth_expired_basic_auth_toast">Si prega di inserire la password attuale</string>
+  <string name="auth_expired_basic_auth_toast">Inserisci la password attuale</string>
   <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>
   <string name="crashlog_send_report">Invia segnalazione</string>
   <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>
