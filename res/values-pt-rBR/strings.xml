@@ -45,9 +45,11 @@
   <string name="prefs_log_title_history">História de Registro</string>
   <string name="prefs_log_summary_history">Isso mostra os registros gravados</string>
   <string name="prefs_log_delete_history_button">Excluir Histórico</string>
+  <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor</string>
   <string name="auth_username">Nome de usuário</string>
   <string name="auth_password">Senha</string>
+  <string name="auth_register">Novo para %1$s?</string>
   <string name="new_session_uri_error">URL errada</string>
   <string name="new_session_session_name_error">Nome de sessão errado</string>
   <string name="sync_string_files">Arquivos</string>
@@ -115,6 +117,7 @@
   <string name="sync_string_contacts">Contatos</string>
   <string name="sync_fail_ticker">Sincronização falhou</string>
   <string name="sync_fail_content">Sincronização de %1$s não pôde ser completada</string>
+  <string name="sync_fail_content_unauthorized">Senha inválida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
   <string name="sync_conflicts_in_favourites_content">%1$d arquivos \"manter sincronizados\" não puderam ser sincronizados</string>
   <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
@@ -194,12 +197,14 @@
   <string name="auth_bad_oc_version_title">Versão do servidor ownCloud é irreconhecível</string>
   <string name="auth_wrong_connection_title">Não foi possível estabelecer conexão</string>
   <string name="auth_secure_connection">Conexão segura estabelecida</string>
+  <string name="auth_unauthorized">Nome de usuário e/ou senha está errada!</string>
   <string name="auth_oauth_error">Autorização sem sucesso</string>
   <string name="auth_oauth_error_access_denied">Acesso negado pelo servidor de autorização</string>
   <string name="auth_not_found">Caminho dado está errado</string>
   <string name="auth_internal">Erro interno do servidor, código %1$d</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado, por favor, digite a URL do servidor novamente</string>
   <string name="auth_expired_oauth_token_toast">Sua autorização expirou. ⏎\nPor favor, pedir autorização novamente</string>
+  <string name="auth_expired_basic_auth_toast">Por favor, digite sua senha</string>
   <string name="crashlog_message">O aplicativo terminou inesperadamente. Gostaria de enviar um relatório de erros?</string>
   <string name="crashlog_send_report">Enviar relatório</string>
   <string name="crashlog_dont_send_report">Não enviar relatório</string>

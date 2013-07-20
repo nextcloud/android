@@ -45,9 +45,11 @@
   <string name="prefs_log_title_history">Logi ajalugu</string>
   <string name="prefs_log_summary_history">See näitab salvestatud logisid</string>
   <string name="prefs_log_delete_history_button">Kustuta ajaludu</string>
+  <string name="auth_check_server">Kontrolli serverit</string>
   <string name="auth_host_url">Serveri aadress</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
+  <string name="auth_register">Uus %1$s kasutaja?</string>
   <string name="new_session_uri_error">Anti vale URL</string>
   <string name="new_session_session_name_error">Vale sessiooni nimi</string>
   <string name="sync_string_files">Failid</string>
@@ -115,6 +117,7 @@
   <string name="sync_string_contacts">Kontaktid</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
+  <string name="sync_fail_content_unauthorized">Vigane parool %1$s jaoks</string>
   <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
   <string name="sync_conflicts_in_favourites_content">%1$d sünkroniseeritavad faile ei suudeta sünkroniseerida</string>
   <string name="sync_fail_in_favourites_ticker">Sünkroniseeritavad failid ebaõnnestusid</string>

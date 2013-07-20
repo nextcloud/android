@@ -13,9 +13,12 @@
   <string name="main_settings">Beállítások</string>
   <string name="main_tit_accsetup">Fiók beállítása</string>
   <string name="main_wrn_accsetup">Nincs beállított fiók a készülékén. Ahhoz, hogy használja ezt a programot, létre kell hozzon egyet.</string>
+  <string name="about_version">verzió %1$s</string>
+  <string name="actionbar_sync">Fiók frissítése</string>
   <string name="actionbar_upload">Feltöltés</string>
   <string name="actionbar_upload_from_apps">Más alkalmazásokból származó tartalom</string>
   <string name="actionbar_upload_files">Fájlok</string>
+  <string name="actionbar_open_with">Megnyitás a következővel</string>
   <string name="actionbar_mkdir">Mappa létrehozása</string>
   <string name="actionbar_search">Keresés</string>
   <string name="actionbar_settings">Beállítások</string>
@@ -36,6 +39,9 @@
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
   <string name="prefs_instant_upload">Az azonnali feltöltés engedélyezése</string>
   <string name="prefs_instant_upload_summary">Az eszköz által készített fényképek azonnali feltöltése</string>
+  <string name="prefs_log_title">Naplózás engedélyezése</string>
+  <string name="prefs_log_title_history">Naplózás előzménye</string>
+  <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">A kiszolgáló címe</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
@@ -67,6 +73,7 @@
   <string name="filedetails_created">Készült:</string>
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
+  <string name="filedetails_sync_file">File frissítése</string>
   <string name="filedetails_redownload">Ismételt letöltés</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="common_yes">Igen</string>
@@ -181,8 +188,13 @@
   <string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
   <string name="auth_wrong_connection_title">A kapcsolat nem hozható létre</string>
   <string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
+  <string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
+  <string name="auth_oauth_error">Sikertelen azonosítás</string>
   <string name="auth_not_found">Rossz a megadott útvonal</string>
   <string name="auth_internal">Belső hiba történt a kiszolgálón, hibakód: %1$d</string>
+  <string name="auth_wtf_reenter_URL">Nem várt állapot; kérlek, menj a szerver URL-jére újra.</string>
+  <string name="auth_expired_oauth_token_toast">A bejelentkezés ideje lejárt..\nJelentkezz be újból.</string>
+  <string name="auth_expired_basic_auth_toast">Kélek, írd be a jelenlegi jelszavadat</string>
   <string name="crashlog_message">A program összeomlott. El akar küldeni egy összeomlási jelentést?</string>
   <string name="crashlog_send_report">Jelentés küldése</string>
   <string name="crashlog_dont_send_report">Ne küldjön jelentést</string>
@@ -209,6 +221,11 @@
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
   <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Bejelentkezés oAuth2-vel</string>
+  <string name="oauth_login_connection">Kapcsolódás az oAuth2 szerverhez...</string>
+  <string name="oauth_code_validation_message">Nyisd meg a böngészőt és menj ide:\n%1$s.\nEzt a kódot használd ott:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">Ez az URL jelenleg nem elérhető.</string>
   <string name="ssl_validator_title">Figyelmeztetés</string>
   <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
   <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>

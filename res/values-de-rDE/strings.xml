@@ -49,6 +49,7 @@
   <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
+  <string name="auth_register">Ist %1$s neu für Sie?</string>
   <string name="new_session_uri_error">Falsche URL angegeben</string>
   <string name="new_session_session_name_error">Falscher Sitzungsname</string>
   <string name="sync_string_files">Dateien</string>
