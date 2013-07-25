@@ -101,16 +101,17 @@
             android:onClick="onCheckClick"
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="gone" />
+            />
 
         <EditText
             android:id="@+id/oAuthEntryPoint_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textUri"
-            android:singleLine="true"
+			android:enabled="false"
             android:text="@string/oauth2_url_endpoint_auth"
+            android:singleLine="true"
+            android:inputType="textUri"
             android:visibility="gone" >
         </EditText>
 
@@ -119,9 +120,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textUri"
-            android:singleLine="true"
+			android:enabled="false"
             android:text="@string/oauth2_url_endpoint_access"
+            android:singleLine="true"
+            android:inputType="textUri"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/account_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/auth_account_name"
+            android:inputType="textNoSuggestions" 
+            android:visibility="gone" />
+        
+        <WebView
+            android:id="@+id/web_sso_view" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <EditText
@@ -130,7 +147,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/auth_username"
-            android:inputType="textNoSuggestions" />
+            android:inputType="textNoSuggestions" 
+			/>
 
 		<EditText
 		    android:id="@+id/account_password"
@@ -139,7 +157,8 @@
 		    android:drawablePadding="5dp"
 		    android:ems="10"
 		    android:hint="@string/auth_password"
-		    android:inputType="textPassword" />
+		    android:inputType="textPassword" 
+            />
         
         <TextView
             android:id="@+id/auth_status_text"

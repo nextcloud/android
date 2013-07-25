@@ -57,6 +57,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
@@ -95,13 +96,18 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_SERVER_STATUS_ICON = "SERVER_STATUS_ICON";
     private static final String KEY_IS_SSL_CONN = "IS_SSL_CONN";
     private static final String KEY_PASSWORD_VISIBLE = "PASSWORD_VISIBLE";
+    private static final String KEY_AUTH_METHOD = "AUTH_METHOD";
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
 
-    private static final String OAUTH_MODE_ON = "on";
-    private static final String OAUTH_MODE_OFF = "off";
-    private static final String OAUTH_MODE_OPTIONAL = "optional";
+    private static final String AUTH_ON = "on";
+    private static final String AUTH_OFF = "off";
+    private static final String AUTH_OPTIONAL = "optional";
+    
+    private static final int AUTH_METHOD_BASIC_HTTP = 0;
+    private static final int AUTH_METHOD_OAUTH2 = 1;
+    private static final int AUTH_METHOD_SAML_WEB_SSO = 2;
 
     private static final int DIALOG_LOGIN_PROGRESS = 0;
     private static final int DIALOG_SSL_VALIDATOR = 1;
@@ -117,6 +123,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private int mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private int mAuthStatusText, mAuthStatusIcon;    
+    private TextView mAuthStatusLayout;
 
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
@@ -132,20 +139,24 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private Account mAccount;
 
     private EditText mHostUrlInput;
+    private boolean mHostUrlInputEnabled;
     private View mRefreshButton;
+
+    private int mCurrentAuthorizationMethod;  
+    
     private EditText mUsernameInput;
     private EditText mPasswordInput;
+    
     private CheckBox mOAuth2Check;
     private String mOAuthAccessToken;
-    private View mOkButton;
-    private TextView mAuthStatusLayout;
-
+    
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
     
-    private boolean mRefreshButtonEnabled;
+    private TextView mAccountNameInput;
+    private WebView mWebSsoView;
     
-    private boolean mHostUrlInputEnabled;
+    private View mOkButton;
 
 
     /**
@@ -167,6 +178,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
+        mAccountNameInput = (EditText) findViewById(R.id.account_name);
+        mWebSsoView = (WebView) findViewById(R.id.web_sso_view);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
@@ -207,9 +220,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAuthStatusText = mAuthStatusIcon = 0;
 
             /// retrieve extras from intent
-            String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
-            boolean oAuthRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType) || OAUTH_MODE_ON.equals(getString(R.string.oauth2_mode));
-
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
                 String ocVersion = mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION);
@@ -218,12 +228,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
-                String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
-                mUsernameInput.setText(userName);
-                oAuthRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
             }
-            mOAuth2Check.setChecked(oAuthRequired);
-            changeViewByOAuth2Check(oAuthRequired);
+            initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
+            mOAuth2Check.setChecked(mCurrentAuthorizationMethod == AUTH_METHOD_OAUTH2);
             mJustCreated = true;
             
             if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
@@ -252,6 +259,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             // account data, if updating
             mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
+            mCurrentAuthorizationMethod = savedInstanceState.getInt(KEY_AUTH_METHOD, AUTH_METHOD_BASIC_HTTP);
 
             // check if server check was interrupted by a configuration change
             if (savedInstanceState.getBoolean(KEY_SERVER_CHECK_IN_PROGRESS, false)) {
@@ -264,9 +272,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         }
 
+        adaptViewAccordingToAuthenticationMethod();
         showServerStatus();
         showAuthStatus();
-
+        
         if (mAction == ACTION_UPDATE_TOKEN) {
             /// lock things that should not change
             mHostUrlInput.setEnabled(false);
@@ -280,7 +289,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
-        if (!OAUTH_MODE_OPTIONAL.equals(getString(R.string.oauth2_mode))) {
+        if (mCurrentAuthorizationMethod == AUTH_METHOD_SAML_WEB_SSO || !AUTH_OPTIONAL.equals(getString(R.string.auth_method_oauth2))) {
             mOAuth2Check.setVisibility(View.GONE);
         }
 
@@ -318,6 +327,43 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         });
     }
 
+    private void initAuthorizationMethod() {
+        boolean oAuthRequired = false;
+        boolean samlWebSsoRequired = false;
+
+        String tokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
+        mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
+        
+        if (tokenType != null) {
+            /// use the authentication method requested by caller 
+            oAuthRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(tokenType);
+            samlWebSsoRequired = AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(tokenType);
+            
+        } else if (mAccount != null) {
+            /// same authentication method than the one used to create the account to update
+            oAuthRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
+            samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null);
+            
+        } else {
+            /// use the one set in setup.xml
+            oAuthRequired = AUTH_ON.equals(getString(R.string.auth_method_oauth2));
+            samlWebSsoRequired = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));            
+        }
+        
+        if (oAuthRequired) {
+            mCurrentAuthorizationMethod = AUTH_METHOD_OAUTH2; 
+        } else if (samlWebSsoRequired) {
+            mCurrentAuthorizationMethod = AUTH_METHOD_SAML_WEB_SSO;
+        } else {
+            mCurrentAuthorizationMethod = AUTH_METHOD_BASIC_HTTP;
+        }
+
+        if (mAccount != null) {
+            String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
+            mUsernameInput.setText(userName);
+        }
+    }
+
     /**
      * Saves relevant state before {@link #onPause()}
      * 
@@ -351,9 +397,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mAccount != null) {
             outState.putParcelable(KEY_ACCOUNT, mAccount);
         }
+        outState.putInt(KEY_AUTH_METHOD, mCurrentAuthorizationMethod);
         
         // refresh button enabled
-        //outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, mRefreshButtonEnabled);
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
 
     }
@@ -383,8 +429,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     @Override
     protected void onResume() {
         super.onResume();
-        // the state of mOAuth2Check is automatically recovered between configuration changes, but not before onCreate() finishes; so keep the next lines here
-        changeViewByOAuth2Check(mOAuth2Check.isChecked());  
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
             if (mOAuth2Check.isChecked())
                 Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
@@ -1259,33 +1303,54 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param view      'View password' 'button'
      */
     public void onCheckClick(View view) {
-        CheckBox oAuth2Check = (CheckBox)view;      
-        changeViewByOAuth2Check(oAuth2Check.isChecked());
-
+        CheckBox oAuth2Check = (CheckBox)view;
+        if (oAuth2Check.isChecked()) {
+            mCurrentAuthorizationMethod = AUTH_METHOD_OAUTH2;
+        } else {
+            mCurrentAuthorizationMethod = AUTH_METHOD_BASIC_HTTP;
+        }
+        adaptViewAccordingToAuthenticationMethod();
     }
 
+    
     /**
-     * Changes the visibility of input elements depending upon the kind of authorization
-     * chosen by the user: basic or OAuth
-     * 
-     * @param checked       'True' when OAuth is selected.
+     * Changes the visibility of input elements depending on
+     * the current authorization method.
      */
-    public void changeViewByOAuth2Check(Boolean checked) {
-
-        if (checked) {
-            mOAuthAuthEndpointText.setVisibility(View.VISIBLE);
-            mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
-            mUsernameInput.setVisibility(View.GONE);
-            mPasswordInput.setVisibility(View.GONE);
-        } else {
-            mOAuthAuthEndpointText.setVisibility(View.GONE);
-            mOAuthTokenEndpointText.setVisibility(View.GONE);
-            mUsernameInput.setVisibility(View.VISIBLE);
-            mPasswordInput.setVisibility(View.VISIBLE);
-        }     
-
-    }    
-
+    private void adaptViewAccordingToAuthenticationMethod () {
+        switch (mCurrentAuthorizationMethod) { 
+            case AUTH_METHOD_OAUTH2:
+                // OAuth 2 authorization
+                mOAuthAuthEndpointText.setVisibility(View.VISIBLE);
+                mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
+                mUsernameInput.setVisibility(View.GONE);
+                mPasswordInput.setVisibility(View.GONE);
+                mAccountNameInput.setVisibility(View.GONE);
+                mWebSsoView.setVisibility(View.GONE);
+                break;
+                
+            case AUTH_METHOD_SAML_WEB_SSO:
+                // SAML-based web Single Sign On
+                mOAuthAuthEndpointText.setVisibility(View.GONE);
+                mOAuthTokenEndpointText.setVisibility(View.GONE);
+                mUsernameInput.setVisibility(View.GONE);
+                mPasswordInput.setVisibility(View.GONE);
+                mAccountNameInput.setVisibility(View.VISIBLE);
+                mWebSsoView.setVisibility(View.VISIBLE);
+                break;
+                
+            case AUTH_METHOD_BASIC_HTTP:
+            default:
+                // basic HTTP authorization
+                mOAuthAuthEndpointText.setVisibility(View.GONE);
+                mOAuthTokenEndpointText.setVisibility(View.GONE);
+                mUsernameInput.setVisibility(View.VISIBLE);
+                mPasswordInput.setVisibility(View.VISIBLE);
+                mAccountNameInput.setVisibility(View.GONE);
+                mWebSsoView.setVisibility(View.GONE);
+            }
+    }
+    
     /**
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_url"></string>
+    <bool name="show_server_url_input">true</bool>
+    
+    <!-- Flags to setup the authentication methods available in the app -->
+    <string name="auth_method_oauth2">off</string>
+    <string name="auth_method_saml_web_sso">off</string>
+    
+</resources>
