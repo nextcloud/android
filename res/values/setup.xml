@@ -5,6 +5,6 @@
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
-    <string name="auth_method_saml_web_sso">off</string>
+    <string name="auth_method_saml_web_sso">on</string>
     
 </resources>
