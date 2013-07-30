@@ -34,6 +34,7 @@ import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -57,6 +58,8 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.CookieManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -149,7 +152,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private TextView mOAuthTokenEndpointText;
     
     private TextView mAccountNameInput;
-    private WebView mWebSsoView;
+    private WebView mSsoWebView;
+    private SsoWebViewClient mWebViewClient;
     
     private View mOkButton;
 
@@ -174,7 +178,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mAccountNameInput = (EditText) findViewById(R.id.account_name);
-        mWebSsoView = (WebView) findViewById(R.id.web_sso_view);
+        mSsoWebView = (WebView) findViewById(R.id.web_sso_view);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
@@ -231,7 +235,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
                 checkOcServer(); 
             }
-
+            
         } else {
             /// connection state and info
             mServerIsValid = savedInstanceState.getBoolean(KEY_SERVER_VALID);
@@ -254,7 +258,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             // account data, if updating
             mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
-            mCurrentAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD);
+            mCurrentAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
+            if (mCurrentAuthTokenType == null) {
+                mCurrentAuthTokenType =  AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
+            }
 
             // check if server check was interrupted by a configuration change
             if (savedInstanceState.getBoolean(KEY_SERVER_CHECK_IN_PROGRESS, false)) {
@@ -291,7 +298,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         mPasswordInput.setText("");     // clean password to avoid social hacking (disadvantage: password in removed if the device is turned aside)
 
-        /// bind view elements to listeners
+        /// bind view elements to listeners and other friends
         mHostUrlInput.setOnFocusChangeListener(this);
         mHostUrlInput.addTextChangedListener(new TextWatcher() {
 
@@ -321,6 +328,23 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 return true;
             }
         });
+        
+    }
+    
+    @SuppressLint("SetJavaScriptEnabled")
+	private void initWebView() {
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(true);
+        //cookieManager.removeSessionCookie();        
+
+        mWebViewClient = new SsoWebViewClient(this);
+        mSsoWebView.setWebViewClient(mWebViewClient);
+        WebSettings webSettings = mSsoWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLoadWithOverviewMode(false);
+        webSettings.setSavePassword(false);
+        webSettings.setUserAgentString(WebdavClient.USER_AGENT);
     }
 
     private void initAuthorizationMethod() {
@@ -456,7 +480,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 getString(R.string.oauth2_grant_type),
                 queryParameters);
         //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext());
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
         operation.execute(client, this, mHandler);
     }
 
@@ -520,7 +544,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
             mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
-            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this);
+            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this, true);
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
             mServerStatusText = 0;
@@ -647,7 +671,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this);
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
         client.setBasicCredentials(username, password);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
     }
@@ -684,12 +708,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * in the server.
      */
     private void startSamlBasedFederatedSingleSignOnAuthorization() {
+        // be gentle with the user
+        mAuthStatusIcon = R.drawable.progress_small;
+        mAuthStatusText = R.string.oauth_login_connection;
+        showAuthStatus();
+        
         /// get the path to the root folder through WebDAV from the version server
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType);
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this);
+        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
     }
 
@@ -709,7 +738,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         } else if (operation instanceof ExistenceCheckOperation)  {
             if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
-                Toast.makeText(this, result.getLogMessage(), Toast.LENGTH_LONG).show();
+                if (result.isTemporalRedirection()) {
+                    String url = result.getRedirectedLocation();
+                    mWebViewClient.setTargetUrl(mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType));
+                    mSsoWebView.loadUrl(url);
+                }
                 
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckOperation)operation, result);
@@ -974,7 +1007,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mOAuthAccessToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mOAuthAccessToken);
             mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
-            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this);
+            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
             client.setBearerCredentials(mOAuthAccessToken);
             mAuthCheckOperation.execute(client, this, mHandler);
 
@@ -1338,7 +1371,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.GONE);
-            mWebSsoView.setVisibility(View.GONE);
+            mSsoWebView.setVisibility(View.GONE);
             
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
             // SAML-based web Single Sign On
@@ -1347,7 +1380,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.VISIBLE);
-            mWebSsoView.setVisibility(View.VISIBLE);
+            mSsoWebView.setVisibility(View.VISIBLE);
+            initWebView();
             
         } else {
             // basic HTTP authorization
@@ -1356,7 +1390,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.VISIBLE);
             mPasswordInput.setVisibility(View.VISIBLE);
             mAccountNameInput.setVisibility(View.GONE);
-            mWebSsoView.setVisibility(View.GONE);
+            mSsoWebView.setVisibility(View.GONE);
         }
     }
     

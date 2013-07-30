@@ -90,7 +90,7 @@ public class OwnCloudClientUtils {
         //Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
-        WebdavClient client = createOwnCloudClient(uri, appContext);
+        WebdavClient client = createOwnCloudClient(uri, appContext, true);
         AccountManager am = AccountManager.get(appContext);
         if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
             String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
@@ -109,7 +109,7 @@ public class OwnCloudClientUtils {
     
     public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
-        WebdavClient client = createOwnCloudClient(uri, appContext);
+        WebdavClient client = createOwnCloudClient(uri, appContext, true);
         AccountManager am = AccountManager.get(appContext);
         if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
             AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, null, currentActivity, null, null);
@@ -139,10 +139,7 @@ public class OwnCloudClientUtils {
      * @param context   Android context where the WebdavClient is being created.
      * @return          A WebdavClient object ready to be used
      */
-    public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        //Log_OC.d(TAG, "Creating WebdavClient for " + uri);
-        
-        //allowSelfsignedCertificates(true);
+    public static WebdavClient createOwnCloudClient(Uri uri, Context context, boolean followRedirects) {
         try {
             registerAdvancedSslContext(true, context);
         }  catch (GeneralSecurityException e) {
@@ -156,6 +153,7 @@ public class OwnCloudClientUtils {
         
         client.setDefaultTimeouts(DEFAULT_DATA_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
         client.setBaseUri(uri);
+        client.setFollowRedirects(followRedirects);
         
         return client;
     }

@@ -24,10 +24,12 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 import javax.net.ssl.SSLException;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
@@ -50,7 +52,7 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = 6106167714625712390L;
+    private static final long serialVersionUID = 3267227833178885664L;
 
     
     private static final String TAG = "RemoteOperationResult";
@@ -91,6 +93,7 @@ public class RemoteOperationResult implements Serializable {
     private int mHttpCode = -1;
     private Exception mException = null;
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
+    private String mRedirectedLocation;
 
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
@@ -127,6 +130,20 @@ public class RemoteOperationResult implements Serializable {
             }
         }
     }
+    
+    public RemoteOperationResult(boolean success, int httpCode, Header[] headers) {
+        this(success, httpCode);
+        if (headers != null) {
+            Header current;
+            for (int i=0; i<headers.length; i++) {
+                current = headers[i];
+                if ("Location".equals(current.getName())) {
+                    mRedirectedLocation = current.getValue();
+                    break;
+                }
+            }
+        }
+    }    
 
     public RemoteOperationResult(Exception e) {
         mException = e;
@@ -293,6 +310,14 @@ public class RemoteOperationResult implements Serializable {
 
     public boolean isException() {
         return (mException != null);
+    }
+
+    public boolean isTemporalRedirection() {
+        return (mHttpCode == 302 || mHttpCode == 307);
+    }
+
+    public String getRedirectedLocation() {
+        return mRedirectedLocation;
     }
 
 }

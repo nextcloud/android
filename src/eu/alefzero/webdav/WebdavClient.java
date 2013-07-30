@@ -18,34 +18,24 @@
 
 package eu.alefzero.webdav;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthPolicy;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.HeadMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpStatus;
 import org.apache.http.params.CoreProtocolPNames;
-import org.apache.jackrabbit.webdav.client.methods.DavMethod;
-import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import com.owncloud.android.Log_OC;
 
@@ -57,10 +47,10 @@ import android.net.Uri;
 public class WebdavClient extends HttpClient {
     private Uri mUri;
     private Credentials mCredentials;
+    private boolean mFollowRedirects;
     final private static String TAG = "WebdavClient";
-    private static final String USER_AGENT = "Android-ownCloud";
+    public static final String USER_AGENT = "Android-ownCloud";
     
-    private OnDatatransferProgressListener mDataTransferListener;
     static private byte[] sExhaustBuffer = new byte[1024];
     
     /**
@@ -71,6 +61,7 @@ public class WebdavClient extends HttpClient {
         Log_OC.d(TAG, "Creating WebdavClient");
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+        mFollowRedirects = true;
     }
 
     public void setBearerCredentials(String accessToken) {
@@ -105,6 +96,7 @@ public class WebdavClient extends HttpClient {
     public boolean existsFile(String path) throws IOException, HttpException {
         HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
+            head.setFollowRedirects(mFollowRedirects);
             int status = executeMethod(head);
             Log_OC.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
@@ -139,6 +131,7 @@ public class WebdavClient extends HttpClient {
             if (connectionTimeout >= 0) {
                 getHttpConnectionManager().getParams().setConnectionTimeout(connectionTimeout);
             }
+            method.setFollowRedirects(mFollowRedirects);
             return executeMethod(method);
         } finally {
             getParams().setSoTimeout(oldSoTimeout);
@@ -185,6 +178,10 @@ public class WebdavClient extends HttpClient {
 
     public final Credentials getCredentials() {
         return mCredentials;
+    }
+
+    public void setFollowRedirects(boolean followRedirects) {
+        mFollowRedirects = followRedirects;
     }
 
 }
