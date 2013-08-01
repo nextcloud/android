@@ -77,17 +77,12 @@ public class SsoWebViewClient extends WebViewClient {
     public void onReceivedError (WebView view, int errorCode, String description, String failingUrl) {
         Log_OC.e(TAG, "onReceivedError : " + failingUrl);
     }
-    
+
     /*
 
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
         Log_OC.e(TAG, "doUpdateVisitedHistory : " + url);
-    }
-    
-    @Override
-    public void onPageFinished (WebView view, String url) {
-        Log_OC.e(TAG, "onPageFinished : " + url);
     }
     
     @Override
@@ -100,6 +95,11 @@ public class SsoWebViewClient extends WebViewClient {
         Log_OC.e(TAG, "onReceivedHttpAuthRequest : " + host);
     }
 
+    @Override
+    public void onPageFinished (WebView view, String url) {
+        Log_OC.e(TAG, "onPageFinished : " + url);
+    }
+    
     @Override
     public WebResourceResponse shouldInterceptRequest (WebView view, String url) {
         Log_OC.e(TAG, "shouldInterceptRequest : " + url);

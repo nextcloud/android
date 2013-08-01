@@ -686,6 +686,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthStatusIcon = R.drawable.progress_small;
         mAuthStatusText = R.string.oauth_login_connection;
         showAuthStatus();
+        
 
         // GET AUTHORIZATION request
         //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
@@ -710,8 +711,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private void startSamlBasedFederatedSingleSignOnAuthorization() {
         // be gentle with the user
         mAuthStatusIcon = R.drawable.progress_small;
-        mAuthStatusText = R.string.oauth_login_connection;
+        mAuthStatusText = R.string.auth_connecting_auth_server;
         showAuthStatus();
+        showDialog(DIALOG_LOGIN_PROGRESS);
         
         /// get the path to the root folder through WebDAV from the version server
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType);
@@ -738,16 +740,36 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         } else if (operation instanceof ExistenceCheckOperation)  {
             if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
-                if (result.isTemporalRedirection()) {
-                    String url = result.getRedirectedLocation();
-                    mWebViewClient.setTargetUrl(mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType));
-                    mSsoWebView.loadUrl(url);
-                }
+                onSamlBasedFederatedSingleSignOnAuthorizationStart(operation, result);
                 
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckOperation)operation, result);
             }
         }
+    }
+    
+    
+    private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperation operation, RemoteOperationResult result) {
+        try {
+            dismissDialog(DIALOG_LOGIN_PROGRESS);
+        } catch (IllegalArgumentException e) {
+            // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
+        }
+
+        if (result.isTemporalRedirection()) {
+            String url = result.getRedirectedLocation();
+            mWebViewClient.setTargetUrl(mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType));
+            mSsoWebView.loadUrl(url);
+            
+            mAuthStatusIcon = android.R.drawable.ic_secure;
+            mAuthStatusText = R.string.auth_follow_auth_server;
+            
+        } else {
+            mAuthStatusIcon = R.drawable.common_error;
+            mAuthStatusText = R.string.auth_unsupported_auth_method;
+            
+        }
+        showAuthStatus();
     }
 
 
