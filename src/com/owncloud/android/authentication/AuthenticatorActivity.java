@@ -22,6 +22,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.OwnCloudServerCheckOperation;
 import com.owncloud.android.operations.ExistenceCheckOperation;
@@ -79,7 +80,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener {
+implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, SsoWebViewClientListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -146,7 +147,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private EditText mPasswordInput;
     
     private CheckBox mOAuth2Check;
-    private String mOAuthAccessToken;
     
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
@@ -156,6 +156,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private SsoWebViewClient mWebViewClient;
     
     private View mOkButton;
+    
+    private String mAuthToken;
 
 
     /**
@@ -337,7 +339,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         cookieManager.setAcceptCookie(true);
         //cookieManager.removeSessionCookie();        
 
-        mWebViewClient = new SsoWebViewClient(this);
+        mWebViewClient = new SsoWebViewClient(mHandler, this);
         mSsoWebView.setWebViewClient(mWebViewClient);
         WebSettings webSettings = mSsoWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -1026,11 +1028,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             showDialog(DIALOG_LOGIN_PROGRESS);
 
             /// time to test the retrieved access token on the ownCloud server
-            mOAuthAccessToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
-            Log_OC.d(TAG, "Got ACCESS TOKEN: " + mOAuthAccessToken);
+            mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
+            Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
             WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
-            client.setBearerCredentials(mOAuthAccessToken);
+            client.setBearerCredentials(mAuthToken);
             mAuthCheckOperation.execute(client, this, mHandler);
 
         } else {
@@ -1110,11 +1112,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
-        boolean isOAuth = mOAuth2Check.isChecked();
-        if (isOAuth) {
-            response.putString(AccountManager.KEY_AUTHTOKEN, mOAuthAccessToken);
+        
+        if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType)) { 
+            response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
-            mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
+            mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
+            
+        } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+            response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
+            // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
+            mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
+            
         } else {
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
@@ -1132,11 +1140,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      */
     private void createAccount() {
         /// create and save new ownCloud account
-        boolean isOAuth = mOAuth2Check.isChecked();
+        boolean isOAuth = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType);
+        boolean isSaml =  AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType);
 
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
-        if (isOAuth) {
+        if (isSaml) {
+            username = mAccountNameInput.getText().toString().trim();
+            
+        } else if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
         }            
         String accountName = username + "@" + uri.getHost();
@@ -1144,8 +1156,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             accountName += ":" + uri.getPort();
         }
         mAccount = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
-        if (isOAuth) {
-            mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with our implementation, the password is never input in the app
+        if (isOAuth || isSaml) {
+            mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with external authorizations, the password is never input in the app
         } else {
             mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
         }
@@ -1164,17 +1176,20 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         final Intent intent = new Intent();       
         intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,    AccountAuthenticator.ACCOUNT_TYPE);
         intent.putExtra(AccountManager.KEY_ACCOUNT_NAME,    mAccount.name);
-        if (!isOAuth)
-            intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); // TODO check this; not sure it's right; maybe
+        /*if (!isOAuth)
+            intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); */
         intent.putExtra(AccountManager.KEY_USERDATA,        username);
-        if (isOAuth) {
-            mAccountMgr.setAuthToken(mAccount, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, mOAuthAccessToken);
+        if (isOAuth || isSaml) {
+            mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
         }
         /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
         mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
         mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
-        if (isOAuth)
-            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  // TODO this flag should be unnecessary
+        if (isSaml) {
+            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
+        } else if (isOAuth) {
+            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  
+        }
 
         setAccountAuthenticatorResult(intent.getExtras());
         setResult(RESULT_OK, intent);
@@ -1480,6 +1495,29 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
 
         public abstract boolean onDrawableTouch(final MotionEvent event);
+    }
+
+
+    @Override
+    public void onSsoFinished(String sessionCookie) {
+        //Toast.makeText(this, "got cookies: " + sessionCookie, Toast.LENGTH_LONG).show();
+        
+        if (sessionCookie != null && sessionCookie.length() > 0) {
+            Log_OC.d(TAG, "Successful SSO - time to save the account");
+            mAuthToken = sessionCookie;
+            if (mAction == ACTION_CREATE) {
+                createAccount();
+
+            } else {
+                updateToken();
+            }
+
+            finish();
+
+        } else { 
+            // TODO - show fail
+            Log_OC.d(TAG, "SSO failed");
+        }
     }
 
 }

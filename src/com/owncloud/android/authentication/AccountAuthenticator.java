@@ -259,7 +259,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         if (!authTokenType.equals(AUTH_TOKEN_TYPE) &&
             !authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD) &&
             !authTokenType.equals(AUTH_TOKEN_TYPE_ACCESS_TOKEN) &&
-            !authTokenType.equals(AUTH_TOKEN_TYPE_REFRESH_TOKEN) ) {
+            !authTokenType.equals(AUTH_TOKEN_TYPE_REFRESH_TOKEN) &&
+            !authTokenType.equals(AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE)) {
             throw new UnsupportedAuthTokenTypeException();
         }
     }

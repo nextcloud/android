@@ -17,13 +17,14 @@
 
 package com.owncloud.android.authentication;
 
-import android.content.Context;
+import java.lang.ref.WeakReference;
+
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.owncloud.android.Log_OC;
 
@@ -40,11 +41,17 @@ public class SsoWebViewClient extends WebViewClient {
         
     private static final String TAG = SsoWebViewClient.class.getSimpleName();
     
-    private Context mContext;
+    public interface SsoWebViewClientListener {
+        public void onSsoFinished(String sessionCookie);
+    }
+    
+    private Handler mListenerHandler;
+    private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     
-    public SsoWebViewClient (Context context) {
-        mContext = context;
+    public SsoWebViewClient (Handler listenerHandler, SsoWebViewClientListener listener) {
+        mListenerHandler = listenerHandler;
+        mListenerRef = new WeakReference<SsoWebViewClient.SsoWebViewClientListener>(listener);
         mTargetUrl = "fake://url.to.be.set";
     }
     
@@ -62,8 +69,19 @@ public class SsoWebViewClient extends WebViewClient {
         if (url.startsWith(mTargetUrl)) {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
-            String cookies = cookieManager.getCookie(url);
-            Toast.makeText(mContext, "got cookies: " + cookies, Toast.LENGTH_LONG).show();
+            final String cookies = cookieManager.getCookie(url);
+            if (mListenerHandler != null && mListenerRef != null) {
+                // this is good idea because onPageStarted is not running in the UI thread
+                mListenerHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SsoWebViewClientListener listener = mListenerRef.get();
+                        if (listener != null) {
+                            listener.onSsoFinished(cookies);
+                        }
+                    }
+                });
+            }
         }
     }
     

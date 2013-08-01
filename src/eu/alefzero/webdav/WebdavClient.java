@@ -27,11 +27,13 @@ import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpVersion;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthPolicy;
 import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.HeadMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpStatus;
@@ -48,6 +50,7 @@ public class WebdavClient extends HttpClient {
     private Uri mUri;
     private Credentials mCredentials;
     private boolean mFollowRedirects;
+    private String mSsoSessionCookie;
     final private static String TAG = "WebdavClient";
     public static final String USER_AGENT = "Android-ownCloud";
     
@@ -62,6 +65,7 @@ public class WebdavClient extends HttpClient {
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
         mFollowRedirects = true;
+        mSsoSessionCookie = null;
     }
 
     public void setBearerCredentials(String accessToken) {
@@ -73,6 +77,7 @@ public class WebdavClient extends HttpClient {
         
         mCredentials = new BearerCredentials(accessToken);
         getState().setCredentials(AuthScope.ANY, mCredentials);
+        mSsoSessionCookie = null;
     }
 
     public void setBasicCredentials(String username, String password) {
@@ -83,7 +88,16 @@ public class WebdavClient extends HttpClient {
         getParams().setAuthenticationPreemptive(true);
         mCredentials = new UsernamePasswordCredentials(username, password);
         getState().setCredentials(AuthScope.ANY, mCredentials);
+        mSsoSessionCookie = null;
     }
+    
+    public void setSsoSessionCookie(String accessToken) {
+        getParams().setAuthenticationPreemptive(false);
+        getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
+        mSsoSessionCookie = accessToken;
+        mCredentials = null;
+    }
+    
     
     /**
      * Check if a file exists in the OC server
@@ -96,7 +110,6 @@ public class WebdavClient extends HttpClient {
     public boolean existsFile(String path) throws IOException, HttpException {
         HeadMethod head = new HeadMethod(mUri.toString() + WebdavUtils.encodePath(path));
         try {
-            head.setFollowRedirects(mFollowRedirects);
             int status = executeMethod(head);
             Log_OC.d(TAG, "HEAD to " + path + " finished with HTTP status " + status + ((status != HttpStatus.SC_OK)?"(FAIL)":""));
             exhaustResponse(head.getResponseBodyAsStream());
@@ -131,13 +144,27 @@ public class WebdavClient extends HttpClient {
             if (connectionTimeout >= 0) {
                 getHttpConnectionManager().getParams().setConnectionTimeout(connectionTimeout);
             }
-            method.setFollowRedirects(mFollowRedirects);
             return executeMethod(method);
         } finally {
             getParams().setSoTimeout(oldSoTimeout);
             getHttpConnectionManager().getParams().setConnectionTimeout(oldConnectionTimeout);
         }
     }
+    
+    
+    @Override
+    public int executeMethod(HttpMethod method) throws IOException, HttpException {
+        try {
+            method.setFollowRedirects(mFollowRedirects);
+        } catch (Exception e) {
+            
+        }
+        if (mSsoSessionCookie != null && mSsoSessionCookie.length() > 0) {
+            method.setRequestHeader("Cookie", mSsoSessionCookie);
+        }
+        return super.executeMethod(method);
+    }
+
 
     /**
      * Exhausts a not interesting HTTP response. Encouraged by HttpClient documentation.
