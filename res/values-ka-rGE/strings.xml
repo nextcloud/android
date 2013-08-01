@@ -38,7 +38,6 @@
   <string name="auth_host_url">სერვერის მისამართი</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>
-  <string name="auth_register">მე ვარ ახალი %1$s–ში</string>
   <string name="new_session_uri_error">შეყვანილ იქნა არასწორი მისამართი</string>
   <string name="new_session_session_name_error">არასწორი სესიის სახელი</string>
   <string name="sync_string_files">ფაილები</string>
@@ -79,6 +78,7 @@
   <string name="common_error">შეცდომა</string>
   <string name="common_error_unknown">უცნობი შეცდომა</string>
   <string name="about_title">ჩვენს შესახებ</string>
+  <string name="change_password">პაროლის შეცვლა</string>
   <string name="delete_account">ანგარიშის წაშლა</string>
   <string name="create_account">ანგარიშის შექმნა</string>
   <string name="upload_chooser_title">ატვირთე აქედან...</string>

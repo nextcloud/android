@@ -13,12 +13,17 @@
   <string name="main_settings">Indstillinger</string>
   <string name="main_tit_accsetup">Opsæt konto</string>
   <string name="main_wrn_accsetup">Der er ingen ownCloud konti på enheden. For at bruge denne App, skal du oprette en.</string>
+  <string name="about_android">%1$s Android App</string>
+  <string name="about_version">version %1$s</string>
+  <string name="actionbar_sync">Genindlæs konto</string>
   <string name="actionbar_upload">Upload</string>
   <string name="actionbar_upload_from_apps">Indhold fra andre apps</string>
   <string name="actionbar_upload_files">Filer</string>
+  <string name="actionbar_open_with">Åben med</string>
   <string name="actionbar_mkdir">Opret mappe</string>
   <string name="actionbar_search">Søg</string>
   <string name="actionbar_settings">Indstillinger</string>
+  <string name="actionbar_see_details">Detaljer</string>
   <string name="prefs_category_general">Generel</string>
   <string name="prefs_add_session">Tilføj ny session</string>
   <string name="prefs_create_img_thumbnails">Opret billede thumbnails</string>
@@ -35,10 +40,13 @@
   <string name="prefs_pincode_summary">Beskyt din ownCloud klient</string>
   <string name="prefs_instant_upload">Slå øjeblikkelig upload til</string>
   <string name="prefs_instant_upload_summary">Upload billeder taget med kamera med det samme</string>
+  <string name="prefs_log_title">Aktiver Logning</string>
+  <string name="prefs_log_title_history">Logger Historik</string>
+  <string name="prefs_log_delete_history_button">Slet Historik</string>
+  <string name="auth_check_server">Check Server</string>
   <string name="auth_host_url">Serveradresse</string>
   <string name="auth_username">Brugernavn</string>
   <string name="auth_password">Kodeord</string>
-  <string name="auth_register">Jeg er ny til ownCloud</string>
   <string name="new_session_uri_error">Forkert URL givet</string>
   <string name="new_session_session_name_error">Forkert session navn</string>
   <string name="sync_string_files">Filer</string>
@@ -50,6 +58,7 @@
   <string name="setup_title">Tilslut til din ownCloud</string>
   <string name="setup_btn_connect">Tilslut</string>
   <string name="uploader_btn_upload_text">Upload</string>
+  <string name="uploader_top_message">Vælg upload mappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
   <string name="uploader_wrn_no_account_text">Der er ingen ownCloud brugere på din enhed. Sæt venligst en bruger op først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Opsætning</string>
@@ -66,6 +75,7 @@
   <string name="filedetails_created">Oprettet:</string>
   <string name="filedetails_modified">Ændret:</string>
   <string name="filedetails_download">Hent</string>
+  <string name="filedetails_sync_file">Opdater fil</string>
   <string name="filedetails_redownload">Download igen</string>
   <string name="filedetails_renamed_in_upload_msg">Filen blev omdøbt til %1$s under upload</string>
   <string name="common_yes">Ja</string>
@@ -77,7 +87,10 @@
   <string name="common_save_exit">Gem &amp; Afslut</string>
   <string name="common_exit">Forlad ownCloud</string>
   <string name="common_error">Fejl</string>
+  <string name="common_loading">Indlæser...</string>
+  <string name="common_error_unknown">Ukendt fejl</string>
   <string name="about_title">Om</string>
+  <string name="change_password">Skift kodeord</string>
   <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
@@ -96,6 +109,7 @@
   <string name="downloader_download_succeeded_content">%1$s blev downloadet med success</string>
   <string name="downloader_download_failed_ticker">Download fejlede</string>
   <string name="downloader_download_failed_content">Download af %1$s kunne ikke fuldføres</string>
+  <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
   <string name="common_choose_account">Vælg konto</string>
   <string name="sync_string_contacts">Kontakter</string>
   <string name="sync_fail_ticker">Synkronisering fejlede</string>
@@ -124,6 +138,18 @@
   <string name="pincode_wrong">Forkert ownCloud App PIN</string>
   <string name="pincode_removed">ownCloud App PIN fjernet</string>
   <string name="pincode_stored">ownCloud App PIN gemt</string>
+  <string name="media_notif_ticker">%1$s musikafspiller</string>
+  <string name="media_state_playing">%1$s (afspiller)</string>
+  <string name="media_err_nothing_to_play">Mediefil ikke fundet</string>
+  <string name="media_err_unsupported">Ikke-understøttet medie codec</string>
+  <string name="media_err_io">Mediefilen kunne ikke læses</string>
+  <string name="media_err_malformed">Mediefilen er ikke korrekt kodet</string>
+  <string name="media_err_invalid_progressive_playback">Mediefilen kan ikke streames</string>
+  <string name="media_previous_description">Tidligere nummer knap</string>
+  <string name="media_rewind_description">Tilbagespolings knap</string>
+  <string name="media_play_pause_description">Afspil eller pause knap</string>
+  <string name="media_forward_description">Hurtigt fremad kanp</string>
+  <string name="media_next_description">Næste nummer knap</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minutter</item>
     <item>30 Minutter</item>
@@ -134,12 +160,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Forsøger at logge ind...</string>
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
   <string name="auth_no_net_conn_message">Der blev ikke fundet nogen netværksforbindelse, tjek din internetforbindelse, og prøv igen</string>
   <string name="auth_connect_anyway">Forbind alligevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_nossl_plain_ok_message">Applikationen kunne ikke oprette en sikker forbindelse med serveren. Selvom en sikker forbindelse ikke er tilgængeligt, kan du vælge at fortsætte eller annullere.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
+  <string name="auth_testing_connection">Afprøver forbindelse ...</string>
   <string name="auth_not_configured_title">Misdannet ownCloud konfiguration</string>
   <string name="auth_not_configured_message">Det ser ud til, at din ownCloud instans ikke er konfigureret korrekt. KOntakt din administrator for flere detaljer.</string>
   <string name="auth_unknown_error_title">Ukendt fejl opstod!</string>
@@ -155,8 +183,11 @@
   <string name="auth_bad_oc_version_title">Ikke genkendt ownCloud server version</string>
   <string name="auth_wrong_connection_title">Ikke ikke oprette forbindelse</string>
   <string name="auth_secure_connection">Sikker forbindelse oprettet</string>
+  <string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
+  <string name="auth_oauth_error_access_denied">Adgang afvist af autorisationsserver</string>
   <string name="auth_not_found">Forkert sti angivet</string>
   <string name="auth_internal">Intern serverfejl, kode %1$d</string>
+  <string name="auth_expired_basic_auth_toast">Indtast venligst dit nuværende kodeord</string>
   <string name="crashlog_message">Applikation afsluttede mod forventning. Vil du indsende en fejl rapport?</string>
   <string name="crashlog_send_report">Send rapport</string>
   <string name="crashlog_dont_send_report">Send ikke rapport</string>
@@ -183,6 +214,10 @@
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; prøv venligst anden applikation til at vælge filen</string>
   <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Login med oAuth2.</string>
+  <string name="oauth_login_connection">Forbinder til oAuth2 server...</string>
+  <string name="oauth_connection_url_unavailable">Forbindelsen til dette URL er ikke tilgængelig.</string>
   <string name="ssl_validator_title">Advarsel</string>
   <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
@@ -208,6 +243,11 @@
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
   <string name="placeholder_sentence">Dette er en pladsholder</string>
+  <string name="placeholder_filename">stedfortræder.txt</string>
+  <string name="placeholder_filetype">PNG Billede</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Upload billeder kun via WiFi </string>
   <string name="instant_upload_path">/Øjeblikkelig upload</string>
   <string name="conflict_title">Opdaterings konflikt</string>
@@ -215,6 +255,11 @@
   <string name="conflict_keep_both">Behold begge</string>
   <string name="conflict_overwrite">Overskriv</string>
   <string name="conflict_dont_upload">Upload ikke</string>
+  <string name="preview_image_description">Billede preview</string>
+  <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
+  <string name="failed_upload_all_cb">Vælg alle</string>
+  <string name="failed_upload_load_more_images">Indlæs flere billeder</string>
+  <string name="failed_upload_failure_text">Fejlmeddelelse</string>
 </resources>

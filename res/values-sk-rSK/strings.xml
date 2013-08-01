@@ -43,7 +43,6 @@
   <string name="auth_host_url">Adresa servera</string>
   <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
-  <string name="auth_register">Som nový v %1$s</string>
   <string name="new_session_uri_error">Zadaná nesprávna URL</string>
   <string name="new_session_session_name_error">Nesprávny názov sedenia</string>
   <string name="sync_string_files">Súbory</string>
@@ -86,6 +85,7 @@
   <string name="common_loading">Načítavam...</string>
   <string name="common_error_unknown">Neznáma chyba</string>
   <string name="about_title">O</string>
+  <string name="change_password">Zmeniť heslo</string>
   <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
@@ -109,7 +109,6 @@
   <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
   <string name="sync_fail_content">Synchronizáciu %1$s nemožno dokončiť</string>
-  <string name="sync_fail_content_unauthorized">Neplatné poverenia pre %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
   <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
   <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
@@ -158,14 +157,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Pokus o prihlásenie ...</string>
+  <string name="auth_trying_to_login">Pokus o pripojenie...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
   <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
   <string name="auth_nossl_plain_ok_message">Aplikácia nemôže nadviazať zabezpečené spojenie so serverom. Nezabezpečené pripojenie je k dispozícii. Môžete pokračovať alebo prerušiť spojenie.</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
-  <string name="auth_testing_connection">Testovanie pripojenia ...</string>
+  <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia ownCloud</string>
   <string name="auth_not_configured_message">Nastavenie ownCloud nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
@@ -181,7 +180,6 @@
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
-  <string name="auth_unauthorized">Neplatné poverenia</string>
   <string name="auth_oauth_error">Neúspešná autorizácia</string>
   <string name="auth_not_found">Je zadaná neplatná cesta</string>
   <string name="auth_internal">Interná chyba servera, kód %1$d</string>

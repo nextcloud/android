@@ -42,7 +42,6 @@
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
-  <string name="auth_register">Είμαι νέος στο ownCloud</string>
   <string name="new_session_uri_error">Εσφαλμένη διεύθυνση URL</string>
   <string name="new_session_session_name_error">Εσφαλμένο όνομα συνεδρίας</string>
   <string name="sync_string_files">Αρχεία</string>
@@ -85,6 +84,7 @@
   <string name="common_loading">Φόρτωση ...</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
+  <string name="change_password">Αλλαγή συνθηματικού</string>
   <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
   <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
@@ -142,12 +142,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
   <string name="auth_no_net_conn_message">Δεν ανιχνεύθηκε σύνδεση δικτύου, ελέγξτε την σύνδεση στο Internet και προσπαθήστε ξανά.</string>
   <string name="auth_connect_anyway">Συνδεθείτε παρ\' αυτά</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
   <string name="auth_nossl_plain_ok_message">Αδυναμία καθιέρωσης ασφαλούς σύνδεσης με τον διακομιστή. Παρόλο που είναι διαθέσιμη μη ασφαλή σύνδεση. Μπορείτε να συνεχίσετε ή να ακυρώσετε.</string>
   <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
+  <string name="auth_testing_connection">Έλεγχος σύνδεσης...</string>
   <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις ownCloud</string>
   <string name="auth_not_configured_message">Φαίνεται ότι το ownCloud δεν είναι σωστά ρυθμισμένο. Παρακαλώ επικοινωνήστε με τον διαχειριστή σας, για περισσότερες πληροφορίες. </string>
   <string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα</string>

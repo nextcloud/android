@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">記録している履歴</string>
   <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
   <string name="prefs_log_delete_history_button">履歴を削除</string>
+  <string name="auth_check_server">サーバーを確認する</string>
   <string name="auth_host_url">サーバアドレス</string>
   <string name="auth_username">ユーザー名</string>
   <string name="auth_password">パスワード</string>
-  <string name="auth_register">私は、ownCloudの新規ユーザーです。</string>
+  <string name="auth_register">1$sは初めてですか？</string>
   <string name="new_session_uri_error">誤ったURLです</string>
   <string name="new_session_session_name_error">誤ったセッション名です</string>
   <string name="sync_string_files">ファイル</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">読込中...</string>
   <string name="common_error_unknown">不明なエラー</string>
   <string name="about_title">ownCloudについて</string>
+  <string name="change_password">パスワードを変更</string>
   <string name="delete_account">アカウントを削除</string>
   <string name="create_account">アカウントを作成</string>
   <string name="upload_chooser_title">アップロード …</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">コンタクト</string>
   <string name="sync_fail_ticker">同期失敗</string>
   <string name="sync_fail_content">%1$s の同期が完了しませんでした。</string>
-  <string name="sync_fail_content_unauthorized">%1$sへの無効な資格情報</string>
+  <string name="sync_fail_content_unauthorized">1$sの無効なパスワード</string>
   <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
   <string name="sync_conflicts_in_favourites_content">%1$d 同期ファイルを同期できませんでした</string>
   <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">認識出来ないownCloudサーバのバージョンです</string>
   <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
   <string name="auth_secure_connection">暗号化通信を確立しました</string>
-  <string name="auth_unauthorized">無効な資格情報</string>
+  <string name="auth_unauthorized">間違ったユーザー名もしくはパスワード</string>
   <string name="auth_oauth_error">認証失敗</string>
   <string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
   <string name="auth_not_found">誤ったパスが指定されました</string>
   <string name="auth_internal">内部サーバエラー、コード %1$d</string>
   <string name="auth_wtf_reenter_URL">予期しない状態。もう一度サーバーのURLを入力してください</string>
   <string name="auth_expired_oauth_token_toast">認証の期限が切れています。\nもう一度認証してください。</string>
-  <string name="auth_expired_basic_auth_toast">保存された資格情報が無効です。\n正確な資格情報を入力してください。</string>
+  <string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
   <string name="crashlog_message">アプリケーションが予期せず終了しました。クラッシュレポートを送ってもよろしいでしょうか？</string>
   <string name="crashlog_send_report">レポートを送信</string>
   <string name="crashlog_dont_send_report">レポートを送信しない</string>

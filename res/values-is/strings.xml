@@ -21,6 +21,7 @@
   <string name="common_cancel_upload">Hætta við innsendingu</string>
   <string name="common_cancel">Hætta við</string>
   <string name="common_error"><strong>Villa</strong></string>
+  <string name="change_password">Breyta lykilorði</string>
   <string name="common_share">Deila</string>
   <string name="common_rename">Endurskýra</string>
   <string name="common_remove">Fjarlægja</string>
