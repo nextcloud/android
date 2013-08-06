@@ -44,13 +44,18 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private static String TAG = "PhotoTakenBroadcastReceiver";
     private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
-    private static String NEW_PHOTO_ACTION = "com.android.camera.NEW_PICTURE";
+    //Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
+    private static String NEW_PHOTO_ACTION_INOFFICIAL = "com.android.camera.NEW_PICTURE";
+    //Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
+    private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
+        } else if (intent.getAction().equals(NEW_PHOTO_ACTION_INOFFICIAL)) {
+            handleNewPhotoAction(context, intent);
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
             handleNewPhotoAction(context, intent);
         } else if (intent.getAction().equals(FileUploader.UPLOAD_FINISH_MESSAGE)) {
@@ -74,7 +79,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private void handleNewPhotoAction(Context context, Intent intent) {
         if (!instantUploadEnabled(context)) {
-            Log_OC.d(TAG, "Instant upload disabled, abording uploading");
+            Log_OC.d(TAG, "Instant upload disabled, aborting uploading");
             return;
         }
 
