@@ -15,7 +15,7 @@
   
   3. Building with eclipse:
 
-  -  TODO: FIX
+  -  TODO: FIX / MORE DETAILS
   -  Run "ant clean debug"
   -  Open Eclipse and import *actionbarsherlock/library* project to your workspace
   -  NOTE: You must have 'tools' and 'platforms-tools' in your path in order to run setup_env.sh
@@ -25,7 +25,7 @@
   
   -  Commit your changes locally: "git commit -a"
   -  Push your changes to your Github repo: "git push"
-  -  Browse to https://github.com/YOURGITHUBNAME/android/pulls
+  -  Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
   -  Click "Edit" and set "base:develop"
   -  Again, click "Edit" and set "compare:develop"
   -  Enter description and send pull request.
