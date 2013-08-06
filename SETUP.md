@@ -15,11 +15,13 @@
   
   3. Building with eclipse:
 
-  -  TODO: FIX / MORE DETAILS
-  -  Run "ant clean debug"
-  -  Open Eclipse and import *actionbarsherlock/library* project to your workspace
-  -  NOTE: You must have 'tools' and 'platforms-tools' in your path in order to run setup_env.sh
+  -  Open Eclipse and create new "Android Project from Existing Code". As root choose *actionbarsherlock/library*
+  -  Increase Android API level until project compiles. 14 should work. bin/library.jar needs to be created!
+  -  Import OwnCloud Android project.
+  -  Increase Android API level to 17.
+  -  Clean all projects.
   -  After those actions you should be good to go. HAVE FUN!
+  -  TODO: How to build for older devices?
   
   4. Create pull request:
   
