@@ -229,6 +229,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
+                String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
+                mUsernameInput.setText(userName);
+                mAccountNameInput.setText(userName);
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
             mOAuth2Check.setChecked(mCurrentAuthTokenType == AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN);
@@ -287,6 +290,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setEnabled(false);
             mUsernameInput.setFocusable(false);
             mOAuth2Check.setVisibility(View.GONE);
+            mAccountNameInput.setEnabled(false);
+            mAccountNameInput.setFocusable(false);
         }
         
         //if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
@@ -378,10 +383,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
         }
     
-        if (mAccount != null) {
-            String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
-            mUsernameInput.setText(userName);
-        }
     }
 
     /**
@@ -450,10 +451,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     protected void onResume() {
         super.onResume();
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
-            if (mOAuth2Check.isChecked())
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType)) {
                 Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
-            else
+                
+            } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+                Toast.makeText(this, R.string.auth_expired_saml_sso_token_toast, Toast.LENGTH_LONG).show();
+                
+            } else {
                 Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+            }
         }
 
         if (mNewCapturedUriFromOAuth2Redirection != null) {

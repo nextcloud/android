@@ -579,7 +579,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
             }
 
-            result = new RemoteOperationResult(isMultiStatus, status);
+            result = new RemoteOperationResult(isMultiStatus, status, propfind.getResponseHeaders());
             Log_OC.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
                     + result.getLogMessage());
 

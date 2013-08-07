@@ -58,6 +58,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private long mModificationTimestamp = 0;
+    private GetMethod mGet;
 
     
     public DownloadFileOperation(Account account, OCFile file) {
@@ -154,7 +155,7 @@ public class DownloadFileOperation extends RemoteOperation {
             if (!moved)
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
             else
-                result = new RemoteOperationResult(isSuccess(status), status);
+                result = new RemoteOperationResult(isSuccess(status), status, (mGet != null ? mGet.getResponseHeaders() : null));
             Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {
@@ -174,15 +175,15 @@ public class DownloadFileOperation extends RemoteOperation {
     protected int downloadFile(WebdavClient client, File targetFile) throws HttpException, IOException, OperationCancelledException {
         int status = -1;
         boolean savedFile = false;
-        GetMethod get = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
+        mGet = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
         Iterator<OnDatatransferProgressListener> it = null;
         
         FileOutputStream fos = null;
         try {
-            status = client.executeMethod(get);
+            status = client.executeMethod(mGet);
             if (isSuccess(status)) {
                 targetFile.createNewFile();
-                BufferedInputStream bis = new BufferedInputStream(get.getResponseBodyAsStream());
+                BufferedInputStream bis = new BufferedInputStream(mGet.getResponseBodyAsStream());
                 fos = new FileOutputStream(targetFile);
                 long transferred = 0;
 
@@ -191,7 +192,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 while ((readResult = bis.read(bytes)) != -1) {
                     synchronized(mCancellationRequested) {
                         if (mCancellationRequested.get()) {
-                            get.abort();
+                            mGet.abort();
                             throw new OperationCancelledException();
                         }
                     }
@@ -205,14 +206,14 @@ public class DownloadFileOperation extends RemoteOperation {
                     }
                 }
                 savedFile = true;
-                Header modificationTime = get.getResponseHeader("Last-Modified");
+                Header modificationTime = mGet.getResponseHeader("Last-Modified");
                 if (modificationTime != null) {
                     Date d = WebdavUtils.parseResponseDate((String) modificationTime.getValue());
                     mModificationTimestamp = (d != null) ? d.getTime() : 0;
                 }
                 
             } else {
-                client.exhaustResponse(get.getResponseBodyAsStream());
+                client.exhaustResponse(mGet.getResponseBodyAsStream());
             }
                 
         } finally {
@@ -220,7 +221,7 @@ public class DownloadFileOperation extends RemoteOperation {
             if (!savedFile && targetFile.exists()) {
                 targetFile.delete();
             }
-            get.releaseConnection();    // let the connection available for other methods
+            mGet.releaseConnection();    // let the connection available for other methods
         }
         return status;
     }

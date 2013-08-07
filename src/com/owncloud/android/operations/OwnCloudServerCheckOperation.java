@@ -80,7 +80,7 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
                 }
                 
             } else {
-                mLatestResult = new RemoteOperationResult(false, status);
+                mLatestResult = new RemoteOperationResult(false, status, get.getResponseHeaders());
             }
 
         } catch (JSONException e) {

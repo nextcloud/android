@@ -211,6 +211,7 @@
     <string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
     <string name="auth_expired_oauth_token_toast">Your authorization expired.\nPlease, authorize again</string>
     <string name="auth_expired_basic_auth_toast">Please, enter the current password</string>
+    <string name="auth_expired_saml_sso_token_toast">Your session expired.\nPlease, authenticate again</string>
 	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
 	<string name="auth_follow_auth_server">Follow instructions above to get authenticated</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    
