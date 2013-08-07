@@ -100,7 +100,7 @@ public class RemoteOperationResult implements Serializable {
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
     }
 
-    public RemoteOperationResult(boolean success, int httpCode) {
+    private RemoteOperationResult(boolean success, int httpCode) {
         mSuccess = success;
         mHttpCode = httpCode;
 

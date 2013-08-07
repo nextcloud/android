@@ -242,10 +242,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
                             
                 } else {
-                    result = new RemoteOperationResult(true, status);
+                    result = new RemoteOperationResult(true, status, query.getResponseHeaders());
                 }
             } else {
-                result = new RemoteOperationResult(false, status);
+                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
             }
             
             

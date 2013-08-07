@@ -206,6 +206,10 @@ public class WebdavClient extends HttpClient {
     public final Credentials getCredentials() {
         return mCredentials;
     }
+    
+    public final String getSsoSessionCookie() {
+        return mSsoSessionCookie;
+    }
 
     public void setFollowRedirects(boolean followRedirects) {
         mFollowRedirects = followRedirects;
