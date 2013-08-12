@@ -231,7 +231,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mHostUrlInput.setText(mHostBaseUrl);
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
-            mOAuth2Check.setChecked(mCurrentAuthTokenType == AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN);
             mJustCreated = true;
             
             if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
@@ -263,6 +262,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mCurrentAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
             if (mCurrentAuthTokenType == null) {
                 mCurrentAuthTokenType =  AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
+                
+            } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+                restoreWebView(savedInstanceState);
             }
 
             // check if server check was interrupted by a configuration change
@@ -293,7 +295,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
-        if (mCurrentAuthTokenType == AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE || 
+        if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType) || 
                 !AUTH_OPTIONAL.equals(getString(R.string.auth_method_oauth2))) {
             mOAuth2Check.setVisibility(View.GONE);
         }
@@ -337,12 +339,31 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 	private void initWebView() {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
-        //cookieManager.removeSessionCookie();        
+        cookieManager.removeAllCookie();
 
         mWebViewClient = new SsoWebViewClient(mHandler, this);
         mSsoWebView.setWebViewClient(mWebViewClient);
         WebSettings webSettings = mSsoWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLoadWithOverviewMode(false);
+        webSettings.setSavePassword(false);
+        webSettings.setUserAgentString(WebdavClient.USER_AGENT);
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private void restoreWebView(Bundle savedInstanceState) {
+        mSsoWebView.restoreState(savedInstanceState);
+        
+        CookieManager cookieManager = CookieManager.getInstance();
+        Log_OC.e(TAG, "Accept Cookie: " + cookieManager.acceptCookie());
+
+        mWebViewClient = new SsoWebViewClient(mHandler, this);
+        mSsoWebView.setWebViewClient(mWebViewClient);
+        mWebViewClient.setTargetUrl(mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType));
+        
+        WebSettings webSettings = mSsoWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);     // at least this one is not being kept by WebView#restoreState
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLoadWithOverviewMode(false);
         webSettings.setSavePassword(false);
@@ -382,6 +403,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
             mUsernameInput.setText(userName);
         }
+        
+        if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+            initWebView();
+        }
+        mOAuth2Check.setChecked(AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType));
+        
     }
 
     /**
@@ -418,6 +445,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             outState.putParcelable(KEY_ACCOUNT, mAccount);
         }
         outState.putString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE, mCurrentAuthTokenType);
+        if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+            mSsoWebView.saveState(outState);
+        }
         
         // refresh button enabled
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
@@ -1418,7 +1448,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.VISIBLE);
             mSsoWebView.setVisibility(View.VISIBLE);
-            initWebView();
             
         } else {
             // basic HTTP authorization
