@@ -791,7 +791,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             Notification finalNotification = new Notification(R.drawable.icon,
                     getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            if (uploadResult.getCode() == ResultCode.UNAUTHORIZED) {
+            if (uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
+                    (uploadResult.isTemporalRedirection() && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mUploadClient.getAuthTokenType()))) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount());

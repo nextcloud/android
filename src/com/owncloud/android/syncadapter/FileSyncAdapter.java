@@ -28,6 +28,7 @@ import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -223,7 +224,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             sendStickyBroadcast(true, remotePath, null);
             
         } else {
-            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
+            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
+                    (result.isTemporalRedirection() && getClient().getSsoSessionCookie() != null)) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -304,7 +306,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        boolean needsToUpdateCredentials = (mLastFailedResult != null && mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED);
+        boolean needsToUpdateCredentials = (mLastFailedResult != null && 
+                                             (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                                (mLastFailedResult.isTemporalRedirection() && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
+                                             )
+                                           );
         // TODO put something smart in the contentIntent below for all the possible errors
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
         if (needsToUpdateCredentials) {
