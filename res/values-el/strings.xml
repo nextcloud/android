@@ -53,6 +53,7 @@
   <string name="setup_title">Σύνδεση στο ownCloud σας</string>
   <string name="setup_btn_connect">Σύνδεση</string>
   <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
+  <string name="uploader_top_message">Επιλέξτε κατάλογο ανεβάσματος</string>
   <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
   <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί ownCloud στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
