@@ -33,7 +33,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -53,6 +52,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.ExistenceCheckOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -75,7 +75,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener {
+implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, SsoWebViewClientListener{
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -226,7 +226,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mHostUrlInput.setText(mHostBaseUrl);
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
-            mOAuth2Check.setChecked(mCurrentAuthTokenType == AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN);
             mJustCreated = true;
             
             if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
@@ -258,6 +257,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mCurrentAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
             if (mCurrentAuthTokenType == null) {
                 mCurrentAuthTokenType =  AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
+                
             }
 
             // check if server check was interrupted by a configuration change
@@ -288,7 +288,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
-        if (mCurrentAuthTokenType == AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE || 
+        if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType) || 
                 !AUTH_OPTIONAL.equals(getString(R.string.auth_method_oauth2))) {
             mOAuth2Check.setVisibility(View.GONE);
         }
@@ -326,17 +326,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
         });
         
-//        FragmentManager fm = getSupportFragmentManager();
-//
-//     // try to find searching by tag name
-//      mSamlDialog = (SamlWebViewDialog) fm.findFragmentByTag(TAG_SAML_DIALOG);
-//
-//     if (mSamlDialog != null) {
-//         mSamlDialog.show(fm, TAG_SAML_DIALOG);
-//         Log_OC.d(TAG_SAML_DIALOG,  "mSamlDialog not null");
-//     }
     }
     
+   
 
     private void initAuthorizationMethod() {
         boolean oAuthRequired = false;
@@ -371,6 +363,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
             mUsernameInput.setText(userName);
         }
+        
+        mOAuth2Check.setChecked(AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType));
+        
     }
 
     /**
@@ -452,15 +447,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         mJustCreated = false;
         
-
-        // try to find searching by tag name
-//        FragmentManager fm = getSupportFragmentManager();
-//         mSamlDialog = (SamlWebViewDialog) fm.findFragmentByTag(TAG_SAML_DIALOG);
-//
-//        if (mSamlDialog != null) {
-//         //   mSamlDialog.show(fm, TAG_SAML_DIALOG);
-//            mSamlDialog.setRetainInstance(true);
-//        }
     }
 
 
@@ -763,7 +749,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             String targetUrl = mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType);
             
             // Show dialog
-            mSamlDialog = SamlWebViewDialog.newInstance(mHandler, url, targetUrl);            
+            mSamlDialog = SamlWebViewDialog.newInstance(url, targetUrl);            
             mSamlDialog.show(getSupportFragmentManager(), TAG_SAML_DIALOG);
             
             mAuthStatusIcon = android.R.drawable.ic_secure;
@@ -1419,7 +1405,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.VISIBLE);
-            
         } else {
             // basic HTTP authorization
             mOAuthAuthEndpointText.setVisibility(View.GONE);
@@ -1514,5 +1499,24 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
       }
     }
+
+
+
+    @Override
+    public void onSsoFinished(String sessionCookie) {
+        //Toast.makeText(this, "got cookies: " + sessionCookie, Toast.LENGTH_LONG).show();
+
+        if (sessionCookie != null && sessionCookie.length() > 0) {
+            Log_OC.d(TAG, "Successful SSO - time to save the account");
+            onSamlDialogSuccess(sessionCookie);
+            finish();
+
+        } else { 
+            // TODO - show fail
+            Log_OC.d(TAG, "SSO failed");
+        }
+    }
+    
+    
 
 }
