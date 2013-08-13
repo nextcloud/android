@@ -18,24 +18,8 @@
 
 package com.owncloud.android.authentication;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.ui.dialog.SslValidatorDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
-import com.owncloud.android.utils.OwnCloudVersion;
-import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.OwnCloudServerCheckOperation;
-import com.owncloud.android.operations.ExistenceCheckOperation;
-import com.owncloud.android.operations.OAuth2GetAccessToken;
-import com.owncloud.android.operations.OnRemoteOperationListener;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-
 import android.accounts.Account;
-import android.accounts.AccountAuthenticatorActivity;
 import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -49,6 +33,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -59,17 +44,27 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
-import android.webkit.CookieManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
+import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.ExistenceCheckOperation;
+import com.owncloud.android.operations.OAuth2GetAccessToken;
+import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.operations.OwnCloudServerCheckOperation;
+import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.ui.dialog.SamlWebViewDialog;
+import com.owncloud.android.ui.dialog.SslValidatorDialog;
+import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -80,7 +75,7 @@ import eu.alefzero.webdav.WebdavClient;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, SsoWebViewClientListener {
+implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -116,6 +111,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
 
+    private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
+    
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
@@ -152,8 +149,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private TextView mOAuthTokenEndpointText;
     
     private TextView mAccountNameInput;
-    private WebView mSsoWebView;
-    private SsoWebViewClient mWebViewClient;
+    private SamlWebViewDialog mSamlDialog;
     
     private View mOkButton;
     
@@ -180,7 +176,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mAccountNameInput = (EditText) findViewById(R.id.account_name);
-        mSsoWebView = (WebView) findViewById(R.id.web_sso_view);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
@@ -331,23 +326,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
         });
         
+//        FragmentManager fm = getSupportFragmentManager();
+//
+//     // try to find searching by tag name
+//      mSamlDialog = (SamlWebViewDialog) fm.findFragmentByTag(TAG_SAML_DIALOG);
+//
+//     if (mSamlDialog != null) {
+//         mSamlDialog.show(fm, TAG_SAML_DIALOG);
+//         Log_OC.d(TAG_SAML_DIALOG,  "mSamlDialog not null");
+//     }
     }
     
-    @SuppressLint("SetJavaScriptEnabled")
-	private void initWebView() {
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.setAcceptCookie(true);
-        //cookieManager.removeSessionCookie();        
-
-        mWebViewClient = new SsoWebViewClient(mHandler, this);
-        mSsoWebView.setWebViewClient(mWebViewClient);
-        WebSettings webSettings = mSsoWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setLoadWithOverviewMode(false);
-        webSettings.setSavePassword(false);
-        webSettings.setUserAgentString(WebdavClient.USER_AGENT);
-    }
 
     private void initAuthorizationMethod() {
         boolean oAuthRequired = false;
@@ -421,6 +410,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         // refresh button enabled
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
+        
 
     }
 
@@ -461,6 +451,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
 
         mJustCreated = false;
+        
+
+        // try to find searching by tag name
+//        FragmentManager fm = getSupportFragmentManager();
+//         mSamlDialog = (SamlWebViewDialog) fm.findFragmentByTag(TAG_SAML_DIALOG);
+//
+//        if (mSamlDialog != null) {
+//         //   mSamlDialog.show(fm, TAG_SAML_DIALOG);
+//            mSamlDialog.setRetainInstance(true);
+//        }
     }
 
 
@@ -757,11 +757,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         } catch (IllegalArgumentException e) {
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
-
+        
         if (result.isTemporalRedirection()) {
             String url = result.getRedirectedLocation();
-            mWebViewClient.setTargetUrl(mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType));
-            mSsoWebView.loadUrl(url);
+            String targetUrl = mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType);
+            
+            // Show dialog
+            mSamlDialog = SamlWebViewDialog.newInstance(mHandler, url, targetUrl);            
+            mSamlDialog.show(getSupportFragmentManager(), TAG_SAML_DIALOG);
             
             mAuthStatusIcon = android.R.drawable.ic_secure;
             mAuthStatusText = R.string.auth_follow_auth_server;
@@ -1408,7 +1411,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.GONE);
-            mSsoWebView.setVisibility(View.GONE);
             
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
             // SAML-based web Single Sign On
@@ -1417,8 +1419,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             mAccountNameInput.setVisibility(View.VISIBLE);
-            mSsoWebView.setVisibility(View.VISIBLE);
-            initWebView();
             
         } else {
             // basic HTTP authorization
@@ -1427,7 +1427,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setVisibility(View.VISIBLE);
             mPasswordInput.setVisibility(View.VISIBLE);
             mAccountNameInput.setVisibility(View.GONE);
-            mSsoWebView.setVisibility(View.GONE);
         }
     }
     
@@ -1498,26 +1497,22 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
 
-    @Override
-    public void onSsoFinished(String sessionCookie) {
-        //Toast.makeText(this, "got cookies: " + sessionCookie, Toast.LENGTH_LONG).show();
+    public void onSamlDialogSuccess(String sessionCookie){
+        mAuthToken = sessionCookie;
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
-            Log_OC.d(TAG, "Successful SSO - time to save the account");
-            mAuthToken = sessionCookie;
-            if (mAction == ACTION_CREATE) {
-                createAccount();
+          Log_OC.d(TAG, "Successful SSO - time to save the account");
+          mAuthToken = sessionCookie;
+          if (mAction == ACTION_CREATE) {
+              createAccount();
 
-            } else {
-                updateToken();
-            }
+          } else {
+              updateToken();
+          }
 
-            finish();
+          finish();
 
-        } else { 
-            // TODO - show fail
-            Log_OC.d(TAG, "SSO failed");
-        }
+      }
     }
 
 }
