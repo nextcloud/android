@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Logi ajalugu</string>
   <string name="prefs_log_summary_history">See näitab salvestatud logisid</string>
   <string name="prefs_log_delete_history_button">Kustuta ajaludu</string>
+  <string name="auth_check_server">Kontrolli serverit</string>
   <string name="auth_host_url">Serveri aadress</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
-  <string name="auth_register">Olen uus ownCloudi kasutaja</string>
+  <string name="auth_register">Uus %1$s kasutaja?</string>
   <string name="new_session_uri_error">Anti vale URL</string>
   <string name="new_session_session_name_error">Vale sessiooni nimi</string>
   <string name="sync_string_files">Failid</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Laadin ...</string>
   <string name="common_error_unknown">Tundmatu viga</string>
   <string name="about_title">Info</string>
+  <string name="change_password">Muuda parooli</string>
   <string name="delete_account">Kustuta konto</string>
   <string name="create_account">Loo konto</string>
   <string name="upload_chooser_title">Lae fail üles kohast ...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Kontaktid</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
-  <string name="sync_fail_content_unauthorized">Vigased kasutajaandmed %1$s jaoks</string>
+  <string name="sync_fail_content_unauthorized">Vigane parool %1$s jaoks</string>
   <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
   <string name="sync_conflicts_in_favourites_content">%1$d sünkroniseeritavad faile ei suudeta sünkroniseerida</string>
   <string name="sync_fail_in_favourites_ticker">Sünkroniseeritavad failid ebaõnnestusid</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Tundmatu ownCloud serveri versioon</string>
   <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
   <string name="auth_secure_connection">Saavutati turvaline ühendus</string>
-  <string name="auth_unauthorized">Vigased kasutajaandmed</string>
+  <string name="auth_unauthorized">Vale kasutajanimi või parool</string>
   <string name="auth_oauth_error">Autoriseerimine ebaõnnestus</string>
   <string name="auth_oauth_error_access_denied">Ligipääs keelatud autoriseeriva serveri poolt</string>
   <string name="auth_not_found">Sisestati vale asukoht</string>
   <string name="auth_internal">Sisemine serveri viga, kood %1$d</string>
   <string name="auth_wtf_reenter_URL">Ootamatu seisund; palun sisesta serveri URL uuesti</string>
   <string name="auth_expired_oauth_token_toast">Sinu autoriseering on aegunud.⏎\nPalun autoriseeri uuesti</string>
-  <string name="auth_expired_basic_auth_toast">Sinu salvestatud kasutajaandmed pole korrektsed.⏎\nPalun sisesta uued konto andmed.</string>
+  <string name="auth_expired_basic_auth_toast">Palun sisesta kehtiv parool</string>
   <string name="crashlog_message">Rakdnus suleti ootamatult. Kas sa sooviksid saata kokkujooksmise kohta teavitust arendajale?</string>
   <string name="crashlog_send_report">Saada veateade</string>
   <string name="crashlog_dont_send_report">Ära saada veateadet</string>

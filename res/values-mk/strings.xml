@@ -50,6 +50,7 @@
   <string name="common_cancel_upload">Откажи прикачување</string>
   <string name="common_cancel">Откажи</string>
   <string name="common_error">Грешка</string>
+  <string name="change_password">Смени лозинка</string>
   <string name="sync_string_contacts">Контакти</string>
   <string name="common_share">Сподели</string>
   <string name="common_rename">Преименувај</string>

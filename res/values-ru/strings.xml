@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Записывать историю</string>
   <string name="prefs_log_summary_history">Здесь показаны журналы</string>
   <string name="prefs_log_delete_history_button">Удалить историю</string>
+  <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера</string>
   <string name="auth_username">Пользователь</string>
   <string name="auth_password">Пароль</string>
-  <string name="auth_register">Я новичёк в ownCloud</string>
+  <string name="auth_register">Впервые с %1$s?</string>
   <string name="new_session_uri_error">Дана неверная ссылка</string>
   <string name="new_session_session_name_error">Неверное имя сессии</string>
   <string name="sync_string_files">Файлы</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Загружается...</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
+  <string name="change_password">Сменить пароль</string>
   <string name="delete_account">Удалить аккаунт</string>
   <string name="create_account">Создать аккаунт</string>
   <string name="upload_chooser_title">Загрузить из...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Контакты</string>
   <string name="sync_fail_ticker">Синхронизация прошла неудачно</string>
   <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
-  <string name="sync_fail_content_unauthorized">Неверные учётные данные для %1$s</string>
+  <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
   <string name="sync_conflicts_in_favourites_content">%1$d файлы, которые должны быть синхронизированными не могут синхронизироваться</string>
   <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
@@ -172,14 +174,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Попытка авторизации...</string>
+  <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
   <string name="auth_no_net_conn_message">Сетевое соединение не обнаружено , проверьте соединение с Интернет и попробуйте ещё раз.</string>
   <string name="auth_connect_anyway">Соединить всё равно</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_nossl_plain_ok_message">Приложение не может установить защищённое соединение с сервером. Однако доступно не защищённое соединение. Вы можете продолжить или прервать.</string>
   <string name="auth_connection_established">Соединение установлено</string>
-  <string name="auth_testing_connection">Проверка соединения...</string>
+  <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация ownCloud</string>
   <string name="auth_not_configured_message">Похоже что ваш экземпляр ownCloud не был корректно сконфигурирован. Обратитесь за деталями к вашему администратору.</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера ownCloud</string>
   <string name="auth_wrong_connection_title">Невозможно установить соединение</string>
   <string name="auth_secure_connection">Защищённое соединение установлено</string>
-  <string name="auth_unauthorized">Неверные учётные данные</string>
+  <string name="auth_unauthorized">Неверное имя пользователя или пароль</string>
   <string name="auth_oauth_error">Ошибка авторизации</string>
   <string name="auth_oauth_error_access_denied">Сервер отказал в доступе</string>
   <string name="auth_not_found">Указан неверный путь</string>
   <string name="auth_internal">Внутренняя ошибка сервера, код %1$d</string>
   <string name="auth_wtf_reenter_URL">Неожиданный ответ; пожалуйста, введите адрес сервера ещё раз</string>
   <string name="auth_expired_oauth_token_toast">Закончился срок действия сессии. Пожалуйста, авторизуйтесь заново</string>
-  <string name="auth_expired_basic_auth_toast">Ваши сохранённые учётные данные неверны. Пожалуйста, введите их заново</string>
+  <string name="auth_expired_basic_auth_toast">Пожалуйста, введите пароль</string>
   <string name="crashlog_message">Приложение завершилось неожиданно. Хотите отправить аварийный отчёт?</string>
   <string name="crashlog_send_report">Отправить отчёт</string>
   <string name="crashlog_dont_send_report">Не отправлять отчёт</string>

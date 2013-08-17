@@ -34,14 +34,21 @@ public class AccountUtilsTest extends AndroidTestCase {
         OwnCloudVersion ocv45 = new OwnCloudVersion(0x040500);
         OwnCloudVersion ocv70 = new OwnCloudVersion(0x070000);
 
-        assertTrue(AccountUtils.getWebdavPath(ocv12).equals("/webdav/owncloud.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv12s).equals("/webdav/owncloud.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv22).equals("/files/webdav.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv30).equals("/files/webdav.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv33s).equals("/files/webdav.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv45).equals("/remote.php/webdav"));
-        assertTrue(AccountUtils.getWebdavPath(ocv70).equals("/remote.php/webdav"));
-        assertNull(AccountUtils.getWebdavPath(null));
+        assertTrue(AccountUtils.getWebdavPath(ocv12, false).equals("/webdav/owncloud.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv12s, false).equals("/webdav/owncloud.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv22, false).equals("/files/webdav.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv30,false).equals("/files/webdav.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv33s, false).equals("/files/webdav.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv45, false).equals("/remote.php/webdav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv70, false).equals("/remote.php/webdav"));
+        assertNull(AccountUtils.getWebdavPath(null, false));
+        assertTrue(AccountUtils.getWebdavPath(ocv12, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv12s, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv22, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv30, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv33s, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv45, true).equals("/remote.php/odav"));
+        assertTrue(AccountUtils.getWebdavPath(ocv70, true).equals("/remote.php/odav"));
 
         OwnCloudVersion invalidVer = new OwnCloudVersion("a.b.c");
         assertFalse(invalidVer.isVersionValid());

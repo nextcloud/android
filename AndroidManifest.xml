@@ -18,8 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="104003"
-    android:versionName="1.4.3" xmlns:android="http://schemas.android.com/apk/res/android">
+    android:versionCode="104004"
+    android:versionName="1.4.4" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -163,7 +163,10 @@
         
         <receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
+                <!-- unofficially supported by many Android phones but not by HTC devices: -->
                 <action android:name="com.android.camera.NEW_PICTURE" />
+                <!-- officially supported since Android 4.0 (SDK 14, works even for HTC devices): --> 
+                <action android:name="android.hardware.action.NEW_PICTURE" />
                 <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>

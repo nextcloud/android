@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Historia del Registro</string>
   <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
   <string name="prefs_log_delete_history_button">Eliminar Historial</string>
+  <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
-  <string name="auth_register">Soy nuevo en %1$s</string>
+  <string name="auth_register">¿Sos nuevo para %1$s?</string>
   <string name="new_session_uri_error">La URL es incorrecta</string>
   <string name="new_session_session_name_error">Nombre de sesión equivocado</string>
   <string name="sync_string_files">Archivos</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>
   <string name="about_title">Acerca de</string>
+  <string name="change_password">Cambiar contraseña</string>
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir desde ...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Error en la sincronización</string>
   <string name="sync_fail_content">No se pudo completar la sincronización de %1$s </string>
-  <string name="sync_fail_content_unauthorized">Credenciales inválidas para %1$s</string>
+  <string name="sync_fail_content_unauthorized">Contraseña no válida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
   <string name="sync_conflicts_in_favourites_content">No se pudieron sincronizar %1$d archivos</string>
   <string name="sync_fail_in_favourites_ticker">Fallo la sincronización de archivos</string>
@@ -172,7 +174,7 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Intentando iniciar sesión...</string>
+  <string name="auth_trying_to_login">Intentado iniciar sesión...</string>
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
   <string name="auth_no_net_conn_message">No se ha detectado una conexión de red, revisá tu conexión a internet e intentá nuevamente.</string>
   <string name="auth_connect_anyway">Conectar de todos modos</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">No es posible reconocer la versión del servidor</string>
   <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
   <string name="auth_secure_connection">Conexión segura establecida</string>
-  <string name="auth_unauthorized">Credenciales inválidas</string>
+  <string name="auth_unauthorized">Nombre de usuario o contraseña no válidas</string>
   <string name="auth_oauth_error">Autorización no satisfactoria</string>
   <string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
   <string name="auth_not_found">Ruta incorrecta</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introducí la URL del servidor de nuevo</string>
   <string name="auth_expired_oauth_token_toast">Tu autorización expiró. Por favor, autorizá de nuevo</string>
-  <string name="auth_expired_basic_auth_toast">Tus credenciales guardadas son inválidas. Por favor, introducí tus credenciales actuales</string>
+  <string name="auth_expired_basic_auth_toast">Por favor, ingresá tu contraseña actual</string>
   <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Querés mandar un reporte de error?</string>
   <string name="crashlog_send_report">Enviar reporte</string>
   <string name="crashlog_dont_send_report">No enviar reporte</string>

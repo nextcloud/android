@@ -18,6 +18,7 @@
   <string name="common_cancel">Cancellar</string>
   <string name="common_error">Error</string>
   <string name="common_error_unknown">Error Incognite</string>
+  <string name="change_password">Cambiar contrasigno</string>
   <string name="sync_string_contacts">Contactos</string>
   <string name="common_share">Compartir</string>
   <!--we need to improve the communication of errors to the user-->

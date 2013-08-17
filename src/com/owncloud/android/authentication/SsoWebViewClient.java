@@ -21,12 +21,12 @@ import java.lang.ref.WeakReference;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.owncloud.android.Log_OC;
 
 /**
  * Custom {@link WebViewClient} client aimed to catch the end of a single-sign-on process 
@@ -39,7 +39,7 @@ import com.owncloud.android.Log_OC;
  */
 public class SsoWebViewClient extends WebViewClient {
         
-    private static final String TAG = SsoWebViewClient.class.getSimpleName();
+    //private static final String TAG = SsoWebViewClient.class.getSimpleName();
     
     public interface SsoWebViewClientListener {
         public void onSsoFinished(String sessionCookie);
@@ -70,6 +70,7 @@ public class SsoWebViewClient extends WebViewClient {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
             final String cookies = cookieManager.getCookie(url);
+            //Log_OC.e(TAG, cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageStarted is not running in the UI thread
                 mListenerHandler.post(new Runnable() {
@@ -86,6 +87,15 @@ public class SsoWebViewClient extends WebViewClient {
     }
     
     @Override
+    public void onFormResubmission (WebView view, Message dontResend, Message resend) {
+        //Log_OC.e(TAG, "onFormResubMission ");
+        
+        // necessary to grant reload of last page when device orientation is changed after sending a form
+        resend.sendToTarget();  
+    }
+
+    /*
+    @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         //view.loadUrl(url);
         return false;
@@ -95,8 +105,6 @@ public class SsoWebViewClient extends WebViewClient {
     public void onReceivedError (WebView view, int errorCode, String description, String failingUrl) {
         Log_OC.e(TAG, "onReceivedError : " + failingUrl);
     }
-
-    /*
 
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
@@ -130,12 +138,6 @@ public class SsoWebViewClient extends WebViewClient {
     }
     
     @Override
-    public void onFormResubmission (WebView view, Message dontResend, Message resend) {
-        Log_OC.e(TAG, "onFormResubMission ");
-        super.onFormResubmission(view, dontResend, resend);
-    }
-    
-    @Override
     public void onReceivedLoginRequest (WebView view, String realm, String account, String args) {
         Log_OC.e(TAG, "onReceivedLoginRequest : " + realm + ", " + account + ", " + args);
     }
@@ -155,6 +157,6 @@ public class SsoWebViewClient extends WebViewClient {
         Log_OC.e(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
-    
     */
+    
 }

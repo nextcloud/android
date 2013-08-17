@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Història del registre</string>
   <string name="prefs_log_summary_history">Això mostra els registres desats</string>
   <string name="prefs_log_delete_history_button">Esborra la història</string>
+  <string name="auth_check_server">Comprova el servidor</string>
   <string name="auth_host_url">Adreça del servidor</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
-  <string name="auth_register">Sóc nou a ownCloud</string>
+  <string name="auth_register">Nou a %1$s?</string>
   <string name="new_session_uri_error">La URL proporcionada és incorrecta</string>
   <string name="new_session_session_name_error">El nom de la sessió no és correcte</string>
   <string name="sync_string_files">Fitxers</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Carregant...</string>
   <string name="common_error_unknown">Error desconegut</string>
   <string name="about_title">Quant a</string>
+  <string name="change_password">Canvia la contrasenya</string>
   <string name="delete_account">Elimina compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Puja fitxer des de ...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Contactes</string>
   <string name="sync_fail_ticker">La sincronització ha fallat</string>
   <string name="sync_fail_content">La sincronització de %1$s no s\'ha pogut acabar</string>
-  <string name="sync_fail_content_unauthorized">Credencials no vàlides per %1$s</string>
+  <string name="sync_fail_content_unauthorized">Contrasenya no vàlida per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
   <string name="sync_conflicts_in_favourites_content">%1$d mantinguts els arxius que no podien ser sincronitzats</string>
   <string name="sync_fail_in_favourites_ticker">Es mantenent els arxius a sincronitzar erronis</string>
@@ -172,14 +174,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Intentant l\'accés...</string>
+  <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
   <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
   <string name="auth_connect_anyway">Connecta igualment</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
   <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
-  <string name="auth_testing_connection">Comprovant la connexió...</string>
+  <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració de ownCloud està malformada</string>
   <string name="auth_not_configured_message">Sembla que la instància ownCloud no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Versió del servidor ownCloud desconeguda</string>
   <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
   <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
-  <string name="auth_unauthorized">Credencials no vàlides</string>
+  <string name="auth_unauthorized">Nom d\'usuari o contrasenya incorrectes</string>
   <string name="auth_oauth_error">Autorització sense èxit</string>
   <string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
   <string name="auth_not_found">Camí equivocat</string>
   <string name="auth_internal">Error intern del servidor, codi %1$d</string>
   <string name="auth_wtf_reenter_URL">Estat inesperat; escriviu l\'adreça de nou</string>
   <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut.\nAcrediteu-vos de nou</string>
-  <string name="auth_expired_basic_auth_toast">Les credencials desades no són correctes.\nEscriviu les credencials actuals</string>
+  <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
   <string name="crashlog_message">L\'aplicació s\'ha aturat de manera no prevista. Voleu enviar el registre d\'errors?</string>
   <string name="crashlog_send_report">Envia el registre d\'errors</string>
   <string name="crashlog_dont_send_report">No envïis el registre d\'errors</string>
