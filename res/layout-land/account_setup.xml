@@ -64,7 +64,14 @@
             		android:onClick="onRefreshClick"
 				    android:text="@string/auth_check_server"
 				    android:visibility="gone" />
-		
+				<TextView
+				    android:id="@+id/auth_message"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="fill_horizontal"
+				    android:text="@string/auth_expired_basic_auth_toast" 
+				    android:visibility="gone"
+				    android:layout_marginBottom="10dp"/>
 			    <FrameLayout 
 	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"

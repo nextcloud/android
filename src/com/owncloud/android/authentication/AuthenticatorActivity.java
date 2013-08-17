@@ -85,6 +85,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ENFORCED_UPDATE = "ENFORCE_UPDATE";
 
+    private static final String KEY_AUTH_MESSAGE_VISIBILITY = "AUTH_MESSAGE_VISIBILITY";
+    private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
     private static final String KEY_ACCOUNT = "ACCOUNT";
@@ -116,7 +118,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
-    private int mServerStatusText, mServerStatusIcon;
+    private String mAuthMessageText;
+    private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
@@ -134,6 +137,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private byte mAction;
     private Account mAccount;
 
+    private TextView mAuthMessage;
+    
     private EditText mHostUrlInput;
     private boolean mHostUrlInputEnabled;
     private View mRefreshButton;
@@ -168,6 +173,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
+        mAuthMessage = (TextView) findViewById(R.id.auth_message);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mHostUrlInput.setText(getString(R.string.server_url));  // valid although R.string.server_url is an empty string
         mUsernameInput = (EditText) findViewById(R.id.account_username);
@@ -209,6 +215,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         if (savedInstanceState == null) {
             /// connection state and info
+            mAuthMessageVisibility = View.GONE;
             mServerStatusText = mServerStatusIcon = 0;
             mServerIsValid = false;
             mServerIsChecked = false;
@@ -237,6 +244,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
         } else {
             /// connection state and info
+            mAuthMessageVisibility = savedInstanceState.getInt(KEY_AUTH_MESSAGE_VISIBILITY);
+            mAuthMessageText = savedInstanceState.getString(KEY_AUTH_MESSAGE_TEXT);
             mServerIsValid = savedInstanceState.getBoolean(KEY_SERVER_VALID);
             mServerIsChecked = savedInstanceState.getBoolean(KEY_SERVER_CHECKED);
             mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
@@ -274,6 +283,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         }
 
+        if (mAuthMessageVisibility== View.VISIBLE) {
+            showAuthMessage(mAuthMessageText);
+        }
+        else {
+            hideAuthMessage();
+        }
         adaptViewAccordingToAuthenticationMethod();
         showServerStatus();
         showAuthStatus();
@@ -386,6 +401,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         super.onSaveInstanceState(outState);
 
         /// connection state and info
+        outState.putInt(KEY_AUTH_MESSAGE_VISIBILITY, mAuthMessage.getVisibility());
+        outState.putString(KEY_AUTH_MESSAGE_TEXT, mAuthMessage.getText().toString());
         outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
         outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
         outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
@@ -441,13 +458,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         super.onResume();
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
             if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType)) {
-                Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
-                
+                //Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_oauth_token_toast));
             } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
-                Toast.makeText(this, R.string.auth_expired_saml_sso_token_toast, Toast.LENGTH_LONG).show();
-                
+                //Toast.makeText(this, R.string.auth_expired_saml_sso_token_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_saml_sso_token_toast));
             } else {
-                Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_basic_auth_toast));
             }
         }
 
@@ -642,6 +660,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             return;
         }
 
+        hideAuthMessage();
         if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType)) {
             startOauthorization();
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) { 
@@ -1528,5 +1547,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
     
     
+    /** Show auth_message 
+     * 
+     * @param message
+     */
+    private void showAuthMessage(String message) {
+       mAuthMessage.setVisibility(View.VISIBLE);
+       mAuthMessage.setText(message);
+    }
+    
+    private void hideAuthMessage() {
+        mAuthMessage.setVisibility(View.GONE);
+    }
 
 }
