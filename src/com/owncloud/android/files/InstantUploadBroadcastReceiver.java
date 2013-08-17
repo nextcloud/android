@@ -42,10 +42,10 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
-    private static String TAG = "PhotoTakenBroadcastReceiver";
+    private static String TAG = "InstantUploadBroadcastReceiver";
     private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
     //Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
-    private static String NEW_PHOTO_ACTION_INOFFICIAL = "com.android.camera.NEW_PICTURE";
+    private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
     //Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
     private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
 
@@ -54,10 +54,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
-        } else if (intent.getAction().equals(NEW_PHOTO_ACTION_INOFFICIAL)) {
+        } else if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH && 
+                intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPhotoAction(context, intent);
+            Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
             handleNewPhotoAction(context, intent);
+            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
         } else if (intent.getAction().equals(FileUploader.UPLOAD_FINISH_MESSAGE)) {
             handleUploadFinished(context, intent);
         } else {
