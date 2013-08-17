@@ -39,7 +39,6 @@
   <string name="auth_host_url">כתובת שרת</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
-  <string name="auth_register">%1$s חדש לי</string>
   <string name="new_session_uri_error">הכתובת שצוינה שגויה</string>
   <string name="new_session_session_name_error">שם ההפעלה שגוי</string>
   <string name="sync_string_files">קבצים</string>
@@ -82,6 +81,7 @@
   <string name="common_loading">בטעינה …</string>
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
   <string name="about_title">על אודות</string>
+  <string name="change_password">שינוי ססמה</string>
   <string name="delete_account">מחיקת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
@@ -144,12 +144,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">מתבצע ניסיון כניסה…</string>
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
   <string name="auth_no_net_conn_message">לא נבחר חיבור לאינטרנט, נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
   <string name="auth_connect_anyway">להתחבר בכל זאת</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
   <string name="auth_nossl_plain_ok_message">היישום לא יכול לקיים חיבור מאובטח לשרת. עם זאת קיים חיבור שאינו מאובטח. ניתן להמשיך או לבטל.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
+  <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
   <string name="auth_not_configured_message">מסתבר כי עותק השרת שלך אינו מוגדר נכון. נא ליצור קשר עם המנהל שלך לקבלת פרטים נוספים.</string>
   <string name="auth_unknown_error_title">אירעה שגיאה בלתי ידועה!</string>

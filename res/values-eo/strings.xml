@@ -38,7 +38,6 @@
   <string name="auth_host_url">Servila adreso</string>
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
-  <string name="auth_register">Mi estas nova ĉe ownCloud</string>
   <string name="new_session_uri_error">Malĝusta URL doniĝis</string>
   <string name="new_session_session_name_error">Malĝusta sesionomo</string>
   <string name="sync_string_files">Dosieroj</string>
@@ -78,6 +77,7 @@
   <string name="common_error">Eraro</string>
   <string name="common_error_unknown">Nekonata eraro</string>
   <string name="about_title">Pri</string>
+  <string name="change_password">Ŝanĝi la pasvorton</string>
   <string name="delete_account">Forigi konton</string>
   <string name="create_account">Krei konton</string>
   <string name="upload_chooser_title">Alŝuti dosieron el...</string>
@@ -125,11 +125,13 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Provante ensaluti...</string>
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
   <string name="auth_no_net_conn_message">Neniu reta konekto detektiĝis; kontrolu vian Interretan konekton kaj provu denove.</string>
   <string name="auth_connect_anyway">Konekti ĉiuokaze</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
+  <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita ownCloud-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_error_message">Nekonata eraro okazis. Bonvolu kontakti verkintojn kaj inkluzivigi registrojn el via aparato.</string>

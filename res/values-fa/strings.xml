@@ -13,9 +13,13 @@
   <string name="main_settings">تنظیمات</string>
   <string name="main_tit_accsetup">نصب حساب کاربری</string>
   <string name="main_wrn_accsetup">حساب کاربری ownCloud در دستگاه شما وجود ندارد. برای استفاده از این برنامه می‌بایست یکی ایجاد کنید.</string>
+  <string name="about_android">%1$s برنامه اندروید</string>
+  <string name="about_version">%1$s نسخه</string>
+  <string name="actionbar_sync">بازنمایی حساب کاربری</string>
   <string name="actionbar_upload">بارگزاری</string>
   <string name="actionbar_upload_from_apps">محتوا از دیگر برنامه ها</string>
   <string name="actionbar_upload_files">پرونده‌ها</string>
+  <string name="actionbar_open_with">باز کردن با</string>
   <string name="actionbar_mkdir">ایجاد پوشه</string>
   <string name="actionbar_search">جست‌و‌جو</string>
   <string name="actionbar_settings">تنظیمات</string>
@@ -36,10 +40,14 @@
   <string name="prefs_pincode_summary">حفاظت از مشتری</string>
   <string name="prefs_instant_upload">فعال کردن بارگذاری فوری</string>
   <string name="prefs_instant_upload_summary">فورا عکسهایی را که با دوربین گرفته شده است را آپلود کن</string>
+  <string name="prefs_log_title">فعال کردن ورود</string>
+  <string name="prefs_log_summary">این برای مشکلات ورود استفاده شده است.</string>
+  <string name="prefs_log_title_history">تاریخچه ورود</string>
+  <string name="prefs_log_summary_history">این وقایع  ثبت شده را نمایش می دهد.</string>
+  <string name="prefs_log_delete_history_button">حذف تاریخچه</string>
   <string name="auth_host_url">آدرس سرور</string>
   <string name="auth_username">نام کاربری</string>
   <string name="auth_password">رمز عبور</string>
-  <string name="auth_register">من تازه وارد %1$s شدم</string>
   <string name="new_session_uri_error">نشانی داده شده صحیح نیست</string>
   <string name="new_session_session_name_error">نام بخش صحیح نیست.</string>
   <string name="sync_string_files">پرونده‌ها</string>
@@ -68,6 +76,7 @@
   <string name="filedetails_created">ایجاد شده توسط:</string>
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
+  <string name="filedetails_sync_file">بازنمایی فایل</string>
   <string name="filedetails_redownload">بارگزاری دوباره</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
   <string name="common_yes">بله</string>
@@ -82,6 +91,7 @@
   <string name="common_loading">بارگذاری ...</string>
   <string name="common_error_unknown">خطای نامشخص</string>
   <string name="about_title">درباره</string>
+  <string name="change_password">تغییر گذر واژه</string>
   <string name="delete_account">حذف حساب</string>
   <string name="create_account">ساخت حساب</string>
   <string name="upload_chooser_title">بارگزاری از ...</string>
@@ -131,6 +141,25 @@
   <string name="pincode_stored">PIN برنامه ذخیره شده است</string>
   <string name="media_notif_ticker">%1$s پخش کننده موسیقی</string>
   <string name="media_state_playing">%1$s ( در حال پخش موسیقی )</string>
+  <string name="media_state_loading">%1$s (درحال بارگذاری)</string>
+  <string name="media_event_done">%1$s پخش به پایان رسید.</string>
+  <string name="media_err_nothing_to_play">هیچ رسانه ای یافت نشد.</string>
+  <string name="media_err_no_account">هیچ حسابی ارائه نشده است.</string>
+  <string name="media_err_not_in_owncloud">پرونده در حساب کاربری معتبر نیست.</string>
+  <string name="media_err_unsupported">کدک رسانه پشتیبانی نشده است.</string>
+  <string name="media_err_io">فایل رسانه نمیتواند خوانده شود.</string>
+  <string name="media_err_malformed">فایل رسانه به شکل صحیح رمزگذاری نشده است.</string>
+  <string name="media_err_timeout">تلاش برای پخش، زمان زیادی گرفته است.</string>
+  <string name="media_err_invalid_progressive_playback">فایل رسانه نمیتواند جریان داشته باشد.</string>
+  <string name="media_err_unknown">فایل رسانه با استفاده از پخش کننده stock media player قابل پخش نیست.</string>
+  <string name="media_err_security_ex">خطای امنیتی، تلاش برای پخش %1$s</string>
+  <string name="media_err_io_ex">خطای وارد کردن، تلاش برای پخش %1$s</string>
+  <string name="media_err_unexpected">خطای غیرمنتظره، تلاش برای پخش %1$s</string>
+  <string name="media_previous_description">دکمه بخش قبلی </string>
+  <string name="media_rewind_description">دکمه عقبگرد</string>
+  <string name="media_play_pause_description">دکمه پخش یا توقف</string>
+  <string name="media_forward_description">دکمه رو به جلو سریع</string>
+  <string name="media_next_description">دکمه بخش بعدی</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 دقیقه</item>
     <item>30 دقیقه</item>
@@ -147,6 +176,7 @@
   <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
   <string name="auth_nossl_plain_ok_message">برنامه نمی تواند یک ارتباط امن با سرور ایجاد کند. ارتباط نا امن در دسترس است.شما می تواند ادامه داده یا منصرف شوید.</string>
   <string name="auth_connection_established">اتصال برقرار شد</string>
+  <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
   <string name="auth_not_configured_message">به نظر میرسد که سرور شما به درستی پیکربندی نشده است. برای جزئیات بیشتر با مدیر خود تماس بگیرید.</string>
   <string name="auth_unknown_error_title">خطای نامشخص رخ داده است!</string>
@@ -162,8 +192,12 @@
   <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
   <string name="auth_wrong_connection_title">نمیتوان ارتباط برقرار نمود.</string>
   <string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
+  <string name="auth_oauth_error">اجازه ناموفق</string>
+  <string name="auth_oauth_error_access_denied">دسترسی توسط سرور احراز هویت رد شده است.</string>
   <string name="auth_not_found">مسیر داده شده اشتباه است</string>
   <string name="auth_internal">خطای سرور داخلی، کد %1$d</string>
+  <string name="auth_wtf_reenter_URL">حالت غیرمنتظره؛ لطفا آدرس URL سرور را مجددا وارد نمایید.</string>
+  <string name="auth_expired_oauth_token_toast">هویت شما منقضی شده است.\nلطفا، مجددا احراز هویت کنید.</string>
   <string name="crashlog_message">برنامه به شکل غیر منتظره خاتمه یافت.آیا می خواهید این مشکل را گزارش کنید؟</string>
   <string name="crashlog_send_report">ارسال گزارش</string>
   <string name="crashlog_dont_send_report">گزارش را ارسال نکن</string>
@@ -190,6 +224,11 @@
   <string name="wait_a_moment">لحظه‌ای صبر کنید</string>
   <string name="filedisplay_unexpected_bad_get_content">مشکل غیر متقربه، لطفا پرونده را از یک برنامه متفاوت انتخاب کنید.</string>
   <string name="filedisplay_no_file_selected">هیچ پرونده‌ای انتخاب نشده است</string>
+  <string name="oauth_host_url">آدرس oAuth2</string>
+  <string name="oauth_check_onoff">ورود با oAuth2   </string>
+  <string name="oauth_login_connection">اتصال به سرور oAuth2 ...</string>
+  <string name="oauth_code_validation_message">لطفا، یک مرورگر بازکنید و به آدرس زیر بروید:\n%1$s.\nاعتبارسنجی این کد آنجاست:\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">اتصال به این آدرس URL در دسترس نمی باشد.</string>
   <string name="ssl_validator_title">اخطار</string>
   <string name="ssl_validator_header">هویت این سایت نمی تواند تایید شود</string>
   <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
@@ -214,6 +253,12 @@
   <string name="ssl_validator_label_validity_to">به:</string>
   <string name="ssl_validator_label_signature">امضا:</string>
   <string name="ssl_validator_label_signature_algorithm">الگوریتم:</string>
+  <string name="placeholder_sentence">این یک حفره است.</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">تصویربا فرمت PNG </string>
+  <string name="placeholder_filesize">389 کیلو بایت</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 بعد از ظهر</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">تصاویر را فقط از طریق wifi بارگذاری کن</string>
   <string name="instant_upload_path">آپلود فوری</string>
   <string name="conflict_title">بارگذاری ناسازگار</string>
@@ -221,6 +266,20 @@
   <string name="conflict_keep_both">نگهداشتن هر دو</string>
   <string name="conflict_overwrite">دوباره نویسی</string>
   <string name="conflict_dont_upload">آپلود نکن</string>
+  <string name="preview_image_description">پیش نمایش تصویر</string>
+  <string name="preview_image_error_unknown_format">این تصویر نمی تواند نمایش داده شود.</string>
+  <string name="preview_image_error_out_of_memory">\"حافظه برای نمایش این تصویر کافی نیست.</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s در لیست محلی %2$s نمی تواند کپی شود</string>
+  <string name="actionbar_failed_instant_upload">آپلود فوری انجام نشد\"</string>
+  <string name="failed_upload_headline_text">آپلود های فوری انجام نشدند.</string>
+  <string name="failed_upload_headline_hint">خلاصه ای از تمام ارسال های فور ی ناموفق.</string>
+  <string name="failed_upload_all_cb">انتخاب همه</string>
+  <string name="failed_upload_headline_retryall_btn">تلاش مجدد بر روی همه موارد انتخاب شده</string>
+  <string name="failed_upload_headline_delete_all_btn">حذف تمام انتخاب شده ها از صف ارسال.</string>
+  <string name="failed_upload_retry_text">تلاش برای آپلود کردن تصویر:</string>
+  <string name="failed_upload_load_more_images">بارگذاری تصاویر بیشتر</string>
+  <string name="failed_upload_retry_do_nothing_text">هیچ کاری انجام ندهید، شما برای آپلود فوری آنلاین نیستید.</string>
+  <string name="failed_upload_failure_text">پیغام عدم موفقیت:</string>
+  <string name="failed_upload_quota_exceeded_text">لطفا پیکربندی سرورتان را بررسی کنید، شاید سهمیه شما بیش از حد شده باشد.</string>
 </resources>

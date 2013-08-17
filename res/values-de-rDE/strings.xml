@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Protokollierungsverlauf</string>
   <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
   <string name="prefs_log_delete_history_button">Verlauf löschen</string>
+  <string name="auth_check_server">Server überprüfen</string>
   <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
-  <string name="auth_register">Ich bin neu bei %1$s</string>
+  <string name="auth_register">Ist %1$s neu für Sie?</string>
   <string name="new_session_uri_error">Falsche URL angegeben</string>
   <string name="new_session_session_name_error">Falscher Sitzungsname</string>
   <string name="sync_string_files">Dateien</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Lade …</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
+  <string name="change_password">Passwort ändern</string>
   <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Kontakte</string>
   <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
   <string name="sync_fail_content">Bei der Synchronisation konnte %1$s nicht übertragen werden</string>
-  <string name="sync_fail_content_unauthorized">Ungültige Anmeldeinformationen für %1$s</string>
+  <string name="sync_fail_content_unauthorized">Ungültiges Passwort für %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d Synchronisationsdateien konnten nicht synchronisiert werden.</string>
   <string name="sync_fail_in_favourites_ticker">Synchronisationsdateien konnten nicht synchronisiert werden.</string>
@@ -179,7 +181,7 @@
   <string name="auth_nossl_plain_ok_title">Sichere Verbindung nicht verfügbar.</string>
   <string name="auth_nossl_plain_ok_message">Die App konnte keine sichere Verbindung zum Server herstellen. Eine unsichere Verbindung ist verfügbar. Möchten Sie fortfahren oder abbrechen?</string>
   <string name="auth_connection_established">Verbindung hergestellt</string>
-  <string name="auth_testing_connection">Teste Verbindung...</string>
+  <string name="auth_testing_connection">Verbindung testen...</string>
   <string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
   <string name="auth_not_configured_message">Es scheint, als wäre Ihre Server-Installation nicht richtig konfiguriert. Bitte kontaktieren Sie Ihren Administrator, um weitere Details zu erhalten.</string>
   <string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
   <string name="auth_wrong_connection_title">Konnte keine Verbindung aufbauen.</string>
   <string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
-  <string name="auth_unauthorized">Ungültige Anmeldeinformationen</string>
+  <string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
   <string name="auth_oauth_error">Autorisierung nicht erfolgreich</string>
   <string name="auth_oauth_error_access_denied">Zugriff durch den Autorisierungsserver abgelehnt</string>
   <string name="auth_not_found">Falsche Pfadangabe</string>
   <string name="auth_internal">Interner Server Fehler, Fehlercode %1$d</string>
   <string name="auth_wtf_reenter_URL">Unerwarteter Zustand; bitte geben Sie die URL des Servers nochmals ein</string>
   <string name="auth_expired_oauth_token_toast">Ihre Autorisierung ist abgelaufen\nBitte Autorisierung nochmals durchführen</string>
-  <string name="auth_expired_basic_auth_toast">Ihre gespeicherten Anmeldeinformationen sind ungültig.\nBitte geben Sie die aktuellen Anmeldeinformationen ein</string>
+  <string name="auth_expired_basic_auth_toast">Bitte geben Sie Ihr aktuelles Passwort ein</string>
   <string name="crashlog_message">Die Anwendung ist abgestürzt. Möchten Sie einen Bericht senden?</string>
   <string name="crashlog_send_report">Bericht senden</string>
   <string name="crashlog_dont_send_report">Keinen Bericht senden</string>

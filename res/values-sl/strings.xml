@@ -43,7 +43,6 @@
   <string name="auth_host_url">Naslov strežnika</string>
   <string name="auth_username">Uporabniško ime</string>
   <string name="auth_password">Geslo</string>
-  <string name="auth_register">Sem nov v oblaku ownCloud</string>
   <string name="new_session_uri_error">Podan je napačen naslov URL</string>
   <string name="new_session_session_name_error">Napačno ime seje</string>
   <string name="sync_string_files">Datoteke</string>
@@ -86,6 +85,7 @@
   <string name="common_loading">Nalaganje...</string>
   <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku ownCloud</string>
+  <string name="change_password">Spremeni geslo</string>
   <string name="delete_account">Izbriši račun</string>
   <string name="create_account">Ustvari račun</string>
   <string name="upload_chooser_title">Pošlji datoteko iz …</string>
@@ -153,12 +153,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Poskus prijave …</string>
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_no_net_conn_message">Omrežna povezava ni zaznana. Preverite internetno povezavo in poskusite znova.</string>
   <string name="auth_connect_anyway">Vseeno poveži</string>
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
   <string name="auth_nossl_plain_ok_message">Programu ni uspelo vzpostaviti varne povezave s strežnikom. Nadaljujete lahko z ne-varno povezavo ali pa prekinete.</string>
   <string name="auth_connection_established">Povezava je vzpostavljena</string>
+  <string name="auth_testing_connection">Preizkušanje povezave ...</string>
   <string name="auth_not_configured_title">Nastavitve ownCloud so napačno oblikovane</string>
   <string name="auth_not_configured_message">Zdi se, da vaš ownCloud ni pravilno nastavljen. Za dodatna pojasnila se obrnite na skrbnika.</string>
   <string name="auth_unknown_error_title">Prišlo je do neznane napake</string>

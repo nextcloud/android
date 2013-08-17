@@ -38,7 +38,6 @@
   <string name="auth_host_url">Servera adrese</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
-  <string name="auth_register">Esmu %1$s iesācējs</string>
   <string name="new_session_uri_error">Ir dota nepareiza adrese</string>
   <string name="new_session_session_name_error">Nepareizs sesijas nosaukums</string>
   <string name="sync_string_files">Datnes</string>
@@ -78,6 +77,7 @@
   <string name="common_exit">Pamest %1$s</string>
   <string name="common_error">Kļūda</string>
   <string name="about_title">Par</string>
+  <string name="change_password">Mainīt paroli</string>
   <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>

@@ -63,6 +63,7 @@
   <string name="common_error">Klaida</string>
   <string name="common_error_unknown">Neatpažinta klaida</string>
   <string name="about_title">Apie</string>
+  <string name="change_password">Pakeisti slaptažodį</string>
   <string name="delete_account">Ištrinti paskyrą</string>
   <string name="create_account">Sukurti paskyrą</string>
   <string name="upload_chooser_title">Įkelti iš ...</string>
@@ -97,10 +98,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Bandoma prisijungti...</string>
   <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
   <string name="auth_connect_anyway">Vis tiek prisijungti</string>
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
+  <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
   <string name="auth_not_configured_title">Sugadinta ownCloud konfigūracija</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
   <string name="auth_timeout_title">Serveris per ilgai neatsako</string>

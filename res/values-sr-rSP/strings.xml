@@ -14,5 +14,6 @@
   <string name="uploader_btn_upload_text">Pošalji</string>
   <string name="filedetails_download">Preuzmi</string>
   <string name="common_cancel">Otkaži</string>
+  <string name="change_password">Izmeni lozinku</string>
   <!--we need to improve the communication of errors to the user-->
 </resources>

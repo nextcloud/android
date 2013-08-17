@@ -57,6 +57,7 @@
   <string name="common_save_exit">Запази и Излез</string>
   <string name="common_error">Грешка</string>
   <string name="about_title">Относно</string>
+  <string name="change_password">Промяна на паролата</string>
   <string name="delete_account">Изтрий акаунт</string>
   <string name="create_account">Създай акаунт</string>
   <string name="upload_chooser_title">Качено от ...</string>

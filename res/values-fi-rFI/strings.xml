@@ -41,10 +41,10 @@
   <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>
+  <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
-  <string name="auth_register">Olen uusi ownCloudin kanssa</string>
   <string name="new_session_uri_error">Väärä osoite</string>
   <string name="new_session_session_name_error">Väärä istuntonimi</string>
   <string name="sync_string_files">Tiedostot</string>
@@ -88,6 +88,7 @@
   <string name="common_loading">Ladataan…</string>
   <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
+  <string name="change_password">Vaihda salasana</string>
   <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
   <string name="upload_chooser_title">Lataus täältä:</string>
@@ -150,6 +151,7 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_no_net_conn_message">Verkkoyhteyttä ei havaittu. Tarkista internetyhteyden tila ja yritä uudelleen.</string>
   <string name="auth_connect_anyway">Yhdistä silti</string>
@@ -172,9 +174,11 @@
   <string name="auth_bad_oc_version_title">Tuntematon ownCloud-palvelimen versio</string>
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
+  <string name="auth_unauthorized">Väärä käyttäjätunnus tai salasana</string>
   <string name="auth_not_found">Väärä polku</string>
   <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
   <string name="auth_wtf_reenter_URL">Odottamaton tila; anna palvelimen osoite uudelleen</string>
+  <string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>
   <string name="crashlog_send_report">Lähetä ilmoitus</string>
   <string name="crashlog_dont_send_report">Älä lähetä ilmoitusta</string>
@@ -240,5 +244,6 @@
   <!--we need to improve the communication of errors to the user-->
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
+  <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
   <string name="failed_upload_failure_text">Virheviesti:</string>
 </resources>

@@ -62,6 +62,7 @@
   <string name="common_save_exit">Lagre og avslutt</string>
   <string name="common_error">Feil</string>
   <string name="about_title">Om</string>
+  <string name="change_password">Endre passord</string>
   <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp fra...</string>
@@ -95,10 +96,12 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Prøver å logge inn...</string>
   <string name="auth_no_net_conn_title">Ingen nettverkstilkobling</string>
   <string name="auth_connect_anyway">Koble til likevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
   <string name="auth_connection_established">Tilkobling opprettet</string>
+  <string name="auth_testing_connection">Tester tilgang...</string>
   <string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
   <string name="auth_unknown_host_title">Fant ikke tjener</string>
   <string name="auth_unknown_host_message">Fant ikke spesifisert tjener.  Vennligst sjekk tjenernavnet og server-tilgjengeligheten, og prøv på nytt.</string>
