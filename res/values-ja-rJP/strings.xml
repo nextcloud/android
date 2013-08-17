@@ -49,7 +49,7 @@
   <string name="auth_host_url">サーバアドレス</string>
   <string name="auth_username">ユーザー名</string>
   <string name="auth_password">パスワード</string>
-  <string name="auth_register">1$sは初めてですか？</string>
+  <string name="auth_register">%1$sは初めてですか？</string>
   <string name="new_session_uri_error">誤ったURLです</string>
   <string name="new_session_session_name_error">誤ったセッション名です</string>
   <string name="sync_string_files">ファイル</string>
