@@ -1146,6 +1146,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
         setAccountAuthenticatorResult(response);
+        
+        // Sync Account
+        syncAccount();
     }
 
 
@@ -1213,9 +1216,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         setResult(RESULT_OK, intent);
 
         /// immediately request for the synchronization of the new account
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+        syncAccount();
+//        Bundle bundle = new Bundle();
+//        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+//        ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
     }
 
 
@@ -1560,4 +1564,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthMessage.setVisibility(View.GONE);
     }
 
+    
+    private void syncAccount(){
+        /// immediately request for the synchronization of the new account
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+    }
 }
