@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Log-geschiedenis</string>
   <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
   <string name="prefs_log_delete_history_button">Verwijder Geschiedenis</string>
+  <string name="auth_check_server">Controleer server</string>
   <string name="auth_host_url">Server adres</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
-  <string name="auth_register">Ik ben nieuw op ownCloud</string>
+  <string name="auth_register">Nieuw bij %1$s?</string>
   <string name="new_session_uri_error">Onjuiste URL</string>
   <string name="new_session_session_name_error">Onjuiste sessienaam</string>
   <string name="sync_string_files">Bestanden</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Laden...</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
+  <string name="change_password">Wijzig wachtwoord</string>
   <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
   <string name="upload_chooser_title">Upload van ...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Contactpersonen</string>
   <string name="sync_fail_ticker">Synchronisatie mislukt</string>
   <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
-  <string name="sync_fail_content_unauthorized">Ongeldige inloggegevens voor %1$s</string>
+  <string name="sync_fail_content_unauthorized">Ongeldig wachtwoord voor %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
   <string name="sync_conflicts_in_favourites_content">%1$d in-synch-houden bestanden konden niet worden gesync\'d</string>
   <string name="sync_fail_in_favourites_ticker">In-sync-houden bestanden mislukt</string>
@@ -172,14 +174,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Bezig met inloggen...</string>
+  <string name="auth_trying_to_login">Proberen om in te loggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
   <string name="auth_no_net_conn_message">Er kon geen netwerkverbinding worden gevonden, controleer je internet verbinding en probeer het opnieuw.</string>
   <string name="auth_connect_anyway">Toch verbinden</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_nossl_plain_ok_message">De applicatie kon geen beveiligde verbinding met de server maken. Er is echter wel een onbeveiligde verbinding beschikbaar. Je kunt verdergaan of annuleren.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
-  <string name="auth_testing_connection">Verbinding aan het testen...</string>
+  <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve ownCloud configuratie</string>
   <string name="auth_not_configured_message">Het lijkt erop dat je ownCloud instantie niet correct geconfigureerd is. Neem contact op met je beheerder voor meer details.</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Onherkende ownCloud server versie</string>
   <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen.</string>
   <string name="auth_secure_connection">Veilige verbinding tot stand gebracht</string>
-  <string name="auth_unauthorized">Ongeldige inloggegevens</string>
+  <string name="auth_unauthorized">Verkeerde gebruikersnaam of wachtwoord</string>
   <string name="auth_oauth_error">Authorisatie niet succesvol</string>
   <string name="auth_oauth_error_access_denied">Toegang geweigerd door authorizatieserver</string>
   <string name="auth_not_found">Verkeerde pad opgegeven</string>
   <string name="auth_internal">Interne server fout, code %1$d</string>
   <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer a.u.b de server-URL nogmaals in.</string>
   <string name="auth_expired_oauth_token_toast">Uw authorisatie is verlopen.</string>
-  <string name="auth_expired_basic_auth_toast">Uw opgeslagen inloggegevens zijn ongeldig.\n\nVoer a.u.b. uw huidige inloggegevens in.</string>
+  <string name="auth_expired_basic_auth_toast">Geef het huidige wachtwoord op</string>
   <string name="crashlog_message">De applicatie is onverwacht beëindigd. Wilt je een crash report versturen?</string>
   <string name="crashlog_send_report">Rapport verzenden</string>
   <string name="crashlog_dont_send_report">Rapport niet verzenden</string>

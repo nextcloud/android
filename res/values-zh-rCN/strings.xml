@@ -39,7 +39,6 @@
   <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
-  <string name="auth_register">我是新手</string>
   <string name="new_session_uri_error">错误的网址</string>
   <string name="new_session_session_name_error">错误的会话名</string>
   <string name="sync_string_files">文件</string>
@@ -82,6 +81,7 @@
   <string name="common_loading">加载中...</string>
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
+  <string name="change_password">修改密码</string>
   <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
@@ -160,12 +160,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">尝试登录</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_no_net_conn_message">未检测到网络连接，检查互联网连接设置后重试。</string>
   <string name="auth_connect_anyway">总是连接</string>
   <string name="auth_nossl_plain_ok_title">安全链接无效。</string>
   <string name="auth_nossl_plain_ok_message">应用无法建立安全链接到服务器，但是未加密连接可用，你可以继续或取消。</string>
   <string name="auth_connection_established">连接已建立。</string>
+  <string name="auth_testing_connection">测试连接……</string>
   <string name="auth_not_configured_title">ownCloud配置不正确。</string>
   <string name="auth_not_configured_message">看起来owncloud实例配置不正确，请联系您的管理员获取更多信息。</string>
   <string name="auth_unknown_error_title">发生未知错误！</string>

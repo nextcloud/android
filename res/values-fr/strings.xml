@@ -48,7 +48,6 @@
   <string name="auth_host_url">Adresse du serveur</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
-  <string name="auth_register">Je suis nouveau sur ownCloud</string>
   <string name="new_session_uri_error">L\'URL spécifiée n\'est pas correcte</string>
   <string name="new_session_session_name_error">Le nom de session spécifié n\'est pas correct</string>
   <string name="sync_string_files">Fichiers</string>
@@ -92,6 +91,7 @@
   <string name="common_loading">Chargement ...</string>
   <string name="common_error_unknown">Erreur Inconnue </string>
   <string name="about_title">À propos de</string>
+  <string name="change_password">Changer de mot de passe</string>
   <string name="delete_account">Effacer ce compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
@@ -115,7 +115,6 @@
   <string name="sync_string_contacts">Contacts</string>
   <string name="sync_fail_ticker">La synchronisation a échoué</string>
   <string name="sync_fail_content">La synchronisation de %1$s ne peut pas être complétée</string>
-  <string name="sync_fail_content_unauthorized">Paramètres d\'identification invalides pour %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
   <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont put être synchronisé</string>
   <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
@@ -172,14 +171,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Connexion en cours...</string>
+  <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
   <string name="auth_no_net_conn_message">Aucune connexion réseau n\'a été trouvée, veuillez vérifier votre connectivité à internet puis réessayez.</string>
   <string name="auth_connect_anyway">Se connecter malgré tout</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
   <string name="auth_nossl_plain_ok_message">L\'application ne peut établir de connexion sécurisée avec le serveur. Cependant, une connexion non sécurisée est disponible. Vous pouvez continuer en utilisant celle-ci ou annuler.</string>
   <string name="auth_connection_established">Connexion établie</string>
-  <string name="auth_testing_connection">Test de la connexion en cours...</string>
+  <string name="auth_testing_connection">Test de la connexion…</string>
   <string name="auth_not_configured_title">Configuration ownCloud erronée</string>
   <string name="auth_not_configured_message">Il semblerait que votre instance ownCloud ne soit pas correctement configurée. Veuillez contacter votre administrateur pour plus de détails.</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite</string>
@@ -195,14 +194,12 @@
   <string name="auth_bad_oc_version_title">La version ownCloud du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
-  <string name="auth_unauthorized">Paramètres d\'identification invalides</string>
   <string name="auth_oauth_error">Echec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
   <string name="auth_not_found">Le chemin fourni est erroné</string>
   <string name="auth_internal">Erreur interne du serveur, code %1$d</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
   <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré.\nVeuillez procéder à nouveau à une autorisation</string>
-  <string name="auth_expired_basic_auth_toast">Vos paramètres d\'identifications sauvegardés sont invalides.\nVeuillez entrer les paramètres d\'identification courant.</string>
   <string name="crashlog_message">L\'application s\'est fermée de façon inattendue, voulez-vous envoyer un rapport d\'erreur ?</string>
   <string name="crashlog_send_report">Envoyer un rapport</string>
   <string name="crashlog_dont_send_report">Ne rien envoyer</string>

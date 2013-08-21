@@ -36,7 +36,6 @@
   <string name="auth_host_url">සේවාදායකයේ ලිපිනය</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
-  <string name="auth_register">මම ownCloudට නවකයෙක්මි</string>
   <string name="new_session_uri_error">දී ඇති යෙදුම වැරදි</string>
   <string name="new_session_session_name_error">වැරදි සැසිවාර නමක්</string>
   <string name="sync_string_files">ගොනු</string>
@@ -70,6 +69,7 @@
   <string name="common_exit">ownCloud අත්හැර යන්න</string>
   <string name="common_error">දෝශය</string>
   <string name="about_title">පිළිබඳව</string>
+  <string name="change_password">මුරපදය වෙනස් කිරීම</string>
   <string name="delete_account">ගිණුම මකන්න</string>
   <string name="create_account">ගිණුම සාදන්න</string>
   <string name="uploader_info_dirname">ඩිරෙක්ටරි නම</string>
@@ -93,11 +93,13 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">පිවිසීමට උත්සහ කරනවා...</string>
   <string name="auth_no_net_conn_title">ජාල සම්බන්ධතාවක් නොමැත</string>
   <string name="auth_no_net_conn_message">ජාල සම්බන්ධතාවක් සොයා ගත නොහැක. ඔබගේ අන්තර්ජාල සම්බන්ධතාව පරීක්ෂාකර නැවත උත්සහ කරන්න</string>
   <string name="auth_connect_anyway">කොහොමත් සම්බන්ධවන්න</string>
   <string name="auth_nossl_plain_ok_title">ආරක්ෂිත සම්බන්ධතාවක් නොලැබුණි</string>
   <string name="auth_connection_established">සම්බන්ධතාවක් සාදන ලදී</string>
+  <string name="auth_testing_connection">සම්බන්ධතාව පරීක්ෂා කෙරේ</string>
   <string name="auth_not_configured_title">විකෘතිවු OwnCloud හැඩගැසුමක්</string>
   <string name="auth_unknown_error_title">නොදන්නා දෝෂයක් ඇතිවිය</string>
   <string name="auth_unknown_host_title">සේවාදායකයා සොයාගත නොහැක</string>
