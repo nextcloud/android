@@ -465,7 +465,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                (downloadResult.isTemporalRedirection() && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mDownloadClient.getAuthTokenType())));
+                                                ((downloadResult.isTemporalRedirection() || downloadResult.isIdPRedirection())
+                                                        && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mDownloadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);

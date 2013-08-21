@@ -24,7 +24,6 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.Map;
 
 import javax.net.ssl.SSLException;
 
@@ -313,13 +312,16 @@ public class RemoteOperationResult implements Serializable {
     }
 
     public boolean isTemporalRedirection() {
-        return (mHttpCode == 302 || mHttpCode == 307 || 
-                mRedirectedLocation.toUpperCase().contains("SAML") || 
-                mRedirectedLocation.toLowerCase().contains("wayf"));
+        return (mHttpCode == 302 || mHttpCode == 307);
     }
 
     public String getRedirectedLocation() {
         return mRedirectedLocation;
+    }
+
+    public boolean isIdPRedirection() {
+        return (mRedirectedLocation.toUpperCase().contains("SAML") || 
+                mRedirectedLocation.toLowerCase().contains("wayf"));
     }
 
 }
