@@ -94,6 +94,7 @@ public class SamlWebViewDialog extends DialogFragment
         webSettings.setLoadWithOverviewMode(false);
         webSettings.setSavePassword(false);
         webSettings.setUserAgentString(WebdavClient.USER_AGENT);
+        webSettings.setSaveFormData(false);
         
         // load the dialog
         if (savedInstanceState == null) {            
