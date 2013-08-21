@@ -313,7 +313,9 @@ public class RemoteOperationResult implements Serializable {
     }
 
     public boolean isTemporalRedirection() {
-        return (mHttpCode == 302 || mHttpCode == 307);
+        return (mHttpCode == 302 || mHttpCode == 307 || 
+                mRedirectedLocation.toUpperCase().contains("SAML") || 
+                mRedirectedLocation.toLowerCase().contains("wayf"));
     }
 
     public String getRedirectedLocation() {
