@@ -24,7 +24,6 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.Map;
 
 import javax.net.ssl.SSLException;
 
@@ -318,6 +317,11 @@ public class RemoteOperationResult implements Serializable {
 
     public String getRedirectedLocation() {
         return mRedirectedLocation;
+    }
+    
+    public boolean isIdPRedirection() {
+        return (mRedirectedLocation.toUpperCase().contains("SAML") || 
+                mRedirectedLocation.toLowerCase().contains("wayf"));
     }
 
 }
