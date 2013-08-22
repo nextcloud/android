@@ -191,6 +191,7 @@
     <string name="auth_not_configured_title">Malformed server configuration</string>
     <string name="auth_not_configured_message">It seems that your server instance is not correctly configured. Contact your administrator for more details.</string>
     <string name="auth_account_not_new">An account for the same user and server already exists in the device</string>
+    <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
     <string name="auth_unknown_error_title">Unknown error occurred!</string>
     <string name="auth_unknown_error_message">An unknown error occurred. Please contact support and include logs from your device.</string>
     <string name="auth_unknown_host_title">Couldn\'t find host</string>

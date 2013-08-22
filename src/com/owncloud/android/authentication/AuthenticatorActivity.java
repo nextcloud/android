@@ -1021,6 +1021,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         case ACCOUNT_NOT_NEW:
             mAuthStatusText = R.string.auth_account_not_new;
             break;
+        case ACCOUNT_NOT_THE_SAME:
+            mAuthStatusText = R.string.auth_account_not_the_same;
+            break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
             mAuthStatusText = R.string.auth_unknown_error_title;
@@ -1085,12 +1088,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
 
-            boolean success = true;
+            boolean success = false;
             if (mAction == ACTION_CREATE) {
                 success = createAccount();
 
             } else {
-                updateToken();
+                success = updateToken();
             }
 
             if (success) {
@@ -1135,7 +1138,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Sets the proper response to get that the Account Authenticator that started this activity saves 
      * a new authorization token for mAccount.
      */
-    private void updateToken() {
+    private boolean updateToken() {
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
@@ -1146,9 +1149,21 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
             
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+            String username = getUserNameForSamlSso();
+            if (!mUsernameInput.getText().toString().equals(username)) {
+                // fail - not a new account, but an existing one; disallow
+                RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
+                updateAuthStatusIconAndText(result);
+                showAuthStatus();
+                Log_OC.d(TAG, result.getLogMessage());
+                
+                return false;
+            }
+            
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
+            Log_OC.e(TAG, "saving auth token: " + mAuthToken);
             
         } else {
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
@@ -1156,8 +1171,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         setAccountAuthenticatorResult(response);
         
-        // Sync Account
-        syncAccount();
+        return true;
     }
 
 
@@ -1194,7 +1208,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             Log_OC.d(TAG, result.getLogMessage());
             return false;
             
-            
         } else {
         
             if (isOAuth || isSaml) {
@@ -1222,6 +1235,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             intent.putExtra(AccountManager.KEY_USERDATA,        username);
             if (isOAuth || isSaml) {
                 mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
+                Log_OC.e(TAG, "saving auth token: " + mAuthToken);
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
@@ -1562,12 +1576,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (sessionCookie != null && sessionCookie.length() > 0) {
             Log_OC.d(TAG, "Successful SSO - time to save the account");
             mAuthToken = sessionCookie;
-            boolean success = true;
+            boolean success = false;
             if (mAction == ACTION_CREATE) {
                 success = createAccount();
         
             } else {
-                updateToken();
+                success = updateToken();
             }
             if (success) {
                 finish();

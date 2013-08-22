@@ -102,6 +102,7 @@ public class OwnCloudClientUtils {
         } else if (isSamlSso) {    // TODO avoid a call to getUserData here
             String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE, false);
             client.setSsoSessionCookie(accessToken);
+            Log_OC.e(TAG, "client with auth token: " + accessToken);
             
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
@@ -134,6 +135,7 @@ public class OwnCloudClientUtils {
             String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
             if (accessToken == null) throw new AuthenticatorException("WTF!");
             client.setSsoSessionCookie(accessToken);
+            Log_OC.e(TAG, "client with auth token: " + accessToken);
 
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
