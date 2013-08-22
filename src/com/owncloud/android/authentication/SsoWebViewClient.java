@@ -19,6 +19,8 @@ package com.owncloud.android.authentication;
 
 import java.lang.ref.WeakReference;
 
+import com.owncloud.android.Log_OC;
+
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -39,7 +41,7 @@ import android.webkit.WebViewClient;
  */
 public class SsoWebViewClient extends WebViewClient {
         
-    //private static final String TAG = SsoWebViewClient.class.getSimpleName();
+    private static final String TAG = SsoWebViewClient.class.getSimpleName();
     
     public interface SsoWebViewClientListener {
         public void onSsoFinished(String sessionCookie);
@@ -48,11 +50,13 @@ public class SsoWebViewClient extends WebViewClient {
     private Handler mListenerHandler;
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
+    private String mLastReloadedUrlAtError;
     
     public SsoWebViewClient (Handler listenerHandler, SsoWebViewClientListener listener) {
         mListenerHandler = listenerHandler;
         mListenerRef = new WeakReference<SsoWebViewClient.SsoWebViewClientListener>(listener);
         mTargetUrl = "fake://url.to.be.set";
+        mLastReloadedUrlAtError = null;
     }
     
     public String getTargetUrl() {
@@ -65,12 +69,12 @@ public class SsoWebViewClient extends WebViewClient {
 
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
-        //Log_OC.e(TAG, "onPageStarted : " + url);
+        Log_OC.d(TAG, "onPageStarted : " + url);
         if (url.startsWith(mTargetUrl)) {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
             final String cookies = cookieManager.getCookie(url);
-            //Log_OC.e(TAG, cookies);
+            Log_OC.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageStarted is not running in the UI thread
                 mListenerHandler.post(new Runnable() {
@@ -88,75 +92,82 @@ public class SsoWebViewClient extends WebViewClient {
     
     @Override
     public void onFormResubmission (WebView view, Message dontResend, Message resend) {
-        //Log_OC.e(TAG, "onFormResubMission ");
-        
+        Log_OC.d(TAG, "onFormResubMission ");
+
         // necessary to grant reload of last page when device orientation is changed after sending a form
-        resend.sendToTarget();  
+        resend.sendToTarget();
     }
 
-    /*
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        //view.loadUrl(url);
         return false;
     }
     
     @Override
     public void onReceivedError (WebView view, int errorCode, String description, String failingUrl) {
-        Log_OC.e(TAG, "onReceivedError : " + failingUrl);
+        Log_OC.e(TAG, "onReceivedError : " + failingUrl + ", code " + errorCode + ", description: " + description);
+        if (!failingUrl.equals(mLastReloadedUrlAtError)) {
+            view.reload();
+            mLastReloadedUrlAtError = failingUrl;
+        } else {
+            mLastReloadedUrlAtError = null;
+            super.onReceivedError(view, errorCode, description, failingUrl);
+        }
     }
-
+    
+    @Override
+    public void onPageFinished (WebView view, String url) {
+        Log_OC.d(TAG, "onPageFinished : " + url);
+        mLastReloadedUrlAtError = null;
+    }
+    
+    /*
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
-        Log_OC.e(TAG, "doUpdateVisitedHistory : " + url);
+        Log_OC.d(TAG, "doUpdateVisitedHistory : " + url);
     }
     
     @Override
     public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
-        Log_OC.e(TAG, "onReceivedSslError : " + error);
+        Log_OC.d(TAG, "onReceivedSslError : " + error);
     }
     
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
-        Log_OC.e(TAG, "onReceivedHttpAuthRequest : " + host);
+        Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
     }
 
     @Override
-    public void onPageFinished (WebView view, String url) {
-        Log_OC.e(TAG, "onPageFinished : " + url);
-    }
-    
-    @Override
     public WebResourceResponse shouldInterceptRequest (WebView view, String url) {
-        Log_OC.e(TAG, "shouldInterceptRequest : " + url);
+        Log_OC.d(TAG, "shouldInterceptRequest : " + url);
         return null;
     }
     
     @Override
     public void onLoadResource (WebView view, String url) {
-        Log_OC.e(TAG, "onLoadResource : " + url);            
+        Log_OC.d(TAG, "onLoadResource : " + url);   
     }
     
     @Override
     public void onReceivedLoginRequest (WebView view, String realm, String account, String args) {
-        Log_OC.e(TAG, "onReceivedLoginRequest : " + realm + ", " + account + ", " + args);
+        Log_OC.d(TAG, "onReceivedLoginRequest : " + realm + ", " + account + ", " + args);
     }
     
     @Override
     public void onScaleChanged (WebView view, float oldScale, float newScale) {
-        Log_OC.e(TAG, "onScaleChanged : " + oldScale + " -> " + newScale);
+        Log_OC.d(TAG, "onScaleChanged : " + oldScale + " -> " + newScale);
+        super.onScaleChanged(view, oldScale, newScale);
     }
-    
+
     @Override
     public void onUnhandledKeyEvent (WebView view, KeyEvent event) {
-        Log_OC.e(TAG, "onUnhandledKeyEvent : " + event);
+        Log_OC.d(TAG, "onUnhandledKeyEvent : " + event);
     }
     
     @Override
     public boolean shouldOverrideKeyEvent (WebView view, KeyEvent event) {
-        Log_OC.e(TAG, "shouldOverrideKeyEvent : " + event);
+        Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
     */
-    
 }
