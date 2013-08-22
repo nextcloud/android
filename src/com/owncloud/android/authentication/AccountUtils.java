@@ -75,6 +75,20 @@ public class AccountUtils {
     }
 
     
+    public static boolean exists(Account account, Context context) {
+        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                AccountAuthenticator.ACCOUNT_TYPE);
+
+        if (account != null && account.name != null) {
+            for (Account ac : ocAccounts) {
+                if (ac.name.equals(account.name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 
     /**
      * Checks, whether or not there are any ownCloud accounts setup.

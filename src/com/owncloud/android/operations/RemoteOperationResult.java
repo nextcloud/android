@@ -85,7 +85,8 @@ public class RemoteOperationResult implements Serializable {
         OAUTH2_ERROR_ACCESS_DENIED,
         QUOTA_EXCEEDED, 
         ACCOUNT_NOT_FOUND, 
-        ACCOUNT_EXCEPTION
+        ACCOUNT_EXCEPTION, 
+        ACCOUNT_NOT_NEW
     }
 
     private boolean mSuccess = false;
@@ -297,6 +298,9 @@ public class RemoteOperationResult implements Serializable {
 
         } else if (mCode == ResultCode.LOCAL_STORAGE_NOT_MOVED) {
             return "Error while moving file to final directory";
+
+        } else if (mCode == ResultCode.ACCOUNT_NOT_NEW) {
+            return "Account already existing when creating a new one";
         }
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";
