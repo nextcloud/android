@@ -318,7 +318,7 @@ public class RemoteOperationResult implements Serializable {
     public String getRedirectedLocation() {
         return mRedirectedLocation;
     }
-
+    
     public boolean isIdPRedirection() {
         return (mRedirectedLocation.toUpperCase().contains("SAML") || 
                 mRedirectedLocation.toLowerCase().contains("wayf"));

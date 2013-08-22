@@ -13,6 +13,7 @@
   <string name="main_settings">Ρυθμίσεις</string>
   <string name="main_tit_accsetup">Ρύθμιση Λογαριασμού</string>
   <string name="main_wrn_accsetup">Δεν υπάρχουν λογαριασμοί ownCloud στη συσκευή σας. Για να χρησιμοποιήσετε την εφαρμογή, πρέπει να δημιουργήσετε ένα.</string>
+  <string name="about_android">%1$s Εφαρμογή για Android</string>
   <string name="about_version">έκδοση %1$s</string>
   <string name="actionbar_upload">Μεταφόρτωση</string>
   <string name="actionbar_upload_from_apps">Περιεχόμενο από άλλες εφαρμογές</string>
@@ -39,10 +40,10 @@
   <string name="prefs_instant_upload">Ενεργοποιήστε την άμεση μεταφόρτωση</string>
   <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση των φωτογραφιών που τραβάει η φωτογρ. μηχανή</string>
   <string name="prefs_log_delete_history_button">Διαγραφή Ιστορικού</string>
+  <string name="auth_check_server">Έλεγχος Διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
-  <string name="auth_register">Είμαι νέος στο ownCloud</string>
   <string name="new_session_uri_error">Εσφαλμένη διεύθυνση URL</string>
   <string name="new_session_session_name_error">Εσφαλμένο όνομα συνεδρίας</string>
   <string name="sync_string_files">Αρχεία</string>
@@ -54,6 +55,7 @@
   <string name="setup_title">Σύνδεση στο ownCloud σας</string>
   <string name="setup_btn_connect">Σύνδεση</string>
   <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
+  <string name="uploader_top_message">Επιλέξτε κατάλογο ανεβάσματος</string>
   <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
   <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί ownCloud στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
@@ -85,6 +87,7 @@
   <string name="common_loading">Φόρτωση ...</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
+  <string name="change_password">Αλλαγή συνθηματικού</string>
   <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
   <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
@@ -107,6 +110,7 @@
   <string name="sync_string_contacts">Επαφές</string>
   <string name="sync_fail_ticker">Ο συγχρονισμός απέτυχε</string>
   <string name="sync_fail_content">Ο συγχρονισμός του %1$s  δεν μπόρεσε να ολοκληρωθεί</string>
+  <string name="sync_fail_content_unauthorized">Λάθος κωδικός για %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
   <string name="sync_conflicts_in_favourites_content">%1$d αρχεία σε αναμονή συγχρονισμού, δεν μπόρεσαν να συγχρονιστούν</string>
   <string name="sync_fail_in_favourites_ticker">Τα αρχεία σε αναμονή συγχρονισμού απέτυχαν</string>
@@ -131,7 +135,12 @@
   <string name="pincode_wrong">Εσφαλμένο PIN της εφαρμογής ownCloud</string>
   <string name="pincode_removed">Αφαιρέθηκε το PIN της εφαρμογής ownCloud</string>
   <string name="pincode_stored">Το PIN της εφαρμογής ownCloud αποθηκεύτηκε</string>
+  <string name="media_err_nothing_to_play">Δεν βρέθηκε αρχείο πολυμέσων</string>
+  <string name="media_err_no_account">Δεν δόθηκε λογαριασμός</string>
+  <string name="media_err_io">Το αρχείο πολυμέσων δεν μπόρεσε να διαβαστεί</string>
+  <string name="media_err_malformed">Το αρχείο πολυμέσων δεν είναι σωστά κοδικοποιημένο</string>
   <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
+  <string name="media_next_description">Κουμπί επόμενου κομματιού</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Λεπτά</item>
     <item>30 Λεπτά</item>
@@ -142,12 +151,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
   <string name="auth_no_net_conn_message">Δεν ανιχνεύθηκε σύνδεση δικτύου, ελέγξτε την σύνδεση στο Internet και προσπαθήστε ξανά.</string>
   <string name="auth_connect_anyway">Συνδεθείτε παρ\' αυτά</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
   <string name="auth_nossl_plain_ok_message">Αδυναμία καθιέρωσης ασφαλούς σύνδεσης με τον διακομιστή. Παρόλο που είναι διαθέσιμη μη ασφαλή σύνδεση. Μπορείτε να συνεχίσετε ή να ακυρώσετε.</string>
   <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
+  <string name="auth_testing_connection">Έλεγχος σύνδεσης...</string>
   <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις ownCloud</string>
   <string name="auth_not_configured_message">Φαίνεται ότι το ownCloud δεν είναι σωστά ρυθμισμένο. Παρακαλώ επικοινωνήστε με τον διαχειριστή σας, για περισσότερες πληροφορίες. </string>
   <string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα</string>
@@ -163,8 +174,11 @@
   <string name="auth_bad_oc_version_title">Μη αναγνωρίσιμη έκδοση διακομιστή ownCloud</string>
   <string name="auth_wrong_connection_title">Δεν ήταν δυνατή η σύνδεση</string>
   <string name="auth_secure_connection">Επιτεύχθηκε ασφαλής σύνδεση</string>
+  <string name="auth_unauthorized">Λάθος όνομα χρήστη ή κωδικός</string>
+  <string name="auth_oauth_error">Η πιστοποίηση απέτυχε</string>
   <string name="auth_not_found">Δόθηκε εσφαλμένη διαδρομή</string>
   <string name="auth_internal">Εσωτερικό σφάλμα διακομιστή, κωδικός %1$d</string>
+  <string name="auth_expired_basic_auth_toast">Παρακαλώ είσάγετε τον τρέχοντα κωδικό</string>
   <string name="crashlog_message">Η εφαρμογή τερματίστηκε ξαφνικά. Θα θέλατε να υποβάλετε αναφορά σφάλματος;</string>
   <string name="crashlog_send_report">Αποστολή αναφοράς</string>
   <string name="crashlog_dont_send_report">Να μην αποσταλεί αναφορά</string>
@@ -228,7 +242,12 @@
   <string name="conflict_keep_both">Διατήρηση και των δύο</string>
   <string name="conflict_overwrite">Αντικατάσταση</string>
   <string name="conflict_dont_upload">Δεν μεταφορτώθηκε</string>
+  <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
+  <string name="preview_image_error_unknown_format">Αυτή η εικόνε δεν μπόρεσε να προβληθεί</string>
+  <string name="preview_image_error_out_of_memory">\"Δεν υπάρχει αρκετή μνήμη για την προβολή αυτής της εικόνας</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s δεν μπορεσε να αντιγραφθεί στον %2$s τοπικο καταλόγο </string>
   <string name="failed_upload_all_cb">επιλογή όλων</string>
+  <string name="failed_upload_load_more_images">Φόρτωση περισσότερων εικόνων</string>
+  <string name="failed_upload_failure_text">Μήνυμα Αποτυχίας:</string>
 </resources>

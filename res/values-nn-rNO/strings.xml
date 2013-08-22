@@ -57,6 +57,7 @@
   <string name="common_save_exit">Lagra &amp; avslutt</string>
   <string name="common_error">Feil</string>
   <string name="about_title">Om</string>
+  <string name="change_password">Endra passord</string>
   <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp frå …</string>

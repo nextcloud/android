@@ -39,7 +39,6 @@
   <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
-  <string name="auth_register">ข้าพเจ้าเพิ่งใช้งาน ownCloud</string>
   <string name="new_session_uri_error">ที่อยู่ URL ไม่ถูกต้อง</string>
   <string name="new_session_session_name_error">ชื่อเซสชั่นไม่ถูกต้อง</string>
   <string name="sync_string_files">ไฟล์</string>
@@ -79,6 +78,7 @@
   <string name="common_exit">ออกจาก ownCloud</string>
   <string name="common_error">ข้อผิดพลาด</string>
   <string name="about_title">เกี่ยวกับเรา</string>
+  <string name="change_password">เปลี่ยนรหัสผ่าน</string>
   <string name="delete_account">ลบบัญชี</string>
   <string name="create_account">สร้างบัญชีใหม่</string>
   <string name="upload_chooser_title">อัพโหลดไฟล์จาก...</string>
@@ -134,12 +134,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
   <string name="auth_no_net_conn_message">ไม่พบการเชื่อมต่อเครือข่ายใด กรุณาตรวจสอบสถานะการเชื่อมต่ออินเทอร์เน็ตของคุณ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_connect_anyway">เชื่อมต่ออยู่แล้ว</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
   <string name="auth_nossl_plain_ok_message">แอพพลิเคชั่นยังไม่ได้ติดตั้งการเชื่อมต่อแบบปลอดภัยกับเซิร์ฟเวอร์ ถึงแม้ว่าจะมีการเชื่อมต่อแบบที่ยังไม่ได้กำหนดให้มีความปลอดภัย คุณสามารถดำเนินการต่อไป หรือยกเลิกได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
+  <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed ownCloud</string>
   <string name="auth_not_configured_message">ดูเหมือนว่าค่าตัวอย่าง ownCloud ของคุณยังไม่ได้ถูกกำหนดค่าอย่างถูกต้อง กรุณาติดต่อผู้ดูแลระบบของคุณ สำหรับรายละเอียดเพิ่มเติม</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>

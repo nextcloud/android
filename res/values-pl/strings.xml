@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Zapisuj historię</string>
   <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
   <string name="prefs_log_delete_history_button">Usuń histrorię</string>
+  <string name="auth_check_server">Sprawdź serwer</string>
   <string name="auth_host_url">Adres Serwera</string>
   <string name="auth_username">Nazwa użytkownika</string>
   <string name="auth_password">Hasło</string>
-  <string name="auth_register">Jestem nowym użytkownikiem %1$s</string>
+  <string name="auth_register">Nowe %1$s?</string>
   <string name="new_session_uri_error">Podano niepoprawny adres</string>
   <string name="new_session_session_name_error">Niepoprawna nazwa sesji</string>
   <string name="sync_string_files">Pliki</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Wczytuję ...</string>
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
+  <string name="change_password">Zmień hasło</string>
   <string name="delete_account">Usuń konto</string>
   <string name="create_account">Utwórz konto</string>
   <string name="upload_chooser_title">Wyślij plik z …</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Błąd synchronizacji</string>
   <string name="sync_fail_content">Nie można było ukończyć synchronizacji %1$s </string>
-  <string name="sync_fail_content_unauthorized">Błędne dane logowania dla %1$s</string>
+  <string name="sync_fail_content_unauthorized">Niepoprawne hasło dla %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
   <string name="sync_conflicts_in_favourites_content">%1$d synchronizowanych plików nie może zostać zsynchronizowanych</string>
   <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Nie rozpoznano wersji serwera</string>
   <string name="auth_wrong_connection_title">Nie można ustanowić połączenia</string>
   <string name="auth_secure_connection">Nawiązano bezpieczne połączenie</string>
-  <string name="auth_unauthorized">Błędne dane logowania </string>
+  <string name="auth_unauthorized">Zła nazwa użytkownika lub hasło</string>
   <string name="auth_oauth_error">Nieudana autoryzacja</string>
   <string name="auth_oauth_error_access_denied">Dostęp zabroniony przez serwer autoryzacji</string>
   <string name="auth_not_found">Wprowadzono nieprawidłową ścieżkę</string>
   <string name="auth_internal">Wewnętrzny błąd serwera, kod %1$d</string>
   <string name="auth_wtf_reenter_URL">Nieoczekiwany stan; Proszę wpisz adres URL serwera ponownie</string>
   <string name="auth_expired_oauth_token_toast">Twoja sesja wygasła.\nProszę zaloguj się ponownie</string>
-  <string name="auth_expired_basic_auth_toast">Zapisane dane logowania są nieprawidłowe.\nWprowadź nowe dane logowania.</string>
+  <string name="auth_expired_basic_auth_toast">Proszę podać obecne hasło</string>
   <string name="crashlog_message">Aplikacja została nieoczekiwanie zakończona. Czy chcesz przesłać raport awarii?</string>
   <string name="crashlog_send_report">Wyślij raport</string>
   <string name="crashlog_dont_send_report">Nie wysyłaj raportu</string>

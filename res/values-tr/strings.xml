@@ -38,7 +38,6 @@
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
-  <string name="auth_register">ownCloud\'da yeniyim.</string>
   <string name="new_session_uri_error">Geçersiz URL girildi</string>
   <string name="new_session_session_name_error">Yanlış oturum ismi</string>
   <string name="sync_string_files">Dosyalar</string>
@@ -79,6 +78,7 @@
   <string name="common_error">Hata</string>
   <string name="common_error_unknown">Bilinmeyen hata</string>
   <string name="about_title">Hakkında</string>
+  <string name="change_password">Parola değiştir</string>
   <string name="delete_account">Hesabı sil</string>
   <string name="create_account">Hesap oluştur</string>
   <string name="upload_chooser_title">... dan dosya yükle</string>
@@ -135,12 +135,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Giriş için deneniyor</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_no_net_conn_message">Ağ bağlantısı bulunamadı. İnternet bağlantı ayarlarınızı kontrol edin ve tekrar deneyin.</string>
   <string name="auth_connect_anyway">Her halükarda bağlan</string>
   <string name="auth_nossl_plain_ok_title">Günvenli bağlantı mevcut değil.</string>
   <string name="auth_nossl_plain_ok_message">Uygulama sunucu ile güvenli bağlantı kuramadı. Buna rağmen güvensiz bağlantı mevcut. Devam edebilirsiniz veya iptal edebilirsiniz.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
+  <string name="auth_testing_connection">Bağlantı kontrol ediliyor ...</string>
   <string name="auth_not_configured_title">Hatalı ownCloud ayarı.</string>
   <string name="auth_not_configured_message">Görünüşe bakılırsa ownCloud servisiniz doğru ayarlanmamış. Detaylı bilgi için sistem yöneticinize başvurunuz.</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>

@@ -36,7 +36,9 @@
   <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>
+  <string name="change_password">Izmjena lozinke</string>
   <string name="sync_string_contacts">Kontakti</string>
+  <string name="auth_trying_to_login">Trying to login…</string>
   <string name="common_share">Podijeli</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
