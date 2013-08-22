@@ -45,7 +45,6 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.network.BearerAuthScheme;
 import com.owncloud.android.network.BearerCredentials;
 
-import android.accounts.AccountAuthenticatorActivity;
 import android.net.Uri;
 
 public class WebdavClient extends HttpClient {
@@ -99,7 +98,7 @@ public class WebdavClient extends HttpClient {
     
     public void setSsoSessionCookie(String accessToken) {
         getParams().setAuthenticationPreemptive(false);
-        getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
         mSsoSessionCookie = accessToken;
         mCredentials = null;
         mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE;
