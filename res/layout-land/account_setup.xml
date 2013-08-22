@@ -150,21 +150,6 @@
 					<requestFocus />
 				</EditText>            
 		
-		        <EditText
-		            android:id="@+id/account_name"
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            android:ems="10"
-		            android:hint="@string/auth_account_name"
-		            android:inputType="textNoSuggestions" 
-		            android:visibility="gone" />
-		        
-		        <WebView
-		            android:id="@+id/web_sso_view" 
-		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content"
-		            android:visibility="gone" />
-		
 				<EditText
 					android:id="@+id/account_username"
 					android:layout_width="match_parent"
