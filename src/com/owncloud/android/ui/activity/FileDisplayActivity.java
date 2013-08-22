@@ -19,8 +19,11 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.app.Dialog;
@@ -59,6 +62,8 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -67,6 +72,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
@@ -74,6 +80,7 @@ import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.EditNameDialog;
@@ -86,6 +93,8 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+
+import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Displays, what files the user has available in his ownCloud.
@@ -454,8 +463,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             FileFragment second = getSecondFragment();
             OCFile currentDir = getCurrentDir();
             if((currentDir != null && currentDir.getParentId() != 0) || 
-                    (second != null && second.getFile() != null)) {
+                    (second != null && second.getFile() != null)) {                
                 onBackPressed(); 
+                
             }
             break;
         }
@@ -936,6 +946,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     public void onBrowsedDownTo(OCFile directory) {
         pushDirname(directory);
         cleanSecondFragment();
+        
+        syncFolderOperation(directory.getRemotePath(), directory.getFileId());
+        // Update folder size on DB
+        getStorageManager().calculateFolderSize(directory.getFileId());
+        
     }
 
     /**
@@ -1144,6 +1159,31 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            
+        } else if (operation instanceof SynchronizeFolderOperation) {
+            onSynchronizeFolderOperationFinish((SynchronizeFolderOperation)operation, result);
+        }
+    }
+
+
+    /**
+     * Updates the view associated to the activity after the finish of an operation trying to synchronize a folder. 
+     * 
+     * @param operation     Synchronize operation performed.
+     * @param result        Result of the synchronization.
+     */
+    private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            refeshListOfFilesFragment();
+
+        } else {
+            try {
+                Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
+                msg.show();
+
+            } catch (NotFoundException e) {
+                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
         }
     }
 
@@ -1331,6 +1371,20 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             }
         }
         return null;
+    }
+    
+    public void syncFolderOperation(String remotePath, long parentId) {
+         long currentSyncTime = System.currentTimeMillis(); 
+        // perform folder synchronization
+        RemoteOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
+                                                                                    currentSyncTime, 
+                                                                                    parentId, 
+                                                                                    getStorageManager(), 
+                                                                                    getAccount(), 
+                                                                                    getApplicationContext()
+                                                                                  );
+        synchFolderOp.execute(getAccount(), this, this, mHandler, this);
+        
     }
 
 }

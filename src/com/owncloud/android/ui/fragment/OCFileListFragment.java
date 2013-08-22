@@ -31,6 +31,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -132,6 +133,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             mFile = parentDir;
         }
         listDirectory(parentDir);
+
+        mContainerActivity.syncFolderOperation(mFile.getRemotePath(), mFile.getParentId());
+   
     }
     
     @Override
@@ -371,7 +375,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
-
         }
     }
     
@@ -396,6 +399,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         public void startMediaPreview(OCFile file, int i, boolean b);
 
         public void startImagePreview(OCFile file);
+        
+        public void syncFolderOperation(String remotePath, long parentId);
 
         /**
          * Getter for the current DataStorageManager in the container activity
