@@ -57,7 +57,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
     private static final String ARG_TARGET_URL = "TARGET_URL";
     private static final String KEY_WEBVIEW_STATE = "WEBVIEW_STATE";
     
-    //private WebView mSsoWebView;
+    private WebView mSsoWebView;
     private SsoWebViewClient mWebViewClient;
     
     private String mInitialUrl;
@@ -152,28 +152,28 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         
         // Inflate layout of the dialog  
         View rootView = inflater.inflate(R.layout.sso_dialog, container, false);  // null parent view because it will go in the dialog layout
-        WebView ssoWebView  = (WebView) rootView.findViewById(R.id.sso_webview);
+        mSsoWebView  = (WebView) rootView.findViewById(R.id.sso_webview);
             
         mWebViewClient.setTargetUrl(mTargetUrl);
-        ssoWebView.setWebViewClient(mWebViewClient);
+        mSsoWebView.setWebViewClient(mWebViewClient);
         
         if (savedInstanceState == null) {
             Log_OC.d(TAG,  "   initWebView start");
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeAllCookie();
-            ssoWebView.loadUrl(mInitialUrl);
+            mSsoWebView.loadUrl(mInitialUrl);
             
         } else {
             Log_OC.d(TAG, "   restoreWebView start");
-            WebBackForwardList history = ssoWebView.restoreState(savedInstanceState.getBundle(KEY_WEBVIEW_STATE));
+            WebBackForwardList history = mSsoWebView.restoreState(savedInstanceState.getBundle(KEY_WEBVIEW_STATE));
             if (history == null) {
                 Log_OC.e(TAG, "Error restoring WebView state ; back to starting URL");
-                ssoWebView.loadUrl(mInitialUrl);
+                mSsoWebView.loadUrl(mInitialUrl);
             }
         }
 
-        WebSettings webSettings = ssoWebView.getSettings();
+        WebSettings webSettings = mSsoWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLoadWithOverviewMode(false);
@@ -195,13 +195,15 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         
         // Save the state of the WebView
         Bundle webviewState = new Bundle();
-        ((WebView) getDialog().findViewById(R.id.sso_webview)).saveState(webviewState);
+        mSsoWebView.saveState(webviewState);
         outState.putBundle(KEY_WEBVIEW_STATE, webviewState);
     }
 
     @Override
     public void onDestroyView() {
         Log_OC.d(TAG, "onDestroyView");
+        
+        mSsoWebView.setWebViewClient(null);
         
         // Work around bug: http://code.google.com/p/android/issues/detail?id=17423
         Dialog dialog = getDialog();

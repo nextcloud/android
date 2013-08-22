@@ -74,7 +74,7 @@ public class SsoWebViewClient extends WebViewClient {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
             final String cookies = cookieManager.getCookie(url);
-            //Log_OC.d(TAG, cookies);
+            Log_OC.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageStarted is not running in the UI thread
                 mListenerHandler.post(new Runnable() {
@@ -111,6 +111,7 @@ public class SsoWebViewClient extends WebViewClient {
             mLastReloadedUrlAtError = failingUrl;
         } else {
             mLastReloadedUrlAtError = null;
+            super.onReceivedError(view, errorCode, description, failingUrl);
         }
     }
     

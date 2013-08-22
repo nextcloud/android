@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
@@ -243,6 +244,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                             
                 } else {
                     result = new RemoteOperationResult(true, status);
+                    Header hCookie = query.getResponseHeader("Cookie");
+                    if (hCookie != null) {
+                        Log_OC.d(TAG, "PROPFIND cookie: " + hCookie.getValue());
+                    }
                 }
             } else {
                 result = new RemoteOperationResult(false, status);
