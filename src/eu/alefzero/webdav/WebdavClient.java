@@ -93,7 +93,7 @@ public class WebdavClient extends HttpClient {
     
     public void setSsoSessionCookie(String accessToken) {
         getParams().setAuthenticationPreemptive(false);
-        getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
         mSsoSessionCookie = accessToken;
         mCredentials = null;
     }
