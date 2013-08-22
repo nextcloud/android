@@ -18,8 +18,6 @@
 
 package com.owncloud.android.authentication;
 
-import java.net.URLDecoder;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -51,7 +49,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.Log_OC;
@@ -776,7 +773,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
         
-        if (result.isTemporalRedirection() || result.isIdPRedirection()) {
+        if (result.isTemporalRedirection() && result.isIdPRedirection()) {
             String url = result.getRedirectedLocation();
             String targetUrl = mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType);
             
@@ -1163,7 +1160,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
-            Log_OC.e(TAG, "saving auth token: " + mAuthToken);
             
         } else {
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
@@ -1235,7 +1231,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             intent.putExtra(AccountManager.KEY_USERDATA,        username);
             if (isOAuth || isSaml) {
                 mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
-                Log_OC.e(TAG, "saving auth token: " + mAuthToken);
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());

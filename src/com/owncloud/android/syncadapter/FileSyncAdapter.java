@@ -225,7 +225,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    ((result.isTemporalRedirection() || result.isIdPRedirection()) && getClient().getSsoSessionCookie() != null)) {
+                    (result.isTemporalRedirection() && result.isIdPRedirection() && 
+                            AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -308,8 +309,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         boolean needsToUpdateCredentials = (mLastFailedResult != null && 
                                              (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                ((mLastFailedResult.isTemporalRedirection() || mLastFailedResult.isIdPRedirection())
-                                                        && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
+                                                (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
+                                                 AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
                                              )
                                            );
         // TODO put something smart in the contentIntent below for all the possible errors
