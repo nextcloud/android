@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.net.URLDecoder;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -33,6 +35,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -50,6 +53,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
@@ -98,6 +102,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
+    
+    private static final String KEY_OC_USERNAME_EQUALS = "oc_username=";
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -148,7 +154,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
     
-    private TextView mAccountNameInput;
     private SamlWebViewDialog mSamlDialog;
     
     private View mOkButton;
@@ -175,7 +180,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
-        mAccountNameInput = (EditText) findViewById(R.id.account_name);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
@@ -297,6 +301,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// bind view elements to listeners and other friends
         mHostUrlInput.setOnFocusChangeListener(this);
+        mHostUrlInput.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        mHostUrlInput.setOnEditorActionListener(this);
         mHostUrlInput.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -986,6 +992,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         case OAUTH2_ERROR_ACCESS_DENIED:
             mAuthStatusText = R.string.auth_oauth_error_access_denied;
             break;
+        case ACCOUNT_NOT_NEW:
+            mAuthStatusText = R.string.auth_account_not_new;
+            break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
             mAuthStatusText = R.string.auth_unknown_error_title;
@@ -1050,14 +1059,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
 
+            boolean success = true;
             if (mAction == ACTION_CREATE) {
-                createAccount();
+                success = createAccount();
 
             } else {
                 updateToken();
             }
 
-            finish();
+            if (success) {
+                finish();
+            }
 
         } else if (result.isServerFail() || result.isException()) {
             /// if server fail or exception in authorization, the UI is updated as when a server check failed
@@ -1127,7 +1139,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * 
      * TODO Decide how to name the OAuth accounts
      */
-    private void createAccount() {
+    private boolean createAccount() {
         /// create and save new ownCloud account
         boolean isOAuth = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mCurrentAuthTokenType);
         boolean isSaml =  AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType);
@@ -1135,7 +1147,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
         if (isSaml) {
-            username = mAccountNameInput.getText().toString().trim();
+            username = getUserNameForSamlSso();
             
         } else if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
@@ -1145,48 +1157,75 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             accountName += ":" + uri.getPort();
         }
         mAccount = new Account(accountName, AccountAuthenticator.ACCOUNT_TYPE);
-        if (isOAuth || isSaml) {
-            mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with external authorizations, the password is never input in the app
+        if (AccountUtils.exists(mAccount, getApplicationContext())) {
+            // fail - not a new account, but an existing one; disallow
+            RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_NEW); 
+            updateAuthStatusIconAndText(result);
+            showAuthStatus();
+            Log_OC.d(TAG, result.getLogMessage());
+            return false;
+            
+            
         } else {
-            mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
+        
+            if (isOAuth || isSaml) {
+                mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with external authorizations, the password is never input in the app
+            } else {
+                mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
+            }
+    
+            /// add the new account as default in preferences, if there is none already
+            Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+            if (defaultAccount == null) {
+                SharedPreferences.Editor editor = PreferenceManager
+                        .getDefaultSharedPreferences(this).edit();
+                editor.putString("select_oc_account", accountName);
+                editor.commit();
+            }
+    
+            /// prepare result to return to the Authenticator
+            //  TODO check again what the Authenticator makes with it; probably has the same effect as addAccountExplicitly, but it's not well done
+            final Intent intent = new Intent();       
+            intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,    AccountAuthenticator.ACCOUNT_TYPE);
+            intent.putExtra(AccountManager.KEY_ACCOUNT_NAME,    mAccount.name);
+            /*if (!isOAuth)
+                intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); */
+            intent.putExtra(AccountManager.KEY_USERDATA,        username);
+            if (isOAuth || isSaml) {
+                mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
+            }
+            /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
+            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
+            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
+            if (isSaml) {
+                mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
+            } else if (isOAuth) {
+                mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  
+            }
+    
+            setAccountAuthenticatorResult(intent.getExtras());
+            setResult(RESULT_OK, intent);
+    
+            /// immediately request for the synchronization of the new account
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+            return true;
         }
+    }
 
-        /// add the new account as default in preferences, if there is none already
-        Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
-        if (defaultAccount == null) {
-            SharedPreferences.Editor editor = PreferenceManager
-                    .getDefaultSharedPreferences(this).edit();
-            editor.putString("select_oc_account", accountName);
-            editor.commit();
+    
+    private String getUserNameForSamlSso() {
+        if (mAuthToken != null) {
+            String [] cookies = mAuthToken.split(";");
+            for (int i=0; i<cookies.length; i++) {
+                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
+                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
+                    return value;
+                }
+            }
         }
-
-        /// prepare result to return to the Authenticator
-        //  TODO check again what the Authenticator makes with it; probably has the same effect as addAccountExplicitly, but it's not well done
-        final Intent intent = new Intent();       
-        intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE,    AccountAuthenticator.ACCOUNT_TYPE);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_NAME,    mAccount.name);
-        /*if (!isOAuth)
-            intent.putExtra(AccountManager.KEY_AUTHTOKEN,   AccountAuthenticator.ACCOUNT_TYPE); */
-        intent.putExtra(AccountManager.KEY_USERDATA,        username);
-        if (isOAuth || isSaml) {
-            mAccountMgr.setAuthToken(mAccount, mCurrentAuthTokenType, mAuthToken);
-        }
-        /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
-        mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
-        mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
-        if (isSaml) {
-            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
-        } else if (isOAuth) {
-            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  
-        }
-
-        setAccountAuthenticatorResult(intent.getExtras());
-        setResult(RESULT_OK, intent);
-
-        /// immediately request for the synchronization of the new account
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+        return "";
     }
 
 
@@ -1396,7 +1435,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
-            mAccountNameInput.setVisibility(View.GONE);
             
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
             // SAML-based web Single Sign On
@@ -1404,14 +1442,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mOAuthTokenEndpointText.setVisibility(View.GONE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
-            mAccountNameInput.setVisibility(View.VISIBLE);
         } else {
             // basic HTTP authorization
             mOAuthAuthEndpointText.setVisibility(View.GONE);
             mOAuthTokenEndpointText.setVisibility(View.GONE);
             mUsernameInput.setVisibility(View.VISIBLE);
             mPasswordInput.setVisibility(View.VISIBLE);
-            mAccountNameInput.setVisibility(View.GONE);
         }
     }
     
@@ -1435,14 +1471,19 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     /**
      *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
      * 
-     *  Used to trigger the authorization check when the user presses 'enter' after writing the password.
+     *  Used to trigger the authentication check when the user presses 'enter' after writing the password, 
+     *  or to throw the server test when the only field on screen is the URL input field.
      */
     @Override
     public boolean onEditorAction(TextView inputField, int actionId, KeyEvent event) {
-        if (inputField != null && inputField.equals(mPasswordInput) && 
-                actionId == EditorInfo.IME_ACTION_DONE) {
+        if (actionId == EditorInfo.IME_ACTION_DONE && inputField != null && inputField.equals(mPasswordInput)) {
             if (mOkButton.isEnabled()) {
                 mOkButton.performClick();
+            }
+            
+        } else if (actionId == EditorInfo.IME_ACTION_NEXT && inputField != null && inputField.equals(mHostUrlInput)) {
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mCurrentAuthTokenType)) {
+                checkOcServer();
             }
         }
         return false;   // always return false to grant that the software keyboard is hidden anyway
@@ -1486,30 +1527,37 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthToken = sessionCookie;
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
-          Log_OC.d(TAG, "Successful SSO - time to save the account");
-          mAuthToken = sessionCookie;
-          if (mAction == ACTION_CREATE) {
-              createAccount();
-
-          } else {
-              updateToken();
-          }
-
-          finish();
-
-      }
+            Log_OC.d(TAG, "Successful SSO - time to save the account");
+            mAuthToken = sessionCookie;
+            boolean success = true;
+            if (mAction == ACTION_CREATE) {
+                success = createAccount();
+        
+            } else {
+                updateToken();
+            }
+            if (success) {
+                finish();
+            }
+        }
+            
     }
 
 
-
     @Override
-    public void onSsoFinished(String sessionCookie) {
+    public void onSsoFinished(String sessionCookies) {
         //Toast.makeText(this, "got cookies: " + sessionCookie, Toast.LENGTH_LONG).show();
 
-        if (sessionCookie != null && sessionCookie.length() > 0) {
+        if (sessionCookies != null && sessionCookies.length() > 0) {
             Log_OC.d(TAG, "Successful SSO - time to save the account");
-            onSamlDialogSuccess(sessionCookie);
-            finish();
+            onSamlDialogSuccess(sessionCookies);
+            Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+            if (fd != null && fd instanceof SherlockDialogFragment) {
+                Dialog d = ((SherlockDialogFragment)fd).getDialog();
+                if (d != null && d.isShowing()) {
+                    d.dismiss();
+                }
+            }
 
         } else { 
             // TODO - show fail

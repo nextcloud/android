@@ -246,7 +246,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     result = new RemoteOperationResult(true, status);
                     Header hCookie = query.getResponseHeader("Cookie");
                     if (hCookie != null) {
-                        Log_OC.d(TAG, "PROPFIND cookie: " + hCookie.getValue());
+                        Log_OC.e(TAG, "PROPFIND cookie: " + hCookie.getValue());
+                    } else {
+                        Log_OC.e(TAG, "PROPFIND NO COOKIE");
                     }
                 }
             } else {

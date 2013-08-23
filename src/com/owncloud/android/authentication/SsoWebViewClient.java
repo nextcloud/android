@@ -70,24 +70,7 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
         Log_OC.d(TAG, "onPageStarted : " + url);
-        if (url.startsWith(mTargetUrl)) {
-            view.setVisibility(View.GONE);
-            CookieManager cookieManager = CookieManager.getInstance();
-            final String cookies = cookieManager.getCookie(url);
-            Log_OC.d(TAG, "Cookies: " + cookies);
-            if (mListenerHandler != null && mListenerRef != null) {
-                // this is good idea because onPageStarted is not running in the UI thread
-                mListenerHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        SsoWebViewClientListener listener = mListenerRef.get();
-                        if (listener != null) {
-                            listener.onSsoFinished(cookies);
-                        }
-                    }
-                });
-            }
-        }
+        super.onPageStarted(view, url, favicon);
     }
     
     @Override
@@ -119,6 +102,25 @@ public class SsoWebViewClient extends WebViewClient {
     public void onPageFinished (WebView view, String url) {
         Log_OC.d(TAG, "onPageFinished : " + url);
         mLastReloadedUrlAtError = null;
+        if (url.startsWith(mTargetUrl)) {
+            view.setVisibility(View.GONE);
+            CookieManager cookieManager = CookieManager.getInstance();
+            final String cookies = cookieManager.getCookie(url);
+            //Log_OC.d(TAG, "Cookies: " + cookies);
+            if (mListenerHandler != null && mListenerRef != null) {
+                // this is good idea because onPageFinished is not running in the UI thread
+                mListenerHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        SsoWebViewClientListener listener = mListenerRef.get();
+                        if (listener != null) {
+                            listener.onSsoFinished(cookies);
+                        }
+                    }
+                });
+            }
+        }
+
     }
     
     /*
