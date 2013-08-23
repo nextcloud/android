@@ -716,6 +716,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
         WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
+      
     }
 
     /**
@@ -758,8 +759,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mSamlDialog = SamlWebViewDialog.newInstance(url, targetUrl);            
             mSamlDialog.show(getSupportFragmentManager(), TAG_SAML_DIALOG);
             
-            mAuthStatusIcon = android.R.drawable.ic_secure;
-            mAuthStatusText = R.string.auth_follow_auth_server;
+            mAuthStatusIcon = 0;
+            mAuthStatusText = 0;
             
         } else {
             mAuthStatusIcon = R.drawable.common_error;
@@ -1102,6 +1103,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             showAuthStatus();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
+
     }
 
 
@@ -1540,6 +1542,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 finish();
             }
         }
+
             
     }
 
@@ -1563,8 +1566,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             // TODO - show fail
             Log_OC.d(TAG, "SSO failed");
         }
-    }
     
+    }
     
 
 }
