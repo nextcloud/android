@@ -947,9 +947,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         pushDirname(directory);
         cleanSecondFragment();
         
+        // Sync Folder
         syncFolderOperation(directory.getRemotePath(), directory.getFileId());
         // Update folder size on DB
-        getStorageManager().calculateFolderSize(directory.getFileId());
+        getStorageManager().calculateFolderSize(directory.getParentId());
         
     }
 
