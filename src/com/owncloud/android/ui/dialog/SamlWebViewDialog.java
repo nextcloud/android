@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -115,7 +116,9 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-
+        
+        CookieSyncManager.createInstance(getActivity());
+        
         if (savedInstanceState == null) {
             mInitialUrl = getArguments().getString(ARG_INITIAL_URL);
             mTargetUrl = getArguments().getString(ARG_TARGET_URL);
