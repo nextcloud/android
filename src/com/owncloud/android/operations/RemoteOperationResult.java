@@ -324,8 +324,9 @@ public class RemoteOperationResult implements Serializable {
     }
     
     public boolean isIdPRedirection() {
-        return (mRedirectedLocation.toUpperCase().contains("SAML") || 
-                mRedirectedLocation.toLowerCase().contains("wayf"));
+        return (mRedirectedLocation != null &&
+                (mRedirectedLocation.toUpperCase().contains("SAML") || 
+                mRedirectedLocation.toLowerCase().contains("wayf")));
     }
 
 }
