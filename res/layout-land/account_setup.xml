@@ -43,6 +43,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
 		    android:layout_weight="1"
+		    android:id="@+id/scroll"
 		    android:fillViewport="true"
 		    android:orientation="vertical" >
 						
@@ -50,7 +51,6 @@
 			    android:id="@+id/LinearLayout1"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:focusable="true"
 			    android:gravity="center"
 			    android:orientation="vertical"
 			    android:padding="8dp" >
@@ -116,7 +116,6 @@
 					android:onClick="onCheckClick"
 					android:text="@string/oauth_check_onoff"
 					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:visibility="gone"
 					/>
 		
 				<EditText
@@ -129,7 +128,6 @@
 					android:singleLine="true"
 					android:inputType="textUri"
 					android:visibility="gone" >
-					<requestFocus />
 				</EditText>            
 				
 				<EditText

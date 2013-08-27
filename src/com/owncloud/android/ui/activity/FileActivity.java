@@ -174,7 +174,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     private void createFirstAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(AccountAuthenticator.ACCOUNT_TYPE, 
-                        AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD,
+                        null,
                         null, 
                         null, 
                         this, 

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
@@ -208,9 +209,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         } else {
                             mFailsInFavouritesFound++;
                             if (contentsResult.getException() != null) {
-                                Log_OC.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                                Log_OC.e(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
                             } else {
-                                Log_OC.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                                Log_OC.e(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
                             }
                         }
                     }   // won't let these fails break the synchronization process
@@ -243,20 +244,35 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                             
                 } else {
                     result = new RemoteOperationResult(true, status);
+                    Header hCookie = query.getResponseHeader("Cookie");
+                    if (hCookie != null) {
+                        Log_OC.e(TAG, "PROPFIND cookie: " + hCookie.getValue());
+                    } else {
+                        Log_OC.e(TAG, "PROPFIND NO COOKIE");
+                    }
                 }
             } else {
                 result = new RemoteOperationResult(false, status);
             }
-            Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+            
             
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+            
 
         } finally {
             if (query != null)
                 query.releaseConnection();  // let the connection available for other methods
+            if (result.isSuccess()) {
+                Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+            } else {
+                if (result.isException()) {
+                    Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+                } else {
+                    Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+                }
+            }
         }
         
         return result;

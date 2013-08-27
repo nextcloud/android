@@ -22,12 +22,13 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:fillViewport="true"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/scroll"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp" >
@@ -101,16 +102,17 @@
             android:onClick="onCheckClick"
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:visibility="gone" />
+            />
 
         <EditText
             android:id="@+id/oAuthEntryPoint_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textUri"
-            android:singleLine="true"
+			android:enabled="false"
             android:text="@string/oauth2_url_endpoint_auth"
+            android:singleLine="true"
+            android:inputType="textUri"
             android:visibility="gone" >
         </EditText>
 
@@ -119,9 +121,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textUri"
-            android:singleLine="true"
+			android:enabled="false"
             android:text="@string/oauth2_url_endpoint_access"
+            android:singleLine="true"
+            android:inputType="textUri"
             android:visibility="gone" />
 
         <EditText
@@ -130,7 +133,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/auth_username"
-            android:inputType="textNoSuggestions" />
+            android:inputType="textNoSuggestions" 
+			/>
 
 		<EditText
 		    android:id="@+id/account_password"
@@ -139,7 +143,8 @@
 		    android:drawablePadding="5dp"
 		    android:ems="10"
 		    android:hint="@string/auth_password"
-		    android:inputType="textPassword" />
+		    android:inputType="textPassword" 
+            />
         
         <TextView
             android:id="@+id/auth_status_text"

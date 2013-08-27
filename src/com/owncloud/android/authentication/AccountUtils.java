@@ -32,6 +32,7 @@ public class AccountUtils {
     public static final String WEBDAV_PATH_2_0 = "/files/webdav.php";
     public static final String WEBDAV_PATH_4_0 = "/remote.php/webdav";
     private static final String ODAV_PATH = "/remote.php/odav";
+    private static final String SAML_SSO_PATH = "/remote.php/webdav";
     public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
     public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
@@ -74,6 +75,20 @@ public class AccountUtils {
     }
 
     
+    public static boolean exists(Account account, Context context) {
+        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                AccountAuthenticator.ACCOUNT_TYPE);
+
+        if (account != null && account.name != null) {
+            for (Account ac : ocAccounts) {
+                if (ac.name.equals(account.name)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 
     /**
      * Checks, whether or not there are any ownCloud accounts setup.
@@ -115,10 +130,40 @@ public class AccountUtils {
      * @param version version of owncloud
      * @return webdav path for given OC version, null if OC version unknown
      */
-    public static String getWebdavPath(OwnCloudVersion version, boolean supportsOAuth) {
+    public static String getWebdavPath(OwnCloudVersion version, boolean supportsOAuth, boolean supportsSamlSso) {
         if (version != null) {
             if (supportsOAuth) {
                 return ODAV_PATH;
+            }
+            if (supportsSamlSso) {
+                return SAML_SSO_PATH;
+            }
+            if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
+                return WEBDAV_PATH_4_0;
+            if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0
+                    || version.compareTo(OwnCloudVersion.owncloud_v2) >= 0)
+                return WEBDAV_PATH_2_0;
+            if (version.compareTo(OwnCloudVersion.owncloud_v1) >= 0)
+                return WEBDAV_PATH_1_2;
+        }
+        return null;
+    }
+    
+    /**
+     * Returns the proper URL path to access the WebDAV interface of an ownCloud server,
+     * according to its version and the authorization method used.
+     * 
+     * @param   version         Version of ownCloud server.
+     * @param   authTokenType   Authorization token type, matching some of the AUTH_TOKEN_TYPE_* constants in {@link AccountAuthenticator}. 
+     * @return                  WebDAV path for given OC version and authorization method, null if OC version is unknown.
+     */
+    public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
+        if (version != null) {
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(authTokenType)) {
+                return ODAV_PATH;
+            }
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(authTokenType)) {
+                return SAML_SSO_PATH;
             }
             if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
                 return WEBDAV_PATH_4_0;
@@ -143,8 +188,9 @@ public class AccountUtils {
         String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
         String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
         boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
+        boolean supportsSamlSso = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null);
         OwnCloudVersion ver = new OwnCloudVersion(strver);
-        String webdavpath = getWebdavPath(ver, supportsOAuth);
+        String webdavpath = getWebdavPath(ver, supportsOAuth, supportsSamlSso);
 
         if (baseurl == null || webdavpath == null) 
             throw new AccountNotFoundException(account, "Account not found", null);

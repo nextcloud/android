@@ -28,6 +28,7 @@ import java.net.UnknownHostException;
 import javax.net.ssl.SSLException;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
@@ -50,7 +51,7 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = 6106167714625712390L;
+    private static final long serialVersionUID = 3267227833178885664L;
 
     
     private static final String TAG = "RemoteOperationResult";
@@ -84,13 +85,15 @@ public class RemoteOperationResult implements Serializable {
         OAUTH2_ERROR_ACCESS_DENIED,
         QUOTA_EXCEEDED, 
         ACCOUNT_NOT_FOUND, 
-        ACCOUNT_EXCEPTION
+        ACCOUNT_EXCEPTION, 
+        ACCOUNT_NOT_NEW
     }
 
     private boolean mSuccess = false;
     private int mHttpCode = -1;
     private Exception mException = null;
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
+    private String mRedirectedLocation;
 
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
@@ -123,10 +126,24 @@ public class RemoteOperationResult implements Serializable {
                 break;
             default:
                 mCode = ResultCode.UNHANDLED_HTTP_CODE;
-                Log_OC.d(TAG, "RemoteOperationResult has prcessed UNHANDLED_HTTP_CODE: " + httpCode);
+                Log_OC.d(TAG, "RemoteOperationResult has processed UNHANDLED_HTTP_CODE: " + httpCode);
             }
         }
     }
+    
+    public RemoteOperationResult(boolean success, int httpCode, Header[] headers) {
+        this(success, httpCode);
+        if (headers != null) {
+            Header current;
+            for (int i=0; i<headers.length; i++) {
+                current = headers[i];
+                if ("Location".equals(current.getName())) {
+                    mRedirectedLocation = current.getValue();
+                    break;
+                }
+            }
+        }
+    }    
 
     public RemoteOperationResult(Exception e) {
         mException = e;
@@ -281,6 +298,9 @@ public class RemoteOperationResult implements Serializable {
 
         } else if (mCode == ResultCode.LOCAL_STORAGE_NOT_MOVED) {
             return "Error while moving file to final directory";
+
+        } else if (mCode == ResultCode.ACCOUNT_NOT_NEW) {
+            return "Account already existing when creating a new one";
         }
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";
@@ -293,6 +313,20 @@ public class RemoteOperationResult implements Serializable {
 
     public boolean isException() {
         return (mException != null);
+    }
+
+    public boolean isTemporalRedirection() {
+        return (mHttpCode == 302 || mHttpCode == 307);
+    }
+
+    public String getRedirectedLocation() {
+        return mRedirectedLocation;
+    }
+    
+    public boolean isIdPRedirection() {
+        return (mRedirectedLocation != null &&
+                (mRedirectedLocation.toUpperCase().contains("SAML") || 
+                mRedirectedLocation.toLowerCase().contains("wayf")));
     }
 
 }
