@@ -243,7 +243,8 @@ public abstract class RemoteOperation implements Runnable {
         
             repeat = false;
             if (mCallerActivity != null && mAccount != null && mContext != null && !result.isSuccess() &&
-                    (result.getCode() == ResultCode.UNAUTHORIZED || (result.isTemporalRedirection() && result.isIdPRedirection()))) {
+//                    (result.getCode() == ResultCode.UNAUTHORIZED || (result.isTemporalRedirection() && result.isIdPRedirection()))) {
+                    (result.getCode() == ResultCode.UNAUTHORIZED || result.isIdPRedirection())) {
                 /// possible fail due to lack of authorization in an operation performed in foreground
                 Credentials cred = mClient.getCredentials();
                 String ssoSessionCookie = mClient.getSsoSessionCookie();

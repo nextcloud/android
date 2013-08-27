@@ -794,7 +794,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             String content = null;
             
             boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                    (uploadResult.isTemporalRedirection() && uploadResult.isIdPRedirection() && 
+                    //(uploadResult.isTemporalRedirection() && uploadResult.isIdPRedirection() && 
+                    (uploadResult.isIdPRedirection() &&
                             AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mUploadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click

@@ -225,7 +225,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
         } else {
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    (result.isTemporalRedirection() && result.isIdPRedirection() && 
+                   // (result.isTemporalRedirection() && result.isIdPRedirection() &&
+                    ( result.isIdPRedirection() && 
                             AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))) {
                 mSyncResult.stats.numAuthExceptions++;
                 
@@ -309,7 +310,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         boolean needsToUpdateCredentials = (mLastFailedResult != null && 
                                              (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
+                                                // (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
+                                                ( mLastFailedResult.isIdPRedirection() && 
                                                  AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
                                              )
                                            );
