@@ -330,7 +330,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    mAuthStatusIcon = 0;
+                    mAuthStatusText = 0;
+                    showAuthStatus();
+            }
 
         });
         mPasswordInput.setOnFocusChangeListener(this);
