@@ -304,7 +304,7 @@ public class UploadFileOperation extends RemoteOperation {
                 }
             }
 
-            result = new RemoteOperationResult(isSuccess(status), status);
+            result = new RemoteOperationResult(isSuccess(status), status, (mPutMethod != null ? mPutMethod.getResponseHeaders() : null));
 
         } catch (Exception e) {
             // TODO something cleaner with cancellations

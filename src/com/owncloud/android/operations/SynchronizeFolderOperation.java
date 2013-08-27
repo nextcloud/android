@@ -243,16 +243,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
                             
                 } else {
-                    result = new RemoteOperationResult(true, status);
-                    Header hCookie = query.getResponseHeader("Cookie");
-                    if (hCookie != null) {
-                        Log_OC.e(TAG, "PROPFIND cookie: " + hCookie.getValue());
-                    } else {
-                        Log_OC.e(TAG, "PROPFIND NO COOKIE");
-                    }
+                    result = new RemoteOperationResult(true, status, query.getResponseHeaders());
                 }
             } else {
-                result = new RemoteOperationResult(false, status);
+                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
             }
             
             

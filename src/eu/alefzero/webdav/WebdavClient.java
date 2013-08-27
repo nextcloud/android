@@ -41,6 +41,7 @@ import org.apache.http.params.CoreProtocolPNames;
 
 import com.owncloud.android.Log_OC;
 
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.network.BearerAuthScheme;
 import com.owncloud.android.network.BearerCredentials;
 
@@ -51,6 +52,7 @@ public class WebdavClient extends HttpClient {
     private Credentials mCredentials;
     private boolean mFollowRedirects;
     private String mSsoSessionCookie;
+    private String mAuthTokenType;
     final private static String TAG = "WebdavClient";
     public static final String USER_AGENT = "Android-ownCloud";
     
@@ -66,6 +68,7 @@ public class WebdavClient extends HttpClient {
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
         mFollowRedirects = true;
         mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
     }
 
     public void setBearerCredentials(String accessToken) {
@@ -78,6 +81,7 @@ public class WebdavClient extends HttpClient {
         mCredentials = new BearerCredentials(accessToken);
         getState().setCredentials(AuthScope.ANY, mCredentials);
         mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN;
     }
 
     public void setBasicCredentials(String username, String password) {
@@ -89,6 +93,7 @@ public class WebdavClient extends HttpClient {
         mCredentials = new UsernamePasswordCredentials(username, password);
         getState().setCredentials(AuthScope.ANY, mCredentials);
         mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
     }
     
     public void setSsoSessionCookie(String accessToken) {
@@ -96,6 +101,7 @@ public class WebdavClient extends HttpClient {
         getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
         mSsoSessionCookie = accessToken;
         mCredentials = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE;
     }
     
     
@@ -206,9 +212,17 @@ public class WebdavClient extends HttpClient {
     public final Credentials getCredentials() {
         return mCredentials;
     }
+    
+    public final String getSsoSessionCookie() {
+        return mSsoSessionCookie;
+    }
 
     public void setFollowRedirects(boolean followRedirects) {
         mFollowRedirects = followRedirects;
+    }
+
+    public String getAuthTokenType() {
+        return mAuthTokenType;
     }
 
 }

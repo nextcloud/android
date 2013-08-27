@@ -51,7 +51,7 @@ import com.owncloud.android.network.CertificateCombinedException;
 public class RemoteOperationResult implements Serializable {
 
     /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = 3267227833178885664L;
+    private static final long serialVersionUID = -4415103901492836870L;
 
     
     private static final String TAG = "RemoteOperationResult";
@@ -86,7 +86,8 @@ public class RemoteOperationResult implements Serializable {
         QUOTA_EXCEEDED, 
         ACCOUNT_NOT_FOUND, 
         ACCOUNT_EXCEPTION, 
-        ACCOUNT_NOT_NEW
+        ACCOUNT_NOT_NEW, 
+        ACCOUNT_NOT_THE_SAME
     }
 
     private boolean mSuccess = false;
@@ -100,7 +101,7 @@ public class RemoteOperationResult implements Serializable {
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
     }
 
-    public RemoteOperationResult(boolean success, int httpCode) {
+    private RemoteOperationResult(boolean success, int httpCode) {
         mSuccess = success;
         mHttpCode = httpCode;
 
@@ -301,6 +302,9 @@ public class RemoteOperationResult implements Serializable {
 
         } else if (mCode == ResultCode.ACCOUNT_NOT_NEW) {
             return "Account already existing when creating a new one";
+
+        } else if (mCode == ResultCode.ACCOUNT_NOT_THE_SAME) {
+            return "Authenticated with a different account than the one updating";
         }
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";

@@ -118,7 +118,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         super.onCreate(savedInstanceState);
         
         CookieSyncManager.createInstance(getActivity());
-        
+
         if (savedInstanceState == null) {
             mInitialUrl = getArguments().getString(ARG_INITIAL_URL);
             mTargetUrl = getArguments().getString(ARG_TARGET_URL);

@@ -191,6 +191,7 @@
     <string name="auth_not_configured_title">Malformed server configuration</string>
     <string name="auth_not_configured_message">It seems that your server instance is not correctly configured. Contact your administrator for more details.</string>
     <string name="auth_account_not_new">An account for the same user and server already exists in the device</string>
+    <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
     <string name="auth_unknown_error_title">Unknown error occurred!</string>
     <string name="auth_unknown_error_message">An unknown error occurred. Please contact support and include logs from your device.</string>
     <string name="auth_unknown_host_title">Couldn\'t find host</string>
@@ -210,8 +211,9 @@
     <string name="auth_not_found">Wrong path given</string>
     <string name="auth_internal">Internal server error, code %1$d</string>
     <string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
-    <string name="auth_expired_oauth_token_toast">Your authorization expired.\nPlease, authorize again</string>
+    <string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
     <string name="auth_expired_basic_auth_toast">Please, enter the current password</string>
+    <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
 	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
 	<string name="auth_follow_auth_server">Follow instructions above to get authenticated</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    

@@ -203,7 +203,7 @@
   <string name="auth_not_found">Ruta errónea</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
-  <string name="auth_expired_oauth_token_toast">Su autorización ha expirado.\nPor favor, autorice de nuevo</string>
+  <string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Por favor, autorice de nuevo</string>
   <string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual.</string>
   <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Desea enviar un reporte de error?</string>
   <string name="crashlog_send_report">Enviar reporte</string>

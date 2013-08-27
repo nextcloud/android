@@ -77,7 +77,7 @@ public class CreateFolderOperation extends RemoteOperation {
                 mStorageManager.saveFile(newDir);
             }
 
-            result = new RemoteOperationResult(mkcol.succeeded(), status);
+            result = new RemoteOperationResult(mkcol.succeeded(), status, mkcol.getResponseHeaders());
             Log_OC.d(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage());
             client.exhaustResponse(mkcol.getResponseBodyAsStream());
                 

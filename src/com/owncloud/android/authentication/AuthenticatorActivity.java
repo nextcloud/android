@@ -18,8 +18,6 @@
 
 package com.owncloud.android.authentication;
 
-import java.net.URLDecoder;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -51,7 +49,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.Log_OC;
@@ -89,6 +86,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ENFORCED_UPDATE = "ENFORCE_UPDATE";
 
+    private static final String KEY_AUTH_MESSAGE_VISIBILITY = "AUTH_MESSAGE_VISIBILITY";
+    private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
     private static final String KEY_ACCOUNT = "ACCOUNT";
@@ -122,7 +121,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
-    private int mServerStatusText, mServerStatusIcon;
+    private String mAuthMessageText;
+    private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
@@ -140,6 +140,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private byte mAction;
     private Account mAccount;
 
+    private TextView mAuthMessage;
+    
     private EditText mHostUrlInput;
     private boolean mHostUrlInputEnabled;
     private View mRefreshButton;
@@ -175,6 +177,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
+        mAuthMessage = (TextView) findViewById(R.id.auth_message);
         mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
         mHostUrlInput.setText(getString(R.string.server_url));  // valid although R.string.server_url is an empty string
         mUsernameInput = (EditText) findViewById(R.id.account_username);
@@ -216,6 +219,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (savedInstanceState == null) {
             mResumed = false;
             /// connection state and info
+            mAuthMessageVisibility = View.GONE;
             mServerStatusText = mServerStatusIcon = 0;
             mServerIsValid = false;
             mServerIsChecked = false;
@@ -231,6 +235,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
+                String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
+                mUsernameInput.setText(userName);
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
             mJustCreated = true;
@@ -242,6 +248,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         } else {
             mResumed = true;
             /// connection state and info
+            mAuthMessageVisibility = savedInstanceState.getInt(KEY_AUTH_MESSAGE_VISIBILITY);
+            mAuthMessageText = savedInstanceState.getString(KEY_AUTH_MESSAGE_TEXT);
             mServerIsValid = savedInstanceState.getBoolean(KEY_SERVER_VALID);
             mServerIsChecked = savedInstanceState.getBoolean(KEY_SERVER_CHECKED);
             mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
@@ -279,6 +287,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         }
 
+        if (mAuthMessageVisibility== View.VISIBLE) {
+            showAuthMessage(mAuthMessageText);
+        }
+        else {
+            hideAuthMessage();
+        }
         adaptViewAccordingToAuthenticationMethod();
         showServerStatus();
         showAuthStatus();
@@ -411,6 +425,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         super.onSaveInstanceState(outState);
 
         /// connection state and info
+        outState.putInt(KEY_AUTH_MESSAGE_VISIBILITY, mAuthMessage.getVisibility());
+        outState.putString(KEY_AUTH_MESSAGE_TEXT, mAuthMessage.getText().toString());
         outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
         outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
         outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
@@ -465,10 +481,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     protected void onResume() {
         super.onResume();
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
-            if (mOAuth2Check.isChecked())
-                Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+            if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(mAuthTokenType)) {
+                //Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_oauth_token_toast));
+            } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mAuthTokenType)) {
+                //Toast.makeText(this, R.string.auth_expired_saml_sso_token_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_saml_sso_token_toast));
+            } else {
+                //Toast.makeText(this, R.string.auth_expired_basic_auth_toast, Toast.LENGTH_LONG).show();
+                showAuthMessage(getString(R.string.auth_expired_basic_auth_toast));
+            }
         }
 
         if (mNewCapturedUriFromOAuth2Redirection != null) {
@@ -775,7 +797,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
         
-        //if (result.isTemporalRedirection() || result.isIdPRedirection()) {
+        //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
         if (result.isIdPRedirection()) {
             String url = result.getRedirectedLocation();
             String targetUrl = mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
@@ -1020,6 +1042,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         case ACCOUNT_NOT_NEW:
             mAuthStatusText = R.string.auth_account_not_new;
             break;
+        case ACCOUNT_NOT_THE_SAME:
+            mAuthStatusText = R.string.auth_account_not_the_same;
+            break;
         case UNHANDLED_HTTP_CODE:
         case UNKNOWN_ERROR:
             mAuthStatusText = R.string.auth_unknown_error_title;
@@ -1084,12 +1109,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
 
-            boolean success = true;
+            boolean success = false;
             if (mAction == ACTION_CREATE) {
                 success = createAccount();
 
             } else {
-                updateToken();
+                success = updateToken();
             }
 
             if (success) {
@@ -1135,7 +1160,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Sets the proper response to get that the Account Authenticator that started this activity saves 
      * a new authorization token for mAccount.
      */
-    private void updateToken() {
+    private boolean updateToken() {
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
@@ -1146,6 +1171,17 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             
         } else if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mAuthTokenType)) {
+            String username = getUserNameForSamlSso();
+            if (!mUsernameInput.getText().toString().equals(username)) {
+                // fail - not a new account, but an existing one; disallow
+                RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
+                updateAuthStatusIconAndText(result);
+                showAuthStatus();
+                Log_OC.d(TAG, result.getLogMessage());
+                
+                return false;
+            }
+            
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
@@ -1155,6 +1191,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
         setAccountAuthenticatorResult(response);
+        
+        return true;
     }
 
 
@@ -1190,7 +1228,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             showAuthStatus();
             Log_OC.d(TAG, result.getLogMessage());
             return false;
-            
             
         } else {
         
@@ -1236,6 +1273,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             Bundle bundle = new Bundle();
             bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
+            syncAccount();
+//          Bundle bundle = new Bundle();
+//          bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+//          ContentResolver.requestSync(mAccount, AccountAuthenticator.AUTHORITY, bundle);
             return true;
         }
     }
@@ -1554,12 +1595,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
-            boolean success = true;
+            boolean success = false;
             if (mAction == ACTION_CREATE) {
                 success = createAccount();
         
             } else {
-                updateToken();
+                success = updateToken();
             }
             if (success) {
                 finish();
@@ -1592,6 +1633,18 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     
     }
     
+    /** Show auth_message 
+     * 
+     * @param message
+     */
+    private void showAuthMessage(String message) {
+       mAuthMessage.setVisibility(View.VISIBLE);
+       mAuthMessage.setText(message);
+    }
+    
+    private void hideAuthMessage() {
+        mAuthMessage.setVisibility(View.GONE);
+    }
 
     private void syncAccount(){
         /// immediately request for the synchronization of the new account

@@ -242,18 +242,28 @@ public abstract class RemoteOperation implements Runnable {
                 result = run(mClient);
         
             repeat = false;
-            if (mCallerActivity != null && mAccount != null && mContext != null && !result.isSuccess() && result.getCode() == ResultCode.UNAUTHORIZED) {
-                /// fail due to lack of authorization in an operation performed in foreground
-                AccountManager am = AccountManager.get(mContext);
+            if (mCallerActivity != null && mAccount != null && mContext != null && !result.isSuccess() &&
+//                    (result.getCode() == ResultCode.UNAUTHORIZED || (result.isTemporalRedirection() && result.isIdPRedirection()))) {
+                    (result.getCode() == ResultCode.UNAUTHORIZED || result.isIdPRedirection())) {
+                /// possible fail due to lack of authorization in an operation performed in foreground
                 Credentials cred = mClient.getCredentials();
-                if (cred instanceof BearerCredentials) {
-                    am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
-                } else {
-                    am.clearPassword(mAccount);
+                String ssoSessionCookie = mClient.getSsoSessionCookie();
+                if (cred != null || ssoSessionCookie != null) {
+                    /// confirmed : unauthorized operation
+                    AccountManager am = AccountManager.get(mContext);
+                    boolean bearerAuthorization = (cred != null && cred instanceof BearerCredentials);
+                    boolean samlBasedSsoAuthorization = (cred == null && ssoSessionCookie != null);
+                    if (bearerAuthorization) {
+                        am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
+                    } else if (samlBasedSsoAuthorization ) {
+                        am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ssoSessionCookie);
+                    } else {
+                        am.clearPassword(mAccount);
+                    }
+                    mClient = null;
+                    repeat = true;  // when repeated, the creation of a new OwnCloudClient after erasing the saved credentials will trigger the login activity
+                    result = null;
                 }
-                mClient = null;
-                repeat = true;  // when repeated, the creation of a new OwnCloudClient after erasing the saved credentials will trigger the login activity
-                result = null;
             }
         } while (repeat);
         
