@@ -161,6 +161,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private View mOkButton;
     
     private String mAuthToken;
+    
+    private boolean mResumed; // Control if activity is resumed
 
 
     /**
@@ -215,6 +217,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
 
         if (savedInstanceState == null) {
+            mResumed = false;
             /// connection state and info
             mAuthMessageVisibility = View.GONE;
             mServerStatusText = mServerStatusIcon = 0;
@@ -243,6 +246,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
             
         } else {
+            mResumed = true;
             /// connection state and info
             mAuthMessageVisibility = savedInstanceState.getInt(KEY_AUTH_MESSAGE_VISIBILITY);
             mAuthMessageText = savedInstanceState.getString(KEY_AUTH_MESSAGE_TEXT);
@@ -327,16 +331,20 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!mResumed) {
                     mAuthStatusIcon = 0;
                     mAuthStatusText = 0;
-                    showAuthStatus();
+                    showAuthStatus();                    
+                }
+                mResumed = false;
             }
-
         });
+        
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
