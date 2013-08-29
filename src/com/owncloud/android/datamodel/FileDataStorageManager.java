@@ -557,16 +557,16 @@ public class FileDataStorageManager implements DataStorageManager {
                 try {
                     c = getContentProvider().query(ProviderTableMeta.CONTENT_URI, 
                             null,
-                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ?",
-                            new String[] { mAccount.name, dir.getRemotePath() + "%" }, null);
+                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta._ID + "=?",
+                            new String[] { mAccount.name, String.valueOf(dir.getFileId()) }, null);
                 } catch (RemoteException e) {
                     Log_OC.e(TAG, e.getMessage());
                 }
             } else {
                 c = getContentResolver().query(ProviderTableMeta.CONTENT_URI, 
                         null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ?",
-                        new String[] { mAccount.name, dir.getRemotePath() + "%" }, null);
+                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta._ID + "=?",
+                        new String[] { mAccount.name, String.valueOf(dir.getFileId()) }, null);
             }
 
             /// 2. prepare a batch of update operations to change all the descendants
