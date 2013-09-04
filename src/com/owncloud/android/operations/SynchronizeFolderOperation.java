@@ -64,6 +64,11 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /** Id of the folder to synchronize in the local database */
     private long mParentId;
     
+    public long getParentId() {
+        return mParentId;
+    }
+
+
     /** Access to the local database */
     private DataStorageManager mStorageManager;
     

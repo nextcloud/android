@@ -948,7 +948,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         cleanSecondFragment();
         
         // Sync Folder
-        syncFolderOperation(directory.getRemotePath(), directory.getFileId());
+        startSyncFolderOperation(directory.getRemotePath(), directory.getFileId());
         // Update folder size on DB
         getStorageManager().calculateFolderSize(directory.getParentId());
         
@@ -1174,9 +1174,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      * @param result        Result of the synchronization.
      */
     private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
+        setSupportProgressBarIndeterminateVisibility(false);
         if (result.isSuccess()) {
-            refeshListOfFilesFragment();
-
+            DataStorageManager storageManager = getStorageManager();
+            OCFile parentDir = storageManager.getFileById(operation.getParentId());
+            
+            refreshListOfFilesFragment(parentDir);
         } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
@@ -1185,6 +1188,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message " , e);
             }
+        }
+    }
+
+
+    private void refreshListOfFilesFragment(OCFile parentDir) {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        if (fileListFragment != null) { 
+            fileListFragment.listDirectory(parentDir);
         }
     }
 
@@ -1374,9 +1385,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         return null;
     }
     
-    public void syncFolderOperation(String remotePath, long parentId) {
-         long currentSyncTime = System.currentTimeMillis(); 
-        // perform folder synchronization
+    public void startSyncFolderOperation(String remotePath, long parentId) {
+        long currentSyncTime = System.currentTimeMillis(); 
+        setSupportProgressBarIndeterminateVisibility(true);
+       // perform folder synchronization
         RemoteOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
                                                                                     currentSyncTime, 
                                                                                     parentId, 

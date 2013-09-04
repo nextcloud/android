@@ -129,18 +129,24 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         
         if(mFile != null){
             DataStorageManager storageManager = mContainerActivity.getStorageManager();
-            parentDir = storageManager.getFileById(mFile.getParentId());
+            if (mFile.getParentId() == 0) {
+                parentDir = storageManager.getFileById(1);
+            }
+            else {
+                parentDir = storageManager.getFileById(mFile.getParentId());
+            }
             
             // Update folder size on DB
             storageManager.calculateFolderSize(mFile.getFileId());
             
-            mFile = parentDir;
-
+            mFile = parentDir;           
         }
-        listDirectory(parentDir);
+        
+        if (mFile != null) {
+            listDirectory(mFile);
 
-
-        mContainerActivity.syncFolderOperation(mFile.getRemotePath(), mFile.getParentId());
+            mContainerActivity.startSyncFolderOperation(mFile.getRemotePath(), mFile.getParentId());
+        }
    
     }
     
@@ -406,7 +412,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
         public void startImagePreview(OCFile file);
         
-        public void syncFolderOperation(String remotePath, long parentId);
+        public void startSyncFolderOperation(String remotePath, long parentId);
 
         /**
          * Getter for the current DataStorageManager in the container activity
