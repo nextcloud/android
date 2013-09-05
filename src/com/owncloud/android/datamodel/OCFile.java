@@ -60,6 +60,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     private String mEtag;
 
+
     /**
      * Create new {@link OCFile} with given path.
      * 
@@ -95,6 +96,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mKeepInSync = source.readInt() == 1;
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
+        mEtag = source.readString();
     }
 
     @Override
@@ -112,6 +114,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mKeepInSync ? 1 : 0);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
+        dest.writeString(mEtag);
     }
     
     /**
@@ -319,6 +322,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = 0;
         mKeepInSync = false;
         mNeedsUpdating = false;
+        mEtag = null;
     }
 
     /**
@@ -439,8 +443,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync));
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s etag=%]";
+        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync), mEtag);
         return asString;
     }
 
@@ -448,6 +452,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mEtag;
     }
 
+    public void setEtag(String etag) {
+        this.mEtag = etag;
+    }
+    
     public long getLocalModificationTimestamp() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
             File f = new File(mLocalPath);
