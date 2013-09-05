@@ -28,7 +28,7 @@ import com.owncloud.android.Log_OC;
 import android.net.Uri;
 
 public class WebdavEntry {
-    private String mName, mPath, mUri, mContentType;
+    private String mName, mPath, mUri, mContentType, mEtag;
     private long mContentLength, mCreateTimestamp, mModifiedTimestamp;
 
     public WebdavEntry(MultiStatusResponse ms, String splitElement) {
@@ -87,6 +87,10 @@ public class WebdavEntry {
                         .parseResponseDate((String) prop.getValue());
                 mCreateTimestamp = (d != null) ? d.getTime() : 0;
             }
+            
+            prop = propSet.get(DavPropertyName.GETETAG);
+            if (prop != null)
+                mEtag = (String) prop.getValue();
 
         } else {
             Log_OC.e("WebdavEntry",
@@ -128,6 +132,10 @@ public class WebdavEntry {
 
     public long modifiedTimestamp() {
         return mModifiedTimestamp;
+    }
+    
+    public String etag() {
+        return mEtag;
     }
 
     private void resetData() {

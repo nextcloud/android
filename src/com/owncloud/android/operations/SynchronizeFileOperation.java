@@ -215,6 +215,8 @@ public class SynchronizeFileOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimestamp());
+        file.setEtag(we.etag());
+        
         return file;
     }
 

@@ -286,6 +286,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimestamp());
         file.setParentId(mParentId);
+        file.setEtag(we.etag());
         return file;
     }
     
