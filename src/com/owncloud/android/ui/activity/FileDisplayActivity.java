@@ -1177,7 +1177,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         setSupportProgressBarIndeterminateVisibility(false);
         if (result.isSuccess()) {
             DataStorageManager storageManager = getStorageManager();
-            OCFile parentDir = storageManager.getFileById(operation.getParentId());
+            OCFile parentDir = storageManager.getFileByPath(operation.getRemotePath());
             
             refreshListOfFilesFragment(parentDir);
         } else {

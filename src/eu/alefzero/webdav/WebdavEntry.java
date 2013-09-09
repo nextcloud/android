@@ -42,8 +42,10 @@ public class WebdavEntry {
             DavPropertySet propSet = ms.getProperties(status);
             @SuppressWarnings("rawtypes")
             DavProperty prop = propSet.get(DavPropertyName.DISPLAYNAME);
-            if (prop != null)
+            if (prop != null) {
                 mName = (String) prop.getName().toString();
+                mName = mName.substring(1, mName.length()-1);
+            }
             else {
                 String[] tmp = mPath.split("/");
                 if (tmp.length > 0)
@@ -89,8 +91,10 @@ public class WebdavEntry {
             }
             
             prop = propSet.get(DavPropertyName.GETETAG);
-            if (prop != null)
+            if (prop != null) {
                 mEtag = (String) prop.getValue();
+                mEtag = mEtag.substring(1, mEtag.length()-1);
+            }
 
         } else {
             Log_OC.e("WebdavEntry",

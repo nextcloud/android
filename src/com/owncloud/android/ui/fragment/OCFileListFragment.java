@@ -145,7 +145,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         if (mFile != null) {
             listDirectory(mFile);
 
-            mContainerActivity.startSyncFolderOperation(mFile.getRemotePath(), mFile.getParentId());
+            mContainerActivity.startSyncFolderOperation(mFile.getRemotePath(), mFile.getFileId());
         }
    
     }
