@@ -35,8 +35,6 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.os.storage.StorageManager;
-
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -60,21 +58,11 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /** Remote folder to synchronize */
     private String mRemotePath;
     
-    public String getRemotePath() {
-        return mRemotePath;
-    }
-
-
     /** Timestamp for the synchronization in progress */
     private long mCurrentSyncTime;
     
     /** Id of the folder to synchronize in the local database */
     private long mParentId;
-    
-    public long getParentId() {
-        return mParentId;
-    }
-
 
     /** Access to the local database */
     private DataStorageManager mStorageManager;
@@ -132,31 +120,39 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return mChildren;
     }
     
-    
+    public String getRemotePath() {
+        return mRemotePath;
+    }
+
+    public long getParentId() {
+        return mParentId;
+    }
+
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         RemoteOperationResult result = null;
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
-        
+        boolean fileChanged = false;
+
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
         try {
             Log_OC.d(TAG, "Synchronizing " + mAccount.name + ", fetching files in " + mRemotePath);
-            
+
             // remote request 
             query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
             int status = client.executeMethod(query);
-            
+
             // check and process response   - /// TODO take into account all the possible status per child-resource
             if (isMultiStatus(status)) { 
                 MultiStatus resp = query.getResponseBodyAsMultiStatus();
-            
+
                 // synchronize properties of the parent folder, if necessary
                 if (mParentId == DataStorageManager.ROOT_PARENT_ID) {
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
-                    
+
                     // Properties of server folder
                     OCFile parent = fillOCFile(we);
                     // Properties of local folder
@@ -166,8 +162,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         mParentId = parent.getFileId();
                     }
                 }
-                
-                
+
+
                 // read contents in folder
                 List<String> filesOnServer = new ArrayList<String> (); // Contains the lists of files on server
                 List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
@@ -176,23 +172,23 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     /// new OCFile instance with the data from the server
                     WebdavEntry we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());
                     OCFile file = fillOCFile(we);
-                    
+
                     filesOnServer.add(file.getRemotePath()); // Registry the file in the list
-                    
+
                     /// set data about local state, keeping unchanged former data if existing
                     file.setLastSyncDateForProperties(mCurrentSyncTime);
                     OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
-                   
+
                     // Check if it is needed to synchronize the folder
-                    boolean fileChanged = false;
+                    fileChanged = false;
                     if (oldFile != null) {
                         if (!file.getEtag().equalsIgnoreCase(oldFile.getEtag())) {
-                           fileChanged = true; 
+                            fileChanged = true; 
                         }                        
                     } else
                         fileChanged= true;
 
-                    if (fileChanged){
+                    if (fileChanged){               
                         if (oldFile != null) { 
                             file.setKeepInSync(oldFile.keepInSync());
                             file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
@@ -223,46 +219,49 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         }
 
                         updatedFiles.add(file);
-                    }
-                }
+                        //}
+                        //}
 
-                // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
-                mStorageManager.saveFiles(updatedFiles);
+                        // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
+                        mStorageManager.saveFiles(updatedFiles);
 
-                // request for the synchronization of files AFTER saving last properties
-                SynchronizeFileOperation op = null;
-                RemoteOperationResult contentsResult = null;
-                for (int i=0; i < filesToSyncContents.size(); i++) {
-                    op = filesToSyncContents.get(i);
-                    contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
-                    if (!contentsResult.isSuccess()) {
-                        if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                            mConflictsFound++;
-                        } else {
-                            mFailsInFavouritesFound++;
-                            if (contentsResult.getException() != null) {
-                                Log_OC.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
-                            } else {
-                                Log_OC.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
-                            }
+                        // request for the synchronization of files AFTER saving last properties
+                        //SynchronizeFileOperation op = null;
+                        RemoteOperationResult contentsResult = null;
+                        for (SynchronizeFileOperation op: filesToSyncContents) {//int i=0; i < filesToSyncContents.size(); i++) {
+                            //op = filesToSyncContents.get(i);
+                            contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
+                            if (!contentsResult.isSuccess()) {
+                                if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
+                                    mConflictsFound++;
+                                } else {
+                                    mFailsInFavouritesFound++;
+                                    if (contentsResult.getException() != null) {
+                                        Log_OC.d(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                                    } else {
+                                        Log_OC.d(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                                    }
+                                }
+                            }   // won't let these fails break the synchronization process
                         }
-                    }   // won't let these fails break the synchronization process
-                }
 
-                    
-                // removal of obsolete files
-                mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
-                OCFile file;
-                String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                for (int i=0; i < mChildren.size(); ) {
-                    file = mChildren.get(i);
-                    //if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
-                    if (!filesOnServer.contains(file.getRemotePath())) {
-                        Log_OC.d(TAG, "removing file: " + file.getFileName());
-                        mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
-                        mChildren.remove(i);
-                    } else {
-                        i++;
+
+                        // removal of obsolete files
+                        mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
+                        //OCFile file;
+                        String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
+                        for (OCFile fileChild: mChildren) {
+                            //file = mChildren.get(i);
+                            //if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
+                            if (!filesOnServer.contains(fileChild.getRemotePath())) {
+                                Log_OC.d(TAG, "removing file: " + fileChild.getFileName());
+                                mStorageManager.removeFile(fileChild, (fileChild.isDown() && fileChild.getStoragePath().startsWith(currentSavePath)));
+                                mChildren.remove(fileChild); //.remove(i);
+                            }
+                            //                    } else {
+                            //                        i++;
+                            //                    }
+                        }
                     }
                 }
                 
@@ -271,7 +270,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             }
             
             // prepare result object
-            if (isMultiStatus(status)) {
+            if (!fileChanged) {
+                result = new RemoteOperationResult(ResultCode.OK_NO_CHANGES_ON_DIR);
+                
+            } else if (isMultiStatus(status)) {
                 if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
                     result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
                             
@@ -326,7 +328,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * 
      * If the copy fails, the link to the local file is nullified. The account of forgotten files is kept in 
      * {@link #mForgottenLocalFiles}
-     * 
+     *) 
      * @param file      File to check and fix.
      */
     private void checkAndFixForeignStoragePath(OCFile file) {

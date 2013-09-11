@@ -136,8 +136,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 parentDir = storageManager.getFileById(mFile.getParentId());
             }
             
-            // Update folder size on DB
-            storageManager.calculateFolderSize(mFile.getFileId());
+//            // Update folder size on DB
+//            storageManager.calculateFolderSize(mFile.getFileId());
             
             mFile = parentDir;           
         }

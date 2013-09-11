@@ -949,8 +949,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         // Sync Folder
         startSyncFolderOperation(directory.getRemotePath(), directory.getFileId());
-        // Update folder size on DB
-        getStorageManager().calculateFolderSize(directory.getParentId());
+//        // Update folder size on DB
+//        getStorageManager().calculateFolderSize(directory.getParentId());
         
     }
 
@@ -1174,12 +1174,22 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      * @param result        Result of the synchronization.
      */
     private void onSynchronizeFolderOperationFinish(SynchronizeFolderOperation operation, RemoteOperationResult result) {
+        
+        OCFileListFragment list = getListOfFilesFragment();
+        enableDisableViewGroup(list.getListView(), true);
+        
         setSupportProgressBarIndeterminateVisibility(false);
         if (result.isSuccess()) {
-            DataStorageManager storageManager = getStorageManager();
-            OCFile parentDir = storageManager.getFileByPath(operation.getRemotePath());
-            
-            refreshListOfFilesFragment(parentDir);
+            if (result.getCode() != ResultCode.OK_NO_CHANGES_ON_DIR) {
+                DataStorageManager storageManager = getStorageManager();
+                OCFile parentDir = storageManager.getFileByPath(operation.getRemotePath());
+
+                // Update folder size on DB
+                getStorageManager().calculateFolderSize(parentDir.getFileId());
+
+                // Refrest List
+                refreshListOfFilesFragment(parentDir);
+            }
         } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
@@ -1387,7 +1397,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     public void startSyncFolderOperation(String remotePath, long parentId) {
         long currentSyncTime = System.currentTimeMillis(); 
-        setSupportProgressBarIndeterminateVisibility(true);
+        
+        OCFileListFragment list = getListOfFilesFragment();
+        enableDisableViewGroup(list.getListView(), false);
+        
        // perform folder synchronization
         RemoteOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
                                                                                     currentSyncTime, 
@@ -1398,6 +1411,19 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                                                                                   );
         synchFolderOp.execute(getAccount(), this, this, mHandler, this);
         
+        setSupportProgressBarIndeterminateVisibility(true);
     }
 
+    
+    public void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
+        int childCount = viewGroup.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+          View view = viewGroup.getChildAt(i);
+          view.setEnabled(enabled);
+          view.setClickable(!enabled);
+          if (view instanceof ViewGroup) {
+            enableDisableViewGroup((ViewGroup) view, enabled);
+          }
+        }
+      }
 }
