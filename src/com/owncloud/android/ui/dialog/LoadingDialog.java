@@ -15,6 +15,17 @@ public class LoadingDialog extends DialogFragment {
 
     private String mMessage;
     
+    public LoadingDialog() {
+        super();
+    }
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        setCancelable(false);
+    }
+
     public LoadingDialog(String message) {
         this.mMessage = message;
     }
@@ -38,4 +49,10 @@ public class LoadingDialog extends DialogFragment {
         return dialog;
     }
 
+    @Override
+    public void onDestroyView() {
+        if (getDialog() != null && getRetainInstance())
+            getDialog().setDismissMessage(null);
+            super.onDestroyView();
+    }
 }

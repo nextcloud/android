@@ -56,6 +56,7 @@ import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
@@ -379,7 +380,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                                                             mStorageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
-            getActivity().showDialog(PreviewImageActivity.DIALOG_SHORT_WAIT);
+            ((PreviewImageActivity) getActivity()).showLoadingDialog();
         }
     }
     
@@ -603,7 +604,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     }
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        getActivity().dismissDialog(PreviewImageActivity.DIALOG_SHORT_WAIT);
+        ((PreviewImageActivity) getActivity()).dismissLoadingDialog();
         
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);

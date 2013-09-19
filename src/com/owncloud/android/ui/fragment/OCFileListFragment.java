@@ -289,7 +289,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
                 RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
                 operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
-                getSherlockActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+                ((FileDisplayActivity) getSherlockActivity()).showLoadingDialog();
                 return true;
             }
             case R.id.action_cancel_download: {
@@ -433,7 +433,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                                                                 newFilename, 
                                                                 mContainerActivity.getStorageManager());
             operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
-            getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+            ((FileDisplayActivity) getActivity()).showLoadingDialog();
         }
     }
 
@@ -447,7 +447,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                                                                     mContainerActivity.getStorageManager());
                 operation.execute(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 
-                getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+                ((FileDisplayActivity) getActivity()).showLoadingDialog();
             }
         }
     }
