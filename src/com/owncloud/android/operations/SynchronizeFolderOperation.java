@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.apache.commons.httpclient.Header;
 import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
@@ -158,7 +157,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     OCFile parent = fillOCFile(we);
                     // Properties of local folder
                     OCFile localParent = mStorageManager.getFileById(1);
-                    if (parent.getEtag() != localParent.getEtag()) {
+                    if (localParent == null || parent.getEtag() != localParent.getEtag()) {
                         mStorageManager.saveFile(parent);
                         mParentId = parent.getFileId();
                     }
