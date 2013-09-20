@@ -101,7 +101,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         
                     } else {
                         client.exhaustResponse(propfind.getResponseBodyAsStream());
-                        result = new RemoteOperationResult(false, status);
+                        result = new RemoteOperationResult(false, status, propfind.getResponseHeaders());
                     }
                 }
                 

@@ -68,6 +68,9 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
             String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);
             for (int chunkIndex = 0; chunkIndex < chunkCount ; chunkIndex++, offset += CHUNK_SIZE) {
+                if (mPutMethod != null) {
+                    mPutMethod.releaseConnection();    // let the connection available for other methods
+                }
                 mPutMethod = new PutMethod(uriPrefix + chunkCount + "-" + chunkIndex);
                 mPutMethod.addRequestHeader(OC_CHUNKED_HEADER, OC_CHUNKED_HEADER);
                 ((ChunkFromFileChannelRequestEntity)mEntity).setOffset(offset);

@@ -136,7 +136,7 @@ public class RenameFileOperation extends RemoteOperation {
             }
             
             move.getResponseBodyAsString(); // exhaust response, although not interesting
-            result = new RemoteOperationResult(move.succeeded(), status);
+            result = new RemoteOperationResult(move.succeeded(), status, move.getResponseHeaders());
             Log_OC.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
             
         } catch (Exception e) {

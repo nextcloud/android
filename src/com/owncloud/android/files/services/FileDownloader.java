@@ -28,6 +28,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -463,7 +464,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
             Notification finalNotification = new Notification(R.drawable.icon, getString(tickerId), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED);
+            boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                                // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
+                                                  (downloadResult.isIdPRedirection()
+                                                        && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mDownloadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);

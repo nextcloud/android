@@ -69,7 +69,7 @@ public class ExistenceCheckOperation extends RemoteOperation {
             int status = client.executeMethod(head, TIMEOUT, TIMEOUT);
             client.exhaustResponse(head.getResponseBodyAsStream());
             boolean success = (status == HttpStatus.SC_OK && !mSuccessIfAbsent) || (status == HttpStatus.SC_NOT_FOUND && mSuccessIfAbsent);
-            result = new RemoteOperationResult(success, status);
+            result = new RemoteOperationResult(success, status, head.getResponseHeaders());
             Log_OC.d(TAG, "Existence check for " + client.getBaseUri() + mPath + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + "finished with HTTP status " + status + (!success?"(FAIL)":""));
             
         } catch (Exception e) {

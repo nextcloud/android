@@ -46,6 +46,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
     public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
     public static final String AUTH_TOKEN_TYPE_REFRESH_TOKEN = "owncloud.oauth2.refresh_token";
+    public static final String AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE = "owncloud.saml.web_sso.session_cookie";
 
     public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
@@ -75,6 +76,10 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      * Flag signaling if the ownCloud server can be accessed with OAuth2 access tokens.
      */
     public static final String KEY_SUPPORTS_OAUTH2 = "oc_supports_oauth2";
+    /**
+     * Flag signaling if the ownCloud server can be accessed with session cookies from SAML-based web single-sign-on.
+     */
+    public static final String KEY_SUPPORTS_SAML_WEB_SSO = "oc_supports_saml_web_sso";
     
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
     
@@ -254,7 +259,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         if (!authTokenType.equals(AUTH_TOKEN_TYPE) &&
             !authTokenType.equals(AUTH_TOKEN_TYPE_PASSWORD) &&
             !authTokenType.equals(AUTH_TOKEN_TYPE_ACCESS_TOKEN) &&
-            !authTokenType.equals(AUTH_TOKEN_TYPE_REFRESH_TOKEN) ) {
+            !authTokenType.equals(AUTH_TOKEN_TYPE_REFRESH_TOKEN) &&
+            !authTokenType.equals(AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE)) {
             throw new UnsupportedAuthTokenTypeException();
         }
     }
