@@ -187,6 +187,8 @@ public class FileContentProvider extends ContentProvider {
         }
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        // DB case_sensitive
+        db.execSQL("PRAGMA case_sensitive_like = true");
         Cursor c = sqlQuery.query(db, projection, selection, selectionArgs,
                 null, null, order);
 
