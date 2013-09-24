@@ -450,7 +450,6 @@ public class FileDetailFragment extends FileFragment implements
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             // update ui 
-            //boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             ((FileDisplayActivity) getActivity()).showLoadingDialog();
             
         }
@@ -465,8 +464,7 @@ public class FileDetailFragment extends FileFragment implements
                                                                 true, 
                                                                 mStorageManager);
                 mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-                
-                //boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
+                                
                 ((FileDisplayActivity) getActivity()).showLoadingDialog();
             }
         }
@@ -759,7 +757,6 @@ public class FileDetailFragment extends FileFragment implements
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            //boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
             ((FileDisplayActivity) getActivity()).showLoadingDialog();
         }
     }

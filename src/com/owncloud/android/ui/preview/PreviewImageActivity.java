@@ -241,27 +241,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         finish();
     }
     
-    
-//    @Override
-//    protected Dialog onCreateDialog(int id) {
-//        Dialog dialog = null;
-//        switch (id) {
-//        case DIALOG_SHORT_WAIT: {
-//            ProgressDialog working_dialog = new ProgressDialog(this);
-//            working_dialog.setMessage(getResources().getString(
-//                    R.string.wait_a_moment));
-//            working_dialog.setIndeterminate(true);
-//            working_dialog.setCancelable(false);
-//            dialog = working_dialog;
-//            break;
-//        }
-//        default:
-//            dialog = null;
-//        }
-//        return dialog;
-//    }
-    
-    
     /**
      * Show loading dialog 
      */
