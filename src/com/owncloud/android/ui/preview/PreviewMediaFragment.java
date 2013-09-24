@@ -662,7 +662,7 @@ public class PreviewMediaFragment extends FileFragment implements
                                                             mStorageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
-            getActivity().showDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
+            ((FileDisplayActivity) getActivity()).showLoadingDialog();
         }
     }
     
@@ -716,8 +716,7 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        getActivity().dismissDialog(FileDisplayActivity.DIALOG_SHORT_WAIT);
-        
+        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
             msg.show();
