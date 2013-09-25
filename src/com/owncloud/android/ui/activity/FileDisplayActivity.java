@@ -146,6 +146,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     private OCFile mWaitingToPreview;
     private Handler mHandler;
+    
+    private boolean mSyncInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -597,21 +599,23 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     @Override
     public void onBackPressed() {
-        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (mDualPane || getSecondFragment() == null) {
-            if (listOfFiles != null) {  // should never be null, indeed
-                if (mDirectories.getCount() <= 1) {
-                    finish();
-                    return;
+        if (!mSyncInProgress) {
+            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+            if (mDualPane || getSecondFragment() == null) {
+                if (listOfFiles != null) {  // should never be null, indeed
+                    if (mDirectories.getCount() <= 1) {
+                        finish();
+                        return;
+                    }
+                    popDirname();
+                    listOfFiles.onBrowseUp();
                 }
-                popDirname();
-                listOfFiles.onBrowseUp();
             }
+            if (listOfFiles != null) {  // should never be null, indeed
+                setFile(listOfFiles.getCurrentFile());
+            }
+            cleanSecondFragment();
         }
-        if (listOfFiles != null) {  // should never be null, indeed
-            setFile(listOfFiles.getCurrentFile());
-        }
-        cleanSecondFragment();
     }
 
     @Override
@@ -979,8 +983,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         // Sync Folder
         startSyncFolderOperation(directory.getRemotePath(), directory.getFileId());
-//        // Update folder size on DB
-//        getStorageManager().calculateFolderSize(directory.getParentId());
         
     }
 
@@ -1070,6 +1072,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
 
 
+    private void updateDisplayHomeAtSync(){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(!mSyncInProgress && getCurrentDir().getParentId() != DataStorageManager.ROOT_PARENT_ID);
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -1207,6 +1214,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         OCFileListFragment list = getListOfFilesFragment();
         enableDisableViewGroup(list.getListView(), true);
+        mSyncInProgress = false;
+        updateDisplayHomeAtSync();
         
         setSupportProgressBarIndeterminateVisibility(false);
         if (result.isSuccess()) {
@@ -1431,11 +1440,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         OCFileListFragment list = getListOfFilesFragment();
         enableDisableViewGroup(list.getListView(), false);
+        mSyncInProgress = true;
+        updateDisplayHomeAtSync();
         
        // perform folder synchronization
         RemoteOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
                                                                                     currentSyncTime, 
                                                                                     parentId, 
+                                                                                    false,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getApplicationContext()

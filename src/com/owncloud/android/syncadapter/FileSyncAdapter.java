@@ -194,10 +194,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult))
             return;
         
+        boolean enforceMetadataUpdate = (parentId == DataStorageManager.ROOT_PARENT_ID);
+        
         // perform folder synchronization
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
                                                                                     mCurrentSyncTime, 
                                                                                     parentId, 
+                                                                                    enforceMetadataUpdate,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()

@@ -126,7 +126,7 @@ public class FileDataStorageManager implements DataStorageManager {
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-        if (file.getParentId() != 0)
+        if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
             cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
         if (!file.isDirectory())
@@ -223,7 +223,7 @@ public class FileDataStorageManager implements DataStorageManager {
             cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
             cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
             cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-            if (file.getParentId() != 0)
+            if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
                 cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
             cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
             if (!file.isDirectory())
@@ -678,7 +678,7 @@ public class FileDataStorageManager implements DataStorageManager {
         
         OCFile file; 
 
-        while (parentId != 0) {
+        while (parentId != DataStorageManager.ROOT_PARENT_ID) {
             
             Log_OC.d(TAG, "parent = " + parentId);
             // Update the size of the parent

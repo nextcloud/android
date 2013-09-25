@@ -63,6 +63,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     
     /** Id of the folder to synchronize in the local database */
     private long mParentId;
+    
+    /** Boolean to indicate if is mandatory to update the folder */
+    private boolean mEnforceMetadataUpdate;
 
     /** Access to the local database */
     private DataStorageManager mStorageManager;
@@ -85,13 +88,15 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     
     public SynchronizeFolderOperation(  String remotePath, 
                                         long currentSyncTime, 
-                                        long parentId, 
+                                        long parentId,
+                                        boolean enforceMetadataUpdate,
                                         DataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
         mRemotePath = remotePath;
         mCurrentSyncTime = currentSyncTime;
         mParentId = parentId;
+        mEnforceMetadataUpdate = enforceMetadataUpdate;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
@@ -135,7 +140,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
         boolean fileChanged = false;
-        boolean dirChanged = true;
+        boolean dirChanged = false;
 
         // code before in FileSyncAdapter.fetchData
         PropFindMethod query = null;
@@ -150,134 +155,126 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             if (isMultiStatus(status)) { 
                 MultiStatus resp = query.getResponseBodyAsMultiStatus();
 
-                // synchronize properties of the parent folder, if necessary
-                if (mParentId == DataStorageManager.ROOT_PARENT_ID) {
-                    dirChanged = false;
-                    WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
+                // synchronize properties of the parent folder, if necessary 
+                WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
 
-                    // Properties of server folder
-                    OCFile parent = fillOCFile(we);
-                    // Properties of local folder
-                    OCFile localParent = mStorageManager.getFileById(1);
-                    if (localParent == null || !(parent.getEtag().equalsIgnoreCase(localParent.getEtag()))) {
-                        mStorageManager.saveFile(parent);
-                        mParentId = parent.getFileId();
-                        dirChanged = true;
+                // Properties of server folder
+                OCFile parent = fillOCFile(we);
+                // Properties of local folder
+                OCFile localParent = mStorageManager.getFileByPath(mRemotePath);
+                if (localParent == null || !(parent.getEtag().equalsIgnoreCase(localParent.getEtag())) || mEnforceMetadataUpdate) {
+                    if (localParent != null) {
+                        parent.setParentId(localParent.getParentId());
                     }
-                } 
-                else if (! mRemotePath.equalsIgnoreCase(OCFile.PATH_SEPARATOR)){
-                    dirChanged = false;
-                    WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
-                    
-                    // Properties of server folder
-                    OCFile parent = fillOCFile(we);
-                    // Properties of local folder
-                    OCFile localParent = mStorageManager.getFileByPath(mRemotePath);
-                    if (localParent == null || !(parent.getEtag().equalsIgnoreCase(localParent.getEtag()))) {
-                        dirChanged = true;
-                    } 
+                    mStorageManager.saveFile(parent);
+                    if (mParentId == DataStorageManager.ROOT_PARENT_ID)
+                        mParentId = parent.getFileId();
+                    dirChanged = true;
                 }
 
                 if (dirChanged) {
-                // read contents in folder
-                List<String> filesOnServer = new ArrayList<String> (); // Contains the lists of files on server
-                List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
-                List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
-                for (int i = 1; i < resp.getResponses().length; ++i) {
-                    /// new OCFile instance with the data from the server
-                    WebdavEntry we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());
-                    OCFile file = fillOCFile(we);
+                    // read contents in folder
+                    List<String> filesOnServer = new ArrayList<String> (); // Contains the lists of files on server
+                    List<OCFile> updatedFiles = new Vector<OCFile>(resp.getResponses().length - 1);
+                    List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
+                    for (int i = 1; i < resp.getResponses().length; ++i) {
+                        /// new OCFile instance with the data from the server
+                        we = new WebdavEntry(resp.getResponses()[i], client.getBaseUri().getPath());                        
+                        OCFile file = fillOCFile(we);
 
-                    filesOnServer.add(file.getRemotePath()); // Registry the file in the list
+                        filesOnServer.add(file.getRemotePath()); // Registry the file in the list
 
-                    /// set data about local state, keeping unchanged former data if existing
-                    file.setLastSyncDateForProperties(mCurrentSyncTime);
-                    OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
+                        /// set data about local state, keeping unchanged former data if existing
+                        file.setLastSyncDateForProperties(mCurrentSyncTime);
+                        OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
 
-                    // Check if it is needed to synchronize the folder
-                    fileChanged = false;
-                    if (oldFile != null) {
-                        if (!file.getEtag().equalsIgnoreCase(oldFile.getEtag())) {
-                            fileChanged = true;                             
-                        }                        
-                    } else
-                        fileChanged= true;
+                        // Check if it is needed to synchronize the folder
+                        fileChanged = false;
+                        if (oldFile != null) {
+                            if (!file.getEtag().equalsIgnoreCase(oldFile.getEtag())) {
+                                fileChanged = true;                             
+                            }                        
+                        } else 
+                            fileChanged= true;
 
-                    if (fileChanged){  
-                        if (file.isDirectory())
-                            file.setEtag("");
-                        if (oldFile != null) { 
-                            file.setKeepInSync(oldFile.keepInSync());
-                            file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
-                            file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // must be kept unchanged when the file contents are not updated
-                            checkAndFixForeignStoragePath(oldFile);
-                            file.setStoragePath(oldFile.getStoragePath());
-                        }
-                        /// scan default location if local copy of file is not linked in OCFile instance
-                        if (file.getStoragePath() == null && !file.isDirectory()) {
-                            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-                            if (f.exists()) {
-                                file.setStoragePath(f.getAbsolutePath());
-                                file.setLastSyncDateForData(f.lastModified());
+
+                        if (fileChanged){                    
+                            if (oldFile != null) { 
+                                file.setKeepInSync(oldFile.keepInSync());
+                                file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                                file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // must be kept unchanged when the file contents are not updated
+                                checkAndFixForeignStoragePath(oldFile);
+                                file.setStoragePath(oldFile.getStoragePath());
+                                if (file.isDirectory())
+                                    file.setEtag(oldFile.getEtag());
+                            } else
+                                if (file.isDirectory())
+                                    file.setEtag("");
+
+                            /// scan default location if local copy of file is not linked in OCFile instance
+                            if (file.getStoragePath() == null && !file.isDirectory()) {
+                                File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                                if (f.exists()) {
+                                    file.setStoragePath(f.getAbsolutePath());
+                                    file.setLastSyncDateForData(f.lastModified());
+                                }
                             }
-                        }
 
-                        /// prepare content synchronization for kept-in-sync files
-                        if (file.keepInSync()) {
-                            SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
-                                    file, 
-                                    mStorageManager,
-                                    mAccount,       
-                                    true, 
-                                    false,          
-                                    mContext
-                                    );
-                            filesToSyncContents.add(operation);
-                        }
+                            /// prepare content synchronization for kept-in-sync files
+                            if (file.keepInSync()) {
+                                SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
+                                        file, 
+                                        mStorageManager,
+                                        mAccount,       
+                                        true, 
+                                        false,          
+                                        mContext
+                                        );
+                                filesToSyncContents.add(operation);
+                            }
 
-                        updatedFiles.add(file);
+                            updatedFiles.add(file);
+                        }
                     }
-                }
 
-                // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
-                mStorageManager.saveFiles(updatedFiles);
+                    // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
+                    mStorageManager.saveFiles(updatedFiles);
 
-                // request for the synchronization of files AFTER saving last properties
-                RemoteOperationResult contentsResult = null;
-                for (SynchronizeFileOperation op: filesToSyncContents) {//int i=0; i < filesToSyncContents.size(); i++) {
-                    contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
-                    if (!contentsResult.isSuccess()) {
-                        if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
-                            mConflictsFound++;
-                        } else {
-                            mFailsInFavouritesFound++;
-                            if (contentsResult.getException() != null) {
-                                Log_OC.e(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                    // request for the synchronization of files AFTER saving last properties
+                    RemoteOperationResult contentsResult = null;
+                    for (SynchronizeFileOperation op: filesToSyncContents) {
+                        contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
+                        if (!contentsResult.isSuccess()) {
+                            if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
+                                mConflictsFound++;
                             } else {
-                                Log_OC.e(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                                mFailsInFavouritesFound++;
+                                if (contentsResult.getException() != null) {
+                                    Log_OC.e(TAG, "Error while synchronizing favourites : " +  contentsResult.getLogMessage(), contentsResult.getException());
+                                } else {
+                                    Log_OC.e(TAG, "Error while synchronizing favourites : " + contentsResult.getLogMessage());
+                                }
                             }
-                        }
-                    }   // won't let these fails break the synchronization process
-                }
-
-
-                // removal of obsolete files
-                mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
-                //OCFile file;
-                String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                for (OCFile fileChild: mChildren) {
-                    if (!filesOnServer.contains(fileChild.getRemotePath())) {
-                        Log_OC.d(TAG, "removing file: " + fileChild.getFileName());
-                        mStorageManager.removeFile(fileChild, (fileChild.isDown() && fileChild.getStoragePath().startsWith(currentSavePath)));
-                      //  mChildren.remove(fileChild); //.remove(i);
+                        }   // won't let these fails break the synchronization process
                     }
-                }
 
-            } else {
-                client.exhaustResponse(query.getResponseBodyAsStream());
+
+                    // removal of obsolete files
+                    mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
+                    String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
+                    for (OCFile fileChild: mChildren) {
+                        if (!filesOnServer.contains(fileChild.getRemotePath())) {
+                            Log_OC.d(TAG, "removing file: " + fileChild.getFileName());
+                            mStorageManager.removeFile(fileChild, (fileChild.isDown() && fileChild.getStoragePath().startsWith(currentSavePath)));
+                            //  mChildren.remove(fileChild); //.remove(i);
+                        }
+                    }
+
+                } else {
+                    client.exhaustResponse(query.getResponseBodyAsStream());
+                }
             }
-            }
-            
+
             // prepare result object
             if (!dirChanged) {
                 result = new RemoteOperationResult(ResultCode.OK_NO_CHANGES_ON_DIR);
