@@ -54,8 +54,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
-        } else if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH && 
-                intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
+        }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPhotoAction(context, intent);
             Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
