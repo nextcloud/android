@@ -17,6 +17,9 @@
 
 package com.owncloud.android.operations;
 
+import java.io.File;
+
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
 import com.owncloud.android.Log_OC;
@@ -39,25 +42,25 @@ public class CreateFolderOperation extends RemoteOperation {
     private static final int CONNECTION_TIMEOUT = 5000;
     
     protected String mRemotePath;
-    protected long mParentDirId;
+    protected boolean mCreateFullPath;
     protected DataStorageManager mStorageManager;
     
     /**
      * Constructor
      * 
-     * @param remoetPath            Full path to the new directory to create in the remote server.
-     * @param parentDirId           Local database id for the parent folder.
+     * @param remotePath            Full path to the new directory to create in the remote server.
+     * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public CreateFolderOperation(String remotePath, long parentDirId, DataStorageManager storageManager) {
+    public CreateFolderOperation(String remotePath, boolean createFullPath, DataStorageManager storageManager) {
         mRemotePath = remotePath;
-        mParentDirId = parentDirId;
+        mCreateFullPath = createFullPath;
         mStorageManager = storageManager;
     }
     
     
     /**
-     * Performs the remove operation
+     * Performs the operation
      * 
      * @param   client      Client object to communicate with the remote ownCloud server.
      */
@@ -68,15 +71,19 @@ public class CreateFolderOperation extends RemoteOperation {
         try {
             mkcol = new MkColMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
             int status =  client.executeMethod(mkcol, READ_TIMEOUT, CONNECTION_TIMEOUT);
+            if (!mkcol.succeeded() && mkcol.getStatusCode() == HttpStatus.SC_CONFLICT && mCreateFullPath) {
+                result = createParentFolder(getParentPath(), client);
+                status = client.executeMethod(mkcol, READ_TIMEOUT, CONNECTION_TIMEOUT);    // second (and last) try
+            }
             if (mkcol.succeeded()) {
                 // Save new directory in local database
                 OCFile newDir = new OCFile(mRemotePath);
                 newDir.setMimetype("DIR");
-                newDir.setParentId(mParentDirId);
+                long parentId = mStorageManager.getFileByPath(getParentPath()).getFileId();
+                newDir.setParentId(parentId);
                 newDir.setModificationTimestamp(System.currentTimeMillis());
                 mStorageManager.saveFile(newDir);
             }
-
             result = new RemoteOperationResult(mkcol.succeeded(), status, mkcol.getResponseHeaders());
             Log_OC.d(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage());
             client.exhaustResponse(mkcol.getResponseBodyAsStream());
@@ -91,5 +98,20 @@ public class CreateFolderOperation extends RemoteOperation {
         }
         return result;
     }
+
+
+    private String getParentPath() {
+        String parentPath = new File(mRemotePath).getParent();
+        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        return parentPath;
+    }
+
     
+    private RemoteOperationResult createParentFolder(String parentPath, WebdavClient client) {
+        RemoteOperation operation = new CreateFolderOperation(  parentPath,
+                                                                mCreateFullPath,
+                                                                mStorageManager    );
+        return operation.execute(client);
+    }
+
 }

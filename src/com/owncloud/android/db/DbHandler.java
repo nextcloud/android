@@ -37,7 +37,7 @@ public class DbHandler {
     private final String mDatabaseName = "ownCloud";
     private final int mDatabaseVersion = 3;
 
-    private final String TABLE_INSTANT_UPLOAD = "instant_upload";
+    private final String TABLE_INSTANT_UPLOAD = "DbHandler";
 
     public static final int UPLOAD_STATUS_UPLOAD_LATER = 0;
     public static final int UPLOAD_STATUS_UPLOAD_FAILED = 1;
