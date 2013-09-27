@@ -280,7 +280,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 if (fixed && i == 0) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
-                mPendingUploads.putIfAbsent(uploadKey, newUpload);
+                mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that the file only upload once time
+                Log_OC.d(TAG, "Trying to update "+ uploadKey);
                 newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
                 requestedUploads.add(uploadKey);
