@@ -51,6 +51,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -1058,7 +1059,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
-            actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
+            actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0 && !mSyncInProgress);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
@@ -1074,7 +1075,15 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     private void updateDisplayHomeAtSync(){
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(!mSyncInProgress && getCurrentDir().getParentId() != DataStorageManager.ROOT_PARENT_ID);
+        OCFile currentDir = getCurrentDir();
+        if (currentDir.getParentId() != DataStorageManager.ROOT_PARENT_ID) {
+            actionBar.setHomeButtonEnabled(!mSyncInProgress);
+            actionBar.setDisplayHomeAsUpEnabled(!mSyncInProgress);
+        }
+        else {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(false);
+        }
     }
     
     /**
