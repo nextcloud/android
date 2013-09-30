@@ -29,7 +29,7 @@ import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+//import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
@@ -69,6 +69,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private void handleUploadFinished(Context context, Intent intent) {
         // remove successfull uploading, ignore rest for reupload on reconnect
+        /*
         if (intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false)) {
             DbHandler db = new DbHandler(context);
             String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
@@ -77,6 +78,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             }
             db.close();
         }
+        */
     }
 
     private void handleNewPhotoAction(Context context, Intent intent) {
@@ -122,8 +124,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         // we can unregister from entire listenings but thats suck a bit.
         // On the other hand this might be only for dynamicly registered
         // broadcast receivers, needs investigation.
-        IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-        context.getApplicationContext().registerReceiver(this, filter);
+        /*IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        context.getApplicationContext().registerReceiver(this, filter);*/
 
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -148,8 +150,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
-                IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-                context.getApplicationContext().registerReceiver(this, filter);
+                //IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+                //context.getApplicationContext().registerReceiver(this, filter);
                 do {
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));
