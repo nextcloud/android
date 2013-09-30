@@ -258,15 +258,18 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         }   // won't let these fails break the synchronization process
                     }
 
-
                     // removal of obsolete files
                     mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
+                    OCFile file;
                     String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                    for (OCFile fileChild: mChildren) {
-                        if (!filesOnServer.contains(fileChild.getRemotePath())) {
-                            Log_OC.d(TAG, "removing file: " + fileChild.getFileName());
-                            mStorageManager.removeFile(fileChild, (fileChild.isDown() && fileChild.getStoragePath().startsWith(currentSavePath)));
-                            //  mChildren.remove(fileChild); //.remove(i);
+                    for (int i=0; i < mChildren.size(); ) {
+                        file = mChildren.get(i);
+                        if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
+                            Log_OC.d(TAG, "removing file: " + file);
+                            mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
+                            mChildren.remove(i);
+                        } else {
+                            i++;
                         }
                     }
 
