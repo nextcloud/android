@@ -78,7 +78,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -528,6 +527,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 synchronized (mPendingUploads) {
                     mPendingUploads.remove(uploadKey);
                     Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
+                }
+                if (uploadResult.isException()) {
+                    // enforce the creation of a new client object for next uploads; this grant that a new socket will 
+                    // be created in the future if the current exception is due to an abrupt lose of network connection
+                    mUploadClient = null;
                 }
             }
             
