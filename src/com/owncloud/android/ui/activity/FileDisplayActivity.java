@@ -594,23 +594,22 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     @Override
     public void onBackPressed() {
-        if (!mSyncInProgress) {
-            OCFileListFragment listOfFiles = getListOfFilesFragment(); 
-            if (mDualPane || getSecondFragment() == null) {
-                if (listOfFiles != null) {  // should never be null, indeed
-                    if (mDirectories.getCount() <= 1) {
-                        finish();
-                        return;
-                    }
-                    popDirname();
-                    listOfFiles.onBrowseUp();
-                }
-            }
+        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+        if (mDualPane || getSecondFragment() == null) {
             if (listOfFiles != null) {  // should never be null, indeed
-                setFile(listOfFiles.getCurrentFile());
+                if (mDirectories.getCount() <= 1) {
+                    finish();
+                    return;
+                }
+                popDirname();
+                listOfFiles.onBrowseUp();
             }
-            cleanSecondFragment();
         }
+        if (listOfFiles != null) {  // should never be null, indeed
+            setFile(listOfFiles.getCurrentFile());
+        }
+        cleanSecondFragment();
+
     }
 
     @Override
@@ -648,19 +647,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
     
         Log_OC.d(TAG, "onResume() end");
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log_OC.e(TAG, "onStart() start");
-        
-        // Update the sync operation
-        if (mSyncInProgress){
-        }
-        
-        Log_OC.e(TAG, "onStart() end");
     }
 
 
@@ -1073,7 +1059,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
-            actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0 && !mSyncInProgress);
+            actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
