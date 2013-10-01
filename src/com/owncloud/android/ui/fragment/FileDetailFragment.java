@@ -829,10 +829,7 @@ public class FileDetailFragment extends FileFragment implements
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
                 startActivity(i);
                 
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-            }
+            } 
             
             if (file.isDown()) {
                 setButtonsForDown();

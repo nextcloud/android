@@ -35,10 +35,13 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.Intent;
+
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
@@ -85,11 +88,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     private Map<String, String> mForgottenLocalFiles;
     
+    private boolean mSyncFullAccount;
+    
     
     public SynchronizeFolderOperation(  String remotePath, 
                                         long currentSyncTime, 
                                         long parentId,
                                         boolean enforceMetadataUpdate,
+                                        boolean syncFullAccount,
                                         DataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
@@ -97,6 +103,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mCurrentSyncTime = currentSyncTime;
         mParentId = parentId;
         mEnforceMetadataUpdate = enforceMetadataUpdate;
+        mSyncFullAccount = syncFullAccount;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
@@ -139,7 +146,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
-        boolean fileChanged = false;
         boolean dirChanged = false;
 
         // code before in FileSyncAdapter.fetchData
@@ -189,52 +195,46 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                         OCFile oldFile = mStorageManager.getFileByPath(file.getRemotePath());
 
                         // Check if it is needed to synchronize the folder
-                        fileChanged = false;
                         if (oldFile != null) {
-                            if (!file.getEtag().equalsIgnoreCase(oldFile.getEtag())) {
-                                fileChanged = true;                             
+                            if (!file.getEtag().equalsIgnoreCase(oldFile.getEtag())) {                            
                             }                        
-                        } else 
-                            fileChanged= true;
+                        } 
 
+                        if (oldFile != null) { 
+                            file.setKeepInSync(oldFile.keepInSync());
+                            file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
+                            file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // must be kept unchanged when the file contents are not updated
+                            checkAndFixForeignStoragePath(oldFile);
+                            file.setStoragePath(oldFile.getStoragePath());
+                            if (file.isDirectory())
+                                file.setEtag(oldFile.getEtag());
+                        } else
+                            if (file.isDirectory())
+                                file.setEtag("");
 
-                        if (fileChanged){                    
-                            if (oldFile != null) { 
-                                file.setKeepInSync(oldFile.keepInSync());
-                                file.setLastSyncDateForData(oldFile.getLastSyncDateForData());
-                                file.setModificationTimestampAtLastSyncForData(oldFile.getModificationTimestampAtLastSyncForData());    // must be kept unchanged when the file contents are not updated
-                                checkAndFixForeignStoragePath(oldFile);
-                                file.setStoragePath(oldFile.getStoragePath());
-                                if (file.isDirectory())
-                                    file.setEtag(oldFile.getEtag());
-                            } else
-                                if (file.isDirectory())
-                                    file.setEtag("");
-
-                            /// scan default location if local copy of file is not linked in OCFile instance
-                            if (file.getStoragePath() == null && !file.isDirectory()) {
-                                File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-                                if (f.exists()) {
-                                    file.setStoragePath(f.getAbsolutePath());
-                                    file.setLastSyncDateForData(f.lastModified());
-                                }
+                        /// scan default location if local copy of file is not linked in OCFile instance
+                        if (file.getStoragePath() == null && !file.isDirectory()) {
+                            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+                            if (f.exists()) {
+                                file.setStoragePath(f.getAbsolutePath());
+                                file.setLastSyncDateForData(f.lastModified());
                             }
-
-                            /// prepare content synchronization for kept-in-sync files
-                            if (file.keepInSync()) {
-                                SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
-                                        file, 
-                                        mStorageManager,
-                                        mAccount,       
-                                        true, 
-                                        false,          
-                                        mContext
-                                        );
-                                filesToSyncContents.add(operation);
-                            }
-
-                            updatedFiles.add(file);
                         }
+
+                        /// prepare content synchronization for kept-in-sync files
+                        if (file.keepInSync()) {
+                            SynchronizeFileOperation operation = new SynchronizeFileOperation(  oldFile,        
+                                    file, 
+                                    mStorageManager,
+                                    mAccount,       
+                                    true, 
+                                    false,          
+                                    mContext
+                                    );
+                            filesToSyncContents.add(operation);
+                        }
+
+                        updatedFiles.add(file);
                     }
 
                     // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
@@ -310,6 +310,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 } else {
                     Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
                 }
+            }
+            
+            if (!mSyncFullAccount) {            
+                sendStickyBroadcast(false, mRemotePath, result);
             }
         }
 
@@ -403,5 +407,23 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         }
     }
 
+    /**
+     * Sends a message to any application component interested in the progress of the synchronization.
+     * 
+     * @param inProgress        'True' when the synchronization progress is not finished.
+     * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
+     */
+    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
+        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
+        i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
+        i.putExtra(FileSyncService.ACCOUNT_NAME, mAccount.name);
+        if (dirRemotePath != null) {
+            i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
+        }
+        if (result != null) {
+            i.putExtra(FileSyncService.SYNC_RESULT, result);
+        }
+        mContext.sendStickyBroadcast(i);
+    }
 
 }

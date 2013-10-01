@@ -31,7 +31,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -134,10 +133,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             }
             else {
                 parentDir = storageManager.getFileById(mFile.getParentId());
-            }
-            
-//            // Update folder size on DB
-//            storageManager.calculateFolderSize(mFile.getFileId());
+            }            
             
             mFile = parentDir;           
         }

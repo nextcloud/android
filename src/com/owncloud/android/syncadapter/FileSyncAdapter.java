@@ -38,7 +38,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -201,6 +200,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                                                                     mCurrentSyncTime, 
                                                                                     parentId, 
                                                                                     enforceMetadataUpdate,
+                                                                                    true,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()
