@@ -23,6 +23,7 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 import com.owncloud.android.Log_OC;
 
 import eu.alefzero.webdav.WebdavClient;
+import eu.alefzero.webdav.WebdavUtils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
@@ -65,16 +66,16 @@ public class ExistenceCheckOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         HeadMethod head = null;
         try {
-            head = new HeadMethod(client.getBaseUri() + mPath);
+            head = new HeadMethod(client.getBaseUri() + WebdavUtils.encodePath(mPath));
             int status = client.executeMethod(head, TIMEOUT, TIMEOUT);
             client.exhaustResponse(head.getResponseBodyAsStream());
             boolean success = (status == HttpStatus.SC_OK && !mSuccessIfAbsent) || (status == HttpStatus.SC_NOT_FOUND && mSuccessIfAbsent);
             result = new RemoteOperationResult(success, status, head.getResponseHeaders());
-            Log_OC.d(TAG, "Existence check for " + client.getBaseUri() + mPath + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + "finished with HTTP status " + status + (!success?"(FAIL)":""));
+            Log_OC.d(TAG, "Existence check for " + client.getBaseUri() + WebdavUtils.encodePath(mPath) + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + "finished with HTTP status " + status + (!success?"(FAIL)":""));
             
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Existence check for " + client.getBaseUri() + mPath + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + ": " + result.getLogMessage(), result.getException());
+            Log_OC.e(TAG, "Existence check for " + client.getBaseUri() + WebdavUtils.encodePath(mPath) + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + ": " + result.getLogMessage(), result.getException());
             
         } finally {
             if (head != null)
