@@ -680,7 +680,6 @@ public class FileDataStorageManager implements DataStorageManager {
 
         while (parentId != DataStorageManager.ROOT_PARENT_ID) {
             
-            Log_OC.d(TAG, "parent = " + parentId);
             // Update the size of the parent
             calculateFolderSize(parentId);
             

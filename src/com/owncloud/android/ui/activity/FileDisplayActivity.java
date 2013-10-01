@@ -1371,7 +1371,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                RemoteOperation operation = new CreateFolderOperation(path, getCurrentDir().getFileId(), mStorageManager);
+                RemoteOperation operation = new CreateFolderOperation(path, false, mStorageManager);
                 operation.execute(  getAccount(), 
                         FileDisplayActivity.this, 
                         FileDisplayActivity.this, 
