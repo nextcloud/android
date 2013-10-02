@@ -297,7 +297,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     OCFile dir = mStorageManager.getFileByPath(mRemotePath);
                     if (dir != null) {
                         String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                        mStorageManager.removeFile(dir, (dir.isDown() && dir.getStoragePath().startsWith(currentSavePath)));
+                        mStorageManager.removeDirectory(dir, true, (dir.isDown() && dir.getStoragePath().startsWith(currentSavePath)));
                     }
                 }
                 result = new RemoteOperationResult(false, status, query.getResponseHeaders());

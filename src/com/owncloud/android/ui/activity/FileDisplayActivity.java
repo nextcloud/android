@@ -879,14 +879,20 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 }
                 */
 
-                OCFile currentDir = getCurrentDir();
-                if (synchFolderRemotePath != null) {
+                OCFile currentDir = mStorageManager.getFileById(getCurrentDir().getFileId());
+                if (currentDir == null) {
+                    // current folder was removed from the server 
+                    Toast.makeText(FileDisplayActivity.this, getString(R.string.sync_current_folder_was_removed), Toast.LENGTH_LONG)
+                        .show();
+                    onBackPressed();
                     
-                    OCFile synchDir = getStorageManager().getFileByPath(synchFolderRemotePath);
-                    boolean needToRefresh = false;
+                } else if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                    
+                    /*OCFile synchDir = getStorageManager().getFileByPath(synchFolderRemotePath);
+                    //boolean needToRefresh = false;
                     if (synchDir == null) {
-                        Log_OC.e(TAG, "SEARCHING NEW CURRENT");
                         // after synchronizing the current folder does not exist (was deleted in the server) ; need to move to other
+                        /*
                         String synchPath = synchFolderRemotePath;
                         do { 
                             String synchParentPath = new File(synchPath).getParent();
@@ -896,29 +902,25 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                             synchPath = synchParentPath;
                         }  while (synchDir == null);    // sooner of later will get ROOT, that never is null
                         currentDir = synchDir;
-                        
+                        *-/
                         Toast.makeText(FileDisplayActivity.this, 
-                                        String.format(getString(R.string.sync_current_folder_was_removed), synchPath), 
+                                        String.format(getString(R.string.sync_current_folder_was_removed), "LOLO"), 
                                         Toast.LENGTH_LONG).show();
-                        needToRefresh = true;
-                    }
+                        //needToRefresh = true;
+                        onBackPressed();
+                    } else {*/
                     
-                    if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
-                        needToRefresh = true;
+                    OCFileListFragment fileListFragment = getListOfFilesFragment();
+                    if (fileListFragment != null) {
+                        fileListFragment.listDirectory(currentDir);
                     }
-
-                    if (needToRefresh) {
-                        OCFileListFragment fileListFragment = getListOfFilesFragment();
-                        if (fileListFragment != null) {
-                            fileListFragment.listDirectory(currentDir);
-                        }
-                        boolean existsSecondFragment = (getSecondFragment() != null); 
-                        if (!existsSecondFragment) {
-                            setFile(currentDir);
-                        }
-                        //updateFragmentsVisibility(existsSecondFragment);
-                        updateNavigationElementsInActionBar(existsSecondFragment ? getFile() : null);
+                    //boolean existsSecondFragment = (getSecondFragment() != null); 
+                    //if (!existsSecondFragment) {
+                    if (getSecondFragment() == null) {
+                        setFile(currentDir);
                     }
+                    //updateFragmentsVisibility(existsSecondFragment);
+                    //updateNavigationElementsInActionBar(existsSecondFragment ? getFile() : null);
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
