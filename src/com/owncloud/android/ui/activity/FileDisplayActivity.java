@@ -871,27 +871,53 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
+                /*
                 boolean fillBlankRoot = false;
-                OCFile currentDir = getCurrentDir();
                 if (currentDir == null) {
                     currentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
                     fillBlankRoot = (currentDir != null);                   
                 }
+                */
 
-                if ((synchFolderRemotePath != null && currentDir != null && (currentDir.getRemotePath().equals(synchFolderRemotePath)))
-                        || fillBlankRoot ) {
-                    if (synchResult == null || synchResult.isSuccess()) {
-                        if (!fillBlankRoot) 
-                            currentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
-                        if (currentDir != null) {
-                            OCFileListFragment fileListFragment = getListOfFilesFragment();
-                            if (fileListFragment != null) {
-                                fileListFragment.listDirectory(currentDir);
-                                
-                            }
-                            if (getSecondFragment() == null)
-                                setFile(currentDir);
+                OCFile currentDir = getCurrentDir();
+                if (synchFolderRemotePath != null) {
+                    
+                    OCFile synchDir = getStorageManager().getFileByPath(synchFolderRemotePath);
+                    boolean needToRefresh = false;
+                    if (synchDir == null) {
+                        Log_OC.e(TAG, "SEARCHING NEW CURRENT");
+                        // after synchronizing the current folder does not exist (was deleted in the server) ; need to move to other
+                        String synchPath = synchFolderRemotePath;
+                        do { 
+                            String synchParentPath = new File(synchPath).getParent();
+                            synchParentPath = synchParentPath.endsWith(OCFile.PATH_SEPARATOR) ? synchParentPath : synchParentPath + OCFile.PATH_SEPARATOR;
+                            synchDir = getStorageManager().getFileByPath(synchParentPath);
+                            popDirname();
+                            synchPath = synchParentPath;
+                        }  while (synchDir == null);    // sooner of later will get ROOT, that never is null
+                        currentDir = synchDir;
+                        
+                        Toast.makeText(FileDisplayActivity.this, 
+                                        String.format(getString(R.string.sync_current_folder_was_removed), synchPath), 
+                                        Toast.LENGTH_LONG).show();
+                        needToRefresh = true;
+                    }
+                    
+                    if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                        needToRefresh = true;
+                    }
+
+                    if (needToRefresh) {
+                        OCFileListFragment fileListFragment = getListOfFilesFragment();
+                        if (fileListFragment != null) {
+                            fileListFragment.listDirectory(currentDir);
                         }
+                        boolean existsSecondFragment = (getSecondFragment() != null); 
+                        if (!existsSecondFragment) {
+                            setFile(currentDir);
+                        }
+                        //updateFragmentsVisibility(existsSecondFragment);
+                        updateNavigationElementsInActionBar(existsSecondFragment ? getFile() : null);
                     }
                 }
                 

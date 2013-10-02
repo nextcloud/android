@@ -293,6 +293,13 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 }
                 
             } else {
+                if (status == HttpStatus.SC_NOT_FOUND) {
+                    OCFile dir = mStorageManager.getFileByPath(mRemotePath);
+                    if (dir != null) {
+                        String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
+                        mStorageManager.removeFile(dir, (dir.isDown() && dir.getStoragePath().startsWith(currentSavePath)));
+                    }
+                }
                 result = new RemoteOperationResult(false, status, query.getResponseHeaders());
             }
 
