@@ -880,15 +880,19 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 if ((synchFolderRemotePath != null && currentDir != null && (currentDir.getRemotePath().equals(synchFolderRemotePath)))
                         || fillBlankRoot ) {
-                    if (!fillBlankRoot) 
-                        currentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
-                    OCFileListFragment fileListFragment = getListOfFilesFragment();
-                    if (fileListFragment != null) {
-                        fileListFragment.listDirectory(currentDir);
-                        
+                    if (synchResult == null || synchResult.isSuccess()) {
+                        if (!fillBlankRoot) 
+                            currentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
+                        if (currentDir != null) {
+                            OCFileListFragment fileListFragment = getListOfFilesFragment();
+                            if (fileListFragment != null) {
+                                fileListFragment.listDirectory(currentDir);
+                                
+                            }
+                            if (getSecondFragment() == null)
+                                setFile(currentDir);
+                        }
                     }
-                    if (getSecondFragment() == null)
-                        setFile(currentDir);
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);

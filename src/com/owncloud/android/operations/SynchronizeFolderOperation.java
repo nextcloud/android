@@ -276,24 +276,25 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 } else {
                     client.exhaustResponse(query.getResponseBodyAsStream());
                 }
-            }
-
-            // prepare result object
-            if (!dirChanged) {
-                result = new RemoteOperationResult(ResultCode.OK_NO_CHANGES_ON_DIR);
-                mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
-
-            } else if (isMultiStatus(status)) {
-                if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
+                
+                
+                // prepare result object
+                if (!dirChanged) {
+                    result = new RemoteOperationResult(ResultCode.OK_NO_CHANGES_ON_DIR);
+                    mChildren = mStorageManager.getDirectoryContent(mStorageManager.getFileById(mParentId));
 
                 } else {
-                    result = new RemoteOperationResult(true, status, query.getResponseHeaders());
+                    if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+                        result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
+
+                    } else {
+                        result = new RemoteOperationResult(true, status, query.getResponseHeaders());
+                    }
                 }
+                
             } else {
                 result = new RemoteOperationResult(false, status, query.getResponseHeaders());
             }
-            Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
@@ -303,12 +304,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             if (query != null)
                 query.releaseConnection();  // let the connection available for other methods
             if (result.isSuccess()) {
-                Log_OC.i(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+                Log_OC.i(TAG, "Synchroned " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
             } else {
                 if (result.isException()) {
-                    Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
+                    Log_OC.e(TAG, "Synchroned " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage(), result.getException());
                 } else {
-                    Log_OC.e(TAG, "Synchronizing " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Synchroned " + mAccount.name + ", folder " + mRemotePath + ": " + result.getLogMessage());
                 }
             }
             
