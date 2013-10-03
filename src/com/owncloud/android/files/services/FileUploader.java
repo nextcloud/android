@@ -78,7 +78,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -272,7 +271,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
-                mPendingUploads.putIfAbsent(uploadKey, newUpload);
+                mPendingUploads.putIfAbsent(uploadKey, newUpload); // Grants that the file only upload once time
+
                 newUpload.addDatatransferProgressListener(this);
                 newUpload.addDatatransferProgressListener((FileUploaderBinder)mBinder);
                 requestedUploads.add(uploadKey);
