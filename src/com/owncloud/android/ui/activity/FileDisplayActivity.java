@@ -862,74 +862,44 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         public void onReceive(Context context, Intent intent) {
             boolean inProgress = intent.getBooleanExtra(FileSyncService.IN_PROGRESS, false);
             String accountName = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
+            RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
 
             Log_OC.d(TAG, "sync of account " + accountName + " is in_progress: " + inProgress);
-            
-            RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
             
             if (getAccount() != null && accountName.equals(getAccount().name)) {  
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
-                /*
-                boolean fillBlankRoot = false;
-                if (currentDir == null) {
-                    currentDir = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
-                    fillBlankRoot = (currentDir != null);                   
-                }
-                */
-
+                OCFile currentFile = mStorageManager.getFileById(getFile().getFileId());
                 OCFile currentDir = mStorageManager.getFileById(getCurrentDir().getFileId());
+
                 if (currentDir == null) {
                     // current folder was removed from the server 
                     Toast.makeText(FileDisplayActivity.this, getString(R.string.sync_current_folder_was_removed), Toast.LENGTH_LONG)
                         .show();
                     onBackPressed();
                     
-                } else if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
-                    
-                    /*OCFile synchDir = getStorageManager().getFileByPath(synchFolderRemotePath);
-                    //boolean needToRefresh = false;
-                    if (synchDir == null) {
-                        // after synchronizing the current folder does not exist (was deleted in the server) ; need to move to other
-                        /*
-                        String synchPath = synchFolderRemotePath;
-                        do { 
-                            String synchParentPath = new File(synchPath).getParent();
-                            synchParentPath = synchParentPath.endsWith(OCFile.PATH_SEPARATOR) ? synchParentPath : synchParentPath + OCFile.PATH_SEPARATOR;
-                            synchDir = getStorageManager().getFileByPath(synchParentPath);
-                            popDirname();
-                            synchPath = synchParentPath;
-                        }  while (synchDir == null);    // sooner of later will get ROOT, that never is null
-                        currentDir = synchDir;
-                        *-/
-                        Toast.makeText(FileDisplayActivity.this, 
-                                        String.format(getString(R.string.sync_current_folder_was_removed), "LOLO"), 
-                                        Toast.LENGTH_LONG).show();
-                        //needToRefresh = true;
-                        onBackPressed();
-                    } else {*/
-                    
-                    OCFileListFragment fileListFragment = getListOfFilesFragment();
-                    if (fileListFragment != null) {
-                        fileListFragment.listDirectory(currentDir);
+                } else {
+                    if (currentFile == null && !getFile().isDirectory()) {
+                        // currently selected file was removed in the server, and now we know it
+                        cleanSecondFragment();
+                        currentFile = currentDir;
                     }
-                    //boolean existsSecondFragment = (getSecondFragment() != null); 
-                    //if (!existsSecondFragment) {
-                    if (getSecondFragment() == null) {
-                        setFile(currentDir);
+                
+                    if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                        OCFileListFragment fileListFragment = getListOfFilesFragment();
+                        if (fileListFragment != null) {
+                            fileListFragment.listDirectory(currentDir);
+                        }
                     }
-                    //updateFragmentsVisibility(existsSecondFragment);
-                    //updateNavigationElementsInActionBar(existsSecondFragment ? getFile() : null);
+                    setFile(currentFile);
                 }
                 
                 setSupportProgressBarIndeterminateVisibility(inProgress);
                 removeStickyBroadcast(intent);
-                
                 mSyncInProgress = inProgress;
 
             }
-
             
             if (synchResult != null) {
                 if (synchResult.getCode().equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
@@ -1015,7 +985,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         cleanSecondFragment();
         
         // Sync Folder
-        startSyncFolderOperation(directory.getRemotePath(), directory.getFileId());
+        startSyncFolderOperation(directory);
         
     }
 
@@ -1425,21 +1395,20 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         return null;
     }
     
-    public void startSyncFolderOperation(String remotePath, long parentId) {
+    public void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
                 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new SynchronizeFolderOperation(  remotePath, 
-                                                                                    currentSyncTime, 
-                                                                                    parentId, 
-                                                                                    false,
-                                                                                    false,
-                                                                                    getStorageManager(), 
-                                                                                    getAccount(), 
-                                                                                    getApplicationContext()
-                                                                                  );
+        RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
+                                                                        currentSyncTime, 
+                                                                        false,
+                                                                        false,
+                                                                        getStorageManager(), 
+                                                                        getAccount(), 
+                                                                        getApplicationContext()
+                                                                      );
         synchFolderOp.execute(getAccount(), this, null, null, this);
         
         setSupportProgressBarIndeterminateVisibility(true);

@@ -141,7 +141,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         if (mFile != null) {
             listDirectory(mFile);
 
-            mContainerActivity.startSyncFolderOperation(mFile.getRemotePath(), mFile.getFileId());
+            mContainerActivity.startSyncFolderOperation(mFile);
         }
    
     }
@@ -408,7 +408,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
         public void startImagePreview(OCFile file);
         
-        public void startSyncFolderOperation(String remotePath, long parentId);
+        public void startSyncFolderOperation(OCFile folder);
 
         /**
          * Getter for the current DataStorageManager in the container activity

@@ -19,14 +19,14 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Date;
+//import java.net.UnknownHostException;
+//import java.util.Date;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.conn.ConnectionKeepAliveStrategy;
-import org.apache.http.protocol.HttpContext;
+//import org.apache.http.conn.ConnectionKeepAliveStrategy;
+//import org.apache.http.protocol.HttpContext;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
@@ -43,11 +43,13 @@ import android.content.Context;
 import eu.alefzero.webdav.WebdavClient;
 
 /**
- * Base SyncAdapter for OwnCloud Designed to be subclassed for the concrete
- * SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
+ * Base synchronization adapter for ownCloud designed to be subclassed for different
+ * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
+ * 
+ * Implements the standard {@link AbstractThreadedSyncAdapter}.
  * 
  * @author sassman
- * 
+ * @author David A. Velasco
  */
 public abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {
@@ -55,7 +57,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private AccountManager accountManager;
     private Account account;
     private ContentProviderClient contentProvider;
-    private Date lastUpdated;
+    //private Date lastUpdated;
     private DataStorageManager mStoreManager;
 
     private WebdavClient mClient = null;
@@ -89,20 +91,47 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         this.contentProvider = contentProvider;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
     public void setStorageManager(DataStorageManager storage_manager) {
         mStoreManager = storage_manager;
     }
 
     public DataStorageManager getStorageManager() {
         return mStoreManager;
+    }
+
+    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
+        AccountUtils.constructFullURLForAccount(getContext(), account);
+        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
+    }
+    
+    protected WebdavClient getClient() {
+        return mClient;
+    }
+    
+    
+    /* method called by ContactSyncAdapter, that is never used */
+    protected HttpResponse fireRawRequest(HttpRequest query)
+            throws ClientProtocolException, OperationCanceledException,
+            AuthenticatorException, IOException {
+        /*
+         * BasicHttpContext httpContext = new BasicHttpContext(); BasicScheme
+         * basicAuth = new BasicScheme();
+         * httpContext.setAttribute("preemptive-auth", basicAuth);
+         * 
+         * HttpResponse response = getClient().execute(mHost, query,
+         * httpContext);
+         */
+        return null;
+    }
+
+    /* methods never used  below */
+    /*
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
@@ -128,27 +157,5 @@ public abstract class AbstractOwnCloudSyncAdapter extends
             }
         };
     }
-
-    protected HttpResponse fireRawRequest(HttpRequest query)
-            throws ClientProtocolException, OperationCanceledException,
-            AuthenticatorException, IOException {
-        /*
-         * BasicHttpContext httpContext = new BasicHttpContext(); BasicScheme
-         * basicAuth = new BasicScheme();
-         * httpContext.setAttribute("preemptive-auth", basicAuth);
-         * 
-         * HttpResponse response = getClient().execute(mHost, query,
-         * httpContext);
-         */
-        return null;
-    }
-
-    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
-        AccountUtils.constructFullURLForAccount(getContext(), account);
-        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
-    }
-    
-    protected WebdavClient getClient() {
-        return mClient;
-    }
+     */
 }
