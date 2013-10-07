@@ -126,7 +126,6 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity, Progres
                 out.write(mBuffer.array(), 0, readCount);
                 mBuffer.clear();
                 if (mTransferred < maxCount) {  // condition to avoid accumulate progress for repeated chunks
-                    Log_OC.d(TAG, "añadiendo a mTransfered " + mTransferred + " readCount " + readCount + " hasta " + (mTransferred + readCount));
                     mTransferred += readCount;
                 }
                 synchronized (mDataTransferListeners) {
