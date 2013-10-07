@@ -120,11 +120,15 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity, Progres
             mChannel.position(mOffset);
             long size = mFile.length();
             if (size == 0) size = -1;
-            while (mChannel.position() < mOffset + mChunkSize && mChannel.position() < mChannel.size()) {
+            long maxCount = Math.min(mOffset + mChunkSize, mChannel.size());
+            while (mChannel.position() < maxCount) {
                 readCount = mChannel.read(mBuffer);
                 out.write(mBuffer.array(), 0, readCount);
                 mBuffer.clear();
-                mTransferred += readCount;
+                if (mTransferred < maxCount) {  // condition to avoid accumulate progress for repeated chunks
+                    Log_OC.d(TAG, "añadiendo a mTransfered " + mTransferred + " readCount " + readCount + " hasta " + (mTransferred + readCount));
+                    mTransferred += readCount;
+                }
                 synchronized (mDataTransferListeners) {
                     it = mDataTransferListeners.iterator();
                     while (it.hasNext()) {
