@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.HttpVersion;
+import org.apache.commons.httpclient.URI;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthPolicy;
 import org.apache.commons.httpclient.auth.AuthScope;
@@ -48,6 +50,8 @@ import com.owncloud.android.network.BearerCredentials;
 import android.net.Uri;
 
 public class WebdavClient extends HttpClient {
+    private static final int MAX_REDIRECTIONS_COUNT = 3;
+    
     private Uri mUri;
     private Credentials mCredentials;
     private boolean mFollowRedirects;
@@ -160,15 +164,39 @@ public class WebdavClient extends HttpClient {
     
     @Override
     public int executeMethod(HttpMethod method) throws IOException, HttpException {
+        boolean customRedirectionNeeded = false;
         try {
             method.setFollowRedirects(mFollowRedirects);
         } catch (Exception e) {
-            
+            if (mFollowRedirects) Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used");
+            customRedirectionNeeded = mFollowRedirects;
         }
         if (mSsoSessionCookie != null && mSsoSessionCookie.length() > 0) {
             method.setRequestHeader("Cookie", mSsoSessionCookie);
         }
-        return super.executeMethod(method);
+        int status = super.executeMethod(method);
+        int redirectionsCount = 0;
+        while (customRedirectionNeeded &&
+                redirectionsCount < MAX_REDIRECTIONS_COUNT &&
+                (   status == HttpStatus.SC_MOVED_PERMANENTLY || 
+                    status == HttpStatus.SC_MOVED_TEMPORARILY ||
+                    status == HttpStatus.SC_TEMPORARY_REDIRECT)
+                ) {
+            
+            Header location = method.getResponseHeader("Location");
+            if (location != null) {
+                Log_OC.d(TAG,  "Location to redirect: " + location.getValue());
+                method.setURI(new URI(location.getValue(), true));
+                status = super.executeMethod(method);
+                redirectionsCount++;
+                
+            } else {
+                Log_OC.d(TAG,  "No location to redirect!");
+                status = HttpStatus.SC_NOT_FOUND;
+            }
+        }
+        
+        return status;
     }
 
 
