@@ -881,7 +881,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                                     String.format(getString(R.string.sync_current_folder_was_removed), mDirectories.getItem(0)), 
                                     Toast.LENGTH_LONG)
                         .show();
-                    onBackPressed();
+                    jumpToRoot();
                     
                 } else {
                     if (currentFile == null && !getFile().isDirectory()) {
@@ -975,6 +975,21 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     @Override
     public DataStorageManager getStorageManager() {
         return mStorageManager;
+    }
+
+
+    public void jumpToRoot() {
+        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+        if (listOfFiles != null) {  // should never be null, indeed
+            while (mDirectories.getCount() > 1) {
+                popDirname();
+            }
+            OCFile root = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+            listOfFiles.listDirectory(root);
+            setFile(listOfFiles.getCurrentFile());
+            startSyncFolderOperation(root);
+        }
+        cleanSecondFragment();
     }
 
 
