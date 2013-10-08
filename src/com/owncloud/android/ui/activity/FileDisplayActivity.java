@@ -870,8 +870,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
-                OCFile currentFile = mStorageManager.getFileById(getFile().getFileId());
-                OCFile currentDir = mStorageManager.getFileById(getCurrentDir().getFileId());
+                OCFile currentFile = (getFile() == null) ? null : mStorageManager.getFileById(getFile().getFileId());
+                OCFile currentDir = (getCurrentDir() == null) ? null : mStorageManager.getFileById(getCurrentDir().getFileId());
 
                 if (currentDir == null) {
                     // current folder was removed from the server 

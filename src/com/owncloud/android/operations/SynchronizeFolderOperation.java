@@ -206,9 +206,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 Log_OC.i(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
             } else {
                 if (result.isException()) {
-                    Log_OC.e(TAG, "Synchroned " + mAccount.name + remotePath  + ": " + result.getLogMessage(), result.getException());
+                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath  + ": " + result.getLogMessage(), result.getException());
                 } else {
-                    Log_OC.e(TAG, "Synchroned " + mAccount.name + remotePath + ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
                 }
             }
             
