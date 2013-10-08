@@ -877,7 +877,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 if (currentDir == null) {
                     // current folder was removed from the server 
-                    Toast.makeText(FileDisplayActivity.this, getString(R.string.sync_current_folder_was_removed), Toast.LENGTH_LONG)
+                    Toast.makeText( FileDisplayActivity.this, 
+                                    String.format(getString(R.string.sync_current_folder_was_removed), mDirectories.getItem(0)), 
+                                    Toast.LENGTH_LONG)
                         .show();
                     onBackPressed();
                     
