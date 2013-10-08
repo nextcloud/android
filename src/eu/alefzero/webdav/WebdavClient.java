@@ -168,21 +168,21 @@ public class WebdavClient extends HttpClient {
         try {
             method.setFollowRedirects(mFollowRedirects);
         } catch (Exception e) {
-            Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used");
-            customRedirectionNeeded = true;
+            if (mFollowRedirects) Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used");
+            customRedirectionNeeded = mFollowRedirects;
         }
         if (mSsoSessionCookie != null && mSsoSessionCookie.length() > 0) {
             method.setRequestHeader("Cookie", mSsoSessionCookie);
         }
         int status = super.executeMethod(method);
         int redirectionsCount = 0;
-        while (mFollowRedirects &&
+        while (customRedirectionNeeded &&
                 redirectionsCount < MAX_REDIRECTIONS_COUNT &&
-                customRedirectionNeeded &&
                 (   status == HttpStatus.SC_MOVED_PERMANENTLY || 
                     status == HttpStatus.SC_MOVED_TEMPORARILY ||
                     status == HttpStatus.SC_TEMPORARY_REDIRECT)
                 ) {
+            
             Header location = method.getResponseHeader("Location");
             if (location != null) {
                 Log_OC.d(TAG,  "Location to redirect: " + location.getValue());
