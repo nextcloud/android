@@ -327,12 +327,16 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private void removeObsoleteFiles() {
         mChildren = mStorageManager.getDirectoryContent(mLocalFolder);
         OCFile file;
-        String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
         for (int i=0; i < mChildren.size(); ) {
             file = mChildren.get(i);
             if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
-                Log_OC.d(TAG, "removing file: " + file);
-                mStorageManager.removeFile(file, (file.isDown() && file.getStoragePath().startsWith(currentSavePath)));
+                if (file.isDirectory()) {
+                    Log_OC.d(TAG, "removing folder: " + file);
+                    mStorageManager.removeDirectory(file, true, true);
+                } else {
+                    Log_OC.d(TAG, "removing file: " + file);
+                    mStorageManager.removeFile(file, true);
+                }
                 mChildren.remove(i);
             } else {
                 i++;

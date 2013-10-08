@@ -601,8 +601,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     finish();
                     return;
                 }
-                popDirname();
-                listOfFiles.onBrowseUp();
+                int levelsUp = listOfFiles.onBrowseUp();
+                for (int i=0; i < levelsUp && mDirectories.getCount() > 1 ; i++) {
+                    popDirname();
+                }
             }
         }
         if (listOfFiles != null) {  // should never be null, indeed
@@ -870,8 +872,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
-                OCFile currentFile = (getFile() == null) ? null : mStorageManager.getFileById(getFile().getFileId());
-                OCFile currentDir = (getCurrentDir() == null) ? null : mStorageManager.getFileById(getCurrentDir().getFileId());
+                OCFile currentFile = (getFile() == null) ? null : mStorageManager.getFileByPath(getFile().getRemotePath());
+                OCFile currentDir = (getCurrentDir() == null) ? null : mStorageManager.getFileByPath(getCurrentDir().getRemotePath());
 
                 if (currentDir == null) {
                     // current folder was removed from the server 

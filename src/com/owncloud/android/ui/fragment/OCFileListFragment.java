@@ -25,15 +25,18 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
+import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
@@ -121,20 +124,35 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
 
     /**
-     * Call this, when the user presses the up button
+     * Call this, when the user presses the up button.
+     * 
+     * Tries to move up the current folder one level. If the parent folder was removed from the database, 
+     * it continues browsing up until finding an existing folders.
+     * 
+     * return       Count of folder levels browsed up.
      */
-    public void onBrowseUp() {
+    public int onBrowseUp() {
         OCFile parentDir = null;
+        int moveCount = 0;
         
         if(mFile != null){
             DataStorageManager storageManager = mContainerActivity.getStorageManager();
-            if (mFile.getParentId() == 0) {
-                parentDir = storageManager.getFileById(1);
-            }
-            else {
-                parentDir = storageManager.getFileById(mFile.getParentId());
-            }            
             
+            String parentPath = null;
+            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                parentPath = new File(mFile.getRemotePath()).getParent();
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            } else {
+                parentDir = storageManager.getFileByPath(OCFile.PATH_SEPARATOR);    // never returns null; keep the path in root folder
+            }
+            while (parentDir == null) {
+                parentPath = new File(parentPath).getParent();
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;           
         }
         
@@ -142,8 +160,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             listDirectory(mFile);
 
             mContainerActivity.startSyncFolderOperation(mFile);
-        }
+        }   // else - should never happen now
    
+        return moveCount;
     }
     
     @Override
