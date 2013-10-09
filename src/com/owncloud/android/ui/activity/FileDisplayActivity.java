@@ -232,15 +232,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
             }
             setFile(file);
-            mDirectories.clear();
-            OCFile fileIt = file;
-            while(fileIt != null && fileIt.getFileName() != OCFile.PATH_SEPARATOR) {
-                if (fileIt.isDirectory()) {
-                    mDirectories.add(fileIt.getFileName());
-                }
-                fileIt = mStorageManager.getFileById(fileIt.getParentId());
-            }
-            mDirectories.add(OCFile.PATH_SEPARATOR);
+            setNavigationListWithFolder(file);
             if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
@@ -254,6 +246,19 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         } else {
             Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
+    }
+
+
+    private void setNavigationListWithFolder(OCFile file) {
+        mDirectories.clear();
+        OCFile fileIt = file;
+        while(fileIt != null && fileIt.getFileName() != OCFile.PATH_SEPARATOR) {
+            if (fileIt.isDirectory()) {
+                mDirectories.add(fileIt.getFileName());
+            }
+            fileIt = mStorageManager.getFileById(fileIt.getParentId());
+        }
+        mDirectories.add(OCFile.PATH_SEPARATOR);
     }
 
 
@@ -488,15 +493,22 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        int i = itemPosition;
-        while (i-- != 0) {
-            onBackPressed();
-        }
-        // the next operation triggers a new call to this method, but it's necessary to 
-        // ensure that the name exposed in the action bar is the current directory when the 
-        // user selected it in the navigation list
-        if (itemPosition != 0)
+        if (itemPosition != 0) {
+            String targetPath = "";
+            for (int i=itemPosition; i < mDirectories.getCount() - 1; i++) {
+                targetPath = mDirectories.getItem(i) + OCFile.PATH_SEPARATOR + targetPath; 
+            }
+            targetPath = OCFile.PATH_SEPARATOR + targetPath;
+            OCFile targetFolder = mStorageManager.getFileByPath(targetPath);
+            if (targetFolder != null) {
+                browseTo(targetFolder);
+            }
+            
+            // the next operation triggers a new call to this method, but it's necessary to 
+            // ensure that the name exposed in the action bar is the current directory when the 
+            // user selected it in the navigation list
             getSupportActionBar().setSelectedNavigationItem(0);
+        }
         return true;
     }
 
@@ -881,7 +893,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                                     String.format(getString(R.string.sync_current_folder_was_removed), mDirectories.getItem(0)), 
                                     Toast.LENGTH_LONG)
                         .show();
-                    jumpToRoot();
+                    browseToRoot();
                     
                 } else {
                     if (currentFile == null && !getFile().isDirectory()) {
@@ -978,7 +990,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
 
 
-    public void jumpToRoot() {
+    public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             while (mDirectories.getCount() > 1) {
@@ -988,6 +1000,23 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root);
+        }
+        cleanSecondFragment();
+    }
+    
+    
+    public void browseTo(OCFile folder) {
+        if (folder == null || !folder.isDirectory()) {
+            throw new IllegalArgumentException("Trying to browse to invalid folder " + folder);
+        }
+        OCFileListFragment listOfFiles = getListOfFilesFragment(); 
+        if (listOfFiles != null) {
+            setNavigationListWithFolder(folder);
+            listOfFiles.listDirectory(folder);
+            setFile(listOfFiles.getCurrentFile());
+            startSyncFolderOperation(folder);
+        } else {
+            Log_OC.e(TAG, "Unexpected null when accessing list fragment");
         }
         cleanSecondFragment();
     }
