@@ -86,6 +86,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 
@@ -211,12 +212,15 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
             /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
             OCFile file = getFile();
+            // get parent from path
+            String parentPath = "";
             if (file != null) {
                 if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
                     // upload in progress - right now, files are not inserted in the local cache until the upload is successful
-                    if (mStorageManager.getFileById(file.getParentId()) == null) {
-                        file = null;    // not able to know the directory where the file is uploading
-                    }
+                    // get parent from path
+                    parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                    if (mStorageManager.getFileByPath(parentPath) ==  null)
+                        file = null; // not able to know the directory where the file is uploading
                 } else {
                     file = mStorageManager.getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
                 }
@@ -232,7 +236,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 if (fileIt.isDirectory()) {
                     mDirectories.add(fileIt.getFileName());
                 }
-                fileIt = mStorageManager.getFileById(fileIt.getParentId());
+                // get parent from path
+                parentPath = fileIt.getRemotePath().substring(0, fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
+                fileIt = mStorageManager.getFileByPath(parentPath);
             }
             mDirectories.add(OCFile.PATH_SEPARATOR);
             if (!stateWasRecovered) {
@@ -1360,7 +1366,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (file.isDirectory()) {
                 return file;
             } else if (mStorageManager != null) {
-                return mStorageManager.getFileById(file.getParentId());
+                String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                return mStorageManager.getFileByPath(parentPath);
             }
         }
         return null;

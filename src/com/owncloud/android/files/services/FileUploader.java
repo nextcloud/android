@@ -717,12 +717,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = null;
-        if (PreviewImageFragment.canBePreviewed(upload.getFile())) {
-            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        } else {
-            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        }
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
