@@ -855,7 +855,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
             Log_OC.d(TAG, "sync of account " + accountName + " is in_progress: " + inProgress);
 
-            if (getAccount() != null && accountName.equals(getAccount().name)) {  
+            if (getAccount() != null && accountName.equals(getAccount().name)
+                    && mStorageManager != null
+                    ) {  
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
@@ -869,7 +871,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 if ((synchFolderRemotePath != null && currentDir != null && (currentDir.getRemotePath().equals(synchFolderRemotePath)))
                         || fillBlankRoot ) {
                     if (!fillBlankRoot) 
-                        currentDir = getStorageManager().getFileByPath(synchFolderRemotePath);
+                        currentDir = mStorageManager.getFileByPath(synchFolderRemotePath);
                     OCFileListFragment fileListFragment = getListOfFilesFragment();
                     if (fileListFragment != null) {
                         fileListFragment.listDirectory(currentDir);
