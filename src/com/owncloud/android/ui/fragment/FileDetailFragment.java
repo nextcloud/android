@@ -415,7 +415,7 @@ public class FileDetailFragment extends FileFragment implements
     private void renameFile() {
         OCFile file = getFile();
         String fileName = file.getFileName();
-        int extensionStart = file.isDirectory() ? -1 : fileName.lastIndexOf(".");
+        int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
         int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
         EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
         dialog.show(getFragmentManager(), "nameeditdialog");

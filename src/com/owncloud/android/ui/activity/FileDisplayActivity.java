@@ -228,7 +228,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             }
             if (file == null) {
                 // fall back to root folder
-                file = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);  // never returns null
+                file = mStorageManager.getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
             setNavigationListWithFolder(file);
@@ -237,8 +237,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 initFragmentsWithFile();
                 
             } else {
-                updateFragmentsVisibility(!file.isDirectory());
-                updateNavigationElementsInActionBar(file.isDirectory() ? null : file);
+                updateFragmentsVisibility(!file.isFolder());
+                updateNavigationElementsInActionBar(file.isFolder() ? null : file);
             }
             
             
@@ -251,8 +251,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void setNavigationListWithFolder(OCFile file) {
         mDirectories.clear();
         OCFile fileIt = file;
-        while(fileIt != null && fileIt.getFileName() != OCFile.PATH_SEPARATOR) {
-            if (fileIt.isDirectory()) {
+        while(fileIt != null && fileIt.getFileName() != OCFile.ROOT_PATH) {
+            if (fileIt.isFolder()) {
                 mDirectories.add(fileIt.getFileName());
             }
             fileIt = mStorageManager.getFileById(fileIt.getParentId());
@@ -303,7 +303,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     private Fragment chooseInitialSecondFragment(OCFile file) {
         Fragment secondFragment = null;
-        if (file != null && !file.isDirectory()) {
+        if (file != null && !file.isFolder()) {
             if (file.isDown() && PreviewMediaFragment.canBePreviewed(file) 
                     && file.getLastSyncDateForProperties() > 0  // temporal fix
                     ) {
@@ -820,10 +820,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     /**
      * Pushes a directory to the drop down list
      * @param directory to push
-     * @throws IllegalArgumentException If the {@link OCFile#isDirectory()} returns false.
+     * @throws IllegalArgumentException If the {@link OCFile#isFolder()} returns false.
      */
     public void pushDirname(OCFile directory) {
-        if(!directory.isDirectory()){
+        if(!directory.isFolder()){
             throw new IllegalArgumentException("Only directories may be pushed!");
         }
         mDirectories.insert(directory.getFileName(), 0);
@@ -895,7 +895,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     browseToRoot();
                     
                 } else {
-                    if (currentFile == null && !getFile().isDirectory()) {
+                    if (currentFile == null && !getFile().isFolder()) {
                         // currently selected file was removed in the server, and now we know it
                         cleanSecondFragment();
                         currentFile = currentDir;
@@ -995,7 +995,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             while (mDirectories.getCount() > 1) {
                 popDirname();
             }
-            OCFile root = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+            OCFile root = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root);
@@ -1005,7 +1005,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     
     public void browseTo(OCFile folder) {
-        if (folder == null || !folder.isDirectory()) {
+        if (folder == null || !folder.isFolder()) {
             throw new IllegalArgumentException("Trying to browse to invalid folder " + folder);
         }
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
@@ -1433,7 +1433,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private OCFile getCurrentDir() {
         OCFile file = getFile();
         if (file != null) {
-            if (file.isDirectory()) {
+            if (file.isFolder()) {
                 return file;
             } else if (mStorageManager != null) {
                 return mStorageManager.getFileById(file.getParentId());

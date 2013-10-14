@@ -135,7 +135,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             
-            if (!file.isDirectory()) {
+            if (!file.isFolder()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
@@ -202,7 +202,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getDirectoryContent(mFile);
+            mFiles = mStorageManager.getFolderContent(mFile);
         } else {
             mFiles = null;
         }

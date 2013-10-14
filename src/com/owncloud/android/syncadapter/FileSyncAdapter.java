@@ -149,7 +149,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             updateOCVersion();
             mCurrentSyncTime = System.currentTimeMillis();
             if (!mCancellation) {
-                synchronizeFolder(getStorageManager().getFileByPath(OCFile.PATH_SEPARATOR), true);
+                synchronizeFolder(getStorageManager().getFileByPath(OCFile.ROOT_PATH), true);
                 
             } else {
                 Log_OC.d(TAG, "Leaving synchronization before synchronizing the root folder because cancelation request");
@@ -315,7 +315,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         int i;
         for (i=0; i < files.size() && !mCancellation; i++) {
             OCFile newFile = files.get(i);
-            if (newFile.isDirectory()) {
+            if (newFile.isFolder()) {
                 synchronizeFolder(newFile, false);
             }
         }

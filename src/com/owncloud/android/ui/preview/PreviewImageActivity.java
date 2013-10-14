@@ -107,7 +107,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
         if (parentFolder == null) {
             // should not be necessary
-            parentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+            parentFolder = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
         }
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);

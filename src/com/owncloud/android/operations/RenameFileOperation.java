@@ -94,7 +94,7 @@ public class RenameFileOperation extends RemoteOperation {
             String parent = (new File(mFile.getRemotePath())).getParent();
             parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
             mNewRemotePath =  parent + mNewName;
-            if (mFile.isDirectory()) {
+            if (mFile.isFolder()) {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
             }
             
@@ -113,7 +113,7 @@ public class RenameFileOperation extends RemoteOperation {
             int status = client.executeMethod(move, RENAME_READ_TIMEOUT, RENAME_CONNECTION_TIMEOUT);
             if (move.succeeded()) {
 
-                if (mFile.isDirectory()) {
+                if (mFile.isFolder()) {
                     saveLocalDirectory();
                     
                 } else {
@@ -152,7 +152,7 @@ public class RenameFileOperation extends RemoteOperation {
 
     
     private void saveLocalDirectory() {
-        mStorageManager.moveDirectory(mFile, mNewRemotePath);
+        mStorageManager.moveFolder(mFile, mNewRemotePath);
         String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {

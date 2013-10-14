@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -47,23 +46,49 @@ public class FileDataStorageManager {
     public static final int ROOT_PARENT_ID = 0;
 
     private ContentResolver mContentResolver;
-    private ContentProviderClient mContentProvider;
+    private ContentProviderClient mContentProviderClient;
     private Account mAccount;
 
-    private static String TAG = "FileDataStorageManager";
+    private static String TAG = FileDataStorageManager.class.getSimpleName();
 
+    
     public FileDataStorageManager(Account account, ContentResolver cr) {
-        mContentProvider = null;
+        mContentProviderClient = null;
         mContentResolver = cr;
         mAccount = account;
     }
 
     public FileDataStorageManager(Account account, ContentProviderClient cp) {
-        mContentProvider = cp;
+        mContentProviderClient = cp;
         mContentResolver = null;
         mAccount = account;
     }
 
+    
+    public void setAccount(Account account) {
+        mAccount = account;
+    }
+
+    public Account getAccount() {
+        return mAccount;
+    }
+
+    public void setContentResolver(ContentResolver cr) {
+        mContentResolver = cr;
+    }
+
+    public ContentResolver getContentResolver() {
+        return mContentResolver;
+    }
+
+    public void setContentProviderClient(ContentProviderClient cp) {
+        mContentProviderClient = cp;
+    }
+
+    public ContentProviderClient getContentProviderClient() {
+        return mContentProviderClient;
+    }
+    
 
     public OCFile getFileByPath(String path) {
         Cursor c = getCursorForValue(ProviderTableMeta.FILE_PATH, path);
@@ -72,20 +97,12 @@ public class FileDataStorageManager {
             file = createFileInstance(c);
         }
         c.close();
-        if (file == null && OCFile.PATH_SEPARATOR.equals(path)) {
+        if (file == null && OCFile.ROOT_PATH.equals(path)) {
             return createRootDir(); // root should always exist
         }
         return file;
     }
 
-
-    private OCFile createRootDir() {
-        OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
-        file.setMimetype("DIR");
-        file.setParentId(FileDataStorageManager.ROOT_PARENT_ID);
-        saveFile(file);
-        return file;
-    }
 
     public OCFile getFileById(long id) {
         Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
@@ -115,6 +132,34 @@ public class FileDataStorageManager {
         return fileExists(ProviderTableMeta.FILE_PATH, path);
     }
 
+    
+    public Vector<OCFile> getFolderContent(OCFile f) {
+        if (f != null && f.isFolder() && f.getFileId() != -1) {
+            return getFolderContent(f.getFileId());
+
+        } else {
+            return new Vector<OCFile>();
+        }
+    }
+    
+    
+    public Vector<OCFile> getFolderImages(OCFile folder) {
+        Vector<OCFile> ret = new Vector<OCFile>(); 
+        if (folder != null) {
+            // TODO better implementation, filtering in the access to database (if possible) instead of here 
+            Vector<OCFile> tmp = getFolderContent(folder);
+            OCFile current = null; 
+            for (int i=0; i<tmp.size(); i++) {
+                current = tmp.get(i);
+                if (current.isImage()) {
+                    ret.add(current);
+                }
+            }
+        }
+        return ret;
+    }
+
+    
     public boolean saveFile(OCFile file) {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
@@ -127,7 +172,7 @@ public class FileDataStorageManager {
         //if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
             cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
         cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-        if (!file.isDirectory())
+        if (!file.isFolder())
             cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
@@ -156,7 +201,7 @@ public class FileDataStorageManager {
                         new String[] { String.valueOf(file.getFileId()) });
             } else {
                 try {
-                    getContentProvider().update(ProviderTableMeta.CONTENT_URI,
+                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI,
                             cv, ProviderTableMeta._ID + "=?",
                             new String[] { String.valueOf(file.getFileId()) });
                 } catch (RemoteException e) {
@@ -173,7 +218,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.CONTENT_URI_FILE, cv);
             } else {
                 try {
-                    result_uri = getContentProvider().insert(
+                    result_uri = getContentProviderClient().insert(
                             ProviderTableMeta.CONTENT_URI_FILE, cv);
                 } catch (RemoteException e) {
                     Log_OC.e(TAG,
@@ -188,15 +233,15 @@ public class FileDataStorageManager {
             }            
         }
 
-        if (file.isDirectory()) {
+        if (file.isFolder()) {
             calculateFolderSize(file.getFileId());
             if (file.needsUpdatingWhileSaving()) {
-                for (OCFile f : getDirectoryContent(file))
+                for (OCFile f : getFolderContent(file))
                     saveFile(f);
             }
         }
         
-        if (changesSizeOfAncestors || file.isDirectory()) {
+        if (changesSizeOfAncestors || file.isFolder()) {
             updateSizesToTheRoot(file.getParentId());
         }
         
@@ -223,7 +268,7 @@ public class FileDataStorageManager {
             if (file.getParentId() != FileDataStorageManager.ROOT_PARENT_ID)
                 cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
             cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-            if (!file.isDirectory())
+            if (!file.isFolder())
                 cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
             cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
             cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
@@ -235,7 +280,7 @@ public class FileDataStorageManager {
                 OCFile oldFile = getFileByPath(file.getRemotePath());
                 file.setFileId(oldFile.getFileId());
                
-                if (file.isDirectory()) {
+                if (file.isFolder()) {
                     cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, oldFile.getFileLength());
                     file.setFileLength(oldFile.getFileLength());
                 }
@@ -251,7 +296,7 @@ public class FileDataStorageManager {
                 if (file.getStoragePath() == null && oldFile.getStoragePath() != null)
                     file.setStoragePath(oldFile.getStoragePath());
                 
-                if (!file.isDirectory())
+                if (!file.isFolder())
                     cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
                 else {
                     cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, oldFile.getFileLength());
@@ -276,7 +321,7 @@ public class FileDataStorageManager {
                 results = getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
 
             } else {
-                results = getContentProvider().applyBatch(operations);
+                results = getContentProviderClient().applyBatch(operations);
             }
 
         } catch (OperationApplicationException e) {
@@ -299,46 +344,164 @@ public class FileDataStorageManager {
         }
 
         for (OCFile aFile : files) {
-            if (aFile.isDirectory() && aFile.needsUpdatingWhileSaving())
-                saveFiles(getDirectoryContent(aFile));
+            if (aFile.isFolder() && aFile.needsUpdatingWhileSaving())
+                saveFiles(getFolderContent(aFile));
         }
 
     }
 
-    public void setAccount(Account account) {
-        mAccount = account;
-    }
 
-    public Account getAccount() {
-        return mAccount;
-    }
-
-    public void setContentResolver(ContentResolver cr) {
-        mContentResolver = cr;
-    }
-
-    public ContentResolver getContentResolver() {
-        return mContentResolver;
-    }
-
-    public void setContentProvider(ContentProviderClient cp) {
-        mContentProvider = cp;
-    }
-
-    public ContentProviderClient getContentProvider() {
-        return mContentProvider;
+    /**
+     * Calculate and save the folderSize on DB
+     * @param id
+     */
+    public void calculateFolderSize(long id) {
+        long folderSize = 0;
+        
+        Vector<OCFile> files = getFolderContent(id);
+        
+        for (OCFile f: files)
+        {
+            folderSize = folderSize + f.getFileLength();
+        }
+        
+        updateSize(id, folderSize);
     }
     
-    public Vector<OCFile> getDirectoryContent(OCFile f) {
-        if (f != null && f.isDirectory() && f.getFileId() != -1) {
-            return getDirectoryContent(f.getFileId());
-
+    
+    public void removeFile(OCFile file, boolean removeLocalCopy) {
+        Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
+        if (getContentProviderClient() != null) {
+            try {
+                getContentProviderClient().delete(file_uri,
+                        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                        new String[]{mAccount.name});
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         } else {
-            return new Vector<OCFile>();
+            getContentResolver().delete(file_uri,
+                    ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
+                    new String[]{mAccount.name});
+        }
+        if (file.isDown() && removeLocalCopy) {
+            new File(file.getStoragePath()).delete();
+        }
+        if (file.isFolder() && removeLocalCopy) {
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+            if (f.exists() && f.isDirectory() && (f.list() == null || f.list().length == 0)) {
+                f.delete();
+            }
+        }
+        
+        if (file.getFileLength() > 0) {
+            updateSizesToTheRoot(file.getParentId());
         }
     }
 
-    private Vector<OCFile> getDirectoryContent(long parentId) {
+    public void removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
+        // TODO consider possible failures
+        if (folder != null && folder.isFolder() && folder.getFileId() != -1) {
+            Vector<OCFile> children = getFolderContent(folder);
+            if (children.size() > 0) {
+                OCFile child = null;
+                for (int i=0; i<children.size(); i++) {
+                    child = children.get(i);
+                    if (child.isFolder()) {
+                        removeFolder(child, removeDBData, removeLocalContent);
+                    } else {
+                        if (removeDBData) {
+                            removeFile(child, removeLocalContent);
+                        } else if (removeLocalContent) {
+                            if (child.isDown()) {
+                                new File(child.getStoragePath()).delete();
+                            }
+                        }
+                    }
+                }
+            }
+            if (removeDBData) {
+                removeFile(folder, true);
+            }
+            
+            if (folder.getFileLength() > 0) {
+                updateSizesToTheRoot(folder.getParentId());
+            }
+        }
+    }
+
+
+    /**
+     * Updates database for a folder that was moved to a different location.
+     * 
+     * TODO explore better (faster) implementations
+     * TODO throw exceptions up !
+     */
+    public void moveFolder(OCFile folder, String newPath) {
+        // TODO check newPath
+
+        if (folder != null && folder.isFolder() && folder.fileExists() && !OCFile.ROOT_PATH.equals(folder.getFileName())) {
+            /// 1. get all the descendants of 'dir' in a single QUERY (including 'dir')
+            Cursor c = null;
+            if (getContentProviderClient() != null) {
+                try {
+                    c = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI, 
+                            null,
+                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ? ",
+                            new String[] { mAccount.name, folder.getRemotePath() + "%"  }, ProviderTableMeta.FILE_PATH + " ASC ");
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, e.getMessage());
+                }
+            } else {
+                c = getContentResolver().query(ProviderTableMeta.CONTENT_URI, 
+                        null,
+                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ? ",
+                        new String[] { mAccount.name, folder.getRemotePath() + "%"  }, ProviderTableMeta.FILE_PATH + " ASC ");
+            }
+
+            /// 2. prepare a batch of update operations to change all the descendants
+            ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(c.getCount());
+            int lengthOfOldPath = folder.getRemotePath().length();
+            String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
+            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
+            if (c.moveToFirst()) {
+                do {
+                    ContentValues cv = new ContentValues(); // don't take the constructor out of the loop and clear the object
+                    OCFile child = createFileInstance(c);
+                    cv.put(ProviderTableMeta.FILE_PATH, newPath + child.getRemotePath().substring(lengthOfOldPath));
+                    if (child.getStoragePath() != null && child.getStoragePath().startsWith(defaultSavePath)) {
+                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, defaultSavePath + newPath + child.getStoragePath().substring(lengthOfOldStoragePath));
+                    }
+                    operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
+                            withValues(cv).
+                            withSelection(  ProviderTableMeta._ID + "=?", 
+                                    new String[] { String.valueOf(child.getFileId()) })
+                                    .build());
+                } while (c.moveToNext());
+            }
+            c.close();
+
+            /// 3. apply updates in batch
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+
+            } catch (OperationApplicationException e) {
+                Log_OC.e(TAG, "Fail to update descendants of " + folder.getFileId() + " in database", e);
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Fail to update desendants of " + folder.getFileId() + " in database", e);
+            }
+
+        }
+    }
+
+    
+    private Vector<OCFile> getFolderContent(long parentId) {
 
         Vector<OCFile> ret = new Vector<OCFile>();
 
@@ -347,9 +510,9 @@ public class FileDataStorageManager {
                 String.valueOf(parentId));
         Cursor c = null;
 
-        if (getContentProvider() != null) {
+        if (getContentProviderClient() != null) {
             try {
-                c = getContentProvider().query(req_uri, null, 
+                c = getContentProviderClient().query(req_uri, null, 
                         ProviderTableMeta.FILE_PARENT + "=?" ,
                         new String[] { String.valueOf(parentId)}, null);
             } catch (RemoteException e) {
@@ -377,6 +540,13 @@ public class FileDataStorageManager {
     }
     
     
+    private OCFile createRootDir() {
+        OCFile file = new OCFile(OCFile.ROOT_PATH);
+        file.setMimetype("DIR");
+        file.setParentId(FileDataStorageManager.ROOT_PARENT_ID);
+        saveFile(file);
+        return file;
+    }
 
     private boolean fileExists(String cmp_key, String value) {
         Cursor c;
@@ -390,7 +560,7 @@ public class FileDataStorageManager {
                                     new String[] { value, mAccount.name }, null);
         } else {
             try {
-                c = getContentProvider().query(
+                c = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI,
                         null,
                         cmp_key + "=? AND "
@@ -420,7 +590,7 @@ public class FileDataStorageManager {
                                     new String[] { value, mAccount.name }, null);
         } else {
             try {
-                c = getContentProvider().query(
+                c = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI,
                         null,
                         key + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER
@@ -444,7 +614,7 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.FILE_PARENT)));
             file.setMimetype(c.getString(c
                     .getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-            if (!file.isDirectory()) {
+            if (!file.isFolder()) {
                 file.setStoragePath(c.getString(c
                         .getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH)));
                 if (file.getStoragePath() == null) {
@@ -476,170 +646,6 @@ public class FileDataStorageManager {
         return file;
     }
 
-    public void removeFile(OCFile file, boolean removeLocalCopy) {
-        Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
-        if (getContentProvider() != null) {
-            try {
-                getContentProvider().delete(file_uri,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-                        new String[]{mAccount.name});
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        } else {
-            getContentResolver().delete(file_uri,
-                    ProviderTableMeta.FILE_ACCOUNT_OWNER+"=?",
-                    new String[]{mAccount.name});
-        }
-        if (file.isDown() && removeLocalCopy) {
-            new File(file.getStoragePath()).delete();
-        }
-        if (file.isDirectory() && removeLocalCopy) {
-            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
-            if (f.exists() && f.isDirectory() && (f.list() == null || f.list().length == 0)) {
-                f.delete();
-            }
-        }
-        
-        if (file.getFileLength() > 0) {
-            updateSizesToTheRoot(file.getParentId());
-        }
-    }
-
-    public void removeDirectory(OCFile dir, boolean removeDBData, boolean removeLocalContent) {
-        // TODO consider possible failures
-        if (dir != null && dir.isDirectory() && dir.getFileId() != -1) {
-            Vector<OCFile> children = getDirectoryContent(dir);
-            if (children.size() > 0) {
-                OCFile child = null;
-                for (int i=0; i<children.size(); i++) {
-                    child = children.get(i);
-                    if (child.isDirectory()) {
-                        removeDirectory(child, removeDBData, removeLocalContent);
-                    } else {
-                        if (removeDBData) {
-                            removeFile(child, removeLocalContent);
-                        } else if (removeLocalContent) {
-                            if (child.isDown()) {
-                                new File(child.getStoragePath()).delete();
-                            }
-                        }
-                    }
-                }
-            }
-            if (removeDBData) {
-                removeFile(dir, true);
-            }
-            
-            if (dir.getFileLength() > 0) {
-                updateSizesToTheRoot(dir.getParentId());
-            }
-        }
-    }
-
-
-    /**
-     * Updates database for a folder that was moved to a different location.
-     * 
-     * TODO explore better (faster) implementations
-     * TODO throw exceptions up !
-     */
-    public void moveDirectory(OCFile dir, String newPath) {
-        // TODO check newPath
-
-        if (dir != null && dir.isDirectory() && dir.fileExists() && !dir.getFileName().equals(OCFile.PATH_SEPARATOR)) {
-            /// 1. get all the descendants of 'dir' in a single QUERY (including 'dir')
-            Cursor c = null;
-            if (getContentProvider() != null) {
-                try {
-                    c = getContentProvider().query(ProviderTableMeta.CONTENT_URI, 
-                            null,
-                            ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                            new String[] { mAccount.name, dir.getRemotePath() + "%"  }, ProviderTableMeta.FILE_PATH + " ASC ");
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, e.getMessage());
-                }
-            } else {
-                c = getContentResolver().query(ProviderTableMeta.CONTENT_URI, 
-                        null,
-                        ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PATH + " LIKE ? ",
-                        new String[] { mAccount.name, dir.getRemotePath() + "%"  }, ProviderTableMeta.FILE_PATH + " ASC ");
-            }
-
-            /// 2. prepare a batch of update operations to change all the descendants
-            ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(c.getCount());
-            int lengthOfOldPath = dir.getRemotePath().length();
-            String defaultSavePath = FileStorageUtils.getSavePath(mAccount.name);
-            int lengthOfOldStoragePath = defaultSavePath.length() + lengthOfOldPath;
-            if (c.moveToFirst()) {
-                do {
-                    ContentValues cv = new ContentValues(); // don't take the constructor out of the loop and clear the object
-                    OCFile child = createFileInstance(c);
-                    cv.put(ProviderTableMeta.FILE_PATH, newPath + child.getRemotePath().substring(lengthOfOldPath));
-                    if (child.getStoragePath() != null && child.getStoragePath().startsWith(defaultSavePath)) {
-                        cv.put(ProviderTableMeta.FILE_STORAGE_PATH, defaultSavePath + newPath + child.getStoragePath().substring(lengthOfOldStoragePath));
-                    }
-                    operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                            withValues(cv).
-                            withSelection(  ProviderTableMeta._ID + "=?", 
-                                    new String[] { String.valueOf(child.getFileId()) })
-                                    .build());
-                } while (c.moveToNext());
-            }
-            c.close();
-
-            /// 3. apply updates in batch
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
-
-                } else {
-                    getContentProvider().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Fail to update descendants of " + dir.getFileId() + " in database", e);
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Fail to update desendants of " + dir.getFileId() + " in database", e);
-            }
-
-        }
-    }
-
-    public Vector<OCFile> getDirectoryImages(OCFile directory) {
-        Vector<OCFile> ret = new Vector<OCFile>(); 
-        if (directory != null) {
-            // TODO better implementation, filtering in the access to database (if possible) instead of here 
-            Vector<OCFile> tmp = getDirectoryContent(directory);
-            OCFile current = null; 
-            for (int i=0; i<tmp.size(); i++) {
-                current = tmp.get(i);
-                if (current.isImage()) {
-                    ret.add(current);
-                }
-            }
-        }
-        return ret;
-    }
-
-    /**
-     * Calculate and save the folderSize on DB
-     * @param id
-     */
-    public void calculateFolderSize(long id) {
-        long folderSize = 0;
-        
-        Vector<OCFile> files = getDirectoryContent(id);
-        
-        for (OCFile f: files)
-        {
-            folderSize = folderSize + f.getFileLength();
-        }
-        
-        updateSize(id, folderSize);
-    }
-
     /**
      * Update the size value of an OCFile in DB
      */
@@ -652,7 +658,7 @@ public class FileDataStorageManager {
                      new String[] { String.valueOf(id) });
         } else {
             try {
-                result = getContentProvider().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
+                result = getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
                         new String[] { String.valueOf(id) });
             } catch (RemoteException e) {
                 Log_OC.e(TAG,"Fail to update size column into database " + e.getMessage());

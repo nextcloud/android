@@ -81,8 +81,8 @@ public class RemoveFileOperation extends RemoteOperation {
             delete = new DeleteMethod(client.getBaseUri() + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
             if (delete.succeeded() || status == HttpStatus.SC_NOT_FOUND) {
-                if (mFileToRemove.isDirectory()) {
-                    mDataStorageManager.removeDirectory(mFileToRemove, true, mDeleteLocalCopy);
+                if (mFileToRemove.isFolder()) {
+                    mDataStorageManager.removeFolder(mFileToRemove, true, mDeleteLocalCopy);
                 } else {
                     mDataStorageManager.removeFile(mFileToRemove, mDeleteLocalCopy);
                 }

@@ -71,7 +71,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getDirectoryImages(parentFolder); 
+        mImageFiles = mStorageManager.getFolderImages(parentFolder); 
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
         mDownloadErrors = new HashSet<Integer>();

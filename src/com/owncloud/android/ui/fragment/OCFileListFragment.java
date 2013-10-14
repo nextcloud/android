@@ -142,7 +142,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
             } else {
-                parentDir = storageManager.getFileByPath(OCFile.PATH_SEPARATOR);    // never returns null; keep the path in root folder
+                parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);    // never returns null; keep the path in root folder
             }
             while (parentDir == null) {
                 parentPath = new File(parentPath).getParent();
@@ -166,7 +166,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
-            if (file.isDirectory()) { 
+            if (file.isFolder()) { 
                 // update state and view of this fragment
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
@@ -213,7 +213,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         List<Integer> toDisable = new ArrayList<Integer>();  
         
         MenuItem item = null;
-        if (targetFile.isDirectory()) {
+        if (targetFile.isFolder()) {
             // contextual menu for folders
             toHide.add(R.id.action_open_file_with);
             toHide.add(R.id.action_download_file);
@@ -285,7 +285,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         switch (item.getItemId()) {
             case R.id.action_rename_file: {
                 String fileName = mTargetFile.getFileName();
-                int extensionStart = mTargetFile.isDirectory() ? -1 : fileName.lastIndexOf(".");
+                int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
                 int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
                 EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
@@ -295,7 +295,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 int messageStringId = R.string.confirmation_remove_alert;
                 int posBtnStringId = R.string.confirmation_remove_remote;
                 int neuBtnStringId = -1;
-                if (mTargetFile.isDirectory()) {
+                if (mTargetFile.isFolder()) {
                     messageStringId = R.string.confirmation_remove_folder_alert;
                     posBtnStringId = R.string.confirmation_remove_remote_and_local;
                     neuBtnStringId = R.string.confirmation_remove_folder_local;
@@ -389,7 +389,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         
         
             // If that's not a directory -> List its parent
-            if(!directory.isDirectory()){
+            if(!directory.isFolder()){
                 Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
                 directory = storageManager.getFileById(directory.getParentId());
             }
@@ -484,9 +484,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     @Override
     public void onNeutral(String callerTag) {
         File f = null;
-        if (mTargetFile.isDirectory()) {
+        if (mTargetFile.isFolder()) {
             // TODO run in a secondary thread?
-            mContainerActivity.getStorageManager().removeDirectory(mTargetFile, false, true);
+            mContainerActivity.getStorageManager().removeFolder(mTargetFile, false, true);
             
         } else if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
             f.delete();

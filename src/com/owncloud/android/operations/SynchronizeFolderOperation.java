@@ -189,7 +189,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (status == HttpStatus.SC_NOT_FOUND) {
                     if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
                         String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
-                        mStorageManager.removeDirectory(mLocalFolder, true, (mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)));
+                        mStorageManager.removeFolder(mLocalFolder, true, (mLocalFolder.isDown() && mLocalFolder.getStoragePath().startsWith(currentSavePath)));
                     }
                 }
                 result = new RemoteOperationResult(false, status, query.getResponseHeaders());
@@ -251,7 +251,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 mStorageManager.saveFile(remoteFolder);
             }
             
-            mChildren = mStorageManager.getDirectoryContent(mLocalFolder);
+            mChildren = mStorageManager.getFolderContent(mLocalFolder);
             
         } else {
             // read info of folder contents
@@ -325,14 +325,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *  Removes obsolete children in the folder after saving all the new data.
      */
     private void removeObsoleteFiles() {
-        mChildren = mStorageManager.getDirectoryContent(mLocalFolder);
+        mChildren = mStorageManager.getFolderContent(mLocalFolder);
         OCFile file;
         for (int i=0; i < mChildren.size(); ) {
             file = mChildren.get(i);
             if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
-                if (file.isDirectory()) {
+                if (file.isFolder()) {
                     Log_OC.d(TAG, "removing folder: " + file);
-                    mStorageManager.removeDirectory(file, true, true);
+                    mStorageManager.removeFolder(file, true, true);
                 } else {
                     Log_OC.d(TAG, "removing file: " + file);
                     mStorageManager.removeFile(file, true);
@@ -468,7 +468,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @param file      File to associate a possible 'lost' local file.
      */
     private void searchForLocalFileInDefaultPath(OCFile file) {
-        if (file.getStoragePath() == null && !file.isDirectory()) {
+        if (file.getStoragePath() == null && !file.isFolder()) {
             File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
             if (f.exists()) {
                 file.setStoragePath(f.getAbsolutePath());
