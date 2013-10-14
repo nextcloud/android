@@ -119,7 +119,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes
-                    if (localChanged && serverChanged) {
+                    if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                         result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                   
                     } else if (localChanged) {
