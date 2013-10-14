@@ -28,7 +28,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
 
@@ -45,7 +45,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     private Map<Integer, FileFragment> mCachedFragments;
 
@@ -56,7 +56,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, DataStorageManager storageManager) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, FileDataStorageManager storageManager) {
         super(fragmentManager);
         
         if (fragmentManager == null) {

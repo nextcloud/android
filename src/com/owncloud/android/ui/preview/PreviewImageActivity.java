@@ -38,7 +38,6 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -69,7 +68,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     private ViewPager mViewPager; 
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    

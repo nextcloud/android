@@ -55,7 +55,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
@@ -77,7 +76,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private OCFile mFile;
 
     private final static int DIALOG_NO_ACCOUNT = 0;

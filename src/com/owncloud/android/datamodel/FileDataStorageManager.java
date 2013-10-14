@@ -42,7 +42,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 
-public class FileDataStorageManager implements DataStorageManager {
+public class FileDataStorageManager {
+
+    public static final int ROOT_PARENT_ID = 0;
 
     private ContentResolver mContentResolver;
     private ContentProviderClient mContentProvider;
@@ -62,7 +64,7 @@ public class FileDataStorageManager implements DataStorageManager {
         mAccount = account;
     }
 
-    @Override
+
     public OCFile getFileByPath(String path) {
         Cursor c = getCursorForValue(ProviderTableMeta.FILE_PATH, path);
         OCFile file = null;
@@ -80,12 +82,11 @@ public class FileDataStorageManager implements DataStorageManager {
     private OCFile createRootDir() {
         OCFile file = new OCFile(OCFile.PATH_SEPARATOR);
         file.setMimetype("DIR");
-        file.setParentId(DataStorageManager.ROOT_PARENT_ID);
+        file.setParentId(FileDataStorageManager.ROOT_PARENT_ID);
         saveFile(file);
         return file;
     }
 
-    @Override
     public OCFile getFileById(long id) {
         Cursor c = getCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
         OCFile file = null;
@@ -106,17 +107,14 @@ public class FileDataStorageManager implements DataStorageManager {
         return file;
     }
 
-    @Override
     public boolean fileExists(long id) {
         return fileExists(ProviderTableMeta._ID, String.valueOf(id));
     }
 
-    @Override
     public boolean fileExists(String path) {
         return fileExists(ProviderTableMeta.FILE_PATH, path);
     }
 
-    @Override
     public boolean saveFile(OCFile file) {
         boolean overriden = false;
         ContentValues cv = new ContentValues();
@@ -206,7 +204,6 @@ public class FileDataStorageManager implements DataStorageManager {
     }
 
 
-    @Override
     public void saveFiles(List<OCFile> files) {
 
         Iterator<OCFile> filesIt = files.iterator();
@@ -223,7 +220,7 @@ public class FileDataStorageManager implements DataStorageManager {
             cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
             cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
             cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-            if (file.getParentId() != DataStorageManager.ROOT_PARENT_ID)
+            if (file.getParentId() != FileDataStorageManager.ROOT_PARENT_ID)
                 cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
             cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
             if (!file.isDirectory())
@@ -332,7 +329,6 @@ public class FileDataStorageManager implements DataStorageManager {
         return mContentProvider;
     }
     
-    @Override
     public Vector<OCFile> getDirectoryContent(OCFile f) {
         if (f != null && f.isDirectory() && f.getFileId() != -1) {
             return getDirectoryContent(f.getFileId());
@@ -480,7 +476,6 @@ public class FileDataStorageManager implements DataStorageManager {
         return file;
     }
 
-    @Override
     public void removeFile(OCFile file, boolean removeLocalCopy) {
         Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, ""+file.getFileId());
         if (getContentProvider() != null) {
@@ -511,7 +506,6 @@ public class FileDataStorageManager implements DataStorageManager {
         }
     }
 
-    @Override
     public void removeDirectory(OCFile dir, boolean removeDBData, boolean removeLocalContent) {
         // TODO consider possible failures
         if (dir != null && dir.isDirectory() && dir.getFileId() != -1) {
@@ -550,7 +544,6 @@ public class FileDataStorageManager implements DataStorageManager {
      * TODO explore better (faster) implementations
      * TODO throw exceptions up !
      */
-    @Override
     public void moveDirectory(OCFile dir, String newPath) {
         // TODO check newPath
 
@@ -614,7 +607,6 @@ public class FileDataStorageManager implements DataStorageManager {
         }
     }
 
-    @Override
     public Vector<OCFile> getDirectoryImages(OCFile directory) {
         Vector<OCFile> ret = new Vector<OCFile>(); 
         if (directory != null) {
@@ -635,7 +627,6 @@ public class FileDataStorageManager implements DataStorageManager {
      * Calculate and save the folderSize on DB
      * @param id
      */
-    @Override
     public void calculateFolderSize(long id) {
         long folderSize = 0;
         
@@ -678,7 +669,7 @@ public class FileDataStorageManager implements DataStorageManager {
         
         OCFile file; 
 
-        while (parentId != DataStorageManager.ROOT_PARENT_ID) {
+        while (parentId != FileDataStorageManager.ROOT_PARENT_ID) {
             
             // Update the size of the parent
             calculateFolderSize(parentId);

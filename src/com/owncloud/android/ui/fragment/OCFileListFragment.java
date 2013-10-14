@@ -24,7 +24,6 @@ import java.util.List;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileHandler;
@@ -32,11 +31,9 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
@@ -136,7 +133,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         int moveCount = 0;
         
         if(mFile != null){
-            DataStorageManager storageManager = mContainerActivity.getStorageManager();
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             
             String parentPath = null;
             if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
@@ -377,7 +374,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory) {
-        DataStorageManager storageManager = mContainerActivity.getStorageManager();
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
             // Check input parameters for null
@@ -432,7 +429,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         /**
          * Getter for the current DataStorageManager in the container activity
          */
-        public DataStorageManager getStorageManager();
+        public FileDataStorageManager getStorageManager();
         
         
         /**

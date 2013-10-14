@@ -37,7 +37,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.syncadapter.FileSyncService;
@@ -74,7 +74,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private boolean mUpdateFolderProperties;
 
     /** Access to the local database */
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     /** Account where the file to synchronize belongs */
     private Account mAccount;
@@ -114,7 +114,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                                         long currentSyncTime, 
                                         boolean updateFolderProperties,
                                         boolean syncFullAccount,
-                                        DataStorageManager dataStorageManager, 
+                                        FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
         mLocalFolder = folder;

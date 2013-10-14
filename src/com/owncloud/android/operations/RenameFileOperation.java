@@ -26,7 +26,7 @@ import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 import android.accounts.Account;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -51,7 +51,7 @@ public class RenameFileOperation extends RemoteOperation {
     private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     
     /**
@@ -62,7 +62,7 @@ public class RenameFileOperation extends RemoteOperation {
      * @param newName               New name to set as the name of file.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RenameFileOperation(OCFile file, Account account, String newName, DataStorageManager storageManager) {
+    public RenameFileOperation(OCFile file, Account account, String newName, FileDataStorageManager storageManager) {
         mFile = file;
         mAccount = account;
         mNewName = newName;

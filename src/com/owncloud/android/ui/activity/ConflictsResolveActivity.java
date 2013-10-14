@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.activity;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
@@ -81,7 +80,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
             } else {
                 /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
-                DataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
+                FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
                 file = storageManager.getFileByPath(file.getRemotePath());   // file = null if not in the current Account
                 if (file != null) {
                     setFile(file);

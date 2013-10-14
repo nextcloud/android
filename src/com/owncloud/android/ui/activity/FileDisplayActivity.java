@@ -60,7 +60,6 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -103,7 +102,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private ArrayAdapter<String> mDirectories;
 
     /** Access point to the cached database for the current ownCloud {@link Account} */
-    private DataStorageManager mStorageManager = null;
+    private FileDataStorageManager mStorageManager = null;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -985,7 +984,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      * {@inheritDoc}
      */
     @Override
-    public DataStorageManager getStorageManager() {
+    public FileDataStorageManager getStorageManager() {
         return mStorageManager;
     }
 

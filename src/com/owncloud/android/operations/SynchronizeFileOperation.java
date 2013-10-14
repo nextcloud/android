@@ -27,7 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -45,7 +45,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
     
     private OCFile mLocalFile;
     private OCFile mServerFile;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
     private boolean mLocalChangeAlreadyKnown;
@@ -56,7 +56,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
     public SynchronizeFileOperation(
             OCFile localFile,
             OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
-            DataStorageManager storageManager, 
+            FileDataStorageManager storageManager, 
             Account account, 
             boolean syncFileContents,
             boolean localChangeAlreadyKnown, 

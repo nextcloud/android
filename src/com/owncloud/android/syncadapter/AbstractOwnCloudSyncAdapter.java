@@ -30,7 +30,7 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
 
 import android.accounts.Account;
@@ -58,7 +58,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private Account account;
     private ContentProviderClient contentProvider;
     //private Date lastUpdated;
-    private DataStorageManager mStoreManager;
+    private FileDataStorageManager mStoreManager;
 
     private WebdavClient mClient = null;
 
@@ -91,11 +91,11 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         this.contentProvider = contentProvider;
     }
 
-    public void setStorageManager(DataStorageManager storage_manager) {
+    public void setStorageManager(FileDataStorageManager storage_manager) {
         mStoreManager = storage_manager;
     }
 
-    public DataStorageManager getStorageManager() {
+    public FileDataStorageManager getStorageManager() {
         return mStoreManager;
     }
 
