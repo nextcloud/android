@@ -8,6 +8,6 @@
     <string name="auth_method_saml_web_sso">off</string>
     
     <!-- Multiaccount support -->
-    <bool name="multiaccount_support">true</bool>
+    <bool name="multiaccount_support">false</bool>
     
 </resources>
