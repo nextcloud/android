@@ -217,6 +217,7 @@
 	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
 	<string name="auth_follow_auth_server">Follow instructions above to get authenticated</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    
+	<string name="auth_unsupported_multiaccount">This version of ownCloud doesn\'t support multiaccount</string>
     
     <string name="crashlog_message">Application terminated unexpectedly. Would you like to submit a crash report?</string>
     <string name="crashlog_send_report">Send report</string>

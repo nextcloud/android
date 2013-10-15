@@ -50,7 +50,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.ui.activity.FileActivity.AccountCreationCallback;
 import com.owncloud.android.Log_OC;
 
 import com.owncloud.android.R;
