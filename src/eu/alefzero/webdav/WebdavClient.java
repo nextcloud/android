@@ -18,49 +18,48 @@
 
 package eu.alefzero.webdav;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HostConfiguration;
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpConnectionManager;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodBase;
-import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.HttpVersion;
+import org.apache.commons.httpclient.URI;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthPolicy;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.HeadMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpStatus;
 import org.apache.http.params.CoreProtocolPNames;
-import org.apache.jackrabbit.webdav.client.methods.DavMethod;
-import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import com.owncloud.android.Log_OC;
 
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.network.BearerAuthScheme;
 import com.owncloud.android.network.BearerCredentials;
 
 import android.net.Uri;
 
 public class WebdavClient extends HttpClient {
+    private static final int MAX_REDIRECTIONS_COUNT = 3;
+    
     private Uri mUri;
     private Credentials mCredentials;
+    private boolean mFollowRedirects;
+    private String mSsoSessionCookie;
+    private String mAuthTokenType;
     final private static String TAG = "WebdavClient";
-    private static final String USER_AGENT = "Android-ownCloud";
+    public static final String USER_AGENT = "Android-ownCloud";
     
-    private OnDatatransferProgressListener mDataTransferListener;
     static private byte[] sExhaustBuffer = new byte[1024];
     
     /**
@@ -71,6 +70,9 @@ public class WebdavClient extends HttpClient {
         Log_OC.d(TAG, "Creating WebdavClient");
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+        mFollowRedirects = true;
+        mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
     }
 
     public void setBearerCredentials(String accessToken) {
@@ -82,6 +84,8 @@ public class WebdavClient extends HttpClient {
         
         mCredentials = new BearerCredentials(accessToken);
         getState().setCredentials(AuthScope.ANY, mCredentials);
+        mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN;
     }
 
     public void setBasicCredentials(String username, String password) {
@@ -92,7 +96,18 @@ public class WebdavClient extends HttpClient {
         getParams().setAuthenticationPreemptive(true);
         mCredentials = new UsernamePasswordCredentials(username, password);
         getState().setCredentials(AuthScope.ANY, mCredentials);
+        mSsoSessionCookie = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD;
     }
+    
+    public void setSsoSessionCookie(String accessToken) {
+        getParams().setAuthenticationPreemptive(false);
+        getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
+        mSsoSessionCookie = accessToken;
+        mCredentials = null;
+        mAuthTokenType = AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE;
+    }
+    
     
     /**
      * Check if a file exists in the OC server
@@ -145,6 +160,45 @@ public class WebdavClient extends HttpClient {
             getHttpConnectionManager().getParams().setConnectionTimeout(oldConnectionTimeout);
         }
     }
+    
+    
+    @Override
+    public int executeMethod(HttpMethod method) throws IOException, HttpException {
+        boolean customRedirectionNeeded = false;
+        try {
+            method.setFollowRedirects(mFollowRedirects);
+        } catch (Exception e) {
+            if (mFollowRedirects) Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used");
+            customRedirectionNeeded = mFollowRedirects;
+        }
+        if (mSsoSessionCookie != null && mSsoSessionCookie.length() > 0) {
+            method.setRequestHeader("Cookie", mSsoSessionCookie);
+        }
+        int status = super.executeMethod(method);
+        int redirectionsCount = 0;
+        while (customRedirectionNeeded &&
+                redirectionsCount < MAX_REDIRECTIONS_COUNT &&
+                (   status == HttpStatus.SC_MOVED_PERMANENTLY || 
+                    status == HttpStatus.SC_MOVED_TEMPORARILY ||
+                    status == HttpStatus.SC_TEMPORARY_REDIRECT)
+                ) {
+            
+            Header location = method.getResponseHeader("Location");
+            if (location != null) {
+                Log_OC.d(TAG,  "Location to redirect: " + location.getValue());
+                method.setURI(new URI(location.getValue(), true));
+                status = super.executeMethod(method);
+                redirectionsCount++;
+                
+            } else {
+                Log_OC.d(TAG,  "No location to redirect!");
+                status = HttpStatus.SC_NOT_FOUND;
+            }
+        }
+        
+        return status;
+    }
+
 
     /**
      * Exhausts a not interesting HTTP response. Encouraged by HttpClient documentation.
@@ -185,6 +239,18 @@ public class WebdavClient extends HttpClient {
 
     public final Credentials getCredentials() {
         return mCredentials;
+    }
+    
+    public final String getSsoSessionCookie() {
+        return mSsoSessionCookie;
+    }
+
+    public void setFollowRedirects(boolean followRedirects) {
+        mFollowRedirects = followRedirects;
+    }
+
+    public String getAuthTokenType() {
+        return mAuthTokenType;
     }
 
 }

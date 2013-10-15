@@ -32,6 +32,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
@@ -90,12 +91,18 @@ public class OwnCloudClientUtils {
         //Log_OC.d(TAG, "Creating WebdavClient associated to " + account.name);
        
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
-        WebdavClient client = createOwnCloudClient(uri, appContext);
         AccountManager am = AccountManager.get(appContext);
-        if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
+        boolean isOauth2 = am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null;   // TODO avoid calling to getUserData here
+        boolean isSamlSso = am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null;
+        WebdavClient client = createOwnCloudClient(uri, appContext, !isSamlSso);
+        if (isOauth2) {    
             String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
             client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
         
+        } else if (isSamlSso) {    // TODO avoid a call to getUserData here
+            String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE, false);
+            client.setSsoSessionCookie(accessToken);
+            
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
             //String password = am.getPassword(account);
@@ -109,16 +116,25 @@ public class OwnCloudClientUtils {
     
     public static WebdavClient createOwnCloudClient (Account account, Context appContext, Activity currentActivity) throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         Uri uri = Uri.parse(AccountUtils.constructFullURLForAccount(appContext, account));
-        WebdavClient client = createOwnCloudClient(uri, appContext);
         AccountManager am = AccountManager.get(appContext);
-        if (am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null) {    // TODO avoid a call to getUserData here
+        boolean isOauth2 = am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null;   // TODO avoid calling to getUserData here
+        boolean isSamlSso = am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null;
+        WebdavClient client = createOwnCloudClient(uri, appContext, !isSamlSso);
+        
+        if (isOauth2) {    // TODO avoid a call to getUserData here
             AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, null, currentActivity, null, null);
             Bundle result = future.getResult();
             String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
-            //String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
             if (accessToken == null) throw new AuthenticatorException("WTF!");
             client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
-            
+
+        } else if (isSamlSso) {    // TODO avoid a call to getUserData here
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE, null, currentActivity, null, null);
+            Bundle result = future.getResult();
+            String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
+            if (accessToken == null) throw new AuthenticatorException("WTF!");
+            client.setSsoSessionCookie(accessToken);
+
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
             //String password = am.getPassword(account);
@@ -139,10 +155,7 @@ public class OwnCloudClientUtils {
      * @param context   Android context where the WebdavClient is being created.
      * @return          A WebdavClient object ready to be used
      */
-    public static WebdavClient createOwnCloudClient(Uri uri, Context context) {
-        //Log_OC.d(TAG, "Creating WebdavClient for " + uri);
-        
-        //allowSelfsignedCertificates(true);
+    public static WebdavClient createOwnCloudClient(Uri uri, Context context, boolean followRedirects) {
         try {
             registerAdvancedSslContext(true, context);
         }  catch (GeneralSecurityException e) {
@@ -156,6 +169,7 @@ public class OwnCloudClientUtils {
         
         client.setDefaultTimeouts(DEFAULT_DATA_TIMEOUT, DEFAULT_CONNECTION_TIMEOUT);
         client.setBaseUri(uri);
+        client.setFollowRedirects(followRedirects);
         
         return client;
     }

@@ -34,7 +34,6 @@
   <string name="auth_host_url">Adresa server-ului</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
-  <string name="auth_register">Sunt novice în ownCloud</string>
   <string name="new_session_uri_error">URL specificat greșit</string>
   <string name="new_session_session_name_error">Numele sesiunii este greșit</string>
   <string name="sync_string_files">Fișiere</string>
@@ -67,6 +66,7 @@
   <string name="common_exit">Părăsire ownCloud</string>
   <string name="common_error">Eroare</string>
   <string name="about_title">Despre</string>
+  <string name="change_password">Schimbă parola</string>
   <string name="delete_account">Șterge cont</string>
   <string name="create_account">Crează cont</string>
   <string name="upload_chooser_title">Încarcă din...</string>
@@ -106,8 +106,10 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">În curs de autentificare...</string>
   <string name="auth_nossl_plain_ok_title">Conexiune securizată indisponibilă</string>
   <string name="auth_connection_established">Conexiune stabilită</string>
+  <string name="auth_testing_connection">Se testează conexiunea...</string>
   <string name="auth_not_configured_title">Configurație ownCloud incorectă</string>
   <string name="auth_not_configured_message">Se pare că instanța ta ownCloud nu este configurată corect. Contactează administratorul pentru mai multe detalii.</string>
   <string name="auth_unknown_error_title">A apărut o eroare necunoscută!</string>

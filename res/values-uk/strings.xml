@@ -39,7 +39,6 @@
   <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
-  <string name="auth_register">Я новачок в ownCloud</string>
   <string name="new_session_uri_error">Надано невірний URL</string>
   <string name="new_session_session_name_error">Невірне ім\'я сесії</string>
   <string name="sync_string_files">Файли</string>
@@ -79,6 +78,7 @@
   <string name="common_exit">Вийти з ownCloud</string>
   <string name="common_error">Помилка</string>
   <string name="about_title">Про</string>
+  <string name="change_password">Змінити пароль</string>
   <string name="delete_account">Видалити запис</string>
   <string name="create_account">Створити запис</string>
   <string name="upload_chooser_title">Завантажити з …</string>
@@ -135,12 +135,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">Спроба входу…</string>
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
   <string name="auth_no_net_conn_message">Не знайдено підключення до мережі, перевірте своє підключення до Інтернету та спробуйте ще.</string>
   <string name="auth_connect_anyway">Все одно з\'єднатися</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
   <string name="auth_nossl_plain_ok_message">Програма не може встановити безпечне з\'єднання з сервером. Проте, не захищене з\'єднання можливе. Ви можете продовжити або відмінити.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
+  <string name="auth_testing_connection">Перевірка з\'єднання…</string>
   <string name="auth_not_configured_title">Не вірні налаштування ownCloud </string>
   <string name="auth_not_configured_message">Здається, Ваш ownCloud примірник не правильно налаштовано. Зверніться до адміністратора для більш докладної інформації.</string>
   <string name="auth_unknown_error_title">Виникла невідома помилка!</string>

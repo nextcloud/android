@@ -80,12 +80,12 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                         result = new RemoteOperationResult(ResultCode.OAUTH2_ERROR);
                     
                     } else {
-                        result = new RemoteOperationResult(true, status);
+                        result = new RemoteOperationResult(true, status, postMethod.getResponseHeaders());
                     }
                     
                 } else {
                     client.exhaustResponse(postMethod.getResponseBodyAsStream());
-                    result = new RemoteOperationResult(false, status);
+                    result = new RemoteOperationResult(false, status, postMethod.getResponseHeaders());
                 }
             }
             

@@ -88,7 +88,7 @@ public class RemoveFileOperation extends RemoteOperation {
                 }
             }
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-            result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status);
+            result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status, delete.getResponseHeaders());
             Log_OC.i(TAG, "Remove " + mFileToRemove.getRemotePath() + ": " + result.getLogMessage());
             
         } catch (Exception e) {

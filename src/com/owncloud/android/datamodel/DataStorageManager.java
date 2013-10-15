@@ -46,4 +46,7 @@ public interface DataStorageManager {
     public void moveDirectory(OCFile dir, String newPath);
 
     public Vector<OCFile> getDirectoryImages(OCFile mParentFolder);
+    
+    public void calculateFolderSize(long id);
+    
 }

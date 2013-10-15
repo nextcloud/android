@@ -26,6 +26,9 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,6 +47,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.Log_OC;
@@ -62,6 +66,8 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
+    
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
     private DataStorageManager mStorageManager;
     
@@ -235,26 +241,28 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         finish();
     }
     
-    
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-        case DIALOG_SHORT_WAIT: {
-            ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(getResources().getString(
-                    R.string.wait_a_moment));
-            working_dialog.setIndeterminate(true);
-            working_dialog.setCancelable(false);
-            dialog = working_dialog;
-            break;
-        }
-        default:
-            dialog = null;
-        }
-        return dialog;
+    /**
+     * Show loading dialog 
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+        
     }
     
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+      if (frag != null) {
+          LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
     
     /**
      * {@inheritDoc}

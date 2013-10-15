@@ -45,10 +45,11 @@
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
+  <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo del server</string>
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
-  <string name="auth_register">Sono nuovo di ownCloud</string>
+  <string name="auth_register">Prima volta su %1$s?</string>
   <string name="new_session_uri_error">URL fornito errato</string>
   <string name="new_session_session_name_error">Nome di sessione errato</string>
   <string name="sync_string_files">File</string>
@@ -92,6 +93,7 @@
   <string name="common_loading">Caricamento in corso...</string>
   <string name="common_error_unknown">Errore sconosciuto</string>
   <string name="about_title">Informazioni</string>
+  <string name="change_password">Modifica la password</string>
   <string name="delete_account">Elimina account</string>
   <string name="create_account">Crea account</string>
   <string name="upload_chooser_title">Carica file da...</string>
@@ -115,7 +117,7 @@
   <string name="sync_string_contacts">Contatti</string>
   <string name="sync_fail_ticker">Sincronizzazione non riuscita</string>
   <string name="sync_fail_content">La sincronizzazione di %1$s non può essere completata</string>
-  <string name="sync_fail_content_unauthorized">Credenziali non valide per </string>
+  <string name="sync_fail_content_unauthorized">Password non valida per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
   <string name="sync_conflicts_in_favourites_content">%1$d file non possono essere sincronizzati</string>
   <string name="sync_fail_in_favourites_ticker">Sincronizzazione dei file non riuscita</string>
@@ -172,7 +174,7 @@
     <item>30</item>
     <item>60</item>
   </string-array>
-  <string name="auth_trying_to_login">Tentativo di connessione...</string>
+  <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
   <string name="auth_no_net_conn_message">Non sono state rilevate connessioni di rete, controlla la tua connessione a  Internet e prova ancora.</string>
   <string name="auth_connect_anyway">Connetti comunque</string>
@@ -195,14 +197,14 @@
   <string name="auth_bad_oc_version_title">Versione del server ownCloud non riconosciuta</string>
   <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
   <string name="auth_secure_connection">Connessione sicura stabilita</string>
-  <string name="auth_unauthorized">Credenziali non valide</string>
+  <string name="auth_unauthorized">Nome utente o password errati</string>
   <string name="auth_oauth_error">Autorizzazione non riuscita</string>
   <string name="auth_oauth_error_access_denied">Accesso negato dal server di autorizzazione</string>
   <string name="auth_not_found">Il percorso fornito non è valido</string>
   <string name="auth_internal">Errore interno del server, codice %1$d</string>
   <string name="auth_wtf_reenter_URL">Stato inatteso; inserisci nuovamente l\'URL del server</string>
   <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta.\nRichiedi l\'autorizzazione</string>
-  <string name="auth_expired_basic_auth_toast">Le credenziali salvate non sono valide.\nDigita le credenziali attuali</string>
+  <string name="auth_expired_basic_auth_toast">Inserisci la password attuale</string>
   <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>
   <string name="crashlog_send_report">Invia segnalazione</string>
   <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>

@@ -28,6 +28,7 @@ import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -37,6 +38,8 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.utils.FileStorageUtils;
+
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.Notification;
@@ -218,8 +221,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             List<OCFile> children = synchFolderOp.getChildren();
             fetchChildren(children);    // beware of the 'hidden' recursion here!
             
+            sendStickyBroadcast(true, remotePath, null);
+            
         } else {
-            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED) {
+            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
+                   // (result.isTemporalRedirection() && result.isIdPRedirection() &&
+                    ( result.isIdPRedirection() && 
+                            AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -263,8 +271,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             OCFile newFile = files.get(i);
             if (newFile.isDirectory()) {
                 fetchData(newFile.getRemotePath(), newFile.getFileId());
+                
+                // Update folder size on DB
+                getStorageManager().calculateFolderSize(newFile.getFileId());                   
             }
         }
+       
         if (mCancellation && i <files.size()) Log_OC.d(TAG, "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() + " because cancelation request");
     }
 
@@ -296,7 +308,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        boolean needsToUpdateCredentials = (mLastFailedResult != null && mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED);
+        boolean needsToUpdateCredentials = (mLastFailedResult != null && 
+                                             (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                                // (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
+                                                ( mLastFailedResult.isIdPRedirection() && 
+                                                 AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
+                                             )
+                                           );
         // TODO put something smart in the contentIntent below for all the possible errors
         notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
         if (needsToUpdateCredentials) {

@@ -43,6 +43,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="match_parent"
 		    android:layout_weight="1"
+		    android:id="@+id/scroll"
 		    android:fillViewport="true"
 		    android:orientation="vertical" >
 						
@@ -50,19 +51,38 @@
 			    android:id="@+id/LinearLayout1"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:focusable="true"
 			    android:gravity="center"
 			    android:orientation="vertical"
 			    android:padding="8dp" >
-		
+			    
+				<Button
+				    android:id="@+id/centeredRefreshButton"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="center_horizontal"
+					android:layout_marginBottom="10dp"
+            		android:onClick="onRefreshClick"
+				    android:text="@string/auth_check_server"
+				    android:visibility="gone" />
+				<TextView
+				    android:id="@+id/auth_message"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="fill_horizontal"
+				    android:text="@string/auth_expired_basic_auth_toast" 
+				    android:visibility="gone"
+				    android:layout_marginBottom="10dp"/>
 			    <FrameLayout 
+	        		android:id="@+id/hostUrlFrame"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginBottom="10dp"
 			        >
 					<EditText
 						android:id="@+id/hostUrlInput"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
+						android:layout_gravity="bottom"
 						android:hint="@string/auth_host_url"
 						android:inputType="textUri"
 						android:drawablePadding="5dp"
@@ -71,7 +91,7 @@
 						<requestFocus />
 					</EditText>
 					<ImageButton
-					    android:id="@+id/refeshButton"
+					    android:id="@+id/embeddedRefreshButton"
 					    android:layout_width="48dp"
 					    android:layout_height="48dp"
 					    android:layout_gravity="center_vertical|right"
@@ -103,7 +123,6 @@
 					android:onClick="onCheckClick"
 					android:text="@string/oauth_check_onoff"
 					android:textAppearance="?android:attr/textAppearanceSmall"
-					android:visibility="gone"
 					/>
 		
 				<EditText
@@ -116,7 +135,6 @@
 					android:singleLine="true"
 					android:inputType="textUri"
 					android:visibility="gone" >
-					<requestFocus />
 				</EditText>            
 				
 				<EditText
