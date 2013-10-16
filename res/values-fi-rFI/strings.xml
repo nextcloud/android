@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Salasana:</string>
   <string name="main_login">Käyttäjätunnus:</string>
   <string name="main_button_login">Kirjaudu</string>

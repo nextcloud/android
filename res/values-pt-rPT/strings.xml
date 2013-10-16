@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Palavra-passe:</string>
   <string name="main_login">Nome de Utilizador:</string>
   <string name="main_button_login">Login</string>

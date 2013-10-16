@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">密码</string>
   <string name="main_login">用户名：</string>
   <string name="main_button_login">登录</string>
