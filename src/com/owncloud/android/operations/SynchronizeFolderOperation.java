@@ -251,12 +251,21 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 mStorageManager.saveFile(remoteFolder);
             }
             
+            Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " didn't change");
             mChildren = mStorageManager.getFolderContent(mLocalFolder);
             
         } else {
-            // read info of folder contents
+            Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
+            
             List<OCFile> updatedFiles = new Vector<OCFile>(dataInServer.getResponses().length - 1);
             List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
+
+            // get current data about local contents of the folder to synchronize
+            List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder);
+            Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
+            for (OCFile file : localFiles) {
+                localFilesMap.put(file.getRemotePath(), file);
+            }
             
             // loop to update every child
             OCFile remoteFile = null, localFile = null;
@@ -267,12 +276,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 remoteFile.setParentId(mLocalFolder.getFileId());
 
                 /// retrieve local data for the read file 
-                localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
+                //localFile = mStorageManager.getFileByPath(remoteFile.getRemotePath());
+                localFile = localFilesMap.remove(remoteFile.getRemotePath());
                 
                 /// add to the remoteFile (the new one) data about LOCAL STATE (not existing in the server side)
                 remoteFile.setLastSyncDateForProperties(mCurrentSyncTime);
                 if (localFile != null) {
-                    // properties of local state are kept unmodified 
+                    // some properties of local state are kept unmodified
+                    remoteFile.setFileId(localFile.getFileId());
                     remoteFile.setKeepInSync(localFile.keepInSync());
                     remoteFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
                     remoteFile.setModificationTimestampAtLastSyncForData(localFile.getModificationTimestampAtLastSyncForData());
@@ -282,7 +293,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                     remoteFile.setEtag(""); // remote eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
                 }
 
-                /// check and fix, if need, local storage path
+                /// check and fix, if needed, local storage path
                 checkAndFixForeignStoragePath(remoteFile);      // fixing old policy - now local files must be copied into the ownCloud local folder 
                 searchForLocalFileInDefaultPath(remoteFile);    // legacy   
 
@@ -303,47 +314,23 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             }
 
             // save updated contents in local database; all at once, trying to get a best performance in database update (not a big deal, indeed)
-            mStorageManager.saveFiles(updatedFiles);
+            mStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
             // request for the synchronization of file contents AFTER saving current remote properties
             startContentSynchronizations(filesToSyncContents, client);
 
             // removal of obsolete files
-            removeObsoleteFiles();
+            //removeObsoleteFiles();
            
             // must be done AFTER saving all the children information, so that eTag is not updated in the database in case of unexpected exceptions
-            mStorageManager.saveFile(remoteFolder);
+            //mStorageManager.saveFile(remoteFolder);
+            mChildren = updatedFiles;
             
         }
         
         return folderChanged;
         
     }
-
-
-    /**
-     *  Removes obsolete children in the folder after saving all the new data.
-     */
-    private void removeObsoleteFiles() {
-        mChildren = mStorageManager.getFolderContent(mLocalFolder);
-        OCFile file;
-        for (int i=0; i < mChildren.size(); ) {
-            file = mChildren.get(i);
-            if (file.getLastSyncDateForProperties() != mCurrentSyncTime) {
-                if (file.isFolder()) {
-                    Log_OC.d(TAG, "removing folder: " + file);
-                    mStorageManager.removeFolder(file, true, true);
-                } else {
-                    Log_OC.d(TAG, "removing file: " + file);
-                    mStorageManager.removeFile(file, true);
-                }
-                mChildren.remove(i);
-            } else {
-                i++;
-            }
-        }
-    }
-
 
     /**
      * Performs a list of synchronization operations, determining if a download or upload is needed or

@@ -483,16 +483,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     @Override
     public void onNeutral(String callerTag) {
-        File f = null;
-        if (mTargetFile.isFolder()) {
-            // TODO run in a secondary thread?
-            mContainerActivity.getStorageManager().removeFolder(mTargetFile, false, true);
-            
-        } else if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
-            f.delete();
-            mTargetFile.setStoragePath(null);
-            mContainerActivity.getStorageManager().saveFile(mTargetFile);
-        }
+        mContainerActivity.getStorageManager().removeFile(mTargetFile, false, true);    // TODO perform in background task / new thread
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }

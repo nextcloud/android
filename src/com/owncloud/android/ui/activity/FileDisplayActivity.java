@@ -877,8 +877,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             String accountName = intent.getStringExtra(FileSyncService.ACCOUNT_NAME);
             RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
 
-            Log_OC.d(TAG, "sync of account " + accountName + " is in_progress: " + inProgress);
-            
             if (getAccount() != null && accountName.equals(getAccount().name)) {  
 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 

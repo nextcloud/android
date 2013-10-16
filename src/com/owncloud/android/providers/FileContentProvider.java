@@ -18,6 +18,7 @@
 
 package com.owncloud.android.providers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.owncloud.android.Log_OC;
@@ -26,9 +27,12 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
 
 import android.content.ContentProvider;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -37,11 +41,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * The ContentProvider for the ownCloud App.
  * 
  * @author Bartek Przybylski
+ * @author David A. Velasco
  * 
  */
 public class FileContentProvider extends ContentProvider {
@@ -82,6 +88,7 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ETAG);
     }
 
+    private static final String TAG = FileContentProvider.class.getSimpleName(); 
     private static final int SINGLE_FILE = 1;
     private static final int DIRECTORY = 2;
     private static final int ROOT_DIRECTORY = 3;
@@ -96,26 +103,98 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String where, String[] whereArgs) {
+        //Log_OC.d(TAG, "Deleting " + uri + " at provider " + this);
+        int count = 0;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            count = delete(db, uri, where, whereArgs);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
+    }
+    
+    
+    private int delete(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
         int count = 0;
         switch (mUriMatcher.match(uri)) {
         case SINGLE_FILE:
+            /*Cursor c = query(db, uri, null, where, whereArgs, null);
+            String remotePath = "(unexisting)";
+            if (c != null && c.moveToFirst()) {
+                remotePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PATH));
+            }
+            Log_OC.d(TAG, "Removing FILE " + remotePath);
+            */
             count = db.delete(ProviderTableMeta.DB_NAME,
                     ProviderTableMeta._ID
                             + "="
                             + uri.getPathSegments().get(1)
                             + (!TextUtils.isEmpty(where) ? " AND (" + where
                                     + ")" : ""), whereArgs);
+            /* just for log
+            if (c!=null) {
+                c.close();
+            }
+            */
+            break;
+        case DIRECTORY:
+            // deletion of folder is recursive
+            /*
+            Uri folderUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, Long.parseLong(uri.getPathSegments().get(1)));
+            Cursor folder = query(db, folderUri, null, null, null, null);
+            String folderName = "(unknown)";
+            if (folder != null && folder.moveToFirst()) {
+                folderName = folder.getString(folder.getColumnIndex(ProviderTableMeta.FILE_PATH));
+            }
+            */
+            Cursor children = query(uri, null, null, null, null);
+            if (children != null && children.moveToFirst())  {
+                long childId;
+                boolean isDir; 
+                String remotePath; 
+                while (!children.isAfterLast()) {
+                    childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
+                    isDir = "DIR".equals(children.getString(children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
+                    remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
+                    if (isDir) {
+                        count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId), null, null);
+                    } else {
+                        count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, childId), null, null);
+                    }
+                    children.moveToNext();
+                }
+                children.close();
+            } /*else {
+                Log_OC.d(TAG, "No child to remove in DIRECTORY " + folderName);
+            }
+            Log_OC.d(TAG, "Removing DIRECTORY " + folderName + " (or maybe not) ");
+            */
+            count += db.delete(ProviderTableMeta.DB_NAME,
+                    ProviderTableMeta._ID
+                    + "="
+                    + uri.getPathSegments().get(1)
+                    + (!TextUtils.isEmpty(where) ? " AND (" + where
+                            + ")" : ""), whereArgs);
+            /* Just for log
+             if (folder != null) {
+                folder.close();
+            }*/
             break;
         case ROOT_DIRECTORY:
+            //Log_OC.d(TAG, "Removing ROOT!");
             count = db.delete(ProviderTableMeta.DB_NAME, where, whereArgs);
             break;
         default:
+            //Log_OC.e(TAG, "Unknown uri " + uri);
             throw new IllegalArgumentException("Unknown uri: " + uri.toString());
         }
-        getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
+    
 
     @Override
     public String getType(Uri uri) {
@@ -132,33 +211,61 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        //Log_OC.d(TAG, "Inserting " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+        Uri newUri = null;
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            newUri = insert(db, uri, values);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        getContext().getContentResolver().notifyChange(newUri, null);
+        return newUri;
+    }
+    
+    private Uri insert(SQLiteDatabase db, Uri uri, ContentValues values) {
         if (mUriMatcher.match(uri) != SINGLE_FILE &&
-            mUriMatcher.match(uri) != ROOT_DIRECTORY) {
-            
+                mUriMatcher.match(uri) != ROOT_DIRECTORY) {
+            //Log_OC.e(TAG, "Inserting invalid URI: " + uri);
             throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
 
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
         if (rowId > 0) {
-            Uri insertedFileUri = ContentUris.withAppendedId(
-                    ProviderTableMeta.CONTENT_URI_FILE, rowId);
-            getContext().getContentResolver().notifyChange(insertedFileUri,
-                    null);
+            Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
+            //Log_OC.d(TAG, "Inserted " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
             return insertedFileUri;
+        } else {
+            //Log_OC.d(TAG, "Error while inserting " + values.getAsString(ProviderTableMeta.FILE_PATH)  + " at provider " + this);
+            throw new SQLException("ERROR " + uri);
         }
-        throw new SQLException("ERROR " + uri);
     }
 
+    
     @Override
     public boolean onCreate() {
         mDbHelper = new DataBaseHelper(getContext());
         return true;
     }
 
+    
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        Cursor result = null;
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        db.beginTransaction();
+        try {
+            result = query(db, uri, projection, selection, selectionArgs, sortOrder);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        return result;
+    }
+    
+    private Cursor query(SQLiteDatabase db, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder sqlQuery = new SQLiteQueryBuilder();
 
         sqlQuery.setTables(ProviderTableMeta.DB_NAME);
@@ -188,24 +295,59 @@ public class FileContentProvider extends ContentProvider {
             order = sortOrder;
         }
 
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
-        Cursor c = sqlQuery.query(db, projection, selection, selectionArgs,
-                null, null, order);
+        Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
 
         c.setNotificationUri(getContext().getContentResolver(), uri);
-
         return c;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
-        return mDbHelper.getWritableDatabase().update(
-                ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        
+        //Log_OC.d(TAG, "Updating " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+        int count = 0;
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            count = update(db, uri, values, selection, selectionArgs);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
+    }
+    
+    
+    private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        return db.update(ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
+    }    
+
+    
+    @Override
+    public ContentProviderResult[] applyBatch (ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
+        //Log.d(TAG, "applying batch in provider " + this + " (temporary: " + isTemporary() + ")" );
+        ContentProviderResult[] results = new ContentProviderResult[operations.size()];
+        int i=0;
+        
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.beginTransaction();  // it's supposed that transactions can be nested
+        try {
+            for (ContentProviderOperation operation : operations) {
+                results[i] = operation.apply(this, results, i);
+                i++;
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+        //Log.d(TAG, "applied batch in provider " + this);
+        return results;
     }
 
+    
     class DataBaseHelper extends SQLiteOpenHelper {
 
         public DataBaseHelper(Context context) {
