@@ -529,6 +529,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     mPendingUploads.remove(uploadKey);
                     Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                 }
+                if (uploadResult.isException()) {
+                    // enforce the creation of a new client object for next uploads; this grant that a new socket will 
+                    // be created in the future if the current exception is due to an abrupt lose of network connection
+                    mUploadClient = null;
+                }
             }
             
             /// notify result
