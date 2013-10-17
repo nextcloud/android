@@ -11,7 +11,7 @@
   <string name="main_bookmarks">책갈피</string>
   <string name="main_settings">설정</string>
   <string name="main_tit_accsetup">계정 설정</string>
-  <string name="main_wrn_accsetup">이 장치에 ownCloud 계정이 설정되어 있지 않습니다. 이 앱을 사용하려면 계정을 설정하십시오.</string>
+  <string name="main_wrn_accsetup">이 장치에 계정이 설정되어 있지 않습니다. 이 앱을 사용하려면 계정을 설정하십시오.</string>
   <string name="actionbar_upload">업로드</string>
   <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
   <string name="actionbar_upload_files">파일</string>
@@ -24,7 +24,7 @@
   <string name="prefs_select_oc_account">계정 선택</string>
   <string name="prefs_summary_select_oc_account">이 앱에서 사용할 계정을 선택하십시오.</string>
   <string name="prefs_trackmydevice">장치 추적</string>
-  <string name="prefs_trackmydevice_summary_off">ownCloud에서 현재 위치 추적하기</string>
+  <string name="prefs_trackmydevice_summary_off">에서 현재 위치 추적하기</string>
   <string name="prefs_trackmydevice_summary_on">이 앱에서 장치 위치를 추적합니다</string>
   <string name="prefs_trackmydevice_interval">업데이트 주기</string>
   <string name="prefs_trackmydevice_interval_summary">%1$s분마다 업데이트</string>

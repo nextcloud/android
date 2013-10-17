@@ -17,7 +17,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
 import java.util.Vector;
 
 import android.content.Intent;
@@ -25,7 +24,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;

@@ -17,7 +17,6 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.ui.adapter.LandingScreenAdapter;
 
 import android.accounts.Account;
@@ -33,6 +32,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 /**
@@ -114,7 +115,7 @@ public class LandingActivity extends SherlockFragmentActivity implements
         case DialogInterface.BUTTON_POSITIVE:
             Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTHORITY });
+                    new String[] { MainApp.getAuthTokenType() });
             startActivity(intent);
             break;
         case DialogInterface.BUTTON_NEGATIVE:
@@ -150,7 +151,7 @@ public class LandingActivity extends SherlockFragmentActivity implements
     private boolean accountsAreSetup() {
         AccountManager accMan = AccountManager.get(this);
         Account[] accounts = accMan
-                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+                .getAccountsByType(MainApp.getAccountType());
         return accounts.length > 0;
     }
 

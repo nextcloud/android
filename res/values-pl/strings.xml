@@ -11,7 +11,7 @@
   <string name="main_bookmarks">Zakładki</string>
   <string name="main_settings">Ustawienia</string>
   <string name="main_tit_accsetup">Załóż konto</string>
-  <string name="main_wrn_accsetup">Nie wykryto kont ownCloud. Aby korzystać z tej aplikacji, musisz utworzyć konto.</string>
+  <string name="main_wrn_accsetup">Nie wykryto kont. Aby korzystać z tej aplikacji, musisz utworzyć konto.</string>
   <string name="about_android">%1$s Aplikacja Android</string>
   <string name="about_version">wersja %1$s</string>
   <string name="actionbar_sync">Odśwież konto</string>
@@ -182,12 +182,12 @@
   <string name="auth_connection_established">Połączenie nawiązane</string>
   <string name="auth_testing_connection">Testowanie połączenia…</string>
   <string name="auth_not_configured_title">Uszkodzona konfiguracja serwera</string>
-  <string name="auth_not_configured_message">Wygląda na to, że twoja instancja ownCloud nie jest poprawnie skonfigurowana. Aby uzyskać więcej informacji, skontaktuj się z administratorem.</string>
+  <string name="auth_not_configured_message">Wygląda na to, że twoja instancja serwer nie jest poprawnie skonfigurowana. Aby uzyskać więcej informacji, skontaktuj się z administratorem.</string>
   <string name="auth_unknown_error_title">Wystąpił nieznany błąd!</string>
   <string name="auth_unknown_error_message">Wystąpił nieznany błąd. Proszę skontaktować się z autorami i dodać dzienniki z urządzenia.</string>
   <string name="auth_unknown_host_title">Nie mogę znaleźć hosta</string>
   <string name="auth_unknown_host_message">Nie można znaleźć podanego hosta. Sprawdź nazwę hosta oraz dostępność serwera i spróbuj ponownie.</string>
-  <string name="auth_incorrect_path_title">Nie znaleziono instancji ownCloud</string>
+  <string name="auth_incorrect_path_title">Nie znaleziono instancji serwer</string>
   <string name="auth_incorrect_path_message">Aplikacja nie odnalazła instancji serwera pod podaną ścieżką. Sprawdź ścieżkę i spróbuj ponownie.</string>
   <string name="auth_timeout_title">Serwer zbyt długo nie odpowiadał</string>
   <string name="auth_incorrect_address_title">Zły format adresu URL</string>

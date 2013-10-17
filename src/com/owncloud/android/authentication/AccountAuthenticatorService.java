@@ -25,7 +25,7 @@ import android.os.IBinder;
 public class AccountAuthenticatorService extends Service {
 
     private AccountAuthenticator mAuthenticator;
-    static final public String ACCOUNT_TYPE = "owncloud";
+    //static final public String ACCOUNT_TYPE = "owncloud";
 
     @Override
     public void onCreate() {

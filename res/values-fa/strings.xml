@@ -3,7 +3,7 @@
   <string name="main_password">رمز عبور:</string>
   <string name="main_login">نام کاربری:</string>
   <string name="main_button_login">ورود</string>
-  <string name="main_welcome">به ownCloud خود خوش‌آمدید</string>
+  <string name="main_welcome">خوش آمد</string>
   <string name="main_files">پرونده‌ها</string>
   <string name="main_music">موزیک</string>
   <string name="main_contacts">ارتباط‌ها</string>
@@ -11,7 +11,7 @@
   <string name="main_bookmarks">نشانک‌ها</string>
   <string name="main_settings">تنظیمات</string>
   <string name="main_tit_accsetup">نصب حساب کاربری</string>
-  <string name="main_wrn_accsetup">حساب کاربری ownCloud در دستگاه شما وجود ندارد. برای استفاده از این برنامه می‌بایست یکی ایجاد کنید.</string>
+  <string name="main_wrn_accsetup">حساب کاربری  در دستگاه شما وجود ندارد. برای استفاده از این برنامه می‌بایست یکی ایجاد کنید.</string>
   <string name="about_android">%1$s برنامه اندروید</string>
   <string name="about_version">%1$s نسخه</string>
   <string name="actionbar_sync">بازنمایی حساب کاربری</string>

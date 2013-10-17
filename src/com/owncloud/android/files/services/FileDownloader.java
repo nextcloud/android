@@ -28,7 +28,6 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -60,6 +59,7 @@ import android.os.Process;
 import android.widget.RemoteViews;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavClient;
 
@@ -68,8 +68,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_FILE = "FILE";
     
-    public static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
-    public static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
+    private static final String DOWNLOAD_ADDED_MESSAGE = "DOWNLOAD_ADDED";
+    private static final String DOWNLOAD_FINISH_MESSAGE = "DOWNLOAD_FINISH";
     public static final String EXTRA_DOWNLOAD_RESULT = "RESULT";    
     public static final String EXTRA_FILE_PATH = "FILE_PATH";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
@@ -91,6 +91,14 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private Notification mNotification;
     private int mLastPercent;
     
+    
+    public String getDownloadAddedMessage() {
+        return getClass().getName().toString() + DOWNLOAD_ADDED_MESSAGE;
+    }
+    
+    public String getDownloadFinishMessage() {
+        return getClass().getName().toString() + DOWNLOAD_FINISH_MESSAGE;
+    }
     
     /**
      * Builds a key for mPendingDownloads from the account and file to download
@@ -467,7 +475,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()
-                                                        && AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mDownloadClient.getAuthTokenType())));
+                                                        && MainApp.getAuthTokenTypeSamlSessionCookie().equals(mDownloadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
@@ -515,7 +523,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * @param downloadResult    Result of the download operation
      */
     private void sendBroadcastDownloadFinished(DownloadFileOperation download, RemoteOperationResult downloadResult) {
-        Intent end = new Intent(DOWNLOAD_FINISH_MESSAGE);
+        Intent end = new Intent(getDownloadFinishMessage());
         end.putExtra(EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess());
         end.putExtra(ACCOUNT_NAME, download.getAccount().name);
         end.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
@@ -530,7 +538,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * @param download          Added download operation
      */
     private void sendBroadcastNewDownload(DownloadFileOperation download) {
-        Intent added = new Intent(DOWNLOAD_ADDED_MESSAGE);
+        Intent added = new Intent(getDownloadAddedMessage());
         added.putExtra(ACCOUNT_NAME, download.getAccount().name);
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_FILE_PATH, download.getSavePath());

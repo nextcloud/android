@@ -50,8 +50,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.ui.activity.FileActivity.AccountCreationCallback;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 
 import com.owncloud.android.R;
 
@@ -96,10 +96,10 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 /// the account set as default changed since this activity was created 
             
                 // trigger synchronization
-                ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);
+                ContentResolver.cancelSync(null, MainApp.getAuthTokenType());
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), AccountAuthenticator.AUTHORITY, bundle);
+                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), MainApp.getAuthTokenType(), bundle);
                 
                 // restart the main activity
                 Intent i = new Intent(this, FileDisplayActivity.class);
@@ -137,10 +137,10 @@ public class AccountSelectActivity extends SherlockListActivity implements
             /*Intent intent = new Intent(
                     android.provider.Settings.ACTION_ADD_ACCOUNT);
             intent.putExtra("authorities",
-                    new String[] { AccountAuthenticator.AUTHORITY });
+                    new String[] { MainApp.getAuthTokenType() });
             startActivity(intent);*/
             AccountManager am = AccountManager.get(getApplicationContext());
-            am.addAccount(AccountAuthenticator.ACCOUNT_TYPE, 
+            am.addAccount(MainApp.getAccountType(), 
                             null,
                             null, 
                             null, 
@@ -175,7 +175,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
         
         String accountName = map.get("NAME");
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        Account accounts[] = am.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
         for (Account a : accounts) {
             if (a.name.equals(accountName)) {
                 if (item.getItemId() == R.id.change_password) {
@@ -196,7 +196,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
     private void populateAccountList() {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am
-                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+                .getAccountsByType(MainApp.getAccountType());
         LinkedList<HashMap<String, String>> ll = new LinkedList<HashMap<String, String>>();
         for (Account a : accounts) {
             HashMap<String, String> h = new HashMap<String, String>();
@@ -221,7 +221,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
             String accountName = "";
             if (a == null) {
                 Account[] accounts = AccountManager.get(this)
-                        .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+                        .getAccountsByType(MainApp.getAccountType());
                 if (accounts.length != 0)
                     accountName = accounts[0].name;
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);

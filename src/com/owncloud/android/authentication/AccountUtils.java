@@ -18,6 +18,7 @@
 
 package com.owncloud.android.authentication;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.utils.OwnCloudVersion;
 
 import android.accounts.Account;
@@ -48,7 +49,7 @@ public class AccountUtils {
      */
     public static Account getCurrentOwnCloudAccount(Context context) {
         Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                AccountAuthenticator.ACCOUNT_TYPE);
+                MainApp.getAccountType());
         Account defaultAccount = null;
 
         SharedPreferences appPreferences = PreferenceManager
@@ -77,7 +78,7 @@ public class AccountUtils {
     
     public static boolean exists(Account account, Context context) {
         Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                AccountAuthenticator.ACCOUNT_TYPE);
+                MainApp.getAccountType());
 
         if (account != null && account.name != null) {
             for (Account ac : ocAccounts) {
@@ -98,7 +99,7 @@ public class AccountUtils {
     public static boolean accountsAreSetup(Context context) {
         AccountManager accMan = AccountManager.get(context);
         Account[] accounts = accMan
-                .getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+                .getAccountsByType(MainApp.getAccountType());
         return accounts.length > 0;
     }
     
@@ -107,7 +108,7 @@ public class AccountUtils {
         boolean result = false;
         if (accountName != null) {
             Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-                    AccountAuthenticator.ACCOUNT_TYPE);
+                    MainApp.getAccountType());
             boolean found = false;
             for (Account account : ocAccounts) {
                 found = (account.name.equals(accountName));
@@ -159,10 +160,10 @@ public class AccountUtils {
      */
     public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
         if (version != null) {
-            if (AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN.equals(authTokenType)) {
+            if (MainApp.getAuthTokenTypeAccessToken().equals(authTokenType)) {
                 return ODAV_PATH;
             }
-            if (AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(authTokenType)) {
+            if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(authTokenType)) {
                 return SAML_SSO_PATH;
             }
             if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)

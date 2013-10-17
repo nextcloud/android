@@ -3,7 +3,7 @@
   <string name="main_password">Slaptažodis:</string>
   <string name="main_login">Prisijungimo vardas:</string>
   <string name="main_button_login">Prisijungti</string>
-  <string name="main_welcome">Sveiki prisijungę prie savo OwnCloud</string>
+  <string name="main_welcome">Sveiki prisijungę</string>
   <string name="main_files">Failai</string>
   <string name="main_music">Muzika</string>
   <string name="main_contacts">Kontaktai</string>
@@ -11,7 +11,7 @@
   <string name="main_bookmarks">Žymekliai</string>
   <string name="main_settings">Nustatymai</string>
   <string name="main_tit_accsetup">Nustatyti paskyrą</string>
-  <string name="main_wrn_accsetup">Jūsų prietaise nėra nė vienos ownCloud paskyros. Kad galėtumėte naudoti šią programą, turite sukurti paskyrą.</string>
+  <string name="main_wrn_accsetup">Jūsų prietaise nėra nė vienos paskyros. Kad galėtumėte naudoti šią programą, turite sukurti paskyrą.</string>
   <string name="actionbar_upload">Įkelti</string>
   <string name="actionbar_upload_from_apps">Turinys iš kitų programų</string>
   <string name="actionbar_upload_files">Failai</string>
@@ -26,8 +26,8 @@
   <string name="prefs_trackmydevice_interval">Atnaujinimo intervalas</string>
   <string name="prefs_accounts">Paskyros</string>
   <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
-  <string name="prefs_pincode">ownCloud programos PIN kodas</string>
-  <string name="prefs_pincode_summary">Apsaugokite savo ownCloud klientą</string>
+  <string name="prefs_pincode">Programos PIN kodas</string>
+  <string name="prefs_pincode_summary">Apsaugokite savo klientą</string>
   <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
   <string name="auth_host_url">Serverio adresas</string>
   <string name="auth_username">Prisijungimo vardas</string>
@@ -40,7 +40,7 @@
   <string name="setup_hint_password">Slaptažodis</string>
   <string name="setup_hint_address">Web adresas</string>
   <string name="setup_hint_show_password">Rodyti slaptažodį?</string>
-  <string name="setup_title">Prisijunkite prie savo ownCloud</string>
+  <string name="setup_title">Prisijunkite prie savo %1$s</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
@@ -76,17 +76,17 @@
   <string name="sync_string_contacts">Kontaktai</string>
   <string name="sync_fail_ticker">Sinchronizacija nepavyko</string>
   <string name="use_ssl">Naudoti saugų prisijungimą</string>
-  <string name="location_no_provider">ownCloud negali sekti jūsų prietaiso. Patinkrinkite vietos nustatymo paslaugas</string>
+  <string name="location_no_provider">%1$s negali sekti jūsų prietaiso. Patinkrinkite vietos nustatymo paslaugas</string>
   <string name="pincode_enter_pin_code">Prašome įvesti savo programos PIN kodą</string>
   <string name="pincode_enter_new_pin_code">Prašome įvesti naują programos PIN kodą</string>
-  <string name="pincode_configure_your_pin">Įveskite ownCloud programos PIN kodą</string>
+  <string name="pincode_configure_your_pin">Įveskite taikymas programos PIN kodą</string>
   <string name="pincode_configure_your_pin_explanation">PIN bus prašomas kiekvieną kartą paleidus programą</string>
-  <string name="pincode_reenter_your_pincode">Prašome pakartoti ownCloud PIN kodą</string>
-  <string name="pincode_remove_your_pincode">Pašalinti ownCloud programos PIN kodą</string>
-  <string name="pincode_mismatch">Abu ownCloud programos PIN kodai nesutampa</string>
-  <string name="pincode_wrong">Neteisingas ownCloud programos PIN kodas</string>
-  <string name="pincode_removed">ownCloud programos PIN kodas pašalintas</string>
-  <string name="pincode_stored">ownCloud programos PIN kodas išsaugotas</string>
+  <string name="pincode_reenter_your_pincode">Prašome pakartoti taikymas PIN kodą</string>
+  <string name="pincode_remove_your_pincode">Pašalinti taikymas programos PIN kodą</string>
+  <string name="pincode_mismatch">Abu taikymas programos PIN kodai nesutampa</string>
+  <string name="pincode_wrong">Neteisingas taikymas programos PIN kodas</string>
+  <string name="pincode_removed">Taikymas programos PIN kodas pašalintas</string>
+  <string name="pincode_stored">taikymas programos PIN kodas išsaugotas</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 Minučių</item>
     <item>30 Minučių</item>
@@ -103,12 +103,12 @@
   <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
   <string name="auth_connection_established">Ryšys užmegztas</string>
   <string name="auth_testing_connection">Išbandomas prisijungimas...</string>
-  <string name="auth_not_configured_title">Sugadinta ownCloud konfigūracija</string>
+  <string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
   <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
   <string name="auth_timeout_title">Serveris per ilgai neatsako</string>
   <string name="auth_incorrect_address_title">URL adrese yra klaidų</string>
   <string name="auth_ssl_general_error_title">Nepavyko aktyvuoti SSL</string>
-  <string name="auth_bad_oc_version_title">Nežinoma ownCloud serverio versija</string>
+  <string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
   <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
   <string name="auth_secure_connection">Užmegztas saugus ryšys</string>
   <string name="crashlog_message">Programa netikėtai sustojo. Ar norite nusiųsti šio lūžimo ataskaitą programos kūrėjams?</string>

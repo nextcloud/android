@@ -32,7 +32,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
@@ -41,6 +40,7 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -96,17 +96,17 @@ public class OwnCloudClientUtils {
         boolean isSamlSso = am.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null;
         WebdavClient client = createOwnCloudClient(uri, appContext, !isSamlSso);
         if (isOauth2) {    
-            String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, false);
+            String accessToken = am.blockingGetAuthToken(account, MainApp.getAuthTokenTypeAccessToken(), false);
             client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
         
         } else if (isSamlSso) {    // TODO avoid a call to getUserData here
-            String accessToken = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE, false);
+            String accessToken = am.blockingGetAuthToken(account, MainApp.getAuthTokenTypeSamlSessionCookie(), false);
             client.setSsoSessionCookie(accessToken);
             
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
             //String password = am.getPassword(account);
-            String password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, false);
+            String password = am.blockingGetAuthToken(account, MainApp.getAuthTokenTypePass(), false);
             client.setBasicCredentials(username, password);
         }
         
@@ -122,14 +122,14 @@ public class OwnCloudClientUtils {
         WebdavClient client = createOwnCloudClient(uri, appContext, !isSamlSso);
         
         if (isOauth2) {    // TODO avoid a call to getUserData here
-            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_ACCESS_TOKEN, null, currentActivity, null, null);
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, MainApp.getAuthTokenTypeAccessToken(), null, currentActivity, null, null);
             Bundle result = future.getResult();
             String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
             if (accessToken == null) throw new AuthenticatorException("WTF!");
             client.setBearerCredentials(accessToken);   // TODO not assume that the access token is a bearer token
 
         } else if (isSamlSso) {    // TODO avoid a call to getUserData here
-            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE, null, currentActivity, null, null);
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, MainApp.getAuthTokenTypeSamlSessionCookie(), null, currentActivity, null, null);
             Bundle result = future.getResult();
             String accessToken = result.getString(AccountManager.KEY_AUTHTOKEN);
             if (accessToken == null) throw new AuthenticatorException("WTF!");
@@ -138,8 +138,8 @@ public class OwnCloudClientUtils {
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
             //String password = am.getPassword(account);
-            //String password = am.blockingGetAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, false);
-            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, AccountAuthenticator.AUTH_TOKEN_TYPE_PASSWORD, null, currentActivity, null, null);
+            //String password = am.blockingGetAuthToken(account, MainApp.getAuthTokenTypePass(), false);
+            AccountManagerFuture<Bundle> future =  am.getAuthToken(account, MainApp.getAuthTokenTypePass(), null, currentActivity, null, null);
             Bundle result = future.getResult();
             String password = result.getString(AccountManager.KEY_AUTHTOKEN);
             client.setBasicCredentials(username, password);
