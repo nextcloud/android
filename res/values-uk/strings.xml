@@ -77,6 +77,7 @@
   <string name="common_save_exit">Зберегти &amp; Вихід</string>
   <string name="common_exit">Вийти з ownCloud</string>
   <string name="common_error">Помилка</string>
+  <string name="common_error_unknown">Невідома помилка</string>
   <string name="about_title">Про</string>
   <string name="change_password">Змінити пароль</string>
   <string name="delete_account">Видалити запис</string>

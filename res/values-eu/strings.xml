@@ -285,6 +285,7 @@
   <string name="failed_upload_headline_delete_all_btn">kendu hautatutakoak igoera-ilaratik</string>
   <string name="failed_upload_retry_text">Berriz saiatu irudia igotzen:</string>
   <string name="failed_upload_load_more_images">Kargatu irudi gehiago</string>
+  <string name="failed_upload_retry_do_nothing_text">ez egin ezer ez zaude on-line uneko igoerarentzat</string>
   <string name="failed_upload_failure_text">Hutsegite mezua:</string>
   <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
 </resources>
