@@ -12,12 +12,17 @@
   <string name="main_settings">설정</string>
   <string name="main_tit_accsetup">계정 설정</string>
   <string name="main_wrn_accsetup">이 장치에 계정이 설정되어 있지 않습니다. 이 앱을 사용하려면 계정을 설정하십시오.</string>
+  <string name="about_android">%1$s 안드로이드 앱</string>
+  <string name="about_version">버전 %1$s</string>
+  <string name="actionbar_sync">계정 새로고침</string>
   <string name="actionbar_upload">업로드</string>
   <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
   <string name="actionbar_upload_files">파일</string>
+  <string name="actionbar_open_with">로 열기</string>
   <string name="actionbar_mkdir">디렉터리 만들기</string>
   <string name="actionbar_search">검색</string>
   <string name="actionbar_settings">설정</string>
+  <string name="actionbar_see_details">세부내용</string>
   <string name="prefs_category_general">일반</string>
   <string name="prefs_add_session">새 세션 추가</string>
   <string name="prefs_create_img_thumbnails">미리 보기 그림 만들기</string>
@@ -34,9 +39,16 @@
   <string name="prefs_pincode_summary">내 클라이언트 보호</string>
   <string name="prefs_instant_upload">자동 업로드 사용</string>
   <string name="prefs_instant_upload_summary">카메라로 촬영한 사진 자동 업로드</string>
+  <string name="prefs_log_title">로깅 허용</string>
+  <string name="prefs_log_summary">이건 로그 문제에 사용됩니다</string>
+  <string name="prefs_log_title_history">로그 기록</string>
+  <string name="prefs_log_summary_history">여기서 기록된 로그를 보여줍니다</string>
+  <string name="prefs_log_delete_history_button">역사 삭제하기</string>
+  <string name="auth_check_server">서버 확인</string>
   <string name="auth_host_url">서버 주소</string>
   <string name="auth_username">사용자 이름</string>
   <string name="auth_password">암호</string>
+  <string name="auth_register">%1$s의 새로운 사용자입니까?</string>
   <string name="new_session_uri_error">잘못된 주소를 입력하였습니다</string>
   <string name="new_session_session_name_error">세션 이름이 잘못되었습니다</string>
   <string name="sync_string_files">파일</string>
@@ -48,6 +60,7 @@
   <string name="setup_title">내 %1$s에 접속</string>
   <string name="setup_btn_connect">접속</string>
   <string name="uploader_btn_upload_text">업로드</string>
+  <string name="uploader_top_message">업로드할 디렉터리를 선택해주세요:</string>
   <string name="uploader_wrn_no_account_title">계정 없음</string>
   <string name="uploader_wrn_no_account_text">이 장치에 %1$s 계정이 없습니다. 먼저 계정을 설정하십시오.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
@@ -64,6 +77,7 @@
   <string name="filedetails_created">만든 날짜:</string>
   <string name="filedetails_modified">수정한 날짜:</string>
   <string name="filedetails_download">다운로드</string>
+  <string name="filedetails_sync_file">파일 새로고침</string>
   <string name="filedetails_redownload">다시 다운로드</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
   <string name="common_yes">예</string>
@@ -75,6 +89,8 @@
   <string name="common_save_exit">저장하고 끝내기</string>
   <string name="common_exit">%1$s 떠나기</string>
   <string name="common_error">오류</string>
+  <string name="common_loading">불러오는 중...</string>
+  <string name="common_error_unknown">알수없는 오류</string>
   <string name="about_title">정보</string>
   <string name="change_password">암호 변경</string>
   <string name="delete_account">계정 삭제</string>
@@ -95,16 +111,19 @@
   <string name="downloader_download_succeeded_content">%1$s을(를) 다운로드하였습니다</string>
   <string name="downloader_download_failed_ticker">다운로드 실패</string>
   <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없었습니다</string>
+  <string name="downloader_not_downloaded_yet">아직 다운로드 되지 않았습니다</string>
   <string name="common_choose_account">계정 선택</string>
   <string name="sync_string_contacts">연락처</string>
   <string name="sync_fail_ticker">동기화 실패</string>
   <string name="sync_fail_content">%1$s와(과) 동기화할 수 없었습니다</string>
+  <string name="sync_fail_content_unauthorized">%1$s에 대한 비밀번호가 틀립니다</string>
   <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
   <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_ticker">파일을 동기화할 수 없었습니다</string>
   <string name="sync_fail_in_favourites_content">파일 %1$d개의 내용을 동기화할 수 없었습니다 (충돌 %2$d개)</string>
   <string name="sync_foreign_files_forgotten_ticker">몇몇 로컬 파일이 사라졌습니다.</string>
   <string name="sync_foreign_files_forgotten_content">%1$d 파일을 %2$s 디렉토리에 복사하지 못하였습니다.</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 버전에서, 파일 업로드는 다수의 계정이 동시에 접속될때 데이터 유실을 피하기 위해 로컬 %1$s 폴더로 복사됩니다.⏎\n⏎\n이 변화로 인해, 예전 버전으로 올리신 파일들은 %2$s 폴더로 복사되었습니다. 그러나, 계정 동기화중 오류로 인해 작업을 완료하지 못할수 있습니다. 파일을 남기시고 %3$s로 연결되는 링크를 지우시거나, 혹은 파일을 %1$s 폴더로 이동시키고, %4$s에 링크를 유지시킬수 있습니다.⏎\n⏎\n아래에는 로컬 파일과 더불어, %5$s로 링크된 리모트 파일들의 목록이 있습니다.\n</string>
   <string name="foreign_files_move">모두 옮김</string>
   <string name="foreign_files_success">모든 파일 옮김</string>
   <string name="foreign_files_fail">몇몇 파일을 옮기지 못했습니다.</string>
@@ -123,6 +142,27 @@
   <string name="pincode_wrong">앱 암호가 잘못되었습니다</string>
   <string name="pincode_removed">앱 암호가 삭제되었습니다</string>
   <string name="pincode_stored">앱 암호가 저장되었습니다</string>
+  <string name="media_notif_ticker">%1$s 음악 재생기</string>
+  <string name="media_state_playing">%1$s (재생중)</string>
+  <string name="media_state_loading">%1$s (불러오는 중)</string>
+  <string name="media_event_done">%1$s 재생 완료됨</string>
+  <string name="media_err_nothing_to_play">미디어 파일을 찾을수 없습니다</string>
+  <string name="media_err_no_account">준비된 계정이 없습니다</string>
+  <string name="media_err_not_in_owncloud">유효한 계정의 파일이 아닙니다</string>
+  <string name="media_err_unsupported">지원하지 않는 미디어 코덱</string>
+  <string name="media_err_io">미디어 파일을 읽을수 </string>
+  <string name="media_err_malformed">미디어 파일이 제대로 인코드 되지 않았습니다</string>
+  <string name="media_err_timeout">재생하기에 시간이 너무 많이 걸립니다</string>
+  <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할수 없습니다</string>
+  <string name="media_err_unknown">내장된 미디어 플레이어에서는 이 미디어 파일을 재생할수 없습니다</string>
+  <string name="media_err_security_ex">%1$s 를 재생하는 중에 보안오류가 발생함</string>
+  <string name="media_err_io_ex">%1$s 를 재생하는 중에 입력 에러가 발생함</string>
+  <string name="media_err_unexpected">%1$s 를 재생하던 중에 알수 없는 오류가 발생함</string>
+  <string name="media_previous_description">전 트랙으로 이동 버튼</string>
+  <string name="media_rewind_description">되감기 버튼</string>
+  <string name="media_play_pause_description">재생 혹은 일시정지 버튼</string>
+  <string name="media_forward_description">빨리감기 버튼</string>
+  <string name="media_next_description">다음 트랙 버튼</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15분</item>
     <item>30분</item>
@@ -133,12 +173,14 @@
     <item>30</item>
     <item>60</item>
   </string-array>
+  <string name="auth_trying_to_login">로그인 중...</string>
   <string name="auth_no_net_conn_title">네트워크에 연결할 수 없습니다</string>
   <string name="auth_no_net_conn_message">네트워크 연결을 시도할 수 없습니다. 인터넷 연결을 확인하고 다시 시도하십시오.</string>
   <string name="auth_connect_anyway">그래도 접속하기</string>
   <string name="auth_nossl_plain_ok_title">암호화된 연결을 사용할 수 없습니다.</string>
   <string name="auth_nossl_plain_ok_message">서버와 암호화된 통신을 시도할 수 없었습니다. 암호화되지 않은 연결을 사용할 수 있습니다. 그래도 접속하거나 취소할 수 있습니다.</string>
   <string name="auth_connection_established">연결됨</string>
+  <string name="auth_testing_connection">연결 테스트 중...</string>
   <string name="auth_not_configured_title">서버 설정이 잘못됨</string>
   <string name="auth_not_configured_message">서버 인스턴스가 잘못 설정된 것 같습니다. 서버 관리자에게 문의하십시오.</string>
   <string name="auth_unknown_error_title">알 수 없는 오류가 발생하였습니다!</string>
@@ -154,8 +196,14 @@
   <string name="auth_bad_oc_version_title">확인할 수 없는 서버 버전</string>
   <string name="auth_wrong_connection_title">연결을 수립할 수 없음</string>
   <string name="auth_secure_connection">암호화된 연결 사용 중</string>
+  <string name="auth_unauthorized">잘못된 로그인/암호</string>
+  <string name="auth_oauth_error">권한부여가 성공적으로 이뤄지지 않았습니다</string>
+  <string name="auth_oauth_error_access_denied">권한 서버로 부터 접근이 거부되었습니다</string>
   <string name="auth_not_found">경로가 잘못되었습니다</string>
   <string name="auth_internal">내부 서버 오류, 코드 %1$d</string>
+  <string name="auth_wtf_reenter_URL">뜻밖의 상태; 다시 서버 주소를 입력해주십시오</string>
+  <string name="auth_expired_oauth_token_toast">인증이 만료되었습니다⏎\n다시 인증해주세요</string>
+  <string name="auth_expired_basic_auth_toast">현재 암호를 </string>
   <string name="crashlog_message">프로그램이 예상치 못하게 종료되었습니다. 충돌 보고서를 전송하시겠습니까?</string>
   <string name="crashlog_send_report">보고서 보내기</string>
   <string name="crashlog_dont_send_report">보내지 않기</string>
@@ -182,6 +230,11 @@
   <string name="wait_a_moment">잠시 기다려 주십시오</string>
   <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류입니다. 다른 앱에서 파일을 선택하십시오</string>
   <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">oAuth2로 로그인하기</string>
+  <string name="oauth_login_connection">oAuth2 서버에 연결중...</string>
+  <string name="oauth_code_validation_message">웹 브라우저를 여신후 이 주소로 가십시오:⏎\n%1$s.⏎\n유효한 코드는 여기에 있습니다:⏎\n%2$s</string>
+  <string name="oauth_connection_url_unavailable">접속하신 이 URL은 유효하지 않습니다</string>
   <string name="ssl_validator_title">경고</string>
   <string name="ssl_validator_header">사이트 인증서를 확인할 수 없었습니다</string>
   <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>
@@ -206,6 +259,12 @@
   <string name="ssl_validator_label_validity_to">끝:</string>
   <string name="ssl_validator_label_signature">서명:</string>
   <string name="ssl_validator_label_signature_algorithm">알고리즘:</string>
+  <string name="placeholder_sentence">이것은 플레이스홀더입니다</string>
+  <string name="placeholder_filename">placeholder.txt</string>
+  <string name="placeholder_filetype">PNG 파일</string>
+  <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">WiFi 사용 중일때만 사진 업로드</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">업데이트 충돌</string>
@@ -213,6 +272,19 @@
   <string name="conflict_keep_both">모두 저장</string>
   <string name="conflict_overwrite">덮어쓰기</string>
   <string name="conflict_dont_upload">업로드하지 않음</string>
+  <string name="preview_image_description">그림 미리보기</string>
+  <string name="preview_image_error_unknown_format">이 그림을 볼수 없습니다</string>
+  <string name="preview_image_error_out_of_memory">\"그림을 보이기에 충분한 메모리가 부족하여</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s를 %2$s 로컬 디렉토리로 복사하지 못했습니다.</string>
+  <string name="actionbar_failed_instant_upload">자동 업로드가 실패했습니다\"</string>
+  <string name="failed_upload_headline_text">자동 업로드 실패함</string>
+  <string name="failed_upload_headline_hint">실패된 자동 업로드 전체 요약</string>
+  <string name="failed_upload_all_cb">전체 선택</string>
+  <string name="failed_upload_headline_retryall_btn">전체 선택 재시도</string>
+  <string name="failed_upload_headline_delete_all_btn">선택된 업로드 큐 전체 삭제</string>
+  <string name="failed_upload_retry_text">이미지 업로드 재시도:</string>
+  <string name="failed_upload_load_more_images">더 많은 사진 불러오기</string>
+  <string name="failed_upload_failure_text">실패 메시지:</string>
+  <string name="failed_upload_quota_exceeded_text">서버 설정을 확인해주세요, 아마 업로드 제한을 초과하셨을겁니다.</string>
 </resources>

@@ -177,6 +177,7 @@
   <string name="auth_not_found">Väärä polku</string>
   <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
   <string name="auth_wtf_reenter_URL">Odottamaton tila; anna palvelimen osoite uudelleen</string>
+  <string name="auth_expired_oauth_token_toast">Kirjautumisesi on vanhentunut.\nKirjaudu uudelleen</string>
   <string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
   <string name="crashlog_message">Sovellus sulkeutui yllättäen. Haluatko lähettää vikailmoituksen?</string>
   <string name="crashlog_send_report">Lähetä ilmoitus</string>
