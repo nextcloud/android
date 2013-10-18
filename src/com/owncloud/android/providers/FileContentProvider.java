@@ -41,7 +41,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * The ContentProvider for the ownCloud App.
@@ -88,16 +87,19 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ETAG);
     }
 
-    private static final String TAG = FileContentProvider.class.getSimpleName(); 
     private static final int SINGLE_FILE = 1;
     private static final int DIRECTORY = 2;
     private static final int ROOT_DIRECTORY = 3;
     private static final UriMatcher mUriMatcher;
+
+    public static final String METHOD_UPDATE_FOLDER_SIZE = "updateFolderSize";
+    
     static {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, null, ROOT_DIRECTORY);
         mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
         mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
+        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/", DIRECTORY);
         mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
     }
 
@@ -155,11 +157,11 @@ public class FileContentProvider extends ContentProvider {
             if (children != null && children.moveToFirst())  {
                 long childId;
                 boolean isDir; 
-                String remotePath; 
+                //String remotePath; 
                 while (!children.isAfterLast()) {
                     childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
                     isDir = "DIR".equals(children.getString(children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)));
-                    remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
+                    //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
                     if (isDir) {
                         count += delete(db, ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, childId), null, null);
                     } else {
@@ -275,8 +277,9 @@ public class FileContentProvider extends ContentProvider {
         case ROOT_DIRECTORY:
             break;
         case DIRECTORY:
+            String folderId = uri.getPathSegments().get(1);
             sqlQuery.appendWhere(ProviderTableMeta.FILE_PARENT + "="
-                    + uri.getPathSegments().get(1));
+                    + folderId);
             break;
         case SINGLE_FILE:
             if (uri.getPathSegments().size() > 1) {
@@ -298,6 +301,16 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
         Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
+        if (mUriMatcher.match(uri) == DIRECTORY && c != null && c.moveToFirst()) {
+            long size = 0;
+            while (!c.isAfterLast()) {
+                size += c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
+                c.moveToNext();
+            }
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
+            db.update(ProviderTableMeta.DB_NAME, cv, ProviderTableMeta._ID + "=?", new String[] {uri.getPathSegments().get(1)});
+        }
 
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
@@ -322,8 +335,35 @@ public class FileContentProvider extends ContentProvider {
     
     
     private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return db.update(ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
+        switch (mUriMatcher.match(uri)) {
+            case DIRECTORY:
+                return updateFolderSize(db, selectionArgs[0]);
+            default:
+                return db.update(ProviderTableMeta.DB_NAME, values, selection, selectionArgs);
+        }
     }    
+
+    
+    private int updateFolderSize(SQLiteDatabase db, String folderId) {
+        int count = 0;
+        Uri selectUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, folderId);
+        String[] selectProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH };
+        String selectWhere = ProviderTableMeta.FILE_PARENT + "=?";
+        String updateWhere = ProviderTableMeta._ID + "=?";
+        String [] whereArgs = new String[] { folderId };
+        Cursor childrenLengths = query(db, selectUri, selectProjection, selectWhere, whereArgs, null);
+        if (childrenLengths != null && childrenLengths.moveToFirst()) {
+            long size = 0;
+            while (!childrenLengths.isAfterLast()) {
+                size += childrenLengths.getLong(childrenLengths.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
+                childrenLengths.moveToNext();
+            }
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
+            count = db.update(ProviderTableMeta.DB_NAME, cv, updateWhere, whereArgs);
+        }
+        return count;
+    }
 
     
     @Override
@@ -347,7 +387,7 @@ public class FileContentProvider extends ContentProvider {
         return results;
     }
 
-    
+
     class DataBaseHelper extends SQLiteOpenHelper {
 
         public DataBaseHelper(Context context) {

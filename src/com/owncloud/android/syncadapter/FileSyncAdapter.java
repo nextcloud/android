@@ -263,11 +263,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
             // synchronize children folders 
             List<OCFile> children = synchFolderOp.getChildren();
-            fetchChildren(children);    // beware of the 'hidden' recursion here!
-            
-            // update folder size again after recursive synchronization
-            getStorageManager().calculateFolderSize(folder.getFileId());  
-            sendStickyBroadcast(true, folder.getRemotePath(), null);        // notify again
+            fetchChildren(folder, children);    // beware of the 'hidden' recursion here!
             
         } else {
             // in failures, the statistics for the global result are updated
@@ -311,12 +307,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * 
      * @param files         Files to recursively synchronize.
      */
-    private void fetchChildren(List<OCFile> files) {
+    private void fetchChildren(OCFile parent, List<OCFile> files) {
         int i;
         for (i=0; i < files.size() && !mCancellation; i++) {
             OCFile newFile = files.get(i);
             if (newFile.isFolder()) {
                 synchronizeFolder(newFile, false);
+                // update the size of the parent folder again after recursive synchronization 
+                getStorageManager().updateFolderSize(parent.getFileId());  
+                sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
             }
         }
        
