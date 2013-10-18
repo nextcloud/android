@@ -19,6 +19,7 @@
 package com.owncloud.android.operations;
 
 import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
@@ -89,7 +90,9 @@ public class SynchronizeFileOperation extends RemoteOperation {
                 
                 if (mServerFile == null) {
                     /// take the duty of check the server for the current state of the file there
-                    propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()));
+                    propfind = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mLocalFile.getRemotePath()),
+                            DavConstants.PROPFIND_ALL_PROP,
+                            DavConstants.DEPTH_0);
                     int status = client.executeMethod(propfind, SYNC_READ_TIMEOUT, SYNC_CONNECTION_TIMEOUT);
                     boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
                     if (isMultiStatus) {
