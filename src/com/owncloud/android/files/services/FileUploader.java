@@ -29,6 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
@@ -616,8 +617,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         PropFindMethod propfind = null;
         RemoteOperationResult result = null;
         try {
-            propfind = new PropFindMethod(mUploadClient.getBaseUri()
-                    + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()));
+            propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()),
+                    DavConstants.PROPFIND_ALL_PROP,
+                    DavConstants.DEPTH_0);
             int status = mUploadClient.executeMethod(propfind);
             boolean isMultiStatus = (status == HttpStatus.SC_MULTI_STATUS);
             if (isMultiStatus) {
