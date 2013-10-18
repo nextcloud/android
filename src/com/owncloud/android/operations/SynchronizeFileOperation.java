@@ -112,17 +112,19 @@ public class SynchronizeFileOperation extends RemoteOperation {
               
                     /// check changes in server and local file
                     boolean serverChanged = false;
+                    /* time for eTag is coming, but not yet
                     if (mServerFile.getEtag() != null) {
                         serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
-                    } else {
+                    } else { */
                         // server without etags
                         serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestampAtLastSyncForData());
-                    }
+                    //}
                     boolean localChanged = (mLocalChangeAlreadyKnown || mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
                         // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes
-                    if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
+                    //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
+                    if (localChanged && serverChanged) {
                         result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                   
                     } else if (localChanged) {
