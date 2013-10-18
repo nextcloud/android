@@ -30,6 +30,7 @@ import java.util.Vector;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.http.HttpStatus;
+import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
@@ -135,7 +136,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             Log_OC.d(TAG, "Synchronizing " + mAccount.name + ", fetching files in " + mRemotePath);
             
             // remote request 
-            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
+            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath),
+                    DavConstants.PROPFIND_ALL_PROP,
+                    DavConstants.DEPTH_1);
             int status = client.executeMethod(query);
             
             // check and process response   - /// TODO take into account all the possible status per child-resource
