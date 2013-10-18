@@ -22,8 +22,14 @@ import android.accounts.*;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
+
+import com.owncloud.android.R;
+
 
 /**
  *  Authenticator for ownCloud accounts.
@@ -86,10 +92,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
     
     private Context mContext;
+    
+    private Handler mHandler;
 
     public AccountAuthenticator(Context context) {
         super(context);
         mContext = context;
+        mHandler = new Handler();
     }
 
     /**
@@ -102,25 +111,49 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             throws NetworkErrorException {
         Log_OC.i(TAG, "Adding account with type " + accountType
                 + " and auth token " + authTokenType);
-        try {
-            validateAccountType(accountType);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Failed to validate account type " + accountType + ": "
-                    + e.getMessage());
-            e.printStackTrace();
-            return e.getFailureBundle();
-        }
-        final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-        intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
-        intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
-        intent.putExtra(KEY_LOGIN_OPTIONS, options);
-        intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
-
-        setIntentFlags(intent);
         
         final Bundle bundle = new Bundle();
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+        
+        AccountManager accountManager = AccountManager.get(mContext);
+        Account[] accounts = accountManager.getAccountsByType(MainApp.getAccountType());
+        
+        if (mContext.getResources().getBoolean(R.bool.multiaccount_support) || accounts.length < 1) {
+            try {
+                validateAccountType(accountType);
+            } catch (AuthenticatorException e) {
+                Log_OC.e(TAG, "Failed to validate account type " + accountType + ": "
+                        + e.getMessage());
+                e.printStackTrace();
+                return e.getFailureBundle();
+            }
+            
+            final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
+            intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
+            intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
+            intent.putExtra(KEY_LOGIN_OPTIONS, options);
+            intent.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
+
+            setIntentFlags(intent);
+            
+            bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+        
+        } else {
+
+            // Return an error
+            bundle.putInt(AccountManager.KEY_ERROR_CODE, AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION);
+            bundle.putString(AccountManager.KEY_ERROR_MESSAGE, mContext.getString(R.string.auth_unsupported_multiaccount));
+           
+            mHandler.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    Toast.makeText(mContext, R.string.auth_unsupported_multiaccount, Toast.LENGTH_SHORT).show();
+                }
+            });
+            
+        }
+        
         return bundle;
     }
 

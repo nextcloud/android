@@ -111,8 +111,11 @@ public class AccountSelectActivity extends SherlockListActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getSherlock().getMenuInflater();
-        inflater.inflate(R.menu.account_picker, menu);
+        // Show Create Account if Multiaccount is enabled
+        if (getResources().getBoolean(R.bool.multiaccount_support)) {
+            MenuInflater inflater = getSherlock().getMenuInflater();
+            inflater.inflate(R.menu.account_picker, menu);
+        }
         return true;
     }
 
@@ -147,7 +150,6 @@ public class AccountSelectActivity extends SherlockListActivity implements
                             this, 
                             null,                        
                             null);
-            
             return true;
         }
         return false;
@@ -212,6 +214,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 android.R.layout.simple_list_item_single_choice,
                 new String[] { "NAME" }, new int[] { android.R.id.text1 }));
         registerForContextMenu(getListView());
+        
     }
 
     @Override
