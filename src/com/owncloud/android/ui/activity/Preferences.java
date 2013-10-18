@@ -23,13 +23,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -56,8 +59,8 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
     private ListPreference mTrackingUpdateInterval;
     private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
-    private CheckBoxPreference pLogging;
-    private Preference pLoggingHistory;
+    //private CheckBoxPreference pLogging;
+    //private Preference pLoggingHistory;
     private Preference pAboutApp;
     private int mSelectedMenuItem;
 
@@ -72,6 +75,7 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
         //populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        
         Preference p = findPreference("manage_account");
         if (p != null)
         p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -92,11 +96,124 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
                     i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "preferences");
                     i.putExtra(PinCodeActivity.EXTRA_NEW_STATE, newValue.toString());
                     startActivity(i);
+                    
                     return true;
                 }
-            });
+            });            
             
-           /* About App */
+        }
+        
+        
+
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
+        
+        boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
+        Preference pHelp =  findPreference("help");
+        if (pHelp != null ){
+            if (helpEnabled) {
+                pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String helpWeb   =(String) getText(R.string.url_help);
+                        if (helpWeb != null && helpWeb.length() > 0) {
+                            Uri uriUrl = Uri.parse(helpWeb);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                            startActivity(intent);
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pHelp);
+            }
+            
+        }
+        
+       
+       boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
+       Preference pRecommend =  findPreference("recommend");
+        if (pRecommend != null){
+            if (recommendEnabled) {
+                pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+
+                        Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                        intent.setType("text/plain");
+                        //Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
+                        String appName = getString(R.string.app_name);
+                        //String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@')); 
+                        //String recommendSubject = String.format(getString(R.string.recommend_subject), username, appName);
+                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
+                        //String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), username);
+                        String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), getString(R.string.url_app_download));
+                        intent.putExtra(Intent.EXTRA_TEXT, recommendText);
+
+                        intent.setData(Uri.parse(getString(R.string.mail_recommend))); 
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                        startActivity(intent);
+
+
+                        return(true);
+
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pRecommend);
+            }
+            
+        }
+        
+        boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
+        Preference pFeedback =  findPreference("feedback");
+        if (pFeedback != null){
+            if (feedbackEnabled) {
+                pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String feedbackMail   =(String) getText(R.string.mail_feedback);
+                        String feedback   =(String) getText(R.string.prefs_feedback);
+                        Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
+                        
+                        intent.setData(Uri.parse(feedbackMail)); 
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                        startActivity(intent);
+                        
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pFeedback);
+            }
+            
+        }
+        
+        boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
+        Preference pImprint =  findPreference("imprint");
+        if (pImprint != null) {
+            if (imprintEnabled) {
+                pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        String imprintWeb = (String) getText(R.string.url_imprint);
+                        if (imprintWeb != null && imprintWeb.length() > 0) {
+                            Uri uriUrl = Uri.parse(imprintWeb);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
+                            startActivity(intent);
+                        }
+                        //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pImprint);
+            }
+        }
+            
+        /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
@@ -146,7 +263,6 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
        }
        */
        
-      }
     }
 
     @Override

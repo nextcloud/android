@@ -25,4 +25,16 @@
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
     
+    <!-- Help, imprint and feedback -->
+    <bool name="help_enabled">false</bool>
+    <bool name="imprint_enabled">false</bool> 
+    <bool name="recommend_enabled">false</bool>
+    <bool name="feedback_enabled">false</bool>
+    <string name="url_help">https://owncloud.com/mobile/help</string>
+    <string name="url_imprint"></string>
+    <string name="mail_recommend">"mailto:"</string>
+    <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
+
 </resources>
+
