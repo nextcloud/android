@@ -26,6 +26,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/login_background_color"
         android:layout_above="@id/buttonOK"
         android:layout_alignParentTop="true"
         android:orientation="horizontal" >
