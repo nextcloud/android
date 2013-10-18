@@ -49,7 +49,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
-    private boolean mLocalChangeAlreadyKnown;
     private Context mContext;
     
     private boolean mTransferWasRequested = false;
@@ -60,7 +59,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
             FileDataStorageManager storageManager, 
             Account account, 
             boolean syncFileContents,
-            boolean localChangeAlreadyKnown, 
             Context context) {
         
         mLocalFile = localFile;
@@ -68,7 +66,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
         mStorageManager = storageManager;
         mAccount = account;
         mSyncFileContents = syncFileContents;
-        mLocalChangeAlreadyKnown = localChangeAlreadyKnown;
         mContext = context;
     }
 
@@ -119,7 +116,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         // server without etags
                         serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestampAtLastSyncForData());
                     //}
-                    boolean localChanged = (mLocalChangeAlreadyKnown || mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
+                    boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
                         // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes

@@ -446,7 +446,7 @@ public class FileDetailFragment extends FileFragment implements
             }
             
         } else {
-            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, false, getActivity());
+            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, getActivity());
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             // update ui 

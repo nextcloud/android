@@ -307,7 +307,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                                                                                         mStorageManager,
                                                                                         mAccount,       
                                                                                         true, 
-                                                                                        false,          
                                                                                         mContext
                                                                                         );
                     filesToSyncContents.add(operation);

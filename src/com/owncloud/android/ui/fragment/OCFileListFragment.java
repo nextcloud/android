@@ -315,7 +315,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             }
             case R.id.action_sync_file: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
-                RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
+                RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, getSherlockActivity());
                 operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 ((FileDisplayActivity) getSherlockActivity()).showLoadingDialog();
                 return true;
