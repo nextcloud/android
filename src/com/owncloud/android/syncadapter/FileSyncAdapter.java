@@ -259,10 +259,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (synchFolderOp.getForgottenLocalFiles().size() > 0) {
                 mForgottenLocalFiles.putAll(synchFolderOp.getForgottenLocalFiles());
             }
-            if (result.isSuccess() && synchFolderOp.getRemoteFolderChanged()) {
+            if (result.isSuccess()) {
                 // synchronize children folders 
                 List<OCFile> children = synchFolderOp.getChildren();
-                fetchChildren(folder, children);    // beware of the 'hidden' recursion here!
+                fetchChildren(folder, children, synchFolderOp.getRemoteFolderChanged());    // beware of the 'hidden' recursion here!
             }
             
         } else {
@@ -307,15 +307,22 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * 
      * @param files         Files to recursively synchronize.
      */
-    private void fetchChildren(OCFile parent, List<OCFile> files) {
+    private void fetchChildren(OCFile parent, List<OCFile> files, boolean parentEtagChanged) {
         int i;
+        OCFile newFile = null;
+        String etag = null;
+        boolean syncDown = false;
         for (i=0; i < files.size() && !mCancellation; i++) {
-            OCFile newFile = files.get(i);
+            newFile = files.get(i);
             if (newFile.isFolder()) {
-                synchronizeFolder(newFile);
-                // update the size of the parent folder again after recursive synchronization 
-                getStorageManager().updateFolderSize(parent.getFileId());  
-                sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
+                etag = newFile.getEtag();
+                syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
+                if(syncDown) {
+                    synchronizeFolder(newFile);
+                    // update the size of the parent folder again after recursive synchronization 
+                    getStorageManager().updateFolderSize(parent.getFileId());  
+                    sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
+                }
             }
         }
        

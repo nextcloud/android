@@ -235,6 +235,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
+                if (file.isFolder()) {
+                    startSyncFolderOperation(file);
+                }
                 
             } else {
                 updateFragmentsVisibility(!file.isFolder());
