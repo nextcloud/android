@@ -356,6 +356,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 remoteFile.setModificationTimestampAtLastSyncForData(localFile.getModificationTimestampAtLastSyncForData());
                 remoteFile.setStoragePath(localFile.getStoragePath());
                 remoteFile.setEtag(localFile.getEtag());    // eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
+                if (remoteFile.isFolder()) {
+                    remoteFile.setFileLength(localFile.getFileLength()); // TODO move operations about size of folders to FileContentProvider
+                }
             } else {
                 remoteFile.setEtag(""); // remote eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
             }
