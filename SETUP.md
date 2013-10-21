@@ -8,7 +8,10 @@
   -  Clone your new repo: "git clone git@github.com:YOURGITHUBNAME/android.git"
   -  "cd android"
   -  Checkout remote develop branch: "git checkout -b develop remotes/origin/develop"
-  -  Make sure to get the latest changes of android/develop branch: "git pull origin develop"
+  -  Pull changes from your develop branch: "git pull origin develop"
+  -  Make sure to get the latest changes from official android/develop branch:
+  -  Make official owncloud repo known as upstream: "git remote add upstream git@github.com:owncloud/android.git"
+  -  Pull latest changes from upstream: "git pull upstream develop"
 
   2. Building with console/maven:
 
