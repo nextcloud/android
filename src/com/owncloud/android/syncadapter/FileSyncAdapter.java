@@ -149,7 +149,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             updateOCVersion();
             mCurrentSyncTime = System.currentTimeMillis();
             if (!mCancellation) {
-                synchronizeFolder(getStorageManager().getFileByPath(OCFile.ROOT_PATH), true);
+                synchronizeFolder(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
                 
             } else {
                 Log_OC.d(TAG, "Leaving synchronization before synchronizing the root folder because cancelation request");
@@ -218,9 +218,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      *  depth first strategy. 
      * 
      *  @param folder                   Folder to synchronize.
-     *  @param updateFolderProperties   When 'true', updates also the properties of the of the target folder.
      */
-    private void synchronizeFolder(OCFile folder, boolean updateFolderProperties) {
+    private void synchronizeFolder(OCFile folder) {
         
         if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult))
             return;
@@ -239,7 +238,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         // folder synchronization
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  folder, 
                                                                                     mCurrentSyncTime, 
-                                                                                    updateFolderProperties,
                                                                                     true,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
@@ -261,9 +259,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (synchFolderOp.getForgottenLocalFiles().size() > 0) {
                 mForgottenLocalFiles.putAll(synchFolderOp.getForgottenLocalFiles());
             }
-            // synchronize children folders 
-            List<OCFile> children = synchFolderOp.getChildren();
-            fetchChildren(folder, children);    // beware of the 'hidden' recursion here!
+            if (result.isSuccess() && synchFolderOp.getRemoteFolderChanged()) {
+                // synchronize children folders 
+                List<OCFile> children = synchFolderOp.getChildren();
+                fetchChildren(folder, children);    // beware of the 'hidden' recursion here!
+            }
             
         } else {
             // in failures, the statistics for the global result are updated
@@ -312,7 +312,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         for (i=0; i < files.size() && !mCancellation; i++) {
             OCFile newFile = files.get(i);
             if (newFile.isFolder()) {
-                synchronizeFolder(newFile, false);
+                synchronizeFolder(newFile);
                 // update the size of the parent folder again after recursive synchronization 
                 getStorageManager().updateFolderSize(parent.getFileId());  
                 sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI

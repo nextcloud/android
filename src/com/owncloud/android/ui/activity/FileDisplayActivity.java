@@ -1449,7 +1449,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
                                                                         currentSyncTime, 
                                                                         false,
-                                                                        false,
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()

@@ -60,7 +60,6 @@ public class RemoteOperationResult implements Serializable {
         OK,
         OK_SSL,
         OK_NO_SSL,
-        OK_NO_CHANGES_ON_DIR,
         UNHANDLED_HTTP_CODE,
         UNAUTHORIZED,        
         FILE_NOT_FOUND, 
@@ -99,7 +98,7 @@ public class RemoteOperationResult implements Serializable {
 
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
-        mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL || code == ResultCode.OK_NO_CHANGES_ON_DIR);
+        mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
     }
 
     private RemoteOperationResult(boolean success, int httpCode) {
