@@ -18,3 +18,13 @@ local.properties
 
 # Mac .DS_Store files
 .DS_Store
+
+# These files are created automatically by Eclipse:
+tests/proguard-project.txt
+tests/project.properties
+tests/ant.properties
+tests/build.xml
+proguard-project.txt
+
+# Should not be commited inside this repo:
+actionbarsherlock/
