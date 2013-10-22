@@ -64,6 +64,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 
@@ -741,7 +742,13 @@ public class FileDetailFragment extends FileFragment implements
                         msg.show();
                     }
                     getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
+                    
                     updateFileDetails(false, false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
+                   
+                    // Force the preview if the file is an image
+                    if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(getFile());
+                    } 
                 }
             }
         }

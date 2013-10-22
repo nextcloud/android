@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="4dip"
+        android:paddingTop="4dp"
         android:orientation="horizontal"
         >
 
@@ -58,33 +58,33 @@
             android:id="@+id/currentTimeText"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:paddingTop="4dip"
-            android:paddingStart="4dip"
+            android:paddingTop="4dp"
+            android:paddingStart="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="4dip"
+            android:paddingEnd="4dp"
             android:text="@string/placeholder_media_time"
             />
 
         <SeekBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dip"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="32dip"
+            android:layout_height="32dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" />
 
         <TextView android:id="@+id/totalTimeText"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:paddingTop="4dip"
-            android:paddingEnd="4dip"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="4dip"
+            android:paddingStart="4dp"
             android:text="@string/placeholder_media_time"
             />
         

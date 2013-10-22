@@ -530,6 +530,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     mPendingUploads.remove(uploadKey);
                     Log_OC.i(TAG, "Remove CurrentUploadItem from pending upload Item Map.");
                 }
+                if (uploadResult.isException()) {
+                    // enforce the creation of a new client object for next uploads; this grant that a new socket will 
+                    // be created in the future if the current exception is due to an abrupt lose of network connection
+                    mUploadClient = null;
+                }
             }
             
             /// notify result
@@ -719,12 +724,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = null;
-        if (PreviewImageFragment.canBePreviewed(upload.getFile())) {
-            showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-        } else {
-            showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-        }
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -16,8 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -104,7 +102,10 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     }
 
     private void initViewPager() {
-        OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
+        // get parent from path
+        String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
+        OCFile parentFolder = mStorageManager.getFileByPath(parentPath);
+        //OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
         if (parentFolder == null) {
             // should not be necessary
             parentFolder = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
@@ -152,7 +153,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
                     Log_OC.d(TAG, "Simulating reselection of current page after connection of download binder");
                     onPageSelected(mViewPager.getCurrentItem());
                 }
-                    
+
             } else if (component.equals(new ComponentName(PreviewImageActivity.this, FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploaderBinder) service;
@@ -429,8 +430,12 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             if (!file.isImage()) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            file = mStorageManager.getFileById(file.getFileId()); 
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());            
+            
+            // Update file according to DB file, if it is possible
+            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID)            
+                file = mStorageManager.getFileById(file.getFileId());
+            
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from mStorageManager
