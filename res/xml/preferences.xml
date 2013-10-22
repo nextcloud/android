@@ -49,7 +49,7 @@
     <Preference android:title="@string/prefs_help" android:key="help" />
     <Preference android:title="@string/prefs_recommend" android:key="recommend" />
     <Preference android:title="@string/prefs_feedback" android:key="feedback" />
-    <!-- Preference android:title="@string/prefs_imprint" android:key="imprint" / -->
+    <Preference android:title="@string/prefs_imprint" android:key="imprint" />
                         
 	<Preference 		android:id="@+id/about_app" 
         				android:title="@string/about_title" 
