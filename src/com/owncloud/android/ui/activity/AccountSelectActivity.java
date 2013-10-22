@@ -194,23 +194,6 @@ public class AccountSelectActivity extends SherlockListActivity implements
         return true;
     }
 
-    @Override
-    public void onContentChanged() {
-        // TODO Auto-generated method stub
-        super.onContentChanged();
-        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        if (am.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length == 0) {
-            // Show create account screen
-            am.addAccount(AccountAuthenticator.ACCOUNT_TYPE, 
-                    null,
-                    null, 
-                    null, 
-                    this, 
-                    null,                        
-                    null);
-        }
-    }
-
     private void populateAccountList() {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am
