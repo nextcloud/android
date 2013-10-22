@@ -233,10 +233,8 @@ public class FileDataStorageManager {
 
         if (file.isFolder()) {
             updateFolderSize(file.getFileId());
-            if (file.needsUpdatingWhileSaving()) {
-                for (OCFile f : getFolderContent(file))
-                    saveFile(f);
-            }
+        } else {
+            updateFolderSize(file.getParentId());
         }
         
         return overriden;
@@ -255,7 +253,6 @@ public class FileDataStorageManager {
         Log_OC.d(TAG,  "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size() + " children and " + filesToRemove.size() + " files to remove");
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(updatedFiles.size());
-        long folderSize = 0;
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
@@ -264,7 +261,6 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, file.getModificationTimestampAtLastSyncForData());
             cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
             cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-            folderSize += file.getFileLength();
             cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
             cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
             //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
@@ -350,7 +346,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_MODIFIED, folder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, folder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, folderSize);
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);   // FileContentProvider calculates the right size
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
         cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
         cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
@@ -405,6 +401,8 @@ public class FileDataStorageManager {
             }
         }
         
+        updateFolderSize(folder.getFileId());
+        
     }
 
 
@@ -412,20 +410,25 @@ public class FileDataStorageManager {
      * 
      * @param id
      */
-    public void updateFolderSize(long id) {
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, null,
-                    ProviderTableMeta._ID + "=?",
-                    new String[] { String.valueOf(id) });
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, null,
-                    ProviderTableMeta._ID + "=?",
-                    new String[] { String.valueOf(id) });
-                
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
+    private void updateFolderSize(long id) {
+        if (id > FileDataStorageManager.ROOT_PARENT_ID) {
+            Log_OC.d(TAG, "Updating size of " + id);
+            if (getContentResolver() != null) {
+                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, null,
+                        ProviderTableMeta._ID + "=?",
+                        new String[] { String.valueOf(id) });
+            } else {
+                try {
+                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, null,
+                        ProviderTableMeta._ID + "=?",
+                        new String[] { String.valueOf(id) });
+                    
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
+                }
             }
+        } else {
+            Log_OC.e(TAG,  "not updating size for folder " + id);
         }
     }
     
@@ -450,6 +453,7 @@ public class FileDataStorageManager {
                     } else {
                         getContentResolver().delete(file_uri, where, whereArgs);
                     }
+                    updateFolderSize(file.getParentId());
                 }
                 if (removeLocalCopy && file.isDown()) {
                     boolean success = new File(file.getStoragePath()).delete();
@@ -489,6 +493,7 @@ public class FileDataStorageManager {
         } else {
             getContentResolver().delete(folder_uri, where, whereArgs); 
         }
+        updateFolderSize(folder.getParentId());
     }
 
     private void removeLocalFolder(File folder) {

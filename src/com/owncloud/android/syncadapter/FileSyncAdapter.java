@@ -320,7 +320,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 if(syncDown) {
                     synchronizeFolder(newFile);
                     // update the size of the parent folder again after recursive synchronization 
-                    getStorageManager().updateFolderSize(parent.getFileId());  
+                    //getStorageManager().updateFolderSize(parent.getFileId());  
                     sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
                 }
             }

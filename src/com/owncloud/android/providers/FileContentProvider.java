@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
@@ -301,17 +302,6 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
         Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
-        if (mUriMatcher.match(uri) == DIRECTORY && c != null && c.moveToFirst()) {
-            long size = 0;
-            while (!c.isAfterLast()) {
-                size += c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
-                c.moveToNext();
-            }
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
-            db.update(ProviderTableMeta.DB_NAME, cv, ProviderTableMeta._ID + "=?", new String[] {uri.getPathSegments().get(1)});
-        }
-
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
@@ -346,21 +336,51 @@ public class FileContentProvider extends ContentProvider {
     
     private int updateFolderSize(SQLiteDatabase db, String folderId) {
         int count = 0;
-        Uri selectUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, folderId);
-        String[] selectProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH };
-        String selectWhere = ProviderTableMeta.FILE_PARENT + "=?";
-        String updateWhere = ProviderTableMeta._ID + "=?";
         String [] whereArgs = new String[] { folderId };
-        Cursor childrenLengths = query(db, selectUri, selectProjection, selectWhere, whereArgs, null);
-        if (childrenLengths != null && childrenLengths.moveToFirst()) {
-            long size = 0;
-            while (!childrenLengths.isAfterLast()) {
-                size += childrenLengths.getLong(childrenLengths.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
-                childrenLengths.moveToNext();
+        
+        // read current size saved for the folder 
+        long folderSize = 0;
+        long folderParentId = -1;
+        Uri selectFolderUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, folderId);
+        String[] folderProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH,  ProviderTableMeta.FILE_PARENT};
+        String folderWhere = ProviderTableMeta._ID + "=?";
+        Cursor folderCursor = query(db, selectFolderUri, folderProjection, folderWhere, whereArgs, null);
+        if (folderCursor != null && folderCursor.moveToFirst()) {
+            folderSize = folderCursor.getLong(folderCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));;
+            folderParentId = folderCursor.getLong(folderCursor.getColumnIndex(ProviderTableMeta.FILE_PARENT));;
+        }
+        folderCursor.close();
+        
+        // read and sum sizes of children
+        long childrenSize = 0;
+        Uri selectChildrenUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, folderId);
+        String[] childrenProjection = new String[] { ProviderTableMeta.FILE_CONTENT_LENGTH,  ProviderTableMeta.FILE_PARENT};
+        String childrenWhere = ProviderTableMeta.FILE_PARENT + "=?";
+        Cursor childrenCursor = query(db, selectChildrenUri, childrenProjection, childrenWhere, whereArgs, null);
+        if (childrenCursor != null && childrenCursor.moveToFirst()) {
+            while (!childrenCursor.isAfterLast()) {
+                childrenSize += childrenCursor.getLong(childrenCursor.getColumnIndex(ProviderTableMeta.FILE_CONTENT_LENGTH));
+                childrenCursor.moveToNext();
             }
+        }
+        childrenCursor.close();
+        
+        // update if needed
+        if (folderSize != childrenSize) {
+            Log_OC.d("FileContentProvider", "Updating " + folderSize + " to " + childrenSize);
             ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
-            count = db.update(ProviderTableMeta.DB_NAME, cv, updateWhere, whereArgs);
+            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, childrenSize);
+            count = db.update(ProviderTableMeta.DB_NAME, cv, folderWhere, whereArgs);
+            
+            // propagate update until root
+            if (folderParentId > FileDataStorageManager.ROOT_PARENT_ID) {
+                Log_OC.d("FileContentProvider", "Propagating update to " + folderParentId);
+                updateFolderSize(db, String.valueOf(folderParentId));
+            } else {
+                Log_OC.d("FileContentProvider", "NOT propagating to " + folderParentId);
+            }
+        } else {
+            Log_OC.d("FileContentProvider", "NOT updating, sizes are " + folderSize + " and " + childrenSize);
         }
         return count;
     }
@@ -368,7 +388,7 @@ public class FileContentProvider extends ContentProvider {
     
     @Override
     public ContentProviderResult[] applyBatch (ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {
-        //Log.d(TAG, "applying batch in provider " + this + " (temporary: " + isTemporary() + ")" );
+        Log_OC.d("FileContentProvider", "applying batch in provider " + this + " (temporary: " + isTemporary() + ")" );
         ContentProviderResult[] results = new ContentProviderResult[operations.size()];
         int i=0;
         
@@ -383,7 +403,7 @@ public class FileContentProvider extends ContentProvider {
         } finally {
             db.endTransaction();
         }
-        //Log.d(TAG, "applied batch in provider " + this);
+        Log_OC.d("FileContentProvider", "applied batch in provider " + this);
         return results;
     }
 
