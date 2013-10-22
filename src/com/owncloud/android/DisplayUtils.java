@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class DisplayUtils {
     
-    private static String TAG = DisplayUtils.class.getSimpleName(); 
+    //private static String TAG = DisplayUtils.class.getSimpleName(); 
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 

@@ -3,6 +3,7 @@
   <string name="main_files">Skedarët</string>
   <string name="main_music">Muzikë</string>
   <string name="main_contacts">Kontake</string>
+  <string name="main_calendar">Kalendari</string>
   <string name="main_settings">Parametrat</string>
   <string name="actionbar_upload">Ngarko</string>
   <string name="actionbar_upload_files">Skedarët</string>
@@ -19,6 +20,7 @@
   <string name="common_cancel_upload">Anulo ngarkimin</string>
   <string name="common_cancel">Anulo</string>
   <string name="common_error">Veprim i gabuar</string>
+  <string name="uploader_upload_failed_ticker">Ngarkimi dështoi</string>
   <string name="sync_string_contacts">Kontake</string>
   <string name="common_share">Nda</string>
   <string name="common_rename">Riemërto</string>

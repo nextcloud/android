@@ -19,7 +19,6 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.Date;
 
 import org.apache.http.HttpRequest;

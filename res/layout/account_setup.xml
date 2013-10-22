@@ -29,6 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/login_background_color"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp" >
@@ -169,6 +170,7 @@
             android:id="@+id/buttonOK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_default"
             android:layout_gravity="center_horizontal"
             android:enabled="false"
             android:onClick="onOkClick"

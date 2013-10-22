@@ -58,8 +58,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -138,6 +138,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     private OCFile mWaitingToPreview;
     private Handler mHandler;
+    
+    private String mDownloadAddedMessage;
+    private String mDownloadFinishMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +150,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
         mHandler = new Handler();
+        
+        FileDownloader downloader = new FileDownloader();
+        mDownloadAddedMessage = downloader.getDownloadAddedMessage();
+        mDownloadFinishMessage= downloader.getDownloadFinishMessage();
 
         /// bindings to transference services
         mUploadConnection = new ListServiceConnection(); 
@@ -187,6 +194,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
         setSupportProgressBarIndeterminateVisibility(false);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        
+        
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -403,12 +412,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 // the user browsed to other file ; forget the automatic preview 
                 mWaitingToPreview = null;
 
-            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
+            } else if (downloadEvent.equals(mDownloadAddedMessage)) {
                 // grant that the right panel updates the progress bar
                 detailsFragment.listenForTransferProgress();
                 detailsFragment.updateFileDetails(true, false);
 
-            } else if (downloadEvent.equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE)) {
+            } else if (downloadEvent.equals(mDownloadFinishMessage)) {
                 //  update the right panel
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
@@ -476,12 +485,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
 
     private void startSynchronization() {
-        ContentResolver.cancelSync(null, AccountAuthenticator.AUTHORITY);   // cancel the current synchronizations of any ownCloud account
+        ContentResolver.cancelSync(null, MainApp.getAuthTokenType());   // cancel the current synchronizations of any ownCloud account
         Bundle bundle = new Bundle();
         bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         ContentResolver.requestSync(
                 getAccount(),
-                AccountAuthenticator.AUTHORITY, bundle);
+                MainApp.getAuthTokenType(), bundle);
     }
 
 
@@ -626,19 +635,22 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
 
+        FileUploader fileUploader = new FileUploader();
+        FileSyncService fileSyncService = new FileSyncService();
+        
         // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.SYNC_MESSAGE);
+        IntentFilter syncIntentFilter = new IntentFilter(fileSyncService.getSyncMessage());
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         // Listen for upload messages
-        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        IntentFilter uploadIntentFilter = new IntentFilter(fileUploader.getUploadFinishMessage());
         mUploadFinishReceiver = new UploadFinishReceiver();
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
         // Listen for download messages
-        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
-        downloadIntentFilter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);
+        IntentFilter downloadIntentFilter = new IntentFilter(mDownloadAddedMessage);
+        downloadIntentFilter.addAction(mDownloadFinishMessage);
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
     

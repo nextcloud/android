@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Senha:</string>
   <string name="main_login">Nome de usuário:</string>
   <string name="main_button_login">Login</string>
@@ -12,7 +11,7 @@
   <string name="main_bookmarks">Favoritos</string>
   <string name="main_settings">Ajustes</string>
   <string name="main_tit_accsetup">Configuração de conta</string>
-  <string name="main_wrn_accsetup">Não existem contas ownCloud no seu dispositivo. Para usar este aplicativo, você precisa criar uma.</string>
+  <string name="main_wrn_accsetup">Não existem contas no seu dispositivo. Para usar este aplicativo, você precisa criar uma.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">versão %1$s</string>
   <string name="actionbar_sync">Atualização de conta</string>
@@ -30,14 +29,14 @@
   <string name="prefs_select_oc_account">Selecione uma conta</string>
   <string name="prefs_summary_select_oc_account">Selecione qual das suas contas você deseja utilizar.</string>
   <string name="prefs_trackmydevice">Rastreamento de dispositivo</string>
-  <string name="prefs_trackmydevice_summary_off">Habilite ownCloud para rastrear a localização do seu dispositivo</string>
-  <string name="prefs_trackmydevice_summary_on">Seu ownCloud mantém registro da localização desse dispositivo</string>
+  <string name="prefs_trackmydevice_summary_off">Habilite aplicação para rastrear a localização do seu dispositivo</string>
+  <string name="prefs_trackmydevice_summary_on">Seu aplicação mantém registro da localização desse dispositivo</string>
   <string name="prefs_trackmydevice_interval">Intervalo de atualização</string>
   <string name="prefs_trackmydevice_interval_summary">Atualizar a cada %1$s minutos</string>
   <string name="prefs_accounts">Contas</string>
   <string name="prefs_manage_accounts">Gerenciar contas</string>
-  <string name="prefs_pincode">PIN ownCloud App</string>
-  <string name="prefs_pincode_summary">Proteja seu cliente ownCloud</string>
+  <string name="prefs_pincode">PIN App</string>
+  <string name="prefs_pincode_summary">Proteja seu cliente</string>
   <string name="prefs_instant_upload">Habilitar upload instantâneo</string>
   <string name="prefs_instant_upload_summary">Instantaneamente faça upload das fotos tiradas pela câmera</string>
   <string name="prefs_log_title">Habilitar conexão</string>
@@ -58,17 +57,17 @@
   <string name="setup_hint_password">Senha</string>
   <string name="setup_hint_address">Endereço Web</string>
   <string name="setup_hint_show_password">Mostrar senha?</string>
-  <string name="setup_title">Conecte ao seu ownCloud</string>
+  <string name="setup_title">Conecte ao seu %1$s</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Upload</string>
   <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
-  <string name="uploader_wrn_no_account_text">Não existem contas ownCloud no seu dispositivo. Por favor, configure uma conta primeiro.</string>
+  <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
   <string name="uploader_wrn_no_content_title">Sem conteúdo para enviar</string>
   <string name="uploader_wrn_no_content_text">Nenhum foi recebido. Nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">ownCloud não é permitido a acessar o conteúdo compartilhado</string>
+  <string name="uploader_error_forbidden_content">%1$s não é permitido a acessar o conteúdo compartilhado</string>
   <string name="uploader_info_uploading">Enviando</string>
   <string name="uploader_btn_create_dir_text">Criar um diretório para upload</string>
   <string name="file_list_empty">Não existe arquivos nesta pasta\nNovos arquivos podem ser adicionados com a opção do menu \"Enviar\"</string>
@@ -88,7 +87,7 @@
   <string name="common_cancel_upload">Cancelar upload</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Salvar &amp; Sair</string>
-  <string name="common_exit">Sair do ownCloud</string>
+  <string name="common_exit">Sair do %1$s</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">Carregando ...</string>
   <string name="common_error_unknown">Erro desconhecido</string>
@@ -194,7 +193,7 @@
   <string name="auth_incorrect_address_title">URL mal formada</string>
   <string name="auth_ssl_general_error_title">Inicialização SSL falhou</string>
   <string name="auth_ssl_unverified_server_title">Identidade SSL do servidor não verificada</string>
-  <string name="auth_bad_oc_version_title">Versão do servidor ownCloud é irreconhecível</string>
+  <string name="auth_bad_oc_version_title">Versão do servidor é irreconhecível</string>
   <string name="auth_wrong_connection_title">Não foi possível estabelecer conexão</string>
   <string name="auth_secure_connection">Conexão segura estabelecida</string>
   <string name="auth_unauthorized">Nome de usuário e/ou senha está errada!</string>
@@ -209,7 +208,7 @@
   <string name="crashlog_send_report">Enviar relatório</string>
   <string name="crashlog_dont_send_report">Não enviar relatório</string>
   <string name="extensions_avail_title">Extensões disponíveis!</string>
-  <string name="extensions_avail_message">Parece que sua instância ownCloud está suportando extensões avançadas. Gostaria de ver extensões disponíveis para Android?</string>
+  <string name="extensions_avail_message">Parece que sua instância du servidor está suportando extensões avançadas. Gostaria de ver extensões disponíveis para Android?</string>
   <string name="fd_keep_in_sync">Manter arquivo atualizado</string>
   <string name="common_share">Compartilhar</string>
   <string name="common_rename">Renomear</string>

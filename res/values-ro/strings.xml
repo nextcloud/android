@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Parolă:</string>
   <string name="main_login">Nume utilizator:</string>
   <string name="main_button_login">Autentificare</string>
-  <string name="main_welcome">Bun venit în propriul tău ownCloud</string>
+  <string name="main_welcome">Bun venit</string>
   <string name="main_files">Fișiere</string>
   <string name="main_music">Muzică</string>
   <string name="main_contacts">Contacte</string>
@@ -12,7 +11,7 @@
   <string name="main_bookmarks">Semne de carte</string>
   <string name="main_settings">Setări</string>
   <string name="main_tit_accsetup">Configurează cont</string>
-  <string name="main_wrn_accsetup">Nu există conturi ownCloud pe dispozitivul tău. Pentru a folosi această aplicație, trebuie să creezi un cont.</string>
+  <string name="main_wrn_accsetup">Nu există conturi cerere pe dispozitivul tău. Pentru a folosi această aplicație, trebuie să creezi un cont.</string>
   <string name="actionbar_upload">Încarcă</string>
   <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
   <string name="actionbar_upload_files">Fișiere</string>
@@ -24,8 +23,8 @@
   <string name="prefs_select_oc_account">Selectează un cont</string>
   <string name="prefs_summary_select_oc_account">Alege contul pe care ar trebui să-l folosească aplicația.</string>
   <string name="prefs_trackmydevice">Urmărire dispozitiv</string>
-  <string name="prefs_trackmydevice_summary_off">Permite ownCloud să urmărească locația dispozitivului tău</string>
-  <string name="prefs_trackmydevice_summary_on">ownCloud urmărește acest dispozitiv</string>
+  <string name="prefs_trackmydevice_summary_off">Permite cerere să urmărească locația dispozitivului tău</string>
+  <string name="prefs_trackmydevice_summary_on">Cerere urmărește acest dispozitiv</string>
   <string name="prefs_trackmydevice_interval">Interval actualizare</string>
   <string name="prefs_trackmydevice_interval_summary">Actualizare la fiecare %1$s minute</string>
   <string name="prefs_accounts">Conturi</string>
@@ -42,11 +41,11 @@
   <string name="setup_hint_password">Parolă</string>
   <string name="setup_hint_address">Adresă web</string>
   <string name="setup_hint_show_password">Afișare parolă?</string>
-  <string name="setup_title">Conectare la ownCloud</string>
+  <string name="setup_title">Conectare la %1$s</string>
   <string name="setup_btn_connect">Conectare</string>
   <string name="uploader_btn_upload_text">Încărcare</string>
   <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
-  <string name="uploader_wrn_no_account_text">Nu există conturi ownCloud pe dispozitivul tău. Te rugăm să configurezi un cont mai întâi.</string>
+  <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi un cont mai întâi.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Anulare</string>
   <string name="uploader_info_uploading">Încărcare</string>
@@ -88,14 +87,14 @@
   <string name="sync_string_contacts">Contacte</string>
   <string name="sync_fail_ticker">Sincronizarea a eșuat</string>
   <string name="use_ssl">Folosește conexiune securizată</string>
-  <string name="location_no_provider">ownCloud nu poate urmări dispozitivul tău. Te rugăm să verifici setările pentru locație.</string>
+  <string name="location_no_provider">%1$s nu poate urmări dispozitivul tău. Te rugăm să verifici setările pentru locație.</string>
   <string name="pincode_enter_pin_code">Te rugăm să specifici PIN-ul aplicației</string>
   <string name="pincode_enter_new_pin_code">Te rugăm să specifici noul PIN pentru aplicație</string>
-  <string name="pincode_remove_your_pincode">Elimină PIN-ul aplicației ownCloud</string>
-  <string name="pincode_mismatch">Cele două PIN-uri ale aplicației ownCloud nu sunt similare</string>
-  <string name="pincode_wrong">PIN-ul aplicației ownCloud este incorect</string>
-  <string name="pincode_removed">PIN-ul aplicației ownCloud a fost eliminat</string>
-  <string name="pincode_stored">PIN-ul aplicației ownCloud a fost memorat</string>
+  <string name="pincode_remove_your_pincode">Elimină PIN-ul aplicației</string>
+  <string name="pincode_mismatch">Cele două PIN-uri ale aplicației nu sunt similare</string>
+  <string name="pincode_wrong">PIN-ul aplicației este incorect</string>
+  <string name="pincode_removed">PIN-ul aplicației a fost eliminat</string>
+  <string name="pincode_stored">PIN-ul aplicației a fost memorat</string>
   <string-array name="prefs_trackmydevice_intervall_keys">
     <item>15 minute</item>
     <item>30 minute</item>
@@ -110,10 +109,10 @@
   <string name="auth_nossl_plain_ok_title">Conexiune securizată indisponibilă</string>
   <string name="auth_connection_established">Conexiune stabilită</string>
   <string name="auth_testing_connection">Se testează conexiunea...</string>
-  <string name="auth_not_configured_title">Configurație ownCloud incorectă</string>
-  <string name="auth_not_configured_message">Se pare că instanța ta ownCloud nu este configurată corect. Contactează administratorul pentru mai multe detalii.</string>
+  <string name="auth_not_configured_title">Configurație serverului incorectă</string>
+  <string name="auth_not_configured_message">Se pare că instanța ta serverului nu este configurată corect. Contactează administratorul pentru mai multe detalii.</string>
   <string name="auth_unknown_error_title">A apărut o eroare necunoscută!</string>
-  <string name="auth_incorrect_path_title">Instanța ownCloud nu a fost găsită</string>
+  <string name="auth_incorrect_path_title">Instanța serverului nu a fost găsită</string>
   <string name="auth_ssl_general_error_title">Inițializarea SSL a eșuat</string>
   <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
   <string name="auth_secure_connection">Conexiune sigură stabilită</string>
