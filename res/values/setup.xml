@@ -6,7 +6,7 @@
     <string name="authority">org.owncloud</string>
     <string name ="db_file">owncloud.db</string>
     <string name ="db_name">ownCloud</string>
-    <string name ="data_folder"></string>
+    <string name ="data_folder">owncloud</string>
     <string name ="log_name">Owncloud_</string>
     
     <!-- Server URL -->
