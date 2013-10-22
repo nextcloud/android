@@ -199,22 +199,33 @@ public class AccountSelectActivity extends SherlockListActivity implements
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am
                 .getAccountsByType(MainApp.getAccountType());
-        LinkedList<HashMap<String, String>> ll = new LinkedList<HashMap<String, String>>();
-        for (Account a : accounts) {
-            HashMap<String, String> h = new HashMap<String, String>();
-            h.put("NAME", a.name);
-            h.put("VER",
-                    "ownCloud version: "
-                            + am.getUserData(a,
-                                    AccountAuthenticator.KEY_OC_VERSION));
-            ll.add(h);
+        if (am.getAccountsByType(MainApp.getAccountType()).length == 0) {
+            // Show create account screen if there isn't any account
+            am.addAccount(MainApp.getAccountType(), 
+                    null,
+                    null, 
+                    null, 
+                    this, 
+                    null,                        
+                    null);
         }
+        else {
+            LinkedList<HashMap<String, String>> ll = new LinkedList<HashMap<String, String>>();
+            for (Account a : accounts) {
+                HashMap<String, String> h = new HashMap<String, String>();
+                h.put("NAME", a.name);
+                h.put("VER",
+                        "ownCloud version: "
+                                + am.getUserData(a,
+                                        AccountAuthenticator.KEY_OC_VERSION));
+                ll.add(h);
+            }
 
-        setListAdapter(new AccountCheckedSimpleAdepter(this, ll,
-                android.R.layout.simple_list_item_single_choice,
-                new String[] { "NAME" }, new int[] { android.R.id.text1 }));
-        registerForContextMenu(getListView());
-        
+            setListAdapter(new AccountCheckedSimpleAdepter(this, ll,
+                    android.R.layout.simple_list_item_single_choice,
+                    new String[] { "NAME" }, new int[] { android.R.id.text1 }));
+            registerForContextMenu(getListView());
+        }
     }
 
     @Override
