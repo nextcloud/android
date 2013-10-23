@@ -537,7 +537,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
      */
     private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
-        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
+        Intent i = new Intent(FileSyncService.getSyncMessage());
         i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
         i.putExtra(FileSyncService.ACCOUNT_NAME, mAccount.name);
         if (dirRemotePath != null) {

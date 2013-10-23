@@ -57,9 +57,6 @@ public class FileObserverService extends Service {
     private static DownloadCompletedReceiverBis mDownloadReceiver;
     private IBinder mBinder = new LocalBinder();
     
-    private String mDownloadAddedMessage;
-    private String mDownloadFinishMessage;
-
     public class LocalBinder extends Binder {
         FileObserverService getService() {
             return FileObserverService.this;
@@ -71,13 +68,9 @@ public class FileObserverService extends Service {
         super.onCreate();
         mDownloadReceiver = new DownloadCompletedReceiverBis();
         
-        FileDownloader downloader = new FileDownloader();
-        mDownloadAddedMessage = downloader.getDownloadAddedMessage();
-        mDownloadFinishMessage= downloader.getDownloadFinishMessage();
-        
         IntentFilter filter = new IntentFilter();
-        filter.addAction(mDownloadAddedMessage);
-        filter.addAction(mDownloadFinishMessage);        
+        filter.addAction(FileDownloader.getDownloadAddedMessage());
+        filter.addAction(FileDownloader.getDownloadFinishMessage());        
         registerReceiver(mDownloadReceiver, filter);
         
         mObserversMap = new HashMap<String, OwnCloudFileObserver>();
@@ -267,12 +260,12 @@ public class FileObserverService extends Service {
             String downloadPath = intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH);
             OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
             if (observer != null) {
-                if (intent.getAction().equals(mDownloadFinishMessage) &&
+                if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage()) &&
                         new File(downloadPath).exists()) {  // the download could be successful. not; in both cases, the file could be down, due to a former download or upload   
                     observer.startWatching();
                     Log_OC.d(TAG, "Watching again " + downloadPath);
                 
-                } else if (intent.getAction().equals(mDownloadAddedMessage)) {
+                } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
                     observer.stopWatching();
                     Log_OC.d(TAG, "Disabling observance of " + downloadPath);
                 } 

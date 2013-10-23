@@ -81,9 +81,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     private boolean mFullScreen;
     
-    private String mDownloadAddedMessage;
-    private String mDownloadFinishMessage;
-    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +100,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             mRequestWaitingForBinder = false;
         }
         
-        FileDownloader downloader = new FileDownloader();
-        mDownloadAddedMessage = downloader.getDownloadAddedMessage();
-        mDownloadFinishMessage= downloader.getDownloadFinishMessage();
     }
 
     private void initViewPager() {
@@ -226,8 +220,8 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         //Log.e(TAG, "ACTIVITY, ONRESUME");
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         
-        IntentFilter filter = new IntentFilter(mDownloadFinishMessage);
-        filter.addAction(mDownloadAddedMessage);
+        IntentFilter filter = new IntentFilter(FileDownloader.getDownloadFinishMessage());
+        filter.addAction(FileDownloader.getDownloadAddedMessage());
         registerReceiver(mDownloadFinishReceiver, filter);
     }
 
@@ -386,7 +380,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
                 
-                if (position >= 0 && intent.getAction().equals(mDownloadFinishMessage)) {
+                if (position >= 0 && intent.getAction().equals(FileDownloader.getDownloadFinishMessage())) {
                     if (downloadWasFine) {
                         mPreviewImagePagerAdapter.updateFile(position, file);   
                         
