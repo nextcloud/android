@@ -281,21 +281,6 @@ public class Preferences extends SherlockPreferenceActivity {
         Intent intent;
 
         switch (item.getItemId()) {
-        //case R.id.addSessionItem:
-        case 1:
-            intent = new Intent(this, PreferencesNewSession.class);
-            startActivityForResult(intent, mNewSession);
-            break;
-        case R.id.SessionContextEdit:
-            intent = new Intent(this, PreferencesNewSession.class);
-            intent.putExtra("sessionId", mSessions.get(mSelectedMenuItem)
-                    .getEntryId());
-            intent.putExtra("sessionName", mSessions.get(mSelectedMenuItem)
-                    .getName());
-            intent.putExtra("sessionURL", mSessions.get(mSelectedMenuItem)
-                    .getUrl());
-            startActivityForResult(intent, mEditSession);
-            break;
         case android.R.id.home:
             intent = new Intent(getBaseContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
