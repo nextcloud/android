@@ -14,7 +14,6 @@
     
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
-    <string name="prefs_trackmydevice_interval_summary">Update every %1$s minutes</string>
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Manage Accounts</string>
     <string name="prefs_pincode">App PIN</string>
