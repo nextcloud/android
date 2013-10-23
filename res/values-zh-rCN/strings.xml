@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">密码：</string>
-  <string name="main_login">用户名：</string>
-  <string name="main_button_login">登陆</string>
-  <string name="main_welcome">欢迎来到你的</string>
-  <string name="main_files">文件</string>
-  <string name="main_music">音乐</string>
-  <string name="main_contacts">联系人</string>
-  <string name="main_calendar">日历</string>
-  <string name="main_bookmarks">书签</string>
-  <string name="main_settings">设置</string>
-  <string name="main_tit_accsetup">设置账号</string>
-  <string name="main_wrn_accsetup">设备上无  账号，要使用此 App，需要先创建一个账号。</string>
   <string name="about_version">版本：%1</string>
   <string name="actionbar_sync">刷新帐户</string>
   <string name="actionbar_upload">上传</string>
@@ -19,19 +7,10 @@
   <string name="actionbar_upload_files">文件</string>
   <string name="actionbar_open_with">打开</string>
   <string name="actionbar_mkdir">创建目录</string>
-  <string name="actionbar_search">搜索</string>
   <string name="actionbar_settings">设置</string>
   <string name="actionbar_see_details">详细信息</string>
   <string name="prefs_category_general">常规</string>
-  <string name="prefs_add_session">添加新设备</string>
-  <string name="prefs_create_img_thumbnails">创建图片缩略图</string>
-  <string name="prefs_select_oc_account">选择账号</string>
-  <string name="prefs_summary_select_oc_account">选择程序使用的账号</string>
-  <string name="prefs_trackmydevice">设备跟踪</string>
-  <string name="prefs_trackmydevice_summary_off">用 跟踪您设备的位置</string>
-  <string name="prefs_trackmydevice_summary_on">您的  将跟踪设备的位置</string>
-  <string name="prefs_trackmydevice_interval">更新间隔</string>
-  <string name="prefs_trackmydevice_interval_summary">每%1$s分钟更新一次</string>
+  <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>
   <string name="prefs_manage_accounts">管理账号</string>
   <string name="prefs_pincode">App PIN</string>
@@ -41,19 +20,14 @@
   <string name="prefs_log_title">开启日志</string>
   <string name="prefs_log_title_history">日志历史</string>
   <string name="prefs_log_delete_history_button">删除历史</string>
+  <string name="prefs_help">帮助</string>
+  <string name="prefs_feedback">反馈</string>
+  <string name="prefs_imprint">版本说明</string>
   <string name="auth_check_server">检查服务器</string>
   <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
-  <string name="new_session_uri_error">错误的网址</string>
-  <string name="new_session_session_name_error">错误的会话名</string>
   <string name="sync_string_files">文件</string>
-  <string name="uploader_no_file_selected">未选择要上传的文件</string>
-  <string name="setup_hint_username">用户名</string>
-  <string name="setup_hint_password">密码</string>
-  <string name="setup_hint_address">网络地址</string>
-  <string name="setup_hint_show_password">显示密码？</string>
-  <string name="setup_title">连接到你的 %1$s</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
   <string name="uploader_top_message">选择上传目录：</string>
@@ -65,7 +39,6 @@
   <string name="uploader_wrn_no_content_text">没有接收到内容，无可上传。</string>
   <string name="uploader_error_forbidden_content">%1$s未被允许访问共享内容。</string>
   <string name="uploader_info_uploading">上传</string>
-  <string name="uploader_btn_create_dir_text">创建上传文件夹</string>
   <string name="file_list_empty">文件夹为空\n可以使用上传按钮来增加文件</string>
   <string name="filedetails_select_file">点击一个文件来显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
@@ -73,7 +46,6 @@
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">已修改：</string>
   <string name="filedetails_download">下载</string>
-  <string name="filedetails_redownload">重新下载</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
@@ -82,7 +54,6 @@
   <string name="common_cancel_upload">取消上传</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">保存并退出</string>
-  <string name="common_exit">离开%1$s。</string>
   <string name="common_error">错误</string>
   <string name="common_loading">加载中...</string>
   <string name="common_error_unknown">未知错误</string>
@@ -96,10 +67,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">上传成功</string>
   <string name="uploader_upload_succeeded_content_single">%1$s 成功上传</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d 文件成功上传。</string>
   <string name="uploader_upload_failed_ticker">上传失败</string>
   <string name="uploader_upload_failed_content_single">1$上传未能完成</string>
-  <string name="uploader_upload_failed_content_multiple">上传失败：%1$d/%2$d文件已上传。</string>
   <string name="downloader_download_in_progress_ticker">下载中……</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">下载成功</string>
@@ -108,7 +77,6 @@
   <string name="downloader_download_failed_content">下载1$s 未能完成</string>
   <string name="downloader_not_downloaded_yet">未下载完毕</string>
   <string name="common_choose_account">选择账户</string>
-  <string name="sync_string_contacts">联系人</string>
   <string name="sync_fail_ticker">同步失败</string>
   <string name="sync_fail_content"> %1$s同步未完成。</string>
   <string name="sync_fail_content_unauthorized">密码错误%1$s</string>
@@ -125,10 +93,7 @@
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">远程:%1$s</string>
   <string name="upload_query_move_foreign_files">没有足够的空间来将选定的文件复制到%1$s文件夹. 是否使用使用移动来代替复制?</string>
-  <string name="use_ssl">使用安全链接</string>
-  <string name="location_no_provider">%1$s 不能跟踪你的设备。请检查你的位置设置。</string>
   <string name="pincode_enter_pin_code">请输入您的App PIN码</string>
-  <string name="pincode_enter_new_pin_code">请输入新的App PIN码</string>
   <string name="pincode_configure_your_pin">输入 App PIN码</string>
   <string name="pincode_configure_your_pin_explanation">每次应用启动时都会请求PIN码</string>
   <string name="pincode_reenter_your_pincode">再次输入 App PIN码</string>
@@ -147,61 +112,32 @@
   <string name="media_err_unsupported">不支持的编码格式</string>
   <string name="media_err_io">文件不可读</string>
   <string name="media_err_malformed">文件编码错误</string>
-  <string name="media_err_timeout">太多时间尝试播放</string>
   <string name="media_err_invalid_progressive_playback">文件不支持流播</string>
   <string name="media_err_unknown">当前媒体播放器不支持。</string>
   <string name="media_err_security_ex">尝试播放%1$s时保护错误</string>
   <string name="media_err_io_ex">尝试播放%1$s时输入错误</string>
   <string name="media_err_unexpected">尝试播放%1$s时未知错误</string>
-  <string name="media_previous_description">前一首按钮</string>
   <string name="media_rewind_description">后退按钮</string>
   <string name="media_play_pause_description">播放暂停按钮</string>
   <string name="media_forward_description">快进按钮</string>
-  <string name="media_next_description">下一首按钮</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Minutes</item>
-    <item>30 Minutes</item>
-    <item>60 Minutes</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">尝试登录</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
-  <string name="auth_no_net_conn_message">未检测到网络连接，检查互联网连接设置后重试。</string>
-  <string name="auth_connect_anyway">总是连接</string>
   <string name="auth_nossl_plain_ok_title">安全链接无效。</string>
-  <string name="auth_nossl_plain_ok_message">应用无法建立安全链接到服务器，但是未加密连接可用，你可以继续或取消。</string>
   <string name="auth_connection_established">连接已建立。</string>
   <string name="auth_testing_connection">测试连接……</string>
   <string name="auth_not_configured_title">服务器配置不正确。</string>
-  <string name="auth_not_configured_message">看起来服务器实例配置不正确，请联系您的管理员获取更多信息。</string>
   <string name="auth_unknown_error_title">发生未知错误！</string>
-  <string name="auth_unknown_error_message">发生未知错误，请联系作者并包括您设备上的日志。</string>
   <string name="auth_unknown_host_title">无法找到服务器</string>
-  <string name="auth_unknown_host_message">无法找到输入的服务器，请检查主机名以及服务器可用性后重试</string>
   <string name="auth_incorrect_path_title">未发现服务器实例</string>
-  <string name="auth_incorrect_path_message">应用未在指定路径发现服务器实例，请检查路径后重试。</string>
   <string name="auth_timeout_title">看起来服务器不太给力</string>
   <string name="auth_incorrect_address_title">网址不正确</string>
   <string name="auth_ssl_general_error_title">SSL初始化失败</string>
-  <string name="auth_ssl_unverified_server_title">未经证实的SSL服务器ID</string>
   <string name="auth_bad_oc_version_title">不可辨识的服务器服务器版本</string>
   <string name="auth_wrong_connection_title">无法建立连接</string>
   <string name="auth_secure_connection">加密连接已建立</string>
   <string name="auth_unauthorized">用户名或密码错误！</string>
-  <string name="auth_not_found">错误的路径</string>
-  <string name="auth_internal">内部服务器错误，代码 %1$d</string>
   <string name="auth_expired_basic_auth_toast">请输入当前密码：</string>
-  <string name="crashlog_message">应用崩溃，是否提交崩溃报告？</string>
-  <string name="crashlog_send_report">发送报告</string>
-  <string name="crashlog_dont_send_report">不发送报告</string>
-  <string name="extensions_avail_title">有效扩展！</string>
-  <string name="extensions_avail_message">你的av 支持高级扩展，要查看 Android 支持的扩展吗？</string>
   <string name="fd_keep_in_sync">保证文件更新</string>
-  <string name="common_share">共享</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
   <string name="confirmation_remove_alert">是否要删除%1$s ?</string>
@@ -221,13 +157,11 @@
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
-  <string name="ssl_validator_title">警告</string>
   <string name="ssl_validator_header">站点身份无法验证</string>
   <string name="ssl_validator_reason_cert_not_trusted">不受信任的服务器证书</string>
   <string name="ssl_validator_reason_cert_expired">服务器证书过期</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">服务器证书过新</string>
   <string name="ssl_validator_reason_hostname_not_verified">主机名与证书中的记录不匹配</string>
-  <string name="ssl_validator_certificate_not_available">无法获得服务器证书</string>
   <string name="ssl_validator_question">是否信任此证书？</string>
   <string name="ssl_validator_not_saved">证书无法保存</string>
   <string name="ssl_validator_btn_details_see">详细信息</string>
@@ -260,8 +194,6 @@
   <string name="conflict_dont_upload">不上传</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">不能显示图片</string>
-  <string name="preview_image_error_out_of_memory">没有足够内存显示图片</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s无法被复制到%2$s本地目录</string>
   <string name="actionbar_failed_instant_upload">限时上传失败</string>
   <string name="failed_upload_headline_text">限时上传失败</string>

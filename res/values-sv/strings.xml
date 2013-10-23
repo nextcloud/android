@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Lösenord:</string>
-  <string name="main_login">Användare:</string>
-  <string name="main_button_login">Logga in</string>
-  <string name="main_welcome">Välkommen</string>
-  <string name="main_files">Filer</string>
-  <string name="main_music">Musik</string>
-  <string name="main_contacts">Kontakter</string>
-  <string name="main_calendar">Kalender</string>
-  <string name="main_bookmarks">Bokmärken</string>
-  <string name="main_settings">Inställningar</string>
-  <string name="main_tit_accsetup">Skapa konto</string>
-  <string name="main_wrn_accsetup">Det finns inget konto för applikation på denna enhet. För att kunna använda applikation så måste du skapa ett konto.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Uppdatera konto</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Öppna med</string>
   <string name="actionbar_mkdir">Skapa mapp</string>
-  <string name="actionbar_search">Sök</string>
   <string name="actionbar_settings">Inställningar</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="prefs_category_general">Allmänt</string>
-  <string name="prefs_add_session">Lägg till ny session</string>
-  <string name="prefs_create_img_thumbnails">Skapa miniatyrbilder</string>
-  <string name="prefs_select_oc_account">Välj ett konto</string>
-  <string name="prefs_summary_select_oc_account">Välj det konto som du vill använda.</string>
-  <string name="prefs_trackmydevice">Spåra enhet</string>
-  <string name="prefs_trackmydevice_summary_off">Aktivera applikation att spåra din enhets plats</string>
-  <string name="prefs_trackmydevice_summary_on">applikation spårar denna enhet</string>
-  <string name="prefs_trackmydevice_interval">Uppdateringsintervall</string>
-  <string name="prefs_trackmydevice_interval_summary">Uppdatera var %1$s minut</string>
+  <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>
   <string name="prefs_manage_accounts">Hantera konton</string>
   <string name="prefs_pincode">applikation PIN</string>
@@ -44,20 +23,15 @@
   <string name="prefs_log_title_history">Logghistorik</string>
   <string name="prefs_log_summary_history">Visar sparade loggar</string>
   <string name="prefs_log_delete_history_button">Radera historik</string>
+  <string name="prefs_help">Hjälp</string>
+  <string name="prefs_feedback">Återkoppling</string>
+  <string name="prefs_imprint">Imprint</string>
   <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress</string>
   <string name="auth_username">Användarnamn</string>
   <string name="auth_password">Lösenord</string>
   <string name="auth_register">Ny på %1$s?</string>
-  <string name="new_session_uri_error">Felaktig URL angavs</string>
-  <string name="new_session_session_name_error">Felaktigt sessionsnamn</string>
   <string name="sync_string_files">Filer</string>
-  <string name="uploader_no_file_selected">Ingen fil vald för uppladdning</string>
-  <string name="setup_hint_username">Användarnamn</string>
-  <string name="setup_hint_password">Lösenord</string>
-  <string name="setup_hint_address">Webbadress</string>
-  <string name="setup_hint_show_password">Visa lösenord?</string>
-  <string name="setup_title">Anslut till %1$s</string>
   <string name="setup_btn_connect">Anslut</string>
   <string name="uploader_btn_upload_text">Ladda upp</string>
   <string name="uploader_top_message">Välj mapp för uppladdning:</string>
@@ -69,7 +43,6 @@
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
   <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
-  <string name="uploader_btn_create_dir_text">Skapa mapp för att ladda upp</string>
   <string name="file_list_empty">Det finns inga filer i denna mapp.\nNya filer kan läggas till med \"Ladda upp\" i menyn.</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
@@ -78,7 +51,6 @@
   <string name="filedetails_modified">Ändrad:</string>
   <string name="filedetails_download">Ladda ner</string>
   <string name="filedetails_sync_file">Ladda om fil</string>
-  <string name="filedetails_redownload">Ladda ner igen</string>
   <string name="filedetails_renamed_in_upload_msg">Filen bytte namn till %1$s under uppladdningen</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
@@ -87,7 +59,6 @@
   <string name="common_cancel_upload">Avbryt uppladdning</string>
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Spara &amp; Avsluta</string>
-  <string name="common_exit">Lämna %1$s</string>
   <string name="common_error">Fel</string>
   <string name="common_loading">Laddar...</string>
   <string name="common_error_unknown">Okänt fel</string>
@@ -101,10 +72,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Uppladdning klar</string>
   <string name="uploader_upload_succeeded_content_single">%1$s laddades upp</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d filer uppladdade</string>
   <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
   <string name="uploader_upload_failed_content_single">Uppladdning av %1$s kunde inte slutföras</string>
-  <string name="uploader_upload_failed_content_multiple">Misslyckad uppladdning: %1$d/%2$d filer laddades upp</string>
   <string name="downloader_download_in_progress_ticker">Laddar ner ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Laddar ner %2$s</string>
   <string name="downloader_download_succeeded_ticker">Nedladdning klar</string>
@@ -113,7 +82,6 @@
   <string name="downloader_download_failed_content">Nedladdning av %1$s kunde inte slutföras</string>
   <string name="downloader_not_downloaded_yet">Ännu inte nedladdade</string>
   <string name="common_choose_account">Välj konto</string>
-  <string name="sync_string_contacts">Kontakter</string>
   <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
   <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
@@ -130,10 +98,7 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjärr: %1$s</string>
   <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med utrymme för att kopiera valda filer till mappen %1$s. Vill du flytta filerna istället? </string>
-  <string name="use_ssl">Använd säker anslutning</string>
-  <string name="location_no_provider">%1$s  kan inte spåra denna enhet. Kontrollera dina platsinställningar</string>
   <string name="pincode_enter_pin_code">Ange din PIN</string>
-  <string name="pincode_enter_new_pin_code">Ange din nya PIN</string>
   <string name="pincode_configure_your_pin">Ange applikation PIN</string>
   <string name="pincode_configure_your_pin_explanation">Din PIN måste anges varje gång du startar programmet.</string>
   <string name="pincode_reenter_your_pincode">Ange applikation PIN igen</string>
@@ -152,65 +117,35 @@
   <string name="media_err_unsupported">Saknar stöd för denna mediatyp</string>
   <string name="media_err_io">Mediafil kunde inte skapas</string>
   <string name="media_err_malformed">Mediafilen är felaktigt kodad</string>
-  <string name="media_err_timeout">Försökt att spela för länge</string>
   <string name="media_err_invalid_progressive_playback">Meidiafilen kan inte strömmas</string>
   <string name="media_err_unknown">Mediefilen kan inte spelas med standardspelaren</string>
   <string name="media_err_security_ex">Säkerhetsproplem när vi försöker spela %1$s</string>
   <string name="media_err_io_ex">Inmatningsfel när vi försöker spela %1$s</string>
   <string name="media_err_unexpected">Oväntat fel när vi försöker spela %1$s</string>
-  <string name="media_previous_description">Tillbaka till föregående spår</string>
   <string name="media_rewind_description">Bakåtspolningsknapp</string>
   <string name="media_play_pause_description">Spela- / Pausknapp</string>
   <string name="media_forward_description">Snappspolningsknapp</string>
-  <string name="media_next_description">Nästa spår</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Minuter</item>
-    <item>30 Minuter</item>
-    <item>60 Minuter</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Försöker logga in...</string>
   <string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
-  <string name="auth_no_net_conn_message">Ingen nätverksanslutning har upptäckts, kontrollera din Internet-anslutning och försök igen.</string>
-  <string name="auth_connect_anyway">Anslut ändå</string>
   <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
-  <string name="auth_nossl_plain_ok_message">Applikationen kunde inte etablera en krypterad anslutning till servern. Okrypterad anslutning kan finnas tillgänglig. Du kan fortsätta eller avbryta.</string>
   <string name="auth_connection_established">Anslutning etablerad</string>
   <string name="auth_testing_connection">Testar anslutning...</string>
   <string name="auth_not_configured_title">Felaktig konfiguration</string>
-  <string name="auth_not_configured_message">Det verkar som om din version av server inte är korrekt konfigurerad. Kontakta din administratör för mer information.</string>
   <string name="auth_unknown_error_title">Okänt fel inträffade!</string>
-  <string name="auth_unknown_error_message">Ett okänt fel uppstod. Vänligen kontakta behörig och inkludera loggar från enheten.</string>
   <string name="auth_unknown_host_title">Kunde inte hitta server</string>
-  <string name="auth_unknown_host_message">Kunde inte hitta angiven server. Kontrollera serverns tillgänglighet och försök igen.</string>
   <string name="auth_incorrect_path_title">Ingen version av server kan hittas</string>
-  <string name="auth_incorrect_path_message">Applikationen kunde inte hitta någon version av server i angiven sökväg. Kontrollera sökvägen och försök igen.</string>
   <string name="auth_timeout_title">Servern svarar inte</string>
   <string name="auth_incorrect_address_title">Felaktig URL</string>
   <string name="auth_ssl_general_error_title">Misslyckad initiering av SSL</string>
-  <string name="auth_ssl_unverified_server_title">Obekräftad SSL-identitet</string>
   <string name="auth_bad_oc_version_title">Okänd server serverversion</string>
   <string name="auth_wrong_connection_title">Kunde inte etablera anslutning</string>
   <string name="auth_secure_connection">Säker anslutning etablerad</string>
   <string name="auth_unauthorized">Felaktigt användarnamn eller lösenord</string>
   <string name="auth_oauth_error">Behörighet saknas</string>
   <string name="auth_oauth_error_access_denied">Nekad åtkomst av server</string>
-  <string name="auth_not_found">Felaktig  sökväg angiven</string>
-  <string name="auth_internal">Internt serverfel, kod %1$d</string>
   <string name="auth_wtf_reenter_URL">Oväntat tillstånd; Ange serverns URL igen</string>
-  <string name="auth_expired_oauth_token_toast">Din inloggning har gått ut.\nVar god, logga in igen</string>
   <string name="auth_expired_basic_auth_toast">Vänligen ange det aktuella lösenordet</string>
-  <string name="crashlog_message">Applikationen avslutades oväntat. Vill du skicka en felrapport?</string>
-  <string name="crashlog_send_report">Skicka rapport</string>
-  <string name="crashlog_dont_send_report">Skicka inte rapport</string>
-  <string name="extensions_avail_title">Tillägg finns tillgängliga!</string>
-  <string name="extensions_avail_message">Det verkar som att din version av server stödjer avancerade tillägg. Vill du se tilläggen tillgängliga för Android?</string>
   <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
-  <string name="common_share">Dela</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen radera: %1$s ?</string>
@@ -230,18 +165,12 @@
   <string name="wait_a_moment">Var god vänta</string>
   <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
   <string name="filedisplay_no_file_selected">Ingen fil vald</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Logga in med oAuth2.</string>
   <string name="oauth_login_connection">Ansluter till oAuth2 servern…</string>
-  <string name="oauth_code_validation_message">Öppna en webbläsare och gå till:\n%1$s.\nAnge denna kod för validering:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Anslutning till denna URL är inte tillgänglig.</string>
-  <string name="ssl_validator_title">Varning</string>
   <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>
   <string name="ssl_validator_reason_cert_expired">- Servercertifikatet har gått ut</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Servercertifikatet är för nytt</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Webbadressen matchar inte värdnamnet i certifikatet</string>
-  <string name="ssl_validator_certificate_not_available">Servercertifikatet kunde inte hämtas</string>
   <string name="ssl_validator_question">Vill du lita på detta certifikat ändå?</string>
   <string name="ssl_validator_not_saved">Certifikatet kunde inte sparas</string>
   <string name="ssl_validator_btn_details_see">Detaljer</string>
@@ -274,8 +203,6 @@
   <string name="conflict_dont_upload">Ladda inte upp</string>
   <string name="preview_image_description">Förhandsvisa bild</string>
   <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
-  <string name="preview_image_error_out_of_memory">\"Inte tillräckligt med minne för att visa bilden</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
   <string name="actionbar_failed_instant_upload">Fel vid direktuppladdning\"</string>
   <string name="failed_upload_headline_text">Misslyckades vid direktuppladdning</string>

@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Parola:</string>
-  <string name="main_login">Kullanıcı Adı:</string>
-  <string name="main_button_login">Giriş</string>
-  <string name="main_welcome">karşılama</string>
-  <string name="main_files">Dosyalar</string>
-  <string name="main_music">Müzik</string>
-  <string name="main_contacts">Kişi Rehberi</string>
-  <string name="main_calendar">Takvim</string>
-  <string name="main_bookmarks">Yer İmleri</string>
-  <string name="main_settings">Ayarlar</string>
-  <string name="main_tit_accsetup">Kurulum Hesabi</string>
-  <string name="main_wrn_accsetup">Cihazınızda App hesabı bulunmamaktadır. Bu uygulamayı kullanabilmeniz için App hesabı oluşturmalısınız.</string>
   <string name="about_android">%1$s Android Uygulaması</string>
   <string name="about_version">sürüm %1$s</string>
   <string name="actionbar_sync">Hesabı yenile</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_open_with">ile aç</string>
   <string name="actionbar_mkdir">Klasör yarat</string>
-  <string name="actionbar_search">Arama</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
   <string name="prefs_category_general">Genel</string>
-  <string name="prefs_add_session">Yeni oturum ekle</string>
-  <string name="prefs_create_img_thumbnails">Küçük resim oluştur</string>
-  <string name="prefs_select_oc_account">Oturum seç</string>
-  <string name="prefs_summary_select_oc_account">Uygulamanın hangi hesaplarınızı kullanması gerektiğini  seçiniz.</string>
-  <string name="prefs_trackmydevice">Cihaz takibi</string>
-  <string name="prefs_trackmydevice_summary_off">Cihazınınızın konumunu takip etmesi için App\'u aktif edin</string>
-  <string name="prefs_trackmydevice_summary_on">App\'unuz bu cihazı takip etmektedir</string>
-  <string name="prefs_trackmydevice_interval">Güncelleme aralığı</string>
-  <string name="prefs_trackmydevice_interval_summary">Her %1$s dakikada güncelle</string>
+  <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>
   <string name="prefs_manage_accounts">Hesapları yönet</string>
   <string name="prefs_pincode">App PIN</string>
@@ -44,20 +23,14 @@
   <string name="prefs_log_title_history">Günlük geçmişi</string>
   <string name="prefs_log_summary_history">Bu, kayıtlı günlük dosyalarını görüntüler</string>
   <string name="prefs_log_delete_history_button">Geçmişi Sil</string>
+  <string name="prefs_help">Yardım</string>
+  <string name="prefs_imprint">İzlenim</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
   <string name="auth_register">%1$s senin için yeni mi?</string>
-  <string name="new_session_uri_error">Geçersiz URL girildi</string>
-  <string name="new_session_session_name_error">Yanlış oturum ismi</string>
   <string name="sync_string_files">Dosyalar</string>
-  <string name="uploader_no_file_selected">Yüklemek için dosya seçilmedi</string>
-  <string name="setup_hint_username">Kullanıcı Adi:</string>
-  <string name="setup_hint_password">Şifre:</string>
-  <string name="setup_hint_address">Web adres</string>
-  <string name="setup_hint_show_password">Şifre göster?</string>
-  <string name="setup_title">%1$s\'nıza bağlanin</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
   <string name="uploader_top_message">Yükleme dizinini seçiniz:</string>
@@ -69,7 +42,6 @@
   <string name="uploader_wrn_no_content_text">Yüklenecek içerik yok. Yüklenecek dosya yok.</string>
   <string name="uploader_error_forbidden_content">%1$s, paylaşılan içeriğe erişim izni vermiyor</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
-  <string name="uploader_btn_create_dir_text">Yükleme için dizin oluştur</string>
   <string name="file_list_empty">Klasörde dosya yok. Yeni dosyalar yükle\'ye tıklayarak eklenebilir.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya tıklayınız.</string>
   <string name="filedetails_size">Boyut:</string>
@@ -78,7 +50,6 @@
   <string name="filedetails_modified">Değiştirme:</string>
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Dosyayı yenile</string>
-  <string name="filedetails_redownload">Tekrar indir</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
@@ -87,7 +58,6 @@
   <string name="common_cancel_upload">Yüklemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
   <string name="common_save_exit">Kaydet %amp; Kapat</string>
-  <string name="common_exit">Çıkış</string>
   <string name="common_error">Hata</string>
   <string name="common_loading">Yükleniyor...</string>
   <string name="common_error_unknown">Bilinmeyen hata</string>
@@ -101,10 +71,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Yükleniyor %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Yükleme başarılı</string>
   <string name="uploader_upload_succeeded_content_single">%1$s kadarı başarıyla yüklendi.</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d dosya başarılı bir şekilde yüklendi</string>
   <string name="uploader_upload_failed_ticker">Yükleme başarısız</string>
   <string name="uploader_upload_failed_content_single">%1$s yüklenmedi tamamlanamadı</string>
-  <string name="uploader_upload_failed_content_multiple">Yükleme başarısız : %1$d/%2$d dosya yüklendi</string>
   <string name="downloader_download_in_progress_ticker">İndiriyor ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% İndiriliyor %2$s</string>
   <string name="downloader_download_succeeded_ticker">İndirme başarılı</string>
@@ -113,7 +81,6 @@
   <string name="downloader_download_failed_content">%1$s indirilmesi tamamlanamadı</string>
   <string name="downloader_not_downloaded_yet">Henüz indirilemedi</string>
   <string name="common_choose_account">Hesap seçiniz</string>
-  <string name="sync_string_contacts">Kontaklar</string>
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
   <string name="sync_fail_content">%1$s Senkronizasyonu tamamlanamadı</string>
   <string name="sync_fail_content_unauthorized">%1$s için geçersiz parola</string>
@@ -130,10 +97,7 @@
   <string name="foreign_files_local_text">Yerel: %1$s</string>
   <string name="foreign_files_remote_text">Uzak: %1$s</string>
   <string name="upload_query_move_foreign_files">Seçilen dosyaları %1$s dizinine kopyalamak için yeterli alan yok. Bunun yerine dosyayı taşımak ister misiniz?</string>
-  <string name="use_ssl">Güvenli bağlanti kullan</string>
-  <string name="location_no_provider">%1$s cihazınızı takip edemiyor. Lütfen konum ayarlarınızı kontrol ediniz</string>
   <string name="pincode_enter_pin_code">Lütfen uygulama PIN\'ınızı giriniz</string>
-  <string name="pincode_enter_new_pin_code">Lütfen yeni uygulama PIN\'ınızı giriniz</string>
   <string name="pincode_configure_your_pin">App PIN giriniz</string>
   <string name="pincode_configure_your_pin_explanation">PIN uygulama yeniden başladığında tekrar sorulacak</string>
   <string name="pincode_reenter_your_pincode">Lütfen, App PIN ni tekrar giriniz</string>
@@ -152,65 +116,35 @@
   <string name="media_err_unsupported">Codec desteklenmiyor</string>
   <string name="media_err_io">Medya öğesi okunamadı</string>
   <string name="media_err_malformed">Medya öğesi doğru bir şekilde kodlanmadı</string>
-  <string name="media_err_timeout">Oynatmak için fazla deneme yapıldı</string>
   <string name="media_err_invalid_progressive_playback">Medya öğesi aktarılamadı</string>
   <string name="media_err_unknown">Ortam dosyası mevcut ortam oynatıcı ile çalınamaz</string>
   <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken güvenlik hatası oluştu</string>
   <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken girdi hatası oluştu</string>
   <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir hata oluştu</string>
-  <string name="media_previous_description">Önceki iz butonu</string>
   <string name="media_rewind_description">Başa sar butonu</string>
   <string name="media_play_pause_description">Oynat veya duraklat butonu</string>
   <string name="media_forward_description">Hızlı ileri butonu</string>
-  <string name="media_next_description">Sonraki parça butonu</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Dakika</item>
-    <item>30 Dakika</item>
-    <item>60 Dakika</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Giriş için deneniyor</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
-  <string name="auth_no_net_conn_message">Ağ bağlantısı bulunamadı. İnternet bağlantı ayarlarınızı kontrol edin ve tekrar deneyin.</string>
-  <string name="auth_connect_anyway">Her halükarda bağlan</string>
   <string name="auth_nossl_plain_ok_title">Günvenli bağlantı mevcut değil.</string>
-  <string name="auth_nossl_plain_ok_message">Uygulama sunucu ile güvenli bağlantı kuramadı. Buna rağmen güvensiz bağlantı mevcut. Devam edebilirsiniz veya iptal edebilirsiniz.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
   <string name="auth_testing_connection">Bağlantı kontrol ediliyor ...</string>
   <string name="auth_not_configured_title">Hatalı sunucu ayarı.</string>
-  <string name="auth_not_configured_message">Görünüşe bakılırsa sunucu servisiniz doğru ayarlanmamış. Detaylı bilgi için sistem yöneticinize başvurunuz.</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>
-  <string name="auth_unknown_error_message">Bilinmeyen hata oluştu. Lütfen cihazınızdaki hata kayıtlarını ekleyerek programı yazan kişiyle irtibata geçiniz.</string>
   <string name="auth_unknown_host_title">Anabilgisayar bulunamadı</string>
-  <string name="auth_unknown_host_message">Girilen anabilgisayar bulunamadı. Anabilgisayaradı ve sunucu kullanılabilirliğini kontrol edin ve yeniden deneyin.</string>
   <string name="auth_incorrect_path_title">sunucu servisi bulunamadı.</string>
-  <string name="auth_incorrect_path_message">Uygulama verilen dizin yolunda sunucu bulamadı. Lütfen dizin yolunu kontrol edin ve tekrar deneyin.</string>
   <string name="auth_timeout_title">Sunucu çok geç cevap veriyor</string>
   <string name="auth_incorrect_address_title">Hatalı biçimlendirilmiş URL</string>
   <string name="auth_ssl_general_error_title">SSL başlatılmasında hata</string>
-  <string name="auth_ssl_unverified_server_title">Doğrulanmamış SSL sunucu kimliğini</string>
   <string name="auth_bad_oc_version_title">Bilinmeyen sunucu sürümü</string>
   <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
   <string name="auth_secure_connection">Güvenli bağlantı sağlandı.</string>
   <string name="auth_unauthorized">Hatalı kullanıcı adı veya parola</string>
   <string name="auth_oauth_error">Kimlik doğrulama başarısız oldu</string>
   <string name="auth_oauth_error_access_denied">Erişim, kimlik doğrulama sunucusu tarafından reddedildi</string>
-  <string name="auth_not_found">Hatalı dosya yolu</string>
-  <string name="auth_internal">İç sunucu hatası, kod %1$d</string>
   <string name="auth_wtf_reenter_URL">Beklenmedik durum. Lütfen, sunucu URL\'sini yeniden girin</string>
-  <string name="auth_expired_oauth_token_toast">Kimlik doğrulamanızın süresi doldu.\nLütfen tekrar kimlik doğrulayın</string>
   <string name="auth_expired_basic_auth_toast">Lütfen mevcut parolanızı girin</string>
-  <string name="crashlog_message">Uygulama umulmadık bir şekilde sonlandı. Hata raporunu göndermek ister misiniz ?</string>
-  <string name="crashlog_send_report">Rapor gönder</string>
-  <string name="crashlog_dont_send_report">Rapor gönderme</string>
-  <string name="extensions_avail_title">Eklentiler mevcut!</string>
-  <string name="extensions_avail_message">Görünen o ki sunucu servisiniz gelişmiş eklentileri desteklemektedir. Android için mevcut olan eklentileri görmek ister misiniz ?</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut </string>
-  <string name="common_share">Paylaş</string>
   <string name="common_rename">İsim değiştir.</string>
   <string name="common_remove">Kaldır</string>
   <string name="confirmation_remove_alert"> %1$s ları gerçekten kaldırmak istiyor musunuz ?</string>
@@ -230,18 +164,12 @@
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
-  <string name="oauth_host_url">oAuth2 URL\'si</string>
-  <string name="oauth_check_onoff">oAuth2 ile oturum aç.</string>
   <string name="oauth_login_connection">oAuth2 sunucusuna bağlanılıyor…</string>
-  <string name="oauth_code_validation_message">Lütfen bir web tarayıcısı açın ve şu adrese gidin:\n%1$s.\nŞu kodu açılan sayfada doğrulayın:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Bu URL\'ye bağlantı yok.</string>
-  <string name="ssl_validator_title">Uyarı</string>
   <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikası güvenilmez</string>
   <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi geçmiş</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">Sunucu sertifikasının geçerli olacağı tarih</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL adresi sunucu isminin sertifikası ile uyuşmuyor</string>
-  <string name="ssl_validator_certificate_not_available">Sunucu sertifikası elde edilemedi</string>
   <string name="ssl_validator_question">Sertifikaya yine de güvenmek istiyor musunuz?</string>
   <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
   <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
@@ -274,8 +202,6 @@
   <string name="conflict_dont_upload">Yükleme</string>
   <string name="preview_image_description">Görüntü önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemez</string>
-  <string name="preview_image_error_out_of_memory">\"Bu resmi göstermek için yeterli hafıza yok</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel dizine kopyalanamadı</string>
   <string name="actionbar_failed_instant_upload">AnındaYükleme\" başarısız</string>
   <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>

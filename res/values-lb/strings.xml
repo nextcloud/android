@@ -1,34 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Passwuert:</string>
-  <string name="main_login">Benotzernumm:</string>
-  <string name="main_button_login">Login</string>
-  <string name="main_files">Dateien</string>
-  <string name="main_music">Musek</string>
-  <string name="main_contacts">Kontakter</string>
-  <string name="main_calendar">Kalenner</string>
-  <string name="main_bookmarks">Bookmarks</string>
-  <string name="main_settings">Astellungen</string>
-  <string name="main_tit_accsetup">Account erstellen</string>
   <string name="actionbar_upload">Eroplueden</string>
   <string name="actionbar_upload_files">Dateien</string>
   <string name="actionbar_mkdir">Dossier erstellen</string>
-  <string name="actionbar_search">Sichen</string>
   <string name="actionbar_settings">Astellungen</string>
   <string name="prefs_category_general">Allgemeng</string>
-  <string name="prefs_add_session">Nei Sessioun bäisetzen</string>
-  <string name="prefs_create_img_thumbnails">Thumbnails Biller erstellen</string>
-  <string name="prefs_select_oc_account">Account auswielen</string>
-  <string name="prefs_trackmydevice_interval_summary">All 1 Minute updaten</string>
+  <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Accounten</string>
+  <string name="prefs_help">Hëllef</string>
   <string name="auth_username">Benotzernumm</string>
   <string name="auth_password">Passwuert</string>
   <string name="sync_string_files">Dateien</string>
-  <string name="uploader_no_file_selected">Et ass kee Fichier ausgewielt ginn</string>
-  <string name="setup_hint_username">Benotzernumm</string>
-  <string name="setup_hint_password">Passwuert</string>
-  <string name="setup_hint_address">Link</string>
-  <string name="setup_hint_show_password">Passwuert uweisen?</string>
   <string name="setup_btn_connect">Verbannen</string>
   <string name="uploader_btn_upload_text">Eroplueden</string>
   <string name="uploader_wrn_no_account_title">Keen Account fonnt</string>
@@ -47,9 +29,5 @@
   <string name="common_cancel">Ofbriechen</string>
   <string name="common_error">Fehler</string>
   <string name="change_password">Passwuert änneren</string>
-  <string name="sync_string_contacts">Kontakter</string>
-  <string name="common_share">Deelen</string>
   <string name="common_remove">Läschen</string>
-  <string name="ssl_validator_title">Warnung</string>
-  <!--we need to improve the communication of errors to the user-->
 </resources>

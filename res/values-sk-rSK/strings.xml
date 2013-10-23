@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Heslo:</string>
-  <string name="main_login">Meno:</string>
-  <string name="main_button_login">Prihlásenie</string>
-  <string name="main_welcome">Vitajte</string>
-  <string name="main_files">Súbory</string>
-  <string name="main_music">Hudba</string>
-  <string name="main_contacts">Kontakty</string>
-  <string name="main_calendar">Kalendár</string>
-  <string name="main_bookmarks">Záložky</string>
-  <string name="main_settings">Nastavenia</string>
-  <string name="main_tit_accsetup">Nastavenie účtu</string>
-  <string name="main_wrn_accsetup">Vo vašom zariadení nie sú žiadne účty. Vytvorte si účet ak chcete používať túto aplikáciu.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">verzia %1$s</string>
   <string name="actionbar_sync">Obnoviť účet</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">Súbory</string>
   <string name="actionbar_open_with">Otvoriť v</string>
   <string name="actionbar_mkdir">Vytvor priečinok</string>
-  <string name="actionbar_search">Hľadaj</string>
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="prefs_category_general">Všeobecné</string>
-  <string name="prefs_add_session">Vytvoriť nové sedenie</string>
-  <string name="prefs_create_img_thumbnails">Vytvor náhľad obrázku</string>
-  <string name="prefs_select_oc_account">Vyber účet</string>
-  <string name="prefs_summary_select_oc_account">Vyberte účet pre túto aplikáciu.</string>
-  <string name="prefs_trackmydevice">Sledovanie zariadenia</string>
-  <string name="prefs_trackmydevice_summary_off">Povoliť sledovanie polohy zariadenia</string>
-  <string name="prefs_trackmydevice_summary_on">Váš aplikácie sleduje vašu polohu na tomto zariadení</string>
-  <string name="prefs_trackmydevice_interval">Interval aktualizácie</string>
-  <string name="prefs_trackmydevice_interval_summary">Aktualizácia každých %1$s minút</string>
+  <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
   <string name="prefs_manage_accounts">Správa účtov</string>
   <string name="prefs_pincode">PIN aplikácie</string>
@@ -44,20 +23,15 @@
   <string name="prefs_log_title_history">História logovania</string>
   <string name="prefs_log_summary_history">Toto zobrazuje zaznamenané logy</string>
   <string name="prefs_log_delete_history_button">Zmazať históriu</string>
+  <string name="prefs_help">Pomoc</string>
+  <string name="prefs_feedback">Spätná väzba</string>
+  <string name="prefs_imprint">Podmienky používania</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera</string>
   <string name="auth_username">Používateľské meno</string>
   <string name="auth_password">Heslo</string>
   <string name="auth_register">Ste nový v %1$s?</string>
-  <string name="new_session_uri_error">Zadaná nesprávna URL</string>
-  <string name="new_session_session_name_error">Nesprávny názov sedenia</string>
   <string name="sync_string_files">Súbory</string>
-  <string name="uploader_no_file_selected">Nebol označený žiadny súbor pre odoslanie</string>
-  <string name="setup_hint_username">Meno používateľa</string>
-  <string name="setup_hint_password">Heslo</string>
-  <string name="setup_hint_address">Web adresa</string>
-  <string name="setup_hint_show_password">Zobraziť heslo?</string>
-  <string name="setup_title">Pripojiť k %1$s</string>
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
   <string name="uploader_top_message">Vyberte priečinok pre nahrané súbory:</string>
@@ -69,7 +43,6 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
-  <string name="uploader_btn_create_dir_text">Vytvoriť priečinok pre nahrávanie</string>
   <string name="file_list_empty">Priečinok neobsahuje súbory.\nNové súbory môžete pridať cez \"Upload\".</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
@@ -78,7 +51,6 @@
   <string name="filedetails_modified">Zmenený:</string>
   <string name="filedetails_download">Stiahnuť</string>
   <string name="filedetails_sync_file">Obnoviť súbor</string>
-  <string name="filedetails_redownload">Obnoviť</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
@@ -87,7 +59,6 @@
   <string name="common_cancel_upload">Zrušiť odosielanie</string>
   <string name="common_cancel">Zrušiť</string>
   <string name="common_save_exit">Uložiť a ukončiť</string>
-  <string name="common_exit">Opustiť %1$s</string>
   <string name="common_error">Chyba</string>
   <string name="common_loading">Načítavam...</string>
   <string name="common_error_unknown">Neznáma chyba</string>
@@ -101,10 +72,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Odoslanie bolo úspešné</string>
   <string name="uploader_upload_succeeded_content_single">%1$s úspešne odoslaný</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d súborov bolo úspešne odoslaných</string>
   <string name="uploader_upload_failed_ticker">Odoslanie bolo neúspešné</string>
   <string name="uploader_upload_failed_content_single">Odoslanie %1$s nemohlo byť dokončené</string>
-  <string name="uploader_upload_failed_content_multiple">Nahrávanie zlyhalo: %1$d/%2$d súborov bolo odoslaných</string>
   <string name="downloader_download_in_progress_ticker">Sťahujem ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Sťahovanie %2$s</string>
   <string name="downloader_download_succeeded_ticker">Sťahovanie bolo úspešné</string>
@@ -113,7 +82,6 @@
   <string name="downloader_download_failed_content">Sťahovanie %1$s nebolo dokončené</string>
   <string name="downloader_not_downloaded_yet">Ešte nie je stiahnuté</string>
   <string name="common_choose_account">Zvoliť účet</string>
-  <string name="sync_string_contacts">Kontakty</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
   <string name="sync_fail_content">Synchronizáciu %1$s nemožno dokončiť</string>
   <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
@@ -130,10 +98,7 @@
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
   <string name="upload_query_move_foreign_files">Nie je dostatok miesta na kopírovanie vybraných súborov do priečinka %1$s. Želáte si miesto kopírovania zmeniť?</string>
-  <string name="use_ssl">Použiť zabezpečené pripojenie</string>
-  <string name="location_no_provider">%1$s nemôže sledovať polohu vášho zariadenia. Skontrolujte nastavenia umiestnenia.</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
-  <string name="pincode_enter_new_pin_code">Zadajte nový PIN aplikácie</string>
   <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
   <string name="pincode_reenter_your_pincode">Zadajte znovu PIN aplikácie</string>
@@ -152,65 +117,35 @@
   <string name="media_err_unsupported">Nepodporovaný kodek</string>
   <string name="media_err_io">Mediálny súbor nemožno čítať</string>
   <string name="media_err_malformed">Mediálny súbor nemá správne kódovanie</string>
-  <string name="media_err_timeout">Pokus o prehrávanie opakovaný príliš mnohokrát</string>
   <string name="media_err_invalid_progressive_playback">Mediálny súbor nemožno streamovať</string>
   <string name="media_err_unknown">Mediálny súbor nemožno prehrať s východzím prehrávačom</string>
   <string name="media_err_security_ex">Chyba zabezpečenia pri pokuse o prehranie %1$s</string>
   <string name="media_err_io_ex">Chyba vstupu pri prehrávaní %1$s</string>
   <string name="media_err_unexpected">Nečakaná chyba pri prehrávaní %1$s</string>
-  <string name="media_previous_description">Tlačidlo predchádzajúcej skladby</string>
   <string name="media_rewind_description">Tlačidlo pretáčania</string>
   <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
   <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
-  <string name="media_next_description">Tlačidlo nasledujúcej skladby</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minút</item>
-    <item>30 minút</item>
-    <item>60 minút</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Pokus o pripojenie...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
-  <string name="auth_no_net_conn_message">Skontrolujte pripojenie k sieti a opakujte pripojenie znovu.</string>
-  <string name="auth_connect_anyway">Aj tak pripojiť</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
-  <string name="auth_nossl_plain_ok_message">Aplikácia nemôže nadviazať zabezpečené spojenie so serverom. Nezabezpečené pripojenie je k dispozícii. Môžete pokračovať alebo prerušiť spojenie.</string>
   <string name="auth_connection_established">Pripojenie vytvorené</string>
   <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
-  <string name="auth_not_configured_message">Nastavenie servera nie je správne. Kontaktujte administrátora pre získanie viac informácií.</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
-  <string name="auth_unknown_error_message">Nastala neznáma chyba. Kontaktujte podporu a pripojte záznam z Vášho zariadenia.</string>
   <string name="auth_unknown_host_title">Nemožno nájsť hosta</string>
-  <string name="auth_unknown_host_message">Nemôžm sa pripojiť k serveru. Skontrolujte nastavenia servera, či beží a skúste to znovu.</string>
   <string name="auth_incorrect_path_title">Servera inštancia nebola nájdená</string>
-  <string name="auth_incorrect_path_message">Aplikácia na zadanej adrese nenašla inštanciu servera. Skontrolujte cestu a skúste to znovu.</string>
   <string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
   <string name="auth_incorrect_address_title">Poškodená URL</string>
   <string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
-  <string name="auth_ssl_unverified_server_title">Neoverená SSL identita servera</string>
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
   <string name="auth_unauthorized">Neprávne používateľské meno alebo heslo</string>
   <string name="auth_oauth_error">Neúspešná autorizácia</string>
   <string name="auth_oauth_error_access_denied">Prístup odmietnutý autorizačným serverom</string>
-  <string name="auth_not_found">Je zadaná neplatná cesta</string>
-  <string name="auth_internal">Interná chyba servera, kód %1$d</string>
   <string name="auth_wtf_reenter_URL">Nečakaný stav; prosím, opätovne vložte URL adresu servera</string>
-  <string name="auth_expired_oauth_token_toast">Vaša autorizácia expirovala.\nProsím, autorizujte znova.</string>
   <string name="auth_expired_basic_auth_toast">Prosím, zadajte aktuálne heslo</string>
-  <string name="crashlog_message">Aplikácia neočakávane ukončila činnosť. Chcete poslať správu o chybe?</string>
-  <string name="crashlog_send_report">Poslať výpis</string>
-  <string name="crashlog_dont_send_report">Neposlať výpis</string>
-  <string name="extensions_avail_title">Sú dostupné rozšírenia.</string>
-  <string name="extensions_avail_message">Vaša inštancia servera podporuje rozšírené nastavenia. Chcete zobraziť rozšírené nastavenia dosupné pre android?</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
-  <string name="common_share">Zdieľaj</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
   <string name="confirmation_remove_alert">Naozaj odstrániť %1$s ?</string>
@@ -230,18 +165,12 @@
   <string name="wait_a_moment">Počkať chvíľu</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
   <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Prihlásiť prostredníctvom oAuth2.</string>
   <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
-  <string name="oauth_code_validation_message">Prosím, otvorte prehliadač a choďte na:\n%1$s.\nOverte tento kód tu:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Spojenie z danou URL adresou neúspešné.</string>
-  <string name="ssl_validator_title">Upozornenie</string>
   <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
   <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Certifikát servera je príliš mladý</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL nezodpovedá hodnote hostname certifikátu</string>
-  <string name="ssl_validator_certificate_not_available">Nie je možné získať certifikát servera</string>
   <string name="ssl_validator_question">Chcete veriť tomuto certifikátu v každom prípade ?</string>
   <string name="ssl_validator_not_saved">Certifikát nemôže byť uložený</string>
   <string name="ssl_validator_btn_details_see">Podrobnosti</string>
@@ -274,8 +203,6 @@
   <string name="conflict_dont_upload">Nenahrávajte</string>
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obraz nemôže byť zobrazený</string>
-  <string name="preview_image_error_out_of_memory">\"Nedostatok pamäte pre zobrazenie obrazu</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
   <string name="actionbar_failed_instant_upload">Zlyhaný InstantnýUpload\"</string>
   <string name="failed_upload_headline_text">Zlyhané instantné nahratia</string>

@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">رمز عبور:</string>
-  <string name="main_login">نام کاربری:</string>
-  <string name="main_button_login">ورود</string>
-  <string name="main_welcome">خوش آمد</string>
-  <string name="main_files">پرونده‌ها</string>
-  <string name="main_music">موزیک</string>
-  <string name="main_contacts">ارتباط‌ها</string>
-  <string name="main_calendar">تقویم</string>
-  <string name="main_bookmarks">نشانک‌ها</string>
-  <string name="main_settings">تنظیمات</string>
-  <string name="main_tit_accsetup">نصب حساب کاربری</string>
-  <string name="main_wrn_accsetup">حساب کاربری  در دستگاه شما وجود ندارد. برای استفاده از این برنامه می‌بایست یکی ایجاد کنید.</string>
   <string name="about_android">%1$s برنامه اندروید</string>
   <string name="about_version">%1$s نسخه</string>
   <string name="actionbar_sync">بازنمایی حساب کاربری</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">پرونده‌ها</string>
   <string name="actionbar_open_with">باز کردن با</string>
   <string name="actionbar_mkdir">ایجاد پوشه</string>
-  <string name="actionbar_search">جست‌و‌جو</string>
   <string name="actionbar_settings">تنظیمات</string>
   <string name="actionbar_see_details">جزئیات</string>
   <string name="prefs_category_general">عمومی</string>
-  <string name="prefs_add_session">ایجاد جلسه جدید</string>
-  <string name="prefs_create_img_thumbnails">ایجاد پیش نمایش تصاویر</string>
-  <string name="prefs_select_oc_account">انتخاب یک حساب</string>
-  <string name="prefs_summary_select_oc_account">یکی از حسابهایتان را برای استفاده ی برنامه انتخاب کنید.</string>
-  <string name="prefs_trackmydevice">ردیابی دستگاه</string>
-  <string name="prefs_trackmydevice_summary_off">برنامه را فعال کنید تا محل دستگاه شما پیگیری شود</string>
-  <string name="prefs_trackmydevice_summary_on">این برنامه در حال پیگیری این وسیله است.</string>
-  <string name="prefs_trackmydevice_interval">به روز رسانی بازه</string>
-  <string name="prefs_trackmydevice_interval_summary">بروز رسانی هر %1$s دقیقه یکبار</string>
+  <string name="prefs_category_more">بیش‌تر</string>
   <string name="prefs_accounts">حساب‌ها</string>
   <string name="prefs_manage_accounts">مدیریت حسابها</string>
   <string name="prefs_pincode">PIN برنامه</string>
@@ -44,18 +23,13 @@
   <string name="prefs_log_title_history">تاریخچه ورود</string>
   <string name="prefs_log_summary_history">این وقایع  ثبت شده را نمایش می دهد.</string>
   <string name="prefs_log_delete_history_button">حذف تاریخچه</string>
+  <string name="prefs_help">راه‌نما</string>
+  <string name="prefs_feedback">باز خورد</string>
+  <string name="prefs_imprint">مهر زدن</string>
   <string name="auth_host_url">آدرس سرور</string>
   <string name="auth_username">نام کاربری</string>
   <string name="auth_password">رمز عبور</string>
-  <string name="new_session_uri_error">نشانی داده شده صحیح نیست</string>
-  <string name="new_session_session_name_error">نام بخش صحیح نیست.</string>
   <string name="sync_string_files">پرونده‌ها</string>
-  <string name="uploader_no_file_selected">هیچ فایلی برای آپلود انتخاب نشده است</string>
-  <string name="setup_hint_username">نام کاربری</string>
-  <string name="setup_hint_password">رمز عبور</string>
-  <string name="setup_hint_address">آدرس وب</string>
-  <string name="setup_hint_show_password">نمایش رمز عبور؟</string>
-  <string name="setup_title">متصل شوید به %1$s خودتان</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">بارگزاری</string>
   <string name="uploader_top_message">انتخاب مسیر برای آپلود:</string>
@@ -67,7 +41,6 @@
   <string name="uploader_wrn_no_content_text">هیچ مطلبی دریافت نشده است. هیچ‌‌چیزی بارگزاری نشده.</string>
   <string name="uploader_error_forbidden_content">%1$s اجازه ی دسترسی به محتوای مشترک را نمی دهد</string>
   <string name="uploader_info_uploading">در حال بارگزاری</string>
-  <string name="uploader_btn_create_dir_text">ایجاد دایرکتوری برای بارگذاری</string>
   <string name="file_list_empty">هیچ فایل در این پوشه نیست.\nفایل های جدید می توانند بوسیله ی گزینه ی \"بارگزاری\" در لیست اضافه کنید.</string>
   <string name="filedetails_select_file">روی هر فایل کلیک کنید تا اطلاعات اضافی نمایش داده شود.</string>
   <string name="filedetails_size">اندازه</string>
@@ -76,7 +49,6 @@
   <string name="filedetails_modified">تغییر یافته توسط:</string>
   <string name="filedetails_download">بارگیری</string>
   <string name="filedetails_sync_file">بازنمایی فایل</string>
-  <string name="filedetails_redownload">بارگزاری دوباره</string>
   <string name="filedetails_renamed_in_upload_msg">فایل در هنگام بارگزاری به %1$s تغییر نام یافت</string>
   <string name="common_yes">بله</string>
   <string name="common_no">نه</string>
@@ -85,7 +57,6 @@
   <string name="common_cancel_upload">متوقف کردن بار گذاری</string>
   <string name="common_cancel">منصرف شدن</string>
   <string name="common_save_exit">ذخیره سازی و خروج</string>
-  <string name="common_exit">ترک کردن  %1$s</string>
   <string name="common_error">خطا</string>
   <string name="common_loading">بارگذاری ...</string>
   <string name="common_error_unknown">خطای نامشخص</string>
@@ -99,10 +70,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% در حال بارگزاری %2$s</string>
   <string name="uploader_upload_succeeded_ticker">بارگزاری موفقیت‌آمیز بود</string>
   <string name="uploader_upload_succeeded_content_single">%1$s با موفقیت بار گذاری شد</string>
-  <string name="uploader_upload_succeeded_content_multiple">فایل های %1$d با موفقیت بارگذاری شدند</string>
   <string name="uploader_upload_failed_ticker">بارگزاری ناموفق بود</string>
   <string name="uploader_upload_failed_content_single">بارگزاری %1$s نتوانست به طور کامل انجام شود</string>
-  <string name="uploader_upload_failed_content_multiple">بارگزاری ناموفق: %1$d/%2$d فایلها در حال بارگزاری بودند</string>
   <string name="downloader_download_in_progress_ticker">در حال بارگیری ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% در حال دانلود %2$s</string>
   <string name="downloader_download_succeeded_ticker">بارگیری موفقیت‌آمیز بود</string>
@@ -111,7 +80,6 @@
   <string name="downloader_download_failed_content">دانلود %1$s نمی توانست به طور کامل انجام شود.</string>
   <string name="downloader_not_downloaded_yet">دانلود هنوز به پایان نرسیده است.</string>
   <string name="common_choose_account">حساب کاربری را انتخاب کنید</string>
-  <string name="sync_string_contacts">ارتباط‌ها</string>
   <string name="sync_fail_ticker">همگام سازی ناموفق</string>
   <string name="sync_fail_content">همگام سازی %1$s نتوانست به طور کامل انجام شود</string>
   <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>
@@ -126,10 +94,7 @@
   <string name="foreign_files_local_text">محلی: %1$s</string>
   <string name="foreign_files_remote_text">دور از دسترس:  %1$s</string>
   <string name="upload_query_move_foreign_files">فضایی به اندازه ی کافی برای کپی کردن فایل ها در پوشه ی %1$s نیست.آیا می خواهید آنها را به جای دیگری انتقال دهید؟</string>
-  <string name="use_ssl">استفاده از ارتباط امن</string>
-  <string name="location_no_provider">%1$sدستگاه شما را نمی تواند بیابد.لطفا تنظیمات موقعیت خود را بررسی کنید</string>
   <string name="pincode_enter_pin_code">لطفا PIN برنامه خودتان را وارد کنید</string>
-  <string name="pincode_enter_new_pin_code">لطفا PIN برنامه ی جدید خودتان را وارد کنید</string>
   <string name="pincode_configure_your_pin">PIN برنامه را وارد کنید</string>
   <string name="pincode_configure_your_pin_explanation">هر زمان که برنامه آغاز شود PIN درخواست خواهد شد.</string>
   <string name="pincode_reenter_your_pincode">لطفا PIN برنامه خودتان را دوباره وارد کنید</string>
@@ -148,62 +113,32 @@
   <string name="media_err_unsupported">کدک رسانه پشتیبانی نشده است.</string>
   <string name="media_err_io">فایل رسانه نمیتواند خوانده شود.</string>
   <string name="media_err_malformed">فایل رسانه به شکل صحیح رمزگذاری نشده است.</string>
-  <string name="media_err_timeout">تلاش برای پخش، زمان زیادی گرفته است.</string>
   <string name="media_err_invalid_progressive_playback">فایل رسانه نمیتواند جریان داشته باشد.</string>
   <string name="media_err_unknown">فایل رسانه با استفاده از پخش کننده stock media player قابل پخش نیست.</string>
   <string name="media_err_security_ex">خطای امنیتی، تلاش برای پخش %1$s</string>
   <string name="media_err_io_ex">خطای وارد کردن، تلاش برای پخش %1$s</string>
   <string name="media_err_unexpected">خطای غیرمنتظره، تلاش برای پخش %1$s</string>
-  <string name="media_previous_description">دکمه بخش قبلی </string>
   <string name="media_rewind_description">دکمه عقبگرد</string>
   <string name="media_play_pause_description">دکمه پخش یا توقف</string>
   <string name="media_forward_description">دکمه رو به جلو سریع</string>
-  <string name="media_next_description">دکمه بخش بعدی</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 دقیقه</item>
-    <item>30 دقیقه</item>
-    <item>60 دقیقه</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_no_net_conn_title">هیچ ارتباطی به شبکه موجود نیست</string>
-  <string name="auth_no_net_conn_message">هیچ شبکه ی ارتباطی ای یافت نشد، ارتباط اینترنت خودتان را بررسی کنید و دوباره امتحان کنید.</string>
-  <string name="auth_connect_anyway">ارتباط به هر طریق</string>
   <string name="auth_nossl_plain_ok_title">اتصال امن در دسترس نیست</string>
-  <string name="auth_nossl_plain_ok_message">برنامه نمی تواند یک ارتباط امن با سرور ایجاد کند. ارتباط نا امن در دسترس است.شما می تواند ادامه داده یا منصرف شوید.</string>
   <string name="auth_connection_established">اتصال برقرار شد</string>
   <string name="auth_testing_connection">آزمایش اتصال...</string>
   <string name="auth_not_configured_title">پیکربندی سرور ناقص است</string>
-  <string name="auth_not_configured_message">به نظر میرسد که سرور شما به درستی پیکربندی نشده است. برای جزئیات بیشتر با مدیر خود تماس بگیرید.</string>
   <string name="auth_unknown_error_title">خطای نامشخص رخ داده است!</string>
-  <string name="auth_unknown_error_message">یک خطای ناشناخته رخ داده است. لطفا با بخش پشتیبانی خود تماس بگیرید و خطاها را از وسیله خود بررسی نمایید.</string>
   <string name="auth_unknown_host_title">میزبان را نمیتواند پیدا نماید.</string>
-  <string name="auth_unknown_host_message">میزبان وارد شده را نمیتواند پیدا کند. لطفا نام میزبان و در دسترس بودن سرور را بررسی و دوباره تلاش نمایید.</string>
   <string name="auth_incorrect_path_title">نمونه ی سرور یافت نشد</string>
-  <string name="auth_incorrect_path_message">برنامه نمی تواند یک نمونه سرور را در مسیر داده شده را پیدا کند. لطفا مسیر خود را بررسی ودوباره تلاش کنید.</string>
   <string name="auth_timeout_title">زمان زیادی برای پاسخ سرور صورت گرفت.</string>
   <string name="auth_incorrect_address_title">آدرس ناقص</string>
   <string name="auth_ssl_general_error_title">مقداردهی SSL ناموفق بود.</string>
-  <string name="auth_ssl_unverified_server_title">هویت تائید نشده سرویس SSL دهنده.</string>
   <string name="auth_bad_oc_version_title">نسخه ی سرور ناشناخته</string>
   <string name="auth_wrong_connection_title">نمیتوان ارتباط برقرار نمود.</string>
   <string name="auth_secure_connection">ایجاد ارتباط ایمن</string>
   <string name="auth_oauth_error">اجازه ناموفق</string>
   <string name="auth_oauth_error_access_denied">دسترسی توسط سرور احراز هویت رد شده است.</string>
-  <string name="auth_not_found">مسیر داده شده اشتباه است</string>
-  <string name="auth_internal">خطای سرور داخلی، کد %1$d</string>
   <string name="auth_wtf_reenter_URL">حالت غیرمنتظره؛ لطفا آدرس URL سرور را مجددا وارد نمایید.</string>
-  <string name="auth_expired_oauth_token_toast">هویت شما منقضی شده است.\nلطفا، مجددا احراز هویت کنید.</string>
-  <string name="crashlog_message">برنامه به شکل غیر منتظره خاتمه یافت.آیا می خواهید این مشکل را گزارش کنید؟</string>
-  <string name="crashlog_send_report">ارسال گزارش</string>
-  <string name="crashlog_dont_send_report">گزارش را ارسال نکن</string>
-  <string name="extensions_avail_title">بسط ها در دسترس هستند!</string>
-  <string name="extensions_avail_message">به نظر میرسد که سرور شما موارد زیادی را پشتیبانی میکند. آیا میخواهید موارد در دسترس برای اندروید را ببینید ؟</string>
   <string name="fd_keep_in_sync">فایل را به روز نگه دار</string>
-  <string name="common_share">اشتراک‌گذاری</string>
   <string name="common_rename">تغییرنام</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_alert">آیا واقعا می خواهید %1$s حذف شود؟</string>
@@ -223,18 +158,12 @@
   <string name="wait_a_moment">لحظه‌ای صبر کنید</string>
   <string name="filedisplay_unexpected_bad_get_content">مشکل غیر متقربه، لطفا پرونده را از یک برنامه متفاوت انتخاب کنید.</string>
   <string name="filedisplay_no_file_selected">هیچ پرونده‌ای انتخاب نشده است</string>
-  <string name="oauth_host_url">آدرس oAuth2</string>
-  <string name="oauth_check_onoff">ورود با oAuth2   </string>
   <string name="oauth_login_connection">اتصال به سرور oAuth2 ...</string>
-  <string name="oauth_code_validation_message">لطفا، یک مرورگر بازکنید و به آدرس زیر بروید:\n%1$s.\nاعتبارسنجی این کد آنجاست:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">اتصال به این آدرس URL در دسترس نمی باشد.</string>
-  <string name="ssl_validator_title">اخطار</string>
   <string name="ssl_validator_header">هویت این سایت نمی تواند تایید شود</string>
   <string name="ssl_validator_reason_cert_not_trusted">- گواهی سرور نامعتبر است</string>
   <string name="ssl_validator_reason_cert_expired">- گواهی سرور انقضا یافته</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">زمان اعتبار گواهی نامه سرویس دهنده فرانرسیده است</string>
   <string name="ssl_validator_reason_hostname_not_verified">URL با آدرس هاست موجود در گواهی نامه مطابقت ندارد.</string>
-  <string name="ssl_validator_certificate_not_available">گواهی سرور نمی تواند حاصل شود</string>
   <string name="ssl_validator_question">آیا می خواهید در هر صورت به این مدرک اطمینان کنید؟</string>
   <string name="ssl_validator_not_saved">گواهی نمی تواند ذخیره شود</string>
   <string name="ssl_validator_btn_details_see">جزییات</string>
@@ -267,8 +196,6 @@
   <string name="conflict_dont_upload">آپلود نکن</string>
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">این تصویر نمی تواند نمایش داده شود.</string>
-  <string name="preview_image_error_out_of_memory">\"حافظه برای نمایش این تصویر کافی نیست.</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s در لیست محلی %2$s نمی تواند کپی شود</string>
   <string name="actionbar_failed_instant_upload">آپلود فوری انجام نشد\"</string>
   <string name="failed_upload_headline_text">آپلود های فوری انجام نشدند.</string>
