@@ -19,14 +19,10 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-//import java.net.UnknownHostException;
-//import java.util.Date;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-//import org.apache.http.conn.ConnectionKeepAliveStrategy;
-//import org.apache.http.protocol.HttpContext;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
@@ -57,7 +53,6 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private AccountManager accountManager;
     private Account account;
     private ContentProviderClient contentProvider;
-    //private Date lastUpdated;
     private FileDataStorageManager mStoreManager;
 
     private WebdavClient mClient = null;
@@ -113,49 +108,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     protected HttpResponse fireRawRequest(HttpRequest query)
             throws ClientProtocolException, OperationCanceledException,
             AuthenticatorException, IOException {
-        /*
-         * BasicHttpContext httpContext = new BasicHttpContext(); BasicScheme
-         * basicAuth = new BasicScheme();
-         * httpContext.setAttribute("preemptive-auth", basicAuth);
-         * 
-         * HttpResponse response = getClient().execute(mHost, query,
-         * httpContext);
-         */
         return null;
     }
 
-    /* methods never used  below */
-    /*
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
-        return new ConnectionKeepAliveStrategy() {
-            public long getKeepAliveDuration(HttpResponse response,
-                    HttpContext context) {
-                // Change keep alive straategy basing on response: ie
-                // forbidden/not found/etc
-                // should have keep alive 0
-                // default return: 5s
-                int statusCode = response.getStatusLine().getStatusCode();
-
-                // HTTP 400, 500 Errors as well as HTTP 118 - Connection timed
-                // out
-                if ((statusCode >= 400 && statusCode <= 418)
-                        || (statusCode >= 421 && statusCode <= 426)
-                        || (statusCode >= 500 && statusCode <= 510)
-                        || statusCode == 118) {
-                    return 0;
-                }
-
-                return 5 * 1000;
-            }
-        };
-    }
-     */
 }

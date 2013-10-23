@@ -37,6 +37,9 @@ public class FileSyncService extends Service {
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
     public static final String SYNC_RESULT = "SYNC_RESULT";
 
+    public String getSyncMessage(){
+        return getClass().getName().toString() + SYNC_MESSAGE;
+    }
     /*
      * {@inheritDoc}
      */

@@ -21,7 +21,7 @@ import java.io.IOException;
 import org.apache.commons.httpclient.Credentials;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -248,9 +248,9 @@ public abstract class RemoteOperation implements Runnable {
                     boolean bearerAuthorization = (cred != null && cred instanceof BearerCredentials);
                     boolean samlBasedSsoAuthorization = (cred == null && ssoSessionCookie != null);
                     if (bearerAuthorization) {
-                        am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ((BearerCredentials)cred).getAccessToken());
+                        am.invalidateAuthToken(MainApp.getAccountType(), ((BearerCredentials)cred).getAccessToken());
                     } else if (samlBasedSsoAuthorization ) {
-                        am.invalidateAuthToken(AccountAuthenticator.ACCOUNT_TYPE, ssoSessionCookie);
+                        am.invalidateAuthToken(MainApp.getAccountType(), ssoSessionCookie);
                     } else {
                         am.clearPassword(mAccount);
                     }

@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">密碼：</string>
   <string name="main_login">使用者名稱：</string>
   <string name="main_button_login">登入</string>
@@ -12,7 +11,7 @@
   <string name="main_bookmarks">書籤</string>
   <string name="main_settings">設定</string>
   <string name="main_tit_accsetup">設定帳號</string>
-  <string name="main_wrn_accsetup">您尚未在裝置上設定您的 ownCloud 帳號，您必需建立一組帳號才能繼續使用。</string>
+  <string name="main_wrn_accsetup">您尚未在裝置上設定您的  帳號，您必需建立一組帳號才能繼續使用。</string>
   <string name="about_android">%1$s Android 應用程式</string>
   <string name="about_version">版本 %1$s</string>
   <string name="actionbar_sync">更新檔案列表</string>
@@ -37,7 +36,7 @@
   <string name="prefs_accounts">帳號</string>
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode">App 密碼</string>
-  <string name="prefs_pincode_summary">保護您的ownCloud用戶端</string>
+  <string name="prefs_pincode_summary">保護您的 App 用戶端</string>
   <string name="prefs_instant_upload">啟用即時上傳</string>
   <string name="prefs_instant_upload_summary">即時上傳照相機拍攝的圖片</string>
   <string name="prefs_log_title">啟用記錄</string>
@@ -63,7 +62,7 @@
   <string name="uploader_btn_upload_text">上傳</string>
   <string name="uploader_top_message">選取上傳目錄:</string>
   <string name="uploader_wrn_no_account_title">找不到帳號</string>
-  <string name="uploader_wrn_no_account_text">在您的裝置上找不到ownCloud的帳號. 請先設定一組帳號.</string>
+  <string name="uploader_wrn_no_account_text">在您的裝置上找不到 %1$s 的帳號. 請先設定一組帳號.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
   <string name="uploader_wrn_no_content_title">沒有上載的內容</string>
@@ -88,7 +87,7 @@
   <string name="common_cancel_upload">取消上傳</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">儲存並離開</string>
-  <string name="common_exit">離開ownCloud</string>
+  <string name="common_exit">離開%1$s</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">載入 …</string>
   <string name="common_error_unknown">未知的錯誤</string>
@@ -194,7 +193,7 @@
   <string name="auth_incorrect_address_title">URL 不正確</string>
   <string name="auth_ssl_general_error_title">SSL 初始化失敗</string>
   <string name="auth_ssl_unverified_server_title">未經驗證的 SSL 伺服器身份</string>
-  <string name="auth_bad_oc_version_title">無法辨識的ownCloud伺服器版本</string>
+  <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
   <string name="auth_wrong_connection_title">無法建立連線</string>
   <string name="auth_secure_connection">安全連線已建立</string>
   <string name="auth_unauthorized">錯誤的使用者或密碼</string>

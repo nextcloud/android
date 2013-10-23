@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Password:</string>
   <string name="main_login"> Nome utente:</string>
   <string name="main_button_login">Accedi</string>
-  <string name="main_welcome">Benvenuto nel tuo ownCloud</string>
+  <string name="main_welcome">Benvenuto</string>
   <string name="main_files">File</string>
   <string name="main_music">Musica</string>
   <string name="main_contacts">Contatti</string>
@@ -12,7 +11,7 @@
   <string name="main_bookmarks">Segnalibri</string>
   <string name="main_settings">Impostazioni</string>
   <string name="main_tit_accsetup">Configurazione account</string>
-  <string name="main_wrn_accsetup">Non ci sono account ownCloud su questo dispositivo. Per utilizzare questa applicazione, devi crearne uno.</string>
+  <string name="main_wrn_accsetup">Non ci sono account su questo dispositivo. Per utilizzare questa applicazione, devi crearne uno.</string>
   <string name="about_android">Applicazione Android di %1$s </string>
   <string name="about_version">versione %1$s</string>
   <string name="actionbar_sync">Aggiorna account</string>
@@ -24,20 +23,21 @@
   <string name="actionbar_search">Cerca</string>
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
+  
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_add_session">Aggiungi nuova sessione</string>
   <string name="prefs_create_img_thumbnails">Crea anteprime immagini</string>
   <string name="prefs_select_oc_account">Scegli un account</string>
   <string name="prefs_summary_select_oc_account">Scegli quale dei tuoi account sarà utilizzato dall\'applicazione</string>
   <string name="prefs_trackmydevice">Tracciamento del dispositivo</string>
-  <string name="prefs_trackmydevice_summary_off">Abilita ownCloud a tracciare la posizione del tuo dispositivo</string>
-  <string name="prefs_trackmydevice_summary_on">Il tuo ownCloud tiene traccia di questo dispositivo</string>
+  <string name="prefs_trackmydevice_summary_off">Abilita l\'applicazione a tracciare la posizione del tuo dispositivo</string>
+  <string name="prefs_trackmydevice_summary_on">Il tuo l\'applicazione tiene traccia di questo dispositivo</string>
   <string name="prefs_trackmydevice_interval">Intervallo di aggiornamento</string>
   <string name="prefs_trackmydevice_interval_summary">Aggiorna ogni %1$s minuti</string>
   <string name="prefs_accounts">Account</string>
   <string name="prefs_manage_accounts">Gestisci account</string>
-  <string name="prefs_pincode">PIN ownCloud App</string>
-  <string name="prefs_pincode_summary">Proteggi il tuo client ownCloud</string>
+  <string name="prefs_pincode">PIN App</string>
+  <string name="prefs_pincode_summary">Proteggi il tuo client l\'applicazione</string>
   <string name="prefs_instant_upload">Caricamento immediato</string>
   <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
   <string name="prefs_log_title">Abilita registrazione log</string>
@@ -45,6 +45,7 @@
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
+  
   <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo del server</string>
   <string name="auth_username">Nome utente</string>
@@ -58,17 +59,17 @@
   <string name="setup_hint_password">Password</string>
   <string name="setup_hint_address">Indirizzo web</string>
   <string name="setup_hint_show_password">Mostrare la password?</string>
-  <string name="setup_title">Connettiti al tuo ownCloud</string>
+  <string name="setup_title">Connettiti al tuo %1$s</string>
   <string name="setup_btn_connect">Connetti</string>
   <string name="uploader_btn_upload_text">Carica</string>
   <string name="uploader_top_message">Scegli la cartella di caricamento:</string>
   <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
-  <string name="uploader_wrn_no_account_text">Non ci sono account ownCloud sul tuo dispositivo. Configura prima un account.</string>
+  <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
   <string name="uploader_wrn_no_content_title">Nessun contenuto da caricare</string>
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
-  <string name="uploader_error_forbidden_content">ownCloud non è abilitato ad accedere al contenuto condiviso</string>
+  <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
   <string name="uploader_btn_create_dir_text">Crea cartella per il caricamento</string>
   <string name="file_list_empty">Non ci sono file in questa cartella.\nNuovi file possono essere aggiunti con l\'opzione di menu \"Carica\".</string>
@@ -88,7 +89,7 @@
   <string name="common_cancel_upload">Annulla invio</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
-  <string name="common_exit">Esci da ownCloud</string>
+  <string name="common_exit">Esci da %1$s</string>
   <string name="common_error">Errore</string>
   <string name="common_loading">Caricamento in corso...</string>
   <string name="common_error_unknown">Errore sconosciuto</string>
@@ -132,17 +133,18 @@
   <string name="foreign_files_remote_text">Remoto %1$s</string>
   <string name="upload_query_move_foreign_files">Non c\'è spazio sufficiente per copiare i file selezionati nella cartella %1$s. Vuoi invece spostarli nella cartella?</string>
   <string name="use_ssl">Usa connessione sicura</string>
-  <string name="location_no_provider">ownCloud non può tracciare questo dispositivo. Controlla le impostazioni di posizionamento</string>
+  <string name="location_no_provider">%1$s non può tracciare questo dispositivo. Controlla le impostazioni di posizionamento</string>
   <string name="pincode_enter_pin_code">Inserisci il PIN dell\'applicazione</string>
   <string name="pincode_enter_new_pin_code">Inserisci il nuovo PIN dell\'applicazione</string>
-  <string name="pincode_configure_your_pin">Inserisci il PIN di ownCloud</string>
+  <string name="pincode_configure_your_pin">Inserisci il PIN di l\'applicazione</string>
   <string name="pincode_configure_your_pin_explanation">Il PIN sarà richiesto ad ogni avvio dell\'applicazione</string>
-  <string name="pincode_reenter_your_pincode">Inserisci nuovamente il PIN di ownCloud</string>
-  <string name="pincode_remove_your_pincode">Rimuovi il PIN di ownCloud</string>
-  <string name="pincode_mismatch">I PIN di ownCloud non corrispondono</string>
-  <string name="pincode_wrong">PIN di ownCloud non corretto</string>
-  <string name="pincode_removed">PIN di ownCloud rimosso</string>
-  <string name="pincode_stored">PIN di ownCloud memorizzato</string>
+  <string name="pincode_reenter_your_pincode">Inserisci nuovamente il PIN di l\'applicazione</string>
+  <string name="pincode_remove_your_pincode">Rimuovi il PIN di l\'applicazione</string>
+  <string name="pincode_mismatch">I PIN di l\'applicazione non corrispondono</string>
+  <string name="pincode_wrong">PIN di l\'applicazione non corretto</string>
+  <string name="pincode_removed">PIN di l\'applicazione rimosso</string>
+  <string name="pincode_stored">PIN di l\'applicazione memorizzato</string>
+  
   <string name="media_notif_ticker">Lettore musicale %1$s</string>
   <string name="media_state_playing">%1$s (in riproduzione)</string>
   <string name="media_state_loading">%1$s (in caricamento)</string>
@@ -182,19 +184,19 @@
   <string name="auth_nossl_plain_ok_message">L\'applicazione non è in grado di stabilire una connessione sicura al server. È comunque disponibile una connessione non sicura. Puoi continuare o annullare.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
   <string name="auth_testing_connection">Prova di connessione in corso...</string>
-  <string name="auth_not_configured_title">Configurazione non corretta di ownCloud</string>
-  <string name="auth_not_configured_message">Sembra che l\'istanza di ownCloud non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
+  <string name="auth_not_configured_title">Configurazione non corretta di il server</string>
+  <string name="auth_not_configured_message">Sembra che l\'istanza di il server non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
   <string name="auth_unknown_error_message">Si è verificato un errore sconosciuto. Contatta gli autori e includi i log del tuo dispositivo.</string>
   <string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
   <string name="auth_unknown_host_message">Impossibile trovare l\'host digitato. Controlla il nome dell\'host e la raggiungibilità del server e prova ancora.</string>
-  <string name="auth_incorrect_path_title">Istanza di ownCloud non trovata</string>
-  <string name="auth_incorrect_path_message">L\'applicazione non può trovare un\'istanza di ownCloud al percorso specificato. Controlla il percorso e prova ancora.</string>
+  <string name="auth_incorrect_path_title">Istanza di il server non trovata</string>
+  <string name="auth_incorrect_path_message">L\'applicazione non può trovare un\'istanza di il server al percorso specificato. Controlla il percorso e prova ancora.</string>
   <string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
   <string name="auth_incorrect_address_title">URL non valido</string>
   <string name="auth_ssl_general_error_title">Inizializzazione  SSL non riuscita</string>
   <string name="auth_ssl_unverified_server_title">Identità SSL del server non verificata</string>
-  <string name="auth_bad_oc_version_title">Versione del server ownCloud non riconosciuta</string>
+  <string name="auth_bad_oc_version_title">Versione del server il server non riconosciuta</string>
   <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
   <string name="auth_secure_connection">Connessione sicura stabilita</string>
   <string name="auth_unauthorized">Nome utente o password errati</string>
@@ -209,7 +211,7 @@
   <string name="crashlog_send_report">Invia segnalazione</string>
   <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>
   <string name="extensions_avail_title">Estensioni disponibili!</string>
-  <string name="extensions_avail_message">Sembra che la tua istanza di ownCloud supporti le estensioni avanzate. Vuoi vedere le estensioni disponibili per Android?</string>
+  <string name="extensions_avail_message">Sembra che la tua istanza di il server supporti le estensioni avanzate. Vuoi vedere le estensioni disponibili per Android?</string>
   <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
   <string name="common_share">Condividi</string>
   <string name="common_rename">Rinomina</string>

@@ -27,8 +27,8 @@ import java.util.Map;
 import org.apache.jackrabbit.webdav.DavException;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -269,7 +269,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             // in failures, the statistics for the global result are updated
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
                     ( result.isIdPRedirection() && 
-                            AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))) {
+                            MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -337,7 +337,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
      */
     private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
-        Intent i = new Intent(FileSyncService.SYNC_MESSAGE);
+        FileSyncService fileSyncService = new FileSyncService();
+        
+        Intent i = new Intent(fileSyncService.getSyncMessage());
         i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
         i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {
@@ -361,7 +363,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                                              (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
                                                 ( mLastFailedResult.isIdPRedirection() && 
-                                                 AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(getClient().getAuthTokenType()))
+                                                 MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))
                                              )
                                            );
         // TODO put something smart in the contentIntent below for all the possible errors

@@ -29,40 +29,40 @@ public class Log_OC {
 
     public static void d(String TAG, String message){
         Log.d(TAG, message);
-        appendLog(TAG+" : "+message);
+        appendLog(TAG + " : " + message);
     }
     public static void d(String TAG, String message, Exception e) {
         Log.d(TAG, message, e);
-        appendLog(TAG+" : "+ message+" Exception : "+e.getStackTrace());
+        appendLog(TAG + " : " + message + " Exception : "+ e.getStackTrace());
     }
     public static void e(String TAG, String message){
         Log.e(TAG, message);
-        appendLog(TAG+" : "+message);
+        appendLog(TAG + " : " + message);
     }
     
     public static void e(String TAG, String message, Throwable e) {
         Log.e(TAG, message, e);
-        appendLog(TAG+" : "+ message+" Exception : "+e.getStackTrace());
+        appendLog(TAG+" : " + message +" Exception : " + e.getStackTrace());
     }
     
     public static void v(String TAG, String message){
         Log.v(TAG, message);
-        appendLog(TAG+" : "+message);
+        appendLog(TAG+" : "+ message);
     }
     
     public static void w(String TAG, String message) {
         Log.w(TAG,message); 
-        appendLog(TAG+" : "+message);
+        appendLog(TAG+" : "+ message);
     }
     
     public static void wtf(String TAG, String message) {
         Log.wtf(TAG,message); 
-        appendLog(TAG+" : "+message);
+        appendLog(TAG+" : "+ message);
     }
     
     public static void startLogging(String logPath) {
         folder = new File(logPath);
-        logFile = new File(folder+File.separator+"log.txt");
+        logFile = new File(folder + File.separator + "log.txt");
         
         if (!folder.exists()) {
             folder.mkdirs();
@@ -81,10 +81,10 @@ public class Log_OC {
     }
     
     public static void stopLogging() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss",Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
         if (logFile != null) {
-            logFile.renameTo(new File(folder+File.separator+"Owncloud_"+currentDateandTime+".log"));
+            logFile.renameTo(new File(folder + File.separator + MainApp.getLogName() + currentDateandTime+".log"));
           
             isEnabled = false;
             try {

@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.db;
 
+import com.owncloud.android.MainApp;
+
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -28,8 +30,10 @@ import android.provider.BaseColumns;
  */
 public class ProviderMeta {
 
-    public static final String AUTHORITY_FILES = "org.owncloud";
-    public static final String DB_FILE = "owncloud.db";
+    /* These constants are now in MainApp
+        public static final String AUTHORITY_FILES = "org.owncloud";
+        public static final String DB_FILE = "owncloud.db";
+    */
     public static final String DB_NAME = "filelist";
     public static final int DB_VERSION = 5;
 
@@ -39,11 +43,11 @@ public class ProviderMeta {
     static public class ProviderTableMeta implements BaseColumns {
         public static final String DB_NAME = "filelist";
         public static final Uri CONTENT_URI = Uri.parse("content://"
-                + AUTHORITY_FILES + "/");
+                + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
-                + AUTHORITY_FILES + "/file");
+                + MainApp.getAuthority() + "/file");
         public static final Uri CONTENT_URI_DIR = Uri.parse("content://"
-                + AUTHORITY_FILES + "/dir");
+                + MainApp.getAuthority() + "/dir");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";

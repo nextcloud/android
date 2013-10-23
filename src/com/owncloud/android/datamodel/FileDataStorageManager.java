@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.db.ProviderMeta;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -244,6 +244,9 @@ public class FileDataStorageManager {
     /**
      * Inserts or updates the list of files contained in a given folder.
      * 
+     * CALLER IS THE RESPONSIBLE FOR GRANTING RIGHT UPDATE OF INFORMATION, NOT THIS METHOD.
+     * HERE ONLY DATA CONSISTENCY SHOULD BE GRANTED
+     *  
      * @param folder
      * @param files
      * @param removeNotUpdated
@@ -278,33 +281,6 @@ public class FileDataStorageManager {
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
                 // updating an existing file
-                
-                /* CALLER IS THE RESPONSIBLE FOR GRANTING RIGHT UPDATE OF INFORMATION, NOT THIS METHOD.
-                 * 
-                 * HERE ONLY DATA CONSISTENCY SHOULD BE GRANTED 
-                 */
-                /*
-                OCFile oldFile = null;
-                if (existsByPath) {
-                    // grant same id
-                    oldFile = getFileByPath(file.getRemotePath());
-                    file.setFileId(oldFile.getFileId());
-                } else {
-                    oldFile = getFileById(file.getFileId());
-                }
-                
-                if (file.isFolder()) {
-                    // folders keep size information, since it's calculated
-                    file.setFileLength(oldFile.getFileLength());
-                    cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, oldFile.getFileLength());
-                    
-                } else if (file.getStoragePath() == null && oldFile.getStoragePath() != null) {
-                    // regular files keep access to local contents, although it's lost in the new OCFile
-                    file.setStoragePath(oldFile.getStoragePath());
-                    cv.put(ProviderTableMeta.FILE_STORAGE_PATH, oldFile.getStoragePath());
-                }
-                */
-                
                 operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                         withValues(cv).
                         withSelection(  ProviderTableMeta._ID + "=?", 
@@ -367,7 +343,7 @@ public class FileDataStorageManager {
         Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
         try {
             if (getContentResolver() != null) {
-                results = getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+                results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
             } else {
                 results = getContentProviderClient().applyBatch(operations);
@@ -565,7 +541,7 @@ public class FileDataStorageManager {
             /// 3. apply updates in batch
             try {
                 if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
                 } else {
                     getContentProviderClient().applyBatch(operations);
@@ -727,47 +703,4 @@ public class FileDataStorageManager {
         return file;
     }
 
-    /*
-     * Update the size value of an OCFile in DB
-     *
-    private int updateSize(long id, long size) {
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, size);
-        int result = -1;
-        if (getContentResolver() != null) {
-             result = getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
-                     new String[] { String.valueOf(id) });
-        } else {
-            try {
-                result = getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, ProviderTableMeta._ID + "=?", 
-                        new String[] { String.valueOf(id) });
-            } catch (RemoteException e) {
-                Log_OC.e(TAG,"Fail to update size column into database " + e.getMessage());
-            }
-        }
-        return result;
-    }
-    */
-
-    /* 
-     * Update the size of a subtree of folder from a file to the root
-     * @param parentId: parent of the file
-     *
-    private void updateSizesToTheRoot(long parentId) {
-        
-        OCFile file; 
-
-        while (parentId != FileDataStorageManager.ROOT_PARENT_ID) {
-            
-            // Update the size of the parent
-            updateFolderSize(parentId);
-            
-            // search the next parent
-            file = getFileById(parentId);            
-            parentId = file.getParentId();
-            
-        }              
-    }
-    */
-    
 }

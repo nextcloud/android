@@ -11,8 +11,7 @@
 
     <properties>
         <java-version>1.6</java-version>
-        <google.android-version>4.1.1.4</google.android-version>
-        <google.android.support-version>r7</google.android.support-version>
+        <google.android-version>4.2.2_r2</google.android-version>
         <actionbarsherlock-version>4.2.0</actionbarsherlock-version>
     </properties>
 
@@ -27,16 +26,10 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
             <version>${google.android-version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>support-v4</artifactId>
-            <version>${google.android.support-version}</version>
         </dependency>
 
         <dependency>

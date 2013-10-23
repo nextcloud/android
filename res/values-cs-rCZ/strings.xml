@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Heslo:</string>
   <string name="main_login">Uživatelské jméno:</string>
   <string name="main_button_login">Přihlásit</string>
@@ -30,8 +29,8 @@
   <string name="prefs_select_oc_account">Vybrat účet</string>
   <string name="prefs_summary_select_oc_account">Vyberte, který účet má tato aplikace používat.</string>
   <string name="prefs_trackmydevice">Sledování zařízení</string>
-  <string name="prefs_trackmydevice_summary_off">Povolit ownCloudu sledovat polohu Vašeho zařízení</string>
-  <string name="prefs_trackmydevice_summary_on">Váš ownCloud sleduje toto zařízení</string>
+  <string name="prefs_trackmydevice_summary_off">Povolit tuto aplikaci sledovat polohu Vašeho zařízení</string>
+  <string name="prefs_trackmydevice_summary_on">Váš aplikaci sleduje toto zařízení</string>
   <string name="prefs_trackmydevice_interval">Interval aktualizace</string>
   <string name="prefs_trackmydevice_interval_summary">Aktualizovat každých %1$s minut</string>
   <string name="prefs_accounts">Účty</string>

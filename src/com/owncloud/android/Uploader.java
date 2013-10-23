@@ -94,7 +94,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         mParents.add("");
         if (prepareStreamsToUpload()) {
             mAccountManager = (AccountManager) getSystemService(Context.ACCOUNT_SERVICE);
-            Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE);
+            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
                 showDialog(DIALOG_NO_ACCOUNT);
@@ -136,7 +136,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
                         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                        intent.putExtra("authorities", new String[] { AccountAuthenticator.AUTHORITY });
+                        intent.putExtra("authorities", new String[] { MainApp.getAuthTokenType() });
                         startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
                     } else {
                         // since in API7 there is no direct call for
@@ -157,15 +157,15 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE).length];
+            CharSequence ac[] = new CharSequence[mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
             for (int i = 0; i < ac.length; ++i) {
-                ac[i] = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[i].name;
+                ac[i] = mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name;
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(ac, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    mAccount = mAccountManager.getAccountsByType(AccountAuthenticator.ACCOUNT_TYPE)[which];
+                    mAccount = mAccountManager.getAccountsByType(MainApp.getAccountType())[which];
                     mStorageManager = new FileDataStorageManager(mAccount, getContentResolver());
                     populateDirectoryList();
                 }
@@ -270,7 +270,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
-            Account[] accounts = mAccountManager.getAccountsByType(AccountAuthenticator.AUTH_TOKEN_TYPE);
+            Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
             if (accounts.length == 0) {
                 showDialog(DIALOG_NO_ACCOUNT);
             } else {

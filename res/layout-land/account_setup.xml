@@ -20,6 +20,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/login_background_color"
 	android:padding="8dip"
     >
 
@@ -188,6 +189,7 @@
 		android:id="@id/buttonOK"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:background="@android:drawable/btn_default"
 		android:layout_above="@id/account_register"
 		android:layout_centerHorizontal="true"
 		android:enabled="false"
