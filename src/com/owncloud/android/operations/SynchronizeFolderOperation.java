@@ -360,5 +360,4 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         }
     }
 
-
 }

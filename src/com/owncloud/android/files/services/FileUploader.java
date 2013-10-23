@@ -129,8 +129,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private RemoteViews mDefaultNotificationContentView;
 
     
-    public String getUploadFinishMessage() {
-        return getClass().getName().toString() + UPLOAD_FINISH_MESSAGE;
+    public static String getUploadFinishMessage() {
+        return FileUploader.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
     }
     
     /**

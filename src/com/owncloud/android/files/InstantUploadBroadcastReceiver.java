@@ -52,9 +52,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log_OC.d(TAG, "Received: " + intent.getAction());
-        
-        FileUploader fileUploader = new FileUploader();
-        
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
@@ -63,7 +60,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
             handleNewPhotoAction(context, intent);
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
-        } else if (intent.getAction().equals(fileUploader.getUploadFinishMessage())) {
+        } else if (intent.getAction().equals(FileUploader.getUploadFinishMessage())) {
             handleUploadFinished(context, intent);
         } else {
             Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
