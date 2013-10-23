@@ -105,7 +105,6 @@
     <string name="foreign_files_local_text">"Local: %1$s"</string>
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
     <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>
-    <string name="location_no_provider">%1$s cannot track your device. Please check your location settings</string>
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
     <string name="pincode_configure_your_pin">Enter your App PIN</string>
     <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string>
@@ -165,8 +164,6 @@
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    
 	<string name="auth_unsupported_multiaccount">This version of ownCloud doesn\'t support multiaccount</string>
     
-    <string name="extensions_avail_title">Extensions available!</string>
-    <string name="extensions_avail_message">Looks like your server instance is supporting advanced extensions. Would you like to see extensions available for android ?</string>
     <string name="fd_keep_in_sync">Keep file up to date</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
@@ -188,7 +185,7 @@
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
     
-    <string name="oauth_check_onoff">Login with oAuth2.</string> 
+    <string name="oauth_check_onoff">Login with oAuth2</string> 
     <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
         
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
