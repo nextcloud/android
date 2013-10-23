@@ -149,7 +149,7 @@
     <string name="auth_timeout_title">The server took too long to respond</string>
     <string name="auth_incorrect_address_title">Malformed URL</string>
     <string name="auth_ssl_general_error_title">SSL initialization failed</string>
-    <string name="auth_ssl_unverified_server_title">Couldn't verify SSL server\'s identity</string>
+    <string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
     <string name="auth_bad_oc_version_title">Unrecognized server version</string>
     <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
     <string name="auth_secure_connection">Secure connection established</string>
@@ -162,7 +162,7 @@
     <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
 	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    
-	<string name="auth_unsupported_multiaccount">This version of ownCloud doesn\'t support multiaccount</string>
+	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     
     <string name="fd_keep_in_sync">Keep file up to date</string>
     <string name="common_rename">Rename</string>
