@@ -12,7 +12,6 @@
   <string name="main_settings">Настройки</string>
   <string name="main_tit_accsetup">Настройка аккаунта</string>
   <string name="main_wrn_accsetup">На Вашем устройстве нет аккаунта. Для того, чтобы использовать это приложение, Вам нужно создать его.</string>
-  <string name="about_message">%1$s Android-клиент\n\nверсия: %1$s</string>
   <string name="actionbar_sync">Обновить</string>
   <string name="actionbar_upload">Загрузка</string>
   <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
@@ -21,7 +20,6 @@
   <string name="actionbar_search">Поиск</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="prefs_category_general">Общие</string>
-  <string name="prefs_category_trackmydevice">Отслеживание устройств</string>
   <string name="prefs_add_session">Добавить новую сессию</string>
   <string name="prefs_create_img_thumbnails">Создание миниатюр</string>
   <string name="prefs_select_oc_account">Выбрать аккаунт</string>
@@ -153,7 +151,6 @@
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера сервер </string>
   <string name="auth_wrong_connection_title">Не удалось установить соединение</string>
   <string name="auth_secure_connection">Защищенное соединение установлено</string>
-  <string name="auth_login_details">Учетные данные</string>
   <string name="auth_unauthorized">Неверный логин / пароль</string>
   <string name="auth_not_found">Указан неверный путь</string>
   <string name="auth_internal">Внутренняя ошибка сервера с кодом %1$d</string>
