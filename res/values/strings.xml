@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="main_files">Files</string>
-    <string name="main_music">Music</string>
-    <string name="main_contacts">Contacts</string>
-    <string name="main_calendar">Calendar</string>
-    <string name="main_bookmarks">Bookmarks</string>
-    <string name="main_settings">Settings</string>
-    <string name="main_tit_accsetup">Setup Account</string>
-    <string name="main_wrn_accsetup">There is no account set up on your device. In order to use this App, you need to create one.</string>
     <string name="about_android">%1$s Android App</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
@@ -147,7 +139,6 @@
 
     <string name="auth_trying_to_login">Trying to login&#8230;</string>
     <string name="auth_no_net_conn_title">No network connection</string>
-    <string name="auth_connect_anyway">Connect anyway</string-->
     <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
     <string name="auth_connection_established">Connection established</string>
     <string name="auth_testing_connection">Testing connection&#8230;</string>
@@ -201,7 +192,6 @@
     <string name="oauth_check_onoff">Login with oAuth2.</string> 
     <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
         
-    <string name="ssl_validator_title">Warning</string -->
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
