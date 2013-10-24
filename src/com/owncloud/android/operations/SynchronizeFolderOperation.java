@@ -511,7 +511,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         }
     }
 
-
     /**
      * Scans the default location for saving local copies of files searching for
      * a 'lost' file with the same full name as the {@link OCFile} received as 
