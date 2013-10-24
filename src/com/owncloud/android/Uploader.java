@@ -55,7 +55,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
@@ -77,7 +76,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     private ArrayList<Parcelable> mStreamsToUpload;
     private boolean mCreateDir;
     private String mUploadPath;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private OCFile mFile;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
@@ -230,12 +229,12 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = mStorageManager.getDirectoryContent(mFile);
+        Vector<OCFile> tmpfiles = mStorageManager.getFolderContent(mFile);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<OCFile>();
         for (OCFile f : tmpfiles)
-            if (f.isDirectory())
+            if (f.isFolder())
                 files.add(f);
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
@@ -295,11 +294,11 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
         
         mFile = mStorageManager.getFileByPath(full_path);
         if (mFile != null) {
-            Vector<OCFile> files = mStorageManager.getDirectoryContent(mFile);
+            Vector<OCFile> files = mStorageManager.getFolderContent(mFile);
             List<HashMap<String, Object>> data = new LinkedList<HashMap<String,Object>>();
             for (OCFile f : files) {
                 HashMap<String, Object> h = new HashMap<String, Object>();
-                if (f.isDirectory()) {
+                if (f.isFolder()) {
                     h.put("dirname", f.getFileName());
                     data.add(h);
                 }

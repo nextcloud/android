@@ -22,10 +22,12 @@ import android.content.Intent;
 import android.os.IBinder;
 
 /**
- * Background service for syncing files to our local Database
+ * Background service for synchronizing remote files with their local state.
+ * 
+ * Serves as a connector to an instance of {@link FileSyncAdapter}, as required by standard Android APIs. 
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
 public class FileSyncService extends Service {
     
@@ -52,4 +54,5 @@ public class FileSyncService extends Service {
     public IBinder onBind(Intent intent) {
        return new FileSyncAdapter(getApplicationContext(), true).getSyncAdapterBinder();
     }
+    
 }

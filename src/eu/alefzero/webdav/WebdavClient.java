@@ -168,7 +168,7 @@ public class WebdavClient extends HttpClient {
         try {
             method.setFollowRedirects(mFollowRedirects);
         } catch (Exception e) {
-            if (mFollowRedirects) Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used");
+            //if (mFollowRedirects) Log_OC.d(TAG, "setFollowRedirects failed for " + method.getName() + " method, custom redirection will be used if needed");
             customRedirectionNeeded = mFollowRedirects;
         }
         if (mSsoSessionCookie != null && mSsoSessionCookie.length() > 0) {

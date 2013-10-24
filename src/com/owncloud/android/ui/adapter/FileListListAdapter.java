@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -51,7 +51,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
     //total size of a directory (recursive)
@@ -135,7 +135,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             
-            if (!file.isDirectory()) {
+            if (!file.isFolder()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
@@ -195,14 +195,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @param directory                 New file to adapt. Can be NULL, meaning "no content to adapt".
      * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, DataStorageManager updatedStorageManager) {
+    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getDirectoryContent(mFile);
+            mFiles = mStorageManager.getFolderContent(mFile);
         } else {
             mFiles = null;
         }
