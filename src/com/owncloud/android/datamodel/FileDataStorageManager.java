@@ -25,9 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.db.ProviderMeta;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -274,7 +273,7 @@ public class FileDataStorageManager implements DataStorageManager {
         ContentProviderResult[] results = null;
         try {
             if (getContentResolver() != null) {
-                results = getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+                results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
             } else {
                 results = getContentProvider().applyBatch(operations);
@@ -594,7 +593,7 @@ public class FileDataStorageManager implements DataStorageManager {
             /// 3. apply updates in batch
             try {
                 if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(ProviderMeta.AUTHORITY_FILES, operations);
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
                 } else {
                     getContentProvider().applyBatch(operations);

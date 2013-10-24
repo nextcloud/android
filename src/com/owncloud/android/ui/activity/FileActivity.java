@@ -30,8 +30,8 @@ import android.webkit.MimeTypeMap;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -173,7 +173,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      */
     private void createFirstAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(AccountAuthenticator.ACCOUNT_TYPE, 
+        am.addAccount(MainApp.getAccountType(), 
                         null,
                         null, 
                         null, 

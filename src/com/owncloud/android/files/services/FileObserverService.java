@@ -56,7 +56,7 @@ public class FileObserverService extends Service {
     private static Map<String, OwnCloudFileObserver> mObserversMap;
     private static DownloadCompletedReceiverBis mDownloadReceiver;
     private IBinder mBinder = new LocalBinder();
-
+    
     public class LocalBinder extends Binder {
         FileObserverService getService() {
             return FileObserverService.this;
@@ -67,9 +67,10 @@ public class FileObserverService extends Service {
     public void onCreate() {
         super.onCreate();
         mDownloadReceiver = new DownloadCompletedReceiverBis();
+        
         IntentFilter filter = new IntentFilter();
-        filter.addAction(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
-        filter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);        
+        filter.addAction(FileDownloader.getDownloadAddedMessage());
+        filter.addAction(FileDownloader.getDownloadFinishMessage());        
         registerReceiver(mDownloadReceiver, filter);
         
         mObserversMap = new HashMap<String, OwnCloudFileObserver>();
@@ -259,12 +260,12 @@ public class FileObserverService extends Service {
             String downloadPath = intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH);
             OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
             if (observer != null) {
-                if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE) &&
+                if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage()) &&
                         new File(downloadPath).exists()) {  // the download could be successful. not; in both cases, the file could be down, due to a former download or upload   
                     observer.startWatching();
                     Log_OC.d(TAG, "Watching again " + downloadPath);
                 
-                } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
+                } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
                     observer.stopWatching();
                     Log_OC.d(TAG, "Disabling observance of " + downloadPath);
                 } 

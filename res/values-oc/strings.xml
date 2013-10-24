@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud</string>
   <string name="main_password">Senhal :</string>
   <string name="main_login">Nom o escais :</string>
   <string name="main_button_login">Login</string>
-  <string name="main_welcome">Planvengut dins mon ownCloud</string>
+  <string name="main_welcome">Planvengut</string>
   <string name="main_files">Fichièrs</string>
   <string name="main_music">Musica</string>
   <string name="main_contacts">Contactes</string>
@@ -34,7 +33,7 @@
   <string name="setup_hint_password">Senhal</string>
   <string name="setup_hint_address">Adreiça web</string>
   <string name="setup_hint_show_password">Mòstra lo senhal ?</string>
-  <string name="setup_title">Connecta a ton ownCloud</string>
+  <string name="setup_title">Connecta a ton %1$s</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Amontcarga</string>
   <string name="uploader_wrn_no_account_title">Cap de compte trobat</string>

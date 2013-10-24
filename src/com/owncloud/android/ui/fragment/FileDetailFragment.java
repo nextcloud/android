@@ -207,7 +207,7 @@ public class FileDetailFragment extends FileFragment implements
     public void onResume() {
         super.onResume();
         mUploadFinishReceiver = new UploadFinishReceiver();
-        IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        IntentFilter filter = new IntentFilter(FileUploader.getUploadFinishMessage());
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
 
     }

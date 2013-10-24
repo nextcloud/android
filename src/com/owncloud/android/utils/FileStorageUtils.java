@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
@@ -34,11 +35,11 @@ import com.owncloud.android.datamodel.OCFile;
  * @author David A. Velasco
  */
 public class FileStorageUtils {
-    private static final String LOG_TAG = "FileStorageUtils";
+    //private static final String LOG_TAG = "FileStorageUtils";
 
     public static final String getSavePath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud/" + Uri.encode(accountName, "@");
+        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
 
@@ -48,7 +49,7 @@ public class FileStorageUtils {
 
     public static final String getTemporalPath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/owncloud/tmp/" + Uri.encode(accountName, "@");
+        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/tmp/" + Uri.encode(accountName, "@");
             // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
     }
 
@@ -66,7 +67,7 @@ public class FileStorageUtils {
     }
     
     public static final String getLogPath()  {
-        return Environment.getExternalStorageDirectory() + File.separator + "owncloud" + File.separator + "log";
+        return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
     public static String getInstantUploadFilePath(Context context, String fileName) {

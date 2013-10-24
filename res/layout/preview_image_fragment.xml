@@ -23,7 +23,7 @@
     android:id="@+id/fdScrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/owncloud_white" 
+    android:background="@color/background_color" 
     android:gravity="center_horizontal"
 -->
 
@@ -32,7 +32,7 @@
     android:id="@+id/top"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/owncloud_white"
+    android:background="@color/background_color"
     tools:context=".ui.fragment.PreviewImageFragment" >
 
     <ProgressBar 

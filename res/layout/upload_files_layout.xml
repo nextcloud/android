@@ -20,7 +20,7 @@
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/owncloud_white"
+    android:background="@color/background_color"
     android:orientation="vertical" >
 
     <fragment

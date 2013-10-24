@@ -71,6 +71,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
@@ -84,7 +85,7 @@ import eu.alefzero.webdav.WebdavClient;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 
-    public static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
+    private static final String UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH";
     public static final String EXTRA_UPLOAD_RESULT = "RESULT";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH";
@@ -127,6 +128,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private int mLastPercent;
     private RemoteViews mDefaultNotificationContentView;
 
+    
+    public static String getUploadFinishMessage() {
+        return FileUploader.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
+    }
+    
     /**
      * Builds a key for mPendingUploads from the account and file to upload
      * 
@@ -816,7 +822,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
                     //(uploadResult.isTemporalRedirection() && uploadResult.isIdPRedirection() && 
                     (uploadResult.isIdPRedirection() &&
-                            AccountAuthenticator.AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE.equals(mUploadClient.getAuthTokenType())));
+                            MainApp.getAuthTokenTypeSamlSessionCookie().equals(mUploadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
@@ -899,7 +905,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * @param uploadResult Result of the upload operation
      */
     private void sendFinalBroadcast(UploadFileOperation upload, RemoteOperationResult uploadResult) {
-        Intent end = new Intent(UPLOAD_FINISH_MESSAGE);
+        Intent end = new Intent(getUploadFinishMessage());
         end.putExtra(EXTRA_REMOTE_PATH, upload.getRemotePath()); // real remote
                                                                  // path, after
                                                                  // possible

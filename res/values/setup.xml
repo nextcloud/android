@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App name  and other strings-->
+    <string name="app_name">ownCloud</string>
+    <string name="account_type">owncloud</string>
+    <string name="authority">org.owncloud</string>
+    <string name ="db_file">owncloud.db</string>
+    <string name ="db_name">ownCloud</string>
+    <string name ="data_folder">owncloud</string>
+    <string name ="log_name">Owncloud_</string>
+    
+    <!-- Server URL -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     
@@ -7,4 +17,25 @@
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
     
+    <!-- Colors -->
+    <color name="login_background_color">#FFFFFF</color>
+    <color name="background_color">#F7F7F7</color>
+    <color name="actionbar_start_color">#1D2D44</color>
+    <color name="actionbar_end_color">#1D2D44</color>
+    
+    <!-- Multiaccount support -->
+    <bool name="multiaccount_support">true</bool>
+    
+    <!-- Help, imprint and feedback -->
+    <bool name="help_enabled">false</bool>
+    <bool name="imprint_enabled">false</bool> 
+    <bool name="recommend_enabled">false</bool>
+    <bool name="feedback_enabled">false</bool>
+    <string name="url_help">https://owncloud.com/mobile/help</string>
+    <string name="url_imprint"></string>
+    <string name="mail_recommend">"mailto:"</string>
+    <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
+
 </resources>
+

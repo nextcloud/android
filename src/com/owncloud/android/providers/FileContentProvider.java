@@ -21,6 +21,7 @@ package com.owncloud.android.providers;
 import java.util.HashMap;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
@@ -83,15 +84,17 @@ public class FileContentProvider extends ContentProvider {
     private static final int SINGLE_FILE = 1;
     private static final int DIRECTORY = 2;
     private static final int ROOT_DIRECTORY = 3;
-    private static final UriMatcher mUriMatcher;
-    static {
-        mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, null, ROOT_DIRECTORY);
-        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
-        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
-        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
-    }
+    
+    private UriMatcher mUriMatcher;
+//    static {
+//        mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+//        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, null, ROOT_DIRECTORY);
+//        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/", SINGLE_FILE);
+//        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "file/#", SINGLE_FILE);
+//        mUriMatcher.addURI(ProviderMeta.AUTHORITY_FILES, "dir/#", DIRECTORY);
+//    }
 
+    
     @Override
     public int delete(Uri uri, String where, String[] whereArgs) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -151,6 +154,14 @@ public class FileContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         mDbHelper = new DataBaseHelper(getContext());
+        
+        String authority = getContext().getResources().getString(R.string.authority);
+        mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        mUriMatcher.addURI(authority, null, ROOT_DIRECTORY);
+        mUriMatcher.addURI(authority, "file/", SINGLE_FILE);
+        mUriMatcher.addURI(authority, "file/#", SINGLE_FILE);
+        mUriMatcher.addURI(authority, "dir/#", DIRECTORY);
+        
         return true;
     }
 
