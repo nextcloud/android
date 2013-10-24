@@ -1,5 +1,5 @@
   
-  If you want to start development of ownCloud first download required files, then compile using console or Eclipse, finally create pull request:
+  If you want to start help developing ownCloud please obey the [contribution guidlines][0] and following these instructions:
   
   1. Fork and download android/develop repository:
 
@@ -42,6 +42,7 @@
 
   4. Create pull request:
   
+  -  NOTE: You must sign the [Contributor Agreement][1] before your changes can be accepted!
   -  Commit your changes locally: "git commit -a"
   -  Push your changes to your Github repo: "git push"
   -  Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
@@ -50,5 +51,6 @@
   -  Enter description and send pull request.
 
 
-
+[0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md
+[1]: http://owncloud.org/about/contributor-agreement/
 
