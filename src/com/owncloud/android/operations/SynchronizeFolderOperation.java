@@ -314,7 +314,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      */
     private void synchronizeData(MultiStatus dataInServer, WebdavClient client) {
         // get 'fresh data' from the database
-        mLocalFolder = mStorageManager.getFileById(mLocalFolder.getFileId());
+        mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
         WebdavEntry we = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());

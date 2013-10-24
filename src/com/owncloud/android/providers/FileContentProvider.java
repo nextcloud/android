@@ -226,14 +226,27 @@ public class FileContentProvider extends ContentProvider {
             throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
 
-        long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
-        if (rowId > 0) {
-            Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
-            //Log_OC.d(TAG, "Inserted " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
-            return insertedFileUri;
+        String remotePath = values.getAsString(ProviderTableMeta.FILE_PATH);
+        String accountName = values.getAsString(ProviderTableMeta.FILE_ACCOUNT_OWNER);
+        String[] projection = new String[] {ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER };
+        String where = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgs = new String[] {remotePath, accountName};
+        Cursor doubleCheck = query(db, uri, projection, where, whereArgs, null);
+        if (doubleCheck == null || !doubleCheck.moveToFirst()) {    // ugly patch; serious refactorization is needed to reduce work in FileDataStorageManager and bring it to FileContentProvider 
+            long rowId = db.insert(ProviderTableMeta.DB_NAME, null, values);
+            if (rowId > 0) {
+                Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, rowId);
+                //Log_OC.d(TAG, "Inserted " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+                return insertedFileUri;
+            } else {
+                //Log_OC.d(TAG, "Error while inserting " + values.getAsString(ProviderTableMeta.FILE_PATH)  + " at provider " + this);
+                throw new SQLException("ERROR " + uri);
+            }
         } else {
-            //Log_OC.d(TAG, "Error while inserting " + values.getAsString(ProviderTableMeta.FILE_PATH)  + " at provider " + this);
-            throw new SQLException("ERROR " + uri);
+            // file is already inserted; race condition, let's avoid a duplicated entry
+            Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, doubleCheck.getLong(doubleCheck.getColumnIndex(ProviderTableMeta._ID)));
+            doubleCheck.close();
+            return insertedFileUri;
         }
     }
 
