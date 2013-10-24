@@ -315,14 +315,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         for (i=0; i < files.size() && !mCancellation; i++) {
             newFile = files.get(i);
             if (newFile.isFolder()) {
+                /*
                 etag = newFile.getEtag();
                 syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
-                if(syncDown) {
+                if(syncDown) { */
                     synchronizeFolder(newFile);
                     // update the size of the parent folder again after recursive synchronization 
                     //getStorageManager().updateFolderSize(parent.getFileId());  
                     sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
-                }
+                //}
             }
         }
        
