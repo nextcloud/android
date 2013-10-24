@@ -23,7 +23,7 @@
 	android:layout_weight="1"
 	android:orientation="vertical" >
 
-	<com.owncloud.android.ui.ExtendedListView
+	<de.mobilcom.debitel.cloud.android.ui.ExtendedListView
         android:id="@+id/list_root"
         android:layout_width="match_parent"
         android:layout_height="0dip"

@@ -31,8 +31,8 @@ import java.util.Set;
 
 import org.apache.commons.httpclient.methods.RequestEntity;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.network.ProgressiveDataTransferer;
+import de.mobilcom.debitel.cloud.android.Log_OC;
+import de.mobilcom.debitel.cloud.android.network.ProgressiveDataTransferer;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 

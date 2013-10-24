@@ -23,7 +23,7 @@ import org.apache.jackrabbit.webdav.property.DavProperty;
 import org.apache.jackrabbit.webdav.property.DavPropertyName;
 import org.apache.jackrabbit.webdav.property.DavPropertySet;
 
-import com.owncloud.android.Log_OC;
+import de.mobilcom.debitel.cloud.android.Log_OC;
 
 import android.net.Uri;
 
