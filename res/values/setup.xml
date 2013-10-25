@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name  and other strings-->
-    <string name="app_name">ownCloud</string>
-    <string name="account_type">owncloud</string>
-    <string name="authority">org.owncloud</string>
-    <string name ="db_file">owncloud.db</string>
-    <string name ="db_name">ownCloud</string>
-    <string name ="data_folder">owncloud</string>
-    <string name ="log_name">Owncloud_</string>
+    <string name="app_name">mdCloud</string>
+    <string name="account_type">de.mobilcom.debitel.cloud</string>
+    <string name="authority">de.mobilcom.debitel</string>
+    <string name ="db_file">mdcloud.db</string>
+    <string name ="db_name">mdcloud</string>
+    <string name ="data_folder">mfcloud</string>
+    <string name ="log_name">mdCloud_</string>
     
     <!-- Server URL -->
     <string name="server_url"></string>

@@ -17,5 +17,5 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-    <string name="url_account_register">"https://owncloud.com/mobile/new"</string>
+    <string name="url_account_register">none</string>
 </resources>
