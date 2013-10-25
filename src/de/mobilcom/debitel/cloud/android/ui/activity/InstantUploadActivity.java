@@ -76,13 +76,20 @@ public class InstantUploadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.failed_upload_files);
 
-        Button delete_all_btn = (Button) findViewById(R.id.failed_upload_delete_all_btn);
-        delete_all_btn.setOnClickListener(getDeleteListner());
-        Button retry_all_btn = (Button) findViewById(R.id.failed_upload_retry_all_btn);
-        retry_all_btn.setOnClickListener(getRetryListner());
+        Button deleteAllBtn = (Button) findViewById(R.id.failed_upload_delete_all_btn);
+        deleteAllBtn.setOnClickListener(getDeleteListner());
+        Button retryAllBtn = (Button) findViewById(R.id.failed_upload_retry_all_btn);
+        retryAllBtn.setOnClickListener(getRetryListner());
         this.failed_upload_all_cb = (CheckBox) findViewById(R.id.failed_upload_headline_cb);
         failed_upload_all_cb.setOnCheckedChangeListener(getCheckAllListener());
         listView = (LinearLayout) findViewById(R.id.failed_upload_scrollviewlayout);
+        
+        // Set background of buttons
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) {
+            deleteAllBtn.setBackgroundResource(R.drawable.btn_default);
+            retryAllBtn.setBackgroundResource(R.drawable.btn_default);
+        }
 
         loadListView(true);
 

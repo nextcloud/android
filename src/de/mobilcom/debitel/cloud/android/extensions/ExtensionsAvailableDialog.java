@@ -42,6 +42,14 @@ public class ExtensionsAvailableDialog extends DialogFragment implements
                 container);
         Button btnYes = (Button) view.findViewById(R.id.buttonYes);
         Button btnNo = (Button) view.findViewById(R.id.buttonNo);
+        
+        // Set background of buttons
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) {
+            btnYes.setBackgroundResource(R.drawable.btn_default);
+            btnNo.setBackgroundResource(R.drawable.btn_default);
+        }
+        
         btnYes.setOnClickListener(this);
         btnNo.setOnClickListener(this);
         getDialog().setTitle(R.string.extensions_avail_title);

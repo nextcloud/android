@@ -197,9 +197,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// complete label for 'register account' button
         Button b = (Button) findViewById(R.id.account_register);
         if (b != null) {
-            b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+            b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
         }
 
+        /// complete background of 'OK' button
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons)
+            mOkButton.setBackgroundResource(R.drawable.btn_default);
+        
         /// initialization
         mAccountMgr = AccountManager.get(this);
         mNewCapturedUriFromOAuth2Redirection = null;

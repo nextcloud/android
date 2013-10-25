@@ -81,7 +81,10 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
         
-        
+        // Set background of 'Cancel' button
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) 
+            bCancel.setBackgroundResource(R.drawable.btn_default);
         
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());

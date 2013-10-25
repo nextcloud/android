@@ -44,8 +44,13 @@ public class FailedUploadActivity extends Activity {
         String message = getIntent().getStringExtra(MESSAGE);
         TextView textView = (TextView) findViewById(R.id.faild_upload_message);
         textView.setText(message);
-        Button close_button = (Button) findViewById(R.id.failed_uploadactivity_close_button);
-        close_button.setOnClickListener(new OnClickListener() {
+        Button closeBtn = (Button) findViewById(R.id.failed_uploadactivity_close_button);
+        // Set background of 'close' button
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) 
+            closeBtn.setBackgroundResource(R.drawable.btn_default);
+        
+        closeBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

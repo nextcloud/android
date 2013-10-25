@@ -53,6 +53,12 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
         actionBar.setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(android.R.id.list);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
+        
+        // Set background of 'deleteHistory' button
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) 
+            deleteHistoryButton.setBackgroundResource(R.drawable.btn_default);
+            
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override

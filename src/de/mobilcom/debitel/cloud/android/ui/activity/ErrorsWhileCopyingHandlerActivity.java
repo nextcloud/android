@@ -119,6 +119,13 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         /// customize buttons
         Button cancelBtn = (Button) findViewById(R.id.cancel);
         Button okBtn = (Button) findViewById(R.id.ok);
+        // Set background of buttons
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) {
+            cancelBtn.setBackgroundResource(R.drawable.btn_default);
+            okBtn.setBackgroundResource(R.drawable.btn_default);
+        }
+        
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);

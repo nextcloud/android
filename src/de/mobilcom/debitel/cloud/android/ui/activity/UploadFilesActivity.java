@@ -107,6 +107,13 @@ public class UploadFilesActivity extends FileActivity implements
         mCancelBtn.setOnClickListener(this);
         mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
+        
+        // Set background of buttons
+        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+        if (customButtons) {
+            mCancelBtn.setBackgroundResource(R.drawable.btn_default);
+            mUploadBtn.setBackgroundResource(R.drawable.btn_default);
+        }
             
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();

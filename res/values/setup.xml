@@ -23,6 +23,9 @@
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
     
+    <!-- Button -->
+    <bool name="custom_buttons">false</bool>
+    
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">false</bool>
     

@@ -24,11 +24,13 @@
 	<style name="Theme.ownCloud" parent="style/Theme.Sherlock.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+    	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
 	</style>
 	
 	<style name="Theme.ownCloud.noActionBar" parent="style/Theme.Sherlock.Light.NoActionBar">
       <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
       <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
+      <item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
     </style>
 	
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.Sherlock.NoActionBar">
@@ -53,7 +55,12 @@
 	<style name="Theme.ownCloud.Dialog" parent="style/Theme.Sherlock.Light.Dialog">
 	</style>
 	
-	
+	<!-- Buttons -->
+    <style name="Theme.ownCloud.ButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_default</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 	<!-- PopDownMenu -->
 	<style name="Animations.PopDownMenu" />
 	
