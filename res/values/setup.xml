@@ -18,7 +18,7 @@
     <string name="auth_method_saml_web_sso">off</string>
     
     <!-- Colors -->
-    <color name="login_background_color">#FFFFFF</color>
+    <color name="login_background_color">#e3e3e3</color>
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
@@ -27,10 +27,10 @@
     <bool name="multiaccount_support">false</bool>
     
     <!-- Help, imprint and feedback -->
-    <bool name="help_enabled">false</bool>
-    <bool name="imprint_enabled">false</bool> 
-    <bool name="recommend_enabled">false</bool>
-    <bool name="feedback_enabled">false</bool>
+    <bool name="help_enabled">true</bool>
+    <bool name="imprint_enabled">true</bool> 
+    <bool name="recommend_enabled">true</bool>
+    <bool name="feedback_enabled">true</bool>
     <string name="url_help">http://www2.mobilcom-debitel.de/kontakt/faqs?cat=42</string>
     <string name="url_imprint">"https://webapi.md.de/about/imprint"</string>
     <string name="mail_recommend">"mailto:"</string>
@@ -38,4 +38,5 @@
     <!-- string name="url_app_download">"https://play.google.com/store/apps/details?id=de.mobilcom.debitel.cloud.android"</string -->
 
 </resources>
+
 

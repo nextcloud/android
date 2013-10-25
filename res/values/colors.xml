@@ -22,4 +22,9 @@
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="owncloud_blue_bright">#00ddff</color>
     
+    <color name="freenet_green_01">#84bc34</color>
+    <color name="freenet_green_02">#a0d92d</color>
+    <color name="mdcloud_green">#83b324</color>
+    <color name="mdcloud_grey">#e3e3e3</color> <!-- login background color -->
+    
 </resources>
