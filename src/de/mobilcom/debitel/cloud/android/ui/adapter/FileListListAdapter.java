@@ -54,9 +54,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private DataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-    //total size of a directory (recursive)
-    private Long totalSizeOfDirectoriesRecursive = null;
-    private Long lastModifiedOfAllSubdirectories = null;
     
     public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
         mContext = context;

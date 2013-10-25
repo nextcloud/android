@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Custom strings for mdCloud. 
+	 File name begins with 'z' character to grant that its contents will be processed AFTER strings.xml by the resource builder; 
+	 this way, the values here will overwrite any value set in strings.xml for the same string resources -->
+<resources>
+  <string name="actionbar_upload_from_apps">My pictures / music</string>
+  <string name="auth_unknown_host_title">mdCloud can not find the host.</string>
+  <string name="auth_unknown_host_message">mdCloud can not find the registered host. Please check the host name and the availability of the server and try again.</string>
+  
+  <string name="recommend_subject">Explore the mobilcom-debitel cloud!</string>
+  <string name="recommend_text">"Hello,\n\nAs a customer of mobilcom-debitel I can manage, view and share all my files from anywhere with my cloud application.\n\nFind out about the great possibilities of mobilcom-debitel cloud under\n\nhttp://www.md.de/cloud\n\nBest regards,\n%1$s"</string>  
+</resources>

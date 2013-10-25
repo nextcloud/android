@@ -87,7 +87,6 @@ import de.mobilcom.debitel.cloud.android.ui.fragment.FileDetailFragment;
 import de.mobilcom.debitel.cloud.android.ui.fragment.FileFragment;
 import de.mobilcom.debitel.cloud.android.ui.fragment.OCFileListFragment;
 import de.mobilcom.debitel.cloud.android.ui.preview.PreviewImageActivity;
-import de.mobilcom.debitel.cloud.android.ui.preview.PreviewImageFragment;
 import de.mobilcom.debitel.cloud.android.ui.preview.PreviewMediaFragment;
 import de.mobilcom.debitel.cloud.android.ui.preview.PreviewVideoActivity;
 

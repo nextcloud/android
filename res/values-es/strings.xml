@@ -16,7 +16,7 @@
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar cuenta</string>
   <string name="actionbar_upload">Subir archivo</string>
-  <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
+  <!-- string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string -->
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>
@@ -185,8 +185,8 @@
   <string name="auth_not_configured_message">Parece que tu servidor no está correctamente configurado. Contacta a tu administrador para más detalles.</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
   <string name="auth_unknown_error_message">Ocurrió un error desconocido. Por favor, contacta a los autores e incluye los registros de tu dispositivo.</string>
-  <string name="auth_unknown_host_title">No se pudo encontrar la dirección</string>
-  <string name="auth_unknown_host_message">No se pudo encontrar el dirección introducida. Consulte la disponibilidad del servidor y la dirección e intenta nuevamete.</string>
+  <!-- string name="auth_unknown_host_title">No se pudo encontrar la dirección</string -->
+  <!-- string name="auth_unknown_host_message">No se pudo encontrar el dirección introducida. Consulte la disponibilidad del servidor y la dirección e intenta nuevamete.</string -->
   <string name="auth_incorrect_path_title">Instancia de servidor no encontrada</string>
   <string name="auth_incorrect_path_message">La aplicación no pudo encontrar la instancia del servidor en la ruta de acceso dada. Por favor, compruebe la ruta de acceso e inténtelo de nuevo.</string>
   <string name="auth_timeout_title">El servidor ha tardado demasiado en responder</string>

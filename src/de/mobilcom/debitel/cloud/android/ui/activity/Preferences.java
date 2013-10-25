@@ -19,6 +19,7 @@ package de.mobilcom.debitel.cloud.android.ui.activity;
 
 import java.util.Vector;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -32,7 +33,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -42,6 +42,7 @@ import com.actionbarsherlock.view.MenuItem;
 import de.mobilcom.debitel.cloud.android.Log_OC;
 import de.mobilcom.debitel.cloud.android.OwnCloudSession;
 import de.mobilcom.debitel.cloud.android.R;
+import de.mobilcom.debitel.cloud.android.authentication.AccountUtils;
 import de.mobilcom.debitel.cloud.android.db.DbHandler;
 
 /**
@@ -141,14 +142,14 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
 
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
-                        //Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
+                        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
                         String appName = getString(R.string.app_name);
-                        //String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@')); 
-                        //String recommendSubject = String.format(getString(R.string.recommend_subject), username, appName);
-                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@')); 
+                        String recommendSubject = String.format(getString(R.string.recommend_subject), username, appName);
+                        //String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
-                        //String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), username);
-                        String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), getString(R.string.url_app_download));
+                        String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), username);
+                        //String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), getString(R.string.url_app_download));
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
 
                         intent.setData(Uri.parse(getString(R.string.mail_recommend))); 

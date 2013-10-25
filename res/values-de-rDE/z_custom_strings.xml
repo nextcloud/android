@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Custom strings for mdCloud. 
+	 File name begins with 'z' character to grant that its contents will be processed AFTER strings.xml by the resource builder; 
+	 this way, the values here will overwrite any value set in strings.xml for the same string resources -->
+<resources>
+  <string name="actionbar_upload_from_apps">Eigene Bilder / Musik</string>
+  <string name="auth_unknown_host_title">mdCloud kann den Host nicht finden.</string>
+  <string name="auth_unknown_host_message">mdCloud kann den eingetragenen Host nicht finden. Bitte prüfen Sie den Hostnamen und die Verfügbarkeit des Servers und versuchen Sie es erneut.</string>
+  
+  <string name="recommend_subject">Sehen Sie sich die mobilcom-debitel Cloud an!</string>
+  <string name="recommend_text">"Hallo,\n\nals Kunde der mobilcom-debitel kann ich mit meiner Cloud-Anwendung alle meine Dateien von überall aus verwalten, ansehen und teilen.\n\nInformieren Sie sich über die tollen Möglichkeiten der mobilcom-debitel Cloud unter\n\nhttp://www.md.de/cloud\n\nViele Grüße,\n%1$s"</string>
+  
+  <string name="rename_dialog_title">Datei umbenennen</string>
+  
+  <string name="prefs_instant_upload">Sofort-Upload</string>
+  <string name="instant_upload_on_wifi">Upload nur über WLAN</string>
+  
+  <string name="auth_login_details">Zugangsdaten</string>
+  
+  <string name="auth_check_server">Server prüfen</string>
+  
+  <string name="filedetails_type">Dateiformat:</string>
+  <string name="filedetails_modified">geändert am:</string>
+  
+</resources>
