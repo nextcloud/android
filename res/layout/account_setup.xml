@@ -182,12 +182,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:textColor="#0000FF" 
             android:onClick="onRegisterClick"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="@string/auth_register"
-            />
+            android:textColor="#0000FF"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 </ScrollView>
