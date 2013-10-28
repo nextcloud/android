@@ -129,8 +129,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private RemoteViews mDefaultNotificationContentView;
 
     
-    public String getUploadFinishMessage() {
-        return getClass().getName().toString() + UPLOAD_FINISH_MESSAGE;
+    public static String getUploadFinishMessage() {
+        return FileUploader.class.getName().toString() + UPLOAD_FINISH_MESSAGE;
     }
     
     /**
@@ -383,7 +383,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 return false;
             String targetKey = buildRemoteName(account, file);
             synchronized (mPendingUploads) {
-                if (file.isDirectory()) {
+                if (file.isFolder()) {
                     // this can be slow if there are many uploads :(
                     Iterator<String> it = mPendingUploads.keySet().iterator();
                     boolean found = false;

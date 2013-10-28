@@ -28,7 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -46,10 +46,9 @@ public class SynchronizeFileOperation extends RemoteOperation {
     
     private OCFile mLocalFile;
     private OCFile mServerFile;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
-    private boolean mLocalChangeAlreadyKnown;
     private Context mContext;
     
     private boolean mTransferWasRequested = false;
@@ -57,10 +56,9 @@ public class SynchronizeFileOperation extends RemoteOperation {
     public SynchronizeFileOperation(
             OCFile localFile,
             OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
-            DataStorageManager storageManager, 
+            FileDataStorageManager storageManager, 
             Account account, 
             boolean syncFileContents,
-            boolean localChangeAlreadyKnown, 
             Context context) {
         
         mLocalFile = localFile;
@@ -68,7 +66,6 @@ public class SynchronizeFileOperation extends RemoteOperation {
         mStorageManager = storageManager;
         mAccount = account;
         mSyncFileContents = syncFileContents;
-        mLocalChangeAlreadyKnown = localChangeAlreadyKnown;
         mContext = context;
     }
 
@@ -112,16 +109,18 @@ public class SynchronizeFileOperation extends RemoteOperation {
               
                     /// check changes in server and local file
                     boolean serverChanged = false;
+                    /* time for eTag is coming, but not yet
                     if (mServerFile.getEtag() != null) {
                         serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
-                    } else {
+                    } else { */
                         // server without etags
                         serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestampAtLastSyncForData());
-                    }
-                    boolean localChanged = (mLocalChangeAlreadyKnown || mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
+                    //}
+                    boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
                         // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
               
                     /// decide action to perform depending upon changes
+                    //if (!mLocalFile.getEtag().isEmpty() && localChanged && serverChanged) {
                     if (localChanged && serverChanged) {
                         result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                   
@@ -218,6 +217,8 @@ public class SynchronizeFileOperation extends RemoteOperation {
         file.setFileLength(we.contentLength());
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimestamp());
+        file.setEtag(we.etag());
+        
         return file;
     }
 

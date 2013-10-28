@@ -24,7 +24,7 @@ import java.util.List;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -121,24 +121,52 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
 
     /**
-     * Call this, when the user presses the up button
+     * Call this, when the user presses the up button.
+     * 
+     * Tries to move up the current folder one level. If the parent folder was removed from the database, 
+     * it continues browsing up until finding an existing folders.
+     * 
+     * return       Count of folder levels browsed up.
      */
-    public void onBrowseUp() {
+    public int onBrowseUp() {
         OCFile parentDir = null;
+        int moveCount = 0;
         
         if(mFile != null){
-            DataStorageManager storageManager = mContainerActivity.getStorageManager();
-            parentDir = storageManager.getFileById(mFile.getParentId());
-            mFile = parentDir;
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            
+            String parentPath = null;
+            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                parentPath = new File(mFile.getRemotePath()).getParent();
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            } else {
+                parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);    // never returns null; keep the path in root folder
+            }
+            while (parentDir == null) {
+                parentPath = new File(parentPath).getParent();
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            }   // exit is granted because storageManager.getFileByPath("/") never returns null
+            mFile = parentDir;           
         }
-        listDirectory(parentDir);
+        
+        if (mFile != null) {
+            listDirectory(mFile);
+
+            mContainerActivity.startSyncFolderOperation(mFile);
+        }   // else - should never happen now
+   
+        return moveCount;
     }
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
-            if (file.isDirectory()) { 
+            if (file.isFolder()) { 
                 // update state and view of this fragment
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
@@ -185,7 +213,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         List<Integer> toDisable = new ArrayList<Integer>();  
         
         MenuItem item = null;
-        if (targetFile.isDirectory()) {
+        if (targetFile.isFolder()) {
             // contextual menu for folders
             toHide.add(R.id.action_open_file_with);
             toHide.add(R.id.action_download_file);
@@ -257,7 +285,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         switch (item.getItemId()) {
             case R.id.action_rename_file: {
                 String fileName = mTargetFile.getFileName();
-                int extensionStart = mTargetFile.isDirectory() ? -1 : fileName.lastIndexOf(".");
+                int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
                 int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
                 EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
                 dialog.show(getFragmentManager(), EditNameDialog.TAG);
@@ -267,7 +295,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 int messageStringId = R.string.confirmation_remove_alert;
                 int posBtnStringId = R.string.confirmation_remove_remote;
                 int neuBtnStringId = -1;
-                if (mTargetFile.isDirectory()) {
+                if (mTargetFile.isFolder()) {
                     messageStringId = R.string.confirmation_remove_folder_alert;
                     posBtnStringId = R.string.confirmation_remove_remote_and_local;
                     neuBtnStringId = R.string.confirmation_remove_folder_local;
@@ -287,7 +315,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             }
             case R.id.action_sync_file: {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
-                RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, false, getSherlockActivity());
+                RemoteOperation operation = new SynchronizeFileOperation(mTargetFile, null, mContainerActivity.getStorageManager(), account, true, getSherlockActivity());
                 operation.execute(account, getSherlockActivity(), mContainerActivity, mHandler, getSherlockActivity());
                 ((FileDisplayActivity) getSherlockActivity()).showLoadingDialog();
                 return true;
@@ -346,7 +374,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory) {
-        DataStorageManager storageManager = mContainerActivity.getStorageManager();
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
             // Check input parameters for null
@@ -361,7 +389,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         
         
             // If that's not a directory -> List its parent
-            if(!directory.isDirectory()){
+            if(!directory.isFolder()){
                 Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
                 directory = storageManager.getFileById(directory.getParentId());
             }
@@ -371,7 +399,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
-
         }
     }
     
@@ -396,11 +423,13 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         public void startMediaPreview(OCFile file, int i, boolean b);
 
         public void startImagePreview(OCFile file);
+        
+        public void startSyncFolderOperation(OCFile folder);
 
         /**
          * Getter for the current DataStorageManager in the container activity
          */
-        public DataStorageManager getStorageManager();
+        public FileDataStorageManager getStorageManager();
         
         
         /**
@@ -454,16 +483,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     @Override
     public void onNeutral(String callerTag) {
-        File f = null;
-        if (mTargetFile.isDirectory()) {
-            // TODO run in a secondary thread?
-            mContainerActivity.getStorageManager().removeDirectory(mTargetFile, false, true);
-            
-        } else if (mTargetFile.isDown() && (f = new File(mTargetFile.getStoragePath())).exists()) {
-            f.delete();
-            mTargetFile.setStoragePath(null);
-            mContainerActivity.getStorageManager().saveFile(mTargetFile);
-        }
+        mContainerActivity.getStorageManager().removeFile(mTargetFile, false, true);    // TODO perform in background task / new thread
         listDirectory();
         mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
