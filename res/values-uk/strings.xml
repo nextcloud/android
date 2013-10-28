@@ -20,14 +20,12 @@
   <string name="actionbar_settings">Налаштування</string>
   <string name="actionbar_see_details">Деталі</string>
   <string name="prefs_category_general">Основне</string>
+  <string name="prefs_category_more">Більше</string>
   <string name="prefs_add_session">Додати нову сесію</string>
   <string name="prefs_create_img_thumbnails">Створити відбитки зображень</string>
   <string name="prefs_select_oc_account">Обрати обліковий запис</string>
-  <string name="prefs_summary_select_oc_account">Оберіть, який із облікових записів повинна використовувати програма.</string>
-  <string name="prefs_trackmydevice">Стеження за пристроєм</string>
   <string name="prefs_trackmydevice_summary_off">Дозволити App стежити за місцезнаходженням Вашого пристрою</string>
   <string name="prefs_trackmydevice_summary_on">Ваш App стежить за цим пристроєм</string>
-  <string name="prefs_trackmydevice_interval">Інтервал оновлення</string>
   <string name="prefs_trackmydevice_interval_summary">Оновлювати кожні %1$s хвилин</string>
   <string name="prefs_accounts">Облікові записи</string>
   <string name="prefs_manage_accounts">Управління обліковими записами</string>
@@ -35,11 +33,12 @@
   <string name="prefs_pincode_summary">Захист Вашог App клієнта</string>
   <string name="prefs_instant_upload">Включити негайне завантаження</string>
   <string name="prefs_instant_upload_summary">Негайно завантажувати фото, зроблені камерою</string>
+  <string name="prefs_help">Допомога</string>
+  <string name="prefs_feedback">Зворотній зв\'язок</string>
+  <string name="prefs_imprint">Відбиток</string>
   <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
-  <string name="new_session_uri_error">Надано невірний URL</string>
-  <string name="new_session_session_name_error">Невірне ім\'я сесії</string>
   <string name="sync_string_files">Файли</string>
   <string name="uploader_no_file_selected">Не обрано файл для завантаження</string>
   <string name="setup_hint_username">Ім\'я користувача</string>
@@ -87,7 +86,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Завантаження %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Успішно завантажено</string>
   <string name="uploader_upload_succeeded_content_single">%1$s було успішно завантажено</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d файлів було успішно завантажено</string>
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
   <string name="uploader_upload_failed_content_multiple">Помилка завантаження: %1$d/%2$d файли завантажено</string>
@@ -137,20 +135,16 @@
   </string-array>
   <string name="auth_trying_to_login">Спроба входу…</string>
   <string name="auth_no_net_conn_title">Відсутнє підключення до мережі</string>
-  <string name="auth_no_net_conn_message">Не знайдено підключення до мережі, перевірте своє підключення до Інтернету та спробуйте ще.</string>
   <string name="auth_connect_anyway">Все одно з\'єднатися</string>
   <string name="auth_nossl_plain_ok_title">Безпечне з\'єднання не доступне.</string>
-  <string name="auth_nossl_plain_ok_message">Програма не може встановити безпечне з\'єднання з сервером. Проте, не захищене з\'єднання можливе. Ви можете продовжити або відмінити.</string>
   <string name="auth_connection_established">З\'єднання встановлено</string>
   <string name="auth_testing_connection">Перевірка з\'єднання…</string>
   <string name="auth_not_configured_title">Не вірні налаштування сервер </string>
   <string name="auth_not_configured_message">Здається, Ваш сервер примірник не правильно налаштовано. Зверніться до адміністратора для більш докладної інформації.</string>
   <string name="auth_unknown_error_title">Виникла невідома помилка!</string>
-  <string name="auth_unknown_error_message">Виникла невідома помилка. Будь ласка, зв\'яжіться з авторами та надайте лог-файли з Вашого пристрою.</string>
   <string name="auth_unknown_host_title">Не вдалося знайти хост</string>
   <string name="auth_unknown_host_message">Не вдалося знайти визначений хост. Будь ласка, перевірте ім\'я хосту і доступність серверу та спробуйте ще.</string>
   <string name="auth_incorrect_path_title">Не знайдено примірник сервер</string>
-  <string name="auth_incorrect_path_message">Програмі не вдалося знайти примірник ownClound за вказаною адресою. Будь ласка, перевірте адресу та спробуйте ще.</string>
   <string name="auth_timeout_title">Сервер занадто довго не відповідає</string>
   <string name="auth_incorrect_address_title">Пошкоджений URL</string>
   <string name="auth_ssl_general_error_title">Помилка SSL ініціалізації</string>
@@ -160,7 +154,6 @@
   <string name="auth_secure_connection">Встановлено захищене з\'єднання</string>
   <string name="auth_not_found">Вказано невірний шлях</string>
   <string name="auth_internal">Внутрішня помилка серверу, код %1$d</string>
-  <string name="crashlog_message">Програма несподівано закрилася. Чи бажаєте Ви надіслати доповідь про аварію?</string>
   <string name="crashlog_send_report">Надіслати доповідь</string>
   <string name="crashlog_dont_send_report">Не  відсилати доповідь</string>
   <string name="extensions_avail_title">Розширення доступні!</string>

@@ -24,6 +24,7 @@
   <string name="actionbar_settings">Einstellungen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="prefs_category_general">Allgemein</string>
+  <string name="prefs_category_more">Mehr</string>
   <string name="prefs_add_session">Neue Sitzung hinzufügen</string>
   <string name="prefs_create_img_thumbnails">Bildvorschau erstellen</string>
   <string name="prefs_select_oc_account">Account auswählen</string>
@@ -44,6 +45,9 @@
   <string name="prefs_log_title_history">Protokollierungsverlauf</string>
   <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
   <string name="prefs_log_delete_history_button">Verlauf löschen</string>
+  <string name="prefs_help">Hilfe</string>
+  <string name="prefs_feedback">Rückmeldungen</string>
+  <string name="prefs_imprint">Impressum</string>
   <string name="auth_check_server">Server überprüfen</string>
   <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
@@ -202,7 +206,6 @@
   <string name="auth_not_found">Falsche Pfadangabe</string>
   <string name="auth_internal">Interner Server Fehler, Fehlercode %1$d</string>
   <string name="auth_wtf_reenter_URL">Unerwarteter Zustand; bitte geben Sie die URL des Servers nochmals ein</string>
-  <string name="auth_expired_oauth_token_toast">Ihre Autorisierung ist abgelaufen\nBitte Autorisierung nochmals durchführen</string>
   <string name="auth_expired_basic_auth_toast">Bitte geben Sie Ihr aktuelles Passwort ein</string>
   <string name="crashlog_message">Die Anwendung ist abgestürzt. Möchten Sie einen Bericht senden?</string>
   <string name="crashlog_send_report">Bericht senden</string>
@@ -210,7 +213,7 @@
   <string name="extensions_avail_title">Erweiterung verfügbar!</string>
   <string name="extensions_avail_message">Scheinbar unterstützt Ihr Server weitere Erweiterungen. Möchten Sie die verfügbaren Erweiterungen für Android sehen?</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
-  <string name="common_share">Teilen</string>
+  <string name="common_share">Freigeben</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
   <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>

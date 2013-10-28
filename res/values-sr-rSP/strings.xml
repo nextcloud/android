@@ -2,10 +2,12 @@
 <resources>
   <string name="main_files">Fajlovi</string>
   <string name="main_music">Muzika</string>
+  <string name="main_calendar">Kalendar</string>
   <string name="main_settings">Podešavanja</string>
   <string name="actionbar_upload">Pošalji</string>
   <string name="actionbar_upload_files">Fajlovi</string>
   <string name="actionbar_settings">Podešavanja</string>
+  <string name="prefs_help">Pomoć</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Fajlovi</string>

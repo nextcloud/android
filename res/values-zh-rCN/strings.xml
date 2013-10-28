@@ -2,7 +2,7 @@
 <resources>
   <string name="main_password">密码：</string>
   <string name="main_login">用户名：</string>
-  <string name="main_button_login">登陆</string>
+  <string name="main_button_login">登录</string>
   <string name="main_welcome">欢迎来到你的</string>
   <string name="main_files">文件</string>
   <string name="main_music">音乐</string>
@@ -12,7 +12,7 @@
   <string name="main_settings">设置</string>
   <string name="main_tit_accsetup">设置账号</string>
   <string name="main_wrn_accsetup">设备上无  账号，要使用此 App，需要先创建一个账号。</string>
-  <string name="about_version">版本：%1</string>
+  <string name="about_version">版本：%1$s</string>
   <string name="actionbar_sync">刷新帐户</string>
   <string name="actionbar_upload">上传</string>
   <string name="actionbar_upload_from_apps">来自其它app的内容</string>
@@ -23,14 +23,12 @@
   <string name="actionbar_settings">设置</string>
   <string name="actionbar_see_details">详细信息</string>
   <string name="prefs_category_general">常规</string>
+  <string name="prefs_category_more">更多</string>
   <string name="prefs_add_session">添加新设备</string>
   <string name="prefs_create_img_thumbnails">创建图片缩略图</string>
   <string name="prefs_select_oc_account">选择账号</string>
-  <string name="prefs_summary_select_oc_account">选择程序使用的账号</string>
-  <string name="prefs_trackmydevice">设备跟踪</string>
   <string name="prefs_trackmydevice_summary_off">用 跟踪您设备的位置</string>
   <string name="prefs_trackmydevice_summary_on">您的  将跟踪设备的位置</string>
-  <string name="prefs_trackmydevice_interval">更新间隔</string>
   <string name="prefs_trackmydevice_interval_summary">每%1$s分钟更新一次</string>
   <string name="prefs_accounts">账号</string>
   <string name="prefs_manage_accounts">管理账号</string>
@@ -41,12 +39,13 @@
   <string name="prefs_log_title">开启日志</string>
   <string name="prefs_log_title_history">日志历史</string>
   <string name="prefs_log_delete_history_button">删除历史</string>
+  <string name="prefs_help">帮助</string>
+  <string name="prefs_feedback">反馈</string>
+  <string name="prefs_imprint">版本说明</string>
   <string name="auth_check_server">检查服务器</string>
   <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
-  <string name="new_session_uri_error">错误的网址</string>
-  <string name="new_session_session_name_error">错误的会话名</string>
   <string name="sync_string_files">文件</string>
   <string name="uploader_no_file_selected">未选择要上传的文件</string>
   <string name="setup_hint_username">用户名</string>
@@ -96,7 +95,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">上传成功</string>
   <string name="uploader_upload_succeeded_content_single">%1$s 成功上传</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d 文件成功上传。</string>
   <string name="uploader_upload_failed_ticker">上传失败</string>
   <string name="uploader_upload_failed_content_single">1$上传未能完成</string>
   <string name="uploader_upload_failed_content_multiple">上传失败：%1$d/%2$d文件已上传。</string>
@@ -170,16 +168,13 @@
   </string-array>
   <string name="auth_trying_to_login">尝试登录</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
-  <string name="auth_no_net_conn_message">未检测到网络连接，检查互联网连接设置后重试。</string>
   <string name="auth_connect_anyway">总是连接</string>
   <string name="auth_nossl_plain_ok_title">安全链接无效。</string>
-  <string name="auth_nossl_plain_ok_message">应用无法建立安全链接到服务器，但是未加密连接可用，你可以继续或取消。</string>
   <string name="auth_connection_established">连接已建立。</string>
   <string name="auth_testing_connection">测试连接……</string>
   <string name="auth_not_configured_title">服务器配置不正确。</string>
   <string name="auth_not_configured_message">看起来服务器实例配置不正确，请联系您的管理员获取更多信息。</string>
   <string name="auth_unknown_error_title">发生未知错误！</string>
-  <string name="auth_unknown_error_message">发生未知错误，请联系作者并包括您设备上的日志。</string>
   <string name="auth_unknown_host_title">无法找到服务器</string>
   <string name="auth_unknown_host_message">无法找到输入的服务器，请检查主机名以及服务器可用性后重试</string>
   <string name="auth_incorrect_path_title">未发现服务器实例</string>
@@ -195,7 +190,6 @@
   <string name="auth_not_found">错误的路径</string>
   <string name="auth_internal">内部服务器错误，代码 %1$d</string>
   <string name="auth_expired_basic_auth_toast">请输入当前密码：</string>
-  <string name="crashlog_message">应用崩溃，是否提交崩溃报告？</string>
   <string name="crashlog_send_report">发送报告</string>
   <string name="crashlog_dont_send_report">不发送报告</string>
   <string name="extensions_avail_title">有效扩展！</string>

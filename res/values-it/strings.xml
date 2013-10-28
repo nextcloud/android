@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="main_password">Password:</string>
-  <string name="main_login"> Nome utente:</string>
-  <string name="main_button_login">Accedi</string>
+  <string name="main_login">Nome utente:</string>
+  <string name="main_button_login">Accesso</string>
   <string name="main_welcome">Benvenuto</string>
   <string name="main_files">File</string>
   <string name="main_music">Musica</string>
@@ -23,16 +23,13 @@
   <string name="actionbar_search">Cerca</string>
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
-  
   <string name="prefs_category_general">Generale</string>
+  <string name="prefs_category_more">Altro</string>
   <string name="prefs_add_session">Aggiungi nuova sessione</string>
   <string name="prefs_create_img_thumbnails">Crea anteprime immagini</string>
   <string name="prefs_select_oc_account">Scegli un account</string>
-  <string name="prefs_summary_select_oc_account">Scegli quale dei tuoi account sarà utilizzato dall\'applicazione</string>
-  <string name="prefs_trackmydevice">Tracciamento del dispositivo</string>
   <string name="prefs_trackmydevice_summary_off">Abilita l\'applicazione a tracciare la posizione del tuo dispositivo</string>
   <string name="prefs_trackmydevice_summary_on">Il tuo l\'applicazione tiene traccia di questo dispositivo</string>
-  <string name="prefs_trackmydevice_interval">Intervallo di aggiornamento</string>
   <string name="prefs_trackmydevice_interval_summary">Aggiorna ogni %1$s minuti</string>
   <string name="prefs_accounts">Account</string>
   <string name="prefs_manage_accounts">Gestisci account</string>
@@ -45,14 +42,17 @@
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
   <string name="prefs_log_summary_history">Mostra i log registrati</string>
   <string name="prefs_log_delete_history_button">Elimina la cronologia</string>
-  
+  <string name="prefs_help">Aiuto</string>
+  <string name="prefs_recommend">Consiglia ad un amico</string>
+  <string name="prefs_feedback">Segnalazioni</string>
+  <string name="prefs_imprint">Imprint</string>
+  <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
+  <string name="recommend_text">Vorrei invitarti ad usare %1$s sul tuo smartphone!⏎\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo del server</string>
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
   <string name="auth_register">Prima volta su %1$s?</string>
-  <string name="new_session_uri_error">URL fornito errato</string>
-  <string name="new_session_session_name_error">Nome di sessione errato</string>
   <string name="sync_string_files">File</string>
   <string name="uploader_no_file_selected">Nessun file selezionato per l\'invio</string>
   <string name="setup_hint_username">Nome utente</string>
@@ -71,7 +71,6 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
-  <string name="uploader_btn_create_dir_text">Crea cartella per il caricamento</string>
   <string name="file_list_empty">Non ci sono file in questa cartella.\nNuovi file possono essere aggiunti con l\'opzione di menu \"Carica\".</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
@@ -103,7 +102,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Caricamento effettuato</string>
   <string name="uploader_upload_succeeded_content_single">%1$s è stato caricato correttamente</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d file sono stati caricati correttamente</string>
   <string name="uploader_upload_failed_ticker">Caricamento non riuscito</string>
   <string name="uploader_upload_failed_content_single">Il caricamento di %1$s non può essere completato</string>
   <string name="uploader_upload_failed_content_multiple">Caricamento non riuscito: %1$d/%2$d file sono stati caricati</string>
@@ -144,7 +142,6 @@
   <string name="pincode_wrong">PIN di l\'applicazione non corretto</string>
   <string name="pincode_removed">PIN di l\'applicazione rimosso</string>
   <string name="pincode_stored">PIN di l\'applicazione memorizzato</string>
-  
   <string name="media_notif_ticker">Lettore musicale %1$s</string>
   <string name="media_state_playing">%1$s (in riproduzione)</string>
   <string name="media_state_loading">%1$s (in caricamento)</string>
@@ -178,16 +175,15 @@
   </string-array>
   <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
-  <string name="auth_no_net_conn_message">Non sono state rilevate connessioni di rete, controlla la tua connessione a  Internet e prova ancora.</string>
   <string name="auth_connect_anyway">Connetti comunque</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
-  <string name="auth_nossl_plain_ok_message">L\'applicazione non è in grado di stabilire una connessione sicura al server. È comunque disponibile una connessione non sicura. Puoi continuare o annullare.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
   <string name="auth_testing_connection">Prova di connessione in corso...</string>
   <string name="auth_not_configured_title">Configurazione non corretta di il server</string>
   <string name="auth_not_configured_message">Sembra che l\'istanza di il server non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
+  <string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
+  <string name="auth_account_not_the_same">Il nome utente inserito non corrisponde all\'utente di questo account</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
-  <string name="auth_unknown_error_message">Si è verificato un errore sconosciuto. Contatta gli autori e includi i log del tuo dispositivo.</string>
   <string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
   <string name="auth_unknown_host_message">Impossibile trovare l\'host digitato. Controlla il nome dell\'host e la raggiungibilità del server e prova ancora.</string>
   <string name="auth_incorrect_path_title">Istanza di il server non trovata</string>
@@ -205,9 +201,12 @@
   <string name="auth_not_found">Il percorso fornito non è valido</string>
   <string name="auth_internal">Errore interno del server, codice %1$d</string>
   <string name="auth_wtf_reenter_URL">Stato inatteso; inserisci nuovamente l\'URL del server</string>
-  <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta.\nRichiedi l\'autorizzazione</string>
+  <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta. Richiedi l\'autorizzazione</string>
   <string name="auth_expired_basic_auth_toast">Inserisci la password attuale</string>
-  <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>
+  <string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
+  <string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
+  <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
+  <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
   <string name="crashlog_send_report">Invia segnalazione</string>
   <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>
   <string name="extensions_avail_title">Estensioni disponibili!</string>

@@ -24,6 +24,7 @@
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細資料</string>
   <string name="prefs_category_general">一般</string>
+  <string name="prefs_category_more">更多</string>
   <string name="prefs_add_session">增加新連線</string>
   <string name="prefs_create_img_thumbnails">建立圖片縮圖</string>
   <string name="prefs_select_oc_account">選擇一個帳號</string>
@@ -31,7 +32,6 @@
   <string name="prefs_trackmydevice">裝置追蹤</string>
   <string name="prefs_trackmydevice_summary_off">啓用此應用程式以追蹤所在位置</string>
   <string name="prefs_trackmydevice_summary_on">此應用程式會追蹤這個裝置</string>
-  <string name="prefs_trackmydevice_interval">更新間隔</string>
   <string name="prefs_trackmydevice_interval_summary">每 %1$s 分鐘更新</string>
   <string name="prefs_accounts">帳號</string>
   <string name="prefs_manage_accounts">管理帳號</string>
@@ -44,6 +44,9 @@
   <string name="prefs_log_title_history">歷史記錄</string>
   <string name="prefs_log_summary_history">顯示之前的記錄檔</string>
   <string name="prefs_log_delete_history_button">刪除歷史記錄</string>
+  <string name="prefs_help">說明</string>
+  <string name="prefs_feedback">反饋</string>
+  <string name="prefs_imprint">法律聲明</string>
   <string name="auth_check_server">檢查伺服器</string>
   <string name="auth_host_url">伺服器位址</string>
   <string name="auth_username">使用者名稱</string>
@@ -53,7 +56,7 @@
   <string name="new_session_session_name_error">錯誤的連線名稱</string>
   <string name="sync_string_files">檔案</string>
   <string name="uploader_no_file_selected">未選擇任何要上傳的檔案</string>
-  <string name="setup_hint_username">使用者名稱</string>
+  <string name="setup_hint_username">使用者名稱：</string>
   <string name="setup_hint_password">密碼</string>
   <string name="setup_hint_address">網頁位址</string>
   <string name="setup_hint_show_password">顯示密碼？</string>
@@ -101,7 +104,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% 上傳中 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">更新成功</string>
   <string name="uploader_upload_succeeded_content_single">%1$s 已成功地上傳</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d 檔案已成功地上傳</string>
   <string name="uploader_upload_failed_ticker">上傳失敗</string>
   <string name="uploader_upload_failed_content_single">上傳 %1$s 未完成</string>
   <string name="uploader_upload_failed_content_multiple">上傳失敗: %1$d/%2$d 檔案已上傳</string>
@@ -202,7 +204,6 @@
   <string name="auth_not_found"> 錯誤的路徑</string>
   <string name="auth_internal">內部錯誤, 代碼 %1$d</string>
   <string name="auth_wtf_reenter_URL">未知的狀態; 請再輸入一次伺服器的名稱</string>
-  <string name="auth_expired_oauth_token_toast">你的登入授權已過期.\n請再次登入</string>
   <string name="auth_expired_basic_auth_toast">請輸入目錄的密碼</string>
   <string name="crashlog_message">程式未預期的錯誤. 你要寄送錯誤的分析報告嗎?</string>
   <string name="crashlog_send_report">發送報告</string>

@@ -4,9 +4,10 @@
   <string name="main_music">مۆسیقا</string>
   <string name="main_calendar">ڕۆژژمێر</string>
   <string name="main_bookmarks">دڵخوازه‌کان</string>
-  <string name="main_settings">ده‌ستكاری</string>
+  <string name="main_settings">ڕێکخستنه‌کان</string>
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
+  <string name="prefs_help">یارمەتی</string>
   <string name="auth_host_url">ناونیشانی ڕاژه</string>
   <string name="auth_username">ناوی به‌کارهێنه‌ر</string>
   <string name="auth_password">وشەی تێپەربو</string>

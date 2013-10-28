@@ -15,9 +15,11 @@
   <string name="actionbar_search">pretraži</string>
   <string name="actionbar_settings">Postavke</string>
   <string name="prefs_category_general">Općenito</string>
+  <string name="prefs_category_more">više</string>
   <string name="prefs_add_session">Dodaj novo pretraživanje</string>
   <string name="prefs_select_oc_account">Izaberi račun</string>
   <string name="prefs_accounts">Korisnićki računi</string>
+  <string name="prefs_help">Pomoć</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
@@ -29,7 +31,6 @@
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
   <string name="filedetails_download">Preuzimanje</string>
-  <string name="filedetails_redownload">Osvježi</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_cancel_upload">Prekini upload</string>

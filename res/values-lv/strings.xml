@@ -19,6 +19,7 @@
   <string name="actionbar_search">Meklēt</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="prefs_category_general">Vispārīgi</string>
+  <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_add_session">Pievienot jaunu sesiju</string>
   <string name="prefs_create_img_thumbnails">Izveidot attēlu sīktēlus</string>
   <string name="prefs_select_oc_account">Izvēlieties kontu</string>
@@ -34,6 +35,7 @@
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
   <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
   <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
+  <string name="prefs_help">Palīdzība</string>
   <string name="auth_host_url">Servera adrese</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>

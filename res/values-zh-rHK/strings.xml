@@ -17,6 +17,7 @@
   <string name="prefs_select_oc_account">選擇帳號</string>
   <string name="prefs_trackmydevice_interval_summary">每%1$s分鐘更新一次</string>
   <string name="prefs_accounts">帳號</string>
+  <string name="prefs_help">幫助</string>
   <string name="auth_username">用戶名稱</string>
   <string name="auth_password">密碼</string>
   <string name="sync_string_files">文件</string>

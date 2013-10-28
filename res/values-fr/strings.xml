@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Mot de passe : </string>
+  <string name="main_password">Mot de passe FTP :</string>
   <string name="main_login">Nom d\'utilisateur</string>
   <string name="main_button_login">Connexion</string>
   <string name="main_welcome">Bienvenue</string>
@@ -8,7 +8,7 @@
   <string name="main_music">Musique</string>
   <string name="main_contacts">Contacts</string>
   <string name="main_calendar">Calendrier</string>
-  <string name="main_bookmarks">Marque-pages</string>
+  <string name="main_bookmarks">Favoris</string>
   <string name="main_settings">Paramètres</string>
   <string name="main_tit_accsetup">Paramètres du compte</string>
   <string name="main_wrn_accsetup">Aucun compte n\'est encore paramétré. Pour utiliser cette application, il vous faut en ajouter un.</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
   <string name="prefs_category_general">Général</string>
+  <string name="prefs_category_more">Plus</string>
   <string name="prefs_add_session">Ajouter une nouvelle session</string>
   <string name="prefs_create_img_thumbnails">Créer les miniatures d\'images</string>
   <string name="prefs_select_oc_account">Sélectionnez un compte</string>
-  <string name="prefs_summary_select_oc_account">Choisissez quel compte utiliser</string>
-  <string name="prefs_trackmydevice">Traçage de l\'appareil</string>
   <string name="prefs_trackmydevice_summary_off">Permettre à l\'application de suivre votre position</string>
   <string name="prefs_trackmydevice_summary_on">Votre application trace actuellement cet appareil</string>
-  <string name="prefs_trackmydevice_interval">Intervalle de mise à jour</string>
   <string name="prefs_trackmydevice_interval_summary">Mettre à jour toutes les %1$s minutes</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
@@ -44,13 +42,14 @@
   <string name="prefs_log_title_history">Historique des logs</string>
   <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
   <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
+  <string name="prefs_help">Aide</string>
+  <string name="prefs_feedback">Commentaires</string>
+  <string name="prefs_imprint">Empreinte</string>
   <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
   <string name="auth_register">Nouveau dans %1$s ?</string>
-  <string name="new_session_uri_error">L\'URL spécifiée n\'est pas correcte</string>
-  <string name="new_session_session_name_error">Le nom de session spécifié n\'est pas correct</string>
   <string name="sync_string_files">Fichiers</string>
   <string name="uploader_no_file_selected">Aucun fichier n\'est sélectionné pour le téléversement</string>
   <string name="setup_hint_username">Nom d\'utilisateur</string>
@@ -69,7 +68,6 @@
   <string name="uploader_wrn_no_content_text">Aucun contenu reçu. Rien à envoyer</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
   <string name="uploader_info_uploading">Téléversement</string>
-  <string name="uploader_btn_create_dir_text">Créer un répertoire pour le téléversement</string>
   <string name="file_list_empty">Ce répertoire ne contient aucun fichier.\nDe nouveaux fichiers peuvent être importés en cliquant sur le bouton « Téléverser un fichier » du menu des options</string>
   <string name="filedetails_select_file">Effleurez un fichier pour afficher les informations complémentaires</string>
   <string name="filedetails_size">Taille :</string>
@@ -101,7 +99,6 @@
   <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s en cours, %1$d%% effectués</string>
   <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>
   <string name="uploader_upload_succeeded_content_single">Le fichier %1$s a été envoyé avec succès</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d fichiers ont été envoyés avec succès</string>
   <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
   <string name="uploader_upload_failed_content_single">L\'envoi de %1$s a échoué</string>
   <string name="uploader_upload_failed_content_multiple">Échec de l\'envoi : %1$d sur %2$d fichiers ont été importés</string>
@@ -175,16 +172,13 @@
   </string-array>
   <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
-  <string name="auth_no_net_conn_message">Aucune connexion réseau n\'a été trouvée, veuillez vérifier votre connectivité à internet puis réessayez.</string>
   <string name="auth_connect_anyway">Se connecter malgré tout</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
-  <string name="auth_nossl_plain_ok_message">L\'application ne peut établir de connexion sécurisée avec le serveur. Cependant, une connexion non sécurisée est disponible. Vous pouvez continuer en utilisant celle-ci ou annuler.</string>
   <string name="auth_connection_established">Connexion établie</string>
   <string name="auth_testing_connection">Test de la connexion…</string>
   <string name="auth_not_configured_title">Configuration du serveur erronée</string>
   <string name="auth_not_configured_message">Il semblerait que votre instance du serveur ne soit pas correctement configurée. Veuillez contacter votre administrateur pour plus de détails.</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite</string>
-  <string name="auth_unknown_error_message">Une erreur inconnue s\'est produite, merci de bien vouloir contacter les auteurs du programme en y incluant les messages d\'erreurs.</string>
   <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
   <string name="auth_unknown_host_message">Impossible de trouver l\'hôte spécifié. Veuillez vérifier le nom du serveur, qu\'il est disponible, et essayer à nouveau.</string>
   <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
@@ -202,9 +196,7 @@
   <string name="auth_not_found">Le chemin fourni est erroné</string>
   <string name="auth_internal">Erreur interne du serveur, code %1$d</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
-  <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré.\nVeuillez procéder à nouveau à une autorisation</string>
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
-  <string name="crashlog_message">L\'application s\'est fermée de façon inattendue, voulez-vous envoyer un rapport d\'erreur ?</string>
   <string name="crashlog_send_report">Envoyer un rapport</string>
   <string name="crashlog_dont_send_report">Ne rien envoyer</string>
   <string name="extensions_avail_title">Des extensions sont disponibles !</string>

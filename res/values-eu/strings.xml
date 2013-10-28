@@ -2,7 +2,7 @@
 <resources>
   <string name="main_password">Pasahitza:</string>
   <string name="main_login">Erabiltzaile izena:</string>
-  <string name="main_button_login">Saioa hasi</string>
+  <string name="main_button_login">Saio hasiera</string>
   <string name="main_welcome">Ongi etorri</string>
   <string name="main_files">Fitxategiak</string>
   <string name="main_music">Musika</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">Ezarpenak</string>
   <string name="actionbar_see_details">Xehetasunak</string>
   <string name="prefs_category_general">Orokorra</string>
+  <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_add_session">Gehitu saio berria</string>
   <string name="prefs_create_img_thumbnails">Sortu irudien koadro txikiak</string>
   <string name="prefs_select_oc_account">Aukeratu kontu bat</string>
-  <string name="prefs_summary_select_oc_account">Aukeratu aplikazioak ze kontu erabiliko duen. </string>
-  <string name="prefs_trackmydevice">Gailuaren jarraipena</string>
   <string name="prefs_trackmydevice_summary_off">Gaitu zure gailuaren kokapena jarraitzeari</string>
   <string name="prefs_trackmydevice_summary_on">Gailu honen jarraipena egiten du</string>
-  <string name="prefs_trackmydevice_interval">Eguneraketa tartea</string>
   <string name="prefs_trackmydevice_interval_summary">Eguneratu %1$s minuturo</string>
   <string name="prefs_accounts">Kontuak</string>
   <string name="prefs_manage_accounts">Kontuak kudeatu</string>
@@ -44,13 +42,13 @@
   <string name="prefs_log_title_history">Erregistro historia</string>
   <string name="prefs_log_summary_history">Honek gordetako erregistroak bistaratzen ditu.</string>
   <string name="prefs_log_delete_history_button">Ezabatu historia</string>
+  <string name="prefs_help">Laguntza</string>
+  <string name="prefs_imprint">Imprint</string>
   <string name="auth_check_server">Egiaztatu zerbitzaria</string>
   <string name="auth_host_url">Zerbitzariaren helbidea</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria %1$s-n?</string>
-  <string name="new_session_uri_error">Emandako URLa gaizki dago</string>
-  <string name="new_session_session_name_error">Saio izen okerra</string>
   <string name="sync_string_files">Fitxategiak</string>
   <string name="uploader_no_file_selected">Ez duzu igotzeko fitxategirik hautatu</string>
   <string name="setup_hint_username">Erabiltzaile izena</string>
@@ -101,7 +99,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Igotzea ongi burutu da</string>
   <string name="uploader_upload_succeeded_content_single">%1$s ongi igo da</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d fitxategi ongi igo dira</string>
   <string name="uploader_upload_failed_ticker">igotzeak huts egin du</string>
   <string name="uploader_upload_failed_content_single">%1$s fitxategiaren igoera ezin izan da burutu</string>
   <string name="uploader_upload_failed_content_multiple">Igoerak huts egin du: %1$d/%2$d fitxategi igo dira</string>
@@ -174,16 +171,13 @@
   </string-array>
   <string name="auth_trying_to_login">Saioa hasten saiatzen...</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
-  <string name="auth_no_net_conn_message">Ez da sare konexiorik antzeman, egiaztatu zure interneteko konexioa eta saiatu berriz.</string>
   <string name="auth_connect_anyway">Konektatu hala ere</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
-  <string name="auth_nossl_plain_ok_message">Aplikazioak ezin izan du zerbitzariarekin konexio seguru bat ezarri. Hala ere konexio ez segurua egin daiteke. Jarraitu edo ezeztatu dezakezu.</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
   <string name="auth_testing_connection">Konexioa probatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako server konfigurazioa</string>
   <string name="auth_not_configured_message">Badirudi zure server instantzia ez dagoela ongi konfiguratuta. Jarri zure harremanetan administradorearkin informazio gehiago izateko.</string>
   <string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>
-  <string name="auth_unknown_error_message">Errore ezezagun bat gertatu da. Mezedez jarri harremanetan egileekin eta zure gailuko log-ak erantsi.</string>
   <string name="auth_unknown_host_title">Ezin izan da hostalaria aurkitu</string>
   <string name="auth_unknown_host_message">Ezin da sartutako hostalaria aurkitu. Mezedez egiaztatu hostalari izena eta zerbitzariaren eskuragarritasuna eta saiatu berriz.</string>
   <string name="auth_incorrect_path_title">ez da serveren instalaziorik aurkitu</string>
@@ -201,15 +195,13 @@
   <string name="auth_not_found">Okerreko bidea emanda</string>
   <string name="auth_internal">Barne zerbitzari errorea, kodea: %1$d</string>
   <string name="auth_wtf_reenter_URL">Egoera esperogabea, mesedez idatzi berriz zerbitzari URLa</string>
-  <string name="auth_expired_oauth_token_toast">Zure baimena iraungitu da.\nMesedez, baimendu berriz</string>
   <string name="auth_expired_basic_auth_toast">Mesedez, sartu oraingo pasahitza</string>
-  <string name="crashlog_message">Programa ezustekoan bukatu da. Nahiko zenuke huts egitearen berri eman?</string>
   <string name="crashlog_send_report">Bidali txostena</string>
   <string name="crashlog_dont_send_report">Ez bidali txostena</string>
   <string name="extensions_avail_title">Hedapenak eskuragarri!</string>
   <string name="extensions_avail_message">Badirudi zure server instantziak aukera aurreratuak eskuragarri dituela. Nahiko zenuke aukera horiek zure androidean ikustea?</string>
   <string name="fd_keep_in_sync">Mantendu fitxategia eguneratuta</string>
-  <string name="common_share">Elkarbanatu</string>
+  <string name="common_share">Partekatu</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
   <string name="confirmation_remove_alert">Nahi duzu %1$s ezabatu?</string>

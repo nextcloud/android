@@ -2,7 +2,7 @@
 <resources>
   <string name="main_password">Kodeord:</string>
   <string name="main_login">Brugernavn:</string>
-  <string name="main_button_login">Log ind</string>
+  <string name="main_button_login">Login</string>
   <string name="main_welcome">Velkommen</string>
   <string name="main_files">Filer</string>
   <string name="main_music">Musik</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">Indstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="prefs_category_general">Generel</string>
+  <string name="prefs_category_more">Mere</string>
   <string name="prefs_add_session">Tilføj ny session</string>
   <string name="prefs_create_img_thumbnails">Opret billede thumbnails</string>
   <string name="prefs_select_oc_account">Vælg en konto</string>
-  <string name="prefs_summary_select_oc_account">Vælg hvilken af dine brugere denne app skal bruge.</string>
-  <string name="prefs_trackmydevice">Enhedssporing</string>
   <string name="prefs_trackmydevice_summary_off">Tillad App at spore denne enheds placering</string>
   <string name="prefs_trackmydevice_summary_on">Din App sporer denne enhed</string>
-  <string name="prefs_trackmydevice_interval">Opdateringsinterval</string>
   <string name="prefs_trackmydevice_interval_summary">Opdater hvert %1$s minut</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Administrer konti</string>
@@ -44,13 +42,13 @@
   <string name="prefs_log_title_history">Logger Historik</string>
   <string name="prefs_log_summary_history">Dette viser de optagne logger</string>
   <string name="prefs_log_delete_history_button">Slet Historik</string>
+  <string name="prefs_help">Hjælp</string>
+  <string name="prefs_imprint">Imprint</string>
   <string name="auth_check_server">Check Server</string>
   <string name="auth_host_url">Serveradresse</string>
   <string name="auth_username">Brugernavn</string>
   <string name="auth_password">Kodeord</string>
   <string name="auth_register">Uvant med %1$s</string>
-  <string name="new_session_uri_error">Forkert URL givet</string>
-  <string name="new_session_session_name_error">Forkert session navn</string>
   <string name="sync_string_files">Filer</string>
   <string name="uploader_no_file_selected">Ingen fil valgt til at uploade</string>
   <string name="setup_hint_username">Brugernavn</string>
@@ -101,7 +99,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload færdig</string>
   <string name="uploader_upload_succeeded_content_single">%1$s blev uploadet med success</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d filer blev uploadet med success</string>
   <string name="uploader_upload_failed_ticker">Upload fejlede</string>
   <string name="uploader_upload_failed_content_single">Upload af %1$s kunne ikke gennemføres</string>
   <string name="uploader_upload_failed_content_multiple">Upload fejlede: %1$d/%2$d filer blev uploadet</string>
@@ -175,16 +172,13 @@
   </string-array>
   <string name="auth_trying_to_login">Forsøger at logge ind...</string>
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
-  <string name="auth_no_net_conn_message">Der blev ikke fundet nogen netværksforbindelse, tjek din internetforbindelse, og prøv igen</string>
   <string name="auth_connect_anyway">Forbind alligevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
-  <string name="auth_nossl_plain_ok_message">Applikationen kunne ikke oprette en sikker forbindelse med serveren. Selvom en sikker forbindelse ikke er tilgængeligt, kan du vælge at fortsætte eller annullere.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
   <string name="auth_testing_connection">Afprøver forbindelse ...</string>
   <string name="auth_not_configured_title">Misdannet server konfiguration</string>
   <string name="auth_not_configured_message">Det ser ud til, at din sever instans ikke er konfigureret korrekt. KOntakt din administrator for flere detaljer.</string>
   <string name="auth_unknown_error_title">Ukendt fejl opstod!</string>
-  <string name="auth_unknown_error_message">Der forekom en ukendt fejl. Kontakt venligst forfattere og inkluder logfiler fra din enhed.</string>
   <string name="auth_unknown_host_title">Kunne ikke finde host</string>
   <string name="auth_unknown_host_message">Kunne ikke finde den indtastede host. Tjek venligst host\'ens navn og om serveren er tilgængelig og prøv derefter igen.</string>
   <string name="auth_incorrect_path_title">Server instans blev ikke fundet</string>
@@ -202,9 +196,7 @@
   <string name="auth_not_found">Forkert sti angivet</string>
   <string name="auth_internal">Intern serverfejl, kode %1$d</string>
   <string name="auth_wtf_reenter_URL">Uventet tilstand; angiv server-URL\'en igen</string>
-  <string name="auth_expired_oauth_token_toast">Din godkendelse udløb.\nGentag godkendelse</string>
   <string name="auth_expired_basic_auth_toast">Indtast venligst dit nuværende kodeord</string>
-  <string name="crashlog_message">Applikation afsluttede mod forventning. Vil du indsende en fejl rapport?</string>
   <string name="crashlog_send_report">Send rapport</string>
   <string name="crashlog_dont_send_report">Send ikke rapport</string>
   <string name="extensions_avail_title">Udvidelser tilgængelige!</string>

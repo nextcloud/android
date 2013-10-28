@@ -16,11 +16,13 @@
   <string name="actionbar_search">Sichen</string>
   <string name="actionbar_settings">Astellungen</string>
   <string name="prefs_category_general">Allgemeng</string>
+  <string name="prefs_category_more">Méi</string>
   <string name="prefs_add_session">Nei Sessioun bäisetzen</string>
   <string name="prefs_create_img_thumbnails">Thumbnails Biller erstellen</string>
   <string name="prefs_select_oc_account">Account auswielen</string>
   <string name="prefs_trackmydevice_interval_summary">All 1 Minute updaten</string>
   <string name="prefs_accounts">Accounten</string>
+  <string name="prefs_help">Hëllef</string>
   <string name="auth_username">Benotzernumm</string>
   <string name="auth_password">Passwuert</string>
   <string name="sync_string_files">Dateien</string>
