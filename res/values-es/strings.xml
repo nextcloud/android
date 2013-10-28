@@ -2,7 +2,7 @@
 <resources>
   <string name="main_password">Contraseña:</string>
   <string name="main_login">Nombre de usuario:</string>
-  <string name="main_button_login">Inicio de sesión</string>
+  <string name="main_button_login">Iniciar sesión</string>
   <string name="main_welcome">Bienvenido</string>
   <string name="main_files">Archivos</string>
   <string name="main_music">Música</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">Ajustes</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="prefs_category_general">General</string>
+  <string name="prefs_category_more">Más</string>
   <string name="prefs_add_session">Agregar nueva sesión</string>
   <string name="prefs_create_img_thumbnails">Crear miniaturas de imagen</string>
   <string name="prefs_select_oc_account">Seleccionar una cuenta</string>
-  <string name="prefs_summary_select_oc_account">Elige, cuál de tus cuentas la aplicación debería usar.</string>
-  <string name="prefs_trackmydevice">Rastreo de dispositivo</string>
   <string name="prefs_trackmydevice_summary_off">Permitir la localización de tu dispositivo</string>
   <string name="prefs_trackmydevice_summary_on">La app realiza un seguimiento de este dispositivo</string>
-  <string name="prefs_trackmydevice_interval">Intervalo de actualización</string>
   <string name="prefs_trackmydevice_interval_summary">Actualizar cada %1$s minutos</string>
   <string name="prefs_accounts">Cuentas</string>
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
@@ -44,13 +42,17 @@
   <string name="prefs_log_title_history">Historia del Registro</string>
   <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
   <string name="prefs_log_delete_history_button">Eliminar Historial</string>
+  <string name="prefs_help">Ayuda</string>
+  <string name="prefs_recommend">Recomendar a un amigo</string>
+  <string name="prefs_feedback">Mensajes de retroalimentación</string>
+  <string name="prefs_imprint">Imprint</string>
+  <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
+  <string name="recommend_text">Quiero invitarte a usar %1$s en tu smarthphone!⏎\nDescargalo aquí: %2$s</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
   <string name="auth_register">New to %1$s?</string>
-  <string name="new_session_uri_error">La URL dada es incorrecta</string>
-  <string name="new_session_session_name_error">Nombre de sesión incorrecto</string>
   <string name="sync_string_files">Archivos</string>
   <string name="uploader_no_file_selected">No se seleccionaron archivos para enviar</string>
   <string name="setup_hint_username">Nombre de usuario</string>
@@ -69,7 +71,6 @@
   <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
   <string name="uploader_info_uploading">Enviando</string>
-  <string name="uploader_btn_create_dir_text">Crear directorio para envío</string>
   <string name="file_list_empty">No hay archivos en esta carpeta.\nPuedes añadir nuevos archivos con la opción \"Subir\" del menú.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -101,7 +102,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
   <string name="uploader_upload_succeeded_content_single">%1$s se ha subido con éxito</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d archivos se han subido con éxito</string>
   <string name="uploader_upload_failed_ticker">Error en la subida</string>
   <string name="uploader_upload_failed_content_single">La subida de %1$s no se pudo completar</string>
   <string name="uploader_upload_failed_content_multiple">Error de subida: %1$d/%2$d archivos fueron cargados</string>
@@ -175,16 +175,15 @@
   </string-array>
   <string name="auth_trying_to_login">Intentado iniciar sesión...</string>
   <string name="auth_no_net_conn_title">Sin conexión de red</string>
-  <string name="auth_no_net_conn_message">No se ha detectado una conexión de red, chequea tu conexión a internet e intenta nuevamente.</string>
   <string name="auth_connect_anyway">Conectar de todos modos</string>
   <string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
-  <string name="auth_nossl_plain_ok_message">La aplicación no pudo establecer una conexión segura al servidor. Aunque no haya una conexión segura disponible, puedes continuar o cancelar.</string>
   <string name="auth_connection_established">Conexión establecida</string>
   <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
   <string name="auth_not_configured_message">Parece que tu servidor no está correctamente configurado. Contacta a tu administrador para más detalles.</string>
+  <string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existen en el dispositivo</string>
+  <string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
-  <string name="auth_unknown_error_message">Ocurrió un error desconocido. Por favor, contacta a los autores e incluye los registros de tu dispositivo.</string>
   <string name="auth_unknown_host_title">No se pudo encontrar la dirección</string>
   <string name="auth_unknown_host_message">No se pudo encontrar el dirección introducida. Consulte la disponibilidad del servidor y la dirección e intenta nuevamete.</string>
   <string name="auth_incorrect_path_title">Instancia de servidor no encontrada</string>
@@ -202,9 +201,12 @@
   <string name="auth_not_found">Ruta errónea</string>
   <string name="auth_internal">Error interno en el servidor, código %1$d</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
-  <string name="auth_expired_oauth_token_toast">Su autorización ha expirado.\nPor favor, autorice de nuevo</string>
+  <string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Por favor, autorice de nuevo</string>
   <string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual.</string>
-  <string name="crashlog_message">La aplicación finalizó inesperadamente. ¿Desea enviar un reporte de error?</string>
+  <string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
+  <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+  <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
+  <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="crashlog_send_report">Enviar reporte</string>
   <string name="crashlog_dont_send_report">No enviar reporte</string>
   <string name="extensions_avail_title">¡Extensiones disponibles!</string>
@@ -235,7 +237,7 @@
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="oauth_code_validation_message">Por favor, abra un navegador web y vaya a:\n%1$s.\nValidarse ahí con este código:\n%2$s</string>
   <string name="oauth_connection_url_unavailable">Conexión a está URL no disponible.</string>
-  <string name="ssl_validator_title">Atención</string>
+  <string name="ssl_validator_title">Precaución</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificado del servidor no es de confianza</string>
   <string name="ssl_validator_reason_cert_expired">- El certificado del servidor expiró</string>

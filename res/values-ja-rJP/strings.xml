@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="main_password">パスワード:</string>
-  <string name="main_login">ユーザー名:</string>
+  <string name="main_login">ユーザ名:</string>
   <string name="main_button_login">ログイン</string>
   <string name="main_welcome">へようこそ</string>
   <string name="main_files">ファイル</string>
   <string name="main_music">ミュージック</string>
-  <string name="main_contacts">連絡先</string>
+  <string name="main_contacts">コンタクト</string>
   <string name="main_calendar">カレンダー</string>
   <string name="main_bookmarks">ブックマーク</string>
   <string name="main_settings">設定</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細</string>
   <string name="prefs_category_general">一般</string>
+  <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_add_session">新しいセッションを追加</string>
   <string name="prefs_create_img_thumbnails">サムネイル画像を作成</string>
   <string name="prefs_select_oc_account">アカウントを選択</string>
-  <string name="prefs_summary_select_oc_account">利用するアカウントを選んでください。</string>
-  <string name="prefs_trackmydevice">デバイスの追跡</string>
   <string name="prefs_trackmydevice_summary_off">デバイスの位置情報をに通知</string>
   <string name="prefs_trackmydevice_summary_on">はこのデバイスを追跡します</string>
-  <string name="prefs_trackmydevice_interval">更新間隔</string>
   <string name="prefs_trackmydevice_interval_summary">%1$s 分間隔で更新</string>
   <string name="prefs_accounts">アカウント</string>
   <string name="prefs_manage_accounts">アカウント管理</string>
@@ -44,13 +42,17 @@
   <string name="prefs_log_title_history">記録している履歴</string>
   <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
   <string name="prefs_log_delete_history_button">履歴を削除</string>
+  <string name="prefs_help">ヘルプ</string>
+  <string name="prefs_recommend">友達に推薦</string>
+  <string name="prefs_feedback">フィードバック</string>
+  <string name="prefs_imprint">インプリント</string>
+  <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
+  <string name="recommend_text">スマートフォンで %1$s を利用してみませんか！\nここからダウンロードしてください: %2$s</string>
   <string name="auth_check_server">サーバーを確認する</string>
   <string name="auth_host_url">サーバアドレス</string>
   <string name="auth_username">ユーザー名</string>
   <string name="auth_password">パスワード</string>
   <string name="auth_register">%1$sは初めてですか？</string>
-  <string name="new_session_uri_error">誤ったURLです</string>
-  <string name="new_session_session_name_error">誤ったセッション名です</string>
   <string name="sync_string_files">ファイル</string>
   <string name="uploader_no_file_selected">アップロードのためのファイルが選択されていません</string>
   <string name="setup_hint_username">ユーザー名</string>
@@ -69,7 +71,6 @@
   <string name="uploader_wrn_no_content_text">コンテンツを受信しませんでした。アップロードするものはありません。</string>
   <string name="uploader_error_forbidden_content">%1$sで共有コンテンツへのアクセスが許可されていません。</string>
   <string name="uploader_info_uploading">アップロード中</string>
-  <string name="uploader_btn_create_dir_text">アップロード用のディレクトリを作成</string>
   <string name="file_list_empty">このフォルダにはファイルがありません。\n\"アップロード\" メニューで新しいファイルを追加することができます。</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
@@ -101,7 +102,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">アップロード完了</string>
   <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d 個のファイルは正常にアップロードされました</string>
   <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
   <string name="uploader_upload_failed_content_single">%1$s のアップロードが完了しませんでした</string>
   <string name="uploader_upload_failed_content_multiple">アップロードに失敗: %1$d/%2$d ファイルがアップロードされました</string>
@@ -175,16 +175,15 @@
   </string-array>
   <string name="auth_trying_to_login">ログイン中...</string>
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
-  <string name="auth_no_net_conn_message">ネットワーク接続が見つかりません、インターネット接続を確認してからお試しください。</string>
   <string name="auth_connect_anyway">接続する</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
-  <string name="auth_nossl_plain_ok_message">サーバーとの暗号化通信を確立できませんでした。しかし、通常の通信が利用できます。続けますか？</string>
   <string name="auth_connection_established">接続が確立しました</string>
   <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">サーバーの間違った設定</string>
   <string name="auth_not_configured_message">サーバー設定が正しくないようです。詳しくは管理者にご相談ください。</string>
+  <string name="auth_account_not_new">同じユーザとサーバのアカウントがデバイス上にすでに存在します</string>
+  <string name="auth_account_not_the_same">入力されたユーザはこのアカウントのユーザと一致しません</string>
   <string name="auth_unknown_error_title">不明なエラーに発生しました</string>
-  <string name="auth_unknown_error_message">不明なエラーが発生しました。制作者に連絡して、あなたのデバイスのログを送付してください。</string>
   <string name="auth_unknown_host_title">ホストが見つかりませんでした</string>
   <string name="auth_unknown_host_message">入力されたホストが見つかりません。ホスト名とサーバが利用できるものかどうか確認して、再度試してください。</string>
   <string name="auth_incorrect_path_title">のインスタンスが見つかりませんでした</string>
@@ -202,9 +201,12 @@
   <string name="auth_not_found">誤ったパスが指定されました</string>
   <string name="auth_internal">内部サーバエラー、コード %1$d</string>
   <string name="auth_wtf_reenter_URL">予期しない状態。もう一度サーバーのURLを入力してください</string>
-  <string name="auth_expired_oauth_token_toast">認証の期限が切れています。\nもう一度認証してください。</string>
+  <string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
   <string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
-  <string name="crashlog_message">アプリケーションが予期せず終了しました。クラッシュレポートを送ってもよろしいでしょうか？</string>
+  <string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
+  <string name="auth_connecting_auth_server">認証サーバに接続中 ...</string>
+  <string name="auth_unsupported_auth_method">サーバはこの認証方式をサポートしていません</string>
+  <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
   <string name="crashlog_send_report">レポートを送信</string>
   <string name="crashlog_dont_send_report">レポートを送信しない</string>
   <string name="extensions_avail_title">拡張機能が利用可能です！</string>

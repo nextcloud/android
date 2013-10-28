@@ -2,6 +2,7 @@
 <resources>
   <string name="main_settings">سیٹینگز</string>
   <string name="actionbar_settings">سیٹینگز</string>
+  <string name="prefs_help">مدد</string>
   <string name="auth_username">یوزر نیم</string>
   <string name="auth_password">پاسورڈ</string>
   <string name="setup_hint_username">یوزر نیم</string>

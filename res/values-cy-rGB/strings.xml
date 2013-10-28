@@ -8,7 +8,7 @@
   <string name="main_music">Cerddoriaeth</string>
   <string name="main_contacts">Cysylltiadau</string>
   <string name="main_calendar">Calendr</string>
-  <string name="main_bookmarks">Llyfrnodau</string>
+  <string name="main_bookmarks">Nodau tudalen</string>
   <string name="main_settings">Gosodiadau</string>
   <string name="main_tit_accsetup">Gosod Cyfrif</string>
   <string name="main_wrn_accsetup">Does dim cyfrif wedi\'i sefydlu ar eich dyfais. I ddefnyddio\'r Ap hwn, mae angen i chi greu un.</string>
@@ -34,6 +34,8 @@
   <string name="prefs_pincode_summary">Amddiffyn eich cleient</string>
   <string name="prefs_instant_upload">Galluogi llwytho i fyny\'n syth</string>
   <string name="prefs_instant_upload_summary">Llwytho lluniau dynnwyd â chamera i fyny\'n syth</string>
+  <string name="prefs_help">Cymorth</string>
+  <string name="prefs_imprint">Imprint</string>
   <string name="auth_username">Enw defnyddiwr</string>
   <string name="auth_password">Cyfrinair</string>
   <string name="new_session_uri_error">Cyflwynwyd cyfeiriad anghywir</string>

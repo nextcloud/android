@@ -3,6 +3,7 @@
   <string name="main_files">ဖိုင်များ</string>
   <string name="main_calendar">ပြက္ခဒိန်</string>
   <string name="actionbar_upload_files">ဖိုင်များ</string>
+  <string name="prefs_help">အကူအညီ</string>
   <string name="auth_username">သုံးစွဲသူအမည်</string>
   <string name="auth_password">စကားဝှက်</string>
   <string name="sync_string_files">ဖိုင်များ</string>

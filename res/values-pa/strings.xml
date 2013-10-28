@@ -1,12 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ਓਵਨਕਲਾਉਡ</string>
   <string name="main_password">ਪਾਸਵਰਡ:</string>
   <string name="main_login">ਯੂਜ਼ਰਨਾਂ:</string>
   <string name="main_button_login">ਲਾਗਇਨ</string>
   <string name="main_files">ਫਾਇਲਾਂ</string>
   <string name="main_music">ਸੰਗੀਤ</string>
-  <string name="main_contacts">ਸੰਪਰ</string>
+  <string name="main_contacts">ਸੰਪਰਕ</string>
   <string name="main_calendar">ਕੈਲੰਡ</string>
   <string name="main_bookmarks">ਬੁੱਕਮਾਰ</string>
   <string name="main_settings">ਸੈਟਿੰਗ</string>
@@ -120,7 +119,6 @@
   <string name="auth_ssl_general_error_title">SSL ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ</string>
   <string name="auth_secure_connection">ਸੁਰੱਖਿਅਤ ਕੁਨੈਕਸ਼ਨ ਬਣਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="auth_unauthorized">ਗਲਤ ਯੂਜ਼ਰ-ਨਾਂ ਜਾਂ ਪਾਸਵਰਡ</string>
-  <string name="auth_expired_oauth_token_toast">ਤੁਹਾਡੀ ਪਰਮਾਣਕਿਤਾ ਦੀ ਮਿਆਦ ਪੁੱਗੀ।\nਫੇਰ ਪਰਮਾਣਿਤ ਹੋਵੋ ਜੀ</string>
   <string name="auth_expired_basic_auth_toast">ਆਪਣਾ ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਿਉ ਜੀ</string>
   <string name="crashlog_send_report">ਰਿਪੋਰਟ ਭੇਜੋ</string>
   <string name="crashlog_dont_send_report">ਰਿਪੋਰਟ ਨਾ ਭੇਜੋ</string>

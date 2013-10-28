@@ -20,13 +20,11 @@
   <string name="actionbar_settings">Agordo</string>
   <string name="actionbar_see_details">Detaloj</string>
   <string name="prefs_category_general">Ĝeneralo</string>
+  <string name="prefs_category_more">Pli</string>
   <string name="prefs_add_session">Aldoni novan sesion</string>
   <string name="prefs_create_img_thumbnails">Krei bildetojn</string>
   <string name="prefs_select_oc_account">Elekti konton</string>
-  <string name="prefs_summary_select_oc_account">Elektu kiun el viaj kontoj la aplikaĵo uzu.</string>
-  <string name="prefs_trackmydevice">Spurado de aparato</string>
   <string name="prefs_trackmydevice_summary_off">Kapabligi spuri la lokon de via aparato</string>
-  <string name="prefs_trackmydevice_interval">Ĝisdatiga intervalo</string>
   <string name="prefs_trackmydevice_interval_summary">Ĝisdatigi je ĉiuj %1$s minutoj</string>
   <string name="prefs_accounts">Kontoj</string>
   <string name="prefs_manage_accounts">Administri kontojn</string>
@@ -34,11 +32,10 @@
   <string name="prefs_pincode_summary">Protekti vian klienton</string>
   <string name="prefs_instant_upload">Kapabligi tujan alŝuton</string>
   <string name="prefs_instant_upload_summary">Tuje alŝuti fotojn faritajn per fotilo</string>
+  <string name="prefs_help">Helpo</string>
   <string name="auth_host_url">Servila adreso</string>
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
-  <string name="new_session_uri_error">Malĝusta URL doniĝis</string>
-  <string name="new_session_session_name_error">Malĝusta sesionomo</string>
   <string name="sync_string_files">Dosieroj</string>
   <string name="uploader_no_file_selected">Neniu dosiero estas elektita por alŝuto</string>
   <string name="setup_hint_username">Uzantonomo</string>
@@ -85,7 +82,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Alŝutante %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Alŝuto sukcesis</string>
   <string name="uploader_upload_succeeded_content_single">%1$s sukcese alŝutiĝis</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d dosieroj sukcese alŝutiĝis</string>
   <string name="uploader_upload_failed_ticker">Alŝuto malsukcesis</string>
   <string name="uploader_upload_failed_content_single">Alŝuto de %1s ne eblis plenumiĝi</string>
   <string name="uploader_upload_failed_content_multiple">Alŝuto malsukcesis: %1$d el %2$d dosieroj alŝutiĝis</string>
@@ -126,14 +122,12 @@
   </string-array>
   <string name="auth_trying_to_login">Provante ensaluti...</string>
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
-  <string name="auth_no_net_conn_message">Neniu reta konekto detektiĝis; kontrolu vian Interretan konekton kaj provu denove.</string>
   <string name="auth_connect_anyway">Konekti ĉiuokaze</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
   <string name="auth_testing_connection">Testante konekton...</string>
   <string name="auth_not_configured_title">Malĝuste formita servilo-agordo</string>
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
-  <string name="auth_unknown_error_message">Nekonata eraro okazis. Bonvolu kontakti verkintojn kaj inkluzivigi registrojn el via aparato.</string>
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
   <string name="auth_incorrect_path_title">Apero de servilo ne troviĝis</string>
   <string name="auth_incorrect_path_message">La aplikaĵo ne povis trovi servilo-aperon en la vojo donita. Bonvolu kontroli vian vojon kaj provi denove.</string>
@@ -146,7 +140,6 @@
   <string name="auth_secure_connection">Sekura konekto stariĝis</string>
   <string name="auth_not_found">Malĝusta vojo doniĝis</string>
   <string name="auth_internal">Ena servila eraro: kodo %1$d</string>
-  <string name="crashlog_message">Aplikaĵo finis neatendite. Ĉu vi volus sendi paneoraporton?</string>
   <string name="crashlog_send_report">Sendi raporton</string>
   <string name="crashlog_dont_send_report">Ne sendi raporton</string>
   <string name="extensions_avail_title">Kromaĵoj haveblas!</string>

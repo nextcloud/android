@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="app_name">ownCloud–ი</string>
   <string name="main_password">პაროლი:</string>
   <string name="main_login">იუზერნეიმი:</string>
   <string name="main_button_login">ლოგინი</string>
@@ -20,6 +19,7 @@
   <string name="actionbar_search">ძებნა</string>
   <string name="actionbar_settings">პარამეტრები</string>
   <string name="prefs_category_general">ზოგადი</string>
+  <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_add_session">ახალი სესიის დამატება</string>
   <string name="prefs_create_img_thumbnails">სურათის ესკიზების შექმნა</string>
   <string name="prefs_select_oc_account">აირჩიეთ რაიმე ანგარიში</string>
@@ -35,6 +35,9 @@
   <string name="prefs_pincode_summary">თქვენი კლიენტის დაცვა</string>
   <string name="prefs_instant_upload">ჩართე ეგრევე ატვირთვის ფუნქცია</string>
   <string name="prefs_instant_upload_summary">კამერით გადაღებული ფოტოების ეგრევე ატვირთვა</string>
+  <string name="prefs_help">დახმარება</string>
+  <string name="prefs_feedback">უკუკავშირი</string>
+  <string name="prefs_imprint">ბეჭედი</string>
   <string name="auth_host_url">სერვერის მისამართი</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>

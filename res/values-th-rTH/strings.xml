@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="main_password">รหัสผ่าน:</string>
-  <string name="main_login">ชื่อผู้ใช้:</string>
+  <string name="main_login">ชื่อผู้ใช้งาน</string>
   <string name="main_button_login">เข้าสู่ระบบ</string>
   <string name="main_welcome">ยินดีต้อนรับ</string>
   <string name="main_files">ไฟล์</string>
   <string name="main_music">เพลง</string>
-  <string name="main_contacts">ข้อมูลผู้ติดต่อ</string>
+  <string name="main_contacts">ข้อมูลผู้ิติดต่อ</string>
   <string name="main_calendar">ปฏิทิน</string>
   <string name="main_bookmarks">รายการโปรด</string>
   <string name="main_settings">ตั้งค่า</string>
@@ -20,14 +20,12 @@
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="prefs_category_general">ทั่วไป</string>
+  <string name="prefs_category_more">มาก</string>
   <string name="prefs_add_session">เพิ่มเซสชั่นใหม่</string>
   <string name="prefs_create_img_thumbnails">สร้างรูปภาพขนาดย่อ</string>
   <string name="prefs_select_oc_account">เลือกบัญชี</string>
-  <string name="prefs_summary_select_oc_account">เลือกบัญชีที่ต้องการใช้งานกับแอปตัวนี้</string>
-  <string name="prefs_trackmydevice">ตรวจหาอุปกรณ์</string>
   <string name="prefs_trackmydevice_summary_off">เปิดให้ ตรวจหาตำแหน่งที่อยู่อุปกรณ์ของคุณ</string>
   <string name="prefs_trackmydevice_summary_on">กำลังติดตามอุปกรณ์นี้อยู่</string>
-  <string name="prefs_trackmydevice_interval">ช่วงเวลาการอัพเดท</string>
   <string name="prefs_trackmydevice_interval_summary">อัพเดททุก %1$s นาที</string>
   <string name="prefs_accounts">บัญชี</string>
   <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
@@ -35,14 +33,13 @@
   <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ของคุณ</string>
   <string name="prefs_instant_upload">เปิดใช้งานระบบอัพโหลดได้ทันที</string>
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพจากกล้องขึ้นไปทันที</string>
+  <string name="prefs_help">ช่วยเหลือ</string>
   <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
-  <string name="new_session_uri_error">ที่อยู่ URL ไม่ถูกต้อง</string>
-  <string name="new_session_session_name_error">ชื่อเซสชั่นไม่ถูกต้อง</string>
   <string name="sync_string_files">ไฟล์</string>
   <string name="uploader_no_file_selected">ยังไม่ได้เลือกไฟล์สำหรับอัพโหลด</string>
-  <string name="setup_hint_username">ชื่อผู้ใช้</string>
+  <string name="setup_hint_username">ชื่อผู้ใช้งาน</string>
   <string name="setup_hint_password">รหัสผ่าน</string>
   <string name="setup_hint_address">ที่อยู่เว็บ</string>
   <string name="setup_hint_show_password">แสดงรหัสผ่าน?</string>
@@ -86,7 +83,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% กำลังอัพโหลด %2$s</string>
   <string name="uploader_upload_succeeded_ticker">อัพโหลดเสร็จสิ้น</string>
   <string name="uploader_upload_succeeded_content_single">%1$s ได้ถูกอัพโหลดเรียบร้อยแล้ว</string>
-  <string name="uploader_upload_succeeded_content_multiple">ไฟล์ %1$d ได้ถูกอัพโหลดเรียบร้อยแล้ว</string>
   <string name="uploader_upload_failed_ticker">อัพโหลดล้มเหลว</string>
   <string name="uploader_upload_failed_content_single">การอัพโหลด %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
   <string name="uploader_upload_failed_content_multiple">การอัพโหลดล้มเหลว: ไฟล์ %1$d/%2$d ถูกอัพโหลดแล้ว</string>
@@ -135,16 +131,13 @@
   </string-array>
   <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
-  <string name="auth_no_net_conn_message">ไม่พบการเชื่อมต่อเครือข่ายใด กรุณาตรวจสอบสถานะการเชื่อมต่ออินเทอร์เน็ตของคุณ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_connect_anyway">เชื่อมต่ออยู่แล้ว</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
-  <string name="auth_nossl_plain_ok_message">แอพพลิเคชั่นยังไม่ได้ติดตั้งการเชื่อมต่อแบบปลอดภัยกับเซิร์ฟเวอร์ ถึงแม้ว่าจะมีการเชื่อมต่อแบบที่ยังไม่ได้กำหนดให้มีความปลอดภัย คุณสามารถดำเนินการต่อไป หรือยกเลิกได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
   <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
   <string name="auth_not_configured_message">ดูเหมือนว่าค่าตัวอย่างเซิร์ฟเวอร์ ของคุณยังไม่ได้ถูกกำหนดค่าอย่างถูกต้อง กรุณาติดต่อผู้ดูแลระบบของคุณ สำหรับรายละเอียดเพิ่มเติม</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>
-  <string name="auth_unknown_error_message">เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ กรุณาติดต่อเจ้าของและดูบันทึกข้อมูลการใช้งานจากอุปกรณ์ของคุณ</string>
   <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
   <string name="auth_unknown_host_message">ไม่พบโฮสต์ตามข้อมูลที่กรอก กรุณาตรวจสอบชื่อโฮสต์และเซิร์ฟเวอร์ที่สามารถใช้งานได้ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_incorrect_path_title">ไม่พบค่าตัวอย่างเซิร์ฟเวอร์</string>
@@ -158,11 +151,9 @@
   <string name="auth_secure_connection">ดำเนินการติดตั้งการเชื่อมต่อแบบปลอดภัยเรียบร้อย</string>
   <string name="auth_not_found">กรอกตำแหน่งพาธไม่ถูกต้อง</string>
   <string name="auth_internal">เกิดข้อผิดพลาดภายในเซิร์ฟเวอร์ รหัส %1$d</string>
-  <string name="crashlog_message">แอพพลิเคชั่นได้สิ้นสุดการทำงานอย่างไม่คาดคิด คุณต้องการแจ้งข้อมูลความบกพร่องดังกล่าวหรือไม่?</string>
   <string name="crashlog_send_report">ส่งรายงาน</string>
   <string name="crashlog_dont_send_report">ไม่ต้องส่งรายงาน</string>
   <string name="extensions_avail_title">ส่วนเสริมที่สามารถใช้งานได้!</string>
-  <string name="extensions_avail_message">ดูเหมือนว่าค่าตัวอย่าง ownClud ของคุณกำลังสนับสนุนการใช้งานกับส่วนเสริมขั้นสูงอยู่ คุณต้องการดูส่วนเสริมอื่นๆที่สามารถใช้งานกับ android เพิ่มหรือไม่?</string>
   <string name="fd_keep_in_sync">ปรับปรุงไฟล์ให้ทันสมัยอยู่เสมอ</string>
   <string name="common_share">แชร์</string>
   <string name="common_rename">เปลี่ยนชื่อ</string>

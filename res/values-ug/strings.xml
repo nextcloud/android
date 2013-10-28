@@ -17,12 +17,15 @@
   <string name="actionbar_search">ئىزدە</string>
   <string name="actionbar_settings">تەڭشەكلەر</string>
   <string name="prefs_category_general">ئادەتتىكى</string>
+  <string name="prefs_category_more">تېخىمۇ كۆپ</string>
   <string name="prefs_add_session">يېڭى ئۈسكۈنە قوش</string>
   <string name="prefs_create_img_thumbnails">كىچىك سۈرەت قۇر</string>
   <string name="prefs_select_oc_account">بىر ھېسابات تاللاڭ</string>
   <string name="prefs_trackmydevice">ئۈسكۈنە ئىزلاش</string>
   <string name="prefs_trackmydevice_interval">يېڭىلاش ئارىلىقى</string>
   <string name="prefs_accounts">ھېساباتلار</string>
+  <string name="prefs_help">ياردەم</string>
+  <string name="prefs_feedback">قايتۇرما ئىنكاس</string>
   <string name="auth_host_url">مۇلازىمېتىر ئادرىسى</string>
   <string name="auth_username">ئىشلەتكۈچى ئاتى</string>
   <string name="auth_password">ئىم</string>

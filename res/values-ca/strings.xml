@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="main_password">Contrasenya:</string>
-  <string name="main_login">Nom d\'usuari:</string>
-  <string name="main_button_login">Accés</string>
+  <string name="main_login">Usuari:</string>
+  <string name="main_button_login">Inici de sessió</string>
   <string name="main_welcome">Benvingut</string>
   <string name="main_files">Fitxers</string>
   <string name="main_music">Música</string>
   <string name="main_contacts">Contactes</string>
   <string name="main_calendar">Calendari</string>
   <string name="main_bookmarks">Adreces d\'interès</string>
-  <string name="main_settings">Configuració</string>
+  <string name="main_settings">Arranjament</string>
   <string name="main_tit_accsetup">Configuració de comptes</string>
   <string name="main_wrn_accsetup">No hi ha comptes en el dispositiu. Per usar l\'aplicació, n\'heu de crear un.</string>
   <string name="about_android">%1$s aplicació per Android</string>
@@ -24,14 +24,12 @@
   <string name="actionbar_settings">Configuració</string>
   <string name="actionbar_see_details">Detalls</string>
   <string name="prefs_category_general">General</string>
+  <string name="prefs_category_more">Més</string>
   <string name="prefs_add_session">Afegeix una sessió nova</string>
   <string name="prefs_create_img_thumbnails">Crea miniatures d\'imatges</string>
   <string name="prefs_select_oc_account">Seleccioneu un compte</string>
-  <string name="prefs_summary_select_oc_account">Escolliu quin dels comptes hauria d\'usar l\'aplicació</string>
-  <string name="prefs_trackmydevice">Seguiment del dispositiu</string>
   <string name="prefs_trackmydevice_summary_off">Permet que l\'aplicació faci el seguiment del dispositiu</string>
   <string name="prefs_trackmydevice_summary_on">L\'aplicació manté el seguiment d\'aquest dispositiu</string>
-  <string name="prefs_trackmydevice_interval">Actualitza l\'interval</string>
   <string name="prefs_trackmydevice_interval_summary">Actualitza cada %1$s minuts</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestió de comptes</string>
@@ -44,13 +42,17 @@
   <string name="prefs_log_title_history">Història del registre</string>
   <string name="prefs_log_summary_history">Això mostra els registres desats</string>
   <string name="prefs_log_delete_history_button">Esborra la història</string>
+  <string name="prefs_help">Ajuda</string>
+  <string name="prefs_recommend">Recomana a un amic</string>
+  <string name="prefs_feedback">Comentaris</string>
+  <string name="prefs_imprint">Imprint</string>
+  <string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
+  <string name="recommend_text">Vull convidar-te a usar l\'aplicació %1$s al teu telèfon avançat!\nBaixa\'l aquí: %2$s</string>
   <string name="auth_check_server">Comprova el servidor</string>
   <string name="auth_host_url">Adreça del servidor</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
   <string name="auth_register">Nou a %1$s?</string>
-  <string name="new_session_uri_error">La URL proporcionada és incorrecta</string>
-  <string name="new_session_session_name_error">El nom de la sessió no és correcte</string>
   <string name="sync_string_files">Fitxers</string>
   <string name="uploader_no_file_selected">No heu seleccionat cap fitxer per a la pujada</string>
   <string name="setup_hint_username">Nom d\'usuari</string>
@@ -69,7 +71,6 @@
   <string name="uploader_wrn_no_content_text">No s\'ha rebut cap contingut. Res per pujar</string>
   <string name="uploader_error_forbidden_content">%1$s no pot accedir al contingut compartit</string>
   <string name="uploader_info_uploading">S\'està pujant</string>
-  <string name="uploader_btn_create_dir_text">Crea una carpeta per les pujades</string>
   <string name="file_list_empty">No hi ha fitxers en aquesta carpeta.\nPodeu afegir fitxers a través de l\'opció \"Puja\"  del menú.</string>
   <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
   <string name="filedetails_size">Mida:</string>
@@ -101,7 +102,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
   <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcte</string>
   <string name="uploader_upload_succeeded_content_single">%1$s s\'ha pujat correctament</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d fitxers s\'han pujat correctament</string>
   <string name="uploader_upload_failed_ticker">La pujada ha fallat</string>
   <string name="uploader_upload_failed_content_single">La pujada de %1$s no s\'ha pogut acabar</string>
   <string name="uploader_upload_failed_content_multiple">La pujada ha fallat: s\'han pujat %1$d/%2$d fitxers</string>
@@ -175,16 +175,13 @@
   </string-array>
   <string name="auth_trying_to_login">S\'està intentant acreditar-vos...</string>
   <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
-  <string name="auth_no_net_conn_message">No s\'ha detectat cap connexió, comproveu la connexió i torneu a intentar-ho.</string>
   <string name="auth_connect_anyway">Connecta igualment</string>
   <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
-  <string name="auth_nossl_plain_ok_message">L\'aplicació no ha pogut establir una connexió segura amb el servidor. Malgrat tot, una connexió no segura està disponible. Podeu continuar o cancel·lar.</string>
   <string name="auth_connection_established">S\'ha establert la connexió</string>
   <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
   <string name="auth_not_configured_message">Sembla que la instància del sevidor no està configurada correctament. Per més detalls contacteu amb l\'administrador.</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
-  <string name="auth_unknown_error_message">S\'ha produït un error desconegut. Contacteu els autors i inclogueu els registres del dispositiu.</string>
   <string name="auth_unknown_host_title">No s\'ha trobat el servidor</string>
   <string name="auth_unknown_host_message">No s\'ha trobat el servidor. Comproveu el nom del servidor i la seva disponibilitat i intenteu-ho de nou.</string>
   <string name="auth_incorrect_path_title">No s\'ha trobat la instància del servidor</string>
@@ -202,9 +199,10 @@
   <string name="auth_not_found">Camí equivocat</string>
   <string name="auth_internal">Error intern del servidor, codi %1$d</string>
   <string name="auth_wtf_reenter_URL">Estat inesperat; escriviu l\'adreça de nou</string>
-  <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut.\nAcrediteu-vos de nou</string>
   <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
-  <string name="crashlog_message">L\'aplicació s\'ha aturat de manera no prevista. Voleu enviar el registre d\'errors?</string>
+  <string name="auth_connecting_auth_server">S\'està connectant a un servidor d\'autenticació...</string>
+  <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
+  <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
   <string name="crashlog_send_report">Envia el registre d\'errors</string>
   <string name="crashlog_dont_send_report">No envïis el registre d\'errors</string>
   <string name="extensions_avail_title">Hi ha extensions disponibles!</string>

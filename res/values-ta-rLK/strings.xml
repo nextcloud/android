@@ -20,14 +20,12 @@
   <string name="actionbar_settings">அமைப்புகள்</string>
   <string name="actionbar_see_details">விவரங்கள்</string>
   <string name="prefs_category_general">பொதுவான</string>
+  <string name="prefs_category_more">மேலதிக</string>
   <string name="prefs_add_session">புதிய அமர்வை சேர்க்க</string>
   <string name="prefs_create_img_thumbnails">படத்தின் சிறிய வடிவத்தை உருவாக்கு</string>
   <string name="prefs_select_oc_account">கணக்கொன்றை தெரிவுசெய்க</string>
-  <string name="prefs_summary_select_oc_account">உங்களுடைய எந்த கணக்கு செயலியை பயன்படுத்தும் என்பதை தெரிவுசெய்க</string>
-  <string name="prefs_trackmydevice">சாதனம் கண்காணிப்பு</string>
   <string name="prefs_trackmydevice_summary_off">உங்களுடைய சாதனத்தின் இருப்பிடத்தை அறிவதற்கு ஐ இயலுமைப்படுத்துக</string>
   <string name="prefs_trackmydevice_summary_on">உங்களுடைய ஆனது  இந்த சாதனத்தின் கண்காணிப்புகளை வைத்துக்கொள்ளும்,</string>
-  <string name="prefs_trackmydevice_interval">இடைவேலையை இற்றைப்படுத்துக</string>
   <string name="prefs_trackmydevice_interval_summary">ஒவ்வொரு %1$s நிமிடங்களையும் இற்றைப்படுத்துக</string>
   <string name="prefs_accounts">கணக்குகள்</string>
   <string name="prefs_manage_accounts">கணக்குகளை நிர்வகிக்க</string>
@@ -35,11 +33,10 @@
   <string name="prefs_pincode_summary">உங்களுடைய சேவைப் பயனரை பாதுகாக்க</string>
   <string name="prefs_instant_upload">உடனடி பதிவேற்றலை இயலுமைப்படுத்துக</string>
   <string name="prefs_instant_upload_summary">கமராவினால் எடுக்கப்பட்ட படங்கள் உடனடியாக பதிவேற்றப்பட்டன</string>
+  <string name="prefs_help">உதவி</string>
   <string name="auth_host_url">சேவையக முகவரி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>
-  <string name="new_session_uri_error">பிழையான URL தரப்பட்டுள்ளது</string>
-  <string name="new_session_session_name_error">பிழையான அமர்வு பெயர்</string>
   <string name="sync_string_files">கோப்புகள்</string>
   <string name="uploader_no_file_selected">பதிவேற்றுவதற்கு கோப்புகள் தெரிவுசெய்யப்படவில்லை</string>
   <string name="setup_hint_username">பயனாளர் பெயர்</string>
@@ -65,7 +62,6 @@
   <string name="filedetails_created">உருவாக்கப்பட்டது:</string>
   <string name="filedetails_modified">மாற்றப்பட்டது:</string>
   <string name="filedetails_download">பதிவிறக்குக</string>
-  <string name="filedetails_redownload">மீள் ஏற்றுக</string>
   <string name="filedetails_renamed_in_upload_msg">பதிவேற்றும்போது கோப்பின் பெயரானது %1$s ஆக பெயர்மாற்றப்பட்டது</string>
   <string name="common_yes">ஆம்</string>
   <string name="common_no">இல்லை</string>
@@ -74,7 +70,6 @@
   <string name="common_cancel_upload">பதிவேற்றலை இரத்து செய்க</string>
   <string name="common_cancel">இரத்து செய்க</string>
   <string name="common_save_exit">சேமிக்க மற்றும் amp; வெளியேறு</string>
-  <string name="common_exit">ownCloud  இலிருந்து விலகு</string>
   <string name="common_error">வழு</string>
   <string name="about_title">பற்றி</string>
   <string name="change_password">கடவுச்சொல்லை மாற்றுக</string>
@@ -86,7 +81,6 @@
   <string name="uploader_upload_in_progress_content">%1$d%% பதிவேற்றல்g %2$s</string>
   <string name="uploader_upload_succeeded_ticker">வெற்றிகரமாக பதிவேற்றப்பட்டது</string>
   <string name="uploader_upload_succeeded_content_single">%1$s வெற்றிகரமாக பதிவேற்றப்பட்டது</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d கோப்புகள் வெற்றிகரமாக பதிவேற்றப்பட்டது</string>
   <string name="uploader_upload_failed_ticker">பதிவேற்றல் தோல்வியுற்றது</string>
   <string name="uploader_upload_failed_content_single">பதிவேற்றலின் %1$s தை முடிக்கமுடியவில்லை</string>
   <string name="uploader_upload_failed_content_multiple">பதிவேற்றல் தோல்வியுற்றது : %1$d/%2$d கோப்புகள் பதிவேற்றப்பட்டது</string>
@@ -126,20 +120,16 @@
   </string-array>
   <string name="auth_trying_to_login">புகுபதிகைக்கு முயற்சிக்கின்றது...</string>
   <string name="auth_no_net_conn_title">வ​லைய​மைப்பு இணைப்பு இல்லை</string>
-  <string name="auth_no_net_conn_message">எந்தவொரு வலையமைப்பு இணைப்பும் கண்டுப்பிடிக்கப்படவில்லை, இணைய இணைப்பை சரிபார்த்துவிட்டு மீண்டும் முயற்சிக்கவும். </string>
   <string name="auth_connect_anyway">எப்படியாவது இணைக்க</string>
   <string name="auth_nossl_plain_ok_title">பாதுகாப்பான இணைப்பு காணப்படவில்லை.</string>
-  <string name="auth_nossl_plain_ok_message">செயலியினால் சேவையகத்துடன் பாதுகாப்பான இணைப்பை ஏற்படுத்த முடியவில்லை.  பாதுகாப்பற்ற இணைப்புகளும் காணப்படுகின்றன. நீங்கள் தொடரலாம் அல்லது இரத்துசெய்யலாம்.</string>
   <string name="auth_connection_established">இணைப்பு நிறுவப்பட்டது</string>
   <string name="auth_testing_connection">இணைப்பு சோதிக்கப்படுகிறது.....</string>
   <string name="auth_not_configured_title">பிறழ்வான தகவமைப்பு</string>
   <string name="auth_not_configured_message">உங்களுடைய சரியாக தகவமைக்கப்படாததாக தெரிகிறது. மேலதிக தகவல்களுக்கு நிர்வாகியை தொடர்புகொள்ளவும்</string>
   <string name="auth_unknown_error_title">அறியப்படாத வழு ஏற்பட்டுள்ளது!</string>
-  <string name="auth_unknown_error_message">அறியப்படாத வழு ஏற்பட்டுள்ளது. தயவுசெய்து உங்களுடைய சாதனத்தினூடாக ஆசிரியரையும் சேர்க்கப்பட்டுள்ள பதிகையையும் தொடர்புகொள்க.</string>
   <string name="auth_unknown_host_title">ஓம்புனரை கண்டுப்பிடிக்கமுடியவில்லை</string>
   <string name="auth_unknown_host_message">நுழைக்கப்பட்ட ஓம்புனரை கண்டுப்பிடிக்கமுடியவில்லை. தயவுசெய்து ஓம்புனர் பெயரையும் சேவையகத்தின் வழங்குதலையும் சரிப்பார்த்து மீண்டும் முயற்சிக்கவும்.</string>
   <string name="auth_incorrect_path_title"> காணப்படவில்லை</string>
-  <string name="auth_incorrect_path_message">தரப்பட்ட பாதையினூடாக செயலியினால் ownClound ஐ கண்டுப்பிடிக்க முடியவில்லை. தயவுசெய்து உங்களுடைய பாதையை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
   <string name="auth_timeout_title">இந்த சேவையகம் பதில் கொடுப்பதற்கு நீண்ட நேரம் எடுக்கின்றது</string>
   <string name="auth_incorrect_address_title">பிறழ்வான URL</string>
   <string name="auth_ssl_general_error_title">SSL இன் தொடக்கநிலை தோல்வியுற்றது</string>
@@ -147,7 +137,6 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="crashlog_message">செயலி எதிர்பாராமல் முடிவுற்றது. உங்களுக்கு முறிவு அறிக்கை ஒன்றை சமர்ப்பிப்பதற்கு விருப்பம்மா?</string>
   <string name="crashlog_send_report">அறிக்கையை அனுப்பவும்</string>
   <string name="crashlog_dont_send_report">அறிக்கையை அனுப்பவேண்டாம்</string>
   <string name="extensions_avail_title">நீட்சிகள் காணப்படுகின்றன!</string>
