@@ -34,7 +34,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import de.mobilcom.debitel.cloud.android.Log_OC;
@@ -42,6 +41,7 @@ import de.mobilcom.debitel.cloud.android.R;
 import de.mobilcom.debitel.cloud.android.network.CertificateCombinedException;
 import de.mobilcom.debitel.cloud.android.network.OwnCloudClientUtils;
 import de.mobilcom.debitel.cloud.android.operations.RemoteOperationResult;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.
@@ -142,11 +142,11 @@ public class SslValidatorDialog extends Dialog {
                        View detailsScroll = findViewById(R.id.details_scroll);
                        if (detailsScroll.getVisibility() == View.VISIBLE) {
                            detailsScroll.setVisibility(View.GONE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_see);
+                           ((CustomButton)v).setText(R.string.ssl_validator_btn_details_see);
                            
                        } else {
                            detailsScroll.setVisibility(View.VISIBLE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_hide);
+                           ((CustomButton)v).setText(R.string.ssl_validator_btn_details_hide);
                        }
                     }
                 });

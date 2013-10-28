@@ -408,21 +408,21 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <Button
+        <de.mobilcom.debitel.cloud.android.ui.CustomButton
             android:id="@+id/cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <Button
+        <de.mobilcom.debitel.cloud.android.ui.CustomButton
             android:id="@+id/details_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <Button
+        <de.mobilcom.debitel.cloud.android.ui.CustomButton
             android:id="@+id/ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +43,7 @@ import de.mobilcom.debitel.cloud.android.Log_OC;
 import de.mobilcom.debitel.cloud.android.R;
 import de.mobilcom.debitel.cloud.android.datamodel.FileDataStorageManager;
 import de.mobilcom.debitel.cloud.android.datamodel.OCFile;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 import de.mobilcom.debitel.cloud.android.ui.dialog.IndeterminateProgressDialog;
 import de.mobilcom.debitel.cloud.android.utils.FileStorageUtils;
 
@@ -117,14 +117,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         }
         
         /// customize buttons
-        Button cancelBtn = (Button) findViewById(R.id.cancel);
-        Button okBtn = (Button) findViewById(R.id.ok);
-        // Set background of buttons
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons) {
-            cancelBtn.setBackgroundResource(R.drawable.btn_default);
-            okBtn.setBackgroundResource(R.drawable.btn_default);
-        }
+        CustomButton cancelBtn = (CustomButton) findViewById(R.id.cancel);
+        CustomButton okBtn = (CustomButton) findViewById(R.id.ok);
         
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);

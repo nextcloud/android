@@ -26,7 +26,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -34,6 +33,7 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.mobilcom.debitel.cloud.android.R;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 import de.mobilcom.debitel.cloud.android.ui.adapter.LogListAdapter;
 import de.mobilcom.debitel.cloud.android.utils.FileStorageUtils;
 
@@ -52,13 +52,8 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(android.R.id.list);
-        Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
+        CustomButton deleteHistoryButton = (CustomButton) findViewById(R.id.deleteLogHistoryButton);
         
-        // Set background of 'deleteHistory' button
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons) 
-            deleteHistoryButton.setBackgroundResource(R.drawable.btn_default);
-            
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override

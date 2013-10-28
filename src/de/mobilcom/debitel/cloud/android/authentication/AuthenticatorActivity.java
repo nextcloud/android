@@ -64,6 +64,7 @@ import de.mobilcom.debitel.cloud.android.operations.OwnCloudServerCheckOperation
 import de.mobilcom.debitel.cloud.android.operations.RemoteOperation;
 import de.mobilcom.debitel.cloud.android.operations.RemoteOperationResult;
 import de.mobilcom.debitel.cloud.android.operations.RemoteOperationResult.ResultCode;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 import de.mobilcom.debitel.cloud.android.ui.dialog.SamlWebViewDialog;
 import de.mobilcom.debitel.cloud.android.ui.dialog.SslValidatorDialog;
 import de.mobilcom.debitel.cloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -187,7 +188,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
-        mOkButton = findViewById(R.id.buttonOK);
+        mOkButton = (CustomButton) findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
         /// set Host Url Input Enabled
@@ -200,10 +201,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
         }
 
-        /// complete background of 'OK' button
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons)
-            mOkButton.setBackgroundResource(R.drawable.btn_default);
+//        /// complete background of 'OK' button
+//        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
+//        if (customButtons)
+//            mOkButton.setBackgroundResource(R.drawable.btn_default);
         
         /// initialization
         mAccountMgr = AccountManager.get(this);

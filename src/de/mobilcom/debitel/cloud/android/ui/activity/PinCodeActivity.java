@@ -21,6 +21,7 @@ import java.util.Arrays;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import de.mobilcom.debitel.cloud.android.R;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,7 +36,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,7 +45,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     public final static String EXTRA_ACTIVITY = "de.mobilcom.debitel.cloud.android.ui.activity.PinCodeActivity.ACTIVITY";
     public final static String EXTRA_NEW_STATE = "de.mobilcom.debitel.cloud.android.ui.activity.PinCodeActivity.NEW_STATE";
     
-    Button bCancel;
+    CustomButton bCancel;
     TextView mPinHdr;
     TextView mPinHdrExplanation;
     EditText mText1;
@@ -71,7 +71,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         Intent intent = getIntent();
         activity = intent.getStringExtra(EXTRA_ACTIVITY);
      
-        bCancel = (Button) findViewById(R.id.cancel);
+        bCancel = (CustomButton) findViewById(R.id.cancel);
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mPinHdrExplanation = (TextView) findViewById(R.id.pinHdrExpl);
         mText1 = (EditText) findViewById(R.id.txt1);
@@ -80,11 +80,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
-        
-        // Set background of 'Cancel' button
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons) 
-            bCancel.setBackgroundResource(R.drawable.btn_default);
         
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());

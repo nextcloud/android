@@ -21,10 +21,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 import de.mobilcom.debitel.cloud.android.R;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 
 /**
  * This Activity is used to display a detail message for failed uploads
@@ -44,11 +44,7 @@ public class FailedUploadActivity extends Activity {
         String message = getIntent().getStringExtra(MESSAGE);
         TextView textView = (TextView) findViewById(R.id.faild_upload_message);
         textView.setText(message);
-        Button closeBtn = (Button) findViewById(R.id.failed_uploadactivity_close_button);
-        // Set background of 'close' button
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons) 
-            closeBtn.setBackgroundResource(R.drawable.btn_default);
+        CustomButton closeBtn = (CustomButton) findViewById(R.id.failed_uploadactivity_close_button);
         
         closeBtn.setOnClickListener(new OnClickListener() {
             @Override

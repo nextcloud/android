@@ -10,7 +10,7 @@
        android:layout_height="wrap_content"
        android:minWidth="100dp"/>
    
-   <Button
+   <de.mobilcom.debitel.cloud.android.ui.CustomButton
     android:id="@+id/failed_uploadactivity_close_button"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"

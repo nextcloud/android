@@ -49,7 +49,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -61,6 +60,7 @@ import de.mobilcom.debitel.cloud.android.datamodel.DataStorageManager;
 import de.mobilcom.debitel.cloud.android.datamodel.FileDataStorageManager;
 import de.mobilcom.debitel.cloud.android.datamodel.OCFile;
 import de.mobilcom.debitel.cloud.android.files.services.FileUploader;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 
 /**
  * This can be used to upload things to an ownCloud instance.
@@ -310,7 +310,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                                                 new String[] {"dirname"},
                                                 new int[] {R.id.textView1});
             setListAdapter(sa);
-            Button btn = (Button) findViewById(R.id.uploader_choose_folder);
+            CustomButton btn = (CustomButton) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
             getListView().setOnItemClickListener(this);
         }

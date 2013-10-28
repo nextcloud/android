@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -38,6 +37,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.mobilcom.debitel.cloud.android.Log_OC;
 import de.mobilcom.debitel.cloud.android.R;
+import de.mobilcom.debitel.cloud.android.ui.CustomButton;
 import de.mobilcom.debitel.cloud.android.ui.dialog.IndeterminateProgressDialog;
 import de.mobilcom.debitel.cloud.android.ui.fragment.ConfirmationDialogFragment;
 import de.mobilcom.debitel.cloud.android.ui.fragment.LocalFileListFragment;
@@ -58,8 +58,8 @@ public class UploadFilesActivity extends FileActivity implements
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
     private LocalFileListFragment mFileListFragment;
-    private Button mCancelBtn;
-    private Button mUploadBtn;
+    private CustomButton mCancelBtn;
+    private CustomButton mUploadBtn;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     
@@ -103,17 +103,11 @@ public class UploadFilesActivity extends FileActivity implements
         
         
         // Set input controllers
-        mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
+        mCancelBtn = (CustomButton) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
-        mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
+        mUploadBtn = (CustomButton) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
         
-        // Set background of buttons
-        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-        if (customButtons) {
-            mCancelBtn.setBackgroundResource(R.drawable.btn_default);
-            mUploadBtn.setBackgroundResource(R.drawable.btn_default);
-        }
             
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
