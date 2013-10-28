@@ -57,8 +57,8 @@
 	
 	<!-- Buttons -->
     <style name="Theme.ownCloud.ButtonStyle" parent="@android:style/Widget.Button">
-        <item name="android:background">@drawable/btn_default</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@android:drawable/btn_default</item>
+        <item name="android:textColor">@color/button_text_color</item>
     </style>
 
 	<!-- PopDownMenu -->

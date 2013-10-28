@@ -24,7 +24,8 @@
     <color name="actionbar_end_color">#1D2D44</color>
     
     <!-- Button -->
-    <bool name="custom_buttons">false</bool>
+    <bool name="custom_buttons">true</bool> <!-- enable background customization -->
+    <color name="button_text_color">#FFFFFF</color>
     
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">false</bool>
