@@ -28,20 +28,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        class="de.mobilcom.debitel.cloud.android.ui.fragment.LocalFileListFragment" />
+        class="com.owncloud.android.ui.fragment.LocalFileListFragment" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal" >
-        <de.mobilcom.debitel.cloud.android.ui.CustomButton
+        <com.owncloud.android.ui.CustomButton
             android:id="@+id/upload_files_btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
-		<de.mobilcom.debitel.cloud.android.ui.CustomButton
+		<com.owncloud.android.ui.CustomButton
 		    android:id="@+id/upload_files_btn_upload"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"

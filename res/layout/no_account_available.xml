@@ -39,7 +39,7 @@
             android:text="@string/main_wrn_accsetup"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <de.mobilcom.debitel.cloud.android.ui.CustomButton
+        <com.owncloud.android.ui.CustomButton
             android:id="@+id/setup_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

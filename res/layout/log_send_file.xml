@@ -24,7 +24,7 @@
          android:layout_height="wrap_content"
          android:gravity="bottom">
         
-     <de.mobilcom.debitel.cloud.android.ui.CustomButton
+     <com.owncloud.android.ui.CustomButton
             	android:id="@+id/deleteLogHistoryButton"
          		android:layout_width="match_parent"
      		   	android:layout_height="wrap_content"

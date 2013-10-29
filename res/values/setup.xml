@@ -39,7 +39,7 @@
     <string name="url_imprint">"https://webapi.md.de/about/imprint"</string>
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:appservice@cloud.md.de"</string>
-    <!-- string name="url_app_download">"https://play.google.com/store/apps/details?id=de.mobilcom.debitel.cloud.android"</string -->
+    <!-- string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string -->
 
 </resources>
 

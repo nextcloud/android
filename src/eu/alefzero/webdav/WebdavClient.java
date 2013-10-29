@@ -41,11 +41,12 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.http.HttpStatus;
 import org.apache.http.params.CoreProtocolPNames;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.network.BearerAuthScheme;
+import com.owncloud.android.network.BearerCredentials;
 
-import de.mobilcom.debitel.cloud.android.Log_OC;
-import de.mobilcom.debitel.cloud.android.MainApp;
-import de.mobilcom.debitel.cloud.android.network.BearerAuthScheme;
-import de.mobilcom.debitel.cloud.android.network.BearerCredentials;
+
 
 import android.net.Uri;
 

@@ -33,7 +33,7 @@
 	</FrameLayout>
 	<LinearLayout android:id="@+id/linearLayout1"
 		android:layout_width="fill_parent" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:orientation="vertical">
-		<de.mobilcom.debitel.cloud.android.ui.CustomButton android:layout_gravity="bottom" android:layout_height="wrap_content"
+		<com.owncloud.android.ui.CustomButton android:layout_gravity="bottom" android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/uploader_choose_folder"
 			android:text="@string/uploader_btn_upload_text"/>
 	</LinearLayout>

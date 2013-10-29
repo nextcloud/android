@@ -48,14 +48,14 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-		<de.mobilcom.debitel.cloud.android.ui.CustomButton
+		<com.owncloud.android.ui.CustomButton
 		    android:id="@+id/ok"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"
 		    android:text="@string/common_ok" />
 		
-        <de.mobilcom.debitel.cloud.android.ui.CustomButton
+        <com.owncloud.android.ui.CustomButton
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

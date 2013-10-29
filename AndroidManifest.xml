@@ -17,7 +17,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<manifest package="de.mobilcom.debitel.cloud.android"
+<manifest package="com.owncloud.android"
     android:versionCode="104006"
     android:versionName="1.4.6" xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -153,8 +153,8 @@
         <service android:name=".media.MediaService" />
         
         <activity android:name=".ui.activity.PinCodeActivity" />
-        <activity android:name=".extensions.ExtensionsAvailableActivity"></activity>
-        <activity android:name=".extensions.ExtensionsListActivity"></activity>
+        <activity android:name="com.owncloud.android.extensions.ExtensionsAvailableActivity"></activity>
+        <activity android:name="com.owncloud.android.extensions.ExtensionsListActivity"></activity>
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
