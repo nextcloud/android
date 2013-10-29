@@ -28,8 +28,11 @@
   <string name="prefs_add_session">Aggiungi nuova sessione</string>
   <string name="prefs_create_img_thumbnails">Crea anteprime immagini</string>
   <string name="prefs_select_oc_account">Scegli un account</string>
+  <string name="prefs_summary_select_oc_account">Scegli quale dei tuoi account sarà utilizzato dall\'applicazione</string>
+  <string name="prefs_trackmydevice">Tracciamento dispostivo</string>
   <string name="prefs_trackmydevice_summary_off">Abilita l\'applicazione a tracciare la posizione del tuo dispositivo</string>
   <string name="prefs_trackmydevice_summary_on">Il tuo l\'applicazione tiene traccia di questo dispositivo</string>
+  <string name="prefs_trackmydevice_interval">Intervallo di aggiornamento</string>
   <string name="prefs_trackmydevice_interval_summary">Aggiorna ogni %1$s minuti</string>
   <string name="prefs_accounts">Account</string>
   <string name="prefs_manage_accounts">Gestisci account</string>
@@ -49,10 +52,13 @@
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
   <string name="recommend_text">Vorrei invitarti ad usare %1$s sul tuo smartphone!⏎\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
+  <string name="auth_account_name">Nome account</string>
   <string name="auth_host_url">Indirizzo del server</string>
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
   <string name="auth_register">Prima volta su %1$s?</string>
+  <string name="new_session_uri_error">Indirizzo inserito non corretto</string>
+  <string name="new_session_session_name_error">Nome sessione non corretta</string>
   <string name="sync_string_files">File</string>
   <string name="uploader_no_file_selected">Nessun file selezionato per l\'invio</string>
   <string name="setup_hint_username">Nome utente</string>
@@ -71,6 +77,7 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
+  <string name="uploader_btn_create_dir_text">Crea una directory per il caricamento</string>
   <string name="file_list_empty">Non ci sono file in questa cartella.\nNuovi file possono essere aggiunti con l\'opzione di menu \"Carica\".</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
@@ -102,6 +109,7 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Caricamento effettuato</string>
   <string name="uploader_upload_succeeded_content_single">%1$s è stato caricato correttamente</string>
+  <string name="uploader_upload_succeeded_content_multiple">%1$d file sono stati caricati correttamente</string>
   <string name="uploader_upload_failed_ticker">Caricamento non riuscito</string>
   <string name="uploader_upload_failed_content_single">Il caricamento di %1$s non può essere completato</string>
   <string name="uploader_upload_failed_content_multiple">Caricamento non riuscito: %1$d/%2$d file sono stati caricati</string>
@@ -124,6 +132,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Alcuni file locali sono stati trascurati</string>
   <string name="sync_foreign_files_forgotten_content">%1$d file della cartella %2$s non possono essere copiati</string>
   <string name="sync_foreign_files_forgotten_explanation">Dalla versione 1.3.16, i file caricati da questo dispositivo sono copiati nella cartella locale %1$s per evitare perdite di dati in caso di sincronizzazione di un singolo file con più account.\n\nA causa di questa modifica, tutti i file caricati nelle versioni precedenti di questa applicazione sono copiati nella cartella %2$s. In ogni caso, un errore ha impedito il completamento di questa operazione durante la sincronizzazione dell\'account.  Puoi mantenere i file intatti e rimuovere il collegamento a %3$s o spostare i file nella cartella %1$s e mantenere il collegamento a %4$s.\n\nQui sotto sono elencati i file locali e i file remoti in %5$s ai quali sono collegati.</string>
+  <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
   <string name="foreign_files_move">Sposta tutto</string>
   <string name="foreign_files_success">Tutti i file sono stati spostati</string>
   <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
@@ -175,8 +184,10 @@
   </string-array>
   <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
+  <string name="auth_no_net_conn_message">Nessuna connessione di rete rilevata, controlla la tua connessione Internet e riprova.</string>
   <string name="auth_connect_anyway">Connetti comunque</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
+  <string name="auth_nossl_plain_ok_message">L\'Applicazione non riesce a stabilire una connessione sicura con il server. È disponibile una connessione non sicura. È possibile continuare o cancellare l\'operazione.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
   <string name="auth_testing_connection">Prova di connessione in corso...</string>
   <string name="auth_not_configured_title">Configurazione non corretta di il server</string>
@@ -184,6 +195,7 @@
   <string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
   <string name="auth_account_not_the_same">Il nome utente inserito non corrisponde all\'utente di questo account</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
+  <string name="auth_unknown_error_message">Si è verificato un errore sconosciuta. Per favore contatta il supporto e includi i file di log del tuo dispositivo.</string>
   <string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
   <string name="auth_unknown_host_message">Impossibile trovare l\'host digitato. Controlla il nome dell\'host e la raggiungibilità del server e prova ancora.</string>
   <string name="auth_incorrect_path_title">Istanza di il server non trovata</string>
@@ -205,8 +217,10 @@
   <string name="auth_expired_basic_auth_toast">Inserisci la password attuale</string>
   <string name="auth_expired_saml_sso_token_toast">Sessione scaduta. Riconnettiti</string>
   <string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
+  <string name="auth_follow_auth_server">Segui le istruzioni qui sopra per venire autenticato</string>
   <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
   <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
+  <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>
   <string name="crashlog_send_report">Invia segnalazione</string>
   <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>
   <string name="extensions_avail_title">Estensioni disponibili!</string>

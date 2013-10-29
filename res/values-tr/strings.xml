@@ -19,7 +19,7 @@
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_open_with">ile aç</string>
-  <string name="actionbar_mkdir">Klasör yarat</string>
+  <string name="actionbar_mkdir">Klasör oluştur</string>
   <string name="actionbar_search">Arama</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
@@ -28,8 +28,11 @@
   <string name="prefs_add_session">Yeni oturum ekle</string>
   <string name="prefs_create_img_thumbnails">Küçük resim oluştur</string>
   <string name="prefs_select_oc_account">Oturum seç</string>
+  <string name="prefs_summary_select_oc_account">Uygulamanın hangi hesaplarınızı kullanması gerektiğini seçiniz.</string>
+  <string name="prefs_trackmydevice">Cihaz Takibi</string>
   <string name="prefs_trackmydevice_summary_off">Cihazınınızın konumunu takip etmesi için App\'u aktif edin</string>
   <string name="prefs_trackmydevice_summary_on">App\'unuz bu cihazı takip etmektedir</string>
+  <string name="prefs_trackmydevice_interval">Güncelleme Aralığı</string>
   <string name="prefs_trackmydevice_interval_summary">Her %1$s dakikada güncelle</string>
   <string name="prefs_accounts">Hesaplar</string>
   <string name="prefs_manage_accounts">Hesapları yönet</string>
@@ -49,10 +52,13 @@
   <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
   <string name="recommend_text">Sana, akıllı telefonunda kullanmak üzere %1$s daveti yapıyorum!\nBuradan indirebilirsin: %2$s</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
+  <string name="auth_account_name">Hesap adı</string>
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
   <string name="auth_register">%1$s senin için yeni mi?</string>
+  <string name="new_session_uri_error">Geçersiz adres girildi</string>
+  <string name="new_session_session_name_error">Geçersiz oturum adı</string>
   <string name="sync_string_files">Dosyalar</string>
   <string name="uploader_no_file_selected">Yüklemek için dosya seçilmedi</string>
   <string name="setup_hint_username">Kullanıcı Adı</string>
@@ -76,7 +82,7 @@
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya tıklayınız.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
-  <string name="filedetails_created">Yaratma:</string>
+  <string name="filedetails_created">Oluşturulma:</string>
   <string name="filedetails_modified">Değiştirme:</string>
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Dosyayı yenile</string>
@@ -89,6 +95,7 @@
   <string name="common_cancel_upload">Yüklemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
   <string name="common_save_exit">Kaydet %amp; Kapat</string>
+  <string name="common_exit">%1$s Çıkışı Yap</string>
   <string name="common_error">Hata</string>
   <string name="common_loading">Yükleniyor...</string>
   <string name="common_error_unknown">Bilinmeyen hata</string>
@@ -102,6 +109,7 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Yükleniyor %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Yükleme başarılı</string>
   <string name="uploader_upload_succeeded_content_single">%1$s kadarı başarıyla yüklendi.</string>
+  <string name="uploader_upload_succeeded_content_multiple">%1$d dosya başarılı bir şekilde yüklendi</string>
   <string name="uploader_upload_failed_ticker">Yükleme başarısız</string>
   <string name="uploader_upload_failed_content_single">%1$s yüklenmedi tamamlanamadı</string>
   <string name="uploader_upload_failed_content_multiple">Yükleme başarısız : %1$d/%2$d dosya yüklendi</string>
@@ -124,6 +132,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
   <string name="sync_foreign_files_forgotten_content">%1$d dosyalar  %2$s dizinine kopyalanamadı</string>
   <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, bu aygıttan yüklenen dosyalar bir dosya birden fazla hesapla eşitlendiğinde veri kaybının önlenebilmesi için %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlenmesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyayı/dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilirsiniz veya dosyayı/dosyaları %1$s dizinine taşıyıp %4$s bağlantılarını koruyabilirsiniz.\n\nAşağıda listelenenler yerel dosyalar ve bağlı oldukları %5$s içerisindeki uzak dosyalardır.</string>
+  <string name="sync_current_folder_was_removed">%1$s klasörü artık mevcut değil.</string>
   <string name="foreign_files_move">Tümünü taşı</string>
   <string name="foreign_files_success">Tüm dosyalar taşındı</string>
   <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
@@ -175,8 +184,10 @@
   </string-array>
   <string name="auth_trying_to_login">Giriş için deneniyor</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
+  <string name="auth_no_net_conn_message">Ağ bağlantısı bulunamadı. İnternet bağlantınızı kontrol edin ve tekrar deneyin.</string>
   <string name="auth_connect_anyway">Her halükarda bağlan</string>
   <string name="auth_nossl_plain_ok_title">Günvenli bağlantı mevcut değil.</string>
+  <string name="auth_nossl_plain_ok_message">Uygulama sunucu ile güvenli bağlantı kuramadı. Buna rağmen güvensiz bağlantı mevcut. Devam edebilirsiniz veya iptal edebilirsiniz.</string>
   <string name="auth_connection_established">Bağlantı kuruldu</string>
   <string name="auth_testing_connection">Bağlantı kontrol ediliyor ...</string>
   <string name="auth_not_configured_title">Hatalı sunucu ayarı.</string>
@@ -184,6 +195,7 @@
   <string name="auth_account_not_new">Cihazda aynı kullanıcı adı ve sunucu için bir hesap zaten mevcut</string>
   <string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>
+  <string name="auth_unknown_error_message">Bilinmeyen bir hata oluştu. Lütfen cihazınızdaki hata kayıtlarını ekleyerek destekle iletişime geçin.</string>
   <string name="auth_unknown_host_title">Anabilgisayar bulunamadı</string>
   <string name="auth_unknown_host_message">Girilen anabilgisayar bulunamadı. Anabilgisayaradı ve sunucu kullanılabilirliğini kontrol edin ve yeniden deneyin.</string>
   <string name="auth_incorrect_path_title">sunucu servisi bulunamadı.</string>
@@ -205,8 +217,10 @@
   <string name="auth_expired_basic_auth_toast">Lütfen mevcut parolanızı girin</string>
   <string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi doldu. Lütfen tekrar bağlanın</string>
   <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor...</string>
+  <string name="auth_follow_auth_server">Kimliğinizi doğrulamak için yukarıdaki talimatları izleyin</string>
   <string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
   <string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
+  <string name="crashlog_message">Uygulama beklenmedik bir şekilde sonlandı. Hata raporu göndermek ister misiniz?</string>
   <string name="crashlog_send_report">Rapor gönder</string>
   <string name="crashlog_dont_send_report">Rapor gönderme</string>
   <string name="extensions_avail_title">Eklentiler mevcut!</string>
