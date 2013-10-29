@@ -29,8 +29,10 @@
   <string name="prefs_create_img_thumbnails">Crear miniaturas das imaxes</string>
   <string name="prefs_select_oc_account">Escoller unha conta</string>
   <string name="prefs_summary_select_oc_account">Escolla cal das súas contas ten que usar o aplicativo.</string>
+  <string name="prefs_trackmydevice">Rastrexado de dispositivos</string>
   <string name="prefs_trackmydevice_summary_off">Permitir que este aplicativo rexistre as posicións do seu dispositivo</string>
   <string name="prefs_trackmydevice_summary_on">Este aplicativo mantén o rexistro de posicións do seu dispositivo</string>
+  <string name="prefs_trackmydevice_interval">Intervalo de actualizacións</string>
   <string name="prefs_trackmydevice_interval_summary">Actualizar cada %1$s minutos</string>
   <string name="prefs_accounts">Contas</string>
   <string name="prefs_manage_accounts">Xestionar as contas</string>
@@ -50,6 +52,7 @@
   <string name="recommend_subject">Tente %1$s no seu teléfono intelixente!</string>
   <string name="recommend_text">Quero convidalo a empregar %1$s no seu teléfono intelixente!⏎\nDescárgueo de aquí:%2$s</string>
   <string name="auth_check_server">Comprobar o servidor</string>
+  <string name="auth_account_name">Nome da conta</string>
   <string name="auth_host_url">Enderezo do servidor</string>
   <string name="auth_username">Nome de usuario</string>
   <string name="auth_password">Contrasinal</string>
@@ -129,6 +132,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Algúns ficheiros locais foron esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">Non é posíbel copiar %1$d ficheiros do directorio %2$s en</string>
   <string name="sync_foreign_files_forgotten_explanation">Desde a versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados nas versións anteriores deste aplicativo cópianse no cartafol %2$s. Porén, un erro impediu a finalización desta operación durante a sincronización da conta. É posíbel deixar o(s) ficheiro(s) como está(n) e retirar a ligazón a %3$s, ou mover o(s) ficheiro(s) ao directorio %1$s e manter a ligazón a %4$s.\n\nA seguir enuméranse o(s) fichero(s) local(is), e o(s) fichero(s) remoto(s) en %5$s co(s) que estaba(n) ligados.</string>
+  <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
   <string name="foreign_files_move">Mover todo</string>
   <string name="foreign_files_success">Foron movidos todos os ficheiros</string>
   <string name="foreign_files_fail">Algúns ficheiros non puideron seren movidos</string>
@@ -213,6 +217,7 @@
   <string name="auth_expired_basic_auth_toast">Introduza o contrasinal actual</string>
   <string name="auth_expired_saml_sso_token_toast">A súa sesión caducou. Autorícese de novo</string>
   <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
+  <string name="auth_follow_auth_server">Siga as instrucións anteriores para autenticarse</string>
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
   <string name="crashlog_message">O aplicativo deixou de funcionar de xeito inesperado. Quere enviar un informe desta quebra?</string>

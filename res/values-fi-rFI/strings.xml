@@ -28,8 +28,10 @@
   <string name="prefs_add_session">Lisää uusi istunto</string>
   <string name="prefs_create_img_thumbnails">Luo kuvista pikkukuvat</string>
   <string name="prefs_select_oc_account">Valitse tili</string>
+  <string name="prefs_trackmydevice">Laitteen jäljitys</string>
   <string name="prefs_trackmydevice_summary_off">Salli jäljittää laitteesi sijainti</string>
   <string name="prefs_trackmydevice_summary_on">Jäljittää tätä laitetta</string>
+  <string name="prefs_trackmydevice_interval">Päivitysväli</string>
   <string name="prefs_trackmydevice_interval_summary">Päivitä %1$s minuutin välein</string>
   <string name="prefs_accounts">Tilit</string>
   <string name="prefs_manage_accounts">Tilien hallinta</string>
@@ -37,6 +39,8 @@
   <string name="prefs_pincode_summary">Suojaa Asiakasohjelmasi</string>
   <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
   <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
+  <string name="prefs_log_title">Käytä lokitusta</string>
+  <string name="prefs_log_summary_history">Tämä näyttää tallennetut lokit</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>
   <string name="prefs_help">Ohje</string>
   <string name="prefs_recommend">Suosittele kaverille</string>
@@ -44,6 +48,7 @@
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
   <string name="recommend_text">Ota %1$s käyttöösi älypuhelimessa!\nLataa tästä: %2$s</string>
   <string name="auth_check_server">Tarkista palvelin</string>
+  <string name="auth_account_name">Tilin nimi</string>
   <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
@@ -111,10 +116,12 @@
   <string name="sync_string_contacts">Yhteystiedot</string>
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
+  <string name="sync_fail_content_unauthorized">Virheellinen salasana tilille %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
   <string name="sync_conflicts_in_favourites_content">%1$d \"pidä synkronoituna\" tiedostoja ei voitu synkronoida</string>
   <string name="sync_fail_in_favourites_ticker">\"Pidä synkronoituna\" epäonnistui</string>
   <string name="sync_fail_in_favourites_content">Hakemiston %1$d tiedostoja ei voitu synkronoida (%2$d konfliktia)</string>
+  <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
   <string name="foreign_files_move">Siirrä kaikki</string>
   <string name="foreign_files_success">Kaikki tiedostot siirrettiin</string>
   <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
