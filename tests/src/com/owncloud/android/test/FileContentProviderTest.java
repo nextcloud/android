@@ -1,8 +1,7 @@
 package com.owncloud.android.test;
 
-import com.owncloud.androideta.ProviderTableMeta;
-import com.owncloud.com.owncloud.androidider;
-
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.providers.FileContentProvider;
 import android.annotation.TargetApi;
 import android.net.Uri;
 import android.os.Build;
@@ -24,7 +23,9 @@ public class FileContentProviderTest extends ProviderTestCase2<FileContentProvid
 	}
 	
 	public FileContentProviderTest() {
-		super(FileContentProvider.class, "com.owncloud.android.provicom.owncloud.android	
+		super(FileContentProvider.class, "com.owncloud.android.provicers.FileContentProvider");	
+	}
+	
 	@Override
 	public void setUp() {
 		Log.i(TAG, "Entered setup");

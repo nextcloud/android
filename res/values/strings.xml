@@ -17,7 +17,7 @@
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
     <string name="actionbar_upload">Upload</string>
-    <!-- string name="actionbar_upload_from_apps">Content from other apps</string -->
+    <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Files</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_mkdir">Create directory</string>
@@ -52,8 +52,8 @@
     <string name="prefs_feedback">Feedback</string>
     <string name="prefs_imprint">Imprint</string>
     
-	<!-- string name="recommend_subject">"Try %1$s on your smartphone!"</string -->
-	<!-- string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"</string -->  
+	<string name="recommend_subject">"Try %1$s on your smartphone!"</string>
+	<string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"</string>  
 
     <string name="auth_check_server">Check Server</string>
     <string name="auth_account_name">Account name</string>
@@ -201,8 +201,8 @@
     <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
     <string name="auth_unknown_error_title">Unknown error occurred!</string>
     <string name="auth_unknown_error_message">An unknown error occurred. Please contact support and include logs from your device.</string>
-    <!-- string name="auth_unknown_host_title">Couldn\'t find host</string -->
-    <!-- string name="auth_unknown_host_message">Couldn\'t find the entered host. Please check hostname and server availability and try again.</string -->
+    <string name="auth_unknown_host_title">Couldn\'t find host</string>
+    <string name="auth_unknown_host_message">Couldn\'t find the entered host. Please check hostname and server availability and try again.</string>
     <string name="auth_incorrect_path_title">Server instance not found</string>
     <string name="auth_incorrect_path_message">Application couldn\'t find a server instance at the given path. Please check your path and try again.</string>
     <string name="auth_timeout_title">The server took too long to respond</string>

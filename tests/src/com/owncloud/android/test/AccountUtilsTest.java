@@ -18,9 +18,10 @@
 
 package com.owncloud.android.test;
 
-import com.owncloud.android.authentication.Accocom.owncloud.androiddroid.utils.OwnCloudVersion;
+import android.test.AndroidTestCase;
 
-importcom.owncloud.android
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.utils.OwnCloudVersion;
 
 public class AccountUtilsTest extends AndroidTestCase {
     

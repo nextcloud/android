@@ -16,7 +16,7 @@
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar cuenta</string>
   <string name="actionbar_upload">Subir archivo</string>
-  <!-- string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string -->
+  <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>

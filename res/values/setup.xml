@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name  and other strings-->
-    <string name="app_name">mdCloud</string>
-    <string name="account_type">de.mobilcom.debitel.cloud</string>
-    <string name="authority">de.mobilcom.debitel</string>
-    <string name ="db_file">mdcloud.db</string>
-    <string name ="db_name">mdcloud</string>
-    <string name ="data_folder">mfcloud</string>
-    <string name ="log_name">mdCloud_</string>
+    <string name="app_name">ownCloud</string>
+    <string name="account_type">owncloud</string>
+    <string name="authority">org.owncloud</string>
+    <string name ="db_file">owncloud.db</string>
+    <string name ="db_name">ownCloud</string>
+    <string name ="data_folder">owncloud</string>
+    <string name ="log_name">Owncloud_</string>
     
     <!-- Server URL -->
-    <string name="server_url">beta.owncloud.com/owncloud</string>
+    <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     
     <!-- Flags to setup the authentication methods available in the app -->
@@ -18,28 +18,28 @@
     <string name="auth_method_saml_web_sso">off</string>
     
     <!-- Colors -->
-    <color name="login_background_color">#e3e3e3</color>
+	<color name="login_background_color">#FFFFFF</color>
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
     
     <!-- Button -->
-    <bool name="custom_buttons">true</bool> <!-- enable background customization -->
+    <bool name="custom_buttons">false</bool> <!-- enable background customization -->
     <color name="button_text_color">#FFFFFF</color>
     
     <!-- Multiaccount support -->
-    <bool name="multiaccount_support">false</bool>
+    <bool name="multiaccount_support">true</bool>
     
     <!-- Help, imprint and feedback -->
-    <bool name="help_enabled">true</bool>
-    <bool name="imprint_enabled">true</bool> 
-    <bool name="recommend_enabled">true</bool>
-    <bool name="feedback_enabled">true</bool>
-    <string name="url_help">http://www2.mobilcom-debitel.de/kontakt/faqs?cat=42</string>
-    <string name="url_imprint">"https://webapi.md.de/about/imprint"</string>
+    <bool name="help_enabled">false</bool>
+    <bool name="imprint_enabled">false</bool> 
+    <bool name="recommend_enabled">false</bool>
+    <bool name="feedback_enabled">false</bool>
+    <string name="url_help">https://owncloud.com/mobile/help</string>
+    <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
-    <string name="mail_feedback">"mailto:appservice@cloud.md.de"</string>
-    <!-- string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string -->
+    <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
 
 </resources>
 
