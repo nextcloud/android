@@ -93,12 +93,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private int mLastPercent;
     
     
-    public String getDownloadAddedMessage() {
-        return getClass().getName().toString() + DOWNLOAD_ADDED_MESSAGE;
+    public static String getDownloadAddedMessage() {
+        return FileDownloader.class.getName().toString() + DOWNLOAD_ADDED_MESSAGE;
     }
     
-    public String getDownloadFinishMessage() {
-        return getClass().getName().toString() + DOWNLOAD_FINISH_MESSAGE;
+    public static String getDownloadFinishMessage() {
+        return FileDownloader.class.getName().toString() + DOWNLOAD_FINISH_MESSAGE;
     }
     
     /**

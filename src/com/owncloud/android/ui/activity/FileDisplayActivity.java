@@ -139,9 +139,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private OCFile mWaitingToPreview;
     private Handler mHandler;
     
-    private String mDownloadAddedMessage;
-    private String mDownloadFinishMessage;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
@@ -151,10 +148,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         mHandler = new Handler();
         
-        FileDownloader downloader = new FileDownloader();
-        mDownloadAddedMessage = downloader.getDownloadAddedMessage();
-        mDownloadFinishMessage= downloader.getDownloadFinishMessage();
-
         /// bindings to transference services
         mUploadConnection = new ListServiceConnection(); 
         mDownloadConnection = new ListServiceConnection();
@@ -412,12 +405,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 // the user browsed to other file ; forget the automatic preview 
                 mWaitingToPreview = null;
 
-            } else if (downloadEvent.equals(mDownloadAddedMessage)) {
+            } else if (downloadEvent.equals(FileDownloader.getDownloadAddedMessage())) {
                 // grant that the right panel updates the progress bar
                 detailsFragment.listenForTransferProgress();
                 detailsFragment.updateFileDetails(true, false);
 
-            } else if (downloadEvent.equals(mDownloadFinishMessage)) {
+            } else if (downloadEvent.equals(FileDownloader.getDownloadFinishMessage())) {
                 //  update the right panel
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
@@ -635,22 +628,19 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
 
-        FileUploader fileUploader = new FileUploader();
-        FileSyncService fileSyncService = new FileSyncService();
-        
         // Listen for sync messages
-        IntentFilter syncIntentFilter = new IntentFilter(fileSyncService.getSyncMessage());
+        IntentFilter syncIntentFilter = new IntentFilter(FileSyncService.getSyncMessage());
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         // Listen for upload messages
-        IntentFilter uploadIntentFilter = new IntentFilter(fileUploader.getUploadFinishMessage());
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
         mUploadFinishReceiver = new UploadFinishReceiver();
         registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
 
         // Listen for download messages
-        IntentFilter downloadIntentFilter = new IntentFilter(mDownloadAddedMessage);
-        downloadIntentFilter.addAction(mDownloadFinishMessage);
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloader.getDownloadAddedMessage());
+        downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
     
