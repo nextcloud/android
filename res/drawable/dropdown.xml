@@ -16,21 +16,13 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--  item>
-        <rotate
-             android:drawable="@drawable/freenet_spinner_48_outer"
-             android:pivotX="50%"
-             android:pivotY="50%"
-             android:fromDegrees="0"
-             android:toDegrees="1080" />
-    </item-->
-    <item>
-        <rotate
-             android:drawable="@drawable/freenet_spinner_48_inner"
-             android:pivotX="50%"
-             android:pivotY="50%"
-             android:fromDegrees="0"
-             android:toDegrees="720" />
-    </item>
-</layer-list>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false"
+          android:drawable="@drawable/dropdown_disabled" />
+    <item android:state_pressed="true"
+          android:drawable="@drawable/dropdown_pressed" />
+    <item android:state_pressed="false" android:state_focused="true"
+          android:drawable="@drawable/dropdown_focused" />
+    <item android:drawable="@drawable/dropdown_default" />
+</selector>
