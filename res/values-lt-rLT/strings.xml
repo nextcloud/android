@@ -30,6 +30,7 @@
   <string name="prefs_select_oc_account">Pasirinkite paskyrą</string>
   <string name="prefs_trackmydevice">Įrenginio sekimas</string>
   <string name="prefs_trackmydevice_summary_off">Leisti šiai programai sekti Jūsų įrenginio buvimo vietą</string>
+  <string name="prefs_trackmydevice_interval">Atnaujinimo intervalas</string>
   <string name="prefs_trackmydevice_interval_summary">Atnaujinti kas %1$s min.</string>
   <string name="prefs_accounts">Paskyros</string>
   <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
@@ -49,9 +50,12 @@
   <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
   <string name="recommend_text">Siūlau pabandyti %1$s savo išmaniajame telefone!\nParsisiųskite štai čia: %2$s</string>
   <string name="auth_check_server">Patikrinti Serverį</string>
+  <string name="auth_account_name">Paskyros pavadinimas</string>
   <string name="auth_host_url">Serverio adresas</string>
   <string name="auth_username">Prisijungimo vardas</string>
   <string name="auth_password">Slaptažodis</string>
+  <string name="new_session_uri_error">Įvestas neteisingas adresas</string>
+  <string name="new_session_session_name_error">Neteisingas sesijos pavadinimas</string>
   <string name="sync_string_files">Failai</string>
   <string name="uploader_no_file_selected">Nusiuntimui nepasirinktas joks failas</string>
   <string name="setup_hint_username">Prisijungimo vardas</string>
@@ -79,6 +83,7 @@
   <string name="filedetails_modified">Modifikuota:</string>
   <string name="filedetails_download">Atsisiųsti</string>
   <string name="filedetails_sync_file">Atnaujinti failą</string>
+  <string name="filedetails_redownload">Parsisiųsti iš naujo</string>
   <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
@@ -119,6 +124,7 @@
   <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
   <string name="sync_fail_in_favourites_content">Nepavyko sinchronizuoti %1$d failų turinio (%2$d konfliktų)</string>
   <string name="sync_foreign_files_forgotten_ticker">Keli vietiniai failai buvo užmiršti</string>
+  <string name="sync_current_folder_was_removed">Aplankas %1$s nebeegzistuoja</string>
   <string name="foreign_files_move">Perkelti visus</string>
   <string name="foreign_files_success">Visi failai buvo perkelti</string>
   <string name="foreign_files_fail">Kai kurių failų negalima perkelti</string>
@@ -215,7 +221,10 @@
   <string name="wait_a_moment">Truputį palaukite</string>
   <string name="filedisplay_unexpected_bad_get_content">Netikėta problema ; prašome pasirinkti failą iš kitos programėlės</string>
   <string name="filedisplay_no_file_selected">Joks failas nebuvo pasirinktas</string>
+  <string name="oauth_host_url">oAuth2 URL</string>
+  <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string>
   <string name="oauth_login_connection">Jungiamasi prie oAuth2 serverio...</string>
+  <string name="oauth_connection_url_unavailable">Neįmanoma prisijungti prie šio URL adreso.</string>
   <string name="ssl_validator_title">Įspėjimas</string>
   <string name="ssl_validator_header">Serverio tapatybė negali būti patikrinta</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Nepatikimas serverio sertifikatas</string>
@@ -252,6 +261,7 @@
   <string name="conflict_dont_upload">Nebesiųsti</string>
   <string name="preview_image_description">Paveikslėlio peržiūra</string>
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti paveikslėlio</string>
+  <string name="preview_image_error_out_of_memory">\"Nepakanka atminties parodyti šį paveikslėlį</string>
   <!--we need to improve the communication of errors to the user-->
   <string name="failed_upload_all_cb">pažymėti viską</string>
   <string name="failed_upload_retry_text">bandyti iš naujo nusiųsti paveikslėlį:</string>
