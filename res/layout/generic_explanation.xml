@@ -48,14 +48,14 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-		<com.owncloud.android.ui.CustomButton
+		<Button
 		    android:id="@+id/ok"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"
 		    android:text="@string/common_ok" />
 		
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

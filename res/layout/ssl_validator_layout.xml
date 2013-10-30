@@ -408,21 +408,21 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/details_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

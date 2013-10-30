@@ -185,7 +185,7 @@
 						           
 	</LinearLayout>
        
-	<com.owncloud.android.ui.CustomButton
+	<Button
 		android:id="@id/buttonOK"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

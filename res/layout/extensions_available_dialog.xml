@@ -34,14 +34,14 @@
         android:layout_margin="5dp"
         android:weightSum="1.0" >
 
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/buttonNo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/common_no"
             android:layout_weight="0.5"/>
 
-        <com.owncloud.android.ui.CustomButton
+        <Button
             android:id="@+id/buttonYes"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

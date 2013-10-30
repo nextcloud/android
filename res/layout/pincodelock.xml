@@ -68,7 +68,7 @@
             style="@style/PassCodeStyle" />
     </LinearLayout>
 
-    <com.owncloud.android.ui.CustomButton android:layout_width="wrap_content"
+    <Button android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/common_cancel"
         android:textColor="@android:color/black"
