@@ -63,7 +63,6 @@ import com.owncloud.android.operations.OwnCloudServerCheckOperation;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.ui.CustomButton;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -188,7 +187,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mOAuthAuthEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_1);
         mOAuthTokenEndpointText = (TextView)findViewById(R.id.oAuthEntryPoint_2);
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
-        mOkButton = (CustomButton) findViewById(R.id.buttonOK);
+        mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
         
         /// set Host Url Input Enabled
@@ -200,11 +199,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (b != null) {
             b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
         }
-
-//        /// complete background of 'OK' button
-//        boolean customButtons = getResources().getBoolean(R.bool.custom_buttons);
-//        if (customButtons)
-//            mOkButton.setBackgroundResource(R.drawable.btn_default);
         
         /// initialization
         mAccountMgr = AccountManager.get(this);

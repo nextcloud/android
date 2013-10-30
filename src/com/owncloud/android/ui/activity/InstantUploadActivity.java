@@ -25,7 +25,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.ui.CustomButton;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import android.accounts.Account;
@@ -78,9 +77,9 @@ public class InstantUploadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.failed_upload_files);
 
-        CustomButton deleteAllBtn = (CustomButton) findViewById(R.id.failed_upload_delete_all_btn);
+        Button deleteAllBtn = (Button) findViewById(R.id.failed_upload_delete_all_btn);
         deleteAllBtn.setOnClickListener(getDeleteListner());
-        CustomButton retryAllBtn = (CustomButton) findViewById(R.id.failed_upload_retry_all_btn);
+        Button retryAllBtn = (Button) findViewById(R.id.failed_upload_retry_all_btn);
         retryAllBtn.setOnClickListener(getRetryListner());
         this.failed_upload_all_cb = (CheckBox) findViewById(R.id.failed_upload_headline_cb);
         failed_upload_all_cb.setOnCheckedChangeListener(getCheckAllListener());

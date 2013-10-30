@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -36,7 +37,6 @@ import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.CustomButton;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
@@ -58,8 +58,8 @@ public class UploadFilesActivity extends FileActivity implements
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
     private LocalFileListFragment mFileListFragment;
-    private CustomButton mCancelBtn;
-    private CustomButton mUploadBtn;
+    private Button mCancelBtn;
+    private Button mUploadBtn;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     
@@ -103,9 +103,9 @@ public class UploadFilesActivity extends FileActivity implements
         
         
         // Set input controllers
-        mCancelBtn = (CustomButton) findViewById(R.id.upload_files_btn_cancel);
+        mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
-        mUploadBtn = (CustomButton) findViewById(R.id.upload_files_btn_upload);
+        mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
         
             

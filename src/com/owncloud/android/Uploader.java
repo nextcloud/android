@@ -32,7 +32,6 @@ import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.ui.CustomButton;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -57,6 +56,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -311,7 +311,7 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
                                                 new String[] {"dirname"},
                                                 new int[] {R.id.textView1});
             setListAdapter(sa);
-            CustomButton btn = (CustomButton) findViewById(R.id.uploader_choose_folder);
+            Button btn = (Button) findViewById(R.id.uploader_choose_folder);
             btn.setOnClickListener(this);
             getListView().setOnItemClickListener(this);
         }

@@ -18,12 +18,12 @@
 package com.owncloud.android.ui.activity;
 
 import com.owncloud.android.R;
-import com.owncloud.android.ui.CustomButton;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -45,7 +45,7 @@ public class FailedUploadActivity extends Activity {
         String message = getIntent().getStringExtra(MESSAGE);
         TextView textView = (TextView) findViewById(R.id.faild_upload_message);
         textView.setText(message);
-        CustomButton closeBtn = (CustomButton) findViewById(R.id.failed_uploadactivity_close_button);
+        Button closeBtn = (Button) findViewById(R.id.failed_uploadactivity_close_button);
         
         closeBtn.setOnClickListener(new OnClickListener() {
             @Override

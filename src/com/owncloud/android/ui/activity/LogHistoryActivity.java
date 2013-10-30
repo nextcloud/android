@@ -26,13 +26,13 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.CustomButton;
 import com.owncloud.android.ui.adapter.LogListAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -52,7 +52,7 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(android.R.id.list);
-        CustomButton deleteHistoryButton = (CustomButton) findViewById(R.id.deleteLogHistoryButton);
+        Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
         
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             

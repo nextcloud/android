@@ -20,8 +20,6 @@ import java.util.Arrays;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.CustomButton;
-
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -45,7 +44,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
     public final static String EXTRA_ACTIVITY = "com.owncloud.android.ui.activity.PinCodeActivity.ACTIVITY";
     public final static String EXTRA_NEW_STATE = "com.owncloud.android.ui.activity.PinCodeActivity.NEW_STATE";
     
-    CustomButton bCancel;
+    Button bCancel;
     TextView mPinHdr;
     TextView mPinHdrExplanation;
     EditText mText1;
@@ -71,7 +70,7 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         Intent intent = getIntent();
         activity = intent.getStringExtra(EXTRA_ACTIVITY);
      
-        bCancel = (CustomButton) findViewById(R.id.cancel);
+        bCancel = (Button) findViewById(R.id.cancel);
         mPinHdr = (TextView) findViewById(R.id.pinHdr);
         mPinHdrExplanation = (TextView) findViewById(R.id.pinHdrExpl);
         mText1 = (EditText) findViewById(R.id.txt1);

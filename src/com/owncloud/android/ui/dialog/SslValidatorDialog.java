@@ -34,13 +34,13 @@ import com.owncloud.android.R;
 import com.owncloud.android.network.CertificateCombinedException;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.ui.CustomButton;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -143,11 +143,11 @@ public class SslValidatorDialog extends Dialog {
                        View detailsScroll = findViewById(R.id.details_scroll);
                        if (detailsScroll.getVisibility() == View.VISIBLE) {
                            detailsScroll.setVisibility(View.GONE);
-                           ((CustomButton)v).setText(R.string.ssl_validator_btn_details_see);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_see);
                            
                        } else {
                            detailsScroll.setVisibility(View.VISIBLE);
-                           ((CustomButton)v).setText(R.string.ssl_validator_btn_details_hide);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
                        }
                     }
                 });

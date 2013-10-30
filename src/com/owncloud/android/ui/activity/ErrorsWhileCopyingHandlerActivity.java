@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.CustomButton;
+
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -117,8 +118,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         }
         
         /// customize buttons
-        CustomButton cancelBtn = (CustomButton) findViewById(R.id.cancel);
-        CustomButton okBtn = (CustomButton) findViewById(R.id.ok);
+        Button cancelBtn = (Button) findViewById(R.id.cancel);
+        Button okBtn = (Button) findViewById(R.id.ok);
         
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);

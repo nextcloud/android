@@ -20,7 +20,6 @@ package com.owncloud.android.extensions;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
-import com.owncloud.android.ui.CustomButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class ExtensionsAvailableDialog extends DialogFragment implements
         OnClickListener {
@@ -41,8 +41,8 @@ public class ExtensionsAvailableDialog extends DialogFragment implements
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.extensions_available_dialog,
                 container);
-        CustomButton btnYes = (CustomButton) view.findViewById(R.id.buttonYes);
-        CustomButton btnNo = (CustomButton) view.findViewById(R.id.buttonNo);
+        Button btnYes = (Button) view.findViewById(R.id.buttonYes);
+        Button btnNo = (Button) view.findViewById(R.id.buttonNo);
         
         btnYes.setOnClickListener(this);
         btnNo.setOnClickListener(this);
