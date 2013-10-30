@@ -18,7 +18,7 @@
     <string name="auth_method_saml_web_sso">off</string>
     
     <!-- Colors -->
-	<color name="login_background_color">#FFFFFF</color>
+    <color name="login_background_color">#FFFFFF</color>
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
