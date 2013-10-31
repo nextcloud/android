@@ -170,12 +170,10 @@
             android:id="@+id/buttonOK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_default"
             android:layout_gravity="center_horizontal"
             android:enabled="false"
             android:onClick="onOkClick"
-            android:text="@string/setup_btn_connect"
-            />
+            android:text="@string/setup_btn_connect" />
 
         <Button
             android:id="@+id/account_register"
