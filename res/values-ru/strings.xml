@@ -120,6 +120,7 @@
   <string name="media_err_unsupported">Неподдерживаемый кодек</string>
   <string name="media_err_io">Файл не может быть прочитан</string>
   <string name="media_err_malformed">Файл </string>
+  <string name="media_err_timeout">Тайм аут при воспроизведении</string>
   <string name="media_err_invalid_progressive_playback">Невозможно воспроизвести файл как поток</string>
   <string name="media_err_unknown">Файл не может быть проигран  стандартным плеером</string>
   <string name="media_err_security_ex">Ошибка безопасности при воспроизведении %1$s</string>
@@ -134,12 +135,15 @@
   <string name="auth_connection_established">Соединение установлено</string>
   <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация сервер</string>
+  <string name="auth_account_not_new">Учётная запись для такого пользователя и сервера уже существует на устройстве</string>
+  <string name="auth_account_not_the_same">Введённый пользователь не соответсвует пользователю учётной записи</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
   <string name="auth_unknown_host_title">Невозможно найти сервер</string>
   <string name="auth_incorrect_path_title">Экземпляр сервер не найден</string>
   <string name="auth_timeout_title">Сервер слишком долго не отвечает</string>
   <string name="auth_incorrect_address_title">Неверный URL</string>
   <string name="auth_ssl_general_error_title">Ошибка инициализации SSL</string>
+  <string name="auth_ssl_unverified_server_title">Невозможно проверить сертификат SSL сервера</string>
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера</string>
   <string name="auth_wrong_connection_title">Невозможно установить соединение</string>
   <string name="auth_secure_connection">Защищённое соединение установлено</string>
@@ -173,6 +177,7 @@
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
+  <string name="oauth_check_onoff">Подключать через oAuth2</string>
   <string name="oauth_login_connection">Подключение к серверу oAuth2...</string>
   <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>

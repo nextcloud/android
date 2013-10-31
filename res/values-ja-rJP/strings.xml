@@ -120,6 +120,7 @@
   <string name="media_err_unsupported">サポートされていないメディアコーデック</string>
   <string name="media_err_io">メディアファイルを読み込めませんでした</string>
   <string name="media_err_malformed">メディアファイルが正確にエンコードされていません</string>
+  <string name="media_err_timeout">再生中にタイムアウトが発生しました</string>
   <string name="media_err_invalid_progressive_playback">メディアファイルをストリーミングできません</string>
   <string name="media_err_unknown">メディアファイルをStock Media Playerでプレイ出来ません</string>
   <string name="media_err_security_ex">プレイに際してセキュリティエラー %1$s</string>
@@ -134,12 +135,15 @@
   <string name="auth_connection_established">接続が確立しました</string>
   <string name="auth_testing_connection">接続をテスト中...</string>
   <string name="auth_not_configured_title">サーバーの間違った設定</string>
+  <string name="auth_account_not_new">同じユーザとサーバのアカウントがデバイス上にすでに存在します</string>
+  <string name="auth_account_not_the_same">入力されたユーザはこのアカウントのユーザと一致しません</string>
   <string name="auth_unknown_error_title">不明なエラーに発生しました</string>
   <string name="auth_unknown_host_title">ホストが見つかりませんでした</string>
   <string name="auth_incorrect_path_title">のインスタンスが見つかりませんでした</string>
   <string name="auth_timeout_title">サーバーからの反応がありません。</string>
   <string name="auth_incorrect_address_title">不明なURL形式</string>
   <string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
+  <string name="auth_ssl_unverified_server_title">SSL サーバ識別子を確認できませんでした</string>
   <string name="auth_bad_oc_version_title">認識出来ないサーバのバージョンです</string>
   <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
   <string name="auth_secure_connection">暗号化通信を確立しました</string>
@@ -173,6 +177,7 @@
   <string name="wait_a_moment">しばらくお待ちください</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
   <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
+  <string name="oauth_check_onoff">oAuth2 でログイン</string>
   <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>
   <string name="ssl_validator_header">サイトの識別子を確認できませんでした</string>
   <string name="ssl_validator_reason_cert_not_trusted">- サーバ証明書は信頼されていません</string>

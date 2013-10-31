@@ -120,6 +120,7 @@
   <string name="media_err_unsupported">Niet ondersteunde media codec</string>
   <string name="media_err_io">Mediabestand kon niet worden gelezen</string>
   <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
+  <string name="media_err_timeout">Time-out tijdens het spelen</string>
   <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
   <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
   <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
@@ -134,12 +135,15 @@
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
   <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve server configuratie</string>
+  <string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat.</string>
+  <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
   <string name="auth_unknown_host_title">Kon geen host vinden</string>
   <string name="auth_incorrect_path_title">Server instantie niet gevonden</string>
   <string name="auth_timeout_title">De server had te lang nodig om te reageren</string>
   <string name="auth_incorrect_address_title">Misvormde URL</string>
   <string name="auth_ssl_general_error_title">SSL initialisatie mislukt</string>
+  <string name="auth_ssl_unverified_server_title">Kon de identiteit van de SSL server niet verifiëren</string>
   <string name="auth_bad_oc_version_title">Onherkende server versie</string>
   <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen.</string>
   <string name="auth_secure_connection">Veilige verbinding tot stand gebracht</string>
@@ -173,6 +177,7 @@
   <string name="wait_a_moment">Even geduld</string>
   <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
   <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
+  <string name="oauth_check_onoff">Inloggen met oAuth2</string>
   <string name="oauth_login_connection">Verbinden met oAuth2-server.</string>
   <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Het server certificaat wordt niet vertrouwd</string>

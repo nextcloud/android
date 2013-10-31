@@ -30,7 +30,6 @@
   <string name="recommend_subject">Try %1$s on your smartphone!</string>
   <string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
   <string name="auth_check_server">Check Server</string>
-  <string name="auth_account_name">Account name</string>
   <string name="auth_host_url">Server address</string>
   <string name="auth_username">Username</string>
   <string name="auth_password">Password</string>
@@ -122,6 +121,7 @@
   <string name="media_err_unsupported">Unsupported media codec</string>
   <string name="media_err_io">Media file could not be read</string>
   <string name="media_err_malformed">Media file not correctly encoded</string>
+  <string name="media_err_timeout">Timed out whilst trying to play</string>
   <string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
   <string name="media_err_unknown">Media file cannot be played with the stock media player</string>
   <string name="media_err_security_ex">Security error trying to play %1$s</string>
@@ -136,12 +136,15 @@
   <string name="auth_connection_established">Connection established</string>
   <string name="auth_testing_connection">Testing connection…</string>
   <string name="auth_not_configured_title">Malformed server configuration</string>
+  <string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
+  <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
   <string name="auth_unknown_error_title">Unknown error occurred!</string>
   <string name="auth_unknown_host_title">Couldn\'t find host</string>
   <string name="auth_incorrect_path_title">Server instance not found</string>
   <string name="auth_timeout_title">The server took too long to respond</string>
   <string name="auth_incorrect_address_title">Malformed URL</string>
   <string name="auth_ssl_general_error_title">SSL initialisation failed</string>
+  <string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
   <string name="auth_bad_oc_version_title">Unrecognised server version</string>
   <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
   <string name="auth_secure_connection">Secure connection established</string>
@@ -153,7 +156,6 @@
   <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
   <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
   <string name="auth_connecting_auth_server">Connecting to authentication server…</string>
-  <string name="auth_follow_auth_server">Follow instructions above to get authenticated</string>
   <string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
   <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
   <string name="fd_keep_in_sync">Keep file up to date</string>
@@ -176,6 +178,7 @@
   <string name="wait_a_moment">Wait a moment</string>
   <string name="filedisplay_unexpected_bad_get_content">Unexpected problem; please select the file from a different app</string>
   <string name="filedisplay_no_file_selected">No file was selected</string>
+  <string name="oauth_check_onoff">Log in with oAuth2</string>
   <string name="oauth_login_connection">Connecting to oAuth2 server…</string>
   <string name="ssl_validator_header">The identity of the site could not be verified</string>
   <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>

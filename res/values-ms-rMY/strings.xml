@@ -42,6 +42,7 @@
   <string name="pincode_configure_your_pin">Masukkan PIN App anda</string>
   <string name="pincode_reenter_your_pincode">Sila, memasukkan semula PIN App anda</string>
   <string name="pincode_stored">PIN App disimpan</string>
+  <string name="auth_no_net_conn_title">Tiada sambungan rangkaian</string>
+  <string name="common_rename">Namakan</string>
   <string name="confirmation_remove_local">Lokal sahaja</string>
-  <string name="ssl_validator_title">Amaran</string>
 </resources>

@@ -30,7 +30,6 @@
   <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
   <string name="recommend_text">Sana, akıllı telefonunda kullanmak üzere %1$s daveti yapıyorum!\nBuradan indirebilirsin: %2$s</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
-  <string name="auth_account_name">Hesap adı</string>
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
@@ -122,6 +121,7 @@
   <string name="media_err_unsupported">Codec desteklenmiyor</string>
   <string name="media_err_io">Medya öğesi okunamadı</string>
   <string name="media_err_malformed">Medya öğesi doğru bir şekilde kodlanmadı</string>
+  <string name="media_err_timeout">Oynatmaya çalışırken zaman aşımına uğradı</string>
   <string name="media_err_invalid_progressive_playback">Medya öğesi aktarılamadı</string>
   <string name="media_err_unknown">Ortam dosyası mevcut ortam oynatıcı ile çalınamaz</string>
   <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken güvenlik hatası oluştu</string>
@@ -136,12 +136,15 @@
   <string name="auth_connection_established">Bağlantı kuruldu</string>
   <string name="auth_testing_connection">Bağlantı kontrol ediliyor ...</string>
   <string name="auth_not_configured_title">Hatalı sunucu ayarı.</string>
+  <string name="auth_account_not_new">Cihazda aynı kullanıcı adı ve sunucu için bir hesap zaten mevcut</string>
+  <string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>
   <string name="auth_unknown_host_title">Anabilgisayar bulunamadı</string>
   <string name="auth_incorrect_path_title">sunucu servisi bulunamadı.</string>
   <string name="auth_timeout_title">Sunucu çok geç cevap veriyor</string>
   <string name="auth_incorrect_address_title">Hatalı biçimlendirilmiş URL</string>
   <string name="auth_ssl_general_error_title">SSL başlatılmasında hata</string>
+  <string name="auth_ssl_unverified_server_title">SSL sunucu kimliği doğrulanamadı</string>
   <string name="auth_bad_oc_version_title">Bilinmeyen sunucu sürümü</string>
   <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
   <string name="auth_secure_connection">Güvenli bağlantı sağlandı.</string>
@@ -153,7 +156,6 @@
   <string name="auth_expired_basic_auth_toast">Lütfen mevcut parolanızı girin</string>
   <string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi doldu. Lütfen tekrar bağlanın</string>
   <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor...</string>
-  <string name="auth_follow_auth_server">Kimliğinizi doğrulamak için yukarıdaki talimatları izleyin</string>
   <string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
   <string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut </string>
@@ -176,6 +178,7 @@
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
+  <string name="oauth_check_onoff">oAuth2 ile oturum aç</string>
   <string name="oauth_login_connection">oAuth2 sunucusuna bağlanılıyor…</string>
   <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikası güvenilmez</string>

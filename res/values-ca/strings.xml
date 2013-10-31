@@ -30,7 +30,6 @@
   <string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
   <string name="recommend_text">Vull convidar-te a usar l\'aplicació %1$s al teu telèfon avançat!\nBaixa\'l aquí: %2$s</string>
   <string name="auth_check_server">Comprova el servidor</string>
-  <string name="auth_account_name">Nom del compte</string>
   <string name="auth_host_url">Adreça del servidor</string>
   <string name="auth_username">Nom d\'usuari</string>
   <string name="auth_password">Contrasenya</string>
@@ -122,6 +121,7 @@
   <string name="media_err_unsupported">El codec multimèdia no és compatible</string>
   <string name="media_err_io">El fitxer multimèdia no es pot llegir</string>
   <string name="media_err_malformed">El fitxer multimèdia no està codificat correctament</string>
+  <string name="media_err_timeout">Temps exhaurit en intentar reproduir-ho</string>
   <string name="media_err_invalid_progressive_playback">El fitxer multimèdia no es pot transmetre</string>
   <string name="media_err_unknown">El fitxer multimèdia no es pot reproduir amb el reproductor per defecte</string>
   <string name="media_err_security_ex">Error de seguretat en intentar reproduir %1$s</string>
@@ -136,6 +136,8 @@
   <string name="auth_connection_established">S\'ha establert la connexió</string>
   <string name="auth_testing_connection">S\'està comprovant la connexió...</string>
   <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
+  <string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
+  <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
   <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
   <string name="auth_unknown_host_title">No s\'ha trobat el servidor</string>
   <string name="auth_incorrect_path_title">No s\'ha trobat la instància del servidor</string>
@@ -153,7 +155,6 @@
   <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
   <string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
   <string name="auth_connecting_auth_server">S\'està connectant a un servidor d\'autenticació...</string>
-  <string name="auth_follow_auth_server">Seguiu les instruccions a dalt per acreditar-vos</string>
   <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
   <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
   <string name="fd_keep_in_sync">Mantén el fitxer actualitzat</string>
@@ -176,6 +177,7 @@
   <string name="wait_a_moment">Espereu</string>
   <string name="filedisplay_unexpected_bad_get_content">S\'ha produït un problema inesperat; proveu una altra aplicació per seleccionar el fitxer</string>
   <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
+  <string name="oauth_check_onoff">Accés amb oAuth2</string>
   <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>
   <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
   <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>

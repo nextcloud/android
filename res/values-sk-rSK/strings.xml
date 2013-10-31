@@ -119,6 +119,7 @@
   <string name="media_err_unsupported">Nepodporovaný kodek</string>
   <string name="media_err_io">Mediálny súbor nemožno čítať</string>
   <string name="media_err_malformed">Mediálny súbor nemá správne kódovanie</string>
+  <string name="media_err_timeout">Skončil počas pokusu o prehratie</string>
   <string name="media_err_invalid_progressive_playback">Mediálny súbor nemožno streamovať</string>
   <string name="media_err_unknown">Mediálny súbor nemožno prehrať s východzím prehrávačom</string>
   <string name="media_err_security_ex">Chyba zabezpečenia pri pokuse o prehranie %1$s</string>
@@ -133,12 +134,15 @@
   <string name="auth_connection_established">Pripojenie vytvorené</string>
   <string name="auth_testing_connection">Testovane pripojenia...</string>
   <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
+  <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
+  <string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
   <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
   <string name="auth_unknown_host_title">Nemožno nájsť hosta</string>
   <string name="auth_incorrect_path_title">Servera inštancia nebola nájdená</string>
   <string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
   <string name="auth_incorrect_address_title">Poškodená URL</string>
   <string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
+  <string name="auth_ssl_unverified_server_title">Nepodarilo sa overiť identitu servera SSL</string>
   <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
   <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
   <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
@@ -173,7 +177,6 @@
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
   <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
   <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
-  <string name="ssl_validator_title">Varovanie</string>
   <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
   <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>

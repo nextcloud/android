@@ -30,7 +30,6 @@
   <string name="recommend_subject">Tente %1$s no seu teléfono intelixente!</string>
   <string name="recommend_text">Quero convidalo a empregar %1$s no seu teléfono intelixente!⏎\nDescárgueo de aquí:%2$s</string>
   <string name="auth_check_server">Comprobar o servidor</string>
-  <string name="auth_account_name">Nome da conta</string>
   <string name="auth_host_url">Enderezo do servidor</string>
   <string name="auth_username">Nome de usuario</string>
   <string name="auth_password">Contrasinal</string>
@@ -122,6 +121,7 @@
   <string name="media_err_unsupported">Códec multimedia non admitido</string>
   <string name="media_err_io">Non é posíbel ler o ficheiro multimedia</string>
   <string name="media_err_malformed">O ficheiro multimedia non está codificado correctamente</string>
+  <string name="media_err_timeout">Esgotouse o tempo de espera tentando reproducir</string>
   <string name="media_err_invalid_progressive_playback">Non é posíbel enviar como fluxo o ficheiro multimedia</string>
   <string name="media_err_unknown">Non é posíbel reproducir o ficheiro multimedia co reprodutor «stock»</string>
   <string name="media_err_security_ex">Produciuse un erro de seguranza tentando reproducir %1$s</string>
@@ -136,12 +136,15 @@
   <string name="auth_connection_established">Estabeleceuse a conexión</string>
   <string name="auth_testing_connection">Comprobando a conexión...</string>
   <string name="auth_not_configured_title">Configuración errada do servidor</string>
+  <string name="auth_account_not_new">Xa existe unha conta do mesmo usuario e servidor neste dispositivo</string>
+  <string name="auth_account_not_the_same">O usuario que introduciu non coincide co usuario desta conta</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
   <string name="auth_unknown_host_title">Non foi posíbel atopar a máquina</string>
   <string name="auth_incorrect_path_title">Non se atopou unha instancia do servidor</string>
   <string name="auth_timeout_title">O servidor tardou demasiado en responder</string>
   <string name="auth_incorrect_address_title">URL incorrecto</string>
   <string name="auth_ssl_general_error_title">Produciuse un fallo ao iniciar o SSL</string>
+  <string name="auth_ssl_unverified_server_title">Non foi posíbel verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
   <string name="auth_secure_connection">Estabeleceuse unha conexión segura</string>
@@ -153,7 +156,6 @@
   <string name="auth_expired_basic_auth_toast">Introduza o contrasinal actual</string>
   <string name="auth_expired_saml_sso_token_toast">A súa sesión caducou. Autorícese de novo</string>
   <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
-  <string name="auth_follow_auth_server">Siga as instrucións anteriores para autenticarse</string>
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
@@ -176,6 +178,7 @@
   <string name="wait_a_moment">Agarde un chisco</string>
   <string name="filedisplay_unexpected_bad_get_content">Produciuse un erro non agardado. Seleccione o ficheiro con outro aplicativo diferente</string>
   <string name="filedisplay_no_file_selected">Non se escolleu ningún ficheiro</string>
+  <string name="oauth_check_onoff">Acceder con oAuth2</string>
   <string name="oauth_login_connection">Conectando co servidor oAuth2…</string>
   <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>

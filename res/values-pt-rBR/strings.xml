@@ -95,6 +95,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">%1$d arquivos da pasta %2$s não foram copiados</string>
   <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas. \n\nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro evita a conclusão desta operação durante a conta de sincronização. Você pode tanto deixar os arquivos como é e remover o link para %3$s, ou mover o arquivos para o diretório %1$s e manter o link para %4$s. \n\nListados abaixo estão os arquivos locais, e os arquivos remotos em %5$s que estavam vinculados.</string>
+  <string name="sync_current_folder_was_removed">Pasta %1s não existe mais</string>
   <string name="foreign_files_move">Mover todos</string>
   <string name="foreign_files_success">Todos os arquivos foram movidos</string>
   <string name="foreign_files_fail">Alguns arquivos não puderam ser movidos</string>
@@ -120,6 +121,7 @@
   <string name="media_err_unsupported">Codec de mídia não suportado</string>
   <string name="media_err_io">Arquivo de mídia não pode ser lido</string>
   <string name="media_err_malformed">Arquivo de mídia não corretamente codificado</string>
+  <string name="media_err_timeout">Expirou o tempo durante a tentativa</string>
   <string name="media_err_invalid_progressive_playback">Arquivo de mídia não pode ser transmitido</string>
   <string name="media_err_unknown">Arquivo de mídia não pode ser reproduzido com o estoque media player</string>
   <string name="media_err_security_ex">Erro de segurança tentando reproduzir %1$s</string>
@@ -134,12 +136,15 @@
   <string name="auth_connection_established">Conexão estabelecida</string>
   <string name="auth_testing_connection">Testando conexão...</string>
   <string name="auth_not_configured_title">Configuração do servidor mal formada</string>
+  <string name="auth_account_not_new">Uma conta para o mesmo usuário e servidor já existe no dispositivo</string>
+  <string name="auth_account_not_the_same">As informações que o usuário digitou não corresponde ao usuário da conta</string>
   <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
   <string name="auth_unknown_host_title">Não pôde encontrar host</string>
   <string name="auth_incorrect_path_title">Instância de servidor não encontrada</string>
   <string name="auth_timeout_title">O servidor demorou demais a responder</string>
   <string name="auth_incorrect_address_title">URL mal formada</string>
   <string name="auth_ssl_general_error_title">Inicialização SSL falhou</string>
+  <string name="auth_ssl_unverified_server_title">Não foi possível verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versão do servidor é irreconhecível</string>
   <string name="auth_wrong_connection_title">Não foi possível estabelecer conexão</string>
   <string name="auth_secure_connection">Conexão segura estabelecida</string>
@@ -173,6 +178,7 @@
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
+  <string name="oauth_check_onoff">Login com oAuth2</string>
   <string name="oauth_login_connection">Conectando-se a oAuth2 servidor ...</string>
   <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>

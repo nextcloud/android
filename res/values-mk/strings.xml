@@ -8,7 +8,7 @@
   <string name="actionbar_see_details">Детали:</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
-  <string name="prefs_help">Помош</string>
+  <string name="prefs_accounts">Сметки</string>
   <string name="prefs_manage_accounts">Управување со сметки</string>
   <string name="prefs_pincode">Апликативен ПИН</string>
   <string name="prefs_pincode_summary">Заштитете го вашиот клиент</string>
@@ -20,6 +20,7 @@
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Датотеки</string>
+  <string name="setup_btn_connect">Поврзи се</string>
   <string name="uploader_btn_upload_text">Подигни</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
@@ -46,7 +47,6 @@
   <string name="downloader_download_succeeded_ticker">Преземањето е успешно</string>
   <string name="downloader_download_failed_ticker">Преземањето не беше успешно</string>
   <string name="common_choose_account">Одбери сметка</string>
-  <string name="sync_string_contacts">Контакти</string>
   <string name="sync_fail_ticker">Синхронизацијата беше неуспешна</string>
   <string name="sync_conflicts_in_favourites_ticker">Пронајден е конфликт</string>
   <string name="foreign_files_move">Префрли ги сите</string>
@@ -68,7 +68,6 @@
   <string name="auth_unauthorized">Погрешно корисничко име или лозинка</string>
   <string name="auth_oauth_error">Неуспешна авторизација</string>
   <string name="auth_expired_basic_auth_toast">Внесете ја вашата тековна лозинка:</string>
-  <string name="common_share">Сподели</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="confirmation_remove_local">Само локално</string>
@@ -81,7 +80,7 @@
   <string name="wait_a_moment">Почекајте малку</string>
   <string name="filedisplay_unexpected_bad_get_content">Неочекуван проблем ; ве молам одберете датотека од друга апликација</string>
   <string name="filedisplay_no_file_selected">Нема избрано датотека</string>
-  <string name="ssl_validator_title">Предупредување</string>
+  <string name="oauth_check_onoff">Најави се со oAuth2</string>
   <string name="ssl_validator_btn_details_see">Детали</string>
   <string name="ssl_validator_btn_details_hide">Сокриј</string>
   <string name="ssl_validator_label_subject">Издаден на:</string>

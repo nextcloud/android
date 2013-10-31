@@ -30,7 +30,6 @@
   <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone!</string>
   <string name="recommend_text">Ich möchte Sie zum Benutzen von %1$s auf Ihrem Smartphone einladen!\nLaden Sie es hier herunter: %2$s</string>
   <string name="auth_check_server">Server überprüfen</string>
-  <string name="auth_account_name">Name des Nutzerkontos</string>
   <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
@@ -122,6 +121,7 @@
   <string name="media_err_unsupported">Nicht unterstützter Media-codec</string>
   <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
   <string name="media_err_malformed">Mediendatei nicht korrekt kodiert</string>
+  <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
   <string name="media_err_invalid_progressive_playback">Mediendatei kann nicht gestreamt werden</string>
   <string name="media_err_unknown">Die Mediendatei kann nicht mit dem vorinstallierten Media Player abgespielt werden</string>
   <string name="media_err_security_ex">Sicherheitsfehler beim abspielen von %1$s</string>
@@ -136,12 +136,15 @@
   <string name="auth_connection_established">Verbindung hergestellt</string>
   <string name="auth_testing_connection">Verbindung testen...</string>
   <string name="auth_not_configured_title">Fehlerhafte Server Konfiguration</string>
+  <string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
+  <string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
   <string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
   <string name="auth_unknown_host_title">Konnte den Host nicht finden.</string>
   <string name="auth_incorrect_path_title">Server-Installation nicht gefunden</string>
   <string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
   <string name="auth_incorrect_address_title">Fehlerhafte URL</string>
   <string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen.</string>
+  <string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
   <string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
   <string name="auth_wrong_connection_title">Konnte keine Verbindung aufbauen.</string>
   <string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
@@ -153,7 +156,6 @@
   <string name="auth_expired_basic_auth_toast">Bitte geben Sie Ihr aktuelles Passwort ein</string>
   <string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte Anmeldung nochmals durchführen</string>
   <string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierung-Server…</string>
-  <string name="auth_follow_auth_server">Folgen Sie den obigen Anweisungen, um Sie zu authentifizieren</string>
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
@@ -176,6 +178,7 @@
   <string name="wait_a_moment">Bitte warten Sie einen Moment.</string>
   <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuchen Sie, die Datei in einer anderen App zu öffnen.</string>
   <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>
+  <string name="oauth_check_onoff">Anmelden mit oAuth2</string>
   <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server…</string>
   <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
