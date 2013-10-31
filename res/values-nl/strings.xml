@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Wachtwoord:</string>
-  <string name="main_login">Gebruikersnaam:</string>
-  <string name="main_button_login">Login</string>
-  <string name="main_welcome">Welkom</string>
-  <string name="main_files">Bestanden</string>
-  <string name="main_music">Muziek</string>
-  <string name="main_contacts">Contactpersonen</string>
-  <string name="main_calendar">Kalender</string>
-  <string name="main_bookmarks">Bladwijzers</string>
-  <string name="main_settings">Instellingen</string>
-  <string name="main_tit_accsetup">Account configureren.</string>
-  <string name="main_wrn_accsetup">Er zijn nog geen accounts op dit apparaat. Als je deze app wilt gebruiken zul je een account moeten aanmaken.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">versie %1$s</string>
   <string name="actionbar_sync">Account verversen</string>
@@ -20,17 +8,10 @@
   <string name="actionbar_upload_files">Bestanden</string>
   <string name="actionbar_open_with">Open met</string>
   <string name="actionbar_mkdir">Creëer map</string>
-  <string name="actionbar_search">Zoeken</string>
   <string name="actionbar_settings">Instellingen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="prefs_category_general">Algemeen</string>
   <string name="prefs_category_more">Meer</string>
-  <string name="prefs_add_session">Voeg nieuwe sessie toe</string>
-  <string name="prefs_create_img_thumbnails">Maak afbeeldingsminiaturen</string>
-  <string name="prefs_select_oc_account">Selecteer een account</string>
-  <string name="prefs_trackmydevice_summary_off">Sta toe dat app je apparaat locatie volgt</string>
-  <string name="prefs_trackmydevice_summary_on">Houdt dit apparaat in de gaten</string>
-  <string name="prefs_trackmydevice_interval_summary">Ververs elke %1$s minuten</string>
   <string name="prefs_accounts">Accounts</string>
   <string name="prefs_manage_accounts">Beheer accounts</string>
   <string name="prefs_pincode">App PIN</string>
@@ -54,12 +35,6 @@
   <string name="auth_password">Wachtwoord</string>
   <string name="auth_register">Nieuw bij %1$s?</string>
   <string name="sync_string_files">Bestanden</string>
-  <string name="uploader_no_file_selected">Geen bestand geselecteerd voor upload</string>
-  <string name="setup_hint_username">Gebruikersnaam</string>
-  <string name="setup_hint_password">Wachtwoord</string>
-  <string name="setup_hint_address">Webadres</string>
-  <string name="setup_hint_show_password">Wachtwoord tonen?</string>
-  <string name="setup_title">Verbinden met je %1$s</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
   <string name="uploader_top_message">Selecteer upload map:</string>
@@ -71,7 +46,6 @@
   <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
   <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
   <string name="uploader_info_uploading">Uploaden</string>
-  <string name="uploader_btn_create_dir_text">Maak nieuwe map voor upload</string>
   <string name="file_list_empty">Er zitten geen bestanden in deze map.\nNieuwe bestanden kunnen worden toegevoegd via de \"Upload\" menukeuze.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
@@ -80,7 +54,6 @@
   <string name="filedetails_modified">Aangepast:</string>
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Bestand verversen</string>
-  <string name="filedetails_redownload">Opnieuw downloaden</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand was hernoemt naar %1$s tijdens het uploaden</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
@@ -89,7 +62,6 @@
   <string name="common_cancel_upload">Upload afbreken</string>
   <string name="common_cancel">Annuleren</string>
   <string name="common_save_exit">Opslaan &amp; Afsluiten</string>
-  <string name="common_exit">Verlaat %1$s</string>
   <string name="common_error">Fout</string>
   <string name="common_loading">Laden...</string>
   <string name="common_error_unknown">Onbekende fout</string>
@@ -105,7 +77,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s is met succes ge-upload</string>
   <string name="uploader_upload_failed_ticker">Upload mislukt</string>
   <string name="uploader_upload_failed_content_single">Upload van %1$s kon niet voltooid worden</string>
-  <string name="uploader_upload_failed_content_multiple">Uploaden mislukt: %1$d/%2$d bestanden zijn geüpload</string>
   <string name="downloader_download_in_progress_ticker">Downloaden ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Aan het downloaden %2$s</string>
   <string name="downloader_download_succeeded_ticker">Downloaden gelukt</string>
@@ -114,7 +85,6 @@
   <string name="downloader_download_failed_content">Download van %1$s kon niet worden voltooid</string>
   <string name="downloader_not_downloaded_yet">Nog niet gedownload</string>
   <string name="common_choose_account">Kies account</string>
-  <string name="sync_string_contacts">Contactpersonen</string>
   <string name="sync_fail_ticker">Synchronisatie mislukt</string>
   <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
   <string name="sync_fail_content_unauthorized">Ongeldig wachtwoord voor %1$s</string>
@@ -131,10 +101,7 @@
   <string name="foreign_files_local_text">Lokaal: %1$s</string>
   <string name="foreign_files_remote_text">Extern: %1$s</string>
   <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de gekopieerde bestanden ook te plaatsen in map %1$s. Wilt u ze erheen verplaatsten? </string>
-  <string name="use_ssl">Gebruik veilige verbinding</string>
-  <string name="location_no_provider">%1$s kan het apparaat niet volgen. Configureer de locatie instellingen (location settings).</string>
   <string name="pincode_enter_pin_code">Voer App PIN in</string>
-  <string name="pincode_enter_new_pin_code">Voer nieuwe App PIN in</string>
   <string name="pincode_configure_your_pin">Voer App PIN in</string>
   <string name="pincode_configure_your_pin_explanation">De PIN wordt steeds opnieuw gevraagd als de app wordt gestart</string>
   <string name="pincode_reenter_your_pincode">Voer App PIN opnieuw in</string>
@@ -153,54 +120,32 @@
   <string name="media_err_unsupported">Niet ondersteunde media codec</string>
   <string name="media_err_io">Mediabestand kon niet worden gelezen</string>
   <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>
-  <string name="media_err_timeout">Te veel tijd geprobeerd te spelen</string>
   <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
   <string name="media_err_unknown">Mediabestand kan niet worden afgespeeld met de standaard mediaplayer</string>
   <string name="media_err_security_ex">Beveiligingsfout bij afspelen %1$s</string>
   <string name="media_err_io_ex">Invoerfout bij afspelen %1$1s</string>
   <string name="media_err_unexpected">Onverwachte fout bij afspelen %1$s</string>
-  <string name="media_previous_description">Vorige nummer knop</string>
   <string name="media_rewind_description">terugpoel knop</string>
   <string name="media_play_pause_description">Speel of pauze knop</string>
   <string name="media_forward_description">Doorspoel knop</string>
-  <string name="media_next_description">Volgende nummer knop</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minuten</item>
-    <item>30 minuten</item>
-    <item>60 mintuen</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Proberen om in te loggen...</string>
   <string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
-  <string name="auth_connect_anyway">Toch verbinden</string>
   <string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
   <string name="auth_connection_established">Verbinding tot stand gebracht</string>
   <string name="auth_testing_connection">Probeer verbinding...</string>
   <string name="auth_not_configured_title">Foutieve server configuratie</string>
-  <string name="auth_not_configured_message">Het lijkt erop dat je server instantie niet correct geconfigureerd is. Neem contact op met je beheerder voor meer details.</string>
-  <string name="auth_account_not_new">Er bestaat al een account voor deze gebruiker en server op dit apparaat.</string>
-  <string name="auth_account_not_the_same">De opgegeven gebruiker komt niet overeen met de gebruiker van dit account</string>
   <string name="auth_unknown_error_title">Onbekende fout opgetreden!</string>
   <string name="auth_unknown_host_title">Kon geen host vinden</string>
-  <string name="auth_unknown_host_message">Kon de ingevoerde host niet vinden. Controleer de hostnaam en servertoegankelijkheid en probeer opnieuw.</string>
   <string name="auth_incorrect_path_title">Server instantie niet gevonden</string>
-  <string name="auth_incorrect_path_message">De applicatie kon geen instantie van server vinden op de opgegeven locatie. Controleer het pad en probeer opnieuw.</string>
   <string name="auth_timeout_title">De server had te lang nodig om te reageren</string>
   <string name="auth_incorrect_address_title">Misvormde URL</string>
   <string name="auth_ssl_general_error_title">SSL initialisatie mislukt</string>
-  <string name="auth_ssl_unverified_server_title">Niet geverifieerde SSL server identiteit</string>
   <string name="auth_bad_oc_version_title">Onherkende server versie</string>
   <string name="auth_wrong_connection_title">Kon verbinding niet tot stand brengen.</string>
   <string name="auth_secure_connection">Veilige verbinding tot stand gebracht</string>
   <string name="auth_unauthorized">Verkeerde gebruikersnaam of wachtwoord</string>
   <string name="auth_oauth_error">Authorisatie niet succesvol</string>
   <string name="auth_oauth_error_access_denied">Toegang geweigerd door authorizatieserver</string>
-  <string name="auth_not_found">Verkeerde pad opgegeven</string>
-  <string name="auth_internal">Interne server fout, code %1$d</string>
   <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer a.u.b de server-URL nogmaals in.</string>
   <string name="auth_expired_oauth_token_toast">Uw autorisatie is verstreken. Autoriseer opnieuw.</string>
   <string name="auth_expired_basic_auth_toast">Geef het huidige wachtwoord op</string>
@@ -208,12 +153,7 @@
   <string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
   <string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
   <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
-  <string name="crashlog_send_report">Rapport verzenden</string>
-  <string name="crashlog_dont_send_report">Rapport niet verzenden</string>
-  <string name="extensions_avail_title">Uitbreidingen aanwezig!</string>
-  <string name="extensions_avail_message">Zo te zien ondersteunt je server instantie geavanceerde uitbreidingen. Wilt je deze uitbreidingen in Android zichtbaar maken?</string>
   <string name="fd_keep_in_sync">Houd bestand actueel</string>
-  <string name="common_share">Delen</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>
   <string name="confirmation_remove_alert">Wilt je werkelijk %1$s verwijderen?</string>
@@ -233,18 +173,12 @@
   <string name="wait_a_moment">Even geduld</string>
   <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
   <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Login met oAuth2.</string>
   <string name="oauth_login_connection">Verbinden met oAuth2-server.</string>
-  <string name="oauth_code_validation_message">Open a.u.b. een webbrpwser en ga naar:\n%1$s.\nValideer deze code daar:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Verbinding met deze URL is niet beschikbaar.</string>
-  <string name="ssl_validator_title">Waarschuwing</string>
   <string name="ssl_validator_header">De identiteit van de site kan niet worden gecontroleerd</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Het server certificaat wordt niet vertrouwd</string>
   <string name="ssl_validator_reason_cert_expired">- Het server certificaat is verlopen</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Het server certificaat is te recent</string>
   <string name="ssl_validator_reason_hostname_not_verified">- De URL komt niet overeen met de hostname in het certificaat</string>
-  <string name="ssl_validator_certificate_not_available">Het server certificaat kon niet opgevraagd worden</string>
   <string name="ssl_validator_question">Wil je dit certificaat alsnog vertrouwen?</string>
   <string name="ssl_validator_not_saved">Het certificaat kon niet worden opgeslagen</string>
   <string name="ssl_validator_btn_details_see">Details</string>
@@ -277,8 +211,6 @@
   <string name="conflict_dont_upload">Niet uploaden</string>
   <string name="preview_image_description">Afbeelding voorbeeld</string>
   <string name="preview_image_error_unknown_format">Deze afbeelding kan niet weergegeven worden</string>
-  <string name="preview_image_error_out_of_memory">\"Niet voldoende geheugen om deze afbeelding weer te geven</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
   <string name="actionbar_failed_instant_upload">Mislukte Directe Upload</string>
   <string name="failed_upload_headline_text">Mislukte directe uploads</string>

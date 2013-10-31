@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Jelszó:</string>
-  <string name="main_login">Felhasználói név:</string>
-  <string name="main_button_login">Bejelentkezés</string>
-  <string name="main_welcome">Üdv</string>
-  <string name="main_files">Fájlok</string>
-  <string name="main_music">Zene</string>
-  <string name="main_contacts">Névjegyek</string>
-  <string name="main_calendar">Naptár</string>
-  <string name="main_bookmarks">Könyvjelzők</string>
-  <string name="main_settings">Beállítások</string>
-  <string name="main_tit_accsetup">Fiók beállítása</string>
-  <string name="main_wrn_accsetup">Nincs beállított fiók a készülékén. Ahhoz, hogy használja ezt a programot, létre kell hozzon egyet.</string>
   <string name="about_android">%1$s Android Alkalmazás</string>
   <string name="about_version">verzió %1$s</string>
   <string name="actionbar_sync">Fiók frissítése</string>
@@ -20,20 +8,10 @@
   <string name="actionbar_upload_files">Fájlok</string>
   <string name="actionbar_open_with">Megnyitás a következővel</string>
   <string name="actionbar_mkdir">Mappa létrehozása</string>
-  <string name="actionbar_search">Keresés</string>
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
-  <string name="prefs_add_session">Új munkafolyamat létrehozása</string>
-  <string name="prefs_create_img_thumbnails">Bélyegkép készítése</string>
-  <string name="prefs_select_oc_account">Válasszon egy felhasználónevet</string>
-  <string name="prefs_summary_select_oc_account">Válassza ki, hogy a program milyen fiókot használjon.</string>
-  <string name="prefs_trackmydevice">Eszközkövetés</string>
-  <string name="prefs_trackmydevice_summary_off">Engedélyezze ennek a programnak a helykövetést</string>
-  <string name="prefs_trackmydevice_summary_on">Ez a program eltárolja ennek a készüléknek az útvonalát</string>
-  <string name="prefs_trackmydevice_interval">A frissítés gyakorisága</string>
-  <string name="prefs_trackmydevice_interval_summary">Minden %1$s percben</string>
   <string name="prefs_accounts">Fiókok</string>
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
   <string name="prefs_pincode">Alkalmazás PIN</string>
@@ -52,15 +30,7 @@
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
   <string name="auth_register">Új vagy a %1$s területen?</string>
-  <string name="new_session_uri_error">A megadott cím helytelen</string>
-  <string name="new_session_session_name_error">A megadott munkafolyamatnév érvénytelen</string>
   <string name="sync_string_files">Fájlok</string>
-  <string name="uploader_no_file_selected">A feltöltéshez nincs fájl kiválasztva</string>
-  <string name="setup_hint_username">Felhasználónév</string>
-  <string name="setup_hint_password">Jelszó</string>
-  <string name="setup_hint_address">Web cím</string>
-  <string name="setup_hint_show_password">A jelszó megjelenjen?</string>
-  <string name="setup_title">Kapcsolódás ehhez: %1$s</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
   <string name="uploader_top_message">Feltöltési mappa választása:</string>
@@ -72,7 +42,6 @@
   <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
   <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
   <string name="uploader_info_uploading">Feltöltés</string>
-  <string name="uploader_btn_create_dir_text">Könyvtár létrehozása a feltöltésekhez</string>
   <string name="file_list_empty">Ebben a mappában nincsenek állományok. A \"Feltöltés\" menüpont segítségével tölthet föl fájlokat.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
@@ -81,7 +50,6 @@
   <string name="filedetails_modified">Módosítva:</string>
   <string name="filedetails_download">Letöltés</string>
   <string name="filedetails_sync_file">File frissítése</string>
-  <string name="filedetails_redownload">Ismételt letöltés</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
@@ -90,7 +58,6 @@
   <string name="common_cancel_upload">A feltöltés megszakítása</string>
   <string name="common_cancel">Mégsem</string>
   <string name="common_save_exit">Mentés &amp; Kilépés</string>
-  <string name="common_exit">%1$s elhagyása</string>
   <string name="common_error">Hiba</string>
   <string name="common_loading">Betöltés ...</string>
   <string name="common_error_unknown">Ismeretlen hiba</string>
@@ -104,10 +71,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
   <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
   <string name="uploader_upload_succeeded_content_single">%1$s sikeresen fel lett töltve</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d fájl sikeresen fel lett töltve</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
   <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
-  <string name="uploader_upload_failed_content_multiple">Hibás feltöltés: %1$d/%2$d fájl feltöltve</string>
   <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
@@ -116,7 +81,6 @@
   <string name="downloader_download_failed_content">A letöltésből %1$s nem lett befejezve</string>
   <string name="downloader_not_downloaded_yet">Még nem töltötte le</string>
   <string name="common_choose_account">Válasszon azonosítót</string>
-  <string name="sync_string_contacts">Névjegyek</string>
   <string name="sync_fail_ticker">A szinkronizálás sikertelen</string>
   <string name="sync_fail_content">%1$s szinkronizációját nem sikerült befejezni</string>
   <string name="sync_fail_content_unauthorized">Érvénytelen jelszó a következőhöz %1$s</string>
@@ -133,10 +97,7 @@
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
   <string name="upload_query_move_foreign_files">Nincs elég hely ahhoz, hogy a kiválasztott fájlokat a %1$s mappába másoljuk. Akkor inkább helyezzük át őket oda?</string>
-  <string name="use_ssl">Biztonságos kapcsolat használata</string>
-  <string name="location_no_provider">%1$s nem tudja követni az eszközét. Kérem ellenőrizze a helybeállításait</string>
   <string name="pincode_enter_pin_code">Kérem adja meg az alkalmazás PIN-kódját</string>
-  <string name="pincode_enter_new_pin_code">Kérem adja meg az alkalmazás új PIN-kódját</string>
   <string name="pincode_configure_your_pin">Az alkalmazás PIN-kódja</string>
   <string name="pincode_configure_your_pin_explanation">A PIN-t kötelező lesz megadni az alkalmazás minden indításakor</string>
   <string name="pincode_reenter_your_pincode">Kérem, adja meg újra az alkalmazás PIN-kódját</string>
@@ -155,64 +116,35 @@
   <string name="media_err_unsupported">Nem támogatott média kodek</string>
   <string name="media_err_io">Media fájl nem olvasható</string>
   <string name="media_err_malformed">Médiafájl kódolása nem megfelelő</string>
-  <string name="media_err_timeout">Túl sok időn keresztül próbál játszani</string>
   <string name="media_err_invalid_progressive_playback">A média fájlt nem lehet streamelni.</string>
   <string name="media_err_unknown">A média fájlt nem tudja lejátszani a jelenlegi médialejátszó</string>
   <string name="media_err_security_ex">Biztonsági hiba amikor megpróbálja lejátszani a %1$s</string>
   <string name="media_err_io_ex">Bemeneteli hiba amikor megpróbálja lejátszani a %1$s</string>
   <string name="media_err_unexpected">Váratlan hiba amikor megpróbálja lejátszani a %1$s</string>
-  <string name="media_previous_description">Előző zeneszám gomb</string>
   <string name="media_rewind_description">Következő button</string>
   <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
   <string name="media_forward_description">Gyors előre gomb</string>
-  <string name="media_next_description">Következő zeneszám gomb</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 perc</item>
-    <item>30 perc</item>
-    <item>60 perc</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Bejelentkezés...</string>
   <string name="auth_no_net_conn_title">Nincs hálózati kapcsolat</string>
-  <string name="auth_no_net_conn_message">Nem található hálózati kapcsolat, ellenőrizze az internetkapcsolatát, és próbálja újra.</string>
-  <string name="auth_connect_anyway">Csatlakozás mindenképpen</string>
   <string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
-  <string name="auth_nossl_plain_ok_message">Az alkalmazás nem tudott titkosított kapcsolatot kialakítani a kiszolgálóval. A nem titkosított kapcsolat elérhető. Folytathatja vagy kiléphet.</string>
   <string name="auth_connection_established">A kapcsolat létrejött</string>
   <string name="auth_testing_connection">Kapcsolat tesztelése...</string>
   <string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
-  <string name="auth_not_configured_message">Úgy tűnik a kiszolgáló nincs megfelelően beállítva. Lépjen kapcsolatba a rendszergazdával további információkért.</string>
   <string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
-  <string name="auth_unknown_error_message">Ismeretlen hiba történt. Értesítse a terméktámogatást csatolva a az eszközének a naplóbejegyzéseit.</string>
   <string name="auth_unknown_host_title">A kiszolgáló nem található</string>
-  <string name="auth_unknown_host_message">Nem található a keresett kiszolgáló. Ellenőrizze a nevét és a szerver elérhetőségét majd próbálja újra.</string>
   <string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
-  <string name="auth_incorrect_path_message">A program nem találta a kiszolgálót a megadott útvonalon. Kérem ellenőrizze az útvonalat, majd próbálja újra.</string>
   <string name="auth_timeout_title">A kiszolgáló túl sokára válaszolt</string>
   <string name="auth_incorrect_address_title">Hibás URL</string>
   <string name="auth_ssl_general_error_title">Nem sikerült az SSL kapcsolat felépítése</string>
-  <string name="auth_ssl_unverified_server_title">Nem ellenőrizhető az kiszolgáló biztonsági tanúsítványa</string>
   <string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
   <string name="auth_wrong_connection_title">A kapcsolat nem hozható létre</string>
   <string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
   <string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
   <string name="auth_oauth_error">Sikertelen azonosítás</string>
   <string name="auth_oauth_error_access_denied">Hozzáférés megtagadva az azonsítást végző szerver által</string>
-  <string name="auth_not_found">Rossz a megadott útvonal</string>
-  <string name="auth_internal">Belső hiba történt a kiszolgálón, hibakód: %1$d</string>
   <string name="auth_wtf_reenter_URL">Nem várt állapot; kérlek, menj a szerver URL-jére újra.</string>
   <string name="auth_expired_basic_auth_toast">Kélek, írd be a jelenlegi jelszavadat</string>
-  <string name="crashlog_message">A program összeomlott. El akar küldeni egy összeomlási jelentést?</string>
-  <string name="crashlog_send_report">Jelentés küldése</string>
-  <string name="crashlog_dont_send_report">Ne küldjön jelentést</string>
-  <string name="extensions_avail_title">Kiegészítők állnak rendelkezésre!</string>
-  <string name="extensions_avail_message">Úgy tűnik a programja támogatja a haladó kiterjesztéseket. Látni akarja az androidon elérhető kiterjesztéseket?</string>
   <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
-  <string name="common_share">Megosztás</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg szeretné törölni  ezt: %1$s ?</string>
@@ -232,18 +164,12 @@
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
   <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Bejelentkezés oAuth2-vel</string>
   <string name="oauth_login_connection">Kapcsolódás az oAuth2 szerverhez...</string>
-  <string name="oauth_code_validation_message">Nyisd meg a böngészőt és menj ide:\n%1$s.\nEzt a kódot használd ott:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Ez az URL jelenleg nem elérhető.</string>
-  <string name="ssl_validator_title">Figyelmeztetés</string>
   <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
   <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>
   <string name="ssl_validator_reason_cert_expired">- A kiszolgáló tanúsítványának lejárt az érvényessége</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa most még nem érvényes</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
-  <string name="ssl_validator_certificate_not_available">A kiszolgáló tanúsítványa nem érhető el</string>
   <string name="ssl_validator_question">Mégis megbízik ebben a tanúsítványban?</string>
   <string name="ssl_validator_not_saved">A tanúsítvány nem menthető el</string>
   <string name="ssl_validator_btn_details_see">Részletek</string>
@@ -276,8 +202,6 @@
   <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
   <string name="preview_image_error_unknown_format">Ez a kép nem jelenik meg</string>
-  <string name="preview_image_error_out_of_memory">\"Nincs elég memória megmutatni ezt a képet</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s-t nem sikerült átmásolni ide: %2$s </string>
   <string name="actionbar_failed_instant_upload">Sikertelen azonnali feltöltés\"</string>
   <string name="failed_upload_headline_text">Sikertelen Azonnali feltöltés</string>

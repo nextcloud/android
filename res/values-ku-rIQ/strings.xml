@@ -1,22 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_button_login">چوونەژوورەوە</string>
-  <string name="main_music">مۆسیقا</string>
-  <string name="main_calendar">ڕۆژژمێر</string>
-  <string name="main_bookmarks">دڵخوازه‌کان</string>
-  <string name="main_settings">ڕێکخستنه‌کان</string>
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
   <string name="prefs_help">یارمەتی</string>
   <string name="auth_host_url">ناونیشانی ڕاژه</string>
   <string name="auth_username">ناوی به‌کارهێنه‌ر</string>
   <string name="auth_password">وشەی تێپەربو</string>
-  <string name="setup_hint_username">ناوی به‌کارهێنه‌ر</string>
-  <string name="setup_hint_password">وشەی تێپەربو</string>
   <string name="uploader_btn_upload_text">بارکردن</string>
   <string name="filedetails_download">داگرتن</string>
   <string name="common_error">هه‌ڵه</string>
-  <string name="common_share">هاوبەشی کردن</string>
-  <string name="ssl_validator_title">ئاگاداری</string>
-  <!--we need to improve the communication of errors to the user-->
 </resources>

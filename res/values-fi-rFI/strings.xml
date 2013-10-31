@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Salasana:</string>
-  <string name="main_login">Käyttäjätunnus:</string>
-  <string name="main_button_login">Kirjaudu</string>
-  <string name="main_welcome">Tervetuloa </string>
-  <string name="main_files">Tiedostot</string>
-  <string name="main_music">Musiikki</string>
-  <string name="main_contacts">Yhteystiedot</string>
-  <string name="main_calendar">Kalenteri</string>
-  <string name="main_bookmarks">Kirjanmerkit</string>
-  <string name="main_settings">Asetukset</string>
-  <string name="main_tit_accsetup">Aseta tili</string>
-  <string name="main_wrn_accsetup">Laitteessasi ei ole tilejä. Luo tili käyttääksesi tätä sovellusta.</string>
   <string name="about_android">%1$s-Android-sovellus</string>
   <string name="about_version">versio %1$s</string>
   <string name="actionbar_sync">Päivitä tili</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">Tiedostot</string>
   <string name="actionbar_open_with">Avaa sovelluksella</string>
   <string name="actionbar_mkdir">Luo kansio</string>
-  <string name="actionbar_search">Etsi</string>
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
-  <string name="prefs_add_session">Lisää uusi istunto</string>
-  <string name="prefs_create_img_thumbnails">Luo kuvista pikkukuvat</string>
-  <string name="prefs_select_oc_account">Valitse tili</string>
-  <string name="prefs_trackmydevice">Laitteen jäljitys</string>
-  <string name="prefs_trackmydevice_summary_off">Salli jäljittää laitteesi sijainti</string>
-  <string name="prefs_trackmydevice_summary_on">Jäljittää tätä laitetta</string>
-  <string name="prefs_trackmydevice_interval">Päivitysväli</string>
-  <string name="prefs_trackmydevice_interval_summary">Päivitä %1$s minuutin välein</string>
   <string name="prefs_accounts">Tilit</string>
   <string name="prefs_manage_accounts">Tilien hallinta</string>
   <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
@@ -54,12 +33,6 @@
   <string name="auth_password">Salasana</string>
   <string name="auth_register">Onko %1$s uusi tuttavuus sinulle?</string>
   <string name="sync_string_files">Tiedostot</string>
-  <string name="uploader_no_file_selected">Tiedostoa ei valittu lähetettäväksi</string>
-  <string name="setup_hint_username">Käyttäjätunnus</string>
-  <string name="setup_hint_password">Salasana</string>
-  <string name="setup_hint_address">Verkko-osoite</string>
-  <string name="setup_hint_show_password">Näytä salasana</string>
-  <string name="setup_title">Yhdistä omaan %1$siin</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
   <string name="uploader_top_message">Valitse lähetyskansio:</string>
@@ -71,7 +44,6 @@
   <string name="uploader_wrn_no_content_text">Sisältöä ei saatu. Ei lähetettävää palvelimelle.</string>
   <string name="uploader_error_forbidden_content">%1$silla ei ole oikeuksia jaettuun sisältöön</string>
   <string name="uploader_info_uploading">Lähetetään</string>
-  <string name="uploader_btn_create_dir_text">Luo kansio latausta varten</string>
   <string name="file_list_empty">Tässä kansiossa ei ole tiedostoja.\nUusia tiedostoja voi lisätä käyttäen valikon \"Lähetä\"-toimintoa.</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
@@ -80,7 +52,6 @@
   <string name="filedetails_modified">Muokattu:</string>
   <string name="filedetails_download">Lataa</string>
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
-  <string name="filedetails_redownload">Lataa uudelleen</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
@@ -89,7 +60,6 @@
   <string name="common_cancel_upload">Peru lähetys</string>
   <string name="common_cancel">Peru</string>
   <string name="common_save_exit">Tallenna ja poistu</string>
-  <string name="common_exit">Jätä %1$s</string>
   <string name="common_error">Virhe</string>
   <string name="common_loading">Ladataan…</string>
   <string name="common_error_unknown">Tuntematon virhe</string>
@@ -105,7 +75,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s lähetettiin onnistuneesti</string>
   <string name="uploader_upload_failed_ticker">Lähetys epäonnistui</string>
   <string name="uploader_upload_failed_content_single">%1$s :n lähetys palvelimelle jäi kesken</string>
-  <string name="uploader_upload_failed_content_multiple">Lähetys epäonnistui: %1$d/%2$d tiedostoa lähetettiin</string>
   <string name="downloader_download_in_progress_ticker">Ladataan...</string>
   <string name="downloader_download_in_progress_content">%1$d%% ladataan palvelimelta %2$s</string>
   <string name="downloader_download_succeeded_ticker">Lataus tänne onnistui</string>
@@ -113,7 +82,6 @@
   <string name="downloader_download_failed_ticker">Lataus epäonnistui</string>
   <string name="downloader_download_failed_content">%1$s :n latausta ei pystytty suorittamaan loppuun asti</string>
   <string name="common_choose_account">Valitse tili</string>
-  <string name="sync_string_contacts">Yhteystiedot</string>
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
   <string name="sync_fail_content_unauthorized">Virheellinen salasana tilille %1$s</string>
@@ -127,10 +95,7 @@
   <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
   <string name="foreign_files_local_text">Paikallinen: %1$s</string>
   <string name="foreign_files_remote_text">Etä: %1$s</string>
-  <string name="use_ssl">Käytä salattua yhteyttä</string>
-  <string name="location_no_provider">%1$s ei voi jäljittää laitettasi. Tarkista laitteesi sijaintiasetukset</string>
   <string name="pincode_enter_pin_code">Aseta sovelluksesi PIN</string>
-  <string name="pincode_enter_new_pin_code">Anna uuden sovelluksesi PIN-koodi</string>
   <string name="pincode_configure_your_pin">Anna sovelluksen PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN kysytään joka kerta, kun sovellus käynnistetään</string>
   <string name="pincode_reenter_your_pincode">Anna sovelluksen PIN uudestaan</string>
@@ -143,59 +108,35 @@
   <string name="media_state_loading">%1$s (ladataan)</string>
   <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
-  <string name="media_previous_description">Edellinen kappale -painike</string>
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
   <string name="media_forward_description">Eteenpäin kelaus -painike</string>
-  <string name="media_next_description">Seuraava kappale -painike</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minuuttia</item>
-    <item>30 minuuttia</item>
-    <item>60 minuuttia</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
-  <string name="auth_connect_anyway">Yhdistä silti</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
   <string name="auth_connection_established">Yhteys muodostettu</string>
   <string name="auth_testing_connection">Testataan yhteyttä...</string>
   <string name="auth_not_configured_title">Väärin tehdyt palvelin-asetukset</string>
-  <string name="auth_not_configured_message">Vaikuttaa ettei palvelin ole oikein määritetty. Ota yhteyttä ylläpitäjään.</string>
   <string name="auth_account_not_new">Laitteella on jo tili samalle käyttäjälle ja palvelimelle</string>
   <string name="auth_unknown_error_title">Tuntematon virhe</string>
   <string name="auth_unknown_host_title">Isäntää ei löydy</string>
-  <string name="auth_unknown_host_message">Annettua isäntää ei löydy. Tarkista nimi ja onko palvelin käytettävissä, yritä sitten uudestaan.</string>
   <string name="auth_incorrect_path_title">Palvelin-instanssia ei löydetty</string>
-  <string name="auth_incorrect_path_message">Sovellus ei löydä palvelin-instanssia annetusta polusta. Tarkista polku ja yritä uudestaan.</string>
   <string name="auth_timeout_title">Palvelimen vastaus viipyy liian kauan</string>
   <string name="auth_incorrect_address_title">Väärin annettu osoite</string>
   <string name="auth_ssl_general_error_title">SSL:n alustus epäonnistui</string>
-  <string name="auth_ssl_unverified_server_title">SSL-palvelimen identiteettiä ei voida varmistaa</string>
   <string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
   <string name="auth_unauthorized">Väärä käyttäjätunnus tai salasana</string>
   <string name="auth_oauth_error">Epäonnistunut valtuutus</string>
   <string name="auth_oauth_error_access_denied">Valtuutuspalvelun esti käytön</string>
-  <string name="auth_not_found">Väärä polku</string>
-  <string name="auth_internal">Sisäinen palvelinvirhe, koodi %1$d</string>
   <string name="auth_wtf_reenter_URL">Odottamaton tila; anna palvelimen osoite uudelleen</string>
   <string name="auth_expired_oauth_token_toast">Valtuutus vanhentui. Valtuuta uudelleen</string>
   <string name="auth_expired_basic_auth_toast">Anna nykyinen salasana</string>
   <string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
-  <string name="crashlog_send_report">Lähetä ilmoitus</string>
-  <string name="crashlog_dont_send_report">Älä lähetä ilmoitusta</string>
-  <string name="extensions_avail_title">Laajennuksia saatavilla!</string>
-  <string name="extensions_avail_message">Palvelin-instanssisi näyttäisi tukevan laajennuksia. Haluatko nähdä Androidille saatavilla olevat laajennukset?</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
-  <string name="common_share">Jaa</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko poistaa kohteen %1$s?</string>
@@ -215,15 +156,13 @@
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
-  <string name="oauth_check_onoff">Kirjaudu oAuth2:lla.</string>
+  <string name="oauth_check_onoff">Kirjaudu oAuth2:lla</string>
   <string name="oauth_login_connection">Yhdistetään oAuth2-palvelimeen…</string>
-  <string name="ssl_validator_title">Varoitus</string>
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Palvelimen varmenteeseen ei luoteta</string>
   <string name="ssl_validator_reason_cert_expired">- Palvelimen varmenne on vanhentunut</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Palvelimen varmenteen kelvolliset päivät ovat tulevaisuudessa</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Osoite ei vastaa sertifikaatissa mainittua isäntänimeä</string>
-  <string name="ssl_validator_certificate_not_available">Palvelimen varmenteen noutaminen epäonnistui</string>
   <string name="ssl_validator_question">Haluatko silti luottaa tähän varmenteeseen?</string>
   <string name="ssl_validator_not_saved">Varmenteen tallennus epäonnistui</string>
   <string name="ssl_validator_btn_details_see">Tiedot</string>
@@ -251,8 +190,6 @@
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_error_unknown_format">Kuvaa ei voi näyttää</string>
-  <string name="preview_image_error_out_of_memory">\"Muisti ei riitä tämän kuvan näyttämiseen</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
   <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>

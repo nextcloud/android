@@ -1,35 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">ססמה:</string>
-  <string name="main_login">שם משתמש:</string>
-  <string name="main_button_login">התחברות</string>
-  <string name="main_welcome">ברוך בואך</string>
-  <string name="main_files">קבצים</string>
-  <string name="main_music">מוזיקה</string>
-  <string name="main_contacts">אנשי קשר</string>
-  <string name="main_calendar">יומן</string>
-  <string name="main_bookmarks">סימניות</string>
-  <string name="main_settings">הגדרות</string>
-  <string name="main_tit_accsetup">הגדרת חשבון</string>
-  <string name="main_wrn_accsetup">לא הוגדר חשבון בהתקן שלך. כדי להשתמש ביישום זה עליך ליצור אחד.</string>
   <string name="actionbar_upload">העלאה</string>
   <string name="actionbar_upload_from_apps">תוכן מיישומים אחרים</string>
   <string name="actionbar_upload_files">קבצים</string>
   <string name="actionbar_mkdir">יצירת תיקייה</string>
-  <string name="actionbar_search">חיפוש</string>
   <string name="actionbar_settings">הגדרות</string>
   <string name="actionbar_see_details">פרטים</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
-  <string name="prefs_add_session">הוספת הפעלה חדשה</string>
-  <string name="prefs_create_img_thumbnails">יצירת תמונות ממוזערות</string>
-  <string name="prefs_select_oc_account">נא לבחור בחשבון</string>
-  <string name="prefs_summary_select_oc_account">נא לבחור באיזה מהחשבונות שלך היישום אמור להשתמש.</string>
-  <string name="prefs_trackmydevice">מעקב אחר מכשירים</string>
-  <string name="prefs_trackmydevice_summary_off">יש להפעיל יישום זה כדי לעקוב אחר מיקום ההתקן שלך</string>
-  <string name="prefs_trackmydevice_summary_on">יישום זה עוקב אחר ההתקן</string>
-  <string name="prefs_trackmydevice_interval">מרווח בין עדכונים</string>
-  <string name="prefs_trackmydevice_interval_summary">לעדכן בכל %1$s דקות</string>
   <string name="prefs_accounts">חשבונות</string>
   <string name="prefs_manage_accounts">ניהול חשבונות</string>
   <string name="prefs_pincode">קוד יישום</string>
@@ -40,15 +18,7 @@
   <string name="auth_host_url">כתובת שרת</string>
   <string name="auth_username">שם משתמש</string>
   <string name="auth_password">ססמה</string>
-  <string name="new_session_uri_error">הכתובת שצוינה שגויה</string>
-  <string name="new_session_session_name_error">שם ההפעלה שגוי</string>
   <string name="sync_string_files">קבצים</string>
-  <string name="uploader_no_file_selected">לא נבחר שום קובץ להעלאה</string>
-  <string name="setup_hint_username">שם משתמש</string>
-  <string name="setup_hint_password">סיסמא</string>
-  <string name="setup_hint_address">כתובת אתר</string>
-  <string name="setup_hint_show_password">האם להציג את הססמה?</string>
-  <string name="setup_title">התחברות ל־%1$s שלך</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
   <string name="uploader_top_message">נא לבחור את תיקיית ההעלאה:</string>
@@ -60,7 +30,6 @@
   <string name="uploader_wrn_no_content_text">לא התקבל תוכן. אין מה להעלות.</string>
   <string name="uploader_error_forbidden_content">ל־%1$s אין הרשאה לגשת לתוכן המשותף שלך</string>
   <string name="uploader_info_uploading">בהעלאה</string>
-  <string name="uploader_btn_create_dir_text">יצירת תיקייה להעלאה</string>
   <string name="file_list_empty">אין קבצים בתיקייה זו.\nניתן להוסיף קבצים חדשים בעזרת האפשרות „העלאה“ מהתפריט.</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
@@ -68,7 +37,6 @@
   <string name="filedetails_created">מועד היצירה:</string>
   <string name="filedetails_modified">מועד השינוי:</string>
   <string name="filedetails_download">הורדה</string>
-  <string name="filedetails_redownload">הורדה מחדש</string>
   <string name="filedetails_renamed_in_upload_msg">שם הקובץ השתנה ל־ %1$s במהלך ההעלאה</string>
   <string name="common_yes">כן</string>
   <string name="common_no">לא</string>
@@ -77,7 +45,6 @@
   <string name="common_cancel_upload">ביטול ההעלאה</string>
   <string name="common_cancel">ביטול</string>
   <string name="common_save_exit">לשמור ולצאת</string>
-  <string name="common_exit">לעזוב את %1$s</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>
   <string name="common_error_unknown">שגיאה בלתי ידועה</string>
@@ -91,10 +58,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ההעלאה הצליחה</string>
   <string name="uploader_upload_succeeded_content_single">%1$s נשלח בהצלחה</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d קבצים נשלחו בהצלחה</string>
   <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
   <string name="uploader_upload_failed_content_single">אין אפשרות להשלים את ההעלאה של %1$s</string>
-  <string name="uploader_upload_failed_content_multiple">ההעלאה נכשלה: %1$d/%2$d קבצים נשלחו</string>
   <string name="downloader_download_in_progress_ticker">בהורדה …</string>
   <string name="downloader_download_in_progress_content">%1$d%% בהורדה %2$s</string>
   <string name="downloader_download_succeeded_ticker">ההורדה הצליחה</string>
@@ -102,7 +67,6 @@
   <string name="downloader_download_failed_ticker">ההורדה נכשלה</string>
   <string name="downloader_download_failed_content">לא ניתן להשלים את ההורדה של </string>
   <string name="common_choose_account">נא לבחור בחשבון</string>
-  <string name="sync_string_contacts">אנשי קשר</string>
   <string name="sync_fail_ticker">הסנכרון נכשל</string>
   <string name="sync_fail_content">לא ניתן להשלים את הסנכרון של </string>
   <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
@@ -115,10 +79,7 @@
   <string name="foreign_files_fail">לא ניתן להעביר חלק מהקבצים</string>
   <string name="foreign_files_local_text">מקומי: %1$s</string>
   <string name="foreign_files_remote_text">מרוחק: %1$s</string>
-  <string name="use_ssl">להשתמש בחיבור מאובטח</string>
-  <string name="location_no_provider">ל־%1$s אין אפשרות לעקוב אחר ההתקן שלך. נא לבדוק את הגדרות המיקום שלך</string>
   <string name="pincode_enter_pin_code">נא להזין את קוד היישום שלך</string>
-  <string name="pincode_enter_new_pin_code">נא להזין את הקוד החדש של היישום שלך</string>
   <string name="pincode_configure_your_pin">נא להזין את קוד היישום שלך</string>
   <string name="pincode_configure_your_pin_explanation">תופיע בקשה לקוד בכל פעם שהיישום מופעל</string>
   <string name="pincode_reenter_your_pincode">נא להזין את קוד היישום שלך מחדש</string>
@@ -135,48 +96,22 @@
   <string name="media_err_not_in_owncloud">הקובץ אינו בחשבון תקני</string>
   <string name="media_err_unsupported">מקודד המדיה אינו נתמך</string>
   <string name="media_err_io">לא ניתן לקרוא את קובץ המדיה</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>רבע שעה</item>
-    <item>חצי שעה</item>
-    <item>שעה</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">מתבצע ניסיון כניסה…</string>
   <string name="auth_no_net_conn_title">אין חיבור לאינטרנט</string>
-  <string name="auth_no_net_conn_message">לא נבחר חיבור לאינטרנט, נא לבדוק את החיבור שלך לאינטרנט ולנסות שוב.</string>
-  <string name="auth_connect_anyway">להתחבר בכל זאת</string>
   <string name="auth_nossl_plain_ok_title">אין חיבור מוצפן זמין.</string>
-  <string name="auth_nossl_plain_ok_message">היישום לא יכול לקיים חיבור מאובטח לשרת. עם זאת קיים חיבור שאינו מאובטח. ניתן להמשיך או לבטל.</string>
   <string name="auth_connection_established">החיבור נוצר</string>
   <string name="auth_testing_connection">החיבור נבדק…</string>
   <string name="auth_not_configured_title">תצורת השרת פגומה</string>
-  <string name="auth_not_configured_message">מסתבר כי עותק השרת שלך אינו מוגדר נכון. נא ליצור קשר עם המנהל שלך לקבלת פרטים נוספים.</string>
   <string name="auth_unknown_error_title">אירעה שגיאה בלתי ידועה!</string>
-  <string name="auth_unknown_error_message">אירעה שגיאה בלתי ידועה. נא ליצור קשר עם התמיכה ולכלול את קובצי הרישום (log) מההתקן שלך.</string>
   <string name="auth_unknown_host_title">לא ניתן למצוא את המארח</string>
-  <string name="auth_unknown_host_message">לא ניתן למצוא את המארח שהוזן. נא לבדוק את שם המארח ואת זמינות השרת ולנסות שוב.</string>
   <string name="auth_incorrect_path_title">לא נמצא מופע שרת</string>
-  <string name="auth_incorrect_path_message">היישום לא הצליח למצוא עותק שרת בנתיב שצוין. נא לבדוק את הנתיב שלך ולנסות שוב.</string>
   <string name="auth_timeout_title">לשרת לקח יותר מדי זמן להגיב</string>
   <string name="auth_incorrect_address_title">כתובת שגויה</string>
   <string name="auth_ssl_general_error_title">הפעלת ה־SSL נכשלה</string>
-  <string name="auth_ssl_unverified_server_title">זהות ה־SSL של השרת לא מאומתת</string>
   <string name="auth_bad_oc_version_title">גרסה השרת אינה מזוהה</string>
   <string name="auth_wrong_connection_title">לא ניתן ליצור את החיבור</string>
   <string name="auth_secure_connection">נוצר חיבור מאובטח</string>
-  <string name="auth_not_found">הנתיב שצוין שגוי</string>
-  <string name="auth_internal">שגיאת שרת פנימית, קוד </string>
-  <string name="crashlog_message">היישום הושבת באופן בלתי צפוי. האם לשלוח דוח קריסה?</string>
-  <string name="crashlog_send_report">שליחת דוח</string>
-  <string name="crashlog_dont_send_report">לא לשלוח דוח</string>
-  <string name="extensions_avail_title">יש הרחבות זמינות!</string>
-  <string name="extensions_avail_message">מסתבר כי השרת שלך תומך בהרחבות מתקדמות. האם ברצונך לצפות בהרחבות הזמינות לאנדרויד?</string>
   <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
-  <string name="common_share">שיתוף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם אכן להסיר את </string>
@@ -196,13 +131,11 @@
   <string name="wait_a_moment">נא להמתין רגע</string>
   <string name="filedisplay_unexpected_bad_get_content">תקלה בלתי צפויה ; נא לבחור בקובץ מיישום אחר</string>
   <string name="filedisplay_no_file_selected">לא נבחרו קבצים</string>
-  <string name="ssl_validator_title">אזהרה</string>
   <string name="ssl_validator_header">לא ניתן לאמת את זהות האתר</string>
   <string name="ssl_validator_reason_cert_not_trusted">- תעודת השרת אינה מהימנה</string>
   <string name="ssl_validator_reason_cert_expired">- תוקף תעודת השרת פג</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- תוקף תעודת השרת מתייחס לתאריכים בעתיד</string>
   <string name="ssl_validator_reason_hostname_not_verified">- הכתובת אינה תואמת לשם המארח בתעודה</string>
-  <string name="ssl_validator_certificate_not_available">לא ניתן לקבל את תעודת השרת</string>
   <string name="ssl_validator_question">האם לתת אמון בתעודה זו בכל אופן?</string>
   <string name="ssl_validator_not_saved">לא ניתן לשמור את התעודה</string>
   <string name="ssl_validator_btn_details_see">פרטים</string>
@@ -230,8 +163,6 @@
   <string name="conflict_keep_both">להשאיר את שניהם</string>
   <string name="conflict_overwrite">לשכתב</string>
   <string name="conflict_dont_upload">לא להעלות</string>
-  <string name="preview_image_error_out_of_memory">\"אין די זיכרון כדי להציג את התמונה הזאת</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="failed_upload_headline_hint">הסיכום של כל ההעלאות המהירות שנכשלו</string>
   <string name="failed_upload_all_cb">לבחור הכול</string>
   <string name="failed_upload_headline_retryall_btn">לנסות שוב את כל הנבחרים</string>

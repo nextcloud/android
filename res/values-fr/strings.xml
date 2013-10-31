@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Mot de passe FTP :</string>
-  <string name="main_login">Nom d\'utilisateur</string>
-  <string name="main_button_login">Connexion</string>
-  <string name="main_welcome">Bienvenue</string>
-  <string name="main_files">Fichiers</string>
-  <string name="main_music">Musique</string>
-  <string name="main_contacts">Contacts</string>
-  <string name="main_calendar">Calendrier</string>
-  <string name="main_bookmarks">Favoris</string>
-  <string name="main_settings">Paramètres</string>
-  <string name="main_tit_accsetup">Paramètres du compte</string>
-  <string name="main_wrn_accsetup">Aucun compte n\'est encore paramétré. Pour utiliser cette application, il vous faut en ajouter un.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Actualiser le compte</string>
@@ -20,20 +8,10 @@
   <string name="actionbar_upload_files">Fichiers</string>
   <string name="actionbar_open_with">Ouvrir avec</string>
   <string name="actionbar_mkdir">Créer un répertoire</string>
-  <string name="actionbar_search">Rechercher</string>
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
-  <string name="prefs_add_session">Ajouter une nouvelle session</string>
-  <string name="prefs_create_img_thumbnails">Créer les miniatures d\'images</string>
-  <string name="prefs_select_oc_account">Sélectionnez un compte</string>
-  <string name="prefs_summary_select_oc_account">Choisir lequel de vos comptes l\'application doit utiliser.</string>
-  <string name="prefs_trackmydevice">Recherche de périphérique</string>
-  <string name="prefs_trackmydevice_summary_off">Permettre à l\'application de suivre votre position</string>
-  <string name="prefs_trackmydevice_summary_on">Votre application trace actuellement cet appareil</string>
-  <string name="prefs_trackmydevice_interval">Intervalle de mise à jour</string>
-  <string name="prefs_trackmydevice_interval_summary">Mettre à jour toutes les %1$s minutes</string>
   <string name="prefs_accounts">Comptes</string>
   <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
   <string name="prefs_pincode">Utilisation d\'un code de sécurité</string>
@@ -57,15 +35,7 @@
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
   <string name="auth_register">Nouveau dans %1$s ?</string>
-  <string name="new_session_uri_error">Adresse donnée incorrecte</string>
-  <string name="new_session_session_name_error">Nom de session incorrect</string>
   <string name="sync_string_files">Fichiers</string>
-  <string name="uploader_no_file_selected">Aucun fichier n\'est sélectionné pour le téléversement</string>
-  <string name="setup_hint_username">Nom d\'utilisateur</string>
-  <string name="setup_hint_password">Mot de passe</string>
-  <string name="setup_hint_address">Adresse web</string>
-  <string name="setup_hint_show_password">Afficher le mot de passe ?</string>
-  <string name="setup_title">Me connecter à mon %1$s</string>
   <string name="setup_btn_connect">Connecter</string>
   <string name="uploader_btn_upload_text">Téléverser</string>
   <string name="uploader_top_message">Choisissez le répertoire de destination:</string>
@@ -77,7 +47,6 @@
   <string name="uploader_wrn_no_content_text">Aucun contenu reçu. Rien à envoyer</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
   <string name="uploader_info_uploading">Téléversement</string>
-  <string name="uploader_btn_create_dir_text">Créer un répertoire pour le téléversement</string>
   <string name="file_list_empty">Ce répertoire ne contient aucun fichier.\nDe nouveaux fichiers peuvent être importés en cliquant sur le bouton « Téléverser un fichier » du menu des options</string>
   <string name="filedetails_select_file">Effleurez un fichier pour afficher les informations complémentaires</string>
   <string name="filedetails_size">Taille :</string>
@@ -86,7 +55,6 @@
   <string name="filedetails_modified">Modifié le :</string>
   <string name="filedetails_download">Télécharger</string>
   <string name="filedetails_sync_file">Actualiser le fichier</string>
-  <string name="filedetails_redownload">Télécharger à nouveau</string>
   <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
@@ -95,7 +63,6 @@
   <string name="common_cancel_upload">Annuler l\'envoi</string>
   <string name="common_cancel">Annuler</string>
   <string name="common_save_exit">Sauvegarder &amp; Quitter</string>
-  <string name="common_exit">Quitter %1$s</string>
   <string name="common_error">Erreur</string>
   <string name="common_loading">Chargement ...</string>
   <string name="common_error_unknown">Erreur Inconnue </string>
@@ -109,10 +76,8 @@
   <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s en cours, %1$d%% effectués</string>
   <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>
   <string name="uploader_upload_succeeded_content_single">Le fichier %1$s a été envoyé avec succès</string>
-  <string name="uploader_upload_succeeded_content_multiple">Les fichiers %1$d ont été téléversés avec succès</string>
   <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
   <string name="uploader_upload_failed_content_single">L\'envoi de %1$s a échoué</string>
-  <string name="uploader_upload_failed_content_multiple">Échec de l\'envoi : %1$d sur %2$d fichiers ont été importés</string>
   <string name="downloader_download_in_progress_ticker">Téléchargement en cours…</string>
   <string name="downloader_download_in_progress_content">Téléchargement en cours de %2$s, %1$d%% effectués</string>
   <string name="downloader_download_succeeded_ticker">Téléchargement réussi</string>
@@ -121,7 +86,6 @@
   <string name="downloader_download_failed_content">Le téléchargement de %1$s a échoué</string>
   <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
   <string name="common_choose_account">Choisissez un compte</string>
-  <string name="sync_string_contacts">Contacts</string>
   <string name="sync_fail_ticker">La synchronisation a échoué</string>
   <string name="sync_fail_content">La synchronisation de %1$s ne peut pas être complétée</string>
   <string name="sync_fail_content_unauthorized">Mot de passe invalide pour %1$s</string>
@@ -139,10 +103,7 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Distant: %1$s</string>
   <string name="upload_query_move_foreign_files">Il n\'y a pas assez de place disponible pour copier les fichiers sélectionnés dans le dossier %1$s. Voulez-vous les déplacer à la place ?</string>
-  <string name="use_ssl">Utiliser une connexion sécurisée</string>
-  <string name="location_no_provider">%1$s ne peut pister votre appareil, veuillez vérifier vos paramètres de localisation</string>
   <string name="pincode_enter_pin_code">Veuillez saisir votre code de sécurité</string>
-  <string name="pincode_enter_new_pin_code">Veuillez saisir votre nouveau code de sécurité</string>
   <string name="pincode_configure_your_pin">Veuillez saisir votre code de sécurité </string>
   <string name="pincode_configure_your_pin_explanation">Le code PIN vous sera demandé à chaque lancement de l\'application</string>
   <string name="pincode_reenter_your_pincode">Veuillez saisir à nouveau votre code de sécurité</string>
@@ -161,57 +122,32 @@
   <string name="media_err_unsupported">Le codec de ce média n\'est pas supporté </string>
   <string name="media_err_io">Le fichier média ne peut pas être lu</string>
   <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
-  <string name="media_err_timeout">Trop de temps a essayer de jouer</string>
   <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
   <string name="media_err_unknown">Fichier média ne peut être joué avec le stock de media player</string>
   <string name="media_err_security_ex">taux %1$s erreurs de sécurité essayant de jouer</string>
   <string name="media_err_io_ex">Taux %1$s d\'erreurs de saisie essayant de jouer</string>
   <string name="media_err_unexpected">Taux %1$s d\'erreurs inattendues essayant de jouer</string>
-  <string name="media_previous_description">Chanson précédente</string>
   <string name="media_rewind_description">Bouton de rem-bobinage</string>
   <string name="media_play_pause_description">Bouton de Lecture ou de Pause</string>
   <string name="media_forward_description">Bouton d\'avance rapide</string>
-  <string name="media_next_description">Chanson suivante</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minutes</item>
-    <item>30 minutes</item>
-    <item>60 minutes</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
-  <string name="auth_no_net_conn_message">Aucune connexion réseau n\'a été détectée, vérifiez votre connexion Internet et réessayez.</string>
-  <string name="auth_connect_anyway">Se connecter malgré tout</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
-  <string name="auth_nossl_plain_ok_message">L\'application ne peut pas établir de connexion sécurisée avec le serveur. Une connexion non sécurisée est disponible. Vous pouvez continuer ou annuler.</string>
   <string name="auth_connection_established">Connexion établie</string>
   <string name="auth_testing_connection">Test de la connexion…</string>
   <string name="auth_not_configured_title">Configuration du serveur erronée</string>
-  <string name="auth_not_configured_message">Il semblerait que votre instance du serveur ne soit pas correctement configurée. Veuillez contacter votre administrateur pour plus de détails.</string>
-  <string name="auth_account_not_new">Un compte pour le même utilisateur et serveur existe déjà sur ce périphérique</string>
-  <string name="auth_account_not_the_same">L\'utilisateur entré ne correspond pas à l\'utilisateur de ce compte</string>
   <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite</string>
-  <string name="auth_unknown_error_message">Une erreur inconnue s\'est produite. Merci de contacter le support et d\'inclure les logs de votre périphérique.</string>
   <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
-  <string name="auth_unknown_host_message">Impossible de trouver l\'hôte spécifié. Veuillez vérifier le nom du serveur, qu\'il est disponible, et essayer à nouveau.</string>
   <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
-  <string name="auth_incorrect_path_message">L\'application n\'a pu trouver une instance du serveur à cette adresse. Veuillez vérifier l\'adresse et essayez à nouveau</string>
   <string name="auth_timeout_title">Le serveur met trop longtemps à répondre</string>
   <string name="auth_incorrect_address_title">Adresse invalide</string>
   <string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
-  <string name="auth_ssl_unverified_server_title">L\'identité SSL du serveur n\'a pu être vérifiée</string>
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
   <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe invalide</string>
   <string name="auth_oauth_error">Echec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
-  <string name="auth_not_found">Le chemin fourni est erroné</string>
-  <string name="auth_internal">Erreur interne du serveur, code %1$d</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
   <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
@@ -220,13 +156,7 @@
   <string name="auth_follow_auth_server">Suivre les instructions ci-dessus pour être authentifié</string>
   <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
   <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
-  <string name="crashlog_message">L\'application s\'est fermée de façon inattendue. Voulez-vous envoyer un rapport d\'erreur ?</string>
-  <string name="crashlog_send_report">Envoyer un rapport</string>
-  <string name="crashlog_dont_send_report">Ne rien envoyer</string>
-  <string name="extensions_avail_title">Des extensions sont disponibles !</string>
-  <string name="extensions_avail_message">Il semblerait que votre du serveur supporte les extensions avancées. Voulez-vous afficher les extensions disponibles pour android ?</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
-  <string name="common_share">Partager</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
   <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
@@ -246,18 +176,12 @@
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez essayer une autre app pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
-  <string name="oauth_host_url">URL d\'aAuth2</string>
-  <string name="oauth_check_onoff">Connexion avec aAuth2.</string>
   <string name="oauth_login_connection">Connexion au serveur aAuth2...</string>
-  <string name="oauth_code_validation_message">Veuillez ouvrir un navigateur web et dirigez-vous à l\'adresse :\n%1$s.\nPuis validez ce code :\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Connexion impossible à cet URL.</string>
-  <string name="ssl_validator_title">Attention</string>
   <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
   <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Le certificat du serveur n\'est pas encore valide</string>
   <string name="ssl_validator_reason_hostname_not_verified">- L\'URL ne correspond pas au nom d\'hôte du certificat</string>
-  <string name="ssl_validator_certificate_not_available">Impossible d\'obtenir le certificat du serveur</string>
   <string name="ssl_validator_question">Voulez-vous tout de même faire confiance à ce certificat ?</string>
   <string name="ssl_validator_not_saved">Impossible de sauvegarder le certificat</string>
   <string name="ssl_validator_btn_details_see">Détails</string>
@@ -290,8 +214,6 @@
   <string name="conflict_dont_upload">Ne pas téléverser</string>
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
-  <string name="preview_image_error_out_of_memory">\"Mémoire insuffisante pour afficher cette image</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié vers le dossier local suivant %2$s</string>
   <string name="actionbar_failed_instant_upload">Téléchargement instantané échoué</string>
   <string name="failed_upload_headline_text">Téléchargements instantanés échoués</string>

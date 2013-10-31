@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Password:</string>
-  <string name="main_login">Nome utente:</string>
-  <string name="main_button_login">Accesso</string>
-  <string name="main_welcome">Benvenuto</string>
-  <string name="main_files">File</string>
-  <string name="main_music">Musica</string>
-  <string name="main_contacts">Contatti</string>
-  <string name="main_calendar">Calendario</string>
-  <string name="main_bookmarks">Segnalibri</string>
-  <string name="main_settings">Impostazioni</string>
-  <string name="main_tit_accsetup">Configurazione account</string>
-  <string name="main_wrn_accsetup">Non ci sono account su questo dispositivo. Per utilizzare questa applicazione, devi crearne uno.</string>
   <string name="about_android">Applicazione Android di %1$s </string>
   <string name="about_version">versione %1$s</string>
   <string name="actionbar_sync">Aggiorna account</string>
@@ -20,20 +8,10 @@
   <string name="actionbar_upload_files">File</string>
   <string name="actionbar_open_with">Apri con</string>
   <string name="actionbar_mkdir">Crea cartella</string>
-  <string name="actionbar_search">Cerca</string>
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
-  <string name="prefs_add_session">Aggiungi nuova sessione</string>
-  <string name="prefs_create_img_thumbnails">Crea anteprime immagini</string>
-  <string name="prefs_select_oc_account">Scegli un account</string>
-  <string name="prefs_summary_select_oc_account">Scegli quale dei tuoi account sarà utilizzato dall\'applicazione</string>
-  <string name="prefs_trackmydevice">Tracciamento dispostivo</string>
-  <string name="prefs_trackmydevice_summary_off">Abilita l\'applicazione a tracciare la posizione del tuo dispositivo</string>
-  <string name="prefs_trackmydevice_summary_on">Il tuo l\'applicazione tiene traccia di questo dispositivo</string>
-  <string name="prefs_trackmydevice_interval">Intervallo di aggiornamento</string>
-  <string name="prefs_trackmydevice_interval_summary">Aggiorna ogni %1$s minuti</string>
   <string name="prefs_accounts">Account</string>
   <string name="prefs_manage_accounts">Gestisci account</string>
   <string name="prefs_pincode">PIN App</string>
@@ -57,15 +35,7 @@
   <string name="auth_username">Nome utente</string>
   <string name="auth_password">Password</string>
   <string name="auth_register">Prima volta su %1$s?</string>
-  <string name="new_session_uri_error">Indirizzo inserito non corretto</string>
-  <string name="new_session_session_name_error">Nome sessione non corretta</string>
   <string name="sync_string_files">File</string>
-  <string name="uploader_no_file_selected">Nessun file selezionato per l\'invio</string>
-  <string name="setup_hint_username">Nome utente</string>
-  <string name="setup_hint_password">Password</string>
-  <string name="setup_hint_address">Indirizzo web</string>
-  <string name="setup_hint_show_password">Mostrare la password?</string>
-  <string name="setup_title">Connettiti al tuo %1$s</string>
   <string name="setup_btn_connect">Connetti</string>
   <string name="uploader_btn_upload_text">Carica</string>
   <string name="uploader_top_message">Scegli la cartella di caricamento:</string>
@@ -77,7 +47,6 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
-  <string name="uploader_btn_create_dir_text">Crea una directory per il caricamento</string>
   <string name="file_list_empty">Non ci sono file in questa cartella.\nNuovi file possono essere aggiunti con l\'opzione di menu \"Carica\".</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
@@ -86,7 +55,6 @@
   <string name="filedetails_modified">Modificato:</string>
   <string name="filedetails_download">Scarica</string>
   <string name="filedetails_sync_file">Aggiorna file</string>
-  <string name="filedetails_redownload">Scarica nuovamente</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
@@ -95,7 +63,6 @@
   <string name="common_cancel_upload">Annulla invio</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
-  <string name="common_exit">Esci da %1$s</string>
   <string name="common_error">Errore</string>
   <string name="common_loading">Caricamento in corso...</string>
   <string name="common_error_unknown">Errore sconosciuto</string>
@@ -109,10 +76,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Caricamento effettuato</string>
   <string name="uploader_upload_succeeded_content_single">%1$s è stato caricato correttamente</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d file sono stati caricati correttamente</string>
   <string name="uploader_upload_failed_ticker">Caricamento non riuscito</string>
   <string name="uploader_upload_failed_content_single">Il caricamento di %1$s non può essere completato</string>
-  <string name="uploader_upload_failed_content_multiple">Caricamento non riuscito: %1$d/%2$d file sono stati caricati</string>
   <string name="downloader_download_in_progress_ticker">Scaricamento in corso...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
   <string name="downloader_download_succeeded_ticker">Scaricamento effettuato</string>
@@ -121,7 +86,6 @@
   <string name="downloader_download_failed_content">Scaricamento di %1$s non è stato completato</string>
   <string name="downloader_not_downloaded_yet">Non ancora scaricato</string>
   <string name="common_choose_account">Scegli account</string>
-  <string name="sync_string_contacts">Contatti</string>
   <string name="sync_fail_ticker">Sincronizzazione non riuscita</string>
   <string name="sync_fail_content">La sincronizzazione di %1$s non può essere completata</string>
   <string name="sync_fail_content_unauthorized">Password non valida per %1$s</string>
@@ -139,10 +103,7 @@
   <string name="foreign_files_local_text">Locale: %1$s</string>
   <string name="foreign_files_remote_text">Remoto %1$s</string>
   <string name="upload_query_move_foreign_files">Non c\'è spazio sufficiente per copiare i file selezionati nella cartella %1$s. Vuoi invece spostarli nella cartella?</string>
-  <string name="use_ssl">Usa connessione sicura</string>
-  <string name="location_no_provider">%1$s non può tracciare questo dispositivo. Controlla le impostazioni di posizionamento</string>
   <string name="pincode_enter_pin_code">Inserisci il PIN dell\'applicazione</string>
-  <string name="pincode_enter_new_pin_code">Inserisci il nuovo PIN dell\'applicazione</string>
   <string name="pincode_configure_your_pin">Inserisci il PIN di l\'applicazione</string>
   <string name="pincode_configure_your_pin_explanation">Il PIN sarà richiesto ad ogni avvio dell\'applicazione</string>
   <string name="pincode_reenter_your_pincode">Inserisci nuovamente il PIN di l\'applicazione</string>
@@ -161,57 +122,32 @@
   <string name="media_err_unsupported">Codificatore multimediale non supportato</string>
   <string name="media_err_io">Il file multimediale non può essere letto</string>
   <string name="media_err_malformed">File multimediale non codificato correttamente</string>
-  <string name="media_err_timeout">La riproduzione ha richiesto troppo tempo</string>
   <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
   <string name="media_err_unknown">Il file multimediale non può essere riprodotto con il lettore integrato</string>
   <string name="media_err_security_ex">Errore di sicurezza durante il tentativo di riprodurre %1$s</string>
   <string name="media_err_io_ex">Errore di input durante il tentativo di riprodurre %1$s</string>
   <string name="media_err_unexpected">Errore inatteso durante il tentativo di riprodurre %1$s</string>
-  <string name="media_previous_description">Pulsante Traccia precedente</string>
   <string name="media_rewind_description">Pulsante Riavvolgi</string>
   <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
   <string name="media_forward_description">Pulsante Avanti veloce</string>
-  <string name="media_next_description">Pulsante Traccia successiva</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minuti</item>
-    <item>30 minuti</item>
-    <item>60 minuti</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
   <string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
-  <string name="auth_no_net_conn_message">Nessuna connessione di rete rilevata, controlla la tua connessione Internet e riprova.</string>
-  <string name="auth_connect_anyway">Connetti comunque</string>
   <string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
-  <string name="auth_nossl_plain_ok_message">L\'Applicazione non riesce a stabilire una connessione sicura con il server. È disponibile una connessione non sicura. È possibile continuare o cancellare l\'operazione.</string>
   <string name="auth_connection_established">Connessione stabilita</string>
   <string name="auth_testing_connection">Prova di connessione in corso...</string>
   <string name="auth_not_configured_title">Configurazione non corretta di il server</string>
-  <string name="auth_not_configured_message">Sembra che l\'istanza di il server non sia configurata correttamente. Contatta il tuo amministratore per ulteriori dettagli.</string>
-  <string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
-  <string name="auth_account_not_the_same">Il nome utente inserito non corrisponde all\'utente di questo account</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
-  <string name="auth_unknown_error_message">Si è verificato un errore sconosciuta. Per favore contatta il supporto e includi i file di log del tuo dispositivo.</string>
   <string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
-  <string name="auth_unknown_host_message">Impossibile trovare l\'host digitato. Controlla il nome dell\'host e la raggiungibilità del server e prova ancora.</string>
   <string name="auth_incorrect_path_title">Istanza di il server non trovata</string>
-  <string name="auth_incorrect_path_message">L\'applicazione non può trovare un\'istanza di il server al percorso specificato. Controlla il percorso e prova ancora.</string>
   <string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
   <string name="auth_incorrect_address_title">URL non valido</string>
   <string name="auth_ssl_general_error_title">Inizializzazione  SSL non riuscita</string>
-  <string name="auth_ssl_unverified_server_title">Identità SSL del server non verificata</string>
   <string name="auth_bad_oc_version_title">Versione del server il server non riconosciuta</string>
   <string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
   <string name="auth_secure_connection">Connessione sicura stabilita</string>
   <string name="auth_unauthorized">Nome utente o password errati</string>
   <string name="auth_oauth_error">Autorizzazione non riuscita</string>
   <string name="auth_oauth_error_access_denied">Accesso negato dal server di autorizzazione</string>
-  <string name="auth_not_found">Il percorso fornito non è valido</string>
-  <string name="auth_internal">Errore interno del server, codice %1$d</string>
   <string name="auth_wtf_reenter_URL">Stato inatteso; inserisci nuovamente l\'URL del server</string>
   <string name="auth_expired_oauth_token_toast">Autorizzazione scaduta. Richiedi l\'autorizzazione</string>
   <string name="auth_expired_basic_auth_toast">Inserisci la password attuale</string>
@@ -220,13 +156,7 @@
   <string name="auth_follow_auth_server">Segui le istruzioni qui sopra per venire autenticato</string>
   <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
   <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
-  <string name="crashlog_message">Applicazione terminata in modo inatteso. Vuoi inviare una segnalazione del problema?</string>
-  <string name="crashlog_send_report">Invia segnalazione</string>
-  <string name="crashlog_dont_send_report">Non inviare la segnalazione</string>
-  <string name="extensions_avail_title">Estensioni disponibili!</string>
-  <string name="extensions_avail_message">Sembra che la tua istanza di il server supporti le estensioni avanzate. Vuoi vedere le estensioni disponibili per Android?</string>
   <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
-  <string name="common_share">Condividi</string>
   <string name="common_rename">Rinomina</string>
   <string name="common_remove">Rimuovi</string>
   <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
@@ -246,18 +176,12 @@
   <string name="wait_a_moment">Attendi</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
   <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
-  <string name="oauth_host_url">URL oAuth2</string>
-  <string name="oauth_check_onoff">Accedi con oAuth2.</string>
   <string name="oauth_login_connection">Connessione al server oAuth2 in corso...</string>
-  <string name="oauth_code_validation_message">Apri il browser e visita il collegamento:\n%1$s.\nConvalida il codice contenuto:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Connessione con questo URL non avviabile.</string>
-  <string name="ssl_validator_title">Avviso</string>
   <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Il certificato del server non è affidabile</string>
   <string name="ssl_validator_reason_cert_expired">- Il certificato del server è scaduto</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Il certificato del server è troppo recente</string>
   <string name="ssl_validator_reason_hostname_not_verified">- L\'URL non corrisponde al nome host nel certificato</string>
-  <string name="ssl_validator_certificate_not_available">Impossibile ottenere il certificato del server</string>
   <string name="ssl_validator_question">Vuoi fidarti comunque di questo certificato?</string>
   <string name="ssl_validator_not_saved">Il certificato non può essere salvato</string>
   <string name="ssl_validator_btn_details_see">Dettagli</string>
@@ -290,8 +214,6 @@
   <string name="conflict_dont_upload">Non inviare</string>
   <string name="preview_image_description">Anteprima dell\'immagine</string>
   <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
-  <string name="preview_image_error_out_of_memory">\"Memoria insufficiente per mostrare questa immagine</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
   <string name="actionbar_failed_instant_upload">Caricamento istantaneo non riuscito\"</string>
   <string name="failed_upload_headline_text">Caricamenti istantanei non riusciti</string>
