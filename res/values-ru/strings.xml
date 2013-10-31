@@ -24,8 +24,11 @@
   <string name="prefs_log_summary_history">Здесь показаны журналы</string>
   <string name="prefs_log_delete_history_button">Удалить историю</string>
   <string name="prefs_help">Помощь</string>
+  <string name="prefs_recommend">Рекомендовать другу</string>
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
+  <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
+  <string name="recommend_text">Хочу предложить вам пользоваться %1$s на вашем смартфоне!\nДля загрузки: %2$s</string>
   <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера</string>
   <string name="auth_username">Пользователь</string>
@@ -144,7 +147,12 @@
   <string name="auth_oauth_error">Ошибка авторизации</string>
   <string name="auth_oauth_error_access_denied">Сервер отказал в доступе</string>
   <string name="auth_wtf_reenter_URL">Неожиданный ответ; пожалуйста, введите адрес сервера ещё раз</string>
+  <string name="auth_expired_oauth_token_toast">Ваша авторизация истекла. Пожалуйста, авторизуйтесь снова</string>
   <string name="auth_expired_basic_auth_toast">Пожалуйста, введите пароль</string>
+  <string name="auth_expired_saml_sso_token_toast">Ваша сессия истекла. Пожалуйста, подключитесь снова</string>
+  <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
+  <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
+  <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные учётные записи</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>

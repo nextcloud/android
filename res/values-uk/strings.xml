@@ -105,6 +105,8 @@
   <string name="auth_bad_oc_version_title">Не вдалося визначити версію сервер серверу</string>
   <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
   <string name="auth_secure_connection">Встановлено захищене з\'єднання</string>
+  <string name="auth_not_found">Вказано невірний шлях</string>
+  <string name="auth_internal">Внутрішня помилка серверу, код %1$d</string>
   <string name="fd_keep_in_sync">Оновлювати файл</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>

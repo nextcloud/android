@@ -30,6 +30,7 @@
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
   <string name="recommend_text">Chcę was zaprosić do korzystania z %1$ s na twoim smartfonie!\nPobierz tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
+  <string name="auth_account_name">Nazwa konta</string>
   <string name="auth_host_url">Adres Serwera</string>
   <string name="auth_username">Nazwa użytkownika</string>
   <string name="auth_password">Hasło</string>
@@ -95,6 +96,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
   <string name="sync_foreign_files_forgotten_content">%1$d plików z %2$s katalogu nie może zostać skopiowana do niego</string>
   <string name="sync_foreign_files_forgotten_explanation">\"W wersji 1.3.16, pliki załadowane z tego urządzenia są skopiowane do lokalnego folderu %1$s aby zapobiec utracie danych, gdy pojedynczy plik jest synchronizowany z kilku kont.⏎ ⏎ Ze zwględu na tą zmianę, wszystkie pliki załadowane w poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże błąd podczas synchronizacji spowodował przerwanie procesu. Możesz zostawić plik(i) i usunąć link do %3$s, lub przenieść plik(i) to katalogu %1$s i zostawić link do %4$s.⏎ ⏎ Lista poniżej zawiera lokalne i zdalne pliki, które są podlinkowane do %5$s.</string>
+  <string name="sync_current_folder_was_removed">Folder  %1$s nie istnieje.</string>
   <string name="foreign_files_move">Przenieś wszystko</string>
   <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
   <string name="foreign_files_fail">Niektóre pliki nie mogły być przeniesione</string>

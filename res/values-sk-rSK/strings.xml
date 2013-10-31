@@ -24,8 +24,10 @@
   <string name="prefs_log_summary_history">Toto zobrazuje zaznamenané logy</string>
   <string name="prefs_log_delete_history_button">Zmazať históriu</string>
   <string name="prefs_help">Pomoc</string>
+  <string name="prefs_recommend">Doporučiť známemu</string>
   <string name="prefs_feedback">Spätná väzba</string>
   <string name="prefs_imprint">Podmienky používania</string>
+  <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera</string>
   <string name="auth_username">Používateľské meno</string>
@@ -144,7 +146,12 @@
   <string name="auth_oauth_error">Neúspešná autorizácia</string>
   <string name="auth_oauth_error_access_denied">Prístup odmietnutý autorizačným serverom</string>
   <string name="auth_wtf_reenter_URL">Nečakaný stav; prosím, opätovne vložte URL adresu servera</string>
+  <string name="auth_expired_oauth_token_toast">Vaša autorizácia expirovala. Prosím autorizujte sa znovu prosím</string>
   <string name="auth_expired_basic_auth_toast">Prosím, zadajte aktuálne heslo</string>
+  <string name="auth_expired_saml_sso_token_toast">Vaše pripojenie expirovalo. Pripojte sa znovu prosím</string>
+  <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server...</string>
+  <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
+  <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
@@ -166,6 +173,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
   <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
   <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
+  <string name="ssl_validator_title">Varovanie</string>
   <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
   <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>

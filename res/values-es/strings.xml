@@ -24,8 +24,11 @@
   <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
   <string name="prefs_log_delete_history_button">Eliminar Historial</string>
   <string name="prefs_help">Ayuda</string>
+  <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
+  <string name="recommend_text">Quiero invitarte a usar %1$s en tu smarthphone!⏎\nDescargalo aquí: %2$s</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor</string>
   <string name="auth_username">Nombre de usuario</string>
@@ -144,7 +147,12 @@
   <string name="auth_oauth_error">Autorización no satisfactoria</string>
   <string name="auth_oauth_error_access_denied">Acceso denegado por servidor de autorización</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
+  <string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Por favor, autorice de nuevo</string>
   <string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual.</string>
+  <string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
+  <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
+  <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
+  <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>

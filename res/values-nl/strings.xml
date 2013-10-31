@@ -24,8 +24,11 @@
   <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
   <string name="prefs_log_delete_history_button">Verwijder Geschiedenis</string>
   <string name="prefs_help">Help</string>
+  <string name="prefs_recommend">Aanbevelen bij een vriend</string>
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">afdruk</string>
+  <string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
+  <string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!\nDownload hier: %2$s</string>
   <string name="auth_check_server">Controleer server</string>
   <string name="auth_host_url">Server adres</string>
   <string name="auth_username">Gebruikersnaam</string>
@@ -144,7 +147,12 @@
   <string name="auth_oauth_error">Authorisatie niet succesvol</string>
   <string name="auth_oauth_error_access_denied">Toegang geweigerd door authorizatieserver</string>
   <string name="auth_wtf_reenter_URL">Onverwachte toestand; voer a.u.b de server-URL nogmaals in.</string>
+  <string name="auth_expired_oauth_token_toast">Uw autorisatie is verstreken. Autoriseer opnieuw.</string>
   <string name="auth_expired_basic_auth_toast">Geef het huidige wachtwoord op</string>
+  <string name="auth_expired_saml_sso_token_toast">Uw sessie is verstreken. Verbind opnieuw</string>
+  <string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
+  <string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
+  <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
   <string name="fd_keep_in_sync">Houd bestand actueel</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>

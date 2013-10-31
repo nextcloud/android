@@ -24,9 +24,13 @@
   <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
   <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
   <string name="prefs_help">Aide</string>
+  <string name="prefs_recommend">Recommander à un ami</string>
   <string name="prefs_feedback">Commentaires</string>
   <string name="prefs_imprint">Empreinte</string>
+  <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
+  <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\nTéléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
+  <string name="auth_account_name">Nom de compte</string>
   <string name="auth_host_url">Adresse du serveur</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
@@ -92,6 +96,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
   <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
   <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers téléversés depuis cet équipement sont copiés dans le dossier local %1$s pour éviter toute perte de données lorsqu\'un fichier est synchronisé avec plusieurs comptes.\n\nEn raison de ce changement, tous les fichiers téléversés avec une version antérieure de cette application étaient copiés dans le dossier %2$s. Cependant, une erreur empêchait l\'achèvement de cette opération pendant la synchronisation. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien à %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants de %5$s auxquels ils étaient liés.</string>
+  <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
   <string name="foreign_files_move">Tout déplacer</string>
   <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
   <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
@@ -144,7 +149,13 @@
   <string name="auth_oauth_error">Echec d\'autorisation</string>
   <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
   <string name="auth_wtf_reenter_URL">État inattendu ; veuillez entrer à nouveau l\'URL du serveur</string>
+  <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
   <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe courant</string>
+  <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
+  <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
+  <string name="auth_follow_auth_server">Suivre les instructions ci-dessus pour être authentifié</string>
+  <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
+  <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>

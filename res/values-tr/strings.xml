@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_open_with">ile aç</string>
-  <string name="actionbar_mkdir">Klasör yarat</string>
+  <string name="actionbar_mkdir">Klasör oluştur</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
   <string name="prefs_category_general">Genel</string>
@@ -24,8 +24,13 @@
   <string name="prefs_log_summary_history">Bu, kayıtlı günlük dosyalarını görüntüler</string>
   <string name="prefs_log_delete_history_button">Geçmişi Sil</string>
   <string name="prefs_help">Yardım</string>
+  <string name="prefs_recommend">Bir arkadaşa öner</string>
+  <string name="prefs_feedback">Geribildirim</string>
   <string name="prefs_imprint">İzlenim</string>
+  <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
+  <string name="recommend_text">Sana, akıllı telefonunda kullanmak üzere %1$s daveti yapıyorum!\nBuradan indirebilirsin: %2$s</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
+  <string name="auth_account_name">Hesap adı</string>
   <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
@@ -46,7 +51,7 @@
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya tıklayınız.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
-  <string name="filedetails_created">Yaratma:</string>
+  <string name="filedetails_created">Oluşturulma:</string>
   <string name="filedetails_modified">Değiştirme:</string>
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Dosyayı yenile</string>
@@ -91,6 +96,7 @@
   <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
   <string name="sync_foreign_files_forgotten_content">%1$d dosyalar  %2$s dizinine kopyalanamadı</string>
   <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, bu aygıttan yüklenen dosyalar bir dosya birden fazla hesapla eşitlendiğinde veri kaybının önlenebilmesi için %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlenmesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyayı/dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilirsiniz veya dosyayı/dosyaları %1$s dizinine taşıyıp %4$s bağlantılarını koruyabilirsiniz.\n\nAşağıda listelenenler yerel dosyalar ve bağlı oldukları %5$s içerisindeki uzak dosyalardır.</string>
+  <string name="sync_current_folder_was_removed">%1$s klasörü artık mevcut değil.</string>
   <string name="foreign_files_move">Tümünü taşı</string>
   <string name="foreign_files_success">Tüm dosyalar taşındı</string>
   <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
@@ -143,7 +149,13 @@
   <string name="auth_oauth_error">Kimlik doğrulama başarısız oldu</string>
   <string name="auth_oauth_error_access_denied">Erişim, kimlik doğrulama sunucusu tarafından reddedildi</string>
   <string name="auth_wtf_reenter_URL">Beklenmedik durum. Lütfen, sunucu URL\'sini yeniden girin</string>
+  <string name="auth_expired_oauth_token_toast">Kimlik doğrulamanızın süresi doldu. Lütfen tekrar kimlik doğrulayın</string>
   <string name="auth_expired_basic_auth_toast">Lütfen mevcut parolanızı girin</string>
+  <string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi doldu. Lütfen tekrar bağlanın</string>
+  <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor...</string>
+  <string name="auth_follow_auth_server">Kimliğinizi doğrulamak için yukarıdaki talimatları izleyin</string>
+  <string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
+  <string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut </string>
   <string name="common_rename">İsim değiştir.</string>
   <string name="common_remove">Kaldır</string>
