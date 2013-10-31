@@ -1,5 +1,2 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="common_share">Podijeli</string>
-  <!--we need to improve the communication of errors to the user-->
-</resources>
+<resources/>

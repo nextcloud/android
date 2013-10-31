@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Kodeord:</string>
-  <string name="main_login">Brugernavn:</string>
-  <string name="main_button_login">Login</string>
-  <string name="main_welcome">Velkommen</string>
-  <string name="main_files">Filer</string>
-  <string name="main_music">Musik</string>
-  <string name="main_contacts">Kontakter</string>
-  <string name="main_calendar">Kalender</string>
-  <string name="main_bookmarks">Bogmærker</string>
-  <string name="main_settings">Indstillinger</string>
-  <string name="main_tit_accsetup">Opsæt konto</string>
-  <string name="main_wrn_accsetup">Der er ingen konti på enheden. For at bruge denne App, skal du oprette en.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Genindlæs konto</string>
@@ -20,17 +8,10 @@
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Åben med</string>
   <string name="actionbar_mkdir">Opret mappe</string>
-  <string name="actionbar_search">Søg</string>
   <string name="actionbar_settings">Indstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="prefs_category_general">Generel</string>
   <string name="prefs_category_more">Mere</string>
-  <string name="prefs_add_session">Tilføj ny session</string>
-  <string name="prefs_create_img_thumbnails">Opret billede thumbnails</string>
-  <string name="prefs_select_oc_account">Vælg en konto</string>
-  <string name="prefs_trackmydevice_summary_off">Tillad App at spore denne enheds placering</string>
-  <string name="prefs_trackmydevice_summary_on">Din App sporer denne enhed</string>
-  <string name="prefs_trackmydevice_interval_summary">Opdater hvert %1$s minut</string>
   <string name="prefs_accounts">Konti</string>
   <string name="prefs_manage_accounts">Administrer konti</string>
   <string name="prefs_pincode">App PIN</string>
@@ -50,12 +31,6 @@
   <string name="auth_password">Kodeord</string>
   <string name="auth_register">Uvant med %1$s</string>
   <string name="sync_string_files">Filer</string>
-  <string name="uploader_no_file_selected">Ingen fil valgt til at uploade</string>
-  <string name="setup_hint_username">Brugernavn</string>
-  <string name="setup_hint_password">Kodeord</string>
-  <string name="setup_hint_address">Web adresse</string>
-  <string name="setup_hint_show_password">Hvis kodeord?</string>
-  <string name="setup_title">Tilslut til din %1$s</string>
   <string name="setup_btn_connect">Tilslut</string>
   <string name="uploader_btn_upload_text">Upload</string>
   <string name="uploader_top_message">Vælg upload mappe:</string>
@@ -67,7 +42,6 @@
   <string name="uploader_wrn_no_content_text">Intet indhold blev modtaget. Intet at uploade.</string>
   <string name="uploader_error_forbidden_content">%1$s er ikke tilladt adgang til delt indhold</string>
   <string name="uploader_info_uploading">Uploader</string>
-  <string name="uploader_btn_create_dir_text">Opret mappe til uploads</string>
   <string name="file_list_empty">Der er ingen filer i denne mappe.\nNye filer kan tilføjes med menu valgmuligheden \"Upload\".</string>
   <string name="filedetails_select_file">Tryk på en fil for at vise yderligere information.</string>
   <string name="filedetails_size">Størelse:</string>
@@ -76,7 +50,6 @@
   <string name="filedetails_modified">Ændret:</string>
   <string name="filedetails_download">Hent</string>
   <string name="filedetails_sync_file">Opdater fil</string>
-  <string name="filedetails_redownload">Download igen</string>
   <string name="filedetails_renamed_in_upload_msg">Filen blev omdøbt til %1$s under upload</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nej</string>
@@ -85,7 +58,6 @@
   <string name="common_cancel_upload">Fortryd upload</string>
   <string name="common_cancel">Annuller</string>
   <string name="common_save_exit">Gem &amp; Afslut</string>
-  <string name="common_exit">Forlad %1$s</string>
   <string name="common_error">Fejl</string>
   <string name="common_loading">Indlæser...</string>
   <string name="common_error_unknown">Ukendt fejl</string>
@@ -101,7 +73,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s blev uploadet med success</string>
   <string name="uploader_upload_failed_ticker">Upload fejlede</string>
   <string name="uploader_upload_failed_content_single">Upload af %1$s kunne ikke gennemføres</string>
-  <string name="uploader_upload_failed_content_multiple">Upload fejlede: %1$d/%2$d filer blev uploadet</string>
   <string name="downloader_download_in_progress_ticker">Downloader ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Downloader %2$s</string>
   <string name="downloader_download_succeeded_ticker">Download fuldført</string>
@@ -110,7 +81,6 @@
   <string name="downloader_download_failed_content">Download af %1$s kunne ikke fuldføres</string>
   <string name="downloader_not_downloaded_yet">Endnu ikke downloadet</string>
   <string name="common_choose_account">Vælg konto</string>
-  <string name="sync_string_contacts">Kontakter</string>
   <string name="sync_fail_ticker">Synkronisering fejlede</string>
   <string name="sync_fail_content">Synkronisering af %1$s kunne ikke gennemføres</string>
   <string name="sync_fail_content_unauthorized">Ugyldig adgangskode for %1$s</string>
@@ -127,10 +97,7 @@
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
   <string name="upload_query_move_foreign_files">Der er ikke tilstrækkelig plads til at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
-  <string name="use_ssl">Brug sikker forbindelse</string>
-  <string name="location_no_provider">%1$s kan ikke spore din enhed. Tjek venligst dine indstillinger for brug af GPS</string>
   <string name="pincode_enter_pin_code">Indsæt venligst din App PIN</string>
-  <string name="pincode_enter_new_pin_code">Indsæt venligst din nye App PIN</string>
   <string name="pincode_configure_your_pin">Indtast App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN koden vil blive anmodet om hver gang applikationen bliver startet</string>
   <string name="pincode_reenter_your_pincode">Indtast venligst App PIN igen</string>
@@ -149,60 +116,35 @@
   <string name="media_err_unsupported">Ikke-understøttet medie codec</string>
   <string name="media_err_io">Mediefilen kunne ikke læses</string>
   <string name="media_err_malformed">Mediefilen er ikke korrekt kodet</string>
-  <string name="media_err_timeout">Prøvet at afspille for længe</string>
   <string name="media_err_invalid_progressive_playback">Mediefilen kan ikke streames</string>
   <string name="media_err_unknown">Mediefil kan ikke afspilles med tilgængelige medieafspiller</string>
   <string name="media_err_security_ex">Sikkerhedsfejl ved forsøg på afspilning af </string>
   <string name="media_err_io_ex">Inputfejl ved forsøg på afspilning af %1$s</string>
   <string name="media_err_unexpected">Uventet fejl ved forsøg på afspilning af %1$s</string>
-  <string name="media_previous_description">Tidligere nummer knap</string>
   <string name="media_rewind_description">Tilbagespolings knap</string>
   <string name="media_play_pause_description">Afspil eller pause knap</string>
   <string name="media_forward_description">Hurtigt fremad kanp</string>
-  <string name="media_next_description">Næste nummer knap</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Minutter</item>
-    <item>30 Minutter</item>
-    <item>60 Minutter</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Forsøger at logge ind...</string>
   <string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
-  <string name="auth_connect_anyway">Forbind alligevel</string>
   <string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
   <string name="auth_connection_established">Forbindelse oprettet</string>
   <string name="auth_testing_connection">Afprøver forbindelse ...</string>
   <string name="auth_not_configured_title">Misdannet server konfiguration</string>
-  <string name="auth_not_configured_message">Det ser ud til, at din sever instans ikke er konfigureret korrekt. KOntakt din administrator for flere detaljer.</string>
   <string name="auth_unknown_error_title">Ukendt fejl opstod!</string>
   <string name="auth_unknown_host_title">Kunne ikke finde host</string>
-  <string name="auth_unknown_host_message">Kunne ikke finde den indtastede host. Tjek venligst host\'ens navn og om serveren er tilgængelig og prøv derefter igen.</string>
   <string name="auth_incorrect_path_title">Server instans blev ikke fundet</string>
-  <string name="auth_incorrect_path_message">Applikation kunne ikke finde server instans på den givne placering. Tjek venligst din placering og prøv igen.</string>
   <string name="auth_timeout_title">Serveren var for længe om at svare</string>
   <string name="auth_incorrect_address_title">Deform URL</string>
   <string name="auth_ssl_general_error_title">SSL initialisering fejlede</string>
-  <string name="auth_ssl_unverified_server_title">Ikke verifiseret SSL servers identitet</string>
   <string name="auth_bad_oc_version_title">Ikke genkendt server version</string>
   <string name="auth_wrong_connection_title">Ikke ikke oprette forbindelse</string>
   <string name="auth_secure_connection">Sikker forbindelse oprettet</string>
   <string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
   <string name="auth_oauth_error">Mislykket godkendelse</string>
   <string name="auth_oauth_error_access_denied">Adgang afvist af autorisationsserver</string>
-  <string name="auth_not_found">Forkert sti angivet</string>
-  <string name="auth_internal">Intern serverfejl, kode %1$d</string>
   <string name="auth_wtf_reenter_URL">Uventet tilstand; angiv server-URL\'en igen</string>
   <string name="auth_expired_basic_auth_toast">Indtast venligst dit nuværende kodeord</string>
-  <string name="crashlog_send_report">Send rapport</string>
-  <string name="crashlog_dont_send_report">Send ikke rapport</string>
-  <string name="extensions_avail_title">Udvidelser tilgængelige!</string>
-  <string name="extensions_avail_message">Det ser ud til at dit instans af server har understøttelse af avancerede tilføjelser. Vil du se udvidelser tilgængelig til Android?</string>
   <string name="fd_keep_in_sync">Hold fil opdateret</string>
-  <string name="common_share">Del</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Er du sikker på at du vil fjerne %1$s ?</string>
@@ -222,18 +164,12 @@
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; prøv venligst anden applikation til at vælge filen</string>
   <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Login med oAuth2.</string>
   <string name="oauth_login_connection">Forbinder til oAuth2 server...</string>
-  <string name="oauth_code_validation_message">Åbn en webbrowser og gå til:\n%1$s\nValidér denne kode der:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Forbindelsen til dette URL er ikke tilgængelig.</string>
-  <string name="ssl_validator_title">Advarsel</string>
   <string name="ssl_validator_header">Sidens identitet kunne ikke verificeres</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Serverens certifikat er ikke troværdigt</string>
   <string name="ssl_validator_reason_cert_expired">- Serverens certifikat er udløbet</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Serverens certifikat er for ung</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL adressen stemmer ikke overens med værtsnavnet i certifikatet</string>
-  <string name="ssl_validator_certificate_not_available">Serverens certifikat kunne ikke hentes</string>
   <string name="ssl_validator_question">Stoler du på certifikatet alligevel?</string>
   <string name="ssl_validator_not_saved">Certifikatet kunne ikke gemmes</string>
   <string name="ssl_validator_btn_details_see">Detaljer</string>
@@ -266,8 +202,6 @@
   <string name="conflict_dont_upload">Upload ikke</string>
   <string name="preview_image_description">Billede preview</string>
   <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
-  <string name="preview_image_error_out_of_memory">\"Ikke nok hukommelse til at vise dette billede</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
   <string name="actionbar_failed_instant_upload">InstantUpload mislykkedes\"</string>
   <string name="failed_upload_headline_text">Øjeblikkelige uploads mislykkedes</string>

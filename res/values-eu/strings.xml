@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Pasahitza:</string>
-  <string name="main_login">Erabiltzaile izena:</string>
-  <string name="main_button_login">Saio hasiera</string>
-  <string name="main_welcome">Ongi etorri</string>
-  <string name="main_files">Fitxategiak</string>
-  <string name="main_music">Musika</string>
-  <string name="main_contacts">Kontaktuak</string>
-  <string name="main_calendar">Egutegia</string>
-  <string name="main_bookmarks">Laster-markak</string>
-  <string name="main_settings">Ezarpenak</string>
-  <string name="main_tit_accsetup">Konfiguratu kontua</string>
-  <string name="main_wrn_accsetup"> Ez dago konturik zure gailuan. Programa hau erabiltzeko, kontu bat sortu behar duzu.</string>
   <string name="about_android">%1$s Android Aplikazioa</string>
   <string name="about_version">%1$s bertsioa</string>
   <string name="actionbar_sync">Freskatu kontua</string>
@@ -20,17 +8,10 @@
   <string name="actionbar_upload_files">Fitxategiak</string>
   <string name="actionbar_open_with">Ireki honekin</string>
   <string name="actionbar_mkdir">Sortu karpeta</string>
-  <string name="actionbar_search">Bilatu</string>
   <string name="actionbar_settings">Ezarpenak</string>
   <string name="actionbar_see_details">Xehetasunak</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
-  <string name="prefs_add_session">Gehitu saio berria</string>
-  <string name="prefs_create_img_thumbnails">Sortu irudien koadro txikiak</string>
-  <string name="prefs_select_oc_account">Aukeratu kontu bat</string>
-  <string name="prefs_trackmydevice_summary_off">Gaitu zure gailuaren kokapena jarraitzeari</string>
-  <string name="prefs_trackmydevice_summary_on">Gailu honen jarraipena egiten du</string>
-  <string name="prefs_trackmydevice_interval_summary">Eguneratu %1$s minuturo</string>
   <string name="prefs_accounts">Kontuak</string>
   <string name="prefs_manage_accounts">Kontuak kudeatu</string>
   <string name="prefs_pincode">App PIN</string>
@@ -50,12 +31,6 @@
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria %1$s-n?</string>
   <string name="sync_string_files">Fitxategiak</string>
-  <string name="uploader_no_file_selected">Ez duzu igotzeko fitxategirik hautatu</string>
-  <string name="setup_hint_username">Erabiltzaile izena</string>
-  <string name="setup_hint_password">Pasahitza</string>
-  <string name="setup_hint_address">Web helbidea</string>
-  <string name="setup_hint_show_password">Bistaratu pasahitza?</string>
-  <string name="setup_title">Konektatu zure %1$sera</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
   <string name="uploader_top_message">Hautatu igoera direktorioa:</string>
@@ -67,7 +42,6 @@
   <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
   <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
   <string name="uploader_info_uploading">Igotzen</string>
-  <string name="uploader_btn_create_dir_text">Sortu igotzeko karpeta bat</string>
   <string name="file_list_empty">Ez dago fitxategirik karpeta honetan.\nFitxategi berriak \"Igo\" menu aukerarekin gehi daitezke.</string>
   <string name="filedetails_select_file">Sakatu fitxategi baten gainean informazio gehiago lortzeko</string>
   <string name="filedetails_size">Tamaina:</string>
@@ -76,7 +50,6 @@
   <string name="filedetails_modified">Aldatuta:</string>
   <string name="filedetails_download">Deskargatu</string>
   <string name="filedetails_sync_file">Freskatu fitxaegia</string>
-  <string name="filedetails_redownload">Birdeskargatzen</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
@@ -85,7 +58,6 @@
   <string name="common_cancel_upload">Ezeztatu igoera</string>
   <string name="common_cancel">Ezeztatu</string>
   <string name="common_save_exit">Gorde eta Irten</string>
-  <string name="common_exit">Utzi %1$s</string>
   <string name="common_error">Errorea</string>
   <string name="common_loading">Kargatzen ...</string>
   <string name="common_error_unknown">Errore ezezaguna</string>
@@ -101,7 +73,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s ongi igo da</string>
   <string name="uploader_upload_failed_ticker">igotzeak huts egin du</string>
   <string name="uploader_upload_failed_content_single">%1$s fitxategiaren igoera ezin izan da burutu</string>
-  <string name="uploader_upload_failed_content_multiple">Igoerak huts egin du: %1$d/%2$d fitxategi igo dira</string>
   <string name="downloader_download_in_progress_ticker">Deskargatzen ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Deskarga ongi burutu da</string>
@@ -110,7 +81,6 @@
   <string name="downloader_download_failed_content">%1$s fitxategiaren deskarga ezin izan da burutu</string>
   <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
   <string name="common_choose_account">Hautatu kontua</string>
-  <string name="sync_string_contacts">Kontaktuak</string>
   <string name="sync_fail_ticker">Sinkronizazioak huts egin du</string>
   <string name="sync_fail_content">%1$s fitxategiaren sinkronizazioa ezin da burutu</string>
   <string name="sync_fail_content_unauthorized">Okerreko pasahitza %1$s-rako</string>
@@ -126,10 +96,7 @@
   <string name="foreign_files_local_text">Bertakoa: %1$s</string>
   <string name="foreign_files_remote_text">Urrunekoa: %1$s</string>
   <string name="upload_query_move_foreign_files">Ez dago leku nahikorik hautatutako fitxategiak %1$s karpetan kopiatzeko. Nahi al duzu kopiatu ordez bertara mugitzea?</string>
-  <string name="use_ssl">Erabili konexio segurua</string>
-  <string name="location_no_provider">%1$sek ezin du zure gailua jarraitu. Mesedez begiratu zure kokapen ezarpenak</string>
   <string name="pincode_enter_pin_code">Mesedez, sartu zure aplikazioaren PINa</string>
-  <string name="pincode_enter_new_pin_code">Mesedez, sartu zure aplikazioaren PIN berria</string>
   <string name="pincode_configure_your_pin">Sartu aplikazioaren PINa</string>
   <string name="pincode_configure_your_pin_explanation">PINa aplikazioa abiarazten den bakoitzean eskatuko da</string>
   <string name="pincode_reenter_your_pincode">Sartu berriz aplikazioarenPINa, mesedez</string>
@@ -148,60 +115,35 @@
   <string name="media_err_unsupported">Onartzen ez de euskarri kodeka</string>
   <string name="media_err_io">Euskarri fitxategia ezin da bihurtu</string>
   <string name="media_err_malformed">Euskarri fitxategia ezin da kodetu</string>
-  <string name="media_err_timeout">Denbora gehiegi erreproduzitzen saiatzen</string>
   <string name="media_err_invalid_progressive_playback">Euskarri fitxategia ezin da jariotu</string>
   <string name="media_err_unknown">Euskarri fitxategia ezin erreproduzitu stock euskarri erreproduzigailuarekin</string>
   <string name="media_err_security_ex">Segurtasun errorea %1$s erreproduzitzen saiatzean</string>
   <string name="media_err_io_ex">Sarrera errorea %1$s erreproduzitzen saiatzean</string>
   <string name="media_err_unexpected">Ezusteko errorea %1$s erreproduzitzen saiatzean</string>
-  <string name="media_previous_description">Aurreko pista botoia</string>
   <string name="media_rewind_description">Atzeratu botoia</string>
   <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
   <string name="media_forward_description">Azkar aurreratu botoia</string>
-  <string name="media_next_description">Hurrengo pista botoia</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Minutu</item>
-    <item>30 Minutu</item>
-    <item>60 Minutu</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Saioa hasten saiatzen...</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
-  <string name="auth_connect_anyway">Konektatu hala ere</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
   <string name="auth_connection_established">Konexioa ezarri da</string>
   <string name="auth_testing_connection">Konexioa probatzen...</string>
   <string name="auth_not_configured_title">gaizki egindako server konfigurazioa</string>
-  <string name="auth_not_configured_message">Badirudi zure server instantzia ez dagoela ongi konfiguratuta. Jarri zure harremanetan administradorearkin informazio gehiago izateko.</string>
   <string name="auth_unknown_error_title">Errore ezezagun bat gertatu da</string>
   <string name="auth_unknown_host_title">Ezin izan da hostalaria aurkitu</string>
-  <string name="auth_unknown_host_message">Ezin da sartutako hostalaria aurkitu. Mezedez egiaztatu hostalari izena eta zerbitzariaren eskuragarritasuna eta saiatu berriz.</string>
   <string name="auth_incorrect_path_title">ez da serveren instalaziorik aurkitu</string>
-  <string name="auth_incorrect_path_message">Programak ezin du server instantzia aurkitu emandako bidean. Mesedez egiaztatu bidea eta saiatu berriz.</string>
   <string name="auth_timeout_title">Zerbitzariak denbora asko hartu du erantzuteko</string>
   <string name="auth_incorrect_address_title">Gaizki sortutako URLa</string>
   <string name="auth_ssl_general_error_title">SSL abiaratzeak huts egin du</string>
-  <string name="auth_ssl_unverified_server_title">Egiaztatu gabeko SSL zerbitzariaren identitaea</string>
   <string name="auth_bad_oc_version_title">server zerbitzari bertsio ezezaguna</string>
   <string name="auth_wrong_connection_title">Ezin izan da konexioa egin</string>
   <string name="auth_secure_connection">Konexio segurua ezarri da</string>
   <string name="auth_unauthorized">Okerreko erabiltzaile izen edo pasahitza</string>
   <string name="auth_oauth_error">Baimena ez da lortu</string>
   <string name="auth_oauth_error_access_denied">Sarrera autorizazio zerbitzariak ukatua</string>
-  <string name="auth_not_found">Okerreko bidea emanda</string>
-  <string name="auth_internal">Barne zerbitzari errorea, kodea: %1$d</string>
   <string name="auth_wtf_reenter_URL">Egoera esperogabea, mesedez idatzi berriz zerbitzari URLa</string>
   <string name="auth_expired_basic_auth_toast">Mesedez, sartu oraingo pasahitza</string>
-  <string name="crashlog_send_report">Bidali txostena</string>
-  <string name="crashlog_dont_send_report">Ez bidali txostena</string>
-  <string name="extensions_avail_title">Hedapenak eskuragarri!</string>
-  <string name="extensions_avail_message">Badirudi zure server instantziak aukera aurreratuak eskuragarri dituela. Nahiko zenuke aukera horiek zure androidean ikustea?</string>
   <string name="fd_keep_in_sync">Mantendu fitxategia eguneratuta</string>
-  <string name="common_share">Partekatu</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
   <string name="confirmation_remove_alert">Nahi duzu %1$s ezabatu?</string>
@@ -221,18 +163,12 @@
   <string name="wait_a_moment">Itxaron momentu bat</string>
   <string name="filedisplay_unexpected_bad_get_content">Ezusteko arazoa; mesedez, saiatu beste app batekin fitxategia hautatzeko</string>
   <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
-  <string name="oauth_host_url">oAuth2 URL-a</string>
-  <string name="oauth_check_onoff">Saioa hasi oAuth2-rekin.</string>
   <string name="oauth_login_connection">Konektatzen oAuth2 zerbitzarira...</string>
-  <string name="oauth_code_validation_message">Mesedez, ireki web zerbitzari bat eta hona joan:\n%1$s.\nEgiaztatu bertan kode hau:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">URL honetarako konexioa ez dago eskuragarri</string>
-  <string name="ssl_validator_title">Abisua</string>
   <string name="ssl_validator_header">Lekuaren identitatea ezin da egiaztatu</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Zerbitzariaren ziurtagiria ez da fidagarria</string>
   <string name="ssl_validator_reason_cert_expired">- Zerbitzariaren ziurtagiria iraungi da</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Zerbitzariaren ziurtagiria oso gaztea da</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URLa ez dator bat ziurtagiriaren hostalari izenarekin</string>
-  <string name="ssl_validator_certificate_not_available">Zerbitzariaren ziurtagiria ezin da lortu</string>
   <string name="ssl_validator_question">Nahi duzu, hala ere, ziurtagiriaz fidatu?</string>
   <string name="ssl_validator_not_saved">Ziurtagiria ezin da gorde</string>
   <string name="ssl_validator_btn_details_see">Xehetasunak</string>
@@ -265,8 +201,6 @@
   <string name="conflict_dont_upload">Ez igo</string>
   <string name="preview_image_description">Irudi aurreikuspena</string>
   <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
-  <string name="preview_image_error_out_of_memory">\"Ez dago orrialde hau erakusteko memoria aski</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s bertako karpetara kopiatu</string>
   <string name="actionbar_failed_instant_upload">UnekoIgoerak huts egin du\"</string>
   <string name="failed_upload_headline_text">Uneko igoerek huts egin dute</string>

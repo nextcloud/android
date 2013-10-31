@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Contrasinal:</string>
-  <string name="main_login">Nome de usuario:</string>
-  <string name="main_button_login">Acceso</string>
-  <string name="main_welcome">Benvido/a</string>
-  <string name="main_files">Ficheiros</string>
-  <string name="main_music">Música</string>
-  <string name="main_contacts">Contactos</string>
-  <string name="main_calendar">Calendario</string>
-  <string name="main_bookmarks">Marcadores</string>
-  <string name="main_settings">Axustes</string>
-  <string name="main_tit_accsetup">Activar a conta</string>
-  <string name="main_wrn_accsetup">Non hai ningunha conta configurada no seu dispositivo. Para empregar o aplicativo necesita crear unha.</string>
   <string name="about_android">Aplicativo Android %1$s</string>
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar a conta</string>
@@ -20,20 +8,10 @@
   <string name="actionbar_upload_files">Ficheiros</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear un directorio</string>
-  <string name="actionbar_search">Buscar</string>
   <string name="actionbar_settings">Preferencias</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="prefs_category_general">Xeral</string>
   <string name="prefs_category_more">Máis</string>
-  <string name="prefs_add_session">Engadir unha nova sesión</string>
-  <string name="prefs_create_img_thumbnails">Crear miniaturas das imaxes</string>
-  <string name="prefs_select_oc_account">Escoller unha conta</string>
-  <string name="prefs_summary_select_oc_account">Escolla cal das súas contas ten que usar o aplicativo.</string>
-  <string name="prefs_trackmydevice">Rastrexado de dispositivos</string>
-  <string name="prefs_trackmydevice_summary_off">Permitir que este aplicativo rexistre as posicións do seu dispositivo</string>
-  <string name="prefs_trackmydevice_summary_on">Este aplicativo mantén o rexistro de posicións do seu dispositivo</string>
-  <string name="prefs_trackmydevice_interval">Intervalo de actualizacións</string>
-  <string name="prefs_trackmydevice_interval_summary">Actualizar cada %1$s minutos</string>
   <string name="prefs_accounts">Contas</string>
   <string name="prefs_manage_accounts">Xestionar as contas</string>
   <string name="prefs_pincode">PIN do aplicativo</string>
@@ -52,20 +30,11 @@
   <string name="recommend_subject">Tente %1$s no seu teléfono intelixente!</string>
   <string name="recommend_text">Quero convidalo a empregar %1$s no seu teléfono intelixente!⏎\nDescárgueo de aquí:%2$s</string>
   <string name="auth_check_server">Comprobar o servidor</string>
-  <string name="auth_account_name">Nome da conta</string>
   <string name="auth_host_url">Enderezo do servidor</string>
   <string name="auth_username">Nome de usuario</string>
   <string name="auth_password">Contrasinal</string>
   <string name="auth_register">Novo en %1$s?</string>
-  <string name="new_session_uri_error">Deuse un enderezo incorrecto</string>
-  <string name="new_session_session_name_error">Nome de sesión incorrecto</string>
   <string name="sync_string_files">Ficheiros</string>
-  <string name="uploader_no_file_selected">Non se escolleron ficheiros para enviar</string>
-  <string name="setup_hint_username">Nome de usuario</string>
-  <string name="setup_hint_password">Contrasinal</string>
-  <string name="setup_hint_address">Enderezo web</string>
-  <string name="setup_hint_show_password">Amosar o contrasinal?</string>
-  <string name="setup_title">Conectar co seu %1$s</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
   <string name="uploader_top_message">Escolla o directorio para o envío:</string>
@@ -77,7 +46,6 @@
   <string name="uploader_wrn_no_content_text">Non se recibiu contido. Non hai nada para enviar.</string>
   <string name="uploader_error_forbidden_content">%1$s non ten permiso para acceder ao contido compartido</string>
   <string name="uploader_info_uploading">Enviando</string>
-  <string name="uploader_btn_create_dir_text">Crear un directorio para os envíos</string>
   <string name="file_list_empty">Non hai ficheiros neste cartafol.\nOs novos ficheiros pódense engadir ca opción do menú «Enviar».</string>
   <string name="filedetails_select_file">Prema nun ficheiro para que amose a información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -86,7 +54,6 @@
   <string name="filedetails_modified">Modificado:</string>
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar o ficheiro</string>
-  <string name="filedetails_redownload">Descargar de novo</string>
   <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
   <string name="common_yes">Si</string>
   <string name="common_no">Non</string>
@@ -95,7 +62,6 @@
   <string name="common_cancel_upload">Cancelar o envío</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Gardar e saír</string>
-  <string name="common_exit">Abandonar %1$s</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Produciuse un erro descoñecido</string>
@@ -109,10 +75,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Enviado correctamente</string>
   <string name="uploader_upload_succeeded_content_single">%1$s foi enviado correctamente</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d ficheiros foron enviados correctamente</string>
   <string name="uploader_upload_failed_ticker">Produciuse un fallou no envío</string>
   <string name="uploader_upload_failed_content_single">Non foi posíbel completar o envío de %1$s</string>
-  <string name="uploader_upload_failed_content_multiple">Produciuse un fallou no envío: enviáronse %1$d/%2$d ficheiros</string>
   <string name="downloader_download_in_progress_ticker">Descargando…</string>
   <string name="downloader_download_in_progress_content">%1$d%% descargando %2$s</string>
   <string name="downloader_download_succeeded_ticker">Completouse a descarga</string>
@@ -121,7 +85,6 @@
   <string name="downloader_download_failed_content">Non foi posíbel completar a descarga de %1$s</string>
   <string name="downloader_not_downloaded_yet">Non descargado aínda</string>
   <string name="common_choose_account">Escoller unha conta</string>
-  <string name="sync_string_contacts">Contactos</string>
   <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
   <string name="sync_fail_content">Non foi posíbel completar a sincronización de %1$s</string>
   <string name="sync_fail_content_unauthorized">Contrasinal incorrecto para %1$s</string>
@@ -139,10 +102,7 @@
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
   <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. Quere movelos no canto de copialos?</string>
-  <string name="use_ssl">Empregar a conexión segura</string>
-  <string name="location_no_provider">%1$s non pode rastrexar o seu dispositivo. Comprobe as configuracións de localización.</string>
   <string name="pincode_enter_pin_code">Insira o seu PIN do aplicativo</string>
-  <string name="pincode_enter_new_pin_code">Insira o seu novo PIN do aplicativo</string>
   <string name="pincode_configure_your_pin">Introduza o seu PIN do aplicativo</string>
   <string name="pincode_configure_your_pin_explanation">Pediráselle o PIN cada vez que se inicie o aplicativo</string>
   <string name="pincode_reenter_your_pincode">Volva a introducir o seu PIN do aplicativo</string>
@@ -161,72 +121,44 @@
   <string name="media_err_unsupported">Códec multimedia non admitido</string>
   <string name="media_err_io">Non é posíbel ler o ficheiro multimedia</string>
   <string name="media_err_malformed">O ficheiro multimedia non está codificado correctamente</string>
-  <string name="media_err_timeout">Tempo de máis tentando reproducir</string>
+  <string name="media_err_timeout">Esgotouse o tempo de espera tentando reproducir</string>
   <string name="media_err_invalid_progressive_playback">Non é posíbel enviar como fluxo o ficheiro multimedia</string>
   <string name="media_err_unknown">Non é posíbel reproducir o ficheiro multimedia co reprodutor «stock»</string>
   <string name="media_err_security_ex">Produciuse un erro de seguranza tentando reproducir %1$s</string>
   <string name="media_err_io_ex">Produciuse un erro de entrada tentando reproducir %1$s</string>
   <string name="media_err_unexpected">Produciuse un erro non agardado tentando reproducir %1$s</string>
-  <string name="media_previous_description">Botón de pista anterior</string>
   <string name="media_rewind_description">Botón de retroceso</string>
   <string name="media_play_pause_description">Botón de reprodución/pausa</string>
   <string name="media_forward_description">Botón de avance rápido</string>
-  <string name="media_next_description">Botón de pista seguinte</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minutos</item>
-    <item>30 minutos</item>
-    <item>60 minutos</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Intentando acceder...</string>
   <string name="auth_no_net_conn_title">Sen conexión de rede</string>
-  <string name="auth_no_net_conn_message">Non se detectaron conexións de rede. Comprobe a conexión a Internet e tenteo de novo.</string>
-  <string name="auth_connect_anyway">Conectar igualmente</string>
   <string name="auth_nossl_plain_ok_title">Non hai conexión seguras dispoñíbeis.</string>
-  <string name="auth_nossl_plain_ok_message">O aplicativo non puido facer unha conexión segura co servidor. Inda que non é segura, hai unha conexión posíbel. Pode continuar ou cancelala.</string>
   <string name="auth_connection_established">Estabeleceuse a conexión</string>
   <string name="auth_testing_connection">Comprobando a conexión...</string>
   <string name="auth_not_configured_title">Configuración errada do servidor</string>
-  <string name="auth_not_configured_message">Semella que a súa instancia do servidor non está configurada correctamente. Contacte co seu administrador para máis detalles.</string>
   <string name="auth_account_not_new">Xa existe unha conta do mesmo usuario e servidor neste dispositivo</string>
   <string name="auth_account_not_the_same">O usuario que introduciu non coincide co usuario desta conta</string>
   <string name="auth_unknown_error_title">Produciuse un erro descoñecido!</string>
-  <string name="auth_unknown_error_message">Produciuse un erro descoñecido. Contacte cos autores e infórmeos do fallo cos rexistros de erro do seu dispositivo.</string>
   <string name="auth_unknown_host_title">Non foi posíbel atopar a máquina</string>
-  <string name="auth_unknown_host_message">Non foi posíbel atopar a máquina indicada. Comprobe o nome da máquina e tenteo de novo.</string>
   <string name="auth_incorrect_path_title">Non se atopou unha instancia do servidor</string>
-  <string name="auth_incorrect_path_message">O aplicativo non atopou instancias do servidor na ruta indicada. Comprobe a ruta e tenteo de novo.</string>
   <string name="auth_timeout_title">O servidor tardou demasiado en responder</string>
   <string name="auth_incorrect_address_title">URL incorrecto</string>
   <string name="auth_ssl_general_error_title">Produciuse un fallo ao iniciar o SSL</string>
-  <string name="auth_ssl_unverified_server_title">A identidade SSL do servidor non foi verficada</string>
+  <string name="auth_ssl_unverified_server_title">Non foi posíbel verificar a identidade do servidor SSL</string>
   <string name="auth_bad_oc_version_title">Versión do servidor non recoñecida</string>
   <string name="auth_wrong_connection_title">Non é posíbel estabelecer a conexión</string>
   <string name="auth_secure_connection">Estabeleceuse unha conexión segura</string>
   <string name="auth_unauthorized">Nome de usuario ou contrasinal incorrecto</string>
   <string name="auth_oauth_error">A autorización non foi aceptada</string>
   <string name="auth_oauth_error_access_denied">O acceso foi denegado polo servidor de autorización</string>
-  <string name="auth_not_found">Deuse unha ruta incorrecta</string>
-  <string name="auth_internal">Produciuse un erro interno do servidor, código %1$d</string>
   <string name="auth_wtf_reenter_URL">Estado inesperado, introduza de novo o enderezo URL do servidor</string>
   <string name="auth_expired_oauth_token_toast">A súa autorización caducou. Autorícese de novo</string>
   <string name="auth_expired_basic_auth_toast">Introduza o contrasinal actual</string>
   <string name="auth_expired_saml_sso_token_toast">A súa sesión caducou. Autorícese de novo</string>
   <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
-  <string name="auth_follow_auth_server">Siga as instrucións anteriores para autenticarse</string>
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
-  <string name="crashlog_message">O aplicativo deixou de funcionar de xeito inesperado. Quere enviar un informe desta quebra?</string>
-  <string name="crashlog_send_report">Enviar un informe</string>
-  <string name="crashlog_dont_send_report">Non enviar un informe</string>
-  <string name="extensions_avail_title">Extensión dispoñíbel!</string>
-  <string name="extensions_avail_message">Semella que a súa instancia do servidor admite extensións avanzadas. Quere ver se hai extensións dispoñíbeis para Android ?</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
-  <string name="common_share">Compartir</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
   <string name="confirmation_remove_alert">Confirma que quere retirar %1$s ?</string>
@@ -246,18 +178,13 @@
   <string name="wait_a_moment">Agarde un chisco</string>
   <string name="filedisplay_unexpected_bad_get_content">Produciuse un erro non agardado. Seleccione o ficheiro con outro aplicativo diferente</string>
   <string name="filedisplay_no_file_selected">Non se escolleu ningún ficheiro</string>
-  <string name="oauth_host_url">URL do oAuth2</string>
-  <string name="oauth_check_onoff">Acceder con oAuth2.</string>
+  <string name="oauth_check_onoff">Acceder con oAuth2</string>
   <string name="oauth_login_connection">Conectando co servidor oAuth2…</string>
-  <string name="oauth_code_validation_message">Abra un navegador  web e vaia a:\n%1$s.\nValide alí este código:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Non está dispoñíbel a conexión con este URL</string>
-  <string name="ssl_validator_title">Aviso</string>
   <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>
   <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>
   <string name="ssl_validator_reason_cert_expired">- O certificado do servidor caducou</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- As datas de validez do certificado están son do futuro</string>
   <string name="ssl_validator_reason_hostname_not_verified">- O URL non coincide co nome de máquina no certificado</string>
-  <string name="ssl_validator_certificate_not_available">Non foi posíbel obter o certificado do servidor</string>
   <string name="ssl_validator_question">Aínda así, quere fiar neste certificado igualmente?</string>
   <string name="ssl_validator_not_saved">Non foi posíbel gardar o certificado</string>
   <string name="ssl_validator_btn_details_see">Detalles</string>
@@ -290,8 +217,6 @@
   <string name="conflict_dont_upload">Non enviar</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
   <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
-  <string name="preview_image_error_out_of_memory">«Non hai memoria abondo para amosar esta imaxe</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no directorio local %2$s</string>
   <string name="actionbar_failed_instant_upload">produciuse un fallo de EnvíoInstantáneo»</string>
   <string name="failed_upload_headline_text">Envíos instantáneos fallados</string>

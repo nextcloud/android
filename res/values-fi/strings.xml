@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources>
-  <string name="main_settings">asetukset</string>
-  <string name="actionbar_settings">asetukset</string>
-  <string name="auth_username">Käyttäjätunnus</string>
-  <string name="setup_hint_username">Käyttäjätunnus</string>
-  <string name="filedetails_open">avata</string>
-</resources>

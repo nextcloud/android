@@ -1,31 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Pasvorto:</string>
-  <string name="main_login">Uzantonomo:</string>
-  <string name="main_button_login">Ensaluti</string>
-  <string name="main_welcome">Bonvenon</string>
-  <string name="main_files">Dosieroj</string>
-  <string name="main_music">Muziko</string>
-  <string name="main_contacts">Kontaktoj</string>
-  <string name="main_calendar">Kalendaro</string>
-  <string name="main_bookmarks">Legosignoj</string>
-  <string name="main_settings">Agordo</string>
-  <string name="main_tit_accsetup">Agordi konton</string>
-  <string name="main_wrn_accsetup">Estas neniu konto en via aparato. Por povi uzi ĉi tiun aplikaĵon, vi devas krei iun.</string>
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
   <string name="actionbar_upload_files">Dosieroj</string>
   <string name="actionbar_mkdir">Krei dosierujon</string>
-  <string name="actionbar_search">Serĉi</string>
   <string name="actionbar_settings">Agordo</string>
   <string name="actionbar_see_details">Detaloj</string>
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
-  <string name="prefs_add_session">Aldoni novan sesion</string>
-  <string name="prefs_create_img_thumbnails">Krei bildetojn</string>
-  <string name="prefs_select_oc_account">Elekti konton</string>
-  <string name="prefs_trackmydevice_summary_off">Kapabligi spuri la lokon de via aparato</string>
-  <string name="prefs_trackmydevice_interval_summary">Ĝisdatigi je ĉiuj %1$s minutoj</string>
   <string name="prefs_accounts">Kontoj</string>
   <string name="prefs_manage_accounts">Administri kontojn</string>
   <string name="prefs_pincode">PIN de App-aplikaĵo</string>
@@ -37,12 +19,6 @@
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
   <string name="sync_string_files">Dosieroj</string>
-  <string name="uploader_no_file_selected">Neniu dosiero estas elektita por alŝuto</string>
-  <string name="setup_hint_username">Uzantonomo</string>
-  <string name="setup_hint_password">Pasvorto</string>
-  <string name="setup_hint_address">TTT-adreso</string>
-  <string name="setup_hint_show_password">Ĉu montri la pasvorton?</string>
-  <string name="setup_title">Konekti al via $1%s</string>
   <string name="setup_btn_connect">Konekti</string>
   <string name="uploader_btn_upload_text">Alŝuti</string>
   <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
@@ -53,14 +29,12 @@
   <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
   <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
   <string name="uploader_info_uploading">Alŝutante</string>
-  <string name="uploader_btn_create_dir_text">Krei dosierujon por alŝuto</string>
   <string name="file_list_empty">Neniu dosiero estas en ĉi tiu dosierujo.\nNovajn dosierojn vi povas aldoni per la menuero “Alŝuti”.</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
-  <string name="filedetails_redownload">Reelŝuti</string>
   <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
@@ -69,7 +43,6 @@
   <string name="common_cancel_upload">Nuligi alŝuton</string>
   <string name="common_cancel">Nuligi</string>
   <string name="common_save_exit">Konservi kaj forlasi</string>
-  <string name="common_exit">Forlasi $1%s-on</string>
   <string name="common_error">Eraro</string>
   <string name="common_error_unknown">Nekonata eraro</string>
   <string name="about_title">Pri</string>
@@ -84,7 +57,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s sukcese alŝutiĝis</string>
   <string name="uploader_upload_failed_ticker">Alŝuto malsukcesis</string>
   <string name="uploader_upload_failed_content_single">Alŝuto de %1s ne eblis plenumiĝi</string>
-  <string name="uploader_upload_failed_content_multiple">Alŝuto malsukcesis: %1$d el %2$d dosieroj alŝutiĝis</string>
   <string name="downloader_download_in_progress_ticker">Elŝutante...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Elŝutante %2$s</string>
   <string name="downloader_download_succeeded_ticker">Elŝuto sukcesis</string>
@@ -92,17 +64,13 @@
   <string name="downloader_download_failed_ticker">Elŝuto malsukcesis</string>
   <string name="downloader_download_failed_content">Elŝuto de %1$s ne eblis plenumiĝi</string>
   <string name="common_choose_account">Elekti konton</string>
-  <string name="sync_string_contacts">Kontaktoj</string>
   <string name="sync_fail_ticker">Sinkronigo malsukcesis</string>
   <string name="sync_fail_content">Sinkronigo de %1$s ne povis plenumiĝi</string>
   <string name="sync_conflicts_in_favourites_ticker">Konfliktoj troviĝis</string>
   <string name="sync_conflicts_in_favourites_content">%1$d ade sinkronigataj dosieroj ne povis sinkroniĝi</string>
   <string name="sync_fail_in_favourites_ticker">Malsukcesis ada sinkronigo de dosieroj</string>
   <string name="sync_fail_in_favourites_content">Enhavoj de %1$d dosieroj ne povis sinkroniĝi (%2$d konfliktas)</string>
-  <string name="use_ssl">Uzi sekuran konekton</string>
-  <string name="location_no_provider">$1%s ne povas spuri vian aparaton. Bonvolu kontroli vian lokagordon.</string>
   <string name="pincode_enter_pin_code">Bonvolu enigi vian PIN-on de aplikaĵo</string>
-  <string name="pincode_enter_new_pin_code">Bonvolu enigi vian novan PIN-on de aplikaĵo</string>
   <string name="pincode_configure_your_pin">Enigu PIN-on de aplikaĵo</string>
   <string name="pincode_reenter_your_pincode">Bonvolu reenigi PIN-on de aplikaĵo</string>
   <string name="pincode_remove_your_pincode">Forigu vian PIN-on de aplikaĵo</string>
@@ -110,19 +78,8 @@
   <string name="pincode_wrong">Malĝusta PIN de aplikaĵo</string>
   <string name="pincode_removed">PIN de aplikaĵo foriĝis</string>
   <string name="pincode_stored">PIN de aplikaĵo konserviĝis</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minutoj</item>
-    <item>30 minutoj</item>
-    <item>60 minutoj</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Provante ensaluti...</string>
   <string name="auth_no_net_conn_title">Neniu reta konekto</string>
-  <string name="auth_connect_anyway">Konekti ĉiuokaze</string>
   <string name="auth_nossl_plain_ok_title">Sekura konekto ne haveblas.</string>
   <string name="auth_connection_established">Konekto stariĝis</string>
   <string name="auth_testing_connection">Testante konekton...</string>
@@ -130,21 +87,13 @@
   <string name="auth_unknown_error_title">Nekonata eraro okazis</string>
   <string name="auth_unknown_host_title">Ne eblis trovi gastigon</string>
   <string name="auth_incorrect_path_title">Apero de servilo ne troviĝis</string>
-  <string name="auth_incorrect_path_message">La aplikaĵo ne povis trovi servilo-aperon en la vojo donita. Bonvolu kontroli vian vojon kaj provi denove.</string>
   <string name="auth_timeout_title">La servilo tro malfruis por respondi</string>
   <string name="auth_incorrect_address_title">Malĝuste formita URL</string>
   <string name="auth_ssl_general_error_title">SSL-ekigo malsukcesis</string>
-  <string name="auth_ssl_unverified_server_title">Nekontrolita idento de SSL-servilo</string>
   <string name="auth_bad_oc_version_title">Nerekonita eldono de servilo</string>
   <string name="auth_wrong_connection_title">Ne eblis starigi konekton</string>
   <string name="auth_secure_connection">Sekura konekto stariĝis</string>
-  <string name="auth_not_found">Malĝusta vojo doniĝis</string>
-  <string name="auth_internal">Ena servila eraro: kodo %1$d</string>
-  <string name="crashlog_send_report">Sendi raporton</string>
-  <string name="crashlog_dont_send_report">Ne sendi raporton</string>
-  <string name="extensions_avail_title">Kromaĵoj haveblas!</string>
   <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
-  <string name="common_share">Kunhavigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
@@ -164,13 +113,11 @@
   <string name="wait_a_moment">Atendu momenton</string>
   <string name="filedisplay_unexpected_bad_get_content">Neatendita problemo; bonvolu provi alian aplikaĵon por elekti la dosieron</string>
   <string name="filedisplay_no_file_selected">Neniu dosiero elektiĝis</string>
-  <string name="ssl_validator_title">Averto</string>
   <string name="ssl_validator_header">La idento de la ejo ne povis kontroliĝi</string>
   <string name="ssl_validator_reason_cert_not_trusted">- La servila atestilo ne fidindas</string>
   <string name="ssl_validator_reason_cert_expired">- La servila atestilo eksvalidiĝis</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- La servila atestilo tro junas</string>
   <string name="ssl_validator_reason_hostname_not_verified">- La URL ne kongruas kun la gastignomo en la atestilo</string>
-  <string name="ssl_validator_certificate_not_available">La servila atestilo ne povis ekhaviĝi</string>
   <string name="ssl_validator_question">Ĉu vi volas fidi ĉi tiun atestilon ĉiuokaze?</string>
   <string name="ssl_validator_not_saved">La atestino ne povis konserviĝi</string>
   <string name="ssl_validator_btn_details_see">Detaloj</string>
@@ -193,5 +140,4 @@
   <string name="conflict_keep_both">Konservi ambaŭ</string>
   <string name="conflict_overwrite">Anstataŭigi</string>
   <string name="conflict_dont_upload">Ne alŝuti</string>
-  <!--we need to improve the communication of errors to the user-->
 </resources>

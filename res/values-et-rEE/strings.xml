@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Parool:</string>
-  <string name="main_login">Kasutajanimi:</string>
-  <string name="main_button_login">Logi sisse</string>
-  <string name="main_welcome">Teretulemast</string>
-  <string name="main_files">Failid</string>
-  <string name="main_music">Muusika</string>
-  <string name="main_contacts">Kontaktid</string>
-  <string name="main_calendar">Kalender</string>
-  <string name="main_bookmarks">Järjehoidjad</string>
-  <string name="main_settings">Seaded</string>
-  <string name="main_tit_accsetup">Konto seadistamine</string>
-  <string name="main_wrn_accsetup">Sinu seadmes pole ühtegi kontot. Selle rakenduse kasutamiseks pead sa ühe looma.</string>
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">versioon %1$s</string>
   <string name="actionbar_sync">Värskenda kontot</string>
@@ -20,17 +8,10 @@
   <string name="actionbar_upload_files">Failid</string>
   <string name="actionbar_open_with">Ava rakendusega</string>
   <string name="actionbar_mkdir">Loo kaust</string>
-  <string name="actionbar_search">Otsi</string>
   <string name="actionbar_settings">Seaded</string>
   <string name="actionbar_see_details">Üksikasjad</string>
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
-  <string name="prefs_add_session">Lisa uus sessioon</string>
-  <string name="prefs_create_img_thumbnails">Loo pisipildid</string>
-  <string name="prefs_select_oc_account">Vali konto</string>
-  <string name="prefs_trackmydevice_summary_off">Luba jälgida oma seadme asukohta</string>
-  <string name="prefs_trackmydevice_summary_on">Sinu jälgib seda seadet</string>
-  <string name="prefs_trackmydevice_interval_summary">Uuenda iga %1$s minuti tagant</string>
   <string name="prefs_accounts">Kontod</string>
   <string name="prefs_manage_accounts">Halda kontosid</string>
   <string name="prefs_pincode">Rakenduse PIN</string>
@@ -54,12 +35,6 @@
   <string name="auth_password">Parool</string>
   <string name="auth_register">Uus %1$s kasutaja?</string>
   <string name="sync_string_files">Failid</string>
-  <string name="uploader_no_file_selected">Üleslaadimiseks pole ühtegi faili valitud</string>
-  <string name="setup_hint_username">Kasutajanimi</string>
-  <string name="setup_hint_password">Parool</string>
-  <string name="setup_hint_address">Veebiaadress</string>
-  <string name="setup_hint_show_password">Näita parooli?</string>
-  <string name="setup_title">Ühenda oma %1$siga</string>
   <string name="setup_btn_connect">Ühenda</string>
   <string name="uploader_btn_upload_text">Lae üles</string>
   <string name="uploader_top_message">Vali kataloog serveris: </string>
@@ -71,7 +46,6 @@
   <string name="uploader_wrn_no_content_text">Sisu ei saadud. Pole midagi üles laadida.</string>
   <string name="uploader_error_forbidden_content">%1$sile pole lubatud ligipääs jagatud sisule</string>
   <string name="uploader_info_uploading">Üleslaadimine</string>
-  <string name="uploader_btn_create_dir_text">Loo üleslaadimise jaoks kaust</string>
   <string name="file_list_empty">Selles kaustas pole ühtegi faili.\nUusi faile saab lisada kasutades menüü valikut \"Lae üles\".</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
@@ -80,7 +54,6 @@
   <string name="filedetails_modified">Muudetud:</string>
   <string name="filedetails_download">Lae alla</string>
   <string name="filedetails_sync_file">Värskenda faili</string>
-  <string name="filedetails_redownload">Lae uuesti alla</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
@@ -89,7 +62,6 @@
   <string name="common_cancel_upload">Tühista üleslaadimine</string>
   <string name="common_cancel">Loobu</string>
   <string name="common_save_exit">Salvesta &amp; Välju</string>
-  <string name="common_exit">Lahku %1$sist</string>
   <string name="common_error">Viga</string>
   <string name="common_loading">Laadimine ...</string>
   <string name="common_error_unknown">Tundmatu viga</string>
@@ -105,7 +77,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s laeti üles</string>
   <string name="uploader_upload_failed_ticker">Üleslaadimine ebaõnnestus</string>
   <string name="uploader_upload_failed_content_single">%1$s üleslaadimise lõpetamine ebaõnnestus</string>
-  <string name="uploader_upload_failed_content_multiple">Üleslaadimine ebaõnnestus: %1$d/%2$d faili laeti üles</string>
   <string name="downloader_download_in_progress_ticker">Allalaadimine ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% allalaadimine %2$s</string>
   <string name="downloader_download_succeeded_ticker">Allalaadimine oli edukas</string>
@@ -114,7 +85,6 @@
   <string name="downloader_download_failed_content">%1$s allalaadimist ei õnnestunud lõpetada</string>
   <string name="downloader_not_downloaded_yet">Allalaadimata</string>
   <string name="common_choose_account">Vali konto</string>
-  <string name="sync_string_contacts">Kontaktid</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
   <string name="sync_fail_content_unauthorized">Vigane parool %1$s jaoks</string>
@@ -131,10 +101,7 @@
   <string name="foreign_files_local_text">Kohalik: %1$s</string>
   <string name="foreign_files_remote_text">Serveris: %1$s</string>
   <string name="upload_query_move_foreign_files">Pole piisavalt ruumi kopeerimaks valitud faile kataloogi %1$s. Soovid kopeerimise asemel neid ümber tõsta?</string>
-  <string name="use_ssl">Kasuta turvalist ühendust</string>
-  <string name="location_no_provider">%1$s ei saa sinu seadet jälgida. Palun kontrolli oma asukoha seadeid</string>
   <string name="pincode_enter_pin_code">Palun sisesta oma rakenduse PIN</string>
-  <string name="pincode_enter_new_pin_code">Palun sisesta oma rakenduse uus PIN</string>
   <string name="pincode_configure_your_pin">Sisesta oma rakenduse PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN-i nõutakse iga kord, kui rakendus käivitatakse</string>
   <string name="pincode_reenter_your_pincode">Palun sisesta oma rakenduse PIN uuesti</string>
@@ -153,54 +120,36 @@
   <string name="media_err_unsupported">Mittetoetatud meedia koodek</string>
   <string name="media_err_io">Ei suuda lugeda meediafaili</string>
   <string name="media_err_malformed">Meediafail pole korralikult kodeeritud</string>
-  <string name="media_err_timeout">Liiga palju kordi püüti mängida</string>
+  <string name="media_err_timeout">Esitamise ajal aegunud</string>
   <string name="media_err_invalid_progressive_playback">Ei suuda voogesitada meediafaili</string>
   <string name="media_err_unknown">Meediafaili ei saa mängida Stock Media Player-iga</string>
   <string name="media_err_security_ex">Turbe viga %1$s esitamisel</string>
   <string name="media_err_io_ex">Sisendi viga %1$s esitamisel</string>
   <string name="media_err_unexpected">Ootamatu viga %1$s esitamisel</string>
-  <string name="media_previous_description">Eelmise loo nupp</string>
   <string name="media_rewind_description">Tagasikerimise nupp</string>
   <string name="media_play_pause_description">Mängimise või pausi nupp</string>
   <string name="media_forward_description">Kiire kerimise nupp</string>
-  <string name="media_next_description">Järgmise pala nupp</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 minutit</item>
-    <item>30 minutit</item>
-    <item>60 minutit</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Proovitakse sisse logida...</string>
   <string name="auth_no_net_conn_title">Võrguühendust pole</string>
-  <string name="auth_connect_anyway">Ühenda sellegipoolest</string>
   <string name="auth_nossl_plain_ok_title">Turvaline ühendus pole saadaval</string>
   <string name="auth_connection_established">Saadi ühendus</string>
   <string name="auth_testing_connection">Ühenduse testimine...</string>
   <string name="auth_not_configured_title">Vigases vormingus server seadistus</string>
-  <string name="auth_not_configured_message">Näib, et sinu server pole korralikult seadistatud. Lisainfo saamiseks võta ühendust oma administraatoriga.</string>
   <string name="auth_account_not_new">Sama konto  kasutaja ja server on juba selles seadmes olemas</string>
   <string name="auth_account_not_the_same">Sisestatud kasutaja ei kattu selle konto kasutajaga</string>
   <string name="auth_unknown_error_title">Tekkis tundmatu tõrge!</string>
   <string name="auth_unknown_host_title">Hosti ei leitud</string>
-  <string name="auth_unknown_host_message">Sisestatud hosti ei leitud. Palun kontrolli hostiinme ja serveri kättesaadavust ning proovi seejärel uuesti.</string>
   <string name="auth_incorrect_path_title">server protsessi ei leitud</string>
-  <string name="auth_incorrect_path_message">Rakendus antud asukohast serverit. Palun kontrolli asukohta ja proovi uuesti.</string>
   <string name="auth_timeout_title">Serveri vastus võttis liiga kaua aega</string>
   <string name="auth_incorrect_address_title">Vigases vormingus URL</string>
   <string name="auth_ssl_general_error_title">SSL-i käivitamine ebaõnnestus</string>
-  <string name="auth_ssl_unverified_server_title">Kinnitamata SSL serveri identiteet</string>
+  <string name="auth_ssl_unverified_server_title">Serveri SSL identiteedi tuvastamine ebaõnnestus</string>
   <string name="auth_bad_oc_version_title">Tundmatu serveri versioon</string>
   <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
   <string name="auth_secure_connection">Saavutati turvaline ühendus</string>
   <string name="auth_unauthorized">Vale kasutajanimi või parool</string>
   <string name="auth_oauth_error">Autoriseerimine ebaõnnestus</string>
   <string name="auth_oauth_error_access_denied">Ligipääs keelatud autoriseeriva serveri poolt</string>
-  <string name="auth_not_found">Sisestati vale asukoht</string>
-  <string name="auth_internal">Sisemine serveri viga, kood %1$d</string>
   <string name="auth_wtf_reenter_URL">Ootamatu seisund; palun sisesta serveri URL uuesti</string>
   <string name="auth_expired_oauth_token_toast">Sinu autoriseerimine aegus. Palun autoriseeri uuesti</string>
   <string name="auth_expired_basic_auth_toast">Palun sisesta kehtiv parool</string>
@@ -208,13 +157,7 @@
   <string name="auth_connecting_auth_server">Autentimisserveriga ühendumine ...</string>
   <string name="auth_unsupported_auth_method">See server ei toeta seda autentimise viisi</string>
   <string name="auth_unsupported_multiaccount">%1$s ei toeta mitme konto kasutamist</string>
-  <string name="crashlog_message">Rakndus suleti ootamatult. Kas sa sooviksid saata kokkujooksmise kohta teavitust arendajale?</string>
-  <string name="crashlog_send_report">Saada veateade</string>
-  <string name="crashlog_dont_send_report">Ära saada veateadet</string>
-  <string name="extensions_avail_title">Saadaval on lisaprogrammid!</string>
-  <string name="extensions_avail_message">Näib, et sinu server toetab laienduste kasutamist. Kas sa sooviksid näha Androidile saada olevaid lisaprogramme ?</string>
   <string name="fd_keep_in_sync">Hoia faili ajakohasena</string>
-  <string name="common_share">Jaga</string>
   <string name="common_rename">Nimeta ümber</string>
   <string name="common_remove">Eemalda</string>
   <string name="confirmation_remove_alert">Oled sa kindel, et soovid %1$s eemaldada ?</string>
@@ -234,18 +177,13 @@
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
   <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
-  <string name="oauth_host_url">oAuth2 URL</string>
-  <string name="oauth_check_onoff">Logi sisse oAuth2 kasutades.</string>
+  <string name="oauth_check_onoff">Logi sisse oAuth2-ga</string>
   <string name="oauth_login_connection">Ühendun oAuth2 serverisse...</string>
-  <string name="oauth_code_validation_message">Palun ava veebibrauser ning mine:⏎\n%1$s.⏎\nKontrolli seda koodi seal:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">Ühendus sellel aadressile pole saadaval</string>
-  <string name="ssl_validator_title">Hoiatus</string>
   <string name="ssl_validator_header">Saidi identiteeti ei suudetud kinnitada</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Serveri sertifikaat pole usaldusväärne</string>
   <string name="ssl_validator_reason_cert_expired">- Serveri sertifikaat on aegunud</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Serveri sertifikaat kehtivad kuupäevad on alles tulevikus</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL ei kattu sertifikaadis oleva hostinimega</string>
-  <string name="ssl_validator_certificate_not_available">Serveri sertifikaati ei õnnestunud hankida</string>
   <string name="ssl_validator_question">Kas sa soovid siiski seda sertifikaati usaldada?</string>
   <string name="ssl_validator_not_saved">Sertifikaadi salvestamine ebaõnnestus</string>
   <string name="ssl_validator_btn_details_see">Üksikasjad</string>
@@ -278,8 +216,6 @@
   <string name="conflict_dont_upload">Ära uuenda</string>
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
-  <string name="preview_image_error_out_of_memory">Pole piisavat mälu pildi näitamiseks</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi failina %2$s</string>
   <string name="actionbar_failed_instant_upload">Ebaõnnestunud kohene üleslaadimine</string>
   <string name="failed_upload_headline_text">Ebaõnnestunud kohesed üleslaadimised</string>

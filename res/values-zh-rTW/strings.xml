@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">密碼：</string>
-  <string name="main_login">使用者名稱：</string>
-  <string name="main_button_login">登入</string>
-  <string name="main_welcome">歡迎</string>
-  <string name="main_files">檔案</string>
-  <string name="main_music">音樂</string>
-  <string name="main_contacts">通訊錄</string>
-  <string name="main_calendar">日曆</string>
-  <string name="main_bookmarks">書籤</string>
-  <string name="main_settings">設定</string>
-  <string name="main_tit_accsetup">設定帳號</string>
-  <string name="main_wrn_accsetup">您尚未在裝置上設定您的  帳號，您必需建立一組帳號才能繼續使用。</string>
   <string name="about_android">%1$s Android 應用程式</string>
   <string name="about_version">版本 %1$s</string>
   <string name="actionbar_sync">更新檔案列表</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">檔案</string>
   <string name="actionbar_open_with">開啟方式</string>
   <string name="actionbar_mkdir">建立目錄</string>
-  <string name="actionbar_search">搜尋</string>
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細資料</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">更多</string>
-  <string name="prefs_add_session">增加新連線</string>
-  <string name="prefs_create_img_thumbnails">建立圖片縮圖</string>
-  <string name="prefs_select_oc_account">選擇一個帳號</string>
-  <string name="prefs_summary_select_oc_account">您要使用哪幾個帳號？</string>
-  <string name="prefs_trackmydevice">裝置追蹤</string>
-  <string name="prefs_trackmydevice_summary_off">啓用此應用程式以追蹤所在位置</string>
-  <string name="prefs_trackmydevice_summary_on">此應用程式會追蹤這個裝置</string>
-  <string name="prefs_trackmydevice_interval_summary">每 %1$s 分鐘更新</string>
   <string name="prefs_accounts">帳號</string>
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode">App 密碼</string>
@@ -52,15 +31,7 @@
   <string name="auth_username">使用者名稱</string>
   <string name="auth_password">密碼</string>
   <string name="auth_register">新增到 %1$s?</string>
-  <string name="new_session_uri_error">錯誤的位址</string>
-  <string name="new_session_session_name_error">錯誤的連線名稱</string>
   <string name="sync_string_files">檔案</string>
-  <string name="uploader_no_file_selected">未選擇任何要上傳的檔案</string>
-  <string name="setup_hint_username">使用者名稱：</string>
-  <string name="setup_hint_password">密碼</string>
-  <string name="setup_hint_address">網頁位址</string>
-  <string name="setup_hint_show_password">顯示密碼？</string>
-  <string name="setup_title">連線至您的 %1$s</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上傳</string>
   <string name="uploader_top_message">選取上傳目錄:</string>
@@ -72,7 +43,6 @@
   <string name="uploader_wrn_no_content_text">沒接到任何內容。沒有什麼可上載。</string>
   <string name="uploader_error_forbidden_content">%1$s 並沒有被允許存取分享的內容</string>
   <string name="uploader_info_uploading">上傳中</string>
-  <string name="uploader_btn_create_dir_text">建立上傳目錄</string>
   <string name="file_list_empty">這個目錄目前是空的</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
@@ -81,7 +51,6 @@
   <string name="filedetails_modified">修改:</string>
   <string name="filedetails_download">下載</string>
   <string name="filedetails_sync_file">更新檔案列表</string>
-  <string name="filedetails_redownload">重新下載</string>
   <string name="filedetails_renamed_in_upload_msg">檔案名稱在上傳時已被更改為 %1$s</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
@@ -90,7 +59,6 @@
   <string name="common_cancel_upload">取消上傳</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">儲存並離開</string>
-  <string name="common_exit">離開%1$s</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">載入 …</string>
   <string name="common_error_unknown">未知的錯誤</string>
@@ -106,7 +74,6 @@
   <string name="uploader_upload_succeeded_content_single">%1$s 已成功地上傳</string>
   <string name="uploader_upload_failed_ticker">上傳失敗</string>
   <string name="uploader_upload_failed_content_single">上傳 %1$s 未完成</string>
-  <string name="uploader_upload_failed_content_multiple">上傳失敗: %1$d/%2$d 檔案已上傳</string>
   <string name="downloader_download_in_progress_ticker">下載中 ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">下載成功</string>
@@ -115,7 +82,6 @@
   <string name="downloader_download_failed_content">下載 %1$s 未完成</string>
   <string name="downloader_not_downloaded_yet">尚未下載</string>
   <string name="common_choose_account">選擇帳號</string>
-  <string name="sync_string_contacts">通訊錄</string>
   <string name="sync_fail_ticker">同步失敗</string>
   <string name="sync_fail_content">同步 %1$s 未完成</string>
   <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
@@ -132,10 +98,7 @@
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">遠端: %1$s</string>
   <string name="upload_query_move_foreign_files">無足夠的空間可以複製檔案到 %1$s 目錄. 是否使用移動的方式來處理? </string>
-  <string name="use_ssl">使用安全連線</string>
-  <string name="location_no_provider">%1$s 無法追蹤您的裝置，請檢查定位服務設定</string>
   <string name="pincode_enter_pin_code">請輸入您的 App 密碼</string>
-  <string name="pincode_enter_new_pin_code">請輸入您的新 App 密碼</string>
   <string name="pincode_configure_your_pin">輸入您的 App 密碼</string>
   <string name="pincode_configure_your_pin_explanation">這個密碼在你每次啟動這程式時都會被要求輸入</string>
   <string name="pincode_reenter_your_pincode">請重新輸入您的 App 密碼</string>
@@ -154,64 +117,35 @@
   <string name="media_err_unsupported">未支援的媒體編碼</string>
   <string name="media_err_io">無法讀取媒體檔案</string>
   <string name="media_err_malformed">媒體檔案未被正確的編碼</string>
-  <string name="media_err_timeout">太多次嘗試播放</string>
   <string name="media_err_invalid_progressive_playback">媒體檔案無法在網路播放</string>
   <string name="media_err_unknown">媒體檔案無法在正常的播放軟體播放</string>
   <string name="media_err_security_ex">在播放 %1$s 時發生安全性的錯誤</string>
   <string name="media_err_io_ex">在播放 %1$s 時發生輸入錯誤</string>
   <string name="media_err_unexpected">在播放 %1$s 時發生未知的錯誤</string>
-  <string name="media_previous_description">回到上一首按鍵</string>
   <string name="media_rewind_description">重新播放按鍵</string>
   <string name="media_play_pause_description">播放或暫停按鍵</string>
   <string name="media_forward_description">快轉按鍵</string>
-  <string name="media_next_description">下一首按鍵</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 分鐘</item>
-    <item>30 分鐘</item>
-    <item>60 分鐘</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">嘗試登入…</string>
   <string name="auth_no_net_conn_title">沒有網際網路連線</string>
-  <string name="auth_no_net_conn_message">沒有偵測到網際網路連線，請檢查您的連線然後再試一次。</string>
-  <string name="auth_connect_anyway">繼續連線</string>
   <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
-  <string name="auth_nossl_plain_ok_message">無法與伺服器建立安全連線，可以使用不安全連線（未加密）以繼續，您可以繼續或取消。</string>
   <string name="auth_connection_established">連線已建立</string>
   <string name="auth_testing_connection">測試連線中…</string>
   <string name="auth_not_configured_title">伺服器設定有問題</string>
-  <string name="auth_not_configured_message">看起來您的伺服器並未被正確設定，請聯絡服務管理者以取得協助。</string>
   <string name="auth_unknown_error_title">發生未知的錯誤！</string>
-  <string name="auth_unknown_error_message">發生未知的錯誤，請聯絡支援服務並附上您的記錄檔。</string>
   <string name="auth_unknown_host_title">找不到伺服器</string>
-  <string name="auth_unknown_host_message">無法找到伺服器. 請檢查是否正確輸入並再試一次.</string>
   <string name="auth_incorrect_path_title">找不到伺服器</string>
-  <string name="auth_incorrect_path_message">在指定的路徑找不到伺服器，請檢查您的路徑然後再試一次。</string>
   <string name="auth_timeout_title">伺服器回應逾時</string>
   <string name="auth_incorrect_address_title">URL 不正確</string>
   <string name="auth_ssl_general_error_title">SSL 初始化失敗</string>
-  <string name="auth_ssl_unverified_server_title">未經驗證的 SSL 伺服器身份</string>
   <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
   <string name="auth_wrong_connection_title">無法建立連線</string>
   <string name="auth_secure_connection">安全連線已建立</string>
   <string name="auth_unauthorized">錯誤的使用者或密碼</string>
   <string name="auth_oauth_error">未成功登入</string>
   <string name="auth_oauth_error_access_denied">被授登伺服器拒絕登入</string>
-  <string name="auth_not_found"> 錯誤的路徑</string>
-  <string name="auth_internal">內部錯誤, 代碼 %1$d</string>
   <string name="auth_wtf_reenter_URL">未知的狀態; 請再輸入一次伺服器的名稱</string>
   <string name="auth_expired_basic_auth_toast">請輸入目錄的密碼</string>
-  <string name="crashlog_message">程式未預期的錯誤. 你要寄送錯誤的分析報告嗎?</string>
-  <string name="crashlog_send_report">發送報告</string>
-  <string name="crashlog_dont_send_report">不要發送報告</string>
-  <string name="extensions_avail_title">延伸功能可以使用!</string>
-  <string name="extensions_avail_message">你的伺服器支援某些延伸功能. 你是否要使用他們?</string>
   <string name="fd_keep_in_sync">讓檔案保持最新的</string>
-  <string name="common_share">分享</string>
   <string name="common_rename">重新命名</string>
   <string name="common_remove">移除</string>
   <string name="confirmation_remove_alert">您真的要移除 %1$s ?</string>
@@ -231,18 +165,12 @@
   <string name="wait_a_moment">請稍後</string>
   <string name="filedisplay_unexpected_bad_get_content">未知的問題; 請選擇其他程式開啟檔案</string>
   <string name="filedisplay_no_file_selected">沒有挑選檔案</string>
-  <string name="oauth_host_url">oAuth2 網址</string>
-  <string name="oauth_check_onoff">以 oAuth2 方式登入.</string>
   <string name="oauth_login_connection">連線到 oAuth2 伺服器…</string>
-  <string name="oauth_code_validation_message">請打開瀏覽器連到:\n%1$s.\n檢查碼為:\n%2$s</string>
-  <string name="oauth_connection_url_unavailable">無法連線到該網址.</string>
-  <string name="ssl_validator_title">警告</string>
   <string name="ssl_validator_header">這個網站的憑證無法被驗證</string>
   <string name="ssl_validator_reason_cert_not_trusted">- 這個伺服器使用未被信任的憑證</string>
   <string name="ssl_validator_reason_cert_expired">- 這個伺服器的憑證已過期</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- 這個伺服器的憑證有效期限不正確</string>
   <string name="ssl_validator_reason_hostname_not_verified">- 這個伺服器的憑證與使用的伺服器名稱不一樣</string>
-  <string name="ssl_validator_certificate_not_available">無法取得伺服器的憑證</string>
   <string name="ssl_validator_question">你是否要信任這個伺服器的憑證?</string>
   <string name="ssl_validator_not_saved">無法儲存憑證</string>
   <string name="ssl_validator_btn_details_see">細節</string>
@@ -275,8 +203,6 @@
   <string name="conflict_dont_upload">不要上載</string>
   <string name="preview_image_description">圖片預覽</string>
   <string name="preview_image_error_unknown_format">無法顯示圖片</string>
-  <string name="preview_image_error_out_of_memory">\"沒有足夠的記憶體來顯示圖片</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地目錄 %2$s</string>
   <string name="actionbar_failed_instant_upload">即時上傳失敗</string>
   <string name="failed_upload_headline_text">即時上傳失敗</string>
