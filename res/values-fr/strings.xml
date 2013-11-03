@@ -121,6 +121,7 @@
   <string name="media_err_unsupported">Le codec de ce média n\'est pas supporté </string>
   <string name="media_err_io">Le fichier média ne peut pas être lu</string>
   <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
+  <string name="media_err_timeout">Délai dépassé pour la lecture du morceau.</string>
   <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
   <string name="media_err_unknown">Fichier média ne peut être joué avec le stock de media player</string>
   <string name="media_err_security_ex">taux %1$s erreurs de sécurité essayant de jouer</string>
@@ -143,6 +144,7 @@
   <string name="auth_timeout_title">Le serveur met trop longtemps à répondre</string>
   <string name="auth_incorrect_address_title">Adresse invalide</string>
   <string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
+  <string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL.</string>
   <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
   <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
   <string name="auth_secure_connection">Connexion sécurisée établie</string>
@@ -176,6 +178,7 @@
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez essayer une autre app pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
+  <string name="oauth_check_onoff">Connexion avec aAuth2.</string>
   <string name="oauth_login_connection">Connexion au serveur aAuth2...</string>
   <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
