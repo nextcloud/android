@@ -9,9 +9,10 @@
     <string name ="data_folder">owncloud</string>
     <string name ="log_name">Owncloud_</string>
     
-    <!-- Server URL -->
+    <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
+	<string name="url_account_register">"https://owncloud.com/mobile/new"</string>
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
@@ -19,6 +20,7 @@
     
     <!-- Colors -->
     <color name="login_background_color">#FFFFFF</color>
+    <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
