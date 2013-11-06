@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.webdav;
+package com.owncloud.android.network.webdav;
 
 public interface OnDatatransferProgressListener {
     public void onTransferProgress(long progressRate);

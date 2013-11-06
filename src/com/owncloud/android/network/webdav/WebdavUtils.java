@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.webdav;
+package com.owncloud.android.network.webdav;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

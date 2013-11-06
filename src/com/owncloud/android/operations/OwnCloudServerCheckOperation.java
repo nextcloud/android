@@ -24,9 +24,9 @@ import org.json.JSONObject;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.utils.OwnCloudVersion;
 
-import eu.alefzero.webdav.WebdavClient;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;

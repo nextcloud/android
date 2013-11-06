@@ -4,12 +4,12 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavUtils;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Remote operation performing the creation of a new folder in the ownCloud server.

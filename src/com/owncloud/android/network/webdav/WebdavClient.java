@@ -16,7 +16,7 @@
  *
  */
 
-package eu.alefzero.webdav;
+package com.owncloud.android.network.webdav;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +46,7 @@ import com.owncloud.android.MainApp;
 
 import com.owncloud.android.network.BearerAuthScheme;
 import com.owncloud.android.network.BearerCredentials;
+
 
 import android.net.Uri;
 

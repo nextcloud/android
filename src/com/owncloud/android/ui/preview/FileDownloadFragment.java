@@ -33,12 +33,12 @@ import android.widget.TextView;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.

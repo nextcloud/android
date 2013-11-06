@@ -39,8 +39,8 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.network.webdav.WebdavClient;
 
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Dialog to show the WebView for SAML Authentication

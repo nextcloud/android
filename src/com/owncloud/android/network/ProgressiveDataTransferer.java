@@ -19,7 +19,8 @@ package com.owncloud.android.network;
 
 import java.util.Collection;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
+
 
 public interface ProgressiveDataTransferer {
 

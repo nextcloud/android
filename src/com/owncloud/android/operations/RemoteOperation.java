@@ -24,6 +24,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 
 import android.accounts.Account;
@@ -33,7 +34,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Operation which execution involves one or several interactions with an ownCloud server.

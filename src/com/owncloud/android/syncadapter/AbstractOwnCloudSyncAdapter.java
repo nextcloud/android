@@ -28,6 +28,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.network.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -36,7 +37,6 @@ import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different

@@ -31,9 +31,10 @@ import java.util.concurrent.ConcurrentMap;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
@@ -61,7 +62,6 @@ import android.widget.RemoteViews;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     

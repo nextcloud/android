@@ -29,10 +29,10 @@ import android.content.Context;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.OwnCloudVersion;
 
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Remote operation that checks the version of an ownCloud server and stores it locally

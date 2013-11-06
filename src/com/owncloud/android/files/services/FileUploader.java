@@ -46,11 +46,12 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.OwnCloudVersion;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavEntry;
-import eu.alefzero.webdav.WebdavUtils;
 
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavEntry;
+import com.owncloud.android.network.webdav.WebdavUtils;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -81,7 +82,6 @@ import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 
-import eu.alefzero.webdav.WebdavClient;
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {
 

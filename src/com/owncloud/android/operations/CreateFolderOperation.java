@@ -20,10 +20,10 @@ package com.owncloud.android.operations;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.operations.remote.CreateRemoteFolderOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Access to remote operation performing the creation of a new folder in the ownCloud server.

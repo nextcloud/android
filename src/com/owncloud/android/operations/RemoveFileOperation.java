@@ -23,9 +23,9 @@ import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavUtils;
 
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Remote operation performing the removal of a remote file or folder in the ownCloud server.

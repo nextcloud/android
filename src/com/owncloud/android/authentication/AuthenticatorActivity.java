@@ -57,6 +57,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.operations.ExistenceCheckOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.OnRemoteOperationListener;
@@ -69,7 +70,6 @@ import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.OwnCloudVersion;
 
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * This Activity is used to add an ownCloud account to the App

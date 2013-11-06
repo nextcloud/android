@@ -38,15 +38,15 @@ import android.accounts.Account;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.network.ProgressiveDataTransferer;
+import com.owncloud.android.network.webdav.FileRequestEntity;
+import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavUtils;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import eu.alefzero.webdav.FileRequestEntity;
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Remote operation performing the upload of a file to an ownCloud server

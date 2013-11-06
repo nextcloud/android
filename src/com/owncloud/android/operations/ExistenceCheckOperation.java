@@ -21,9 +21,9 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.HeadMethod;
 
 import com.owncloud.android.Log_OC;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavUtils;
 
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 

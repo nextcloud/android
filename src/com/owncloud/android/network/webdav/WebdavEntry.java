@@ -14,7 +14,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package eu.alefzero.webdav;
+package com.owncloud.android.network.webdav;
 
 import java.util.Date;
 
@@ -24,6 +24,7 @@ import org.apache.jackrabbit.webdav.property.DavPropertyName;
 import org.apache.jackrabbit.webdav.property.DavPropertySet;
 
 import com.owncloud.android.Log_OC;
+
 
 import android.net.Uri;
 

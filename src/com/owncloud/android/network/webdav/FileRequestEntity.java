@@ -1,4 +1,5 @@
 /* ownCloud Android client application
+ *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -15,11 +16,12 @@
  *
  */
 
-package eu.alefzero.webdav;
+package com.owncloud.android.network.webdav;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Collection;
@@ -32,64 +34,42 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.network.ProgressiveDataTransferer;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 
 /**
- * A RequestEntity that represents a PIECE of a file.
+ * A RequestEntity that represents a File.
  * 
- * @author David A. Velasco
  */
-public class ChunkFromFileChannelRequestEntity implements RequestEntity, ProgressiveDataTransferer {
+public class FileRequestEntity implements RequestEntity, ProgressiveDataTransferer {
 
-    private static final String TAG = ChunkFromFileChannelRequestEntity.class.getSimpleName();
-    
-    //private final File mFile;
-    private final FileChannel mChannel;
-    private final String mContentType;
-    private final long mChunkSize;
-    private final File mFile;
-    private long mOffset;
-    private long mTransferred;
+    final File mFile;
+    final String mContentType;
     Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
-    private ByteBuffer mBuffer = ByteBuffer.allocate(4096);
 
-    public ChunkFromFileChannelRequestEntity(final FileChannel channel, final String contentType, long chunkSize, final File file) {
+    public FileRequestEntity(final File file, final String contentType) {
         super();
-        if (channel == null) {
+        this.mFile = file;
+        this.mContentType = contentType;
+        if (file == null) {
             throw new IllegalArgumentException("File may not be null");
         }
-        if (chunkSize <= 0) {
-            throw new IllegalArgumentException("Chunk size must be greater than zero");
-        }
-        mChannel = channel;
-        mContentType = contentType;
-        mChunkSize = chunkSize;
-        mFile = file;
-        mOffset = 0;
-        mTransferred = 0;
     }
     
-    public void setOffset(long offset) {
-        mOffset = offset;
-    }
-    
+    @Override
     public long getContentLength() {
-        try {
-            return Math.min(mChunkSize, mChannel.size() - mChannel.position());
-        } catch (IOException e) {
-            return mChunkSize;
-        }
+        return mFile.length();
     }
 
+    @Override
     public String getContentType() {
         return mContentType;
     }
 
+    @Override
     public boolean isRepeatable() {
         return true;
     }
-    
+
     @Override
     public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
@@ -112,34 +92,40 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity, Progres
     }
     
     
+    @Override
     public void writeRequest(final OutputStream out) throws IOException {
-        int readCount = 0;
-        Iterator<OnDatatransferProgressListener> it = null;
+        //byte[] tmp = new byte[4096];
+        ByteBuffer tmp = ByteBuffer.allocate(4096);
+        int readResult = 0;
         
-       try {
-            mChannel.position(mOffset);
-            long size = mFile.length();
-            if (size == 0) size = -1;
-            long maxCount = Math.min(mOffset + mChunkSize, mChannel.size());
-            while (mChannel.position() < maxCount) {
-                readCount = mChannel.read(mBuffer);
-                out.write(mBuffer.array(), 0, readCount);
-                mBuffer.clear();
-                if (mTransferred < maxCount) {  // condition to avoid accumulate progress for repeated chunks
-                    mTransferred += readCount;
-                }
+        // TODO(bprzybylski): each mem allocation can throw OutOfMemoryError we need to handle it
+        //                    globally in some fashionable manner
+        RandomAccessFile raf = new RandomAccessFile(mFile, "r");
+        FileChannel channel = raf.getChannel();
+        Iterator<OnDatatransferProgressListener> it = null;
+        long transferred = 0;
+        long size = mFile.length();
+        if (size == 0) size = -1;
+        try {
+            while ((readResult = channel.read(tmp)) >= 0) {
+                out.write(tmp.array(), 0, readResult);
+                tmp.clear();
+                transferred += readResult;
                 synchronized (mDataTransferListeners) {
                     it = mDataTransferListeners.iterator();
                     while (it.hasNext()) {
-                        it.next().onTransferProgress(readCount, mTransferred, size, mFile.getName());
+                        it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
                     }
                 }
             }
             
         } catch (IOException io) {
-            Log_OC.e(TAG, io.getMessage());
+            Log_OC.e("FileRequestException", io.getMessage());
             throw new RuntimeException("Ugly solution to workaround the default policy of retries when the server falls while uploading ; temporal fix; really", io);   
             
+        } finally {
+            channel.close();
+            raf.close();
         }
     }
 

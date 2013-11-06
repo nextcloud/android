@@ -39,10 +39,10 @@ import org.apache.http.conn.ssl.X509HostnameVerifier;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.network.webdav.WebdavClient;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 
-import eu.alefzero.webdav.WebdavClient;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

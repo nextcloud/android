@@ -30,12 +30,12 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.network.ProgressiveDataTransferer;
+import com.owncloud.android.network.webdav.ChunkFromFileChannelRequestEntity;
+import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.network.webdav.WebdavUtils;
 
 import android.accounts.Account;
 
-import eu.alefzero.webdav.ChunkFromFileChannelRequestEntity;
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 public class ChunkedUploadFileOperation extends UploadFileOperation {
     
