@@ -12,6 +12,7 @@
     <!-- Server URL -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
+    <bool name="show_welcome_link">true</bool>
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>

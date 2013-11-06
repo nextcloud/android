@@ -193,13 +193,18 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set Host Url Input Enabled
         mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
         
-
-        /// complete label for 'register account' button
-        Button b = (Button) findViewById(R.id.account_register);
-        if (b != null) {
-            b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
+        /// set visibility of link for new users
+        boolean accountRegisterVisibility = getResources().getBoolean(R.bool.show_welcome_link);
+        Button welcomeLink = (Button) findViewById(R.id.welcome_link);
+        if (welcomeLink != null) {
+            if (accountRegisterVisibility) {
+                welcomeLink.setVisibility(View.VISIBLE);
+                welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
+            } else {
+                findViewById(R.id.welcome_link).setVisibility(View.GONE);
+            }
         }
-        
+
         /// initialization
         mAccountMgr = AccountManager.get(this);
         mNewCapturedUriFromOAuth2Redirection = null;
