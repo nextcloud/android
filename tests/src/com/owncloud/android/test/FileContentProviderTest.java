@@ -23,7 +23,7 @@ public class FileContentProviderTest extends ProviderTestCase2<FileContentProvid
 	}
 	
 	public FileContentProviderTest() {
-		super(FileContentProvider.class, "com.owncloud.android.provicers.FileContentProvider");	
+		super(FileContentProvider.class, "com.owncloud.android.providers.FileContentProvider");	
 	}
 	
 	@Override
