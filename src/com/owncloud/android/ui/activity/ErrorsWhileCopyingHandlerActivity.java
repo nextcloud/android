@@ -43,8 +43,10 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.FileStorageUtils;
+
 
 
 /**
@@ -118,6 +120,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         /// customize buttons
         Button cancelBtn = (Button) findViewById(R.id.cancel);
         Button okBtn = (Button) findViewById(R.id.ok);
+        
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);

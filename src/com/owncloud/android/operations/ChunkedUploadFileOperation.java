@@ -31,6 +31,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.network.ProgressiveDataTransferer;
 
+
 import android.accounts.Account;
 
 import eu.alefzero.webdav.ChunkFromFileChannelRequestEntity;

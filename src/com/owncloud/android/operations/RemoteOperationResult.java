@@ -33,12 +33,13 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 
-import android.accounts.Account;
-import android.accounts.AccountsException;
-
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.network.CertificateCombinedException;
+
+import android.accounts.Account;
+import android.accounts.AccountsException;
+
 
 /**
  * The result of a remote operation required to an ownCloud server.

@@ -48,23 +48,24 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 

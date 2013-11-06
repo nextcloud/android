@@ -33,6 +33,7 @@ import javax.net.ssl.X509TrustManager;
 
 import com.owncloud.android.Log_OC;
 
+
 /**
  * @author David A. Velasco
  */

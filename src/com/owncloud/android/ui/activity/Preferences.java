@@ -41,6 +41,7 @@ import com.owncloud.android.OwnCloudSession;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
 
+
 /**
  * An Activity that allows the user to change the application's settings.
  * 

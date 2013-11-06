@@ -29,6 +29,7 @@ import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.network.OwnCloudClientUtils;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;

@@ -28,6 +28,7 @@ import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 
 
+
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;

@@ -30,6 +30,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.utils.FileStorageUtils;
 
+
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;

@@ -63,9 +63,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.OnRemoteOperationListener;
@@ -88,6 +88,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+
 
 /**
  * Displays, what files the user has available in his ownCloud.

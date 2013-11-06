@@ -12,6 +12,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.OAuth2Constants;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 
+
 import eu.alefzero.webdav.WebdavClient;
 
 public class OAuth2GetAccessToken extends RemoteOperation {

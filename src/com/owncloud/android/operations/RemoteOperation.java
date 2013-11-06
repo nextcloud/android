@@ -26,6 +26,7 @@ import com.owncloud.android.network.BearerCredentials;
 import com.owncloud.android.network.OwnCloudClientUtils;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;

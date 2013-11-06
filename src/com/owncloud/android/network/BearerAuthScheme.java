@@ -29,6 +29,7 @@ import org.apache.commons.httpclient.auth.MalformedChallengeException;
 
 import com.owncloud.android.Log_OC;
 
+
 /**
  * Bearer authentication scheme as defined in RFC 6750.
  * 

@@ -32,6 +32,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 
 
+
 /**
  * Dialog to request the user to input a name, optionally initialized with a former name.
  * 

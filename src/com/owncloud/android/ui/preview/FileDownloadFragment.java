@@ -19,6 +19,12 @@ package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.ui.fragment.FileFragment;
+
 import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
@@ -31,12 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.ui.fragment.FileFragment;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
 
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 

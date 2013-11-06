@@ -21,15 +21,16 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
-//import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
-
-import android.accounts.Account;
 
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
+//import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
+
+import android.accounts.Account;
+
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;

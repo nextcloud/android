@@ -19,7 +19,10 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,8 +35,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.

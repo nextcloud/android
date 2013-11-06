@@ -30,6 +30,7 @@ import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;

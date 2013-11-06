@@ -21,6 +21,7 @@ import java.lang.ref.WeakReference;
 
 import com.owncloud.android.Log_OC;
 
+
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;

@@ -2,6 +2,8 @@ package com.owncloud.android.ui.adapter;
 
 import java.io.File;
 
+import com.owncloud.android.R;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.owncloud.android.R;
 
 
 public class LogListAdapter extends ArrayAdapter<String> {

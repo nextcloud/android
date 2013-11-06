@@ -36,11 +36,12 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.MainApp;
+
 
 import eu.alefzero.webdav.WebdavClient;
 

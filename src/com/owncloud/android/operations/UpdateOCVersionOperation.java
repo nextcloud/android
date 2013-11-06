@@ -22,15 +22,16 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.OwnCloudVersion;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
 
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.utils.OwnCloudVersion;
 
 import eu.alefzero.webdav.WebdavClient;
 

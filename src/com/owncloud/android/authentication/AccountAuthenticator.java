@@ -18,6 +18,10 @@
 
 package com.owncloud.android.authentication;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+
 import android.accounts.*;
 import android.content.Context;
 import android.content.Intent;
@@ -25,10 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.MainApp;
 
-import com.owncloud.android.R;
 
 
 /**

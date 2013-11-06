@@ -23,16 +23,17 @@ import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.content.Intent;
-
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+
+import android.accounts.Account;
+import android.content.Context;
+import android.content.Intent;
+
 
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavEntry;

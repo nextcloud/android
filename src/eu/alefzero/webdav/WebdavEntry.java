@@ -25,6 +25,7 @@ import org.apache.jackrabbit.webdav.property.DavPropertySet;
 
 import com.owncloud.android.Log_OC;
 
+
 import android.net.Uri;
 
 public class WebdavEntry {

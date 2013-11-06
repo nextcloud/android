@@ -47,13 +47,13 @@ import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
-
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+
 
 public class AccountSelectActivity extends SherlockListActivity implements
         AccountManagerCallback<Boolean> {

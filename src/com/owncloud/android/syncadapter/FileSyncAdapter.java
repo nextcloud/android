@@ -38,6 +38,7 @@ import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 
+
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.Notification;

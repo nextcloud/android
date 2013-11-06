@@ -52,6 +52,8 @@ import android.widget.VideoView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaControlView;
@@ -66,8 +68,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
 import eu.alefzero.webdav.WebdavUtils;
 
 /**

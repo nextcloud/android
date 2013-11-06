@@ -49,7 +49,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.Log_OC;
@@ -68,6 +67,7 @@ import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.OwnCloudVersion;
+
 
 import eu.alefzero.webdav.WebdavClient;
 
@@ -193,11 +193,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set Host Url Input Enabled
         mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
         
-
-        /// complete label for 'register account' button
-        Button b = (Button) findViewById(R.id.account_register);
-        if (b != null) {
-            b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+        /// set visibility of link for new users
+        boolean accountRegisterVisibility = getResources().getBoolean(R.bool.show_welcome_link);
+        Button welcomeLink = (Button) findViewById(R.id.welcome_link);
+        if (welcomeLink != null) {
+            if (accountRegisterVisibility) {
+                welcomeLink.setVisibility(View.VISIBLE);
+                welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
+            } else {
+                findViewById(R.id.welcome_link).setVisibility(View.GONE);
+            }
         }
 
         /// initialization
@@ -1397,7 +1402,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param view      'Account register' button
      */
     public void onRegisterClick(View view) {
-        Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_account_register)));
+        Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.welcome_link_url)));
         setResult(RESULT_CANCELED);
         startActivity(register);
     }

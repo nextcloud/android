@@ -17,6 +17,15 @@
 
 package com.owncloud.android.ui.preview;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.media.MediaService;
+import com.owncloud.android.ui.activity.FileActivity;
+
 import android.accounts.Account;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -29,15 +38,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.media.MediaService;
-import com.owncloud.android.ui.activity.FileActivity;
 
 /**
  *  Activity implementing a basic video player.

@@ -26,6 +26,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.Log_OC;
 
+
 public class ConfirmationDialogFragment extends SherlockDialogFragment {
 
     public final static String ARG_CONF_RESOURCE_ID = "resource_id";

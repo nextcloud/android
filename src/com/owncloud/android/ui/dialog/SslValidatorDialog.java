@@ -29,6 +29,12 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
+import com.owncloud.android.network.CertificateCombinedException;
+import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.operations.RemoteOperationResult;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -37,11 +43,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
-import com.owncloud.android.network.CertificateCombinedException;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.RemoteOperationResult;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.
@@ -142,11 +143,11 @@ public class SslValidatorDialog extends Dialog {
                        View detailsScroll = findViewById(R.id.details_scroll);
                        if (detailsScroll.getVisibility() == View.VISIBLE) {
                            detailsScroll.setVisibility(View.GONE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_see);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_see);
                            
                        } else {
                            detailsScroll.setVisibility(View.VISIBLE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_hide);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
                        }
                     }
                 });

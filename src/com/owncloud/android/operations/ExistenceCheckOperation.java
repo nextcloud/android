@@ -22,6 +22,7 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 
 import com.owncloud.android.Log_OC;
 
+
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
 import android.content.Context;

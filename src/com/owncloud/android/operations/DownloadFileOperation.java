@@ -38,6 +38,7 @@ import com.owncloud.android.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoteOperationResult;
 import com.owncloud.android.utils.FileStorageUtils;
 
+
 import eu.alefzero.webdav.OnDatatransferProgressListener;
 import eu.alefzero.webdav.WebdavClient;
 import eu.alefzero.webdav.WebdavUtils;
