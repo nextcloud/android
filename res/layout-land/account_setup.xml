@@ -37,6 +37,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:layout_gravity="center"
+			android:background="@color/login_logo_background_color"
 			android:src="@drawable/logo" 
 			/>
 		
