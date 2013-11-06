@@ -1,52 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">รหัสผ่าน:</string>
-  <string name="main_login">ชื่อผู้ใช้:</string>
-  <string name="main_button_login">เข้าสู่ระบบ</string>
-  <string name="main_welcome">ยินดีต้อนรับ</string>
-  <string name="main_files">ไฟล์</string>
-  <string name="main_music">เพลง</string>
-  <string name="main_contacts">ข้อมูลผู้ติดต่อ</string>
-  <string name="main_calendar">ปฏิทิน</string>
-  <string name="main_bookmarks">รายการโปรด</string>
-  <string name="main_settings">ตั้งค่า</string>
-  <string name="main_tit_accsetup">ตั้งค่าบัญชี</string>
-  <string name="main_wrn_accsetup">ไม่มีบัญชีของคุณอยู่บนอุปกรณ์ของคุณ หากต้องการใช้งานแอปตัวนี้ คุณจำเป็นต้องสร้างบัญชีใหม่</string>
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
   <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
   <string name="actionbar_upload_files">ไฟล์</string>
   <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
-  <string name="actionbar_search">ค้นหา</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="prefs_category_general">ทั่วไป</string>
-  <string name="prefs_add_session">เพิ่มเซสชั่นใหม่</string>
-  <string name="prefs_create_img_thumbnails">สร้างรูปภาพขนาดย่อ</string>
-  <string name="prefs_select_oc_account">เลือกบัญชี</string>
-  <string name="prefs_summary_select_oc_account">เลือกบัญชีที่ต้องการใช้งานกับแอปตัวนี้</string>
-  <string name="prefs_trackmydevice">ตรวจหาอุปกรณ์</string>
-  <string name="prefs_trackmydevice_summary_off">เปิดให้ ตรวจหาตำแหน่งที่อยู่อุปกรณ์ของคุณ</string>
-  <string name="prefs_trackmydevice_summary_on">กำลังติดตามอุปกรณ์นี้อยู่</string>
-  <string name="prefs_trackmydevice_interval">ช่วงเวลาการอัพเดท</string>
-  <string name="prefs_trackmydevice_interval_summary">อัพเดททุก %1$s นาที</string>
+  <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
   <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">ป้องกันโปรแกรมไคลเอนต์ ของคุณ</string>
   <string name="prefs_instant_upload">เปิดใช้งานระบบอัพโหลดได้ทันที</string>
   <string name="prefs_instant_upload_summary">อัพโหลดรูปภาพจากกล้องขึ้นไปทันที</string>
+  <string name="prefs_help">ช่วยเหลือ</string>
   <string name="auth_host_url">ที่อยู่เซิร์ฟเวอร์</string>
   <string name="auth_username">ชื่อผู้ใช้</string>
   <string name="auth_password">รหัสผ่าน</string>
-  <string name="new_session_uri_error">ที่อยู่ URL ไม่ถูกต้อง</string>
-  <string name="new_session_session_name_error">ชื่อเซสชั่นไม่ถูกต้อง</string>
   <string name="sync_string_files">ไฟล์</string>
-  <string name="uploader_no_file_selected">ยังไม่ได้เลือกไฟล์สำหรับอัพโหลด</string>
-  <string name="setup_hint_username">ชื่อผู้ใช้</string>
-  <string name="setup_hint_password">รหัสผ่าน</string>
-  <string name="setup_hint_address">ที่อยู่เว็บ</string>
-  <string name="setup_hint_show_password">แสดงรหัสผ่าน?</string>
-  <string name="setup_title">เชื่อมต่อกับ %1$s ของคุณ</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
@@ -57,7 +29,6 @@
   <string name="uploader_wrn_no_content_text">ยังไม่ได้รับเนื้อหา ไม่มีอะไรให้ต้องอัพโหลด</string>
   <string name="uploader_error_forbidden_content">%1$s ไม่อนุญาตให้เข้าถึงเนื้อหาที่ถูกแชร์ไว้</string>
   <string name="uploader_info_uploading">กำลังอัพโหลด</string>
-  <string name="uploader_btn_create_dir_text">สร้างไดเร็กทอรี่สำหรับอัพโหลด</string>
   <string name="file_list_empty">ยังไม่มีไฟล์อยู่ในโฟลเดอร์นี้.\nสามารถเพิ่มไฟล์ใหม่ได้จากตัวเลือกในเมนู \"อัพโหลด\".</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
@@ -65,7 +36,6 @@
   <string name="filedetails_created">สร้างเมื่อ:</string>
   <string name="filedetails_modified">แก้ไขเมื่อ:</string>
   <string name="filedetails_download">ดาวน์โหลด</string>
-  <string name="filedetails_redownload">ดาวน์โหลดใหม่อีกครั้ง</string>
   <string name="filedetails_renamed_in_upload_msg">ไฟล์ได้ถูกเปลี่ยนชื่อเป็น %1$s ในระหว่างการอัพโหลด</string>
   <string name="common_yes">ตกลง</string>
   <string name="common_no">ไม่ตกลง</string>
@@ -74,7 +44,6 @@
   <string name="common_cancel_upload">ยกเลิกการอัพโหลด</string>
   <string name="common_cancel">ยกเลิก</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
-  <string name="common_exit">ออกจาก%1$s</string>
   <string name="common_error">ข้อผิดพลาด</string>
   <string name="about_title">เกี่ยวกับเรา</string>
   <string name="change_password">เปลี่ยนรหัสผ่าน</string>
@@ -86,10 +55,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% กำลังอัพโหลด %2$s</string>
   <string name="uploader_upload_succeeded_ticker">อัพโหลดเสร็จสิ้น</string>
   <string name="uploader_upload_succeeded_content_single">%1$s ได้ถูกอัพโหลดเรียบร้อยแล้ว</string>
-  <string name="uploader_upload_succeeded_content_multiple">ไฟล์ %1$d ได้ถูกอัพโหลดเรียบร้อยแล้ว</string>
   <string name="uploader_upload_failed_ticker">อัพโหลดล้มเหลว</string>
   <string name="uploader_upload_failed_content_single">การอัพโหลด %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
-  <string name="uploader_upload_failed_content_multiple">การอัพโหลดล้มเหลว: ไฟล์ %1$d/%2$d ถูกอัพโหลดแล้ว</string>
   <string name="downloader_download_in_progress_ticker">กำลังดาวน์โหลด ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% กำลังดาวน์โหลด %2$s</string>
   <string name="downloader_download_succeeded_ticker">ดาวน์โหลดเสร็จสิ้น</string>
@@ -97,7 +64,6 @@
   <string name="downloader_download_failed_ticker">ดาวน์โหลดล้มเหลว</string>
   <string name="downloader_download_failed_content">การดาวน์โหลด %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
   <string name="common_choose_account">เลือกบัญชี</string>
-  <string name="sync_string_contacts">ข้อมูลผู้ิติดต่อ</string>
   <string name="sync_fail_ticker">การเชื่อมผสานข้อมูลล้มเหลว</string>
   <string name="sync_fail_content">การเชื่อมผสานข้อมูลของ %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้</string>
   <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
@@ -111,10 +77,7 @@
   <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
   <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
   <string name="upload_query_move_foreign_files">ไม่มีพื้นที่เหลือเพียงพอสำหรับคัดลอกแฟ้มข้อมูลที่เลือกไว้ไปที่โฟลเดอร์ %1$s คุณต้องการย้ายมันแทนหรือไม่</string>
-  <string name="use_ssl">ใช้การเชื่อมต่อที่มีการรักษาความปลอดภัย</string>
-  <string name="location_no_provider">%1$s ไม่สามารถตรวจหาอุปกรณ์ของคุณได้ กรุณาตรวจสอบการตั้งค่าตำแหน่งที่อยู่ของคุณ</string>
   <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
-  <string name="pincode_enter_new_pin_code">กรุณาใส่รหัส PIN แอปตัวใหม่ของคุณ</string>
   <string name="pincode_configure_your_pin">กรอกรหัส PIN ของ  App</string>
   <string name="pincode_configure_your_pin_explanation">หมายเลข PIN ดังกล่าวจะถูกร้องขอทุกครั้งที่เริ่มใช้งานแอปฯ</string>
   <string name="pincode_reenter_your_pincode">กรุณากรอกรหัส PIN ของแอป  App ใหม่อีกครั้ง</string>
@@ -123,48 +86,22 @@
   <string name="pincode_wrong">รหัส PIN App ไม่ถูกต้อง</string>
   <string name="pincode_removed">รหัส PIN แอปสำหรับ   ถูกลบออกแล้ว</string>
   <string name="pincode_stored">จัดเก็บรหัส PIN แอป ของ  แล้ว</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 นาที</item>
-    <item>30 นาที</item>
-    <item>60 นาที</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">กำลังเข้าสู่ระบบ...</string>
   <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
-  <string name="auth_no_net_conn_message">ไม่พบการเชื่อมต่อเครือข่ายใด กรุณาตรวจสอบสถานะการเชื่อมต่ออินเทอร์เน็ตของคุณ แล้วลองใหม่อีกครั้ง</string>
-  <string name="auth_connect_anyway">เชื่อมต่ออยู่แล้ว</string>
   <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบรักษาความปลอดภัยไม่สามารถใช้งานได้</string>
-  <string name="auth_nossl_plain_ok_message">แอพพลิเคชั่นยังไม่ได้ติดตั้งการเชื่อมต่อแบบปลอดภัยกับเซิร์ฟเวอร์ ถึงแม้ว่าจะมีการเชื่อมต่อแบบที่ยังไม่ได้กำหนดให้มีความปลอดภัย คุณสามารถดำเนินการต่อไป หรือยกเลิกได้</string>
   <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
   <string name="auth_testing_connection">กำลังทดสอบการเชื่อมต่อ...</string>
   <string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
-  <string name="auth_not_configured_message">ดูเหมือนว่าค่าตัวอย่างเซิร์ฟเวอร์ ของคุณยังไม่ได้ถูกกำหนดค่าอย่างถูกต้อง กรุณาติดต่อผู้ดูแลระบบของคุณ สำหรับรายละเอียดเพิ่มเติม</string>
   <string name="auth_unknown_error_title">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ!</string>
-  <string name="auth_unknown_error_message">เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ กรุณาติดต่อเจ้าของและดูบันทึกข้อมูลการใช้งานจากอุปกรณ์ของคุณ</string>
   <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
-  <string name="auth_unknown_host_message">ไม่พบโฮสต์ตามข้อมูลที่กรอก กรุณาตรวจสอบชื่อโฮสต์และเซิร์ฟเวอร์ที่สามารถใช้งานได้ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_incorrect_path_title">ไม่พบค่าตัวอย่างเซิร์ฟเวอร์</string>
-  <string name="auth_incorrect_path_message">แอพพลิเคชั่นไม่สามารถค้นพบค่าตัวอย่าง เซิร์ฟเวอร์ ตามตำแหน่งพาธที่ระบุไว้ได้ กรุณาตรวจสอบตำแหน่งของคุณ แล้วลองใหม่อีกครั้ง</string>
   <string name="auth_timeout_title">เซิร์ฟเวอร์ดังกล่าวใช้เวลาตอบสนองนานเกินไป</string>
   <string name="auth_incorrect_address_title">Malformed URL</string>
   <string name="auth_ssl_general_error_title">การเตรียมใช้งาน SSL ล้มเหลว</string>
-  <string name="auth_ssl_unverified_server_title">ข้อมูลการเข้าใช้งานเซิร์ฟเวอร์ SSL ยังไม่ได้ยืนยันความถูกต้อง</string>
   <string name="auth_bad_oc_version_title">รุ่นของเซิร์ฟเวอร์เซิร์ฟเวอร์ ไม่เป็นที่รู้จัก</string>
   <string name="auth_wrong_connection_title">ไม่สามารถเชื่อมต่อได้</string>
   <string name="auth_secure_connection">ดำเนินการติดตั้งการเชื่อมต่อแบบปลอดภัยเรียบร้อย</string>
-  <string name="auth_not_found">กรอกตำแหน่งพาธไม่ถูกต้อง</string>
-  <string name="auth_internal">เกิดข้อผิดพลาดภายในเซิร์ฟเวอร์ รหัส %1$d</string>
-  <string name="crashlog_message">แอพพลิเคชั่นได้สิ้นสุดการทำงานอย่างไม่คาดคิด คุณต้องการแจ้งข้อมูลความบกพร่องดังกล่าวหรือไม่?</string>
-  <string name="crashlog_send_report">ส่งรายงาน</string>
-  <string name="crashlog_dont_send_report">ไม่ต้องส่งรายงาน</string>
-  <string name="extensions_avail_title">ส่วนเสริมที่สามารถใช้งานได้!</string>
-  <string name="extensions_avail_message">ดูเหมือนว่าค่าตัวอย่าง ownClud ของคุณกำลังสนับสนุนการใช้งานกับส่วนเสริมขั้นสูงอยู่ คุณต้องการดูส่วนเสริมอื่นๆที่สามารถใช้งานกับ android เพิ่มหรือไม่?</string>
   <string name="fd_keep_in_sync">ปรับปรุงไฟล์ให้ทันสมัยอยู่เสมอ</string>
-  <string name="common_share">แชร์</string>
   <string name="common_rename">เปลี่ยนชื่อ</string>
   <string name="common_remove">ลบออก</string>
   <string name="confirmation_remove_alert">คุณแน่ใจแล้วหรือว่าต้องการลบ %1$s?</string>
@@ -184,13 +121,11 @@
   <string name="wait_a_moment">กรุณารอสักครู่</string>
   <string name="filedisplay_unexpected_bad_get_content">เกิดปัญหาที่ไม่คาดคิด ; กรุณาลองใช้งานแอปฯอื่นๆ เพื่อเลือกไฟล์</string>
   <string name="filedisplay_no_file_selected">ไม่มีไฟล์ที่ถูกเลือก</string>
-  <string name="ssl_validator_title">คำเตือน</string>
   <string name="ssl_validator_header">ไม่สามารถยืนยันความถูกต้องของตัวตนของเว็บไซต์ได้</string>
   <string name="ssl_validator_reason_cert_not_trusted">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์ไม่น่าเชื่อถือ</string>
   <string name="ssl_validator_reason_cert_expired">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์หมดอายุแล้ว</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์ยังมีอายุน้อยอยู่</string>
   <string name="ssl_validator_reason_hostname_not_verified">- URL ดังกล่าวไม่ตรงกันกับชื่อโฮสต์ที่อยู่ในใบรับรอง</string>
-  <string name="ssl_validator_certificate_not_available">ไม่สามารถขอรับใบรับรองความปลอดภัยของเซิร์ฟเวอร์ได้</string>
   <string name="ssl_validator_question">คุณต้องการให้ความไว้วางใจในใบรับรองความปลอดภัยนี้หรือไม่?</string>
   <string name="ssl_validator_not_saved">ไม่สามารถบันทึกใบรับรองความปลอดภัยได้</string>
   <string name="ssl_validator_btn_details_see">รายละเอียด</string>
@@ -216,6 +151,5 @@
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถถูกคัดลอกไปที่ %2$s ไดเรกทอรีท้องถิ่น</string>
 </resources>

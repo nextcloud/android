@@ -23,7 +23,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 
@@ -44,7 +44,7 @@ public class CreateFolderOperation extends RemoteOperation {
     
     protected String mRemotePath;
     protected boolean mCreateFullPath;
-    protected DataStorageManager mStorageManager;
+    protected FileDataStorageManager mStorageManager;
     
     /**
      * Constructor
@@ -53,7 +53,7 @@ public class CreateFolderOperation extends RemoteOperation {
      * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public CreateFolderOperation(String remotePath, boolean createFullPath, DataStorageManager storageManager) {
+    public CreateFolderOperation(String remotePath, boolean createFullPath, FileDataStorageManager storageManager) {
         mRemotePath = remotePath;
         mCreateFullPath = createFullPath;
         mStorageManager = storageManager;

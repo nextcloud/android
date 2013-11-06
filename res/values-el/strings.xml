@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Συνθηματικό:</string>
-  <string name="main_login">Όνομα Χρήστη:</string>
-  <string name="main_button_login">Σύνδεση</string>
-  <string name="main_welcome">Καλώς ήλθατε!</string>
-  <string name="main_files">Αρχεία</string>
-  <string name="main_music">Μουσική</string>
-  <string name="main_contacts">Επαφές</string>
-  <string name="main_calendar">Ημερολόγιο</string>
-  <string name="main_bookmarks">Σελιδοδείκτες</string>
-  <string name="main_settings">Ρυθμίσεις</string>
-  <string name="main_tit_accsetup">Ρύθμιση Λογαριασμού</string>
-  <string name="main_wrn_accsetup">Δεν υπάρχουν λογαριασμοί στη συσκευή σας. Για να χρησιμοποιήσετε την εφαρμογή, πρέπει να δημιουργήσετε ένα.</string>
   <string name="about_android">%1$s Εφαρμογή για Android</string>
   <string name="about_version">έκδοση %1$s</string>
   <string name="actionbar_upload">Μεταφόρτωση</string>
@@ -19,19 +7,10 @@
   <string name="actionbar_upload_files">Αρχεία</string>
   <string name="actionbar_open_with">Άνοιγμα με</string>
   <string name="actionbar_mkdir">Δημιουργία καταλόγου</string>
-  <string name="actionbar_search">Αναζήτηση</string>
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="prefs_category_general">Γενικά</string>
-  <string name="prefs_add_session">Προσθήκη νέας συνεδρίας</string>
-  <string name="prefs_create_img_thumbnails">Δημιουργία μικρογραφιών εικόνων</string>
-  <string name="prefs_select_oc_account">Επιλογή λογαριασμού</string>
-  <string name="prefs_summary_select_oc_account">Επιλέξτε, ποιόν από τους λογαρισμούς σας θα χρησιμοποιήσει η εφαρμογή.</string>
-  <string name="prefs_trackmydevice">Παρακολούθηση συσκευής</string>
-  <string name="prefs_trackmydevice_summary_off">Επιτρέψτε στο εφαρμογή να ανιχνεύει την τοποθεσία στης συσκευής σας</string>
-  <string name="prefs_trackmydevice_summary_on">Το εφαρμογή ανιχνεύει την τοποθεσία αυτής της συσκευής</string>
-  <string name="prefs_trackmydevice_interval">Περίοδος ανανέωσης</string>
-  <string name="prefs_trackmydevice_interval_summary">Ενημέρωση κάθε %1$s λεπτά</string>
+  <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>
   <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
   <string name="prefs_pincode">PIN της εφαρμογής</string>
@@ -39,19 +18,14 @@
   <string name="prefs_instant_upload">Ενεργοποιήστε την άμεση μεταφόρτωση</string>
   <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση των φωτογραφιών που τραβάει η φωτογρ. μηχανή</string>
   <string name="prefs_log_delete_history_button">Διαγραφή Ιστορικού</string>
+  <string name="prefs_help">Βοήθεια</string>
+  <string name="prefs_feedback">Σχόλια </string>
+  <string name="prefs_imprint">Αποτύπωμα</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
-  <string name="new_session_uri_error">Εσφαλμένη διεύθυνση URL</string>
-  <string name="new_session_session_name_error">Εσφαλμένο όνομα συνεδρίας</string>
   <string name="sync_string_files">Αρχεία</string>
-  <string name="uploader_no_file_selected">Δεν επιλέχθηκε αρχείο για μεταφόρτωση</string>
-  <string name="setup_hint_username">Όνομα χρήστη</string>
-  <string name="setup_hint_password">Συνθηματικό</string>
-  <string name="setup_hint_address">Διεύθυνση ιστοσελίδας</string>
-  <string name="setup_hint_show_password">Προβολή κωδικού;</string>
-  <string name="setup_title">Σύνδεση στο %1$s σας</string>
   <string name="setup_btn_connect">Σύνδεση</string>
   <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
   <string name="uploader_top_message">Επιλέξτε κατάλογο ανεβάσματος</string>
@@ -63,7 +37,6 @@
   <string name="uploader_wrn_no_content_text">Δεν ελήφθη περιεχόμενο. Δεν υπάρχει τίποτα να μεταφορτώσετε.</string>
   <string name="uploader_error_forbidden_content">Το %1$s δεν επιτρέπεται να έχει πρόσβαση στο κοινόχρηστο περιεχόμενο</string>
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
-  <string name="uploader_btn_create_dir_text">Δημιουργία καταλόγου για μεταφόρτωση</string>
   <string name="file_list_empty">Δεν υπάρχουν αρχεία σε αυτόν τον φάκελο.\nΝέα αρχεία μπορούν να προστεθούν με την επιλογή \"Μεταφόρτωση\" του μενού.</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
@@ -72,7 +45,6 @@
   <string name="filedetails_modified">Τροποποιήθηκε:</string>
   <string name="filedetails_download">Λήψη</string>
   <string name="filedetails_sync_file">Ανανέωση αρχείου</string>
-  <string name="filedetails_redownload">Κατέβασμα ξανά</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά την μεταφόρτωση</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
@@ -81,7 +53,6 @@
   <string name="common_cancel_upload">Ακύρωση αποστολής</string>
   <string name="common_cancel">Άκυρο</string>
   <string name="common_save_exit">Αποθήκευση &amp; Έξοδος</string>
-  <string name="common_exit">Κλείσιμο</string>
   <string name="common_error">Σφάλμα</string>
   <string name="common_loading">Φόρτωση ...</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
@@ -95,10 +66,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% Μεταφορτώνονται %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Η μεταφόρτωση ολοκληρώθηκε επιτυχώς</string>
   <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε με επιτυχία</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d αρχεία μεταφορτώθηκαν με επιτυχία</string>
   <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
   <string name="uploader_upload_failed_content_single">Η μεταφόρτωση του %1$s δεν ήταν δυνατόν να ολοκληρωθεί</string>
-  <string name="uploader_upload_failed_content_multiple">Αποτυχία μεταφόρτωσης: %1$d/%2$d αρχεία μεταφορτώθηκαν</string>
   <string name="downloader_download_in_progress_ticker">Κατέβασμα ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
   <string name="downloader_download_succeeded_ticker">Το κατέβασμα ολοκληρώθηκε επιτυχώς</string>
@@ -106,7 +75,6 @@
   <string name="downloader_download_failed_ticker">Το κατέβασμα απέτυχε</string>
   <string name="downloader_download_failed_content">Η λήψη του %1$s δεν μπόρεσε να ολοκληρωθεί με επιτυχία</string>
   <string name="common_choose_account">Επιλογή λογαριασμού</string>
-  <string name="sync_string_contacts">Επαφές</string>
   <string name="sync_fail_ticker">Ο συγχρονισμός απέτυχε</string>
   <string name="sync_fail_content">Ο συγχρονισμός του %1$s  δεν μπόρεσε να ολοκληρωθεί</string>
   <string name="sync_fail_content_unauthorized">Λάθος κωδικός για %1$s</string>
@@ -122,10 +90,7 @@
   <string name="foreign_files_local_text">Τοπικα: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
   <string name="upload_query_move_foreign_files">Δεν υπαρχει αρκετος χωρος για να αντιγραφθουν τα επιλεγμενα αρχεια στον χωρο αποθηκευσης  %1$s. Θελετε να μετακινηθουν μερικα?</string>
-  <string name="use_ssl">Χρήση ασφαλούς σύνδεσης</string>
-  <string name="location_no_provider">Το %1$s δεν μπορεί να ανιχνεύσει την τοποθεσία της συσκευής. Παρακαλώ ελέγξτε τις ρυθμίσεις σύνδεσης. </string>
   <string name="pincode_enter_pin_code">Παρακαλώ, εισάγετε το PIN σας</string>
-  <string name="pincode_enter_new_pin_code">Παρακαλώ, εισάγετε το νέο PIN σας</string>
   <string name="pincode_configure_your_pin">Εισάγετε το PIN της εφαρμογής</string>
   <string name="pincode_configure_your_pin_explanation">Το PIN θα ζητείται κάθε φορά στην εκκίνηση </string>
   <string name="pincode_reenter_your_pincode">Παρακαλώ επαναεισάγετε το PIN της εφαρμογής</string>
@@ -139,52 +104,25 @@
   <string name="media_err_io">Το αρχείο πολυμέσων δεν μπόρεσε να διαβαστεί</string>
   <string name="media_err_malformed">Το αρχείο πολυμέσων δεν είναι σωστά κοδικοποιημένο</string>
   <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
-  <string name="media_next_description">Κουμπί επόμενου κομματιού</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Λεπτά</item>
-    <item>30 Λεπτά</item>
-    <item>60 Λεπτά</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
-  <string name="auth_no_net_conn_message">Δεν ανιχνεύθηκε σύνδεση δικτύου, ελέγξτε την σύνδεση στο Internet και προσπαθήστε ξανά.</string>
-  <string name="auth_connect_anyway">Συνδεθείτε παρ\' αυτά</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
-  <string name="auth_nossl_plain_ok_message">Αδυναμία καθιέρωσης ασφαλούς σύνδεσης με τον διακομιστή. Παρόλο που είναι διαθέσιμη μη ασφαλή σύνδεση. Μπορείτε να συνεχίσετε ή να ακυρώσετε.</string>
   <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
   <string name="auth_testing_connection">Έλεγχος σύνδεσης...</string>
   <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις </string>
-  <string name="auth_not_configured_message">Φαίνεται ότι το server σας δεν είναι σωστά ρυθμισμένο. Παρακαλώ επικοινωνήστε με τον διαχειριστή σας, για περισσότερες πληροφορίες. </string>
   <string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα</string>
-  <string name="auth_unknown_error_message">Παρουσιάστηκε άγνωστο σφάλμα. Παρακαλώ επικοινωνήστε με τους προγραμματιστές και συμπεριλάβετε το ιστορικό από την συσκευή σας.</string>
   <string name="auth_unknown_host_title">Δεν βρέθηκε υπολογιστής</string>
-  <string name="auth_unknown_host_message">Δεν βρέθηκε ο ζητούμενος υπολογιστής. Παρακαλώ ελέγξτε το όνομα του υπολογιστή και την διαθεσιμότητα του εξυπηρετητή και προσπαθήστε πάλι. </string>
   <string name="auth_incorrect_path_title">Δεν βρέθηκε στιγμιότυπο server σας</string>
-  <string name="auth_incorrect_path_message">Η  εφαρμογή δεν βρήκε να υπάρχει server σας στον δοσμένο μονοπάτι. Παρακαλώ ελέγξτε το μονοπάτι και ξαναπροσπαθήστε.</string>
   <string name="auth_timeout_title">Ο εξυπηρετητής αργεί πολύ να απαντήσει</string>
   <string name="auth_incorrect_address_title">Κακώς διατυπωμένο URL</string>
   <string name="auth_ssl_general_error_title">Η αρχικοποίηση του SLL απέτυχε</string>
-  <string name="auth_ssl_unverified_server_title">Μη επιβεβαιωμένη ταυτότητα SSL του εξυπηρετητή</string>
   <string name="auth_bad_oc_version_title">Μη αναγνωρίσιμη έκδοση διακομιστή server σας</string>
   <string name="auth_wrong_connection_title">Δεν ήταν δυνατή η σύνδεση</string>
   <string name="auth_secure_connection">Επιτεύχθηκε ασφαλής σύνδεση</string>
   <string name="auth_unauthorized">Λάθος όνομα χρήστη ή κωδικός</string>
   <string name="auth_oauth_error">Η πιστοποίηση απέτυχε</string>
-  <string name="auth_not_found">Δόθηκε εσφαλμένη διαδρομή</string>
-  <string name="auth_internal">Εσωτερικό σφάλμα διακομιστή, κωδικός %1$d</string>
   <string name="auth_expired_basic_auth_toast">Παρακαλώ είσάγετε τον τρέχοντα κωδικό</string>
-  <string name="crashlog_message">Η εφαρμογή τερματίστηκε ξαφνικά. Θα θέλατε να υποβάλετε αναφορά σφάλματος;</string>
-  <string name="crashlog_send_report">Αποστολή αναφοράς</string>
-  <string name="crashlog_dont_send_report">Να μην αποσταλεί αναφορά</string>
-  <string name="extensions_avail_title">Διαθέσιμες επεκτάσεις!</string>
-  <string name="extensions_avail_message">Φαίνεται ότι το server σας υποστηρίζει προηγμένες επεκτάσεις. Θα θέλατε να δείτε τις διαθέσιμες επεκτάσεις για το android;</string>
   <string name="fd_keep_in_sync">Διατήρηση αρχείου ενημερωμένo</string>
-  <string name="common_share">Διαμοιρασμός</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>
   <string name="confirmation_remove_alert">Θέλετε να αφαιρέσετε το  %1$s ;</string>
@@ -204,13 +142,11 @@
   <string name="wait_a_moment">Παρακαλούμε περιμένετε</string>
   <string name="filedisplay_unexpected_bad_get_content">Απροσδόκητο σφάλμα, δοκιμάστε με άλλη εφαρμογή</string>
   <string name="filedisplay_no_file_selected">Δεν επιλέχθηκαν αρχεία </string>
-  <string name="ssl_validator_title">Προειδοποίηση</string>
   <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να εγκριθεί</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι αξιόπιστο</string>
   <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Το πιστοποιητικό του διακομιστή είναι πολύ νέο</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Η διεύθυνση URL δεν ταιριάζει με το όνομα στο πιστοποιητικό</string>
-  <string name="ssl_validator_certificate_not_available">Το πιστοποιητικό του διακομιστή δεν μπόρεσε να ανακτηθεί</string>
   <string name="ssl_validator_question">Θέλετε να θεωρείται έμπιστο το πιστοποιητικό αυτό ούτως ή άλλως;</string>
   <string name="ssl_validator_not_saved">Το πιστοποιητικό δεν ήταν δυνατόν να αποθηκευτεί</string>
   <string name="ssl_validator_btn_details_see">Λεπτομέρειες</string>
@@ -243,8 +179,6 @@
   <string name="conflict_dont_upload">Δεν μεταφορτώθηκε</string>
   <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
   <string name="preview_image_error_unknown_format">Αυτή η εικόνε δεν μπόρεσε να προβληθεί</string>
-  <string name="preview_image_error_out_of_memory">\"Δεν υπάρχει αρκετή μνήμη για την προβολή αυτής της εικόνας</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s δεν μπορεσε να αντιγραφθεί στον %2$s τοπικο καταλόγο </string>
   <string name="failed_upload_all_cb">επιλογή όλων</string>
   <string name="failed_upload_load_more_images">Φόρτωση περισσότερων εικόνων</string>

@@ -23,7 +23,7 @@ import java.io.IOException;
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -52,7 +52,7 @@ public class RenameFileOperation extends RemoteOperation {
     private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     
     /**
@@ -63,7 +63,7 @@ public class RenameFileOperation extends RemoteOperation {
      * @param newName               New name to set as the name of file.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RenameFileOperation(OCFile file, Account account, String newName, DataStorageManager storageManager) {
+    public RenameFileOperation(OCFile file, Account account, String newName, FileDataStorageManager storageManager) {
         mFile = file;
         mAccount = account;
         mNewName = newName;
@@ -95,7 +95,7 @@ public class RenameFileOperation extends RemoteOperation {
             String parent = (new File(mFile.getRemotePath())).getParent();
             parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
             mNewRemotePath =  parent + mNewName;
-            if (mFile.isDirectory()) {
+            if (mFile.isFolder()) {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
             }
             
@@ -114,7 +114,7 @@ public class RenameFileOperation extends RemoteOperation {
             int status = client.executeMethod(move, RENAME_READ_TIMEOUT, RENAME_CONNECTION_TIMEOUT);
             if (move.succeeded()) {
 
-                if (mFile.isDirectory()) {
+                if (mFile.isFolder()) {
                     saveLocalDirectory();
                     
                 } else {
@@ -153,7 +153,7 @@ public class RenameFileOperation extends RemoteOperation {
 
     
     private void saveLocalDirectory() {
-        mStorageManager.moveDirectory(mFile, mNewRemotePath);
+        mStorageManager.moveFolder(mFile, mNewRemotePath);
         String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {

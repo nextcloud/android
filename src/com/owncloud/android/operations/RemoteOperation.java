@@ -137,14 +137,8 @@ public abstract class RemoteOperation implements Runnable {
         mCallerActivity = callerActivity;
         mClient = null;     // the client instance will be created from mAccount and mContext in the runnerThread to create below
         
-        if (listener == null) {
-            throw new IllegalArgumentException("Trying to execute a remote operation asynchronously without a listener to notiy the result");
-        }
         mListener = listener;
         
-        if (listenerHandler == null) {
-            throw new IllegalArgumentException("Trying to execute a remote operation asynchronously without a handler to the listener's thread");
-        }
         mListenerHandler = listenerHandler;
         
         Thread runnerThread = new Thread(this);

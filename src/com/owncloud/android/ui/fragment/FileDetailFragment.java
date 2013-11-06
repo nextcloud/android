@@ -417,7 +417,7 @@ public class FileDetailFragment extends FileFragment implements
     private void renameFile() {
         OCFile file = getFile();
         String fileName = file.getFileName();
-        int extensionStart = file.isDirectory() ? -1 : fileName.lastIndexOf(".");
+        int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
         int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
         EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
         dialog.show(getFragmentManager(), "nameeditdialog");
@@ -448,7 +448,7 @@ public class FileDetailFragment extends FileFragment implements
             }
             
         } else {
-            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, false, getActivity());
+            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, getActivity());
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             // update ui 
@@ -837,10 +837,7 @@ public class FileDetailFragment extends FileFragment implements
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
                 startActivity(i);
                 
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-            }
+            } 
             
             if (file.isDown()) {
                 setButtonsForDown();

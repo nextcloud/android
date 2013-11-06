@@ -38,7 +38,6 @@ import com.actionbarsherlock.view.Window;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -67,7 +66,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     private ViewPager mViewPager; 
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
@@ -110,7 +109,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         //OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
         if (parentFolder == null) {
             // should not be necessary
-            parentFolder = mStorageManager.getFileByPath(OCFile.PATH_SEPARATOR);
+            parentFolder = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
         }
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), mStorageManager);
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
@@ -436,7 +435,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());            
             
             // Update file according to DB file, if it is possible
-            if (file.getFileId() > DataStorageManager.ROOT_PARENT_ID)            
+            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID)            
                 file = mStorageManager.getFileById(file.getFileId());
             
             if (file != null) {

@@ -21,7 +21,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 
@@ -42,7 +42,7 @@ public class RemoveFileOperation extends RemoteOperation {
     
     OCFile mFileToRemove;
     boolean mDeleteLocalCopy;
-    DataStorageManager mDataStorageManager;
+    FileDataStorageManager mDataStorageManager;
     
     
     /**
@@ -52,7 +52,7 @@ public class RemoveFileOperation extends RemoteOperation {
      * @param deleteLocalCopy       When 'true', and a local copy of the file exists, it is also removed.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RemoveFileOperation(OCFile fileToRemove, boolean deleteLocalCopy, DataStorageManager storageManager) {
+    public RemoveFileOperation(OCFile fileToRemove, boolean deleteLocalCopy, FileDataStorageManager storageManager) {
         mFileToRemove = fileToRemove;
         mDeleteLocalCopy = deleteLocalCopy;
         mDataStorageManager = storageManager;
@@ -82,11 +82,7 @@ public class RemoveFileOperation extends RemoteOperation {
             delete = new DeleteMethod(client.getBaseUri() + WebdavUtils.encodePath(mFileToRemove.getRemotePath()));
             int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
             if (delete.succeeded() || status == HttpStatus.SC_NOT_FOUND) {
-                if (mFileToRemove.isDirectory()) {
-                    mDataStorageManager.removeDirectory(mFileToRemove, true, mDeleteLocalCopy);
-                } else {
-                    mDataStorageManager.removeFile(mFileToRemove, mDeleteLocalCopy);
-                }
+                mDataStorageManager.removeFile(mFileToRemove, true, mDeleteLocalCopy);
             }
             delete.getResponseBodyAsString();   // exhaust the response, although not interesting
             result = new RemoteOperationResult((delete.succeeded() || status == HttpStatus.SC_NOT_FOUND), status, delete.getResponseHeaders());

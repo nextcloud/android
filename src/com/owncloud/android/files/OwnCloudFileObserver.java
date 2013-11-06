@@ -84,7 +84,6 @@ public class OwnCloudFileObserver extends FileObserver {
                                                                     storageManager, 
                                                                     mOCAccount, 
                                                                     true, 
-                                                                    true, 
                                                                     mContext);
         RemoteOperationResult result = sfo.execute(mOCAccount, mContext);
         if (result.getCode() == ResultCode.SYNC_CONFLICT) {

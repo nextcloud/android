@@ -1,37 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_button_login">প্রবেশ</string>
-  <string name="main_welcome">সুস্বাগতম</string>
-  <string name="main_files">ফাইল</string>
-  <string name="main_music">গানবাজনা</string>
-  <string name="main_contacts">ঠিকানাপঞ্জী</string>
-  <string name="main_calendar">দিনপঞ্জী</string>
-  <string name="main_bookmarks">ঠিকা</string>
-  <string name="main_settings">নিয়ামকসমূহ</string>
-  <string name="main_tit_accsetup">একাউন্ট সেটআপ</string>
   <string name="actionbar_upload">আপলোড</string>
   <string name="actionbar_upload_files">ফাইল</string>
   <string name="actionbar_mkdir">ডিরেক্টরি তৈরী কর</string>
-  <string name="actionbar_search">অনুসন্ধান</string>
   <string name="actionbar_settings">নিয়ামকসমূহ</string>
   <string name="prefs_category_general">সাধারণ</string>
-  <string name="prefs_add_session">নতুন সেসন যোগ কর</string>
-  <string name="prefs_create_img_thumbnails">ছবির অঙ্গুলিবীক্ষণ তৈরী কর</string>
-  <string name="prefs_select_oc_account">একাউন্ট নির্বাচন কর</string>
-  <string name="prefs_trackmydevice">ডিভাইস ট্র্যাকিং</string>
-  <string name="prefs_trackmydevice_interval">পরিবর্ধনের মধ্যবিরতি</string>
+  <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
+  <string name="prefs_help">সহায়িকা</string>
   <string name="auth_host_url">সার্ভার ঠিকানা</string>
   <string name="auth_username">ব্যবহারকারি</string>
   <string name="auth_password">কূটশব্দ</string>
-  <string name="new_session_uri_error">ভুল ঠিকানা প্রদান করা হয়েছে</string>
-  <string name="new_session_session_name_error">সেসনের নামটি ভুল</string>
   <string name="sync_string_files">ফাইল</string>
-  <string name="uploader_no_file_selected">আপলোড করার জন্য কোন ফাইল নির্বাচন করা হয় নি</string>
-  <string name="setup_hint_username">ব্যবহারকারি</string>
-  <string name="setup_hint_password">কূটশব্দ</string>
-  <string name="setup_hint_address">ওয়েব ঠিকানা</string>
-  <string name="setup_hint_show_password">কূটশব্দ প্রদর্শন করবে ?</string>
   <string name="setup_btn_connect">সংযুক্ত হও</string>
   <string name="uploader_btn_upload_text">আপলোড</string>
   <string name="uploader_wrn_no_account_title">কোন একাউন্ট খুঁজে পাওয়া গেল না</string>
@@ -53,10 +33,6 @@
   <string name="change_password">কূটশব্দ পরিবর্তন করুন</string>
   <string name="uploader_info_dirname">ডিরেক্টরির নাম</string>
   <string name="common_choose_account">একাউন্ট নির্বাচন</string>
-  <string name="sync_string_contacts">ঠিকানাপঞ্জী</string>
-  <string name="common_share">ভাগাভাগি কর</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
-  <string name="ssl_validator_title">সতর্কবাণী</string>
-  <!--we need to improve the communication of errors to the user-->
 </resources>

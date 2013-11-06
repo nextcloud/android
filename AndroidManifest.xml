@@ -153,8 +153,6 @@
         <service android:name=".media.MediaService" />
         
         <activity android:name=".ui.activity.PinCodeActivity" />
-        <activity android:name="com.owncloud.android.extensions.ExtensionsAvailableActivity"></activity>
-        <activity android:name="com.owncloud.android.extensions.ExtensionsListActivity"></activity>
         <activity android:name=".ui.activity.AccountSelectActivity" android:uiOptions="none" android:label="@string/prefs_accounts"></activity>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>

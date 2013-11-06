@@ -1,16 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_files">Fajlovi</string>
-  <string name="main_music">Muzika</string>
-  <string name="main_settings">Podešavanja</string>
   <string name="actionbar_upload">Pošalji</string>
   <string name="actionbar_upload_files">Fajlovi</string>
   <string name="actionbar_settings">Podešavanja</string>
+  <string name="prefs_help">Pomoć</string>
   <string name="auth_username">Korisničko ime</string>
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Fajlovi</string>
-  <string name="setup_hint_username">Korisničko ime</string>
-  <string name="setup_hint_password">Lozinka</string>
   <string name="uploader_btn_upload_text">Pošalji</string>
   <string name="filedetails_download">Preuzmi</string>
   <string name="common_yes">Da</string>
@@ -18,6 +14,4 @@
   <string name="common_cancel">Otkaži</string>
   <string name="common_error">Greška</string>
   <string name="change_password">Izmeni lozinku</string>
-  <string name="common_share">Podeli</string>
-  <!--we need to improve the communication of errors to the user-->
 </resources>

@@ -1,17 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_password">Пароль:</string>
-  <string name="main_login">Пользователь:</string>
-  <string name="main_button_login">Вход</string>
-  <string name="main_welcome">Добро пожаловать</string>
-  <string name="main_files">Файлы</string>
-  <string name="main_music">Музыка</string>
-  <string name="main_contacts">Контакты</string>
-  <string name="main_calendar">Календарь</string>
-  <string name="main_bookmarks">Закладки</string>
-  <string name="main_settings">Настройки</string>
-  <string name="main_tit_accsetup">Настроить аккаунт</string>
-  <string name="main_wrn_accsetup">На вашем устройстве нет аккаунтов. Вам нужно создать аккаунт, чтобы пользоваться этим приложеним.</string>
   <string name="about_android">%1$s Приложение Андроид</string>
   <string name="about_version">Версия %1$s</string>
   <string name="actionbar_sync">Обновить учетную запись</string>
@@ -20,19 +8,10 @@
   <string name="actionbar_upload_files">Файлы</string>
   <string name="actionbar_open_with">Открыть с помощью</string>
   <string name="actionbar_mkdir">Создать директорию</string>
-  <string name="actionbar_search">Найти</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Детали</string>
   <string name="prefs_category_general">Главные</string>
-  <string name="prefs_add_session">Добавить новую сессию</string>
-  <string name="prefs_create_img_thumbnails">Создать картинки для предпросмотра</string>
-  <string name="prefs_select_oc_account">Выбрать аккаунт</string>
-  <string name="prefs_summary_select_oc_account">Выберите, какой из ваших аккаунтов использовать приложению</string>
-  <string name="prefs_trackmydevice">Отслеживание устройства</string>
-  <string name="prefs_trackmydevice_summary_off">Разрешить применение отслеживать местонахождение вашего устройства</string>
-  <string name="prefs_trackmydevice_summary_on">Ваш применение продолжает отслеживать это устройство</string>
-  <string name="prefs_trackmydevice_interval">Обновить интервал</string>
-  <string name="prefs_trackmydevice_interval_summary">Обновлять каждые %1$s минут</string>
+  <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Аккаунты</string>
   <string name="prefs_manage_accounts">Управление аккаунтами</string>
   <string name="prefs_pincode">App PIN</string>
@@ -44,20 +23,18 @@
   <string name="prefs_log_title_history">Записывать историю</string>
   <string name="prefs_log_summary_history">Здесь показаны журналы</string>
   <string name="prefs_log_delete_history_button">Удалить историю</string>
+  <string name="prefs_help">Помощь</string>
+  <string name="prefs_recommend">Рекомендовать другу</string>
+  <string name="prefs_feedback">Обратная связь</string>
+  <string name="prefs_imprint">Штамп</string>
+  <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
+  <string name="recommend_text">Хочу предложить вам пользоваться %1$s на вашем смартфоне!\nДля загрузки: %2$s</string>
   <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера</string>
   <string name="auth_username">Пользователь</string>
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Впервые с %1$s?</string>
-  <string name="new_session_uri_error">Дана неверная ссылка</string>
-  <string name="new_session_session_name_error">Неверное имя сессии</string>
   <string name="sync_string_files">Файлы</string>
-  <string name="uploader_no_file_selected">Файлы для загрузки не выбраны</string>
-  <string name="setup_hint_username">Пользователь</string>
-  <string name="setup_hint_password">Пароль</string>
-  <string name="setup_hint_address">Веб адрес</string>
-  <string name="setup_hint_show_password">Показать пароль?</string>
-  <string name="setup_title">Соединение с вашим %1$s</string>
   <string name="setup_btn_connect">Соединить</string>
   <string name="uploader_btn_upload_text">Загрузка</string>
   <string name="uploader_top_message">Выбрать место для загрузки:</string>
@@ -69,7 +46,6 @@
   <string name="uploader_wrn_no_content_text">Контент не получен. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">%1$s не имеет доступа к опубликованным данным</string>
   <string name="uploader_info_uploading">Загрузка</string>
-  <string name="uploader_btn_create_dir_text">Создайте директорию для загрузки</string>
   <string name="file_list_empty">В этой папке нет файлов.\nНовые файлы могут быть добавлены с помощью пункта меню \"Загрузить\".</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
@@ -78,7 +54,6 @@
   <string name="filedetails_modified">Изменён:</string>
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_sync_file">Обновить файл</string>
-  <string name="filedetails_redownload">Скачать заново</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
@@ -87,7 +62,6 @@
   <string name="common_cancel_upload">Отмена загрузки</string>
   <string name="common_cancel">Отмена</string>
   <string name="common_save_exit">Сохранить &amp; Выйти</string>
-  <string name="common_exit">Выйти из %1$s</string>
   <string name="common_error">Ошибка</string>
   <string name="common_loading">Загружается...</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
@@ -101,10 +75,8 @@
   <string name="uploader_upload_in_progress_content">%1$d%% загрузки %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Загрузка прошла успешно</string>
   <string name="uploader_upload_succeeded_content_single">%1$s был успешно загружен</string>
-  <string name="uploader_upload_succeeded_content_multiple">%1$d файлов было успешно загружено</string>
   <string name="uploader_upload_failed_ticker">Ошибка загрузки</string>
   <string name="uploader_upload_failed_content_single">Загрузка %1$s не может быть завершена</string>
-  <string name="uploader_upload_failed_content_multiple">Загрузка неудалась: %1$d/%2$d файла было загружено</string>
   <string name="downloader_download_in_progress_ticker">Скачивание...</string>
   <string name="downloader_download_in_progress_content">%1$d%% скачивания %2$s</string>
   <string name="downloader_download_succeeded_ticker">Скачивание прошло успешно</string>
@@ -113,7 +85,6 @@
   <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
   <string name="downloader_not_downloaded_yet">Ещё не загружено</string>
   <string name="common_choose_account">Выберите аккаунт</string>
-  <string name="sync_string_contacts">Контакты</string>
   <string name="sync_fail_ticker">Синхронизация прошла неудачно</string>
   <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
   <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
@@ -130,10 +101,7 @@
   <string name="foreign_files_local_text">Локально: %1$s</string>
   <string name="foreign_files_remote_text">Удаленно: %1$s</string>
   <string name="upload_query_move_foreign_files">Отсутствует достаточное количество места для копирования выделенных файлов в папку %1$s. Хотите ли Вы переместить их в другое место?</string>
-  <string name="use_ssl">Использовать защищённое соединение</string>
-  <string name="location_no_provider">%1$s не может отслеживать ваше устройство. Проверьте настройки вашего местоположения</string>
   <string name="pincode_enter_pin_code">Вставьте PIN вашего приложения</string>
-  <string name="pincode_enter_new_pin_code">Введите новый  App PIN</string>
   <string name="pincode_configure_your_pin">Введите  App PIN</string>
   <string name="pincode_configure_your_pin_explanation">ПИН-код будет запрашиваться каждый раз, когда вы запускаете приложение.</string>
   <string name="pincode_reenter_your_pincode">Повторите App PIN</string>
@@ -152,65 +120,44 @@
   <string name="media_err_unsupported">Неподдерживаемый кодек</string>
   <string name="media_err_io">Файл не может быть прочитан</string>
   <string name="media_err_malformed">Файл </string>
-  <string name="media_err_timeout">Воспроизведение ожидается слишком долго</string>
+  <string name="media_err_timeout">Тайм аут при воспроизведении</string>
   <string name="media_err_invalid_progressive_playback">Невозможно воспроизвести файл как поток</string>
   <string name="media_err_unknown">Файл не может быть проигран  стандартным плеером</string>
   <string name="media_err_security_ex">Ошибка безопасности при воспроизведении %1$s</string>
   <string name="media_err_io_ex">Ошибка ввода при воспроизведении %1$s</string>
   <string name="media_err_unexpected">Неожиданная ошибка при воспроизведении %1$s</string>
-  <string name="media_previous_description">Предыдущая</string>
   <string name="media_rewind_description">Перемотка назад</string>
   <string name="media_play_pause_description">Воспроизведение или пауза</string>
   <string name="media_forward_description">Перемотка вперед</string>
-  <string name="media_next_description">Следующая композиция</string>
-  <string-array name="prefs_trackmydevice_intervall_keys">
-    <item>15 Минут</item>
-    <item>30 Минут</item>
-    <item>60 Минут</item>
-  </string-array>
-  <string-array name="prefs_trackmydevice_intervall_values">
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-  </string-array>
   <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
-  <string name="auth_no_net_conn_message">Сетевое соединение не обнаружено , проверьте соединение с Интернет и попробуйте ещё раз.</string>
-  <string name="auth_connect_anyway">Соединить всё равно</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
-  <string name="auth_nossl_plain_ok_message">Приложение не может установить защищённое соединение с сервером. Однако доступно не защищённое соединение. Вы можете продолжить или прервать.</string>
   <string name="auth_connection_established">Соединение установлено</string>
   <string name="auth_testing_connection">Тестирование соединения...</string>
   <string name="auth_not_configured_title">Неверная конфигурация сервер</string>
-  <string name="auth_not_configured_message">Похоже что ваш экземпляр сервер не был корректно сконфигурирован. Обратитесь за деталями к вашему администратору.</string>
+  <string name="auth_account_not_new">Учётная запись для такого пользователя и сервера уже существует на устройстве</string>
+  <string name="auth_account_not_the_same">Введённый пользователь не соответсвует пользователю учётной записи</string>
   <string name="auth_unknown_error_title">Произошла неизвестная ошибка!</string>
-  <string name="auth_unknown_error_message">Произошла неизвестная ошибка. Свяжитесь с авторами и приложите журнал с вашего устройства.</string>
   <string name="auth_unknown_host_title">Невозможно найти сервер</string>
-  <string name="auth_unknown_host_message">Невозможно найти введённый сервер. Проверьте имя сервера и его доступность, затем попробуйте ещё раз.</string>
   <string name="auth_incorrect_path_title">Экземпляр сервер не найден</string>
-  <string name="auth_incorrect_path_message">Приложение не может обнаружить ownClound по указанному пути. Проверьте путь и попробуйте ещё раз.</string>
   <string name="auth_timeout_title">Сервер слишком долго не отвечает</string>
   <string name="auth_incorrect_address_title">Неверный URL</string>
   <string name="auth_ssl_general_error_title">Ошибка инициализации SSL</string>
-  <string name="auth_ssl_unverified_server_title">Непроверенный идентификатор SSL сервера</string>
+  <string name="auth_ssl_unverified_server_title">Невозможно проверить сертификат SSL сервера</string>
   <string name="auth_bad_oc_version_title">Неизвестная версия сервера</string>
   <string name="auth_wrong_connection_title">Невозможно установить соединение</string>
   <string name="auth_secure_connection">Защищённое соединение установлено</string>
   <string name="auth_unauthorized">Неверное имя пользователя или пароль</string>
   <string name="auth_oauth_error">Ошибка авторизации</string>
   <string name="auth_oauth_error_access_denied">Сервер отказал в доступе</string>
-  <string name="auth_not_found">Указан неверный путь</string>
-  <string name="auth_internal">Внутренняя ошибка сервера, код %1$d</string>
   <string name="auth_wtf_reenter_URL">Неожиданный ответ; пожалуйста, введите адрес сервера ещё раз</string>
-  <string name="auth_expired_oauth_token_toast">Закончился срок действия сессии. Пожалуйста, авторизуйтесь заново</string>
+  <string name="auth_expired_oauth_token_toast">Ваша авторизация истекла. Пожалуйста, авторизуйтесь снова</string>
   <string name="auth_expired_basic_auth_toast">Пожалуйста, введите пароль</string>
-  <string name="crashlog_message">Приложение завершилось неожиданно. Хотите отправить аварийный отчёт?</string>
-  <string name="crashlog_send_report">Отправить отчёт</string>
-  <string name="crashlog_dont_send_report">Не отправлять отчёт</string>
-  <string name="extensions_avail_title">Доступны расширения!</string>
-  <string name="extensions_avail_message">Похоже, ваш экземпляр сервер поддерживает дополнительные расширения. Хотите посмотреть доступные для андроида обновления?</string>
+  <string name="auth_expired_saml_sso_token_toast">Ваша сессия истекла. Пожалуйста, подключитесь снова</string>
+  <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
+  <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
+  <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные учётные записи</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
-  <string name="common_share">Открыть доступ</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
   <string name="confirmation_remove_alert">Вы в самом деле хотите удалить %1$s ?</string>
@@ -230,18 +177,13 @@
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
-  <string name="oauth_host_url">адрес oAuth2</string>
-  <string name="oauth_check_onoff">Войти через oAuth2</string>
+  <string name="oauth_check_onoff">Подключать через oAuth2</string>
   <string name="oauth_login_connection">Подключение к серверу oAuth2...</string>
-  <string name="oauth_code_validation_message">Пожалуйста, откройте ссылку\n%1$s\nв браузере и подтвердите этот: %2$s</string>
-  <string name="oauth_connection_url_unavailable">Подключение к этому серверу недоступно</string>
-  <string name="ssl_validator_title">Предупреждение</string>
   <string name="ssl_validator_header">Подлинность сайта не может быть проверена</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
   <string name="ssl_validator_reason_cert_expired">- Срок действия сертификата сервера истёк</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">- Сертификат сервера слишком новый</string>
   <string name="ssl_validator_reason_hostname_not_verified">- Адрес не совпадает с именем в сертификате</string>
-  <string name="ssl_validator_certificate_not_available">Сертификат сервера не доступен</string>
   <string name="ssl_validator_question">Все-равно доверять данному сертификату?</string>
   <string name="ssl_validator_not_saved">Сертификат не может быть сохранён</string>
   <string name="ssl_validator_btn_details_see">Детали</string>
@@ -274,8 +216,6 @@
   <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
-  <string name="preview_image_error_out_of_memory">Недостаточно памяти для показа изображения</string>
-  <!--we need to improve the communication of errors to the user-->
   <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в %2$s локальною папку</string>
   <string name="actionbar_failed_instant_upload">Быстрая загрузка не удалась</string>
   <string name="failed_upload_headline_text">Быстрые загрузки не удались</string>

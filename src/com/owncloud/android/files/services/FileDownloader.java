@@ -240,7 +240,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             if (account == null || file == null) return false;
             String targetKey = buildRemoteName(account, file);
             synchronized (mPendingDownloads) {
-                if (file.isDirectory()) {
+                if (file.isFolder()) {
                     // this can be slow if there are many downloads :(
                     Iterator<String> it = mPendingDownloads.keySet().iterator();
                     boolean found = false;

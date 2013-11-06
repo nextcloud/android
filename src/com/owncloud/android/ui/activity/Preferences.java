@@ -26,7 +26,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -47,17 +46,15 @@ import com.owncloud.android.db.DbHandler;
  * An Activity that allows the user to change the application's settings.
  * 
  * @author Bartek Przybylski
- * 
+ * @author David A. Velasco
  */
-public class Preferences extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
+public class Preferences extends SherlockPreferenceActivity {
     
     private static final String TAG = "OwnCloudPreferences";
     private final int mNewSession = 47;
     private final int mEditSession = 48;
     private DbHandler mDbHandler;
     private Vector<OwnCloudSession> mSessions;
-    private ListPreference mTrackingUpdateInterval;
-    private CheckBoxPreference mDeviceTracking;
     private CheckBoxPreference pCode;
     //private CheckBoxPreference pLogging;
     //private Preference pLoggingHistory;
@@ -285,21 +282,6 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
         Intent intent;
 
         switch (item.getItemId()) {
-        //case R.id.addSessionItem:
-        case 1:
-            intent = new Intent(this, PreferencesNewSession.class);
-            startActivityForResult(intent, mNewSession);
-            break;
-        case R.id.SessionContextEdit:
-            intent = new Intent(this, PreferencesNewSession.class);
-            intent.putExtra("sessionId", mSessions.get(mSelectedMenuItem)
-                    .getEntryId());
-            intent.putExtra("sessionName", mSessions.get(mSelectedMenuItem)
-                    .getName());
-            intent.putExtra("sessionURL", mSessions.get(mSelectedMenuItem)
-                    .getUrl());
-            startActivityForResult(intent, mEditSession);
-            break;
         case android.R.id.home:
             intent = new Intent(getBaseContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -323,35 +305,4 @@ public class Preferences extends SherlockPreferenceActivity implements OnPrefere
         super.onDestroy();
     }
     
-    @Override
-    /**
-     * Updates various summaries after updates. Also starts and stops 
-     * the
-     */
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        // Update current account summary
-        /*if (preference.equals(mAccountList)) {
-            mAccountList.setSummary(newValue.toString());
-        }
-
-        // Update tracking interval summary
-        else*/ if (preference.equals(mTrackingUpdateInterval)) {
-            String trackingSummary = getResources().getString(
-                    R.string.prefs_trackmydevice_interval_summary);
-            trackingSummary = String.format(trackingSummary,
-                    newValue.toString());
-            mTrackingUpdateInterval.setSummary(trackingSummary);
-        }
-
-        // Start or stop tracking service
-        else if (preference.equals(mDeviceTracking)) {
-            Intent locationServiceIntent = new Intent();
-            locationServiceIntent
-                    .setAction("com.owncloud.android.location.LocationLauncher");
-            locationServiceIntent.putExtra("TRACKING_SETTING",
-                    (Boolean) newValue);
-            sendBroadcast(locationServiceIntent);
-        } 
-        return true;
-    }
 }

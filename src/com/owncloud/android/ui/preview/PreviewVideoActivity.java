@@ -21,7 +21,6 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.datamodel.DataStorageManager;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
@@ -39,7 +38,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
-
 
 /**
  *  Activity implementing a basic video player.
@@ -61,7 +59,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
