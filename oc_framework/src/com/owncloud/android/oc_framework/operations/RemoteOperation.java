@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import org.apache.commons.httpclient.Credentials;
 
-import com.owncloud.android.oc_framework.MainApp;
 import com.owncloud.android.oc_framework.network.BearerCredentials;
 import com.owncloud.android.oc_framework.network.OwnCloudClientUtils;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
@@ -49,6 +48,9 @@ public abstract class RemoteOperation implements Runnable {
 
     /** ownCloud account in the remote ownCloud server to operate */
     private Account mAccount = null;
+    
+    /** Authoritities */ 
+    private String mAuthorities;
     
     /** Android Application context */
     private Context mContext = null;
@@ -83,7 +85,7 @@ public abstract class RemoteOperation implements Runnable {
      * @param context   Android context for the component calling the method.
      * @return          Result of the operation.
      */
-    public final RemoteOperationResult execute(Account account, Context context) {
+    public final RemoteOperationResult execute(Account account, Context context, String authorities) {
         if (account == null)
             throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Account");
         if (context == null)
@@ -91,11 +93,12 @@ public abstract class RemoteOperation implements Runnable {
         mAccount = account;
         mContext = context.getApplicationContext();
         try {
-            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, authorities);
         } catch (Exception e) {
             Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
             return new RemoteOperationResult(e);
         }
+        mAuthorities = authorities;
         return run(mClient);
     }
     
@@ -215,9 +218,9 @@ public abstract class RemoteOperation implements Runnable {
                 if (mClient == null) {
                     if (mAccount != null && mContext != null) {
                         if (mCallerActivity != null) {
-                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity);
+                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity, mAuthorities);
                         } else {
-                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext);
+                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mAuthorities);
                         }
                     } else {
                         throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");
@@ -249,9 +252,9 @@ public abstract class RemoteOperation implements Runnable {
                     boolean bearerAuthorization = (cred != null && cred instanceof BearerCredentials);
                     boolean samlBasedSsoAuthorization = (cred == null && ssoSessionCookie != null);
                     if (bearerAuthorization) {
-                        am.invalidateAuthToken(MainApp.getAccountType(), ((BearerCredentials)cred).getAccessToken());
+                        am.invalidateAuthToken(mAccount.type, ((BearerCredentials)cred).getAccessToken());
                     } else if (samlBasedSsoAuthorization ) {
-                        am.invalidateAuthToken(MainApp.getAccountType(), ssoSessionCookie);
+                        am.invalidateAuthToken(mAccount.type, ssoSessionCookie);
                     } else {
                         am.clearPassword(mAccount);
                     }

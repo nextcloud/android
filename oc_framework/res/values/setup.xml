@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="account_type">owncloud</string>
-    <string name="authority">org.owncloud</string>
-</resources>
-
