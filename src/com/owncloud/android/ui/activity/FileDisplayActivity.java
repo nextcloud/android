@@ -1238,7 +1238,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     @Override
     public void onSavedCertificate() {
-        startSynchronization();                
+        startSyncFolderOperation(getCurrentDir());                
     }
 
 
