@@ -1276,14 +1276,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
     
-            /// immediately request for the synchronization of the new account
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
-            syncAccount();
-//          Bundle bundle = new Bundle();
-//          bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-//          ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
             return true;
         }
     }
@@ -1653,13 +1645,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthMessage.setVisibility(View.GONE);
     }
 
-    private void syncAccount(){
-        /// immediately request for the synchronization of the new account
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
-    }
-    
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType) &&

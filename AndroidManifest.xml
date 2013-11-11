@@ -38,7 +38,7 @@
     
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="13" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
     </uses-permission>
@@ -112,7 +112,8 @@
         </service>
         <service
             android:name=".syncadapter.FileSyncService"
-            android:exported="true" >
+            android:exported="true" 
+            android:process=":sync">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

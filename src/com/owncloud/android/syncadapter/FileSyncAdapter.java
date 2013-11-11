@@ -98,7 +98,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     
     
     /**
-     * Creates an {@link FileSyncAdapter}
+     * Creates a {@link FileSyncAdapter}
      *
      * {@inheritDoc}
      */
@@ -108,11 +108,21 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     
     /**
+     * Creates a {@link FileSyncAdapter}
+     *
+     * {@inheritDoc}
+     */
+    public FileSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+        super(context, autoInitialize, allowParallelSyncs);
+    }
+
+    
+    /**
      * {@inheritDoc}
      */
     @Override
     public synchronized void onPerformSync(Account account, Bundle extras,
-            String authority, ContentProviderClient provider,
+            String authority, ContentProviderClient providerClient,
             SyncResult syncResult) {
 
         mCancellation = false;
@@ -127,8 +137,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mSyncResult.delayUntil = 60*60*24; // avoid too many automatic synchronizations
 
         this.setAccount(account);
-        this.setContentProvider(provider);
-        this.setStorageManager(new FileDataStorageManager(account, provider));
+        this.setContentProviderClient(providerClient);
+        this.setStorageManager(new FileDataStorageManager(account, providerClient));
         try {
             this.initClientForCurrentAccount();
         } catch (IOException e) {

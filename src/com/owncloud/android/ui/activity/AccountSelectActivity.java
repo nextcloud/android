@@ -95,12 +95,6 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 (mPreviousAccount != null && !mPreviousAccount.equals(current))) {
                 /// the account set as default changed since this activity was created 
             
-                // trigger synchronization
-                ContentResolver.cancelSync(null, MainApp.getAuthTokenType());
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), MainApp.getAuthTokenType(), bundle);
-                
                 // restart the main activity
                 Intent i = new Intent(this, FileDisplayActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
