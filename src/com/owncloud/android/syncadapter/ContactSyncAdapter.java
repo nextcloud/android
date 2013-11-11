@@ -53,7 +53,7 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority,
             ContentProviderClient provider, SyncResult syncResult) {
         setAccount(account);
-        setContentProvider(provider);
+        setContentProviderClient(provider);
         Cursor c = getLocalContacts(false);
         if (c.moveToFirst()) {
             do {

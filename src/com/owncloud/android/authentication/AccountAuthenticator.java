@@ -48,15 +48,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
      * Is used by android system to assign accounts to authenticators. Should be
      * used by application and all extensions.
      */
-    /* These constants are now in MainApp
-         public static final String ACCOUNT_TYPE = "owncloud";
-         public static final String AUTHORITY = "org.owncloud";
-         public static final String AUTH_TOKEN_TYPE = "org.owncloud";
-         public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
-         public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
-         public static final String AUTH_TOKEN_TYPE_REFRESH_TOKEN = "owncloud.oauth2.refresh_token";
-         public static final String AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE = "owncloud.saml.web_sso.session_cookie";
-    */
     public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";

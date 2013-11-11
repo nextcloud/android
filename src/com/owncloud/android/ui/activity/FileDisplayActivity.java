@@ -31,8 +31,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentFilter.AuthorityEntry;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.SyncRequest;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -494,12 +496,27 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
 
     private void startSynchronization() {
-        ContentResolver.cancelSync(null, MainApp.getAuthTokenType());   // cancel the current synchronizations of any ownCloud account
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(
-                getAccount(),
-                MainApp.getAuthTokenType(), bundle);
+        Log_OC.e(TAG, "Got to start sync");
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT) {
+            Log_OC.e(TAG, "Canceling all syncs for " + MainApp.getAuthority());
+            ContentResolver.cancelSync(null, MainApp.getAuthority());   // cancel the current synchronizations of any ownCloud account
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority());
+            ContentResolver.requestSync(
+                    getAccount(),
+                    MainApp.getAuthority(), bundle);
+        } else {
+            Log_OC.e(TAG, "Requesting sync for " + getAccount().name + " at " + MainApp.getAuthority() + " with new API");
+            SyncRequest.Builder builder = new SyncRequest.Builder();
+            builder.setSyncAdapter(getAccount(), MainApp.getAuthority());
+            builder.setExpedited(true);
+            builder.setManual(true);
+            builder.syncOnce();
+            SyncRequest request = builder.build();
+            ContentResolver.requestSync(request);
+        }
     }
 
 

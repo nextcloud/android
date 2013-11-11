@@ -25,4 +25,7 @@
     android:contentAuthority="@string/authority"
     android:accountType="@string/account_type"
     android:supportsUploading="true"
+    android:userVisible="true"
+    android:allowParallelSyncs="true"
+    android:isAlwaysSyncable="true"
 />

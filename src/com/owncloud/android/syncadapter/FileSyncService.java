@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.syncadapter;
 
+import com.owncloud.android.Log_OC;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -37,6 +39,11 @@ public class FileSyncService extends Service {
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
     public static final String SYNC_RESULT = "SYNC_RESULT";
 
+    // Storage for an instance of the sync adapter
+    private static FileSyncAdapter sSyncAdapter = null;
+    // Object to use as a thread-safe lock
+    private static final Object sSyncAdapterLock = new Object();
+    
     public static String getSyncMessage(){
         return FileSyncService.class.getName().toString() + SYNC_MESSAGE;
     }
@@ -45,6 +52,11 @@ public class FileSyncService extends Service {
      */
     @Override
     public void onCreate() {
+        synchronized (sSyncAdapterLock) {
+            if (sSyncAdapter == null) {
+                sSyncAdapter = new FileSyncAdapter(getApplicationContext(), true);
+            }
+        }
     }
 
     /*
@@ -52,7 +64,7 @@ public class FileSyncService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-       return new FileSyncAdapter(getApplicationContext(), true).getSyncAdapterBinder();
+       return sSyncAdapter.getSyncAdapterBinder();
     }
     
 }
