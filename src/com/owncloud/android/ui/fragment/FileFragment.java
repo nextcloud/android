@@ -24,6 +24,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 
+
 /**
  * Common methods for {@link Fragment}s containing {@link OCFile}s
  * 

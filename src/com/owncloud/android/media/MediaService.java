@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 
+
 /**
  * Service that handles media playback, both audio and video. 
  * 

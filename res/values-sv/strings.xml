@@ -121,6 +121,7 @@
   <string name="media_err_unsupported">Saknar stöd för denna mediatyp</string>
   <string name="media_err_io">Mediafil kunde inte skapas</string>
   <string name="media_err_malformed">Mediafilen är felaktigt kodad</string>
+  <string name="media_err_timeout">Försökt att spela för länge</string>
   <string name="media_err_invalid_progressive_playback">Meidiafilen kan inte strömmas</string>
   <string name="media_err_unknown">Mediefilen kan inte spelas med standardspelaren</string>
   <string name="media_err_security_ex">Säkerhetsproplem när vi försöker spela %1$s</string>
@@ -177,6 +178,7 @@
   <string name="wait_a_moment">Var god vänta</string>
   <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
   <string name="filedisplay_no_file_selected">Ingen fil vald</string>
+  <string name="oauth_check_onoff">Logga in med oAuth2.</string>
   <string name="oauth_login_connection">Ansluter till oAuth2 servern…</string>
   <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>
   <string name="ssl_validator_reason_cert_not_trusted">- Servercertifikatet är inte tillförlitligt</string>

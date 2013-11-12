@@ -19,7 +19,6 @@ package com.owncloud.android.ui.activity;
 import java.util.Arrays;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-
 import com.owncloud.android.R;
 
 import android.app.AlertDialog;
@@ -80,8 +79,6 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         mText2 = (EditText) findViewById(R.id.txt2);
         mText3 = (EditText) findViewById(R.id.txt3);
         mText4 = (EditText) findViewById(R.id.txt4);
-        
-        
         
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());

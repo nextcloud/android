@@ -44,7 +44,6 @@ import org.apache.http.params.CoreProtocolPNames;
 import com.owncloud.android.oc_framework.network.BearerAuthScheme;
 import com.owncloud.android.oc_framework.network.BearerCredentials;
 
-
 import android.net.Uri;
 import android.util.Log;
 

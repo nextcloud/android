@@ -37,7 +37,7 @@ public class AccountUtilsTest extends AndroidTestCase {
         assertTrue(AccountUtils.getWebdavPath(ocv12, false, false).equals("/webdav/owncloud.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv12s, false, false).equals("/webdav/owncloud.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv22, false, false).equals("/files/webdav.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv30, false, false).equals("/files/webdav.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv30,false, false).equals("/files/webdav.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv33s, false, false).equals("/files/webdav.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv45, false, false).equals("/remote.php/webdav"));
         assertTrue(AccountUtils.getWebdavPath(ocv70, false, false).equals("/remote.php/webdav"));

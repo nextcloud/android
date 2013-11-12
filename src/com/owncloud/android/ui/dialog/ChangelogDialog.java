@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 
+
 /**
  * Dialog to show the contents of res/raw/CHANGELOG.txt
  */

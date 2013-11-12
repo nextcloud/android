@@ -144,6 +144,7 @@
   <string name="auth_timeout_title">El servidor ha trigat massa en respondre</string>
   <string name="auth_incorrect_address_title">La URL esà malformada</string>
   <string name="auth_ssl_general_error_title">La inicialització SSL ha fallat</string>
+  <string name="auth_ssl_unverified_server_title">No s\'ha pogut verificar la identitat SSL del servidor</string>
   <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
   <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
   <string name="auth_secure_connection">S\'ha establert la connexió segura</string>

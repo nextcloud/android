@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
 
+
 /**
  * Activity showing a text message and, optionally, a couple list of single or paired text strings.
  * 

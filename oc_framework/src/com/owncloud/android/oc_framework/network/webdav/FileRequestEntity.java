@@ -36,8 +36,6 @@ import android.util.Log;
 import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
 
 
-
-
 /**
  * A RequestEntity that represents a File.
  * 

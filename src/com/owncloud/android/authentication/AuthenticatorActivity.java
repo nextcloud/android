@@ -71,7 +71,6 @@ import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 
-
 /**
  * This Activity is used to add an ownCloud account to the App
  * 
@@ -194,11 +193,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         /// set Host Url Input Enabled
         mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
         
-
-        /// complete label for 'register account' button
-        Button b = (Button) findViewById(R.id.account_register);
-        if (b != null) {
-            b.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+        /// set visibility of link for new users
+        boolean accountRegisterVisibility = getResources().getBoolean(R.bool.show_welcome_link);
+        Button welcomeLink = (Button) findViewById(R.id.welcome_link);
+        if (welcomeLink != null) {
+            if (accountRegisterVisibility) {
+                welcomeLink.setVisibility(View.VISIBLE);
+                welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));            
+            } else {
+                findViewById(R.id.welcome_link).setVisibility(View.GONE);
+            }
         }
 
         /// initialization
@@ -1272,14 +1276,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
     
-            /// immediately request for the synchronization of the new account
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-            ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
-            syncAccount();
-//          Bundle bundle = new Bundle();
-//          bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-//          ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
             return true;
         }
     }
@@ -1398,7 +1394,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param view      'Account register' button
      */
     public void onRegisterClick(View view) {
-        Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url_account_register)));
+        Intent register = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.welcome_link_url)));
         setResult(RESULT_CANCELED);
         startActivity(register);
     }
@@ -1649,13 +1645,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         mAuthMessage.setVisibility(View.GONE);
     }
 
-    private void syncAccount(){
-        /// immediately request for the synchronization of the new account
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        ContentResolver.requestSync(mAccount, MainApp.getAuthTokenType(), bundle);
-    }
-    
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType) &&

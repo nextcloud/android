@@ -28,6 +28,7 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -53,7 +54,7 @@ public class ContactSyncAdapter extends AbstractOwnCloudSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority,
             ContentProviderClient provider, SyncResult syncResult) {
         setAccount(account);
-        setContentProvider(provider);
+        setContentProviderClient(provider);
         Cursor c = getLocalContacts(false);
         if (c.moveToFirst()) {
             do {

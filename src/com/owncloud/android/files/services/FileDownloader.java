@@ -28,6 +28,8 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -58,9 +60,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.widget.RemoteViews;
-
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     

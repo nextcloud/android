@@ -42,6 +42,7 @@ import java.util.Locale;
 
 import com.owncloud.android.R;
 
+
 /**
  * View containing controls for a {@link MediaPlayer}. 
  * 

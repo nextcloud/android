@@ -21,12 +21,13 @@ package com.owncloud.android.files.managers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.owncloud.android.R;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.owncloud.android.R;
 
 public class OCNotificationManager {
 

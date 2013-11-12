@@ -19,15 +19,16 @@ package com.owncloud.android.utils;
 
 import java.io.File;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 
 /**
  * Static methods to help in access to local file system.

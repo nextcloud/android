@@ -30,6 +30,7 @@ import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundEx
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -52,13 +53,18 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 
     private AccountManager accountManager;
     private Account account;
-    private ContentProviderClient contentProvider;
+    private ContentProviderClient mContentProviderClient;
     private FileDataStorageManager mStoreManager;
 
     private WebdavClient mClient = null;
 
     public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+        this.setAccountManager(AccountManager.get(context));
+    }
+
+    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+        super(context, autoInitialize, allowParallelSyncs);
         this.setAccountManager(AccountManager.get(context));
     }
 
@@ -78,12 +84,12 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         this.account = account;
     }
 
-    public ContentProviderClient getContentProvider() {
-        return contentProvider;
+    public ContentProviderClient getContentProviderClient() {
+        return mContentProviderClient;
     }
 
-    public void setContentProvider(ContentProviderClient contentProvider) {
-        this.contentProvider = contentProvider;
+    public void setContentProviderClient(ContentProviderClient contentProvider) {
+        this.mContentProviderClient = contentProvider;
     }
 
     public void setStorageManager(FileDataStorageManager storage_manager) {

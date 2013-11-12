@@ -19,6 +19,14 @@ package com.owncloud.android.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.InstantUploadBroadcastReceiver;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.utils.FileStorageUtils;
+
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
@@ -41,13 +49,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.InstantUploadBroadcastReceiver;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * This Activity is used to display a list with images they could not be
@@ -76,14 +77,14 @@ public class InstantUploadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.failed_upload_files);
 
-        Button delete_all_btn = (Button) findViewById(R.id.failed_upload_delete_all_btn);
-        delete_all_btn.setOnClickListener(getDeleteListner());
-        Button retry_all_btn = (Button) findViewById(R.id.failed_upload_retry_all_btn);
-        retry_all_btn.setOnClickListener(getRetryListner());
+        Button deleteAllBtn = (Button) findViewById(R.id.failed_upload_delete_all_btn);
+        deleteAllBtn.setOnClickListener(getDeleteListner());
+        Button retryAllBtn = (Button) findViewById(R.id.failed_upload_retry_all_btn);
+        retryAllBtn.setOnClickListener(getRetryListner());
         this.failed_upload_all_cb = (CheckBox) findViewById(R.id.failed_upload_headline_cb);
         failed_upload_all_cb.setOnCheckedChangeListener(getCheckAllListener());
         listView = (LinearLayout) findViewById(R.id.failed_upload_scrollviewlayout);
-
+        
         loadListView(true);
 
     }

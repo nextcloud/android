@@ -34,7 +34,6 @@ import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
 import android.util.Log;
 
 
-
 /**
  * A RequestEntity that represents a PIECE of a file.
  * 

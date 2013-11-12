@@ -17,6 +17,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import com.owncloud.android.R;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.owncloud.android.R;
 
 /**
  * This Activity is used to display a detail message for failed uploads
@@ -44,8 +45,9 @@ public class FailedUploadActivity extends Activity {
         String message = getIntent().getStringExtra(MESSAGE);
         TextView textView = (TextView) findViewById(R.id.faild_upload_message);
         textView.setText(message);
-        Button close_button = (Button) findViewById(R.id.failed_uploadactivity_close_button);
-        close_button.setOnClickListener(new OnClickListener() {
+        Button closeBtn = (Button) findViewById(R.id.failed_uploadactivity_close_button);
+        
+        closeBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

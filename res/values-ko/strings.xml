@@ -24,8 +24,10 @@
   <string name="prefs_log_summary_history">여기서 기록된 로그를 보여줍니다</string>
   <string name="prefs_log_delete_history_button">역사 삭제하기</string>
   <string name="prefs_help">도움말</string>
+  <string name="prefs_recommend">친구들에게 권하기</string>
   <string name="prefs_feedback">피드백</string>
   <string name="prefs_imprint">임프린트</string>
+  <string name="recommend_subject">%1$s 을 스마트폰에서 사용해보세요!</string>
   <string name="auth_check_server">서버 확인</string>
   <string name="auth_host_url">서버 주소</string>
   <string name="auth_username">사용자 이름</string>
@@ -92,6 +94,7 @@
   <string name="sync_foreign_files_forgotten_ticker">몇몇 로컬 파일이 사라졌습니다.</string>
   <string name="sync_foreign_files_forgotten_content">%1$d 파일을 %2$s 디렉토리에 복사하지 못하였습니다.</string>
   <string name="sync_foreign_files_forgotten_explanation">1.3.16 버전에서, 파일 업로드는 다수의 계정이 동시에 접속될때 데이터 유실을 피하기 위해 로컬 %1$s 폴더로 복사됩니다.⏎\n⏎\n이 변화로 인해, 예전 버전으로 올리신 파일들은 %2$s 폴더로 복사되었습니다. 그러나, 계정 동기화중 오류로 인해 작업을 완료하지 못할수 있습니다. 파일을 남기시고 %3$s로 연결되는 링크를 지우시거나, 혹은 파일을 %1$s 폴더로 이동시키고, %4$s에 링크를 유지시킬수 있습니다.⏎\n⏎\n아래에는 로컬 파일과 더불어, %5$s로 링크된 리모트 파일들의 목록이 있습니다.\n</string>
+  <string name="sync_current_folder_was_removed">%1$s 폴더가 존재하지 않습니다.</string>
   <string name="foreign_files_move">모두 옮김</string>
   <string name="foreign_files_success">모든 파일 옮김</string>
   <string name="foreign_files_fail">몇몇 파일을 옮기지 못했습니다.</string>
@@ -137,6 +140,7 @@
   <string name="auth_timeout_title">서버 응답 시간이 초과되었습니다</string>
   <string name="auth_incorrect_address_title">잘못된 URL</string>
   <string name="auth_ssl_general_error_title">SSL 초기화 오류</string>
+  <string name="auth_ssl_unverified_server_title">SSL 서버의 신원을 확인할수 없습니다</string>
   <string name="auth_bad_oc_version_title">확인할 수 없는 서버 버전</string>
   <string name="auth_wrong_connection_title">연결을 수립할 수 없음</string>
   <string name="auth_secure_connection">암호화된 연결 사용 중</string>
@@ -144,7 +148,12 @@
   <string name="auth_oauth_error">권한부여가 성공적으로 이뤄지지 않았습니다</string>
   <string name="auth_oauth_error_access_denied">권한 서버로 부터 접근이 거부되었습니다</string>
   <string name="auth_wtf_reenter_URL">뜻밖의 상태; 다시 서버 주소를 입력해주십시오</string>
+  <string name="auth_expired_oauth_token_toast">인증이 만료되었습니다. 다시 인증해주세요</string>
   <string name="auth_expired_basic_auth_toast">현재 암호를 </string>
+  <string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속해주세요</string>
+  <string name="auth_connecting_auth_server">인증 서버에 접속하는 중...</string>
+  <string name="auth_unsupported_auth_method">서버에서 이 인증 방법을 지원하지 않습니다.</string>
+  <string name="auth_unsupported_multiaccount">%1$s 에서는 다중 계정을 지원하지 않습니다</string>
   <string name="fd_keep_in_sync">파일을 최신 정보로 유지</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
@@ -165,6 +174,7 @@
   <string name="wait_a_moment">잠시 기다려 주십시오</string>
   <string name="filedisplay_unexpected_bad_get_content">예상하지 못한 오류입니다. 다른 앱에서 파일을 선택하십시오</string>
   <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
+  <string name="oauth_check_onoff">oAuth2로 로그인하기</string>
   <string name="oauth_login_connection">oAuth2 서버에 연결중...</string>
   <string name="ssl_validator_header">사이트 인증서를 확인할 수 없었습니다</string>
   <string name="ssl_validator_reason_cert_not_trusted">- 서버 인증서를 신뢰할 수 없습니다</string>

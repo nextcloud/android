@@ -38,6 +38,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 
 
+
 public class LogHistoryActivity extends SherlockPreferenceActivity implements OnPreferenceChangeListener {
     String logpath = FileStorageUtils.getLogPath();
     File logDIR = null;
@@ -52,6 +53,7 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
         actionBar.setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(android.R.id.list);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
+        
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override

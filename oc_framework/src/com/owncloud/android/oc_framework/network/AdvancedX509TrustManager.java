@@ -34,6 +34,7 @@ import javax.net.ssl.X509TrustManager;
 import android.util.Log;
 
 
+
 /**
  * @author David A. Velasco
  */

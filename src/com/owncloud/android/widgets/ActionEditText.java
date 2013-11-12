@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.owncloud.android.R;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

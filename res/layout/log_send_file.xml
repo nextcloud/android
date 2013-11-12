@@ -24,7 +24,8 @@
          android:layout_height="wrap_content"
          android:gravity="bottom">
         
-     <Button   	android:id="@+id/deleteLogHistoryButton"
+     <Button
+            	android:id="@+id/deleteLogHistoryButton"
          		android:layout_width="match_parent"
      		   	android:layout_height="wrap_content"
      		   	android:text="@string/prefs_log_delete_history_button"/>

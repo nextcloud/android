@@ -47,14 +47,13 @@ import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
-
 import com.owncloud.android.R;
+
 
 public class AccountSelectActivity extends SherlockListActivity implements
         AccountManagerCallback<Boolean> {
@@ -96,12 +95,6 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 (mPreviousAccount != null && !mPreviousAccount.equals(current))) {
                 /// the account set as default changed since this activity was created 
             
-                // trigger synchronization
-                ContentResolver.cancelSync(null, MainApp.getAuthTokenType());
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-                ContentResolver.requestSync(AccountUtils.getCurrentOwnCloudAccount(this), MainApp.getAuthTokenType(), bundle);
-                
                 // restart the main activity
                 Intent i = new Intent(this, FileDisplayActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

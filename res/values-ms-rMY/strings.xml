@@ -44,5 +44,6 @@
   <string name="pincode_stored">PIN App disimpan</string>
   <string name="auth_no_net_conn_title">Tiada sambungan rangkaian</string>
   <string name="common_rename">Namakan</string>
+  <string name="common_remove">Buang</string>
   <string name="confirmation_remove_local">Lokal sahaja</string>
 </resources>

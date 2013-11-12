@@ -11,11 +11,11 @@
         <uses-library android:name="android.test.runner" />
     </application>
     <!--
-    This declares that this application uses the instrumentation test runner targeting
-    the package of com.owncloud.android.test.  To run the tests use the command:
-    "adb shell am instrument -w com.owncloud.android.tests/android.test.InstrumentationTestRunner"
+     This declares that this application uses the instrumentation test runner targeting
+     the package of com.owncloud.android.test.  To run the tests use the command:
+     "adb shell am instrument -w com.owncloud.android.tests/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.owncloud.android"
-                     android:label="Tests for com.owncloud.android"/>
+     android:targetPackage="com.owncloud.android"
+     android:label="Tests for com.owncloud.android"/>
 </manifest>

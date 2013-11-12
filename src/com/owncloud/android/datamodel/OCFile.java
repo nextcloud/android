@@ -22,6 +22,7 @@ import java.io.File;
 
 import com.owncloud.android.Log_OC;
 
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;

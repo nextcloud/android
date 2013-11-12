@@ -35,6 +35,6 @@
 		android:layout_width="fill_parent" android:layout_alignParentBottom="true" android:layout_height="wrap_content" android:orientation="vertical">
 		<Button android:layout_gravity="bottom" android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:id="@+id/uploader_choose_folder"
-			android:text="@string/uploader_btn_upload_text"></Button>
+			android:text="@string/uploader_btn_upload_text"/>
 	</LinearLayout>
 </RelativeLayout>

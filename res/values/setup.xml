@@ -2,8 +2,8 @@
 <resources>
     <!-- App name  and other strings-->
     <string name="app_name">ownCloud</string>
-    <string name="account_type">owncloud</string>
-    <string name="authority">org.owncloud</string>
+    <string name="account_type">owncloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">org.owncloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name ="db_file">owncloud.db</string>
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud</string>
@@ -12,7 +12,8 @@
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
-	<string name="url_account_register">"https://owncloud.com/mobile/new"</string>
+    <bool name="show_welcome_link">true</bool>
+	<string name="welcome_link_url">"https://owncloud.com/mobile/new"</string>
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
@@ -24,6 +25,9 @@
     <color name="background_color">#F7F7F7</color>
     <color name="actionbar_start_color">#1D2D44</color>
     <color name="actionbar_end_color">#1D2D44</color>
+    
+    <!-- Button -->
+    <color name="button_text_color">#000000</color>
     
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
@@ -40,4 +44,5 @@
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
 
 </resources>
+
 

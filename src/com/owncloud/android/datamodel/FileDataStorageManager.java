@@ -30,6 +30,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.utils.FileStorageUtils;
 
+
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -390,14 +391,16 @@ public class FileDataStorageManager {
         if (id > FileDataStorageManager.ROOT_PARENT_ID) {
             Log_OC.d(TAG, "Updating size of " + id);
             if (getContentResolver() != null) {
-                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, null,
+                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, 
+                        new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
                         ProviderTableMeta._ID + "=?",
                         new String[] { String.valueOf(id) });
             } else {
                 try {
-                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, null,
-                        ProviderTableMeta._ID + "=?",
-                        new String[] { String.valueOf(id) });
+                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, 
+                            new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
+                            ProviderTableMeta._ID + "=?",
+                            new String[] { String.valueOf(id) });
                     
                 } catch (RemoteException e) {
                     Log_OC.e(TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());

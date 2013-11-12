@@ -33,10 +33,14 @@ import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
+import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.ExistenceCheckOperation;
@@ -45,13 +49,18 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
-
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+import com.owncloud.android.ui.activity.FailedUploadActivity;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.InstantUploadActivity;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -71,16 +80,6 @@ import android.os.Process;
 import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.ui.activity.FailedUploadActivity;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.InstantUploadActivity;
-import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
 
 
 public class FileUploader extends Service implements OnDatatransferProgressListener {

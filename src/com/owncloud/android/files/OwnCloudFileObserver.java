@@ -29,6 +29,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult.Result
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 
 
+
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;

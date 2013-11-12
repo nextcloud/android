@@ -24,6 +24,7 @@ import java.util.Comparator;
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

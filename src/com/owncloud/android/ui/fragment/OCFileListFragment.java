@@ -43,6 +43,7 @@ import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationD
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
+
 import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;

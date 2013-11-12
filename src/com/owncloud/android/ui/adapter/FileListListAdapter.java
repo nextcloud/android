@@ -28,6 +28,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
+import java.util.Vector;
+
 import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -36,8 +39,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
-
-import java.util.Vector;
 
 
 /**
@@ -54,9 +55,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-    //total size of a directory (recursive)
-    private Long totalSizeOfDirectoriesRecursive = null;
-    private Long lastModifiedOfAllSubdirectories = null;
     
     public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
         mContext = context;
