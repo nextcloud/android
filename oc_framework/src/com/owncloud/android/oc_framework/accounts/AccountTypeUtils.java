@@ -24,7 +24,7 @@ package com.owncloud.android.oc_framework.accounts;
  */
 public class AccountTypeUtils {
 
-    public static String getAuthTokenTypePass(String baseAuthTokenType) {
+    public static String getAuthTokenTypePass(String accountType) {
         return accountType + ".password";
     }
     
