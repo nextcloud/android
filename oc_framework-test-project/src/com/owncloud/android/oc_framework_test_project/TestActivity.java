@@ -1,6 +1,7 @@
 package com.owncloud.android.oc_framework_test_project;
 
 import java.io.IOException;
+
 import com.owncloud.android.oc_framework.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.oc_framework.network.OwnCloudClientUtils;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
@@ -16,31 +17,51 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 
+/**
+ * Activity to test OC framework
+ * @author masensio
+ *
+ */
 public class TestActivity extends Activity {
 	
 	private static final String TAG = "TestActivity";
 	
-	private Account mAccount;
+	private Account mAccount = null;
 	private WebdavClient mClient;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
-
-		String accountName = "admin@beta.owncloud.com";
+		
 		String accountHost = "beta.owncloud.com";
-		String accountUser = "admin";
-		String accountPass = "owncloud42";
+		String accountUser = "masensio";
+		String accountName = accountUser + "@"+ accountHost;
+		String accountPass = "masensio";
 		String accountType = "owncloud";	
-		String accountTypePass = "owncloud.password";
 		String authorities = "org.owncloud";
 
-		mAccount = new Account(accountName, accountType);
 		AccountManager am = AccountManager.get(this);
-		am.addAccountExplicitly(mAccount, accountPass, null);
 		
+		Account[] ocAccounts = am.getAccountsByType(accountType);
+        for (Account ac : ocAccounts) {
+           if (ac.name.equals(accountName)) {
+        	   mAccount = ac;
+        	   break;
+            }
+        }
 
+        if (mAccount == null) {
+			mAccount = new Account(accountName, accountType);	
+			am.addAccountExplicitly(mAccount, accountPass, null);
+	        am.setUserData(mAccount, "oc_version",    "5.0.14");
+	        am.setUserData(mAccount, "oc_base_url",   "http://beta.owncloud.com/owncloud");
+        } else {
+            Log.d(TAG, "oc_version --->"+ am.getUserData(mAccount, "oc_version") );
+            Log.d(TAG, "oc_base_url --->"+ am.getUserData(mAccount, "oc_base_url") );
+        }
+        	
+        
 		try {
 			mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, this.getApplicationContext(), authorities);
 		} catch (OperationCanceledException e) {
@@ -65,6 +86,12 @@ public class TestActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Access to the library method to Create a Folder
+	 * @param remotePath
+	 * @param createFullPath
+	 * @return
+	 */
 	public RemoteOperationResult createFolder(String remotePath, boolean createFullPath) {
 		
 		CreateRemoteFolderOperation createOperation = new CreateRemoteFolderOperation(remotePath, createFullPath);

@@ -1,5 +1,8 @@
 package com.owncloud.android.oc_framework_test_project.test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework_test_project.TestActivity;
 
@@ -9,10 +12,13 @@ import android.util.Log;
 public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
 	private TestActivity mActivity;
+	private String mCurrentDate;
 	
 	public CreateFolderTest() {
 	    super(TestActivity.class);
 	   
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		mCurrentDate = sdf.format(new Date());
 	}
 	
 	@Override
@@ -23,8 +29,8 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	}
 	
 	public void testCreateFolder() {
-		
-		String remotePath = "beta.owncloud.com/owncloud/testCreateFolder";
+
+		String remotePath = "/testCreateFolder" + mCurrentDate;
 		boolean createFullPath = true;
 		
 		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
@@ -34,11 +40,11 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	}
 	
 	public void testCreateFolderSpecialCharacters() {
-		String remotePath = "beta.owncloud.com/owncloud/test^^SpecialCharacters";
+		String remotePath = "/test^^SpecialCharacters" + mCurrentDate;
 		boolean createFullPath = true;
 		
 		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
-		assertTrue(result.isSuccess());
+		assertFalse(result.isSuccess());
 	}
 
 
