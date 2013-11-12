@@ -1,4 +1,3 @@
-package com.owncloud.android.oc_framework.operations;
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
  *   Copyright (C) 2012-2013 ownCloud Inc.
@@ -17,7 +16,7 @@ package com.owncloud.android.oc_framework.operations;
  *
  */
 
-
+package com.owncloud.android.oc_framework.operations;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -34,7 +33,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
 
-import com.owncloud.android.oc_framework.authentication.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.oc_framework.network.CertificateCombinedException;
 
 import android.accounts.Account;

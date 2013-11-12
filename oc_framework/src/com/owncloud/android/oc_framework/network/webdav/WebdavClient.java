@@ -55,8 +55,7 @@ public class WebdavClient extends HttpClient {
     private Credentials mCredentials;
     private boolean mFollowRedirects;
     private String mSsoSessionCookie;
-    private String mAuthTokenType;
-    final private static String TAG = "WebdavClient";
+    final private static String TAG = WebdavClient.class.getSimpleName();
     public static final String USER_AGENT = "Android-ownCloud";
     
     static private byte[] sExhaustBuffer = new byte[1024];
@@ -64,17 +63,16 @@ public class WebdavClient extends HttpClient {
     /**
      * Constructor
      */
-    public WebdavClient(HttpConnectionManager connectionMgr, String authorities) {
+    public WebdavClient(HttpConnectionManager connectionMgr) {
         super(connectionMgr);
         Log.d(TAG, "Creating WebdavClient");
         getParams().setParameter(HttpMethodParams.USER_AGENT, USER_AGENT);
         getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
         mFollowRedirects = true;
         mSsoSessionCookie = null;
-        mAuthTokenType = authorities; // MainApp.getAuthTokenTypePass();
     }
 
-    public void setBearerCredentials(String accessToken, String authorities) {
+    public void setBearerCredentials(String accessToken) {
         AuthPolicy.registerAuthScheme(BearerAuthScheme.AUTH_POLICY, BearerAuthScheme.class);
         
         List<String> authPrefs = new ArrayList<String>(1);
@@ -84,10 +82,9 @@ public class WebdavClient extends HttpClient {
         mCredentials = new BearerCredentials(accessToken);
         getState().setCredentials(AuthScope.ANY, mCredentials);
         mSsoSessionCookie = null;
-        mAuthTokenType = authorities;// MainApp.getAuthTokenTypeAccessToken();
     }
 
-    public void setBasicCredentials(String username, String password, String authorities) {
+    public void setBasicCredentials(String username, String password) {
         List<String> authPrefs = new ArrayList<String>(1);
         authPrefs.add(AuthPolicy.BASIC);
         getParams().setParameter(AuthPolicy.AUTH_SCHEME_PRIORITY, authPrefs);        
@@ -96,15 +93,13 @@ public class WebdavClient extends HttpClient {
         mCredentials = new UsernamePasswordCredentials(username, password);
         getState().setCredentials(AuthScope.ANY, mCredentials);
         mSsoSessionCookie = null;
-        mAuthTokenType = authorities; //MainApp.getAuthTokenTypePass();
     }
     
-    public void setSsoSessionCookie(String accessToken, String authorities) {
+    public void setSsoSessionCookie(String accessToken) {
         getParams().setAuthenticationPreemptive(false);
         getParams().setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
         mSsoSessionCookie = accessToken;
         mCredentials = null;
-        mAuthTokenType = authorities; //MainApp.getAuthTokenTypeSamlSessionCookie();
     }
     
     
@@ -246,10 +241,6 @@ public class WebdavClient extends HttpClient {
 
     public void setFollowRedirects(boolean followRedirects) {
         mFollowRedirects = followRedirects;
-    }
-
-    public String getAuthTokenType() {
-        return mAuthTokenType;
     }
 
 }

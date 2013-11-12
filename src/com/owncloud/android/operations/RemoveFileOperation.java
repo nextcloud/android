@@ -23,8 +23,10 @@ import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.webdav.WebdavClient;
-import com.owncloud.android.network.webdav.WebdavUtils;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 
 
 /**

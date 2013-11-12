@@ -34,7 +34,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.webdav.WebdavUtils;
+import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 
 
 /**

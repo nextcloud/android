@@ -33,7 +33,7 @@ import android.widget.TextView;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import com.owncloud.android.Log_OC;

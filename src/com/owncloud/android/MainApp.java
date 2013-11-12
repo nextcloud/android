@@ -57,30 +57,6 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.authority);
     }
     
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_PASSWORD = "owncloud.password";
-    public static String getAuthTokenTypePass() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".password";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_ACCESS_TOKEN = "owncloud.oauth2.access_token";
-    public static String getAuthTokenTypeAccessToken() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".oauth2.access_token";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_REFRESH_TOKEN = "owncloud.oauth2.refresh_token";
-    public static String getAuthTokenTypeRefreshToken() {
-        return getAppContext().getResources().getString(R.string.account_type) + ".oauth2.refresh_token";
-    }
-    
-    //  From AccountAuthenticator
-    //  public static final String AUTH_TOKEN_TYPE_SAML_WEB_SSO_SESSION_COOKIE = "owncloud.saml.web_sso.session_cookie";
-    public static String getAuthTokenTypeSamlSessionCookie() {
-        return getAppContext().getResources().getString(R.string.account_type) +  ".saml.web_sso.session_cookie";
-    }
-    
     //  From ProviderMeta 
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {

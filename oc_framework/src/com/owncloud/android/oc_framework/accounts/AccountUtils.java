@@ -16,10 +16,9 @@
  *
  */
 
-package com.owncloud.android.oc_framework.authentication;
+package com.owncloud.android.oc_framework.accounts;
 
-
-import com.owncloud.android.oc_framework.OwnCloudVersion;
+import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -35,94 +34,6 @@ public class AccountUtils {
     public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
     public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
-
-//    /**
-//     * Can be used to get the currently selected ownCloud {@link Account} in the
-//     * application preferences.
-//     * 
-//     * @param   context     The current application {@link Context}
-//     * @return              The ownCloud {@link Account} currently saved in preferences, or the first 
-//     *                      {@link Account} available, if valid (still registered in the system as ownCloud 
-//     *                      account). If none is available and valid, returns null.
-//     */
-//    public static Account getCurrentOwnCloudAccount(Context context) {
-//        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-//                MainApp.getAccountType());
-//        Account defaultAccount = null;
-//
-//        SharedPreferences appPreferences = PreferenceManager
-//                .getDefaultSharedPreferences(context);
-//        String accountName = appPreferences
-//                .getString("select_oc_account", null);
-//
-//        // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
-//        if (accountName != null) {
-//            for (Account account : ocAccounts) {
-//                if (account.name.equals(accountName)) {
-//                    defaultAccount = account;
-//                    break;
-//                }
-//            }
-//        }
-//        
-//        if (defaultAccount == null && ocAccounts.length != 0) {
-//            // take first account as fallback
-//            defaultAccount = ocAccounts[0];
-//        }
-//
-//        return defaultAccount;
-//    }
-//
-//    
-//    public static boolean exists(Account account, Context context) {
-//        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-//                MainApp.getAccountType());
-//
-//        if (account != null && account.name != null) {
-//            for (Account ac : ocAccounts) {
-//                if (ac.name.equals(account.name)) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//    
-//
-//    /**
-//     * Checks, whether or not there are any ownCloud accounts setup.
-//     * 
-//     * @return true, if there is at least one account.
-//     */
-//    public static boolean accountsAreSetup(Context context) {
-//        AccountManager accMan = AccountManager.get(context);
-//        Account[] accounts = accMan
-//                .getAccountsByType(MainApp.getAccountType());
-//        return accounts.length > 0;
-//    }
-//    
-//    
-//    public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
-//        boolean result = false;
-//        if (accountName != null) {
-//            Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
-//                    MainApp.getAccountType());
-//            boolean found = false;
-//            for (Account account : ocAccounts) {
-//                found = (account.name.equals(accountName));
-//                if (found) {
-//                    SharedPreferences.Editor appPrefs = PreferenceManager
-//                            .getDefaultSharedPreferences(context).edit();
-//                    appPrefs.putString("select_oc_account", accountName);
-//    
-//                    appPrefs.commit();
-//                    result = true;
-//                    break;
-//                }
-//            }
-//        }
-//        return result;
-//    }
 
     /**
      * 
@@ -184,10 +95,10 @@ public class AccountUtils {
      */
     public static String constructFullURLForAccount(Context context, Account account) throws AccountNotFoundException {
         AccountManager ama = AccountManager.get(context);
-        String baseurl = ama.getUserData(account, AccountAuthenticatorConstants.KEY_OC_BASE_URL);
-        String strver  = ama.getUserData(account, AccountAuthenticatorConstants.KEY_OC_VERSION);
-        boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticatorConstants.KEY_SUPPORTS_OAUTH2) != null);
-        boolean supportsSamlSso = (ama.getUserData(account, AccountAuthenticatorConstants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
+        String baseurl = ama.getUserData(account, OwnCloudAccount.Constants.KEY_OC_BASE_URL);
+        String strver  = ama.getUserData(account, OwnCloudAccount.Constants.KEY_OC_VERSION);
+        boolean supportsOAuth = (ama.getUserData(account, OwnCloudAccount.Constants.KEY_SUPPORTS_OAUTH2) != null);
+        boolean supportsSamlSso = (ama.getUserData(account, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
         OwnCloudVersion ver = new OwnCloudVersion(strver);
         String webdavpath = getWebdavPath(ver, supportsOAuth, supportsSamlSso);
 

@@ -21,8 +21,8 @@ import java.io.IOException;
 import org.apache.commons.httpclient.Credentials;
 
 import com.owncloud.android.oc_framework.network.BearerCredentials;
-import com.owncloud.android.oc_framework.network.OwnCloudClientUtils;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 
 
@@ -48,9 +48,6 @@ public abstract class RemoteOperation implements Runnable {
 
     /** ownCloud account in the remote ownCloud server to operate */
     private Account mAccount = null;
-    
-    /** Authoritities */ 
-    private String mAuthorities;
     
     /** Android Application context */
     private Context mContext = null;
@@ -85,7 +82,7 @@ public abstract class RemoteOperation implements Runnable {
      * @param context   Android context for the component calling the method.
      * @return          Result of the operation.
      */
-    public final RemoteOperationResult execute(Account account, Context context, String authorities) {
+    public final RemoteOperationResult execute(Account account, Context context) {
         if (account == null)
             throw new IllegalArgumentException("Trying to execute a remote operation with a NULL Account");
         if (context == null)
@@ -93,12 +90,11 @@ public abstract class RemoteOperation implements Runnable {
         mAccount = account;
         mContext = context.getApplicationContext();
         try {
-            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, authorities);
+            mClient = OwnCloudClientFactory.createOwnCloudClient(mAccount, mContext);
         } catch (Exception e) {
             Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
             return new RemoteOperationResult(e);
         }
-        mAuthorities = authorities;
         return run(mClient);
     }
     
@@ -218,9 +214,9 @@ public abstract class RemoteOperation implements Runnable {
                 if (mClient == null) {
                     if (mAccount != null && mContext != null) {
                         if (mCallerActivity != null) {
-                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mCallerActivity, mAuthorities);
+                            mClient = OwnCloudClientFactory.createOwnCloudClient(mAccount, mContext, mCallerActivity);
                         } else {
-                            mClient = OwnCloudClientUtils.createOwnCloudClient(mAccount, mContext, mAuthorities);
+                            mClient = OwnCloudClientFactory.createOwnCloudClient(mAccount, mContext);
                         }
                     } else {
                         throw new IllegalStateException("Trying to run a remote operation asynchronously with no client instance or account");

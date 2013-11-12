@@ -20,8 +20,11 @@ package com.owncloud.android.operations;
 import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.webdav.WebdavClient;
-import com.owncloud.android.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.utils.FileStorageUtils;
 
 
@@ -83,10 +86,9 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
        } else {
            Log_OC.e(TAG, mRemotePath + "hasn't been created");
        }
-           
-        
     }
 
+    
     /**
      * Save new directory in local database
      */
@@ -101,5 +103,6 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
         Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
 
     }
-    
+
+
 }

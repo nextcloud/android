@@ -39,7 +39,7 @@ import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 
 
 /**

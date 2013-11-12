@@ -47,7 +47,8 @@ public class BearerAuthScheme implements AuthScheme /*extends RFC2617Scheme*/ {
     private boolean mComplete;
     
     /** Authentication parameter map */
-    private Map mParams = null;
+    @SuppressWarnings("rawtypes")
+	private Map mParams = null;
     
     
     /**

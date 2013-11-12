@@ -37,14 +37,15 @@ import android.accounts.Account;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.network.ProgressiveDataTransferer;
-import com.owncloud.android.network.webdav.FileRequestEntity;
-import com.owncloud.android.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.network.webdav.WebdavClient;
-import com.owncloud.android.network.webdav.WebdavUtils;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
+import com.owncloud.android.oc_framework.network.webdav.FileRequestEntity;
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+import com.owncloud.android.oc_framework.operations.OperationCancelledException;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.FileStorageUtils;
 
 

@@ -1,4 +1,3 @@
-package com.owncloud.android.oc_framework.network;
 /* ownCloud Android client application
  *   Copyright (C) 2012-2013 ownCloud Inc.
  *
@@ -16,7 +15,7 @@ package com.owncloud.android.oc_framework.network;
  *
  */
 
-
+package com.owncloud.android.oc_framework.network;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;

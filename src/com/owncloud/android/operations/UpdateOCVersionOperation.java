@@ -29,9 +29,12 @@ import android.content.Context;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.Log_OC;
-import com.owncloud.android.network.webdav.WebdavClient;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 
 
 /**
@@ -56,7 +59,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
         AccountManager accountMngr = AccountManager.get(mContext); 
-        String statUrl = accountMngr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL);
+        String statUrl = accountMngr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL);
         statUrl += AccountUtils.STATUS_PATH;
         RemoteOperationResult result = null;
         GetMethod get = null;
@@ -74,7 +77,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                     if (json != null && json.getString("version") != null) {
                         OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
                         if (ocver.isVersionValid()) {
-                            accountMngr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION, ocver.toString());
+                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION, ocver.toString());
                             Log_OC.d(TAG, "Got new OC version " + ocver.toString());
                             result = new RemoteOperationResult(ResultCode.OK);
                             

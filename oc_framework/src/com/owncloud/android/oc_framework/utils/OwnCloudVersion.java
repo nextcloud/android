@@ -16,7 +16,7 @@
  *
  */
 
-package com.owncloud.android.oc_framework;
+package com.owncloud.android.oc_framework.utils;
 
 public class OwnCloudVersion implements Comparable<OwnCloudVersion> {
     public static final OwnCloudVersion owncloud_v1 = new OwnCloudVersion(
