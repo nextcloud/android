@@ -17,8 +17,8 @@
  */
 package com.owncloud.android.db;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.utils.Log_OC;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,7 +35,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DbHandler {
     private SQLiteDatabase mDB;
     private OpenerHelper mHelper;
-    private final String mDatabaseName; // = "ownCloud";
+    private final String mDatabaseName;
     private final int mDatabaseVersion = 3;
 
     private final String TABLE_INSTANT_UPLOAD = "instant_upload";
@@ -44,9 +44,9 @@ public class DbHandler {
     public static final int UPLOAD_STATUS_UPLOAD_FAILED = 1;
 
     public DbHandler(Context context) {
+        mDatabaseName = MainApp.getDBName();
         mHelper = new OpenerHelper(context);
         mDB = mHelper.getWritableDatabase();
-        mDatabaseName = MainApp.getDBName();
     }
 
     public void close() {

@@ -19,7 +19,7 @@ package com.owncloud.android.authentication;
 
 import java.lang.ref.WeakReference;
 
-import com.owncloud.android.Log_OC;
+import com.owncloud.android.utils.Log_OC;
 
 
 import android.graphics.Bitmap;

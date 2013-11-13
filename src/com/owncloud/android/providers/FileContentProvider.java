@@ -21,11 +21,11 @@ package com.owncloud.android.providers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.utils.Log_OC;
 
 
 

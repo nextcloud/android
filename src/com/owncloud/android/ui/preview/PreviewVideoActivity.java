@@ -17,12 +17,12 @@
 
 package com.owncloud.android.ui.preview;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.AlertDialog;

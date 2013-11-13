@@ -50,7 +50,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -61,6 +60,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
