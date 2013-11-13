@@ -16,13 +16,16 @@
  *
  */
 
-package com.owncloud.android;
+package com.owncloud.android.utils;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.owncloud.android.R;
+import com.owncloud.android.R.drawable;
 
 /**
  * A helper class for some string operations.

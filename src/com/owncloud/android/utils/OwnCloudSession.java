@@ -15,7 +15,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android;
+package com.owncloud.android.utils;
 
 /**
  * Represents a session to an ownCloud instance

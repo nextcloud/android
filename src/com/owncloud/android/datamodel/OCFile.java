@@ -20,7 +20,7 @@ package com.owncloud.android.datamodel;
 
 import java.io.File;
 
-import com.owncloud.android.Log_OC;
+import com.owncloud.android.utils.Log_OC;
 
 
 import android.os.Parcel;

@@ -16,7 +16,7 @@
  *
  */
 
-package com.owncloud.android;
+package com.owncloud.android.ui.activity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,11 +26,16 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.R.id;
+import com.owncloud.android.R.layout;
+import com.owncloud.android.R.string;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

@@ -1,4 +1,4 @@
-package com.owncloud.android;
+package com.owncloud.android.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import com.owncloud.android.MainApp;
 
 import android.util.Log;
 
@@ -22,7 +24,7 @@ public class Log_OC {
     
     public static void i(String TAG, String message){
         // Printing the message to LogCat console
-        Log.i(TAG, message);
+        int a = Log.i(TAG, message);
         // Write the log message to the file
         appendLog(TAG+" : "+message);
     }

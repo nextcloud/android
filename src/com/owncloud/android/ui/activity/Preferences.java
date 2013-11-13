@@ -36,10 +36,10 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.OwnCloudSession;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.utils.OwnCloudSession;
 
 
 /**
