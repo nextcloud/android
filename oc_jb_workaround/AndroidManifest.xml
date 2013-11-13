@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android.workaround.accounts"
-    android:versionCode="0100008"
-    android:versionName="1.0.8" >
+    android:versionCode="0100009"
+    android:versionName="1.0.9" >
+
+    <!-- uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16" /-->
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="16" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="false"
         android:icon="@drawable/workaround_app_icon"
         android:label="@string/workaround_app_name"
-        android:theme="@style/AppTheme" >
+        >
         <service
             android:name=".AccountAuthenticatorService"
             android:exported="false">
