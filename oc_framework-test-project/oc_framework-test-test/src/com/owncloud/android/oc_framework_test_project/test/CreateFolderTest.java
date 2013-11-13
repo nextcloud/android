@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 
 public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
@@ -34,17 +34,47 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 		boolean createFullPath = true;
 		
 		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
-		Log.d("test CreateFolder", "-----------------------" + result.getCode().name());
-		Log.d("test CreateFolder", "-----------------------" + result.getLogMessage());
-		assertTrue(result.isSuccess());
+		assertTrue(result.isSuccess() || result.getCode() == ResultCode.TIMEOUT);
 	}
 	
-	public void testCreateFolderSpecialCharacters() {
-		String remotePath = "/test^^SpecialCharacters" + mCurrentDate;
+	public void testCreateFolderSpecialCharacters() {		
 		boolean createFullPath = true;
 		
+		String remotePath = "/testSpecialCharacters_//" + mCurrentDate;
 		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
-		assertFalse(result.isSuccess());
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_\\" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_<" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_>" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_:" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_\"" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_|" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_?" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
+		
+		remotePath = "/testSpecialCharacters_*" + mCurrentDate;		
+		result =  mActivity.createFolder(remotePath, createFullPath);
+		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 	}
 
 

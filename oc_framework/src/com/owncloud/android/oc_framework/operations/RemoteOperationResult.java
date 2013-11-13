@@ -89,7 +89,8 @@ public class RemoteOperationResult implements Serializable {
         ACCOUNT_NOT_FOUND, 
         ACCOUNT_EXCEPTION, 
         ACCOUNT_NOT_NEW, 
-        ACCOUNT_NOT_THE_SAME
+        ACCOUNT_NOT_THE_SAME,
+        INVALID_CHARACTER_IN_NAME
     }
 
     private boolean mSuccess = false;
@@ -307,6 +308,8 @@ public class RemoteOperationResult implements Serializable {
 
         } else if (mCode == ResultCode.ACCOUNT_NOT_THE_SAME) {
             return "Authenticated with a different account than the one updating";
+        } else if (mCode == ResultCode.INVALID_CHARACTER_IN_NAME) {
+        	return "The file name contains an forbidden character";
         }
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";
