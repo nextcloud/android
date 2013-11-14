@@ -162,8 +162,7 @@ public class FileObserverService extends Service {
             OwnCloudFileObserver observer =
                     new OwnCloudFileObserver(   path, 
                                                 account, 
-                                                getApplicationContext(), 
-                                                OwnCloudFileObserver.CHANGES_ONLY);
+                                                getApplicationContext());
             mObserversMap.put(path, observer);
             if (new File(path).exists()) {
                 observer.startWatching();
@@ -202,8 +201,7 @@ public class FileObserverService extends Service {
             /// the local file was never registered to observe before
             observer = new OwnCloudFileObserver(    localPath, 
                                                     account, 
-                                                    getApplicationContext(), 
-                                                    OwnCloudFileObserver.CHANGES_ONLY);
+                                                    getApplicationContext());
             mObserversMap.put(localPath, observer);
             Log_OC.d(TAG, "Observer added for path " + localPath);
         
