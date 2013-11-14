@@ -29,7 +29,6 @@ public class RenameRemoteFileOperation extends RemoteOperation {
     private String mOldRemotePath;
     private String mNewName;
     private String mNewRemotePath;
-    private boolean mIsFolder;
     
     
     /**
@@ -40,12 +39,11 @@ public class RenameRemoteFileOperation extends RemoteOperation {
      * @param newName			New name to set as the name of file.
      * @param newRemotePath		New remote path to move the file, for folders it starts and ends by "/"
      */
-	public RenameRemoteFileOperation(String oldName, String oldRemotePath, String newName, String newRemotePath, boolean isFolder) {
+	public RenameRemoteFileOperation(String oldName, String oldRemotePath, String newName, String newRemotePath) {
 		mOldName = oldName;
 		mOldRemotePath = oldRemotePath;
 		mNewName = newName;
 		mNewRemotePath = newRemotePath;
-		mIsFolder = isFolder;
 	}
 
 	 /**
@@ -59,12 +57,7 @@ public class RenameRemoteFileOperation extends RemoteOperation {
 		
 		LocalMoveMethod move = null;
         
-        boolean noInvalidChars = true; 
-        
-        if (mIsFolder)
-        	noInvalidChars = FileUtils.validateName(mNewRemotePath, mIsFolder);
-        else
-        	noInvalidChars =  FileUtils.validateName(mNewName, mIsFolder);
+        boolean noInvalidChars = FileUtils.validateName(mNewName);
         
         if (noInvalidChars) {
         try {

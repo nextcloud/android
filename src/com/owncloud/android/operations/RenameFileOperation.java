@@ -100,7 +100,7 @@ public class RenameFileOperation extends RemoteOperation {
             }
         
         RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), mNewName, 
-                mNewRemotePath, mFile.isFolder());
+                mNewRemotePath);
         result = operation.execute(client);
 
         if (result.isSuccess()) {

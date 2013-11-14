@@ -20,15 +20,11 @@ public class FileUtils {
 	 * @param fileName
 	 * @return
 	 */
-	public static boolean validateName(String fileName, boolean isFolder) {
+	public static boolean validateName(String fileName) {
 		boolean result = true;
 		
 		Log.d("FileUtils", "fileName ======= " + fileName);
-		String name = fileName.substring(1);
-		if (isFolder) {
-			name = name.substring(0, name.length() - 1);
-		}
-		if (name.contains("/") || fileName.contains("\\") || fileName.contains("<") || 
+		if (fileName.contains("/") || fileName.contains("\\") || fileName.contains("<") || 
 				fileName.contains(">") || fileName.contains(":") || fileName.contains("\"") || 
 				fileName.contains("|") || fileName.contains("?") || fileName.contains("*")) {
 			result = false;
