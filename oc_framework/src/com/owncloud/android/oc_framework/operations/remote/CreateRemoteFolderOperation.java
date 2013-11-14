@@ -54,7 +54,7 @@ public class CreateRemoteFolderOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         MkColMethod mkcol = null;
         
-        boolean noInvalidChars = FileUtils.validateName(mRemotePath);
+        boolean noInvalidChars = FileUtils.validateName(mRemotePath, true);
         if (noInvalidChars) {
         	try {
         		mkcol = new MkColMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
