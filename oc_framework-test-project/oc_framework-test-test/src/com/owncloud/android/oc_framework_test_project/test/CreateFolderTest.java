@@ -9,6 +9,11 @@ import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+/**
+ * Class to test Create Folder Operation
+ * @author masensio
+ *
+ */
 public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
 	private TestActivity mActivity;
@@ -28,6 +33,9 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	    mActivity = getActivity();
 	}
 	
+	/**
+	 * Test Create Folder
+	 */
 	public void testCreateFolder() {
 
 		String remotePath = "/testCreateFolder" + mCurrentDate;
@@ -37,6 +45,9 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 		assertTrue(result.isSuccess() || result.getCode() == ResultCode.TIMEOUT);
 	}
 	
+	/**
+	 * Test to Create Folder with special characters
+	 */
 	public void testCreateFolderSpecialCharacters() {		
 		boolean createFullPath = true;
 		

@@ -31,7 +31,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.IntentFilter.AuthorityEntry;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
@@ -1335,12 +1334,16 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else {
             dismissLoadingDialog();
+            if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
+                Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg_invalid_characters, Toast.LENGTH_LONG).show();
+            } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message " , e);
+            }
             }
         }
     }
