@@ -29,17 +29,19 @@ public class CreateRemoteFolderOperation extends RemoteOperation {
     private static final int CONNECTION_TIMEOUT = 5000;
     
 
-    
+    protected String mFolderName;
     protected String mRemotePath;
     protected boolean mCreateFullPath;
     
     /**
      * Constructor
      * 
+     * @param folderName			Name of new directory
      * @param remotePath            Full path to the new directory to create in the remote server.
      * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
      */
-    public CreateRemoteFolderOperation(String remotePath, boolean createFullPath) {
+    public CreateRemoteFolderOperation(String folderName, String remotePath, boolean createFullPath) {
+    	mFolderName = folderName;
         mRemotePath = remotePath;
         mCreateFullPath = createFullPath;
     }
@@ -54,7 +56,11 @@ public class CreateRemoteFolderOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         MkColMethod mkcol = null;
         
+<<<<<<< HEAD
         boolean noInvalidChars = FileUtils.validateName(mRemotePath, true);
+=======
+        boolean noInvalidChars = FileUtils.validateName(mFolderName);
+>>>>>>> refactor_remote_operation_to_create_folder
         if (noInvalidChars) {
         	try {
         		mkcol = new MkColMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
@@ -85,7 +91,7 @@ public class CreateRemoteFolderOperation extends RemoteOperation {
 
     
     private RemoteOperationResult createParentFolder(String parentPath, WebdavClient client) {
-        RemoteOperation operation = new CreateRemoteFolderOperation(  parentPath,
+        RemoteOperation operation = new CreateRemoteFolderOperation("", parentPath,
                                                                 mCreateFullPath);
         return operation.execute(client);
     }
