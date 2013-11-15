@@ -58,8 +58,8 @@ public class TestActivity extends Activity {
 //	        am.setUserData(mAccount, "oc_version",    "5.0.14");
 //	        am.setUserData(mAccount, "oc_base_url",   "http://beta.owncloud.com/owncloud");
 //        } else {
-            Log.d(TAG, "oc_version --->"+ am.getUserData(mAccount, "oc_version") );
-            Log.d(TAG, "oc_base_url --->"+ am.getUserData(mAccount, "oc_base_url") );
+//            Log.d(TAG, "oc_version --->"+ am.getUserData(mAccount, "oc_version") );
+//            Log.d(TAG, "oc_base_url --->"+ am.getUserData(mAccount, "oc_base_url") );
 //        }
         	
         

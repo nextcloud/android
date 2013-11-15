@@ -56,7 +56,7 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	
 	
 	/**
-	 * Test to Create Folder with special characters
+	 * Test to Create Folder with special characters: /  \  < >  :  "  |  ?  *
 	 */
 	public void testCreateFolderSpecialCharacters() {		
 		boolean createFullPath = true;
