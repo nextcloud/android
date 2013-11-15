@@ -35,7 +35,7 @@ public class RenameRemoteFileOperation extends RemoteOperation {
      * Constructor
      * 
      * @param oldName			Old name of the file.
-     * @param oldRemotePath		Old remote path of the file.
+     * @param oldRemotePath		Old remote path of the file. For folders it starts and ends by "/"
      * @param newName			New name to set as the name of file.
      * @param newRemotePath		New remote path to move the file, for folders it starts and ends by "/"
      */
