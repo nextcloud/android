@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_version">različica %1$s</string>
+  <string name="actionbar_sync">Osveži račun</string>
   <string name="actionbar_upload">Pošlji datoteko</string>
   <string name="actionbar_upload_from_apps">Vsebina iz drugih programov</string>
   <string name="actionbar_upload_files">Datoteke</string>
@@ -21,6 +23,7 @@
   <string name="prefs_help">Pomoč</string>
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
+  <string name="auth_check_server">Preveri strežnik</string>
   <string name="auth_host_url">Naslov strežnika</string>
   <string name="auth_username">Uporabniško ime</string>
   <string name="auth_password">Geslo</string>
@@ -93,10 +96,11 @@
   <string name="pincode_configure_your_pin_explanation">Koda PIN bo zahtevana vsakič pred zagonom programa.</string>
   <string name="pincode_reenter_your_pincode">Ponovno vnesite kodo PIN programa</string>
   <string name="pincode_remove_your_pincode">Odstrani kodo PIN programa</string>
-  <string name="pincode_mismatch">Vrednosti kodo PIN programa nista enaki</string>
-  <string name="pincode_wrong">Nepravilen kodo PIN programa</string>
+  <string name="pincode_mismatch">Vrednosti kod PIN programa nista enaki</string>
+  <string name="pincode_wrong">Nepravilna koda PIN programa</string>
   <string name="pincode_removed">Koda PIN programa je odstranjena</string>
   <string name="pincode_stored">Koda PIN programa je shranjena</string>
+  <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
   <string name="media_state_playing">%1$s (predvajanja)</string>
   <string name="media_state_loading">%1$s (nalaganja)</string>
   <string name="media_err_nothing_to_play">Medijskih datotek ni bilo mogoče najti</string>
@@ -112,15 +116,15 @@
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
   <string name="auth_connection_established">Povezava je vzpostavljena</string>
   <string name="auth_testing_connection">Preizkušanje povezave ...</string>
-  <string name="auth_not_configured_title">Nastavitve servera so napačno oblikovane</string>
-  <string name="auth_unknown_error_title">Prišlo je do neznane napake</string>
+  <string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
+  <string name="auth_unknown_error_title">Prišlo je do neznane napake!</string>
   <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
   <string name="auth_incorrect_path_title">Namestitve servera ni mogoče najti</string>
   <string name="auth_timeout_title">Strežnik je potreboval preveč časa za odgovor</string>
   <string name="auth_incorrect_address_title">Napačno oblikovan naslov URL</string>
   <string name="auth_ssl_general_error_title">Začenjanje SSL je spodletelo</string>
-  <string name="auth_bad_oc_version_title">Neprepoznana različica strežnika servera</string>
-  <string name="auth_wrong_connection_title">Povezave ni mogoče vzpostaviti</string>
+  <string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
+  <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
   <string name="auth_secure_connection">Varna povezava je vzpostavljena</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
@@ -165,6 +169,7 @@
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritem:</string>
   <string name="placeholder_sentence">To je vsebnik predmetov.</string>
+  <string name="placeholder_filetype">Slika PNG</string>
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
@@ -179,6 +184,7 @@
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s.</string>
   <string name="failed_upload_all_cb">izberi vse</string>
+  <string name="failed_upload_headline_retryall_btn">vse izbrane poskusi znova</string>
   <string name="failed_upload_load_more_images">Naloži več slik</string>
   <string name="failed_upload_failure_text">Sporočilo o napaki:</string>
 </resources>
