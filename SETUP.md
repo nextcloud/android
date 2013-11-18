@@ -1,7 +1,7 @@
   
 If you want to start help developing ownCloud please follow the [contribution guidelines][0] and observe these instructions:
   
-## 1. Fork and download android/develop repository:
+### 1. Fork and download android/develop repository:
 
 NOTE: You must have git in your environment path variable to perform the next operations.
   
@@ -15,7 +15,7 @@ NOTE: You must have git in your environment path variable to perform the next op
 
 At this point you can continue using different tools to build the project. Section 2, 3 and 4 describe some of the existing alternatives.  
 
-## 2. Building with Ant:
+### 2. Building with Ant:
   
 NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in your environment path variable.
 
@@ -23,7 +23,7 @@ NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in 
 * Run "ant clean" .
 * Run "ant debug" to generate a debuggable version of the ownCkoud app.
 
-## 3. Building with console/maven:
+### 3. Building with console/maven:
 
 NOTE: You must have mvn in your environment path
 
@@ -35,7 +35,7 @@ NOTE: You must have mvn in your environment path
 * "cd ../android"
 * Now you can create APK using "mvn package"
 
-## 4. Building with Eclipse:
+### 4. Building with Eclipse:
 
 NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in your environment path variable.
 
@@ -57,7 +57,7 @@ NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in 
 
 NOTE: Even though API level is set to 19, APK also runs on older devices because in AndroidManifest.xml minSdkVersion is set to 8.
 
-## 5. Create pull request:
+### 5. Create pull request:
   
 NOTE: You must sign the [Contributor Agreement][1] before your changes can be accepted!
 
