@@ -88,14 +88,13 @@ public class TestActivity extends Activity {
 
 	/**
 	 * Access to the library method to Create a Folder
-	 * @param folderName
 	 * @param remotePath
 	 * @param createFullPath
 	 * @return
 	 */
-	public RemoteOperationResult createFolder(String folderName, String remotePath, boolean createFullPath) {
+	public RemoteOperationResult createFolder(String remotePath, boolean createFullPath) {
 		
-		CreateRemoteFolderOperation createOperation = new CreateRemoteFolderOperation(folderName, remotePath, createFullPath);
+		CreateRemoteFolderOperation createOperation = new CreateRemoteFolderOperation(remotePath, createFullPath);
 		RemoteOperationResult result =  createOperation.execute(mClient);
 		
 		return result;

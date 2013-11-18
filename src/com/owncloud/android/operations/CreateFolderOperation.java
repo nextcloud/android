@@ -39,7 +39,6 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
     
     private static final String TAG = CreateFolderOperation.class.getSimpleName();
     
-    protected String mFolderName;
     protected String mRemotePath;
     protected boolean mCreateFullPath;
     protected FileDataStorageManager mStorageManager;
@@ -47,12 +46,10 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
     /**
      * Constructor
      * 
-     * @param remotePath            Full path to the new directory to create in the remote server.
      * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public CreateFolderOperation(String folderName, String remotePath, boolean createFullPath, FileDataStorageManager storageManager) {
-        mFolderName = folderName;
+    public CreateFolderOperation(String remotePath, boolean createFullPath, FileDataStorageManager storageManager) {
         mRemotePath = remotePath;
         mCreateFullPath = createFullPath;
         mStorageManager = storageManager;
@@ -62,7 +59,7 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
 
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
-        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mFolderName, mRemotePath, mCreateFullPath);
+        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
         RemoteOperationResult result =  operation.execute(client);
         
         if (result.isSuccess()) {

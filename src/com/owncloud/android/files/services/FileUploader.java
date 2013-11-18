@@ -564,8 +564,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         RemoteOperation operation = new ExistenceCheckOperation(pathToGrant, this, false);
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mCurrentUpload.isRemoteFolderToBeCreated()) {
-            operation = new CreateFolderOperation(  mCurrentUpload.getFileName(),
-                    pathToGrant,
+            operation = new CreateFolderOperation( pathToGrant,
                     true,
                     mStorageManager    );
             result = operation.execute(mUploadClient);

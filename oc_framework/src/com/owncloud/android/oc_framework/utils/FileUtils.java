@@ -24,11 +24,27 @@ public class FileUtils {
 		boolean result = true;
 		
 		Log.d("FileUtils", "fileName =======" + fileName);
-		String name = fileName.substring(1);
-		if ((fileName.indexOf("/") > 0 && name.indexOf("/") < (name.length() - 1 ) ) || 
+		if (fileName.contains(PATH_SEPARATOR) ||
 				fileName.contains("\\") || fileName.contains("<") || fileName.contains(">") ||
 				fileName.contains(":") || fileName.contains("\"") || fileName.contains("|") || 
 				fileName.contains("?") || fileName.contains("*")) {
+			result = false;
+		}
+		return result;
+	}
+	
+	/**
+	 * Validate the path to detect if contains any forbidden character: \ , < , > , : , " , | , ? , *
+	 * @param path
+	 * @return
+	 */
+	public static boolean validatePath(String path) {
+		boolean result = true;
+		
+		Log.d("FileUtils", "path ....... " + path);
+		if (path.contains("\\") || path.contains("<") || path.contains(">") ||
+				path.contains(":") || path.contains("\"") || path.contains("|") || 
+				path.contains("?") || path.contains("*")) {
 			result = false;
 		}
 		return result;
