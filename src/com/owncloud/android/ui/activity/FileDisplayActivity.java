@@ -1335,7 +1335,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         } else {
             dismissLoadingDialog();
             if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
-                Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg_invalid_characters, Toast.LENGTH_LONG).show();
+                Toast.makeText(FileDisplayActivity.this, R.string.filename_forbidden_characters, Toast.LENGTH_LONG).show();
             } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
@@ -1376,7 +1376,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 msg.show();
                 // TODO throw again the new rename dialog
             } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
-                Toast msg = Toast.makeText(this, R.string.create_dir_fail_msg_invalid_characters, Toast.LENGTH_LONG); 
+                Toast msg = Toast.makeText(this, R.string.filename_forbidden_characters, Toast.LENGTH_LONG); 
                 msg.show();
             } else {
                 Toast msg = Toast.makeText(this, R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
@@ -1442,7 +1442,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                RemoteOperation operation = new CreateFolderOperation(newDirectoryName, path, false, mStorageManager);
+                RemoteOperation operation = new CreateFolderOperation(path, false, mStorageManager);
                 operation.execute(  getAccount(), 
                         FileDisplayActivity.this, 
                         FileDisplayActivity.this, 

@@ -27,10 +27,11 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
-
+import com.owncloud.android.oc_framework.utils.FileUtils;
 
 
 /**
@@ -129,6 +130,10 @@ public class EditNameDialog extends SherlockDialogFragment implements DialogInte
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE: {
                 mNewFilename = ((TextView)(getDialog().findViewById(R.id.user_input))).getText().toString();
+                if (!FileUtils.isValidName(mNewFilename)) {
+                    Toast.makeText(getSherlockActivity(), R.string.filename_forbidden_characters, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 mResult = true;
             }
             case AlertDialog.BUTTON_NEGATIVE: { // fall through

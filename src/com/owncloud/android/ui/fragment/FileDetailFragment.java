@@ -817,7 +817,7 @@ public class FileDetailFragment extends FileFragment implements
                 msg.show();
                 // TODO throw again the new rename dialog
             } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
-                Toast msg = Toast.makeText(getActivity(), R.string.create_dir_fail_msg_invalid_characters, Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(getActivity(), R.string.filename_forbidden_characters, Toast.LENGTH_LONG);
                 msg.show();
             } else {
                 Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 

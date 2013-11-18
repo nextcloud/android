@@ -57,7 +57,7 @@ public class RenameRemoteFileOperation extends RemoteOperation {
 		
 		LocalMoveMethod move = null;
         
-        boolean noInvalidChars = FileUtils.validateName(mNewName);
+        boolean noInvalidChars = FileUtils.isValidPath(mNewRemotePath);
         
         if (noInvalidChars) {
         try {

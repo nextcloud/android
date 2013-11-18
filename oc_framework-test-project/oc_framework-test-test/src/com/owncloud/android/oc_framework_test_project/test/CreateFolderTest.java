@@ -38,19 +38,17 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	 */
 	public void testCreateFolder() {
 
-		String folderName = "testCreateFolder" + mCurrentDate;
 		String remotePath = "/testCreateFolder" + mCurrentDate;
 		boolean createFullPath = true;
 		
-		RemoteOperationResult result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.isSuccess() || result.getCode() == ResultCode.TIMEOUT);
 		
 		// Create Subfolder
-		folderName = "testCreateFolder" + mCurrentDate;
 		remotePath = "/testCreateFolder" + mCurrentDate + "/" + "testCreateFolder" + mCurrentDate;
 		createFullPath = true;
 		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.isSuccess() || result.getCode() == ResultCode.TIMEOUT);
 	}
 	
@@ -61,49 +59,36 @@ public class CreateFolderTest extends ActivityInstrumentationTestCase2<TestActiv
 	public void testCreateFolderSpecialCharacters() {		
 		boolean createFullPath = true;
 		
-		String folderName = "testSpecialCharacters_//" + mCurrentDate;
-		String remotePath = "/testSpecialCharacters_//" + mCurrentDate;
-		RemoteOperationResult result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		String remotePath = "/testSpecialCharacters_\\" + mCurrentDate;
+		RemoteOperationResult result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_\\" + mCurrentDate;
-		remotePath = "/testSpecialCharacters_\\" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
-		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
-		
-		folderName = "testSpecialCharacters_<" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_<" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_>" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_>" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_:" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_:" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_\"" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_\"" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_|" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_|" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_?" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_?" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 		
-		folderName = "testSpecialCharacters_*" + mCurrentDate;
 		remotePath = "/testSpecialCharacters_*" + mCurrentDate;		
-		result =  mActivity.createFolder(folderName, remotePath, createFullPath);
+		result =  mActivity.createFolder(remotePath, createFullPath);
 		assertTrue(result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME);
 	}
 
