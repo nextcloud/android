@@ -182,7 +182,7 @@
     <string name="sync_file_fail_msg">Remote file could not be checked</string>
     <string name="sync_file_nothing_to_do_msg">File contents already synchronized</string>
     <string name="create_dir_fail_msg">Directory could not be created</string>
-    <string name="create_dir_fail_msg_invalid_characters">Invalid character in foldername: /  \\  &lt;  &gt;  :  "  |  ?  *</string>
+    <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="wait_a_moment">Wait a moment</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>

@@ -20,7 +20,7 @@ public class FileUtils {
 	 * @param fileName
 	 * @return
 	 */
-	public static boolean validateName(String fileName) {
+	public static boolean isValidName(String fileName) {
 		boolean result = true;
 		
 		Log.d("FileUtils", "fileName =======" + fileName);
@@ -38,7 +38,7 @@ public class FileUtils {
 	 * @param path
 	 * @return
 	 */
-	public static boolean validatePath(String path) {
+	public static boolean isValidPath(String path) {
 		boolean result = true;
 		
 		Log.d("FileUtils", "path ....... " + path);

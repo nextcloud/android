@@ -1335,7 +1335,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         } else {
             dismissLoadingDialog();
             if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
-                Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg_invalid_characters, Toast.LENGTH_LONG).show();
+                Toast.makeText(FileDisplayActivity.this, R.string.filename_forbidden_characters, Toast.LENGTH_LONG).show();
             } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
