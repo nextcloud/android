@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android.workaround.accounts"
-    android:versionCode="0100009"
-    android:versionName="1.0.9" >
-
-    <!-- uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="16" /-->
+    android:versionCode="0100010"
+    android:versionName="1.0.10" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="16"
         android:targetSdkVersion="19" />
 
     <application
