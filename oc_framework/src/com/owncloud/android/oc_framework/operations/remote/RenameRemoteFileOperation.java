@@ -66,8 +66,13 @@ public class RenameRemoteFileOperation extends RemoteOperation {
                 return new RemoteOperationResult(ResultCode.OK);
             }
         
+            // check if a file with the new name already exists
+            if (client.existsFile(mNewRemotePath)) {
+            	return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
+            }
+            
             move = new LocalMoveMethod( client.getBaseUri() + WebdavUtils.encodePath(mOldRemotePath),
-                                        client.getBaseUri() + WebdavUtils.encodePath(mNewRemotePath));
+            		client.getBaseUri() + WebdavUtils.encodePath(mNewRemotePath));
             int status = client.executeMethod(move, RENAME_READ_TIMEOUT, RENAME_CONNECTION_TIMEOUT);
             
             move.getResponseBodyAsString(); // exhaust response, although not interesting

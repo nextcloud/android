@@ -93,24 +93,23 @@ public class RenameFileOperation extends RemoteOperation {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
             }
 
-            // check if a file with the new name already exists
-            if (client.existsFile(mNewRemotePath) ||                             // remote check could fail by network failure. by indeterminate behavior of HEAD for folders ... 
-                    mStorageManager.getFileByPath(mNewRemotePath) != null) {     // ... so local check is convenient
+            // ckeck local overwrite
+            if (mStorageManager.getFileByPath(mNewRemotePath) != null) {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
-        
-        RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), mNewName, 
-                mNewRemotePath);
-        result = operation.execute(client);
+            
+            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), mNewName, 
+                    mNewRemotePath);
+            result = operation.execute(client);
 
-        if (result.isSuccess()) {
-            if (mFile.isFolder()) {
-                saveLocalDirectory();
+            if (result.isSuccess()) {
+                if (mFile.isFolder()) {
+                    saveLocalDirectory();
 
-            } else {
-                saveLocalFile();
+                } else {
+                    saveLocalFile();
+                }
             }
-        }
         } catch (HttpException e) {
             Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + 
                     ((result!= null) ? result.getLogMessage() : ""), e);

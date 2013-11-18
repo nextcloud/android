@@ -151,7 +151,7 @@ public class RenameFileTest extends ActivityInstrumentationTestCase2<TestActivit
 		RemoteOperationResult result = mActivity.renameFile(mNewFolderName, mNewFolderPath, mOldFolderName, mOldFolderPath);
 		assertTrue(result.isSuccess());
 		
-		result = mActivity.renameFile(mNewFileName, mNewFilePath, mOldFileName, mOldFilePath);
+		result = mActivity.renameFile(mNewFileName + mFileExtension, mNewFilePath + mFileExtension, mOldFileName, mOldFilePath);
 		assertTrue(result.isSuccess());
 	}
 	
