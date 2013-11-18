@@ -36,9 +36,9 @@ public class TestActivity extends Activity {
 		
 		// This account must exists on the simulator / device
 		String accountHost = "beta.owncloud.com";
-		String accountUser = "masensio";
+		String accountUser = "testandroid";
 		String accountName = accountUser + "@"+ accountHost;
-		String accountPass = "masensio";
+		String accountPass = "testandroid";
 		String accountType = "owncloud";	
 
 		AccountManager am = AccountManager.get(this);
