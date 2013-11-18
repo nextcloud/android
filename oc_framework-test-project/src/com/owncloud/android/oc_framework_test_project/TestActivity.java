@@ -8,12 +8,14 @@ import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
 
@@ -51,32 +53,10 @@ public class TestActivity extends Activity {
             }
         }
 
-//        if (mAccount == null) {
-//			mAccount = new Account(accountName, accountType);	
-//			am.addAccountExplicitly(mAccount, accountPass, null);
-//	        am.setUserData(mAccount, "oc_version",    "5.0.14");
-//	        am.setUserData(mAccount, "oc_base_url",   "http://beta.owncloud.com/owncloud");
-//        } else {
-            Log.d(TAG, "oc_version --->"+ am.getUserData(mAccount, "oc_version") );
-            Log.d(TAG, "oc_base_url --->"+ am.getUserData(mAccount, "oc_base_url") );
-//        }
-        	
+        // Get the WebDavClient
+        AuthTask task = new AuthTask();
+        task.execute(this.getApplicationContext());
         
-		try {
-			mClient = OwnCloudClientFactory.createOwnCloudClient(mAccount, this.getApplicationContext());
-		} catch (OperationCanceledException e) {
-			Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-			e.printStackTrace();
-		} catch (AuthenticatorException e) {
-			Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-			e.printStackTrace();
-		} catch (AccountNotFoundException e) {
-			Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-			e.printStackTrace();
-		} catch (IOException e) {
-			Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -98,5 +78,40 @@ public class TestActivity extends Activity {
 		RemoteOperationResult result =  createOperation.execute(mClient);
 		
 		return result;
+	}
+	
+	private class AuthTask extends AsyncTask<Context, Void, WebdavClient> {
+
+		@Override
+		protected WebdavClient doInBackground(Context... params) {
+			WebdavClient client = null;
+			try {
+				client = OwnCloudClientFactory.createOwnCloudClient(mAccount, (Context) params[0] );
+			} catch (OperationCanceledException e) {
+				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+				e.printStackTrace();
+			} catch (AuthenticatorException e) {
+				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+				e.printStackTrace();
+			} catch (AccountNotFoundException e) {
+				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+				e.printStackTrace();
+			} catch (IOException e) {
+				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
+				e.printStackTrace();
+			}
+			return client;
+		}
+
+		@Override
+		protected void onPostExecute(WebdavClient result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			mClient = result;
+		}
+		
 	}
 }
