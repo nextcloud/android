@@ -110,14 +110,10 @@ public class RenameFileOperation extends RemoteOperation {
                     saveLocalFile();
                 }
             }
-        } catch (HttpException e) {
-            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + 
-                    ((result!= null) ? result.getLogMessage() : ""), e);
-            e.printStackTrace();
+            
         } catch (IOException e) {
             Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + 
                     ((result!= null) ? result.getLogMessage() : ""), e);
-            e.printStackTrace();
         }
 
         return result;

@@ -78,8 +78,8 @@ public class OwnCloudClientFactory {
             
         } else {
             String username = account.name.substring(0, account.name.lastIndexOf('@'));
-            String password = am.getPassword(account);
-            //String password = am.blockingGetAuthToken(account, AccountTypeUtils.getAuthTokenTypePass(account.type), false);
+            //String password = am.getPassword(account);
+            String password = am.blockingGetAuthToken(account, AccountTypeUtils.getAuthTokenTypePass(account.type), false);
             client.setBasicCredentials(username, password);
         }
         
