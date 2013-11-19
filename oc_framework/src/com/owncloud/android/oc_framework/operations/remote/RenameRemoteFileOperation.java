@@ -1,5 +1,7 @@
 package com.owncloud.android.oc_framework.operations.remote;
 
+import java.io.File;
+
 import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
 
 import android.util.Log;
@@ -35,15 +37,21 @@ public class RenameRemoteFileOperation extends RemoteOperation {
      * Constructor
      * 
      * @param oldName			Old name of the file.
-     * @param oldRemotePath		Old remote path of the file. For folders it starts and ends by "/"
+     * @param oldRemotePath		Old remote path of the file. 
      * @param newName			New name to set as the name of file.
-     * @param newRemotePath		New remote path to move the file, for folders it starts and ends by "/"
+     * @param isFolder			'true' for folder and 'false' for files
      */
-	public RenameRemoteFileOperation(String oldName, String oldRemotePath, String newName, String newRemotePath) {
+	public RenameRemoteFileOperation(String oldName, String oldRemotePath, String newName, boolean isFolder) {
 		mOldName = oldName;
 		mOldRemotePath = oldRemotePath;
 		mNewName = newName;
-		mNewRemotePath = newRemotePath;
+		
+        String parent = (new File(mOldRemotePath)).getParent();
+        parent = (parent.endsWith(FileUtils.PATH_SEPARATOR)) ? parent : parent + FileUtils.PATH_SEPARATOR; 
+        mNewRemotePath =  parent + mNewName;
+        if (isFolder) {
+            mNewRemotePath += FileUtils.PATH_SEPARATOR;
+        }
 	}
 
 	 /**
@@ -66,6 +74,7 @@ public class RenameRemoteFileOperation extends RemoteOperation {
                 return new RemoteOperationResult(ResultCode.OK);
             }
         
+            
             // check if a file with the new name already exists
             if (client.existsFile(mNewRemotePath)) {
             	return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);

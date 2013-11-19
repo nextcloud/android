@@ -98,8 +98,8 @@ public class RenameFileOperation extends RemoteOperation {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
             
-            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), mNewName, 
-                    mNewRemotePath);
+            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), 
+                    mNewName, mFile.isFolder());
             result = operation.execute(client);
 
             if (result.isSuccess()) {

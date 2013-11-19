@@ -87,14 +87,14 @@ public class TestActivity extends Activity {
 	 * @param oldName			Old name of the file.
      * @param oldRemotePath		Old remote path of the file. For folders it starts and ends by "/"
      * @param newName			New name to set as the name of file.
-     * @param newRemotePath		New remote path to move the file, for folders it starts and ends by "/"
+     * @param isFolder			'true' for folder and 'false' for files
      * 
      * @return
      */
 
-	public RemoteOperationResult renameFile(String oldName, String oldRemotePath, String newName, String newRemotePath) {
+	public RemoteOperationResult renameFile(String oldName, String oldRemotePath, String newName, boolean isFolder) {
 		
-		RenameRemoteFileOperation renameOperation = new RenameRemoteFileOperation(oldName, oldRemotePath, newName, newRemotePath);
+		RenameRemoteFileOperation renameOperation = new RenameRemoteFileOperation(oldName, oldRemotePath, newName, isFolder);
 		RemoteOperationResult result = renameOperation.execute(mClient);
 		
 		return result;
