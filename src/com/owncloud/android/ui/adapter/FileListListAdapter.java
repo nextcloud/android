@@ -31,7 +31,6 @@ import android.widget.TextView;
 
 import java.util.Vector;
 
-import com.owncloud.android.DisplayUtils;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -39,6 +38,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**

@@ -20,13 +20,13 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.content.Context;

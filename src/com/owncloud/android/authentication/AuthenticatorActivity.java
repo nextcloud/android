@@ -51,25 +51,25 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
+import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.operations.ExistenceCheckOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
-import com.owncloud.android.operations.OnRemoteOperationListener;
+import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.OwnCloudServerCheckOperation;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
-import com.owncloud.android.utils.OwnCloudVersion;
-
-
-import eu.alefzero.webdav.WebdavClient;
+import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 
 /**
  * This Activity is used to add an ownCloud account to the App
@@ -236,11 +236,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             /// retrieve extras from intent
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
-                String ocVersion = mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION);
+                String ocVersion = mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION);
                 if (ocVersion != null) {
                     mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
-                mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL));
+                mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
@@ -279,7 +279,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
             mAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
             if (mAuthTokenType == null) {
-                mAuthTokenType =  MainApp.getAuthTokenTypePass();
+                mAuthTokenType =  AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
                 
             }
 
@@ -317,7 +317,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
-        if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType) || 
+        if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType) || 
                 !AUTH_OPTIONAL.equals(getString(R.string.auth_method_oauth2))) {
             mOAuth2Check.setVisibility(View.GONE);
         }
@@ -369,7 +369,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType) &&
+                    if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType) &&
                             mHostUrlInput.hasFocus()) {
                         checkOcServer();
                     }
@@ -393,8 +393,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mAuthTokenType == null) {    
             if (mAccount != null) {
                 /// same authentication method than the one used to create the account to update
-                oAuthRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
-                samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null);
+                oAuthRequired = (mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_OAUTH2) != null);
+                samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
             
             } else {
                 /// use the one set in setup.xml
@@ -402,11 +402,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 samlWebSsoRequired = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));            
             }
             if (oAuthRequired) {
-                mAuthTokenType = MainApp.getAuthTokenTypeAccessToken();
+                mAuthTokenType = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
             } else if (samlWebSsoRequired) {
-                mAuthTokenType = MainApp.getAuthTokenTypeSamlSessionCookie();
+                mAuthTokenType = AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType());
             } else {
-                mAuthTokenType = MainApp.getAuthTokenTypePass();
+                mAuthTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
             }
         }
     
@@ -415,7 +415,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mUsernameInput.setText(userName);
         }
         
-        mOAuth2Check.setChecked(MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType));
+        mOAuth2Check.setChecked(AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType));
         
     }
 
@@ -488,10 +488,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     protected void onResume() {
         super.onResume();
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
-            if (MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 //Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
                 showAuthMessage(getString(R.string.auth_expired_oauth_token_toast));
-            } else if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) {
+            } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 //Toast.makeText(this, R.string.auth_expired_saml_sso_token_toast, Toast.LENGTH_LONG).show();
                 showAuthMessage(getString(R.string.auth_expired_saml_sso_token_toast));
             } else {
@@ -527,7 +527,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 getString(R.string.oauth2_grant_type),
                 queryParameters);
         //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
+        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
         operation.execute(client, this, mHandler);
     }
 
@@ -591,7 +591,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
             mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
-            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(uri), this, true);
+            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
             mServerStatusText = 0;
@@ -691,9 +691,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             return;
         }
 
-        if (MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType)) {
+        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
             startOauthorization();
-        } else if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) { 
+        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) { 
             startSamlBasedFederatedSingleSignOnAuthorization();
         } else {
             checkBasicAuthorization();
@@ -718,7 +718,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
         client.setBasicCredentials(username, password);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
     }
@@ -767,7 +767,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
-        WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
+        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
       
     }
@@ -787,7 +787,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
 
         } else if (operation instanceof ExistenceCheckOperation)  {
-            if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 onSamlBasedFederatedSingleSignOnAuthorizationStart(operation, result);
                 
             } else {
@@ -1086,7 +1086,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
-            WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
             client.setBearerCredentials(mAuthToken);
             mAuthCheckOperation.execute(client, this, mHandler);
 
@@ -1172,12 +1172,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
         
-        if (MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType)) { 
+        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) { 
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             
-        } else if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) {
+        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
             String username = getUserNameForSamlSso();
             if (!mUsernameInput.getText().toString().equals(username)) {
                 // fail - not a new account, but an existing one; disallow
@@ -1212,8 +1212,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      */
     private boolean createAccount() {
         /// create and save new ownCloud account
-        boolean isOAuth = MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType);
-        boolean isSaml =  MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType);
+        boolean isOAuth = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType);
+        boolean isSaml =  AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType);
 
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
@@ -1265,12 +1265,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
-            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_VERSION,    mDiscoveredVersion.toString());
-            mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_OC_BASE_URL,   mHostBaseUrl);
+            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION,    mDiscoveredVersion.toString());
+            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
             if (isSaml) {
-                mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
+                mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
             } else if (isOAuth) {
-                mAccountMgr.setUserData(mAccount, AccountAuthenticator.KEY_SUPPORTS_OAUTH2, "TRUE");  
+                mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_OAUTH2, "TRUE");  
             }
     
             setAccountAuthenticatorResult(intent.getExtras());
@@ -1482,9 +1482,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     public void onCheckClick(View view) {
         CheckBox oAuth2Check = (CheckBox)view;
         if (oAuth2Check.isChecked()) {
-            mAuthTokenType = MainApp.getAuthTokenTypeAccessToken();
+            mAuthTokenType = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
         } else {
-            mAuthTokenType = MainApp.getAuthTokenTypePass();
+            mAuthTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
         }
         adaptViewAccordingToAuthenticationMethod();
     }
@@ -1495,14 +1495,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * the current authorization method.
      */
     private void adaptViewAccordingToAuthenticationMethod () {
-        if (MainApp.getAuthTokenTypeAccessToken().equals(mAuthTokenType)) {
+        if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
             // OAuth 2 authorization
             mOAuthAuthEndpointText.setVisibility(View.VISIBLE);
             mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
             
-        } else if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) {
+        } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
             // SAML-based web Single Sign On
             mOAuthAuthEndpointText.setVisibility(View.GONE);
             mOAuthTokenEndpointText.setVisibility(View.GONE);
@@ -1548,7 +1548,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
             
         } else if (actionId == EditorInfo.IME_ACTION_NEXT && inputField != null && inputField.equals(mHostUrlInput)) {
-            if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 checkOcServer();
             }
         }
@@ -1647,7 +1647,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(mAuthTokenType) &&
+        if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType) &&
                 mHostUrlInput.hasFocus() && event.getAction() == MotionEvent.ACTION_DOWN) {
             checkOcServer();
         }

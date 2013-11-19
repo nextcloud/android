@@ -29,14 +29,13 @@ import android.os.Bundle;
 import android.webkit.MimeTypeMap;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+import com.owncloud.android.utils.Log_OC;
 
-
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .

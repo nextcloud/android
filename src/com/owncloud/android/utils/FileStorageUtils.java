@@ -76,5 +76,11 @@ public class FileStorageUtils {
         String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
         return value;
     }
+    
+    public static String getParentPath(String remotePath) {
+        String parentPath = new File(remotePath).getParent();
+        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+        return parentPath;
+    }
   
 }

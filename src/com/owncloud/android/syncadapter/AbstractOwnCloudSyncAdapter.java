@@ -24,10 +24,11 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.oc_framework.accounts.AccountUtils;
+import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 
 
 import android.accounts.Account;
@@ -37,7 +38,6 @@ import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
@@ -102,7 +102,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
 
     protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         AccountUtils.constructFullURLForAccount(getContext(), account);
-        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
+        mClient = OwnCloudClientFactory.createOwnCloudClient(account, getContext());
     }
     
     protected WebdavClient getClient() {

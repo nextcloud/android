@@ -19,11 +19,11 @@
 package com.owncloud.android.authentication;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.utils.OwnCloudVersion;
+import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
+import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountsException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -127,30 +127,6 @@ public class AccountUtils {
     }
 
     /**
-     * 
-     * @param version version of owncloud
-     * @return webdav path for given OC version, null if OC version unknown
-     */
-    public static String getWebdavPath(OwnCloudVersion version, boolean supportsOAuth, boolean supportsSamlSso) {
-        if (version != null) {
-            if (supportsOAuth) {
-                return ODAV_PATH;
-            }
-            if (supportsSamlSso) {
-                return SAML_SSO_PATH;
-            }
-            if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
-                return WEBDAV_PATH_4_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v3) >= 0
-                    || version.compareTo(OwnCloudVersion.owncloud_v2) >= 0)
-                return WEBDAV_PATH_2_0;
-            if (version.compareTo(OwnCloudVersion.owncloud_v1) >= 0)
-                return WEBDAV_PATH_1_2;
-        }
-        return null;
-    }
-    
-    /**
      * Returns the proper URL path to access the WebDAV interface of an ownCloud server,
      * according to its version and the authorization method used.
      * 
@@ -160,10 +136,10 @@ public class AccountUtils {
      */
     public static String getWebdavPath(OwnCloudVersion version, String authTokenType) {
         if (version != null) {
-            if (MainApp.getAuthTokenTypeAccessToken().equals(authTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(authTokenType)) {
                 return ODAV_PATH;
             }
-            if (MainApp.getAuthTokenTypeSamlSessionCookie().equals(authTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
                 return SAML_SSO_PATH;
             }
             if (version.compareTo(OwnCloudVersion.owncloud_v4) >= 0)
@@ -177,44 +153,4 @@ public class AccountUtils {
         return null;
     }
     
-    /**
-     * Constructs full url to host and webdav resource basing on host version
-     * @param context
-     * @param account
-     * @return url or null on failure
-     * @throws AccountNotFoundException     When 'account' is unknown for the AccountManager
-     */
-    public static String constructFullURLForAccount(Context context, Account account) throws AccountNotFoundException {
-        AccountManager ama = AccountManager.get(context);
-        String baseurl = ama.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL);
-        String strver  = ama.getUserData(account, AccountAuthenticator.KEY_OC_VERSION);
-        boolean supportsOAuth = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_OAUTH2) != null);
-        boolean supportsSamlSso = (ama.getUserData(account, AccountAuthenticator.KEY_SUPPORTS_SAML_WEB_SSO) != null);
-        OwnCloudVersion ver = new OwnCloudVersion(strver);
-        String webdavpath = getWebdavPath(ver, supportsOAuth, supportsSamlSso);
-
-        if (baseurl == null || webdavpath == null) 
-            throw new AccountNotFoundException(account, "Account not found", null);
-        
-        return baseurl + webdavpath;
-    }
-    
-    
-    public static class AccountNotFoundException extends AccountsException {
-        
-        /** Generated - should be refreshed every time the class changes!! */
-        private static final long serialVersionUID = -9013287181793186830L;
-        
-        private Account mFailedAccount; 
-                
-        public AccountNotFoundException(Account failedAccount, String message, Throwable cause) {
-            super(message, cause);
-            mFailedAccount = failedAccount;
-        }
-        
-        public Account getFailedAccount() {
-            return mFailedAccount;
-        }
-    }
-
 }

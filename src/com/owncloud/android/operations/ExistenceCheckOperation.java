@@ -20,11 +20,12 @@ package com.owncloud.android.operations;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.HeadMethod;
 
-import com.owncloud.android.Log_OC;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+import com.owncloud.android.utils.Log_OC;
 
-
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 

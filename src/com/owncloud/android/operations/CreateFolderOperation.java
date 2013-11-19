@@ -17,30 +17,27 @@
 
 package com.owncloud.android.operations;
 
-import java.io.File;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
-
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
-
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
- * Remote operation performing the creation of a new folder in the ownCloud server.
+ * Access to remote operation performing the creation of a new folder in the ownCloud server.
+ * Save the new folder in Database
  * 
  * @author David A. Velasco 
+ * @author masensio
  */
-public class CreateFolderOperation extends RemoteOperation {
+public class CreateFolderOperation extends RemoteOperation implements OnRemoteOperationListener{
     
     private static final String TAG = CreateFolderOperation.class.getSimpleName();
-
-    private static final int READ_TIMEOUT = 10000;
-    private static final int CONNECTION_TIMEOUT = 5000;
     
     protected String mRemotePath;
     protected boolean mCreateFullPath;
@@ -49,7 +46,6 @@ public class CreateFolderOperation extends RemoteOperation {
     /**
      * Constructor
      * 
-     * @param remotePath            Full path to the new directory to create in the remote server.
      * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
@@ -57,62 +53,55 @@ public class CreateFolderOperation extends RemoteOperation {
         mRemotePath = remotePath;
         mCreateFullPath = createFullPath;
         mStorageManager = storageManager;
+        
     }
-    
-    
-    /**
-     * Performs the operation
-     * 
-     * @param   client      Client object to communicate with the remote ownCloud server.
-     */
+
+
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
-        RemoteOperationResult result = null;
-        MkColMethod mkcol = null;
-        try {
-            mkcol = new MkColMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
-            int status =  client.executeMethod(mkcol, READ_TIMEOUT, CONNECTION_TIMEOUT);
-            if (!mkcol.succeeded() && mkcol.getStatusCode() == HttpStatus.SC_CONFLICT && mCreateFullPath) {
-                result = createParentFolder(getParentPath(), client);
-                status = client.executeMethod(mkcol, READ_TIMEOUT, CONNECTION_TIMEOUT);    // second (and last) try
-            }
-            if (mkcol.succeeded()) {
-                // Save new directory in local database
-                OCFile newDir = new OCFile(mRemotePath);
-                newDir.setMimetype("DIR");
-                long parentId = mStorageManager.getFileByPath(getParentPath()).getFileId();
-                newDir.setParentId(parentId);
-                newDir.setModificationTimestamp(System.currentTimeMillis());
-                mStorageManager.saveFile(newDir);
-            }
-            result = new RemoteOperationResult(mkcol.succeeded(), status, mkcol.getResponseHeaders());
-            Log_OC.d(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage());
-            client.exhaustResponse(mkcol.getResponseBodyAsStream());
-                
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Create directory " + mRemotePath + ": " + result.getLogMessage(), e);
-            
-        } finally {
-            if (mkcol != null)
-                mkcol.releaseConnection();
+        CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
+        RemoteOperationResult result =  operation.execute(client);
+        
+        if (result.isSuccess()) {
+            saveFolderInDB();
+        } else {
+            Log_OC.e(TAG, mRemotePath + "hasn't been created");
         }
+        
         return result;
     }
 
-
-    private String getParentPath() {
-        String parentPath = new File(mRemotePath).getParent();
-        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
-        return parentPath;
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        if (operation instanceof CreateRemoteFolderOperation) {
+            onCreateRemoteFolderOperationFinish((CreateRemoteFolderOperation)operation, result);
+        }
+    }
+    
+    
+    private void onCreateRemoteFolderOperationFinish(CreateRemoteFolderOperation operation, RemoteOperationResult result) {
+       if (result.isSuccess()) {
+           saveFolderInDB();
+       } else {
+           Log_OC.e(TAG, mRemotePath + "hasn't been created");
+       }
     }
 
     
-    private RemoteOperationResult createParentFolder(String parentPath, WebdavClient client) {
-        RemoteOperation operation = new CreateFolderOperation(  parentPath,
-                                                                mCreateFullPath,
-                                                                mStorageManager    );
-        return operation.execute(client);
+    /**
+     * Save new directory in local database
+     */
+    public void saveFolderInDB() {
+        OCFile newDir = new OCFile(mRemotePath);
+        newDir.setMimetype("DIR");
+        long parentId = mStorageManager.getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
+        newDir.setParentId(parentId);
+        newDir.setModificationTimestamp(System.currentTimeMillis());
+        mStorageManager.saveFile(newDir);
+
+        Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
+
     }
+
 
 }

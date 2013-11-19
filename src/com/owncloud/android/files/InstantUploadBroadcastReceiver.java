@@ -20,12 +20,12 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;

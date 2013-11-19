@@ -17,8 +17,8 @@
  */
 package com.owncloud.android.db;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.utils.Log_OC;
 
 import android.content.ContentValues;
 import android.content.Context;

@@ -28,23 +28,22 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.network.OwnCloudClientUtils;
+
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.operations.DownloadFileOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -61,8 +60,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.widget.RemoteViews;
-
-import eu.alefzero.webdav.WebdavClient;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     
@@ -355,7 +352,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
                     mLastAccount = mCurrentDownload.getAccount();
                     mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                    mDownloadClient = OwnCloudClientUtils.createOwnCloudClient(mLastAccount, getApplicationContext());
+                    mDownloadClient = OwnCloudClientFactory.createOwnCloudClient(mLastAccount, getApplicationContext());
                 }
 
                 /// perform the download
@@ -476,7 +473,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()
-                                                        && MainApp.getAuthTokenTypeSamlSessionCookie().equals(mDownloadClient.getAuthTokenType())));
+                                                        && mDownloadClient.getCredentials() == null));
+                                                        //&& MainApp.getAuthTokenTypeSamlSessionCookie().equals(mDownloadClient.getAuthTokenType())));
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);

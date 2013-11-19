@@ -8,12 +8,13 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.authentication.OAuth2Constants;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.utils.Log_OC;
 
-
-import eu.alefzero.webdav.WebdavClient;
 
 public class OAuth2GetAccessToken extends RemoteOperation {
     

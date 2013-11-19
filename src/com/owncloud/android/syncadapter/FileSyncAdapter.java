@@ -26,17 +26,17 @@ import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;
@@ -279,8 +279,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         } else {
             // in failures, the statistics for the global result are updated
             if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    ( result.isIdPRedirection() && 
-                            MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))) {
+                    ( result.isIdPRedirection() &&
+                            getClient().getCredentials() == null      )) {
+                            //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -371,9 +372,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         boolean needsToUpdateCredentials = (mLastFailedResult != null && 
                                              (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                // (mLastFailedResult.isTemporalRedirection() && mLastFailedResult.isIdPRedirection() && 
                                                 ( mLastFailedResult.isIdPRedirection() && 
-                                                 MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))
+                                                  getClient().getCredentials() == null      )
+                                                 //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))
                                              )
                                            );
         // TODO put something smart in the contentIntent below for all the possible errors

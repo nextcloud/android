@@ -19,11 +19,11 @@ package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -37,9 +37,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 
-
-import eu.alefzero.webdav.OnDatatransferProgressListener;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.

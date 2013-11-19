@@ -18,7 +18,6 @@
 
 package com.owncloud.android.authentication;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
@@ -29,7 +28,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-
+import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -52,34 +52,6 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
     public static final String KEY_LOGIN_OPTIONS = "loginOptions";
     public static final String KEY_ACCOUNT = "account";
-    
-    /**
-     * Value under this key should handle path to webdav php script. Will be
-     * removed and usage should be replaced by combining
-     * {@link com.owncloud.android.authentication.AuthenticatorActivity.KEY_OC_BASE_URL} and
-     * {@link com.owncloud.android.utils.OwnCloudVersion}
-     * 
-     * @deprecated
-     */
-    public static final String KEY_OC_URL = "oc_url";
-    /**
-     * Version should be 3 numbers separated by dot so it can be parsed by
-     * {@link com.owncloud.android.utils.OwnCloudVersion}
-     */
-    public static final String KEY_OC_VERSION = "oc_version";
-    /**
-     * Base url should point to owncloud installation without trailing / ie:
-     * http://server/path or https://owncloud.server
-     */
-    public static final String KEY_OC_BASE_URL = "oc_base_url";
-    /**
-     * Flag signaling if the ownCloud server can be accessed with OAuth2 access tokens.
-     */
-    public static final String KEY_SUPPORTS_OAUTH2 = "oc_supports_oauth2";
-    /**
-     * Flag signaling if the ownCloud server can be accessed with session cookies from SAML-based web single-sign-on.
-     */
-    public static final String KEY_SUPPORTS_SAML_WEB_SSO = "oc_supports_saml_web_sso";
     
     private static final String TAG = AccountAuthenticator.class.getSimpleName();
     
@@ -204,7 +176,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         /// check if required token is stored
         final AccountManager am = AccountManager.get(mContext);
         String accessToken;
-        if (authTokenType.equals(MainApp.getAuthTokenTypePass())) {
+        if (authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType()))) {
             accessToken = am.getPassword(account);
         } else {
             accessToken = am.peekAuthToken(account, authTokenType);
@@ -285,10 +257,10 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     private void validateAuthTokenType(String authTokenType)
             throws UnsupportedAuthTokenTypeException {
         if (!authTokenType.equals(MainApp.getAuthTokenType()) &&
-            !authTokenType.equals(MainApp.getAuthTokenTypePass()) &&
-            !authTokenType.equals(MainApp.getAuthTokenTypeAccessToken()) &&
-            !authTokenType.equals(MainApp.getAuthTokenTypeRefreshToken()) &&
-            !authTokenType.equals(MainApp.getAuthTokenTypeSamlSessionCookie())) {
+            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType())) &&
+            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType())) &&
+            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeRefreshToken(MainApp.getAccountType())) &&
+            !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()))) {
             throw new UnsupportedAuthTokenTypeException();
         }
     }
