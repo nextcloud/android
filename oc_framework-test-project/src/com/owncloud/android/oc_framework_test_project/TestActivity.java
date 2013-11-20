@@ -1,62 +1,38 @@
 package com.owncloud.android.oc_framework_test_project;
 
-import java.io.IOException;
-
-import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
 
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 import android.view.Menu;
 
 /**
  * Activity to test OC framework
  * @author masensio
- *
+ * @author David A. Velasco
  */
 public class TestActivity extends Activity {
 	
-	private static final String TAG = "TestActivity";
+	// This account must exists on the simulator / device
+	private static final String mServerUri = "https://beta.owncloud.com/owncloud/remote.php/webdav";
+	private static final String mUser = "testandroid";
+	private static final String mPass = "testandroid";
 	
-	private Account mAccount = null;
+	//private Account mAccount = null;
 	private WebdavClient mClient;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test);
-		
-		// This account must exists on the simulator / device
-		String accountHost = "beta.owncloud.com";
-		String accountUser = "testandroid";
-		String accountName = accountUser + "@"+ accountHost;
-		String accountPass = "testandroid";
-		String accountType = "owncloud";	
-
-		AccountManager am = AccountManager.get(this);
-		
-		Account[] ocAccounts = am.getAccountsByType(accountType);
-        for (Account ac : ocAccounts) {
-           if (ac.name.equals(accountName)) {
-        	   mAccount = ac;
-        	   break;
-            }
-        }
-
-        // Get the WebDavClient
-        AuthTask task = new AuthTask();
-        task.execute(this.getApplicationContext());
-        
+    	Uri uri = Uri.parse(mServerUri);
+    	mClient = OwnCloudClientFactory.createOwnCloudClient(uri ,getApplicationContext(), true);
+    	mClient.setBasicCredentials(mUser, mPass);
 	}
 
 	@Override
@@ -70,6 +46,7 @@ public class TestActivity extends Activity {
 	 * Access to the library method to Create a Folder
 	 * @param remotePath
 	 * @param createFullPath
+	 * 
 	 * @return
 	 */
 	public RemoteOperationResult createFolder(String remotePath, boolean createFullPath) {
@@ -80,38 +57,22 @@ public class TestActivity extends Activity {
 		return result;
 	}
 	
-	private class AuthTask extends AsyncTask<Context, Void, WebdavClient> {
+	/**
+	 * Access to the library method to Rename a File or Folder
+	 * @param oldName			Old name of the file.
+     * @param oldRemotePath		Old remote path of the file. For folders it starts and ends by "/"
+     * @param newName			New name to set as the name of file.
+     * @param isFolder			'true' for folder and 'false' for files
+     * 
+     * @return
+     */
 
-		@Override
-		protected WebdavClient doInBackground(Context... params) {
-			WebdavClient client = null;
-			try {
-				client = OwnCloudClientFactory.createOwnCloudClient(mAccount, (Context) params[0] );
-			} catch (OperationCanceledException e) {
-				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-				e.printStackTrace();
-			} catch (AuthenticatorException e) {
-				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-				e.printStackTrace();
-			} catch (AccountNotFoundException e) {
-				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-				e.printStackTrace();
-			} catch (IOException e) {
-				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				Log.e(TAG, "Error while trying to access to " + mAccount.name, e);
-				e.printStackTrace();
-			}
-			return client;
-		}
-
-		@Override
-		protected void onPostExecute(WebdavClient result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			mClient = result;
-		}
+	public RemoteOperationResult renameFile(String oldName, String oldRemotePath, String newName, boolean isFolder) {
 		
+		RenameRemoteFileOperation renameOperation = new RenameRemoteFileOperation(oldName, oldRemotePath, newName, isFolder);
+		RemoteOperationResult result = renameOperation.execute(mClient);
+		
+		return result;
 	}
+	
 }
