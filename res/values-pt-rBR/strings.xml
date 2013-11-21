@@ -218,7 +218,6 @@
   <string name="preview_image_description">Pré-visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s não pode ser copiado a pasta local %2$s</string>
-  <string name="actionbar_failed_instant_upload">Falha no envio imediato</string>
   <string name="failed_upload_headline_text">Falhas nos envios imediatos</string>
   <string name="failed_upload_headline_hint">Sumario de todas as falhas nos envios imediatos</string>
   <string name="failed_upload_all_cb">selecionar tudo</string>

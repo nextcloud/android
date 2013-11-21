@@ -197,7 +197,6 @@
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">این تصویر نمی تواند نمایش داده شود.</string>
   <string name="error__upload__local_file_not_copied">%1$s در لیست محلی %2$s نمی تواند کپی شود</string>
-  <string name="actionbar_failed_instant_upload">آپلود فوری انجام نشد\"</string>
   <string name="failed_upload_headline_text">آپلود های فوری انجام نشدند.</string>
   <string name="failed_upload_headline_hint">خلاصه ای از تمام ارسال های فور ی ناموفق.</string>
   <string name="failed_upload_all_cb">انتخاب همه</string>

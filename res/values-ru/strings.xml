@@ -218,7 +218,6 @@
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в %2$s локальною папку</string>
-  <string name="actionbar_failed_instant_upload">Быстрая загрузка не удалась</string>
   <string name="failed_upload_headline_text">Быстрые загрузки не удались</string>
   <string name="failed_upload_headline_hint">Список всех неудачных загрузок</string>
   <string name="failed_upload_all_cb">Выбрать всё</string>

@@ -202,7 +202,6 @@
   <string name="preview_image_description">Irudi aurreikuspena</string>
   <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
   <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s bertako karpetara kopiatu</string>
-  <string name="actionbar_failed_instant_upload">UnekoIgoerak huts egin du\"</string>
   <string name="failed_upload_headline_text">Uneko igoerek huts egin dute</string>
   <string name="failed_upload_headline_hint">Huts egindako igoeren laburpena</string>
   <string name="failed_upload_all_cb">Hautatu dena</string>

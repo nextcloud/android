@@ -214,7 +214,6 @@
   <string name="preview_image_description">그림 미리보기</string>
   <string name="preview_image_error_unknown_format">이 그림을 볼수 없습니다</string>
   <string name="error__upload__local_file_not_copied">%1$s를 %2$s 로컬 디렉토리로 복사하지 못했습니다.</string>
-  <string name="actionbar_failed_instant_upload">자동 업로드가 실패했습니다\"</string>
   <string name="failed_upload_headline_text">자동 업로드 실패함</string>
   <string name="failed_upload_headline_hint">실패된 자동 업로드 전체 요약</string>
   <string name="failed_upload_all_cb">전체 선택</string>

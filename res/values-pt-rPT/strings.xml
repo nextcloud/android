@@ -204,7 +204,6 @@
   <string name="preview_image_description">Pré-Visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
-  <string name="actionbar_failed_instant_upload">Falhou o Upload-Instantâneo\"</string>
   <string name="failed_upload_headline_text">Falharam os Uploads-Instantâneos</string>
   <string name="failed_upload_headline_hint">Sumário dos Uploads-Instantâneos falhados</string>
   <string name="failed_upload_all_cb">Seleccionar Todos</string>

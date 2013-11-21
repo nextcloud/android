@@ -218,7 +218,6 @@
   <string name="preview_image_description">Görüntü önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemez</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel dizine kopyalanamadı</string>
-  <string name="actionbar_failed_instant_upload">AnındaYükleme\" başarısız</string>
   <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>
   <string name="failed_upload_headline_hint">Başarısız olan tüm anında yüklemelerin özeti</string>
   <string name="failed_upload_all_cb">hepsini seç</string>

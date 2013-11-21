@@ -203,7 +203,6 @@
   <string name="preview_image_description">Billede preview</string>
   <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
   <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
-  <string name="actionbar_failed_instant_upload">InstantUpload mislykkedes\"</string>
   <string name="failed_upload_headline_text">Øjeblikkelige uploads mislykkedes</string>
   <string name="failed_upload_headline_hint">Sammenfatning af alle mislykkede øjeblikkelige uploads</string>
   <string name="failed_upload_all_cb">Vælg alle</string>

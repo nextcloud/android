@@ -201,7 +201,6 @@
   <string name="preview_image_description">Xem trước hình ảnh</string>
   <string name="preview_image_error_unknown_format">Không thể hiển thị hình ảnh</string>
   <string name="error__upload__local_file_not_copied">%1$s không thể sao chép vào %2$s thư mục cục bộ</string>
-  <string name="actionbar_failed_instant_upload">Tải lên nhanh bị lỗi\"</string>
   <string name="failed_upload_headline_text">Tải lên nhanh bị lỗi</string>
   <string name="failed_upload_headline_hint">Tóm tắt tất cả các tải lên nhanh bị lỗi</string>
   <string name="failed_upload_all_cb">chọn tất cả</string>

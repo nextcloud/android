@@ -218,7 +218,6 @@
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Obraz nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego %2$s katalogu</string>
-  <string name="actionbar_failed_instant_upload">Autoprzesyłanie nieudane\"</string>
   <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
   <string name="failed_upload_headline_hint">Podsumowanie wszystkich nieudanych transferów</string>
   <string name="failed_upload_all_cb">zaznacz wszystkie</string>

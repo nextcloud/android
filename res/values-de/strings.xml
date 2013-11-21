@@ -218,7 +218,6 @@
   <string name="preview_image_description">Bildvorschau</string>
   <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
-  <string name="actionbar_failed_instant_upload">Fehlgeschlagener SofortUpload\"</string>
   <string name="failed_upload_headline_text">SofortUpload fehlgeschlagen</string>
   <string name="failed_upload_headline_hint">Übersicht aller fehlgeschlagenen SofortUploads</string>
   <string name="failed_upload_all_cb">Alles auswählen</string>

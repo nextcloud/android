@@ -204,7 +204,6 @@
   <string name="preview_image_description">圖片預覽</string>
   <string name="preview_image_error_unknown_format">無法顯示圖片</string>
   <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地目錄 %2$s</string>
-  <string name="actionbar_failed_instant_upload">即時上傳失敗</string>
   <string name="failed_upload_headline_text">即時上傳失敗</string>
   <string name="failed_upload_headline_hint">所有即時上傳失敗的記錄</string>
   <string name="failed_upload_all_cb">全部選取</string>

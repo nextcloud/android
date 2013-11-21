@@ -195,7 +195,6 @@
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">不能显示图片</string>
   <string name="error__upload__local_file_not_copied">%1$s无法被复制到%2$s本地目录</string>
-  <string name="actionbar_failed_instant_upload">限时上传失败</string>
   <string name="failed_upload_headline_text">限时上传失败</string>
   <string name="failed_upload_headline_hint">限时上传失败汇总</string>
   <string name="failed_upload_all_cb">全选</string>

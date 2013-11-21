@@ -218,7 +218,6 @@
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は %2$s ローカルディレクトリにコピー出来ませんでした</string>
-  <string name="actionbar_failed_instant_upload">インスタントアップロードに失敗」</string>
   <string name="failed_upload_headline_text">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_hint">全ての失敗したインスタントアップロードの要約</string>
   <string name="failed_upload_all_cb">すべて選択</string>

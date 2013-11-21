@@ -218,7 +218,6 @@
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi failina %2$s</string>
-  <string name="actionbar_failed_instant_upload">Ebaõnnestunud kohene üleslaadimine</string>
   <string name="failed_upload_headline_text">Ebaõnnestunud kohesed üleslaadimised</string>
   <string name="failed_upload_headline_hint">Kõikide ebaõnnestunud üleslaadimiste kokkuvõte</string>
   <string name="failed_upload_all_cb">vali kõik</string>
