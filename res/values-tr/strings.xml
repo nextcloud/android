@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">Dosya teslim edilemedi</string>
   <string name="sync_file_nothing_to_do_msg">Dosyalar başarıyla senkronize edildi</string>
   <string name="create_dir_fail_msg">Dizin oluşturulamadı</string>
+  <string name="filename_forbidden_characters">Yasaklı karakterler: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">Görüntü önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemez</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel dizine kopyalanamadı</string>
+  <string name="actionbar_failed_instant_upload">AnındaYükleme başarısız</string>
   <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>
   <string name="failed_upload_headline_hint">Başarısız olan tüm anında yüklemelerin özeti</string>
   <string name="failed_upload_all_cb">hepsini seç</string>

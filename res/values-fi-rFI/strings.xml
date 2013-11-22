@@ -80,6 +80,7 @@
   <string name="downloader_download_succeeded_content">%1$s ladattu palvelimelta onnistuneesti</string>
   <string name="downloader_download_failed_ticker">Lataus epäonnistui</string>
   <string name="downloader_download_failed_content">%1$s :n latausta ei pystytty suorittamaan loppuun asti</string>
+  <string name="downloader_not_downloaded_yet">Ei vielä ladattu</string>
   <string name="common_choose_account">Valitse tili</string>
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
@@ -135,6 +136,7 @@
   <string name="auth_expired_saml_sso_token_toast">Istunto vanhentui. Yhdistä uudelleen</string>
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
+  <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
@@ -152,6 +154,7 @@
   <string name="sync_file_fail_msg">Etäpään tiedostoa ei voitu tarkistaa</string>
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
   <string name="create_dir_fail_msg">Kansion luonti epäonnistui</string>
+  <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>

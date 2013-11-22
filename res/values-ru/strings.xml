@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">Удаленный файл не может быть проверен</string>
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
   <string name="create_dir_fail_msg">Директория не может быть создана</string>
+  <string name="filename_forbidden_characters">Запрещённые символы: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; попробуйте другое приложение для выбора файла</string>
   <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в %2$s локальною папку</string>
+  <string name="actionbar_failed_instant_upload">Быстрая загрузка не удалась</string>
   <string name="failed_upload_headline_text">Быстрые загрузки не удались</string>
   <string name="failed_upload_headline_hint">Список всех неудачных загрузок</string>
   <string name="failed_upload_all_cb">Выбрать всё</string>

@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">No pudo comprobarse el fichero remoto</string>
   <string name="sync_file_nothing_to_do_msg">Ya está sincronizado</string>
   <string name="create_dir_fail_msg">El directorio no pudo ser creado</string>
+  <string name="filename_forbidden_characters">Carácteres ilegales: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No fué seleccionado ningún archivo</string>

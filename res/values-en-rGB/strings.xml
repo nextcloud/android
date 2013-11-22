@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">Remote file could not be checked</string>
   <string name="sync_file_nothing_to_do_msg">File contents already synchronised</string>
   <string name="create_dir_fail_msg">Directory could not be created</string>
+  <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Wait a moment</string>
   <string name="filedisplay_unexpected_bad_get_content">Unexpected problem; please select the file from a different app</string>
   <string name="filedisplay_no_file_selected">No file was selected</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">Image preview</string>
   <string name="preview_image_error_unknown_format">This image cannot be shown</string>
   <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local directory</string>
+  <string name="actionbar_failed_instant_upload">Failed InstantUpload</string>
   <string name="failed_upload_headline_text">Failed instant uploads</string>
   <string name="failed_upload_headline_hint">Summary of all failed instant uploads</string>
   <string name="failed_upload_all_cb">select all</string>
