@@ -260,10 +260,22 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 seeDetails();
                 return true;
             }
+            case R.id.action_share_file: {
+                shareFile();
+                return true;
+            }
             
             default:
                 return false;
         }
+    }
+    
+    private void shareFile(){
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        // set MimeType
+        sharingIntent.setType(getFile().getMimetype());
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+getFile().getStoragePath()));
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
     

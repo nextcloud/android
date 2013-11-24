@@ -59,7 +59,7 @@
 	</style>
 
 	<!-- Dialogs -->
-	<style name="Theme.ownCloud.Dialog" parent="style/Theme.Sherlock.Light.Dialog">
+	<style name="Theme.ownCloud.Dialog" parent="@android:style/Theme.Dialog">
 	</style>
 	
 	<!-- PopDownMenu -->
