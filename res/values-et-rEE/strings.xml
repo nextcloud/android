@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">Mujaloleva faili kontrollimine ebaõnnestus</string>
   <string name="sync_file_nothing_to_do_msg">Faili sisu on juba sünkroniseeritud</string>
   <string name="create_dir_fail_msg">Kausta loomine ebaõnnestus</string>
+  <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
   <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">Pildi eelvaade</string>
   <string name="preview_image_error_unknown_format">Seda pilti ei saa näidata</string>
   <string name="error__upload__local_file_not_copied">%1$s ei suudetud kopeerida kohalikku kataloogi failina %2$s</string>
+  <string name="actionbar_failed_instant_upload">Ebaõnnestunud kohene üleslaadimine</string>
   <string name="failed_upload_headline_text">Ebaõnnestunud kohesed üleslaadimised</string>
   <string name="failed_upload_headline_hint">Kõikide ebaõnnestunud üleslaadimiste kokkuvõte</string>
   <string name="failed_upload_all_cb">vali kõik</string>
