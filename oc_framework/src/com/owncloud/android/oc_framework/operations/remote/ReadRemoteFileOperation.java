@@ -8,26 +8,44 @@ import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 import android.util.Log;
 
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+
+/**
+ * Remote operation performing the read of remote file or folder in the ownCloud server.
+ * 
+ * @author David A. Velasco
+ * @author masensio
+ */
 
 public class ReadRemoteFileOperation extends RemoteOperation {
 
 	private static final String TAG = ReadRemoteFileOperation.class.getSimpleName();
 
 	private String mRemotePath;
-	private WebdavEntry mWe;
+	private MultiStatus mDataInServer;
 
-	public WebdavEntry getWEntry() {
-		return mWe;
+	public MultiStatus getDataInServer() {
+		return mDataInServer;
 	}
 	
+	
+	/**
+     * Constructor
+     * 
+     * @param remotePath		Remote path of the file. 
+     */
 	public ReadRemoteFileOperation(String remotePath) {
 		mRemotePath = remotePath;
+		mDataInServer = null;
 	}
 
+	/**
+     * Performs the read operation.
+     * 
+     * @param   client      Client object to communicate with the remote ownCloud server.
+     */
 	@Override
 	protected RemoteOperationResult run(WebdavClient client) {
 		RemoteOperationResult result = null;
@@ -42,9 +60,8 @@ public class ReadRemoteFileOperation extends RemoteOperation {
 
             // check and process response
             if (isMultiStatus(status)) {
-            	MultiStatus dataInServer = query.getResponseBodyAsMultiStatus();
-            	// parse data from remote folder 
-            	mWe = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());
+            	// get data from remote folder 
+            	mDataInServer = query.getResponseBodyAsMultiStatus();
             	result = new RemoteOperationResult(true, status, query.getResponseHeaders());
             } else {
                 // synchronization failed

@@ -20,7 +20,6 @@ package com.owncloud.android.operations;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.httpclient.HttpException;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
