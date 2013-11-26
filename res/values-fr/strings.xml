@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">Le fichier distant n\'a pu être vérifié</string>
   <string name="sync_file_nothing_to_do_msg">Le contenu des fichiers est déjà synchronisé</string>
   <string name="create_dir_fail_msg">Création du répertoire impossible</string>
+  <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Veuillez patienter</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez essayer une autre app pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">Prévisualisation de l\'image</string>
   <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
   <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié vers le dossier local suivant %2$s</string>
+  <string name="actionbar_failed_instant_upload">Échec du téléversement instantané</string>
   <string name="failed_upload_headline_text">Téléchargements instantanés échoués</string>
   <string name="failed_upload_headline_hint">Résumé de tous les téléchargements instantanés échoués</string>
   <string name="failed_upload_all_cb">Tous sélectionner</string>
