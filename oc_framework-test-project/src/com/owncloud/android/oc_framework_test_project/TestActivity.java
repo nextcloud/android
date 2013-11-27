@@ -4,6 +4,7 @@ import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
 
 import android.net.Uri;
@@ -44,8 +45,8 @@ public class TestActivity extends Activity {
 
 	/**
 	 * Access to the library method to Create a Folder
-	 * @param remotePath
-	 * @param createFullPath
+	 * @param remotePath            Full path to the new directory to create in the remote server.
+     * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
 	 * 
 	 * @return
 	 */
@@ -74,5 +75,20 @@ public class TestActivity extends Activity {
 		
 		return result;
 	}
+	
+	/** 
+	 * Access to the library method to Remove a File or Folder
+	 * 
+	 * @param remotePath	Remote path of the file or folder in the server.
+	 * @return
+	 */
+	public RemoteOperationResult removeFile(String remotePath) {
+		
+		RemoveRemoteFileOperation removeOperation = new RemoveRemoteFileOperation(remotePath);
+		RemoteOperationResult result = removeOperation.execute(mClient);
+		
+		return result;
+	}
+	
 	
 }

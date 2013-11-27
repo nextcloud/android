@@ -473,12 +473,10 @@ public class FileDetailFragment extends FileFragment implements
     
     @Override
     public void onNeutral(String callerTag) {
-        File f = null;
         OCFile file = getFile();
-        if (file.isDown() && (f = new File(file.getStoragePath())).exists()) {
-            f.delete();
+        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
+        if (file.getStoragePath() != null) {
             file.setStoragePath(null);
-            mStorageManager.saveFile(file);
             updateFileDetails(file, mAccount);
         }
     }
