@@ -16,7 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -388,15 +387,9 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
      */
     @Override
     public void onNeutral(String callerTag) {
-        // TODO this code should be made in a secondary thread,
         OCFile file = getFile();
-        if (file.isDown()) {   // checks it is still there
-            File f = new File(file.getStoragePath());
-            f.delete();
-            file.setStoragePath(null);
-            mStorageManager.saveFile(file);
-            finish();
-        }
+        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
+        finish();
     }
     
     /**

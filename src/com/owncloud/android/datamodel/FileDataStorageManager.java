@@ -434,7 +434,7 @@ public class FileDataStorageManager {
                     }
                     updateFolderSize(file.getParentId());
                 }
-                if (removeLocalCopy && file.isDown()) {
+                if (removeLocalCopy && file.isDown() && file.getStoragePath() != null) {
                     boolean success = new File(file.getStoragePath()).delete();
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
