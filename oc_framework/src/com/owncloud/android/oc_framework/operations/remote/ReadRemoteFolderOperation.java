@@ -23,9 +23,9 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
  * @author masensio
  */
 
-public class ReadRemoteFileOperation extends RemoteOperation {
+public class ReadRemoteFolderOperation extends RemoteOperation {
 
-	private static final String TAG = ReadRemoteFileOperation.class.getSimpleName();
+	private static final String TAG = ReadRemoteFolderOperation.class.getSimpleName();
 
 	private String mRemotePath;
 	private RemoteFile mFolder;
@@ -36,7 +36,7 @@ public class ReadRemoteFileOperation extends RemoteOperation {
      * 
      * @param remotePath		Remote path of the file. 
      */
-	public ReadRemoteFileOperation(String remotePath) {
+	public ReadRemoteFolderOperation(String remotePath) {
 		mRemotePath = remotePath;
 	}
 
@@ -115,8 +115,6 @@ public class ReadRemoteFileOperation extends RemoteOperation {
         // parse data from remote folder 
         WebdavEntry we = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());
         mFolder = fillOCFile(we);
-        
-        Log.d(TAG, "Remote folder " + mRemotePath + " changed - starting update of local data ");
         
         
         // loop to update every child

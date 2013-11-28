@@ -45,7 +45,7 @@ import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
+import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -244,7 +244,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(WebdavClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
+        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
         RemoteOperationResult result = operation.execute(client);
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         

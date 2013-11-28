@@ -7,6 +7,11 @@ import android.os.Parcelable;
 
 import com.owncloud.android.oc_framework.utils.FileUtils;
 
+/**
+ *  Contains the data of a Remote File from a WebDavEntry
+ * 
+ *  @author masensio
+ */
 
 public class RemoteFile implements Parcelable, Serializable{
 
