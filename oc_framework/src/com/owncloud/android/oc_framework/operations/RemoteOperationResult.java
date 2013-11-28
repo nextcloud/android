@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import javax.net.ssl.SSLException;
 
@@ -51,10 +52,8 @@ import android.util.Log;
  */
 public class RemoteOperationResult implements Serializable {
 
-    /** Generated - should be refreshed every time the class changes!! */
-    private static final long serialVersionUID = -4415103901492836870L;
-    
-
+	/** Generated - should be refreshed every time the class changes!! */
+	private static final long serialVersionUID = -2469951225222759283L;
     
     private static final String TAG = "RemoteOperationResult";
     
@@ -99,9 +98,14 @@ public class RemoteOperationResult implements Serializable {
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
     private String mRedirectedLocation;
 
+    private RemoteFile mFile;
+    private ArrayList<RemoteFile> mFiles;
+	
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
+        mFile= null;
+        mFiles = null;
     }
 
     private RemoteOperationResult(boolean success, int httpCode) {
@@ -196,6 +200,21 @@ public class RemoteOperationResult implements Serializable {
 
     }
 
+
+    public void setFile(RemoteFile file){
+    	mFile = file;
+    }
+    public RemoteFile getFile(){
+    	return mFile;
+    }
+    public void setData(ArrayList<RemoteFile> files){
+    	mFiles = files;
+    }
+    
+	public ArrayList<RemoteFile> getData(){
+		return mFiles;
+	}
+    
     public boolean isSuccess() {
         return mSuccess;
     }
