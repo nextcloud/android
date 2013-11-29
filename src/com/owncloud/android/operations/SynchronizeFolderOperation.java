@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,6 @@ import java.util.Vector;
 
 import org.apache.http.HttpStatus;
 import org.apache.jackrabbit.webdav.DavConstants;
-import org.apache.jackrabbit.webdav.MultiStatus;
 import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
 
 import android.accounts.Account;
@@ -45,6 +45,8 @@ import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -241,59 +243,25 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(WebdavClient client) {
-        RemoteOperationResult result = null;
-        String remotePath = null;
-        PropFindMethod query = null;
-        try {
-            remotePath = mLocalFolder.getRemotePath();
-            Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
-
-            // remote request 
-            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(remotePath),
-                    DavConstants.PROPFIND_ALL_PROP,
-                    DavConstants.DEPTH_1);
-            int status = client.executeMethod(query);
-
-            // check and process response
-            if (isMultiStatus(status)) {
-                synchronizeData(query.getResponseBodyAsMultiStatus(), client);
-                if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
-                } else {
-                    result = new RemoteOperationResult(true, status, query.getResponseHeaders());
-                }
-                
-            } else {
-                // synchronization failed
-                client.exhaustResponse(query.getResponseBodyAsStream());
-                if (status == HttpStatus.SC_NOT_FOUND) {
-                    removeLocalFolder();
-                }
-                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
+        String remotePath = mLocalFolder.getRemotePath();
+        ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
+        RemoteOperationResult result = operation.execute(client);
+        Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
+        
+        if (result.isSuccess()) {
+            synchronizeData(result.getData(), client);
+            if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
             }
-
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            
-
-        } finally {
-            if (query != null)
-                query.releaseConnection();  // let the connection available for other methods
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
-            } else {
-                if (result.isException()) {
-                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath  + ": " + result.getLogMessage(), result.getException());
-                } else {
-                    Log_OC.e(TAG, "Synchronized " + mAccount.name + remotePath + ": " + result.getLogMessage());
-                }
-            }
-            
+        } else {
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND)
+                removeLocalFolder();
         }
+        
         return result;
     }
 
-
+    
     private void removeLocalFolder() {
         if (mStorageManager.fileExists(mLocalFolder.getFileId())) {
             String currentSavePath = FileStorageUtils.getSavePath(mAccount.name);
@@ -307,26 +275,25 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *  with the current data in the local database.
      *  
      *  Grants that mChildren is updated with fresh data after execution.
-     * 
-     *  @param dataInServer     Full response got from the server with the data of the target 
-     *                          folder and its direct children.
+     *  
+     *  @param folderAndFiles   Remote folder and children files in Folder 
+     *  
      *  @param client           Client instance to the remote server where the data were 
      *                          retrieved.  
      *  @return                 'True' when any change was made in the local data, 'false' otherwise.
      */
-    private void synchronizeData(MultiStatus dataInServer, WebdavClient client) {
+    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, WebdavClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
-        WebdavEntry we = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());
-        OCFile remoteFolder = fillOCFile(we);
+        OCFile remoteFolder = fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
         
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
         
-        List<OCFile> updatedFiles = new Vector<OCFile>(dataInServer.getResponses().length - 1);
+        List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
         List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
 
         // get current data about local contents of the folder to synchronize
@@ -338,10 +305,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         
         // loop to update every child
         OCFile remoteFile = null, localFile = null;
-        for (int i = 1; i < dataInServer.getResponses().length; ++i) {
+        for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            we = new WebdavEntry(dataInServer.getResponses()[i], client.getBaseUri().getPath());                        
-            remoteFile = fillOCFile(we);
+            remoteFile = fillOCFile(folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 
@@ -432,7 +398,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         return (status == HttpStatus.SC_MULTI_STATUS); 
     }
 
-
+    
     /**
      * Creates and populates a new {@link OCFile} object with the data read from the server.
      * 
@@ -446,6 +412,22 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         file.setMimetype(we.contentType());
         file.setModificationTimestamp(we.modifiedTimestamp());
         file.setEtag(we.etag());
+        return file;
+    }
+
+    /**
+     * Creates and populates a new {@link OCFile} object with the data read from the server.
+     * 
+     * @param remote    remote file read from the server (remote file or folder).
+     * @return          New OCFile instance representing the remote resource described by we.
+     */
+    private OCFile fillOCFile(RemoteFile remote) {
+        OCFile file = new OCFile(remote.getRemotePath());
+        file.setCreationTimestamp(remote.getCreationTimestamp());
+        file.setFileLength(remote.getLength());
+        file.setMimetype(remote.getMimeType());
+        file.setModificationTimestamp(remote.getModifiedTimestamp());
+        file.setEtag(remote.getEtag());
         return file;
     }
     

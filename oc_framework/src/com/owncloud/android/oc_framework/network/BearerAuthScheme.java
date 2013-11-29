@@ -1,4 +1,3 @@
-package com.owncloud.android.oc_framework.network;
 /* ownCloud Android client application
  *   Copyright (C) 2012  ownCloud Inc.
  *
@@ -17,6 +16,7 @@ package com.owncloud.android.oc_framework.network;
  */
 
 
+package com.owncloud.android.oc_framework.network;
 
 import java.util.Map;
 
