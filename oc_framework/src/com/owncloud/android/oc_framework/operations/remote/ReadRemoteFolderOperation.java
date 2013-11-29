@@ -28,8 +28,7 @@ public class ReadRemoteFolderOperation extends RemoteOperation {
 	private static final String TAG = ReadRemoteFolderOperation.class.getSimpleName();
 
 	private String mRemotePath;
-	private RemoteFile mFolder;
-	private ArrayList<RemoteFile> mFiles;
+	private ArrayList<RemoteFile> mFolderAndFiles;
 	
 	/**
      * Constructor
@@ -67,8 +66,7 @@ public class ReadRemoteFolderOperation extends RemoteOperation {
             	result = new RemoteOperationResult(true, status, query.getResponseHeaders());
             	// Add data to the result
             	if (result.isSuccess()) {
-            		result.setFile(mFolder);
-            		result.setData(mFiles);
+            		result.setData(mFolderAndFiles);
             	}
             } else {
                 // synchronization failed
@@ -112,20 +110,19 @@ public class ReadRemoteFolderOperation extends RemoteOperation {
      *  @return                
      */
     private void readData(MultiStatus dataInServer, WebdavClient client) {   	
+        mFolderAndFiles = new ArrayList<RemoteFile>();
+        
         // parse data from remote folder 
         WebdavEntry we = new WebdavEntry(dataInServer.getResponses()[0], client.getBaseUri().getPath());
-        mFolder = fillOCFile(we);
-        
+        mFolderAndFiles.add(fillOCFile(we));
         
         // loop to update every child
         RemoteFile remoteFile = null;
-        mFiles = new ArrayList<RemoteFile>();
         for (int i = 1; i < dataInServer.getResponses().length; ++i) {
             /// new OCFile instance with the data from the server
             we = new WebdavEntry(dataInServer.getResponses()[i], client.getBaseUri().getPath());                        
             remoteFile = fillOCFile(we);
-            
-            mFiles.add(remoteFile);
+            mFolderAndFiles.add(remoteFile);
         }
         
     }

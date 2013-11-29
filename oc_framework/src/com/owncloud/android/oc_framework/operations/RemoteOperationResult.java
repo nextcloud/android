@@ -98,13 +98,11 @@ public class RemoteOperationResult implements Serializable {
     private ResultCode mCode = ResultCode.UNKNOWN_ERROR;
     private String mRedirectedLocation;
 
-    private RemoteFile mFile;
     private ArrayList<RemoteFile> mFiles;
 	
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
-        mFile= null;
         mFiles = null;
     }
 
@@ -201,12 +199,6 @@ public class RemoteOperationResult implements Serializable {
     }
 
 
-    public void setFile(RemoteFile file){
-    	mFile = file;
-    }
-    public RemoteFile getFile(){
-    	return mFile;
-    }
     public void setData(ArrayList<RemoteFile> files){
     	mFiles = files;
     }

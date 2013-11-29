@@ -249,9 +249,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
-            RemoteFile folder = result.getFile();
-            ArrayList<RemoteFile> files = result.getData();
-            synchronizeData(folder, files, client);
+            synchronizeData(result.getData(), client);
             if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
             }
@@ -278,26 +276,24 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *  
      *  Grants that mChildren is updated with fresh data after execution.
      *  
-     *  @param folder           Remote Folder to synchronize
-     *  
-     *  @param files            Remote Files in Folder 
+     *  @param folderAndFiles   Remote folder and children files in Folder 
      *  
      *  @param client           Client instance to the remote server where the data were 
      *                          retrieved.  
      *  @return                 'True' when any change was made in the local data, 'false' otherwise.
      */
-    private void synchronizeData(RemoteFile folder, ArrayList<RemoteFile> files, WebdavClient client) {
+    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, WebdavClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
-        OCFile remoteFolder = fillOCFile(folder);
+        OCFile remoteFolder = fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
         
         Log_OC.d(TAG, "Remote folder " + mLocalFolder.getRemotePath() + " changed - starting update of local data ");
         
-        List<OCFile> updatedFiles = new Vector<OCFile>(files.size());
+        List<OCFile> updatedFiles = new Vector<OCFile>(folderAndFiles.size() - 1);
         List<SynchronizeFileOperation> filesToSyncContents = new Vector<SynchronizeFileOperation>();
 
         // get current data about local contents of the folder to synchronize
@@ -309,9 +305,9 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         
         // loop to update every child
         OCFile remoteFile = null, localFile = null;
-        for (RemoteFile file: files) { 
+        for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remoteFile = fillOCFile(file);
+            remoteFile = fillOCFile(folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 

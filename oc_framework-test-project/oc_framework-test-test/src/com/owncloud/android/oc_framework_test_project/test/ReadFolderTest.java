@@ -38,9 +38,8 @@ public class ReadFolderTest extends	ActivityInstrumentationTestCase2<TestActivit
 	public void testReadFolder() {
 
 		RemoteOperationResult result = mActivity.readFile(mRemoteFolderPath);
-		assertTrue(result.getFile() != null);
-		assertTrue(result.getData().size() > 0);
-		assertTrue(result.getData().size() == 3);
+		assertTrue(result.getData().size() > 1);
+		assertTrue(result.getData().size() == 4);
 		assertTrue(result.isSuccess());
 	}
 	

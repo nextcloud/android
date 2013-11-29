@@ -13,7 +13,7 @@ import com.owncloud.android.oc_framework.utils.FileUtils;
  *  @author masensio
  */
 
-public class RemoteFile implements Parcelable, Serializable{
+public class RemoteFile implements Parcelable, Serializable {
 
 	/** Generated - should be refreshed every time the class changes!! */
 	private static final long serialVersionUID = 7256606476031992757L;
