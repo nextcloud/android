@@ -45,6 +45,7 @@ import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -186,48 +187,27 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mRemoteFolderChanged = false;
         RemoteOperationResult result = null;
         String remotePath = null;
-        PropFindMethod query = null;
-        
-        try {
+
             remotePath = mLocalFolder.getRemotePath();
             Log_OC.d(TAG, "Checking changes in " + mAccount.name + remotePath);
 
             // remote request 
-            query = new PropFindMethod(client.getBaseUri() + WebdavUtils.encodePath(remotePath),
-                    DavConstants.PROPFIND_ALL_PROP,
-                    DavConstants.DEPTH_0);
-            int status = client.executeMethod(query);
+            ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
+            result = operation.execute(client);
+            if (result.isSuccess()){
+                OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getData().get(0));
+                
+             // check if remote and local folder are different
+              mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
+              
+              result = new RemoteOperationResult(ResultCode.OK);
 
-            // check and process response
-            if (isMultiStatus(status)) {
-                // parse data from remote folder 
-                WebdavEntry we = new WebdavEntry(query.getResponseBodyAsMultiStatus().getResponses()[0], client.getBaseUri().getPath());
-                OCFile remoteFolder = fillOCFile(we);
-                
-                // check if remote and local folder are different
-                mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
-                
-                result = new RemoteOperationResult(ResultCode.OK);
-                
+              Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " + (mRemoteFolderChanged ? "changed" : "not changed"));
             } else {
                 // check failed
-                client.exhaustResponse(query.getResponseBodyAsStream());
-                if (status == HttpStatus.SC_NOT_FOUND) {
+                if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                     removeLocalFolder();
                 }
-                result = new RemoteOperationResult(false, status, query.getResponseHeaders());
-            }
-
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            
-
-        } finally {
-            if (query != null)
-                query.releaseConnection();  // let the connection available for other methods
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "Checked " + mAccount.name + remotePath + " : " + (mRemoteFolderChanged ? "changed" : "not changed"));
-            } else {
                 if (result.isException()) {
                     Log_OC.e(TAG, "Checked " + mAccount.name + remotePath  + " : " + result.getLogMessage(), result.getException());
                 } else {
@@ -235,7 +215,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 }
             }
             
-        }
         return result;
     }
 

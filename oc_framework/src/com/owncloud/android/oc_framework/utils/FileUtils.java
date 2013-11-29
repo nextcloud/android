@@ -1,6 +1,25 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2012-2013 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package com.owncloud.android.oc_framework.utils;
 
 import java.io.File;
+
+import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
+import com.owncloud.android.oc_framework.operations.RemoteFile;
 
 import android.util.Log;
 
@@ -49,4 +68,21 @@ public class FileUtils {
 		}
 		return result;
 	}
+	
+	/**
+     * Creates and populates a new {@link RemoteFile} object with the data read from the server.
+     * 
+     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
+     * @return          New OCFile instance representing the remote resource described by we.
+     */
+    public static RemoteFile fillOCFile(WebdavEntry we) {
+        RemoteFile file = new RemoteFile(we.decodedPath());
+        file.setCreationTimestamp(we.createTimestamp());
+        file.setLength(we.contentLength());
+        file.setMimeType(we.contentType());
+        file.setModifiedTimestamp(we.modifiedTimestamp());
+        file.setEtag(we.etag());
+        return file;
+    }
+    
 }
