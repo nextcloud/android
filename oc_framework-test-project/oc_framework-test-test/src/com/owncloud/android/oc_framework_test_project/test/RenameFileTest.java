@@ -6,6 +6,12 @@ import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+/**
+ * Class to test Rename File Operation
+ * @author masensio
+ *
+ */
+
 public class RenameFileTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
 	/* Folder data to rename. This folder must exist on the account */
