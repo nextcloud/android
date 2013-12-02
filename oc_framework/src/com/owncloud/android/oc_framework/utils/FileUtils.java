@@ -14,6 +14,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 package com.owncloud.android.oc_framework.utils;
 
 import java.io.File;

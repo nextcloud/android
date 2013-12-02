@@ -4,6 +4,7 @@ import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
 
@@ -90,5 +91,18 @@ public class TestActivity extends Activity {
 		return result;
 	}
 	
+	/**
+	 * Access to the library method to Read a Folder (PROPFIND DEPTH 1)
+	 * @param remotePath
+	 * 
+	 * @return
+	 */
+	public RemoteOperationResult readFile(String remotePath) {
+		
+		ReadRemoteFolderOperation readOperation= new ReadRemoteFolderOperation(remotePath);
+		RemoteOperationResult result = readOperation.execute(mClient);
+
+		return result;
+	}
 	
 }

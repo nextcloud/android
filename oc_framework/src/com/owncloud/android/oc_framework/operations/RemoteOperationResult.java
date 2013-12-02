@@ -52,8 +52,8 @@ import android.util.Log;
  */
 public class RemoteOperationResult implements Serializable {
 
-        /** Generated - should be refreshed every time the class changes!! */
-        private static final long serialVersionUID = -2469951225222759283L;
+	/** Generated - should be refreshed every time the class changes!! */
+	private static final long serialVersionUID = -2469951225222759283L;
     
     private static final String TAG = "RemoteOperationResult";
     
@@ -99,7 +99,7 @@ public class RemoteOperationResult implements Serializable {
     private String mRedirectedLocation;
 
     private ArrayList<RemoteFile> mFiles;
-        
+    
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
@@ -200,12 +200,12 @@ public class RemoteOperationResult implements Serializable {
 
 
     public void setData(ArrayList<RemoteFile> files){
-            mFiles = files;
+    	mFiles = files;
     }
     
-        public ArrayList<RemoteFile> getData(){
-                return mFiles;
-        }
+	public ArrayList<RemoteFile> getData(){
+		return mFiles;
+	}
     
     public boolean isSuccess() {
         return mSuccess;

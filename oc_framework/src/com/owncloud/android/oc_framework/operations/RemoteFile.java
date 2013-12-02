@@ -32,84 +32,84 @@ import com.owncloud.android.oc_framework.utils.FileUtils;
 
 public class RemoteFile implements Parcelable, Serializable {
 
-        /** Generated - should be refreshed every time the class changes!! */
-        private static final long serialVersionUID = 7256606476031992757L;
-        
-        private String mRemotePath;
-        private String mMimeType;
-        private long mLength;
-        private long mCreationTimestamp;
-        private long mModifiedTimestamp;
-        private String mEtag;
-        
-        /** 
-         * Getters and Setters
-         */
-        
+	/** Generated - should be refreshed every time the class changes!! */
+	private static final long serialVersionUID = 7256606476031992757L;
+	
+	private String mRemotePath;
+	private String mMimeType;
+	private long mLength;
+	private long mCreationTimestamp;
+	private long mModifiedTimestamp;
+	private String mEtag;
+	
+	/** 
+	 * Getters and Setters
+	 */
+	
     public String getRemotePath() {
-                return mRemotePath;
-        }
+		return mRemotePath;
+	}
 
-        public void setRemotePath(String remotePath) {
-                this.mRemotePath = remotePath;
-        }
+	public void setRemotePath(String remotePath) {
+		this.mRemotePath = remotePath;
+	}
 
-        public String getMimeType() {
-                return mMimeType;
-        }
+	public String getMimeType() {
+		return mMimeType;
+	}
 
-        public void setMimeType(String mimeType) {
-                this.mMimeType = mimeType;
-        }
+	public void setMimeType(String mimeType) {
+		this.mMimeType = mimeType;
+	}
 
-        public long getLength() {
-                return mLength;
-        }
+	public long getLength() {
+		return mLength;
+	}
 
-        public void setLength(long length) {
-                this.mLength = length;
-        }
+	public void setLength(long length) {
+		this.mLength = length;
+	}
 
-        public long getCreationTimestamp() {
-                return mCreationTimestamp;
-        }
+	public long getCreationTimestamp() {
+		return mCreationTimestamp;
+	}
 
-        public void setCreationTimestamp(long creationTimestamp) {
-                this.mCreationTimestamp = creationTimestamp;
-        }
+	public void setCreationTimestamp(long creationTimestamp) {
+		this.mCreationTimestamp = creationTimestamp;
+	}
 
-        public long getModifiedTimestamp() {
-                return mModifiedTimestamp;
-        }
+	public long getModifiedTimestamp() {
+		return mModifiedTimestamp;
+	}
 
-        public void setModifiedTimestamp(long modifiedTimestamp) {
-                this.mModifiedTimestamp = modifiedTimestamp;
-        }
+	public void setModifiedTimestamp(long modifiedTimestamp) {
+		this.mModifiedTimestamp = modifiedTimestamp;
+	}
 
-        public String getEtag() {
-                return mEtag;
-        }
+	public String getEtag() {
+		return mEtag;
+	}
 
-        public void setEtag(String etag) {
-                this.mEtag = etag;
-        }
+	public void setEtag(String etag) {
+		this.mEtag = etag;
+	}
 
-        /**
+	/**
      * Create new {@link RemoteFile} with given path.
      * 
      * The path received must be URL-decoded. Path separator must be OCFile.PATH_SEPARATOR, and it must be the first character in 'path'.
      * 
      * @param path The remote path of the file.
      */
-        public RemoteFile(String path) {
-                resetData();
+	public RemoteFile(String path) {
+		resetData();
         if (path == null || path.length() <= 0 || !path.startsWith(FileUtils.PATH_SEPARATOR)) {
             throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
         }
         mRemotePath = path;
-        }
+	}
 
-        /**
+	/**
      * Used internally. Reset all file properties
      */
     private void resetData() {
@@ -151,20 +151,20 @@ public class RemoteFile implements Parcelable, Serializable {
         mEtag = source.readString();
     }
     
-        @Override
-        public int describeContents() {
-                return this.hashCode();
-        }
+	@Override
+	public int describeContents() {
+		return this.hashCode();
+	}
 
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-                dest.writeString(mRemotePath);
-                dest.writeString(mMimeType);    
-                dest.writeLong(mLength);
-                dest.writeLong(mCreationTimestamp);
-                dest.writeLong(mModifiedTimestamp);
-                dest.writeString(mEtag);                
-        }
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(mRemotePath);
+		dest.writeString(mMimeType);    
+		dest.writeLong(mLength);
+		dest.writeLong(mCreationTimestamp);
+		dest.writeLong(mModifiedTimestamp);
+		dest.writeString(mEtag);		
+	}
     
     
 }
