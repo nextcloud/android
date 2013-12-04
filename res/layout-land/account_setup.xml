@@ -27,7 +27,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/buttonOK"
+        android:layout_above="@+id/bottom_block"
         android:layout_alignParentTop="true"
         android:orientation="horizontal" >
         
@@ -186,27 +186,33 @@
 						           
 	</LinearLayout>
        
-	<Button
-	    android:id="@id/buttonOK"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_above="@+id/welcome_link"
-	    android:layout_centerHorizontal="true"
-	    android:enabled="false"
-	    android:onClick="onOkClick"
-	    android:text="@string/setup_btn_connect" />
-
-	<Button
-	    android:id="@id/welcome_link"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_centerHorizontal="true"
-	    android:background="@android:color/transparent"
-	    android:onClick="onRegisterClick"
-	    android:paddingBottom="5dp"
-	    android:paddingTop="5dp"
-	    android:text="@string/auth_register"
-	    android:textColor="#0000FF"/>
-	
+    <LinearLayout
+        android:id="@id/bottom_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+        
+		<Button
+		    android:id="@+id/buttonOK"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:enabled="false"
+		    android:onClick="onOkClick"
+		    android:text="@string/setup_btn_connect" />
+		
+		<Button
+		    android:id="@+id/welcome_link"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:background="@android:color/transparent"
+		    android:onClick="onRegisterClick"
+		    android:paddingBottom="5dp"
+		    android:paddingTop="5dp"
+		    android:text="@string/auth_register"
+		    android:textColor="#0000FF"/>
+	</LinearLayout>
+		
 </RelativeLayout>
