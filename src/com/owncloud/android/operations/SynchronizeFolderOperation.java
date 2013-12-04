@@ -37,7 +37,6 @@ import android.content.Intent;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
@@ -371,23 +370,6 @@ public class SynchronizeFolderOperation extends RemoteOperation {
 
     public boolean isMultiStatus(int status) {
         return (status == HttpStatus.SC_MULTI_STATUS); 
-    }
-
-    
-    /**
-     * Creates and populates a new {@link OCFile} object with the data read from the server.
-     * 
-     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
-     */
-    private OCFile fillOCFile(WebdavEntry we) {
-        OCFile file = new OCFile(we.decodedPath());
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimestamp());
-        file.setEtag(we.etag());
-        return file;
     }
 
     /**
