@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android.workaround.accounts"
     android:versionCode="0100010"
-    android:versionName="1.0.10" >
+    android:versionName="1.0.11" >
 
     <uses-sdk
         android:minSdkVersion="16"
