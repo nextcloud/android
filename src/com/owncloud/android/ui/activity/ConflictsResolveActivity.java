@@ -18,12 +18,14 @@
 
 package com.owncloud.android.ui.activity;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 import android.content.Intent;
@@ -43,10 +45,12 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 
     @Override
-    public void ConflictDecisionMade(Decision decision) {
+    public void conflictDecisionMade(Decision decision) {
         Intent i = new Intent(getApplicationContext(), FileUploader.class);
         
         switch (decision) {
