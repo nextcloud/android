@@ -22,6 +22,7 @@ import java.io.File;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.oc_framework.operations.RemoteFile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -81,6 +82,23 @@ public class FileStorageUtils {
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
         return parentPath;
+    }
+    
+    
+    /**
+     * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
+     * 
+     * @param oCFile    OCFile 
+     * @return          New RemoteFile instance representing the resource described by ocFile.
+     */
+    public static RemoteFile fillRemoteFile(OCFile ocFile){
+        RemoteFile file = new RemoteFile(ocFile.getRemotePath());
+        file.setCreationTimestamp(ocFile.getCreationTimestamp());
+        file.setLength(ocFile.getFileLength());
+        file.setMimeType(ocFile.getMimetype());
+        file.setModifiedTimestamp(ocFile.getModificationTimestamp());
+        file.setEtag(ocFile.getEtag());
+        return file;
     }
   
 }

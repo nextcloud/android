@@ -146,10 +146,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
         String downloadKey = buildRemoteName(account, file);
         try {
-            DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
+            DownloadFileOperation newDownload = new DownloadFileOperation(account, file, (FileDownloaderBinder) mBinder); 
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
-            newDownload.addDatatransferProgressListener(this);
-            newDownload.addDatatransferProgressListener((FileDownloaderBinder)mBinder);
             requestedDownloads.add(downloadKey);
             sendBroadcastNewDownload(newDownload);
             
