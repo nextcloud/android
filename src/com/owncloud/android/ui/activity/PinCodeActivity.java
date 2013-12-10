@@ -18,8 +18,10 @@ package com.owncloud.android.ui.activity;
 
 import java.util.Arrays;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -121,7 +123,8 @@ public class PinCodeActivity extends SherlockFragmentActivity {
         }
         setTextListeners();
         
-        
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
     
 

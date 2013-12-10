@@ -25,6 +25,7 @@ import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -63,7 +64,7 @@ public class ChangelogDialog extends SherlockDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         
         Dialog dialog = builder.setView(webview)
-                                .setIcon(R.drawable.icon)
+                                .setIcon(DisplayUtils.getSeasonalIconId())
                                 //.setTitle(R.string.whats_new)
                                 .setPositiveButton(R.string.common_ok,
                                         new DialogInterface.OnClickListener() {

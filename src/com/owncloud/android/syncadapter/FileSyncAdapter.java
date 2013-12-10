@@ -36,6 +36,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -368,7 +369,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * Notifies the user about a failed synchronization through the status notification bar 
      */
     private void notifyFailedSynchronization() {
-        Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
+        Notification notification = new Notification(DisplayUtils.getSeasonalIconId(), getContext().getString(R.string.sync_fail_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         boolean needsToUpdateCredentials = (mLastFailedResult != null && 
                                              (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
@@ -410,7 +411,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void notifyFailsInFavourites() {
         if (mFailedResultsCounter > 0) {
-            Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_fail_in_favourites_ticker), System.currentTimeMillis());
+            Notification notification = new Notification(DisplayUtils.getSeasonalIconId(), getContext().getString(R.string.sync_fail_in_favourites_ticker), System.currentTimeMillis());
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
             notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
@@ -421,7 +422,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             ((NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(R.string.sync_fail_in_favourites_ticker, notification);
             
         } else {
-            Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_conflicts_in_favourites_ticker), System.currentTimeMillis());
+            Notification notification = new Notification(DisplayUtils.getSeasonalIconId(), getContext().getString(R.string.sync_conflicts_in_favourites_ticker), System.currentTimeMillis());
             notification.flags |= Notification.FLAG_AUTO_CANCEL;
             // TODO put something smart in the contentIntent below
             notification.contentIntent = PendingIntent.getActivity(getContext().getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
@@ -443,7 +444,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * We won't consider a synchronization as failed when foreign files can not be copied to the ownCloud local directory.
      */
     private void notifyForgottenLocalFiles() {
-        Notification notification = new Notification(R.drawable.icon, getContext().getString(R.string.sync_foreign_files_forgotten_ticker), System.currentTimeMillis());
+        Notification notification = new Notification(DisplayUtils.getSeasonalIconId(), getContext().getString(R.string.sync_foreign_files_forgotten_ticker), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         /// includes a pending intent in the notification showing a more detailed explanation
