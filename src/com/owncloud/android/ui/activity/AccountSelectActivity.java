@@ -27,7 +27,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,6 +49,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -75,9 +75,10 @@ public class AccountSelectActivity extends SherlockListActivity implements
             mPreviousAccount = AccountUtils.getCurrentOwnCloudAccount(this);
         }
         
-        ActionBar action_bar = getSupportActionBar();
-        action_bar.setDisplayShowTitleEnabled(true);
-        action_bar.setDisplayHomeAsUpEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 
     @Override

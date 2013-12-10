@@ -17,8 +17,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.util.Vector;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -38,8 +36,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
-import com.owncloud.android.utils.OwnCloudSession;
 
 
 /**
@@ -51,15 +49,11 @@ import com.owncloud.android.utils.OwnCloudSession;
 public class Preferences extends SherlockPreferenceActivity {
     
     private static final String TAG = "OwnCloudPreferences";
-    private final int mNewSession = 47;
-    private final int mEditSession = 48;
     private DbHandler mDbHandler;
-    private Vector<OwnCloudSession> mSessions;
     private CheckBoxPreference pCode;
     //private CheckBoxPreference pLogging;
     //private Preference pLoggingHistory;
     private Preference pAboutApp;
-    private int mSelectedMenuItem;
 
 
     @SuppressWarnings("deprecation")
@@ -67,10 +61,10 @@ public class Preferences extends SherlockPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDbHandler = new DbHandler(getBaseContext());
-        mSessions = new Vector<OwnCloudSession>();
         addPreferencesFromResource(R.xml.preferences);
         //populateAccountList();
         ActionBar actionBar = getSherlock().getActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         
         Preference p = findPreference("manage_account");
