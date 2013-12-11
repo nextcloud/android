@@ -48,6 +48,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult.Result
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.oc_framework.network.webdav.ChunkFromFileChannelRequestEntity;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
@@ -266,7 +267,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                if (chunked) {
+                if (chunked
+                        && (new File(files[i].getStoragePath())).length() > ChunkedUploadFileOperation.CHUNK_SIZE)  // added to work around bug in servers 5.x 
+                {
                     newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
                             localAction);
                 } else {
