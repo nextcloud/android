@@ -4,10 +4,10 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.owncloud.android</groupId>
-    <artifactId>owncloud</artifactId>
+    <artifactId>oc_framework</artifactId>
     <version>${owncloud.version}</version>
-    <packaging>apk</packaging>
-    <name>Owncloud Android</name>
+    <packaging>jar</packaging>
+    <name>oc_framework for Owncloud Android</name>
 
     <properties>
         <owncloud.version>1.5.1-SNAPSHOT</owncloud.version>
@@ -16,16 +16,9 @@
         <google.android-version>4.4_r1</google.android-version>
         <!-- Usually the latest Android API -->
         <google.android-api>19</google.android-api>
-        <actionbarsherlock-version>4.2.0</actionbarsherlock-version>
     </properties>
 
-    <url>https://github.com/owncloud/android</url>
-    <description>Owncloud for Android</description>
-    <scm>
-        <connection>scm:git:git@github.com:owncloud/android.git</connection>
-        <developerConnection>scm:git:git@github.com:owncloud/android.git</developerConnection>
-        <url>https://github.com/owncloud/android</url>
-    </scm>
+    <description>oc_framwork for Owncloud for Android</description>
     
     <dependencies>
 
@@ -37,17 +30,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.actionbarsherlock</groupId>
-            <artifactId>actionbarsherlock</artifactId>
-            <version>${actionbarsherlock-version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.actionbarsherlock</groupId>
-            <artifactId>actionbarsherlock</artifactId>
-            <version>${actionbarsherlock-version}</version>
-            <type>apklib</type>
+          <groupId>commons-httpclient</groupId>
+          <artifactId>commons-httpclient</artifactId>
+          <version>3.1</version>
         </dependency>
 
         <dependency>
@@ -55,13 +40,6 @@
             <artifactId>jackrabbit-webdav</artifactId>
             <version>2.5.2</version>
         </dependency>
-        
-        <!-- MUST BE INSTALLED FIRST: cd oc_framework; mvn install -->
-        <dependency>
-         <groupId>com.owncloud.android</groupId>
-         <artifactId>oc_framework</artifactId>
-         <version>${owncloud.version}</version>
-      </dependency>
 
     </dependencies>
 

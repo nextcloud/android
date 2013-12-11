@@ -32,7 +32,9 @@ NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current And
 * "git clone https://github.com/mosabua/maven-android-sdk-deployer.git"
 * "cd maven-android-sdk-deployer"
 * "mvn -pl com.simpligility.android.sdk-deployer:android-19 -am install"
-* "cd ../android"
+* "cd ../android/oc_framework"
+* "mvn install"
+* "cd .."
 * Now you can create ownCloud APK using "mvn package"
 
 ### 4. Building with Eclipse:
