@@ -40,6 +40,7 @@ import android.view.Menu;
  * @author masensio
  * @author David A. Velasco
  */
+
 public class TestActivity extends Activity {
 	
 	// This account must exists on the simulator / device
