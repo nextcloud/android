@@ -30,15 +30,9 @@
         </dependency>
 
         <dependency>
-          <groupId>commons-httpclient</groupId>
-          <artifactId>commons-httpclient</artifactId>
-          <version>3.1</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.jackrabbit</groupId>
             <artifactId>jackrabbit-webdav</artifactId>
-            <version>2.5.2</version>
+            <version>2.7.2</version>
         </dependency>
 
     </dependencies>
