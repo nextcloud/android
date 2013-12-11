@@ -19,13 +19,13 @@
 package com.owncloud.android.utils;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.owncloud.android.R;
-import com.owncloud.android.R.drawable;
 
 /**
  * A helper class for some string operations.
@@ -189,5 +189,14 @@ public class DisplayUtils {
     public static String unixTimeToHumanReadable(long milliseconds) {
         Date date = new Date(milliseconds);
         return date.toLocaleString();
+    }
+    
+    
+    public static int getSeasonalIconId() {
+        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354) {
+            return R.drawable.winter_holidays_icon;
+        } else {
+            return R.drawable.icon;
+        }
     }
 }
