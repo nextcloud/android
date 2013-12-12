@@ -36,6 +36,7 @@ import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;
+import android.content.Context;
 
 
 public class ChunkedUploadFileOperation extends UploadFileOperation {
@@ -48,9 +49,9 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                                         OCFile file,
                                         boolean isInstant, 
                                         boolean forceOverwrite,
-                                        int localBehaviour) {
+                                        int localBehaviour, Context context) {
         
-        super(account, file, isInstant, forceOverwrite, localBehaviour);
+        super(account, file, isInstant, forceOverwrite, localBehaviour, context);
     }
 
     @Override

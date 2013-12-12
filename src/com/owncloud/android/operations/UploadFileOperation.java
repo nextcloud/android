@@ -43,10 +43,12 @@ import com.owncloud.android.oc_framework.operations.OperationCancelledException;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
+import android.content.Context;
 
 
 /**
@@ -72,6 +74,7 @@ public class UploadFileOperation extends RemoteOperation {
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private Context mContext;
 
     protected RequestEntity mEntity = null;
 
@@ -80,7 +83,8 @@ public class UploadFileOperation extends RemoteOperation {
                                 OCFile file,
                                 boolean isInstant, 
                                 boolean forceOverwrite,
-                                int localBehaviour) {
+                                int localBehaviour, 
+                                Context context) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -100,6 +104,7 @@ public class UploadFileOperation extends RemoteOperation {
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
+        mContext = context;
     }
 
     public Account getAccount() {
@@ -199,7 +204,7 @@ public class UploadFileOperation extends RemoteOperation {
                                                                                                 // !!!
             expectedFile = new File(expectedPath);
 
-            // / check location of local file; if not the expected, copy to a
+            // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
             if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
 
@@ -389,7 +394,7 @@ public class UploadFileOperation extends RemoteOperation {
      * @return
      */
     private String getAvailableRemotePath(WebdavClient wc, String remotePath) throws Exception {
-        boolean check = wc.existsFile(remotePath);
+        boolean check = existsFile(wc, remotePath);
         if (!check) {
             return remotePath;
         }
@@ -404,10 +409,12 @@ public class UploadFileOperation extends RemoteOperation {
         int count = 2;
         do {
             suffix = " (" + count + ")";
-            if (pos >= 0)
-                check = wc.existsFile(remotePath + suffix + "." + extension);
-            else
-                check = wc.existsFile(remotePath + suffix);
+            if (pos >= 0) {
+                check = existsFile(wc, remotePath + suffix + "." + extension);
+            }
+            else {
+                check = existsFile(wc, remotePath + suffix);
+            }
             count++;
         } while (check);
 
@@ -418,6 +425,12 @@ public class UploadFileOperation extends RemoteOperation {
         }
     }
 
+    private boolean existsFile(WebdavClient client, String remotePath){
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        RemoteOperationResult result = existsOperation.execute(client);
+        return result.isSuccess();
+    }
+    
     public void cancel() {
         synchronized (mCancellationRequested) {
             mCancellationRequested.set(true);
