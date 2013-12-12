@@ -48,6 +48,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult.Result
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.oc_framework.network.webdav.ChunkFromFileChannelRequestEntity;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
@@ -58,6 +59,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
@@ -265,7 +267,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                if (chunked) {
+                if (chunked
+                        && (new File(files[i].getStoragePath())).length() > ChunkedUploadFileOperation.CHUNK_SIZE)  // added to work around bug in servers 5.x 
+                {
                     newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
                             localAction);
                 } else {
@@ -714,7 +718,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotification = new Notification(R.drawable.icon, getString(R.string.uploader_upload_in_progress_ticker),
+        mNotification = new Notification(DisplayUtils.getSeasonalIconId(), getString(R.string.uploader_upload_in_progress_ticker),
                 System.currentTimeMillis());
         mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
         mDefaultNotificationContentView = mNotification.contentView;
@@ -723,7 +727,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, false);
         mNotification.contentView.setTextViewText(R.id.status_text,
                 String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
-        mNotification.contentView.setImageViewResource(R.id.status_icon, R.drawable.icon);
+        mNotification.contentView.setImageViewResource(R.id.status_icon, DisplayUtils.getSeasonalIconId());
         
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
@@ -810,7 +814,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             // / fail -> explicit failure notification
             mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
-            Notification finalNotification = new Notification(R.drawable.icon,
+            Notification finalNotification = new Notification(DisplayUtils.getSeasonalIconId(),
                     getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
             finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
             String content = null;
