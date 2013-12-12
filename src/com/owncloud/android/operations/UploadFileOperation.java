@@ -38,12 +38,12 @@ import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
 import com.owncloud.android.oc_framework.network.webdav.FileRequestEntity;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.OperationCancelledException;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
+import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -72,9 +72,12 @@ public class UploadFileOperation extends RemoteOperation {
     private String mOriginalFileName = null;
     private String mOriginalStoragePath = null;
     PutMethod mPutMethod = null;
+    private OnDatatransferProgressListener mDataTransferListener;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private Context mContext;
+    
+    private UploadRemoteFileOperation mUploadOperation;
 
     protected RequestEntity mEntity = null;
 
@@ -84,7 +87,8 @@ public class UploadFileOperation extends RemoteOperation {
                                 boolean isInstant, 
                                 boolean forceOverwrite,
                                 int localBehaviour, 
-                                Context context) {
+                                Context context,
+                                OnDatatransferProgressListener listener) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -105,6 +109,7 @@ public class UploadFileOperation extends RemoteOperation {
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
         mContext = context;
+        mDataTransferListener = listener;
     }
 
     public Account getAccount() {
@@ -265,19 +270,14 @@ public class UploadFileOperation extends RemoteOperation {
             }
             localCopyPassed = true;
 
-            // / perform the upload
-            synchronized (mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                } else {
-                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
-                }
-            }
-            int status = uploadFile(client);
+            /// perform the upload
+            mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
+                    mFile.getMimetype());
+            result = mUploadOperation.execute(client);
 
-            // / move local temporal file or original file to its corresponding
+            /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
-            if (isSuccess(status)) {
+            if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath(null);
 
@@ -309,8 +309,6 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                 }
             }
-
-            result = new RemoteOperationResult(isSuccess(status), status, (mPutMethod != null ? mPutMethod.getResponseHeaders() : null));
 
         } catch (Exception e) {
             // TODO something cleaner with cancellations
@@ -432,11 +430,7 @@ public class UploadFileOperation extends RemoteOperation {
     }
     
     public void cancel() {
-        synchronized (mCancellationRequested) {
-            mCancellationRequested.set(true);
-            if (mPutMethod != null)
-                mPutMethod.abort();
-        }
+        mUploadOperation.cancel();
     }
 
 }

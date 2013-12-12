@@ -30,6 +30,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
 import com.owncloud.android.oc_framework.network.webdav.ChunkFromFileChannelRequestEntity;
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -49,9 +50,10 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                                         OCFile file,
                                         boolean isInstant, 
                                         boolean forceOverwrite,
-                                        int localBehaviour, Context context) {
+                                        int localBehaviour, Context context, 
+                                        OnDatatransferProgressListener listener) {
         
-        super(account, file, isInstant, forceOverwrite, localBehaviour, context);
+        super(account, file, isInstant, forceOverwrite, localBehaviour, context, listener);
     }
 
     @Override
