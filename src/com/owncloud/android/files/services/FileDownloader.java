@@ -147,8 +147,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         AbstractList<String> requestedDownloads = new Vector<String>(); // dvelasco: now this always contains just one element, but that can change in a near future (download of multiple selection)
         String downloadKey = buildRemoteName(account, file);
         try {
-            DownloadFileOperation newDownload = new DownloadFileOperation(account, file, (FileDownloaderBinder) mBinder); 
+            DownloadFileOperation newDownload = new DownloadFileOperation(account, file); 
             mPendingDownloads.putIfAbsent(downloadKey, newDownload);
+            newDownload.addDatatransferProgressListener(this);
+            newDownload.addDatatransferProgressListener((FileDownloaderBinder)mBinder);
             requestedDownloads.add(downloadKey);
             sendBroadcastNewDownload(newDownload);
             
@@ -438,10 +440,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
-          mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
-          String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
-          mNotification.contentView.setTextViewText(R.id.status_text, text);
-          mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
+            mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
+            String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
+            mNotification.contentView.setTextViewText(R.id.status_text, text);
+            mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
         }
         mLastPercent = percent;
     }

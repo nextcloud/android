@@ -18,6 +18,9 @@
 package com.owncloud.android.operations;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
@@ -44,13 +47,13 @@ public class DownloadFileOperation extends RemoteOperation {
 
     private Account mAccount;
     private OCFile mFile;
-    private OnDatatransferProgressListener mDatatransferProgressListener;
+    private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private long mModificationTimestamp = 0;
     
     private DownloadRemoteFileOperation mDownloadOperation;
 
     
-    public DownloadFileOperation(Account account, OCFile file, OnDatatransferProgressListener listener) {
+    public DownloadFileOperation(Account account, OCFile file) {
         if (account == null)
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation creation");
         if (file == null)
@@ -59,7 +62,6 @@ public class DownloadFileOperation extends RemoteOperation {
         mAccount = account;
         mFile = file;
         
-        mDatatransferProgressListener = listener;
     }
 
 
@@ -130,7 +132,10 @@ public class DownloadFileOperation extends RemoteOperation {
         
         /// perform the download
         mDownloadOperation = new DownloadRemoteFileOperation(remoteFile, tmpFolder);
-        mDownloadOperation.addDatatransferProgressListener(mDatatransferProgressListener);
+        Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+        while (listener.hasNext()) {
+            mDownloadOperation.addDatatransferProgressListener(listener.next());
+        }
         result = mDownloadOperation.execute(client);
         
         if (result.isSuccess()) {
@@ -152,4 +157,16 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
 
+    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.add(listener);
+        }
+    }
+    
+    public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
+        synchronized (mDataTransferListeners) {
+            mDataTransferListeners.remove(listener);
+        }
+    }
+    
 }
