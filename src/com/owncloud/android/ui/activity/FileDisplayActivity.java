@@ -88,6 +88,7 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -192,13 +193,16 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress);    // always AFTER setContentView(...) ; to work around bug in its implementation        
-        
-        
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
         Log_OC.d(TAG, "onCreate() end");
     }
-
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+    }
 
     @Override
     protected void onDestroy() {
@@ -1151,19 +1155,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
 
 
-//    private void updateDisplayHomeAtSync(){
-//        ActionBar actionBar = getSupportActionBar();
-//        OCFile currentDir = getCurrentDir();
-//        if (currentDir.getParentId() != DataStorageManager.ROOT_PARENT_ID) {
-//            actionBar.setHomeButtonEnabled(!mSyncInProgress);
-//            actionBar.setDisplayHomeAsUpEnabled(!mSyncInProgress);
-//        }
-//        else {
-//            actionBar.setHomeButtonEnabled(true);
-//            actionBar.setDisplayHomeAsUpEnabled(false);
-//        }
-//    }
-//    
     /**
      * {@inheritDoc}
      */

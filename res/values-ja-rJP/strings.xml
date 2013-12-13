@@ -175,6 +175,7 @@
   <string name="sync_file_fail_msg">リモートファイルをチェックできませんでした</string>
   <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
   <string name="create_dir_fail_msg">ディレクトリを作成できませんでした</string>
+  <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">しばらくお待ちください</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
   <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
@@ -218,6 +219,7 @@
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は %2$s ローカルディレクトリにコピー出来ませんでした</string>
+  <string name="actionbar_failed_instant_upload">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_text">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_hint">全ての失敗したインスタントアップロードの要約</string>
   <string name="failed_upload_all_cb">すべて選択</string>

@@ -219,6 +219,7 @@
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
   <string name="error__upload__local_file_not_copied">%1$s no puede ser copiado al %2$s directorio local </string>
+  <string name="actionbar_failed_instant_upload">Carga instantánea fallida</string>
   <string name="failed_upload_headline_text">Cargas instantáneas fallidas</string>
   <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas fallidas</string>
   <string name="failed_upload_all_cb">Seleccionar todos</string>
