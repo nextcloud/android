@@ -10,7 +10,6 @@
   <string name="prefs_accounts">Налози</string>
   <string name="prefs_instant_upload_summary">Тренутно отпремај фотографије сликане камером</string>
   <string name="prefs_help">Помоћ</string>
-  <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Фајлови</string>

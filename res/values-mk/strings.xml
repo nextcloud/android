@@ -16,7 +16,6 @@
   <string name="prefs_help">Помош</string>
   <string name="prefs_recommend">Препорачај на пријател</string>
   <string name="prefs_feedback">Повратен одговор</string>
-  <string name="auth_host_url">Адреса на сервер</string>
   <string name="auth_username">Корисничко име</string>
   <string name="auth_password">Лозинка</string>
   <string name="sync_string_files">Датотеки</string>

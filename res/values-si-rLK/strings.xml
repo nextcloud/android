@@ -12,7 +12,6 @@
   <string name="prefs_instant_upload">ක්‍ෂණික උඩුගත කිරීම් සක්‍රිය කරන්න</string>
   <string name="prefs_instant_upload_summary">කැමරාවෙන් ගත් රූප ක්‍ෂණිකව උඩුගත කරන්න</string>
   <string name="prefs_help">උදව්</string>
-  <string name="auth_host_url">සේවාදායකයේ ලිපිනය</string>
   <string name="auth_username">පරිශීලක නම</string>
   <string name="auth_password">මුර පදය</string>
   <string name="sync_string_files">ගොනු</string>

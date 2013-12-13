@@ -10,7 +10,6 @@
   <string name="prefs_accounts">Kontoer</string>
   <string name="prefs_instant_upload_summary">Last opp bilder tatt med kamera øyeblikkelig</string>
   <string name="prefs_help">Hjelp</string>
-  <string name="auth_host_url">Server-adresse</string>
   <string name="auth_username">Brukernavn</string>
   <string name="auth_password">Passord</string>
   <string name="sync_string_files">Filer</string>

@@ -15,7 +15,6 @@
   <string name="prefs_log_title">ਲਾਗ ਰੱਖਣਾ ਚਾਲੂ</string>
   <string name="prefs_log_title_history">ਲਾਗ ਰੱਖਣ ਅਤੀਤ</string>
   <string name="prefs_log_delete_history_button">ਅਤੀਤ ਹਟਆਓ</string>
-  <string name="auth_host_url">ਸਰਵਰ ਐਡਰੈਸ</string>
   <string name="auth_username">ਯੂਜ਼ਰ-ਨਾਂ</string>
   <string name="auth_password">ਪਾਸਵਰ</string>
   <string name="auth_register">%1$s ਲਈ ਨਵੇਂ ਹੋ?</string>

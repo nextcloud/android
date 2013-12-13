@@ -11,7 +11,6 @@
   <string name="prefs_instant_upload_summary">Last opp kamerabilete med ein gong du tek dei</string>
   <string name="prefs_help">Hjelp</string>
   <string name="prefs_imprint">Impressum</string>
-  <string name="auth_host_url">Tenaradresse</string>
   <string name="auth_username">Brukarnamn</string>
   <string name="auth_password">Passord</string>
   <string name="sync_string_files">Filer</string>
