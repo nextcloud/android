@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -42,6 +43,7 @@ import com.owncloud.android.oc_framework.operations.OperationCancelledException;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ChunkedUploadRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -64,6 +66,7 @@ public class UploadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private OCFile mOldFile;
     private String mRemotePath = null;
+    private boolean mChunked = false;
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
@@ -72,7 +75,6 @@ public class UploadFileOperation extends RemoteOperation {
     private String mOriginalFileName = null;
     private String mOriginalStoragePath = null;
     PutMethod mPutMethod = null;
-    private OnDatatransferProgressListener mDataTransferListener;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private Context mContext;
@@ -84,11 +86,11 @@ public class UploadFileOperation extends RemoteOperation {
     
     public UploadFileOperation( Account account,
                                 OCFile file,
+                                boolean chunked,
                                 boolean isInstant, 
                                 boolean forceOverwrite,
                                 int localBehaviour, 
-                                Context context,
-                                OnDatatransferProgressListener listener) {
+                                Context context) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -103,13 +105,13 @@ public class UploadFileOperation extends RemoteOperation {
         mAccount = account;
         mFile = file;
         mRemotePath = file.getRemotePath();
+        mChunked = chunked;
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
         mContext = context;
-        mDataTransferListener = listener;
     }
 
     public Account getAccount() {
@@ -271,8 +273,17 @@ public class UploadFileOperation extends RemoteOperation {
             localCopyPassed = true;
 
             /// perform the upload
-            mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
-                    mFile.getMimetype());
+            if (mChunked) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
+                        mFile.getMimetype());
+            } else {
+                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
+                        mFile.getMimetype());
+            }
+            Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
+            }
             result = mUploadOperation.execute(client);
 
             /// move local temporal file or original file to its corresponding

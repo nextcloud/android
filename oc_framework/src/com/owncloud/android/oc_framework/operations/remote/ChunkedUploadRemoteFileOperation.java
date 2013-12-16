@@ -16,7 +16,7 @@
  *
  */
 
-package com.owncloud.android.operations;
+package com.owncloud.android.oc_framework.operations.remote;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,35 +27,25 @@ import java.util.Random;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
 import com.owncloud.android.oc_framework.network.webdav.ChunkFromFileChannelRequestEntity;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
-import android.accounts.Account;
-import android.content.Context;
+import android.util.Log;
 
 
-public class ChunkedUploadFileOperation extends UploadFileOperation {
+public class ChunkedUploadRemoteFileOperation extends UploadRemoteFileOperation {
     
     private static final long CHUNK_SIZE = 1024000;
     private static final String OC_CHUNKED_HEADER = "OC-Chunked";
-    private static final String TAG = ChunkedUploadFileOperation.class.getSimpleName();
+    private static final String TAG = ChunkedUploadRemoteFileOperation.class.getSimpleName();
 
-    public ChunkedUploadFileOperation(  Account account,
-                                        OCFile file,
-                                        boolean isInstant, 
-                                        boolean forceOverwrite,
-                                        int localBehaviour, Context context, 
-                                        OnDatatransferProgressListener listener) {
-        
-        super(account, file, isInstant, forceOverwrite, localBehaviour, context, listener);
-    }
-
+    public ChunkedUploadRemoteFileOperation(String storagePath, String remotePath, String mimeType) {
+		 super(storagePath, remotePath, mimeType);	
+	}
+    
     @Override
     protected int uploadFile(WebdavClient client) throws HttpException, IOException {
         int status = -1;
@@ -63,13 +53,17 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
         FileChannel channel = null;
         RandomAccessFile raf = null;
         try {
-            File file = new File(getStoragePath());
+            File file = new File(mStoragePath);
             raf = new RandomAccessFile(file, "r");
             channel = raf.getChannel();
-            mEntity = new ChunkFromFileChannelRequestEntity(channel, getMimeType(), CHUNK_SIZE, file);
-            ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(getDataTransferListeners());
+            mEntity = new ChunkFromFileChannelRequestEntity(channel, mMimeType, CHUNK_SIZE, file);
+            //((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(getDataTransferListeners());
+            synchronized (mDataTransferListeners) {
+				((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
+			}
+            
             long offset = 0;
-            String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(getRemotePath()) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
+            String uriPrefix = client.getBaseUri() + WebdavUtils.encodePath(mRemotePath) + "-chunking-" + Math.abs((new Random()).nextInt(9000)+1000) + "-" ;
             long chunkCount = (long) Math.ceil((double)file.length() / CHUNK_SIZE);
             for (int chunkIndex = 0; chunkIndex < chunkCount ; chunkIndex++, offset += CHUNK_SIZE) {
                 if (mPutMethod != null) {
@@ -81,7 +75,7 @@ public class ChunkedUploadFileOperation extends UploadFileOperation {
                 mPutMethod.setRequestEntity(mEntity);
                 status = client.executeMethod(mPutMethod);
                 client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
-                Log_OC.d(TAG, "Upload of " + getStoragePath() + " to " + getRemotePath() + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
+                Log.d(TAG, "Upload of " + mStoragePath + " to " + mRemotePath + ", chunk index " + chunkIndex + ", count " + chunkCount + ", HTTP result status " + status);
                 if (!isSuccess(status))
                     break;
             }

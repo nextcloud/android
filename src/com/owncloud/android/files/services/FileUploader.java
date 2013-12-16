@@ -38,7 +38,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
@@ -251,7 +250,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes != null) ? mimeTypes[i]
                         : (String) null), storageManager);
                 if (files[i] == null) {
-                    // TODO @andomaex add failure Notiification
+                    // TODO @andomaex add failure Notification
                     return Service.START_NOT_STICKY;
                 }
             }
@@ -265,13 +264,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                if (chunked) {
-                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
-                            localAction, getApplicationContext(), this);
-                } else {
-                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction, 
-                            getApplicationContext(), this);
-                }
+                newUpload = new UploadFileOperation(account, files[i], chunked, isInstant, forceOverwrite, localAction, 
+                        getApplicationContext());
+//                if (chunked) {
+//                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
+//                            localAction, getApplicationContext());
+//                } else {
+//                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction, 
+//                            getApplicationContext());
+//                }
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();
                 }

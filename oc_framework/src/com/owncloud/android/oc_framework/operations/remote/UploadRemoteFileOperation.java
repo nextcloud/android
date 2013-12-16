@@ -47,12 +47,13 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 public class UploadRemoteFileOperation extends RemoteOperation {
 
 
-	private String mStoragePath;
-	private String mRemotePath;
-	private String mMimeType;
-	PutMethod mPutMethod = null;
+	protected String mStoragePath;
+	protected String mRemotePath;
+	protected String mMimeType;
+	protected PutMethod mPutMethod = null;
+	
 	private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-	private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
+	protected Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
 
 	protected RequestEntity mEntity = null;
 
