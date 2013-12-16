@@ -26,7 +26,6 @@
   <string name="prefs_help">راه‌نما</string>
   <string name="prefs_feedback">باز خورد</string>
   <string name="prefs_imprint">مهر زدن</string>
-  <string name="auth_host_url">آدرس سرور</string>
   <string name="auth_username">نام کاربری</string>
   <string name="auth_password">رمز عبور</string>
   <string name="sync_string_files">پرونده‌ها</string>

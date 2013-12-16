@@ -27,7 +27,6 @@
   <string name="prefs_feedback">Rückmeldungen</string>
   <string name="prefs_imprint">Impressum</string>
   <string name="auth_check_server">Server überprüfen</string>
-  <string name="auth_host_url">Adresse des Servers</string>
   <string name="auth_username">Benutzername</string>
   <string name="auth_password">Passwort</string>
   <string name="auth_register">Ist %1$s neu für Sie?</string>

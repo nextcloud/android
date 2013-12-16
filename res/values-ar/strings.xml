@@ -12,7 +12,6 @@
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_help">المساعدة</string>
   <string name="prefs_imprint">الدمغة.</string>
-  <string name="auth_host_url">عنوان الخادم</string>
   <string name="auth_username">إسم المستخدم</string>
   <string name="auth_password">كلمات السر</string>
   <string name="auth_register">جديد لـ %1$s ؟</string>

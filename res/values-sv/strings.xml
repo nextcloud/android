@@ -30,7 +30,6 @@
   <string name="recommend_subject">Försök %1$s på din smarttelefon!</string>
   <string name="recommend_text">Jag vill bjuda in dig till att anända %1$s på din smarttelefon!\nLadda ner här: %2$s</string>
   <string name="auth_check_server">Kontrollera Server</string>
-  <string name="auth_host_url">Serveradress</string>
   <string name="auth_username">Användarnamn</string>
   <string name="auth_password">Lösenord</string>
   <string name="auth_register">Ny på %1$s?</string>

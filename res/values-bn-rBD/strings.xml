@@ -8,7 +8,6 @@
   <string name="prefs_category_more">বেশী</string>
   <string name="prefs_accounts">একাউন্ট</string>
   <string name="prefs_help">সহায়িকা</string>
-  <string name="auth_host_url">সার্ভার ঠিকানা</string>
   <string name="auth_username">ব্যবহারকারি</string>
   <string name="auth_password">কূটশব্দ</string>
   <string name="sync_string_files">ফাইল</string>

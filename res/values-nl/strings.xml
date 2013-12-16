@@ -30,7 +30,6 @@
   <string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
   <string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!\nDownload hier: %2$s</string>
   <string name="auth_check_server">Controleer server</string>
-  <string name="auth_host_url">Server adres</string>
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wachtwoord</string>
   <string name="auth_register">Nieuw bij %1$s?</string>

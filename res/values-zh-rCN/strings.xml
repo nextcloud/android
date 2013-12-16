@@ -24,7 +24,6 @@
   <string name="prefs_feedback">反馈</string>
   <string name="prefs_imprint">版本说明</string>
   <string name="auth_check_server">检查服务器</string>
-  <string name="auth_host_url">服务器地址</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="sync_string_files">文件</string>

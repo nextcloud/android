@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Incargar</string>
   <string name="actionbar_upload_files">Files</string>
   <string name="actionbar_settings">Configurationes</string>
+  <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_help">Adjuta</string>
   <string name="auth_username">Nomine de usator</string>

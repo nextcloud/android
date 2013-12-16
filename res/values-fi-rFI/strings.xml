@@ -27,7 +27,6 @@
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
   <string name="recommend_text">Ota %1$s käyttöösi älypuhelimessa!\nLataa tästä: %2$s</string>
   <string name="auth_check_server">Tarkista palvelin</string>
-  <string name="auth_host_url">Palvelimen osoite</string>
   <string name="auth_username">Käyttäjätunnus</string>
   <string name="auth_password">Salasana</string>
   <string name="auth_register">Onko %1$s uusi tuttavuus sinulle?</string>

@@ -9,7 +9,6 @@
   <string name="prefs_accounts">Akaun</string>
   <string name="prefs_pincode">PIN App</string>
   <string name="prefs_help">Bantuan</string>
-  <string name="auth_host_url">Alamat pelayan</string>
   <string name="auth_username">Nama pengguna</string>
   <string name="auth_password">Kata laluan</string>
   <string name="sync_string_files">Fail-fail</string>

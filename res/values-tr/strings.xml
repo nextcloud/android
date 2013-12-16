@@ -30,7 +30,6 @@
   <string name="recommend_subject">%1$s uygulamasını akıllı telefonunda dene!</string>
   <string name="recommend_text">Sana, akıllı telefonunda kullanmak üzere %1$s daveti yapıyorum!\nBuradan indirebilirsin: %2$s</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
-  <string name="auth_host_url">Sunucu Adresi</string>
   <string name="auth_username">Kullanıcı Adi:</string>
   <string name="auth_password">Şifre:</string>
   <string name="auth_register">%1$s senin için yeni mi?</string>

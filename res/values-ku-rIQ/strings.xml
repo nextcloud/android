@@ -3,7 +3,6 @@
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
   <string name="prefs_help">یارمەتی</string>
-  <string name="auth_host_url">ناونیشانی ڕاژه</string>
   <string name="auth_username">ناوی به‌کارهێنه‌ر</string>
   <string name="auth_password">وشەی تێپەربو</string>
   <string name="uploader_btn_upload_text">بارکردن</string>

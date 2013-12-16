@@ -30,7 +30,6 @@
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
   <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\nTéléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
-  <string name="auth_host_url">Adresse du serveur</string>
   <string name="auth_username">Nom d\'utilisateur</string>
   <string name="auth_password">Mot de passe</string>
   <string name="auth_register">Nouveau dans %1$s ?</string>
