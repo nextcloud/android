@@ -94,7 +94,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                 }
             }
 
-            if (result == null) {   // true if the server was not checked. nothing was wrong with the remote request
+            if (result.isSuccess()) {   
 
                 /// check changes in server and local file
                 boolean serverChanged = false;
