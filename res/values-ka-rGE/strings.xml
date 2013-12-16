@@ -16,7 +16,6 @@
   <string name="prefs_help">დახმარება</string>
   <string name="prefs_feedback">უკუკავშირი</string>
   <string name="prefs_imprint">ბეჭედი</string>
-  <string name="auth_host_url">სერვერის მისამართი</string>
   <string name="auth_username">მომხმარებლის სახელი</string>
   <string name="auth_password">პაროლი</string>
   <string name="sync_string_files">ფაილები</string>

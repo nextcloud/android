@@ -47,6 +47,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -90,6 +91,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         setContentView(R.layout.preview_image_activity);
         
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
         

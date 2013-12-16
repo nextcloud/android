@@ -13,7 +13,6 @@
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_help">Hëllef</string>
   <string name="prefs_feedback">Feedback</string>
-  <string name="auth_host_url">Server Adress</string>
   <string name="auth_username">Benotzernumm</string>
   <string name="auth_password">Passwuert</string>
   <string name="sync_string_files">Dateien</string>

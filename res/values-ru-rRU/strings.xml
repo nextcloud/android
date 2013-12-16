@@ -16,7 +16,6 @@
   <string name="prefs_instant_upload">Включить немедленную загрузку</string>
   <string name="prefs_instant_upload_summary">Мгновенно загрузить фотографии, сделанные камерой</string>
   <string name="prefs_help">Помощь</string>
-  <string name="auth_host_url">URL</string>
   <string name="auth_username">Имя пользователя</string>
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Я новичок в %1$s</string>

@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -101,7 +102,7 @@ public class OCNotificationManager {
         
         switch (type) {
             case NOTIFICATION_SIMPLE:
-                notification = new Notification(R.drawable.icon, data.getText(), System.currentTimeMillis());
+                notification = new Notification(DisplayUtils.getSeasonalIconId(), data.getText(), System.currentTimeMillis());
                 break;
             case NOTIFICATION_PROGRESS:
                 notification = new Notification();
@@ -139,7 +140,7 @@ public class OCNotificationManager {
                                                               false);
                 return true;
             case NOTIFICATION_SIMPLE:
-                pair.mNotificaiton = new Notification(R.drawable.icon,
+                pair.mNotificaiton = new Notification(DisplayUtils.getSeasonalIconId(),
                                                       data.getText(), System.currentTimeMillis());
                 mNM.notify(notification_id, pair.mNotificaiton);
                 return true;

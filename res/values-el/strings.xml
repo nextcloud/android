@@ -30,7 +30,6 @@
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
   <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στο κινητό σας!\nΚατεβάστε το εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
-  <string name="auth_host_url">Διεύθυνση εξυπηρέτη</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
   <string name="sync_string_files">Αρχεία</string>

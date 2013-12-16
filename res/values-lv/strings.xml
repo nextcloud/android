@@ -14,7 +14,6 @@
   <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
   <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
   <string name="prefs_help">Palīdzība</string>
-  <string name="auth_host_url">Servera adrese</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>
   <string name="sync_string_files">Datnes</string>
