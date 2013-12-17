@@ -30,7 +30,6 @@
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
   <string name="recommend_text">Chcę was zaprosić do korzystania z %1$ s na twoim smartfonie!\nPobierz tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
-  <string name="auth_host_url">Adres Serwera</string>
   <string name="auth_username">Nazwa użytkownika</string>
   <string name="auth_password">Hasło</string>
   <string name="auth_register">Nowe %1$s?</string>
@@ -175,6 +174,7 @@
   <string name="sync_file_fail_msg">Nie można sprawdzić zdalnego pliku</string>
   <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
   <string name="create_dir_fail_msg">Nie można utworzyć katalogu</string>
+  <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Poczekaj chwilę</string>
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
   <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
@@ -218,6 +218,7 @@
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Obraz nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego %2$s katalogu</string>
+  <string name="actionbar_failed_instant_upload">InstantUpload nie powiódł się</string>
   <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
   <string name="failed_upload_headline_hint">Podsumowanie wszystkich nieudanych transferów</string>
   <string name="failed_upload_all_cb">zaznacz wszystkie</string>

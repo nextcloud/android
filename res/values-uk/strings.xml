@@ -17,7 +17,6 @@
   <string name="prefs_help">Допомога</string>
   <string name="prefs_feedback">Зворотній зв\'язок</string>
   <string name="prefs_imprint">Відбиток</string>
-  <string name="auth_host_url">Адреса сервера</string>
   <string name="auth_username">Ім\'я користувача</string>
   <string name="auth_password">Пароль</string>
   <string name="sync_string_files">Файли</string>

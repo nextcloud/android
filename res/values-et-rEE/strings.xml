@@ -30,7 +30,6 @@
   <string name="recommend_subject">Proovi oma nutitelefonil rakendust %1$s!</string>
   <string name="recommend_text">Soovin sind kutsuda kasutama oma nutitelefonil rakendust %1$s!\nLae alla siit: %2$s</string>
   <string name="auth_check_server">Kontrolli serverit</string>
-  <string name="auth_host_url">Serveri aadress</string>
   <string name="auth_username">Kasutajanimi</string>
   <string name="auth_password">Parool</string>
   <string name="auth_register">Uus %1$s kasutaja?</string>

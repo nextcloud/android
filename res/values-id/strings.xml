@@ -11,7 +11,6 @@
   <string name="prefs_manage_accounts">Kolola Akun</string>
   <string name="prefs_help">Bantuan</string>
   <string name="prefs_imprint">Imprint</string>
-  <string name="auth_host_url">alamat server</string>
   <string name="auth_username">nama pengguna</string>
   <string name="auth_password">kata kunci</string>
   <string name="sync_string_files">Berkas</string>

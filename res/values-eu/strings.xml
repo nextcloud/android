@@ -30,7 +30,6 @@
   <string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
   <string name="recommend_text">Nik %1$s zure telefono adimentsuan erabitzera gonbidatu nahi zaitut!\nDeskargatu hemen: %2$s</string>
   <string name="auth_check_server">Egiaztatu zerbitzaria</string>
-  <string name="auth_host_url">Zerbitzariaren helbidea</string>
   <string name="auth_username">Erabiltzaile izena</string>
   <string name="auth_password">Pasahitza</string>
   <string name="auth_register">Berria %1$s-n?</string>

@@ -11,7 +11,6 @@
   <string name="prefs_manage_accounts">Administrare conturi</string>
   <string name="prefs_instant_upload">Activează încărcarea instant</string>
   <string name="prefs_help">Ajutor</string>
-  <string name="auth_host_url">Adresa server-ului</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
   <string name="sync_string_files">Fișiere</string>

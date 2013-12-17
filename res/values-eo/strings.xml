@@ -15,7 +15,6 @@
   <string name="prefs_instant_upload">Kapabligi tujan alŝuton</string>
   <string name="prefs_instant_upload_summary">Tuje alŝuti fotojn faritajn per fotilo</string>
   <string name="prefs_help">Helpo</string>
-  <string name="auth_host_url">Servila adreso</string>
   <string name="auth_username">Uzantonomo</string>
   <string name="auth_password">Pasvorto</string>
   <string name="sync_string_files">Dosieroj</string>

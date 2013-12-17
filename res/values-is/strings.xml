@@ -5,7 +5,6 @@
   <string name="actionbar_settings">Stillingar</string>
   <string name="prefs_category_more">Meira</string>
   <string name="prefs_help">Hjálp</string>
-  <string name="auth_host_url">Host nafn netþjóns</string>
   <string name="auth_username">Notendanafn</string>
   <string name="auth_password">Lykilorð</string>
   <string name="sync_string_files">Skrár</string>

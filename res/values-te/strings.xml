@@ -3,7 +3,6 @@
   <string name="actionbar_settings">అమరికలు</string>
   <string name="prefs_category_more">మరిన్ని</string>
   <string name="prefs_help">సహాయం</string>
-  <string name="auth_host_url">సేవకి చిరునామా</string>
   <string name="auth_username">వాడుకరి పేరు</string>
   <string name="auth_password">సంకేతపదం</string>
   <string name="common_yes">అవును</string>

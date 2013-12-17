@@ -30,7 +30,6 @@
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
   <string name="recommend_text">Kérem próbálja ki %1$s-t az okostelefonján!\nInnen tölthető le: %2$s</string>
   <string name="auth_check_server">Szerver állapot ellenörzés</string>
-  <string name="auth_host_url">A kiszolgáló címe</string>
   <string name="auth_username">Felhasználói név</string>
   <string name="auth_password">Jelszó</string>
   <string name="auth_register">Új vagy a %1$s területen?</string>
