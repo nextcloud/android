@@ -1,5 +1,7 @@
 package com.owncloud.android.oc_framework_test_project;
 
+import java.io.File;
+
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
@@ -7,9 +9,11 @@ import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOpe
 import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
+import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.Menu;
 
@@ -105,4 +109,18 @@ public class TestActivity extends Activity {
 		return result;
 	}
 	
+	/** Access to the library method to Upload a File 
+	 * @param storagePath
+	 * @param remotePath
+	 * @param mimeType
+	 * 
+	 * @return
+	 */
+	public RemoteOperationResult uploadFile(String storagePath, String remotePath, String mimeType) {
+		
+		UploadRemoteFileOperation uploadOperation = new UploadRemoteFileOperation(storagePath, remotePath, mimeType);
+		RemoteOperationResult result = uploadOperation.execute(mClient);
+		
+		return result;
+	}
 }
