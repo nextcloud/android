@@ -1,10 +1,31 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2012-2013 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.oc_framework_test_project;
+
+import java.io.File;
 
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.ChunkedUploadRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.DownloadRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
@@ -12,6 +33,7 @@ import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOpera
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.Menu;
 
@@ -20,6 +42,7 @@ import android.view.Menu;
  * @author masensio
  * @author David A. Velasco
  */
+
 public class TestActivity extends Activity {
 	
 	// This account must exists on the simulator / device
@@ -104,6 +127,25 @@ public class TestActivity extends Activity {
 		
 		ReadRemoteFolderOperation readOperation= new ReadRemoteFolderOperation(remotePath);
 		RemoteOperationResult result = readOperation.execute(mClient);
+
+		return result;
+	}
+	
+	/**
+	 * Access to the library method to Download a File
+	 * @param remotePath
+	 * 
+	 * @return
+	 */
+	public RemoteOperationResult downloadFile(RemoteFile remoteFile, String temporalFolder) {
+		// Create folder 
+		String path =  "/owncloud/tmp/" + temporalFolder;
+		File sdCard = Environment.getExternalStorageDirectory();
+		File folder = new File(sdCard.getAbsolutePath() + "/" + path);
+		folder.mkdirs();
+		
+		DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(remoteFile, folder.getAbsolutePath());
+		RemoteOperationResult result = downloadOperation.execute(mClient);
 
 		return result;
 	}
