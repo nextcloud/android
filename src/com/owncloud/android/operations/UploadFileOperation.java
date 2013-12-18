@@ -372,28 +372,28 @@ public class UploadFileOperation extends RemoteOperation {
         mFile = newFile;
     }
 
-    public boolean isSuccess(int status) {
-        return ((status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT));
-    }
-
-    protected int uploadFile(WebdavClient client) throws HttpException, IOException, OperationCancelledException {
-        int status = -1;
-        try {
-            File f = new File(mFile.getStoragePath());
-            mEntity  = new FileRequestEntity(f, getMimeType());
-            synchronized (mDataTransferListeners) {
-                ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
-            }
-            mPutMethod.setRequestEntity(mEntity);
-            status = client.executeMethod(mPutMethod);
-            client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
-
-        } finally {
-            mPutMethod.releaseConnection(); // let the connection available for
-                                            // other methods
-        }
-        return status;
-    }
+//    public boolean isSuccess(int status) {
+//        return ((status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT));
+//    }
+//
+//    protected int uploadFile(WebdavClient client) throws HttpException, IOException, OperationCancelledException {
+//        int status = -1;
+//        try {
+//            File f = new File(mFile.getStoragePath());
+//            mEntity  = new FileRequestEntity(f, getMimeType());
+//            synchronized (mDataTransferListeners) {
+//                ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
+//            }
+//            mPutMethod.setRequestEntity(mEntity);
+//            status = client.executeMethod(mPutMethod);
+//            client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
+//
+//        } finally {
+//            mPutMethod.releaseConnection(); // let the connection available for
+//                                            // other methods
+//        }
+//        return status;
+//    }
 
     /**
      * Checks if remotePath does not exist in the server and returns it, or adds

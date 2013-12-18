@@ -31,7 +31,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 /**
@@ -48,6 +47,8 @@ public class UploadFileTest extends ActivityInstrumentationTestCase2<TestActivit
 	
 	private final String mFileToUploadWithChunks = "fileToUploadChunks.MP4";
 	private final String mMimeTypeWithChunks = "video/mp4";
+	
+	private final String mFileNotFound = "fileNotFound.png";
 	
 	private final String mStoragePath = "/owncloud/tmp/uploadTest";
 	private String mPath;
@@ -142,6 +143,19 @@ public class UploadFileTest extends ActivityInstrumentationTestCase2<TestActivit
 		
 		RemoteOperationResult result = mActivity.uploadFile(storagePath, remotePath, mMimeTypeWithChunks);
 		assertTrue(result.isSuccess());
+	}
+	
+	/**
+	 * Test Upload Not Found File
+	 */
+	public void testUploadFileNotFound() {
+
+		String storagePath = mPath + "/" + mFileNotFound;
+		//String remotePath = "/uploadTest" + mCurrentDate + "/" + mFileToUpload;
+		String remotePath = "/" + mFileNotFound;
+		
+		RemoteOperationResult result = mActivity.uploadFile(storagePath, remotePath, mMimeType);
+		assertFalse(result.isSuccess());
 	}
 	
 }
