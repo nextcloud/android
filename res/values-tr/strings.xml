@@ -3,11 +3,11 @@
   <string name="about_android">%1$s Android Uygulaması</string>
   <string name="about_version">sürüm %1$s</string>
   <string name="actionbar_sync">Hesabı yenile</string>
-  <string name="actionbar_upload">Dosya yükle</string>
+  <string name="actionbar_upload">Yükle</string>
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_open_with">ile aç</string>
-  <string name="actionbar_mkdir">Klasör oluştur</string>
+  <string name="actionbar_mkdir">Dizin oluştur</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
   <string name="prefs_category_general">Genel</string>
@@ -37,8 +37,8 @@
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
   <string name="uploader_top_message">Yükleme dizinini seçiniz:</string>
-  <string name="uploader_wrn_no_account_title">Hesap bulunamadi</string>
-  <string name="uploader_wrn_no_account_text">Cihazınızda %1$s hesabı bulunmamaktadır. Lütfen öncelikle bir hesap ayarı giriniz.</string>
+  <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
+  <string name="uploader_wrn_no_account_text">Cihazınızda %1$s hesabı bulunmamaktadır. Lütfen öncelikle bir hesap ayarlayın.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
   <string name="uploader_wrn_no_content_title">Yüklenecek içerik yok</string>
@@ -46,7 +46,7 @@
   <string name="uploader_error_forbidden_content">%1$s, paylaşılan içeriğe erişim izni vermiyor</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
   <string name="file_list_empty">Klasörde dosya yok. Yeni dosyalar yükle\'ye tıklayarak eklenebilir.</string>
-  <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya tıklayınız.</string>
+  <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
   <string name="filedetails_created">Oluşturulma:</string>
@@ -139,7 +139,7 @@
   <string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
   <string name="auth_unknown_error_title">Bilinmeyen hata oluştu.</string>
   <string name="auth_unknown_host_title">Anabilgisayar bulunamadı</string>
-  <string name="auth_incorrect_path_title">sunucu servisi bulunamadı.</string>
+  <string name="auth_incorrect_path_title">Sunucu örneği bulunamadı.</string>
   <string name="auth_timeout_title">Sunucu çok geç cevap veriyor</string>
   <string name="auth_incorrect_address_title">Hatalı biçimlendirilmiş URL</string>
   <string name="auth_ssl_general_error_title">SSL başlatılmasında hata</string>

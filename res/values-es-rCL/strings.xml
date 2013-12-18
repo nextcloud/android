@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="actionbar_upload">Subir</string>
+  <string name="actionbar_upload_files">Archivos</string>
+  <string name="actionbar_mkdir">Crear directorio</string>
+  <string name="actionbar_settings">Configuración</string>
+  <string name="prefs_category_general">General</string>
+  <string name="prefs_accounts">Cuentas</string>
+  <string name="auth_username">Usuario</string>
+  <string name="auth_password">Clave</string>
+  <string name="sync_string_files">Archivos</string>
+  <string name="setup_btn_connect">Conectar</string>
+  <string name="uploader_btn_upload_text">Subir</string>
+  <string name="uploader_wrn_no_account_title">No se encuentra la cuenta</string>
+</resources>

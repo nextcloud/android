@@ -57,13 +57,13 @@ import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.operations.ExistenceCheckOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.operations.OwnCloudServerCheckOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -131,7 +131,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
     private OwnCloudServerCheckOperation mOcServerChkOperation;
-    private ExistenceCheckOperation mAuthCheckOperation;
+    private ExistenceCheckRemoteOperation mAuthCheckOperation;
     private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private Uri mNewCapturedUriFromOAuth2Redirection;
@@ -716,7 +716,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         showDialog(DIALOG_LOGIN_PROGRESS);
 
         /// test credentials accessing the root folder
-        mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
+        mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
         WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
         client.setBasicCredentials(username, password);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
@@ -765,7 +765,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
 
         /// test credentials accessing the root folder
-        mAuthCheckOperation = new  ExistenceCheckOperation("", this, false);
+        mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
         WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
       
@@ -785,12 +785,12 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
 
-        } else if (operation instanceof ExistenceCheckOperation)  {
+        } else if (operation instanceof ExistenceCheckRemoteOperation)  {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 onSamlBasedFederatedSingleSignOnAuthorizationStart(operation, result);
                 
             } else {
-                onAuthorizationCheckFinish((ExistenceCheckOperation)operation, result);
+                onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
             }
         }
     }
@@ -1084,7 +1084,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             /// time to test the retrieved access token on the ownCloud server
             mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
-            mAuthCheckOperation = new ExistenceCheckOperation("", this, false);
+            mAuthCheckOperation = new ExistenceCheckRemoteOperation("", this, false);
             WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
             client.setBearerCredentials(mAuthToken);
             mAuthCheckOperation.execute(client, this, mHandler);
@@ -1105,7 +1105,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param operation     Access check performed.
      * @param result        Result of the operation.
      */
-    private void onAuthorizationCheckFinish(ExistenceCheckOperation operation, RemoteOperationResult result) {
+    private void onAuthorizationCheckFinish(ExistenceCheckRemoteOperation operation, RemoteOperationResult result) {
         try {
             dismissDialog(DIALOG_LOGIN_PROGRESS);
         } catch (IllegalArgumentException e) {
