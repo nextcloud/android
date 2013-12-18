@@ -28,9 +28,6 @@ import java.util.Vector;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.R.id;
-import com.owncloud.android.R.layout;
-import com.owncloud.android.R.string;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;

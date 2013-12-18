@@ -3,10 +3,12 @@ package com.owncloud.android.oc_framework_test_project;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.remote.ChunkedUploadRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.CreateRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.RenameRemoteFileOperation;
+import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ public class TestActivity extends Activity {
 	private static final String mServerUri = "https://beta.owncloud.com/owncloud/remote.php/webdav";
 	private static final String mUser = "testandroid";
 	private static final String mPass = "testandroid";
+	private static final boolean mChunked = true;
 	
 	//private Account mAccount = null;
 	private WebdavClient mClient;
@@ -105,4 +108,24 @@ public class TestActivity extends Activity {
 		return result;
 	}
 	
+	/** Access to the library method to Upload a File 
+	 * @param storagePath
+	 * @param remotePath
+	 * @param mimeType
+	 * 
+	 * @return
+	 */
+	public RemoteOperationResult uploadFile(String storagePath, String remotePath, String mimeType) {
+
+		UploadRemoteFileOperation uploadOperation;
+		if (mChunked) {
+            uploadOperation = new ChunkedUploadRemoteFileOperation(storagePath, remotePath, mimeType);
+        } else {
+            uploadOperation = new UploadRemoteFileOperation(storagePath, remotePath, mimeType);
+        }
+		
+		RemoteOperationResult result = uploadOperation.execute(mClient);
+		
+		return result;
+	}
 }
