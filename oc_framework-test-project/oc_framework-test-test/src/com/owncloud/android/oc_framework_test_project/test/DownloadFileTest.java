@@ -25,6 +25,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 /**
  * Class to test Download File Operation
@@ -34,11 +35,14 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class DownloadFileTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
-	/* Files to download. This folder must exist on the account */
+	private final String TAG = DownloadFileTest.class.getSimpleName();
+	
+	/* Files to download. These files must exist on the account */
 	private final String mRemoteFilePng = "/fileToDownload.png";
 	private final String mRemoteFileChunks = "/fileToDownload.mp4";
 	private final String mRemoteFileSpecialChars = "/@file@download.png";
 	private final String mRemoteFileSpecialCharsChunks = "/@file@download.mp4";
+	private final String mRemoteFileNotFound = "/fileNotFound.png"; /* This file mustn't exist on the account */
 	
 	private String mCurrentDate;
 	
@@ -105,5 +109,17 @@ public class DownloadFileTest extends ActivityInstrumentationTestCase2<TestActiv
 
 		RemoteOperationResult result = mActivity.downloadFile(remoteFile, temporalFolder);
 		assertTrue(result.isSuccess());
+	}
+	
+	/**
+	 * Test Download a Not Found File 
+	 */
+	public void testDownloadFileNotFound() {
+		String temporalFolder = "/download" + mCurrentDate;
+
+		RemoteFile remoteFile = new RemoteFile(mRemoteFileNotFound);
+
+		RemoteOperationResult result = mActivity.downloadFile(remoteFile, temporalFolder);
+		assertFalse(result.isSuccess());
 	}
 }
