@@ -17,8 +17,6 @@
  */
 package com.owncloud.android.syncadapter;
 
-import com.owncloud.android.utils.Log_OC;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;

@@ -25,7 +25,6 @@ import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework_test_project.TestActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 
 /**
  * Class to test Download File Operation
@@ -35,7 +34,6 @@ import android.util.Log;
 
 public class DownloadFileTest extends ActivityInstrumentationTestCase2<TestActivity> {
 
-	private final String TAG = DownloadFileTest.class.getSimpleName();
 	
 	/* Files to download. These files must exist on the account */
 	private final String mRemoteFilePng = "/fileToDownload.png";
