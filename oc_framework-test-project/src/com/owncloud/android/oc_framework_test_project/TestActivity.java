@@ -160,7 +160,7 @@ public class TestActivity extends Activity {
 	public RemoteOperationResult uploadFile(String storagePath, String remotePath, String mimeType) {
 
 		UploadRemoteFileOperation uploadOperation;
-		if (mChunked) {
+		if ( mChunked && (new File(storagePath)).length() > ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
             uploadOperation = new ChunkedUploadRemoteFileOperation(storagePath, remotePath, mimeType);
         } else {
             uploadOperation = new UploadRemoteFileOperation(storagePath, remotePath, mimeType);

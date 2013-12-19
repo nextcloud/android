@@ -267,13 +267,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
                 newUpload = new UploadFileOperation(account, files[i], chunked, isInstant, forceOverwrite, localAction, 
                         getApplicationContext());
-//                if (chunked) {
-//                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
-//                            localAction, getApplicationContext());
-//                } else {
-//                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction, 
-//                            getApplicationContext());
-//                }
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();
                 }

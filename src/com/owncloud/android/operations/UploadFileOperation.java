@@ -28,15 +28,12 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.http.HttpStatus;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
-import com.owncloud.android.oc_framework.network.webdav.FileRequestEntity;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.OperationCancelledException;
@@ -273,7 +270,7 @@ public class UploadFileOperation extends RemoteOperation {
             localCopyPassed = true;
 
             /// perform the upload
-            if (mChunked) {
+            if ( mChunked && (new File(mFile.getStoragePath())).length() > ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
                         mFile.getMimetype());
             } else {
@@ -371,29 +368,6 @@ public class UploadFileOperation extends RemoteOperation {
         mOldFile = mFile;
         mFile = newFile;
     }
-
-//    public boolean isSuccess(int status) {
-//        return ((status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT));
-//    }
-//
-//    protected int uploadFile(WebdavClient client) throws HttpException, IOException, OperationCancelledException {
-//        int status = -1;
-//        try {
-//            File f = new File(mFile.getStoragePath());
-//            mEntity  = new FileRequestEntity(f, getMimeType());
-//            synchronized (mDataTransferListeners) {
-//                ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
-//            }
-//            mPutMethod.setRequestEntity(mEntity);
-//            status = client.executeMethod(mPutMethod);
-//            client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
-//
-//        } finally {
-//            mPutMethod.releaseConnection(); // let the connection available for
-//                                            // other methods
-//        }
-//        return status;
-//    }
 
     /**
      * Checks if remotePath does not exist in the server and returns it, or adds
