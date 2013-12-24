@@ -109,6 +109,10 @@
   <string name="pincode_wrong">Εσφαλμένο PIN της εφαρμογής</string>
   <string name="pincode_removed">Αφαιρέθηκε το PIN της εφαρμογής</string>
   <string name="pincode_stored">Το PIN της εφαρμογής αποθηκεύτηκε</string>
+  <string name="media_notif_ticker">%1$s αναπαραγωγή μουσικής</string>
+  <string name="media_state_playing">%1$s (αναπαραγωγή)</string>
+  <string name="media_state_loading">%1$s (φόρτωση)</string>
+  <string name="media_event_done">%1$s αναπαραγωγή τελείωσε</string>
   <string name="media_err_nothing_to_play">Δεν βρέθηκε αρχείο πολυμέσων</string>
   <string name="media_err_no_account">Δεν δόθηκε λογαριασμός</string>
   <string name="media_err_not_in_owncloud">Το αρχείο δεν βρίσκεται σε έγκυρο λογαριασμό</string>
@@ -118,6 +122,9 @@
   <string name="media_err_timeout">Λήξη χρόνου κατά την προσπάθεια αναπαραγωγής</string>
   <string name="media_err_invalid_progressive_playback">Το αρχείο πολυμέσων δεν μπορεί να μεταδοθεί</string>
   <string name="media_err_unknown">Το αρχείο πολυμέσων δεν μπορεί να αναπαραχθεί με την παρεχόμενη εφαρμογή αναπαραγωγής πολυμέσων</string>
+  <string name="media_err_security_ex">Σφάλμα ασφαλείας κατά την προσπάθεια αναπαραγωγής του %1$s</string>
+  <string name="media_err_io_ex">Σφάλμα εισόδου κατά την προσπάθεια αναπαραγωγής του %1$s</string>
+  <string name="media_err_unexpected">Απροσδόκτο σφάλμα κατά την προσπάθεια αναπαραγωγής του %1$s</string>
   <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
   <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
