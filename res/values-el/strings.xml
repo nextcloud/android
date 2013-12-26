@@ -30,8 +30,10 @@
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
   <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στο κινητό σας!\nΚατεβάστε το εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
+  <string name="auth_host_url">Διεύθυνση εξυπηρέτη https://…</string>
   <string name="auth_username">Όνομα χρήστη</string>
   <string name="auth_password">Συνθηματικό</string>
+  <string name="auth_register">Νέος στο %1$s;</string>
   <string name="sync_string_files">Αρχεία</string>
   <string name="setup_btn_connect">Σύνδεση</string>
   <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
@@ -125,7 +127,9 @@
   <string name="media_err_security_ex">Σφάλμα ασφαλείας κατά την προσπάθεια αναπαραγωγής του %1$s</string>
   <string name="media_err_io_ex">Σφάλμα εισόδου κατά την προσπάθεια αναπαραγωγής του %1$s</string>
   <string name="media_err_unexpected">Απροσδόκτο σφάλμα κατά την προσπάθεια αναπαραγωγής του %1$s</string>
+  <string name="media_rewind_description">Κουμπί επαναφοράς</string>
   <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
+  <string name="media_forward_description">Κουμπί προώθησης</string>
   <string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
   <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
   <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
@@ -215,6 +219,9 @@
   <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
   <string name="preview_image_error_unknown_format">Αυτή η εικόνε δεν μπόρεσε να προβληθεί</string>
   <string name="error__upload__local_file_not_copied">%1$s δεν μπορεσε να αντιγραφθεί στον %2$s τοπικο καταλόγο </string>
+  <string name="actionbar_failed_instant_upload">Αποτυχημένη στιγμιαία φόρτωση</string>
+  <string name="failed_upload_headline_text">Αποτυχημένες στιγμιαίες φορτώσεις</string>
+  <string name="failed_upload_headline_hint">Σύνοψη όλων των αποτυχημένων φορτώσεων</string>
   <string name="failed_upload_all_cb">επιλογή όλων</string>
   <string name="failed_upload_headline_retryall_btn">επανάληψη για όλα τα επιλεγμένα</string>
   <string name="failed_upload_headline_delete_all_btn">διαγραφή όλων των επιλεγμένων από τη λίστα προς μεταφόρτωση</string>
