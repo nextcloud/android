@@ -127,9 +127,9 @@
   <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken güvenlik hatası oluştu</string>
   <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken girdi hatası oluştu</string>
   <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir hata oluştu</string>
-  <string name="media_rewind_description">Başa sar butonu</string>
-  <string name="media_play_pause_description">Oynat veya duraklat butonu</string>
-  <string name="media_forward_description">Hızlı ileri butonu</string>
+  <string name="media_rewind_description">Başa sar düğmesi</string>
+  <string name="media_play_pause_description">Oynat veya duraklat düğmesi</string>
+  <string name="media_forward_description">Hızlı ileri düğmesi</string>
   <string name="auth_trying_to_login">Giriş için deneniyor</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_nossl_plain_ok_title">Günvenli bağlantı mevcut değil.</string>
