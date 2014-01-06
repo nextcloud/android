@@ -1,2 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="actionbar_settings">Налады</string>
+  <string name="common_yes">Так</string>
+  <string name="common_no">Не</string>
+  <string name="common_error">Памылка</string>
+</resources>
