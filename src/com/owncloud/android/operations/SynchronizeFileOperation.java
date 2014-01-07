@@ -103,7 +103,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         serverChanged = (!mServerFile.getEtag().equals(mLocalFile.getEtag()));   // TODO could this be dangerous when the user upgrades the server from non-tagged to tagged?
                     } else { */
                 // server without etags
-                serverChanged = (mServerFile.getModificationTimestamp() > mLocalFile.getModificationTimestampAtLastSyncForData());
+                serverChanged = (mServerFile.getModificationTimestamp() != mLocalFile.getModificationTimestampAtLastSyncForData());
                 //}
                 boolean localChanged = (mLocalFile.getLocalModificationTimestamp() > mLocalFile.getLastSyncDateForData());
                 // TODO this will be always true after the app is upgraded to database version 2; will result in unnecessary uploads
