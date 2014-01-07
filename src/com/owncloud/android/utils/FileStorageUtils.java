@@ -97,6 +97,23 @@ public class FileStorageUtils {
         file.setMimetype(remote.getMimeType());
         file.setModificationTimestamp(remote.getModifiedTimestamp());
         file.setEtag(remote.getEtag());
+        
+        return file;
+    }
+    
+    /**
+     * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
+     * 
+     * @param oCFile    OCFile 
+     * @return          New RemoteFile instance representing the resource described by ocFile.
+     */
+    public static RemoteFile fillRemoteFile(OCFile ocFile){
+        RemoteFile file = new RemoteFile(ocFile.getRemotePath());
+        file.setCreationTimestamp(ocFile.getCreationTimestamp());
+        file.setLength(ocFile.getFileLength());
+        file.setMimeType(ocFile.getMimetype());
+        file.setModifiedTimestamp(ocFile.getModificationTimestamp());
+        file.setEtag(ocFile.getEtag());
         return file;
     }
   

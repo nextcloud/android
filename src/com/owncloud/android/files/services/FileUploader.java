@@ -38,17 +38,15 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.operations.ChunkedUploadFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.ExistenceCheckOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.ChunkFromFileChannelRequestEntity;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
@@ -253,7 +251,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 files[i] = obtainNewOCFileToUpload(remotePaths[i], localPaths[i], ((mimeTypes != null) ? mimeTypes[i]
                         : (String) null), storageManager);
                 if (files[i] == null) {
-                    // TODO @andomaex add failure Notiification
+                    // TODO @andomaex add failure Notification
                     return Service.START_NOT_STICKY;
                 }
             }
@@ -267,14 +265,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         try {
             for (int i = 0; i < files.length; i++) {
                 uploadKey = buildRemoteName(account, files[i].getRemotePath());
-                if (chunked
-                        && (new File(files[i].getStoragePath())).length() > ChunkedUploadFileOperation.CHUNK_SIZE)  // added to work around bug in servers 5.x 
-                {
-                    newUpload = new ChunkedUploadFileOperation(account, files[i], isInstant, forceOverwrite,
-                            localAction);
-                } else {
-                    newUpload = new UploadFileOperation(account, files[i], isInstant, forceOverwrite, localAction);
-                }
+                newUpload = new UploadFileOperation(account, files[i], chunked, isInstant, forceOverwrite, localAction, 
+                        getApplicationContext());
                 if (isInstant) {
                     newUpload.setRemoteFolderToBeCreated();
                 }
@@ -563,7 +555,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      *  @return  An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant) {
-        RemoteOperation operation = new ExistenceCheckOperation(pathToGrant, this, false);
+        RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mCurrentUpload.isRemoteFolderToBeCreated()) {
             operation = new CreateFolderOperation( pathToGrant,
