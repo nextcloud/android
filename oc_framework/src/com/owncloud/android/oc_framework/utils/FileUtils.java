@@ -19,9 +19,6 @@ package com.owncloud.android.oc_framework.utils;
 
 import java.io.File;
 
-import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
-
 import android.util.Log;
 
 public class FileUtils {
@@ -69,21 +66,6 @@ public class FileUtils {
 		}
 		return result;
 	}
+
 	
-	/**
-     * Creates and populates a new {@link RemoteFile} object with the data read from the server.
-     * 
-     * @param we        WebDAV entry read from the server for a WebDAV resource (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
-     */
-    public static RemoteFile fillOCFile(WebdavEntry we) {
-        RemoteFile file = new RemoteFile(we.decodedPath());
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setLength(we.contentLength());
-        file.setMimeType(we.contentType());
-        file.setModifiedTimestamp(we.modifiedTimestamp());
-        file.setEtag(we.etag());
-        return file;
-    }
-    
 }

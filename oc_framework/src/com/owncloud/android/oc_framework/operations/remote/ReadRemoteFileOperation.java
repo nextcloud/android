@@ -31,7 +31,6 @@ import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.utils.FileUtils;
 
 
 /**
@@ -79,19 +78,17 @@ public class ReadRemoteFileOperation extends RemoteOperation {
 
     		boolean isMultiStatus = status == HttpStatus.SC_MULTI_STATUS;
     		if (isMultiStatus) {
+    			// Parse response
     			MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
+				WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
+				RemoteFile remoteFile = new RemoteFile(we);
+				ArrayList<RemoteFile> files = new ArrayList<RemoteFile>();
+				files.add(remoteFile);
+
     			// Result of the operation
     			result = new RemoteOperationResult(true, status, propfind.getResponseHeaders());
+    			result.setData(files);
     			
-    			// Add data to the result
-    			if (result.isSuccess()) {
-    				WebdavEntry we = new WebdavEntry(resp.getResponses()[0], client.getBaseUri().getPath());
-    				RemoteFile remoteFile = FileUtils.fillOCFile(we);
-    				ArrayList<RemoteFile> files = new ArrayList<RemoteFile>();
-    				files.add(remoteFile);
-    				result.setData(files); 
-    			}
-
     		} else {
     			client.exhaustResponse(propfind.getResponseBodyAsStream());
     			result = new RemoteOperationResult(false, status, propfind.getResponseHeaders());
