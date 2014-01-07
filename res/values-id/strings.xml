@@ -18,7 +18,7 @@
   <string name="uploader_btn_upload_text">Unggah</string>
   <string name="uploader_top_message">Pilih folder unggah</string>
   <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
-  <string name="uploader_wrn_no_account_text">Belum ada akun %1$s pada perangkat Anda. Silahkan membuat akun terlebih dahulu.</string>
+  <string name="uploader_wrn_no_account_text">Belum ada akun %1$s pada perangkat Anda. Silahkan buat akun terlebih dahulu.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
   <string name="uploader_info_uploading">Mengunggah</string>
