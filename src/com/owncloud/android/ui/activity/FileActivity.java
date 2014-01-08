@@ -47,6 +47,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
+    public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName(); 
     
@@ -65,6 +66,9 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal when the value of mAccount was restored from a saved state */ 
     private boolean mAccountWasRestored;
+    
+    /** Flag to signal if the activity is launched by a notification */
+    private boolean mFromNotification;
 
     
     /**
@@ -82,9 +86,11 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
+            mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
+            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
         }
 
         setAccount(account, savedInstanceState != null);
@@ -191,6 +197,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
+        outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
     }
     
     
@@ -223,6 +230,12 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         return mAccount;
     }
 
+    /**
+     * @return Value of mFromNotification: True if the Activity is launched by a notification
+     */
+    public boolean fromNotification() {
+        return mFromNotification;
+    }
     
     /**
      * @return  'True' when the Activity is finishing to enforce the setup of a new account.

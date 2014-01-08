@@ -162,6 +162,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // PIN CODE request ;  best location is to decide, let's try this first
         if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_MAIN) && savedInstanceState == null) {
             requestPinCode();
+        } else if (getIntent().getAction() == null) {
+            requestPinCode();
         }
 
         /// file observer
