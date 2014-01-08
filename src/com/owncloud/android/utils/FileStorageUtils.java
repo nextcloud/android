@@ -84,6 +84,22 @@ public class FileStorageUtils {
         return parentPath;
     }
     
+    /**
+     * Creates and populates a new {@link OCFile} object with the data read from the server.
+     * 
+     * @param remote    remote file read from the server (remote file or folder).
+     * @return          New OCFile instance representing the remote resource described by we.
+     */
+    public static OCFile fillOCFile(RemoteFile remote) {
+        OCFile file = new OCFile(remote.getRemotePath());
+        file.setCreationTimestamp(remote.getCreationTimestamp());
+        file.setFileLength(remote.getLength());
+        file.setMimetype(remote.getMimeType());
+        file.setModificationTimestamp(remote.getModifiedTimestamp());
+        file.setEtag(remote.getEtag());
+        
+        return file;
+    }
     
     /**
      * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.

@@ -28,29 +28,24 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.apache.http.HttpStatus;
-import org.apache.jackrabbit.webdav.DavConstants;
-import org.apache.jackrabbit.webdav.MultiStatus;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
+import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -610,40 +605,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForData(syncDate);
 
-        // / new PROPFIND to keep data consistent with server in theory, should
-        // return the same we already have
-        PropFindMethod propfind = null;
-        RemoteOperationResult result = null;
-        try {
-            propfind = new PropFindMethod(mUploadClient.getBaseUri() + WebdavUtils.encodePath(mCurrentUpload.getRemotePath()),
-                    DavConstants.PROPFIND_ALL_PROP,
-                    DavConstants.DEPTH_0);
-            int status = mUploadClient.executeMethod(propfind);
-            boolean isMultiStatus = (status == HttpStatus.SC_MULTI_STATUS);
-            if (isMultiStatus) {
-                MultiStatus resp = propfind.getResponseBodyAsMultiStatus();
-                WebdavEntry we = new WebdavEntry(resp.getResponses()[0], mUploadClient.getBaseUri().getPath());
-                updateOCFile(file, we);
-                file.setLastSyncDateForProperties(syncDate);
-
-            } else {
-                mUploadClient.exhaustResponse(propfind.getResponseBodyAsStream());
-            }
-
-            result = new RemoteOperationResult(isMultiStatus, status, propfind.getResponseHeaders());
-            Log_OC.i(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
-                    + result.getLogMessage());
-
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Update: synchronizing properties for uploaded " + mCurrentUpload.getRemotePath() + ": "
-                    + result.getLogMessage(), e);
-
-        } finally {
-            if (propfind != null)
-                propfind.releaseConnection();
+        // new PROPFIND to keep data consistent with server 
+        // in theory, should return the same we already have
+        ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
+        RemoteOperationResult result = operation.execute(mUploadClient);
+        if (result.isSuccess()) {
+            updateOCFile(file, result.getData().get(0));
+            file.setLastSyncDateForProperties(syncDate);
         }
-
+        
         // / maybe this would be better as part of UploadFileOperation... or
         // maybe all this method
         if (mCurrentUpload.wasRenamed()) {
@@ -660,13 +630,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         mStorageManager.saveFile(file);
     }
 
-    private void updateOCFile(OCFile file, WebdavEntry we) {
-        file.setCreationTimestamp(we.createTimestamp());
-        file.setFileLength(we.contentLength());
-        file.setMimetype(we.contentType());
-        file.setModificationTimestamp(we.modifiedTimestamp());
-        file.setModificationTimestampAtLastSyncForData(we.modifiedTimestamp());
-        // file.setEtag(mCurrentUpload.getEtag());    // TODO Etag, where available
+    private void updateOCFile(OCFile file, RemoteFile remoteFile) {
+        file.setCreationTimestamp(remoteFile.getCreationTimestamp());
+        file.setFileLength(remoteFile.getLength());
+        file.setMimetype(remoteFile.getMimeType());
+        file.setModificationTimestamp(remoteFile.getModifiedTimestamp());
+        file.setModificationTimestampAtLastSyncForData(remoteFile.getModifiedTimestamp());
+        // file.setEtag(remoteFile.getEtag());    // TODO Etag, where available
     }
 
     private OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType,

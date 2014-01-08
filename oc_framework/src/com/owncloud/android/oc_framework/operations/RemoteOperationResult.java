@@ -99,7 +99,7 @@ public class RemoteOperationResult implements Serializable {
     private String mRedirectedLocation;
 
     private ArrayList<RemoteFile> mFiles;
-	
+    
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
@@ -320,7 +320,7 @@ public class RemoteOperationResult implements Serializable {
         } else if (mCode == ResultCode.ACCOUNT_NOT_THE_SAME) {
             return "Authenticated with a different account than the one updating";
         } else if (mCode == ResultCode.INVALID_CHARACTER_IN_NAME) {
-        	return "The file name contains an forbidden character";
+                return "The file name contains an forbidden character";
         }
 
         return "Operation finished with HTTP status code " + mHttpCode + " (" + (isSuccess() ? "success" : "fail") + ")";

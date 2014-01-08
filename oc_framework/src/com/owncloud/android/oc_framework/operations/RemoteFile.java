@@ -22,6 +22,7 @@ import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
 import com.owncloud.android.oc_framework.utils.FileUtils;
 
 /**
@@ -33,7 +34,7 @@ import com.owncloud.android.oc_framework.utils.FileUtils;
 public class RemoteFile implements Parcelable, Serializable {
 
 	/** Generated - should be refreshed every time the class changes!! */
-	private static final long serialVersionUID = 7256606476031992757L;
+	private static final long serialVersionUID = 532139091191390616L;
 	
 	private String mRemotePath;
 	private String mMimeType;
@@ -107,6 +108,15 @@ public class RemoteFile implements Parcelable, Serializable {
             throw new IllegalArgumentException("Trying to create a OCFile with a non valid remote path: " + path);
         }
         mRemotePath = path;
+	}
+	
+	public RemoteFile(WebdavEntry we) {
+        this(we.decodedPath());
+        this.setCreationTimestamp(we.createTimestamp());
+        this.setLength(we.contentLength());
+        this.setMimeType(we.contentType());
+        this.setModifiedTimestamp(we.modifiedTimestamp());
+        this.setEtag(we.etag());
 	}
 
 	/**
