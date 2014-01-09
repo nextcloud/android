@@ -103,7 +103,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
     
-    private static final String KEY_OC_USERNAME_EQUALS = "oc_username=";
+    // TODO Remove it
+    //private static final String KEY_OC_USERNAME_EQUALS = "oc_username="; 
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -1177,7 +1178,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
-            String username = getUserNameForSamlSso();
+            String username = com.owncloud.android.oc_framework.accounts.AccountUtils.getUserNameForSamlSso(mAuthToken);
             if (!mUsernameInput.getText().toString().equals(username)) {
                 // fail - not a new account, but an existing one; disallow
                 RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
@@ -1217,7 +1218,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
         if (isSaml) {
-            username = getUserNameForSamlSso();
+            username = com.owncloud.android.oc_framework.accounts.AccountUtils.getUserNameForSamlSso(mAuthToken);
             
         } else if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
@@ -1279,19 +1280,19 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
     }
 
-    
-    private String getUserNameForSamlSso() {
-        if (mAuthToken != null) {
-            String [] cookies = mAuthToken.split(";");
-            for (int i=0; i<cookies.length; i++) {
-                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
-                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
-                    return value;
-                }
-            }
-        }
-        return "";
-    }
+// TODO Remove it
+//    private String getUserNameForSamlSso() {
+//        if (mAuthToken != null) {
+//            String [] cookies = mAuthToken.split(";");
+//            for (int i=0; i<cookies.length; i++) {
+//                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
+//                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
+//                    return value;
+//                }
+//            }
+//        }
+//        return "";
+//    }
 
 
     /**
