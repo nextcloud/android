@@ -22,8 +22,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -45,6 +47,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.PinCodeActivity;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -94,6 +97,11 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.hide();
+        
+        // PIN CODE request
+        if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
+            requestPinCode();
+        }         
         
         mFullScreen = true;
         if (savedInstanceState != null) {
@@ -458,5 +466,19 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         }
     }
     
+    
+    /**
+     * Launch an intent to request the PIN code to the user before letting him use the app
+     */
+    private void requestPinCode() {
+        boolean pinStart = false;
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        pinStart = appPrefs.getBoolean("set_pincode", false);
+        if (pinStart) {
+            Intent i = new Intent(getApplicationContext(), PinCodeActivity.class);
+            i.putExtra(PinCodeActivity.EXTRA_ACTIVITY, "PreviewImageActivity");
+            startActivity(i);
+        }
+    }
     
 }
