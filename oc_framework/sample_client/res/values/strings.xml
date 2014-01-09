@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">ownCloud Sample Client</string>
+    <string name="hello_word">Hello World. This is the ownCloud sample client app before doing nothing ownCloud-related.</string>
 </resources>
