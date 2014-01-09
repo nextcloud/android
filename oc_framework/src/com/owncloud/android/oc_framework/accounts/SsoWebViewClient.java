@@ -15,16 +15,15 @@
  *
  */
 
-package com.owncloud.android.authentication;
+package com.owncloud.android.oc_framework.accounts;
 
 import java.lang.ref.WeakReference;
-
-import com.owncloud.android.utils.Log_OC;
 
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.WebView;
@@ -70,13 +69,13 @@ public class SsoWebViewClient extends WebViewClient {
 
     @Override
     public void onPageStarted (WebView view, String url, Bitmap favicon) {
-        Log_OC.d(TAG, "onPageStarted : " + url);
+        Log.d(TAG, "onPageStarted : " + url);
         super.onPageStarted(view, url, favicon);
     }
     
     @Override
     public void onFormResubmission (WebView view, Message dontResend, Message resend) {
-        Log_OC.d(TAG, "onFormResubMission ");
+        Log.d(TAG, "onFormResubMission ");
 
         // necessary to grant reload of last page when device orientation is changed after sending a form
         resend.sendToTarget();
@@ -89,7 +88,7 @@ public class SsoWebViewClient extends WebViewClient {
     
     @Override
     public void onReceivedError (WebView view, int errorCode, String description, String failingUrl) {
-        Log_OC.e(TAG, "onReceivedError : " + failingUrl + ", code " + errorCode + ", description: " + description);
+        Log.e(TAG, "onReceivedError : " + failingUrl + ", code " + errorCode + ", description: " + description);
         if (!failingUrl.equals(mLastReloadedUrlAtError)) {
             view.reload();
             mLastReloadedUrlAtError = failingUrl;
@@ -101,7 +100,7 @@ public class SsoWebViewClient extends WebViewClient {
     
     @Override
     public void onPageFinished (WebView view, String url) {
-        Log_OC.d(TAG, "onPageFinished : " + url);
+        Log.d(TAG, "onPageFinished : " + url);
         mLastReloadedUrlAtError = null;
         if (url.startsWith(mTargetUrl)) {
             view.setVisibility(View.GONE);
@@ -127,49 +126,49 @@ public class SsoWebViewClient extends WebViewClient {
     /*
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
-        Log_OC.d(TAG, "doUpdateVisitedHistory : " + url);
+        Log.d(TAG, "doUpdateVisitedHistory : " + url);
     }
     
     @Override
     public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
-        Log_OC.d(TAG, "onReceivedSslError : " + error);
+        Log.d(TAG, "onReceivedSslError : " + error);
     }
     
     @Override
     public void onReceivedHttpAuthRequest (WebView view, HttpAuthHandler handler, String host, String realm) {
-        Log_OC.d(TAG, "onReceivedHttpAuthRequest : " + host);
+        Log.d(TAG, "onReceivedHttpAuthRequest : " + host);
     }
 
     @Override
     public WebResourceResponse shouldInterceptRequest (WebView view, String url) {
-        Log_OC.d(TAG, "shouldInterceptRequest : " + url);
+        Log.d(TAG, "shouldInterceptRequest : " + url);
         return null;
     }
     
     @Override
     public void onLoadResource (WebView view, String url) {
-        Log_OC.d(TAG, "onLoadResource : " + url);   
+        Log.d(TAG, "onLoadResource : " + url);   
     }
     
     @Override
     public void onReceivedLoginRequest (WebView view, String realm, String account, String args) {
-        Log_OC.d(TAG, "onReceivedLoginRequest : " + realm + ", " + account + ", " + args);
+        Log.d(TAG, "onReceivedLoginRequest : " + realm + ", " + account + ", " + args);
     }
     
     @Override
     public void onScaleChanged (WebView view, float oldScale, float newScale) {
-        Log_OC.d(TAG, "onScaleChanged : " + oldScale + " -> " + newScale);
+        Log.d(TAG, "onScaleChanged : " + oldScale + " -> " + newScale);
         super.onScaleChanged(view, oldScale, newScale);
     }
 
     @Override
     public void onUnhandledKeyEvent (WebView view, KeyEvent event) {
-        Log_OC.d(TAG, "onUnhandledKeyEvent : " + event);
+        Log.d(TAG, "onUnhandledKeyEvent : " + event);
     }
     
     @Override
     public boolean shouldOverrideKeyEvent (WebView view, KeyEvent event) {
-        Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
+        Log.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
     */
