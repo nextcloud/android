@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_base_url"></string>
+    <string name="username"></string>
+    <string name="password"></string>
+</resources>
