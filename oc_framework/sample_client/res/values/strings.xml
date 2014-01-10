@@ -6,4 +6,10 @@
     <string name="delete_remote_file">Delete remote file</string>
     <string name="download">Download</string>
     <string name="delete_local_file">Delete local file</string>
+    <string name="youre_doing_it_wrong">You\'re doing it wrong</string>
+    <string name="todo_start_refresh">TODO: start refresh</string>    
+    <string name="todo_start_upload">TODO: start upload</string>    
+	<string name="todo_start_remote_deletion">TODO: start remote deletion</string>    
+	<string name="todo_start_download">TODO: start download</string>    
+    <string name="todo_start_local_deletion">TODO: start local deletion</string>    
 </resources>

@@ -9,7 +9,8 @@
         style="@style/ButtonStyle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="@string/refresh" 
+        android:text="@string/refresh"
+        android:onClick="onClickHandler" 
         />
 
     <ListView
@@ -29,6 +30,7 @@
         android:layout_alignParentLeft="true"
         android:layout_above="@+id/frame"
         android:text="@string/upload"
+        android:onClick="onClickHandler" 
         />
 
     <Button
@@ -37,6 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_above="@id/frame"
         android:text="@string/delete_remote_file" 
+        android:onClick="onClickHandler" 
         />
 
     <FrameLayout
@@ -55,6 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="@string/download" 
+        android:onClick="onClickHandler" 
         />
 
     <Button
@@ -63,6 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/delete_local_file" 
+        android:onClick="onClickHandler" 
         />
 
 </RelativeLayout>
