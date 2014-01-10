@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ownCloud Sample Client</string>
-    <string name="hello_word">Hello World. This is the ownCloud sample client app before doing nothing ownCloud-related.</string>
+    <string name="refresh">Refresh</string>
+    <string name="upload">Upload</string>
+    <string name="delete_remote_file">Delete remote file</string>
+    <string name="download">Download</string>
+    <string name="delete_local_file">Delete local file</string>
 </resources>

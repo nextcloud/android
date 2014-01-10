@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
-<TextView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/hello_word"
-    />
-</LinearLayout>
+
+    <Button
+        android:id="@+id/button_refresh"
+        style="@style/ButtonStyle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/refresh" 
+        />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_below="@+id/button_refresh" 
+        android:layout_above="@+id/button_upload"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        >
+    </ListView>
+
+    <Button
+        android:id="@+id/button_upload"
+        style="@style/ButtonStyle"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/frame"
+        android:text="@string/upload"
+        />
+
+    <Button
+        android:id="@+id/button_delete_remote"
+        style="@style/ButtonStyle"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/frame"
+        android:text="@string/delete_remote_file" 
+        />
+
+    <FrameLayout
+        android:id="@id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/frame_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/button_download"
+        >
+    </FrameLayout>
+
+    <Button
+        android:id="@id/button_download"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="@string/download" 
+        />
+
+    <Button
+        android:id="@+id/button_delete_local"
+        style="@style/ButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/delete_local_file" 
+        />
+
+</RelativeLayout>
 
