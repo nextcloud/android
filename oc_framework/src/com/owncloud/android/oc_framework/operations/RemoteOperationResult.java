@@ -33,6 +33,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
+import org.json.JSONException;
 
 import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.oc_framework.network.CertificateCombinedException;
@@ -89,7 +90,8 @@ public class RemoteOperationResult implements Serializable {
         ACCOUNT_EXCEPTION, 
         ACCOUNT_NOT_NEW, 
         ACCOUNT_NOT_THE_SAME,
-        INVALID_CHARACTER_IN_NAME
+        INVALID_CHARACTER_IN_NAME,
+        JSON_EXCEPTION
     }
 
     private boolean mSuccess = false;
@@ -192,6 +194,9 @@ public class RemoteOperationResult implements Serializable {
                 mCode = ResultCode.SSL_ERROR;
             }
 
+        } else if (e instanceof JSONException) {
+        	mCode = ResultCode.JSON_EXCEPTION;
+        	
         } else {
             mCode = ResultCode.UNKNOWN_ERROR;
         }
@@ -294,6 +299,8 @@ public class RemoteOperationResult implements Serializable {
             } else if (mException instanceof AccountsException) {
                 return "Exception while using account";
                 
+            } else if (mException instanceof JSONException) {
+            	return "JSON exception";
             } else {
                 return "Unexpected exception";
             }
