@@ -1,8 +1,13 @@
 package com.owncloud.android.oc_framework.sampleclient;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.owncloud.android.oc_framework.accounts.AccountUtils;
+import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
@@ -10,17 +15,23 @@ import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 import com.owncloud.android.oc_framework.utils.FileUtils;
 
 import android.app.Activity;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnRemoteOperationListener {
+public class MainActivity extends Activity implements OnRemoteOperationListener, OnDatatransferProgressListener {
+	
+	private static String LOG_TAG = MainActivity.class.getCanonicalName();  
 	
 	private Handler mHandler;
 	
@@ -42,7 +53,39 @@ public class MainActivity extends Activity implements OnRemoteOperationListener 
     	
     	mFilesAdapter = new FilesArrayAdapter(this, R.layout.file_in_list);
     	((ListView)findViewById(R.id.list_view)).setAdapter(mFilesAdapter);
+    	
+    	// TODO move to background thread or task
+    	AssetManager assets = getAssets();
+		try {
+			String sampleFileName = getString(R.string.sample_file_name); 
+	    	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
+	    	upFolder.mkdir();
+	    	File upFile = new File(upFolder, sampleFileName);
+	    	FileOutputStream fos = new FileOutputStream(upFile);
+	    	InputStream is = assets.open(sampleFileName);
+	    	int count = 0;
+	    	byte[] buffer = new byte[1024];
+	    	while ((count = is.read(buffer, 0, buffer.length)) >= 0) {
+	    		fos.write(buffer, 0, count);
+	    	}
+	    	is.close();
+	    	fos.close();
+		} catch (IOException e) {
+			Toast.makeText(this, R.string.error_copying_sample_file, Toast.LENGTH_SHORT).show();
+			Log.e(LOG_TAG, getString(R.string.error_copying_sample_file), e);
+		}
     }
+    
+    
+    @Override
+    public void onDestroy() {
+    	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
+    	File upFile = upFolder.listFiles()[0];
+    	upFile.delete();
+    	upFolder.delete();
+    	super.onDestroy();
+    }
+    
     
     public void onClickHandler(View button) {
     	switch (button.getId())	{
@@ -67,12 +110,18 @@ public class MainActivity extends Activity implements OnRemoteOperationListener 
     }
     
     private void startRefresh() {
-    	RemoteOperation refreshOperation = new ReadRemoteFolderOperation(FileUtils.PATH_SEPARATOR);
+    	ReadRemoteFolderOperation refreshOperation = new ReadRemoteFolderOperation(FileUtils.PATH_SEPARATOR);
     	refreshOperation.execute(mClient, this, mHandler);
     }
     
     private void startUpload() {
-    	Toast.makeText(this, R.string.todo_start_upload, Toast.LENGTH_SHORT).show();
+    	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
+    	File fileToUpload = upFolder.listFiles()[0]; 
+    	String remotePath = FileUtils.PATH_SEPARATOR + fileToUpload.getName(); 
+    	String mimeType = getString(R.string.sample_file_mimetype);
+    	UploadRemoteFileOperation uploadOperation = new UploadRemoteFileOperation(fileToUpload.getAbsolutePath(), remotePath, mimeType);
+    	uploadOperation.addDatatransferProgressListener(this);
+    	uploadOperation.execute(mClient, this, mHandler);
     }
     
     private void startRemoteDeletion() {
@@ -91,9 +140,13 @@ public class MainActivity extends Activity implements OnRemoteOperationListener 
 	public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 		if (!result.isSuccess()) {
 			Toast.makeText(this, R.string.todo_operation_finished_in_fail, Toast.LENGTH_SHORT).show();
+			Log.e(LOG_TAG, result.getLogMessage(), result.getException());
 			
 		} else if (operation instanceof ReadRemoteFolderOperation) {
 			onSuccessfulRefresh((ReadRemoteFolderOperation)operation, result);
+			
+		} else if (operation instanceof UploadRemoteFileOperation ) {
+			onSuccessfulUpload((UploadRemoteFileOperation)operation, result);
 			
 		} else {
 			Toast.makeText(this, R.string.todo_operation_finished_in_success, Toast.LENGTH_SHORT).show();
@@ -108,6 +161,38 @@ public class MainActivity extends Activity implements OnRemoteOperationListener 
 			mFilesAdapter.remove(mFilesAdapter.getItem(0));
 		}
 		mFilesAdapter.notifyDataSetChanged();
+	}
+
+	private void onSuccessfulUpload(UploadRemoteFileOperation operation, RemoteOperationResult result) {
+		startRefresh();
+	}
+
+
+	@Override
+	public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+		final long percentage = totalTransferredSoFar * 100 / totalToTransfer;
+		final boolean upload = fileName.contains(getString(R.string.upload_folder_path));
+		//Log.d(LOG_TAG, "progressRate " + percentage);
+    	mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+				TextView progressView = null;
+				if (upload) {
+					progressView = (TextView) findViewById(R.id.upload_progress);
+				} else {
+					progressView = (TextView) findViewById(R.id.download_progress);
+				}
+				if (progressView != null) {
+	    			progressView.setText(Long.toString(percentage) + "%");
+				}
+            }
+        });
+	}
+
+
+	@Override
+	public void onTransferProgress(long arg0) {
+		// TODO Remove from library
 	}
 	
 }

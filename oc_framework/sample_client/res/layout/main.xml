@@ -33,8 +33,20 @@
         android:onClick="onClickHandler" 
         />
 
+    <TextView
+        android:id="@+id/upload_progress"
+        style="@style/ProgressStyle"
+        android:layout_below="@id/list_view"
+        android:layout_above="@id/frame"
+        android:layout_toRightOf="@id/button_upload"
+        android:layout_toLeftOf="@+id/button_delete_remote"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="0%"
+        />
+
     <Button
-        android:id="@+id/button_delete_remote"
+        android:id="@id/button_delete_remote"
         style="@style/ButtonStyle"
         android:layout_alignParentRight="true"
         android:layout_above="@id/frame"
@@ -61,8 +73,20 @@
         android:onClick="onClickHandler" 
         />
 
+    <TextView
+        android:id="@+id/download_progress"
+        style="@style/ProgressStyle"
+        android:layout_below="@id/frame"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/button_download"
+        android:layout_toLeftOf="@+id/button_delete_local"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="0%"
+        />
+
     <Button
-        android:id="@+id/button_delete_local"
+        android:id="@id/button_delete_local"
         style="@style/ButtonStyle"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
