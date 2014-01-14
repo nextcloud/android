@@ -3,12 +3,12 @@
   <string name="about_android">App Android %1$s</string>
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar cuenta</string>
-  <string name="actionbar_upload">Subir archivo</string>
+  <string name="actionbar_upload">Subir</string>
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>
-  <string name="actionbar_settings">Ajustes</string>
+  <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
@@ -16,7 +16,7 @@
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
   <string name="prefs_pincode">PIN de aplicación </string>
   <string name="prefs_pincode_summary">Proteja su cliente</string>
-  <string name="prefs_instant_upload">Habilita la subida instantánea</string>
+  <string name="prefs_instant_upload">Habilitar la subida instantánea</string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente las fotos tomadas por la cámara</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
@@ -45,7 +45,7 @@
   <string name="uploader_wrn_no_content_title">No hay contenido para subir</string>
   <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
-  <string name="uploader_info_uploading">Enviando</string>
+  <string name="uploader_info_uploading">Subiendo...</string>
   <string name="file_list_empty">No hay archivos en esta carpeta.\nPuedes añadir nuevos archivos con la opción \"Subir\" del menú.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
