@@ -130,7 +130,7 @@ public class ChunkFromFileChannelRequestEntity implements RequestEntity, Progres
                 synchronized (mDataTransferListeners) {
                     it = mDataTransferListeners.iterator();
                     while (it.hasNext()) {
-                        it.next().onTransferProgress(readCount, mTransferred, size, mFile.getName());
+                        it.next().onTransferProgress(readCount, mTransferred, size, mFile.getAbsolutePath());
                     }
                 }
             }

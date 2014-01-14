@@ -114,7 +114,7 @@ public class FileRequestEntity implements RequestEntity, ProgressiveDataTransfer
                 synchronized (mDataTransferListeners) {
                     it = mDataTransferListeners.iterator();
                     while (it.hasNext()) {
-                        it.next().onTransferProgress(readResult, transferred, size, mFile.getName());
+                        it.next().onTransferProgress(readResult, transferred, size, mFile.getAbsolutePath());
                     }
                 }
             }
