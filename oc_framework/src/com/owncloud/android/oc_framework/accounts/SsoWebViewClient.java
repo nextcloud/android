@@ -124,9 +124,7 @@ public class SsoWebViewClient extends WebViewClient {
                     }
                 });
             }
-        } else {
-        	Log.d(TAG, "URL==> " + url + " mTarget==> " + mTargetUrl);
-        }
+        } 
     }
     
     
