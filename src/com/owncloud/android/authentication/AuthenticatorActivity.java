@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.util.concurrent.ExecutionException;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -29,6 +31,7 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -64,6 +67,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
+import com.owncloud.android.oc_framework.operations.remote.GetUserNameRemoteOperation;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -102,9 +106,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
-    
-    // TODO Remove it
-    //private static final String KEY_OC_USERNAME_EQUALS = "oc_username="; 
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -795,8 +796,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             }
         }
     }
-    
-    
+
+
+
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperation operation, RemoteOperationResult result) {
         try {
             dismissDialog(DIALOG_LOGIN_PROGRESS);
@@ -1178,7 +1180,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
-            String username = com.owncloud.android.oc_framework.accounts.AccountUtils.getUserNameForSamlSso(mAuthToken);
+            
+            String username= getUserNameForSaml(mHostBaseUrl);
+            if (username == null)
+                return false;
+            
             if (!mUsernameInput.getText().toString().equals(username)) {
                 // fail - not a new account, but an existing one; disallow
                 RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
@@ -1218,8 +1224,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
         if (isSaml) {
-            username = com.owncloud.android.oc_framework.accounts.AccountUtils.getUserNameForSamlSso(mAuthToken);
-            
+            username = getUserNameForSaml(mHostBaseUrl);
+            if (username == null)
+                return false;
+
         } else if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
         }            
@@ -1279,20 +1287,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             return true;
         }
     }
-
-// TODO Remove it
-//    private String getUserNameForSamlSso() {
-//        if (mAuthToken != null) {
-//            String [] cookies = mAuthToken.split(";");
-//            for (int i=0; i<cookies.length; i++) {
-//                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
-//                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
-//                    return value;
-//                }
-//            }
-//        }
-//        return "";
-//    }
 
 
     /**
@@ -1652,5 +1646,46 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             checkOcServer();
         }
         return super.onTouchEvent(event);
+    }
+    
+    
+    /**
+     * Asynchronous task to get the SAML User name from OCS-API
+     *
+     */
+    private class GetUserNameTask extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... params) {
+            
+            String hostUrl = (String)params[0];
+            
+            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation(hostUrl, mAuthToken);
+            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(hostUrl), getApplicationContext(), true);
+            RemoteOperationResult result = getUserOperation.execute(client);
+          
+            return result.getUserName();
+        }
+        
+    }
+
+    /**
+     * Get the user name form OCS-API
+     * @param hostUrl
+     * @return username
+     */
+    private String getUserNameForSaml(String hostUrl){
+
+        GetUserNameTask getUserTask = new GetUserNameTask();
+        String username = null;
+        try {
+            username = getUserTask.execute(mHostBaseUrl).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return username;
     }
 }

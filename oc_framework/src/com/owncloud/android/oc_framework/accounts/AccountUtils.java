@@ -136,7 +136,7 @@ public class AccountUtils {
      * @return userName
      */
     public static String getUserNameForSamlSso(String authToken) {
-        if (authToken != null) {
+    	if (authToken != null) {
             String [] cookies = authToken.split(";");
             for (int i=0; i<cookies.length; i++) {
                 if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {

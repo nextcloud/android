@@ -19,13 +19,17 @@ package com.owncloud.android.oc_framework.accounts;
 
 import java.lang.ref.WeakReference;
 
-
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.HttpAuthHandler;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -106,7 +110,7 @@ public class SsoWebViewClient extends WebViewClient {
             view.setVisibility(View.GONE);
             CookieManager cookieManager = CookieManager.getInstance();
             final String cookies = cookieManager.getCookie(url);
-            //Log_OC.d(TAG, "Cookies: " + cookies);
+            Log.d(TAG, "Cookies: " + cookies);
             if (mListenerHandler != null && mListenerRef != null) {
                 // this is good idea because onPageFinished is not running in the UI thread
                 mListenerHandler.post(new Runnable() {
@@ -114,16 +118,18 @@ public class SsoWebViewClient extends WebViewClient {
                     public void run() {
                         SsoWebViewClientListener listener = mListenerRef.get();
                         if (listener != null) {
+                        	// Send Cookies to the listener
                             listener.onSsoFinished(cookies);
                         }
                     }
                 });
             }
+        } else {
+        	Log.d(TAG, "URL==> " + url + " mTarget==> " + mTargetUrl);
         }
-
     }
     
-    /*
+    
     @Override
     public void doUpdateVisitedHistory (WebView view, String url, boolean isReload) {
         Log.d(TAG, "doUpdateVisitedHistory : " + url);
@@ -132,6 +138,7 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
         Log.d(TAG, "onReceivedSslError : " + error);
+        handler.proceed();
     }
     
     @Override
@@ -171,5 +178,5 @@ public class SsoWebViewClient extends WebViewClient {
         Log.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
     }
-    */
+
 }

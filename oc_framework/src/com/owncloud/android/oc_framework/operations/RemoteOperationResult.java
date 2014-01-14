@@ -101,11 +101,13 @@ public class RemoteOperationResult implements Serializable {
     private String mRedirectedLocation;
 
     private ArrayList<RemoteFile> mFiles;
+    private String mUserName;
     
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
         mFiles = null;
+        setUserName("");
     }
 
     private RemoteOperationResult(boolean success, int httpCode) {
@@ -355,5 +357,13 @@ public class RemoteOperationResult implements Serializable {
                 (mRedirectedLocation.toUpperCase().contains("SAML") || 
                 mRedirectedLocation.toLowerCase().contains("wayf")));
     }
+
+	public String getUserName() {
+		return mUserName;
+	}
+
+	public void setUserName(String mUserName) {
+		this.mUserName = mUserName;
+	}
 
 }
