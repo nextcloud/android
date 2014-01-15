@@ -1181,7 +1181,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
             
-            String username= getUserNameForSaml(mHostBaseUrl);
+            String username= getUserNameForSaml();
             if (username == null)
                 return false;
             
@@ -1224,7 +1224,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
         if (isSaml) {
-            username = getUserNameForSaml(mHostBaseUrl);
+            username = getUserNameForSaml();
             if (username == null)
                 return false;
 
@@ -1653,15 +1653,13 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Asynchronous task to get the SAML User name from OCS-API
      *
      */
-    private class GetUserNameTask extends AsyncTask<String, Void, String>{
+    private class GetUserNameTask extends AsyncTask<Void, Void, String>{
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
             
-            String hostUrl = (String)params[0];
-            
-            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation(hostUrl, mAuthToken);
-            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(hostUrl), getApplicationContext(), true);
+            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation(mHostBaseUrl, mAuthToken);
+            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
             RemoteOperationResult result = getUserOperation.execute(client);
           
             return result.getUserName();
@@ -1671,15 +1669,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     /**
      * Get the user name form OCS-API
-     * @param hostUrl
      * @return username
      */
-    private String getUserNameForSaml(String hostUrl){
+    private String getUserNameForSaml(){
 
         GetUserNameTask getUserTask = new GetUserNameTask();
         String username = null;
         try {
-            username = getUserTask.execute(mHostBaseUrl).get();
+            username = getUserTask.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
