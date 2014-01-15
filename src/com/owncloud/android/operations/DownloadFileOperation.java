@@ -25,7 +25,6 @@ import java.util.Set;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.remote.DownloadRemoteFileOperation;
@@ -128,10 +127,9 @@ public class DownloadFileOperation extends RemoteOperation {
         File tmpFile = new File(getTmpPath());
         
         String tmpFolder =  getTmpFolder();
-        RemoteFile remoteFile = FileStorageUtils.fillRemoteFile(mFile);
         
         /// perform the download
-        mDownloadOperation = new DownloadRemoteFileOperation(remoteFile, tmpFolder);
+        mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
         Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
         while (listener.hasNext()) {
             mDownloadOperation.addDatatransferProgressListener(listener.next());

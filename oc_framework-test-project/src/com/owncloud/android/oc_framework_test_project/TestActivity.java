@@ -144,7 +144,7 @@ public class TestActivity extends Activity {
 		File folder = new File(sdCard.getAbsolutePath() + "/" + path);
 		folder.mkdirs();
 		
-		DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(remoteFile, folder.getAbsolutePath());
+		DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(remoteFile.getRemotePath(), folder.getAbsolutePath());
 		RemoteOperationResult result = downloadOperation.execute(mClient);
 
 		return result;

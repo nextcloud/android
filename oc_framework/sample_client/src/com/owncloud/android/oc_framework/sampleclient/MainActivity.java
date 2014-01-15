@@ -146,9 +146,7 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
     	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
     	File fileToUpload = upFolder.listFiles()[0];
     	String remotePath = FileUtils.PATH_SEPARATOR + fileToUpload.getName();
-    	RemoteFile rFileToDownload = new RemoteFile(remotePath);
-    	rFileToDownload.setLength(fileToUpload.length());
-    	DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(rFileToDownload, downFolder.getAbsolutePath());
+    	DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(remotePath, downFolder.getAbsolutePath());
     	downloadOperation.addDatatransferProgressListener(this);
     	downloadOperation.execute(mClient, this, mHandler);
     }

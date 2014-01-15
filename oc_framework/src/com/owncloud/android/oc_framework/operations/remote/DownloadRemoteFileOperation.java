@@ -21,7 +21,6 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,7 +37,6 @@ import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressLi
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.oc_framework.operations.OperationCancelledException;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 
@@ -55,15 +53,15 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
     
 	private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-    private long mModificationTimestamp = 0;
+    //private long mModificationTimestamp = 0;
     private GetMethod mGet;
     
-    private RemoteFile mRemoteFile;
-    private String mTemporalFolder;
+    private String mRemotePath;
+    private String mDownloadFolderPath;
 	
-	public DownloadRemoteFileOperation(RemoteFile remoteFile, String temporalFolder) {
-		mRemoteFile = remoteFile;
-		mTemporalFolder = temporalFolder;
+	public DownloadRemoteFileOperation(String remotePath, String downloadFolderPath) {
+		mRemotePath = remotePath;
+		mDownloadFolderPath = downloadFolderPath;
 	}
 
 	@Override
@@ -78,11 +76,11 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
         	tmpFile.getParentFile().mkdirs();
         	int status = downloadFile(client, tmpFile);
         	result = new RemoteOperationResult(isSuccess(status), status, (mGet != null ? mGet.getResponseHeaders() : null));
-        	Log.i(TAG, "Download of " + mRemoteFile.getRemotePath() + " to " + getTmpPath() + ": " + result.getLogMessage());
+        	Log.i(TAG, "Download of " + mRemotePath + " to " + getTmpPath() + ": " + result.getLogMessage());
 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log.e(TAG, "Download of " + mRemoteFile.getRemotePath() + " to " + getTmpPath() + ": " + result.getLogMessage(), e);
+            Log.e(TAG, "Download of " + mRemotePath + " to " + getTmpPath() + ": " + result.getLogMessage(), e);
         }
         
         return result;
@@ -92,7 +90,7 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
     protected int downloadFile(WebdavClient client, File targetFile) throws HttpException, IOException, OperationCancelledException {
         int status = -1;
         boolean savedFile = false;
-        mGet = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemoteFile.getRemotePath()));
+        mGet = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mRemotePath));
         Iterator<OnDatatransferProgressListener> it = null;
         
         FileOutputStream fos = null;
@@ -103,6 +101,9 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
                 BufferedInputStream bis = new BufferedInputStream(mGet.getResponseBodyAsStream());
                 fos = new FileOutputStream(targetFile);
                 long transferred = 0;
+                
+                Header contentLength = mGet.getResponseHeader("Content-Length");
+                long totalToTransfer = (contentLength != null && contentLength.getValue().length() >0) ? Long.parseLong(contentLength.getValue()) : 0;
 
                 byte[] bytes = new byte[4096];
                 int readResult = 0;
@@ -118,16 +119,18 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
                     synchronized (mDataTransferListeners) {
                         it = mDataTransferListeners.iterator();
                         while (it.hasNext()) {
-                            it.next().onTransferProgress(readResult, transferred, mRemoteFile.getLength(), targetFile.getName());
+                            it.next().onTransferProgress(readResult, transferred, totalToTransfer, targetFile.getName());
                         }
                     }
                 }
                 savedFile = true;
+                /*
                 Header modificationTime = mGet.getResponseHeader("Last-Modified");
                 if (modificationTime != null) {
                     Date d = WebdavUtils.parseResponseDate((String) modificationTime.getValue());
                     mModificationTimestamp = (d != null) ? d.getTime() : 0;
                 }
+                */
                 
             } else {
                 client.exhaustResponse(mGet.getResponseBodyAsStream());
@@ -148,7 +151,7 @@ public class DownloadRemoteFileOperation extends RemoteOperation {
     }
     
     private String getTmpPath() {
-        return mTemporalFolder + mRemoteFile.getRemotePath();
+        return mDownloadFolderPath + mRemotePath;
     }
     
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
