@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 
 import com.owncloud.android.oc_framework.accounts.AccountUtils;
@@ -14,12 +15,15 @@ import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.oc_framework.operations.RemoteFile;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.remote.DownloadRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
+import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
 import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
 import com.owncloud.android.oc_framework.utils.FileUtils;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +42,8 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
 	private WebdavClient mClient; 
 	
 	private FilesArrayAdapter mFilesAdapter;
+	
+	private View mFrame;
 	
     /** Called when the activity is first created. */
     @Override
@@ -74,6 +80,8 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
 			Toast.makeText(this, R.string.error_copying_sample_file, Toast.LENGTH_SHORT).show();
 			Log.e(LOG_TAG, getString(R.string.error_copying_sample_file), e);
 		}
+		
+		mFrame = findViewById(R.id.frame);
     }
     
     
@@ -125,15 +133,36 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
     }
     
     private void startRemoteDeletion() {
-    	Toast.makeText(this, R.string.todo_start_remote_deletion, Toast.LENGTH_SHORT).show();
+    	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
+    	File fileToUpload = upFolder.listFiles()[0]; 
+    	String remotePath = FileUtils.PATH_SEPARATOR + fileToUpload.getName();
+    	RemoveRemoteFileOperation removeOperation = new RemoveRemoteFileOperation(remotePath);
+    	removeOperation.execute(mClient, this, mHandler);
     }
     
     private void startDownload() {
-    	Toast.makeText(this, R.string.todo_start_download, Toast.LENGTH_SHORT).show();
+    	File downFolder = new File(getCacheDir(), getString(R.string.download_folder_path));
+    	downFolder.mkdir();
+    	File upFolder = new File(getCacheDir(), getString(R.string.upload_folder_path));
+    	File fileToUpload = upFolder.listFiles()[0];
+    	String remotePath = FileUtils.PATH_SEPARATOR + fileToUpload.getName();
+    	RemoteFile rFileToDownload = new RemoteFile(remotePath);
+    	rFileToDownload.setLength(fileToUpload.length());
+    	DownloadRemoteFileOperation downloadOperation = new DownloadRemoteFileOperation(rFileToDownload, downFolder.getAbsolutePath());
+    	downloadOperation.addDatatransferProgressListener(this);
+    	downloadOperation.execute(mClient, this, mHandler);
     }
     
-    private void startLocalDeletion() {
-    	Toast.makeText(this, R.string.todo_start_local_deletion, Toast.LENGTH_SHORT).show();
+    @SuppressWarnings("deprecation")
+	private void startLocalDeletion() {
+    	File downFolder = new File(getCacheDir(), getString(R.string.download_folder_path));
+    	File downloadedFile = downFolder.listFiles()[0];
+    	if (!downloadedFile.delete() && downloadedFile.exists()) {
+    		Toast.makeText(this, R.string.error_deleting_local_file, Toast.LENGTH_SHORT).show();
+    	} else {
+    		((TextView) findViewById(R.id.download_progress)).setText("0%");
+    		findViewById(R.id.frame).setBackgroundDrawable(null);
+    	}
     }
 
 	@Override
@@ -148,6 +177,12 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
 		} else if (operation instanceof UploadRemoteFileOperation ) {
 			onSuccessfulUpload((UploadRemoteFileOperation)operation, result);
 			
+		} else if (operation instanceof RemoveRemoteFileOperation ) {
+			onSuccessfulRemoteDeletion((RemoveRemoteFileOperation)operation, result);
+			
+		} else if (operation instanceof DownloadRemoteFileOperation ) {
+			onSuccessfulDownload((DownloadRemoteFileOperation)operation, result);
+			
 		} else {
 			Toast.makeText(this, R.string.todo_operation_finished_in_success, Toast.LENGTH_SHORT).show();
 		}
@@ -156,8 +191,11 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
 	private void onSuccessfulRefresh(ReadRemoteFolderOperation operation, RemoteOperationResult result) {
 		mFilesAdapter.clear();
 		List<RemoteFile> files = result.getData();
-		if (files != null && files.size() > 0) {
-			mFilesAdapter.addAll(files);
+		if (files != null) {
+			Iterator<RemoteFile> it = files.iterator();
+			while (it.hasNext()) {
+				mFilesAdapter.add(it.next());
+			}
 			mFilesAdapter.remove(mFilesAdapter.getItem(0));
 		}
 		mFilesAdapter.notifyDataSetChanged();
@@ -167,12 +205,27 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
 		startRefresh();
 	}
 
+	private void onSuccessfulRemoteDeletion(RemoveRemoteFileOperation operation, RemoteOperationResult result) {
+		startRefresh();
+		TextView progressView = (TextView) findViewById(R.id.upload_progress);
+		if (progressView != null) {
+			progressView.setText("0%");
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private void onSuccessfulDownload(DownloadRemoteFileOperation operation, RemoteOperationResult result) {
+    	File downFolder = new File(getCacheDir(), getString(R.string.download_folder_path));
+    	File downloadedFile = downFolder.listFiles()[0];
+    	BitmapDrawable bDraw = new BitmapDrawable(getResources(), downloadedFile.getAbsolutePath());
+    	mFrame.setBackgroundDrawable(bDraw);
+	}
 
 	@Override
 	public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
-		final long percentage = totalTransferredSoFar * 100 / totalToTransfer;
+		final long percentage = (totalToTransfer > 0 ? totalTransferredSoFar * 100 / totalToTransfer : 0);
 		final boolean upload = fileName.contains(getString(R.string.upload_folder_path));
-		//Log.d(LOG_TAG, "progressRate " + percentage);
+		Log.d(LOG_TAG, "progressRate " + percentage);
     	mHandler.post(new Runnable() {
             @Override
             public void run() {
