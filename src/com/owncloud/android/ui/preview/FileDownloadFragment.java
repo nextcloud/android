@@ -353,11 +353,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
         
         @Override
-        public void onTransferProgress(long progressRate) {
-            // old method, nothing here
-        };
-
-        @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
             if (percent != mLastPercent) {

@@ -242,10 +242,4 @@ public class MainActivity extends Activity implements OnRemoteOperationListener,
         });
 	}
 
-
-	@Override
-	public void onTransferProgress(long arg0) {
-		// TODO Remove from library
-	}
-	
 }

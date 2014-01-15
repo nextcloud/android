@@ -282,13 +282,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             }
         }
 
-
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old way, should not be in use any more
-        }
-
-
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String fileName) {
@@ -449,15 +442,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     }
     
     
-    /**
-     * Callback method to update the progress bar in the status notification (old version)
-     */
-    @Override
-    public void onTransferProgress(long progressRate) {
-        // NOTHING TO DO HERE ANYMORE
-    }
-    
-
     /**
      * Updates the status notification with the result of a download operation.
      * 

@@ -417,12 +417,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
 
         @Override
-        public void onTransferProgress(long progressRate) {
-            // old way, should not be in use any more
-        }
-
-
-        @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String fileName) {
             String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
@@ -715,15 +709,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
         }
         mLastPercent = percent;
-    }
-
-    /**
-     * Callback method to update the progress bar in the status notification
-     * (old version)
-     */
-    @Override
-    public void onTransferProgress(long progressRate) {
-        // NOTHING TO DO HERE ANYMORE
     }
 
     /**
