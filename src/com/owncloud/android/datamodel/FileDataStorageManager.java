@@ -715,5 +715,35 @@ public class FileDataStorageManager {
         }
         return file;
     }
+    
+    /**
+     * Returns if the file/folder is shared by link or not
+     * @param path  Path of the file/folder
+     * @return
+     */
+    public boolean isFileShareByLink(String path) {
+        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+        }
+        c.close();
+        return file.isShareByLink();
+    }
+    
+    /**
+     * Returns the public link of the file/folder
+     * @param path  Path of the file/folder
+     * @return
+     */
+    public String getFilePublicLink(String path) {
+        Cursor c = getCursorForValue(ProviderTableMeta.FILE_STORAGE_PATH, path);
+        OCFile file = null;
+        if (c.moveToFirst()) {
+            file = createFileInstance(c);
+        }
+        c.close();
+        return file.getPublicLink();
+    }
 
 }
