@@ -88,6 +88,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_ACCOUNT_OWNER);
         mProjectionMap.put(ProviderTableMeta.FILE_ETAG, 
                 ProviderTableMeta.FILE_ETAG);
+        mProjectionMap.put(ProviderTableMeta.FILE_SHARE_BY_LINK,
+                ProviderTableMeta.FILE_PUBLIC_LINK);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -448,7 +450,9 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_KEEP_IN_SYNC + " INTEGER, "
                     + ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + " INTEGER, "
-                    + ProviderTableMeta.FILE_ETAG + " TEXT );"
+                    + ProviderTableMeta.FILE_ETAG + " TEXT, " 
+                    + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
+                    + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT );"
                     );
         }
 
@@ -509,6 +513,27 @@ public class FileContentProvider extends ContentProvider {
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_ETAG + " TEXT " +
+                            " DEFAULT NULL");
+                    
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
+            
+            if (oldVersion < 6 && newVersion >= 6) {
+                Log_OC.i("SQL", "Entering in the #5 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER " +
+                            " DEFAULT 0");
+                    
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.DB_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_PUBLIC_LINK + " TEXT " +
                             " DEFAULT NULL");
                     
                     upgraded = true;
