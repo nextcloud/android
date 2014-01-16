@@ -1,6 +1,6 @@
-/* ownCloud webDAV Library for Android is available under MIT license
+/* ownCloud Android Library is available under MIT license
+ *   Copyright (C) 2014 ownCloud (http://www.owncloud.org/) 
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2014 ownCloud (http://www.owncloud.org/)
  *   
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
