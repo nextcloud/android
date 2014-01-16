@@ -50,12 +50,6 @@
             <type>apklib</type>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.jackrabbit</groupId>
-            <artifactId>jackrabbit-webdav</artifactId>
-            <version>2.5.2</version>
-        </dependency>
-        
         <!-- MUST BE INSTALLED FIRST: cd oc_framework; mvn install -->
         <dependency>
          <groupId>com.owncloud.android</groupId>
