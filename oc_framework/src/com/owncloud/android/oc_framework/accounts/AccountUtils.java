@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.content.Context;
-import android.net.Uri;
 
 public class AccountUtils {
     public static final String WEBDAV_PATH_1_2 = "/webdav/owncloud.php";
@@ -35,9 +34,6 @@ public class AccountUtils {
     public static final String CARDDAV_PATH_2_0 = "/apps/contacts/carddav.php";
     public static final String CARDDAV_PATH_4_0 = "/remote/carddav.php";
     public static final String STATUS_PATH = "/status.php";
-    
-    // Key for UserName in Saml Cookie
-    private static final String KEY_OC_USERNAME_EQUALS = "oc_username=";
 
     /**
      * 
@@ -115,8 +111,8 @@ public class AccountUtils {
     
     public static class AccountNotFoundException extends AccountsException {
         
-        /** Generated - should be refreshed every time the class changes!! */
-        private static final long serialVersionUID = -9013287181793186830L;
+		/** Generated - should be refreshed every time the class changes!! */
+		private static final long serialVersionUID = -1684392454798508693L;
         
         private Account mFailedAccount; 
                 
@@ -129,23 +125,4 @@ public class AccountUtils {
             return mFailedAccount;
         }
     }
-    
-    /** 
-     * Get the UserName for the SamlSso cookie
-     * @param authToken
-     * @return userName
-     */
-    public static String getUserNameForSamlSso(String authToken) {
-    	if (authToken != null) {
-            String [] cookies = authToken.split(";");
-            for (int i=0; i<cookies.length; i++) {
-                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
-                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
-                    return value;
-                }
-            }
-        }
-        return "";
-    }
-
 }
