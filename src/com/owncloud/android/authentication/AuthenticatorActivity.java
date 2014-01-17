@@ -805,8 +805,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             if ( mAction == ACTION_CREATE) {
                 mUsernameInput.setText(username);
-                createAccount();
-                success = true;
+                success = createAccount();
             } else {
                 
                 if (!mUsernameInput.getText().toString().equals(username)) {
