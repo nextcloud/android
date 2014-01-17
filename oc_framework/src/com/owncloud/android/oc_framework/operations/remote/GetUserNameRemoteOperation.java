@@ -46,25 +46,19 @@ public class GetUserNameRemoteOperation extends RemoteOperation {
 	private static final String TAG = GetUserNameRemoteOperation.class.getSimpleName();
 
 	// HEADER
-	private static final String TAG_HEADER_OCS_API = "OCS-APIREQUEST";
-	private static final String TAG_HEADER_OCS_API_VALUE = "true";
-	
-	private static final String TAG_HEADER_CONTENT = "Content-Type";
-	private static final String TAG_HEADER_CONTENT_VALUE = "application/xml";
-	private static final String TAG_HEADER_COOKIE = "Cookie";
+	private static final String HEADER_OCS_API = "OCS-APIREQUEST";
+	private static final String HEADER_OCS_API_VALUE = "true";
 
 	// OCS Route
-	private static final String TAG_OCS_ROUTE ="/index.php/ocs/cloud/user?format=json"; 
+	private static final String OCS_ROUTE ="/index.php/ocs/cloud/user?format=json"; 
 
 	// JSON Node names
-	private static final String TAG_OCS = "ocs";
-	private static final String TAG_DATA = "data";
-	private static final String TAG_ID = "id";
-	private static final String TAG_DISPLAY_NAME= "display-name";
-	private static final String TAG_EMAIL= "email";
+	private static final String NODE_OCS = "ocs";
+	private static final String NODE_DATA = "data";
+	private static final String NODE_ID = "id";
+	private static final String NODE_DISPLAY_NAME= "display-name";
+	private static final String NODE_EMAIL= "email";
 
-	private String mUrl;
-	private String mSessionCookie;
 	private String mUserName;
 
 	public String getUserName() {
@@ -72,9 +66,7 @@ public class GetUserNameRemoteOperation extends RemoteOperation {
 	}
 
 	
-	public GetUserNameRemoteOperation(String url, String sessioncookie) {
-		mUrl = url;
-		mSessionCookie = sessioncookie;
+	public GetUserNameRemoteOperation() {
 	}
 
 	@Override
@@ -83,12 +75,10 @@ public class GetUserNameRemoteOperation extends RemoteOperation {
         int status = -1;
         
         // Get Method
-        GetMethod get = new GetMethod(mUrl + TAG_OCS_ROUTE);
-        Log.d(TAG, "URL ------> " + mUrl + TAG_OCS_ROUTE);
+        GetMethod get = new GetMethod(client.getBaseUri() + OCS_ROUTE);
+        Log.d(TAG, "URL ------> " + client.getBaseUri() + OCS_ROUTE);
         // Add the Header
-        get.addRequestHeader(TAG_HEADER_CONTENT, TAG_HEADER_CONTENT_VALUE);
-        get.addRequestHeader(TAG_HEADER_OCS_API, TAG_HEADER_OCS_API_VALUE);
-        get.setRequestHeader(TAG_HEADER_COOKIE, mSessionCookie);
+        get.addRequestHeader(HEADER_OCS_API, HEADER_OCS_API_VALUE);
         
         //Get the user
         try {
@@ -101,15 +91,15 @@ public class GetUserNameRemoteOperation extends RemoteOperation {
 
 				 // Parse the response
 				 JSONObject respJSON = new JSONObject(response);
-				 JSONObject respOCS = respJSON.getJSONObject(TAG_OCS);
-				 JSONObject respData = respOCS.getJSONObject(TAG_DATA);
-				 String id = respData.getString(TAG_ID);
-				 String displayName = respData.getString(TAG_DISPLAY_NAME);
-				 String email = respData.getString(TAG_EMAIL);
+				 JSONObject respOCS = respJSON.getJSONObject(NODE_OCS);
+				 JSONObject respData = respOCS.getJSONObject(NODE_DATA);
+				 String id = respData.getString(NODE_ID);
+				 String displayName = respData.getString(NODE_DISPLAY_NAME);
+				 String email = respData.getString(NODE_EMAIL);
 				 
 				 // Result
 				 result = new RemoteOperationResult(isSuccess(status), status, (get != null ? get.getResponseHeaders() : null));
-				 result.setUserName(displayName);
+				 mUserName =  displayName;
 				 
 				 Log.d(TAG, "Response: " + id + " - " + displayName + " - " + email);
 				 

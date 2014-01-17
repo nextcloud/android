@@ -52,9 +52,9 @@ import android.util.Log;
  * @author David A. Velasco
  */
 public class RemoteOperationResult implements Serializable {
-
+	
 	/** Generated - should be refreshed every time the class changes!! */
-	private static final long serialVersionUID = -2469951225222759283L;
+	private static final long serialVersionUID = -8257349554488668693L;
     
     private static final String TAG = "RemoteOperationResult";
     
@@ -91,7 +91,6 @@ public class RemoteOperationResult implements Serializable {
         ACCOUNT_NOT_NEW, 
         ACCOUNT_NOT_THE_SAME,
         INVALID_CHARACTER_IN_NAME,
-        JSON_EXCEPTION
     }
 
     private boolean mSuccess = false;
@@ -101,13 +100,11 @@ public class RemoteOperationResult implements Serializable {
     private String mRedirectedLocation;
 
     private ArrayList<RemoteFile> mFiles;
-    private String mUserName;
     
     public RemoteOperationResult(ResultCode code) {
         mCode = code;
         mSuccess = (code == ResultCode.OK || code == ResultCode.OK_SSL || code == ResultCode.OK_NO_SSL);
         mFiles = null;
-        setUserName("");
     }
 
     private RemoteOperationResult(boolean success, int httpCode) {
@@ -196,9 +193,6 @@ public class RemoteOperationResult implements Serializable {
                 mCode = ResultCode.SSL_ERROR;
             }
 
-        } else if (e instanceof JSONException) {
-        	mCode = ResultCode.JSON_EXCEPTION;
-        	
         } else {
             mCode = ResultCode.UNKNOWN_ERROR;
         }
@@ -303,6 +297,7 @@ public class RemoteOperationResult implements Serializable {
                 
             } else if (mException instanceof JSONException) {
             	return "JSON exception";
+            	
             } else {
                 return "Unexpected exception";
             }
@@ -357,13 +352,5 @@ public class RemoteOperationResult implements Serializable {
                 (mRedirectedLocation.toUpperCase().contains("SAML") || 
                 mRedirectedLocation.toLowerCase().contains("wayf")));
     }
-
-	public String getUserName() {
-		return mUserName;
-	}
-
-	public void setUserName(String mUserName) {
-		this.mUserName = mUserName;
-	}
 
 }
