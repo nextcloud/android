@@ -59,12 +59,12 @@ import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.operations.OwnCloudServerCheckOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.oc_framework.operations.remote.GetUserNameRemoteOperation;
+import com.owncloud.android.oc_framework.operations.remote.OwnCloudServerCheckOperation;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -103,6 +103,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
+    private static final String KEY_IS_SHARED_SUPPORTED = "KEY_IS_SHARE_SUPPORTED";
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -120,6 +121,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
+    private boolean mIsSharedSupported;
 
     private String mAuthMessageText;
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
@@ -230,6 +232,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerIsChecked = false;
             mIsSslConn = false;
             mAuthStatusText = mAuthStatusIcon = 0;
+            mIsSharedSupported = false;
 
             /// retrieve extras from intent
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
@@ -268,6 +271,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
+            mIsSharedSupported = savedInstanceState.getBoolean(KEY_IS_SHARED_SUPPORTED, false);
             if (ocVersion != null) {
                 mDiscoveredVersion = new OwnCloudVersion(ocVersion);
             }
@@ -447,6 +451,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             outState.putString(KEY_OC_VERSION, mDiscoveredVersion.toString());
         }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
+        outState.putBoolean(KEY_IS_SHARED_SUPPORTED, mIsSharedSupported);
 
         /// account data, if updating
         if (mAccount != null) {
@@ -581,6 +586,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         mServerIsValid = false;
         mServerIsChecked = false;
+        mIsSharedSupported = false;
         mOkButton.setEnabled(false);
         mDiscoveredVersion = null;
         hideRefreshButton();
@@ -890,6 +896,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             /// allow or not the user try to access the server
             mOkButton.setEnabled(mServerIsValid);
+            
+            /// retrieve if is supported the Share API
+            mIsSharedSupported = operation.isSharedSupported();
 
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered

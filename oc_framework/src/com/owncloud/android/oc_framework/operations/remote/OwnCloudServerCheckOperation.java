@@ -1,37 +1,52 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/* ownCloud Android Library is available under MIT license
+ *   Copyright (C) 2014 ownCloud (http://www.owncloud.org/)
+ *   
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy
+ *   of this software and associated documentation files (the "Software"), to deal
+ *   in the Software without restriction, including without limitation the rights
+ *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *   copies of the Software, and to permit persons to whom the Software is
+ *   furnished to do so, subject to the following conditions:
+ *   
+ *   The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ *   
+ *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+ *   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+ *   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+ *   BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
+ *   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+ *   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *   THE SOFTWARE.
  *
  */
 
-package com.owncloud.android.operations;
+package com.owncloud.android.oc_framework.operations.remote;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.oc_framework.accounts.AccountUtils;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
-import com.owncloud.android.utils.Log_OC;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.util.Log;
+
+/**
+ * Checks if the server is valid and if the server supports the Share API
+ * 
+ * @author David A. Velasco
+ * @author masensio
+ *
+ */
 
 public class OwnCloudServerCheckOperation extends RemoteOperation {
     
@@ -40,19 +55,32 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
     
     private static final String TAG = OwnCloudServerCheckOperation.class.getSimpleName();
     
+    private static final String OCVERSION_SHARED_SUPPORTED = "5.0.13";
+    
+    private static final String NODE_INSTALLED = "installed";
+    private static final String NODE_VERSION = "version";
+    private static final String NODE_VERSIONSTRING = "versionstring";
+    
     private String mUrl;
     private RemoteOperationResult mLatestResult;
     private Context mContext;
     private OwnCloudVersion mOCVersion;
+    private OwnCloudVersion mOCVersionString;
 
     public OwnCloudServerCheckOperation(String url, Context context) {
         mUrl = url;
         mContext = context;
         mOCVersion = null;
+        mOCVersionString = null;
     }
     
     public OwnCloudVersion getDiscoveredVersion() {
         return mOCVersion;
+    }
+    public boolean isSharedSupported() {
+        OwnCloudVersion shareServer = new OwnCloudVersion(OCVERSION_SHARED_SUPPORTED);
+        
+        return mOCVersionString.compareTo(shareServer) >= 0; 
     }
 
     private boolean tryConnection(WebdavClient wc, String urlSt) {
@@ -64,10 +92,11 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
             String response = get.getResponseBodyAsString();
             if (status == HttpStatus.SC_OK) {
                 JSONObject json = new JSONObject(response);
-                if (!json.getBoolean("installed")) {
+                if (!json.getBoolean(NODE_INSTALLED)) {
                     mLatestResult = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
                 } else {
-                    mOCVersion = new OwnCloudVersion(json.getString("version"));
+                    mOCVersion = new OwnCloudVersion(json.getString(NODE_VERSION));
+                    mOCVersionString = new OwnCloudVersion(json.getString(NODE_VERSIONSTRING), true);
                     if (!mOCVersion.isVersionValid()) {
                         mLatestResult = new RemoteOperationResult(RemoteOperationResult.ResultCode.BAD_OC_VERSION);
                         
@@ -97,13 +126,13 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
         }
         
         if (mLatestResult.isSuccess()) {
-            Log_OC.i(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
+            Log.i(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
             
         } else if (mLatestResult.getException() != null) {
-            Log_OC.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage(), mLatestResult.getException());
+            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage(), mLatestResult.getException());
             
         } else {
-            Log_OC.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
+            Log.e(TAG, "Connection check at " + urlSt + ": " + mLatestResult.getLogMessage());
         }
 
         return retval;
@@ -128,7 +157,7 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
             client.setBaseUri(Uri.parse("https://" + mUrl + AccountUtils.STATUS_PATH));
             boolean httpsSuccess = tryConnection(client, "https://" + mUrl + AccountUtils.STATUS_PATH); 
             if (!httpsSuccess && !mLatestResult.isSslRecoverableException()) {
-                Log_OC.d(TAG, "establishing secure connection failed, trying non secure connection");
+                Log.d(TAG, "establishing secure connection failed, trying non secure connection");
                 client.setBaseUri(Uri.parse("http://" + mUrl + AccountUtils.STATUS_PATH));
                 tryConnection(client, "http://" + mUrl + AccountUtils.STATUS_PATH);
             }
