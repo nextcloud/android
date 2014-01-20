@@ -24,7 +24,7 @@
  -->
  
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.owncloud.android.oc_framework_test_project"
+    package="com.owncloud.android.lib.test_project"
     android:versionCode="1"
     android:versionName="1.0" >
     
@@ -47,7 +47,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.owncloud.android.oc_framework_test_project.TestActivity"
+            android:name="com.owncloud.android.lib.test_project.TestActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>oc_framework-test</name>
+	<name>ownCloud Android Library Tests</name>
 	<comment></comment>
 	<projects>
 		<project>oc_framework-test-project</project>

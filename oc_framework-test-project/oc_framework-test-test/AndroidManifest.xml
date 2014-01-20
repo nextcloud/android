@@ -24,7 +24,7 @@
  -->
  
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.owncloud.android.oc_framework_test_project.test"
+    package="com.owncloud.android.lib.test_project.test"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -35,7 +35,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:label="Tests for com.owncloud.android.oc_framework_test_project"
-        android:targetPackage="com.owncloud.android.oc_framework_test_project" />
+        android:label="Tests for com.owncloud.android.lib.test_project"
+        android:targetPackage="com.owncloud.android.lib.test_project" />
 
 </manifest>

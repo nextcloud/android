@@ -38,7 +38,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -181,7 +181,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setLoadWithOverviewMode(false);
         webSettings.setSavePassword(false);
-        webSettings.setUserAgentString(WebdavClient.USER_AGENT);
+        webSettings.setUserAgentString(OwnCloudClient.USER_AGENT);
         webSettings.setSaveFormData(false);
         
         return rootView;
