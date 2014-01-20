@@ -64,6 +64,7 @@ import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
+import com.owncloud.android.oc_framework.operations.remote.GetUserNameRemoteOperation;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
@@ -102,8 +103,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
-    
-    private static final String KEY_OC_USERNAME_EQUALS = "oc_username=";
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -792,10 +791,41 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
             }
+        } else if (operation instanceof GetUserNameRemoteOperation) {
+            onGetUserNameFinish((GetUserNameRemoteOperation) operation, result);
+             
         }
+        
     }
-    
-    
+
+    private void onGetUserNameFinish(GetUserNameRemoteOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            boolean success = false;
+            String username = operation.getUserName();
+            
+            if ( mAction == ACTION_CREATE) {
+                mUsernameInput.setText(username);
+                success = createAccount();
+            } else {
+                
+                if (!mUsernameInput.getText().toString().equals(username)) {
+                    // fail - not a new account, but an existing one; disallow
+                    result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
+                    updateAuthStatusIconAndText(result);
+                    showAuthStatus();
+                    Log_OC.d(TAG, result.getLogMessage());
+                } else {
+                  updateToken();
+                  success = true;
+                }
+            }
+            
+            if (success)
+                finish();
+        }
+        
+    }
+
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperation operation, RemoteOperationResult result) {
         try {
             dismissDialog(DIALOG_LOGIN_PROGRESS);
@@ -1120,7 +1150,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 success = createAccount();
 
             } else {
-                success = updateToken();
+                updateToken();
+                success = true;
             }
 
             if (success) {
@@ -1166,7 +1197,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * Sets the proper response to get that the Account Authenticator that started this activity saves 
      * a new authorization token for mAccount.
      */
-    private boolean updateToken() {
+    private void updateToken() {
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
@@ -1177,16 +1208,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
-            String username = getUserNameForSamlSso();
-            if (!mUsernameInput.getText().toString().equals(username)) {
-                // fail - not a new account, but an existing one; disallow
-                RemoteOperationResult result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
-                updateAuthStatusIconAndText(result);
-                showAuthStatus();
-                Log_OC.d(TAG, result.getLogMessage());
-                
-                return false;
-            }
             
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
@@ -1198,7 +1219,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         setAccountAuthenticatorResult(response);
         
-        return true;
     }
 
 
@@ -1216,10 +1236,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         Uri uri = Uri.parse(mHostBaseUrl);
         String username = mUsernameInput.getText().toString().trim();
-        if (isSaml) {
-            username = getUserNameForSamlSso();
-            
-        } else if (isOAuth) {
+        if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
         }            
         String accountName = username + "@" + uri.getHost();
@@ -1277,20 +1294,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     
             return true;
         }
-    }
-
-    
-    private String getUserNameForSamlSso() {
-        if (mAuthToken != null) {
-            String [] cookies = mAuthToken.split(";");
-            for (int i=0; i<cookies.length; i++) {
-                if (cookies[i].startsWith(KEY_OC_USERNAME_EQUALS )) {
-                    String value = Uri.decode(cookies[i].substring(KEY_OC_USERNAME_EQUALS.length()));
-                    return value;
-                }
-            }
-        }
-        return "";
     }
 
 
@@ -1593,16 +1596,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
-            boolean success = false;
-            if (mAction == ACTION_CREATE) {
-                success = createAccount();
-        
-            } else {
-                success = updateToken();
-            }
-            if (success) {
-                finish();
-            }
+
+            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation();            
+            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
+            client.setSsoSessionCookie(mAuthToken);
+            getUserOperation.execute(client, this, mHandler);
         }
 
             
@@ -1652,4 +1650,5 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         return super.onTouchEvent(event);
     }
+    
 }

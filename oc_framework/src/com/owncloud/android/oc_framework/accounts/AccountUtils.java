@@ -118,8 +118,8 @@ public class AccountUtils {
     
     public static class AccountNotFoundException extends AccountsException {
         
-        /** Generated - should be refreshed every time the class changes!! */
-        private static final long serialVersionUID = -9013287181793186830L;
+		/** Generated - should be refreshed every time the class changes!! */
+		private static final long serialVersionUID = -1684392454798508693L;
         
         private Account mFailedAccount; 
                 
@@ -132,5 +132,4 @@ public class AccountUtils {
             return mFailedAccount;
         }
     }
-
 }

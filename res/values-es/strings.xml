@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">App Android %1$s</string>
+  <string name="about_android">%1$s para Android</string>
   <string name="about_version">versión %1$s</string>
   <string name="actionbar_sync">Actualizar cuenta</string>
-  <string name="actionbar_upload">Subir archivo</string>
+  <string name="actionbar_upload">Subir</string>
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
   <string name="actionbar_mkdir">Crear directorio</string>
-  <string name="actionbar_settings">Ajustes</string>
+  <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
@@ -16,7 +16,7 @@
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
   <string name="prefs_pincode">PIN de aplicación </string>
   <string name="prefs_pincode_summary">Proteja su cliente</string>
-  <string name="prefs_instant_upload">Habilita la subida instantánea</string>
+  <string name="prefs_instant_upload">Activar la subida instantánea</string>
   <string name="prefs_instant_upload_summary">Subir instantáneamente las fotos tomadas por la cámara</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
@@ -38,14 +38,14 @@
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
   <string name="uploader_top_message">Escoja el directorio de carga:</string>
-  <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
+  <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
   <string name="uploader_wrn_no_content_title">No hay contenido para subir</string>
   <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
   <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
-  <string name="uploader_info_uploading">Enviando</string>
+  <string name="uploader_info_uploading">Subiendo...</string>
   <string name="file_list_empty">No hay archivos en esta carpeta.\nPuedes añadir nuevos archivos con la opción \"Subir\" del menú.</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
@@ -78,7 +78,7 @@
   <string name="uploader_upload_failed_ticker">Error en la subida</string>
   <string name="uploader_upload_failed_content_single">La subida de %1$s no se pudo completar</string>
   <string name="downloader_download_in_progress_ticker">Descargando ...</string>
-  <string name="downloader_download_in_progress_content">%1$s Descargada de %2$s</string>
+  <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
   <string name="downloader_download_succeeded_ticker">Descarga completa</string>
   <string name="downloader_download_succeeded_content">%1$s se ha descargado con éxito</string>
   <string name="downloader_download_failed_ticker">Falló la descarga</string>
@@ -178,7 +178,7 @@
   <string name="filename_forbidden_characters">Carácteres ilegales: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
-  <string name="filedisplay_no_file_selected">No fué seleccionado ningún archivo</string>
+  <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
   <string name="oauth_check_onoff">Ingresar con oAuth2</string>
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
@@ -209,7 +209,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Subir imágenes sólo via WiFi</string>
+  <string name="instant_upload_on_wifi">Subir imágenes sólo cuando hay WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>

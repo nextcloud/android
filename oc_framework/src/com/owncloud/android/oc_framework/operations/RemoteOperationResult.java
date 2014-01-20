@@ -40,6 +40,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.jackrabbit.webdav.DavException;
+import org.json.JSONException;
 
 import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.oc_framework.network.CertificateCombinedException;
@@ -58,9 +59,9 @@ import android.util.Log;
  * @author David A. Velasco
  */
 public class RemoteOperationResult implements Serializable {
-
+	
 	/** Generated - should be refreshed every time the class changes!! */
-	private static final long serialVersionUID = -2469951225222759283L;
+	private static final long serialVersionUID = -8257349554488668693L;
     
     private static final String TAG = "RemoteOperationResult";
     
@@ -301,6 +302,9 @@ public class RemoteOperationResult implements Serializable {
             } else if (mException instanceof AccountsException) {
                 return "Exception while using account";
                 
+            } else if (mException instanceof JSONException) {
+            	return "JSON exception";
+            	
             } else {
                 return "Unexpected exception";
             }
