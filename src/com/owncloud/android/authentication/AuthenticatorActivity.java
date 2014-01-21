@@ -245,6 +245,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
+                mIsSharedSupported = Boolean.getBoolean(mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+                
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
             mJustCreated = true;
@@ -1292,6 +1294,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION,    mDiscoveredVersion.toString());
             mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
+            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API, Boolean.toString(mIsSharedSupported));
             if (isSaml) {
                 mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
             } else if (isOAuth) {

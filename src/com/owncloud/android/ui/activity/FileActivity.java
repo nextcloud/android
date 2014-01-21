@@ -33,6 +33,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -69,6 +70,11 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
+    
+    /** Flag to signal if the server supports the Share API */
+    private boolean mIsSharedSupported;
+    
+    
 
     
     /**
@@ -158,6 +164,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
+        AccountManager accountManager = AccountManager.get(this);
         Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
@@ -171,6 +178,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             mAccountWasRestored = (newAccount.equals(mAccount));
             mAccount = newAccount;
         }
+        setIsSharedSupported( Boolean.getBoolean(accountManager.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API)));
     }
 
 
@@ -244,6 +252,18 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         return mRedirectingToSetupAccount;
     }
     
+    
+    /**
+     *  @return 'True' if the server supports the Share API
+     */
+    public boolean isSharedSupported() {
+        return mIsSharedSupported;
+    }
+
+
+    public void setIsSharedSupported(boolean mIsSharedSupported) {
+        this.mIsSharedSupported = mIsSharedSupported;
+    }
     
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
