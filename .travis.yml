@@ -15,5 +15,9 @@ before_install:
 before_script:
   - wait_for_emulator
 
-script: mvn install -Pintegration-tests -Dandroid.device=test
+#script: mvn install -Pintegration-tests -Dandroid.device=test
+script:
+  - ./setup_env.sh
+  - ant clean
+  - ant debug
 
