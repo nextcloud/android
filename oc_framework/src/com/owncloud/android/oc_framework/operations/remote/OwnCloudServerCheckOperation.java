@@ -79,7 +79,7 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
     }
     public boolean isSharedSupported() {
         OwnCloudVersion shareServer = new OwnCloudVersion(OCVERSION_SHARED_SUPPORTED);
-        if (isOnline()) {
+        if (mOCVersionString != null) {
         	return mOCVersionString.compareTo(shareServer) >= 0;
         } else {
         	return false;
