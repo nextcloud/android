@@ -1,33 +1,45 @@
-/* ownCloud Android client application
- *   Copyright (C) 2012-2014 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/* ownCloud Android Library is available under MIT license
+ *   Copyright (C) 2014 ownCloud (http://www.owncloud.org/)
+ *   
+ *   Permission is hereby granted, free of charge, to any person obtaining a copy
+ *   of this software and associated documentation files (the "Software"), to deal
+ *   in the Software without restriction, including without limitation the rights
+ *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *   copies of the Software, and to permit persons to whom the Software is
+ *   furnished to do so, subject to the following conditions:
+ *   
+ *   The above copyright notice and this permission notice shall be included in
+ *   all copies or substantial portions of the Software.
+ *   
+ *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+ *   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ *   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+ *   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+ *   BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN 
+ *   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+ *   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *   THE SOFTWARE.
  *
  */
 
-package com.owncloud.android.datamodel;
-
-import com.owncloud.android.oc_framework.operations.ShareType;
-import com.owncloud.android.utils.Log_OC;
+package com.owncloud.android.oc_framework.operations;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
-public class OCShare implements Parcelable{
+import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
+import com.owncloud.android.oc_framework.utils.FileUtils;
 
-    private static final String TAG = OCShare.class.getSimpleName();
+public class ShareRemoteFile extends RemoteFile {
+
+	/**
+	 * Generated - should be refreshed every time the class changes!!
+	 */
+	private static final long serialVersionUID = -5916376011588784325L;
+	
+    private static final String TAG = ShareRemoteFile.class.getSimpleName();
     
-    private long mId;
     private long mFileSource;
     private long mItemSource;
     private ShareType mShareType;
@@ -43,27 +55,25 @@ public class OCShare implements Parcelable{
     private long mIdRemoteShared;
     
     
-    /**
-     * Create new {@link OCShare} with given path.
-     * 
-     * The path received must be URL-decoded. Path separator must be OCFile.PATH_SEPARATOR, and it must be the first character in 'path'.
-     * 
-     * @param path The remote path of the file.
-     */
-    public OCShare(String path) {
-        resetData();
-        if (path == null || path.length() <= 0 || !path.startsWith(OCFile.PATH_SEPARATOR)) {
-            Log_OC.e(TAG, "Trying to create a OCShare with a non valid path");
+	public ShareRemoteFile(String path) {
+		super(path);
+		resetData();
+        if (path == null || path.length() <= 0 || !path.startsWith(FileUtils.PATH_SEPARATOR)) {
+            Log.e(TAG, "Trying to create a OCShare with a non valid path");
             throw new IllegalArgumentException("Trying to create a OCShare with a non valid path: " + path);
         }
         mPath = path;
-    }
+	}
 
-    /**
+	public ShareRemoteFile(WebdavEntry we) {
+		super(we);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Used internally. Reset all file properties
      */
     private void resetData() {
-        mId = -1;
         mFileSource = 0;
         mItemSource = 0;
         mShareType = ShareType.NO_SHARED; 
@@ -76,9 +86,8 @@ public class OCShare implements Parcelable{
         mSharedWithDisplayName = null;
         mIsDirectory = false;
         mUserId = -1;
-        mIdRemoteShared = -1;
-        
-    }
+        mIdRemoteShared = -1;        
+    }	
     
     /// Getters and Setters
     public long getFileSource() {
@@ -185,22 +194,18 @@ public class OCShare implements Parcelable{
         this.mIdRemoteShared = idRemoteShared;
     }
 
-    public long getId() {
-        return mId;
-    }
-
     /** 
      * Parcelable Methods
      */
-    public static final Parcelable.Creator<OCShare> CREATOR = new Parcelable.Creator<OCShare>() {
+    public static final Parcelable.Creator<ShareRemoteFile> CREATOR = new Parcelable.Creator<ShareRemoteFile>() {
         @Override
-        public OCShare createFromParcel(Parcel source) {
-            return new OCShare(source);
+        public ShareRemoteFile createFromParcel(Parcel source) {
+            return new ShareRemoteFile(source);
         }
 
         @Override
-        public OCShare[] newArray(int size) {
-            return new OCShare[size];
+        public ShareRemoteFile[] newArray(int size) {
+            return new ShareRemoteFile[size];
         }
     };
     
@@ -208,9 +213,14 @@ public class OCShare implements Parcelable{
      * Reconstruct from parcel
      * 
      * @param source The source parcel
-     */
-    private OCShare(Parcel source) {
-        mId = source.readLong();
+     */    
+    protected ShareRemoteFile(Parcel source) {
+    	super(source);
+    }
+    
+    public void readFromParcel(Parcel source) {
+    	super.readFromParcel(source);
+    	
         mFileSource = source.readLong();
         mItemSource = source.readLong();
         try {
@@ -229,15 +239,12 @@ public class OCShare implements Parcelable{
         mUserId = source.readLong();
         mIdRemoteShared = source.readLong();
     }
-    
-    @Override
-    public int describeContents() {
-        return this.hashCode();
-    }
+
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(mId);
+    	super.writeToParcel(dest, flags);
+    	
         dest.writeLong(mFileSource);
         dest.writeLong(mItemSource);
         dest.writeString((mShareType == null) ? "" : mShareType.name());
@@ -252,5 +259,4 @@ public class OCShare implements Parcelable{
         dest.writeLong(mUserId);
         dest.writeLong(mIdRemoteShared);
     }
-
 }
