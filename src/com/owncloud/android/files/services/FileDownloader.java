@@ -435,7 +435,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
-            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR + 1));
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
             mNotification.contentView.setTextViewText(R.id.status_text, text);
             mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
