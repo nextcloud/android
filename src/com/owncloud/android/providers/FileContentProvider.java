@@ -90,6 +90,8 @@ public class FileContentProvider extends ContentProvider {
         mFileProjectionMap.put(ProviderTableMeta.FILE_ETAG, 
                 ProviderTableMeta.FILE_ETAG);
         mFileProjectionMap.put(ProviderTableMeta.FILE_SHARE_BY_LINK,
+                ProviderTableMeta.FILE_SHARE_BY_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_PUBLIC_LINK,
                 ProviderTableMeta.FILE_PUBLIC_LINK);
     }
 
