@@ -39,6 +39,7 @@ import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -430,10 +431,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * Callback method to update the progress bar in the status notification.
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR + 1));
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
             mNotification.contentView.setTextViewText(R.id.status_text, text);
             mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
