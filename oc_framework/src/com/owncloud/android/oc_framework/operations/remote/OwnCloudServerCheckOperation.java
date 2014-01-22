@@ -79,8 +79,12 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
     }
     public boolean isSharedSupported() {
         OwnCloudVersion shareServer = new OwnCloudVersion(OCVERSION_SHARED_SUPPORTED);
-        
-        return mOCVersionString.compareTo(shareServer) >= 0; 
+        if (mOCVersionString != null) {
+        	return mOCVersionString.compareTo(shareServer) >= 0;
+        } else {
+        	return false;
+        }
+        	
     }
 
     private boolean tryConnection(WebdavClient wc, String urlSt) {

@@ -31,6 +31,12 @@ import android.util.Log;
 import com.owncloud.android.oc_framework.network.webdav.WebdavEntry;
 import com.owncloud.android.oc_framework.utils.FileUtils;
 
+/**
+ * Contains the data of a Share Remote File from the Share API
+ * 
+ * @author masensio
+ *
+ */
 public class ShareRemoteFile extends RemoteFile {
 
 	/**

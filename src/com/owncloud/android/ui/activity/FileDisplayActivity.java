@@ -72,6 +72,7 @@ import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.GetSharedFilesOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -223,7 +224,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     protected void onAccountSet(boolean stateWasRecovered) {
         if (getAccount() != null) {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-
+                
             /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
             OCFile file = getFile();
             // get parent from path
@@ -245,6 +246,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             }
             setFile(file);
             setNavigationListWithFolder(file);
+            
+            /// get the shared files
+            if (isSharedSupported()) {
+                startGetSharedFiles();
+            }
+            
             if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
@@ -1278,9 +1285,23 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
             
-        } 
+        } else if (operation instanceof GetSharedFilesOperation) {
+            onGetSharedFilesOperationFinish((GetSharedFilesOperation) operation, result);
+        }
     }
 
+
+    /** Updates the data about shared files
+     * 
+     * @param operation     Get Shared Files
+     * @param result        Result of the operation
+     */
+    private void onGetSharedFilesOperationFinish(GetSharedFilesOperation operation, RemoteOperationResult result) {
+        // TODO
+        // Refresh the filelist with the information
+        refeshListOfFilesFragment();
+        
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 
@@ -1490,6 +1511,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         setSupportProgressBarIndeterminateVisibility(true);
     }
 
+    
+    private void startGetSharedFiles() {
+        // Get shared files/folders
+        RemoteOperation getSharedFiles = new GetSharedFilesOperation();
+        getSharedFiles.execute(getAccount(), this, null, null, this);
+        
+    }
     
 //    public void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
 //        int childCount = viewGroup.getChildCount();
