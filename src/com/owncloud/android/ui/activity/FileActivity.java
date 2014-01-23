@@ -71,10 +71,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
     
-    /** Flag to signal if the server supports the Share API */
-    private boolean mIsSharedSupported;
-    
-    
 
     
     /**
@@ -164,7 +160,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        AccountManager accountManager = AccountManager.get(this);
         Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
@@ -178,7 +173,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             mAccountWasRestored = (newAccount.equals(mAccount));
             mAccount = newAccount;
         }
-        setIsSharedSupported( Boolean.getBoolean(accountManager.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API)));
     }
 
 
@@ -257,14 +251,14 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      *  @return 'True' if the server supports the Share API
      */
     public boolean isSharedSupported() {
-        return mIsSharedSupported;
+        if (getAccount() != null) {
+            AccountManager accountManager = AccountManager.get(this);
+            return Boolean.getBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+        }
+        return false;
     }
 
 
-    public void setIsSharedSupported(boolean mIsSharedSupported) {
-        this.mIsSharedSupported = mIsSharedSupported;
-    }
-    
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
