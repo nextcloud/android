@@ -71,10 +71,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
     
-    /** Flag to signal if the server supports the Share API */
-    private boolean mIsSharedSupported;
-    
-    
 
     
     /**
@@ -148,11 +144,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             
         } else {
             swapToDefaultAccount();
-        }
-        
-        AccountManager accountMngr = AccountManager.get(getBaseContext()); 
-        if (mAccount != null) {
-            mIsSharedSupported = Boolean.parseBoolean(accountMngr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
     }
 
@@ -260,14 +251,13 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      *  @return 'True' if the server supports the Share API
      */
     public boolean isSharedSupported() {
-        return mIsSharedSupported;
+        if (getAccount() != null) {
+            AccountManager accountManager = AccountManager.get(this);
+            return Boolean.getBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+        }
+        return false;
     }
 
-
-    public void setIsSharedSupported(boolean isSharedSupported) {
-        this.mIsSharedSupported = isSharedSupported;
-    }
-    
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
