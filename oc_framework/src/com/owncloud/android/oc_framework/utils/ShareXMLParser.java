@@ -61,7 +61,7 @@ public class ShareXMLParser {
 
 	private static final String NODE_DATA = "data";
 	private static final String NODE_ELEMENT = "element";
-	//private static final String NODE_ID = "id";
+	private static final String NODE_ID = "id";
 	private static final String NODE_ITEM_TYPE = "item_type";
 	private static final String NODE_ITEM_SOURCE = "item_source";
 	private static final String NODE_PARENT = "parent";
@@ -235,7 +235,10 @@ public class ShareXMLParser {
 			
 			String name = parser.getName();
 
-			if (name.equalsIgnoreCase(NODE_ITEM_TYPE)) {
+			if (name.equalsIgnoreCase(NODE_ID)) {
+				sharedFile.setIdRemoteShared(Integer.parseInt(readNode(parser, NODE_ID)));
+
+			} else if (name.equalsIgnoreCase(NODE_ITEM_TYPE)) {
 				sharedFile.setIsDirectory(readNode(parser, NODE_ITEM_TYPE).equalsIgnoreCase(TYPE_FOLDER));
 
 			} else if (name.equalsIgnoreCase(NODE_ITEM_SOURCE)) {

@@ -1519,7 +1519,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         AccountManager accountMngr = AccountManager.get(this); 
         String urlServer = accountMngr.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_OC_BASE_URL);
         
-        RemoteOperation getSharedFiles = new GetSharedFilesOperation(urlServer);
+        RemoteOperation getSharedFiles = new GetSharedFilesOperation(urlServer, mStorageManager);
         getSharedFiles.execute(getAccount(), this, null, null, this);
         
     }
