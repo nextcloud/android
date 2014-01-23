@@ -54,14 +54,14 @@
             android:src="@drawable/ic_favorite" />
         
     </FrameLayout>
-
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical" >
-
+
         <TextView
             android:id="@+id/Filename"
             android:layout_width="wrap_content"
@@ -102,7 +102,14 @@
         </LinearLayout>
 
     </LinearLayout>
-
+
+    <ImageView
+        android:id="@+id/share_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@android:drawable/ic_menu_share" />
+
     <ImageView
         android:id="@+id/custom_checkbox"
         android:layout_width="wrap_content"
