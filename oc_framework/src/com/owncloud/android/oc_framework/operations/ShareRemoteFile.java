@@ -60,6 +60,10 @@ public class ShareRemoteFile extends RemoteFile {
     private long mUserId;
     private long mIdRemoteShared;
     
+    public ShareRemoteFile() {
+    	super();
+    	resetData();
+    }
     
 	public ShareRemoteFile(String path) {
 		super(path);

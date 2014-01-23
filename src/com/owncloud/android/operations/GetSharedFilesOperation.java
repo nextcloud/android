@@ -31,22 +31,26 @@ import com.owncloud.android.oc_framework.operations.remote.GetRemoteSharedFilesO
 
 public class GetSharedFilesOperation extends RemoteOperation {
 
-    public GetSharedFilesOperation() {
-        // TODO Auto-generated constructor stub
+    private String mUrlServer;
+
+    public GetSharedFilesOperation(String urlServer) {
+        mUrlServer = urlServer;
     }
 
     @Override
     protected RemoteOperationResult run(WebdavClient client) {
-        GetRemoteSharedFilesOperation operation = new GetRemoteSharedFilesOperation();
+        GetRemoteSharedFilesOperation operation = new GetRemoteSharedFilesOperation(mUrlServer);
         RemoteOperationResult result = operation.execute(client);
         
         if (result.isSuccess()) {
+            
+            // Update DB with the response
             
         } else {
             
         }
         
-        return null;
+        return result;
     }
 
 }

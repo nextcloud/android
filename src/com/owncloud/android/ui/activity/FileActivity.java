@@ -87,7 +87,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -100,6 +99,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         }
 
         setAccount(account, savedInstanceState != null);
+       
     }
 
     
@@ -149,6 +149,11 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         } else {
             swapToDefaultAccount();
         }
+        
+        AccountManager accountMngr = AccountManager.get(getBaseContext()); 
+        if (mAccount != null) {
+            mIsSharedSupported = Boolean.parseBoolean(accountMngr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+        }
     }
 
     
@@ -164,7 +169,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        AccountManager accountManager = AccountManager.get(this);
         Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
@@ -178,7 +182,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             mAccountWasRestored = (newAccount.equals(mAccount));
             mAccount = newAccount;
         }
-        setIsSharedSupported( Boolean.getBoolean(accountManager.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API)));
     }
 
 
@@ -261,8 +264,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     }
 
 
-    public void setIsSharedSupported(boolean mIsSharedSupported) {
-        this.mIsSharedSupported = mIsSharedSupported;
+    public void setIsSharedSupported(boolean isSharedSupported) {
+        this.mIsSharedSupported = isSharedSupported;
     }
     
     /**

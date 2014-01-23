@@ -24,19 +24,24 @@
 
 package com.owncloud.android.oc_framework.operations.remote;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpStatus;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Log;
 
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.oc_framework.operations.ShareRemoteFile;
+import com.owncloud.android.oc_framework.utils.ShareXMLParser;
 
 /** 
  * Get the data from the server to know shared files/folders
@@ -50,12 +55,18 @@ public class GetRemoteSharedFilesOperation extends RemoteOperation {
 	private static final String TAG = GetRemoteSharedFilesOperation.class.getSimpleName();
 
 	// OCS Route
-	private static final String SHAREAPI_ROUTE ="/ocs/v1.php/apps/files/files_sharing/api/v1/shares"; 
+	private static final String SHAREAPI_ROUTE ="/ocs/v1.php/apps/files_sharing/api/v1/shares"; 
 
 	private ArrayList<ShareRemoteFile> mSharedFiles;  // List of files for result
 
-	public GetRemoteSharedFilesOperation() {
-		// TODO Auto-generated constructor stub
+	private String mUrlServer;
+
+	public ArrayList<ShareRemoteFile> getSharedFiles() {
+		return mSharedFiles;
+	}
+	
+	public GetRemoteSharedFilesOperation(String urlServer) {
+		mUrlServer = urlServer;
 	}
 
 	@Override
@@ -63,9 +74,9 @@ public class GetRemoteSharedFilesOperation extends RemoteOperation {
 		RemoteOperationResult result = null;
 		int status = -1;
 
-		// Get Method
-		GetMethod get = new GetMethod(client.getBaseUri() + SHAREAPI_ROUTE);
-		Log.d(TAG, "URL ------> " + client.getBaseUri() + SHAREAPI_ROUTE);
+		// Get Method        
+		GetMethod get = new GetMethod(mUrlServer + SHAREAPI_ROUTE);
+		Log.d(TAG, "URL ------> " + mUrlServer + SHAREAPI_ROUTE);
 
 		// Get the response
 		try{
@@ -74,11 +85,24 @@ public class GetRemoteSharedFilesOperation extends RemoteOperation {
 				Log.d(TAG, "Obtain RESPONSE");
 				String response = get.getResponseBodyAsString();
 				Log.d(TAG, response);
+
+				// Parse xml response --> obtain the response in ShareFiles ArrayList
+				// convert String into InputStream
+				InputStream is = new ByteArrayInputStream(response.getBytes());
+				ShareXMLParser xmlParser = new ShareXMLParser();
+				mSharedFiles = xmlParser.parseXMLResponse(is);
+				if (mSharedFiles != null) {
+					Log.d(TAG, "Shared Files: " + mSharedFiles.size());
+					result = new RemoteOperationResult(ResultCode.OK);
+				}
 			}
 		} catch (HttpException e) {
 			result = new RemoteOperationResult(e);
 			e.printStackTrace();
 		} catch (IOException e) {
+			result = new RemoteOperationResult(e);
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
 			result = new RemoteOperationResult(e);
 			e.printStackTrace();
 		} finally {
@@ -90,4 +114,6 @@ public class GetRemoteSharedFilesOperation extends RemoteOperation {
 	private boolean isSuccess(int status) {
 		return (status == HttpStatus.SC_OK);
 	}
+
+
 }

@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -68,6 +69,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
 import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
@@ -1514,7 +1516,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void startGetSharedFiles() {
         // Get shared files/folders
-        RemoteOperation getSharedFiles = new GetSharedFilesOperation();
+        AccountManager accountMngr = AccountManager.get(this); 
+        String urlServer = accountMngr.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_OC_BASE_URL);
+        
+        RemoteOperation getSharedFiles = new GetSharedFilesOperation(urlServer);
         getSharedFiles.execute(getAccount(), this, null, null, this);
         
     }

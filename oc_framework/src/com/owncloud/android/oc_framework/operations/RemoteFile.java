@@ -94,6 +94,10 @@ public class RemoteFile implements Parcelable, Serializable {
 	public void setEtag(String etag) {
 		this.mEtag = etag;
 	}
+	
+	public RemoteFile() {
+		resetData();
+	}
 
 	/**
      * Create new {@link RemoteFile} with given path.
