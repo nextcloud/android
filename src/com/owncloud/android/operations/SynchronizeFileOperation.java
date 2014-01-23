@@ -94,7 +94,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                 }
             }
 
-            if (result.isSuccess()) {   
+            if (mServerFile != null) {   
 
                 /// check changes in server and local file
                 boolean serverChanged = false;
