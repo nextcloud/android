@@ -165,11 +165,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-               checkBoxV.setVisibility(View.GONE);
-               view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+                checkBoxV.setVisibility(View.GONE);
+                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
             
-            ImageView shareIconV = (ImageView) view.findViewById(R.id.share_indicator);
+            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
             if (file.isShareByLink()) {
                 shareIconV.setVisibility(View.VISIBLE);
             } else {
