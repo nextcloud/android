@@ -137,6 +137,7 @@ public class DownloadFileOperation extends RemoteOperation {
         result = mDownloadOperation.execute(client);
         
         if (result.isSuccess()) {
+            mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
