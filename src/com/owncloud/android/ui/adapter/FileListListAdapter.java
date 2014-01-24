@@ -168,6 +168,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                checkBoxV.setVisibility(View.GONE);
                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             }
+            
+            ImageView shareIconV = (ImageView) view.findViewById(R.id.share_indicator);
+            if (file.isShareByLink()) {
+                shareIconV.setVisibility(View.VISIBLE);
+            } else {
+                shareIconV.setVisibility(View.INVISIBLE);
+            }
         }
 
         return view;

@@ -253,7 +253,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public boolean isSharedSupported() {
         if (getAccount() != null) {
             AccountManager accountManager = AccountManager.get(this);
-            return Boolean.getBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+            return Boolean.parseBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;
     }
