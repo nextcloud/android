@@ -79,6 +79,8 @@ To make sure your new pull request does not contain commits which are already co
 * git fetch upstream
 * git checkout -b my_new_develop_branch upstream/develop
 * If you want to rename that branch later: "git checkout -b my_new_develop_branch_with_new_name"
+* Push branch to server: "git push -u origin meaningful_name_for_branch"
+* Use Github to issue PR
 
 
 [0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md
