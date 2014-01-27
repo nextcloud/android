@@ -23,7 +23,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.OCShare;
 import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
 import com.owncloud.android.oc_framework.operations.RemoteOperation;
 import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
 import com.owncloud.android.oc_framework.operations.ShareRemoteFile;
@@ -59,6 +58,8 @@ public class GetSharedFilesOperation extends RemoteOperation {
         
         if (result.isSuccess()) {
             
+            // Clean Share data in filelist table
+            mStorageManager.cleanShareFile();
             // Update DB with the response
             ArrayList<ShareRemoteFile> shareRemoteFiles = operation.getSharedFiles();
             Log_OC.d(TAG, "Share list size = " + shareRemoteFiles.size());

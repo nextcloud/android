@@ -932,4 +932,24 @@ public class FileDataStorageManager {
     public boolean fileShareExists(String path) {
         return fileShareExists(ProviderTableMeta.OCSHARES_PATH, path);
     }
+    
+    public void cleanShareFile() {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, false);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String [] whereArgs = new String[]{mAccount.name};
+        
+        if (getContentResolver() != null) {
+            getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
+
+        } else {
+            try {
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
+                
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in cleanShareFile" + e.getMessage());
+            }
+        }
+    } 
 }

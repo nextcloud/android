@@ -1301,11 +1301,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void onGetSharedFilesOperationFinish(GetSharedFilesOperation operation, RemoteOperationResult result) {
         // TODO
         // Refresh the filelist with the information
-        refeshListOfFilesFragment();
-//        OCFileListFragment fileListFragment = getListOfFilesFragment();
-//        if (fileListFragment != null) { 
-//            fileListFragment.listDirectory(getCurrentDir());
-//        }      
+        refeshListOfFilesFragment();    
         
     }
 
