@@ -23,12 +23,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.remote.DownloadRemoteFileOperation;
+import com.owncloud.android.lib.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.remote.DownloadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -119,7 +118,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         File newFile = null;
         boolean moved = true;
@@ -128,10 +127,9 @@ public class DownloadFileOperation extends RemoteOperation {
         File tmpFile = new File(getTmpPath());
         
         String tmpFolder =  getTmpFolder();
-        RemoteFile remoteFile = FileStorageUtils.fillRemoteFile(mFile);
         
         /// perform the download
-        mDownloadOperation = new DownloadRemoteFileOperation(remoteFile, tmpFolder);
+        mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
         Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
         while (listener.hasNext()) {
             mDownloadOperation.addDatatransferProgressListener(listener.next());
@@ -139,6 +137,7 @@ public class DownloadFileOperation extends RemoteOperation {
         result = mDownloadOperation.execute(client);
         
         if (result.isSuccess()) {
+            mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);

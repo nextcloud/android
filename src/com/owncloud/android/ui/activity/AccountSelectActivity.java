@@ -48,7 +48,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.MainApp;

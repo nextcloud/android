@@ -23,10 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
+import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.utils.OwnCloudVersion;
 import com.owncloud.android.utils.Log_OC;
 
 import android.content.Context;
@@ -55,7 +55,7 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
         return mOCVersion;
     }
 
-    private boolean tryConnection(WebdavClient wc, String urlSt) {
+    private boolean tryConnection(OwnCloudClient wc, String urlSt) {
         boolean retval = false;
         GetMethod get = null;
         try {
@@ -117,7 +117,7 @@ public class OwnCloudServerCheckOperation extends RemoteOperation {
     }
 
 	@Override
-	protected RemoteOperationResult run(WebdavClient client) {
+	protected RemoteOperationResult run(OwnCloudClient client) {
         if (!isOnline()) {
         	return new RemoteOperationResult(RemoteOperationResult.ResultCode.NO_NETWORK_CONNECTION);
         }

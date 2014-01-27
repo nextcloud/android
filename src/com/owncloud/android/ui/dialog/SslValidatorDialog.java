@@ -39,9 +39,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.owncloud.android.oc_framework.network.CertificateCombinedException;
-import com.owncloud.android.oc_framework.network.NetworkUtils;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.network.CertificateCombinedException;
+import com.owncloud.android.lib.network.NetworkUtils;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.utils.Log_OC;
 
 /**
