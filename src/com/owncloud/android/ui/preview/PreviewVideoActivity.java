@@ -37,8 +37,8 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.oc_framework.accounts.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.accounts.AccountUtils;
+import com.owncloud.android.lib.accounts.AccountUtils.AccountNotFoundException;
 
 /**
  *  Activity implementing a basic video player.

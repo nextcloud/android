@@ -17,8 +17,8 @@
 
 package com.owncloud.android.datamodel;
 
-import com.owncloud.android.oc_framework.operations.ShareRemoteFile;
-import com.owncloud.android.oc_framework.operations.ShareType;
+import com.owncloud.android.lib.operations.common.ShareRemoteFile;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 import android.os.Parcel;

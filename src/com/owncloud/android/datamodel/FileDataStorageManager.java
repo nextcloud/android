@@ -27,7 +27,7 @@ import java.util.Vector;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.oc_framework.operations.ShareType;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
