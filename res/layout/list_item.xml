@@ -108,7 +108,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@android:drawable/ic_menu_share" />
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:src="@drawable/sharedlink" />
 
     <ImageView
         android:id="@+id/custom_checkbox"
