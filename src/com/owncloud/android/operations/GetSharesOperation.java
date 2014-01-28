@@ -70,7 +70,7 @@ public class GetSharesOperation extends RemoteOperation {
 
     private void saveShareDB(OCShare shareFile) {
         // Save share file
-        mStorageManager.saveShareFile(shareFile);
+        mStorageManager.saveShare(shareFile);
         
         // Get the path
         String path = shareFile.getPath();
