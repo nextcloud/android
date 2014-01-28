@@ -934,7 +934,7 @@ public class FileDataStorageManager {
         return shareExists(ProviderTableMeta.OCSHARES_PATH, path);
     }
     
-    public void cleanShare() {
+    public void cleanShares() {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, false);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
@@ -952,5 +952,13 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Exception in cleanShareFile" + e.getMessage());
             }
         }
+    }
+
+    public void saveFiles(ArrayList<OCFile> sharedFiles) {
+        if (sharedFiles != null) {
+            cleanShares();
+            
+        }
+        
     } 
 }

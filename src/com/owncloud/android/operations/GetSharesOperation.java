@@ -39,24 +39,22 @@ public class GetSharesOperation extends RemoteOperation {
     
     private static final String TAG = GetSharesOperation.class.getSimpleName();
 
-    private String mUrlServer;
     protected FileDataStorageManager mStorageManager;
     
 
-    public GetSharesOperation(String urlServer, FileDataStorageManager storageManager) {
-        mUrlServer = urlServer;
+    public GetSharesOperation(FileDataStorageManager storageManager) {
         mStorageManager = storageManager;
     }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesOperation operation = new GetRemoteSharesOperation(mUrlServer);
+        GetRemoteSharesOperation operation = new GetRemoteSharesOperation(client.getBaseUri().toString());
         RemoteOperationResult result = operation.execute(client);
         
         if (result.isSuccess()) {
             
             // Clean Share data in filelist table
-            mStorageManager.cleanShare();
+            mStorageManager.cleanShares();
             
             // Update DB with the response
             Log_OC.d(TAG, "Share list size = " + result.getData().size());

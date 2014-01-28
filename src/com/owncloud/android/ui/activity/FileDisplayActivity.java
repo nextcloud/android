@@ -73,6 +73,8 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.GetSharesOperation;
 
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
@@ -1519,10 +1521,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void startGetShares() {
         // Get shared files/folders
-        AccountManager accountMngr = AccountManager.get(this); 
-        String urlServer = accountMngr.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_OC_BASE_URL);
-        
-        RemoteOperation getShares = new GetSharesOperation(urlServer, mStorageManager);
+        RemoteOperation getShares = new GetSharesOperation(mStorageManager);
         getShares.execute(getAccount(), this, this, mHandler, this);
         
     }
