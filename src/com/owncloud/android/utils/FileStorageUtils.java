@@ -22,7 +22,7 @@ import java.io.File;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
+import com.owncloud.android.lib.operations.common.RemoteFile;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

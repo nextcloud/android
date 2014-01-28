@@ -36,13 +36,13 @@ import android.content.Intent;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFolderOperation;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
+import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.operations.remote.ReadRemoteFileOperation;
+import com.owncloud.android.lib.operations.remote.ReadRemoteFolderOperation;
+import com.owncloud.android.lib.operations.common.RemoteFile;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -155,7 +155,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * {@inheritDoc}
      */
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         mFailsInFavouritesFound = 0;
         mConflictsFound = 0;
@@ -180,7 +180,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
 
 
-    private RemoteOperationResult checkForChanges(WebdavClient client) {
+    private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = false;
         RemoteOperationResult result = null;
         String remotePath = null;
@@ -216,7 +216,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     }
 
 
-    private RemoteOperationResult fetchAndSyncRemoteFolder(WebdavClient client) {
+    private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         ReadRemoteFolderOperation operation = new ReadRemoteFolderOperation(remotePath);
         RemoteOperationResult result = operation.execute(client);
@@ -256,7 +256,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *                          retrieved.  
      *  @return                 'True' when any change was made in the local data, 'false' otherwise.
      */
-    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, WebdavClient client) {
+    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
@@ -348,7 +348,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @param filesToSyncContents       Synchronization operations to execute.
      * @param client                    Interface to the remote ownCloud server.
      */
-    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents, WebdavClient client) {
+    private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents, OwnCloudClient client) {
         RemoteOperationResult contentsResult = null;
         for (SynchronizeFileOperation op: filesToSyncContents) {
             contentsResult = op.execute(client);   // returns without waiting for upload or download finishes

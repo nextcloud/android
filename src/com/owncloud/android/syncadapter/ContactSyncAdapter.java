@@ -25,7 +25,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ByteArrayEntity;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
 
 
 import android.accounts.Account;

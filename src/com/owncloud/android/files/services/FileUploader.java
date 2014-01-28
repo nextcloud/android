@@ -34,18 +34,19 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.RemoteFile;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.operations.remote.ReadRemoteFileOperation;
+import com.owncloud.android.lib.utils.FileUtils;
+import com.owncloud.android.lib.utils.OwnCloudVersion;
+import com.owncloud.android.lib.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.network.OwnCloudClientFactory;
+import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -108,7 +109,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private WebdavClient mUploadClient = null;
+    private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
 
@@ -417,12 +418,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
 
         @Override
-        public void onTransferProgress(long progressRate) {
-            // old way, should not be in use any more
-        }
-
-
-        @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String fileName) {
             String key = buildRemoteName(mCurrentUpload.getAccount(), mCurrentUpload.getFile());
@@ -706,24 +701,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * Callback method to update the progress bar in the status notification
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
             mNotification.contentView.setTextViewText(R.id.status_text, text);
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
         }
         mLastPercent = percent;
-    }
-
-    /**
-     * Callback method to update the progress bar in the status notification
-     * (old version)
-     */
-    @Override
-    public void onTransferProgress(long progressRate) {
-        // NOTHING TO DO HERE ANYMORE
     }
 
     /**

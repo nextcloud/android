@@ -33,8 +33,10 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.network.webdav.WebdavUtils;
+
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -83,7 +85,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -96,6 +97,7 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         }
 
         setAccount(account, savedInstanceState != null);
+       
     }
 
     
@@ -253,11 +255,10 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public boolean isSharedSupported() {
         if (getAccount() != null) {
             AccountManager accountManager = AccountManager.get(this);
-            return Boolean.getBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+            return Boolean.parseBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;
     }
-
 
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of

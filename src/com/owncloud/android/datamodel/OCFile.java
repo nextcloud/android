@@ -102,7 +102,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
-        mShareByLink = source.readInt() == 0;
+        mShareByLink = source.readInt() == 1;
         mPublicLink = source.readString();
     }
 

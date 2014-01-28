@@ -21,6 +21,7 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -68,11 +69,15 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+
 import com.owncloud.android.operations.GetSharedFilesOperation;
+
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -246,11 +251,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             }
             setFile(file);
             setNavigationListWithFolder(file);
-            
-            /// get the shared files
-            if (isSharedSupported()) {
-                startGetSharedFiles();
-            }
             
             if (!stateWasRecovered) {
                 Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
@@ -923,6 +923,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     && mStorageManager != null
                     ) {  
 
+                /// get the shared files
+                if (isSharedSupported()) {
+                    startGetSharedFiles();
+                }
+                
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
                 OCFile currentFile = (getFile() == null) ? null : mStorageManager.getFileByPath(getFile().getRemotePath());
@@ -1299,7 +1304,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void onGetSharedFilesOperationFinish(GetSharedFilesOperation operation, RemoteOperationResult result) {
         // TODO
         // Refresh the filelist with the information
-        refeshListOfFilesFragment();
+        refeshListOfFilesFragment();    
         
     }
 
@@ -1514,8 +1519,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void startGetSharedFiles() {
         // Get shared files/folders
-        RemoteOperation getSharedFiles = new GetSharedFilesOperation();
-        getSharedFiles.execute(getAccount(), this, null, null, this);
+        AccountManager accountMngr = AccountManager.get(this); 
+        String urlServer = accountMngr.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_OC_BASE_URL);
+        
+        RemoteOperation getSharedFiles = new GetSharedFilesOperation(urlServer, mStorageManager);
+        getSharedFiles.execute(getAccount(), this, this, mHandler, this);
         
     }
     

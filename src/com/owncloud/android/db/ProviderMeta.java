@@ -86,6 +86,7 @@ public class ProviderMeta {
         public static final String OCSHARES_IS_DIRECTORY = "is_directory";
         public static final String OCSHARES_USER_ID = "user_id";
         public static final String OCSHARES_ID_REMOTE_SHARED = "id_remote_shared";
+        public static final String OCSHARES_ACCOUNT_OWNER = "owner_share";
         
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE 
                 + " collate nocase asc";

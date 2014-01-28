@@ -17,7 +17,8 @@
 
 package com.owncloud.android.datamodel;
 
-import com.owncloud.android.oc_framework.operations.ShareType;
+import com.owncloud.android.lib.operations.common.ShareRemoteFile;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 import android.os.Parcel;
@@ -59,6 +60,30 @@ public class OCShare implements Parcelable{
         mPath = path;
     }
 
+    public OCShare(ShareRemoteFile remoteFile) {
+        mId = -1;
+
+        String path = remoteFile.getPath();
+        if (path == null || path.length() <= 0 || !path.startsWith(OCFile.PATH_SEPARATOR)) {
+            Log_OC.e(TAG, "Trying to create a OCShare with a non valid path");
+            throw new IllegalArgumentException("Trying to create a OCShare with a non valid path: " + path);
+        }
+        mPath = path;
+        
+        mFileSource = remoteFile.getFileSource();
+        mItemSource = remoteFile.getItemSource();
+        mShareType = remoteFile.getShareType();
+        mShareWith = remoteFile.getShareWith();
+        mPermissions = remoteFile.getPermissions();
+        mSharedDate = remoteFile.getSharedDate();
+        mExpirationDate = remoteFile.getExpirationDate();
+        mToken = remoteFile.getToken();
+        mSharedWithDisplayName = remoteFile.getSharedWithDisplayName();
+        mIsDirectory = remoteFile.isDirectory();
+        mUserId = remoteFile.getUserId();
+        mIdRemoteShared = remoteFile.getIdRemoteShared();
+    }
+    
     /**
      * Used internally. Reset all file properties
      */
@@ -188,6 +213,10 @@ public class OCShare implements Parcelable{
     public long getId() {
         return mId;
     }
+    
+    public void setId(long id){
+        mId = id;
+    }
 
     /** 
      * Parcelable Methods
@@ -252,5 +281,4 @@ public class OCShare implements Parcelable{
         dest.writeLong(mUserId);
         dest.writeLong(mIdRemoteShared);
     }
-
 }
