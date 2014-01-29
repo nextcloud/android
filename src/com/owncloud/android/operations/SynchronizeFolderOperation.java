@@ -223,11 +223,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
-            ArrayList<RemoteFile> remotes = new ArrayList<RemoteFile>();
-            for(Object obj: result.getData()) {
-                remotes.add((RemoteFile) obj);
-            }
-            synchronizeData(remotes, client);
+            synchronizeData(result.getData(), client);
             if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
             }
@@ -260,12 +256,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *                          retrieved.  
      *  @return                 'True' when any change was made in the local data, 'false' otherwise.
      */
-    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, OwnCloudClient client) {
+    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
-        OCFile remoteFolder = fillOCFile(folderAndFiles.get(0));
+        OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
         
@@ -285,7 +281,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         OCFile remoteFile = null, localFile = null;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remoteFile = fillOCFile(folderAndFiles.get(i));
+            remoteFile = fillOCFile((RemoteFile)folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 

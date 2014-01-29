@@ -36,6 +36,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -832,6 +833,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             if (success)
                 finish();
+        } else {
+            updateAuthStatusIconAndText(result);
+            showAuthStatus();
+            Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
         }
         
     }
@@ -1605,7 +1610,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
 
-    public void onSamlDialogSuccess(String sessionCookie){
+    public void onSamlDialogSuccess(String sessionCookie) {
         mAuthToken = sessionCookie;
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
