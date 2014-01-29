@@ -50,7 +50,7 @@ public class GetSharesOperation extends RemoteOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesOperation operation = new GetRemoteSharesOperation(client.getBaseUri().toString());
+        GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
