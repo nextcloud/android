@@ -192,7 +192,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
             result = operation.execute(client);
             if (result.isSuccess()){
-                OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getData().get(0));
+                OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile)result.getData().get(0));
                 
              // check if remote and local folder are different
               mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
@@ -256,12 +256,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      *                          retrieved.  
      *  @return                 'True' when any change was made in the local data, 'false' otherwise.
      */
-    private void synchronizeData(ArrayList<RemoteFile> folderAndFiles, OwnCloudClient client) {
+    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
         
         // parse data from remote folder 
-        OCFile remoteFolder = fillOCFile(folderAndFiles.get(0));
+        OCFile remoteFolder = fillOCFile((RemoteFile)folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
         
@@ -281,7 +281,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         OCFile remoteFile = null, localFile = null;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server
-            remoteFile = fillOCFile(folderAndFiles.get(i));
+            remoteFile = fillOCFile((RemoteFile)folderAndFiles.get(i));
             remoteFile.setParentId(mLocalFolder.getFileId());
 
             /// retrieve local data for the read file 
