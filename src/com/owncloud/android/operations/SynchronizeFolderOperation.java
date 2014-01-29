@@ -192,7 +192,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
             result = operation.execute(client);
             if (result.isSuccess()){
-                OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getData().get(0));
+                OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                 
              // check if remote and local folder are different
               mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
@@ -223,7 +223,11 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
-            synchronizeData(result.getData(), client);
+            ArrayList<RemoteFile> remotes = new ArrayList<RemoteFile>();
+            for(Object obj: result.getData()) {
+                remotes.add((RemoteFile) obj);
+            }
+            synchronizeData(remotes, client);
             if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   // should be different result, but will do the job
             }

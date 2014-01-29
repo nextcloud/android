@@ -70,7 +70,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 nameValuePairs[3] = new NameValuePair(OAuth2Constants.KEY_CLIENT_ID, mClientId);
                 //nameValuePairs[4] = new NameValuePair(OAuth2Constants.KEY_SCOPE, mOAuth2ParsedAuthorizationResponse.get(OAuth2Constants.KEY_SCOPE));         
                 
-                postMethod = new PostMethod(client.getBaseUri().toString());
+                postMethod = new PostMethod(client.getWebdavUri().toString());
                 postMethod.setRequestBody(nameValuePairs);
                 int status = client.executeMethod(postMethod);
                 
@@ -99,16 +99,16 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 postMethod.releaseConnection();    // let the connection available for other methods
             
             if (result.isSuccess()) {
-                Log_OC.i(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
+                Log_OC.i(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
             
             } else if (result.getException() != null) {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage(), result.getException());
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage(), result.getException());
                 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
                     
             } else {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getBaseUri() + ": " + result.getLogMessage());
+                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
             }
         }
         

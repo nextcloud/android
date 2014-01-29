@@ -224,12 +224,7 @@ public class FileContentProvider extends ContentProvider {
             count = db.delete(ProviderTableMeta.FILE_TABLE_NAME, where, whereArgs);
             break;
         case SHARES:
-            count = db.delete(ProviderTableMeta.OCSHARES_TABLE_NAME,
-                    ProviderTableMeta._ID
-                            + "="
-                            + uri.getPathSegments().get(1)
-                            + (!TextUtils.isEmpty(where) ? " AND (" + where
-                                    + ")" : ""), whereArgs);
+            count = db.delete(ProviderTableMeta.OCSHARES_TABLE_NAME, where, whereArgs);
             break;
         default:
             //Log_OC.e(TAG, "Unknown uri " + uri);
