@@ -21,7 +21,6 @@ package com.owncloud.android.ui.activity;
 import java.io.File;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -72,9 +71,6 @@ import com.owncloud.android.operations.CreateFolderOperation;
 
 import com.owncloud.android.operations.GetSharesOperation;
 
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;

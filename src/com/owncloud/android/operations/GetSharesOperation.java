@@ -17,6 +17,8 @@
 
 package com.owncloud.android.operations;
 
+import java.util.ArrayList;
+
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
@@ -36,11 +38,11 @@ import com.owncloud.android.utils.Log_OC;
  */
 
 public class GetSharesOperation extends RemoteOperation {
-    
+
     private static final String TAG = GetSharesOperation.class.getSimpleName();
 
     protected FileDataStorageManager mStorageManager;
-    
+
 
     public GetSharesOperation(FileDataStorageManager storageManager) {
         mStorageManager = storageManager;
@@ -50,40 +52,51 @@ public class GetSharesOperation extends RemoteOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         GetRemoteSharesOperation operation = new GetRemoteSharesOperation(client.getBaseUri().toString());
         RemoteOperationResult result = operation.execute(client);
-        
+
         if (result.isSuccess()) {
-            
-            // Clean Share data in filelist table
-            mStorageManager.cleanShares();
-            
+
             // Update DB with the response
             Log_OC.d(TAG, "Share list size = " + result.getData().size());
+            ArrayList<OCShare> shares = new ArrayList<OCShare>();
             for(Object obj: result.getData()) {
-                saveShareDB((OCShare) obj);
+                shares.add((OCShare) obj);
             }
+
+            saveSharesDB(shares);
         }
-        
+
         return result;
     }
 
-    private void saveShareDB(OCShare shareFile) {
-        // Save share file
-        mStorageManager.saveShare(shareFile);
-        
-        // Get the path
-        String path = shareFile.getPath();
-        if (shareFile.isDirectory()) {
-            path = path + FileUtils.PATH_SEPARATOR;
-        }           
-            
-        // Update OCFile with data from share: ShareByLink  ¿and publicLink?
-        OCFile file = mStorageManager.getFileByPath(path);
-        if (file != null) {
-            if (shareFile.getShareType().equals(ShareType.PUBLIC_LINK)) {
-                file.setShareByLink(true);
-                mStorageManager.saveFile(file);
+    private void saveSharesDB(ArrayList<OCShare> shares) {
+
+        if (shares.size() > 0) {
+            // Save share file
+            mStorageManager.saveShares(shares);
+
+            ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
+
+            for (OCShare share : shares) {
+                // Get the path
+                String path = share.getPath();
+                if (share.isDirectory()) {
+                    path = path + FileUtils.PATH_SEPARATOR;
+                }           
+
+                // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+                OCFile file = mStorageManager.getFileByPath(path);
+                if (file != null) {
+                    if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
+                        file.setShareByLink(true);
+                        sharedFiles.add(file);
+                    }
+                } 
             }
-        } 
+            
+            if (sharedFiles.size() > 0) {
+                mStorageManager.updateSharedFiles(sharedFiles);
+            }
+        }
     }
 
 }
