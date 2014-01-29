@@ -127,6 +127,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
+    private static final String KEY_REFRESH_SHARES_IN_PROGRESS = "SHARES_IN_PROGRESS";
 
     public static final int DIALOG_SHORT_WAIT = 0;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
@@ -149,6 +150,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private Handler mHandler;
     
     private boolean mSyncInProgress = false;
+    private boolean mRefreshSharesInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,10 +183,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if(savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
+            mRefreshSharesInProgress = savedInstanceState.getBoolean(KEY_REFRESH_SHARES_IN_PROGRESS);
            
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
+            mRefreshSharesInProgress = false;
         }        
 
         /// USER INTERFACE
@@ -674,6 +678,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
+        outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -957,7 +962,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     setFile(currentFile);
                 }
                 
-                setSupportProgressBarIndeterminateVisibility(inProgress);
+                if (!mRefreshSharesInProgress) {
+                    setSupportProgressBarIndeterminateVisibility(inProgress);
+                } else {
+                    setSupportProgressBarIndeterminateVisibility(true);
+                }
+                
                 removeStickyBroadcast(intent);
                 mSyncInProgress = inProgress;
 
@@ -1302,10 +1312,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      * @param result        Result of the operation
      */
     private void onGetSharedFilesOperationFinish(GetSharedFilesOperation operation, RemoteOperationResult result) {
-        // TODO
         // Refresh the filelist with the information
-        refeshListOfFilesFragment();    
+        refeshListOfFilesFragment();  
         
+        mRefreshSharesInProgress = false;
+        
+        if (!mSyncInProgress) {
+            setSupportProgressBarIndeterminateVisibility(false);
+        }
     }
 
     /**
@@ -1524,6 +1538,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         RemoteOperation getSharedFiles = new GetSharedFilesOperation(urlServer, mStorageManager);
         getSharedFiles.execute(getAccount(), this, this, mHandler, this);
+        
+        mRefreshSharesInProgress = true;
+        setSupportProgressBarIndeterminateVisibility(true);
         
     }
     
