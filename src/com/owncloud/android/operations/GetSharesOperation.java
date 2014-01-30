@@ -28,6 +28,7 @@ import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.lib.operations.remote.GetRemoteSharesOperation;
 import com.owncloud.android.lib.utils.FileUtils;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -35,18 +36,12 @@ import com.owncloud.android.utils.Log_OC;
  * Save the data in Database
  * 
  * @author masensio
+ * @author David A. Velasco
  */
 
-public class GetSharesOperation extends RemoteOperation {
+public class GetSharesOperation extends SyncOperation {
 
     private static final String TAG = GetSharesOperation.class.getSimpleName();
-
-    protected FileDataStorageManager mStorageManager;
-
-
-    public GetSharesOperation(FileDataStorageManager storageManager) {
-        mStorageManager = storageManager;
-    }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -72,7 +67,7 @@ public class GetSharesOperation extends RemoteOperation {
 
         if (shares.size() > 0) {
             // Save share file
-            mStorageManager.saveShares(shares);
+            getStorageManager().saveShares(shares);
 
             ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
 
@@ -84,7 +79,7 @@ public class GetSharesOperation extends RemoteOperation {
                 }           
 
                 // Update OCFile with data from share: ShareByLink  ¿and publicLink?
-                OCFile file = mStorageManager.getFileByPath(path);
+                OCFile file = getStorageManager().getFileByPath(path);
                 if (file != null) {
                     if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
                         file.setShareByLink(true);
@@ -94,7 +89,7 @@ public class GetSharesOperation extends RemoteOperation {
             }
             
             if (sharedFiles.size() > 0) {
-                mStorageManager.updateSharedFiles(sharedFiles);
+                getStorageManager().updateSharedFiles(sharedFiles);
             }
         }
     }

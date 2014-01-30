@@ -80,6 +80,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
@@ -1531,8 +1532,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void startGetShares() {
         // Get shared files/folders
-        RemoteOperation getShares = new GetSharesOperation(mStorageManager);
-        getShares.execute(getAccount(), this, this, mHandler, this);
+        SyncOperation getShares = new GetSharesOperation();
+        getShares.execute(mStorageManager, this, this, mHandler, this);
         
         mRefreshSharesInProgress = true;
         setSupportProgressBarIndeterminateVisibility(true);
