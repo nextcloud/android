@@ -19,10 +19,8 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.ShareType;

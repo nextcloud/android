@@ -52,8 +52,9 @@ public class OperationsService extends Service {
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_RESULT = "RESULT";    
-    private static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
-    private static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
+    
+    public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
+    public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
     private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
     
@@ -258,6 +259,8 @@ public class OperationsService extends Service {
         lbm.sendBroadcast(intent);
     }
 
+    
+    // TODO - maybe add a notification for real start of operations
     
     /**
      * Sends a LOCAL broadcast when an operations finishes in order to the interested activities can update their view
