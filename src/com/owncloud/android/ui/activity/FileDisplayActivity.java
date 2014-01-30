@@ -933,13 +933,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
 
             if (getAccount() != null && accountName.equals(getAccount().name)
-                    && mStorageManager != null
-                    ) {  
-
-                /// get the shared files
-                if (isSharedSupported()) {
-                    startGetShares();
-                }
+                    && mStorageManager != null) {
                 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
@@ -971,6 +965,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 }
                 
                 if (!mRefreshSharesInProgress) {
+                    /// get the shared files
+                    if (isSharedSupported()) {
+                        startGetShares();
+                    }
                     setSupportProgressBarIndeterminateVisibility(inProgress);
                 } else {
                     setSupportProgressBarIndeterminateVisibility(true);
