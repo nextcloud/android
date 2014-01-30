@@ -95,6 +95,8 @@ public class FileFragment extends SherlockFragment {
          * @param file      File to show details
          */
         public void showDetails(OCFile file);
+
+        public void shareFileWithLink(OCFile file);
         
         
     }

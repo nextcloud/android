@@ -55,6 +55,9 @@ import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.lib.operations.remote.CreateShareRemoteOperation;
+import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -335,6 +338,10 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                    mContainerActivity.shareFileWithLink(getFile());
+                return true;
+            }
             case R.id.action_open_file_with: {
                 mContainerActivity.openFile(getFile());
                 return true;
@@ -358,7 +365,7 @@ public class FileDetailFragment extends FileFragment implements
                 return false;
         }
     }
-    
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -398,7 +405,6 @@ public class FileDetailFragment extends FileFragment implements
             synchronizeFile();   // force an immediate synchronization
         }
     }
-
 
     private void removeFile() {
         OCFile file = getFile();

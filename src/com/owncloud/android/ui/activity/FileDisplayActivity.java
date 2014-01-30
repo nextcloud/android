@@ -74,8 +74,10 @@ import com.owncloud.android.operations.GetSharesOperation;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
 
+import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -1534,6 +1536,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         mRefreshSharesInProgress = true;
         setSupportProgressBarIndeterminateVisibility(true);
+        
+    }
+
+    @Override
+    public void shareFileWithLink(OCFile file) {
+            CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
+            createShare.execute(getAccount(), this, this, mHandler, this);
         
     }
     
