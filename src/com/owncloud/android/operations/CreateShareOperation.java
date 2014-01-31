@@ -25,14 +25,18 @@ package com.owncloud.android.operations;
  */
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.lib.operations.remote.CreateShareRemoteOperation;
+import com.owncloud.android.lib.utils.FileUtils;
+import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.utils.Log_OC;
 
-public class CreateShareOperation extends RemoteOperation {
-    
+public class CreateShareOperation extends SyncOperation {
+
     private static final String TAG = CreateShareOperation.class.getSimpleName();
 
     protected FileDataStorageManager mStorageManager;
@@ -43,7 +47,7 @@ public class CreateShareOperation extends RemoteOperation {
     private boolean mPublicUpload;
     private String mPassword;
     private int mPermissions;
-    
+
     /**
      * Constructor
      * @param path          Full path of the file/folder being shared. Mandatory argument
@@ -79,10 +83,34 @@ public class CreateShareOperation extends RemoteOperation {
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
-            // TODO
-            // Update DB with the response
 
+            if (result.getData().size() > 0) {
+                OCShare share = (OCShare) result.getData().get(0);
+
+                // Update DB with the response
+                if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
+                    share.setPath(mPath.substring(0, mPath.length()-1));
+                    share.setIsDirectory(true);
+                    
+                } else {
+                    share.setPath(mPath);
+                    share.setIsDirectory(false);
+                }
+                share.setPermissions(mPermissions);
+                
+                getStorageManager().saveShare(share);
+                
+                // Update OCFile with data from share: ShareByLink  and publicLink
+                OCFile file = getStorageManager().getFileByPath(mPath);
+                if (file!=null) {
+                    file.setPublicLink(share.getShareLink());
+                    getStorageManager().saveFile(file);
+                    Log_OC.d(TAG, "Public Link = " + file.getPublicLink());
+
+                }
+            }
         }
+
 
         return result;
     }
