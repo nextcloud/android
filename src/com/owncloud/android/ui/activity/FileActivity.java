@@ -18,10 +18,8 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.ComparisonFailure;
 
 import org.apache.http.protocol.HTTP;
 
@@ -30,7 +28,6 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -47,8 +44,6 @@ import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.network.webdav.WebdavUtils;
-import com.owncloud.android.lib.operations.common.ShareType;
-import com.owncloud.android.operations.CreateShareOperation;
 
 import com.owncloud.android.utils.Log_OC;
 
