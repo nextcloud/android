@@ -339,7 +339,7 @@ public class FileDetailFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                    mContainerActivity.shareFileWithLink(getFile());
+                mContainerActivity.shareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {

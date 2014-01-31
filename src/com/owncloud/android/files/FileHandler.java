@@ -27,4 +27,5 @@ public interface FileHandler {
     public void openFile(OCFile file);
 
     
+    public void shareFileWithLink(OCFile file);
 }

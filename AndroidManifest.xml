@@ -54,7 +54,6 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -81,9 +80,12 @@
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
 
-                <data android:mimeType="*/*" >
+                <data android:mimeType="*/*" android:scheme="content">
                 </data>
-            </intent-filter>
+
+                <data android:mimeType="*/*" android:scheme="file">
+                </data>
+                </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.Preferences"

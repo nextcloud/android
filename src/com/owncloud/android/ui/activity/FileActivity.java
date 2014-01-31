@@ -18,14 +18,25 @@
 
 package com.owncloud.android.ui.activity;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import junit.framework.ComparisonFailure;
+
+import org.apache.http.protocol.HTTP;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -36,6 +47,8 @@ import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.network.webdav.WebdavUtils;
+import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.operations.CreateShareOperation;
 
 import com.owncloud.android.utils.Log_OC;
 
@@ -343,5 +356,77 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
         }
     }
+
+    /*
+    public void shareFileWithLink(OCFile file) {
+        if (file != null) {
+            
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, "https://fake.url.lolo");
+            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            
+            Intent chooserIntent = Intent.createChooser(intentToShareLink, getString(R.string.action_share_file));
+            startActivity(chooserIntent);
+            
+        } else {
+            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+        }
+    }
+    */
+    
+    public void shareFileWithLink(OCFile file) {
+        if (file != null) {
+            
+            //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
+            //createShare.execute(getAccount(), this, this, mHandler, this);
+            
+            String link = "https://fake.url.lolo";
+            Intent chooserIntent = null;
+            List<Intent> targetedShareIntents = new ArrayList<Intent>();
+            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(createShareWithLinkIntent(link), PackageManager.MATCH_DEFAULT_ONLY);
+            String myPackageName = getPackageName();
+            if (!resInfo.isEmpty()) {
+                for (ResolveInfo info : resInfo) {
+                    if (!info.activityInfo.packageName.equalsIgnoreCase(myPackageName)) {
+                        Intent targetedShare = createTargetedShare(link, info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
+                        targetedShareIntents.add(targetedShare);
+                    }
+                }
+            }
+            if (targetedShareIntents.size() > 0) {
+                Intent firstTargeted = targetedShareIntents.remove(0);
+                chooserIntent = Intent.createChooser(firstTargeted, getString(R.string.action_share_file));
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
+            } else {
+                // to show standard message
+                chooserIntent = Intent.createChooser(null, getString(R.string.action_share_file));
+            }
+            startActivity(chooserIntent);
+            
+        } else {
+            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+        }
+    }
+    
+    private Intent createTargetedShare(String link, String packageName, String className) {
+        //Intent targetedShare = createShareWithLinkIntent(link);
+        Intent targetedShare=new Intent(Intent.ACTION_MAIN);
+
+        targetedShare.addCategory(Intent.CATEGORY_LAUNCHER);
+        targetedShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);        
+        Log_OC.e("LOLO", "className: " + className + "\npackageName: " + packageName + "\n");
+        targetedShare.setClassName(packageName, className);
+        return targetedShare;
+    }
+
+
+    private Intent createShareWithLinkIntent(String link) {
+        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+        intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+        return intentToShareLink; 
+    }
+    
     
 }

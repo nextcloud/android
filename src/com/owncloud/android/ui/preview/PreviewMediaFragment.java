@@ -307,6 +307,10 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                //shareFileWithLink(getFile());
+                return true;
+            }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;

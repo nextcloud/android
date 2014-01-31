@@ -1539,13 +1539,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
     }
 
-    @Override
-    public void shareFileWithLink(OCFile file) {
-            CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
-            createShare.execute(getAccount(), this, this, mHandler, this);
-        
-    }
-    
 //    public void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
 //        int childCount = viewGroup.getChildCount();
 //        for (int i = 0; i < childCount; i++) {
