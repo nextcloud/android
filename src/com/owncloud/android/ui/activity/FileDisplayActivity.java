@@ -204,7 +204,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress || mRefreshSharesInProgress);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -964,19 +964,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     setFile(currentFile);
                 }
                 
-                if (!mRefreshSharesInProgress) {
-                    /// get the shared files
-                    if (isSharedSupported()) {
-                        startGetShares();
-                    }
-                    setSupportProgressBarIndeterminateVisibility(inProgress);
-                } else {
-                    setSupportProgressBarIndeterminateVisibility(true);
+                if (synchResult != null && synchResult.isSuccess() && isSharedSupported()) {
+                    startGetShares();
                 }
                 
                 removeStickyBroadcast(intent);
                 mSyncInProgress = inProgress;
-
+                setSupportProgressBarIndeterminateVisibility(mSyncInProgress || mRefreshSharesInProgress);
             }
             
             if (synchResult != null) {
@@ -1564,8 +1558,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         startService(intent);
         
         mRefreshSharesInProgress = true;
-        setSupportProgressBarIndeterminateVisibility(true);
-        
     }
     
 }
