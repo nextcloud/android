@@ -75,7 +75,6 @@ import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
@@ -1347,6 +1346,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
         }
+        
     }
 
 
@@ -1572,9 +1572,21 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     public void shareFileWithLink(OCFile file) {
+        
+        if (isSharedSupported()) {
+            // Create the Share
             CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
             createShare.execute(getStorageManager(), this, this, mHandler, this);
-        
+            
+            // TODO
+            // Get the link --> when the operation is finished
+            
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            t.show();
+            
+        }
     }
     
 }
