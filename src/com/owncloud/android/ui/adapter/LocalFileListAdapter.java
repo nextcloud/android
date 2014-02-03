@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -135,6 +135,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             
             view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
             view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+            
+            view.findViewById(R.id.shareIcon).setVisibility(View.GONE);
         }
 
         return view;
