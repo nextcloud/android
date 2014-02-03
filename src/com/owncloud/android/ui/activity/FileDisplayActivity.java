@@ -971,7 +971,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                         setFile(currentFile);
                     }
                     
-                    mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED.equals(event));
+                    mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && 
+                                        !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED.equals(event) &&
+                                        (synchResult == null || synchResult.isSuccess())) ;
                     
                     if (synchResult != null && 
                         synchResult.isSuccess() &&
