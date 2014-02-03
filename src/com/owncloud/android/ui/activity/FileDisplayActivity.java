@@ -45,6 +45,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,17 +70,16 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
-import com.owncloud.android.operations.GetSharesOperation;
-
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-
+import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncService;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
@@ -114,6 +114,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
+    private OperationsServiceReceiver mOperationsServiceReceiver;
     private FileDownloaderBinder mDownloaderBinder = null;
     private FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadConnection = null, mUploadConnection = null;
@@ -703,6 +704,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         downloadIntentFilter.addAction(FileDownloader.getDownloadFinishMessage());
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+        
+        // Listen for messages from the OperationsService
+        IntentFilter operationsIntentFilter = new IntentFilter(OperationsService.ACTION_OPERATION_ADDED);
+        operationsIntentFilter.addAction(OperationsService.ACTION_OPERATION_FINISHED);
+        mOperationsServiceReceiver = new OperationsServiceReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mOperationsServiceReceiver, operationsIntentFilter);
     
         Log_OC.d(TAG, "onResume() end");
     }
@@ -724,7 +731,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
-
+        if (mOperationsServiceReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mOperationsServiceReceiver);
+            mOperationsServiceReceiver = null;
+        }
         Log_OC.d(TAG, "onPause() end");
     }
 
@@ -1031,6 +1041,45 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             return (accountName != null && getAccount() != null && accountName.equals(getAccount().name));
         }
     }
+    
+    
+    /**
+     * Class waiting for broadcast events from the {@link OperationsService}.
+     * 
+     * Updates the list of files when a get for shares is finished; at this moment the refresh of shares is the only
+     * operation performed in {@link OperationsService}.
+     * 
+     * In the future will handle the progress or finalization of all the operations performed in {@link OperationsService}, 
+     * probably all the operations associated to the app model. 
+     */
+    private class OperationsServiceReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (OperationsService.ACTION_OPERATION_ADDED.equals(intent.getAction())) {
+                
+            } else if (OperationsService.ACTION_OPERATION_FINISHED.equals(intent.getAction())) {
+                mRefreshSharesInProgress = false;
+                
+                Account account = intent.getParcelableExtra(OperationsService.EXTRA_ACCOUNT);
+                RemoteOperationResult getSharesResult = (RemoteOperationResult)intent.getSerializableExtra(OperationsService.EXTRA_RESULT);
+                if (getAccount() != null && account.name.equals(getAccount().name)
+                        && mStorageManager != null
+                        ) {
+                    refeshListOfFilesFragment();
+                }
+                if ((getSharesResult != null) &&
+                        RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(getSharesResult.getCode())) {
+                    mLastSslUntrustedServerResult = getSharesResult;
+                    showDialog(DIALOG_SSL_VALIDATOR); 
+                }
+
+                setSupportProgressBarIndeterminateVisibility(mRefreshSharesInProgress || mSyncInProgress);
+            }
+            
+        }
+            
+    }
 
 
     /**
@@ -1295,27 +1344,23 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
-            
-        } else if (operation instanceof GetSharesOperation) {
-            onGetSharesOperationFinish((GetSharesOperation) operation, result);
+        
+        } else if (operation instanceof CreateShareOperation) {
+            onCreateShareOperation((CreateShareOperation) operation, result);
         }
+        
     }
 
 
-    /** Updates the data about shared files
-     * 
-     * @param operation     Get Shared Files
-     * @param result        Result of the operation
-     */
-    private void onGetSharesOperationFinish(GetSharesOperation operation, RemoteOperationResult result) {
-        // Refresh the filelist with the information
-        refeshListOfFilesFragment();  
-        
-        mRefreshSharesInProgress = false;
-        
-        if (!mSyncInProgress) {
-            setSupportProgressBarIndeterminateVisibility(false);
+    private void onCreateShareOperation(CreateShareOperation operation, RemoteOperationResult result) {
+        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
         }
+        
+        refeshListOfFilesFragment();
+        
     }
 
     /**
@@ -1529,23 +1574,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void startGetShares() {
         // Get shared files/folders
-        RemoteOperation getShares = new GetSharesOperation(mStorageManager);
-        getShares.execute(getAccount(), this, this, mHandler, this);
+        Intent intent = new Intent(this, OperationsService.class);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, getAccount());
+        startService(intent);
         
         mRefreshSharesInProgress = true;
         setSupportProgressBarIndeterminateVisibility(true);
         
     }
 
-//    public void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
-//        int childCount = viewGroup.getChildCount();
-//        for (int i = 0; i < childCount; i++) {
-//          View view = viewGroup.getChildAt(i);
-//          view.setEnabled(enabled);
-//          view.setClickable(!enabled);
-//          if (view instanceof ViewGroup) {
-//            enableDisableViewGroup((ViewGroup) view, enabled);
-//          }
-//        }
-//      }
 }

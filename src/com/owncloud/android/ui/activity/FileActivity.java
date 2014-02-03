@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
@@ -370,36 +371,47 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     */
     
     public void shareFileWithLink(OCFile file) {
-        if (file != null) {
-            
-            //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
-            //createShare.execute(getAccount(), this, this, mHandler, this);
-            
-            String link = "https://fake.url.lolo";
-            Intent chooserIntent = null;
-            List<Intent> targetedShareIntents = new ArrayList<Intent>();
-            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(createShareWithLinkIntent(link), PackageManager.MATCH_DEFAULT_ONLY);
-            String myPackageName = getPackageName();
-            if (!resInfo.isEmpty()) {
-                for (ResolveInfo info : resInfo) {
-                    if (!info.activityInfo.packageName.equalsIgnoreCase(myPackageName)) {
-                        Intent targetedShare = createTargetedShare(link, info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
-                        targetedShareIntents.add(targetedShare);
+        if (isSharedSupported()) {
+            if (file != null) {
+                
+                // Create the Share
+                //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
+                //createShare.execute(getStorageManager(), this, this, mHandler, this);
+                        
+                // TODO
+                // Get the link --> when the operation is finished
+                        
+                String link = "https://fake.url.lolo";
+                Intent chooserIntent = null;
+                List<Intent> targetedShareIntents = new ArrayList<Intent>();
+                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(createShareWithLinkIntent(link), PackageManager.MATCH_DEFAULT_ONLY);
+                String myPackageName = getPackageName();
+                if (!resInfo.isEmpty()) {
+                    for (ResolveInfo info : resInfo) {
+                        if (!info.activityInfo.packageName.equalsIgnoreCase(myPackageName)) {
+                            Intent targetedShare = createTargetedShare(link, info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
+                            targetedShareIntents.add(targetedShare);
+                        }
                     }
                 }
-            }
-            if (targetedShareIntents.size() > 0) {
-                Intent firstTargeted = targetedShareIntents.remove(0);
-                chooserIntent = Intent.createChooser(firstTargeted, getString(R.string.action_share_file));
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
+                if (targetedShareIntents.size() > 0) {
+                    Intent firstTargeted = targetedShareIntents.remove(0);
+                    chooserIntent = Intent.createChooser(firstTargeted, getString(R.string.action_share_file));
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
+                } else {
+                    // to show standard message
+                    chooserIntent = Intent.createChooser(null, getString(R.string.action_share_file));
+                }
+                startActivity(chooserIntent);
+                
             } else {
-                // to show standard message
-                chooserIntent = Intent.createChooser(null, getString(R.string.action_share_file));
+                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
             }
-            startActivity(chooserIntent);
             
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            t.show();
         }
     }
     
