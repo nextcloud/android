@@ -18,9 +18,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.protocol.HTTP;
 
 import android.accounts.Account;
@@ -28,12 +25,10 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.support.v4.app.DialogFragment;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -46,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.network.webdav.WebdavUtils;
 
+import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -61,7 +57,9 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
-    public static final String TAG = FileActivity.class.getSimpleName(); 
+    public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -374,35 +372,17 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         if (isSharedSupported()) {
             if (file != null) {
                 
-                // Create the Share
+                // Create the Share - TODO integrate before or after the chooser menu
                 //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
                 //createShare.execute(getStorageManager(), this, this, mHandler, this);
                         
-                // TODO
-                // Get the link --> when the operation is finished
-                        
+                // TODO Get the link --> when the operation is finished
                 String link = "https://fake.url.lolo";
-                Intent chooserIntent = null;
-                List<Intent> targetedShareIntents = new ArrayList<Intent>();
-                List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(createShareWithLinkIntent(link), PackageManager.MATCH_DEFAULT_ONLY);
-                String myPackageName = getPackageName();
-                if (!resInfo.isEmpty()) {
-                    for (ResolveInfo info : resInfo) {
-                        if (!info.activityInfo.packageName.equalsIgnoreCase(myPackageName)) {
-                            Intent targetedShare = createTargetedShare(link, info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
-                            targetedShareIntents.add(targetedShare);
-                        }
-                    }
-                }
-                if (targetedShareIntents.size() > 0) {
-                    Intent firstTargeted = targetedShareIntents.remove(0);
-                    chooserIntent = Intent.createChooser(firstTargeted, getString(R.string.action_share_file));
-                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[] {}));
-                } else {
-                    // to show standard message
-                    chooserIntent = Intent.createChooser(null, getString(R.string.action_share_file));
-                }
-                startActivity(chooserIntent);
+                
+                Intent intent = createShareWithLinkIntent(link);
+                String[] packagesToExclude = new String[] { getPackageName() };
+                DialogFragment chooserDialog = ActivityChooserDialog.newInstance(intent, packagesToExclude);
+                chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
                 
             } else {
                 Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -415,19 +395,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         }
     }
     
-    private Intent createTargetedShare(String link, String packageName, String className) {
-        //Intent targetedShare = createShareWithLinkIntent(link);
-        Intent targetedShare=new Intent(Intent.ACTION_MAIN);
-
-        targetedShare.addCategory(Intent.CATEGORY_LAUNCHER);
-        targetedShare.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);        
-        Log_OC.e("LOLO", "className: " + className + "\npackageName: " + packageName + "\n");
-        targetedShare.setClassName(packageName, className);
-        return targetedShare;
-    }
-
-
     private Intent createShareWithLinkIntent(String link) {
         Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
         intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
