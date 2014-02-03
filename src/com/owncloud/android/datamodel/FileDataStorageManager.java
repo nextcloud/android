@@ -1099,4 +1099,19 @@ public class FileDataStorageManager {
         }
         
     } 
+    
+    public void removeShare(OCShare share){
+        Uri share_uri = ProviderTableMeta.CONTENT_URI_SHARE;
+        String where = ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?" + " AND " + ProviderTableMeta.FILE_PATH + "=?";
+        String [] whereArgs = new String[]{mAccount.name, share.getPath()};
+        if (getContentProviderClient() != null) {
+            try {
+                getContentProviderClient().delete(share_uri, where, whereArgs);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else {
+            getContentResolver().delete(share_uri, where, whereArgs); 
+        }
+    }
 }

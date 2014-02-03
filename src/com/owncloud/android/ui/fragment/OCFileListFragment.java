@@ -285,6 +285,10 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
+            case R.id.action_unshare_file: {
+                mContainerActivity.unshareFileWithLink(mTargetFile);
+                return true;
+            }
             case R.id.action_rename_file: {
                 String fileName = mTargetFile.getFileName();
                 int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
@@ -439,6 +443,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          */
         public void onBrowsedDownTo(OCFile folder);
         
+        public void unshareFileWithLink(OCFile mTargetFile);
+
         public void startDownloadForPreview(OCFile file);
 
         public void startMediaPreview(OCFile file, int i, boolean b);

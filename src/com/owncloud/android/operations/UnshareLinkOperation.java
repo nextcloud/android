@@ -17,14 +17,12 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.operations.remote.GetRemoteSharesOperation;
+import com.owncloud.android.lib.operations.remote.UnshareLinkRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -52,13 +50,16 @@ public class UnshareLinkOperation extends SyncOperation {
         OCShare share = getStorageManager().getShareByPath(mFile.getRemotePath());
         
         if (share != null) {
-            GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
+            UnshareLinkRemoteOperation operation = new UnshareLinkRemoteOperation((int) share.getIdRemoteShared());
             result = operation.execute(client);
 
             if (result.isSuccess()) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
-                // TODO Update DB
+                mFile.setShareByLink(false);
+                mFile.setPublicLink("");
+                getStorageManager().saveFile(mFile);
+                getStorageManager().removeShare(share);
                 
             }
         } else {

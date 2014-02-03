@@ -79,6 +79,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
@@ -1352,9 +1353,23 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
         }
     }
 
+
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
+        }
+
+        refeshListOfFilesFragment();
+
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 
@@ -1574,4 +1589,20 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mRefreshSharesInProgress = true;
     }
     
+    
+    public void unshareFileWithLink(OCFile file) {
+        
+        if (isSharedSupported()) {
+            // Unshare the file
+            UnshareLinkOperation unshare = new UnshareLinkOperation(file);
+            unshare.execute(getStorageManager(), this, this, mHandler, this);
+            
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            t.show();
+            
+        }
+    }
+
 }

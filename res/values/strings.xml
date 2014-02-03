@@ -245,4 +245,7 @@
     <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
 	<string name="failed_upload_failure_text">Failure Message: </string>
 	<string name="failed_upload_quota_exceeded_text">Please check your server configuration,maybe your quota is exceeded.</string>
+	
+	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
+	<string name="share_link_file_no_exist">Unable to share this file or folder. Please, make sure it exists</string>
 </resources>
