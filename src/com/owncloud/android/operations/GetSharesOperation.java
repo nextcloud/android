@@ -62,34 +62,29 @@ public class GetSharesOperation extends SyncOperation {
     }
 
     private void saveSharesDB(ArrayList<OCShare> shares) {
+        // Save share file
+        getStorageManager().saveShares(shares);
 
-        if (shares.size() > 0) {
-            // Save share file
-            getStorageManager().saveShares(shares);
+        ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
 
-            ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
+        for (OCShare share : shares) {
+            // Get the path
+            String path = share.getPath();
+            if (share.isDirectory()) {
+                path = path + FileUtils.PATH_SEPARATOR;
+            }           
 
-            for (OCShare share : shares) {
-                // Get the path
-                String path = share.getPath();
-                if (share.isDirectory()) {
-                    path = path + FileUtils.PATH_SEPARATOR;
-                }           
-
-                // Update OCFile with data from share: ShareByLink  ¿and publicLink?
-                OCFile file = getStorageManager().getFileByPath(path);
-                if (file != null) {
-                    if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
-                        file.setShareByLink(true);
-                        sharedFiles.add(file);
-                    }
-                } 
-            }
-            
-            if (sharedFiles.size() > 0) {
-                getStorageManager().updateSharedFiles(sharedFiles);
-            }
+            // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+            OCFile file = getStorageManager().getFileByPath(path);
+            if (file != null) {
+                if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
+                    file.setShareByLink(true);
+                    sharedFiles.add(file);
+                }
+            } 
         }
+        
+        getStorageManager().updateSharedFiles(sharedFiles);
     }
 
 }

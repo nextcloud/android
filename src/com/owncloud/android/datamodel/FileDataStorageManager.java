@@ -972,9 +972,8 @@ public class FileDataStorageManager {
     }
     
     public void saveShares(Collection<OCShare> shares) {
+        cleanShares();
         if (shares != null) {
-            cleanShares();
-            
             ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(shares.size());
 
             // prepare operations to insert or update files to save in the given folder
@@ -1011,32 +1010,33 @@ public class FileDataStorageManager {
             }
             
             // apply operations in batch
-            @SuppressWarnings("unused")
-            ContentProviderResult[] results = null;
-            Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
-            try {
-                if (getContentResolver() != null) {
-                    results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    results = getContentProviderClient().applyBatch(operations);
+            if (operations.size() > 0) {
+                @SuppressWarnings("unused")
+                ContentProviderResult[] results = null;
+                Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
+                try {
+                    if (getContentResolver() != null) {
+                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+    
+                    } else {
+                        results = getContentProviderClient().applyBatch(operations);
+                    }
+    
+                } catch (OperationApplicationException e) {
+                    Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
+    
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
                 }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
             }
-            
         }
         
     }
     
     public void updateSharedFiles(Collection<OCFile> sharedFiles) {
+        cleanSharedFiles();
+        
         if (sharedFiles != null) {
-            cleanSharedFiles();
-            
             ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(sharedFiles.size());
 
             // prepare operations to insert or update files to save in the given folder
@@ -1077,24 +1077,25 @@ public class FileDataStorageManager {
             }
             
             // apply operations in batch
-            @SuppressWarnings("unused")
-            ContentProviderResult[] results = null;
-            Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
-            try {
-                if (getContentResolver() != null) {
-                    results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-                } else {
-                    results = getContentProviderClient().applyBatch(operations);
+            if (operations.size() > 0) {
+                @SuppressWarnings("unused")
+                ContentProviderResult[] results = null;
+                Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
+                try {
+                    if (getContentResolver() != null) {
+                        results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+    
+                    } else {
+                        results = getContentProviderClient().applyBatch(operations);
+                    }
+    
+                } catch (OperationApplicationException e) {
+                    Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
+    
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
                 }
-
-            } catch (OperationApplicationException e) {
-                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
-
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
             }
-            
         }
         
     } 
