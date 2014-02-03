@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.actionbarsherlock.view.Menu;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -350,6 +351,25 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         }
     }
     
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        List<Integer> toHide = new ArrayList<Integer>();
+        MenuItem item = null;
+        for (int i : toHide) {
+            item = (MenuItem) menu.findItem(i);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+    }
+
 
     /**
      * Use this to query the {@link OCFile} that is currently

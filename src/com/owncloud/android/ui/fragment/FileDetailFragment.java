@@ -310,6 +310,10 @@ public class FileDetailFragment extends FileFragment implements
             toHide.add(R.id.action_remove_file);
             
         }
+        // Options shareLink
+        if (!file.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
         MenuItem item = null;
         for (int i : toHide) {

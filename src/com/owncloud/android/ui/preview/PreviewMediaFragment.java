@@ -324,6 +324,24 @@ public class PreviewMediaFragment extends FileFragment implements
                 return false;
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        List<Integer> toHide = new ArrayList<Integer>();
+        MenuItem item = null;
+        for (int i : toHide) {
+            item = (MenuItem) menu.findItem(i);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+    }
 
     
     private void seeDetails() {
