@@ -47,7 +47,11 @@ public class UnshareLinkOperation extends SyncOperation {
         RemoteOperationResult result  = null;
         
         // Get Share for a file
-        OCShare share = getStorageManager().getShareByPath(mFile.getRemotePath());
+        String path = mFile.getRemotePath();
+        if (mFile.isFolder()) {
+            path = path.substring(0, path.length()-1); // Remove last /
+        }
+        OCShare share = getStorageManager().getShareByPath(path);
         
         if (share != null) {
             UnshareLinkRemoteOperation operation = new UnshareLinkRemoteOperation((int) share.getIdRemoteShared());

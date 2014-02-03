@@ -1369,6 +1369,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         refeshListOfFilesFragment();
 
+        setSupportProgressBarIndeterminateVisibility(false);
     }
 
     /**
@@ -1596,7 +1597,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             // Unshare the file
             UnshareLinkOperation unshare = new UnshareLinkOperation(file);
             unshare.execute(getStorageManager(), this, this, mHandler, this);
-            
+         
+            setSupportProgressBarIndeterminateVisibility(true);
         } else {
             // Show a Message
             Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
