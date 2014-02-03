@@ -1345,10 +1345,24 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+        
+        } else if (operation instanceof CreateShareOperation) {
+            onCreateShareOperation((CreateShareOperation) operation, result);
         }
         
     }
 
+
+    private void onCreateShareOperation(CreateShareOperation operation, RemoteOperationResult result) {
+        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
+        }
+        
+        refeshListOfFilesFragment();
+        
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 
