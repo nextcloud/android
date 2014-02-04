@@ -229,6 +229,11 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
         toHide.add(R.id.action_rename_file);    // by now
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
         for (int i : toHide) {
             item = menu.findItem(i);
@@ -272,16 +277,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        
-        List<Integer> toHide = new ArrayList<Integer>();
-        MenuItem item = null;
-        for (int i : toHide) {
-            item = (MenuItem) menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
     }
 
 

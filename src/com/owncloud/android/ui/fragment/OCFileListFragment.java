@@ -21,7 +21,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.actionbarsherlock.view.Menu;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -352,25 +351,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             }
             default:
                 return super.onContextItemSelected(item); 
-        }
-    }
-    
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        
-        List<Integer> toHide = new ArrayList<Integer>();
-        MenuItem item = null;
-        for (int i : toHide) {
-            item = (MenuItem) menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
         }
     }
 

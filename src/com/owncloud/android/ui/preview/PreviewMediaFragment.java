@@ -289,7 +289,12 @@ public class PreviewMediaFragment extends FileFragment implements
         toHide.add(R.id.action_download_file);
         toHide.add(R.id.action_sync_file);
         toHide.add(R.id.action_rename_file);    // by now
-
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -331,16 +336,6 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        
-        List<Integer> toHide = new ArrayList<Integer>();
-        MenuItem item = null;
-        for (int i : toHide) {
-            item = (MenuItem) menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
     }
 
     

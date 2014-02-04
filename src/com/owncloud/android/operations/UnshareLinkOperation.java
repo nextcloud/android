@@ -22,7 +22,7 @@ import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.operations.remote.UnshareLinkRemoteOperation;
+import com.owncloud.android.lib.operations.remote.RemoveRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -54,10 +54,10 @@ public class UnshareLinkOperation extends SyncOperation {
         OCShare share = getStorageManager().getShareByPath(path);
         
         if (share != null) {
-            UnshareLinkRemoteOperation operation = new UnshareLinkRemoteOperation((int) share.getIdRemoteShared());
+            RemoveRemoteShareOperation operation = new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
             result = operation.execute(client);
 
-            if (result.isSuccess()) {
+            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
                 mFile.setShareByLink(false);
@@ -65,9 +65,13 @@ public class UnshareLinkOperation extends SyncOperation {
                 getStorageManager().saveFile(mFile);
                 getStorageManager().removeShare(share);
                 
-            }
+                if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+                    result = new RemoteOperationResult(ResultCode.OK);
+                }
+            } 
+                
         } else {
-            result = new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+            result = new RemoteOperationResult(ResultCode.SHARE_NOT_FOUND);
         }
 
         return result;
