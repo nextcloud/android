@@ -30,28 +30,28 @@ import android.provider.BaseColumns;
  */
 public class ProviderMeta {
 
-    /* These constants are now in MainApp
-        public static final String AUTHORITY_FILES = "org.owncloud";
-        public static final String DB_FILE = "owncloud.db";
-    */
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 5;
+    public static final int DB_VERSION = 6;
 
     private ProviderMeta() {
     }
 
     static public class ProviderTableMeta implements BaseColumns {
-        public static final String DB_NAME = "filelist";
+        public static final String FILE_TABLE_NAME = "filelist";
+        public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final Uri CONTENT_URI = Uri.parse("content://"
                 + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
                 + MainApp.getAuthority() + "/file");
         public static final Uri CONTENT_URI_DIR = Uri.parse("content://"
                 + MainApp.getAuthority() + "/dir");
+        public static final Uri CONTENT_URI_SHARE = Uri.parse("content://"
+                + MainApp.getAuthority() + "/shares");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
 
+        // Columns of filelist table
         public static final String FILE_PARENT = "parent";
         public static final String FILE_NAME = "filename";
         public static final String FILE_CREATION = "created";
@@ -66,9 +66,31 @@ public class ProviderMeta {
         public static final String FILE_LAST_SYNC_DATE_FOR_DATA = "last_sync_date_for_data";
         public static final String FILE_KEEP_IN_SYNC = "keep_in_sync";
         public static final String FILE_ETAG = "etag";
+        public static final String FILE_SHARE_BY_LINK = "share_by_link";
+        public static final String FILE_PUBLIC_LINK = "public_link";
 
-        public static final String DEFAULT_SORT_ORDER = FILE_NAME
+        public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";
+        
+        // Columns of ocshares table
+        public static final String OCSHARES_FILE_SOURCE = "file_source";
+        public static final String OCSHARES_ITEM_SOURCE = "item_source";
+        public static final String OCSHARES_SHARE_TYPE = "share_type";
+        public static final String OCSHARES_SHARE_WITH = "shate_with";
+        public static final String OCSHARES_PATH = "path";
+        public static final String OCSHARES_PERMISSIONS = "permissions";
+        public static final String OCSHARES_SHARED_DATE = "shared_date";
+        public static final String OCSHARES_EXPIRATION_DATE = "expiration_date";
+        public static final String OCSHARES_TOKEN = "token";
+        public static final String OCSHARES_SHARE_WITH_DISPLAY_NAME = "shared_with_display_name";
+        public static final String OCSHARES_IS_DIRECTORY = "is_directory";
+        public static final String OCSHARES_USER_ID = "user_id";
+        public static final String OCSHARES_ID_REMOTE_SHARED = "id_remote_shared";
+        public static final String OCSHARES_ACCOUNT_OWNER = "owner_share";
+        
+        public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE 
+                + " collate nocase asc";
+        
 
     }
 }

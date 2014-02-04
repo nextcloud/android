@@ -31,20 +31,11 @@ import android.os.IBinder;
  */
 public class FileSyncService extends Service {
     
-    private static final String SYNC_MESSAGE = "ACCOUNT_SYNC";
-    public static final String SYNC_FOLDER_REMOTE_PATH = "SYNC_FOLDER_REMOTE_PATH";
-    public static final String IN_PROGRESS = "SYNC_IN_PROGRESS";
-    public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
-    public static final String SYNC_RESULT = "SYNC_RESULT";
-
     // Storage for an instance of the sync adapter
     private static FileSyncAdapter sSyncAdapter = null;
     // Object to use as a thread-safe lock
     private static final Object sSyncAdapterLock = new Object();
     
-    public static String getSyncMessage(){
-        return FileSyncService.class.getName().toString() + SYNC_MESSAGE;
-    }
     /*
      * {@inheritDoc}
      */

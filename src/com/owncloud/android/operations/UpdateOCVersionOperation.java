@@ -90,15 +90,15 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                     result = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
                 }
             }
-            Log_OC.i(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage());
             
         } catch (JSONException e) {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage(), e);
                 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage(), e);
             
         } finally {
             if (get != null) 

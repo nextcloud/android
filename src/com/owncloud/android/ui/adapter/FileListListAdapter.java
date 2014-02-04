@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -165,8 +165,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
-               checkBoxV.setVisibility(View.GONE);
-               view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+                checkBoxV.setVisibility(View.GONE);
+                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+            }
+            
+            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
+            if (file.isShareByLink()) {
+                shareIconV.setVisibility(View.VISIBLE);
+            } else {
+                shareIconV.setVisibility(View.INVISIBLE);
             }
         }
 
