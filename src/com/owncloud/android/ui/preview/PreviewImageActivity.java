@@ -481,9 +481,4 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         }
     }
 
-    @Override
-    public void shareFileWithLink(OCFile file) {
-        
-    }
-    
 }

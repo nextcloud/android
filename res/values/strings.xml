@@ -187,6 +187,7 @@
     <string name="wait_a_moment">Wait a moment</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
+    <string name="activity_chooser_title">Send link to &#8230;</string>
     
     <string name="oauth_check_onoff">Login with oAuth2</string> 
     <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    

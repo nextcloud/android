@@ -18,15 +18,19 @@
 
 package com.owncloud.android.ui.activity;
 
+import org.apache.http.protocol.HTTP;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.support.v4.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
@@ -37,6 +41,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.network.webdav.WebdavUtils;
 
+import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -52,7 +57,9 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
-    public static final String TAG = FileActivity.class.getSimpleName(); 
+    public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -343,5 +350,57 @@ public abstract class FileActivity extends SherlockFragmentActivity {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
         }
     }
+
+    /*
+    public void shareFileWithLink(OCFile file) {
+        if (file != null) {
+            
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, "https://fake.url.lolo");
+            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+            
+            Intent chooserIntent = Intent.createChooser(intentToShareLink, getString(R.string.action_share_file));
+            startActivity(chooserIntent);
+            
+        } else {
+            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+        }
+    }
+    */
+    
+    public void shareFileWithLink(OCFile file) {
+        if (isSharedSupported()) {
+            if (file != null) {
+                
+                // Create the Share - TODO integrate before or after the chooser menu
+                //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
+                //createShare.execute(getStorageManager(), this, this, mHandler, this);
+                        
+                // TODO Get the link --> when the operation is finished
+                String link = "https://fake.url.lolo";
+                
+                Intent intent = createShareWithLinkIntent(link);
+                String[] packagesToExclude = new String[] { getPackageName() };
+                DialogFragment chooserDialog = ActivityChooserDialog.newInstance(intent, packagesToExclude);
+                chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+                
+            } else {
+                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            }
+            
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
+    
+    private Intent createShareWithLinkIntent(String link) {
+        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+        intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
+        return intentToShareLink; 
+    }
+    
     
 }

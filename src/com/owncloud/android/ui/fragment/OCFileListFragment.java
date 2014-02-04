@@ -285,7 +285,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                    mContainerActivity.shareFileWithLink(mTargetFile);
+                mContainerActivity.shareFileWithLink(mTargetFile);
                 return true;
             }
             case R.id.action_rename_file: {
