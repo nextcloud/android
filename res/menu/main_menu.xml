@@ -17,12 +17,33 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_sync_account" 	android:title="@string/actionbar_sync" 		android:icon="@drawable/ic_action_refresh" 				android:orderInCategory="2" />
-    <item android:id="@+id/action_create_dir" 		android:title="@string/actionbar_mkdir" 	android:icon="@drawable/ic_action_create_dir"			android:orderInCategory="2" />
-    <item android:id="@+id/action_upload" 			android:title="@string/actionbar_upload" 	android:icon="@drawable/ic_action_upload" 				android:orderInCategory="2" />
-    <item android:id="@+id/action_settings" 		android:title="@string/actionbar_settings" 	android:icon="@android:drawable/ic_menu_preferences" 	android:orderInCategory="2" />
-    
-    <!--  <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item>-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_sync_account"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/actionbar_sync"/>
+    <item
+        android:id="@+id/action_create_dir"
+        android:icon="@drawable/ic_action_create_dir"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/actionbar_mkdir"/>
+    <item
+        android:id="@+id/action_upload"
+        android:icon="@drawable/ic_action_upload"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/actionbar_upload"/>
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/actionbar_settings"/>
+
+    <!-- <item android:id="@+id/search" android:title="@string/actionbar_search" android:icon="@drawable/ic_action_search"></item> -->
+
 </menu>
