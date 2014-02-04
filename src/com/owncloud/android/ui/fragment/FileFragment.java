@@ -21,7 +21,6 @@ import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
 
 
@@ -73,7 +72,7 @@ public class FileFragment extends SherlockFragment {
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter, FileHandler {
+    public interface ContainerActivity extends TransferServiceGetter {
 
         /**
          * Callback method invoked when the detail fragment wants to notice its container 
@@ -96,9 +95,6 @@ public class FileFragment extends SherlockFragment {
          */
         public void showDetails(OCFile file);
 
-        public void shareFileWithLink(OCFile file);
-        
-        
     }
     
 }

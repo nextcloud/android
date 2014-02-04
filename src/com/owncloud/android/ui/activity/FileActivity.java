@@ -18,30 +18,24 @@
 
 package com.owncloud.android.ui.activity;
 
-import org.apache.http.protocol.HTTP;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.support.v4.app.DialogFragment;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
+import android.os.Handler;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.webdav.WebdavUtils;
-
-import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -50,7 +44,7 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity {
+public class FileActivity extends SherlockFragmentActivity implements OnRemoteOperationListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -58,8 +52,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName();
-    
-    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -80,6 +72,13 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
     
+    /** Messages handler associated to the main thread and the life cycle of the activity */
+    private Handler mHandler;
+    
+    /** Access point to the cached database for the current ownCloud {@link Account} */
+    private FileDataStorageManager mStorageManager = null;
+    
+    private FileOperationsHelper mFileOperationsHelper;
 
     
     /**
@@ -92,6 +91,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = new Handler();
+        mFileOperationsHelper = new FileOperationsHelper();
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -257,17 +258,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     
     /**
-     *  @return 'True' if the server supports the Share API
-     */
-    public boolean isSharedSupported() {
-        if (getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(this);
-            return Boolean.parseBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
-        }
-        return false;
-    }
-
-    /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
      * 
@@ -314,93 +304,44 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      * 
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected abstract void onAccountSet(boolean stateWasRecovered);
-    
-    
-
-    public void openFile(OCFile file) {
-        if (file != null) {
-            String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-            
-            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            
-            Intent intentForGuessedMimeType = null;
-            if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-            }
-            
-            Intent chooserIntent = null;
-            if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
-            } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
-            }
-            
-            startActivity(chooserIntent);
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
 
-    /*
-    public void shareFileWithLink(OCFile file) {
-        if (file != null) {
-            
-            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-            intentToShareLink.putExtra(Intent.EXTRA_TEXT, "https://fake.url.lolo");
-            intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
-            
-            Intent chooserIntent = Intent.createChooser(intentToShareLink, getString(R.string.action_share_file));
-            startActivity(chooserIntent);
-            
-        } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
-        }
+
+    public FileDataStorageManager getStorageManager() {
+        return mStorageManager;
     }
-    */
-    
-    public void shareFileWithLink(OCFile file) {
-        if (isSharedSupported()) {
-            if (file != null) {
-                
-                // Create the Share - TODO integrate before or after the chooser menu
-                //CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1);
-                //createShare.execute(getStorageManager(), this, this, mHandler, this);
-                        
-                // TODO Get the link --> when the operation is finished
-                String link = "https://fake.url.lolo";
-                
-                Intent intent = createShareWithLinkIntent(link);
-                String[] packagesToExclude = new String[] { getPackageName() };
-                DialogFragment chooserDialog = ActivityChooserDialog.newInstance(intent, packagesToExclude);
-                chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
-                
-            } else {
-                Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
-            }
-            
-        } else {
-            // Show a Message
-            Toast t = Toast.makeText(this, getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
-            t.show();
-        }
+
+
+    public OnRemoteOperationListener getRemoteOperationListener() {
+        return this;
+    }
+
+
+    public Handler getHandler() {
+        return mHandler;
     }
     
-    private Intent createShareWithLinkIntent(String link) {
-        Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-        intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-        intentToShareLink.setType(HTTP.PLAIN_TEXT_TYPE);
-        return intentToShareLink; 
+    public FileOperationsHelper getFileOperationsHelper() {
+        return mFileOperationsHelper;
     }
     
-    
+    /**
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        // does nothing ; to override in child classes 
+        Log_OC.d(TAG, "Received result of operation in FileActivity");
+    }
+
+
 }

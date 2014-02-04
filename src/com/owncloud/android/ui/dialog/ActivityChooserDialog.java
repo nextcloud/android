@@ -24,9 +24,11 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -35,11 +37,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -53,14 +57,18 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
     private final static String TAG =  ActivityChooserDialog.class.getSimpleName();
     private final static String ARG_INTENT =  ActivityChooserDialog.class.getSimpleName() + ".ARG_INTENT";
     private final static String ARG_PACKAGES_TO_EXCLUDE =  ActivityChooserDialog.class.getSimpleName() + ".ARG_PACKAGES_TO_EXCLUDE";
+    private final static String ARG_FILE_TO_SHARE = ActivityChooserDialog.class.getSimpleName() + ".FILE_TO_SHARE";
     
-    private ListAdapter mAdapter;
+    private ActivityAdapter mAdapter;
+    private OCFile mFile;
+    private Intent mIntent;
     
-    public static ActivityChooserDialog newInstance(Intent intent, String[] packagesToExclude/*OnConflictDecisionMadeListener listener*/) {
+    public static ActivityChooserDialog newInstance(Intent intent, String[] packagesToExclude, OCFile fileToShare) {
         ActivityChooserDialog f = new ActivityChooserDialog();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INTENT, intent);
         args.putStringArray(ARG_PACKAGES_TO_EXCLUDE, packagesToExclude);
+        args.putParcelable(ARG_FILE_TO_SHARE, fileToShare);
         f.setArguments(args);
         return f;
     }
@@ -72,12 +80,13 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Intent intent = getArguments().getParcelable(ARG_INTENT);
+        mIntent = getArguments().getParcelable(ARG_INTENT);
         String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
         List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ? packagesToExclude : new String[0]);
+        mFile = getArguments().getParcelable(ARG_FILE_TO_SHARE);
         
         PackageManager pm= getSherlockActivity().getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
         Iterator<ResolveInfo> it = activities.iterator();
         ResolveInfo resolveInfo;
         while (it.hasNext()) {
@@ -94,8 +103,15 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
                    .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                            @Override
                            public void onClick(DialogInterface dialog, int which) {
-                               // The 'which' argument contains the index position
-                               // of the selected item                           
+                               // Add the information of the chosen activity to the intent to send 
+                               ResolveInfo chosen = mAdapter.getItem(which);
+                               ActivityInfo actInfo = chosen.activityInfo;
+                               ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
+                               mIntent.setComponent(name);                               
+                               
+                               // Create a new share resource
+                               FileOperationsHelper foh = new FileOperationsHelper();
+                               foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity()); 
                            }
                        })
                    .create();
@@ -107,7 +123,6 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
         private PackageManager mPackageManager;
         
         ActivityAdapter(Context context, PackageManager pm, List<ResolveInfo> apps) {
-            //super(context, android.R.layout.activity_list_item, apps);
             super(context, R.layout.activity_row, apps);
             this.mPackageManager = pm;
         }
@@ -123,15 +138,12 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
         
         private View newView(ViewGroup parent) {
             return(((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.activity_row, parent, false));
-            //return(((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(android.R.layout.activity_list_item, parent, false));
         }
         
         private void bindView(int position, View row) {
             TextView label = (TextView) row.findViewById(R.id.title);
-            //TextView label = (TextView) row.findViewById(android.R.id.text1);
             label.setText(getItem(position).loadLabel(mPackageManager));
             ImageView icon = (ImageView) row.findViewById(R.id.icon);
-            //ImageView icon = (ImageView) row.findViewById(android.R.id.icon);
             icon.setImageDrawable(getItem(position).loadIcon(mPackageManager));
         }
     }

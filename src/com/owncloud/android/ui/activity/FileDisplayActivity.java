@@ -38,7 +38,6 @@ import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
@@ -61,7 +60,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileObserverService;
@@ -70,7 +68,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
-import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
@@ -104,12 +101,9 @@ import com.owncloud.android.utils.Log_OC;
  */
 
 public class FileDisplayActivity extends FileActivity implements
-OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
+OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, EditNameDialogListener {
 
     private ArrayAdapter<String> mDirectories;
-
-    /** Access point to the cached database for the current ownCloud {@link Account} */
-    private FileDataStorageManager mStorageManager = null;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -146,7 +140,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
 
     private OCFile mWaitingToPreview;
-    private Handler mHandler;
     
     private boolean mSyncInProgress = false;
     private boolean mRefreshSharesInProgress = false;
@@ -158,8 +151,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
 
-        mHandler = new Handler();
-        
         /// bindings to transference services
         mUploadConnection = new ListServiceConnection(); 
         mDownloadConnection = new ListServiceConnection();
@@ -230,9 +221,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      */ 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-                
             /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
             OCFile file = getFile();
             // get parent from path
@@ -242,15 +232,15 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     // upload in progress - right now, files are not inserted in the local cache until the upload is successful
                     // get parent from path
                     parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (mStorageManager.getFileByPath(parentPath) ==  null)
+                    if (getStorageManager().getFileByPath(parentPath) ==  null)
                         file = null; // not able to know the directory where the file is uploading
                 } else {
-                    file = mStorageManager.getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
+                    file = getStorageManager().getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
                 }
             }
             if (file == null) {
                 // fall back to root folder
-                file = mStorageManager.getFileByPath(OCFile.ROOT_PATH);  // never returns null
+                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
             }
             setFile(file);
             setNavigationListWithFolder(file);
@@ -266,10 +256,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 updateFragmentsVisibility(!file.isFolder());
                 updateNavigationElementsInActionBar(file.isFolder() ? null : file);
             }
-            
-            
-        } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
 
@@ -282,10 +268,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (fileIt.isFolder()) {
                 mDirectories.add(fileIt.getFileName());
             }
-            //fileIt = mStorageManager.getFileById(fileIt.getParentId());
             // get parent from path
             parentPath = fileIt.getRemotePath().substring(0, fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
-            fileIt = mStorageManager.getFileByPath(parentPath);
+            fileIt = getStorageManager().getFileByPath(parentPath);
         }
         mDirectories.add(OCFile.PATH_SEPARATOR);
     }
@@ -447,12 +432,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 boolean detailsFragmentChanged = false;
                 if (waitedPreview) {
                     if (success) {
-                        mWaitingToPreview = mStorageManager.getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
+                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId());   // update the file from database, for the local storage path
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             startMediaPreview(mWaitingToPreview, 0, true);
                             detailsFragmentChanged = true;
                         } else {
-                            openFile(mWaitingToPreview);
+                            getFileOperationsHelper().openFile(mWaitingToPreview, this);
                         }
                     }
                     mWaitingToPreview = null;
@@ -463,7 +448,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             }
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -543,7 +527,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 targetPath = mDirectories.getItem(i) + OCFile.PATH_SEPARATOR + targetPath; 
             }
             targetPath = OCFile.PATH_SEPARATOR + targetPath;
-            OCFile targetFolder = mStorageManager.getFileByPath(targetPath);
+            OCFile targetFolder = getStorageManager().getFileByPath(targetPath);
             if (targetFolder != null) {
                 browseTo(targetFolder);
             }
@@ -933,12 +917,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncService.SYNC_RESULT);
 
             if (getAccount() != null && accountName.equals(getAccount().name)
-                    && mStorageManager != null) {
+                    && getStorageManager() != null) {
                 
                 String synchFolderRemotePath = intent.getStringExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH); 
 
-                OCFile currentFile = (getFile() == null) ? null : mStorageManager.getFileByPath(getFile().getRemotePath());
-                OCFile currentDir = (getCurrentDir() == null) ? null : mStorageManager.getFileByPath(getCurrentDir().getRemotePath());
+                OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
+                OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
 
                 if (currentDir == null) {
                     // current folder was removed from the server 
@@ -966,7 +950,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 
                 if (!mRefreshSharesInProgress) {
                     /// get the shared files
-                    if (isSharedSupported()) {
+                    if (getFileOperationsHelper().isSharedSupported(FileDisplayActivity.this)) {
                         startGetShares();
                     }
                     setSupportProgressBarIndeterminateVisibility(inProgress);
@@ -1064,7 +1048,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 Account account = intent.getParcelableExtra(OperationsService.EXTRA_ACCOUNT);
                 RemoteOperationResult getSharesResult = (RemoteOperationResult)intent.getSerializableExtra(OperationsService.EXTRA_RESULT);
                 if (getAccount() != null && account.name.equals(getAccount().name)
-                        && mStorageManager != null
+                        && getStorageManager() != null
                         ) {
                     refeshListOfFilesFragment();
                 }
@@ -1081,23 +1065,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public FileDataStorageManager getStorageManager() {
-        return mStorageManager;
-    }
-
-
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             while (mDirectories.getCount() > 1) {
                 popDirname();
             }
-            OCFile root = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
+            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             listOfFiles.listDirectory(root);
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root);
@@ -1346,20 +1320,24 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
         
         } else if (operation instanceof CreateShareOperation) {
-            onCreateShareOperation((CreateShareOperation) operation, result);
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
         }
         
     }
 
 
-    private void onCreateShareOperation(CreateShareOperation operation, RemoteOperationResult result) {
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
             // Show a Message
             Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
             t.show();
+            
+        } else if (result.isSuccess()) {
+            refeshListOfFilesFragment();
+
+            Intent sendIntent = operation.getSendIntent();
+            startActivity(sendIntent);
         }
-        
-        refeshListOfFilesFragment();
         
     }
 
@@ -1381,7 +1359,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (second != null && removedFile.equals(second.getFile())) {
                 cleanSecondFragment();
             }
-            if (mStorageManager.getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
+            if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
                 refeshListOfFilesFragment();
             }
 
@@ -1440,7 +1418,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
                 }
             }
-            if (mStorageManager.getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
+            if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
                 refeshListOfFilesFragment();
             }
 
@@ -1516,11 +1494,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                RemoteOperation operation = new CreateFolderOperation(path, false, mStorageManager);
+                RemoteOperation operation = new CreateFolderOperation(path, false, getStorageManager());
                 operation.execute(  getAccount(), 
                         FileDisplayActivity.this, 
                         FileDisplayActivity.this, 
-                        mHandler,
+                        getHandler(),
                         FileDisplayActivity.this);
 
                 showLoadingDialog();
@@ -1545,9 +1523,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (file != null) {
             if (file.isFolder()) {
                 return file;
-            } else if (mStorageManager != null) {
+            } else if (getStorageManager() != null) {
                 String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
-                return mStorageManager.getFileByPath(parentPath);
+                return getStorageManager().getFileByPath(parentPath);
             }
         }
         return null;

@@ -24,6 +24,8 @@ package com.owncloud.android.operations;
  *
  */
 
+import android.content.Intent;
+
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
@@ -47,6 +49,7 @@ public class CreateShareOperation extends SyncOperation {
     private boolean mPublicUpload;
     private String mPassword;
     private int mPermissions;
+    private Intent mSendIntent;
 
     /**
      * Constructor
@@ -67,7 +70,7 @@ public class CreateShareOperation extends SyncOperation {
      *                      For instance, for “Re-Share”, “delete”, “read”, “update”, add 16+8+2+1 = 27.
      */
     public CreateShareOperation(String path, ShareType shareType, String shareWith, boolean publicUpload, 
-            String password, int permissions) {
+            String password, int permissions, Intent sendIntent) {
 
         mPath = path;
         mShareType = shareType;
@@ -75,6 +78,7 @@ public class CreateShareOperation extends SyncOperation {
         mPublicUpload = publicUpload;
         mPassword = password;
         mPermissions = permissions;
+        mSendIntent = sendIntent;
     }
 
     @Override
@@ -103,6 +107,7 @@ public class CreateShareOperation extends SyncOperation {
                 // Update OCFile with data from share: ShareByLink  and publicLink
                 OCFile file = getStorageManager().getFileByPath(mPath);
                 if (file!=null) {
+                    mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
                     file.setPublicLink(share.getShareLink());
                     getStorageManager().saveFile(file);
                     Log_OC.d(TAG, "Public Link = " + file.getPublicLink());
@@ -113,6 +118,11 @@ public class CreateShareOperation extends SyncOperation {
 
 
         return result;
+    }
+    
+    
+    public Intent getSendIntent() {
+        return mSendIntent;
     }
 
 }

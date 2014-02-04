@@ -25,7 +25,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
@@ -183,8 +182,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                         // media preview
                         mContainerActivity.startMediaPreview(file, 0, true);
                     } else {
-                        // open with
-                        mContainerActivity.openFile(file);
+                        FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                        activity.getFileOperationsHelper().openFile(file, activity);
                     }
                     
                 } else {
@@ -285,7 +284,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.shareFileWithLink(mTargetFile);
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().shareFileWithLink(mTargetFile, activity);
                 return true;
             }
             case R.id.action_rename_file: {
@@ -414,7 +414,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener, FileHandler {
+    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener {
 
         /**
          * Callback method invoked when a the user browsed into a different folder through the list of files
@@ -423,8 +423,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          */
         public void onBrowsedDownTo(OCFile folder);
         
-        public void shareFileWithLink(OCFile currentFile);
-
         public void startDownloadForPreview(OCFile file);
 
         public void startMediaPreview(OCFile file, int i, boolean b);
