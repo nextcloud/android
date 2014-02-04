@@ -51,6 +51,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 
@@ -67,6 +68,16 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     /** Maximum number of failed folder synchronizations that are supported before finishing the synchronization operation */
     private static final int MAX_FAILED_RESULTS = 3; 
+    
+    
+    public static final String EVENT_FULL_SYNC_START = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_START";
+    public static final String EVENT_FULL_SYNC_END = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_END";
+    public static final String EVENT_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_CONTENTS_SYNCED";
+    public static final String EVENT_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_SIZE_SYNCED";
+    
+    public static final String EXTRA_ACCOUNT_NAME = FileSyncAdapter.class.getName() + ".EXTRA_ACCOUNT_NAME";
+    public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() + ".EXTRA_FOLDER_PATH";
+    public static final String EXTRA_RESULT = FileSyncAdapter.class.getName() + ".EXTRA_RESULT";
     
     
     /** Time stamp for the current synchronization process, used to distinguish fresh data */
@@ -154,7 +165,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         }
         
         Log_OC.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
-        sendStickyBroadcast(true, null, null);  // message to signal the start of the synchronization to the UI
+        sendLocalBroadcast(EVENT_FULL_SYNC_START, null, null);  // message to signal the start of the synchronization to the UI
         
         try {
             updateOCVersion();
@@ -184,7 +195,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             if (mForgottenLocalFiles.size() > 0) {
                 notifyForgottenLocalFiles();
             }
-            sendStickyBroadcast(false, null, mLastFailedResult);        // message to signal the end to the UI
+            sendLocalBroadcast(EVENT_FULL_SYNC_END, null, mLastFailedResult);   // message to signal the end to the UI
         }
         
     }
@@ -258,7 +269,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
-        sendStickyBroadcast(true, folder.getRemotePath(), null);
+        sendLocalBroadcast(EVENT_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);
         
         // check the result of synchronizing the folder
         if (result.isSuccess() || result.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -332,9 +343,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
                 if(syncDown) { */
                     synchronizeFolder(newFile);
-                    // update the size of the parent folder again after recursive synchronization 
-                    //getStorageManager().updateFolderSize(parent.getFileId());  
-                    sendStickyBroadcast(true, parent.getRemotePath(), null);        // notify again to refresh size in UI
+                    sendLocalBroadcast(EVENT_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
                 //}
             }
         }
@@ -346,20 +355,21 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     /**
      * Sends a message to any application component interested in the progress of the synchronization.
      * 
-     * @param inProgress        'True' when the synchronization progress is not finished.
-     * @param dirRemotePath     Remote path of a folder that was just synchronized (with or without success)
+     * @param event             Event in the process of synchronization to be notified.   
+     * @param dirRemotePath     Remote path of the folder target of the event occurred.
+     * @param result            Result of an individual {@ SynchronizeFolderOperation}, if completed; may be null.
      */
-    private void sendStickyBroadcast(boolean inProgress, String dirRemotePath, RemoteOperationResult result) {
-        Intent i = new Intent(FileSyncService.getSyncMessage());
-        i.putExtra(FileSyncService.IN_PROGRESS, inProgress);
-        i.putExtra(FileSyncService.ACCOUNT_NAME, getAccount().name);
+    private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
+        Intent intent = new Intent(event);
+        intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {
-            i.putExtra(FileSyncService.SYNC_FOLDER_REMOTE_PATH, dirRemotePath);
+            intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
         if (result != null) {
-            i.putExtra(FileSyncService.SYNC_RESULT, result);
+            intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
         }
-        getContext().sendStickyBroadcast(i);
+        //getContext().sendStickyBroadcast(i);
+        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
 
     

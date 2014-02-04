@@ -605,7 +605,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (result.isSuccess()) {
-            updateOCFile(file, (RemoteFile)result.getData().get(0));
+            updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
         }
         
