@@ -35,6 +35,7 @@
   <string name="common_cancel">Avbryt</string>
   <string name="common_save_exit">Lagre og avslutt</string>
   <string name="common_error">Feil</string>
+  <string name="common_error_unknown">Ukjent feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endre passord</string>
   <string name="delete_account">Slett konto</string>

@@ -27,15 +27,17 @@ NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in 
 
 NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current Android 'platforms-tools' need to be installed.
 
-* Download/install Android plugin for Maven, then build ownCloud with mvn:
-* "cd .."
-* "git clone https://github.com/mosabua/maven-android-sdk-deployer.git"
-* "cd maven-android-sdk-deployer"
-* "mvn -pl com.simpligility.android.sdk-deployer:android-19 -am install"
-* "cd ../android/oc_framework"
-* "mvn install"
-* "cd .."
-* Now you can create ownCloud APK using "mvn package"
+Download/install Android plugin for Maven, install oc_framework, then build ownCloud with mvn:
+
+* cd ..
+* git clone https://github.com/mosabua/maven-android-sdk-deployer.git
+* cd maven-android-sdk-deployer
+* mvn -pl com.simpligility.android.sdk-deployer:android-19 -am install
+* cd ../android/oc_framework
+* mvn install
+* cd ..
+
+Now you can create ownCloud APK using "mvn package"
 
 ### 4. Building with Eclipse:
 
@@ -69,6 +71,16 @@ NOTE: You must sign the [Contributor Agreement][1] before your changes can be ac
 * Click "Edit" and set "base:develop"
 * Again, click "Edit" and set "compare:develop"
 * Enter description and send pull request.
+
+### 6. Create another pull request:
+
+To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/develop.
+
+* git fetch upstream
+* git checkout -b my_new_develop_branch upstream/develop
+* If you want to rename that branch later: "git checkout -b my_new_develop_branch_with_new_name"
+* Push branch to server: "git push -u origin name_of_local_develop_branch"
+* Use Github to issue PR
 
 
 [0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md
