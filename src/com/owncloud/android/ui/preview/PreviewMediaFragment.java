@@ -308,7 +308,7 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                //shareFileWithLink(getFile());
+                shareFileWithLink();
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -330,6 +330,14 @@ public class PreviewMediaFragment extends FileFragment implements
     }
 
     
+    private void shareFileWithLink() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+        
+    }
+
+
     private void seeDetails() {
         stopPreview(false);
         ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
