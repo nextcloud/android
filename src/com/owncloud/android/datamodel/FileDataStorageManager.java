@@ -29,6 +29,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -1113,5 +1114,30 @@ public class FileDataStorageManager {
         } else {
             getContentResolver().delete(share_uri, where, whereArgs); 
         }
+    }
+    
+    public void saveSharesDB(ArrayList<OCShare> shares) {
+        saveShares(shares);
+
+        ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
+
+        for (OCShare share : shares) {
+            // Get the path
+            String path = share.getPath();
+            if (share.isDirectory()) {
+                path = path + FileUtils.PATH_SEPARATOR;
+            }           
+
+            // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+            OCFile file = getFileByPath(path);
+            if (file != null) {
+                if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
+                    file.setShareByLink(true);
+                    sharedFiles.add(file);
+                }
+            } 
+        }
+        
+        updateSharedFiles(sharedFiles);
     }
 }

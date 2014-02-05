@@ -340,8 +340,14 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+                return true;
+            }
             case R.id.action_open_file_with: {
-                mContainerActivity.openFile(getFile());
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().openFile(getFile(), activity);
                 return true;
             }
             case R.id.action_remove_file: {
@@ -363,7 +369,7 @@ public class FileDetailFragment extends FileFragment implements
                 return false;
         }
     }
-    
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -403,7 +409,6 @@ public class FileDetailFragment extends FileFragment implements
             synchronizeFile();   // force an immediate synchronization
         }
     }
-
 
     private void removeFile() {
         OCFile file = getFile();

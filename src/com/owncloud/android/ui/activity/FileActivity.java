@@ -24,19 +24,27 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
+import com.owncloud.android.lib.operations.common.RemoteOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateShareOperation;
 
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.webdav.WebdavUtils;
-
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -45,14 +53,16 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity {
+public class FileActivity extends SherlockFragmentActivity implements OnRemoteOperationListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
-    public static final String TAG = FileActivity.class.getSimpleName(); 
+    public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -73,6 +83,13 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
     
+    /** Messages handler associated to the main thread and the life cycle of the activity */
+    private Handler mHandler;
+    
+    /** Access point to the cached database for the current ownCloud {@link Account} */
+    private FileDataStorageManager mStorageManager = null;
+    
+    private FileOperationsHelper mFileOperationsHelper;
 
     
     /**
@@ -85,6 +102,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHandler = new Handler();
+        mFileOperationsHelper = new FileOperationsHelper();
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -250,17 +269,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     
     /**
-     *  @return 'True' if the server supports the Share API
-     */
-    public boolean isSharedSupported() {
-        if (getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(this);
-            return Boolean.parseBoolean(accountManager.getUserData(getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
-        }
-        return false;
-    }
-
-    /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
      * 
@@ -307,40 +315,85 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      * 
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected abstract void onAccountSet(boolean stateWasRecovered);
-    
-    
-
-    public void openFile(OCFile file) {
-        if (file != null) {
-            String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-            
-            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            
-            Intent intentForGuessedMimeType = null;
-            if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-            }
-            
-            Intent chooserIntent = null;
-            if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
-            } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
-            }
-            
-            startActivity(chooserIntent);
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+        }
+    }
+
+
+    public FileDataStorageManager getStorageManager() {
+        return mStorageManager;
+    }
+
+
+    public OnRemoteOperationListener getRemoteOperationListener() {
+        return this;
+    }
+
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+    
+    public FileOperationsHelper getFileOperationsHelper() {
+        return mFileOperationsHelper;
+    }
+    
+    /**
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+        }
+    }
+
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        if (result.isSuccess()) {
+            Intent sendIntent = operation.getSendIntent();
+            startActivity(sendIntent);
+            
+        } else if (result.getCode() == ResultCode.FILE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+                Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+                t.show();
+        } else {    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
+    
+    
+    /**
+     * Show loading dialog 
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+        
+    }
+
+    
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
         }
     }
     

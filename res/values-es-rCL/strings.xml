@@ -13,4 +13,20 @@
   <string name="uploader_btn_upload_text">Subir</string>
   <string name="uploader_wrn_no_account_title">No se encuentra la cuenta</string>
   <string name="uploader_info_uploading">Subiendo</string>
+  <string name="filedetails_select_file">Seleccione un archivo para desplegar información adicional.</string>
+  <string name="filedetails_size">Tamaño:</string>
+  <string name="filedetails_type">Tipo:</string>
+  <string name="filedetails_created">Creado:</string>
+  <string name="filedetails_modified">Modificado:</string>
+  <string name="filedetails_download">Descargar</string>
+  <string name="common_yes">Si</string>
+  <string name="common_no">No</string>
+  <string name="common_ok">OK</string>
+  <string name="common_cancel">Cancelar</string>
+  <string name="common_error">Error</string>
+  <string name="uploader_info_dirname">Nombre del directorio</string>
+  <string name="common_choose_account">Elija una cuenta</string>
+  <string name="pincode_enter_pin_code">Por favor, ingreses su PIN de aplicación</string>
+  <string name="pincode_configure_your_pin">Ingrese su PIN de aplicación</string>
+  <string name="pincode_reenter_your_pincode">Por favor, reingrese su PIN de aplicación</string>
 </resources>

@@ -188,6 +188,7 @@
     <string name="wait_a_moment">Wait a moment</string>
     <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
+    <string name="activity_chooser_title">Send link to &#8230;</string>
     
     <string name="oauth_check_onoff">Login with oAuth2</string> 
     <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
@@ -248,4 +249,5 @@
 	
 	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
 	<string name="share_link_file_no_exist">Unable to share this file or folder. Please, make sure it exists</string>
+	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 </resources>
