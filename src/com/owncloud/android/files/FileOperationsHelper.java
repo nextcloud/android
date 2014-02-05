@@ -33,6 +33,7 @@ import com.owncloud.android.lib.network.webdav.WebdavUtils;
 import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
 
@@ -107,6 +108,7 @@ public class FileOperationsHelper {
     public void shareFileWithLinkToApp(OCFile file, Intent sendIntent, FileActivity callerActivity) {
         
         if (file != null) {
+            ((FileDisplayActivity) callerActivity).showLoadingDialog();
             CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1, sendIntent);
             createShare.execute(callerActivity.getStorageManager(), 
                                 callerActivity, 
