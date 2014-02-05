@@ -551,7 +551,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             // the next operation triggers a new call to this method, but it's necessary to 
             // ensure that the name exposed in the action bar is the current directory when the 
             // user selected it in the navigation list
-            getSupportActionBar().setSelectedNavigationItem(0);
+            if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_LIST  && itemPosition != 0) 
+                getSupportActionBar().setSelectedNavigationItem(0);
         }
         return true;
     }
@@ -912,6 +913,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
             ((TextView) v).setTextColor(getResources().getColorStateList(
                     android.R.color.white));
+            
+            fixRoot((TextView) v );
             return v;
         }
 
@@ -922,7 +925,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             ((TextView) v).setTextColor(getResources().getColorStateList(
                     android.R.color.white));
 
+            fixRoot((TextView) v );
             return v;
+        }
+
+        private void fixRoot(TextView v) {
+            if (v.getText().equals(OCFile.PATH_SEPARATOR)) {
+                v.setText(R.string.default_display_name_for_root_folder);
+            }
         }
 
     }
@@ -1220,9 +1230,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (chosenFile == null || mDualPane) {
             // only list of files - set for browsing through folders
             OCFile currentDir = getCurrentDir();
-            actionBar.setDisplayHomeAsUpEnabled(currentDir != null && currentDir.getParentId() != 0);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+            boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
+            actionBar.setDisplayHomeAsUpEnabled(noRoot);
+            actionBar.setDisplayShowTitleEnabled(!noRoot); 
+            if (!noRoot) {
+                actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
+            }
+            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
             actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
 
         } else {

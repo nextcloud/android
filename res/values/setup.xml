@@ -8,6 +8,7 @@
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud</string>
     <string name ="log_name">Owncloud_</string>
+    <string name ="default_display_name_for_root_folder">/</string>
     
     <!-- URLs and flags related -->
     <string name="server_url"></string>
