@@ -246,6 +246,22 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            MenuItem item = menu.findItem(R.id.action_unshare_file);
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+    }
+
+    
     
     /**
      * {@inheritDoc}
@@ -256,6 +272,11 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
             case R.id.action_share_file: {
                 FileActivity act = (FileActivity)getSherlockActivity();
                 act.getFileOperationsHelper().shareFileWithLink(getFile(), act);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().unshareFileWithLink(getFile(), act);
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -277,14 +298,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     }
 
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-    }
-
 
     private void seeDetails() {
         ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        

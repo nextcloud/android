@@ -305,6 +305,22 @@ public class PreviewMediaFragment extends FileFragment implements
         
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            MenuItem item = menu.findItem(R.id.action_unshare_file);
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+    }
+    
     
     /**
      * {@inheritDoc}
@@ -339,14 +355,6 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-    }
 
     private void unshareFileWithLink() {
         stopPreview(false);
