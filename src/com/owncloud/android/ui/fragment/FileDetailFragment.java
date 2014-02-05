@@ -337,6 +337,7 @@ public class FileDetailFragment extends FileFragment implements
         switch (item.getItemId()) {
             case R.id.action_share_file: {
                 FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.showLoadingDialog();
                 activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
                 return true;
             }

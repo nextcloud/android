@@ -1338,7 +1338,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
-        
+        dismissLoadingDialog();
         if (result.isSuccess()) {
             refeshListOfFilesFragment();
 
