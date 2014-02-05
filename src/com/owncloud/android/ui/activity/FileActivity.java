@@ -43,6 +43,7 @@ import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.Log_OC;
@@ -353,7 +354,11 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
         if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
-        }
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
+        
+        } 
     }
 
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
@@ -362,7 +367,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
             
-        } else if (result.getCode() == ResultCode.FILE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
                 Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
                 t.show();
         } else {    // Generic error
@@ -372,6 +377,17 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         }
     }
     
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        
+        if (!result.isSuccess()){    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_error), Toast.LENGTH_LONG);
+            t.show();
+        }
+        
+    }
     
     /**
      * Show loading dialog 

@@ -1315,24 +1315,20 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
     }
 
-    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
-        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-            // Show a Message
-            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
-            t.show();
-        }
-
-        refeshListOfFilesFragment();
-
-        dismissLoadingDialog();
-    }
-
+    
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             refeshListOfFilesFragment();
         }
     }
 
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            refeshListOfFilesFragment();
+        }
+    }
+    
     
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 

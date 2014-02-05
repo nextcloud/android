@@ -316,6 +316,10 @@ public class PreviewMediaFragment extends FileFragment implements
                 shareFileWithLink();
                 return true;
             }
+            case R.id.action_unshare_file: {
+                unshareFileWithLink();
+                return true;
+            }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;
@@ -334,6 +338,8 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
     
+
+
     /**
      * {@inheritDoc}
      */
@@ -342,6 +348,11 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onPrepareOptionsMenu(menu);
     }
 
+    private void unshareFileWithLink() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+    }
     
     private void shareFileWithLink() {
         stopPreview(false);
