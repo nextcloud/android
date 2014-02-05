@@ -23,11 +23,17 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -35,7 +41,10 @@ import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateShareOperation;
 
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -52,6 +61,8 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
     public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -339,9 +350,51 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        // does nothing ; to override in child classes 
-        Log_OC.d(TAG, "Received result of operation in FileActivity");
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+        }
     }
 
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        if (result.isSuccess()) {
+            Intent sendIntent = operation.getSendIntent();
+            startActivity(sendIntent);
+            
+        } else if (result.getCode() == ResultCode.FILE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+                Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+                t.show();
+        } else {    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
+    
+    
+    /**
+     * Show loading dialog 
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+        
+    }
 
+    
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
+    
 }

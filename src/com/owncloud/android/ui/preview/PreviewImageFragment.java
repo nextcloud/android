@@ -57,6 +57,7 @@ import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
@@ -248,7 +249,8 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                //shareFileWithLink(getFile());
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().shareFileWithLink(getFile(), act);
                 return true;
             }
             case R.id.action_open_file_with: {

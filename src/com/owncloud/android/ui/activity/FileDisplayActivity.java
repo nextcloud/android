@@ -42,7 +42,6 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -80,7 +79,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
@@ -127,8 +125,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private static final int DIALOG_SSL_VALIDATOR = 2;
     private static final int DIALOG_CERT_NOT_SAVED = 3;
     
-    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
     private static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
@@ -821,30 +817,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     /**
-     * Show loading dialog 
-     */
-    public void showLoadingDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_TAG);
-        
-    }
-    
-    /**
-     * Dismiss loading dialog
-     */
-    public void dismissLoadingDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-      if (frag != null) {
-          LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
-    }
-    
-    
-    /**
      * Translates a content URI of an image to a physical path
      * on the disk
      * @param uri The URI to resolve
@@ -1318,6 +1290,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      */
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
         if (operation instanceof RemoveFileOperation) {
             onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
 
@@ -1338,26 +1312,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
-        dismissLoadingDialog();
         if (result.isSuccess()) {
             refeshListOfFilesFragment();
-
-            Intent sendIntent = operation.getSendIntent();
-            startActivity(sendIntent);
-            
-        } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {    // Error --> SHARE_NOT_FOUND
-            // Show a Message
-            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
-            t.show();
-            
-        } else {    // Generic error
-            // Show a Message, operation finished without success
-            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
-            t.show();
         }
-        
     }
 
+    
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 
      * file. 
