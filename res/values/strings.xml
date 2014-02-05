@@ -248,4 +248,5 @@
 	
 	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
 	<string name="share_link_file_no_exist">Unable to share this file or folder. Please, make sure it exists</string>
+	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 </resources>

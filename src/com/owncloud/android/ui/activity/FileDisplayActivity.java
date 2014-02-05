@@ -1338,16 +1338,22 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
-        if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-            // Show a Message
-            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
-            t.show();
-            
-        } else if (result.isSuccess()) {
+        
+        if (result.isSuccess()) {
             refeshListOfFilesFragment();
 
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
+            
+        } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {    // Error --> SHARE_NOT_FOUND
+            // Show a Message
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
+            
+        } else {    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
+            t.show();
         }
         
     }
