@@ -345,6 +345,11 @@ public class FileDetailFragment extends FileFragment implements
                 activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
                 return true;
             }
+            case R.id.action_unshare_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+                return true;
+            }
             case R.id.action_open_file_with: {
                 FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
                 activity.getFileOperationsHelper().openFile(getFile(), activity);
