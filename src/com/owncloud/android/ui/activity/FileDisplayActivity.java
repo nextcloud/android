@@ -106,7 +106,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
-    private OperationsServiceReceiver mOperationsServiceReceiver;
+    //private OperationsServiceReceiver mOperationsServiceReceiver;
     private FileDownloaderBinder mDownloaderBinder = null;
     private FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadConnection = null, mUploadConnection = null;
@@ -138,7 +138,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private OCFile mWaitingToPreview;
     
     private boolean mSyncInProgress = false;
-    private boolean mRefreshSharesInProgress = false;
+    //private boolean mRefreshSharesInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,12 +169,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if(savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mRefreshSharesInProgress = savedInstanceState.getBoolean(KEY_REFRESH_SHARES_IN_PROGRESS);
+            //mRefreshSharesInProgress = savedInstanceState.getBoolean(KEY_REFRESH_SHARES_IN_PROGRESS);
            
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
-            mRefreshSharesInProgress = false;
+            //mRefreshSharesInProgress = false;
         }        
 
         /// USER INTERFACE
@@ -191,7 +191,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // Action bar setup
         mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress || mRefreshSharesInProgress);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -657,7 +657,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
-        outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
+        //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -672,9 +672,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FOLDER_SIZE_SYNCED);
-        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FOLDER_CONTENTS_SYNCED);
-        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED);
+        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED);
+        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
+        syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         //registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
         LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
@@ -691,10 +692,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
         // Listen for messages from the OperationsService
+        /*
         IntentFilter operationsIntentFilter = new IntentFilter(OperationsService.ACTION_OPERATION_ADDED);
         operationsIntentFilter.addAction(OperationsService.ACTION_OPERATION_FINISHED);
         mOperationsServiceReceiver = new OperationsServiceReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(mOperationsServiceReceiver, operationsIntentFilter);
+        */
     
         Log_OC.d(TAG, "onResume() end");
     }
@@ -717,10 +720,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
+        /*
         if (mOperationsServiceReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mOperationsServiceReceiver);
             mOperationsServiceReceiver = null;
         }
+        */
         Log_OC.d(TAG, "onPause() end");
     }
 
@@ -926,24 +931,24 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                         setFile(currentFile);
                     }
                     
-                    mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && 
-                                        !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED.equals(event) &&
-                                        (synchResult == null || synchResult.isSuccess())) ;
-                    
+                    mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
+                            
+                    /*
                     if (synchResult != null && 
                         synchResult.isSuccess() &&
                             (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED.equals(event) || 
-                                FileSyncAdapter.EVENT_FOLDER_CONTENTS_SYNCED.equals(event)
+                                FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED.equals(event)
                             ) &&
                             !mRefreshSharesInProgress &&
                             getFileOperationsHelper().isSharedSupported(FileDisplayActivity.this)
                         ) {
                         startGetShares();
                     }
+                    */
                     
                 }
                 //removeStickyBroadcast(intent);
-                setSupportProgressBarIndeterminateVisibility(mSyncInProgress || mRefreshSharesInProgress);
+                setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
             }
             
             if (synchResult != null) {
@@ -1026,7 +1031,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (OperationsService.ACTION_OPERATION_ADDED.equals(intent.getAction())) {
                 
             } else if (OperationsService.ACTION_OPERATION_FINISHED.equals(intent.getAction())) {
-                mRefreshSharesInProgress = false;
+                //mRefreshSharesInProgress = false;
                 
                 Account account = intent.getParcelableExtra(OperationsService.EXTRA_ACCOUNT);
                 RemoteOperationResult getSharesResult = (RemoteOperationResult)intent.getSerializableExtra(OperationsService.EXTRA_RESULT);
@@ -1041,7 +1046,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     showDialog(DIALOG_SSL_VALIDATOR); 
                 }
 
-                setSupportProgressBarIndeterminateVisibility(mRefreshSharesInProgress || mSyncInProgress);
+                //setSupportProgressBarIndeterminateVisibility(mRefreshSharesInProgress || mSyncInProgress);
             }
             
         }
@@ -1526,7 +1531,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         setSupportProgressBarIndeterminateVisibility(true);
     }
 
-    
+    /*
     private void startGetShares() {
         // Get shared files/folders
         Intent intent = new Intent(this, OperationsService.class);
@@ -1535,5 +1540,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         
         mRefreshSharesInProgress = true;
     }
+    */
 
 }

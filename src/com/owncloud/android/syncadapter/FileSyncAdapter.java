@@ -72,8 +72,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     
     public static final String EVENT_FULL_SYNC_START = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_START";
     public static final String EVENT_FULL_SYNC_END = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_END";
-    public static final String EVENT_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_CONTENTS_SYNCED";
-    public static final String EVENT_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_SIZE_SYNCED";
+    public static final String EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED";
+    public static final String EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED";
     
     public static final String EXTRA_ACCOUNT_NAME = FileSyncAdapter.class.getName() + ".EXTRA_ACCOUNT_NAME";
     public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() + ".EXTRA_FOLDER_PATH";
@@ -269,7 +269,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
-        sendLocalBroadcast(EVENT_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);
+        sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);
         
         // check the result of synchronizing the folder
         if (result.isSuccess() || result.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -343,7 +343,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
                 if(syncDown) { */
                     synchronizeFolder(newFile);
-                    sendLocalBroadcast(EVENT_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
+                    sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
                 //}
             }
         }
