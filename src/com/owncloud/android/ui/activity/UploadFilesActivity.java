@@ -380,6 +380,7 @@ public class UploadFilesActivity extends FileActivity implements
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             if (!mAccountOnCreation.equals(getAccount())) {
                 setResult(RESULT_CANCELED);
@@ -387,7 +388,6 @@ public class UploadFilesActivity extends FileActivity implements
             }
             
         } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
             setResult(RESULT_CANCELED);
             finish();
         }

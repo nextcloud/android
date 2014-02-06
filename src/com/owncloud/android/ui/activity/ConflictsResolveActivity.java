@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.activity;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
@@ -77,6 +76,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
             if (getFile() == null) {
@@ -84,8 +84,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
             } else {
                 /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
-                FileDataStorageManager storageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-                file = storageManager.getFileByPath(file.getRemotePath());   // file = null if not in the current Account
+                file = getStorageManager().getFileByPath(file.getRemotePath());   // file = null if not in the current Account
                 if (file != null) {
                     setFile(file);
                     ConflictsResolveDialog d = ConflictsResolveDialog.newInstance(file.getRemotePath(), this);
@@ -98,7 +97,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
             }
             
         } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
             finish();
         }
         

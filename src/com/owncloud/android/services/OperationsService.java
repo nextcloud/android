@@ -228,7 +228,14 @@ public class OperationsService extends Service {
                     Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
-                
+            } catch (Exception e) {
+                if (mLastTarget.mAccount == null) {
+                    Log_OC.e(TAG, "Unexpected error for a NULL account", e);
+                } else {
+                    Log_OC.e(TAG, "Unexpected error for " + mLastTarget.mAccount.name, e);
+                }
+                result = new RemoteOperationResult(e);
+            
             } finally {
                 synchronized(mPendingOperations) {
                     mPendingOperations.poll();
