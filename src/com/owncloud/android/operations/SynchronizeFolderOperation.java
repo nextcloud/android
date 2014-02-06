@@ -33,7 +33,7 @@ import org.apache.http.HttpStatus;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -512,8 +512,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
         intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
-        //mContext.sendStickyBroadcast(intent);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+        mContext.sendStickyBroadcast(intent);
+        //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
 

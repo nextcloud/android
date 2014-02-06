@@ -43,7 +43,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -677,8 +677,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
-        //registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+        //LocalBroadcastManager.getInstance(this).registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
         // Listen for upload messages
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploader.getUploadFinishMessage());
@@ -708,8 +708,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         super.onPause();
         Log_OC.e(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
-            //unregisterReceiver(mSyncBroadcastReceiver);
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
+            unregisterReceiver(mSyncBroadcastReceiver);
+            //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
             mSyncBroadcastReceiver = null;
         }
         if (mUploadFinishReceiver != null) {
@@ -947,7 +947,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     */
                     
                 }
-                //removeStickyBroadcast(intent);
+                removeStickyBroadcast(intent);
                 setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
             }
             

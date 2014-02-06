@@ -51,7 +51,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 
@@ -368,8 +368,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (result != null) {
             intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
         }
-        //getContext().sendStickyBroadcast(i);
-        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+        getContext().sendStickyBroadcast(intent);
+        //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
 
     
