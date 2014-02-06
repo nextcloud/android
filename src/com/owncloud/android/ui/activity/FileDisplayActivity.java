@@ -86,6 +86,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -1318,6 +1319,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
+            refreshShowDetails();
             refeshListOfFilesFragment();
         }
     }
@@ -1325,10 +1327,27 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
+            refreshShowDetails();
             refeshListOfFilesFragment();
         }
     }
     
+    private void refreshShowDetails() {
+        FileFragment details = getSecondFragment();
+        if (details != null) {
+            OCFile file = details.getFile();
+            if (file != null) {
+                file = getStorageManager().getFileByPath(file.getRemotePath()); {
+                    if (!(details instanceof PreviewMediaFragment || details instanceof PreviewImageFragment)) {
+                        showDetails(file);
+                    } else if (details instanceof PreviewMediaFragment) {                        
+                        startMediaPreview(file, 0, false);
+                    } 
+                }
+                invalidateOptionsMenu();
+            }
+        }
+    }
     
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 

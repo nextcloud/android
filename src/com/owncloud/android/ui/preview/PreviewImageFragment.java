@@ -253,6 +253,12 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
+        // Trick to update the file
+        OCFile file = ((PreviewImageActivity) getActivity()).getStorageManager().getFileByPath(getFile().getRemotePath()); 
+        if (file!= null) {
+            setFile(file);
+        }
+        
         // Options shareLink
         if (!getFile().isShareByLink()) {
             MenuItem item = menu.findItem(R.id.action_unshare_file);

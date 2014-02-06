@@ -257,6 +257,11 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 toHide.add(R.id.action_cancel_upload);
             }
         }
+        
+        // Options shareLink
+        if (!targetFile.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
         for (int i : toHide) {
             item = menu.findItem(i);
