@@ -103,7 +103,7 @@ import com.owncloud.android.utils.Log_OC;
  * @author David A. Velasco
  */
 
-public class FileDisplayActivity extends FileActivity implements
+public class FileDisplayActivity extends HookActivity implements
 OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, OnRemoteOperationListener, EditNameDialogListener {
 
     private ArrayAdapter<String> mDirectories;
