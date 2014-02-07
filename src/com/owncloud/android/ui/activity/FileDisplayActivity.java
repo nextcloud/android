@@ -1350,7 +1350,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
-        if (result.isSuccess()) {
+        if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             refreshShowDetails();
             refeshListOfFilesFragment();
         }

@@ -17,11 +17,14 @@
 
 package com.owncloud.android.operations;
 
+import android.content.Context;
+
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.operations.remote.RemoveRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
@@ -37,9 +40,12 @@ public class UnshareLinkOperation extends SyncOperation {
     private static final String TAG = UnshareLinkOperation.class.getSimpleName();
     
     private OCFile mFile;
+    private Context mContext;
     
-    public UnshareLinkOperation(OCFile file) {
+    
+    public UnshareLinkOperation(OCFile file, Context context) {
         mFile = file;
+        mContext = context;
     }
 
     @Override
@@ -66,7 +72,11 @@ public class UnshareLinkOperation extends SyncOperation {
                 getStorageManager().removeShare(share);
                 
                 if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                    result = new RemoteOperationResult(ResultCode.OK);
+                    if (existsFile(client, mFile.getRemotePath())) {
+                        result = new RemoteOperationResult(ResultCode.OK);
+                    } else {
+                        getStorageManager().removeFile(mFile, true, true);
+                    }
                 }
             } 
                 
@@ -75,6 +85,12 @@ public class UnshareLinkOperation extends SyncOperation {
         }
 
         return result;
+    }
+    
+    private boolean existsFile(OwnCloudClient client, String remotePath){
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        RemoteOperationResult result = existsOperation.execute(client);
+        return result.isSuccess();
     }
 
 }

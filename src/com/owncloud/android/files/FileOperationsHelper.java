@@ -146,7 +146,7 @@ public class FileOperationsHelper {
         
         if (isSharedSupported(callerActivity)) {
             // Unshare the file
-            UnshareLinkOperation unshare = new UnshareLinkOperation(file);
+            UnshareLinkOperation unshare = new UnshareLinkOperation(file, callerActivity);
             unshare.execute(callerActivity.getStorageManager(), 
                     callerActivity, 
                     callerActivity.getRemoteOperationListener(), 

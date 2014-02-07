@@ -381,7 +381,10 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         dismissLoadingDialog();
         
-        if (!result.isSuccess()){    // Generic error
+        if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
+        } else if (!result.isSuccess()){    // Generic error
             // Show a Message, operation finished without success
             Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_error), Toast.LENGTH_LONG);
             t.show();
