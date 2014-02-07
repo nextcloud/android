@@ -30,6 +30,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
@@ -40,6 +41,7 @@ import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -106,6 +108,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     /** {@link SyncResult} instance to return to the system when the synchronization finish */
     private SyncResult mSyncResult;
+
+    /** 'True' means that the server supports the share API */
+    private boolean mIsSharedSupported;
     
     
     /**
@@ -150,6 +155,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
         this.setStorageManager(new FileDataStorageManager(account, providerClient));
+        
+        AccountManager accountManager = getAccountManager();
+        mIsSharedSupported = Boolean.parseBoolean(accountManager.getUserData(account, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+
         try {
             this.initClientForCurrentAccount();
         } catch (IOException e) {
@@ -254,13 +263,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         DataStorageManager dataStorageManager, 
         Account account, 
         Context context ) {
-            
         }
         */
         // folder synchronization
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  folder, 
                                                                                     mCurrentSyncTime, 
                                                                                     true,
+                                                                                    mIsSharedSupported,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()
@@ -360,6 +369,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * @param result            Result of an individual {@ SynchronizeFolderOperation}, if completed; may be null.
      */
     private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Send broadcast " + event);
         Intent intent = new Intent(event);
         intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {

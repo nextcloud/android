@@ -100,9 +100,12 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     /** 'True' means that this operation is part of a full account synchronization */ 
     private boolean mSyncFullAccount;
 
+    /** 'True' means that Share resources bound to the files into the folder should be refreshed also */
+    private boolean mRefreshShares;
+    
     /** 'True' means that the remote folder changed from last synchronization and should be fetched */
     private boolean mRemoteFolderChanged;
-    
+
     
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -119,12 +122,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     public SynchronizeFolderOperation(  OCFile folder, 
                                         long currentSyncTime, 
                                         boolean syncFullAccount,
+                                        boolean refreshShares,
                                         FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
+        mRefreshShares = refreshShares;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
@@ -180,10 +185,13 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
         
-        if (result.isSuccess()) {
-            result = refreshSharesForFolder(client);
+        if (result.isSuccess() && mRefreshShares) {
+            RemoteOperationResult shareResult = refreshSharesForFolder(client);
+            if (shareResult.getCode() != ResultCode.FILE_NOT_FOUND) {
+                result = shareResult;
+            } // else , keep the previous result ; being conservative for servers where Sharing API is supported, but disabled
         }
-
+        
         if (!mSyncFullAccount) {            
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
@@ -506,6 +514,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
      * @param result
      */
     private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Send broadcast " + event);
         Intent intent = new Intent(event);
         intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, mAccount.name);
         if (dirRemotePath != null) {

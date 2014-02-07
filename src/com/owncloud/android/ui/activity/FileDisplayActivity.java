@@ -906,6 +906,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         @Override
         public void onReceive(Context context, Intent intent) {
             String event = intent.getAction();
+            Log_OC.d(TAG, "Received broadcast " + event);
             String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
             String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH); 
             RemoteOperationResult synchResult = (RemoteOperationResult)intent.getSerializableExtra(FileSyncAdapter.EXTRA_RESULT);
@@ -913,7 +914,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
             if (sameAccount) {
                 
-                if (!FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                    mSyncInProgress = true;
+                    
+                } else {
                     OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
                     OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
 
@@ -958,6 +962,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                     
                 }
                 removeStickyBroadcast(intent);
+                Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                 setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
             }
             
@@ -1536,6 +1541,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         RemoteOperation synchFolderOp = new SynchronizeFolderOperation( folder,  
                                                                         currentSyncTime, 
                                                                         false,
+                                                                        getFileOperationsHelper().isSharedSupported(this),
                                                                         getStorageManager(), 
                                                                         getAccount(), 
                                                                         getApplicationContext()
