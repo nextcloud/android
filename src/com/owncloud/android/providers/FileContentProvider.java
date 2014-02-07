@@ -25,6 +25,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -298,23 +299,23 @@ public class FileContentProvider extends ContentProvider {
             String[] projectionShare = new String[] {ProviderTableMeta._ID, ProviderTableMeta.OCSHARES_PATH, ProviderTableMeta.OCSHARES_ACCOUNT_OWNER };
             String whereShare = ProviderTableMeta.OCSHARES_PATH + "=? AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
             String[] whereArgsShare = new String[] {path, accountNameShare};
+            Uri insertedShareUri = null;
             Cursor doubleCheckShare = query(db, uri, projectionShare, whereShare, whereArgsShare, null);
             if (doubleCheckShare == null || !doubleCheckShare.moveToFirst()) {    // ugly patch; serious refactorization is needed to reduce work in FileDataStorageManager and bring it to FileContentProvider 
                 long rowId = db.insert(ProviderTableMeta.OCSHARES_TABLE_NAME, null, values);
                 if (rowId >0) {
-                    Uri insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
-                    return insertedShareUri;
+                    insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, rowId);
                 } else {
                     throw new SQLException("ERROR " + uri);
 
                 }
             } else {
                 // file is already inserted; race condition, let's avoid a duplicated entry
-                Uri insertedFileUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, doubleCheckShare.getLong(doubleCheckShare.getColumnIndex(ProviderTableMeta._ID)));
+                insertedShareUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SHARE, doubleCheckShare.getLong(doubleCheckShare.getColumnIndex(ProviderTableMeta._ID)));
                 doubleCheckShare.close();
-
-                return insertedFileUri;
             }
+            updateFilesTableAccordingToShareInsertion(db, uri, values);
+            return insertedShareUri;
             
 
         default:
@@ -322,8 +323,20 @@ public class FileContentProvider extends ContentProvider {
         }
         
     }
-
     
+    private void updateFilesTableAccordingToShareInsertion(SQLiteDatabase db, Uri uri, ContentValues shareValues) {
+        ContentValues fileValues = new ContentValues();
+        fileValues.put(ProviderTableMeta.FILE_SHARE_BY_LINK, 
+                            ShareType.PUBLIC_LINK.getValue() == shareValues.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE)? 1 : 0);
+        String whereShare = ProviderTableMeta.FILE_PATH + "=? AND " + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
+        String[] whereArgsShare = new String[] {
+                shareValues.getAsString(ProviderTableMeta.OCSHARES_PATH), 
+                shareValues.getAsString(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER)
+        };
+        db.update(ProviderTableMeta.FILE_TABLE_NAME, fileValues, whereShare, whereArgsShare);
+    }
+    
+
     @Override
     public boolean onCreate() {
         mDbHelper = new DataBaseHelper(getContext());
