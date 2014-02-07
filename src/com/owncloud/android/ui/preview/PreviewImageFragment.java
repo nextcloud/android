@@ -259,12 +259,16 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
             setFile(file);
         }
         
+        MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
-        if (!getFile().isShareByLink()) {
-            MenuItem item = menu.findItem(R.id.action_unshare_file);
+        if (!getFile().isShareByLink()) {            
             item.setVisible(false);
             item.setEnabled(false);
+        } else {
+            item.setVisible(true);
+            item.setEnabled(true);
         }
+            
     }
 
     
