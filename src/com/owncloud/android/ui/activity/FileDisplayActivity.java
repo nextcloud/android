@@ -1350,8 +1350,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
-        if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+        if (result.isSuccess()) {
             refreshShowDetails();
+            refeshListOfFilesFragment();
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            cleanSecondFragment();
             refeshListOfFilesFragment();
         }
     }
@@ -1364,12 +1367,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 file = getStorageManager().getFileByPath(file.getRemotePath()); {
                     if (!(details instanceof PreviewMediaFragment || details instanceof PreviewImageFragment)) {
                         showDetails(file);
-                    } else if (details instanceof PreviewMediaFragment) {                        
+                    } else if (details instanceof PreviewMediaFragment) {
                         startMediaPreview(file, 0, false);
                     } 
                 }
                 invalidateOptionsMenu();
-            }
+            } 
         }
     }
     
