@@ -30,6 +30,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
@@ -40,6 +41,7 @@ import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -51,7 +53,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 
@@ -72,8 +74,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     
     public static final String EVENT_FULL_SYNC_START = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_START";
     public static final String EVENT_FULL_SYNC_END = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_END";
-    public static final String EVENT_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_CONTENTS_SYNCED";
-    public static final String EVENT_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FOLDER_SIZE_SYNCED";
+    public static final String EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED";
+    public static final String EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED";
     
     public static final String EXTRA_ACCOUNT_NAME = FileSyncAdapter.class.getName() + ".EXTRA_ACCOUNT_NAME";
     public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() + ".EXTRA_FOLDER_PATH";
@@ -106,6 +108,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     /** {@link SyncResult} instance to return to the system when the synchronization finish */
     private SyncResult mSyncResult;
+
+    /** 'True' means that the server supports the share API */
+    private boolean mIsSharedSupported;
     
     
     /**
@@ -150,6 +155,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
         this.setStorageManager(new FileDataStorageManager(account, providerClient));
+        
+        AccountManager accountManager = getAccountManager();
+        mIsSharedSupported = Boolean.parseBoolean(accountManager.getUserData(account, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+
         try {
             this.initClientForCurrentAccount();
         } catch (IOException e) {
@@ -254,13 +263,13 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         DataStorageManager dataStorageManager, 
         Account account, 
         Context context ) {
-            
         }
         */
         // folder synchronization
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  folder, 
                                                                                     mCurrentSyncTime, 
                                                                                     true,
+                                                                                    mIsSharedSupported,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()
@@ -269,7 +278,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         
         // synchronized folder -> notice to UI - ALWAYS, although !result.isSuccess
-        sendLocalBroadcast(EVENT_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);
+        sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED, folder.getRemotePath(), result);
         
         // check the result of synchronizing the folder
         if (result.isSuccess() || result.getCode() == ResultCode.SYNC_CONFLICT) {
@@ -343,7 +352,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
                 if(syncDown) { */
                     synchronizeFolder(newFile);
-                    sendLocalBroadcast(EVENT_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
+                    sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
                 //}
             }
         }
@@ -360,6 +369,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      * @param result            Result of an individual {@ SynchronizeFolderOperation}, if completed; may be null.
      */
     private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Send broadcast " + event);
         Intent intent = new Intent(event);
         intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, getAccount().name);
         if (dirRemotePath != null) {
@@ -368,8 +378,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (result != null) {
             intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
         }
-        //getContext().sendStickyBroadcast(i);
-        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+        getContext().sendStickyBroadcast(intent);
+        //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
 
     

@@ -42,7 +42,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -262,8 +262,9 @@ public class OperationsService extends Service {
         } else {
             intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);    
         }
-        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.sendBroadcast(intent);
+        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        //lbm.sendBroadcast(intent);
+        sendStickyBroadcast(intent);
     }
 
     
@@ -286,8 +287,9 @@ public class OperationsService extends Service {
         } else {
             intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);    
         }
-        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.sendBroadcast(intent);
+        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        //lbm.sendBroadcast(intent);
+        sendStickyBroadcast(intent);
     }
     
     

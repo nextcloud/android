@@ -17,6 +17,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -35,6 +36,7 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -131,18 +133,19 @@ public class Preferences extends SherlockPreferenceActivity {
 
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
-                        //Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
-                        String appName = getString(R.string.app_name);
-                        //String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@')); 
-                        //String recommendSubject = String.format(getString(R.string.recommend_subject), username, appName);
-                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
-                        intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
-                        //String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), username);
-                        String recommendText = String.format(getString(R.string.recommend_text), getString(R.string.app_name), getString(R.string.url_app_download));
-                        intent.putExtra(Intent.EXTRA_TEXT, recommendText);
-
                         intent.setData(Uri.parse(getString(R.string.mail_recommend))); 
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+                        
+                        String appName = getString(R.string.app_name);
+                        String downloadUrl = getString(R.string.url_app_download);
+                        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(Preferences.this);
+                        String username = currentAccount.name.substring(0, currentAccount.name.lastIndexOf('@'));
+                        
+                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        String recommendText = String.format(getString(R.string.recommend_text), appName, downloadUrl, username);
+                        
+                        intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
+                        intent.putExtra(Intent.EXTRA_TEXT, recommendText);
                         startActivity(intent);
 
 

@@ -94,11 +94,11 @@ public class CreateShareOperation extends SyncOperation {
                 // Update DB with the response
                 if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
                     share.setPath(mPath.substring(0, mPath.length()-1));
-                    share.setIsDirectory(true);
+                    share.setIsFolder(true);
                     
                 } else {
                     share.setPath(mPath);
-                    share.setIsDirectory(false);
+                    share.setIsFolder(false);
                 }
                 share.setPermissions(mPermissions);
                 
