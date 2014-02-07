@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -15,16 +15,10 @@
  *
  */
 
-package com.owncloud.android.files;
+package com.owncloud.android.ui.activity;
 
-import com.owncloud.android.datamodel.OCFile;
+public abstract class HookActivity extends FileActivity {
 
-public interface FileHandler {
-
-    /**
-     * TODO
-     */
-    public void openFile(OCFile file);
-
+    private static final String TAG = HookActivity.class.getName();
     
 }

@@ -29,6 +29,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -789,33 +790,23 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
         cv.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
         cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-        cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isDirectory() ? 1 : 0);
+        cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
         cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
         cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
         cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
         
-        boolean samePath = shareExists(share.getPath());
-        if (samePath ||
-                shareExists(share.getId())) {           // for renamed files; no more delete and create
-
-            OCShare oldFile = null;
-            if (samePath) {
-                oldFile = getShareByPath(share.getPath());
-                share.setId(oldFile.getId());
-            } else {
-                oldFile = getShareById(share.getId());
-            }
+        if (shareExists(share.getIdRemoteShared())) {           // for renamed files; no more delete and create
 
             overriden = true;
             if (getContentResolver() != null) {
                 getContentResolver().update(ProviderTableMeta.CONTENT_URI_SHARE, cv,
-                        ProviderTableMeta._ID + "=?",
-                        new String[] { String.valueOf(share.getId()) });
+                        ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
+                        new String[] { String.valueOf(share.getIdRemoteShared()) });
             } else {
                 try {
                     getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_SHARE,
-                            cv, ProviderTableMeta._ID + "=?",
-                            new String[] { String.valueOf(share.getId()) });
+                            cv, ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
+                            new String[] { String.valueOf(share.getIdRemoteShared()) });
                 } catch (RemoteException e) {
                     Log_OC.e(TAG,
                             "Fail to insert insert file to database "
@@ -857,6 +848,16 @@ public class FileDataStorageManager {
         return share;
     }
 
+    private OCShare getShareByRemoteId(long remoteId) {
+        Cursor c = getShareCursorForValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
+        OCShare share = null;
+        if (c.moveToFirst()) {
+            share = createShareInstance(c);
+        }
+        c.close();
+        return share;
+    }
+
     public OCShare getShareByPath(String path) {
         Cursor c = getShareCursorForValue(ProviderTableMeta.OCSHARES_PATH, path);
         OCShare share = null;
@@ -887,7 +888,7 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.OCSHARES_TOKEN)));
             share.setSharedWithDisplayName(c.getString(c
                     .getColumnIndex(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME)));
-            share.setIsDirectory(c.getInt(
+            share.setIsFolder(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.OCSHARES_IS_DIRECTORY)) == 1 ? true : false);
             share.setUserId(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_USER_ID)));
             share.setIdRemoteShared(c.getLong(c.getColumnIndex(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED)));
@@ -926,14 +927,10 @@ public class FileDataStorageManager {
         return retval;
     }
     
-    public boolean shareExists(long id) {
-        return shareExists(ProviderTableMeta._ID, String.valueOf(id));
+    private boolean shareExists(long remoteId) {
+        return shareExists(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
     }
 
-    public boolean shareExists(String path) {
-        return shareExists(ProviderTableMeta.OCSHARES_PATH, path);
-    }
-    
     private void cleanSharedFiles() {
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, false);
@@ -950,6 +947,26 @@ public class FileDataStorageManager {
                 
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Exception in cleanSharedFiles" + e.getMessage());
+            }
+        }
+    }
+
+    private void cleanSharedFilesInFolder(OCFile folder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, false);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, "");
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=? AND " + ProviderTableMeta.FILE_PARENT + "=?";
+        String [] whereArgs = new String[] { mAccount.name , String.valueOf(folder.getFileId()) };
+        
+        if (getContentResolver() != null) {
+            getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
+
+        } else {
+            try {
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
+                
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in cleanSharedFilesInFolder " + e.getMessage());
             }
         }
     }
@@ -989,18 +1006,17 @@ public class FileDataStorageManager {
                 cv.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
                 cv.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
                 cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
-                cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isDirectory() ? 1 : 0);
+                cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
                 cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
                 cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
                 cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
 
-                boolean existsByPath = shareExists(share.getPath());
-                if (existsByPath || shareExists(share.getId())) {
+                if (shareExists(share.getIdRemoteShared())) {
                     // updating an existing file
                     operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE).
                             withValues(cv).
-                            withSelection(  ProviderTableMeta._ID + "=?", 
-                                    new String[] { String.valueOf(share.getId()) })
+                            withSelection(  ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?", 
+                                    new String[] { String.valueOf(share.getIdRemoteShared()) })
                                     .build());
 
                 } else {
@@ -1099,4 +1115,151 @@ public class FileDataStorageManager {
         }
         
     } 
+
+
+    public void saveSharesDB(ArrayList<OCShare> shares) {
+        saveShares(shares);
+
+        ArrayList<OCFile> sharedFiles = new ArrayList<OCFile>();
+
+        for (OCShare share : shares) {
+            // Get the path
+            String path = share.getPath();
+            if (share.isFolder()) {
+                path = path + FileUtils.PATH_SEPARATOR;
+            }           
+
+            // Update OCFile with data from share: ShareByLink  ¿and publicLink?
+            OCFile file = getFileByPath(path);
+            if (file != null) {
+                if (share.getShareType().equals(ShareType.PUBLIC_LINK)) {
+                    file.setShareByLink(true);
+                    sharedFiles.add(file);
+                }
+            } 
+        }
+        
+        updateSharedFiles(sharedFiles);
+    }
+
+    
+    public void saveSharesInFolder(ArrayList<OCShare> shares, OCFile folder) {
+        cleanSharedFilesInFolder(folder);
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        operations = prepareRemoveSharesInFolder(folder, operations);
+        
+        if (shares != null) {
+            // prepare operations to insert or update files to save in the given folder
+            for (OCShare share : shares) {
+                ContentValues cv = new ContentValues();
+                cv.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
+                cv.put(ProviderTableMeta.OCSHARES_ITEM_SOURCE, share.getItemSource());
+                cv.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, share.getShareType().getValue());
+                cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH, share.getShareWith());
+                cv.put(ProviderTableMeta.OCSHARES_PATH, share.getPath());
+                cv.put(ProviderTableMeta.OCSHARES_PERMISSIONS, share.getPermissions());
+                cv.put(ProviderTableMeta.OCSHARES_SHARED_DATE, share.getSharedDate());
+                cv.put(ProviderTableMeta.OCSHARES_EXPIRATION_DATE, share.getExpirationDate());
+                cv.put(ProviderTableMeta.OCSHARES_TOKEN, share.getToken());
+                cv.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, share.getSharedWithDisplayName());
+                cv.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, share.isFolder() ? 1 : 0);
+                cv.put(ProviderTableMeta.OCSHARES_USER_ID, share.getUserId());
+                cv.put(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, share.getIdRemoteShared());
+                cv.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, mAccount.name);
+
+                /*
+                if (shareExists(share.getIdRemoteShared())) {
+                    // updating an existing share resource
+                    operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI_SHARE).
+                            withValues(cv).
+                            withSelection(  ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?", 
+                                    new String[] { String.valueOf(share.getIdRemoteShared()) })
+                                    .build());
+
+                } else {
+                */
+                // adding a new share resource
+                operations.add(ContentProviderOperation.newInsert(ProviderTableMeta.CONTENT_URI_SHARE).withValues(cv).build());
+                //}
+            }
+        }
+            
+        // apply operations in batch
+        if (operations.size() > 0) {
+            @SuppressWarnings("unused")
+            ContentProviderResult[] results = null;
+            Log_OC.d(TAG, "Sending " + operations.size() + " operations to FileContentProvider");
+            try {
+                if (getContentResolver() != null) {
+                    results = getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+                } else {
+                    results = getContentProviderClient().applyBatch(operations);
+                }
+
+            } catch (OperationApplicationException e) {
+                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
+            }
+        }
+        //}
+        
+    }
+
+    private ArrayList<ContentProviderOperation> prepareRemoveSharesInFolder(OCFile folder, ArrayList<ContentProviderOperation> preparedOperations) {
+        if (folder != null) {
+            String where = ProviderTableMeta.OCSHARES_PATH + "=?" + " AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?";
+            String [] whereArgs = new String[]{ "", mAccount.name };
+            
+            Vector<OCFile> files = getFolderContent(folder);
+            
+            for (OCFile file : files) {
+                whereArgs[0] = file.getRemotePath();
+                preparedOperations.add(ContentProviderOperation.newDelete(ProviderTableMeta.CONTENT_URI_SHARE)
+                        .withSelection(where, whereArgs)
+                        .build());
+            }
+        }
+        return preparedOperations;
+        
+        /*
+        if (operations.size() > 0) {
+            try {
+                if (getContentResolver() != null) {
+                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+                } else {
+                    getContentProviderClient().applyBatch(operations);
+                }
+
+            } catch (OperationApplicationException e) {
+                Log_OC.e(TAG, "Exception in batch of operations " + e.getMessage());
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Exception in batch of operations  " + e.getMessage());
+            }
+        }            
+        */
+            
+            /*
+            if (getContentResolver() != null) {
+                
+                getContentResolver().delete(ProviderTableMeta.CONTENT_URI_SHARE, 
+                                            where,
+                                            whereArgs);
+            } else {
+                try {
+                    getContentProviderClient().delete(  ProviderTableMeta.CONTENT_URI_SHARE, 
+                                                        where,
+                                                        whereArgs);
+
+                } catch (RemoteException e) {
+                    Log_OC.e(TAG, "Exception deleting shares in a folder " + e.getMessage());
+                }
+            }
+            */
+        //}
+    }
 }

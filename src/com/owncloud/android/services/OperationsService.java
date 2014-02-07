@@ -42,7 +42,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -228,7 +228,14 @@ public class OperationsService extends Service {
                     Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
-                
+            } catch (Exception e) {
+                if (mLastTarget.mAccount == null) {
+                    Log_OC.e(TAG, "Unexpected error for a NULL account", e);
+                } else {
+                    Log_OC.e(TAG, "Unexpected error for " + mLastTarget.mAccount.name, e);
+                }
+                result = new RemoteOperationResult(e);
+            
             } finally {
                 synchronized(mPendingOperations) {
                     mPendingOperations.poll();
@@ -255,8 +262,9 @@ public class OperationsService extends Service {
         } else {
             intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);    
         }
-        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.sendBroadcast(intent);
+        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        //lbm.sendBroadcast(intent);
+        sendStickyBroadcast(intent);
     }
 
     
@@ -279,8 +287,9 @@ public class OperationsService extends Service {
         } else {
             intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);    
         }
-        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        lbm.sendBroadcast(intent);
+        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
+        //lbm.sendBroadcast(intent);
+        sendStickyBroadcast(intent);
     }
     
     

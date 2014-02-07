@@ -15,38 +15,56 @@
  *
  */
 
+
 package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
 import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.OCShare;
-import com.owncloud.android.lib.operations.remote.GetRemoteSharesOperation;
+import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.remote.GetSharesForFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
 /**
- * Access to remote operation to get the share files/folders
- * Save the data in Database
+ * Provide a list shares for a specific file.  
  * 
  * @author masensio
- * @author David A. Velasco
+ *
  */
+public class GetSharesForFileOperation extends SyncOperation {
+    
+    private static final String TAG = GetSharesForFileOperation.class.getSimpleName();
+    
+    private String mPath;
+    private boolean mReshares;
+    private boolean mSubfiles;
 
-public class GetSharesOperation extends SyncOperation {
-
-    private static final String TAG = GetSharesOperation.class.getSimpleName();
+    /**
+     * Constructor
+     * 
+     * @param path      Path to file or folder
+     * @param reshares  If set to ‘false’ (default), only shares from the current user are returned
+     *                  If set to ‘true’, all shares from the given file are returned
+     * @param subfiles  If set to ‘false’ (default), lists only the folder being shared
+     *                  If set to ‘true’, all shared files within the folder are returned.
+     */
+    public GetSharesForFileOperation(String path, boolean reshares, boolean subfiles) {
+        mPath = path;
+        mReshares = reshares;
+        mSubfiles = subfiles;
+    }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
+        GetSharesForFileRemoteOperation operation = new GetSharesForFileRemoteOperation(mPath, mReshares, mSubfiles);
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
 
             // Update DB with the response
-            Log_OC.d(TAG, "Share list size = " + result.getData().size());
+            Log_OC.d(TAG, "File = " + mPath + " Share list size  " + result.getData().size());
             ArrayList<OCShare> shares = new ArrayList<OCShare>();
             for(Object obj: result.getData()) {
                 shares.add((OCShare) obj);
