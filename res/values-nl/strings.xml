@@ -55,6 +55,7 @@
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Bestand verversen</string>
   <string name="filedetails_renamed_in_upload_msg">Bestand was hernoemt naar %1$s tijdens het uploaden</string>
+  <string name="action_share_file">Deel link</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>

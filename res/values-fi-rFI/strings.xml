@@ -52,6 +52,7 @@
   <string name="filedetails_download">Lataa</string>
   <string name="filedetails_sync_file">Päivitä tiedosto</string>
   <string name="filedetails_renamed_in_upload_msg">Tiedoston nimeksi muutettiin %1$s siirron yhteydessä</string>
+  <string name="action_share_file">Jaa linkki</string>
   <string name="common_yes">Kyllä</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>

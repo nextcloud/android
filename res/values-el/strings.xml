@@ -55,6 +55,7 @@
   <string name="filedetails_download">Λήψη</string>
   <string name="filedetails_sync_file">Ανανέωση αρχείου</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά την μεταφόρτωση</string>
+  <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>

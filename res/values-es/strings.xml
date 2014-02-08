@@ -55,6 +55,7 @@
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
+  <string name="action_share_file">Enlace compartido</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>

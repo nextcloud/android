@@ -55,6 +55,7 @@
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Dosyayı yenile</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
+  <string name="action_share_file">Paylaşma bağlantısı</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">OK</string>

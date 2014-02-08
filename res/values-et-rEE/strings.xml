@@ -55,6 +55,7 @@
   <string name="filedetails_download">Lae alla</string>
   <string name="filedetails_sync_file">Värskenda faili</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
+  <string name="action_share_file">Jaga linki</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>

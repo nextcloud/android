@@ -55,6 +55,7 @@
   <string name="filedetails_download">다운로드</string>
   <string name="filedetails_sync_file">파일 새로고침</string>
   <string name="filedetails_renamed_in_upload_msg">업로드 중 파일 이름을 %1$s(으)로 변경하였습니다</string>
+  <string name="action_share_file">링크 공유</string>
   <string name="common_yes">예</string>
   <string name="common_no">아니요</string>
   <string name="common_ok">확인</string>

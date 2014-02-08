@@ -53,6 +53,7 @@
   <string name="filedetails_download">Atsisiųsti</string>
   <string name="filedetails_sync_file">Atnaujinti failą</string>
   <string name="filedetails_renamed_in_upload_msg">Įkėlimo metu failas buvo pervadintas į %1$s</string>
+  <string name="action_share_file">Dalintis nuoroda</string>
   <string name="common_yes">Taip</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
