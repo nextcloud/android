@@ -180,6 +180,7 @@
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
   <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
+  <string name="activity_chooser_title">Saada link</string>
   <string name="oauth_check_onoff">Logi sisse oAuth2-ga</string>
   <string name="oauth_login_connection">oAuth2 serveriga ühendumine...</string>
   <string name="ssl_validator_header">Saidi identiteeti ei suudetud kinnitada</string>
@@ -231,4 +232,6 @@
   <string name="failed_upload_retry_do_nothing_text">ära tee midagi, sa pole võrku ühendatud koheseks üleslaadimiseks</string>
   <string name="failed_upload_failure_text">Veateade:</string>
   <string name="failed_upload_quota_exceeded_text">Palun kontrolli oma serveri seadeid, võib-olla on mahulimiit ületatud.</string>
+  <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
+  <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
 </resources>

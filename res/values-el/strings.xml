@@ -56,6 +56,7 @@
   <string name="filedetails_sync_file">Ανανέωση αρχείου</string>
   <string name="filedetails_renamed_in_upload_msg">Το αρχείο μετονομάστηκε σε %1$s κατά την μεταφόρτωση</string>
   <string name="action_share_file">Διαμοιρασμός συνδέσμου</string>
+  <string name="action_unshare_file">Ακύρωση διαμοιρασμού συνδέσμου</string>
   <string name="common_yes">Ναι</string>
   <string name="common_no">Όχι</string>
   <string name="common_ok">ΟΚ</string>
@@ -180,6 +181,7 @@
   <string name="wait_a_moment">Παρακαλούμε περιμένετε</string>
   <string name="filedisplay_unexpected_bad_get_content">Απροσδόκητο σφάλμα, δοκιμάστε με άλλη εφαρμογή</string>
   <string name="filedisplay_no_file_selected">Δεν επιλέχθηκαν αρχεία </string>
+  <string name="activity_chooser_title">Αποστολή συνδέσμου σε ...</string>
   <string name="oauth_check_onoff">Σύνδεση με oAuth2</string>
   <string name="oauth_login_connection">Σύνδεση με το διακομιστή oAuth2 σε εξέλιξη...</string>
   <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να εγκριθεί</string>
@@ -230,4 +232,8 @@
   <string name="failed_upload_load_more_images">Φόρτωση περισσότερων εικόνων</string>
   <string name="failed_upload_failure_text">Μήνυμα Αποτυχίας:</string>
   <string name="failed_upload_quota_exceeded_text">Παρακαλώ ελέγξτε τις ρυθμίσεις του διακομιστή σας, ίσως έχετε υπερβεί τη διαθέσιμη μερίδα σας.</string>
+  <string name="share_link_no_support_share_api">Λυπάμαι, ο διαμοιρασμός δεν είναι ενεργοποιημένος στο διακομιστή σας. Παρακαλώ επικοινωνήστε με το διαχειριστή σας.</string>
+  <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού αυτού του αρχείου ή φακέλου. Παρακαλώ βεβαιωθείτε ότι υπάρχει</string>
+  <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
+  <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
 </resources>
