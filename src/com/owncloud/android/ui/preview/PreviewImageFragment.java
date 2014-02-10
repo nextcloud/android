@@ -176,8 +176,22 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile((OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE));
+                OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
                 mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
+                
+                // Update the file
+                if (mAccount!= null) {
+                    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+                    OCFile updatedFile = mStorageManager.getFileByPath(file.getRemotePath());
+                    if (updatedFile != null) {
+                        setFile(updatedFile);
+                    } else {
+                        setFile(file);
+                    }
+                } else {
+                    setFile(file);
+                }
+
             } else {
                 mIgnoreFirstSavedState = false;
             }
