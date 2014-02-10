@@ -313,11 +313,14 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
+        MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
-        if (!getFile().isShareByLink()) {
-            MenuItem item = menu.findItem(R.id.action_unshare_file);
+        if (!getFile().isShareByLink()) {            
             item.setVisible(false);
             item.setEnabled(false);
+        } else {
+            item.setVisible(true);
+            item.setEnabled(true);
         }
     }
     

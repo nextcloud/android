@@ -186,6 +186,10 @@ public class FileDetailFragment extends FileFragment implements
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+            OCFile file = mStorageManager.getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
         }
     }
         
@@ -314,6 +318,8 @@ public class FileDetailFragment extends FileFragment implements
         // Options shareLink
         if (!file.isShareByLink()) {
             toHide.add(R.id.action_unshare_file);
+        } else {
+            toShow.add(R.id.action_unshare_file);
         }
         
         MenuItem item = null;

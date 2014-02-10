@@ -188,6 +188,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
+        } else {
+            Log_OC.d(TAG, "Init the secondFragment again");
+            if (mDualPane) {
+                initFragmentsWithFile();                
+            }
         }
 
         // Action bar setup
@@ -280,7 +285,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
         transaction.commit();
     }
-
+    
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
             /// First fragment
@@ -1343,6 +1348,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
             refreshShowDetails();
             refeshListOfFilesFragment();
         }
@@ -1351,6 +1360,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
             refreshShowDetails();
             refeshListOfFilesFragment();
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
