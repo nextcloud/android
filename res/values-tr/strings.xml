@@ -55,6 +55,8 @@
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Dosyayı yenile</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
+  <string name="action_share_file">Paylaşma bağlantısı</string>
+  <string name="action_unshare_file">Bağlantı paylaşımını kaldır</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">OK</string>
@@ -179,6 +181,7 @@
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
+  <string name="activity_chooser_title">Bağlantıyı gönder ...</string>
   <string name="oauth_check_onoff">oAuth2 ile oturum aç</string>
   <string name="oauth_login_connection">oAuth2 sunucusuna bağlanılıyor…</string>
   <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
@@ -230,4 +233,8 @@
   <string name="failed_upload_retry_do_nothing_text">anında yükleme için çevrimiçi değilsiniz, bir şey yapma</string>
   <string name="failed_upload_failure_text">Hata Mesajı:</string>
   <string name="failed_upload_quota_exceeded_text">Sunucu yapılandırmanızı kontrol edin. Kotanızı aşmış olabilirsiniz.</string>
+  <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle iletişime geçin.</string>
+  <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
+  <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
+  <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
 </resources>

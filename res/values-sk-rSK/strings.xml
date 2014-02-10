@@ -55,6 +55,7 @@
   <string name="filedetails_download">Stiahnuť</string>
   <string name="filedetails_sync_file">Obnoviť súbor</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
+  <string name="action_share_file">Zdieľať linku</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>

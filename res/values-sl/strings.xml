@@ -55,6 +55,7 @@
   <string name="filedetails_download">Prejmi</string>
   <string name="filedetails_sync_file">Osveži datoteko</string>
   <string name="filedetails_renamed_in_upload_msg">Datoteka je bila med nalaganjem preimenovana v %1$s</string>
+  <string name="action_share_file">Povezava za souporabo</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">V redu</string>

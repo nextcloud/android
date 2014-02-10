@@ -35,6 +35,7 @@
   <string name="filedetails_modified">Modifita je:</string>
   <string name="filedetails_download">Elŝuti</string>
   <string name="filedetails_renamed_in_upload_msg">La dosiero alinomiĝis al %1$s dum alŝuto</string>
+  <string name="action_share_file">Konhavigi ligilon</string>
   <string name="common_yes">Jes</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">Akcepti</string>

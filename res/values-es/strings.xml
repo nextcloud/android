@@ -55,6 +55,8 @@
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
+  <string name="action_share_file">Enlace compartido</string>
+  <string name="action_unshare_file">Ya no compartir enlace</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
@@ -179,6 +181,7 @@
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
+  <string name="activity_chooser_title">Enviar enlace a...</string>
   <string name="oauth_check_onoff">Ingresar con oAuth2</string>
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
@@ -230,4 +233,8 @@
   <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
+  <string name="share_link_no_support_share_api">Compartir archivos no está activado en su servidor. Sírvase contactar a su administrador de sistema.</string>
+  <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
+  <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
+  <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
 </resources>
