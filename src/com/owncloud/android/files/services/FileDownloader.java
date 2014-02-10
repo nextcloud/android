@@ -382,7 +382,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * Updates the OC File after a successful download.
      */
     private void saveDownloadedFile() {
-        OCFile file = mCurrentDownload.getFile();
+        OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);
