@@ -51,6 +51,7 @@
   <string name="filedetails_download">下載</string>
   <string name="filedetails_sync_file">更新檔案列表</string>
   <string name="filedetails_renamed_in_upload_msg">檔案名稱在上傳時已被更改為 %1$s</string>
+  <string name="action_share_file">分享連結</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>

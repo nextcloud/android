@@ -29,6 +29,7 @@
   <string name="filedetails_created">Создадено:</string>
   <string name="filedetails_modified">Изменето:</string>
   <string name="filedetails_download">Преземање</string>
+  <string name="action_share_file">Сподели ја врската</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>

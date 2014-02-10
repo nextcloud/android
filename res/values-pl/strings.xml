@@ -55,6 +55,7 @@
   <string name="filedetails_download">Pobierz</string>
   <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
+  <string name="action_share_file">Udostępnij link</string>
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>

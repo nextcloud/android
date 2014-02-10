@@ -55,6 +55,8 @@
   <string name="filedetails_download">Scarica</string>
   <string name="filedetails_sync_file">Aggiorna file</string>
   <string name="filedetails_renamed_in_upload_msg">Il file è stato rinominato in %1$s durante il caricamento</string>
+  <string name="action_share_file">Condividi collegamento</string>
+  <string name="action_unshare_file">Rimuovi condivisione collegamento</string>
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
@@ -179,6 +181,7 @@
   <string name="wait_a_moment">Attendi</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
   <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
+  <string name="activity_chooser_title">Invia collegamento a...</string>
   <string name="oauth_check_onoff">Accesso con oAuth2.</string>
   <string name="oauth_login_connection">Connessione al server oAuth2 in corso...</string>
   <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
@@ -230,4 +233,8 @@
   <string name="failed_upload_retry_do_nothing_text">non fare niente, non sei collegato per i caricamenti istantanei</string>
   <string name="failed_upload_failure_text">Messaggio d\'errore:</string>
   <string name="failed_upload_quota_exceeded_text">Controlla la configurazione del server, forse hai superato la tua quota.</string>
+  <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul server. Contatta il tuo amministratore.</string>
+  <string name="share_link_file_no_exist">Impossibile condividere il file o la cartella. Assicurati che esista.</string>
+  <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
+  <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
 </resources>

@@ -55,6 +55,8 @@
   <string name="filedetails_download">Download</string>
   <string name="filedetails_sync_file">Atualizar arquivo</string>
   <string name="filedetails_renamed_in_upload_msg">Arquivo foi renomeado para %1$s durante o upload</string>
+  <string name="action_share_file">Compartilher link</string>
+  <string name="action_unshare_file">Descompartilhar o link</string>
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">OK</string>
@@ -179,6 +181,7 @@
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
+  <string name="activity_chooser_title">Enviar o link para</string>
   <string name="oauth_check_onoff">Login com oAuth2</string>
   <string name="oauth_login_connection">Conectando-se a oAuth2 servidor ...</string>
   <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>
@@ -230,4 +233,8 @@
   <string name="failed_upload_retry_do_nothing_text">não fazer nada voce não está conectado para envio instantâneo </string>
   <string name="failed_upload_failure_text">Mensagem de Falha:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor verifique a configuração do servidor, talvez a sua cota esteja vencida.</string>
+  <string name="share_link_no_support_share_api">Desculpe, compartilhamento não está habilitado para seu servidor. Por favor faça contato com o seu administrador.</string>
+  <string name="share_link_file_no_exist">Incapaz de compartilhar esse arquivo ou pasta. Por favor, certifique-se que existe</string>
+  <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
+  <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
 </resources>

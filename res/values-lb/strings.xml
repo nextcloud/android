@@ -27,6 +27,7 @@
   <string name="filedetails_created">Erstallt:</string>
   <string name="filedetails_modified">Geännert:</string>
   <string name="filedetails_download">Download</string>
+  <string name="action_share_file">Link deelen</string>
   <string name="common_yes">Jo</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
