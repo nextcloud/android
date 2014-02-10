@@ -55,6 +55,7 @@
   <string name="filedetails_download">Скачать</string>
   <string name="filedetails_sync_file">Обновить файл</string>
   <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
+  <string name="action_share_file">Поделиться ссылкой</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Нет</string>
   <string name="common_ok">ОК</string>

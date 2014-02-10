@@ -55,6 +55,7 @@
   <string name="filedetails_download">Unduh</string>
   <string name="filedetails_sync_file">Segarkan berkas</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
+  <string name="action_share_file">Bagikan tautan</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>

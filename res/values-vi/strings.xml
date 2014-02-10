@@ -55,6 +55,7 @@
   <string name="filedetails_download">Tải về</string>
   <string name="filedetails_sync_file">Cập nhật lại tập tin</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
+  <string name="action_share_file">Chia sẻ liên kết</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>

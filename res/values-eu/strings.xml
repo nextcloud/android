@@ -55,6 +55,7 @@
   <string name="filedetails_download">Deskargatu</string>
   <string name="filedetails_sync_file">Freskatu fitxaegia</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
+  <string name="action_share_file">Elkarbanatu lotura</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
