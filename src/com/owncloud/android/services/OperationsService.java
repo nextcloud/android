@@ -18,8 +18,10 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -187,7 +189,7 @@ public class OperationsService extends Service {
         /** 
          * Map of listeners that will be reported about the end of operations from a {@link OperationsServiceBinder} instance 
          */
-        private Set<OnRemoteOperationListener> mBoundListeners = new HashSet<OnRemoteOperationListener>();
+        private Map<OnRemoteOperationListener, Handler> mBoundListeners = new HashMap<OnRemoteOperationListener, Handler>();
         
         /**
          * Cancels an operation
@@ -207,10 +209,11 @@ public class OperationsService extends Service {
         /**
          * Adds a listener interested in being reported about the end of operations.
          * 
-         * @param listener      Object to notify about the end of operations.    
+         * @param listener          Object to notify about the end of operations.    
+         * @param callbackHandler   {@link Handler} to access the listener without breaking Android threading protection.
          */
-        public void addOperationListener (OnRemoteOperationListener listener) {
-            mBoundListeners.add(listener);
+        public void addOperationListener (OnRemoteOperationListener listener, Handler callbackHandler) {
+            mBoundListeners.put(listener, callbackHandler);
         }
         
         
@@ -382,11 +385,21 @@ public class OperationsService extends Service {
      * @param operation         Finished operation.
      * @param result            Result of the operation.
      */
-    private void callbackOperationListeners(Target target, RemoteOperation operation, RemoteOperationResult result) {
-        Iterator<OnRemoteOperationListener> it = mBinder.mBoundListeners.iterator();
-        while (it.hasNext()) {
-            it.next().onRemoteOperationFinish(operation, result);
+    private void callbackOperationListeners(Target target, final RemoteOperation operation, final RemoteOperationResult result) {
+        Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
+        while (listeners.hasNext()) {
+            final OnRemoteOperationListener listener = listeners.next();
+            final Handler handler = mBinder.mBoundListeners.get(listener);
+            if (handler != null) { 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onRemoteOperationFinish(operation, result);
+                    }
+                });
+            }
         }
+            
     }
     
 

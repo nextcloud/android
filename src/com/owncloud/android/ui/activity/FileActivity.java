@@ -456,7 +456,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
             if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
                 Log_OC.d(TAG, "Operations service connected");
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
-                mOperationsServiceBinder.addOperationListener(FileActivity.this);
+                mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
                 if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
                     dismissLoadingDialog();
                 }
