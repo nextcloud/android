@@ -26,6 +26,7 @@ import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetSharesOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
@@ -119,15 +120,18 @@ public class OperationsService extends Service {
             RemoteOperation operation = null;
             
             String action = intent.getAction();
-            if (action == ACTION_CREATE_SHARE) {
+            if (action == ACTION_CREATE_SHARE) {  // Create Share
                 String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
                 Intent sendIntent = intent.getParcelableExtra(EXTRA_SEND_INTENT);
                 if (remotePath.length() > 0) {
                     operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
                             "", false, "", 1, sendIntent);
                 }
-            } else if (action == ACTION_UNSHARE) {
-                
+            } else if (action == ACTION_UNSHARE) {  // Unshare file
+                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+                if (remotePath.length() > 0) {
+                    operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
+                }
             } else {
                 operation = new GetSharesOperation();
             }

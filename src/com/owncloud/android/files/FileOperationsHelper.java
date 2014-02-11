@@ -22,7 +22,6 @@ import org.apache.http.protocol.HTTP;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.sax.StartElementListener;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -31,9 +30,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.accounts.OwnCloudAccount;
 import com.owncloud.android.lib.network.webdav.WebdavUtils;
-import com.owncloud.android.lib.operations.common.ShareType;
-import com.owncloud.android.operations.CreateShareOperation;
-import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ActivityChooserDialog;
@@ -149,13 +145,12 @@ public class FileOperationsHelper {
         
         if (isSharedSupported(callerActivity)) {
             // Unshare the file
-            UnshareLinkOperation unshare = new UnshareLinkOperation(file, callerActivity);
-            unshare.execute(callerActivity.getStorageManager(), 
-                    callerActivity, 
-                    callerActivity.getRemoteOperationListener(), 
-                    callerActivity.getHandler(), 
-                    callerActivity);
-         
+            Intent service = new Intent(callerActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_UNSHARE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            callerActivity.startService(service);
+            
             callerActivity.showLoadingDialog();
             
         } else {

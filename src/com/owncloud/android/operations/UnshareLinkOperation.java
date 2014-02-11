@@ -26,6 +26,7 @@ import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.operations.remote.RemoveRemoteShareOperation;
+import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -39,12 +40,12 @@ public class UnshareLinkOperation extends SyncOperation {
 
     private static final String TAG = UnshareLinkOperation.class.getSimpleName();
     
-    private OCFile mFile;
+    private String mRemotePath;
     private Context mContext;
     
     
-    public UnshareLinkOperation(OCFile file, Context context) {
-        mFile = file;
+    public UnshareLinkOperation(String remotePath, Context context) {
+        mRemotePath = remotePath;
         mContext = context;
     }
 
@@ -53,9 +54,9 @@ public class UnshareLinkOperation extends SyncOperation {
         RemoteOperationResult result  = null;
         
         // Get Share for a file
-        String path = mFile.getRemotePath();
-        if (mFile.isFolder()) {
-            path = path.substring(0, path.length()-1); // Remove last /
+        String path = mRemotePath;
+        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
+           path = path.substring(0, path.length()-1); // Remove last /
         }
         OCShare share = getStorageManager().getShareByPath(path);
         
@@ -66,16 +67,17 @@ public class UnshareLinkOperation extends SyncOperation {
             if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
-                mFile.setShareByLink(false);
-                mFile.setPublicLink("");
-                getStorageManager().saveFile(mFile);
+                OCFile file = getStorageManager().getFileByPath(mRemotePath);
+                file.setShareByLink(false);
+                file.setPublicLink("");
+                getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
                 
                 if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                    if (existsFile(client, mFile.getRemotePath())) {
+                    if (existsFile(client, file.getRemotePath())) {
                         result = new RemoteOperationResult(ResultCode.OK);
                     } else {
-                        getStorageManager().removeFile(mFile, true, true);
+                        getStorageManager().removeFile(file, true, true);
                     }
                 }
             } 
