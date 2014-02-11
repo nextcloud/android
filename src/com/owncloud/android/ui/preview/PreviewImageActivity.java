@@ -172,8 +172,8 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
                 setFile(file);
-                invalidateOptionsMenu();
             }
+            invalidateOptionsMenu();
         } else if  (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             backToDisplayActivity();
         }
@@ -185,8 +185,8 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
             if (file != null) {
                 setFile(file);
-                invalidateOptionsMenu();
             }
+            invalidateOptionsMenu();
         }
     }
     
