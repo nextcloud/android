@@ -28,11 +28,14 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetSharesOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
@@ -56,7 +59,12 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
-    public static final String EXTRA_RESULT = "RESULT";    
+    public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
+    public static final String EXTRA_RESULT = "RESULT";
+    
+    public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
+    public static final String ACTION_UNSHARE = "UNSHARE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -112,8 +120,27 @@ public class OperationsService extends Service {
         try {
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             String serverUrl = intent.getStringExtra(EXTRA_SERVER_URL);
+            
             Target target = new Target(account, (serverUrl == null) ? null : Uri.parse(serverUrl));
-            GetSharesOperation operation = new GetSharesOperation();
+            RemoteOperation operation = null;
+            
+            String action = intent.getAction();
+            if (action == ACTION_CREATE_SHARE) {  // Create Share
+                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+                Intent sendIntent = intent.getParcelableExtra(EXTRA_SEND_INTENT);
+                if (remotePath.length() > 0) {
+                    operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                            "", false, "", 1, sendIntent);
+                }
+            } else if (action == ACTION_UNSHARE) {  // Unshare file
+                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+                if (remotePath.length() > 0) {
+                    operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
+                }
+            } else {
+                operation = new GetSharesOperation();
+            }
+            
             mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
             sendBroadcastNewOperation(target, operation);
             
