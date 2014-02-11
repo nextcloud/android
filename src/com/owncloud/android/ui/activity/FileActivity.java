@@ -160,18 +160,19 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     @Override 
     protected void onStop() {
         super.onStop();
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.removeOperationListener(this);
-            mOperationsServiceBinder = null;
-        }
     }
     
     
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mOperationsServiceConnection != null)
+        if (mOperationsServiceConnection != null) {
+            if (mOperationsServiceBinder != null) {
+                mOperationsServiceBinder.removeOperationListener(this);
+                mOperationsServiceBinder = null;
+            }
             unbindService(mOperationsServiceConnection);
+        }
     }
     
     

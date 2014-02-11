@@ -141,7 +141,7 @@ public class OperationsService extends Service {
             }
             
             mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
-            sendBroadcastNewOperation(target, operation);
+            //sendBroadcastNewOperation(target, operation);
             
             Message msg = mServiceHandler.obtainMessage();
             msg.arg1 = startId;
@@ -324,7 +324,7 @@ public class OperationsService extends Service {
                 }
             }
             
-            sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
+            //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
             callbackOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
