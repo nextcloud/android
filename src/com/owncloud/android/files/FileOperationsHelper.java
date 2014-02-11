@@ -22,6 +22,7 @@ import org.apache.http.protocol.HTTP;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.sax.StartElementListener;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import com.owncloud.android.lib.network.webdav.WebdavUtils;
 import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
@@ -109,12 +111,13 @@ public class FileOperationsHelper {
         
         if (file != null) {
             callerActivity.showLoadingDialog();
-            CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1, sendIntent);
-            createShare.execute(callerActivity.getStorageManager(), 
-                                callerActivity, 
-                                callerActivity.getRemoteOperationListener(), 
-                                callerActivity.getHandler(), 
-                                callerActivity);
+            
+            Intent service = new Intent(callerActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
+            callerActivity.startService(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
