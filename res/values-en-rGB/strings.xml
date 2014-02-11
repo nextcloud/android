@@ -56,6 +56,7 @@
   <string name="filedetails_sync_file">Refresh file</string>
   <string name="filedetails_renamed_in_upload_msg">File was renamed to %1$s during upload</string>
   <string name="action_share_file">Share link</string>
+  <string name="action_unshare_file">Unshare link</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
@@ -180,6 +181,7 @@
   <string name="wait_a_moment">Wait a moment</string>
   <string name="filedisplay_unexpected_bad_get_content">Unexpected problem; please select the file from a different app</string>
   <string name="filedisplay_no_file_selected">No file was selected</string>
+  <string name="activity_chooser_title">Send link to …</string>
   <string name="oauth_check_onoff">Log in with oAuth2</string>
   <string name="oauth_login_connection">Connecting to oAuth2 server…</string>
   <string name="ssl_validator_header">The identity of the site could not be verified</string>
@@ -231,4 +233,8 @@
   <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
   <string name="failed_upload_failure_text">Failure Message: </string>
   <string name="failed_upload_quota_exceeded_text">Please check your server configuration, perhaps your quota is exceeded.</string>
+  <string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
+  <string name="share_link_file_no_exist">Unable to share this file or folder. Please, make sure it exists</string>
+  <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
+  <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
 </resources>
