@@ -18,14 +18,19 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 
+import com.owncloud.android.lib.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.operations.GetSharesOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
 import com.owncloud.android.lib.operations.common.RemoteOperation;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.utils.Log_OC;
@@ -69,7 +74,7 @@ public class OperationsService extends Service {
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private IBinder mBinder;
+    private OperationsServiceBinder mBinder;
     private OwnCloudClient mOwnCloudClient = null;
     private Target mLastTarget = null;
     private FileDataStorageManager mStorageManager;
@@ -150,8 +155,57 @@ public class OperationsService extends Service {
      * 
      *  It provides by itself the available operations.
      */
-    public class OperationsServiceBinder extends Binder {
-        // TODO
+    public class OperationsServiceBinder extends Binder /* implements OnRemoteOperationListener */ {
+        
+        /** 
+         * Map of listeners that will be reported about the end of operations from a {@link OperationsServiceBinder} instance 
+         */
+        private Set<OnRemoteOperationListener> mBoundListeners = new HashSet<OnRemoteOperationListener>();
+        
+        /**
+         * Cancels an operation
+         *
+         * TODO
+         */
+        public void cancel() {
+            // TODO
+        }
+        
+        
+        public void clearListeners() {
+            mBoundListeners.clear();
+        }
+
+        
+        /**
+         * Adds a listener interested in being reported about the end of operations.
+         * 
+         * @param listener      Object to notify about the end of operations.    
+         */
+        public void addOperationListener (OnRemoteOperationListener listener) {
+            mBoundListeners.add(listener);
+        }
+        
+        
+        /**
+         * Removes a listener from the list of objects interested in the being reported about the end of operations.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         */
+        public void removeOperationListener (OnRemoteOperationListener listener) {
+            mBoundListeners.remove(listener);
+        }
+
+
+        /**
+         * TODO - IMPORTANT: update implementation when more operations are moved into the service 
+         * 
+         * @return  'True' when an operation that enforces the user to wait for completion is in process.
+         */
+        public boolean isPerformingBlockingOperation() {
+            return (mPendingOperations.size() > 0);
+        }
+
     }
     
     
@@ -243,14 +297,15 @@ public class OperationsService extends Service {
             }
             
             sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
+            callbackOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
 
 
     /**
-     * Sends a LOCAL broadcast when a new operation is added to the queue.
+     * Sends a broadcast when a new operation is added to the queue.
      * 
-     * Local broadcasts are only delivered to activities in the same process.
+     * Local broadcasts are only delivered to activities in the same process, but can't be done sticky :\
      * 
      * @param target            Account or URL pointing to an OC server.
      * @param operation         Added operation.
@@ -291,6 +346,21 @@ public class OperationsService extends Service {
         //lbm.sendBroadcast(intent);
         sendStickyBroadcast(intent);
     }
+
     
+    /**
+     * Notifies the currently subscribed listeners about the end of an operation.
+     * 
+     * @param target            Account or URL pointing to an OC server.
+     * @param operation         Finished operation.
+     * @param result            Result of the operation.
+     */
+    private void callbackOperationListeners(Target target, RemoteOperation operation, RemoteOperationResult result) {
+        Iterator<OnRemoteOperationListener> it = mBinder.mBoundListeners.iterator();
+        while (it.hasNext()) {
+            it.next().onRemoteOperationFinish(operation, result);
+        }
+    }
     
+
 }
