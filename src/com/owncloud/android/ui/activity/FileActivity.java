@@ -393,6 +393,8 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         dismissLoadingDialog();
         if (result.isSuccess()) {
+            updateFileFromDB();
+            
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
             
@@ -410,15 +412,26 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         dismissLoadingDialog();
         
-        if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+        if (result.isSuccess()){
+            updateFileFromDB();
+            
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
             Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_no_exist), Toast.LENGTH_LONG);
             t.show();
-        } else if (!result.isSuccess()){    // Generic error
+        } else {    // Generic error
             // Show a Message, operation finished without success
             Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_error), Toast.LENGTH_LONG);
             t.show();
         }
         
+    }
+    
+    
+    private void updateFileFromDB(){
+      OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+      if (file != null) {
+          setFile(file);
+      }
     }
     
     /**

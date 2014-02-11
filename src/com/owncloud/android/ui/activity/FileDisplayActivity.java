@@ -1348,10 +1348,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
-            if (file != null) {
-                setFile(file);
-            }
             refreshShowDetails();
             refeshListOfFilesFragment();
         }
@@ -1360,10 +1356,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
-            if (file != null) {
-                setFile(file);
-            }
             refreshShowDetails();
             refeshListOfFilesFragment();
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {

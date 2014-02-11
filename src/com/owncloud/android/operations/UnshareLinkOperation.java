@@ -26,7 +26,6 @@ import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.operations.remote.RemoveRemoteShareOperation;
-import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -54,11 +53,7 @@ public class UnshareLinkOperation extends SyncOperation {
         RemoteOperationResult result  = null;
         
         // Get Share for a file
-        String path = mRemotePath;
-        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-           path = path.substring(0, path.length()-1); // Remove last /
-        }
-        OCShare share = getStorageManager().getShareByPath(path);
+        OCShare share = getStorageManager().getShareByPath(mRemotePath);
         
         if (share != null) {
             RemoveRemoteShareOperation operation = new RemoveRemoteShareOperation((int) share.getIdRemoteShared());

@@ -19,15 +19,12 @@ package com.owncloud.android.services;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 
-import com.owncloud.android.lib.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.operations.CreateShareOperation;
@@ -202,6 +199,7 @@ public class OperationsService extends Service {
         
         
         public void clearListeners() {
+            
             mBoundListeners.clear();
         }
 
@@ -233,7 +231,7 @@ public class OperationsService extends Service {
          * @return  'True' when an operation that enforces the user to wait for completion is in process.
          */
         public boolean isPerformingBlockingOperation() {
-            return (mPendingOperations.size() > 0);
+            return (!mPendingOperations.isEmpty());
         }
 
     }
