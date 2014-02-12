@@ -269,7 +269,8 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         
         MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
-        if (!getFile().isShareByLink()) {            
+        OCFile file = ((FileActivity) getSherlockActivity()).getFile();
+        if (!file.isShareByLink()) {
             item.setVisible(false);
             item.setEnabled(false);
         } else {
