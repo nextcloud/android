@@ -156,9 +156,6 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         }
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
-            if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
-                dismissLoadingDialog();
-            }
         }
     }
     
@@ -168,7 +165,6 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         super.onStop();
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
-            mOperationsServiceBinder = null;
         }
     }
     
@@ -178,6 +174,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         super.onDestroy();
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
+            mOperationsServiceBinder = null;
         }
     }
     
