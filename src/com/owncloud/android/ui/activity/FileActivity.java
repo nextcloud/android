@@ -154,12 +154,19 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+        }
     }
     
     
     @Override 
     protected void onStop() {
         super.onStop();
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.removeOperationListener(this);
+            mOperationsServiceBinder = null;
+        }
     }
     
     
@@ -167,10 +174,6 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     protected void onDestroy() {
         super.onDestroy();
         if (mOperationsServiceConnection != null) {
-            if (mOperationsServiceBinder != null) {
-                mOperationsServiceBinder.removeOperationListener(this);
-                mOperationsServiceBinder = null;
-            }
             unbindService(mOperationsServiceConnection);
         }
     }
