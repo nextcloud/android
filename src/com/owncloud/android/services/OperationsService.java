@@ -124,14 +124,14 @@ public class OperationsService extends Service {
             RemoteOperation operation = null;
             
             String action = intent.getAction();
-            if (action == ACTION_CREATE_SHARE) {  // Create Share
+            if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
                 String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
                 Intent sendIntent = intent.getParcelableExtra(EXTRA_SEND_INTENT);
                 if (remotePath.length() > 0) {
                     operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
                             "", false, "", 1, sendIntent);
                 }
-            } else if (action == ACTION_UNSHARE) {  // Unshare file
+            } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                 String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
                 if (remotePath.length() > 0) {
                     operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
