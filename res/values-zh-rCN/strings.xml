@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s 安卓应用</string>
   <string name="about_version">版本：%1$s</string>
   <string name="actionbar_sync">刷新帐户</string>
   <string name="actionbar_upload">上传</string>
@@ -18,7 +19,9 @@
   <string name="prefs_instant_upload">开启即时上传</string>
   <string name="prefs_instant_upload_summary">即时上传相机拍摄的照片</string>
   <string name="prefs_log_title">开启日志</string>
+  <string name="prefs_log_summary">这过去是日志问题</string>
   <string name="prefs_log_title_history">日志历史</string>
+  <string name="prefs_log_summary_history">这显示已经保存的日志</string>
   <string name="prefs_log_delete_history_button">删除历史</string>
   <string name="prefs_help">帮助</string>
   <string name="prefs_feedback">反馈</string>
@@ -26,6 +29,7 @@
   <string name="auth_check_server">检查服务器</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
+  <string name="auth_register">新增到 %1$s?</string>
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
@@ -45,7 +49,9 @@
   <string name="filedetails_created">创建于：</string>
   <string name="filedetails_modified">已修改：</string>
   <string name="filedetails_download">下载</string>
+  <string name="filedetails_sync_file">刷新文件</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
+  <string name="action_share_file">分享链接</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">OK</string>
@@ -135,6 +141,9 @@
   <string name="auth_wrong_connection_title">无法建立连接</string>
   <string name="auth_secure_connection">加密连接已建立</string>
   <string name="auth_unauthorized">用户名或密码错误！</string>
+  <string name="auth_oauth_error">认证不成功</string>
+  <string name="auth_oauth_error_access_denied">访问被认证服务器拒绝</string>
+  <string name="auth_wtf_reenter_URL">意外状态；请再次输入服务器的地址</string>
   <string name="auth_expired_basic_auth_toast">请输入当前密码：</string>
   <string name="fd_keep_in_sync">保证文件更新</string>
   <string name="common_rename">重命名</string>
@@ -156,6 +165,7 @@
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
+  <string name="oauth_login_connection">连接oAuth2 服务器...</string>
   <string name="ssl_validator_header">站点身份无法验证</string>
   <string name="ssl_validator_reason_cert_not_trusted">不受信任的服务器证书</string>
   <string name="ssl_validator_reason_cert_expired">服务器证书过期</string>
