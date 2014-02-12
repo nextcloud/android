@@ -156,6 +156,9 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         }
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+            if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
+                dismissLoadingDialog();
+            }
         }
     }
     
