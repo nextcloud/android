@@ -28,7 +28,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.network.OwnCloudClientFactory;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.operations.CreateShareOperation;
-import com.owncloud.android.operations.GetSharesOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
@@ -137,7 +136,8 @@ public class OperationsService extends Service {
                     operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
                 }
             } else {
-                operation = new GetSharesOperation();
+                // nothing we are going to handle
+                return START_NOT_STICKY;
             }
             
             mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
