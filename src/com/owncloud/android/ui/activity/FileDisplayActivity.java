@@ -207,6 +207,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        refeshListOfFilesFragment();
     }
 
     @Override
