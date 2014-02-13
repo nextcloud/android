@@ -52,6 +52,7 @@
   <string name="filedetails_sync_file">刷新文件</string>
   <string name="filedetails_renamed_in_upload_msg">上传过程中文件被更名为了 %1$s</string>
   <string name="action_share_file">分享链接</string>
+  <string name="action_unshare_file">取消共享链接</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">OK</string>
@@ -165,6 +166,7 @@
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
+  <string name="activity_chooser_title">发送链接给 …</string>
   <string name="oauth_login_connection">连接oAuth2 服务器...</string>
   <string name="ssl_validator_header">站点身份无法验证</string>
   <string name="ssl_validator_reason_cert_not_trusted">不受信任的服务器证书</string>
@@ -214,4 +216,8 @@
   <string name="failed_upload_retry_do_nothing_text">不在线时不开启即时上传</string>
   <string name="failed_upload_failure_text">失败消息</string>
   <string name="failed_upload_quota_exceeded_text">请检查服务器设置。可能走出配额。</string>
+  <string name="share_link_no_support_share_api">对不起，共享服务功能未开启，请联系管理员</string>
+  <string name="share_link_file_no_exist">无法共享该文件或目录，请确定该文件或目录存在</string>
+  <string name="share_link_file_error">共享文件或目录出错</string>
+  <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
 </resources>
