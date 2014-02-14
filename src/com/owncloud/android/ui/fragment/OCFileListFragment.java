@@ -42,9 +42,10 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.Log_OC;
 
-
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -221,6 +222,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             toHide.add(R.id.action_cancel_upload);
             toHide.add(R.id.action_sync_file);
             toHide.add(R.id.action_see_details);
+            toHide.add(R.id.action_share_file);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
                 toDisable.add(R.id.action_rename_file);
@@ -347,6 +349,14 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             }
             case R.id.action_see_details: {
                 ((FileFragment.ContainerActivity)getActivity()).showDetails(mTargetFile);
+                return true;
+            }
+            case R.id.action_share_file: {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                // set MimeType
+                sharingIntent.setType(mTargetFile.getMimetype());
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+mTargetFile.getStoragePath()));
+                startActivity(Intent.createChooser(sharingIntent, "Share via")); 
                 return true;
             }
             default:
