@@ -222,7 +222,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             toHide.add(R.id.action_cancel_upload);
             toHide.add(R.id.action_sync_file);
             toHide.add(R.id.action_see_details);
-            toHide.add(R.id.action_share_file);
+            toHide.add(R.id.action_send_file);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
                 toDisable.add(R.id.action_rename_file);
@@ -355,8 +355,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 // set MimeType
                 sharingIntent.setType(mTargetFile.getMimetype());
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+mTargetFile.getStoragePath()));
-                startActivity(Intent.createChooser(sharingIntent, "Share via")); 
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + mTargetFile.getStoragePath()));
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.send_file_title_intent))); 
                 return true;
             }
             default:
