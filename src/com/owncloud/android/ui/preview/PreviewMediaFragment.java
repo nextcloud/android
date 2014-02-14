@@ -588,17 +588,19 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log_OC.d(TAG, "Media service connected");
-                mMediaServiceBinder = (MediaServiceBinder) service;
-                if (mMediaServiceBinder != null) {
-                    prepareMediaController();
-                    playAudio();    // do not wait for the touch of nobody to play audio
-                    
-                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
-                    
-                } else {
-                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
+            if (getActivity() != null) {
+                if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                    Log_OC.d(TAG, "Media service connected");
+                    mMediaServiceBinder = (MediaServiceBinder) service;
+                    if (mMediaServiceBinder != null) {
+                        prepareMediaController();
+                        playAudio();    // do not wait for the touch of nobody to play audio
+
+                        Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
+
+                    } else {
+                        Log_OC.e(TAG, "Unexpected response from MediaService while binding");
+                    }
                 }
             }
         }
