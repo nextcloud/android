@@ -359,6 +359,14 @@ public class PreviewMediaFragment extends FileFragment implements
     
 
 
+    /**
+     * Update the file of the fragment with file value
+     * @param file
+     */
+    public void updateFile(OCFile file){
+        setFile(file);
+    }
+    
     private void unshareFileWithLink() {
         stopPreview(false);
         FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
