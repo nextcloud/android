@@ -61,12 +61,12 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.resources.status.OwnCloudServerCheckOperation;
+import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.resources.users.GetUserNameRemoteOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslValidatorDialog;
@@ -134,7 +134,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
-    private OwnCloudServerCheckOperation mOcServerChkOperation;
+    private GetRemoteStatusOperation mOcServerChkOperation;
     private ExistenceCheckRemoteOperation mAuthCheckOperation;
     private RemoteOperationResult mLastSslUntrustedServerResult;
 
@@ -599,7 +599,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
-            mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
+            mOcServerChkOperation = new  GetRemoteStatusOperation(uri, this);
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
@@ -789,8 +789,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 
-        if (operation instanceof OwnCloudServerCheckOperation) {
-            onOcServerCheckFinish((OwnCloudServerCheckOperation) operation, result);
+        if (operation instanceof GetRemoteStatusOperation) {
+            onOcServerCheckFinish((GetRemoteStatusOperation) operation, result);
 
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
@@ -802,14 +802,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
             }
-        } else if (operation instanceof GetUserNameRemoteOperation) {
-            onGetUserNameFinish((GetUserNameRemoteOperation) operation, result);
+        } else if (operation instanceof GetRemoteUserNameOperation) {
+            onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
              
         }
         
     }
 
-    private void onGetUserNameFinish(GetUserNameRemoteOperation operation, RemoteOperationResult result) {
+    private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             boolean success = false;
             String username = operation.getUserName();
@@ -876,7 +876,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param operation     Server check performed.
      * @param result        Result of the check.
      */
-    private void onOcServerCheckFinish(OwnCloudServerCheckOperation operation, RemoteOperationResult result) {
+    private void onOcServerCheckFinish(GetRemoteStatusOperation operation, RemoteOperationResult result) {
         if (operation.equals(mOcServerChkOperation)) {
             /// save result state
             mServerIsChecked = true;
@@ -1616,7 +1616,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
 
-            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation();            
+            GetRemoteUserNameOperation getUserOperation = new GetRemoteUserNameOperation();            
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
             client.setSsoSessionCookie(mAuthToken);
             getUserOperation.execute(client, this, mHandler);

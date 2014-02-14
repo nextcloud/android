@@ -42,7 +42,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -472,7 +472,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         
         // remote request 
-        GetSharesForFileRemoteOperation operation = new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(), false, true);
+        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
         result = operation.execute(client);
         
         if (result.isSuccess()) {

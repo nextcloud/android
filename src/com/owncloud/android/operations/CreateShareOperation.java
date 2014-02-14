@@ -32,7 +32,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation;
+import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
@@ -83,7 +83,7 @@ public class CreateShareOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        CreateShareRemoteOperation operation = new CreateShareRemoteOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+        CreateRemoteShareOperation operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
         RemoteOperationResult result = operation.execute(client);
 
         if (result.isSuccess()) {
