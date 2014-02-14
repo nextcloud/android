@@ -1370,16 +1370,16 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (details != null) {
             OCFile file = details.getFile();
             if (file != null) {
-                file = getStorageManager().getFileByPath(file.getRemotePath()); {
-                    if (!(details instanceof PreviewMediaFragment || details instanceof PreviewImageFragment)) {
-                        showDetails(file);
-                    } else if (details instanceof PreviewMediaFragment) {
-                        startMediaPreview(file, 0, false);
-                    } 
-                }
-                invalidateOptionsMenu();
-            } 
-        }
+                file = getStorageManager().getFileByPath(file.getRemotePath()); 
+                if (details instanceof PreviewMediaFragment) {
+                    // Refresh  OCFile of the fragment
+                    ((PreviewMediaFragment) details).updateFile(file);
+                } else {
+                    showDetails(file);
+                } 
+            }
+            invalidateOptionsMenu();
+        } 
     }
     
     /**
