@@ -10,7 +10,7 @@
   <string name="actionbar_mkdir">Ordner anlegen</string>
   <string name="actionbar_settings">Einstellungen</string>
   <string name="actionbar_see_details">Details</string>
-  <string name="actionbar_share_file">Teile Datei</string>
+  <string name="actionbar_send_file">Datei senden</string>
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
