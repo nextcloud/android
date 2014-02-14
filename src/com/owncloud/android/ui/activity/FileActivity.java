@@ -38,10 +38,10 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
-import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.CreateShareOperation;
 
 import com.owncloud.android.ui.dialog.LoadingDialog;

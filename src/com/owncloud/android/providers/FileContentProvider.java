@@ -25,7 +25,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 

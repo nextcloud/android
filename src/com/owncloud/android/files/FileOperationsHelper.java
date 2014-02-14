@@ -28,9 +28,9 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.webdav.WebdavUtils;
-import com.owncloud.android.lib.operations.common.ShareType;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.network.WebdavUtils;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ActivityChooserDialog;
@@ -135,7 +135,7 @@ public class FileOperationsHelper {
     public boolean isSharedSupported(FileActivity callerActivity) {
         if (callerActivity.getAccount() != null) {
             AccountManager accountManager = AccountManager.get(callerActivity);
-            return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+            return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;
     }

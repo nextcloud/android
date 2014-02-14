@@ -34,19 +34,19 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.lib.operations.common.RemoteFile;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.operations.remote.ReadRemoteFileOperation;
-import com.owncloud.android.lib.utils.FileUtils;
-import com.owncloud.android.lib.utils.OwnCloudVersion;
-import com.owncloud.android.lib.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.OwnCloudClientFactory;
-import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -253,7 +253,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
 
-        OwnCloudVersion ocv = new OwnCloudVersion(AccountManager.get(this).getUserData(account, OwnCloudAccount.Constants.KEY_OC_VERSION));
+        OwnCloudVersion ocv = new OwnCloudVersion(AccountManager.get(this).getUserData(account, Constants.KEY_OC_VERSION));
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;

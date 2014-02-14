@@ -33,16 +33,16 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.network.ProgressiveDataTransferer;
-import com.owncloud.android.lib.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.OperationCancelledException;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.operations.remote.ChunkedUploadRemoteFileOperation;
-import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.operations.remote.UploadRemoteFileOperation;
+import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 

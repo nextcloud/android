@@ -9,10 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.authentication.OAuth2Constants;
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.utils.Log_OC;
 
 

@@ -23,12 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.utils.OwnCloudVersion;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
@@ -58,7 +58,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         AccountManager accountMngr = AccountManager.get(mContext); 
-        String statUrl = accountMngr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL);
+        String statUrl = accountMngr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
         statUrl += AccountUtils.STATUS_PATH;
         RemoteOperationResult result = null;
         GetMethod get = null;
@@ -76,7 +76,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                     if (json != null && json.getString("version") != null) {
                         OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
                         if (ocver.isVersionValid()) {
-                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION, ocver.toString());
+                            accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION, ocver.toString());
                             Log_OC.d(TAG, "Got new OC version " + ocver.toString());
                             result = new RemoteOperationResult(ResultCode.OK);
                             

@@ -30,11 +30,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.accounts.OwnCloudAccount;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -157,7 +157,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setStorageManager(new FileDataStorageManager(account, providerClient));
         
         AccountManager accountManager = getAccountManager();
-        mIsSharedSupported = Boolean.parseBoolean(accountManager.getUserData(account, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
+        mIsSharedSupported = Boolean.parseBoolean(accountManager.getUserData(account, Constants.KEY_SUPPORTS_SHARE_API));
 
         try {
             this.initClientForCurrentAccount();

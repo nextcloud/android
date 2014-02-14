@@ -25,10 +25,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.accounts.AccountUtils;
-import com.owncloud.android.lib.accounts.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.lib.network.OwnCloudClientFactory;
-import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 
 
 import android.accounts.Account;

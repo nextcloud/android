@@ -20,10 +20,10 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.OCShare;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.remote.GetSharesForFileRemoteOperation;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
 
