@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Nowy katalog</string>
   <string name="actionbar_settings">Ustawienia</string>
   <string name="actionbar_see_details">Szczegóły</string>
+  <string name="actionbar_share_file">Udostępnij</string>
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>

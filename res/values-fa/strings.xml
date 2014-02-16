@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">ایجاد پوشه</string>
   <string name="actionbar_settings">تنظیمات</string>
   <string name="actionbar_see_details">جزئیات</string>
+  <string name="actionbar_share_file">اشتراک‌گذاری</string>
   <string name="prefs_category_general">عمومی</string>
   <string name="prefs_category_more">بیش‌تر</string>
   <string name="prefs_accounts">حساب‌ها</string>

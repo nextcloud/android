@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">Fișiere</string>
   <string name="actionbar_mkdir">Creare director</string>
   <string name="actionbar_settings">Setări</string>
+  <string name="actionbar_share_file">a imparti</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>

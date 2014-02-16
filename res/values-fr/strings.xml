@@ -3,13 +3,14 @@
   <string name="about_android">%1$s Android App</string>
   <string name="about_version">version %1$s</string>
   <string name="actionbar_sync">Actualiser le compte</string>
-  <string name="actionbar_upload">Charger</string>
+  <string name="actionbar_upload">Téléverser</string>
   <string name="actionbar_upload_from_apps">Contenu d\'une autre application</string>
   <string name="actionbar_upload_files">Fichiers</string>
   <string name="actionbar_open_with">Ouvrir avec</string>
   <string name="actionbar_mkdir">Créer un répertoire</string>
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
+  <string name="actionbar_share_file">Partager</string>
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>
@@ -236,5 +237,6 @@
   <string name="share_link_no_support_share_api">Désolé, la fonctionnalité de partage n’est pas activée sur ce serveur. Veuillez contacter votre administrateur.</string>
   <string name="share_link_file_no_exist">Impossible de partager ce fichier ou répertoire. Vérifiez qu’il est bien présent</string>
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
+  <string name="unshare_link_file_no_exist">Impossible d’annuler le partage de ce fichier ou répertoire : il n’existe pas.</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
 </resources>

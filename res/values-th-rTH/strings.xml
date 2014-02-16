@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
+  <string name="actionbar_share_file">แชร์</string>
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>

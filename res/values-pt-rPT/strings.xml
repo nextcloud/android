@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Criar pasta</string>
   <string name="actionbar_settings">Definições</string>
   <string name="actionbar_see_details">Detalhes</string>
+  <string name="actionbar_share_file">Partilhar</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>

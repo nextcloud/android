@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">Створити теку</string>
   <string name="actionbar_settings">Налаштування</string>
   <string name="actionbar_see_details">Деталі</string>
+  <string name="actionbar_share_file">Поділитися</string>
   <string name="prefs_category_general">Основне</string>
   <string name="prefs_category_more">Більше</string>
   <string name="prefs_accounts">Облікові записи</string>

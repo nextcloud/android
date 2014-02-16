@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
+  <string name="actionbar_share_file">Jaa</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
@@ -159,6 +160,7 @@
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
   <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
+  <string name="activity_chooser_title">Lähetä linkki…</string>
   <string name="oauth_check_onoff">Kirjaudu oAuth2:lla</string>
   <string name="oauth_login_connection">Yhdistetään oAuth2-palvelimeen…</string>
   <string name="ssl_validator_header">Sivuston identiteetin vahvistaminen ei onnistunut</string>
@@ -197,4 +199,7 @@
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
   <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
   <string name="failed_upload_failure_text">Virheviesti:</string>
+  <string name="share_link_no_support_share_api">Valitettavasti jakamista ei ole otettu käyttöön palvelinasetuksissa. Ota yhteys ylläpitäjään.</string>
+  <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
+  <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
 </resources>
