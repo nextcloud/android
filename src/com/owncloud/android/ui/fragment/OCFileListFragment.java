@@ -361,7 +361,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 ((FileFragment.ContainerActivity)getActivity()).showDetails(mTargetFile);
                 return true;
             }
-            case R.id.action_share_file: {
+            case R.id.action_send_file: {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 // set MimeType
                 sharingIntent.setType(mTargetFile.getMimetype());

@@ -310,7 +310,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 seeDetails();
                 return true;
             }
-            case R.id.action_share_file: {
+            case R.id.action_send_file: {
                 shareFile();
                 return true;
             }
