@@ -237,5 +237,6 @@
   <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Deinem Server nicht aktiviert. Bitte kontaktiere Deinen Administrator.</string>
   <string name="share_link_file_no_exist">Die Freigabe der Datei oder des Ordners ist nicht möglich. Bitte stelle sicher, dass diese existiert.</string>
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
+  <string name="unshare_link_file_no_exist">Das Entfernen der Freigabe für die Datei oder den Ordner ist nicht möglich. Diese existieren nicht.</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
 </resources>

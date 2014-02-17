@@ -45,6 +45,7 @@
   <string name="common_cancel">ยกเลิก</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_error">ข้อผิดพลาด</string>
+  <string name="common_error_unknown">ข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
   <string name="about_title">เกี่ยวกับเรา</string>
   <string name="change_password">เปลี่ยนรหัสผ่าน</string>
   <string name="delete_account">ลบบัญชี</string>
