@@ -98,23 +98,46 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
         mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
         
-        return new AlertDialog.Builder(getSherlockActivity())
-                   .setTitle(R.string.activity_chooser_title)
-                   .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               // Add the information of the chosen activity to the intent to send 
-                               ResolveInfo chosen = mAdapter.getItem(which);
-                               ActivityInfo actInfo = chosen.activityInfo;
-                               ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
-                               mIntent.setComponent(name);                               
-                               
-                               // Create a new share resource
-                               FileOperationsHelper foh = new FileOperationsHelper();
-                               foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity()); 
-                           }
-                       })
-                   .create();
+        boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
+        
+        if (sendAction) {
+        
+            return new AlertDialog.Builder(getSherlockActivity())
+                       .setTitle(R.string.activity_chooser_title)
+                       .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialog, int which) {
+                                   // Add the information of the chosen activity to the intent to send 
+                                   ResolveInfo chosen = mAdapter.getItem(which);
+                                   ActivityInfo actInfo = chosen.activityInfo;
+                                   ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
+                                   mIntent.setComponent(name);                               
+                                   
+                                   // Send the file
+                                   ((FileActivity)getSherlockActivity()).startActivity(mIntent);
+
+                               }
+                           })
+                       .create();
+        } else {
+            return new AlertDialog.Builder(getSherlockActivity())
+                       .setTitle(R.string.activity_chooser_send_file_title)
+                       .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialog, int which) {
+                                   // Add the information of the chosen activity to the intent to send 
+                                   ResolveInfo chosen = mAdapter.getItem(which);
+                                   ActivityInfo actInfo = chosen.activityInfo;
+                                   ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
+                                   mIntent.setComponent(name);                               
+                            
+                                   // Create a new share resource
+                                   FileOperationsHelper foh = new FileOperationsHelper();
+                                   foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity()); 
+                               }
+                           })
+                       .create();
+        }
     }
 
     

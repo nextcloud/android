@@ -362,6 +362,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             case R.id.action_send_file: {
                 // Obtain the file
                 if (!mTargetFile.isDown()) {  // Download the file
+                    ((FileDisplayActivity) getSherlockActivity()).showLoadingDialog();
                     Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
                     mContainerActivity.startDownloadForSending(mTargetFile);
                     

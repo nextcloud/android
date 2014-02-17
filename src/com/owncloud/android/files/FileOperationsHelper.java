@@ -161,24 +161,22 @@ public class FileOperationsHelper {
         }
     }
     
-    public void sendFile(OCFile file, FileActivity callerActivity) {
-        // Obtain the file
-        if (!file.isDown()) {  // Download the file
-            Log_OC.d(TAG, file.getRemotePath() + " : File must be downloaded");           
-        } else {
-            sendDownloadedFile(file, callerActivity);
-        }
-        
-        
-    }
-    
     public void sendDownloadedFile(OCFile file, FileActivity callerActivity) {
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        // set MimeType
-        sharingIntent.setType(file.getMimetype());
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getStoragePath()));
-        callerActivity.startActivity(Intent.createChooser(sharingIntent, callerActivity.getString(R.string.send_file_title_intent))); 
+        if (file != null) {
+            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getStoragePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+            
+            // Show dialog, without the own app
+            String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
+            DialogFragment chooserDialog = ActivityChooserDialog.newInstance(sendIntent, packagesToExclude, file);
+            chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
     }
 
-    
 }
