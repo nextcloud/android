@@ -18,16 +18,21 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
-
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.operations.GetSharesOperation;
-import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
@@ -51,7 +56,12 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
-    public static final String EXTRA_RESULT = "RESULT";    
+    public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
+    public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
+    public static final String EXTRA_RESULT = "RESULT";
+    
+    public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
+    public static final String ACTION_UNSHARE = "UNSHARE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -69,7 +79,7 @@ public class OperationsService extends Service {
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
-    private IBinder mBinder;
+    private OperationsServiceBinder mBinder;
     private OwnCloudClient mOwnCloudClient = null;
     private Target mLastTarget = null;
     private FileDataStorageManager mStorageManager;
@@ -107,10 +117,30 @@ public class OperationsService extends Service {
         try {
             Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
             String serverUrl = intent.getStringExtra(EXTRA_SERVER_URL);
+            
             Target target = new Target(account, (serverUrl == null) ? null : Uri.parse(serverUrl));
-            GetSharesOperation operation = new GetSharesOperation();
+            RemoteOperation operation = null;
+            
+            String action = intent.getAction();
+            if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
+                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+                Intent sendIntent = intent.getParcelableExtra(EXTRA_SEND_INTENT);
+                if (remotePath.length() > 0) {
+                    operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                            "", false, "", 1, sendIntent);
+                }
+            } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
+                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
+                if (remotePath.length() > 0) {
+                    operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
+                }
+            } else {
+                // nothing we are going to handle
+                return START_NOT_STICKY;
+            }
+            
             mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
-            sendBroadcastNewOperation(target, operation);
+            //sendBroadcastNewOperation(target, operation);
             
             Message msg = mServiceHandler.obtainMessage();
             msg.arg1 = startId;
@@ -150,8 +180,59 @@ public class OperationsService extends Service {
      * 
      *  It provides by itself the available operations.
      */
-    public class OperationsServiceBinder extends Binder {
-        // TODO
+    public class OperationsServiceBinder extends Binder /* implements OnRemoteOperationListener */ {
+        
+        /** 
+         * Map of listeners that will be reported about the end of operations from a {@link OperationsServiceBinder} instance 
+         */
+        private Map<OnRemoteOperationListener, Handler> mBoundListeners = new HashMap<OnRemoteOperationListener, Handler>();
+        
+        /**
+         * Cancels an operation
+         *
+         * TODO
+         */
+        public void cancel() {
+            // TODO
+        }
+        
+        
+        public void clearListeners() {
+            
+            mBoundListeners.clear();
+        }
+
+        
+        /**
+         * Adds a listener interested in being reported about the end of operations.
+         * 
+         * @param listener          Object to notify about the end of operations.    
+         * @param callbackHandler   {@link Handler} to access the listener without breaking Android threading protection.
+         */
+        public void addOperationListener (OnRemoteOperationListener listener, Handler callbackHandler) {
+            mBoundListeners.put(listener, callbackHandler);
+        }
+        
+        
+        /**
+         * Removes a listener from the list of objects interested in the being reported about the end of operations.
+         * 
+         * @param listener      Object to notify about progress of transfer.    
+         */
+        public void removeOperationListener (OnRemoteOperationListener listener) {
+            mBoundListeners.remove(listener);
+        }
+
+
+        /**
+         * TODO - IMPORTANT: update implementation when more operations are moved into the service 
+         * 
+         * @return  'True' when an operation that enforces the user to wait for completion is in process.
+         */
+        public boolean isPerformingBlockingOperation() {
+            return (!mPendingOperations.isEmpty());
+        }
+
     }
     
     
@@ -242,15 +323,16 @@ public class OperationsService extends Service {
                 }
             }
             
-            sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
+            //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
+            callbackOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
 
 
     /**
-     * Sends a LOCAL broadcast when a new operation is added to the queue.
+     * Sends a broadcast when a new operation is added to the queue.
      * 
-     * Local broadcasts are only delivered to activities in the same process.
+     * Local broadcasts are only delivered to activities in the same process, but can't be done sticky :\
      * 
      * @param target            Account or URL pointing to an OC server.
      * @param operation         Added operation.
@@ -291,6 +373,31 @@ public class OperationsService extends Service {
         //lbm.sendBroadcast(intent);
         sendStickyBroadcast(intent);
     }
+
     
+    /**
+     * Notifies the currently subscribed listeners about the end of an operation.
+     * 
+     * @param target            Account or URL pointing to an OC server.
+     * @param operation         Finished operation.
+     * @param result            Result of the operation.
+     */
+    private void callbackOperationListeners(Target target, final RemoteOperation operation, final RemoteOperationResult result) {
+        Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
+        while (listeners.hasNext()) {
+            final OnRemoteOperationListener listener = listeners.next();
+            final Handler handler = mBinder.mBoundListeners.get(listener);
+            if (handler != null) { 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onRemoteOperationFinish(operation, result);
+                    }
+                });
+            }
+        }
+            
+    }
     
+
 }

@@ -92,12 +92,10 @@ public class CreateShareOperation extends SyncOperation {
                 OCShare share = (OCShare) result.getData().get(0);
 
                 // Update DB with the response
+                share.setPath(mPath);
                 if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
-                    share.setPath(mPath.substring(0, mPath.length()-1));
                     share.setIsFolder(true);
-                    
                 } else {
-                    share.setPath(mPath);
                     share.setIsFolder(false);
                 }
                 share.setPermissions(mPermissions);

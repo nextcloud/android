@@ -45,6 +45,12 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.PinCodeActivity;
@@ -59,7 +65,7 @@ import com.owncloud.android.utils.Log_OC;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener , OnRemoteOperationListener{
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -147,7 +153,43 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
     }
 
-
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+            
+        }
+    }
+    
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        } else if  (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            backToDisplayActivity();
+        }
+            
+    }
+    
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        }
+    }
+    
     /** Defines callbacks for service binding, passed to bindService() */
     private class PreviewImageServiceConnection implements ServiceConnection {
 

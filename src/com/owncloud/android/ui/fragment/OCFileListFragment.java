@@ -257,6 +257,11 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 toHide.add(R.id.action_cancel_upload);
             }
         }
+        
+        // Options shareLink
+        if (!targetFile.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
         for (int i : toHide) {
             item = menu.findItem(i);
@@ -282,10 +287,15 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
-        switch (item.getItemId()) {
+        switch (item.getItemId()) {                
             case R.id.action_share_file: {
                 FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
                 activity.getFileOperationsHelper().shareFileWithLink(mTargetFile, activity);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().unshareFileWithLink(mTargetFile, activity);
                 return true;
             }
             case R.id.action_rename_file: {
@@ -353,7 +363,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 return super.onContextItemSelected(item); 
         }
     }
-    
+
 
     /**
      * Use this to query the {@link OCFile} that is currently
@@ -422,7 +432,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * @param file
          */
         public void onBrowsedDownTo(OCFile folder);
-        
+
         public void startDownloadForPreview(OCFile file);
 
         public void startMediaPreview(OCFile file, int i, boolean b);

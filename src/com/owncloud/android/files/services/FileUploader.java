@@ -597,6 +597,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private void saveUploadedFile() {
         OCFile file = mCurrentUpload.getFile();
+        if (file.fileExists()) {
+            file = mStorageManager.getFileById(file.getFileId());
+        }
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForData(syncDate);
 

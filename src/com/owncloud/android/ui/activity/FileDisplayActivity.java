@@ -75,6 +75,7 @@ import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
@@ -85,6 +86,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -186,6 +188,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
+        } else {
+            Log_OC.d(TAG, "Init the secondFragment again");
+            if (mDualPane) {
+                initFragmentsWithFile();                
+            }
         }
 
         // Action bar setup
@@ -200,6 +207,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        refeshListOfFilesFragment();
     }
 
     @Override
@@ -278,7 +286,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
         transaction.commit();
     }
-
+    
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
             /// First fragment
@@ -1327,20 +1335,52 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else if (operation instanceof CreateFolderOperation) {
             onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
-        
+            
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
-        }
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
+        
+        } 
         
     }
 
-
+    
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
+            refreshShowDetails();
             refeshListOfFilesFragment();
         }
     }
 
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            refreshShowDetails();
+            refeshListOfFilesFragment();
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            cleanSecondFragment();
+            refeshListOfFilesFragment();
+        }
+    }
+    
+    private void refreshShowDetails() {
+        FileFragment details = getSecondFragment();
+        if (details != null) {
+            OCFile file = details.getFile();
+            if (file != null) {
+                file = getStorageManager().getFileByPath(file.getRemotePath()); 
+                if (details instanceof PreviewMediaFragment) {
+                    // Refresh  OCFile of the fragment
+                    ((PreviewMediaFragment) details).updateFile(file);
+                } else {
+                    showDetails(file);
+                } 
+            }
+            invalidateOptionsMenu();
+        } 
+    }
     
     /**
      * Updates the view associated to the activity after the finish of an operation trying to remove a 

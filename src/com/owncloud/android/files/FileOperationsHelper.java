@@ -30,8 +30,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ActivityChooserDialog;
 import com.owncloud.android.utils.Log_OC;
@@ -108,12 +107,13 @@ public class FileOperationsHelper {
         
         if (file != null) {
             callerActivity.showLoadingDialog();
-            CreateShareOperation createShare = new CreateShareOperation(file.getRemotePath(), ShareType.PUBLIC_LINK, "", false, "", 1, sendIntent);
-            createShare.execute(callerActivity.getStorageManager(), 
-                                callerActivity, 
-                                callerActivity.getRemoteOperationListener(), 
-                                callerActivity.getHandler(), 
-                                callerActivity);
+            
+            Intent service = new Intent(callerActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_CREATE_SHARE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
+            callerActivity.startService(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -140,4 +140,24 @@ public class FileOperationsHelper {
         return false;
     }
 
+    
+    public void unshareFileWithLink(OCFile file, FileActivity callerActivity) {
+        
+        if (isSharedSupported(callerActivity)) {
+            // Unshare the file
+            Intent service = new Intent(callerActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_UNSHARE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            callerActivity.startService(service);
+            
+            callerActivity.showLoadingDialog();
+            
+        } else {
+            // Show a Message
+            Toast t = Toast.makeText(callerActivity, callerActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            t.show();
+            
+        }
+    }
 }
