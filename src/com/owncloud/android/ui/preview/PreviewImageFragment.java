@@ -311,7 +311,8 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 return true;
             }
             case R.id.action_send_file: {
-                sendFile();
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().sendDownloadedFile(getFile(), act);
                 return true;
             }
             
@@ -319,15 +320,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 return false;
         }
     }
-    
-    private void sendFile(){
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        // set MimeType
-        sharingIntent.setType(getFile().getMimetype());
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+getFile().getStoragePath()));
-        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.send_file_title_intent)));
-    }
-
     
 
     private void seeDetails() {

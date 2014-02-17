@@ -139,7 +139,7 @@ public class FileOperationsHelper {
         }
         return false;
     }
-
+    
     
     public void unshareFileWithLink(OCFile file, FileActivity callerActivity) {
         
@@ -160,4 +160,25 @@ public class FileOperationsHelper {
             
         }
     }
+    
+    public void sendFile(OCFile file, FileActivity callerActivity) {
+        // Obtain the file
+        if (!file.isDown()) {  // Download the file
+            Log_OC.d(TAG, file.getRemotePath() + " : File must be downloaded");           
+        } else {
+            sendDownloadedFile(file, callerActivity);
+        }
+        
+        
+    }
+    
+    public void sendDownloadedFile(OCFile file, FileActivity callerActivity) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        // set MimeType
+        sharingIntent.setType(file.getMimetype());
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getStoragePath()));
+        callerActivity.startActivity(Intent.createChooser(sharingIntent, callerActivity.getString(R.string.send_file_title_intent))); 
+    }
+
+    
 }

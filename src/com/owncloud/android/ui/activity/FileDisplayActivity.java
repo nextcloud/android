@@ -86,7 +86,6 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -141,6 +140,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private boolean mSyncInProgress = false;
     //private boolean mRefreshSharesInProgress = false;
+
+    private OCFile mWaitingToSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1023,6 +1024,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
             }
 
+            if (mWaitingToSend != null && mWaitingToSend.isDown()) {
+                
+                sendDownloadedFile();
+                
+            }
             removeStickyBroadcast(intent);
         }
 
@@ -1602,4 +1608,33 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
     */
 
+    /**
+     * Requests the download of the received {@link OCFile} , updates the UI
+     * to monitor the download progress and prepares the activity to send the file
+     * when the download finishes.
+     * 
+     * @param file          {@link OCFile} to download and preview.
+     */
+    @Override
+    public void startDownloadForSending(OCFile file) {
+        mWaitingToSend = file;
+        requestForDownload(mWaitingToSend);
+        updateFragmentsVisibility(true);
+    }
+    
+    private void requestForDownload(OCFile file) {
+        Account account = getAccount();
+        if (!mDownloaderBinder.isDownloading(account, file)) {
+            Intent i = new Intent(this, FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            startService(i);
+        }
+    }
+    
+    private void sendDownloadedFile(){
+        getFileOperationsHelper().sendDownloadedFile(mWaitingToSend, this);
+        mWaitingToSend = null;
+    }
+    
 }

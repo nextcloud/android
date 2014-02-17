@@ -44,8 +44,6 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -362,11 +360,16 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 return true;
             }
             case R.id.action_send_file: {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                // set MimeType
-                sharingIntent.setType(mTargetFile.getMimetype());
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + mTargetFile.getStoragePath()));
-                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.send_file_title_intent))); 
+                // Obtain the file
+                if (!mTargetFile.isDown()) {  // Download the file
+                    Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
+                    mContainerActivity.startDownloadForSending(mTargetFile);
+                    
+                } else {
+                
+                    FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                    activity.getFileOperationsHelper().sendDownloadedFile(mTargetFile, activity);
+                }
                 return true;
             }
             default:
@@ -473,6 +476,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * @param uploading     Flag signaling if the file is now uploading.
          */
         public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
+
+        void startDownloadForSending(OCFile file);
         
     }
     
