@@ -4,6 +4,7 @@
   <string name="actionbar_upload_files">Fail-fail</string>
   <string name="actionbar_mkdir">Bina direktori</string>
   <string name="actionbar_settings">Set</string>
+  <string name="actionbar_share_file">Kongsi</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lanjutan</string>
   <string name="prefs_accounts">Akaun</string>

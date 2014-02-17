@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Crea una carpeta</string>
   <string name="actionbar_settings">Configuració</string>
   <string name="actionbar_see_details">Detalls</string>
+  <string name="actionbar_share_file">Comparteix</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>

@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Sortu karpeta</string>
   <string name="actionbar_settings">Ezarpenak</string>
   <string name="actionbar_see_details">Xehetasunak</string>
+  <string name="actionbar_share_file">Partekatu</string>
   <string name="prefs_category_general">Orokorra</string>
   <string name="prefs_category_more">Gehiago</string>
   <string name="prefs_accounts">Kontuak</string>

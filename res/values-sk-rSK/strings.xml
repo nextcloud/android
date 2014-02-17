@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
+  <string name="actionbar_share_file">Zdieľať</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>

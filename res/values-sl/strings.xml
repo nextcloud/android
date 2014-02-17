@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Ustvari mapo</string>
   <string name="actionbar_settings">Nastavitve</string>
   <string name="actionbar_see_details">Podrobnosti</string>
+  <string name="actionbar_share_file">Souporaba</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
@@ -233,6 +234,7 @@
   <string name="failed_upload_retry_do_nothing_text">ne pošlji takoj, saj je povezava v omrežje ni dejavna</string>
   <string name="failed_upload_failure_text">Sporočilo o napaki:</string>
   <string name="failed_upload_quota_exceeded_text">Preverite nastavitve strežnika. Morda je presežena vrednost količinske omejitve.</string>
+  <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le uporabniki s skrbniškimi dovoljenji.</string>
   <string name="share_link_file_no_exist">Ni mogoče omogočiti souporabe te datoteke ali mape. Prepričajte se, da obstaja ...</string>
   <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>

@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Crea cartella</string>
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
+  <string name="actionbar_share_file">Condividi</string>
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
   <string name="prefs_accounts">Account</string>

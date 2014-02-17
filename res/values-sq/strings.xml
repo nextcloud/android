@@ -4,6 +4,7 @@
   <string name="actionbar_upload_files">Skedarët</string>
   <string name="actionbar_mkdir">Krijo kartelë</string>
   <string name="actionbar_settings">Parametrat</string>
+  <string name="actionbar_share_file">Ndaj</string>
   <string name="prefs_category_general">Përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogarit</string>

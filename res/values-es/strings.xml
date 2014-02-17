@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
+  <string name="actionbar_share_file">Compartir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -236,5 +237,6 @@
   <string name="share_link_no_support_share_api">Compartir archivos no está activado en su servidor. Sírvase contactar a su administrador de sistema.</string>
   <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
+  <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
 </resources>

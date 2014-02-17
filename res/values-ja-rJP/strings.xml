@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">ディレクトリを作成</string>
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細</string>
+  <string name="actionbar_share_file">共有</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
@@ -56,6 +57,7 @@
   <string name="filedetails_sync_file">ファイルを同期</string>
   <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
   <string name="action_share_file">URLで共有</string>
+  <string name="action_unshare_file">未共有のリンク</string>
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
   <string name="common_ok">OK</string>
@@ -180,6 +182,7 @@
   <string name="wait_a_moment">しばらくお待ちください</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
   <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
+  <string name="activity_chooser_title">リンクを送信…</string>
   <string name="oauth_check_onoff">oAuth2でログイン</string>
   <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>
   <string name="ssl_validator_header">サイトの識別子を確認できませんでした</string>
@@ -231,4 +234,8 @@
   <string name="failed_upload_retry_do_nothing_text">オンラインでなく、インスタントアップロードのために何もしません</string>
   <string name="failed_upload_failure_text">失敗メッセージ:</string>
   <string name="failed_upload_quota_exceeded_text">サーバー設定を確認してください。クォータサイズを超えている可能性があります。</string>
+  <string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。管理者に連絡してください。</string>
+  <string name="share_link_file_no_exist">このファイルまたはフォルダーは共有できません。存在しているか確認してください。</string>
+  <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
+  <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
 </resources>

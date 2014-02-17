@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Buat folder</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="actionbar_see_details">Rincian</string>
+  <string name="actionbar_share_file">Bagikan</string>
   <string name="prefs_category_general">umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>

@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Mappa létrehozása</string>
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
+  <string name="actionbar_share_file">Megosztás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>

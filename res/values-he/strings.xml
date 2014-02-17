@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">יצירת תיקייה</string>
   <string name="actionbar_settings">הגדרות</string>
   <string name="actionbar_see_details">פרטים</string>
+  <string name="actionbar_share_file">שיתוף</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>

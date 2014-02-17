@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">Датотеке</string>
   <string name="actionbar_mkdir">Направи фасциклу</string>
   <string name="actionbar_settings">Поставке</string>
+  <string name="actionbar_share_file">Дели</string>
   <string name="prefs_category_general">Опште</string>
   <string name="prefs_category_more">Више</string>
   <string name="prefs_accounts">Налози</string>

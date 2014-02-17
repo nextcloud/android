@@ -10,7 +10,7 @@
   <string name="actionbar_mkdir">Ordner anlegen</string>
   <string name="actionbar_settings">Einstellungen</string>
   <string name="actionbar_see_details">Details</string>
-  <string name="actionbar_send_file">Datei senden</string>
+  <string name="actionbar_send_file">Teilen</string>
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
@@ -237,5 +237,6 @@
   <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Ihrem Server nicht aktiviert. Bitte kontaktieren Sie Ihren Administrator.</string>
   <string name="share_link_file_no_exist">Die Freigabe der Datei oder des Ordners ist nicht möglich. Bitte stellen Sie sicher, dass diese existiert.</string>
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
+  <string name="unshare_link_file_no_exist">Das Entfernen der Freigabe für die Datei oder den Ordner ist nicht möglich. Diese existieren nicht.</string>
   <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
 </resources>

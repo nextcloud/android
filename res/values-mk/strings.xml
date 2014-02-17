@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">Создади папка</string>
   <string name="actionbar_settings">Параметри</string>
   <string name="actionbar_see_details">Детали:</string>
+  <string name="actionbar_share_file">Сподели</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>

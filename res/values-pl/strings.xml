@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Nowy katalog</string>
   <string name="actionbar_settings">Ustawienia</string>
   <string name="actionbar_see_details">Szczegóły</string>
+  <string name="actionbar_share_file">Udostępnij</string>
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
@@ -236,5 +237,6 @@
   <string name="share_link_no_support_share_api">Przepraszamy, udostępnianie jest wyłączone na twoim serwerze. Skontaktuj się z twoim administratorem.</string>
   <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
+  <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. Jeśli nie istnieje.</string>
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
 </resources>

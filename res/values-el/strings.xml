@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Δημιουργία καταλόγου</string>
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
+  <string name="actionbar_share_file">Διαμοιρασμός</string>
   <string name="prefs_category_general">Γενικά</string>
   <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>

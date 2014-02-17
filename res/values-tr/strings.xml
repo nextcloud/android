@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Dizin oluştur</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
+  <string name="actionbar_share_file">Paylaş</string>
   <string name="prefs_category_general">Genel</string>
   <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>
