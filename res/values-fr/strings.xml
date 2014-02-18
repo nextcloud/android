@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Créer un répertoire</string>
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
-  <string name="actionbar_share_file">Partager</string>
   <string name="prefs_category_general">Général</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Comptes</string>

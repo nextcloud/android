@@ -5,7 +5,6 @@
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_mkdir">Opprett mappe</string>
   <string name="actionbar_settings">Innstillingar</string>
-  <string name="actionbar_share_file">Del</string>
   <string name="prefs_category_general">Generelt</string>
   <string name="prefs_category_more">Meir</string>
   <string name="prefs_accounts">Kontoar</string>

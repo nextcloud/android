@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Crea cartella</string>
   <string name="actionbar_settings">Impostazioni</string>
   <string name="actionbar_see_details">Dettagli</string>
-  <string name="actionbar_share_file">Condividi</string>
   <string name="prefs_category_general">Generale</string>
   <string name="prefs_category_more">Altro</string>
   <string name="prefs_accounts">Account</string>
@@ -237,5 +236,6 @@
   <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul server. Contatta il tuo amministratore.</string>
   <string name="share_link_file_no_exist">Impossibile condividere il file o la cartella. Assicurati che esista.</string>
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
+  <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione il file o la cartella. Non esiste.</string>
   <string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
 </resources>

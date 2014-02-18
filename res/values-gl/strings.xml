@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Crear un directorio</string>
   <string name="actionbar_settings">Preferencias</string>
   <string name="actionbar_see_details">Detalles</string>
-  <string name="actionbar_share_file">Compartir</string>
   <string name="prefs_category_general">Xeral</string>
   <string name="prefs_category_more">Máis</string>
   <string name="prefs_accounts">Contas</string>

@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Opret mappe</string>
   <string name="actionbar_settings">Indstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
-  <string name="actionbar_share_file">Del</string>
   <string name="prefs_category_general">Generel</string>
   <string name="prefs_category_more">Mere</string>
   <string name="prefs_accounts">Konti</string>

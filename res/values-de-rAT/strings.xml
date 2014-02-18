@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <string name="actionbar_settings">Einstellungen</string>
-  <string name="actionbar_share_file">Freigeben</string>
   <string name="prefs_category_general">Allgemein</string>
   <string name="auth_password">Passwort</string>
   <string name="filedetails_download">Herunterladen</string>

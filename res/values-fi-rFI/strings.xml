@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
-  <string name="actionbar_share_file">Jaa</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>

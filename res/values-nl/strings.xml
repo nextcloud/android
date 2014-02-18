@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Creëer map</string>
   <string name="actionbar_settings">Instellingen</string>
   <string name="actionbar_see_details">Details</string>
-  <string name="actionbar_share_file">Delen</string>
   <string name="prefs_category_general">Algemeen</string>
   <string name="prefs_category_more">Meer</string>
   <string name="prefs_accounts">Accounts</string>
@@ -237,5 +236,6 @@
   <string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op uw server. Neem contact op met uw beheerder.</string>
   <string name="share_link_file_no_exist">Kan dit bestand of deze map niet delen. Controleer of dit object wel bestaat.</string>
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
+  <string name="unshare_link_file_no_exist">Kan delen van dit bestand of deze map niet beëindigen. Het object bestaat niet.</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
 </resources>
