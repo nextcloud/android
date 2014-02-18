@@ -37,15 +37,15 @@ import android.content.Intent;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.network.OwnCloudClient;
-import com.owncloud.android.lib.operations.common.OCShare;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.operations.remote.GetSharesForFileRemoteOperation;
-import com.owncloud.android.lib.operations.remote.ReadRemoteFileOperation;
-import com.owncloud.android.lib.operations.remote.ReadRemoteFolderOperation;
-import com.owncloud.android.lib.operations.common.RemoteFile;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -472,7 +472,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         RemoteOperationResult result = null;
         
         // remote request 
-        GetSharesForFileRemoteOperation operation = new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(), false, true);
+        GetRemoteSharesForFileOperation operation = new GetRemoteSharesForFileOperation(mLocalFolder.getRemotePath(), false, true);
         result = operation.execute(client);
         
         if (result.isSuccess()) {
