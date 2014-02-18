@@ -176,8 +176,22 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile((OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE));
+                OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
                 mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
+                
+                // Update the file
+                if (mAccount!= null) {
+                    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+                    OCFile updatedFile = mStorageManager.getFileByPath(file.getRemotePath());
+                    if (updatedFile != null) {
+                        setFile(updatedFile);
+                    } else {
+                        setFile(file);
+                    }
+                } else {
+                    setFile(file);
+                }
+
             } else {
                 mIgnoreFirstSavedState = false;
             }
@@ -253,15 +267,10 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        // Trick to update the file
-        OCFile file = ((PreviewImageActivity) getActivity()).getStorageManager().getFileByPath(getFile().getRemotePath()); 
-        if (file!= null) {
-            setFile(file);
-        }
-        
         MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
-        if (!getFile().isShareByLink()) {            
+        OCFile file = ((FileActivity) getSherlockActivity()).getFile();
+        if (!file.isShareByLink()) {
             item.setVisible(false);
             item.setEnabled(false);
         } else {

@@ -17,11 +17,14 @@
 
 package com.owncloud.android.operations;
 
+import android.content.Context;
+
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.network.OwnCloudClient;
 import com.owncloud.android.lib.operations.common.OCShare;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult;
 import com.owncloud.android.lib.operations.common.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.operations.remote.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.operations.remote.RemoveRemoteShareOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.Log_OC;
@@ -36,10 +39,13 @@ public class UnshareLinkOperation extends SyncOperation {
 
     private static final String TAG = UnshareLinkOperation.class.getSimpleName();
     
-    private OCFile mFile;
+    private String mRemotePath;
+    private Context mContext;
     
-    public UnshareLinkOperation(OCFile file) {
-        mFile = file;
+    
+    public UnshareLinkOperation(String remotePath, Context context) {
+        mRemotePath = remotePath;
+        mContext = context;
     }
 
     @Override
@@ -47,11 +53,7 @@ public class UnshareLinkOperation extends SyncOperation {
         RemoteOperationResult result  = null;
         
         // Get Share for a file
-        String path = mFile.getRemotePath();
-        if (mFile.isFolder()) {
-            path = path.substring(0, path.length()-1); // Remove last /
-        }
-        OCShare share = getStorageManager().getShareByPath(path);
+        OCShare share = getStorageManager().getShareByPath(mRemotePath);
         
         if (share != null) {
             RemoveRemoteShareOperation operation = new RemoveRemoteShareOperation((int) share.getIdRemoteShared());
@@ -60,13 +62,18 @@ public class UnshareLinkOperation extends SyncOperation {
             if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 Log_OC.d(TAG, "Share id = " + share.getIdRemoteShared() + " deleted");
 
-                mFile.setShareByLink(false);
-                mFile.setPublicLink("");
-                getStorageManager().saveFile(mFile);
+                OCFile file = getStorageManager().getFileByPath(mRemotePath);
+                file.setShareByLink(false);
+                file.setPublicLink("");
+                getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
                 
                 if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                    result = new RemoteOperationResult(ResultCode.OK);
+                    if (existsFile(client, file.getRemotePath())) {
+                        result = new RemoteOperationResult(ResultCode.OK);
+                    } else {
+                        getStorageManager().removeFile(file, true, true);
+                    }
                 }
             } 
                 
@@ -75,6 +82,12 @@ public class UnshareLinkOperation extends SyncOperation {
         }
 
         return result;
+    }
+    
+    private boolean existsFile(OwnCloudClient client, String remotePath){
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        RemoteOperationResult result = existsOperation.execute(client);
+        return result.isSuccess();
     }
 
 }

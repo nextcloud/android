@@ -188,6 +188,11 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
+        } else {
+            Log_OC.d(TAG, "Init the secondFragment again");
+            if (mDualPane) {
+                initFragmentsWithFile();                
+            }
         }
 
         // Action bar setup
@@ -202,6 +207,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        refeshListOfFilesFragment();
     }
 
     @Override
@@ -280,7 +286,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
         transaction.commit();
     }
-
+    
     private void initFragmentsWithFile() {
         if (getAccount() != null && getFile() != null) {
             /// First fragment
@@ -1353,6 +1359,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (result.isSuccess()) {
             refreshShowDetails();
             refeshListOfFilesFragment();
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            cleanSecondFragment();
+            refeshListOfFilesFragment();
         }
     }
     
@@ -1361,16 +1370,16 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (details != null) {
             OCFile file = details.getFile();
             if (file != null) {
-                file = getStorageManager().getFileByPath(file.getRemotePath()); {
-                    if (!(details instanceof PreviewMediaFragment || details instanceof PreviewImageFragment)) {
-                        showDetails(file);
-                    } else if (details instanceof PreviewMediaFragment) {                        
-                        startMediaPreview(file, 0, false);
-                    } 
-                }
-                invalidateOptionsMenu();
+                file = getStorageManager().getFileByPath(file.getRemotePath()); 
+                if (details instanceof PreviewMediaFragment) {
+                    // Refresh  OCFile of the fragment
+                    ((PreviewMediaFragment) details).updateFile(file);
+                } else {
+                    showDetails(file);
+                } 
             }
-        }
+            invalidateOptionsMenu();
+        } 
     }
     
     /**
