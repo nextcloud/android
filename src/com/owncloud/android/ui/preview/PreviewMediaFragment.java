@@ -351,6 +351,9 @@ public class PreviewMediaFragment extends FileFragment implements
                 seeDetails();
                 return true;
             }
+            case R.id.action_send_file: {
+                sendFile();
+            }
             
             default:
                 return false;
@@ -380,6 +383,12 @@ public class PreviewMediaFragment extends FileFragment implements
         
     }
 
+    private void sendFile() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+        
+    }
 
     private void seeDetails() {
         stopPreview(false);

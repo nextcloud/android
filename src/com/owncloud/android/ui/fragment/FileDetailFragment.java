@@ -376,6 +376,19 @@ public class FileDetailFragment extends FileFragment implements
                 synchronizeFile();
                 return true;
             }
+            case R.id.action_send_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                // Obtain the file
+                if (!getFile().isDown()) {  // Download the file                    
+                    //activity.showLoadingDialog();
+                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
+                    activity.startDownloadForSending(getFile());
+                    
+                } else {
+                    activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+                }
+                return true;
+            }
             default:
                 return false;
         }
