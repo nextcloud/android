@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Create directory</string>
   <string name="actionbar_settings">Settings</string>
   <string name="actionbar_see_details">Details</string>
-  <string name="actionbar_share_file">Share</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">More</string>
   <string name="prefs_accounts">Accounts</string>

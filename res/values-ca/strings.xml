@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Crea una carpeta</string>
   <string name="actionbar_settings">Configuració</string>
   <string name="actionbar_see_details">Detalls</string>
-  <string name="actionbar_share_file">Comparteix</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>
@@ -57,6 +56,7 @@
   <string name="filedetails_sync_file">Actualitza el fitxer</string>
   <string name="filedetails_renamed_in_upload_msg">L\'arxiu s\'ha canviat de nom a %1$s durant la càrrega</string>
   <string name="action_share_file">Enllaç de compartició</string>
+  <string name="action_unshare_file">Deixa de compartir l\'enllaç</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
@@ -181,6 +181,7 @@
   <string name="wait_a_moment">Espereu</string>
   <string name="filedisplay_unexpected_bad_get_content">S\'ha produït un problema inesperat; proveu una altra aplicació per seleccionar el fitxer</string>
   <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
+  <string name="activity_chooser_title">Envia l\'enllaç a...</string>
   <string name="oauth_check_onoff">Accés amb oAuth2</string>
   <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>
   <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
@@ -232,4 +233,9 @@
   <string name="failed_upload_retry_do_nothing_text">no facis res, no estàs en lína per la pujada instantània</string>
   <string name="failed_upload_failure_text">Missatge d\'Error:</string>
   <string name="failed_upload_quota_exceeded_text">Comproveu la configuració del servidor, potser heu excedit la quota.</string>
+  <string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
+  <string name="share_link_file_no_exist">No es pot compartir aquest fitxer o carpeta. Assegureu-vos que existeix</string>
+  <string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
+  <string name="unshare_link_file_no_exist">No es pot deixar de compartir aquest fitxer o carpeta. No existeix.</string>
+  <string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
 </resources>

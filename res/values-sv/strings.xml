@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Skapa mapp</string>
   <string name="actionbar_settings">Inställningar</string>
   <string name="actionbar_see_details">Detaljer</string>
-  <string name="actionbar_share_file">Dela</string>
   <string name="prefs_category_general">Allmänt</string>
   <string name="prefs_category_more">Mer</string>
   <string name="prefs_accounts">Konton</string>

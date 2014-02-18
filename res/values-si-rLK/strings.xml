@@ -4,7 +4,6 @@
   <string name="actionbar_upload_files">ගොනු</string>
   <string name="actionbar_mkdir">ඩිරෙක්ටරිය සාදන්න</string>
   <string name="actionbar_settings">සිටුවම්</string>
-  <string name="actionbar_share_file">බෙදා හදා ගන්න</string>
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
   <string name="prefs_accounts">ගිණුම්</string>

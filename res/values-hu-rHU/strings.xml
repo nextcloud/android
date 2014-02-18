@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Mappa létrehozása</string>
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
-  <string name="actionbar_share_file">Megosztás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>
@@ -57,6 +56,7 @@
   <string name="filedetails_sync_file">File frissítése</string>
   <string name="filedetails_renamed_in_upload_msg">A feltöltés során az állmányt erre neveztük át: %1$s</string>
   <string name="action_share_file">Megosztás hivatkozással</string>
+  <string name="action_unshare_file">Megosztás visszavonása</string>
   <string name="common_yes">Igen</string>
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
@@ -181,6 +181,7 @@
   <string name="wait_a_moment">Egy pillanat...</string>
   <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
   <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
+  <string name="activity_chooser_title">Hivatkozás küldése ...</string>
   <string name="oauth_check_onoff">Bejelentkezés oAuth2-vel</string>
   <string name="oauth_login_connection">Kapcsolódás az oAuth2 szerverhez...</string>
   <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
@@ -232,4 +233,9 @@
   <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
   <string name="failed_upload_failure_text">Hibaüzenet</string>
   <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>
+  <string name="share_link_no_support_share_api">Bocsánat, a megosztás nincs engedélyezve. A rendszergazda segíthet ezt tisztázni.</string>
+  <string name="share_link_file_no_exist">A mappa nem osztható meg. Lehet, hogy nem is létezik.</string>
+  <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
+  <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>
+  <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
 </resources>

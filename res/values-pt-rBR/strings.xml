@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Criar pasta</string>
   <string name="actionbar_settings">Ajustes</string>
   <string name="actionbar_see_details">Detalhes</string>
-  <string name="actionbar_share_file">Compartilhar</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -237,5 +236,6 @@
   <string name="share_link_no_support_share_api">Desculpe, compartilhamento não está habilitado para seu servidor. Por favor faça contato com o seu administrador.</string>
   <string name="share_link_file_no_exist">Incapaz de compartilhar esse arquivo ou pasta. Por favor, certifique-se que existe</string>
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
+  <string name="unshare_link_file_no_exist">Incapaz de descompartilhar este arquivo ou pasta. Ela não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
 </resources>

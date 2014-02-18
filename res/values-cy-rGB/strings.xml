@@ -5,7 +5,6 @@
   <string name="actionbar_upload_files">Ffeiliau</string>
   <string name="actionbar_mkdir">Creu cyfeiriadur</string>
   <string name="actionbar_settings">Gosodiadau</string>
-  <string name="actionbar_share_file">Rhannu</string>
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>

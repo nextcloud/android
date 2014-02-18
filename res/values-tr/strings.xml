@@ -10,7 +10,6 @@
   <string name="actionbar_mkdir">Dizin oluştur</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
-  <string name="actionbar_share_file">Paylaş</string>
   <string name="prefs_category_general">Genel</string>
   <string name="prefs_category_more">Daha fazla</string>
   <string name="prefs_accounts">Hesaplar</string>
@@ -237,5 +236,6 @@
   <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle iletişime geçin.</string>
   <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
+  <string name="unshare_link_file_no_exist">Bu dosya veya klasörün paylaşımı kaldırılamadı. Mevcut değil.</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
 </resources>
