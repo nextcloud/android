@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Создать каталог</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
+  <string name="actionbar_send_file">Отправить</string>
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>

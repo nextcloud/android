@@ -8,6 +8,7 @@
   <string name="actionbar_mkdir">إنشاء دليل</string>
   <string name="actionbar_settings">تعديلات</string>
   <string name="actionbar_see_details">تفاصيل</string>
+  <string name="actionbar_send_file">أرسل</string>
   <string name="prefs_category_general">عام</string>
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
