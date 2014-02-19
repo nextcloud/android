@@ -80,12 +80,10 @@
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
 
-                <data android:mimeType="*/*" android:scheme="content">
+                <data android:mimeType="*/*" >
                 </data>
 
-                <data android:mimeType="*/*" android:scheme="file">
-                </data>
-                </intent-filter>
+			</intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.Preferences"
@@ -182,6 +180,11 @@
             </intent-filter>
         </receiver>
         <service android:name=".files.services.FileObserverService"/>
+        
+        <activity 
+            android:name=".ui.activity.CopyToClipboardActivity" 
+           	android:label="@string/copy_link"
+           	android:icon="@drawable/copy_link" />
         
     </application>
 

@@ -33,7 +33,7 @@ import com.owncloud.android.lib.network.webdav.WebdavUtils;
 import com.owncloud.android.lib.utils.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.dialog.ActivityChooserDialog;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -89,7 +89,7 @@ public class FileOperationsHelper {
                 String link = "https://fake.url";
                 Intent intent = createShareWithLinkIntent(link);
                 String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
-                DialogFragment chooserDialog = ActivityChooserDialog.newInstance(intent, packagesToExclude, file);
+                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intent, packagesToExclude, file);
                 chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
                 
             } else {
