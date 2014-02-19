@@ -47,11 +47,13 @@ public class UpdateOCVersionOperation extends RemoteOperation {
 
     private Account mAccount;
     private Context mContext;
+    private OwnCloudVersion mOwnCloudVersion;
     
     
     public UpdateOCVersionOperation(Account account, Context context) {
         mAccount = account;
         mContext = context;
+        mOwnCloudVersion = null;
     }
     
     
@@ -74,10 +76,13 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                 if (response != null) {
                     JSONObject json = new JSONObject(response);
                     if (json != null && json.getString("version") != null) {
-                        OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
-                        if (ocver.isVersionValid()) {
-                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION, ocver.toString());
-                            Log_OC.d(TAG, "Got new OC version " + ocver.toString());
+                        String version = json.getString("version");
+                        String versionstring = json.getString("versionstring");
+                        mOwnCloudVersion = new OwnCloudVersion(version, versionstring);
+                        if (mOwnCloudVersion.isVersionValid()) {
+                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION, mOwnCloudVersion.getVersion());
+                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION_STRING, mOwnCloudVersion.getVersionString());
+                            Log_OC.d(TAG, "Got new OC version " + mOwnCloudVersion.toString());
                             result = new RemoteOperationResult(ResultCode.OK);
                             
                         } else {
@@ -105,6 +110,11 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                 get.releaseConnection();
         }
         return result;
+    }
+
+
+    public OwnCloudVersion getOCVersion() {
+        return mOwnCloudVersion;
     }
 
 }

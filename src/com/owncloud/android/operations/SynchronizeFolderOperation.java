@@ -46,6 +46,7 @@ import com.owncloud.android.lib.operations.remote.GetSharesForFileRemoteOperatio
 import com.owncloud.android.lib.operations.remote.ReadRemoteFileOperation;
 import com.owncloud.android.lib.operations.remote.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.operations.common.RemoteFile;
+import com.owncloud.android.lib.utils.FileUtils;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -101,7 +102,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private boolean mSyncFullAccount;
 
     /** 'True' means that Share resources bound to the files into the folder should be refreshed also */
-    private boolean mRefreshShares;
+    private boolean mIsShareSupported;
     
     /** 'True' means that the remote folder changed from last synchronization and should be fetched */
     private boolean mRemoteFolderChanged;
@@ -122,14 +123,14 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     public SynchronizeFolderOperation(  OCFile folder, 
                                         long currentSyncTime, 
                                         boolean syncFullAccount,
-                                        boolean refreshShares,
+                                        boolean isShareSupported,
                                         FileDataStorageManager dataStorageManager, 
                                         Account account, 
                                         Context context ) {
         mLocalFolder = folder;
         mCurrentSyncTime = currentSyncTime;
         mSyncFullAccount = syncFullAccount;
-        mRefreshShares = refreshShares;
+        mIsShareSupported = isShareSupported;
         mStorageManager = dataStorageManager;
         mAccount = account;
         mContext = context;
@@ -171,6 +172,10 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
         
+        if (FileUtils.PATH_SEPARATOR.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
+            updateOCVersion(client);
+        }
+        
         result = checkForChanges(client);
         
         if (result.isSuccess()) {
@@ -185,7 +190,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
         
-        if (result.isSuccess() && mRefreshShares) {
+        if (result.isSuccess() && mIsShareSupported) {
             RemoteOperationResult shareResult = refreshSharesForFolder(client);
             if (shareResult.getCode() != ResultCode.FILE_NOT_FOUND) {
                 result = shareResult;
@@ -200,6 +205,16 @@ public class SynchronizeFolderOperation extends RemoteOperation {
         
     }
 
+
+    private void updateOCVersion(OwnCloudClient client) {
+        UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
+        RemoteOperationResult result = update.execute(client);
+        if (result.isSuccess()) {
+            mIsShareSupported = update.getOCVersion().isSharedSupported();
+        }
+    }
+
+    
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = false;
         RemoteOperationResult result = null;

@@ -36,7 +36,6 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,6 +94,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
+    private static final String KEY_OC_VERSION_STRING = "OC_VERSION_STRING";
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_SERVER_VALID = "SERVER_VALID";
     private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
@@ -124,7 +124,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
-    private boolean mIsSharedSupported;
 
     private String mAuthMessageText;
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
@@ -235,20 +234,19 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerIsChecked = false;
             mIsSslConn = false;
             mAuthStatusText = mAuthStatusIcon = 0;
-            mIsSharedSupported = false;
 
             /// retrieve extras from intent
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
                 String ocVersion = mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION);
+                String ocVersionString = mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION_STRING);
                 if (ocVersion != null) {
-                    mDiscoveredVersion = new OwnCloudVersion(ocVersion);
+                    mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
-                mIsSharedSupported = Boolean.getBoolean(mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
                 
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
@@ -276,9 +274,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
-            mIsSharedSupported = savedInstanceState.getBoolean(KEY_IS_SHARED_SUPPORTED, false);
+            String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
             if (ocVersion != null) {
-                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
             }
             mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
 
@@ -453,10 +451,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// server data
         if (mDiscoveredVersion != null) {
-            outState.putString(KEY_OC_VERSION, mDiscoveredVersion.toString());
+            outState.putString(KEY_OC_VERSION, mDiscoveredVersion.getVersion());
+            outState.putString(KEY_OC_VERSION_STRING, mDiscoveredVersion.getVersionString());
         }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
-        outState.putBoolean(KEY_IS_SHARED_SUPPORTED, mIsSharedSupported);
 
         /// account data, if updating
         if (mAccount != null) {
@@ -591,7 +589,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         
         mServerIsValid = false;
         mServerIsChecked = false;
-        mIsSharedSupported = false;
         mOkButton.setEnabled(false);
         mDiscoveredVersion = null;
         hideRefreshButton();
@@ -906,9 +903,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             /// allow or not the user try to access the server
             mOkButton.setEnabled(mServerIsValid);
             
-            /// retrieve if is supported the Share API
-            mIsSharedSupported = operation.isSharedSupported();
-
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered
     }
@@ -1299,9 +1293,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
-            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION,    mDiscoveredVersion.toString());
+            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION,         mDiscoveredVersion.getVersion());
+            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION_STRING,  mDiscoveredVersion.getVersionString());
             mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
-            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API, Boolean.toString(mIsSharedSupported));
             if (isSaml) {
                 mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
             } else if (isOAuth) {
