@@ -250,6 +250,12 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
             toHide.add(R.id.action_unshare_file);
         }
 
+        // Send file
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (!sendEnabled) {
+            toHide.add(R.id.action_send_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {

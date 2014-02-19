@@ -252,6 +252,17 @@ public class FileDetailFragment extends FileFragment implements
             item.setVisible(false);
             item.setEnabled(false);
         }
+        
+        // Send file
+        item = menu.findItem(R.id.action_send_file);
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (item != null  && sendEnabled) {
+            item.setVisible(true);
+            item.setEnabled(true);
+        } else {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     
