@@ -24,16 +24,15 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
-
-import com.owncloud.android.lib.network.OwnCloudClientFactory;
-import com.owncloud.android.lib.network.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
-import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.lib.operations.common.OnRemoteOperationListener;
-import com.owncloud.android.lib.operations.common.RemoteOperation;
-import com.owncloud.android.lib.operations.common.RemoteOperationResult;
-import com.owncloud.android.lib.operations.common.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;

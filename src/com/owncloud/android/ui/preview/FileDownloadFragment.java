@@ -37,7 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.owncloud.android.lib.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 
 
 /**
