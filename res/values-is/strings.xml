@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Senda inn</string>
   <string name="actionbar_upload_files">Skrár</string>
   <string name="actionbar_settings">Stillingar</string>
+  <string name="actionbar_send_file">Senda</string>
   <string name="prefs_category_more">Meira</string>
   <string name="prefs_help">Hjálp</string>
   <string name="auth_username">Notendanafn</string>

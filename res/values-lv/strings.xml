@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">Datnes</string>
   <string name="actionbar_mkdir">Izveidot direktoriju</string>
   <string name="actionbar_settings">Iestatījumi</string>
+  <string name="actionbar_send_file">Sūtīt</string>
   <string name="prefs_category_general">Vispārīgi</string>
   <string name="prefs_category_more">Vairāk</string>
   <string name="prefs_accounts">Konti</string>

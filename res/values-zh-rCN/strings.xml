@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">创建目录</string>
   <string name="actionbar_settings">设置</string>
   <string name="actionbar_see_details">详细信息</string>
+  <string name="actionbar_send_file">发送</string>
   <string name="prefs_category_general">常规</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">账号</string>

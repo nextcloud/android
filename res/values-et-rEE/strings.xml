@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Loo kaust</string>
   <string name="actionbar_settings">Seaded</string>
   <string name="actionbar_see_details">Üksikasjad</string>
+  <string name="actionbar_send_file">Saada</string>
   <string name="prefs_category_general">Üldine</string>
   <string name="prefs_category_more">Rohkem</string>
   <string name="prefs_accounts">Kontod</string>

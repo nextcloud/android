@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">ფაილები</string>
   <string name="actionbar_mkdir">დირექტორიის შექმნა</string>
   <string name="actionbar_settings">პარამეტრები</string>
+  <string name="actionbar_send_file">გაგზავნა</string>
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>

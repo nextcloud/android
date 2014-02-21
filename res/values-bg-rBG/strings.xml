@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">Файлове</string>
   <string name="actionbar_mkdir">Нова директория</string>
   <string name="actionbar_settings">Настройки</string>
+  <string name="actionbar_send_file">Изпрати</string>
   <string name="prefs_category_general">Общи</string>
   <string name="prefs_category_more">Още</string>
   <string name="prefs_accounts">Профили</string>

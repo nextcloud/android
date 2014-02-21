@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Ustvari mapo</string>
   <string name="actionbar_settings">Nastavitve</string>
   <string name="actionbar_see_details">Podrobnosti</string>
+  <string name="actionbar_send_file">Pošlji</string>
   <string name="prefs_category_general">Splošno</string>
   <string name="prefs_category_more">Več</string>
   <string name="prefs_accounts">Računi</string>
