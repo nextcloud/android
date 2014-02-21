@@ -237,11 +237,11 @@ public class FileDataStorageManager {
             }            
         }
 
-        if (file.isFolder()) {
-            updateFolderSize(file.getFileId());
-        } else {
-            updateFolderSize(file.getParentId());
-        }
+//        if (file.isFolder()) {
+//            updateFolderSize(file.getFileId());
+//        } else {
+//            updateFolderSize(file.getParentId());
+//        }
         
         return overriden;
     }
@@ -388,38 +388,38 @@ public class FileDataStorageManager {
             }
         }
         
-        updateFolderSize(folder.getFileId());
+        //updateFolderSize(folder.getFileId());
         
     }
 
 
-    /**
-     * 
-     * @param id
-     */
-    private void updateFolderSize(long id) {
-        if (id > FileDataStorageManager.ROOT_PARENT_ID) {
-            Log_OC.d(TAG, "Updating size of " + id);
-            if (getContentResolver() != null) {
-                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, 
-                        new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
-                        ProviderTableMeta._ID + "=?",
-                        new String[] { String.valueOf(id) });
-            } else {
-                try {
-                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, 
-                            new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
-                            ProviderTableMeta._ID + "=?",
-                            new String[] { String.valueOf(id) });
-                    
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
-                }
-            }
-        } else {
-            Log_OC.e(TAG,  "not updating size for folder " + id);
-        }
-    }
+//    /**
+//     * 
+//     * @param id
+//     */
+//    private void updateFolderSize(long id) {
+//        if (id > FileDataStorageManager.ROOT_PARENT_ID) {
+//            Log_OC.d(TAG, "Updating size of " + id);
+//            if (getContentResolver() != null) {
+//                getContentResolver().update(ProviderTableMeta.CONTENT_URI_DIR, 
+//                        new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
+//                        ProviderTableMeta._ID + "=?",
+//                        new String[] { String.valueOf(id) });
+//            } else {
+//                try {
+//                    getContentProviderClient().update(ProviderTableMeta.CONTENT_URI_DIR, 
+//                            new ContentValues(),    // won't be used, but cannot be null; crashes in KLP
+//                            ProviderTableMeta._ID + "=?",
+//                            new String[] { String.valueOf(id) });
+//                    
+//                } catch (RemoteException e) {
+//                    Log_OC.e(TAG, "Exception in update of folder size through compatibility patch " + e.getMessage());
+//                }
+//            }
+//        } else {
+//            Log_OC.e(TAG,  "not updating size for folder " + id);
+//        }
+//    }
     
 
     public void removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
@@ -442,7 +442,7 @@ public class FileDataStorageManager {
                     } else {
                         getContentResolver().delete(file_uri, where, whereArgs);
                     }
-                    updateFolderSize(file.getParentId());
+                    //updateFolderSize(file.getParentId());
                 }
                 if (removeLocalCopy && file.isDown() && file.getStoragePath() != null) {
                     boolean success = new File(file.getStoragePath()).delete();
@@ -482,7 +482,7 @@ public class FileDataStorageManager {
         } else {
             getContentResolver().delete(folder_uri, where, whereArgs); 
         }
-        updateFolderSize(folder.getParentId());
+        //updateFolderSize(folder.getParentId());
     }
 
     private void removeLocalFolder(File folder) {
