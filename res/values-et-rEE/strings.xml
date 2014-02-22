@@ -57,6 +57,7 @@
   <string name="filedetails_sync_file">Värskenda faili</string>
   <string name="filedetails_renamed_in_upload_msg">Fail nimetati üleslaadimise käigus ümber %1$ </string>
   <string name="action_share_file">Jaga linki</string>
+  <string name="action_unshare_file">Tühista lingi jagamine</string>
   <string name="common_yes">Jah</string>
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
@@ -233,6 +234,8 @@
   <string name="failed_upload_retry_do_nothing_text">ära tee midagi, sa pole võrku ühendatud koheseks üleslaadimiseks</string>
   <string name="failed_upload_failure_text">Veateade:</string>
   <string name="failed_upload_quota_exceeded_text">Palun kontrolli oma serveri seadeid, võib-olla on mahulimiit ületatud.</string>
+  <string name="share_link_file_no_exist">Antud faili või kausta ei saa jagada. Tee kindlaks, et see on olemas</string>
   <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
+  <string name="unshare_link_file_no_exist">Antud faili või kausta jagamist pole võimalik tühistada</string>
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
 </resources>
