@@ -858,8 +858,33 @@ public class FileDataStorageManager {
         return share;
     }
 
-    public OCShare getShareByPath(String path) {
-        Cursor c = getShareCursorForValue(ProviderTableMeta.OCSHARES_PATH, path);
+    public OCShare getFirstShareByPathAndType(String path, ShareType type) {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver().query(
+                    ProviderTableMeta.CONTENT_URI_SHARE,
+                    null,
+                    ProviderTableMeta.OCSHARES_PATH + "=? AND "
+                            + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
+                            + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                    new String[] { path, Integer.toString(type.getValue()), mAccount.name },
+                    null);
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                        ProviderTableMeta.CONTENT_URI_SHARE,
+                        null,
+                        ProviderTableMeta.OCSHARES_PATH + "=? AND "
+                                + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? AND "
+                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                        new String[] { path, Integer.toString(type.getValue()), mAccount.name }, 
+                        null);
+
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
+                c = null;
+            }
+        }
         OCShare share = null;
         if (c.moveToFirst()) {
             share = createShareInstance(c);

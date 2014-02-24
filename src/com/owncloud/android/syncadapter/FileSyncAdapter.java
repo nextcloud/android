@@ -110,7 +110,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private SyncResult mSyncResult;
 
     /** 'True' means that the server supports the share API */
-    private boolean mIsSharedSupported;
+    private boolean mIsShareSupported;
     
     
     /**
@@ -156,9 +156,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         this.setContentProviderClient(providerClient);
         this.setStorageManager(new FileDataStorageManager(account, providerClient));
         
-        AccountManager accountManager = getAccountManager();
-        mIsSharedSupported = Boolean.parseBoolean(accountManager.getUserData(account, Constants.KEY_SUPPORTS_SHARE_API));
-
         try {
             this.initClientForCurrentAccount();
         } catch (IOException e) {
@@ -235,6 +232,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         RemoteOperationResult result = update.execute(getClient());
         if (!result.isSuccess()) {
             mLastFailedResult = result; 
+        } else {
+            mIsShareSupported = update.getOCVersion().isSharedSupported();
         }
     }
     
@@ -269,7 +268,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         SynchronizeFolderOperation synchFolderOp = new SynchronizeFolderOperation(  folder, 
                                                                                     mCurrentSyncTime, 
                                                                                     true,
-                                                                                    mIsSharedSupported,
+                                                                                    mIsShareSupported,
                                                                                     getStorageManager(), 
                                                                                     getAccount(), 
                                                                                     getContext()
