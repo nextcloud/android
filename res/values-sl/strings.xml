@@ -237,5 +237,6 @@
   <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le uporabniki s skrbniškimi dovoljenji.</string>
   <string name="share_link_file_no_exist">Ni mogoče omogočiti souporabe te datoteke ali mape. Prepričajte se, da obstaja ...</string>
   <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
+  <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe te datoteke ali mape, ker ne obstaja.</string>
   <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
 </resources>

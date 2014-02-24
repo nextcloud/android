@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -141,7 +142,7 @@ public class FileObserverService extends Service {
                 null);
         if (c == null || !c.moveToFirst()) return;
         AccountManager acm = AccountManager.get(this);
-        Account[] accounts = acm.getAccounts();
+        Account[] accounts = acm.getAccountsByType(MainApp.getAccountType());
         do {
             Account account = null;
             for (Account a : accounts)
