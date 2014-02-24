@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -235,7 +234,6 @@ public class FileContentProvider extends ContentProvider {
     }
     
 
-    // TODO: switch(uri)
     @Override
     public String getType(Uri uri) {
         switch (mUriMatcher.match(uri)) {

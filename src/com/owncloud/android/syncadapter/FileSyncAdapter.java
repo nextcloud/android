@@ -75,7 +75,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     public static final String EVENT_FULL_SYNC_START = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_START";
     public static final String EVENT_FULL_SYNC_END = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_END";
     public static final String EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED";
-    public static final String EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED";
+    //public static final String EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED = FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED";
     
     public static final String EXTRA_ACCOUNT_NAME = FileSyncAdapter.class.getName() + ".EXTRA_ACCOUNT_NAME";
     public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() + ".EXTRA_FOLDER_PATH";
