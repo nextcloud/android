@@ -352,7 +352,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
                 if(syncDown) { */
                     synchronizeFolder(newFile);
-                    sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
+                    //sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
                 //}
             }
         }
