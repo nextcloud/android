@@ -43,6 +43,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.ui.activity.CopyToClipboardActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.Log_OC;
 
@@ -52,19 +53,19 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public class ActivityChooserDialog  extends SherlockDialogFragment {
+public class ShareLinkToDialog  extends SherlockDialogFragment {
     
-    private final static String TAG =  ActivityChooserDialog.class.getSimpleName();
-    private final static String ARG_INTENT =  ActivityChooserDialog.class.getSimpleName() + ".ARG_INTENT";
-    private final static String ARG_PACKAGES_TO_EXCLUDE =  ActivityChooserDialog.class.getSimpleName() + ".ARG_PACKAGES_TO_EXCLUDE";
-    private final static String ARG_FILE_TO_SHARE = ActivityChooserDialog.class.getSimpleName() + ".FILE_TO_SHARE";
+    private final static String TAG =  ShareLinkToDialog.class.getSimpleName();
+    private final static String ARG_INTENT =  ShareLinkToDialog.class.getSimpleName() + ".ARG_INTENT";
+    private final static String ARG_PACKAGES_TO_EXCLUDE =  ShareLinkToDialog.class.getSimpleName() + ".ARG_PACKAGES_TO_EXCLUDE";
+    private final static String ARG_FILE_TO_SHARE = ShareLinkToDialog.class.getSimpleName() + ".FILE_TO_SHARE";
     
     private ActivityAdapter mAdapter;
     private OCFile mFile;
     private Intent mIntent;
     
-    public static ActivityChooserDialog newInstance(Intent intent, String[] packagesToExclude, OCFile fileToShare) {
-        ActivityChooserDialog f = new ActivityChooserDialog();
+    public static ShareLinkToDialog newInstance(Intent intent, String[] packagesToExclude, OCFile fileToShare) {
+        ShareLinkToDialog f = new ShareLinkToDialog();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INTENT, intent);
         args.putStringArray(ARG_PACKAGES_TO_EXCLUDE, packagesToExclude);
@@ -73,7 +74,7 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
         return f;
     }
     
-    public ActivityChooserDialog() {
+    public ShareLinkToDialog() {
         super();
         Log_OC.d(TAG, "constructor");
     }
@@ -95,6 +96,14 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
                 it.remove();
             }
         }
+        
+        // add activity for copy to clipboard
+        Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
+        List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
+        if (!copyToClipboard.isEmpty()) {
+            activities.add(copyToClipboard.get(0));
+        }
+        
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
         mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
         
@@ -103,7 +112,7 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
         if (sendAction) {
         
             return new AlertDialog.Builder(getSherlockActivity())
-                       .setTitle(R.string.activity_chooser_title)
+                       .setTitle(R.string.activity_chooser_send_file_title)
                        .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialog, int which) {
@@ -121,7 +130,7 @@ public class ActivityChooserDialog  extends SherlockDialogFragment {
                        .create();
         } else {
             return new AlertDialog.Builder(getSherlockActivity())
-                       .setTitle(R.string.activity_chooser_send_file_title)
+                       .setTitle(R.string.activity_chooser_title)
                        .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialog, int which) {

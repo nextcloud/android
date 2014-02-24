@@ -28,11 +28,13 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.dialog.ActivityChooserDialog;
+import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -88,7 +90,7 @@ public class FileOperationsHelper {
                 String link = "https://fake.url";
                 Intent intent = createShareWithLinkIntent(link);
                 String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
-                DialogFragment chooserDialog = ActivityChooserDialog.newInstance(intent, packagesToExclude, file);
+                DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intent, packagesToExclude, file);
                 chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
                 
             } else {
@@ -135,7 +137,11 @@ public class FileOperationsHelper {
     public boolean isSharedSupported(FileActivity callerActivity) {
         if (callerActivity.getAccount() != null) {
             AccountManager accountManager = AccountManager.get(callerActivity);
-            return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_SUPPORTS_SHARE_API));
+
+            String version = accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_OC_VERSION);
+            String versionString = accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_OC_VERSION_STRING);
+            return (new OwnCloudVersion(version, versionString)).isSharedSupported();
+            //return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;
     }
@@ -171,7 +177,7 @@ public class FileOperationsHelper {
             
             // Show dialog, without the own app
             String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
-            DialogFragment chooserDialog = ActivityChooserDialog.newInstance(sendIntent, packagesToExclude, file);
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
             chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
