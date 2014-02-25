@@ -97,17 +97,21 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
             }
         }
         
-        // add activity for copy to clipboard
-        Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
-        List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
-        if (!copyToClipboard.isEmpty()) {
-            activities.add(copyToClipboard.get(0));
+        boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
+        
+        if (!sendAction) {
+            // add activity for copy to clipboard
+            Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
+            List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
+            if (!copyToClipboard.isEmpty()) {
+                activities.add(copyToClipboard.get(0));
+            }
         }
         
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
         mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
         
-        boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
+       
         
         if (sendAction) {
         
