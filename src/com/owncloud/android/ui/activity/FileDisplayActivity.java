@@ -1625,7 +1625,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     public void startDownloadForSending(OCFile file) {
         mWaitingToSend = file;
         requestForDownload(mWaitingToSend);
-        updateFragmentsVisibility(true);
+        boolean hasSecondFragment = (getSecondFragment()!= null);
+        updateFragmentsVisibility(hasSecondFragment);
     }
     
     private void requestForDownload(OCFile file) {
