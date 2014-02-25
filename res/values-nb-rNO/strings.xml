@@ -96,7 +96,6 @@
   <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)\nInnhold av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
   <string name="sync_foreign_files_forgotten_content">%1$d filer av %2$s mappen kunne ikke kopieres til</string>
-  <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer lastet opp fra denne enheten kopiert til den lokale %1$s mappen for å forhindre tap av data når én fil blir synkronisert over flere kontoer.\n\nPå grunn av denne forandringern ble alle filer lastet opp i tidligere versjoner av denne appen kopiert til %2$s mappen. Imidlertid ble fullføring av denne operasjonen forhindet av en feil, under kontosynkronisering. Du kan enten la filen(e) være som de er, og fjerne koblinken til  %3$s, eller flytte filen(e) til %1$s mappe, og opprettholde koblingen til %4$s.\n\nListet under er de lokale filen(e), og de eksterne filen(e) i %5$s de var kolet til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengere</string>
   <string name="foreign_files_move">Flytt alle</string>
   <string name="foreign_files_success">Alle filer ble flyttet</string>
