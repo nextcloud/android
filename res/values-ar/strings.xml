@@ -91,7 +91,6 @@
   <string name="sync_fail_content_unauthorized">كلمة السر غير صالحة لـ %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">يوجد تعارض</string>
   <string name="sync_fail_in_favourites_content"> جهات الاتصال لـ %1$d لا يمكن مزامنتها ( %2$d تعارض) </string>
-  <string name="sync_foreign_files_forgotten_explanation">اعتبارا من الاصدار 1.3.16, الملفات المرفعة من هذا الجهاز سوف تنسخ الى مجلد محلي %1$s للوقاية من فقد البيانات عند مزامنة ملف واحد مع عدة حسابات.\n\nبسبب هذا التغيير, جميع الملف(ـات) في الاصدار السابق من هذا البرنامج تم نسخها الى هذا المجلد %2$s. مع ذلك , هناك خطا يمنع من اتمام هذه العملية اثناء مزامنة الحساب. بالامكان ان تترك الملف(ـات) كما هي و تحذف الرابط الى %3$s, او يمكنك نقل الملفات الى مجلد %1$s وحفظ الرابط الى  %4$s.\n\nالملفات المدرجة ادناه هي الملف(ـات) المحلية و  الملف(ـات) البعيدة في %5$s كاتوا على صلة </string>
   <string name="sync_current_folder_was_removed">لا يوجد مجلد %1$s بعد الان</string>
   <string name="foreign_files_move">نقل الكل</string>
   <string name="foreign_files_success">تم نقل جميع الملفات</string>

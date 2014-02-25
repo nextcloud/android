@@ -1,2 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="actionbar_settings">ការកំណត់</string>
+  <string name="prefs_category_general">ទូទៅ</string>
+  <string name="auth_password">ពាក្យសម្ងាត់</string>
+  <string name="filedetails_download">ទាញយក</string>
+  <string name="common_yes">ព្រម</string>
+  <string name="common_no">ទេ</string>
+  <string name="common_cancel">លើកលែង</string>
+  <string name="common_error">កំហុស</string>
+  <string name="common_remove">ដកចេញ</string>
+</resources>

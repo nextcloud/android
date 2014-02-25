@@ -92,7 +92,6 @@
   <string name="sync_fail_in_favourites_content">%1$d 未被同步 (%2$d 衝突)</string>
   <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
   <string name="sync_foreign_files_forgotten_content">%1$d 檔案於 %2$s 目錄未被複製</string>
-  <string name="sync_foreign_files_forgotten_explanation">在 1.3.16 之前, 檔案上傳到本地的 %1$s 目錄以避免在多帳戶內同步造成遺失.\n\n由於這個改變, 所以在之前版本上傳的檔案被複製到 %2$s 目錄中. 為了避免同步發生問題. 你可以保留那些檔案並刪除連結 %3$s, 或搬移檔案到 %1$s 目錄並取得連結到 %4$s.\n\n下面列表是本地檔案, 與被連結遠端檔案 %5$s.</string>
   <string name="foreign_files_move">移動全部</string>
   <string name="foreign_files_success">所有文件已被移動</string>
   <string name="foreign_files_fail">部份文件無法被移動</string>
