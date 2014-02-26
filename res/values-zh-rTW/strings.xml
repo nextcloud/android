@@ -214,4 +214,5 @@
   <string name="failed_upload_retry_do_nothing_text">未連線, 所以無法使用上傳功能</string>
   <string name="failed_upload_failure_text">失敗訊息: </string>
   <string name="failed_upload_quota_exceeded_text">請檢查你的伺服器設定, 可能你的額度已超過.</string>
+  <string name="clipboard_text_copied">複製至剪貼簿中</string>
 </resources>

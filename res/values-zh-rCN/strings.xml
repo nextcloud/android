@@ -220,4 +220,5 @@
   <string name="share_link_file_no_exist">无法共享该文件或目录，请确定该文件或目录存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
+  <string name="clipboard_text_copied">复制到剪贴板</string>
 </resources>

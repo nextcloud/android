@@ -238,4 +238,5 @@
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
   <string name="unshare_link_file_no_exist">Não é possível retirar a partilha deste ficheiro ou pasta. Não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
+  <string name="clipboard_text_copied">Copiado para a área de transferência</string>
 </resources>

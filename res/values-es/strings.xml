@@ -238,4 +238,6 @@
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
   <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
+  <string name="copy_link">Copiar enlace</string>
+  <string name="clipboard_text_copied">Copiado al portapapeles</string>
 </resources>

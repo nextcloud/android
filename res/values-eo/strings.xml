@@ -141,4 +141,5 @@
   <string name="conflict_keep_both">Konservi ambaŭ</string>
   <string name="conflict_overwrite">Anstataŭigi</string>
   <string name="conflict_dont_upload">Ne alŝuti</string>
+  <string name="clipboard_text_copied">Kopiita en la tondejon</string>
 </resources>

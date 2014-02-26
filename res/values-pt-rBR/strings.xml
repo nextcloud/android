@@ -97,6 +97,7 @@
   <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">%1$d arquivos da pasta %2$s não foram copiados</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.  \n \nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta de %2$s . No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode tanto deixar o arquivo(s) como é e remover o link para %3$s , ou mover o arquivo(s) para o diretório %1$s e manter o link para %4$s .  \n \nListados abaixo estão o arquivo local(is), e o arquivo remoto(s) em %5$s que estavam vinculados.</string>
   <string name="sync_current_folder_was_removed">Pasta %1s não existe mais</string>
   <string name="foreign_files_move">Mover todos</string>
   <string name="foreign_files_success">Todos os arquivos foram movidos</string>
@@ -238,4 +239,6 @@
   <string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
   <string name="unshare_link_file_no_exist">Incapaz de descompartilhar este arquivo ou pasta. Ela não existe.</string>
   <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
+  <string name="copy_link">Copiar o link</string>
+  <string name="clipboard_text_copied">Copiado para área de transferência</string>
 </resources>

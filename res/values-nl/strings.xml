@@ -238,4 +238,5 @@
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
   <string name="unshare_link_file_no_exist">Kan delen van dit bestand of deze map niet beëindigen. Het object bestaat niet.</string>
   <string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
+  <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
 </resources>
