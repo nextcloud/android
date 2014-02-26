@@ -1035,7 +1035,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
             if (mWaitingToSend != null) {
                 mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
-                if (mWaitingToSend.isDown()) {
+                if (mWaitingToSend.isDown() && mWaitingToSend.getStoragePath()!=null) {
                     sendDownloadedFile();
                 }
             }
