@@ -231,4 +231,5 @@
   <string name="failed_upload_retry_do_nothing_text">nevykonať nič, nie ste online pre instantné nahratie</string>
   <string name="failed_upload_failure_text">Chybová správa:</string>
   <string name="failed_upload_quota_exceeded_text">Prosím skontrolujte nastavenie vášho servera, možno bola prekročená disková kvóta.</string>
+  <string name="clipboard_text_copied">Skopírované do \"clipboard\"</string>
 </resources>

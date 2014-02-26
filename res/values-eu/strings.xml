@@ -231,4 +231,5 @@
   <string name="failed_upload_retry_do_nothing_text">ez egin ezer ez zaude on-line uneko igoerarentzat</string>
   <string name="failed_upload_failure_text">Hutsegite mezua:</string>
   <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
+  <string name="clipboard_text_copied">Arbelera kopiatua</string>
 </resources>

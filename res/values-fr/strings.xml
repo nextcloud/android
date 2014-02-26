@@ -238,4 +238,5 @@
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
   <string name="unshare_link_file_no_exist">Impossible d’annuler le partage de ce fichier ou répertoire : il n’existe pas.</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
+  <string name="clipboard_text_copied">Copié dans le presse-papiers</string>
 </resources>

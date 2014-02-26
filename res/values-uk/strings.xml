@@ -157,4 +157,5 @@
   <string name="conflict_overwrite">Замінити</string>
   <string name="conflict_dont_upload">Не завантажувати</string>
   <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати в локальний каталог %2$s</string>
+  <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
 </resources>
