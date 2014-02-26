@@ -1640,7 +1640,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
     
     private void sendDownloadedFile(){
-        dismissLoadingDialog();
         getFileOperationsHelper().sendDownloadedFile(mWaitingToSend, this);
         mWaitingToSend = null;
     }

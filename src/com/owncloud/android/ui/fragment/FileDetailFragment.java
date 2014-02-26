@@ -391,7 +391,6 @@ public class FileDetailFragment extends FileFragment implements
                 FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
                 // Obtain the file
                 if (!getFile().isDown()) {  // Download the file                    
-                    //activity.showLoadingDialog();
                     Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
                     activity.startDownloadForSending(getFile());
                     
