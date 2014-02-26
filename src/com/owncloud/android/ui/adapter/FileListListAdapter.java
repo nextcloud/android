@@ -161,8 +161,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } 
             else {
                 
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                fileSizeV.setVisibility(View.INVISIBLE);
+                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
