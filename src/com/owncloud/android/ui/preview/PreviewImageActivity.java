@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -245,6 +246,10 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         super.onDestroy();
     }
     
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

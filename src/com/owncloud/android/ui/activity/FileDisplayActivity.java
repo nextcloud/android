@@ -34,6 +34,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -223,6 +224,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             unbindService(mUploadConnection);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.

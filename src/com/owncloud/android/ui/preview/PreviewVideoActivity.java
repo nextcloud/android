@@ -27,6 +27,7 @@ import android.accounts.Account;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
@@ -188,6 +189,10 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         return true;
     }
     
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
     
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
