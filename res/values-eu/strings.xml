@@ -57,6 +57,7 @@
   <string name="filedetails_sync_file">Freskatu fitxaegia</string>
   <string name="filedetails_renamed_in_upload_msg">Fitxategiaren izena %1$sra aldatu da igotzean</string>
   <string name="action_share_file">Elkarbanatu lotura</string>
+  <string name="action_unshare_file">Lotura partekatzeari utzi</string>
   <string name="common_yes">Bai</string>
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
@@ -180,6 +181,7 @@
   <string name="wait_a_moment">Itxaron momentu bat</string>
   <string name="filedisplay_unexpected_bad_get_content">Ezusteko arazoa; mesedez, saiatu beste app batekin fitxategia hautatzeko</string>
   <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
+  <string name="activity_chooser_title">Bidali lotura honi...</string>
   <string name="oauth_check_onoff">Saioa hasi oAuth2-rekin</string>
   <string name="oauth_login_connection">Konektatzen oAuth2 zerbitzarira...</string>
   <string name="ssl_validator_header">Lekuaren identitatea ezin da egiaztatu</string>
@@ -231,5 +233,11 @@
   <string name="failed_upload_retry_do_nothing_text">ez egin ezer ez zaude on-line uneko igoerarentzat</string>
   <string name="failed_upload_failure_text">Hutsegite mezua:</string>
   <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
+  <string name="share_link_no_support_share_api">Sentitzen dut, partekatzea ez dago zure zerbitzarian gaituta. Mesedez jarri zure administradorearekin harremanetan.</string>
+  <string name="share_link_file_no_exist">Ezin izan da karpeta edo fitxategi hau partekatu. Mesedez, ziurtatu existitzen dela</string>
+  <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
+  <string name="unshare_link_file_no_exist">Ezin izan da karpeta edo fitxategi honen partekatzeari utzi. Ez da existitzen.</string>
+  <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
+  <string name="copy_link">Lotura kopiatu</string>
   <string name="clipboard_text_copied">Arbelera kopiatua</string>
 </resources>

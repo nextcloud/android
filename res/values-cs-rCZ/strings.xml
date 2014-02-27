@@ -236,6 +236,8 @@
   <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte vašeho administrátora.</string>
   <string name="share_link_file_no_exist">Nepodařilo se sdílet tento soubor či složku. Ujistěte se, že existuje.</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
+  <string name="unshare_link_file_no_exist">Nepodařilo se zrušit sdílení tohoto souboru nebo složky, protože neexistuje.</string>
   <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky nastala chyba</string>
+  <string name="copy_link">Zkopírovat odkaz</string>
   <string name="clipboard_text_copied">Zkopírováno do schránky</string>
 </resources>

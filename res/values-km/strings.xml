@@ -1,12 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="actionbar_upload_files">ឯកសារ</string>
   <string name="actionbar_settings">ការកំណត់</string>
+  <string name="actionbar_send_file">ផ្ញើ</string>
   <string name="prefs_category_general">ទូទៅ</string>
+  <string name="prefs_category_more">ច្រើន​ទៀត</string>
+  <string name="prefs_help">ជំនួយ</string>
+  <string name="auth_username">ឈ្មោះ​អ្នកប្រើ</string>
   <string name="auth_password">ពាក្យសម្ងាត់</string>
+  <string name="sync_string_files">ឯកសារ</string>
+  <string name="setup_btn_connect">ភ្ជាប់</string>
   <string name="filedetails_download">ទាញយក</string>
   <string name="common_yes">ព្រម</string>
   <string name="common_no">ទេ</string>
   <string name="common_cancel">លើកលែង</string>
   <string name="common_error">កំហុស</string>
+  <string name="common_error_unknown">មិន​ស្គាល់​កំហុស</string>
   <string name="common_remove">ដកចេញ</string>
 </resources>
