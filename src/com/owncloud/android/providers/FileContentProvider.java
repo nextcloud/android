@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -235,7 +234,6 @@ public class FileContentProvider extends ContentProvider {
     }
     
 
-    // TODO: switch(uri)
     @Override
     public String getType(Uri uri) {
         switch (mUriMatcher.match(uri)) {
@@ -442,7 +440,7 @@ public class FileContentProvider extends ContentProvider {
     private int update(SQLiteDatabase db, Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         switch (mUriMatcher.match(uri)) {
             case DIRECTORY:
-                return updateFolderSize(db, selectionArgs[0]);
+                return  0; //updateFolderSize(db, selectionArgs[0]);
             case SHARES:
                 return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs);
             default:
@@ -450,7 +448,7 @@ public class FileContentProvider extends ContentProvider {
         }
     }    
 
-    
+ /*   
     private int updateFolderSize(SQLiteDatabase db, String folderId) {
         int count = 0;
         String [] whereArgs = new String[] { folderId };
@@ -501,7 +499,7 @@ public class FileContentProvider extends ContentProvider {
         }
         return count;
     }
-
+*/
     
     @Override
     public ContentProviderResult[] applyBatch (ArrayList<ContentProviderOperation> operations) throws OperationApplicationException {

@@ -691,7 +691,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-        syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED);
+        //syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
