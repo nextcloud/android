@@ -12,6 +12,7 @@ NOTE: You must have git in your environment path variable to perform the next op
 * Pull changes from your develop branch: "git pull origin develop"
 * Make official ownCloud repo known as upstream: "git remote add upstream git@github.com:owncloud/android.git"
 * Make sure to get the latest changes from official android/develop branch: "git pull upstream develop"
+* Complete the setup of project properties and resolve pending dependencies running "setup_env.bat" or "./setup_env.sh" .
 
 At this point you can continue using different tools to build the project. Section 2, 3 and 4 describe some of the existing alternatives.  
 
@@ -19,9 +20,8 @@ At this point you can continue using different tools to build the project. Secti
   
 NOTE: You must have the Android SDK 'tools/', and 'platforms-tools/' folders in your environment path variable.
 
-* Complete the setup of project properties and resolve pending dependencies running "setup_env.bat" or "./setup_env.sh" .
 * Run "ant clean" .
-* Run "ant debug" to generate a debuggable version of the ownCkoud app.
+* Run "ant debug" to generate a debuggable version of the ownCloud app.
 
 ### 3. Building with console/maven:
 
