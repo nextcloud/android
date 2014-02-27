@@ -222,7 +222,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             toHide.add(R.id.action_cancel_upload);
             toHide.add(R.id.action_sync_file);
             toHide.add(R.id.action_see_details);
-            toHide.add(R.id.action_share_file);
+            toHide.add(R.id.action_send_file);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
                 toDisable.add(R.id.action_rename_file);
