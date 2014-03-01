@@ -238,5 +238,6 @@
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
   <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. Jeśli nie istnieje.</string>
   <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
+  <string name="copy_link">Skopiuj link</string>
   <string name="clipboard_text_copied">Skopiuj do schowka</string>
 </resources>

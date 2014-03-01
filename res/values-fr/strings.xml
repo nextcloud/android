@@ -97,6 +97,7 @@
   <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a put être synchronisé (%2$d conflits)</string>
   <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
   <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
+  <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyé depuis ce périphérique sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils sont liés.</string>
   <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
   <string name="foreign_files_move">Tout déplacer</string>
   <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
@@ -238,5 +239,6 @@
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
   <string name="unshare_link_file_no_exist">Impossible d’annuler le partage de ce fichier ou répertoire : il n’existe pas.</string>
   <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
+  <string name="copy_link">Copier le lien</string>
   <string name="clipboard_text_copied">Copié dans le presse-papiers</string>
 </resources>
