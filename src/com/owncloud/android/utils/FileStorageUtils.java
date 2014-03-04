@@ -18,10 +18,6 @@
 package com.owncloud.android.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -119,47 +115,6 @@ public class FileStorageUtils {
         file.setModifiedTimestamp(ocFile.getModificationTimestamp());
         file.setEtag(ocFile.getEtag());
         return file;
-    }
-    
-    /**
-     * Copy file src in dst
-     * @param src
-     * @param dst
-     * @throws IOException
-     */
-    @SuppressWarnings("resource")
-    public static  void copyFile(File src, File dst) throws IOException {
-        FileChannel inChannel = new FileInputStream(src).getChannel();
-        FileChannel outChannel = new FileOutputStream(dst).getChannel();
-        try {
-            inChannel.transferTo(0, inChannel.size(), outChannel);
-        } finally {
-            if (inChannel != null)
-                inChannel.close();
-            if (outChannel != null)
-                outChannel.close();
-        }
-    }
-
-
-    /** 
-     * Delete folder
-     * @param folder
-     * @return true if folder is deleted
-     */
-    public static boolean deleteFolder(File folder){
-        if (folder.isDirectory()) {
-            String[] children = folder.list();
-            for (int i=0; i<children.length; i++) {
-                boolean success = deleteFolder(new File(folder, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        // The folder is now empty so delete it
-        return folder.delete();
-
     }
   
 }

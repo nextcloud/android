@@ -17,8 +17,6 @@
 
 package com.owncloud.android.files;
 
-import java.io.File;
-import java.io.IOException;
 import org.apache.http.protocol.HTTP;
 
 import android.accounts.AccountManager;
@@ -37,7 +35,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -49,9 +46,7 @@ public class FileOperationsHelper {
 
     private static final String TAG = FileOperationsHelper.class.getName();
     
-    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
-    
-    public final static int REQUEST_CODE_FILE_OPEN_HELPER = 100;
+    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
 
     
     public void openFile(OCFile file, FileActivity callerActivity) {
@@ -189,41 +184,5 @@ public class FileOperationsHelper {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
     }
-    
-    public void sendFileToApp(Intent sendIntent, FileActivity callerActivity) {
-        Uri filePath = sendIntent.getParcelableExtra(Intent.EXTRA_STREAM);
-        File file = new File(filePath.getPath());
-        Log_OC.d(TAG,  "FILE " + filePath.getPath());
-        if (file.exists()) {
-            File folder = new File(FileStorageUtils.getTemporalPath(callerActivity.getAccount().name) + "/send");
-            boolean success = true;
-            if (!folder.exists()) {
-                success = folder.mkdir();
-            }
-            if (success) {
-                File tmpFile = new File(folder.getAbsolutePath()+ "/" + file.getName());
-                try {
-                    tmpFile.createNewFile();
-                    FileStorageUtils.copyFile(file, tmpFile);
-                } catch (IOException e) {
-                    Log_OC.e(TAG,  "An error occurred while it was trying to copy in a temporal folder " + e.getMessage());
-                }
-                // Update Uri
-                Uri uri = Uri.fromFile(tmpFile);
-                sendIntent.removeExtra(Intent.EXTRA_STREAM);
-                sendIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                callerActivity.startActivityForResult(sendIntent, REQUEST_CODE_FILE_OPEN_HELPER);
-            }
-        } else {
-            // Show a Message
-            Toast t = Toast.makeText(callerActivity, callerActivity.getString(R.string.send_file_missing_file), Toast.LENGTH_LONG);
-            t.show();
-            Log_OC.d(TAG,  "Missing file");
-        }
 
-    }
-    
-    
-    
-    
 }

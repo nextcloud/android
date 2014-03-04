@@ -254,8 +254,7 @@
 	<string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
 
 	<string name="activity_chooser_send_file_title">Send</string>
-	<string name="send_file_missing_file">Sorry, trying to send a missing file.</string>
-	
+
 	<string name="copy_link">Copy link</string>	
 	<string name="clipboard_text_copied">Copied to clipboard</string>
 </resources>

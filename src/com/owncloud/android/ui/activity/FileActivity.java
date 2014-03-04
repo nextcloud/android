@@ -18,8 +18,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -54,7 +52,6 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -160,7 +157,6 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         }
-        
     }
     
     
@@ -380,7 +376,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     public FileOperationsHelper getFileOperationsHelper() {
         return mFileOperationsHelper;
     }
-
+    
     /**
      * 
      * @param operation     Removal operation performed.
@@ -496,23 +492,6 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
                 // TODO whatever could be waiting for the service is unbound
             }
         }
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        
-        Log_OC.d(TAG, "requestCode " + String.valueOf(requestCode) );
-        if (requestCode == FileOperationsHelper.REQUEST_CODE_FILE_OPEN_HELPER) {
-            // Remove "send" folder
-            File folder = new File(FileStorageUtils.getTemporalPath(getAccount().name) + "/send");
-            if (folder.exists()) {
-                FileStorageUtils.deleteFolder(folder);
-            }
-        }
-        
-    };
-
-
+    };    
+    
 }
