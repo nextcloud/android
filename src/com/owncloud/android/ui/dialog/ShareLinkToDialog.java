@@ -111,10 +111,7 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
         mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
         
-       
-        
         if (sendAction) {
-        
             return new AlertDialog.Builder(getSherlockActivity())
                        .setTitle(R.string.activity_chooser_send_file_title)
                        .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
@@ -127,11 +124,13 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
                                    mIntent.setComponent(name);                               
                                    
                                    // Send the file
-                                   ((FileActivity)getSherlockActivity()).startActivity(mIntent);
+                                   FileOperationsHelper foh = new FileOperationsHelper();
+                                   foh.sendFileToApp(mIntent, (FileActivity)getSherlockActivity()); 
 
                                }
                            })
                        .create();
+
         } else {
             return new AlertDialog.Builder(getSherlockActivity())
                        .setTitle(R.string.activity_chooser_title)
