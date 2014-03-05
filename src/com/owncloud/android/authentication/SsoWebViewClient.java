@@ -17,12 +17,25 @@
 
 package com.owncloud.android.authentication;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 
+import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.utils.Log_OC;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.http.SslCertificate;
 import android.net.http.SslError;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
@@ -137,7 +150,43 @@ public class SsoWebViewClient extends WebViewClient {
     @Override
     public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
         Log_OC.d(TAG, "onReceivedSslError : " + error);
+        // Test 1
+        X509Certificate x509Certificate = getX509CertificateFromError(error);
+        
+        if (x509Certificate != null) {
+            Log_OC.d(TAG, "------>>>>> x509Certificate " + x509Certificate.toString());
+            
+        }
+        
         handler.proceed();
+    }
+    
+    /**
+     * Obtain the X509Certificate from SslError
+     * @param   error     SslError
+     * @return  X509Certificate from error
+     */
+    public X509Certificate getX509CertificateFromError (SslError error) {
+        Bundle bundle = SslCertificate.saveState(error.getCertificate());
+        X509Certificate x509Certificate;
+        byte[] bytes = bundle.getByteArray("x509-certificate");
+        if (bytes == null) {
+            x509Certificate = null;
+        } else {
+            try {
+                CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
+                Certificate cert = certFactory.generateCertificate(new ByteArrayInputStream(bytes));
+                x509Certificate = (X509Certificate) cert;
+            } catch (CertificateException e) {
+                x509Certificate = null;
+            }
+        }
+
+//        if (x509Certificate != null) {
+//            Log_OC.d(TAG, "------>>>>> x509Certificate " + x509Certificate.toString());
+//        }
+        
+        return x509Certificate;
     }
     
     @Override
