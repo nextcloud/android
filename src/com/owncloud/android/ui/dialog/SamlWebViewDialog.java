@@ -103,7 +103,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         try {
             mSsoWebViewClientListener = (SsoWebViewClientListener) activity;
             mHandler = new Handler();
-            mWebViewClient = new SsoWebViewClient(mHandler, mSsoWebViewClientListener);
+            mWebViewClient = new SsoWebViewClient(activity, mHandler, mSsoWebViewClientListener);
             
        } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + SsoWebViewClientListener.class.getSimpleName());

@@ -20,7 +20,6 @@ package com.owncloud.android.authentication;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
@@ -65,12 +64,14 @@ public class SsoWebViewClient extends WebViewClient {
         public void onSsoFinished(String sessionCookie);
     }
     
+    private Context mContext;
     private Handler mListenerHandler;
     private WeakReference<SsoWebViewClientListener> mListenerRef;
     private String mTargetUrl;
     private String mLastReloadedUrlAtError;
     
-    public SsoWebViewClient (Handler listenerHandler, SsoWebViewClientListener listener) {
+    public SsoWebViewClient (Context context, Handler listenerHandler, SsoWebViewClientListener listener) {
+        mContext = context;
         mListenerHandler = listenerHandler;
         mListenerRef = new WeakReference<SsoWebViewClient.SsoWebViewClientListener>(listener);
         mTargetUrl = "fake://url.to.be.set";
@@ -152,13 +153,32 @@ public class SsoWebViewClient extends WebViewClient {
         Log_OC.d(TAG, "onReceivedSslError : " + error);
         // Test 1
         X509Certificate x509Certificate = getX509CertificateFromError(error);
+        boolean isKnowServer = false;
         
         if (x509Certificate != null) {
             Log_OC.d(TAG, "------>>>>> x509Certificate " + x509Certificate.toString());
             
+            try {
+                isKnowServer = NetworkUtils.isCertInKnownServersStore((Certificate) x509Certificate, mContext);
+            } catch (KeyStoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (CertificateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        
-        handler.proceed();
+         if (isKnowServer) {
+             handler.proceed();
+         } else {
+             
+         }
     }
     
     /**
