@@ -224,11 +224,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             unbindService(mUploadConnection);
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
      */ 

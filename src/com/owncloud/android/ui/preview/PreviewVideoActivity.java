@@ -190,11 +190,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     }
     
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-    
-    @Override
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {

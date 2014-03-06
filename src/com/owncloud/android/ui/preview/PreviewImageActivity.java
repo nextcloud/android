@@ -247,11 +247,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     }
     
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-    
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;
         

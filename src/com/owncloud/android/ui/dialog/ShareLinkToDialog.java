@@ -126,9 +126,11 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
                                    ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
                                    mIntent.setComponent(name);                               
                                    
+                                   dialog.dismiss();    // explicitly added for Android 2.x devices
+
                                    // Send the file
                                    ((FileActivity)getSherlockActivity()).startActivity(mIntent);
-
+                                   
                                }
                            })
                        .create();
@@ -146,7 +148,8 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
                             
                                    // Create a new share resource
                                    FileOperationsHelper foh = new FileOperationsHelper();
-                                   foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity()); 
+                                   foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity());
+                                   
                                }
                            })
                        .create();
