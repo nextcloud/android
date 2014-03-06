@@ -18,25 +18,30 @@
 package com.owncloud.android.authentication;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.Log_OC;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -56,9 +61,11 @@ import android.webkit.WebViewClient;
  *   
  * @author David A. Velasco
  */
-public class SsoWebViewClient extends WebViewClient {
+public class SsoWebViewClient extends WebViewClient implements OnSslUntrustedCertListener {
         
     private static final String TAG = SsoWebViewClient.class.getSimpleName();
+
+    public final static String DIALOG_UNTRUSTED_CERT = "UNTRUSTED CERT";
     
     public interface SsoWebViewClientListener {
         public void onSsoFinished(String sessionCookie);
@@ -149,7 +156,7 @@ public class SsoWebViewClient extends WebViewClient {
     }
     
     @Override
-    public void onReceivedSslError (WebView view, SslErrorHandler handler, SslError error) {
+    public void onReceivedSslError (final WebView view, final SslErrorHandler handler, SslError error) {
         Log_OC.d(TAG, "onReceivedSslError : " + error);
         // Test 1
         X509Certificate x509Certificate = getX509CertificateFromError(error);
@@ -160,24 +167,20 @@ public class SsoWebViewClient extends WebViewClient {
             
             try {
                 isKnowServer = NetworkUtils.isCertInKnownServersStore((Certificate) x509Certificate, mContext);
-            } catch (KeyStoreException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (CertificateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Exception: " + e.getMessage());
             }
         }
+        
          if (isKnowServer) {
              handler.proceed();
          } else {
-             
+             // Show a dialog with the certificate info
+             SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(mContext, x509Certificate, this, handler);
+             FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+             FragmentTransaction ft = fm.beginTransaction();
+             dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+             handler.cancel();
          }
     }
     
@@ -200,12 +203,7 @@ public class SsoWebViewClient extends WebViewClient {
             } catch (CertificateException e) {
                 x509Certificate = null;
             }
-        }
-
-//        if (x509Certificate != null) {
-//            Log_OC.d(TAG, "------>>>>> x509Certificate " + x509Certificate.toString());
-//        }
-        
+        }        
         return x509Certificate;
     }
     
@@ -245,6 +243,21 @@ public class SsoWebViewClient extends WebViewClient {
     public boolean shouldOverrideKeyEvent (WebView view, KeyEvent event) {
         Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
+    }
+
+    @Override
+    public void onFailedSavingCertificate() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage(mContext.getString(R.string.ssl_validator_not_saved));
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            };
+        });
+        builder.create().show();
+        
     }
 
 }

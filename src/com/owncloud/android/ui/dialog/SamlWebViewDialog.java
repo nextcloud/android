@@ -280,5 +280,10 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
         Log_OC.d(SAML_DIALOG_TAG, "show (manager)");
         super.show(manager, tag);
     }
+    
+    public void reloadWebView() {
+        mSsoWebView.reload();
+    }
 
+    
 }

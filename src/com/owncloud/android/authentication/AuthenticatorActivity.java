@@ -1664,5 +1664,27 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         return super.onTouchEvent(event);
     }
+
+
+
+    public void cancelWebView() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd != null && fd instanceof SherlockDialogFragment) {
+            Dialog d = ((SherlockDialogFragment)fd).getDialog();
+            if (d != null && d.isShowing()) {
+                d.dismiss();
+            }
+        }
+        
+    }
+
+
+
+    public void reloadWebView() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd != null && fd instanceof SamlWebViewDialog) {
+                ((SamlWebViewDialog) fd).reloadWebView();
+        }
+    }
     
 }
