@@ -40,7 +40,7 @@
   <string name="uploader_btn_upload_text">Last opp</string>
   <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
-  <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhent. For å bruker denne appen må du først opprette en.</string>
+  <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhet. For å bruker denne appen må du først opprette en.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
   <string name="uploader_wrn_no_content_title">Intet innhold å laste opp</string>
@@ -57,6 +57,7 @@
   <string name="filedetails_sync_file">Oppdater fil</string>
   <string name="filedetails_renamed_in_upload_msg">Filnavnet ble endret til  %1$s under opplasting</string>
   <string name="action_share_file">Del lenke</string>
+  <string name="action_unshare_file">Avslutt deling av lenke</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nei</string>
   <string name="common_ok">OK</string>
@@ -93,9 +94,10 @@
   <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
   <string name="sync_conflicts_in_favourites_content">%1$d hold-i-synk filer kunne ikke synkroniseres</string>
   <string name="sync_fail_in_favourites_ticker">Hold i synk filer mislyktes</string>
-  <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)\nInnhold av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
+  <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
   <string name="sync_foreign_files_forgotten_content">%1$d filer av %2$s mappen kunne ikke kopieres til</string>
+  <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer som lastes opp fra denne enheten kopiert inn i lokal mappe %1$s for å forhindre tap av data når en enkelt fil synkroniseres med flere kontoer.\n\nPga. denne endringen ble alle filer som er lastet opp med tidligere versjoner kopiert inn i lokal mappe %2$s. Imidlertid skjedde det en feil og denne operasjonen kunne ikke fullføres under kontosynkroniseringen. Du kan enten la filen(e) være som de er og fjerne lenken til %3$s, eller flytte filen(e) inn i mappen %1$s og beholde lenken til %4$s.\n\nNedenfor vises de lokale filen(e) og de fjernlagrede filen(e) i %5$s som de var lenket til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengere</string>
   <string name="foreign_files_move">Flytt alle</string>
   <string name="foreign_files_success">Alle filer ble flyttet</string>
@@ -180,6 +182,7 @@
   <string name="wait_a_moment">Vent et øyeblikk</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; vennligst velg filen fra en annen applikasjon</string>
   <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
+  <string name="activity_chooser_title">Send lenke til ...</string>
   <string name="oauth_check_onoff">Logg inn med oAuth2</string>
   <string name="oauth_login_connection">Kobler til oAuth2 server...</string>
   <string name="ssl_validator_header">Identiteten til siden kunne ikke verifiseres</string>
@@ -231,4 +234,11 @@
   <string name="failed_upload_retry_do_nothing_text">ikke gjør noe når du ikke er online for direkteopplasting</string>
   <string name="failed_upload_failure_text">Feilmelding:</string>
   <string name="failed_upload_quota_exceeded_text">Vennligst sjekk serverkonfigurasjon, kanskje kvoten din er brukt opp.</string>
+  <string name="share_link_no_support_share_api">Beklager, deling er ikke aktivert på serveren din. Vennligst kontrakt administratoren.</string>
+  <string name="share_link_file_no_exist">Klarte ikke å dele denne filen eller mappen. Sjekk at den eksisterer.</string>
+  <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
+  <string name="unshare_link_file_no_exist">Klarte ikke å avslutte delingen av denne filen eller mappen. Den eksisterer ikke.</string>
+  <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+  <string name="copy_link">Kopier lenke</string>
+  <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
 </resources>
