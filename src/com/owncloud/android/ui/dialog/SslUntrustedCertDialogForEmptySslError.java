@@ -179,7 +179,7 @@ public class SslUntrustedCertDialogForEmptySslError extends SslUntrustedCertDial
             showSubject(cert.getIssuedTo());
             showIssuer(cert.getIssuedBy());
             showValidity(cert.getValidNotBeforeDate(), cert.getValidNotAfterDate());
-            // TODO showSignatureNotAvailabe/Provided
+            hideSignature();
             
         } else {
             nullCerView.setVisibility(View.VISIBLE);
@@ -207,10 +207,14 @@ public class SslUntrustedCertDialogForEmptySslError extends SslUntrustedCertDial
         TextView ouView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_OU));
         ouView.setText(subject.getUName());
         ouView.setVisibility(View.VISIBLE);
-        
+
+        // SslCertificates don't offer this information
         ((TextView)mView.findViewById(R.id.untrusted_value_subject_C)).setVisibility(View.GONE);
         ((TextView)mView.findViewById(R.id.untrusted_value_subject_ST)).setVisibility(View.GONE);
         ((TextView)mView.findViewById(R.id.untrusted_value_subject_L)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_subject_C)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_subject_ST)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_subject_L)).setVisibility(View.GONE);
     }
     
     
@@ -227,9 +231,20 @@ public class SslUntrustedCertDialogForEmptySslError extends SslUntrustedCertDial
         ouView.setText(issuer.getUName());
         ouView.setVisibility(View.VISIBLE);
         
+        // SslCertificates don't offer this information
         ((TextView)mView.findViewById(R.id.untrusted_value_issuer_C)).setVisibility(View.GONE);
         ((TextView)mView.findViewById(R.id.untrusted_value_issuer_ST)).setVisibility(View.GONE);
         ((TextView)mView.findViewById(R.id.untrusted_value_issuer_L)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_issuer_C)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_issuer_ST)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_issuer_L)).setVisibility(View.GONE);
     }
     
+    private void hideSignature() {
+        ((TextView)mView.findViewById(R.id.untrusted_label_signature)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_label_signature_algorithm)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_value_signature_algorithm)).setVisibility(View.GONE);
+        ((TextView)mView.findViewById(R.id.untrusted_value_signature)).setVisibility(View.GONE);
+    }
+
 }
