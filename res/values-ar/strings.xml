@@ -15,6 +15,8 @@
   <string name="prefs_category_more">المزيد</string>
   <string name="prefs_accounts">حسابات</string>
   <string name="prefs_manage_accounts">ادارة الحسابات</string>
+  <string name="prefs_pincode">كلمه السر للتطبيق</string>
+  <string name="prefs_pincode_summary">حمايه العميل</string>
   <string name="prefs_instant_upload">تفعيل الرفع الفوري</string>
   <string name="prefs_instant_upload_summary">رفع الصور الماخوذة عن طريق الكاميرا تلقائياً</string>
   <string name="prefs_log_title">تفعيل الدخول</string>
@@ -98,6 +100,14 @@
   <string name="foreign_files_local_text">محلي:%1$s</string>
   <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة لمجلد  %1$s . هل ترغب بنقلهم للمجلد بدلاَ من ذلك؟</string>
   <string name="pincode_enter_pin_code">فضلا, ادخل كلمة السر</string>
+  <string name="pincode_configure_your_pin">فضلا, ادخل كلمة السر</string>
+  <string name="pincode_configure_your_pin_explanation">سيتم طلب PIN في كل مرة يتم فيها تشغيل التطبيق</string>
+  <string name="pincode_reenter_your_pincode">فضلا, ادخل كلمة السر مره اخري</string>
+  <string name="pincode_remove_your_pincode">ازاله كلمة السر</string>
+  <string name="pincode_mismatch">كلمات السر غير متطابقه</string>
+  <string name="pincode_wrong">كلمه السر غير صحيحه</string>
+  <string name="pincode_removed">تم ازاله كلمه السر</string>
+  <string name="pincode_stored">تم تسجيل كلمه السر</string>
   <string name="media_notif_ticker">%1$s مشغل الموسيقى</string>
   <string name="media_state_playing">%1$s  (عرض)</string>
   <string name="media_state_loading">%1$s (تحميل)</string>
@@ -123,8 +133,10 @@
   <string name="auth_account_not_the_same">المستخدم المدخل لا يتوافق مع المستخدم الموجود في الحساب </string>
   <string name="auth_unknown_error_title">حدث خطأ غير معروف!</string>
   <string name="auth_unknown_host_title">فشل في العثور على المضيف</string>
+  <string name="auth_incorrect_path_title">تعذر إيجاد جهة الاتصال للسيرفر.</string>
   <string name="auth_timeout_title">الخادم اخذ الكثير من الوقت للرد</string>
   <string name="auth_incorrect_address_title">رابط تالف</string>
+  <string name="auth_ssl_general_error_title">فشل في انشاء SSL</string>
   <string name="auth_bad_oc_version_title">لم يتم التعرف على اصدار الخادم</string>
   <string name="auth_wrong_connection_title">لا يمكن إنشاء اتصال</string>
   <string name="auth_secure_connection">تم إنشاء اتصال آمن</string>
@@ -146,6 +158,7 @@
   <string name="confirmation_remove_local">محلي فقط</string>
   <string name="confirmation_remove_folder_local">المحتويات المحلية فقط</string>
   <string name="confirmation_remove_remote">حذف من الخادم</string>
+  <string name="confirmation_remove_remote_and_local">شبكي و محلي</string>
   <string name="remove_success_msg">يتم الحذف بنجاح</string>
   <string name="remove_fail_msg">لقد فشل الحذف</string>
   <string name="rename_dialog_title">أدخل اسما جديدا</string>
@@ -164,10 +177,12 @@
   <string name="ssl_validator_reason_cert_not_trusted">شهادة الخادم غير موثوقة</string>
   <string name="ssl_validator_reason_cert_expired">شهادة الخادم منتهية</string>
   <string name="ssl_validator_reason_cert_not_yet_valid">تاريخ صلاحية شهادة الخادم في المستقبل</string>
+  <string name="ssl_validator_reason_hostname_not_verified">هذه الوصله غير متطابقه مع السيرفر فى  شهاده الحمايه </string>
   <string name="ssl_validator_question">هل تريد ان تثق في هذه الشهادة على اي حال ؟</string>
   <string name="ssl_validator_not_saved">لم يتمكن من حفظ الشهادة </string>
   <string name="ssl_validator_btn_details_see">تفاصيل</string>
   <string name="ssl_validator_btn_details_hide">إخفاء</string>
+  <string name="ssl_validator_label_subject">أصدرت ل:</string>
   <string name="ssl_validator_label_CN">الاسم الشائع:</string>
   <string name="ssl_validator_label_O">منظمة:</string>
   <string name="ssl_validator_label_OU">الوحدة التنظيمية:</string>
