@@ -29,7 +29,6 @@ import java.util.Map;
 import javax.security.auth.x500.X500Principal;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
@@ -55,7 +54,7 @@ import android.widget.TextView;
  * @author David A. Velasco
  *
  */
-public class SslUntrustedCertDialog extends SherlockDialogFragment{
+public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
     
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
     
@@ -121,8 +120,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
             return null;
         }
     }
-    
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -421,14 +419,9 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
         }
     }
 
-    
     public interface OnSslUntrustedCertListener {
         public void onSavedCertificate();
         public void onCancelCertificate();
         public void onFailedSavingCertificate();
     }
-
-
-   
-
 }

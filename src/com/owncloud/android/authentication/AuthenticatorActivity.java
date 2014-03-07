@@ -173,7 +173,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private boolean mResumed; // Control if activity is resumed
 
-    private String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+    public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
 
 
     /**
