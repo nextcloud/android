@@ -28,12 +28,12 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.lib.common.network.NetworkUtils;
 import com.owncloud.android.utils.Log_OC;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -52,7 +52,7 @@ import android.widget.TextView;
  * @author masensio
  *
  */
-public class SslUntrustedCertDialog extends SherlockDialogFragment{
+public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
     
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
     
@@ -80,8 +80,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
             return null;
         }
     }
-    
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -339,9 +338,8 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
         }
     }
 
-    
     public interface OnSslUntrustedCertListener {
         public void onFailedSavingCertificate();
     }
-
+    
 }
