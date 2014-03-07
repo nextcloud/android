@@ -252,6 +252,20 @@ public class FileDetailFragment extends FileFragment implements
             item.setVisible(false);
             item.setEnabled(false);
         }
+        
+        // Send file
+        item = menu.findItem(R.id.action_send_file);
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (item != null) {
+            if (sendEnabled) {
+                item.setVisible(true);
+                item.setEnabled(true);
+            } else {
+                item.setVisible(false);
+                item.setEnabled(false);
+                
+            }
+        }
     }
 
     
@@ -374,6 +388,18 @@ public class FileDetailFragment extends FileFragment implements
             case R.id.action_cancel_upload:
             case R.id.action_sync_file: {
                 synchronizeFile();
+                return true;
+            }
+            case R.id.action_send_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                // Obtain the file
+                if (!getFile().isDown()) {  // Download the file                    
+                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
+                    activity.startDownloadForSending(getFile());
+                    
+                } else {
+                    activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+                }
                 return true;
             }
             default:

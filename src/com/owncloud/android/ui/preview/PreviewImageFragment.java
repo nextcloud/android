@@ -250,6 +250,12 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
             toHide.add(R.id.action_unshare_file);
         }
 
+        // Send file
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (!sendEnabled) {
+            toHide.add(R.id.action_send_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -311,7 +317,8 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 return true;
             }
             case R.id.action_send_file: {
-                shareFile();
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().sendDownloadedFile(getFile(), act);
                 return true;
             }
             
@@ -319,15 +326,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 return false;
         }
     }
-    
-    private void shareFile(){
-        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        // set MimeType
-        sharingIntent.setType(getFile().getMimetype());
-        sharingIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+getFile().getStoragePath()));
-        startActivity(Intent.createChooser(sharingIntent, "Share via"));
-    }
-
     
 
     private void seeDetails() {

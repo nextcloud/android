@@ -34,6 +34,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
+import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -120,6 +121,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     //private static final String KEY_REFRESH_SHARES_IN_PROGRESS = "SHARES_IN_PROGRESS";
+    private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
     public static final int DIALOG_SHORT_WAIT = 0;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
@@ -140,6 +142,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private boolean mSyncInProgress = false;
     //private boolean mRefreshSharesInProgress = false;
+
+    private OCFile mWaitingToSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,11 +175,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             //mRefreshSharesInProgress = savedInstanceState.getBoolean(KEY_REFRESH_SHARES_IN_PROGRESS);
+            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
            
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
             //mRefreshSharesInProgress = false;
+            mWaitingToSend = null;
         }        
 
         /// USER INTERFACE
@@ -217,7 +223,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         if (mUploadConnection != null)
             unbindService(mUploadConnection);
     }
-
 
     /**
      *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
@@ -666,6 +671,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS, mRefreshSharesInProgress);
+        outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -1022,6 +1028,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
             }
 
+            if (mWaitingToSend != null) {
+                mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
+                if (mWaitingToSend.isDown()) { 
+                    sendDownloadedFile();
+                }
+            }
+            
             removeStickyBroadcast(intent);
         }
 
@@ -1601,4 +1614,34 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     }
     */
 
+    /**
+     * Requests the download of the received {@link OCFile} , updates the UI
+     * to monitor the download progress and prepares the activity to send the file
+     * when the download finishes.
+     * 
+     * @param file          {@link OCFile} to download and preview.
+     */
+    @Override
+    public void startDownloadForSending(OCFile file) {
+        mWaitingToSend = file;
+        requestForDownload(mWaitingToSend);
+        boolean hasSecondFragment = (getSecondFragment()!= null);
+        updateFragmentsVisibility(hasSecondFragment);
+    }
+    
+    private void requestForDownload(OCFile file) {
+        Account account = getAccount();
+        if (!mDownloaderBinder.isDownloading(account, file)) {
+            Intent i = new Intent(this, FileDownloader.class);
+            i.putExtra(FileDownloader.EXTRA_ACCOUNT, account);
+            i.putExtra(FileDownloader.EXTRA_FILE, file);
+            startService(i);
+        }
+    }
+    
+    private void sendDownloadedFile(){
+        getFileOperationsHelper().sendDownloadedFile(mWaitingToSend, this);
+        mWaitingToSend = null;
+    }
+    
 }

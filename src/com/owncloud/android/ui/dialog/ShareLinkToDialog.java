@@ -97,35 +97,59 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
             }
         }
         
-        // add activity for copy to clipboard
-        Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
-        List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
-        if (!copyToClipboard.isEmpty()) {
-            activities.add(copyToClipboard.get(0));
+        boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
+        
+        if (!sendAction) {
+            // add activity for copy to clipboard
+            Intent copyToClipboardIntent = new Intent(getSherlockActivity(), CopyToClipboardActivity.class);
+            List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
+            if (!copyToClipboard.isEmpty()) {
+                activities.add(copyToClipboard.get(0));
+            }
         }
         
         Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm)); 
         mAdapter = new ActivityAdapter(getSherlockActivity(), pm, activities);
         
-        return new AlertDialog.Builder(getSherlockActivity())
-                   .setTitle(R.string.activity_chooser_title)
-                   .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialog, int which) {
-                               // Add the information of the chosen activity to the intent to send 
-                               ResolveInfo chosen = mAdapter.getItem(which);
-                               ActivityInfo actInfo = chosen.activityInfo;
-                               ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
-                               mIntent.setComponent(name);                               
-                               
-                               // Create a new share resource
-                               FileOperationsHelper foh = new FileOperationsHelper();
-                               foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity()); 
-                           }
-                       })
-                   .create();
+        return createSelector(sendAction);
+        
     }
 
+    private AlertDialog createSelector(final boolean sendAction) {
+    
+        int titleId;
+        if (sendAction) {
+            titleId = R.string.activity_chooser_send_file_title;
+        } else {
+            titleId = R.string.activity_chooser_title;
+        }
+        
+        return new AlertDialog.Builder(getSherlockActivity())
+                    .setTitle(titleId)
+                    .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Add the information of the chosen activity to the intent to send 
+                            ResolveInfo chosen = mAdapter.getItem(which);
+                            ActivityInfo actInfo = chosen.activityInfo;
+                            ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
+                            mIntent.setComponent(name);                               
+
+                            if (sendAction) {
+                                dialog.dismiss();    // explicitly added for Android 2.x devices
+
+                                // Send the file
+                                ((FileActivity)getSherlockActivity()).startActivity(mIntent);
+
+                            } else {
+                                // Create a new share resource
+                                FileOperationsHelper foh = new FileOperationsHelper();
+                                foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity());
+                            }
+                        }
+        })
+        .create();
+    }
     
     class ActivityAdapter extends ArrayAdapter<ResolveInfo> {
         
