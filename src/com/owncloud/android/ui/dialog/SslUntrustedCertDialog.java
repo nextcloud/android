@@ -28,21 +28,23 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.utils.Log_OC;
 
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.webkit.SslErrorHandler;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -50,6 +52,7 @@ import android.widget.TextView;
  * Dialog to show an Untrusted Certificate
  * 
  * @author masensio
+ * @author David A. Velasco
  *
  */
 public class SslUntrustedCertDialog extends SherlockDialogFragment{
@@ -58,23 +61,61 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
     
     private X509Certificate mCertificate;
     private View mView;
-    private SslErrorHandler mHandler;
-    
     private OnSslUntrustedCertListener mListener;
+    private SslError mError;
+    private CertificateCombinedException mException = null;
     
     public SslUntrustedCertDialog() {
     }
     
-    public SslUntrustedCertDialog(X509Certificate cert, OnSslUntrustedCertListener listener, SslErrorHandler handler) {
+    public SslUntrustedCertDialog(X509Certificate cert, SslError error) {
         mCertificate = cert;
-        mListener = listener;
-        mHandler = handler;
+        mError = error;
     }
+    
+    /**
+     * Private constructor. 
+     * 
+     * Instances have to be created through static {@link SslUntrustedCertDialog#newInstance}.
+     * 
+     * @param context       Android context where the dialog will live
+     * @param e             Exception causing the need of prompt the user about the server certificate.
+     * @param listener      Object to notice when the server certificate was added to the local certificates store.
+     */
+    private SslUntrustedCertDialog(RemoteOperationResult result, OnSslUntrustedCertListener listener) {
+        mListener = listener;
+        if (result.isSslRecoverableException()) {
+            mException = (CertificateCombinedException) result.getException();
+            mCertificate = mException.getServerCertificate();
+        }
+    }
+    
 
-    public static SslUntrustedCertDialog newInstance(Context context, X509Certificate cert, OnSslUntrustedCertListener listener, 
-            SslErrorHandler handler) {
+    public static SslUntrustedCertDialog newInstance(X509Certificate cert, SslError error) {
         if (cert != null){
-            SslUntrustedCertDialog dialog = new SslUntrustedCertDialog(cert, listener, handler);
+            SslUntrustedCertDialog dialog = new SslUntrustedCertDialog(cert, error);
+            return dialog;
+        } else  { // TODO Review this case
+            SslUntrustedCertDialog dialog = new  SslUntrustedCertDialog();
+            return  dialog;
+        }
+    }
+    
+    
+    
+    /**
+     * Creates a new SslUntrustedCertDialog to ask the user if an untrusted certificate from a server should
+     * be trusted.
+     * 
+     * @param context       Android context where the dialog will live.
+     * @param result        Result of a failed remote operation.
+     * @param listener      Object to notice when the server certificate was added to the local certificates store.
+     * @return              A new SslUntrustedCertDialog instance. NULL if the operation can not be recovered
+     *                      by setting the certificate as reliable.
+     */
+    public static SslUntrustedCertDialog newInstance(RemoteOperationResult result, OnSslUntrustedCertListener listener) {
+        if (result != null && result.isSslRecoverableException()) {
+            SslUntrustedCertDialog dialog = new SslUntrustedCertDialog(result, listener);
             return dialog;
         } else {
             return null;
@@ -90,11 +131,21 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
     }
     
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof SherlockActivity) {
+            mListener = (OnSslUntrustedCertListener) activity;
+        }
+    }
+    
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create a view by inflating desired layout
         mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
         
-        Button ok = (Button) mView.findViewById(R.id.untrusted_ok);
+        updateException(mException);
+        
+        Button ok = (Button) mView.findViewById(R.id.ok);
         ok.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -103,8 +154,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
                   saveServerCert();
                   dismiss();
                   if (mListener != null) {
-                      ((AuthenticatorActivity)getSherlockActivity()).reloadWebView();
-                      
+                      mListener.onSavedCertificate();
                   }
                   else
                       Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
@@ -112,7 +162,6 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
               } catch (GeneralSecurityException e) {
                   dismiss();
                   if (mListener != null) {
-                      ((AuthenticatorActivity)getSherlockActivity()).cancelWebView();
                       mListener.onFailedSavingCertificate();
                   }
                   Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
@@ -120,7 +169,6 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
               } catch (IOException e) {
                   dismiss();
                   if (mListener != null) {
-                      ((AuthenticatorActivity)getSherlockActivity()).cancelWebView();
                       mListener.onFailedSavingCertificate();
                   }
                   Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
@@ -129,22 +177,22 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
             }
         });
         
-        Button cancel = (Button) mView.findViewById(R.id.untrusted_cancel);
+        Button cancel = (Button) mView.findViewById(R.id.cancel);
         cancel.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
                 getDialog().cancel();
-                ((AuthenticatorActivity)getSherlockActivity()).cancelWebView();
+                mListener.onCancelCertificate();
             }
         });
         
-        Button details = (Button) mView.findViewById(R.id.untrusted_details_btn);
+        Button details = (Button) mView.findViewById(R.id.details_btn);
         details.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
-                View detailsScroll = mView.findViewById(R.id.untrusted_details_scroll);
+                View detailsScroll = mView.findViewById(R.id.details_scroll);
                 if (detailsScroll.getVisibility() == View.VISIBLE) {
                     detailsScroll.setVisibility(View.GONE);
                     ((Button) v).setText(R.string.ssl_validator_btn_details_see);
@@ -177,9 +225,43 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
             super.onDestroyView();
     }
     
+    
+    private void updateException(CertificateCombinedException exception) {
+        
+        /// clean
+        mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
+        mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
+        
+        
+        if (mException != null) {
+            
+            /// refresh
+            if (mException.getCertPathValidatorException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+            }
+            
+            if (mException.getCertificateExpiredException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+            }
+            
+            if (mException.getCertificateNotYetValidException() != null) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
+            } 
+
+            if (mException.getSslPeerUnverifiedException() != null ) {
+                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
+            }
+            
+        }
+        
+    }
+    
     private void showCertificateData(X509Certificate cert) {
 
-        TextView nullCerView = (TextView) mView.findViewById(R.id.untrusted_null_cert);
+        TextView nullCerView = (TextView) mView.findViewById(R.id.null_cert);
         
         if (cert != null) {
             nullCerView.setVisibility(View.GONE);
@@ -194,8 +276,8 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
     }
 
     private void showSignature(X509Certificate cert) {
-        TextView sigView = ((TextView)mView.findViewById(R.id.untrusted_value_signature));
-        TextView algorithmView = ((TextView)mView.findViewById(R.id.untrusted_value_signature_algorithm));
+        TextView sigView = ((TextView)mView.findViewById(R.id.value_signature));
+        TextView algorithmView = ((TextView)mView.findViewById(R.id.value_signature_algorithm));
         sigView.setText(getHex(cert.getSignature()));
         algorithmView.setText(cert.getSigAlgName());
     }
@@ -216,20 +298,20 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
 
     @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
-        TextView fromView = ((TextView)mView.findViewById(R.id.untrusted_value_validity_from));
-        TextView toView = ((TextView)mView.findViewById(R.id.untrusted_value_validity_to));
+        TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
+        TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
         fromView.setText(notBefore.toLocaleString());
         toView.setText(notAfter.toLocaleString());
     }
 
     private void showSubject(X500Principal subject) {
         Map<String, String> s = parsePrincipal(subject);
-        TextView cnView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.untrusted_value_subject_L));
+        TextView cnView = ((TextView)mView.findViewById(R.id.value_subject_CN));
+        TextView oView = ((TextView)mView.findViewById(R.id.value_subject_O));
+        TextView ouView = ((TextView)mView.findViewById(R.id.value_subject_OU));
+        TextView cView = ((TextView)mView.findViewById(R.id.value_subject_C));
+        TextView stView = ((TextView)mView.findViewById(R.id.value_subject_ST));
+        TextView lView = ((TextView)mView.findViewById(R.id.value_subject_L));
         
         if (s.get("CN") != null) {
             cnView.setText(s.get("CN"));
@@ -271,12 +353,12 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
     
     private void showIssuer(X500Principal issuer) {
         Map<String, String> s = parsePrincipal(issuer);
-        TextView cnView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.untrusted_value_issuer_L));
+        TextView cnView = ((TextView)mView.findViewById(R.id.value_issuer_CN));
+        TextView oView = ((TextView)mView.findViewById(R.id.value_issuer_O));
+        TextView ouView = ((TextView)mView.findViewById(R.id.value_issuer_OU));
+        TextView cView = ((TextView)mView.findViewById(R.id.value_issuer_C));
+        TextView stView = ((TextView)mView.findViewById(R.id.value_issuer_ST));
+        TextView lView = ((TextView)mView.findViewById(R.id.value_issuer_L));
         
         if (s.get("CN") != null) {
             cnView.setText(s.get("CN"));
@@ -341,7 +423,12 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment{
 
     
     public interface OnSslUntrustedCertListener {
+        public void onSavedCertificate();
+        public void onCancelCertificate();
         public void onFailedSavingCertificate();
     }
+
+
+   
 
 }

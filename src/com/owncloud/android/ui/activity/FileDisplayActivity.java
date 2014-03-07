@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-
 import android.accounts.Account;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,6 +41,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 //import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -79,9 +79,9 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.ui.dialog.SslValidatorDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -100,7 +100,7 @@ import com.owncloud.android.utils.Log_OC;
  */
 
 public class FileDisplayActivity extends HookActivity implements
-OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslValidatorListener, EditNameDialogListener {
+OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener, EditNameDialogListener {
 
     private ArrayAdapter<String> mDirectories;
 
@@ -123,8 +123,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
     public static final int DIALOG_SHORT_WAIT = 0;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
-    private static final int DIALOG_SSL_VALIDATOR = 2;
-    private static final int DIALOG_CERT_NOT_SAVED = 3;
+    //private static final int DIALOG_SSL_VALIDATOR = 2;
+    private static final int DIALOG_CERT_NOT_SAVED = 2;
     
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -140,6 +140,8 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     
     private boolean mSyncInProgress = false;
     //private boolean mRefreshSharesInProgress = false;
+
+    private String DIALOG_UNTRUSTED_CERT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -739,14 +741,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
 
     @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        if (id == DIALOG_SSL_VALIDATOR && mLastSslUntrustedServerResult != null) {
-            ((SslValidatorDialog)dialog).updateResult(mLastSslUntrustedServerResult);
-        }
-    }
-
-
-    @Override
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
         AlertDialog.Builder builder;
@@ -802,10 +796,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 }
             });
             dialog = builder.create();
-            break;
-        }
-        case DIALOG_SSL_VALIDATOR: {
-            dialog = SslValidatorDialog.newInstance(this, mLastSslUntrustedServerResult, this);
             break;
         }
         case DIALOG_CERT_NOT_SAVED: {
@@ -976,7 +966,6 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             if (synchResult != null) {
                 if (synchResult.getCode().equals(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED)) {
                     mLastSslUntrustedServerResult = synchResult;
-                    showDialog(DIALOG_SSL_VALIDATOR); 
                 }
             }
         }
@@ -1065,7 +1054,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 if ((getSharesResult != null) &&
                         RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(getSharesResult.getCode())) {
                     mLastSslUntrustedServerResult = getSharesResult;
-                    showDialog(DIALOG_SSL_VALIDATOR); 
+                    showUntrustedCertDialog(mLastSslUntrustedServerResult);
                 }
 
                 //setSupportProgressBarIndeterminateVisibility(mRefreshSharesInProgress || mSyncInProgress);
@@ -1408,7 +1397,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             msg.show();
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
+                showUntrustedCertDialog(mLastSslUntrustedServerResult);
             }
         }
     }
@@ -1475,7 +1464,7 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 msg.show();
                 if (result.isSslRecoverableException()) {
                     mLastSslUntrustedServerResult = result;
-                    showDialog(DIALOG_SSL_VALIDATOR); 
+                    showUntrustedCertDialog(mLastSslUntrustedServerResult);
                 }
             }
         }
@@ -1600,5 +1589,34 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         mRefreshSharesInProgress = true;
     }
     */
+    
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(RemoteOperationResult result) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(result, this);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        
+    }
+    
+    /**
+     * Dismiss untrusted cert dialog
+     */
+    public void dismissUntrustedCertDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if (frag != null) {
+            SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) frag;
+            dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onCancelCertificate() {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

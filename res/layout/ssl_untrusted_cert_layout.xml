@@ -24,7 +24,7 @@
     android:orientation="vertical" >
 
 	<TextView
-		android:id="@+id/untrusted_header"
+		android:id="@+id/header"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/ssl_validator_header"
@@ -33,7 +33,7 @@
 		 />
     
 	<TextView
-		android:id="@+id/untrusted_reason_cert_not_trusted"
+		android:id="@+id/reason_cert_not_trusted"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
@@ -42,22 +42,53 @@
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 		
+	
+	<TextView
+		android:id="@+id/reason_cert_expired"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="left"
+		android:paddingLeft="20dp"
+		android:text="@string/ssl_validator_reason_cert_expired"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+	
+	<TextView
+		android:id="@+id/reason_cert_not_yet_valid"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="left"
+		android:paddingLeft="20dp"
+		android:text="@string/ssl_validator_reason_cert_not_yet_valid"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+		
+	<TextView
+		android:id="@+id/reason_hostname_not_verified"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="left"
+		android:paddingLeft="20dp"
+		android:text="@string/ssl_validator_reason_hostname_not_verified"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+	
     <ScrollView 
-        android:id="@+id/untrusted_details_scroll"
+        android:id="@+id/details_scroll"
         android:visibility="gone" 
     	android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="180dp">
         
 		<LinearLayout 
-    		android:id="@+id/untrusted_details_view"
+    		android:id="@+id/details_view"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
     		android:gravity="left"
     		android:orientation="vertical" >
     			
 		    <TextView
-		        android:id="@+id/untrusted_null_cert"
+		        android:id="@+id/null_cert"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_gravity="left"
@@ -66,7 +97,7 @@
 		        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 				<TextView
-        			android:id="@+id/untrusted_label_subject"
+        			android:id="@+id/label_subject"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -75,7 +106,7 @@
         		/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_subject_CN"
+				    android:id="@+id/label_subject_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_CN"
@@ -83,7 +114,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_subject_CN"
+				    android:id="@+id/value_subject_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -92,7 +123,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_subject_O"
+				    android:id="@+id/label_subject_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_O"
@@ -100,7 +131,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_subject_O"
+				    android:id="@+id/value_subject_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -109,7 +140,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_subject_OU"
+				    android:id="@+id/label_subject_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_OU"
@@ -117,7 +148,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_subject_OU"
+				    android:id="@+id/value_subject_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -126,7 +157,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_subject_ST"
+				    android:id="@+id/label_subject_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_ST"
@@ -134,7 +165,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_subject_ST"
+				    android:id="@+id/value_subject_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -143,7 +174,7 @@
 				/>
 
 				<TextView
-				    android:id="@+id/untrusted_label_subject_C"
+				    android:id="@+id/label_subject_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_C"
@@ -151,7 +182,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_value_subject_C"
+				    android:id="@+id/value_subject_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -160,7 +191,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_subject_L"
+				    android:id="@+id/label_subject_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_L"
@@ -168,7 +199,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_subject_L"
+				    android:id="@+id/value_subject_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -178,7 +209,7 @@
 			    
 
 				<TextView
-        			android:id="@+id/untrusted_label_issuer"
+        			android:id="@+id/label_issuer"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -187,7 +218,7 @@
         		/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_CN"
+				    android:id="@+id/label_issuer_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_CN"
@@ -195,7 +226,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_CN"
+				    android:id="@+id/value_issuer_CN"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -204,7 +235,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_O"
+				    android:id="@+id/label_issuer_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_O"
@@ -212,7 +243,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_O"
+				    android:id="@+id/value_issuer_O"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -221,7 +252,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_OU"
+				    android:id="@+id/label_issuer_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_OU"
@@ -229,7 +260,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_OU"
+				    android:id="@+id/value_issuer_OU"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -238,7 +269,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_ST"
+				    android:id="@+id/label_issuer_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_ST"
@@ -246,7 +277,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_ST"
+				    android:id="@+id/value_issuer_ST"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -255,7 +286,7 @@
 				/>
 
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_C"
+				    android:id="@+id/label_issuer_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_C"
@@ -263,7 +294,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_C"
+				    android:id="@+id/value_issuer_C"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -272,7 +303,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_issuer_L"
+				    android:id="@+id/label_issuer_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_L"
@@ -280,7 +311,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_issuer_L"
+				    android:id="@+id/value_issuer_L"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -289,7 +320,7 @@
 				/>
 			    
 				<TextView
-        			android:id="@+id/untrusted_label_validity"
+        			android:id="@+id/label_validity"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -298,7 +329,7 @@
         		/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_validity_from"
+				    android:id="@+id/label_validity_from"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_validity_from"
@@ -306,7 +337,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_validity_from"
+				    android:id="@+id/value_validity_from"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -315,7 +346,7 @@
 				/>
 				
 				<TextView
-				    android:id="@+id/untrusted_label_validity_to"
+				    android:id="@+id/label_validity_to"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:text="@string/ssl_validator_label_validity_to"
@@ -323,7 +354,7 @@
 				/>
 			    
 				<TextView
-				    android:id="@+id/untrusted_value_validity_to"
+				    android:id="@+id/value_validity_to"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:paddingBottom="5dp"
@@ -333,7 +364,7 @@
 				
 
 				<TextView
-        			android:id="@+id/untrusted_label_signature"
+        			android:id="@+id/label_signature"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -342,7 +373,7 @@
         		/>
 				
 				<TextView
-        			android:id="@+id/untrusted_label_signature_algorithm"
+        			android:id="@+id/label_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
         			android:text="@string/ssl_validator_label_signature_algorithm"
@@ -350,7 +381,7 @@
         		/>
 				
 				<TextView
-        			android:id="@+id/untrusted_value_signature_algorithm"
+        			android:id="@+id/value_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -360,7 +391,7 @@
 																								
 								
 				<TextView
-        			android:id="@+id/untrusted_value_signature"
+        			android:id="@+id/value_signature"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
 					android:paddingBottom="5dp"
@@ -373,7 +404,7 @@
     </ScrollView>
 	
 	<TextView
-        android:id="@+id/untrusted_question"
+        android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:padding="5dp"
@@ -388,21 +419,21 @@
         android:gravity="center" >
 
         <Button
-            android:id="@+id/untrusted_cancel"
+            android:id="@+id/cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
         <Button
-            android:id="@+id/untrusted_details_btn"
+            android:id="@+id/details_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ssl_validator_btn_details_see" />
 
         <Button
-            android:id="@+id/untrusted_ok"
+            android:id="@+id/ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

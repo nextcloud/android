@@ -24,24 +24,16 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.Log_OC;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -61,11 +53,9 @@ import android.webkit.WebViewClient;
  *   
  * @author David A. Velasco
  */
-public class SsoWebViewClient extends WebViewClient implements OnSslUntrustedCertListener {
+public class SsoWebViewClient extends WebViewClient {
         
     private static final String TAG = SsoWebViewClient.class.getSimpleName();
-
-    public final static String DIALOG_UNTRUSTED_CERT = "UNTRUSTED CERT";
     
     public interface SsoWebViewClientListener {
         public void onSsoFinished(String sessionCookie);
@@ -176,10 +166,11 @@ public class SsoWebViewClient extends WebViewClient implements OnSslUntrustedCer
              handler.proceed();
          } else {
              // Show a dialog with the certificate info
-             SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(mContext, x509Certificate, this, handler);
-             FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
-             FragmentTransaction ft = fm.beginTransaction();
-             dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+             ((AuthenticatorActivity)mContext).showUntrustedCertDialog(x509Certificate, error);
+//             SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(mContext, x509Certificate, error);
+//             FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+//             FragmentTransaction ft = fm.beginTransaction();
+//             dialog.show(ft, DIALOG_UNTRUSTED_CERT);
              handler.cancel();
          }
     }
@@ -243,21 +234,6 @@ public class SsoWebViewClient extends WebViewClient implements OnSslUntrustedCer
     public boolean shouldOverrideKeyEvent (WebView view, KeyEvent event) {
         Log_OC.d(TAG, "shouldOverrideKeyEvent : " + event);
         return false;
-    }
-
-    @Override
-    public void onFailedSavingCertificate() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage(mContext.getString(R.string.ssl_validator_not_saved));
-        builder.setCancelable(false);
-        builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            };
-        });
-        builder.create().show();
-        
     }
 
 }

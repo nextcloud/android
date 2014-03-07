@@ -11,7 +11,7 @@
     <string name ="default_display_name_for_root_folder">ownCloud</string>
     
     <!-- URLs and flags related -->
-    <string name="server_url"></string>
+    <string name="server_url">https://test1.owncloud.com/oc6-shib</string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://owncloud.com/mobile/new"</string>
@@ -19,7 +19,7 @@
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
-    <string name="auth_method_saml_web_sso">off</string>
+    <string name="auth_method_saml_web_sso">on</string>
     
     <!-- Colors -->
     <color name="login_background_color">#FFFFFF</color>
