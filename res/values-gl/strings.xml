@@ -239,6 +239,7 @@
   <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
   <string name="unshare_link_file_no_exist">Non foi posíbel compartir este ficheiro ou cartafol xa que non existe.</string>
   <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar a ligazón</string>
   <string name="clipboard_text_copied">Copiado no portapapeis.</string>
 </resources>

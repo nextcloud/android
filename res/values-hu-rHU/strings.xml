@@ -238,5 +238,6 @@
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>
   <string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
+  <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
 </resources>

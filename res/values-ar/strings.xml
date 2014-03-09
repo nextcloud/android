@@ -217,4 +217,5 @@
   <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
   <string name="unshare_link_file_no_exist">غير قادر على إلغاء مشاركة هذا الملف أو المجلد.لا وجود له</string>
   <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
+  <string name="activity_chooser_send_file_title">أرسل</string>
 </resources>

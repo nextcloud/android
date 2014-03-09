@@ -239,6 +239,7 @@
   <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
   <string name="unshare_link_file_no_exist">Klarte ikke å avslutte delingen av denne filen eller mappen. Den eksisterer ikke.</string>
   <string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+  <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Kopier lenke</string>
   <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
 </resources>

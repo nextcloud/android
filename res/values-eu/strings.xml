@@ -239,6 +239,7 @@
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_no_exist">Ezin izan da karpeta edo fitxategi honen partekatzeari utzi. Ez da existitzen.</string>
   <string name="unshare_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzeari uzterakoan</string>
+  <string name="activity_chooser_send_file_title">Bidali</string>
   <string name="copy_link">Lotura kopiatu</string>
   <string name="clipboard_text_copied">Arbelera kopiatua</string>
 </resources>

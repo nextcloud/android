@@ -75,4 +75,5 @@
   <string name="wait_a_moment">Изчакайте малко</string>
   <string name="filedisplay_no_file_selected">Не е избран файл</string>
   <string name="ssl_validator_header">Самоличността на сайта не може да бъде проверена</string>
+  <string name="activity_chooser_send_file_title">Изпрати</string>
 </resources>
