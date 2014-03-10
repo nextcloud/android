@@ -245,7 +245,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         super.onDestroy();
     }
     
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean returnValue = false;

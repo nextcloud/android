@@ -30,7 +30,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UpdateOCVersionOperation;
@@ -41,7 +40,6 @@ import com.owncloud.android.utils.Log_OC;
 
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AccountsException;
 import android.app.Notification;
 import android.app.NotificationManager;

@@ -22,7 +22,6 @@ import com.owncloud.android.R;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.widget.Toast;

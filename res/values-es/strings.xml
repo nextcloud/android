@@ -72,7 +72,7 @@
   <string name="change_password">Cambiar contraseña</string>
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
-  <string name="upload_chooser_title">Subir</string>
+  <string name="upload_chooser_title">Subir desde...</string>
   <string name="uploader_info_dirname">Nombre de directorio</string>
   <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
@@ -217,7 +217,7 @@
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>
-  <string name="conflict_keep_both">Mantener ambas</string>
+  <string name="conflict_keep_both">Mantener ambos</string>
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
@@ -239,6 +239,7 @@
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
   <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
   <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar enlace</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
 </resources>

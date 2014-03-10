@@ -231,5 +231,7 @@
   <string name="failed_upload_retry_do_nothing_text">현재 온라인이 아니셔서 자동 업로드를 할수 없습니다</string>
   <string name="failed_upload_failure_text">실패 메시지:</string>
   <string name="failed_upload_quota_exceeded_text">서버 설정을 확인해주세요, 아마 업로드 제한을 초과하셨을겁니다.</string>
+  <string name="activity_chooser_send_file_title">보내기</string>
+  <string name="copy_link">링크 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
 </resources>

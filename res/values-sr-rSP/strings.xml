@@ -51,4 +51,5 @@
   <string name="ssl_validator_label_validity_to">Za:</string>
   <string name="ssl_validator_label_signature">Potpis:</string>
   <string name="conflict_keep_both">Zadrži oboje</string>
+  <string name="activity_chooser_send_file_title">Pošalji</string>
 </resources>

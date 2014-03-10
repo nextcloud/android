@@ -237,5 +237,6 @@
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
   <string name="unshare_link_file_no_exist">حذف اشتراک گذاری این فایل یا پوشه ممکن نیست. لطفاً از وجود آن اطمینان حاصل نمایید</string>
   <string name="unshare_link_file_error">در حین حذف اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
+  <string name="activity_chooser_send_file_title">ارسال</string>
   <string name="clipboard_text_copied">کپی به کلیپ بورد</string>
 </resources>

@@ -188,7 +188,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         return true;
     }
     
-    
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
         super.onAccountSet(stateWasRecovered);

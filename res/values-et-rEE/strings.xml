@@ -237,5 +237,6 @@
   <string name="share_link_file_error">Faili või kausta jagamisel esines viga</string>
   <string name="unshare_link_file_no_exist">Antud faili või kausta jagamist pole võimalik tühistada</string>
   <string name="unshare_link_file_error">Faili või kausta jagamise tühistamisel esines viga</string>
+  <string name="activity_chooser_send_file_title">Saada</string>
   <string name="clipboard_text_copied">Kopeeritud lõikepuhvrisse</string>
 </resources>

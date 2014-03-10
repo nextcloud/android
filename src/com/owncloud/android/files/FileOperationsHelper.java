@@ -145,7 +145,7 @@ public class FileOperationsHelper {
         }
         return false;
     }
-
+    
     
     public void unshareFileWithLink(OCFile file, FileActivity callerActivity) {
         
@@ -166,4 +166,23 @@ public class FileOperationsHelper {
             
         }
     }
+    
+    public void sendDownloadedFile(OCFile file, FileActivity callerActivity) {
+        if (file != null) {
+            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + file.getStoragePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+            
+            // Show dialog, without the own app
+            String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
+            chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
 }
