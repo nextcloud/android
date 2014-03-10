@@ -75,6 +75,16 @@
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
 	
+	<TextView
+		android:id="@+id/reason_no_info_about_error"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="left"
+		android:paddingLeft="20dp"
+		android:text="@string/ssl_validator_no_info_about_error"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+	
     <ScrollView 
         android:id="@+id/details_scroll"
         android:visibility="gone" 

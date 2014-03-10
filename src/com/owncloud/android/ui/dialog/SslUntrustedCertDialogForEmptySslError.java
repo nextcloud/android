@@ -114,6 +114,8 @@ public class SslUntrustedCertDialogForEmptySslError extends SslUntrustedCertDial
             ((ViewGroup)mView.getParent()).removeView(mView);
         }
         
+        showNoMessageError();
+        
         Button ok = (Button) mView.findViewById(R.id.ok);
         ok.setOnClickListener(new OnClickListener() {
             
@@ -247,4 +249,15 @@ public class SslUntrustedCertDialogForEmptySslError extends SslUntrustedCertDial
         ((TextView)mView.findViewById(R.id.value_signature)).setVisibility(View.GONE);
     }
 
+    private void showNoMessageError() {
+        /// clean
+        mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
+        mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
+        
+        mView.findViewById(R.id.reason_no_info_about_error).setVisibility(View.VISIBLE);
+        
+    }
 }

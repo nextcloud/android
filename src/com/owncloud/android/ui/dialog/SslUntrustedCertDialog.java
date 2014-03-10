@@ -141,7 +141,7 @@ public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
         // Create a view by inflating desired layout
         mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
         
-        updateException(mException);
+        updateMessageException(mException, mError);
         
         Button ok = (Button) mView.findViewById(R.id.ok);
         ok.setOnClickListener(new OnClickListener() {
@@ -224,35 +224,50 @@ public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
     }
     
     
-    private void updateException(CertificateCombinedException exception) {
+    private void updateMessageException(CertificateCombinedException exception, SslError error) {
         
         /// clean
         mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
         mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
         mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
         mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
+        mView.findViewById(R.id.reason_no_info_about_error).setVisibility(View.GONE);
         mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
         
-        
-        if (mException != null) {
+       
+        if (exception != null) {
             
             /// refresh
-            if (mException.getCertPathValidatorException() != null) {
+            if (exception.getCertPathValidatorException() != null) {
                 ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
             }
             
-            if (mException.getCertificateExpiredException() != null) {
+            if (exception.getCertificateExpiredException() != null) {
                 ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
             }
             
-            if (mException.getCertificateNotYetValidException() != null) {
+            if (exception.getCertificateNotYetValidException() != null) {
                 ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
             } 
 
-            if (mException.getSslPeerUnverifiedException() != null ) {
+            if (exception.getSslPeerUnverifiedException() != null) {
                 ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
             }
             
+        } else if ( error != null) {
+            /// refresh
+            if (error.getPrimaryError() == SslError.SSL_UNTRUSTED) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+                
+            } else if (error.getPrimaryError() == SslError.SSL_EXPIRED) {
+                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+                
+            } else if (error.getPrimaryError() == SslError.SSL_NOTYETVALID) {
+                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
+                
+            } else if (error.getPrimaryError() == SslError.SSL_IDMISMATCH) {
+                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
+            }
         }
         
     }
