@@ -18,22 +18,7 @@ package com.owncloud.android.ui.dialog;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.security.auth.x500.X500Principal;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.network.CertificateCombinedException;
-import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.utils.Log_OC;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -41,153 +26,124 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnClickListener;
+import android.webkit.SslErrorHandler;
 import android.widget.Button;
-import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockDialogFragment;
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.ui.adapter.CertificateCombinedExceptionViewAdapter;
+import com.owncloud.android.ui.adapter.SslCertificateViewAdapter;
+import com.owncloud.android.ui.adapter.SslErrorViewAdapter;
+import com.owncloud.android.ui.adapter.X509CertificateViewAdapter;
+import com.owncloud.android.utils.Log_OC;
 
 /**
- * Dialog to show an Untrusted Certificate
+ * Dialog to show information about an untrusted certificate and allow the user
+ * to decide trust on it or not.
+ * 
+ * Abstract implementation of common functionality for different dialogs that
+ * get the information about the error and the certificate from different classes. 
  * 
  * @author masensio
  * @author David A. Velasco
- *
  */
-public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
+public class SslUntrustedCertDialog extends SherlockDialogFragment {
     
     private final static String TAG = SslUntrustedCertDialog.class.getSimpleName();
     
-    private X509Certificate mCertificate;
-    private View mView;
-    private OnSslUntrustedCertListener mListener;
-    private SslError mError;
-    private CertificateCombinedException mException = null;
-    
-    public SslUntrustedCertDialog() {
-    }
-    
-    public SslUntrustedCertDialog(X509Certificate cert, SslError error) {
-        mCertificate = cert;
-        mError = error;
-    }
-    
-    /**
-     * Private constructor. 
-     * 
-     * Instances have to be created through static {@link SslUntrustedCertDialog#newInstance}.
-     * 
-     * @param context       Android context where the dialog will live
-     * @param e             Exception causing the need of prompt the user about the server certificate.
-     * @param listener      Object to notice when the server certificate was added to the local certificates store.
-     */
-    private SslUntrustedCertDialog(RemoteOperationResult result, OnSslUntrustedCertListener listener) {
-        mListener = listener;
-        if (result.isSslRecoverableException()) {
-            mException = (CertificateCombinedException) result.getException();
-            mCertificate = mException.getServerCertificate();
-        }
-    }
-    
+    protected View mView = null;
+    protected SslErrorHandler mHandler = null;
+    protected X509Certificate m509Certificate = null;
 
-    public static SslUntrustedCertDialog newInstance(X509Certificate cert, SslError error) {
-        if (cert != null){
-            SslUntrustedCertDialog dialog = new SslUntrustedCertDialog(cert, error);
-            return dialog;
-        } else  { // TODO Review this case
-            SslUntrustedCertDialog dialog = new  SslUntrustedCertDialog();
-            return  dialog;
+    private ErrorViewAdapter mErrorViewAdapter = null;
+    private CertificateViewAdapter mCertificateViewAdapter = null;
+    
+    public static SslUntrustedCertDialog newInstanceForEmptySslError(SslError error, SslErrorHandler handler) {
+        if (error == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter error == null");
         }
-    }
-    
-    
-    
-    /**
-     * Creates a new SslUntrustedCertDialog to ask the user if an untrusted certificate from a server should
-     * be trusted.
-     * 
-     * @param context       Android context where the dialog will live.
-     * @param result        Result of a failed remote operation.
-     * @param listener      Object to notice when the server certificate was added to the local certificates store.
-     * @return              A new SslUntrustedCertDialog instance. NULL if the operation can not be recovered
-     *                      by setting the certificate as reliable.
-     */
-    public static SslUntrustedCertDialog newInstance(RemoteOperationResult result, OnSslUntrustedCertListener listener) {
-        if (result != null && result.isSslRecoverableException()) {
-            SslUntrustedCertDialog dialog = new SslUntrustedCertDialog(result, listener);
-            return dialog;
-        } else {
-            return null;
+        if (handler == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter handler == null");
         }
+        SslUntrustedCertDialog dialog = new SslUntrustedCertDialog();
+        dialog.mHandler = handler;
+        dialog.mErrorViewAdapter = new SslErrorViewAdapter(error);
+        dialog.mCertificateViewAdapter = new SslCertificateViewAdapter(error.getCertificate());
+        return dialog;
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        setCancelable(true);
+    
+    public static SslUntrustedCertDialog newInstanceForFullSslError(CertificateCombinedException sslException) {
+        if (sslException == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter sslException == null");
+        }
+        SslUntrustedCertDialog dialog = new SslUntrustedCertDialog();
+        dialog.m509Certificate = sslException.getServerCertificate();
+        dialog.mErrorViewAdapter = new CertificateCombinedExceptionViewAdapter(sslException);
+        dialog.mCertificateViewAdapter = new X509CertificateViewAdapter(sslException.getServerCertificate());
+        return dialog;
     }
+    
+    public static SslUntrustedCertDialog newInstanceForFullSslError(X509Certificate cert, SslError error, SslErrorHandler handler) {
+        if (cert == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter cert == null");
+        }
+        if (error == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter error == null");
+        }
+        if (handler == null) {
+            throw new IllegalArgumentException("Trying to create instance with parameter handler == null");
+        }
+        SslUntrustedCertDialog dialog = new SslUntrustedCertDialog();
+        dialog.m509Certificate = cert;
+        dialog.mHandler = handler;
+        dialog.mErrorViewAdapter = new SslErrorViewAdapter(error);
+        dialog.mCertificateViewAdapter = new X509CertificateViewAdapter(cert);
+        return dialog;
+    }
+    
     
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof SherlockActivity) {
-            mListener = (OnSslUntrustedCertListener) activity;
+        if (!(activity instanceof OnSslUntrustedCertListener)) {
+            throw new IllegalArgumentException("The host activity must implement " + OnSslUntrustedCertListener.class.getCanonicalName());
         }
+    }
+
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);    // force to keep the state of the fragment on configuration changes (such as device rotations)
+        setCancelable(false);
+        mView = null;
     }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create a view by inflating desired layout
-        mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
-        
-        updateMessageException(mException, mError);
+        if (mView == null) {
+            mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
+            mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
+            mErrorViewAdapter.updateErrorView(mView);
+        } else {
+            ((ViewGroup)mView.getParent()).removeView(mView);
+        }
         
         Button ok = (Button) mView.findViewById(R.id.ok);
-        ok.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                try {
-                  saveServerCert();
-                  dismiss();
-                  if (mListener != null) {
-                      mListener.onSavedCertificate();
-                  }
-                  else
-                      Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
-                  
-              } catch (GeneralSecurityException e) {
-                  dismiss();
-                  if (mListener != null) {
-                      mListener.onFailedSavingCertificate();
-                  }
-                  Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
-                  
-              } catch (IOException e) {
-                  dismiss();
-                  if (mListener != null) {
-                      mListener.onFailedSavingCertificate();
-                  }
-                  Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
-              }
-                
-            }
-        });
+        ok.setOnClickListener(new OnCertificateTrusted());
         
         Button cancel = (Button) mView.findViewById(R.id.cancel);
-        cancel.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                getDialog().cancel();
-                mListener.onCancelCertificate();
-            }
-        });
+        cancel.setOnClickListener(new OnCertificateNotTrusted());
         
         Button details = (Button) mView.findViewById(R.id.details_btn);
         details.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 View detailsScroll = mView.findViewById(R.id.details_scroll);
@@ -198,21 +154,20 @@ public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
                 } else {
                     detailsScroll.setVisibility(View.VISIBLE);
                     ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
-                    
-                    showCertificateData(mCertificate);
+                    mCertificateViewAdapter.updateCertificateView(mView);
                 }
-                
             }
+
         });
         
         return mView;
     }
+    
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
         return dialog;
     }
 
@@ -220,223 +175,62 @@ public class SslUntrustedCertDialog extends SslUntrustedCertDialogABSTRACT {
     public void onDestroyView() {
         if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
-            super.onDestroyView();
+        super.onDestroyView();
     }
     
-    
-    private void updateMessageException(CertificateCombinedException exception, SslError error) {
+    private class OnCertificateNotTrusted implements OnClickListener {
         
-        /// clean
-        mView.findViewById(R.id.reason_cert_not_trusted).setVisibility(View.GONE);
-        mView.findViewById(R.id.reason_cert_expired).setVisibility(View.GONE);
-        mView.findViewById(R.id.reason_cert_not_yet_valid).setVisibility(View.GONE);
-        mView.findViewById(R.id.reason_hostname_not_verified).setVisibility(View.GONE);
-        mView.findViewById(R.id.reason_no_info_about_error).setVisibility(View.GONE);
-        mView.findViewById(R.id.details_scroll).setVisibility(View.GONE);
-        
-       
-        if (exception != null) {
-            
-            /// refresh
-            if (exception.getCertPathValidatorException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
+        @Override
+        public void onClick(View v) {
+            getDialog().cancel();
+            if (mHandler != null) {
+                mHandler.cancel();
             }
-            
-            if (exception.getCertificateExpiredException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
+            ((OnSslUntrustedCertListener)getSherlockActivity()).onCancelCertificate();
+        }
+    }
+    
+    
+    private class OnCertificateTrusted implements OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            dismiss();
+            if (mHandler != null) {
+                mHandler.proceed();
             }
-            
-            if (exception.getCertificateNotYetValidException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
-            } 
-
-            if (exception.getSslPeerUnverifiedException() != null) {
-                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
-            }
-            
-        } else if ( error != null) {
-            /// refresh
-            if (error.getPrimaryError() == SslError.SSL_UNTRUSTED) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_trusted)).setVisibility(View.VISIBLE);
-                
-            } else if (error.getPrimaryError() == SslError.SSL_EXPIRED) {
-                ((TextView)mView.findViewById(R.id.reason_cert_expired)).setVisibility(View.VISIBLE);
-                
-            } else if (error.getPrimaryError() == SslError.SSL_NOTYETVALID) {
-                ((TextView)mView.findViewById(R.id.reason_cert_not_yet_valid)).setVisibility(View.VISIBLE);
-                
-            } else if (error.getPrimaryError() == SslError.SSL_IDMISMATCH) {
-                ((TextView)mView.findViewById(R.id.reason_hostname_not_verified)).setVisibility(View.VISIBLE);
-            }
-        }
-        
-    }
+            if (m509Certificate != null) {
+                Activity activity = getSherlockActivity();
+                try {
+                    NetworkUtils.addCertToKnownServersStore(m509Certificate, activity);   // TODO make this asynchronously, it can take some time
+                    ((OnSslUntrustedCertListener)activity).onSavedCertificate();
     
-    private void showCertificateData(X509Certificate cert) {
-
-        TextView nullCerView = (TextView) mView.findViewById(R.id.null_cert);
-        
-        if (cert != null) {
-            nullCerView.setVisibility(View.GONE);
-            showSubject(cert.getSubjectX500Principal());
-            showIssuer(cert.getIssuerX500Principal());
-            showValidity(cert.getNotBefore(), cert.getNotAfter());
-            showSignature(cert);
-            
-        } else {
-            nullCerView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void showSignature(X509Certificate cert) {
-        TextView sigView = ((TextView)mView.findViewById(R.id.value_signature));
-        TextView algorithmView = ((TextView)mView.findViewById(R.id.value_signature_algorithm));
-        sigView.setText(getHex(cert.getSignature()));
-        algorithmView.setText(cert.getSigAlgName());
-    }
-    
-    public String getHex(final byte [] raw) {
-        if (raw == null) {
-           return null;
-        }
-        final StringBuilder hex = new StringBuilder(2 * raw.length);
-        for (final byte b : raw) {
-           final int hiVal = (b & 0xF0) >> 4;
-           final int loVal = b & 0x0F;
-           hex.append((char) ('0' + (hiVal + (hiVal / 10 * 7))));
-           hex.append((char) ('0' + (loVal + (loVal / 10 * 7))));
-        }
-        return hex.toString();
-     }    
-
-    @SuppressWarnings("deprecation")
-    private void showValidity(Date notBefore, Date notAfter) {
-        TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
-        TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
-        fromView.setText(notBefore.toLocaleString());
-        toView.setText(notAfter.toLocaleString());
-    }
-
-    private void showSubject(X500Principal subject) {
-        Map<String, String> s = parsePrincipal(subject);
-        TextView cnView = ((TextView)mView.findViewById(R.id.value_subject_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.value_subject_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.value_subject_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.value_subject_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.value_subject_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.value_subject_L));
-        
-        if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
-        } else {
-            cnView.setVisibility(View.GONE);
-        }
-        if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
-        } else {
-            oView.setVisibility(View.GONE);
-        }
-        if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
-        } else {
-            ouView.setVisibility(View.GONE);
-        }
-        if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
-        } else {
-            cView.setVisibility(View.GONE);
-        }
-        if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
-        } else {
-            stView.setVisibility(View.GONE);
-        }
-        if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
-        } else {
-            lView.setVisibility(View.GONE);
-        }
-    }
-    
-    private void showIssuer(X500Principal issuer) {
-        Map<String, String> s = parsePrincipal(issuer);
-        TextView cnView = ((TextView)mView.findViewById(R.id.value_issuer_CN));
-        TextView oView = ((TextView)mView.findViewById(R.id.value_issuer_O));
-        TextView ouView = ((TextView)mView.findViewById(R.id.value_issuer_OU));
-        TextView cView = ((TextView)mView.findViewById(R.id.value_issuer_C));
-        TextView stView = ((TextView)mView.findViewById(R.id.value_issuer_ST));
-        TextView lView = ((TextView)mView.findViewById(R.id.value_issuer_L));
-        
-        if (s.get("CN") != null) {
-            cnView.setText(s.get("CN"));
-            cnView.setVisibility(View.VISIBLE);
-        } else {
-            cnView.setVisibility(View.GONE);
-        }
-        if (s.get("O") != null) {
-            oView.setText(s.get("O"));
-            oView.setVisibility(View.VISIBLE);
-        } else {
-            oView.setVisibility(View.GONE);
-        }
-        if (s.get("OU") != null) {
-            ouView.setText(s.get("OU"));
-            ouView.setVisibility(View.VISIBLE);
-        } else {
-            ouView.setVisibility(View.GONE);
-        }
-        if (s.get("C") != null) {
-            cView.setText(s.get("C"));
-            cView.setVisibility(View.VISIBLE);
-        } else {
-            cView.setVisibility(View.GONE);
-        }
-        if (s.get("ST") != null) {
-            stView.setText(s.get("ST"));
-            stView.setVisibility(View.VISIBLE);
-        } else {
-            stView.setVisibility(View.GONE);
-        }
-        if (s.get("L") != null) {
-            lView.setText(s.get("L"));
-            lView.setVisibility(View.VISIBLE);
-        } else {
-            lView.setVisibility(View.GONE);
-        }
-    }
-    
-
-    private Map<String, String> parsePrincipal(X500Principal principal) {
-        Map<String, String> result = new HashMap<String, String>();
-        String toParse = principal.getName();
-        String[] pieces = toParse.split(",");
-        String[] tokens = {"CN", "O", "OU", "C", "ST", "L"}; 
-        for (int i=0; i < pieces.length ; i++) {
-            for (int j=0; j<tokens.length; j++) {
-                if (pieces[i].startsWith(tokens[j] + "=")) {
-                    result.put(tokens[j], pieces[i].substring(tokens[j].length()+1));
+                } catch (GeneralSecurityException e) {
+                    ((OnSslUntrustedCertListener)activity).onFailedSavingCertificate();
+                    Log_OC.e(TAG, "Server certificate could not be saved in the known-servers trust store ", e);
+                  
+                } catch (IOException e) {
+                    ((OnSslUntrustedCertListener)activity).onFailedSavingCertificate();
+                    Log_OC.e(TAG, "Server certificate could not be saved in the known-servers trust store ", e);
                 }
             }
         }
-        return result;
+        
     }
-
-    private void saveServerCert() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-        if (mCertificate != null) {
-            // TODO make this asynchronously, it can take some time
-            NetworkUtils.addCertToKnownServersStore(mCertificate, getSherlockActivity());
-        }
-    }
-
+    
+    
     public interface OnSslUntrustedCertListener {
         public void onSavedCertificate();
-        public void onCancelCertificate();
         public void onFailedSavingCertificate();
+        public void onCancelCertificate();
     }
+    
+    public interface ErrorViewAdapter {
+        void updateErrorView(View mView);
+    }
+    
+    public interface CertificateViewAdapter {
+        void updateCertificateView(View mView);
+    }
+    
 }

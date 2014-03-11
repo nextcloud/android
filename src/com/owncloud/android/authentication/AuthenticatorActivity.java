@@ -48,6 +48,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.SslErrorHandler;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -64,6 +65,7 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -75,7 +77,6 @@ import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
-import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -86,7 +87,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-    implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, 
+    implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
     SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
@@ -1530,26 +1531,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
     
     /**
-     * Called from SslValidatorDialog when a new server certificate was correctly saved.
-     */
-    public void onSavedCertificate() {
-        checkOcServer();
-        reloadWebView();
-        
-    }
-
-    /**
-     * Called from SslValidatorDialog when a new server certificate could not be saved 
-     * when the user requested it.
-     */
-    @Override
-    public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
-        cancelWebView();
-    }
-
-
-    /**
      *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
      * 
      *  Used to trigger the authentication check when the user presses 'enter' after writing the password, 
@@ -1665,6 +1646,72 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
 
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(X509Certificate x509Certificate, SslError error, SslErrorHandler handler) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = null;
+        if (x509Certificate == null) {
+            dialog = SslUntrustedCertDialog.newInstanceForEmptySslError(error, handler);
+        } else {
+            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(x509Certificate, error, handler);
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+    }
+    
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(RemoteOperationResult result) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        
+    }
+    
+    /**
+     * Dismiss untrusted cert dialog
+     */
+    public void dismissUntrustedCertDialog(){
+        /*Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if (frag != null) {
+            SslErrorViewAdapter dialog = (SslErrorViewAdapter) frag;
+            dialog.dismiss();
+        }
+        */
+    }
+    
+    /**
+     * Called from SslValidatorDialog when a new server certificate was correctly saved.
+     */
+    public void onSavedCertificate() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd == null) {
+            // if SAML dialog is not shown, the SslDialog was shown due to an SSL error in the server check
+            checkOcServer();
+        }
+    }
+
+    /**
+     * Called from SslValidatorDialog when a new server certificate could not be saved 
+     * when the user requested it.
+     */
+    @Override
+    public void onFailedSavingCertificate() {
+        showDialog(DIALOG_CERT_NOT_SAVED);
+        cancelWebView();
+    }
+
+    @Override
+    public void onCancelCertificate() {
+        cancelWebView();
+    }
+    
 
     public void cancelWebView() {
         Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
@@ -1684,44 +1731,4 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    @Override
-    public void onCancelCertificate() {
-        cancelWebView();
-    }
-    
-    /**
-     * Show untrusted cert dialog 
-     */
-    public void showUntrustedCertDialog(X509Certificate x509Certificate, SslError error) {
-        // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(x509Certificate, error);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
-        
-    }
-    
-    /**
-     * Show untrusted cert dialog 
-     */
-    public void showUntrustedCertDialog(RemoteOperationResult result) {
-        // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(result, this);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
-        
-    }
-    
-    /**
-     * Dismiss untrusted cert dialog
-     */
-    public void dismissUntrustedCertDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
-        if (frag != null) {
-            SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) frag;
-            dialog.dismiss();
-        }
-    }
-    
 }
