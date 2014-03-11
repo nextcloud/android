@@ -807,7 +807,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
     private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
-        
         if (result.isSuccess()) {
             boolean success = false;
             String username = operation.getUserName();
@@ -832,7 +831,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             if (success)
                 finish();
         } else {
-            updateStatusIconFailUserName();
+            updateAuthStatusIconAndText(result);
             showAuthStatus();
             Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
         }
@@ -1105,11 +1104,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
 
-    private void updateStatusIconFailUserName(){
-        mAuthStatusIcon = android.R.drawable.ic_secure;
-        mAuthStatusText = R.string.auth_fail_get_user_name;
-    }
-    
     /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
