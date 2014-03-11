@@ -67,6 +67,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -78,6 +79,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.adapter.SslErrorViewAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
@@ -1312,6 +1314,10 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         showDialog(DIALOG_CERT_NOT_SAVED);
     }
 
+    @Override
+    public void onCancelCertificate() {
+        // nothing to do
+    }
 
     /**
      * Updates the view associated to the activity after the finish of some operation over files
@@ -1607,30 +1613,12 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
      */
     public void showUntrustedCertDialog(RemoteOperationResult result) {
         // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstance(result, this);
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);
-        
     }
     
-    /**
-     * Dismiss untrusted cert dialog
-     */
-    public void dismissUntrustedCertDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
-        if (frag != null) {
-            SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) frag;
-            dialog.dismiss();
-        }
-    }
-
-    @Override
-    public void onCancelCertificate() {
-        // TODO Auto-generated method stub
-        
-    }
-
     /**
      * Requests the download of the received {@link OCFile} , updates the UI
      * to monitor the download progress and prepares the activity to send the file

@@ -25,8 +25,6 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
 import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialogABSTRACT;
 import com.owncloud.android.utils.Log_OC;
 
 import android.content.Context;
@@ -36,8 +34,6 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -168,17 +164,8 @@ public class SsoWebViewClient extends WebViewClient {
         
          if (isKnownServer) {
              handler.proceed();
-         } else if (x509Certificate != null) {
-             // Show a dialog with the certificate info
-             ((AuthenticatorActivity)mContext).showUntrustedCertDialog(x509Certificate, error);
-             handler.cancel();
          } else {
-             // Show a dialog with the certificate information available in SslError (not full)
-             SslUntrustedCertDialogABSTRACT dialog = SslUntrustedCertDialogABSTRACT.newInstanceForEmptySslError(error, handler);
-             FragmentManager fm = ((SherlockFragmentActivity)mContext).getSupportFragmentManager();
-             FragmentTransaction ft = fm.beginTransaction();
-             dialog.show(ft, AuthenticatorActivity.DIALOG_UNTRUSTED_CERT);
-             // let's forward the handler, and see what happens...
+             ((AuthenticatorActivity)mContext).showUntrustedCertDialog(x509Certificate, error, handler);
          }
     }
     
