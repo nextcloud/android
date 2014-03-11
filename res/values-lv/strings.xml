@@ -44,6 +44,7 @@
   <string name="common_cancel">Atcelt</string>
   <string name="common_save_exit">Saglabāt un iziet</string>
   <string name="common_error">Kļūda</string>
+  <string name="common_loading">Ielādē</string>
   <string name="about_title">Par</string>
   <string name="change_password">Mainīt paroli</string>
   <string name="delete_account">Dzēst kontu</string>
