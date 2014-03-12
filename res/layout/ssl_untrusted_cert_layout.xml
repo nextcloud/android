@@ -27,6 +27,7 @@
 		android:id="@+id/header"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_weight="0"
 		android:text="@string/ssl_validator_header"
 		android:padding="5dp"
 		android:textAppearance="?android:attr/textAppearanceMedium"
@@ -36,11 +37,13 @@
 		android:id="@+id/reason_cert_not_trusted"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_weight="0"
 		android:layout_gravity="left"
 		android:paddingLeft="20dp"
 		android:text="@string/ssl_validator_reason_cert_not_trusted"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
+		
 	
 	<TextView
 		android:id="@+id/reason_cert_expired"
@@ -71,21 +74,42 @@
 		android:text="@string/ssl_validator_reason_hostname_not_verified"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
-		
+	
+	<TextView
+		android:id="@+id/reason_no_info_about_error"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="left"
+		android:paddingLeft="20dp"
+		android:text="@string/ssl_validator_no_info_about_error"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		 />
+	
     <ScrollView 
         android:id="@+id/details_scroll"
         android:visibility="gone" 
     	android:padding="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="180dp">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
         
-		<LinearLayout
+		<LinearLayout 
     		android:id="@+id/details_view"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
     		android:gravity="left"
     		android:orientation="vertical" >
     			
+		    <TextView
+		        android:id="@+id/null_cert"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="left"
+		        android:paddingLeft="20dp"
+		        android:text="@string/ssl_validator_null_cert"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 				<TextView
         			android:id="@+id/label_subject"
         			android:layout_width="wrap_content"
@@ -370,7 +394,7 @@
         			android:textAppearance="?android:attr/textAppearanceSmall"
         		/>
 				
-								<TextView
+				<TextView
         			android:id="@+id/value_signature_algorithm"
         			android:layout_width="wrap_content"
         			android:layout_height="wrap_content"
@@ -397,6 +421,7 @@
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+		android:layout_weight="0"
 		android:padding="5dp"
         android:text="@string/ssl_validator_question"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -406,6 +431,7 @@
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+		android:layout_weight="0"
         android:gravity="center" >
 
         <Button

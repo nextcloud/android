@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.security.cert.X509Certificate;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -29,10 +31,13 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -43,6 +48,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.SslErrorHandler;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -59,6 +65,7 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -68,8 +75,8 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
@@ -80,7 +87,8 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, SsoWebViewClientListener{
+    implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
+    SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -113,9 +121,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String AUTH_OPTIONAL = "optional";
     
     private static final int DIALOG_LOGIN_PROGRESS = 0;
-    private static final int DIALOG_SSL_VALIDATOR = 1;
-    private static final int DIALOG_CERT_NOT_SAVED = 2;
-    private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 3;
+    private static final int DIALOG_CERT_NOT_SAVED = 1;
+    private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 2;
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
@@ -135,7 +142,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private Thread mOperationThread;
     private GetRemoteStatusOperation mOcServerChkOperation;
     private ExistenceCheckRemoteOperation mAuthCheckOperation;
-    private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private Uri mNewCapturedUriFromOAuth2Redirection;
 
@@ -167,6 +173,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private String mAuthToken;
     
     private boolean mResumed; // Control if activity is resumed
+
+    public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
 
 
     /**
@@ -893,8 +901,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             /// very special case (TODO: move to a common place for all the remote operations)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
+                showUntrustedCertDialog(result);
             }
 
             /// retrieve discovered version and normalize server URL
@@ -1198,8 +1205,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
+                showUntrustedCertDialog(result);
             }
 
         } else {    // authorization fail due to client side - probably wrong credentials
@@ -1331,10 +1337,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         case DIALOG_CERT_NOT_SAVED:
         case DIALOG_OAUTH2_LOGIN_PROGRESS:
             break;
-        case DIALOG_SSL_VALIDATOR: {
-            ((SslValidatorDialog)dialog).updateResult(mLastSslUntrustedServerResult);
-            break;
-        }
         default:
             Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
@@ -1383,11 +1385,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 }
             });
             dialog = working_dialog;
-            break;
-        }
-        case DIALOG_SSL_VALIDATOR: {
-            /// TODO start to use new dialog interface, at least for this (it is a FragmentDialog already)
-            dialog = SslValidatorDialog.newInstance(this, mLastSslUntrustedServerResult, this);
             break;
         }
         case DIALOG_CERT_NOT_SAVED: {
@@ -1540,23 +1537,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
     
     /**
-     * Called from SslValidatorDialog when a new server certificate was correctly saved.
-     */
-    public void onSavedCertificate() {
-        checkOcServer();
-    }
-
-    /**
-     * Called from SslValidatorDialog when a new server certificate could not be saved 
-     * when the user requested it.
-     */
-    @Override
-    public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
-    }
-
-
-    /**
      *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
      * 
      *  Used to trigger the authentication check when the user presses 'enter' after writing the password, 
@@ -1670,5 +1650,86 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         return super.onTouchEvent(event);
     }
+
+
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(X509Certificate x509Certificate, SslError error, SslErrorHandler handler) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = null;
+        if (x509Certificate == null) {
+            dialog = SslUntrustedCertDialog.newInstanceForEmptySslError(error, handler);
+        } else {
+            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(x509Certificate, error, handler);
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+    }
     
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(RemoteOperationResult result) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        
+    }
+    
+    /**
+     * Dismiss untrusted cert dialog
+     */
+    public void dismissUntrustedCertDialog(){
+        /*Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if (frag != null) {
+            SslErrorViewAdapter dialog = (SslErrorViewAdapter) frag;
+            dialog.dismiss();
+        }
+        */
+    }
+    
+    /**
+     * Called from SslValidatorDialog when a new server certificate was correctly saved.
+     */
+    public void onSavedCertificate() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd == null) {
+            // if SAML dialog is not shown, the SslDialog was shown due to an SSL error in the server check
+            checkOcServer();
+        }
+    }
+
+    /**
+     * Called from SslValidatorDialog when a new server certificate could not be saved 
+     * when the user requested it.
+     */
+    @Override
+    public void onFailedSavingCertificate() {
+        showDialog(DIALOG_CERT_NOT_SAVED);
+        cancelWebView();
+    }
+
+    @Override
+    public void onCancelCertificate() {
+        cancelWebView();
+    }
+    
+
+    public void cancelWebView() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd != null && fd instanceof SherlockDialogFragment) {
+            Dialog d = ((SherlockDialogFragment)fd).getDialog();
+            if (d != null && d.isShowing()) {
+                d.dismiss();
+            }
+        }
+        
+    }
+
 }

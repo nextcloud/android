@@ -223,6 +223,7 @@ public class SslValidatorDialog extends Dialog {
         return hex.toString();
      }    
 
+    @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
         TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
         TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
