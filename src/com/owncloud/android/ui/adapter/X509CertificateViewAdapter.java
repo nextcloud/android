@@ -26,7 +26,6 @@ import javax.security.auth.x500.X500Principal;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.CertificateViewAdapter;
 
 import android.view.View;
 import android.widget.TextView;

@@ -21,8 +21,6 @@ import java.util.Date;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.CertificateViewAdapter;
-
 import android.net.http.SslCertificate;
 import android.view.View;
 import android.widget.TextView;

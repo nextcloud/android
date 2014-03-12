@@ -18,8 +18,6 @@ package com.owncloud.android.ui.adapter;
 
 import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.ErrorViewAdapter;
-
 import android.net.http.SslError;
 import android.view.View;
 import android.widget.TextView;
