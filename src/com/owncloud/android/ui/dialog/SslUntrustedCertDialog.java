@@ -109,6 +109,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment {
     
     @Override
     public void onAttach(Activity activity) {
+        Log_OC.d(TAG, "onAttach");
         super.onAttach(activity);
         if (!(activity instanceof OnSslUntrustedCertListener)) {
             throw new IllegalArgumentException("The host activity must implement " + OnSslUntrustedCertListener.class.getCanonicalName());
@@ -118,6 +119,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log_OC.d(TAG, "onCreate, savedInstanceState is " + savedInstanceState);
         super.onCreate(savedInstanceState);
         setRetainInstance(true);    // force to keep the state of the fragment on configuration changes (such as device rotations)
         setCancelable(false);
@@ -126,6 +128,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment {
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log_OC.d(TAG, "onCreateView, savedInsanceState is " + savedInstanceState);
         // Create a view by inflating desired layout
         if (mView == null) {
             mView = inflater.inflate(R.layout.ssl_untrusted_cert_layout, container,  false);
@@ -166,6 +169,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log_OC.d(TAG, "onCreateDialog, savedInstanceState is " + savedInstanceState);
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         return dialog;
@@ -173,6 +177,7 @@ public class SslUntrustedCertDialog extends SherlockDialogFragment {
 
     @Override
     public void onDestroyView() {
+        Log_OC.d(TAG, "onDestroyView");
         if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
         super.onDestroyView();

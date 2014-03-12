@@ -1665,6 +1665,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);
     }
     
@@ -1676,6 +1677,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);
         
     }
@@ -1728,13 +1730,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         }
         
-    }
-
-    public void reloadWebView() {
-        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
-        if (fd != null && fd instanceof SamlWebViewDialog) {
-                ((SamlWebViewDialog) fd).reloadWebView();
-        }
     }
 
 }
