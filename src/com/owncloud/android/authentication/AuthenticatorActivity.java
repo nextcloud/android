@@ -815,6 +815,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
+        
         if (result.isSuccess()) {
             boolean success = false;
             String username = operation.getUserName();
@@ -839,7 +840,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (success)
                 finish();
         } else {
-            updateAuthStatusIconAndText(result);
+            updateStatusIconFailUserName();
             showAuthStatus();
             Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
         }
@@ -1111,6 +1112,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
 
+    private void updateStatusIconFailUserName(){
+        mAuthStatusIcon = android.R.drawable.ic_secure;
+        mAuthStatusText = R.string.auth_fail_get_user_name;
+    }
+    
     /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.

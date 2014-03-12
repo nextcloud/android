@@ -34,6 +34,7 @@
   <string name="common_cancel">Anulare</string>
   <string name="common_save_exit">Salvare &amp; Ieșire</string>
   <string name="common_error">Eroare</string>
+  <string name="common_error_unknown">Eroare necunoscută</string>
   <string name="about_title">Despre</string>
   <string name="change_password">Schimbă parola</string>
   <string name="delete_account">Șterge cont</string>
