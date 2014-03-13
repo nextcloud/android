@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">認証サーバーに接続中 ...</string>
   <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
   <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
+  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返してきません。管理者に連絡してください。</string>
   <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>

@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Connecting to authentication server…</string>
   <string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
   <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
+  <string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator</string>
   <string name="fd_keep_in_sync">Keep file up to date</string>
   <string name="common_rename">Rename</string>
   <string name="common_remove">Remove</string>

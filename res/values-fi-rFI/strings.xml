@@ -109,6 +109,8 @@
   <string name="media_state_playing">%1$s (toistetaan)</string>
   <string name="media_state_loading">%1$s (ladataan)</string>
   <string name="media_err_nothing_to_play">Mediatiedostoa ei löytynyt</string>
+  <string name="media_err_no_account">Tiliä ei määritetty</string>
+  <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollisella tilillä</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
@@ -194,6 +196,7 @@
   <string name="conflict_keep_both">Säilytä molemmat</string>
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
+  <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Kuvaa ei voi näyttää</string>
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
