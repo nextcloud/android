@@ -12,12 +12,12 @@ before_install:
     - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
     - emulator -avd test -no-skin -no-audio -no-window &
     - rm pom.xml
+    - ./setup_env.sh
 
 before_script:
   - wait_for_emulator
 
 script:
-  - ./setup_env.sh
   - ant clean
   - ant debug
 
