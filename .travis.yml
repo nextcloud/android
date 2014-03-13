@@ -4,18 +4,11 @@ before_install:
   # Install base Android SDK
     - sudo apt-get update -qq
     - sudo apt-get install -qq libstdc++6:i386 lib32z1
-    - export COMPONENTS=build-tools-18.1.0,android-16,android-17,android-19,sysimg-16,extra-android-support
+    - export COMPONENTS=build-tools-18.1.0,android-14,android-17,android-19,sysimg-19,extra-android-support
     - curl -L https://raw.github.com/embarkmobile/android-sdk-installer/master/android-sdk-installer | bash /dev/stdin --install=$COMPONENTS
     - source ~/.android-sdk-installer/env
-
-    # Create and start emulator
-    - echo no | android create avd --force -n test -t android-16 --abi armeabi-v7a
-    - emulator -avd test -no-skin -no-audio -no-window &
     - rm pom.xml
     - ./setup_env.sh
-
-before_script:
-  - wait_for_emulator
 
 script:
   - ant clean
