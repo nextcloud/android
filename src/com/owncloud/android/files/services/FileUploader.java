@@ -71,6 +71,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
 import android.widget.RemoteViews;
 
@@ -117,7 +118,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private UploadFileOperation mCurrentUpload = null;
 
     private NotificationManager mNotificationManager;
-    private Notification mNotification;
+    private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
     private RemoteViews mDefaultNotificationContentView;
 
@@ -682,26 +683,26 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotification = new Notification(DisplayUtils.getSeasonalIconId(), getString(R.string.uploader_upload_in_progress_ticker),
-                System.currentTimeMillis());
-        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mDefaultNotificationContentView = mNotification.contentView;
-        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(),
-                R.layout.progressbar_layout);
-        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, false);
-        mNotification.contentView.setTextViewText(R.id.status_text,
-                String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
-        mNotification.contentView.setImageViewResource(R.id.status_icon, DisplayUtils.getSeasonalIconId());
-        
+        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder
+                .setOngoing(true)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setTicker(getString(R.string.uploader_upload_in_progress_ticker))
+                .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
+                .setProgress(100, 0, false)
+                .setContentText(
+                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName()));
+
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(),
-                (int) System.currentTimeMillis(), showDetailsIntent, 0);
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+            this, (int) System.currentTimeMillis(), showDetailsIntent, 0
+        ));
 
-        mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
+        mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
     }
 
     /**
@@ -711,11 +712,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
-            mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
+            mNotificationBuilder.setProgress(100, percent, false);
             String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
-            mNotification.contentView.setTextViewText(R.id.status_text, text);
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
+            mNotificationBuilder.setContentText(text);
+            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
         }
         mLastPercent = percent;
     }
@@ -735,12 +736,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         } else if (uploadResult.isSuccess()) {
             // / success -> silent update of progress notification to success
             // message
-            mNotification.flags ^= Notification.FLAG_ONGOING_EVENT; // remove
-                                                                    // the
-                                                                    // ongoing
-                                                                    // flag
-            mNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-            mNotification.contentView = mDefaultNotificationContentView;
+            mNotificationBuilder.setOngoing(false).setAutoCancel(true);
             
             /// includes a pending intent in the notification showing the details view of the file
             Intent showDetailsIntent = null;
@@ -751,18 +747,20 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
             showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
             showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FROM_NOTIFICATION, true);
-            showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(),
-                    (int) System.currentTimeMillis(), showDetailsIntent, 0);
+            showDetailsIntent.putExtra(FileActivity.EXTRA_FROM_NOTIFICATION, true);;
+            mNotificationBuilder
+                .setContentIntent(PendingIntent.getActivity(
+                        this, (int) System.currentTimeMillis(), showDetailsIntent, 0
+                ))
+                .setTicker(getString(R.string.uploader_upload_succeeded_ticker))
+                .setContentTitle(getString(R.string.uploader_upload_succeeded_ticker))
+                .setContentText(
+                        String.format(getString(R.string.uploader_upload_succeeded_content_single),
+                        upload.getFileName())
+                );
 
-            mNotification.setLatestEventInfo(getApplicationContext(),
-                    getString(R.string.uploader_upload_succeeded_ticker),
-                    String.format(getString(R.string.uploader_upload_succeeded_content_single), upload.getFileName()),
-                    mNotification.contentIntent);
-
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification); // NOT
-                                                                                                     // AN
+            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());  // NOT
+                                                                                                                     // AN
             DbHandler db = new DbHandler(this.getBaseContext());
             db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
             db.close();
@@ -771,9 +769,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
             // / fail -> explicit failure notification
             mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
-            Notification finalNotification = new Notification(DisplayUtils.getSeasonalIconId(),
-                    getString(R.string.uploader_upload_failed_ticker), System.currentTimeMillis());
-            finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+            NotificationCompat.Builder errorBuilder = new NotificationCompat.Builder(this);
+            errorBuilder
+                .setSmallIcon(R.drawable.notification_icon)
+                .setTicker(getString(R.string.uploader_upload_failed_ticker))
+                .setContentTitle(getString(R.string.uploader_upload_failed_ticker))
+                .setAutoCancel(true);
             String content = null;
             
             boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
@@ -790,15 +791,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                finalNotification.contentIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
+                errorBuilder.setContentIntent(PendingIntent.getActivity(
+                    this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
+                ));
                 content =  String.format(getString(R.string.uploader_upload_failed_content_single), upload.getFileName());
-                finalNotification.setLatestEventInfo(getApplicationContext(),
-                        getString(R.string.uploader_upload_failed_ticker), content, finalNotification.contentIntent);
                 mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
             } else {
                 // TODO put something smart in the contentIntent below
-            //    finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), new Intent(), 0);
-            //}
             
                 if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL
                         || uploadResult.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
@@ -823,10 +822,12 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     detailUploadIntent = new Intent(this, FailedUploadActivity.class);
                     detailUploadIntent.putExtra(FailedUploadActivity.MESSAGE, content);
                 }
-                finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(),
-                        (int) System.currentTimeMillis(), detailUploadIntent, PendingIntent.FLAG_UPDATE_CURRENT
-                        | PendingIntent.FLAG_ONE_SHOT);
-
+                errorBuilder
+                    .setContentIntent(PendingIntent.getActivity(
+                        this, (int) System.currentTimeMillis(), detailUploadIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT
+                    ))
+                    .setContentText(content);
+    
                 if (upload.isInstant()) {
                     DbHandler db = null;
                     try {
@@ -847,10 +848,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     }
                 }
             }
-            finalNotification.setLatestEventInfo(getApplicationContext(),
-                    getString(R.string.uploader_upload_failed_ticker), content, finalNotification.contentIntent);
             
-            mNotificationManager.notify(R.string.uploader_upload_failed_ticker, finalNotification);
+            mNotificationManager.notify(R.string.uploader_upload_failed_ticker, errorBuilder.build());
         }
 
     }
