@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.security.cert.X509Certificate;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.AlertDialog;
@@ -29,10 +31,13 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -43,6 +48,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.SslErrorHandler;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -53,23 +59,26 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
-import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.operations.OwnCloudServerCheckOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.oc_framework.operations.remote.GetUserNameRemoteOperation;
+
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog;
-import com.owncloud.android.ui.dialog.SslValidatorDialog.OnSslValidatorListener;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.Log_OC;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 /**
  * This Activity is used to add an ownCloud account to the App
@@ -78,7 +87,8 @@ import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeListener, OnEditorActionListener, SsoWebViewClientListener{
+    implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
+    SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -92,6 +102,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
+    private static final String KEY_OC_VERSION_STRING = "OC_VERSION_STRING";
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_SERVER_VALID = "SERVER_VALID";
     private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
@@ -103,15 +114,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
+    //private static final String KEY_IS_SHARED_SUPPORTED = "KEY_IS_SHARE_SUPPORTED";
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
     private static final String AUTH_OPTIONAL = "optional";
     
     private static final int DIALOG_LOGIN_PROGRESS = 0;
-    private static final int DIALOG_SSL_VALIDATOR = 1;
-    private static final int DIALOG_CERT_NOT_SAVED = 2;
-    private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 3;
+    private static final int DIALOG_CERT_NOT_SAVED = 1;
+    private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 2;
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
@@ -129,9 +140,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
-    private OwnCloudServerCheckOperation mOcServerChkOperation;
+    private GetRemoteStatusOperation mOcServerChkOperation;
     private ExistenceCheckRemoteOperation mAuthCheckOperation;
-    private RemoteOperationResult mLastSslUntrustedServerResult;
 
     private Uri mNewCapturedUriFromOAuth2Redirection;
 
@@ -163,6 +173,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     private String mAuthToken;
     
     private boolean mResumed; // Control if activity is resumed
+
+    public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
 
 
     /**
@@ -234,14 +246,16 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             /// retrieve extras from intent
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
-                String ocVersion = mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION);
+                String ocVersion = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
+                String ocVersionString = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION_STRING);
                 if (ocVersion != null) {
-                    mDiscoveredVersion = new OwnCloudVersion(ocVersion);
+                    mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
                 }
-                mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL));
+                mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
+                
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
             mJustCreated = true;
@@ -268,8 +282,9 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
+            String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
             if (ocVersion != null) {
-                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
             }
             mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
 
@@ -391,8 +406,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         if (mAuthTokenType == null) {    
             if (mAccount != null) {
                 /// same authentication method than the one used to create the account to update
-                oAuthRequired = (mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_OAUTH2) != null);
-                samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
+                oAuthRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null);
+                samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
             
             } else {
                 /// use the one set in setup.xml
@@ -444,7 +459,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// server data
         if (mDiscoveredVersion != null) {
-            outState.putString(KEY_OC_VERSION, mDiscoveredVersion.toString());
+            outState.putString(KEY_OC_VERSION, mDiscoveredVersion.getVersion());
+            outState.putString(KEY_OC_VERSION_STRING, mDiscoveredVersion.getVersionString());
         }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
 
@@ -524,8 +540,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 getString(R.string.oauth2_redirect_uri),       
                 getString(R.string.oauth2_grant_type),
                 queryParameters);
-        //WebdavClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
-        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
+        //OwnCloudClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
+        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
         operation.execute(client, this, mHandler);
     }
 
@@ -588,8 +604,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
-            mOcServerChkOperation = new  OwnCloudServerCheckOperation(uri, this);
-            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
+            mOcServerChkOperation = new  GetRemoteStatusOperation(uri, this);
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
             mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
         } else {
             mServerStatusText = 0;
@@ -716,7 +732,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
-        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
         client.setBasicCredentials(username, password);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
     }
@@ -765,7 +781,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
         /// test credentials accessing the root folder
         mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
-        WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
+        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
       
     }
@@ -778,8 +794,8 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 
-        if (operation instanceof OwnCloudServerCheckOperation) {
-            onOcServerCheckFinish((OwnCloudServerCheckOperation) operation, result);
+        if (operation instanceof GetRemoteStatusOperation) {
+            onOcServerCheckFinish((GetRemoteStatusOperation) operation, result);
 
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
@@ -791,14 +807,15 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
             }
-        } else if (operation instanceof GetUserNameRemoteOperation) {
-            onGetUserNameFinish((GetUserNameRemoteOperation) operation, result);
+        } else if (operation instanceof GetRemoteUserNameOperation) {
+            onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
              
         }
         
     }
 
-    private void onGetUserNameFinish(GetUserNameRemoteOperation operation, RemoteOperationResult result) {
+    private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
+        
         if (result.isSuccess()) {
             boolean success = false;
             String username = operation.getUserName();
@@ -822,6 +839,10 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             
             if (success)
                 finish();
+        } else {
+            updateStatusIconFailUserName();
+            showAuthStatus();
+            Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
         }
         
     }
@@ -861,7 +882,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
      * @param operation     Server check performed.
      * @param result        Result of the check.
      */
-    private void onOcServerCheckFinish(OwnCloudServerCheckOperation operation, RemoteOperationResult result) {
+    private void onOcServerCheckFinish(GetRemoteStatusOperation operation, RemoteOperationResult result) {
         if (operation.equals(mOcServerChkOperation)) {
             /// save result state
             mServerIsChecked = true;
@@ -880,8 +901,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             /// very special case (TODO: move to a common place for all the remote operations)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
+                showUntrustedCertDialog(result);
             }
 
             /// retrieve discovered version and normalize server URL
@@ -890,7 +910,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             /// allow or not the user try to access the server
             mOkButton.setEnabled(mServerIsValid);
-
+            
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered
     }
@@ -1092,6 +1112,11 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
 
+    private void updateStatusIconFailUserName(){
+        mAuthStatusIcon = android.R.drawable.ic_secure;
+        mAuthStatusText = R.string.auth_fail_get_user_name;
+    }
+    
     /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
@@ -1115,7 +1140,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
             mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             mAuthCheckOperation = new ExistenceCheckRemoteOperation("", this, false);
-            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
             client.setBearerCredentials(mAuthToken);
             mAuthCheckOperation.execute(client, this, mHandler);
 
@@ -1180,8 +1205,7 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
 
             // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                mLastSslUntrustedServerResult = result;
-                showDialog(DIALOG_SSL_VALIDATOR); 
+                showUntrustedCertDialog(result);
             }
 
         } else {    // authorization fail due to client side - probably wrong credentials
@@ -1281,12 +1305,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
-            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION,    mDiscoveredVersion.toString());
-            mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
+            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION,         mDiscoveredVersion.getVersion());
+            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING,  mDiscoveredVersion.getVersionString());
+            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
+            
             if (isSaml) {
-                mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
+                mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
             } else if (isOAuth) {
-                mAccountMgr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_SUPPORTS_OAUTH2, "TRUE");  
+                mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");  
             }
     
             setAccountAuthenticatorResult(intent.getExtras());
@@ -1311,10 +1337,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         case DIALOG_CERT_NOT_SAVED:
         case DIALOG_OAUTH2_LOGIN_PROGRESS:
             break;
-        case DIALOG_SSL_VALIDATOR: {
-            ((SslValidatorDialog)dialog).updateResult(mLastSslUntrustedServerResult);
-            break;
-        }
         default:
             Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
         }
@@ -1363,11 +1385,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
                 }
             });
             dialog = working_dialog;
-            break;
-        }
-        case DIALOG_SSL_VALIDATOR: {
-            /// TODO start to use new dialog interface, at least for this (it is a FragmentDialog already)
-            dialog = SslValidatorDialog.newInstance(this, mLastSslUntrustedServerResult, this);
             break;
         }
         case DIALOG_CERT_NOT_SAVED: {
@@ -1520,23 +1537,6 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
     
     /**
-     * Called from SslValidatorDialog when a new server certificate was correctly saved.
-     */
-    public void onSavedCertificate() {
-        checkOcServer();
-    }
-
-    /**
-     * Called from SslValidatorDialog when a new server certificate could not be saved 
-     * when the user requested it.
-     */
-    @Override
-    public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
-    }
-
-
-    /**
      *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
      * 
      *  Used to trigger the authentication check when the user presses 'enter' after writing the password, 
@@ -1591,14 +1591,14 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
     }
 
 
-    public void onSamlDialogSuccess(String sessionCookie){
+    public void onSamlDialogSuccess(String sessionCookie) {
         mAuthToken = sessionCookie;
         
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
 
-            GetUserNameRemoteOperation getUserOperation = new GetUserNameRemoteOperation();            
-            WebdavClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
+            GetRemoteUserNameOperation getUserOperation = new GetRemoteUserNameOperation();            
+            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
             client.setSsoSessionCookie(mAuthToken);
             getUserOperation.execute(client, this, mHandler);
         }
@@ -1650,5 +1650,86 @@ implements  OnRemoteOperationListener, OnSslValidatorListener, OnFocusChangeList
         }
         return super.onTouchEvent(event);
     }
+
+
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(X509Certificate x509Certificate, SslError error, SslErrorHandler handler) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = null;
+        if (x509Certificate == null) {
+            dialog = SslUntrustedCertDialog.newInstanceForEmptySslError(error, handler);
+        } else {
+            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(x509Certificate, error, handler);
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+    }
     
+    /**
+     * Show untrusted cert dialog 
+     */
+    public void showUntrustedCertDialog(RemoteOperationResult result) {
+        // Show a dialog with the certificate info
+        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError((CertificateCombinedException)result.getException());
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        
+    }
+    
+    /**
+     * Dismiss untrusted cert dialog
+     */
+    public void dismissUntrustedCertDialog(){
+        /*Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if (frag != null) {
+            SslErrorViewAdapter dialog = (SslErrorViewAdapter) frag;
+            dialog.dismiss();
+        }
+        */
+    }
+    
+    /**
+     * Called from SslValidatorDialog when a new server certificate was correctly saved.
+     */
+    public void onSavedCertificate() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd == null) {
+            // if SAML dialog is not shown, the SslDialog was shown due to an SSL error in the server check
+            checkOcServer();
+        }
+    }
+
+    /**
+     * Called from SslValidatorDialog when a new server certificate could not be saved 
+     * when the user requested it.
+     */
+    @Override
+    public void onFailedSavingCertificate() {
+        showDialog(DIALOG_CERT_NOT_SAVED);
+        cancelWebView();
+    }
+
+    @Override
+    public void onCancelCertificate() {
+        cancelWebView();
+    }
+    
+
+    public void cancelWebView() {
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        if (fd != null && fd instanceof SherlockDialogFragment) {
+            Dialog d = ((SherlockDialogFragment)fd).getDialog();
+            if (d != null && d.isShowing()) {
+                d.dismiss();
+            }
+        }
+        
+    }
+
 }

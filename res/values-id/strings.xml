@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Buat folder</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="actionbar_see_details">Rincian</string>
+  <string name="actionbar_send_file">Kirim</string>
   <string name="prefs_category_general">umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
@@ -55,6 +56,7 @@
   <string name="filedetails_download">Unduh</string>
   <string name="filedetails_sync_file">Segarkan berkas</string>
   <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
+  <string name="action_share_file">Bagikan tautan</string>
   <string name="common_yes">Ya</string>
   <string name="common_no">Tidak</string>
   <string name="common_ok">Oke</string>
@@ -225,4 +227,5 @@
   <string name="failed_upload_retry_do_nothing_text">Tidak melakukan apapun, Anda tidak sedang online</string>
   <string name="failed_upload_failure_text">Pesan Kegagalan:</string>
   <string name="failed_upload_quota_exceeded_text">Silakan periksa konfigurasi server Anda, kemungkinan kuota terlampaui.</string>
+  <string name="activity_chooser_send_file_title">Kirim</string>
 </resources>

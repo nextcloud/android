@@ -28,7 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.owncloud.android.oc_framework.accounts.AccountTypeUtils;
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.utils.Log_OC;
 
 

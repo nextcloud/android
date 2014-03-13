@@ -7,6 +7,7 @@
   <string name="actionbar_mkdir">Dossier erstellen</string>
   <string name="actionbar_settings">Astellungen</string>
   <string name="actionbar_see_details">Detailer</string>
+  <string name="actionbar_send_file">Schécken</string>
   <string name="prefs_category_general">Allgemeng</string>
   <string name="prefs_category_more">Méi</string>
   <string name="prefs_accounts">Accounten</string>
@@ -27,6 +28,7 @@
   <string name="filedetails_created">Erstallt:</string>
   <string name="filedetails_modified">Geännert:</string>
   <string name="filedetails_download">Download</string>
+  <string name="action_share_file">Link deelen</string>
   <string name="common_yes">Jo</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
@@ -81,4 +83,5 @@
   <string name="conflict_dont_upload">Net eroplueden</string>
   <string name="failed_upload_all_cb">all auswielen</string>
   <string name="failed_upload_failure_text">Fehler Message:</string>
+  <string name="activity_chooser_send_file_title">Schécken</string>
 </resources>

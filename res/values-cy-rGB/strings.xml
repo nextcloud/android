@@ -5,6 +5,7 @@
   <string name="actionbar_upload_files">Ffeiliau</string>
   <string name="actionbar_mkdir">Creu cyfeiriadur</string>
   <string name="actionbar_settings">Gosodiadau</string>
+  <string name="actionbar_send_file">Anfon</string>
   <string name="prefs_category_general">Cyffredinol</string>
   <string name="prefs_accounts">Cyfrifon</string>
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>
@@ -147,4 +148,5 @@
   <string name="conflict_overwrite">Trosysgrifio</string>
   <string name="conflict_dont_upload">Peidio llwytho i fyny</string>
   <string name="error__upload__local_file_not_copied">Methwyd copïo %1$s i blygell lleol %2$s</string>
+  <string name="activity_chooser_send_file_title">Anfon</string>
 </resources>

@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
+  <string name="actionbar_send_file">ส่ง</string>
   <string name="prefs_category_general">ทั่วไป</string>
   <string name="prefs_category_more">มาก</string>
   <string name="prefs_accounts">บัญชี</string>
@@ -44,6 +45,7 @@
   <string name="common_cancel">ยกเลิก</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_error">ข้อผิดพลาด</string>
+  <string name="common_error_unknown">ข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
   <string name="about_title">เกี่ยวกับเรา</string>
   <string name="change_password">เปลี่ยนรหัสผ่าน</string>
   <string name="delete_account">ลบบัญชี</string>
@@ -151,4 +153,5 @@
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
   <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถถูกคัดลอกไปที่ %2$s ไดเรกทอรีท้องถิ่น</string>
+  <string name="activity_chooser_send_file_title">ส่ง</string>
 </resources>

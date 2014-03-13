@@ -48,7 +48,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.MainApp;
@@ -212,7 +212,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 h.put("VER",
                         "ownCloud version: "
                                 + am.getUserData(a,
-                                        OwnCloudAccount.Constants.KEY_OC_VERSION));
+                                        Constants.KEY_OC_VERSION));
                 ll.add(h);
             }
 

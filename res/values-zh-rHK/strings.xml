@@ -4,6 +4,7 @@
   <string name="actionbar_upload_files">文件</string>
   <string name="actionbar_mkdir">建立目錄</string>
   <string name="actionbar_settings">設定</string>
+  <string name="actionbar_send_file">傳送</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_accounts">帳號</string>
   <string name="prefs_help">幫助</string>
@@ -28,4 +29,5 @@
   <string name="common_error">錯誤</string>
   <string name="uploader_info_dirname">目錄名稱</string>
   <string name="common_choose_account">選擇帳戶</string>
+  <string name="activity_chooser_send_file_title">傳送</string>
 </resources>

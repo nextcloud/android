@@ -33,16 +33,16 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.oc_framework.network.ProgressiveDataTransferer;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.OperationCancelledException;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ChunkedUploadRemoteFileOperation;
-import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.oc_framework.operations.remote.UploadRemoteFileOperation;
+import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -186,7 +186,7 @@ public class UploadFileOperation extends RemoteOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         boolean localCopyPassed = false, nameCheckPassed = false;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
@@ -376,7 +376,7 @@ public class UploadFileOperation extends RemoteOperation {
      * @param string
      * @return
      */
-    private String getAvailableRemotePath(WebdavClient wc, String remotePath) throws Exception {
+    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) throws Exception {
         boolean check = existsFile(wc, remotePath);
         if (!check) {
             return remotePath;
@@ -408,7 +408,7 @@ public class UploadFileOperation extends RemoteOperation {
         }
     }
 
-    private boolean existsFile(WebdavClient client, String remotePath){
+    private boolean existsFile(OwnCloudClient client, String remotePath){
         ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
         RemoteOperationResult result = existsOperation.execute(client);
         return result.isSuccess();

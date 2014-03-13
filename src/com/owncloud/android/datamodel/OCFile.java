@@ -61,6 +61,9 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mKeepInSync;
 
     private String mEtag;
+    
+    private boolean mShareByLink;
+    private String mPublicLink;
 
 
     /**
@@ -99,6 +102,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
+        mShareByLink = source.readInt() == 1;
+        mPublicLink = source.readString();
     }
 
     @Override
@@ -117,6 +122,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
+        dest.writeInt(mShareByLink ? 1 : 0);
+        dest.writeString(mPublicLink);
     }
     
     /**
@@ -325,6 +332,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mKeepInSync = false;
         mNeedsUpdating = false;
         mEtag = null;
+        mShareByLink = false;
+        mPublicLink = null;
     }
 
     /**
@@ -445,7 +454,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public String toString() {
-        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSinc=%s etag=%s]";
+        String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, parentId=%s, keepInSync=%s etag=%s]";
         asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(), mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mKeepInSync), mEtag);
         return asString;
     }
@@ -458,6 +467,23 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         this.mEtag = etag;
     }
     
+    
+    public boolean isShareByLink() {
+        return mShareByLink;
+    }
+
+    public void setShareByLink(boolean shareByLink) {
+        this.mShareByLink = shareByLink;
+    }
+
+    public String getPublicLink() {
+        return mPublicLink;
+    }
+
+    public void setPublicLink(String publicLink) {
+        this.mPublicLink = publicLink;
+    }
+
     public long getLocalModificationTimestamp() {
         if (mLocalPath != null && mLocalPath.length() > 0) {
             File f = new File(mLocalPath);

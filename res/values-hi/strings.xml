@@ -2,10 +2,12 @@
 <resources>
   <string name="actionbar_upload">अपलोड </string>
   <string name="actionbar_settings">सेटिंग्स</string>
+  <string name="actionbar_send_file">भेजें</string>
   <string name="prefs_category_general">सामान्य </string>
   <string name="prefs_help">सहयोग</string>
   <string name="auth_username">प्रयोक्ता का नाम</string>
   <string name="auth_password">पासवर्ड</string>
   <string name="uploader_btn_upload_text">अपलोड </string>
   <string name="common_error">त्रुटि</string>
+  <string name="activity_chooser_send_file_title">भेजें</string>
 </resources>

@@ -6,6 +6,7 @@
   <string name="actionbar_mkdir">Создади папка</string>
   <string name="actionbar_settings">Параметри</string>
   <string name="actionbar_see_details">Детали:</string>
+  <string name="actionbar_send_file">Прати</string>
   <string name="prefs_category_general">Општо</string>
   <string name="prefs_category_more">Повеќе</string>
   <string name="prefs_accounts">Сметки</string>
@@ -29,6 +30,7 @@
   <string name="filedetails_created">Создадено:</string>
   <string name="filedetails_modified">Изменето:</string>
   <string name="filedetails_download">Преземање</string>
+  <string name="action_share_file">Сподели ја врската</string>
   <string name="common_yes">Да</string>
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
@@ -100,4 +102,5 @@
   <string name="conflict_keep_both">Задржи ги и двете</string>
   <string name="conflict_overwrite">Препиши</string>
   <string name="failed_upload_all_cb">избери се</string>
+  <string name="activity_chooser_send_file_title">Прати</string>
 </resources>

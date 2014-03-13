@@ -34,18 +34,19 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.oc_framework.operations.RemoteFile;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ExistenceCheckRemoteOperation;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -108,7 +109,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private WebdavClient mUploadClient = null;
+    private OwnCloudClient mUploadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
 
@@ -252,7 +253,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
         }
 
-        OwnCloudVersion ocv = new OwnCloudVersion(AccountManager.get(this).getUserData(account, OwnCloudAccount.Constants.KEY_OC_VERSION));
+        AccountManager aMgr = AccountManager.get(this);
+        String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
+        String versionString = aMgr.getUserData(account, Constants.KEY_OC_VERSION_STRING);
+        OwnCloudVersion ocv = new OwnCloudVersion(version, versionString);
+        
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
         String uploadKey = null;
@@ -413,12 +418,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
             }
-        }
-
-
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old way, should not be in use any more
         }
 
 
@@ -602,6 +601,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private void saveUploadedFile() {
         OCFile file = mCurrentUpload.getFile();
+        if (file.fileExists()) {
+            file = mStorageManager.getFileById(file.getFileId());
+        }
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForData(syncDate);
 
@@ -610,7 +612,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mCurrentUpload.getRemotePath());
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (result.isSuccess()) {
-            updateOCFile(file, result.getData().get(0));
+            updateOCFile(file, (RemoteFile) result.getData().get(0));
             file.setLastSyncDateForProperties(syncDate);
         }
         
@@ -706,24 +708,16 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * Callback method to update the progress bar in the status notification
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
         if (percent != mLastPercent) {
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, false);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.uploader_upload_in_progress_content), percent, fileName);
             mNotification.contentView.setTextViewText(R.id.status_text, text);
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotification);
         }
         mLastPercent = percent;
-    }
-
-    /**
-     * Callback method to update the progress bar in the status notification
-     * (old version)
-     */
-    @Override
-    public void onTransferProgress(long progressRate) {
-        // NOTHING TO DO HERE ANYMORE
     }
 
     /**

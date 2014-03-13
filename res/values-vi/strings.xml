@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Tạo thư mục</string>
   <string name="actionbar_settings">Cài đặt</string>
   <string name="actionbar_see_details">Chi tiết</string>
+  <string name="actionbar_send_file">Gởi</string>
   <string name="prefs_category_general">Tổng hợp</string>
   <string name="prefs_category_more">hơn</string>
   <string name="prefs_accounts">Tài khoản</string>
@@ -55,6 +56,8 @@
   <string name="filedetails_download">Tải về</string>
   <string name="filedetails_sync_file">Cập nhật lại tập tin</string>
   <string name="filedetails_renamed_in_upload_msg">Tập tin đã bị đổi tên thành %1$s trong quá trình tải lên</string>
+  <string name="action_share_file">Chia sẻ liên kết</string>
+  <string name="action_unshare_file">Liên kết không chia sẻ</string>
   <string name="common_yes">Yes</string>
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>
@@ -94,7 +97,6 @@
   <string name="sync_fail_in_favourites_content">Nội dung tập tin %1$d không thể đồng bộ (%2$d xung đột)</string>
   <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
   <string name="sync_foreign_files_forgotten_content">Các tập tin %1$d ở ngoài thư mục %2$s không thể được chép vào</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"Từ phiên bản 1.3.16, các tập tin tải lên từ thiết bị này được chép vào thư mục cục bộ %1$s để đề phòng mất dữ liệu khi một tập tin được đồng bộ với nhiều tài khoản.\n\nDo thay đổi này, tất cả các tập tin được tải lên ở phiên bản trước của ứng dụng này được chép vào thư mục %2$s. Tuy nhiên, đã có lỗi ngăn cản việc này trong lúc đồng bộ tài khoản. Bạn có thể để (các) tập tin như vậy và xóa liên kết đến %3$s, hoặc di chuyển (các) tập tin vào thư mục %1$s và giữ lại liên kết tới %4$s.\n\nDanh sách bên dưới là (các) tập tin cục bộ và (các) tập tin ở xa trong %5$s mà chúng được liên kết tới.</string>
   <string name="sync_current_folder_was_removed">Thư mục %1$s không còn tồn tại</string>
   <string name="foreign_files_move">Di chuyển tất cả</string>
   <string name="foreign_files_success">Tất cả tập tin đã được chuyển đi</string>
@@ -179,6 +181,7 @@
   <string name="wait_a_moment">Chờ một lúc</string>
   <string name="filedisplay_unexpected_bad_get_content">Vấn đề bất ngờ ; hãy thử ứng dụng khác để chọn tập tin</string>
   <string name="filedisplay_no_file_selected">Không có tập tin nào được chọn</string>
+  <string name="activity_chooser_title">Gửi liên kết đến...</string>
   <string name="oauth_check_onoff">Đăng nhập bằng oAuth2.</string>
   <string name="oauth_login_connection">Đang kết nối đến máy chủ oAuth2...</string>
   <string name="ssl_validator_header">Không thể xác minh danh tính của site</string>
@@ -230,4 +233,10 @@
   <string name="failed_upload_retry_do_nothing_text">không thực hiện thao tác gì nêu bạn không có kết nối mạng dành cho tải lên nhanh</string>
   <string name="failed_upload_failure_text">Thông điệp lỗi:</string>
   <string name="failed_upload_quota_exceeded_text">Vui lòng kiểm tra cấu hình máy chủ của bạn, có thể hạn ngạch dữ liệu đã quá hạn.</string>
+  <string name="share_link_no_support_share_api">Thật tiếc, chia sẻ đã bị vô hiệu trên server của bạn. Vui lòng liên hệ người quản trị.</string>
+  <string name="share_link_file_no_exist">Không thể chia sẻ file hoặc thư mục này. Hãy chắc chắn rằng nó tồn tại</string>
+  <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
+  <string name="unshare_link_file_no_exist">Không thể gỡ chia sẻ file hoặc thư mục. Nó không tồn tại.</string>
+  <string name="unshare_link_file_error">Một lỗi đã xảy ra khi thử gỡ chia sẻ file hoặc thư mục này</string>
+  <string name="activity_chooser_send_file_title">Gởi</string>
 </resources>

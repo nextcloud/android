@@ -57,10 +57,10 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.network.WebdavUtils;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -289,7 +289,18 @@ public class PreviewMediaFragment extends FileFragment implements
         toHide.add(R.id.action_download_file);
         toHide.add(R.id.action_sync_file);
         toHide.add(R.id.action_rename_file);    // by now
-
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
+        
+        // Send file
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (!sendEnabled) {
+            toHide.add(R.id.action_send_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -300,6 +311,25 @@ public class PreviewMediaFragment extends FileFragment implements
         
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        MenuItem item = menu.findItem(R.id.action_unshare_file);
+        // Options shareLink
+        if (!getFile().isShareByLink()) {            
+            item.setVisible(false);
+            item.setEnabled(false);
+        } else {
+            item.setVisible(true);
+            item.setEnabled(true);
+        }
+    }
+    
     
     /**
      * {@inheritDoc}
@@ -307,6 +337,14 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                shareFileWithLink();
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                unshareFileWithLink();
+                return true;
+            }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;
@@ -319,13 +357,45 @@ public class PreviewMediaFragment extends FileFragment implements
                 seeDetails();
                 return true;
             }
+            case R.id.action_send_file: {
+                sendFile();
+            }
             
             default:
                 return false;
         }
     }
-
     
+
+
+    /**
+     * Update the file of the fragment with file value
+     * @param file
+     */
+    public void updateFile(OCFile file){
+        setFile(file);
+    }
+    
+    private void unshareFileWithLink() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+    }
+    
+    private void shareFileWithLink() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+        
+    }
+
+    private void sendFile() {
+        stopPreview(false);
+        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
+        activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+        
+    }
+
     private void seeDetails() {
         stopPreview(false);
         ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
@@ -533,17 +603,19 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log_OC.d(TAG, "Media service connected");
-                mMediaServiceBinder = (MediaServiceBinder) service;
-                if (mMediaServiceBinder != null) {
-                    prepareMediaController();
-                    playAudio();    // do not wait for the touch of nobody to play audio
-                    
-                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
-                    
-                } else {
-                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
+            if (getActivity() != null) {
+                if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                    Log_OC.d(TAG, "Media service connected");
+                    mMediaServiceBinder = (MediaServiceBinder) service;
+                    if (mMediaServiceBinder != null) {
+                        prepareMediaController();
+                        playAudio();    // do not wait for the touch of nobody to play audio
+
+                        Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
+
+                    } else {
+                        Log_OC.e(TAG, "Unexpected response from MediaService while binding");
+                    }
                 }
             }
         }

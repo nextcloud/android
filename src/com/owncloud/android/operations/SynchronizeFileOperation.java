@@ -22,11 +22,12 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.ReadRemoteFileOperation;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -72,7 +73,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
 
 
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
 
         RemoteOperationResult result = null;
         mTransferWasRequested = false;
@@ -89,12 +90,12 @@ public class SynchronizeFileOperation extends RemoteOperation {
                 ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
                 result = operation.execute(client);
                 if (result.isSuccess()){
-                    mServerFile = FileStorageUtils.fillOCFile(result.getData().get(0));
+                    mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
                     mServerFile.setLastSyncDateForProperties(System.currentTimeMillis());
                 }
             }
 
-            if (result.isSuccess()) {   
+            if (mServerFile != null) {   
 
                 /// check changes in server and local file
                 boolean serverChanged = false;

@@ -22,9 +22,9 @@ import java.io.File;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.utils.Log_OC;
 

@@ -52,11 +52,12 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.network.WebdavUtils;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
@@ -175,8 +176,22 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile((OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE));
+                OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
                 mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
+                
+                // Update the file
+                if (mAccount!= null) {
+                    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+                    OCFile updatedFile = mStorageManager.getFileByPath(file.getRemotePath());
+                    if (updatedFile != null) {
+                        setFile(updatedFile);
+                    } else {
+                        setFile(file);
+                    }
+                } else {
+                    setFile(file);
+                }
+
             } else {
                 mIgnoreFirstSavedState = false;
             }
@@ -229,7 +244,18 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
         toHide.add(R.id.action_rename_file);    // by now
+        
+        // Options shareLink
+        if (!getFile().isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
+        // Send file
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (!sendEnabled) {
+            toHide.add(R.id.action_send_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -240,6 +266,27 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        MenuItem item = menu.findItem(R.id.action_unshare_file);
+        // Options shareLink
+        OCFile file = ((FileActivity) getSherlockActivity()).getFile();
+        if (!file.isShareByLink()) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        } else {
+            item.setVisible(true);
+            item.setEnabled(true);
+        }
+            
+    }
+
+    
     
     /**
      * {@inheritDoc}
@@ -247,6 +294,16 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().shareFileWithLink(getFile(), act);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().unshareFileWithLink(getFile(), act);
+                return true;
+            }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;
@@ -259,13 +316,18 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 seeDetails();
                 return true;
             }
+            case R.id.action_send_file: {
+                FileActivity act = (FileActivity)getSherlockActivity();
+                act.getFileOperationsHelper().sendDownloadedFile(getFile(), act);
+                return true;
+            }
             
             default:
                 return false;
         }
     }
-
     
+
     private void seeDetails() {
         ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
     }

@@ -37,7 +37,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 
 
 /**
@@ -352,11 +352,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
         
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old method, nothing here
-        };
-
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));

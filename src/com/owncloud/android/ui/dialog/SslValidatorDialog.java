@@ -39,9 +39,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.owncloud.android.oc_framework.network.CertificateCombinedException;
-import com.owncloud.android.oc_framework.network.NetworkUtils;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.utils.Log_OC;
 
 /**
@@ -223,6 +223,7 @@ public class SslValidatorDialog extends Dialog {
         return hex.toString();
      }    
 
+    @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
         TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
         TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));

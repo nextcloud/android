@@ -23,12 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.OwnCloudAccount;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
@@ -47,18 +47,20 @@ public class UpdateOCVersionOperation extends RemoteOperation {
 
     private Account mAccount;
     private Context mContext;
+    private OwnCloudVersion mOwnCloudVersion;
     
     
     public UpdateOCVersionOperation(Account account, Context context) {
         mAccount = account;
         mContext = context;
+        mOwnCloudVersion = null;
     }
     
     
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         AccountManager accountMngr = AccountManager.get(mContext); 
-        String statUrl = accountMngr.getUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_BASE_URL);
+        String statUrl = accountMngr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
         statUrl += AccountUtils.STATUS_PATH;
         RemoteOperationResult result = null;
         GetMethod get = null;
@@ -74,10 +76,15 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                 if (response != null) {
                     JSONObject json = new JSONObject(response);
                     if (json != null && json.getString("version") != null) {
-                        OwnCloudVersion ocver = new OwnCloudVersion(json.getString("version"));
-                        if (ocver.isVersionValid()) {
-                            accountMngr.setUserData(mAccount, OwnCloudAccount.Constants.KEY_OC_VERSION, ocver.toString());
-                            Log_OC.d(TAG, "Got new OC version " + ocver.toString());
+
+                        String version = json.getString("version");
+                        String versionstring = json.getString("versionstring");
+                        mOwnCloudVersion = new OwnCloudVersion(version, versionstring);
+                        if (mOwnCloudVersion.isVersionValid()) {
+                            accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION, mOwnCloudVersion.getVersion());
+                            accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING, mOwnCloudVersion.getVersionString());
+                            Log_OC.d(TAG, "Got new OC version " + mOwnCloudVersion.toString());
+
                             result = new RemoteOperationResult(ResultCode.OK);
                             
                         } else {
@@ -90,21 +97,26 @@ public class UpdateOCVersionOperation extends RemoteOperation {
                     result = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
                 }
             }
-            Log_OC.i(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage());
+            Log_OC.i(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage());
             
         } catch (JSONException e) {
             result = new RemoteOperationResult(RemoteOperationResult.ResultCode.INSTANCE_NOT_CONFIGURED);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage(), e);
                 
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getBaseUri() + ": " + result.getLogMessage(), e);
+            Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage(), e);
             
         } finally {
             if (get != null) 
                 get.releaseConnection();
         }
         return result;
+    }
+
+
+    public OwnCloudVersion getOCVersion() {
+        return mOwnCloudVersion;
     }
 
 }

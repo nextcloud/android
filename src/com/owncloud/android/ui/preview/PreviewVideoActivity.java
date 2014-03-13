@@ -18,7 +18,6 @@
 package com.owncloud.android.ui.preview;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -37,8 +36,8 @@ import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.oc_framework.accounts.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 
 /**
  *  Activity implementing a basic video player.
@@ -60,8 +59,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
 
-    private FileDataStorageManager mStorageManager;
-    
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
     private VideoView mVideoPlayer;             // view to play the file; both performs and show the playback
@@ -191,9 +188,9 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         return true;
     }
     
-    
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
             /// Validate handled file  (first image to preview)
@@ -203,8 +200,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             if (!file.isVideo()) {
                 throw new IllegalArgumentException("Non-video file passed as argument");
             }
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
-            file = mStorageManager.getFileById(file.getFileId()); 
+            file = getStorageManager().getFileById(file.getFileId()); 
             if (file != null) {
                 if (file.isDown()) {
                     mVideoPlayer.setVideoPath(file.getStoragePath());
@@ -230,7 +226,6 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
                 finish();
             }
         } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
             finish();
         }
    }

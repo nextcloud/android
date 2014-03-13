@@ -25,11 +25,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileHandler;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -42,7 +41,6 @@ import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationD
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.Log_OC;
-
 
 import android.accounts.Account;
 import android.app.Activity;
@@ -183,8 +181,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                         // media preview
                         mContainerActivity.startMediaPreview(file, 0, true);
                     } else {
-                        // open with
-                        mContainerActivity.openFile(file);
+                        FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                        activity.getFileOperationsHelper().openFile(file, activity);
                     }
                     
                 } else {
@@ -222,6 +220,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             toHide.add(R.id.action_cancel_upload);
             toHide.add(R.id.action_sync_file);
             toHide.add(R.id.action_see_details);
+            toHide.add(R.id.action_send_file);
             if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile) ||
                     mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getActivity()), targetFile)           ) {
                 toDisable.add(R.id.action_rename_file);
@@ -258,7 +257,18 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 toHide.add(R.id.action_cancel_upload);
             }
         }
+        
+        // Options shareLink
+        if (!targetFile.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        }
 
+        // Send file
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (!sendEnabled) {
+            toHide.add(R.id.action_send_file);
+        }
+        
         for (int i : toHide) {
             item = menu.findItem(i);
             if (item != null) {
@@ -283,7 +293,17 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
         mTargetFile = (OCFile) mAdapter.getItem(info.position);
-        switch (item.getItemId()) {
+        switch (item.getItemId()) {                
+            case R.id.action_share_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().shareFileWithLink(mTargetFile, activity);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().unshareFileWithLink(mTargetFile, activity);
+                return true;
+            }
             case R.id.action_rename_file: {
                 String fileName = mTargetFile.getFileName();
                 int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
@@ -345,11 +365,24 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 ((FileFragment.ContainerActivity)getActivity()).showDetails(mTargetFile);
                 return true;
             }
+            case R.id.action_send_file: {
+                // Obtain the file
+                if (!mTargetFile.isDown()) {  // Download the file
+                    Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
+                    mContainerActivity.startDownloadForSending(mTargetFile);
+                    
+                } else {
+                
+                    FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                    activity.getFileOperationsHelper().sendDownloadedFile(mTargetFile, activity);
+                }
+                return true;
+            }
             default:
                 return super.onContextItemSelected(item); 
         }
     }
-    
+
 
     /**
      * Use this to query the {@link OCFile} that is currently
@@ -410,7 +443,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener, FileHandler {
+    public interface ContainerActivity extends TransferServiceGetter, OnRemoteOperationListener {
 
         /**
          * Callback method invoked when a the user browsed into a different folder through the list of files
@@ -418,7 +451,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * @param file
          */
         public void onBrowsedDownTo(OCFile folder);
-        
+
         public void startDownloadForPreview(OCFile file);
 
         public void startMediaPreview(OCFile file, int i, boolean b);
@@ -449,6 +482,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
          * @param uploading     Flag signaling if the file is now uploading.
          */
         public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading);
+
+        void startDownloadForSending(OCFile file);
         
     }
     

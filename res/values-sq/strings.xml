@@ -4,6 +4,7 @@
   <string name="actionbar_upload_files">Skedarët</string>
   <string name="actionbar_mkdir">Krijo kartelë</string>
   <string name="actionbar_settings">Parametrat</string>
+  <string name="actionbar_send_file">Dërgo</string>
   <string name="prefs_category_general">Përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogarit</string>
@@ -51,4 +52,5 @@
   <string name="auth_secure_connection">Lidhja e Sigurt vendos</string>
   <string name="common_rename">Riemërto</string>
   <string name="common_remove">Hiq</string>
+  <string name="activity_chooser_send_file_title">Dërgo</string>
 </resources>

@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
+  <string name="actionbar_send_file">Odoslať</string>
   <string name="prefs_category_general">Všeobecné</string>
   <string name="prefs_category_more">Viac</string>
   <string name="prefs_accounts">Účty</string>
@@ -55,6 +56,8 @@
   <string name="filedetails_download">Stiahnuť</string>
   <string name="filedetails_sync_file">Obnoviť súbor</string>
   <string name="filedetails_renamed_in_upload_msg">Súbor bol premenovaný na %1$s počas nahrávania</string>
+  <string name="action_share_file">Zdieľať linku</string>
+  <string name="action_unshare_file">Zrušiť zdieľanie odkazu</string>
   <string name="common_yes">Áno</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
@@ -94,7 +97,7 @@
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
   <string name="sync_foreign_files_forgotten_content">%1$d súborov z priečinka %2$s nemožno skopírovať do</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nĎalej lokálny súbor(y) a vzdialený súbor(y) sú spojené v priečinku %5$s.</string>
+  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je zoznam lokálnych súborov a vzdialených súborov z %5$s na ktoré odkazovali.</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
@@ -179,6 +182,7 @@
   <string name="wait_a_moment">Počkať chvíľu</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
   <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
+  <string name="activity_chooser_title">Odošli link do ...</string>
   <string name="oauth_check_onoff">Prihlásiť sa z oAuth2</string>
   <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
   <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
@@ -230,4 +234,12 @@
   <string name="failed_upload_retry_do_nothing_text">nevykonať nič, nie ste online pre instantné nahratie</string>
   <string name="failed_upload_failure_text">Chybová správa:</string>
   <string name="failed_upload_quota_exceeded_text">Prosím skontrolujte nastavenie vášho servera, možno bola prekročená disková kvóta.</string>
+  <string name="share_link_no_support_share_api">Je nám ľúto, zdieľanie nie je povolené na Vašom serveri. Prosím, obráťte sa na správcu.</string>
+  <string name="share_link_file_no_exist">Nie je možné zdieľať tento súbor alebo adresár. Prosím uistite sa že existuje</string>
+  <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
+  <string name="unshare_link_file_no_exist">Nie je možné zrušiť zdieľanie tohoto súboru alebo priečinka. Súbor alebo priečinok neexistuje.</string>
+  <string name="unshare_link_file_error">Pri pokuse zrušiť zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
+  <string name="activity_chooser_send_file_title">Odoslať</string>
+  <string name="copy_link">Kopíruj odkaz</string>
+  <string name="clipboard_text_copied">Skopírované do \"clipboard\"</string>
 </resources>

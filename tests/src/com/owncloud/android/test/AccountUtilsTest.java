@@ -18,8 +18,8 @@
 
 package com.owncloud.android.test;
 
-import com.owncloud.android.oc_framework.accounts.AccountUtils;
-import com.owncloud.android.oc_framework.utils.OwnCloudVersion;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import android.test.AndroidTestCase;
 

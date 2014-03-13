@@ -1,3 +1,6 @@
 [submodule "actionbarsherlock"]
 	path = actionbarsherlock
 	url = git://github.com/JakeWharton/ActionBarSherlock.git
+[submodule "owncloud-android-library"]
+	path = owncloud-android-library
+	url = git://github.com/owncloud/android-library.git

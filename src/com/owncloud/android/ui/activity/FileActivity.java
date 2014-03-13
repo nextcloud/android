@@ -23,17 +23,35 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
+import android.os.Handler;
+import android.os.IBinder;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.network.webdav.WebdavUtils;
+import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
+
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -42,14 +60,16 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public abstract class FileActivity extends SherlockFragmentActivity {
+public class FileActivity extends SherlockFragmentActivity implements OnRemoteOperationListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
     public static final String EXTRA_WAITING_TO_PREVIEW = "com.owncloud.android.ui.activity.WAITING_TO_PREVIEW";
     public static final String EXTRA_FROM_NOTIFICATION= "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
     
-    public static final String TAG = FileActivity.class.getSimpleName(); 
+    public static final String TAG = FileActivity.class.getSimpleName();
+    
+    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -69,6 +89,18 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
+    
+    /** Messages handler associated to the main thread and the life cycle of the activity */
+    private Handler mHandler;
+    
+    /** Access point to the cached database for the current ownCloud {@link Account} */
+    private FileDataStorageManager mStorageManager = null;
+    
+    private FileOperationsHelper mFileOperationsHelper;
+    
+    private ServiceConnection mOperationsServiceConnection = null;
+    
+    private OperationsServiceBinder mOperationsServiceBinder = null;
 
     
     /**
@@ -81,7 +113,8 @@ public abstract class FileActivity extends SherlockFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mHandler = new Handler();
+        mFileOperationsHelper = new FileOperationsHelper();
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -94,6 +127,9 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         }
 
         setAccount(account, savedInstanceState != null);
+        
+        mOperationsServiceConnection = new OperationsServiceConnection();
+        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     
@@ -109,7 +145,6 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         if (!validAccount) {
             swapToDefaultAccount();
         }
-        
     }
 
     
@@ -118,6 +153,28 @@ public abstract class FileActivity extends SherlockFragmentActivity {
         super.onStart();
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
+        }
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+        }
+    }
+    
+    
+    @Override 
+    protected void onStop() {
+        super.onStop();
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.removeOperationListener(this);
+        }
+    }
+    
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mOperationsServiceConnection != null) {
+            unbindService(mOperationsServiceConnection);
+            mOperationsServiceBinder = null;
         }
     }
     
@@ -292,41 +349,149 @@ public abstract class FileActivity extends SherlockFragmentActivity {
      * 
      *  Child classes must grant that state depending on the {@link Account} is updated.
      */
-    protected abstract void onAccountSet(boolean stateWasRecovered);
-    
-    
-
-    public void openFile(OCFile file) {
-        if (file != null) {
-            String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-            
-            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            intentForSavedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            
-            Intent intentForGuessedMimeType = null;
-            if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath), guessedMimeType);
-                    intentForGuessedMimeType.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                }
-            }
-            
-            Intent chooserIntent = null;
-            if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, getString(R.string.actionbar_open_with));
-            } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, getString(R.string.actionbar_open_with));
-            }
-            
-            startActivity(chooserIntent);
+    protected void onAccountSet(boolean stateWasRecovered) {
+        if (getAccount() != null) {
+            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
+
+
+    public FileDataStorageManager getStorageManager() {
+        return mStorageManager;
+    }
+
+
+    public OnRemoteOperationListener getRemoteOperationListener() {
+        return this;
+    }
+
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+    
+    public FileOperationsHelper getFileOperationsHelper() {
+        return mFileOperationsHelper;
+    }
+    
+    /**
+     * 
+     * @param operation     Removal operation performed.
+     * @param result        Result of the removal.
+     */
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation)operation, result);
+        
+        } 
+    }
+
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        if (result.isSuccess()) {
+            updateFileFromDB();
+            
+            Intent sendIntent = operation.getSendIntent();
+            startActivity(sendIntent);
+            
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+                Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
+                t.show();
+        } else {    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
+            t.show();
+        }
+    }
+    
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        dismissLoadingDialog();
+        
+        if (result.isSuccess()){
+            updateFileFromDB();
+            
+        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_no_exist), Toast.LENGTH_LONG);
+            t.show();
+        } else {    // Generic error
+            // Show a Message, operation finished without success
+            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_error), Toast.LENGTH_LONG);
+            t.show();
+        }
+        
+    }
+    
+    
+    private void updateFileFromDB(){
+      OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+      if (file != null) {
+          setFile(file);
+      }
+    }
+    
+    /**
+     * Show loading dialog 
+     */
+    public void showLoadingDialog() {
+        // Construct dialog
+        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        loading.show(ft, DIALOG_WAIT_TAG);
+        
+    }
+
+    
+    /**
+     * Dismiss loading dialog
+     */
+    public void dismissLoadingDialog(){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag != null) {
+            LoadingDialog loading = (LoadingDialog) frag;
+            loading.dismiss();
+        }
+    }
+
+    
+    /** 
+     * Implements callback methods for service binding. Passed as a parameter to { 
+     */
+    private class OperationsServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service connected");
+                mOperationsServiceBinder = (OperationsServiceBinder) service;
+                mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+                if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
+                    dismissLoadingDialog();
+                }
+
+            } else {
+                return;
+            }
+        }
+        
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service disconnected");
+                mOperationsServiceBinder = null;
+                // TODO whatever could be waiting for the service is unbound
+            }
+        }
+    };    
     
 }

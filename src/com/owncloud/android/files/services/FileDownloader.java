@@ -33,12 +33,13 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.DownloadFileOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -79,7 +80,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private IBinder mBinder;
-    private WebdavClient mDownloadClient = null;
+    private OwnCloudClient mDownloadClient = null;
     private Account mLastAccount = null;
     private FileDataStorageManager mStorageManager;
     
@@ -282,13 +283,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             }
         }
 
-
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old way, should not be in use any more
-        }
-
-
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer,
                 String fileName) {
@@ -388,7 +382,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * Updates the OC File after a successful download.
      */
     private void saveDownloadedFile() {
-        OCFile file = mCurrentDownload.getFile();
+        OCFile file = mStorageManager.getFileById(mCurrentDownload.getFile().getFileId());
         long syncDate = System.currentTimeMillis();
         file.setLastSyncDateForProperties(syncDate);
         file.setLastSyncDateForData(syncDate);
@@ -437,10 +431,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      * Callback method to update the progress bar in the status notification.
      */
     @Override
-    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String fileName) {
+    public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
             mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
+            String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
             mNotification.contentView.setTextViewText(R.id.status_text, text);
             mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
@@ -449,15 +444,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     }
     
     
-    /**
-     * Callback method to update the progress bar in the status notification (old version)
-     */
-    @Override
-    public void onTransferProgress(long progressRate) {
-        // NOTHING TO DO HERE ANYMORE
-    }
-    
-
     /**
      * Updates the status notification with the result of a download operation.
      * 

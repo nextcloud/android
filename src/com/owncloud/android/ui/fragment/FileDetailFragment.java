@@ -50,11 +50,11 @@ import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.oc_framework.network.webdav.OnDatatransferProgressListener;
-import com.owncloud.android.oc_framework.operations.OnRemoteOperationListener;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -186,6 +186,10 @@ public class FileDetailFragment extends FileFragment implements
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+            OCFile file = mStorageManager.getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
         }
     }
         
@@ -247,6 +251,20 @@ public class FileDetailFragment extends FileFragment implements
         if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
+        }
+        
+        // Send file
+        item = menu.findItem(R.id.action_send_file);
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (item != null) {
+            if (sendEnabled) {
+                item.setVisible(true);
+                item.setEnabled(true);
+            } else {
+                item.setVisible(false);
+                item.setEnabled(false);
+                
+            }
         }
     }
 
@@ -310,7 +328,14 @@ public class FileDetailFragment extends FileFragment implements
             toHide.add(R.id.action_remove_file);
             
         }
-
+        
+        // Options shareLink
+        if (!file.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        } else {
+            toShow.add(R.id.action_unshare_file);
+        }
+        
         MenuItem item = null;
         for (int i : toHide) {
             item = menu.findItem(i);
@@ -335,8 +360,19 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+                return true;
+            }
             case R.id.action_open_file_with: {
-                mContainerActivity.openFile(getFile());
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().openFile(getFile(), activity);
                 return true;
             }
             case R.id.action_remove_file: {
@@ -354,11 +390,23 @@ public class FileDetailFragment extends FileFragment implements
                 synchronizeFile();
                 return true;
             }
+            case R.id.action_send_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                // Obtain the file
+                if (!getFile().isDown()) {  // Download the file                    
+                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
+                    activity.startDownloadForSending(getFile());
+                    
+                } else {
+                    activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+                }
+                return true;
+            }
             default:
                 return false;
         }
     }
-    
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -398,7 +446,6 @@ public class FileDetailFragment extends FileFragment implements
             synchronizeFile();   // force an immediate synchronization
         }
     }
-
 
     private void removeFile() {
         OCFile file = getFile();
@@ -903,11 +950,6 @@ public class FileDetailFragment extends FileFragment implements
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
         
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old method, nothing here
-        };
-
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));

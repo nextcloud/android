@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Nowy katalog</string>
   <string name="actionbar_settings">Ustawienia</string>
   <string name="actionbar_see_details">Szczegóły</string>
+  <string name="actionbar_send_file">Wyślij</string>
   <string name="prefs_category_general">Ogólne</string>
   <string name="prefs_category_more">Więcej</string>
   <string name="prefs_accounts">Konta</string>
@@ -55,6 +56,8 @@
   <string name="filedetails_download">Pobierz</string>
   <string name="filedetails_sync_file">Odśwież plik</string>
   <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania nazwa pliku została zmieniona na %1$s</string>
+  <string name="action_share_file">Udostępnij link</string>
+  <string name="action_unshare_file">Anuluj udostępnianie</string>
   <string name="common_yes">Tak</string>
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
@@ -94,7 +97,7 @@
   <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
   <string name="sync_foreign_files_forgotten_content">%1$d plików z %2$s katalogu nie może zostać skopiowana do niego</string>
-  <string name="sync_foreign_files_forgotten_explanation">\"W wersji 1.3.16, pliki załadowane z tego urządzenia są skopiowane do lokalnego folderu %1$s aby zapobiec utracie danych, gdy pojedynczy plik jest synchronizowany z kilku kont.⏎ ⏎ Ze zwględu na tą zmianę, wszystkie pliki załadowane w poprzedniej wersji tej aplikacji były kopiowane do folderu %2$s. Jednakże błąd podczas synchronizacji spowodował przerwanie procesu. Możesz zostawić plik(i) i usunąć link do %3$s, lub przenieść plik(i) to katalogu %1$s i zostawić link do %4$s.⏎ ⏎ Lista poniżej zawiera lokalne i zdalne pliki, które są podlinkowane do %5$s.</string>
+  <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki pobrane z tego urządzenia są kopiowane do folderu lokalnego %1$s aby zapobiec utracie danych, gdy pojedynczy plik jest zsynchronizowany z wielu kont.\n\nZ powodu tej zmiany, wszystkie pliki przesłane w poprzednich wersjach tej aplikacji zostały skopiowane do folderu %2$s. Jednak błąd uniemożliwił realizację tego działania podczas synchronizacji konta. Możesz albo zostawić plik(i), jak teraz i usunąć link do %3$s lub przenieść plik(i) do %1$s katalog i zachować link do %4$s.\n\nPoniżej wymienione są lokalne plik(i), i plik(i) zdalne w %5$s które były powiązane.</string>
   <string name="sync_current_folder_was_removed">Folder  %1$s nie istnieje.</string>
   <string name="foreign_files_move">Przenieś wszystko</string>
   <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
@@ -179,6 +182,7 @@
   <string name="wait_a_moment">Poczekaj chwilę</string>
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
   <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
+  <string name="activity_chooser_title">Wyślij link do ...</string>
   <string name="oauth_check_onoff">Loguj przez oAuth2</string>
   <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>
   <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
@@ -230,4 +234,12 @@
   <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
   <string name="failed_upload_failure_text">Komunikat błędu:</string>
   <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
+  <string name="share_link_no_support_share_api">Przepraszamy, udostępnianie jest wyłączone na twoim serwerze. Skontaktuj się z twoim administratorem.</string>
+  <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
+  <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
+  <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. Jeśli nie istnieje.</string>
+  <string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
+  <string name="activity_chooser_send_file_title">Wyślij</string>
+  <string name="copy_link">Skopiuj link</string>
+  <string name="clipboard_text_copied">Skopiuj do schowka</string>
 </resources>

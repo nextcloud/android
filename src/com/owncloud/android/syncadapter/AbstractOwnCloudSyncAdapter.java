@@ -25,10 +25,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.oc_framework.accounts.AccountUtils;
-import com.owncloud.android.oc_framework.accounts.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.oc_framework.network.webdav.OwnCloudClientFactory;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
 
 
 import android.accounts.Account;
@@ -56,7 +56,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     private ContentProviderClient mContentProviderClient;
     private FileDataStorageManager mStoreManager;
 
-    private WebdavClient mClient = null;
+    private OwnCloudClient mClient = null;
 
     public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -105,7 +105,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         mClient = OwnCloudClientFactory.createOwnCloudClient(account, getContext());
     }
     
-    protected WebdavClient getClient() {
+    protected OwnCloudClient getClient() {
         return mClient;
     }
     

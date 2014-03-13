@@ -8,16 +8,22 @@
     <string name ="db_name">ownCloud</string>
     <string name ="data_folder">owncloud</string>
     <string name ="log_name">Owncloud_</string>
+    <string name ="default_display_name_for_root_folder">ownCloud</string>
     
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://owncloud.com/mobile/new"</string>
+	<string name="share_api_link"></string>
     
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
+    
+    <!-- Flags to enable/disable some features -->
+    <string name = "send_files_to_other_apps">on</string>
+    
     
     <!-- Colors -->
     <color name="login_background_color">#FFFFFF</color>
@@ -33,11 +39,11 @@
     <bool name="multiaccount_support">true</bool>
     
     <!-- Help, imprint and feedback -->
-    <bool name="help_enabled">false</bool>
+    <bool name="help_enabled">true</bool>
     <bool name="imprint_enabled">false</bool> 
-    <bool name="recommend_enabled">false</bool>
-    <bool name="feedback_enabled">false</bool>
-    <string name="url_help">https://owncloud.com/mobile/help</string>
+    <bool name="recommend_enabled">true</bool>
+    <bool name="feedback_enabled">true</bool>
+    <string name="url_help">http://owncloud.com/mobile/help</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:apps@owncloud.com"</string>

@@ -45,6 +45,12 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.PinCodeActivity;
@@ -59,7 +65,7 @@ import com.owncloud.android.utils.Log_OC;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener {
+public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener , OnRemoteOperationListener{
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -69,8 +75,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
-    
-    private FileDataStorageManager mStorageManager;
     
     private ViewPager mViewPager; 
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
@@ -115,13 +119,12 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     private void initViewPager() {
         // get parent from path
         String parentPath = getFile().getRemotePath().substring(0, getFile().getRemotePath().lastIndexOf(getFile().getFileName()));
-        OCFile parentFolder = mStorageManager.getFileByPath(parentPath);
-        //OCFile parentFolder = mStorageManager.getFileById(getFile().getParentId());
+        OCFile parentFolder = getStorageManager().getFileByPath(parentPath);
         if (parentFolder == null) {
             // should not be necessary
-            parentFolder = mStorageManager.getFileByPath(OCFile.ROOT_PATH);
+            parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
-        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), mStorageManager);
+        mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), getStorageManager());
         mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
@@ -150,7 +153,43 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
     }
 
-
+    @Override
+    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
+        super.onRemoteOperationFinish(operation, result);
+        
+        if (operation instanceof CreateShareOperation) {
+            onCreateShareOperationFinish((CreateShareOperation) operation, result);
+            
+        } else if (operation instanceof UnshareLinkOperation) {
+            onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
+            
+        }
+    }
+    
+    
+    private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        } else if  (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+            backToDisplayActivity();
+        }
+            
+    }
+    
+    private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
+            invalidateOptionsMenu();
+        }
+    }
+    
     /** Defines callbacks for service binding, passed to bindService() */
     private class PreviewImageServiceConnection implements ServiceConnection {
 
@@ -205,7 +244,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     public void onDestroy() {
         super.onDestroy();
     }
-    
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -385,7 +423,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             if (getAccount().name.equals(accountName) && 
                     downloadedRemotePath != null) {
 
-                OCFile file = mStorageManager.getFileByPath(downloadedRemotePath);
+                OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
                 int position = mPreviewImagePagerAdapter.getFilePosition(file);
                 boolean downloadWasFine = intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false);
                 //boolean isOffscreen =  Math.abs((mViewPager.getCurrentItem() - position)) <= mViewPager.getOffscreenPageLimit();
@@ -433,6 +471,7 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
         if (getAccount() != null) {
             OCFile file = getFile();
             /// Validate handled file  (first image to preview)
@@ -442,15 +481,14 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             if (!file.isImage()) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
-            mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());            
             
             // Update file according to DB file, if it is possible
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID)            
-                file = mStorageManager.getFileById(file.getFileId());
+                file = getStorageManager().getFileById(file.getFileId());
             
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
-                setFile(file);  // reset after getting it fresh from mStorageManager
+                setFile(file);  // reset after getting it fresh from storageManager
                 getSupportActionBar().setTitle(getFile().getFileName());
                 //if (!stateWasRecovered) {
                     initViewPager();
@@ -460,9 +498,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
                 // handled file not in the current Account
                 finish();
             }
-            
-        } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
     
@@ -480,5 +515,5 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             startActivity(i);
         }
     }
-    
+
 }

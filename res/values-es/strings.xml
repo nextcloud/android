@@ -10,6 +10,7 @@
   <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
+  <string name="actionbar_send_file">Enviar</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -55,6 +56,8 @@
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
+  <string name="action_share_file">Enlace compartido</string>
+  <string name="action_unshare_file">Ya no compartir enlace</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
@@ -69,7 +72,7 @@
   <string name="change_password">Cambiar contraseña</string>
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
-  <string name="upload_chooser_title">Subir</string>
+  <string name="upload_chooser_title">Subir desde...</string>
   <string name="uploader_info_dirname">Nombre de directorio</string>
   <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
@@ -94,7 +97,7 @@
   <string name="sync_fail_in_favourites_content">Los contenidos de %1$d ficheros no fueron sincronizados (%2$d conflictos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
   <string name="sync_foreign_files_forgotten_content">%1$d archivos de %2$s no han podido ser copiados</string>
-  <string name="sync_foreign_files_forgotten_explanation">Como versión 1.3.16, los archivos subidos desde este dispositivo son copiados a un archivo %1$s local para prevenir perdida de datos cuando un simple archivo es sincronizado con multiples cuentas.\n\nDebido a este cambio, todos los archivos subidos en versiones previas de esta aplicación han sido copiados a la carpeta %2$s. No obtante, un error previno el completado de esta operación durante la sincronización de cuenta. Debería dejar el o los archivos así y eliminar el enlace a %3$s o mover el o los archivos al %1$s directorio y conservar el enlace a %4$s.\n\nListado abajo tiene los enlaces a los archivos locales y archivos remotos en %5$s </string>
+  <string name="sync_foreign_files_forgotten_explanation">Como en la versión 1.3.16, los archivos subidos de este dispositivo son copiados a una carpeta local %1$s para evitar la perdida de datos cuando un unico archivo es sincronizado desde multiples cuentas\n\nDebido a este cambio, todos los archivos subidos en versiones previas de esta aplicación han sido copiados a la carpeta %2$s. No obtante, un error evito el completado de esta operación durante la sincronización de cuenta. Debería dejar el o los archivos así y eliminar el enlace a %3$s o mover el o los archivos al %1$s directorio y conservar el enlace a %4$s.\n\n Abajo tiene listado los enlaces a los archivos locales y archivos remotos en %5$s .</string>
   <string name="sync_current_folder_was_removed">La carpeta local %1$s no existe.</string>
   <string name="foreign_files_move">Mover todo</string>
   <string name="foreign_files_success">Todos los archivos fueron movidos</string>
@@ -158,6 +161,7 @@
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
+  <string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta. Contacte a su administrador.</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
@@ -179,6 +183,7 @@
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
+  <string name="activity_chooser_title">Enviar enlace a...</string>
   <string name="oauth_check_onoff">Ingresar con oAuth2</string>
   <string name="oauth_login_connection">Conectando al servidor oAuth2...</string>
   <string name="ssl_validator_header">La identidad del sitio no puede ser verificada</string>
@@ -213,7 +218,7 @@
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>
-  <string name="conflict_keep_both">Mantener ambas</string>
+  <string name="conflict_keep_both">Mantener ambos</string>
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
@@ -230,4 +235,12 @@
   <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
+  <string name="share_link_no_support_share_api">Compartir archivos no está activado en su servidor. Sírvase contactar a su administrador de sistema.</string>
+  <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
+  <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
+  <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>
+  <string name="unshare_link_file_error">Ocurrió un error al tratar de ya no compartir este archivo o carpeta</string>
+  <string name="activity_chooser_send_file_title">Enviar</string>
+  <string name="copy_link">Copiar enlace</string>
+  <string name="clipboard_text_copied">Copiado al portapapeles</string>
 </resources>

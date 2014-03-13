@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
-import com.owncloud.android.oc_framework.utils.FileUtils;
+import com.owncloud.android.lib.resources.files.FileUtils;
 
 
 /**

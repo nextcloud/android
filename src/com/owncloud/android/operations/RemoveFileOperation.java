@@ -19,11 +19,11 @@ package com.owncloud.android.operations;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.oc_framework.network.webdav.WebdavClient;
-import com.owncloud.android.oc_framework.operations.RemoteOperation;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult;
-import com.owncloud.android.oc_framework.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.oc_framework.operations.remote.RemoveRemoteFileOperation;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.RemoveRemoteFileOperation;
 
 
 /**
@@ -69,7 +69,7 @@ public class RemoveFileOperation extends RemoteOperation {
      * @param   client      Client object to communicate with the remote ownCloud server.
      */
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
         RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mFileToRemove.getRemotePath());

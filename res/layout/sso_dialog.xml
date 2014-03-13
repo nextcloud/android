@@ -21,13 +21,13 @@
     android:layout_height="wrap_content"
     >
     
-    <com.owncloud.android.ui.dialog.SsoWebView
+    <!--  com.owncloud.android.ui.dialog.SsoWebView
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
         android:id="@+id/sso_webview"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        />
+        /-->
 
 </RelativeLayout>
