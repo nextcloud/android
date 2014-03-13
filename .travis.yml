@@ -1,0 +1,16 @@
+language: java
+jdk: oraclejdk7
+before_install:
+  # Install base Android SDK
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq libstdc++6:i386 lib32z1
+    - export COMPONENTS=build-tools-18.1.0,android-14,android-17,android-19,sysimg-19,extra-android-support
+    - curl -L https://raw.github.com/embarkmobile/android-sdk-installer/master/android-sdk-installer | bash /dev/stdin --install=$COMPONENTS
+    - source ~/.android-sdk-installer/env
+    - rm pom.xml
+    - ./setup_env.sh
+
+script:
+  - ant clean
+  - ant debug
+
