@@ -160,6 +160,7 @@
   <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης σε εξέλιξη...</string>
   <string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
   <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
+  <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επέστρεψε το σωστό id του χρήστη, παρακαλώ επικοινωνήστε με τον διαχειριστή σας</string>
   <string name="fd_keep_in_sync">Διατήρηση αρχείου ενημερωμένo</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>
@@ -206,6 +207,8 @@
   <string name="ssl_validator_label_validity_to">Μέχρι</string>
   <string name="ssl_validator_label_signature">Υπογραφή:</string>
   <string name="ssl_validator_label_signature_algorithm">Αλγόριθμος:</string>
+  <string name="ssl_validator_null_cert">Δεν μπορεί να εμφανιστεί το πιστοποιητικό.</string>
+  <string name="ssl_validator_no_info_about_error">- Καμία πληροφορία σχετικά με το σφάλμα</string>
   <string name="placeholder_sentence">Αυτό είναι ένα σημείο κράτησης θέσης</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Εικόνα PNG</string>
@@ -238,5 +241,6 @@
   <string name="unshare_link_file_no_exist">Ήταν αδύνατη η ακύρωση διαμοιρασμού αυτού του αρχείου ή φακέλου. Δεν υπάρχει.</string>
   <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="activity_chooser_send_file_title">Αποστολή</string>
+  <string name="copy_link">Αντιγραφή συνδέσμου</string>
   <string name="clipboard_text_copied">Αντιγραφθηκε στο clipboard</string>
 </resources>

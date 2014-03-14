@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
   <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
   <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
+  <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
@@ -207,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">À :</string>
   <string name="ssl_validator_label_signature">Signature :</string>
   <string name="ssl_validator_label_signature_algorithm">Algorithme :</string>
+  <string name="ssl_validator_null_cert">Impossible d\'afficher le certificat.</string>
+  <string name="ssl_validator_no_info_about_error">- Aucune information sur l\'erreur</string>
   <string name="placeholder_sentence">Ceci est un espace réservé</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Image PNG</string>

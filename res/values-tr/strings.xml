@@ -208,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">Kime:</string>
   <string name="ssl_validator_label_signature">İmza:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
+  <string name="ssl_validator_null_cert">Sertifika gösterilemedi.</string>
+  <string name="ssl_validator_no_info_about_error">- Hata hakkında bilgi yok</string>
   <string name="placeholder_sentence">Bu bir yer tutucudur</string>
   <string name="placeholder_filename">yertutucu.txt</string>
   <string name="placeholder_filetype">PNG Resmi</string>
