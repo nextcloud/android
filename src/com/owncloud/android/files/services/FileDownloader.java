@@ -465,7 +465,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 .setTicker(getString(tickerId))
                 .setContentTitle(getString(tickerId))
                 .setAutoCancel(true)
-                .setOngoing(false);
+                .setOngoing(false)
+                .setProgress(0, 0, false);
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()

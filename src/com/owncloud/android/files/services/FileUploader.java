@@ -731,7 +731,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         } else if (uploadResult.isSuccess()) {
             // / success -> silent update of progress notification to success
             // message
-            mNotificationBuilder.setOngoing(false).setAutoCancel(true);
+            mNotificationBuilder
+                .setOngoing(false)
+                .setAutoCancel(true)
+                .setProgress(0, 0, false);
             
             /// includes a pending intent in the notification showing the details view of the file
             Intent showDetailsIntent = null;
