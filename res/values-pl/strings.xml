@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Łączenie z serwerem autoryzacji...</string>
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera multikont</string>
+  <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego ID użytkownika, skontaktuj się z administratorem serwera.</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
@@ -207,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">Do:</string>
   <string name="ssl_validator_label_signature">Sygnatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algorytm:</string>
+  <string name="ssl_validator_null_cert">Nie można wyświetlić certyfikatu.</string>
+  <string name="ssl_validator_no_info_about_error">- Brak informacji o błędzie</string>
   <string name="placeholder_sentence">Tekst zastępczy</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Obraz PNG</string>
