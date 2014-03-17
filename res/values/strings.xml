@@ -260,4 +260,6 @@
 
 	<string name="copy_link">Copy link</string>	
 	<string name="clipboard_text_copied">Copied to clipboard</string>
+	
+	<string name="common_alert_title">Attention!</string>
 </resources>

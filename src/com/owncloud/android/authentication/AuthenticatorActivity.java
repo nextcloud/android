@@ -35,6 +35,7 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -74,6 +75,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
+import com.owncloud.android.ui.dialog.AlertMessageDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -128,6 +130,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final byte ACTION_UPDATE_TOKEN = 1;
 
     private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
+    private static final String TAG_ALERT_MESSAGE_DIALOG = "alertMessagewDialog";
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
@@ -892,10 +895,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
             mOcServerChkOperation = null;
 
+            
+            /// retrieve discovered version and normalize server URL
+            mDiscoveredVersion = operation.getDiscoveredVersion();
+            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
+            
             /// update status icon and text
             if (mServerIsValid) {
                 hideRefreshButton();
                 // Try to create an account with user and pass "", to know if it is a regular server
+                // Update connect button in the answer of this method
                 tryEmptyAuthorization();
             } else {
                 showRefreshButton();
@@ -908,12 +917,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 showUntrustedCertDialog(result);
             }
 
-            /// retrieve discovered version and normalize server URL
-            mDiscoveredVersion = operation.getDiscoveredVersion();
-            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
-
-//            /// allow or not the user try to access the server
-//            mOkButton.setEnabled(mServerIsValid);
             
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered
@@ -1201,8 +1204,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             
             if (mTryEmptyAuthorization) {
                 //allow or not the user try to access the server
-                mOkButton.setEnabled(mServerIsValid);
+                mOkButton.setEnabled(false);
                 mTryEmptyAuthorization = false;
+                mServerIsValid = false;
+               //show an alert message
+               showAlertMessageDialog(R.string.common_alert_title, R.string.auth_unsupported_auth_method);
                 
             } else {
                 Log_OC.d(TAG, "Successful access - time to save the account");
@@ -1221,35 +1227,41 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
-        } else if (result.isServerFail() || result.isException()) {
-            /// if server fail or exception in authorization, the UI is updated as when a server check failed
-            mServerIsChecked = true;
-            mServerIsValid = false;
-            mIsSslConn = false;
-            mOcServerChkOperation = null;
-            mDiscoveredVersion = null;
-            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
+        } else {
+            if (mTryEmptyAuthorization) {
+                mTryEmptyAuthorization = false;
+                mOkButton.setEnabled(true);
 
-            // update status icon and text
-            updateServerStatusIconAndText(result);
-            showServerStatus();
-            mAuthStatusIcon = 0;
-            mAuthStatusText = 0;
-            showAuthStatus();
-            
-            // update input controls state
-            showRefreshButton();
-            mOkButton.setEnabled(false);
+            } else if (result.isServerFail() || result.isException()) {
+                /// if server fail or exception in authorization, the UI is updated as when a server check failed
+                mServerIsChecked = true;
+                mServerIsValid = false;
+                mIsSslConn = false;
+                mOcServerChkOperation = null;
+                mDiscoveredVersion = null;
+                mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
 
-            // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
-            if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                showUntrustedCertDialog(result);
+                // update status icon and text
+                updateServerStatusIconAndText(result);
+                showServerStatus();
+                mAuthStatusIcon = 0;
+                mAuthStatusText = 0;
+                showAuthStatus();
+
+                // update input controls state
+                showRefreshButton();
+                mOkButton.setEnabled(false);
+
+                // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
+                if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                    showUntrustedCertDialog(result);
+                }
+
+            } else {    // authorization fail due to client side - probably wrong credentials
+                updateAuthStatusIconAndText(result);
+                showAuthStatus();
+                Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
             }
-
-        } else {    // authorization fail due to client side - probably wrong credentials
-            updateAuthStatusIconAndText(result);
-            showAuthStatus();
-            Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
 
     }
@@ -1768,6 +1780,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         }
         
+    }
+    
+    private void showAlertMessageDialog(int tittle, int message) {
+        DialogFragment newAlertMessage = AlertMessageDialog.newInstance(tittle, message);
+        newAlertMessage.show(getSupportFragmentManager(), TAG_ALERT_MESSAGE_DIALOG);
     }
 
 }
