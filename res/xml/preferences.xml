@@ -26,7 +26,7 @@
         android:summary="@string/prefs_summary_select_oc_account" 
         / -->
     <Preference android:title="@string/prefs_manage_accounts" android:key="manage_account" />
-    <CheckBoxPreference android:title="@string/prefs_pincode" android:key="set_pincode" 
+    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:title="@string/prefs_pincode" android:key="set_pincode" 
                         android:summary="@string/prefs_pincode_summary"/>
     <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading" 
                         android:title="@string/prefs_instant_upload"  
