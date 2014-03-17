@@ -175,6 +175,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean mResumed; // Control if activity is resumed
 
     public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+    
+    private boolean mTryEmptyAuthorization = false;
 
 
     /**
@@ -893,6 +895,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// update status icon and text
             if (mServerIsValid) {
                 hideRefreshButton();
+                // Try to create an account with user and pass "", to know if it is a regular server
+                tryEmptyAuthorization();
             } else {
                 showRefreshButton();
             }
@@ -908,14 +912,40 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mDiscoveredVersion = operation.getDiscoveredVersion();
             mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
 
-            /// allow or not the user try to access the server
-            mOkButton.setEnabled(mServerIsValid);
+//            /// allow or not the user try to access the server
+//            mOkButton.setEnabled(mServerIsValid);
             
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered
     }
 
 
+    /**
+     *  Try to access with  user/pass ""/"", to know if it is a regular server
+     */
+    private void tryEmptyAuthorization() {
+        mTryEmptyAuthorization = true;
+        
+        Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
+        
+        /// be gentle with the user
+        showDialog(DIALOG_LOGIN_PROGRESS);
+        
+        /// get the path to the root folder through WebDAV from the version server
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
+
+        /// get basic credentials entered by user
+        String username = "";
+        String password = "";
+
+        /// test credentials 
+        mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
+        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+        client.setBasicCredentials(username, password);
+        mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
+    }
+    
+    
     private String normalizeUrl(String url) {
         if (url != null && url.length() > 0) {
             url = url.trim();
@@ -1166,21 +1196,29 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } catch (IllegalArgumentException e) {
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
-
+        
         if (result.isSuccess()) {
-            Log_OC.d(TAG, "Successful access - time to save the account");
-
-            boolean success = false;
-            if (mAction == ACTION_CREATE) {
-                success = createAccount();
-
+            
+            if (mTryEmptyAuthorization) {
+                //allow or not the user try to access the server
+                mOkButton.setEnabled(mServerIsValid);
+                mTryEmptyAuthorization = false;
+                
             } else {
-                updateToken();
-                success = true;
-            }
+                Log_OC.d(TAG, "Successful access - time to save the account");
 
-            if (success) {
-                finish();
+                boolean success = false;
+                if (mAction == ACTION_CREATE) {
+                    success = createAccount();
+
+                } else {
+                    updateToken();
+                    success = true;
+                }
+
+                if (success) {
+                    finish();
+                }
             }
 
         } else if (result.isServerFail() || result.isException()) {
