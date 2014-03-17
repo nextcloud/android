@@ -208,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">Bis:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algorithmus:</string>
+  <string name="ssl_validator_null_cert">Das Zertifikat konnte nicht gezeigt werden.</string>
+  <string name="ssl_validator_no_info_about_error">- Keine Informationen über den Fehler</string>
   <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
   <string name="placeholder_filename">platzhalter.txt</string>
   <string name="placeholder_filetype">PNG-Bild</string>

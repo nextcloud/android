@@ -208,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">Aan:</string>
   <string name="ssl_validator_label_signature">Handtekening:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="ssl_validator_null_cert">Het certificaat kon niet worden getoond.</string>
+  <string name="ssl_validator_no_info_about_error">- Geen informatie over de fout</string>
   <string name="placeholder_sentence">Dit is een plaatshouder</string>
   <string name="placeholder_filename">plaatshouder.txt</string>
   <string name="placeholder_filetype">PNG Afbeelding</string>

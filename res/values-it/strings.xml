@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
   <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
   <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
+  <string name="auth_fail_get_user_name">Il tuo server non restituisce un id utente corretto, contatta un amministratore</string>
   <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
   <string name="common_rename">Rinomina</string>
   <string name="common_remove">Rimuovi</string>
@@ -207,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="ssl_validator_null_cert">Il certificato non può essere mostrato.</string>
+  <string name="ssl_validator_no_info_about_error">- Nessuna informazione sull\'errore</string>
   <string name="placeholder_sentence">Questo è un segnaposto</string>
   <string name="placeholder_filename">segnaposto.txt</string>
   <string name="placeholder_filetype">Immagine PNG</string>
