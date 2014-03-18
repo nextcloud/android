@@ -931,9 +931,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
         
-        /// be gentle with the user
-        showDialog(DIALOG_LOGIN_PROGRESS);
-        
         /// get the path to the root folder through WebDAV from the version server
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
 
