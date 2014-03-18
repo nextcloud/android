@@ -35,7 +35,6 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -75,7 +74,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
-import com.owncloud.android.ui.dialog.AlertMessageDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -130,7 +128,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final byte ACTION_UPDATE_TOKEN = 1;
 
     private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
-    private static final String TAG_ALERT_MESSAGE_DIALOG = "alertMessagewDialog";
     
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
@@ -1147,6 +1144,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthStatusText = R.string.auth_fail_get_user_name;
     }
     
+    private void updateServerStatusIconNoRegularAuth(){
+        mServerStatusIcon = android.R.drawable.ic_secure;
+        mServerStatusText = R.string.auth_unsupported_auth_method;
+    }
+    
     /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
@@ -1204,8 +1206,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOkButton.setEnabled(false);
                 mTryEmptyAuthorization = false;
                 mServerIsValid = false;
-               //show an alert message
-               showAlertMessageDialog(R.string.common_alert_title, R.string.auth_unsupported_auth_method);
+                //show an alert message
+                updateServerStatusIconNoRegularAuth();
+                showServerStatus();
                 
             } else {
                 Log_OC.d(TAG, "Successful access - time to save the account");
@@ -1777,11 +1780,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         }
         
-    }
-    
-    private void showAlertMessageDialog(int tittle, int message) {
-        DialogFragment newAlertMessage = AlertMessageDialog.newInstance(tittle, message);
-        newAlertMessage.show(getSupportFragmentManager(), TAG_ALERT_MESSAGE_DIALOG);
     }
 
 }
