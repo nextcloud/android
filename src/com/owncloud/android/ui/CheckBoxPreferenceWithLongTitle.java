@@ -42,5 +42,6 @@ public class CheckBoxPreferenceWithLongTitle extends CheckBoxPreference{
         TextView titleView = (TextView) view.findViewById(android.R.id.title);
         titleView.setSingleLine(false);
         titleView.setMaxLines(3);
+        titleView.setEllipsize(null);
     }
 }
