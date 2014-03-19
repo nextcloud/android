@@ -18,21 +18,28 @@
 package com.owncloud.android.ui;
 
 import android.content.Context;
+import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
-import android.preference.CheckBoxPreference;
 
-public class CheckBoxPreferenceWithLongTitle extends CheckBoxPreference{
+/**
+ * Allow multiline titles in preferences
+ * 
+ * @author masensio
+ *
+ */
+public class PreferenceMultiline extends Preference {
 
-    public CheckBoxPreferenceWithLongTitle(Context context) {
+    public PreferenceMultiline(Context context) {
         super(context);
     }
 
-    public CheckBoxPreferenceWithLongTitle(Context context, AttributeSet attrs) {
+    public PreferenceMultiline(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    public CheckBoxPreferenceWithLongTitle(Context context, AttributeSet attrs, int defStyle) {
+
+    public PreferenceMultiline(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -42,6 +49,5 @@ public class CheckBoxPreferenceWithLongTitle extends CheckBoxPreference{
         TextView titleView = (TextView) view.findViewById(android.R.id.title);
         titleView.setSingleLine(false);
         titleView.setMaxLines(3);
-        titleView.setEllipsize(null);
     }
 }
