@@ -897,6 +897,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mDiscoveredVersion = operation.getDiscoveredVersion();
             mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
             
+            // Refresh server status, but don't show it
+            updateServerStatusIconAndText(result);
+            
             /// update status icon and text
             if (mServerIsValid) {
                 hideRefreshButton();
@@ -905,9 +908,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 tryEmptyAuthorization();
             } else {
                 showRefreshButton();
+                // Show server status
+                showServerStatus();
             }
-            updateServerStatusIconAndText(result);
-            showServerStatus();
 
             /// very special case (TODO: move to a common place for all the remote operations)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
@@ -1140,12 +1143,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void updateStatusIconFailUserName(){
-        mAuthStatusIcon = android.R.drawable.ic_secure;
+        mAuthStatusIcon = R.drawable.common_error;
         mAuthStatusText = R.string.auth_fail_get_user_name;
     }
     
     private void updateServerStatusIconNoRegularAuth(){
-        mServerStatusIcon = android.R.drawable.ic_secure;
+        mServerStatusIcon = R.drawable.common_error;
         mServerStatusText = R.string.auth_unsupported_auth_method;
     }
     
@@ -1206,7 +1209,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOkButton.setEnabled(false);
                 mTryEmptyAuthorization = false;
                 mServerIsValid = false;
-                //show an alert message
+                //show an alert message ( Server Status )
                 updateServerStatusIconNoRegularAuth();
                 showServerStatus();
                 
@@ -1231,7 +1234,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (mTryEmptyAuthorization) {
                 mTryEmptyAuthorization = false;
                 mOkButton.setEnabled(true);
-
+                
+                // Show server status
+                showServerStatus();
+                
             } else if (result.isServerFail() || result.isException()) {
                 /// if server fail or exception in authorization, the UI is updated as when a server check failed
                 mServerIsChecked = true;
