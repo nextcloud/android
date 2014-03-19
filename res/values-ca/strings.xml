@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">S\'està connectant a un servidor d\'autenticació...</string>
   <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
   <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+  <string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
   <string name="fd_keep_in_sync">Mantén el fitxer actualitzat</string>
   <string name="common_rename">Reanomena</string>
   <string name="common_remove">Elimina</string>
@@ -207,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Signatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="ssl_validator_null_cert">No s\'ha pogut mostrar el certificat.</string>
+  <string name="ssl_validator_no_info_about_error">- No hi ha informació de l\'error</string>
   <string name="placeholder_sentence">Això és un text variable</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Imatge PNG</string>
