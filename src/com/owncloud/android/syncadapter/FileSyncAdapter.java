@@ -339,12 +339,18 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void fetchChildren(OCFile parent, List<OCFile> files, boolean parentEtagChanged) {
         int i;
         OCFile newFile = null;
+        //String etag = null;
+        //boolean syncDown = false;
         for (i=0; i < files.size() && !mCancellation; i++) {
             newFile = files.get(i);
             if (newFile.isFolder()) {
-                if(parentEtagChanged) { // prevent go deeper if already know there are no more changes
+                /*
+                etag = newFile.getEtag();
+                syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
+                if(syncDown) { */
                     synchronizeFolder(newFile);
-                }
+                    //sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(), null);
+                //}
             }
         }
        
