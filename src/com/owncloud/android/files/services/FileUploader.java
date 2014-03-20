@@ -54,6 +54,7 @@ import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -678,7 +679,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder = 
+                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.notification_icon)

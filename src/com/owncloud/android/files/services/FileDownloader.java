@@ -45,6 +45,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -402,7 +403,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private void notifyDownloadStart(DownloadFileOperation download) {
         /// create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder = 
+                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
                 .setSmallIcon(R.drawable.notification_icon)
                 .setTicker(getString(R.string.downloader_download_in_progress_ticker))
