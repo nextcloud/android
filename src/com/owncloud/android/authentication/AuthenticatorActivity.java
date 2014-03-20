@@ -1149,7 +1149,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private void updateServerStatusIconNoRegularAuth(){
         mServerStatusIcon = R.drawable.common_error;
-        mServerStatusText = R.string.auth_unsupported_auth_method;
+        mServerStatusText = R.string.auth_unsupported_basic_auth;
     }
     
     /**
