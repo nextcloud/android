@@ -176,7 +176,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     
-    private boolean mTryEmptyAuthorization = false;
+    private boolean mDetectAuthorizationMethod = false;
 
 
     /**
@@ -905,7 +905,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 hideRefreshButton();
                 // Try to create an account with user and pass "", to know if it is a regular server
                 // Update connect button in the answer of this method
-                tryEmptyAuthorization();
+                detectAuthorizationMethod();
             } else {
                 showRefreshButton();
                 // Show server status
@@ -926,8 +926,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      *  Try to access with  user/pass ""/"", to know if it is a regular server
      */
-    private void tryEmptyAuthorization() {
-        mTryEmptyAuthorization = true;
+    private void detectAuthorizationMethod() {
+        mDetectAuthorizationMethod = true;
         
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
         
@@ -1149,7 +1149,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     
     private void updateServerStatusIconNoRegularAuth(){
         mServerStatusIcon = R.drawable.common_error;
-        mServerStatusText = R.string.auth_unsupported_basic_auth;
+        mServerStatusText = R.string.auth_can_not_auth_against_server;
     }
     
     /**
@@ -1203,11 +1203,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         
         if (result.isSuccess()) {
-            
-            if (mTryEmptyAuthorization) {
-                //allow or not the user try to access the server
+            //allow or not the user try to access the server
+            if (mDetectAuthorizationMethod) {
                 mOkButton.setEnabled(false);
-                mTryEmptyAuthorization = false;
+                mDetectAuthorizationMethod = false;
                 mServerIsValid = false;
                 //show an alert message ( Server Status )
                 updateServerStatusIconNoRegularAuth();
@@ -1231,8 +1230,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else {
-            if (mTryEmptyAuthorization) {
-                mTryEmptyAuthorization = false;
+            if (mDetectAuthorizationMethod) {
+                mDetectAuthorizationMethod = false;
                 mOkButton.setEnabled(true);
                 
                 // Show server status
