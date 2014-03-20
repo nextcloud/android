@@ -92,12 +92,18 @@
   <string name="sync_fail_content">لم تكتمل مزامنة %1$s  </string>
   <string name="sync_fail_content_unauthorized">كلمة السر غير صالحة لـ %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
+  <string name="sync_conflicts_in_favourites_content">لم تنجح المزامنة الدائمة لـ %1$d ملفات</string>
+  <string name="sync_fail_in_favourites_ticker">لم تنجح المزامنة التلقائية للملفات</string>
   <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
+  <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
+  <string name="sync_foreign_files_forgotten_content">لم ينجح نقل %1$d ملفات إلى المجلد  %2$s</string>
+  <string name="sync_foreign_files_forgotten_explanation">اعتبارا من اﻹصدار 1.3.16, الملفات المرفوعة من هذا الجهاز يتم نسخها إلى المجلد المحلي %1$s تفاديا لفقدان البيانات حينما تتم مزامنة ملف واحد مع عدة حسابات.\n\nنظرا لهذا التغيير، تم نسخ كل الملفات المرفوعة في اﻹصدارات السابقة إلى المجلد %2$s. لكن خطأً ما حال دون إتمام العملية أثناء مزامنة الحسابات. يمكنك إما ترك هذه الملفات و حذف الرابط إلى %3$s، و إما نقل الملفات إلى المجلد %1$s و الاحتفاظ بالرابط إلى %4$s \n\nفيما يلي الملفات المحلية، و المفات الخارجية المرتبطة بها في %5$s</string>
   <string name="sync_current_folder_was_removed">لا يوجد مجلد %1$s بعد الان</string>
   <string name="foreign_files_move">نقل الكل</string>
   <string name="foreign_files_success">تم نقل جميع الملفات</string>
   <string name="foreign_files_fail">لم ينجح نقل بعض الملفات</string>
   <string name="foreign_files_local_text">محلي :%1$s</string>
+  <string name="foreign_files_remote_text">خارجي : %1$s</string>
   <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة إلى مجلد  %1$s . هل ترغب بنقلها بدلاَ من ذلك؟</string>
   <string name="pincode_enter_pin_code">يرجى إدخال كلمة السر</string>
   <string name="pincode_configure_your_pin">أدخل كلمة السر</string>
@@ -119,10 +125,14 @@
   <string name="media_err_io">لا يمكن قراءة ملف الوسائط</string>
   <string name="media_err_malformed">الملف غير مرمز بشكل صحيح</string>
   <string name="media_err_timeout">انتهت المهلة أثناء محاولة العرض</string>
+  <string name="media_err_invalid_progressive_playback">لا يمكن بث ملف الوسائط</string>
   <string name="media_err_unknown">لا يمكن عرض ملف الوسائط مع عارض الوسائط المستعمل</string>
   <string name="media_err_security_ex">خطا امني اثناء محاولة عرض %1$s</string>
   <string name="media_err_io_ex">خطا في المدخلات اثناء محاولة عرض %1$s</string>
   <string name="media_err_unexpected">خطا غير متوقع اثناء محاولة عرض %1$s</string>
+  <string name="media_rewind_description">زر الترجيع</string>
+  <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
+  <string name="media_forward_description">زر التقدم للأمام</string>
   <string name="auth_trying_to_login">محاولة الدخول ...</string>
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
@@ -151,6 +161,7 @@
   <string name="auth_connecting_auth_server">يتم الاتصال بالخادم للتحقق</string>
   <string name="auth_unsupported_auth_method">الخادم لا يدعم طريقة التحقق هذه</string>
   <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
+  <string name="auth_fail_get_user_name">الخادم لا يجيب بمعرف صحيح للمستخدم، الرجاء الاتصال بالمدير</string>
   <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
@@ -165,6 +176,7 @@
   <string name="rename_dialog_title">أدخل اسما جديدا</string>
   <string name="rename_local_fail_msg">لم تنجح إعادة تسمية النسخة المحلية، جرب اسما آخر</string>
   <string name="rename_server_fail_msg">لم تكتمل إعادة التسمية</string>
+  <string name="sync_file_fail_msg">لا يمكن التحقق من الملف الخارجي</string>
   <string name="sync_file_nothing_to_do_msg">تمت  مزامنة محتويات الملفات من قبل</string>
   <string name="create_dir_fail_msg">لم ينجح إنشاء المجلد</string>
   <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
@@ -184,6 +196,7 @@
   <string name="ssl_validator_btn_details_see">تفاصيل</string>
   <string name="ssl_validator_btn_details_hide">إخفاء</string>
   <string name="ssl_validator_label_subject">أصدرت لـ :</string>
+  <string name="ssl_validator_label_issuer">أصدرت بواسطة</string>
   <string name="ssl_validator_label_CN">الاسم الشائع :</string>
   <string name="ssl_validator_label_O">منظمة :</string>
   <string name="ssl_validator_label_OU">الوحدة التنظيمية :</string>
@@ -197,10 +210,14 @@
   <string name="ssl_validator_label_signature_algorithm">الخوارزمية :</string>
   <string name="ssl_validator_null_cert">لا يمكن إظهار الشهادة</string>
   <string name="ssl_validator_no_info_about_error">- لا معلومات عن الخطأ.</string>
+  <string name="placeholder_sentence">هذه مساحة محجوزة</string>
+  <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">صورة PNG</string>
   <string name="placeholder_filesize">389 KB</string>
+  <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">رفع الصور من خلال الـ WiFi فقط</string>
+  <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">تعارض في التحديث </string>
   <string name="conflict_message">الملف %s غير </string>
   <string name="conflict_keep_both">الاحتفاظ بالنسختين</string>
@@ -217,6 +234,7 @@
   <string name="failed_upload_headline_delete_all_btn">حذف كل المختارات من قائمة انتظار الرفع</string>
   <string name="failed_upload_retry_text">اعادة المحاولة لرفع الصورة:</string>
   <string name="failed_upload_load_more_images">تحميل المزيد من الصور</string>
+  <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
   <string name="failed_upload_failure_text">رسالة خطا:</string>
   <string name="failed_upload_quota_exceeded_text">الرجاء التاكد من اعدادات الخادم, من الممكن انك تعديت الحد في quota</string>
   <string name="share_link_no_support_share_api">عذرا , المشاركة غير مفعلة في الخادم. الرجاء التواصل مع المدير</string>
@@ -225,4 +243,6 @@
   <string name="unshare_link_file_no_exist">غير قادر على إلغاء مشاركة هذا الملف أو المجلد.لا وجود له</string>
   <string name="unshare_link_file_error">حدث خطأ ما أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد</string>
   <string name="activity_chooser_send_file_title">أرسل</string>
+  <string name="copy_link">نسخ الرابط</string>
+  <string name="clipboard_text_copied">تم النسخ للحافظة</string>
 </resources>
