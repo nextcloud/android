@@ -42,9 +42,6 @@ import com.owncloud.android.utils.Log_OC;
 public class CreateShareOperation extends SyncOperation {
 
     private static final String TAG = CreateShareOperation.class.getSimpleName();
-    
-    // String to build the link with the token of a share: server address + "/public.php?service=files&t=" + token
-    private final String SHARING_LINK_TOKEN = "/public.php?service=files&t=";
 
     protected FileDataStorageManager mStorageManager;
 
@@ -95,21 +92,13 @@ public class CreateShareOperation extends SyncOperation {
         RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
 
         if (result.isSuccess()) {
-            if (result.getData().size() > 0) {
-                OCShare share = (OCShare) result.getData().get(0);
-                // Update the link, build it with the token: server address + "/public.php?service=files&t=" + token
-                share.setShareLink(client.getBaseUri() + SHARING_LINK_TOKEN + share.getToken());
-                Log_OC.d(TAG, "Build Share link= " + share.getShareLink());
-                updateData(share);
-            } else {
-                operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
-                result = ((CreateRemoteShareOperation)operation).execute(client);
+            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+            result = ((CreateRemoteShareOperation)operation).execute(client);
 
-                if (result.isSuccess()) {
-                    if (result.getData().size() > 0) {
-                        OCShare share = (OCShare) result.getData().get(0);
-                        updateData(share);
-                    }
+            if (result.isSuccess()) {
+                if (result.getData().size() > 0) {
+                    OCShare share = (OCShare) result.getData().get(0);
+                    updateData(share);
                 }
             }
         }
