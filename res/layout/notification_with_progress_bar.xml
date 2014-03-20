@@ -31,8 +31,7 @@
         <ImageView android:id="@+id/icon"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:scaleType="fitCenter"
-            android:background="@android:drawable/status_bar_item_app_background"
+            android:scaleType="centerInside"
             />
         <TextView android:id="@+id/title"
             android:layout_width="0dp"
@@ -42,9 +41,7 @@
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:paddingLeft="4dp"
-			android:textSize="18sp"
-        	android:textStyle="bold"
-        	android:textColor="?android:attr/textColorPrimaryInverse"
+        	style="@style/Theme.ownCloud.NotificationText.Title"
             />
     </LinearLayout>
 	<TextView android:id="@+id/text"
@@ -53,7 +50,7 @@
 	    android:singleLine="true"
 	    android:ellipsize="marquee"
 	    android:fadingEdge="horizontal"
-        android:textColor="?android:attr/textColorPrimaryInverse"
+        style="@style/Theme.ownCloud.NotificationText.Content"
 	    />
     <FrameLayout android:id="@+id/progressHolder"
         android:layout_width="match_parent"
