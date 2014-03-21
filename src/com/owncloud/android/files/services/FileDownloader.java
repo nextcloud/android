@@ -61,6 +61,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
@@ -88,7 +89,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private DownloadFileOperation mCurrentDownload = null;
     
     private NotificationManager mNotificationManager;
-    private Notification mNotification;
+    private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
     
     
@@ -404,13 +405,18 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private void notifyDownloadStart(DownloadFileOperation download) {
         /// create status notification with a progress bar
         mLastPercent = 0;
-        mNotification = new Notification(DisplayUtils.getSeasonalIconId(), getString(R.string.downloader_download_in_progress_ticker), System.currentTimeMillis());
-        mNotification.flags |= Notification.FLAG_ONGOING_EVENT;
-        mNotification.contentView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.progressbar_layout);
-        mNotification.contentView.setProgressBar(R.id.status_progress, 100, 0, download.getSize() < 0);
-        mNotification.contentView.setTextViewText(R.id.status_text, String.format(getString(R.string.downloader_download_in_progress_content), 0, new File(download.getSavePath()).getName()));
-        mNotification.contentView.setImageViewResource(R.id.status_icon, DisplayUtils.getSeasonalIconId());
-        
+        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder
+                .setSmallIcon(R.drawable.notification_icon)
+                .setTicker(getString(R.string.downloader_download_in_progress_ticker))
+                .setContentTitle(getString(R.string.downloader_download_in_progress_ticker))
+                .setOngoing(true)
+                .setProgress(100, 0, download.getSize() < 0)
+                .setContentText(
+                        String.format(getString(R.string.downloader_download_in_progress_content), 0,
+                                new File(download.getSavePath()).getName())
+                );
+                
         /// includes a pending intent in the notification showing the details view of the file
         Intent showDetailsIntent = null;
         if (PreviewImageFragment.canBePreviewed(download.getFile())) {
@@ -421,9 +427,12 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
         
-        mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
+        mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+            this, (int) System.currentTimeMillis(), showDetailsIntent, 0
+        ));
+
+        mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotificationBuilder.build());
     }
 
     
@@ -434,11 +443,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filePath) {
         int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
         if (percent != mLastPercent) {
-            mNotification.contentView.setProgressBar(R.id.status_progress, 100, percent, totalToTransfer < 0);
+            mNotificationBuilder.setProgress(100, percent, totalToTransfer < 0);
             String fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             String text = String.format(getString(R.string.downloader_download_in_progress_content), percent, fileName);
-            mNotification.contentView.setTextViewText(R.id.status_text, text);
-            mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotification);
+            mNotificationBuilder.setContentText(text);
+            mNotificationManager.notify(R.string.downloader_download_in_progress_ticker, mNotificationBuilder.build());
         }
         mLastPercent = percent;
     }
@@ -455,8 +464,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         if (!downloadResult.isCancelled()) {
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
-            Notification finalNotification = new Notification(DisplayUtils.getSeasonalIconId(), getString(tickerId), System.currentTimeMillis());
-            finalNotification.flags |= Notification.FLAG_AUTO_CANCEL;
+            mNotificationBuilder
+                .setTicker(getString(tickerId))
+                .setContentTitle(getString(tickerId))
+                .setAutoCancel(true);
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()
@@ -471,11 +482,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                finalNotification.contentIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT);
-                finalNotification.setLatestEventInfo(   getApplicationContext(), 
-                                                        getString(tickerId), 
-                                                        String.format(getString(contentId), new File(download.getSavePath()).getName()),
-                                                        finalNotification.contentIntent);
+                mNotificationBuilder
+                    .setContentIntent(PendingIntent.getActivity(
+                        this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
+                    ))
+                    .setContentText(String.format(getString(contentId), new File(download.getSavePath()).getName()));
                 mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
                 
             } else {
@@ -494,10 +505,13 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     // TODO put something smart in showDetailsIntent
                     showDetailsIntent = new Intent();
                 }
-                finalNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), (int)System.currentTimeMillis(), showDetailsIntent, 0);
-                finalNotification.setLatestEventInfo(getApplicationContext(), getString(tickerId), String.format(getString(contentId), new File(download.getSavePath()).getName()), finalNotification.contentIntent);
+                mNotificationBuilder
+                    .setContentIntent(PendingIntent.getActivity(
+                        this, (int) System.currentTimeMillis(), showDetailsIntent, 0
+                    ))
+                    .setContentText(String.format(getString(contentId), new File(download.getSavePath()).getName()));  
             }
-            mNotificationManager.notify(tickerId, finalNotification);
+            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
         }
     }
     
