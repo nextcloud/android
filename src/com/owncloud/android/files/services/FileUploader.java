@@ -53,13 +53,12 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -73,7 +72,6 @@ import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
-import android.widget.RemoteViews;
 
 
 
@@ -120,7 +118,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
-    private RemoteViews mDefaultNotificationContentView;
 
     
     public static String getUploadFinishMessage() {
@@ -679,11 +676,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * 
      * @param upload Upload operation starting.
      */
-    @SuppressWarnings("deprecation")
     private void notifyUploadStart(UploadFileOperation upload) {
         // / create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder = 
+                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.notification_icon)
@@ -736,7 +733,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         } else if (uploadResult.isSuccess()) {
             // / success -> silent update of progress notification to success
             // message
-            mNotificationBuilder.setOngoing(false).setAutoCancel(true);
+            mNotificationBuilder
+                .setOngoing(false)
+                .setAutoCancel(true)
+                .setProgress(0, 0, false);
             
             /// includes a pending intent in the notification showing the details view of the file
             Intent showDetailsIntent = null;

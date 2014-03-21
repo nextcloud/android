@@ -44,12 +44,11 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
+import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -62,7 +61,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
-import android.widget.RemoteViews;
 
 public class FileDownloader extends Service implements OnDatatransferProgressListener {
     
@@ -405,7 +403,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private void notifyDownloadStart(DownloadFileOperation download) {
         /// create status notification with a progress bar
         mLastPercent = 0;
-        mNotificationBuilder = new NotificationCompat.Builder(this);
+        mNotificationBuilder = 
+                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
         mNotificationBuilder
                 .setSmallIcon(R.drawable.notification_icon)
                 .setTicker(getString(R.string.downloader_download_in_progress_ticker))
@@ -467,7 +466,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             mNotificationBuilder
                 .setTicker(getString(tickerId))
                 .setContentTitle(getString(tickerId))
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setProgress(0, 0, false);
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                 // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()
