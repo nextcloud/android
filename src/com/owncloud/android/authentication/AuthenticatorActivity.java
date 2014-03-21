@@ -1231,7 +1231,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {
             if (mDetectAuthorizationMethod  && 
-                    ( result.getCode() == ResultCode.UNAUTHORIZED && result.isBasicAuthentication())) {
+                    ( result.getCode() == ResultCode.UNAUTHORIZED /*&& result.isBasicAuthentication()*/)) {
                 mDetectAuthorizationMethod = false;
                 mOkButton.setEnabled(true);
                 

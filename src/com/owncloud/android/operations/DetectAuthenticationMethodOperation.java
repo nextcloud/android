@@ -26,18 +26,15 @@ package com.owncloud.android.operations;
 
 import java.util.ArrayList;
 
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.HeadMethod;
-
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.util.Log;
 
 /**
@@ -66,55 +63,83 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         BEARER_TOKEN
     }
     
-    private String mPath;
     private Context mContext;
-    private boolean mSuccessIfAbsent;
     
     /**
      * Constructor
+     * 
+     * @param context       Android context of the caller.
      */
-    public DetectAuthenticationMethodOperation() {
+    public DetectAuthenticationMethodOperation(Context context) {
+        mContext = context;
     }
     
 
+    /**
+     *  Performs the operation.
+     * 
+     *  Triggers a check of existence on the root folder of the server, granting
+     *  that the request is not authenticated.
+     *  
+     *  Analyzes the result of check to find out what authentication method, if
+     *  any, is requested by the server.
+     */
 	@Override
 	protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new RemoteOperationResult(ResultCode.OK);
-        ArrayList<Object> data = new ArrayList<Object>();
-        data.add(AuthenticationMethod.UNKNOWN);
-        result.setData(data);
-	    /*
-        if (!isOnline()) {
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.NO_NETWORK_CONNECTION);
-        }
         RemoteOperationResult result = null;
-        HeadMethod head = null;
-        try {
-            head = new HeadMethod(client.getWebdavUri() + WebdavUtils.encodePath(mPath));
-            int status = client.executeMethod(head, TIMEOUT, TIMEOUT);
-            client.exhaustResponse(head.getResponseBodyAsStream());
-            boolean success = (status == HttpStatus.SC_OK && !mSuccessIfAbsent) || (status == HttpStatus.SC_NOT_FOUND && mSuccessIfAbsent);
-            result = new RemoteOperationResult(success, status, head.getResponseHeaders());
-            Log.d(TAG, "Existence check for " + client.getWebdavUri() + WebdavUtils.encodePath(mPath) + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + "finished with HTTP status " + status + (!success?"(FAIL)":""));
+        AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
+        
+        RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
+        client.setBasicCredentials("", "");
+        client.setFollowRedirects(false);
+        
+        // try to access the root folder, following redirections but not SAML SSO redirections
+        do {
+            result = operation.execute(client);
+            client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
             
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log.e(TAG, "Existence check for " + client.getWebdavUri() + WebdavUtils.encodePath(mPath) + " targeting for " + (mSuccessIfAbsent ? " absence " : " existence ") + ": " + result.getLogMessage(), result.getException());
+        } while (result.isTemporalRedirection() && !result.isIdPRedirection());
+
+        // analyze response  
+        if (result.getCode() == ResultCode.UNAUTHORIZED) {
+            String authRequest = ((result.getAuthenticateHeader()).trim()).toLowerCase();
+            if (authRequest.startsWith("basic")) {
+                authMethod = AuthenticationMethod.BASIC_HTTP_AUTH;
+                
+            } else if (authRequest.startsWith("bearer")) {
+                authMethod = AuthenticationMethod.BEARER_TOKEN;
+            }
+            // else - fall back to UNKNOWN
+                    
+        } else if (result.isSuccess()) {
+            authMethod = AuthenticationMethod.NONE;
             
-        } finally {
-            if (head != null)
-                head.releaseConnection();
+        } else if (result.isIdPRedirection()) {
+            authMethod = AuthenticationMethod.SAML_WEB_SSO;
         }
-        */
-        return result;
+        // else - fall back to UNKNOWN
+        Log.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
+        
+        ArrayList<Object> data = new ArrayList<Object>();
+        data.add(authMethod);
+        result.setData(data);
+        return result;  // same result instance, so that other errors can be handled by the caller transparently
 	}
-
-    private boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) mContext
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm != null && cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+	
+	
+	private String authenticationMethodToString(AuthenticationMethod value) {
+	    switch (value){
+	    case NONE:
+	        return "NONE";
+	    case BASIC_HTTP_AUTH:
+	        return "BASIC_HTTP_AUTH";
+	    case BEARER_TOKEN:
+	        return "BEARER_TOKEN";
+	    case SAML_WEB_SSO:
+	        return "SAML_WEB_SSO";
+	    default:
+            return "UNKNOWN";
+	    }
     }
-
 
 }
