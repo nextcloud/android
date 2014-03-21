@@ -336,6 +336,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength()); // TODO move operations about size of folders to FileContentProvider
                 }
+                remoteFile.setPublicLink(localFile.getPublicLink());
+                remoteFile.setShareByLink(localFile.isShareByLink());
             } else {
                 remoteFile.setEtag(""); // remote eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
             }
