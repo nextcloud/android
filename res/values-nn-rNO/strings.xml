@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="actionbar_sync">Oppdater konto</string>
   <string name="actionbar_upload">Last opp</string>
   <string name="actionbar_upload_from_apps">Innhald frå andre program</string>
   <string name="actionbar_upload_files">Filer</string>

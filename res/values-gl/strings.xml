@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
+  <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte co administrador</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
@@ -207,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Sinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
+  <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
+  <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
   <string name="placeholder_sentence">Isto é un marcador de posición</string>
   <string name="placeholder_filename">marcador_de_posición.txt</string>
   <string name="placeholder_filetype">Imaxe PNG</string>

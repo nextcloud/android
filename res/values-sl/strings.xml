@@ -160,6 +160,7 @@
   <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+  <string name="auth_fail_get_user_name">Strežnik je javlja pravilnega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
@@ -206,6 +207,8 @@
   <string name="ssl_validator_label_validity_to">Do:</string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritem:</string>
+  <string name="ssl_validator_null_cert">Potrdila ni mogoče pokazati.</string>
+  <string name="ssl_validator_no_info_about_error">– Ni podatkov o napaki</string>
   <string name="placeholder_sentence">To je vsebnik predmetov</string>
   <string name="placeholder_filename">vsebnik.txt</string>
   <string name="placeholder_filetype">Slika PNG</string>
