@@ -63,6 +63,8 @@ import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
+import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
@@ -87,8 +89,8 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
  * @author David A. Velasco
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
-    implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
-    SsoWebViewClientListener, OnSslUntrustedCertListener {
+implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
+SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
@@ -119,7 +121,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
     private static final String AUTH_OPTIONAL = "optional";
-    
+
     private static final int DIALOG_LOGIN_PROGRESS = 0;
     private static final int DIALOG_CERT_NOT_SAVED = 1;
     private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 2;
@@ -128,7 +130,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final byte ACTION_UPDATE_TOKEN = 1;
 
     private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
-    
+
     private String mHostBaseUrl;
     private OwnCloudVersion mDiscoveredVersion;
 
@@ -151,30 +153,32 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private Account mAccount;
 
     private TextView mAuthMessage;
-    
+
     private EditText mHostUrlInput;
     private boolean mHostUrlInputEnabled;
     private View mRefreshButton;
 
     private String mAuthTokenType;
-    
+
     private EditText mUsernameInput;
     private EditText mPasswordInput;
-    
+
     private CheckBox mOAuth2Check;
-    
+
     private TextView mOAuthAuthEndpointText;
     private TextView mOAuthTokenEndpointText;
-    
+
     private SamlWebViewDialog mSamlDialog;
-    
+
     private View mOkButton;
-    
+
     private String mAuthToken;
-    
+
     private boolean mResumed; // Control if activity is resumed
 
     public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+
+    private DetectAuthenticationMethodOperation mDetectAuthenticationOperation;
 
 
     /**
@@ -199,10 +203,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mOAuth2Check = (CheckBox) findViewById(R.id.oauth_onOff_check);
         mOkButton = findViewById(R.id.buttonOK);
         mAuthStatusLayout = (TextView) findViewById(R.id.auth_status_text); 
-        
+
         /// set Host Url Input Enabled
         mHostUrlInputEnabled = getResources().getBoolean(R.bool.show_server_url_input);
-        
+
         /// set visibility of link for new users
         boolean accountRegisterVisibility = getResources().getBoolean(R.bool.show_welcome_link);
         Button welcomeLink = (Button) findViewById(R.id.welcome_link);
@@ -222,7 +226,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAccount = null;
         mHostBaseUrl = "";
         boolean refreshButtonEnabled = false;
-        
+
         // URL input configuration applied
         if (!mHostUrlInputEnabled)
         {
@@ -255,15 +259,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mHostUrlInput.setText(mHostBaseUrl);
                 String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
                 mUsernameInput.setText(userName);
-                
+
             }
             initAuthorizationMethod();  // checks intent and setup.xml to determine mCurrentAuthorizationMethod
             mJustCreated = true;
-            
+
             if (mAction == ACTION_UPDATE_TOKEN || !mHostUrlInputEnabled) {
                 checkOcServer(); 
             }
-            
+
         } else {
             mResumed = true;
             /// connection state and info
@@ -279,7 +283,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (savedInstanceState.getBoolean(KEY_PASSWORD_VISIBLE, false)) {
                 showPassword();
             }
-            
+
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
             String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
@@ -293,17 +297,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthTokenType = savedInstanceState.getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
             if (mAuthTokenType == null) {
                 mAuthTokenType =  AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
-                
+
             }
 
             // check if server check was interrupted by a configuration change
             if (savedInstanceState.getBoolean(KEY_SERVER_CHECK_IN_PROGRESS, false)) {
                 checkOcServer();
             }            
-            
+
             // refresh button enabled
             refreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
-            
+
 
         }
 
@@ -316,7 +320,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         adaptViewAccordingToAuthenticationMethod();
         showServerStatus();
         showAuthStatus();
-        
+
         if (mAction == ACTION_UPDATE_TOKEN) {
             /// lock things that should not change
             mHostUrlInput.setEnabled(false);
@@ -325,7 +329,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mUsernameInput.setFocusable(false);
             mOAuth2Check.setVisibility(View.GONE);
         }
-        
+
         //if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
         if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
@@ -364,7 +368,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mResumed = false;
             }
         });
-        
+
         mPasswordInput.setOnFocusChangeListener(this);
         mPasswordInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mPasswordInput.setOnEditorActionListener(this);
@@ -377,7 +381,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 return true;
             }
         });
-        
+
         findViewById(R.id.scroll).setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -391,8 +395,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
     }
-    
-   
+
+
 
     private void initAuthorizationMethod() {
         boolean oAuthRequired = false;
@@ -400,15 +404,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mAuthTokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
         mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
-        
+
         // TODO could be a good moment to validate the received token type, if not null
-        
+
         if (mAuthTokenType == null) {    
             if (mAccount != null) {
                 /// same authentication method than the one used to create the account to update
                 oAuthRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null);
                 samlWebSsoRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO) != null);
-            
+
             } else {
                 /// use the one set in setup.xml
                 oAuthRequired = AUTH_ON.equals(getString(R.string.auth_method_oauth2));
@@ -422,14 +426,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mAuthTokenType = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
             }
         }
-    
+
         if (mAccount != null) {
             String userName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
             mUsernameInput.setText(userName);
         }
-        
+
         mOAuth2Check.setChecked(AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType));
-        
+
     }
 
     /**
@@ -469,10 +473,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             outState.putParcelable(KEY_ACCOUNT, mAccount);
         }
         outState.putString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE, mAuthTokenType);
-        
+
         // refresh button enabled
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
-        
+
 
     }
 
@@ -519,7 +523,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         mJustCreated = false;
-        
+
     }
 
 
@@ -590,11 +594,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri = trimUrlWebdav(mHostUrlInput.getText().toString().trim());
-        
+
         if (!mHostUrlInputEnabled){
             uri = getString(R.string.server_url);
         }
-        
+
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
@@ -648,7 +652,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean isPasswordVisible() {
         return ((mPasswordInput.getInputType() & InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
     }
-    
+
     private void hidePasswordButton() {
         mPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
     }
@@ -657,13 +661,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         showViewPasswordButton();
     }
-    
+
     private void hidePassword() {
         mPasswordInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         showViewPasswordButton();
     }
-    
-    
+
+
     /**
      * Cancels the authenticator activity
      * 
@@ -747,7 +751,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthStatusIcon = R.drawable.progress_small;
         mAuthStatusText = R.string.oauth_login_connection;
         showAuthStatus();
-        
+
 
         // GET AUTHORIZATION request
         //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
@@ -775,7 +779,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthStatusText = R.string.auth_connecting_auth_server;
         showAuthStatus();
         showDialog(DIALOG_LOGIN_PROGRESS);
-        
+
         /// get the path to the root folder through WebDAV from the version server
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
 
@@ -783,7 +787,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
         OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
         mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
-      
+
     }
 
     /**
@@ -803,28 +807,60 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else if (operation instanceof ExistenceCheckRemoteOperation)  {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 onSamlBasedFederatedSingleSignOnAuthorizationStart(operation, result);
-                
+
             } else {
                 onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
             }
         } else if (operation instanceof GetRemoteUserNameOperation) {
             onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
-             
+
+        } else if (operation instanceof DetectAuthenticationMethodOperation) {
+            onDetectAutheticationFinish((DetectAuthenticationMethodOperation) operation, result);
         }
-        
+
     }
 
+    private void onDetectAutheticationFinish(DetectAuthenticationMethodOperation operation, RemoteOperationResult result) {
+        // Read authentication method
+        if (result.getData().size() > 0) {
+            AuthenticationMethod authMethod = (AuthenticationMethod) result.getData().get(0);
+            String basic = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
+            String oAuth = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
+            String saml =  AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType());
+
+            if ( ( mAuthTokenType.equals(basic) && !authMethod.equals(AuthenticationMethod.BASIC_HTTP_AUTH) ) ||
+                    ( mAuthTokenType.equals(oAuth) && !authMethod.equals(AuthenticationMethod.BEARER_TOKEN) ) || 
+                    ( mAuthTokenType.equals(saml)  && !authMethod.equals(AuthenticationMethod.SAML_WEB_SSO) ) ) {
+
+                mOkButton.setEnabled(false);
+                mServerIsValid = false;
+                //show an alert message ( Server Status )
+                updateServerStatusIconNoRegularAuth();
+                showServerStatus();
+
+            } else {
+                mOkButton.setEnabled(true);
+
+                // Show server status
+                showServerStatus();
+            }
+
+        }
+    }
+
+
+
     private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
-        
+
         if (result.isSuccess()) {
             boolean success = false;
             String username = operation.getUserName();
-            
+
             if ( mAction == ACTION_CREATE) {
                 mUsernameInput.setText(username);
                 success = createAccount();
             } else {
-                
+
                 if (!mUsernameInput.getText().toString().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
                     result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
@@ -832,11 +868,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
                 } else {
-                  updateToken();
-                  success = true;
+                    updateToken();
+                    success = true;
                 }
             }
-            
+
             if (success)
                 finish();
         } else {
@@ -844,7 +880,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showAuthStatus();
             Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
         }
-        
+
     }
 
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperation operation, RemoteOperationResult result) {
@@ -853,23 +889,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } catch (IllegalArgumentException e) {
             // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
         }
-        
+
         //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
         if (result.isIdPRedirection()) {
             String url = result.getRedirectedLocation();
             String targetUrl = mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
-            
+
             // Show dialog
             mSamlDialog = SamlWebViewDialog.newInstance(url, targetUrl);            
             mSamlDialog.show(getSupportFragmentManager(), TAG_SAML_DIALOG);
-            
+
             mAuthStatusIcon = 0;
             mAuthStatusText = 0;
-            
+
         } else {
             mAuthStatusIcon = R.drawable.common_error;
             mAuthStatusText = R.string.auth_unsupported_auth_method;
-            
+
         }
         showAuthStatus();
     }
@@ -890,29 +926,51 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
             mOcServerChkOperation = null;
 
+
+            /// retrieve discovered version and normalize server URL
+            mDiscoveredVersion = operation.getDiscoveredVersion();
+            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
+
+            // Refresh server status, but don't show it
+            updateServerStatusIconAndText(result);
+
             /// update status icon and text
             if (mServerIsValid) {
                 hideRefreshButton();
+                // Try to create an account with user and pass "", to know if it is a regular server
+                // Update connect button in the answer of this method
+                detectAuthorizationMethod();
             } else {
                 showRefreshButton();
+                // Show server status
+                showServerStatus();
             }
-            updateServerStatusIconAndText(result);
-            showServerStatus();
 
             /// very special case (TODO: move to a common place for all the remote operations)
             if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
                 showUntrustedCertDialog(result);
             }
 
-            /// retrieve discovered version and normalize server URL
-            mDiscoveredVersion = operation.getDiscoveredVersion();
-            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
 
-            /// allow or not the user try to access the server
-            mOkButton.setEnabled(mServerIsValid);
-            
         }   // else nothing ; only the last check operation is considered; 
         // multiple can be triggered if the user amends a URL before a previous check can be triggered
+    }
+
+
+    /**
+     *  Try to access with  user/pass ""/"", to know if it is a regular server
+     */
+    private void detectAuthorizationMethod() {
+
+        Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
+
+        /// get the path to the root folder through WebDAV from the version server
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
+
+        /// test credentials 
+        mDetectAuthenticationOperation = new DetectAuthenticationMethodOperation(this);
+        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
+        mOperationThread = mDetectAuthenticationOperation.execute(client, this, mHandler);
     }
 
 
@@ -950,8 +1008,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } 
         return (url != null ? url : "");
     }
-    
-    
+
+
     /**
      * Chooses the right icon and text to show to the user for the received operation result.
      * 
@@ -1113,10 +1171,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void updateStatusIconFailUserName(){
-        mAuthStatusIcon = android.R.drawable.ic_secure;
+        mAuthStatusIcon = R.drawable.common_error;
         mAuthStatusText = R.string.auth_fail_get_user_name;
     }
-    
+
+    private void updateServerStatusIconNoRegularAuth(){
+        mServerStatusIcon = R.drawable.common_error;
+        mServerStatusText = R.string.auth_can_not_auth_against_server;
+    }
+
     /**
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
@@ -1182,7 +1245,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (success) {
                 finish();
             }
-
+            
         } else if (result.isServerFail() || result.isException()) {
             /// if server fail or exception in authorization, the UI is updated as when a server check failed
             mServerIsChecked = true;
@@ -1198,7 +1261,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthStatusIcon = 0;
             mAuthStatusText = 0;
             showAuthStatus();
-            
+
             // update input controls state
             showRefreshButton();
             mOkButton.setEnabled(false);
@@ -1213,8 +1276,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showAuthStatus();
             Log_OC.d(TAG, "Access failed: " + result.getLogMessage());
         }
-
     }
+
+
 
 
     /**
@@ -1225,24 +1289,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
         response.putString(AccountManager.KEY_ACCOUNT_TYPE, mAccount.type);
-        
+
         if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) { 
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
-            
+
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
-            
+
             response.putString(AccountManager.KEY_AUTHTOKEN, mAuthToken);
             // the next line is necessary; by now, notifications are calling directly to the AuthenticatorActivity to update, without AccountManager intervention
             mAccountMgr.setAuthToken(mAccount, mAuthTokenType, mAuthToken);
-            
+
         } else {
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
         setAccountAuthenticatorResult(response);
-        
+
     }
 
 
@@ -1275,15 +1339,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showAuthStatus();
             Log_OC.d(TAG, result.getLogMessage());
             return false;
-            
+
         } else {
-        
+
             if (isOAuth || isSaml) {
                 mAccountMgr.addAccountExplicitly(mAccount, "", null);  // with external authorizations, the password is never input in the app
             } else {
                 mAccountMgr.addAccountExplicitly(mAccount, mPasswordInput.getText().toString(), null);
             }
-    
+
             /// add the new account as default in preferences, if there is none already
             Account defaultAccount = AccountUtils.getCurrentOwnCloudAccount(this);
             if (defaultAccount == null) {
@@ -1292,7 +1356,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 editor.putString("select_oc_account", accountName);
                 editor.commit();
             }
-    
+
             /// prepare result to return to the Authenticator
             //  TODO check again what the Authenticator makes with it; probably has the same effect as addAccountExplicitly, but it's not well done
             final Intent intent = new Intent();       
@@ -1308,16 +1372,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION,         mDiscoveredVersion.getVersion());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING,  mDiscoveredVersion.getVersionString());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
-            
+
             if (isSaml) {
                 mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 
             } else if (isOAuth) {
                 mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");  
             }
-    
+
             setAccountAuthenticatorResult(intent.getExtras());
             setResult(RESULT_OK, intent);
-    
+
             return true;
         }
     }
@@ -1472,8 +1536,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onRefreshClick(View view) {
         checkOcServer();
     }
-    
-    
+
+
     /**
      * Called when the eye icon in the password field is clicked.
      * 
@@ -1508,7 +1572,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         adaptViewAccordingToAuthenticationMethod();
     }
 
-    
+
     /**
      * Changes the visibility of input elements depending on
      * the current authorization method.
@@ -1520,7 +1584,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOAuthTokenEndpointText.setVisibility(View.VISIBLE);
             mUsernameInput.setVisibility(View.GONE);
             mPasswordInput.setVisibility(View.GONE);
-            
+
         } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
             // SAML-based web Single Sign On
             mOAuthAuthEndpointText.setVisibility(View.GONE);
@@ -1535,7 +1599,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mPasswordInput.setVisibility(View.VISIBLE);
         }
     }
-    
+
     /**
      *  Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
      * 
@@ -1548,7 +1612,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (mOkButton.isEnabled()) {
                 mOkButton.performClick();
             }
-            
+
         } else if (actionId == EditorInfo.IME_ACTION_NEXT && inputField != null && inputField.equals(mHostUrlInput)) {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 checkOcServer();
@@ -1561,7 +1625,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private abstract static class RightDrawableOnTouchListener implements OnTouchListener  {
 
         private int fuzz = 75;
-        
+
         /**
          * {@inheritDoc}
          */
@@ -1579,8 +1643,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 final int y = (int) event.getY();
                 final Rect bounds = rightDrawable.getBounds();
                 if (x >= (view.getRight() - bounds.width() - fuzz) && x <= (view.getRight() - view.getPaddingRight() + fuzz)
-                    && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
-                    
+                        && y >= (view.getPaddingTop() - fuzz) && y <= (view.getHeight() - view.getPaddingBottom()) + fuzz) {
+
                     return onDrawableTouch(event);
                 }
             }
@@ -1593,7 +1657,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     public void onSamlDialogSuccess(String sessionCookie) {
         mAuthToken = sessionCookie;
-        
+
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
 
@@ -1603,7 +1667,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             getUserOperation.execute(client, this, mHandler);
         }
 
-            
+
     }
 
 
@@ -1626,18 +1690,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             // TODO - show fail
             Log_OC.d(TAG, "SSO failed");
         }
-    
+
     }
-    
+
     /** Show auth_message 
      * 
      * @param message
      */
     private void showAuthMessage(String message) {
-       mAuthMessage.setVisibility(View.VISIBLE);
-       mAuthMessage.setText(message);
+        mAuthMessage.setVisibility(View.VISIBLE);
+        mAuthMessage.setText(message);
     }
-    
+
     private void hideAuthMessage() {
         mAuthMessage.setVisibility(View.GONE);
     }
@@ -1668,7 +1732,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         ft.addToBackStack(null);
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);
     }
-    
+
     /**
      * Show untrusted cert dialog 
      */
@@ -1679,9 +1743,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
         dialog.show(ft, DIALOG_UNTRUSTED_CERT);
-        
+
     }
-    
+
     /**
      * Dismiss untrusted cert dialog
      */
@@ -1691,9 +1755,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             SslErrorViewAdapter dialog = (SslErrorViewAdapter) frag;
             dialog.dismiss();
         }
-        */
+         */
     }
-    
+
     /**
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */
@@ -1719,7 +1783,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onCancelCertificate() {
         cancelWebView();
     }
-    
+
 
     public void cancelWebView() {
         Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
@@ -1729,7 +1793,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 d.dismiss();
             }
         }
-        
+
     }
 
 }

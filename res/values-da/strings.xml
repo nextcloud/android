@@ -97,6 +97,7 @@
   <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
   <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
+  <string name="sync_foreign_files_forgotten_explanation">Fra version 1.3.16 bliver filer uploadet fra denne enhed kopieret til mappen %1$s for at forhindre datatab når en enkelt fil synkroniseres med flere konti.\n\nPå grund af denne ændring er alle filer som var uploadet i tidligere versioner af denne app kopieret til mappen %2$s. Imidlertid forhindrede en fejl færdiggørelsen af denne operation under konto-synkronisering. Du kan enten lade filerne være som de er og fjerne linket til %3$s eller flytte filerne til mappen %1$s og beholde linket til %4$s.\n\nHerunder er en liste med de lokale og eksterne filer i %5$s, som de var knyttet til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
   <string name="foreign_files_move">Flyt alle</string>
   <string name="foreign_files_success">Alle filer blev flyttet</string>
@@ -160,6 +161,7 @@
   <string name="auth_connecting_auth_server">Forbinder til godkendelsesserver ...</string>
   <string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
   <string name="auth_unsupported_multiaccount">%1$s understøtter ikke multiple konti</string>
+  <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
   <string name="fd_keep_in_sync">Hold fil opdateret</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
@@ -206,6 +208,8 @@
   <string name="ssl_validator_label_validity_to">Til:</string>
   <string name="ssl_validator_label_signature">Signatur:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+  <string name="ssl_validator_null_cert">Certifikatet kunne ikke vises.</string>
+  <string name="ssl_validator_no_info_about_error">- Ingen information om fejlen</string>
   <string name="placeholder_sentence">Dette er en pladsholder</string>
   <string name="placeholder_filename">stedfortræder.txt</string>
   <string name="placeholder_filetype">PNG Billede</string>
@@ -236,6 +240,7 @@
   <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din administrator.</string>
   <string name="share_link_file_no_exist">Kan ikke dele denne fil eller mappe. Find venligst ud af om den eksisterer</string>
   <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
+  <string name="unshare_link_file_no_exist">Kan ikke fjerne delingen af denne fil eller mappe. Den findes ikke.</string>
   <string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>
   <string name="activity_chooser_send_file_title">Send</string>
   <string name="copy_link">Kopier link</string>

@@ -16,4 +16,16 @@
 	    <item name="android:indeterminateDrawable">@drawable/abs__progress_medium_holo</item>
 	</style>
 
+	<!-- Notifications -->
+	<style 	name="Theme.ownCloud.NotificationText.Title" 
+	    	parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ff000000</item>
+		<item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+	</style>
+	<style 	name="Theme.ownCloud.NotificationText.Content" 
+	    	parent="@android:style/TextAppearance">
+        <item name="android:textColor">#ff000000</item>
+		<item name="android:textSize">14sp</item>
+	</style>
 </resources>

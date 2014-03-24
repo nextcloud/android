@@ -79,7 +79,6 @@ import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.adapter.SslErrorViewAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;

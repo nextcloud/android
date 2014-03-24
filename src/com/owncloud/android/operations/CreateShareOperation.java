@@ -30,7 +30,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.CreateRemoteShareOperation;
 import com.owncloud.android.lib.resources.files.FileUtils;
@@ -40,6 +42,7 @@ import com.owncloud.android.utils.Log_OC;
 public class CreateShareOperation extends SyncOperation {
 
     private static final String TAG = CreateShareOperation.class.getSimpleName();
+    
 
     protected FileDataStorageManager mStorageManager;
 
@@ -83,45 +86,54 @@ public class CreateShareOperation extends SyncOperation {
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
-        CreateRemoteShareOperation operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperation operation = null;
+        
+        // Check if the share link already exists
+        operation = new GetRemoteSharesForFileOperation(mPath, false, false);
+        RemoteOperationResult result = ((GetRemoteSharesForFileOperation)operation).execute(client);
 
+        if (!result.isSuccess() || result.getData().size() <= 0) {
+            operation = new CreateRemoteShareOperation(mPath, mShareType, mShareWith, mPublicUpload, mPassword, mPermissions);
+            result = ((CreateRemoteShareOperation)operation).execute(client);
+        }
+        
         if (result.isSuccess()) {
-
             if (result.getData().size() > 0) {
                 OCShare share = (OCShare) result.getData().get(0);
-
-                // Update DB with the response
-                share.setPath(mPath);
-                if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
-                    share.setIsFolder(true);
-                } else {
-                    share.setIsFolder(false);
-                }
-                share.setPermissions(mPermissions);
-                
-                getStorageManager().saveShare(share);
-                
-                // Update OCFile with data from share: ShareByLink  and publicLink
-                OCFile file = getStorageManager().getFileByPath(mPath);
-                if (file!=null) {
-                    mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
-                    file.setPublicLink(share.getShareLink());
-                    file.setShareByLink(true);
-                    getStorageManager().saveFile(file);
-                    Log_OC.d(TAG, "Public Link = " + file.getPublicLink());
-
-                }
-            }
+                updateData(share);
+            } 
         }
-
-
+        
         return result;
     }
     
     
     public Intent getSendIntent() {
         return mSendIntent;
+    }
+    
+    private void updateData(OCShare share) {
+        // Update DB with the response
+        share.setPath(mPath);
+        if (mPath.endsWith(FileUtils.PATH_SEPARATOR)) {
+            share.setIsFolder(true);
+        } else {
+            share.setIsFolder(false);
+        }
+        share.setPermissions(mPermissions);
+        
+        getStorageManager().saveShare(share);
+        
+        // Update OCFile with data from share: ShareByLink  and publicLink
+        OCFile file = getStorageManager().getFileByPath(mPath);
+        if (file!=null) {
+            mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
+            file.setPublicLink(share.getShareLink());
+            file.setShareByLink(true);
+            getStorageManager().saveFile(file);
+            Log_OC.d(TAG, "Public Link = " + file.getPublicLink());
+
+        }
     }
 
 }
