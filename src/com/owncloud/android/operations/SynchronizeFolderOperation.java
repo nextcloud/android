@@ -192,11 +192,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
         
-        if (result.isSuccess() && mIsShareSupported) {
-            RemoteOperationResult shareResult = refreshSharesForFolder(client);
-            if (shareResult.getCode() != ResultCode.FILE_NOT_FOUND) {
-                result = shareResult;
-            } // else , keep the previous result ; being conservative for servers where Sharing API is supported, but disabled
+        if (result.isSuccess() && mIsShareSupported && !mSyncFullAccount) {
+            refreshSharesForFolder(client); // share result is ignored 
         }
         
         if (!mSyncFullAccount) {            
@@ -339,6 +336,8 @@ public class SynchronizeFolderOperation extends RemoteOperation {
                 if (remoteFile.isFolder()) {
                     remoteFile.setFileLength(localFile.getFileLength()); // TODO move operations about size of folders to FileContentProvider
                 }
+                remoteFile.setPublicLink(localFile.getPublicLink());
+                remoteFile.setShareByLink(localFile.isShareByLink());
             } else {
                 remoteFile.setEtag(""); // remote eTag will not be updated unless contents are synchronized (Synchronize[File|Folder]Operation with remoteFile as parameter)
             }
