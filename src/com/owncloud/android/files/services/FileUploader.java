@@ -849,6 +849,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
             
+            errorBuilder.setContentText(content);
             mNotificationManager.notify(R.string.uploader_upload_failed_ticker, errorBuilder.build());
         }
 
