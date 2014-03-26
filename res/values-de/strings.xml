@@ -162,6 +162,7 @@
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
   <string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte nimm Kontakt zu Deinem Administrator auf.</string>
+  <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>

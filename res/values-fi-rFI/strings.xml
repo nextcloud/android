@@ -141,6 +141,7 @@
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+  <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelimeen ei onnistunut</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
@@ -187,6 +188,8 @@
   <string name="ssl_validator_label_validity_to">Päättyen:</string>
   <string name="ssl_validator_label_signature">Allekirjoitus:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmi:</string>
+  <string name="ssl_validator_null_cert">Varmennetta ei voi näyttää.</string>
+  <string name="ssl_validator_no_info_about_error">- Ei lisätietoja virheestä</string>
   <string name="placeholder_filetype">PNG-kuva</string>
   <string name="placeholder_filesize">389 kt</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>

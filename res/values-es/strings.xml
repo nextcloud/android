@@ -162,6 +162,7 @@
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta. Contacte a su administrador.</string>
+  <string name="auth_can_not_auth_against_server">No puede autenticarse en este servidor.</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
