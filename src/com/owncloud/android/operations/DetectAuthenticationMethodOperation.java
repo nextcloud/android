@@ -95,9 +95,11 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         
         // try to access the root folder, following redirections but not SAML SSO redirections
         result = operation.execute(client);
-        while (result.isTemporalRedirection() && !result.isIdPRedirection()) {
+        String redirectedLocation = result.getRedirectedLocation(); 
+        while (redirectedLocation != null && redirectedLocation.length() > 0 && !result.isIdPRedirection()) {
             client.setWebdavUri(Uri.parse(result.getRedirectedLocation()));
             result = operation.execute(client);
+            redirectedLocation = result.getRedirectedLocation();
         } 
 
         // analyze response  
