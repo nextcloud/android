@@ -79,7 +79,7 @@ public class UpdateOCVersionOperation extends RemoteOperation {
 
                         String version = json.getString("version");
                         String versionstring = json.getString("versionstring");
-                        mOwnCloudVersion = new OwnCloudVersion(version, versionstring);
+                        mOwnCloudVersion = new OwnCloudVersion(version);
                         if (mOwnCloudVersion.isVersionValid()) {
                             accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION, mOwnCloudVersion.getVersion());
                             accountMngr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING, mOwnCloudVersion.getVersionString());

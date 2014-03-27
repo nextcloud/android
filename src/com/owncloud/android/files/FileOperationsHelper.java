@@ -140,7 +140,7 @@ public class FileOperationsHelper {
 
             String version = accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_OC_VERSION);
             String versionString = accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_OC_VERSION_STRING);
-            return (new OwnCloudVersion(version, versionString)).isSharedSupported();
+            return (new OwnCloudVersion(version)).isSharedSupported();
             //return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;

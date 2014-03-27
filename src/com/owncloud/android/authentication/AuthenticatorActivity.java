@@ -253,7 +253,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 String ocVersion = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
                 String ocVersionString = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION_STRING);
                 if (ocVersion != null) {
-                    mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                    mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
@@ -288,7 +288,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
             String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
             if (ocVersion != null) {
-                mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
             }
             mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
 
