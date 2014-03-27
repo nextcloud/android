@@ -161,7 +161,6 @@
   <string name="auth_connecting_auth_server">Conectando ao servidor de autenticação ...</string>
   <string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
   <string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
-  <string name="auth_fail_get_user_name">Seu servidor não está retornando uma ID de usuário correta, por favor entre em contato com o seu administrador</string>
   <string name="auth_can_not_auth_against_server">Não foi possível autenticar neste servidor</string>
   <string name="fd_keep_in_sync">Manter arquivo atualizado</string>
   <string name="common_rename">Renomear</string>

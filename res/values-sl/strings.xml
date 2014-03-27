@@ -160,7 +160,6 @@
   <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
-  <string name="auth_fail_get_user_name">Strežnik je javlja pravilnega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>

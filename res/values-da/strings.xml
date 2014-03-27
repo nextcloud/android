@@ -161,7 +161,7 @@
   <string name="auth_connecting_auth_server">Forbinder til godkendelsesserver ...</string>
   <string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
   <string name="auth_unsupported_multiaccount">%1$s understøtter ikke multiple konti</string>
-  <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
+  <string name="auth_can_not_auth_against_server">Kan ikke autentificere mod denne server</string>
   <string name="fd_keep_in_sync">Hold fil opdateret</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
