@@ -161,7 +161,6 @@
   <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
   <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
   <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
-  <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>

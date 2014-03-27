@@ -161,7 +161,6 @@
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte vašeho administrátora</string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>

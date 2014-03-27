@@ -160,7 +160,6 @@
   <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης σε εξέλιξη...</string>
   <string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
   <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
-  <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επέστρεψε το σωστό id του χρήστη, παρακαλώ επικοινωνήστε με τον διαχειριστή σας</string>
   <string name="fd_keep_in_sync">Διατήρηση αρχείου ενημερωμένo</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>

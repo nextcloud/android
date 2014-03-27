@@ -161,7 +161,6 @@
   <string name="auth_connecting_auth_server">يتم الاتصال بالخادم للتحقق</string>
   <string name="auth_unsupported_auth_method">الخادم لا يدعم طريقة التحقق هذه</string>
   <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
-  <string name="auth_fail_get_user_name">الخادم لا يجيب بمعرف صحيح للمستخدم، الرجاء الاتصال بالمدير</string>
   <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
