@@ -59,6 +59,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_RESULT = "RESULT";
+    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
@@ -136,7 +137,8 @@ public class OperationsService extends Service {
                     operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
                 }
             } else if (action.equals(ACTION_DETECT_AUTHENTICATION_METHOD)) { // Detect Authentication Method
-                operation = new DetectAuthenticationMethodOperation(this.getApplicationContext());
+                String webdav_url = serverUrl + intent.getStringExtra(EXTRA_WEBDAV_PATH);
+                operation = new DetectAuthenticationMethodOperation(this.getApplicationContext(), webdav_url);
             
             } else {
                 // nothing we are going to handle

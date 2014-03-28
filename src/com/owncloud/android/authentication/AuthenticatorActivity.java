@@ -518,7 +518,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         // refresh button enabled
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
 
-
     }
 
 
@@ -537,7 +536,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mNewCapturedUriFromOAuth2Redirection = data;
         }
     }
-
 
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION, and 
@@ -1014,11 +1012,14 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private void detectAuthorizationMethod() {
 
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
-
+        
+        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
+        
         /// test credentials 
-        Intent service = new Intent(this, OperationsService.class);
+        Intent service = new Intent(this, OperationsService.class);        
         service.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
         service.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        service.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
         startService(service);
     }
 
