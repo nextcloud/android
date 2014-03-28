@@ -187,8 +187,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private boolean mResumed; // Control if activity is resumed
 
     public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
-
-    private DetectAuthenticationMethodOperation mDetectAuthenticationOperation;
+    
+    private ServiceConnection mOperationsServiceConnection = null;
+    
+    private OperationsServiceBinder mOperationsServiceBinder = null;
 
 
     /**
@@ -430,6 +432,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 return false;
             }
         });
+        
+        mOperationsServiceConnection = new OperationsServiceConnection();
+        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -1010,13 +1015,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
 
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
-
         /// test credentials 
-        mDetectAuthenticationOperation = new DetectAuthenticationMethodOperation(this);
-        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
-        mOperationThread = mDetectAuthenticationOperation.execute(client, this, mHandler);
+        Intent service = new Intent(this, OperationsService.class);
+        service.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
+        service.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        startService(service);
     }
 
 
@@ -1842,4 +1845,31 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     }
 
+    /** 
+     * Implements callback methods for service binding. Passed as a parameter to { 
+     */
+    private class OperationsServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service connected");
+                mOperationsServiceBinder = (OperationsServiceBinder) service;
+                mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+            } else {
+                return;
+            }
+            
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service disconnected");
+                mOperationsServiceBinder = null;
+                // TODO whatever could be waiting for the service is unbound
+            }
+        }
+    
+    }
 }

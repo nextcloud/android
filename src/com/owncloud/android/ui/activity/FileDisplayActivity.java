@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import java.io.InvalidClassException;
 
 import android.accounts.Account;
 import android.app.AlertDialog;
