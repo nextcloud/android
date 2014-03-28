@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
   <string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
   <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
+  <string name="auth_fail_get_user_name">Uw server geeft geen goede userid terug, neem contact op met uw beheerder.</string>
   <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
   <string name="fd_keep_in_sync">Houd bestand actueel</string>
   <string name="common_rename">Hernoemen</string>

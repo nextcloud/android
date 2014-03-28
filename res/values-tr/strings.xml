@@ -161,6 +161,8 @@
   <string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor...</string>
   <string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
   <string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
+  <string name="auth_fail_get_user_name">Sunucunuz geçerli bir kullanıcı kimliği döndürmüyor, lütfen yöneticinizle iletişime geçin</string>
+  <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
   <string name="fd_keep_in_sync">Dosyayı güncel tut </string>
   <string name="common_rename">İsim değiştir.</string>
   <string name="common_remove">Kaldır</string>
