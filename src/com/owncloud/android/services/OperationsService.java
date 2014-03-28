@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -47,7 +48,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -62,6 +62,7 @@ public class OperationsService extends Service {
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
+    public static final String ACTION_DETECT_AUTHENTICATION_METHOD = "DETECT_AUTHENTICATION_METHOD";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -134,6 +135,9 @@ public class OperationsService extends Service {
                 if (remotePath.length() > 0) {
                     operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
                 }
+            } else if (action.equals(ACTION_DETECT_AUTHENTICATION_METHOD)) { // Detect Authentication Method
+                operation = new DetectAuthenticationMethodOperation(this.getApplicationContext());
+            
             } else {
                 // nothing we are going to handle
                 return START_NOT_STICKY;

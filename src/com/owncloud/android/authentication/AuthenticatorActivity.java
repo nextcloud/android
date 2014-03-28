@@ -25,8 +25,11 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -34,6 +37,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -76,6 +80,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -177,8 +183,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private boolean mResumed; // Control if activity is resumed
 
     public static String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
-
-    private DetectAuthenticationMethodOperation mDetectAuthenticationOperation;
+    
+    private ServiceConnection mOperationsServiceConnection = null;
+    
+    private OperationsServiceBinder mOperationsServiceBinder = null;
 
 
     /**
@@ -394,6 +402,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 return false;
             }
         });
+        
+        mOperationsServiceConnection = new OperationsServiceConnection();
+        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -964,13 +975,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
 
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
-
         /// test credentials 
-        mDetectAuthenticationOperation = new DetectAuthenticationMethodOperation(this);
-        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
-        mOperationThread = mDetectAuthenticationOperation.execute(client, this, mHandler);
+        Intent service = new Intent(this, OperationsService.class);
+        service.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
+        service.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        startService(service);
     }
 
 
@@ -1796,4 +1805,31 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     }
 
+    /** 
+     * Implements callback methods for service binding. Passed as a parameter to { 
+     */
+    private class OperationsServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service connected");
+                mOperationsServiceBinder = (OperationsServiceBinder) service;
+                mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+            } else {
+                return;
+            }
+            
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
+                Log_OC.d(TAG, "Operations service disconnected");
+                mOperationsServiceBinder = null;
+                // TODO whatever could be waiting for the service is unbound
+            }
+        }
+    
+    }
 }
