@@ -150,22 +150,26 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     
     @Override 
     protected void onStart() {
-        super.onStart();
+
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         }
+        
+        super.onStart();
     }
     
     
     @Override 
     protected void onStop() {
-        super.onStop();
+
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
+        
+        super.onStop();
     }
     
     

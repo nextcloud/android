@@ -537,6 +537,27 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         }
     }
 
+
+    @Override 
+    protected void onStart() {
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+        }
+        
+        super.onStart();
+    }
+    
+    
+    @Override 
+    protected void onStop() {
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.removeOperationListener(this);
+        }
+        super.onStop();
+    }
+    
+
+
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION, and 
      * deferred in {@link #onNewIntent(Intent)}, is processed here.
