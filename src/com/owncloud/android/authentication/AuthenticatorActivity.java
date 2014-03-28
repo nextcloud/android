@@ -25,8 +25,11 @@ import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -34,6 +37,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,6 +58,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
@@ -76,6 +81,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
+import com.owncloud.android.services.OperationsService;
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -140,6 +147,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
 
+    private ServiceConnection mOperationsConnection = null;
+    private OperationsServiceBinder mOperationsBinder = null;
+    
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
     private GetRemoteStatusOperation mOcServerChkOperation;
@@ -190,6 +200,32 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        // bind to Operations Service
+        mOperationsConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log_OC.d(TAG, "Operations service connected");
+                mOperationsBinder = (OperationsServiceBinder) service;
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log_OC.d(TAG, "Operations service crashed");
+                mOperationsBinder = null;
+            }
+            
+        };
+        if (!bindService(new Intent(this, OperationsService.class), 
+                        mOperationsConnection, 
+                        Context.BIND_AUTO_CREATE)) {
+            Toast.makeText(this, 
+                    R.string.error_cant_bind_to_operations_service, 
+                    Toast.LENGTH_LONG)
+                        .show();
+            finish();
+        }
 
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
@@ -524,6 +560,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         mJustCreated = false;
 
+    }
+    
+    
+    @Override
+    protected void onDestroy() {
+        if (mOperationsConnection != null) {
+            unbindService(mOperationsConnection);
+            mOperationsBinder = null;
+        }
+        super.onDestroy();
     }
 
 
