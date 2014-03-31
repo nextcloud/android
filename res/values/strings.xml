@@ -8,7 +8,7 @@
     <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Files</string>
     <string name="actionbar_open_with">Open with</string>
-    <string name="actionbar_mkdir">Create directory</string>
+    <string name="actionbar_mkdir">New folder</string>
     <string name="actionbar_settings">Settings</string>
     <string name="actionbar_see_details">Details</string>
     <string name="actionbar_send_file">Send</string>
