@@ -45,6 +45,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -124,6 +125,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
     //private static final String KEY_IS_SHARED_SUPPORTED = "KEY_IS_SHARE_SUPPORTED";
+    private static final String KEY_SERVER_AUTH_METHOD = "KEY_SERVER_AUTH_METHOD";
+    private static final String KEY_DETECT_AUTH_OP_ID = "KEY_DETECT_AUTH_OP_ID";
+
 
     private static final String AUTH_ON = "on";
     private static final String AUTH_OFF = "off";
@@ -144,12 +148,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private String mAuthMessageText;
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
+    private AuthenticationMethod mServerAuthMethod = AuthenticationMethod.UNKNOWN;
+    private int mDetectAuthOpId = -1;
+
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
 
-    private ServiceConnection mOperationsConnection = null;
-    private OperationsServiceBinder mOperationsBinder = null;
-    
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
     private GetRemoteStatusOperation mOcServerChkOperation;
@@ -192,7 +196,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     private OperationsServiceBinder mOperationsServiceBinder = null;
 
-
     /**
      * {@inheritDoc}
      * 
@@ -204,31 +207,17 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         // bind to Operations Service
-        mOperationsConnection = new ServiceConnection() {
-
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                Log_OC.d(TAG, "Operations service connected");
-                mOperationsBinder = (OperationsServiceBinder) service;
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                Log_OC.d(TAG, "Operations service crashed");
-                mOperationsBinder = null;
-            }
-            
-        };
+        mOperationsServiceConnection = new OperationsServiceConnection();
         if (!bindService(new Intent(this, OperationsService.class), 
-                        mOperationsConnection, 
-                        Context.BIND_AUTO_CREATE)) {
+                mOperationsServiceConnection, 
+                Context.BIND_AUTO_CREATE)) {
             Toast.makeText(this, 
                     R.string.error_cant_bind_to_operations_service, 
                     Toast.LENGTH_LONG)
                         .show();
             finish();
         }
-
+                
         /// set view and get references to view elements
         setContentView(R.layout.account_setup);
         mAuthMessage = (TextView) findViewById(R.id.auth_message);
@@ -347,6 +336,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             refreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
 
 
+            mServerAuthMethod = AuthenticationMethod.valueOf(
+                    savedInstanceState.getString(KEY_SERVER_AUTH_METHOD));
+            mDetectAuthOpId = savedInstanceState.getInt(KEY_DETECT_AUTH_OP_ID);
+
         }
 
         if (mAuthMessageVisibility== View.VISIBLE) {
@@ -433,8 +426,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             }
         });
         
-        mOperationsServiceConnection = new OperationsServiceConnection();
-        bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
 
@@ -487,6 +478,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        //Log.wtf(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
         /// connection state and info
@@ -517,7 +509,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         // refresh button enabled
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
-
+        
+        outState.putString(KEY_SERVER_AUTH_METHOD, mServerAuthMethod.name());
+        outState.putInt(KEY_DETECT_AUTH_OP_ID, mDetectAuthOpId);
+        //Log.wtf(TAG, "onSaveInstanceState end" );
     }
 
 
@@ -538,33 +533,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
 
-    @Override 
-    protected void onStart() {
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
-        }
-        
-        super.onStart();
-    }
-    
-    
-    @Override 
-    protected void onStop() {
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.removeOperationListener(this);
-        }
-        super.onStop();
-    }
-    
-
-
     /**
      * The redirection triggered by the OAuth authentication server as response to the GET AUTHORIZATION, and 
      * deferred in {@link #onNewIntent(Intent)}, is processed here.
      */
     @Override
     protected void onResume() {
+        //Log.wtf(TAG, "onResume init" );
         super.onResume();
+        
         if (mAction == ACTION_UPDATE_TOKEN && mJustCreated && getIntent().getBooleanExtra(EXTRA_ENFORCED_UPDATE, false)) {
             if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 //Toast.makeText(this, R.string.auth_expired_oauth_token_toast, Toast.LENGTH_LONG).show();
@@ -581,17 +558,33 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         if (mNewCapturedUriFromOAuth2Redirection != null) {
             getOAuth2AccessTokenFromCapturedRedirection();            
         }
-
+        
         mJustCreated = false;
 
+        if (mOperationsServiceBinder != null) {
+            doOnResumeAndBound();
+        }
+        
+        //Log.wtf(TAG, "onResume end" );
     }
+
     
+    @Override
+    protected void onPause() {
+        //Log.wtf(TAG, "onPause init" );
+        if (mOperationsServiceBinder != null) {
+            //Log.wtf(TAG, "unregistering to listen for operation callbacks" );
+            mOperationsServiceBinder.removeOperationListener(this);
+        }
+        super.onPause();
+        //Log.wtf(TAG, "onPause end" );
+    }
     
     @Override
     protected void onDestroy() {
-        if (mOperationsConnection != null) {
-            unbindService(mOperationsConnection);
-            mOperationsBinder = null;
+        if (mOperationsServiceConnection != null) {
+            unbindService(mOperationsServiceConnection);
+            mOperationsServiceBinder = null;
         }
         super.onDestroy();
     }
@@ -885,13 +878,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
 
         } else if (operation instanceof DetectAuthenticationMethodOperation) {
-            onDetectAutheticationFinish((DetectAuthenticationMethodOperation) operation, result);
+            Log.wtf(TAG, "received detection response through callback" );
+            onDetectAuthenticationFinish(result);
         }
 
     }
 
-    private void onDetectAutheticationFinish(DetectAuthenticationMethodOperation operation, RemoteOperationResult result) {
+    private void onDetectAuthenticationFinish(RemoteOperationResult result) {
         // Read authentication method
+        mDetectAuthOpId = -1;
         if (result.getData().size() > 0) {
             AuthenticationMethod authMethod = (AuthenticationMethod) result.getData().get(0);
             String basic = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
@@ -1037,11 +1032,19 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
         
         /// test credentials 
-        Intent service = new Intent(this, OperationsService.class);        
-        service.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
-        service.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
-        service.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
-        startService(service);
+        //Intent detectAuthIntent = new Intent(this, OperationsService.class);
+        Intent detectAuthIntent = new Intent();
+        detectAuthIntent.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
+        detectAuthIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        detectAuthIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
+        
+        //if (mOperationsBinder != null) {  // let's let it crash to detect if is really possible
+        mServerAuthMethod = AuthenticationMethod.UNKNOWN;
+        if (mOperationsServiceBinder != null) {
+            //Log.wtf(TAG, "starting detection..." );
+            mDetectAuthOpId = mOperationsServiceBinder.newOperation(detectAuthIntent);
+        }
+        //}
     }
 
 
@@ -1866,18 +1869,35 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         }
 
     }
-
+    
+    
+    private void doOnResumeAndBound() {
+        //Log.wtf(TAG, "registering to listen for operation callbacks" );
+        mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+        
+        if (mDetectAuthOpId != -1) {
+            RemoteOperationResult result = 
+                    mOperationsServiceBinder.getOperationResultIfFinished(mDetectAuthOpId);
+            if (result != null) {
+                //Log.wtf(TAG, "found result of operation finished while rotating");
+                onDetectAuthenticationFinish(result);
+            }
+        }
+    }
+    
     /** 
-     * Implements callback methods for service binding. Passed as a parameter to { 
+     * Implements callback methods for service binding. 
      */
     private class OperationsServiceConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
-                Log_OC.d(TAG, "Operations service connected");
+                //Log_OC.wtf(TAG, "Operations service connected");
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
-                mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
+                
+                doOnResumeAndBound();
+                
             } else {
                 return;
             }
@@ -1887,11 +1907,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
-                Log_OC.d(TAG, "Operations service disconnected");
+                Log_OC.e(TAG, "Operations service crashed");
                 mOperationsServiceBinder = null;
-                // TODO whatever could be waiting for the service is unbound
             }
         }
     
     }
+    
 }
