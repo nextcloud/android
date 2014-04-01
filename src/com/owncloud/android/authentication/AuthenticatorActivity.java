@@ -112,7 +112,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
-    private static final String KEY_OC_VERSION_STRING = "OC_VERSION_STRING";
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_SERVER_VALID = "SERVER_VALID";
     private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
@@ -278,9 +277,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
                 String ocVersion = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
-                String ocVersionString = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION_STRING);
                 if (ocVersion != null) {
-                    mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                    mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
@@ -313,9 +311,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
-            String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
             if (ocVersion != null) {
-                mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
             }
             mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
 
@@ -497,7 +494,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// server data
         if (mDiscoveredVersion != null) {
             outState.putString(KEY_OC_VERSION, mDiscoveredVersion.getVersion());
-            outState.putString(KEY_OC_VERSION_STRING, mDiscoveredVersion.getVersionString());
         }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
 
@@ -1444,7 +1440,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION,         mDiscoveredVersion.getVersion());
-            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING,  mDiscoveredVersion.getVersionString());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
 
             if (isSaml) {
