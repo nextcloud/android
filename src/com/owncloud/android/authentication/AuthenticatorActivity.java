@@ -45,7 +45,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,7 +68,6 @@ import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -149,7 +147,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private AuthenticationMethod mServerAuthMethod = AuthenticationMethod.UNKNOWN;
-    private int mDetectAuthOpId = -1;
+    private int mGetServerInfoOpId = -1;
 
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
@@ -341,7 +339,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
             mServerAuthMethod = AuthenticationMethod.valueOf(
                     savedInstanceState.getString(KEY_SERVER_AUTH_METHOD));
-            mDetectAuthOpId = savedInstanceState.getInt(KEY_DETECT_AUTH_OP_ID);
+            mGetServerInfoOpId = savedInstanceState.getInt(KEY_DETECT_AUTH_OP_ID);
 
         }
 
@@ -364,7 +362,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mOAuth2Check.setVisibility(View.GONE);
         }
 
-        //showRefreshButton(mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled);
         showRefreshButton(mServerIsChecked && !mServerIsValid && refreshButtonEnabled);
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
@@ -514,7 +511,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
         
         outState.putString(KEY_SERVER_AUTH_METHOD, mServerAuthMethod.name());
-        outState.putInt(KEY_DETECT_AUTH_OP_ID, mDetectAuthOpId);
+        outState.putInt(KEY_DETECT_AUTH_OP_ID, mGetServerInfoOpId);
         //Log.wtf(TAG, "onSaveInstanceState end" );
     }
 
@@ -674,21 +671,21 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
+            
+            /*
             mServerInfoOperation = new GetServerInfoOperation(uri, mAuthTokenType, this);
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
             mServerInfoOperation.execute(client, this, mHandler);
-            
-            /*
-             * TODO start joint operation in OperationsService
-            Intent detectAuthIntent = new Intent();
-            detectAuthIntent.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
-            detectAuthIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mBaseUrl);
-            detectAuthIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
-            if (mOperationsServiceBinder != null) {
-                //Log.wtf(TAG, "starting detection..." );
-                mDetectAuthOpId = mOperationsServiceBinder.newOperation(detectAuthIntent);
-            }
             */
+            
+            Intent getServerInfoIntent = new Intent();
+            getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
+            getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
+            getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
+            if (mOperationsServiceBinder != null) {
+                //Log.wtf(TAG, "checking server..." );
+                mGetServerInfoOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+            }
             
         } else {
             mServerStatusText = 0;
@@ -878,11 +875,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 
         if (operation instanceof GetServerInfoOperation) {
-            if (operation.equals(mServerInfoOperation)) {
+            if (operation.hashCode() == mGetServerInfoOpId) {
                 onGetServerInfoFinish(result);
             }   // else nothing ; only the last check operation is considered; 
-                // multiple can be triggered if the user amends a URL before a previous check 
-                // can be triggered
+                // multiple can be started if the user amends a URL quickly
 
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
@@ -897,43 +893,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         } else if (operation instanceof GetRemoteUserNameOperation) {
             onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
 
-        } else if (operation instanceof DetectAuthenticationMethodOperation) {
-            Log.wtf(TAG, "received detection response through callback" );
-            onDetectAuthenticationFinish(result);
         }
 
     }
-
-    private void onDetectAuthenticationFinish(RemoteOperationResult result) {
-        // Read authentication method
-        mDetectAuthOpId = -1;
-        if (result.getData().size() > 0) {
-            AuthenticationMethod authMethod = (AuthenticationMethod) result.getData().get(0);
-            String basic = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
-            String oAuth = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
-            String saml =  AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType());
-
-            if ( ( mAuthTokenType.equals(basic) && !authMethod.equals(AuthenticationMethod.BASIC_HTTP_AUTH) ) ||
-                    ( mAuthTokenType.equals(oAuth) && !authMethod.equals(AuthenticationMethod.BEARER_TOKEN) ) || 
-                    ( mAuthTokenType.equals(saml)  && !authMethod.equals(AuthenticationMethod.SAML_WEB_SSO) ) ) {
-
-                mOkButton.setEnabled(false);
-                mServerIsValid = false;
-                //show an alert message ( Server Status )
-                updateServerStatusIconNoRegularAuth();
-                showServerStatus();
-
-            } else {
-                mOkButton.setEnabled(true);
-
-                // Show server status
-                showServerStatus();
-            }
-
-        }
-    }
-
-
 
     private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
 
@@ -1008,7 +970,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mServerIsChecked = true;
         mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
         mServerInfoOperation = null;
-        mDetectAuthOpId = -1;
+        mGetServerInfoOpId = -1;
         
         // update server status, but don't show it yet
         updateServerStatusIconAndText(result);
@@ -1022,8 +984,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
             mDiscoveredVersion = mServerInfo.mVersion;
             mHostBaseUrl = mServerInfo.mBaseUrl;
+            mServerAuthMethod = mServerInfo.mAuthMethod;
             
-            if (!authSupported(mServerInfo.mAuthMethod)) {
+            if (!authSupported(mServerAuthMethod)) {
                 
                 updateServerStatusIconNoRegularAuth();  // overrides updateServerStatusIconAndText()  
                 mServerIsValid = false;
@@ -1060,32 +1023,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 ( mAuthTokenType.equals(saml)  && 
                     authMethod.equals(AuthenticationMethod.SAML_WEB_SSO))
         );
-    }
-
-
-    /**
-     *  Try to access with  user/pass ""/"", to know if it is a regular server
-     */
-    private void detectAuthorizationMethod() {
-
-        Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
-        
-        String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
-        
-        /// test credentials 
-        //Intent detectAuthIntent = new Intent(this, OperationsService.class);
-        Intent detectAuthIntent = new Intent();
-        detectAuthIntent.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
-        detectAuthIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
-        detectAuthIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
-        
-        //if (mOperationsBinder != null) {  // let's let it crash to detect if is really possible
-        mServerAuthMethod = AuthenticationMethod.UNKNOWN;
-        if (mOperationsServiceBinder != null) {
-            //Log.wtf(TAG, "starting detection..." );
-            mDetectAuthOpId = mOperationsServiceBinder.newOperation(detectAuthIntent);
-        }
-        //}
     }
 
 
@@ -1918,12 +1855,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         //Log.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
         
-        if (mDetectAuthOpId != -1) {
+        if (mGetServerInfoOpId != -1) {
             RemoteOperationResult result = 
-                    mOperationsServiceBinder.getOperationResultIfFinished(mDetectAuthOpId);
+                    mOperationsServiceBinder.getOperationResultIfFinished(mGetServerInfoOpId);
             if (result != null) {
                 //Log.wtf(TAG, "found result of operation finished while rotating");
-                onDetectAuthenticationFinish(result);
+                onGetServerInfoFinish(result);
             }
         }
     }

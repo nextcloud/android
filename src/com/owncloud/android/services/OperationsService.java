@@ -33,6 +33,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
+import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -56,14 +57,15 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
+    public static final String EXTRA_AUTH_TOKEN_TYPE = "AUTH_TOKEN_TYPE";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_RESULT = "RESULT";
-    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
-    public static final String ACTION_DETECT_AUTHENTICATION_METHOD = "DETECT_AUTHENTICATION_METHOD";
+    //public static final String ACTION_DETECT_AUTHENTICATION_METHOD = "DETECT_AUTHENTICATION_METHOD";
+    public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -248,13 +250,12 @@ public class OperationsService extends Service {
                                     remotePath, 
                                     OperationsService.this);
                         }
-                    } else if (action.equals(ACTION_DETECT_AUTHENTICATION_METHOD)) { 
-                        // Detect Authentication Method
-                        String webdav_url = 
-                                serverUrl + operationIntent.getStringExtra(EXTRA_WEBDAV_PATH);
-                        operation = new DetectAuthenticationMethodOperation(
-                                OperationsService.this, 
-                                webdav_url);
+                    } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
+                        // check OC server and get basic information from it
+                        String authTokenType = 
+                                operationIntent.getStringExtra(EXTRA_AUTH_TOKEN_TYPE);
+                        operation = new GetServerInfoOperation(
+                                serverUrl, authTokenType, OperationsService.this);
                     }
                 }
                     
