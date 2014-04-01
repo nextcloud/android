@@ -253,8 +253,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
 
         AccountManager aMgr = AccountManager.get(this);
         String version = aMgr.getUserData(account, Constants.KEY_OC_VERSION);
-        String versionString = aMgr.getUserData(account, Constants.KEY_OC_VERSION_STRING);
-        OwnCloudVersion ocv = new OwnCloudVersion(version, versionString);
+        OwnCloudVersion ocv = new OwnCloudVersion(version);
         
         boolean chunked = FileUploader.chunkedUploadIsSupported(ocv);
         AbstractList<String> requestedUploads = new Vector<String>();
