@@ -126,6 +126,9 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         // else - fall back to UNKNOWN
         Log.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
         
+        if (!authMethod.equals(AuthenticationMethod.UNKNOWN)) {
+            result = new RemoteOperationResult(true, result.getHttpCode(), null);
+        }
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(authMethod);
         result.setData(data);

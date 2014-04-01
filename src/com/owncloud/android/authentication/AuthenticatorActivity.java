@@ -71,11 +71,11 @@ import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
+import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -142,8 +142,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
 
-    private String mHostBaseUrl;
-    private OwnCloudVersion mDiscoveredVersion;
+    private String mHostBaseUrl;                // TODO remove
+    private OwnCloudVersion mDiscoveredVersion; // TODO remove
 
     private String mAuthMessageText;
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
@@ -156,7 +156,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
-    private GetRemoteStatusOperation mOcServerChkOperation;
+    //private GetRemoteStatusOperation mOcServerChkOperation;
+    private GetServerInfoOperation mServerInfoOperation;
     private ExistenceCheckRemoteOperation mAuthCheckOperation;
 
     private Uri mNewCapturedUriFromOAuth2Redirection;
@@ -195,6 +196,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private ServiceConnection mOperationsServiceConnection = null;
     
     private OperationsServiceBinder mOperationsServiceBinder = null;
+
+    private GetServerInfoOperation.ServerInfo mServerInfo;
 
     /**
      * {@inheritDoc}
@@ -361,8 +364,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mOAuth2Check.setVisibility(View.GONE);
         }
 
-        //if (mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled) showRefreshButton();
-        if (mServerIsChecked && !mServerIsValid && refreshButtonEnabled) showRefreshButton();
+        //showRefreshButton(mServerIsChecked && !mServerIsValid && mRefreshButtonEnabled);
+        showRefreshButton(mServerIsChecked && !mServerIsValid && refreshButtonEnabled);
         mOkButton.setEnabled(mServerIsValid); // state not automatically recovered in configuration changes
 
         if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType) || 
@@ -488,7 +491,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
         outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
         outState.putBoolean(KEY_SERVER_CHECKED, mServerIsChecked);
-        outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mOcServerChkOperation != null));
+        outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mServerInfoOperation != null));
         outState.putBoolean(KEY_IS_SSL_CONN, mIsSslConn);
         outState.putBoolean(KEY_PASSWORD_VISIBLE, isPasswordVisible());
         outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
@@ -623,7 +626,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 onUrlInputFocusLost((TextView) view);
             }
             else {
-                hideRefreshButton();
+                showRefreshButton(false);
             }
 
         } else if (view.getId() == R.id.account_password) {
@@ -648,32 +651,45 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             checkOcServer();
         } else {
             mOkButton.setEnabled(mServerIsValid);
-            if (!mServerIsValid) {
-                showRefreshButton();
-            }
+            showRefreshButton(!mServerIsValid);
         }
     }
 
 
     private void checkOcServer() {
-        String uri = trimUrlWebdav(mHostUrlInput.getText().toString().trim());
+        String uri = mHostUrlInput.getText().toString().trim();
 
         if (!mHostUrlInputEnabled){
-            uri = getString(R.string.server_url);
+            uri = getString(R.string.server_url).trim();
         }
 
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
         mDiscoveredVersion = null;
-        hideRefreshButton();
+        mServerAuthMethod = AuthenticationMethod.UNKNOWN;
+        showRefreshButton(false);
+        
         if (uri.length() != 0) {
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
-            mOcServerChkOperation = new  GetRemoteStatusOperation(uri, this);
+            mServerInfoOperation = new GetServerInfoOperation(uri, mAuthTokenType, this);
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
-            mOperationThread = mOcServerChkOperation.execute(client, this, mHandler);
+            mServerInfoOperation.execute(client, this, mHandler);
+            
+            /*
+             * TODO start joint operation in OperationsService
+            Intent detectAuthIntent = new Intent();
+            detectAuthIntent.setAction(OperationsService.ACTION_DETECT_AUTHENTICATION_METHOD);
+            detectAuthIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mBaseUrl);
+            detectAuthIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
+            if (mOperationsServiceBinder != null) {
+                //Log.wtf(TAG, "starting detection..." );
+                mDetectAuthOpId = mOperationsServiceBinder.newOperation(detectAuthIntent);
+            }
+            */
+            
         } else {
             mServerStatusText = 0;
             mServerStatusIcon = 0;
@@ -861,8 +877,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 
-        if (operation instanceof GetRemoteStatusOperation) {
-            onOcServerCheckFinish((GetRemoteStatusOperation) operation, result);
+        if (operation instanceof GetServerInfoOperation) {
+            if (operation.equals(mServerInfoOperation)) {
+                onGetServerInfoFinish(result);
+            }   // else nothing ; only the last check operation is considered; 
+                // multiple can be triggered if the user amends a URL before a previous check 
+                // can be triggered
 
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
@@ -983,42 +1003,63 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param operation     Server check performed.
      * @param result        Result of the check.
      */
-    private void onOcServerCheckFinish(GetRemoteStatusOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mOcServerChkOperation)) {
-            /// save result state
-            mServerIsChecked = true;
-            mServerIsValid = result.isSuccess();
-            mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
-            mOcServerChkOperation = null;
+    private void onGetServerInfoFinish(RemoteOperationResult result) {
+        /// update activity state
+        mServerIsChecked = true;
+        mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
+        mServerInfoOperation = null;
+        mDetectAuthOpId = -1;
+        
+        // update server status, but don't show it yet
+        updateServerStatusIconAndText(result);
 
+        if (result.isSuccess()) {
+            /// SUCCESS means:
+            //      1. connection succeeded, and we know if it's SSL or not
+            //      2. server is installed
+            //      3. we got the server version
+            //      4. we got the authentication method required by the server 
+            mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
+            mDiscoveredVersion = mServerInfo.mVersion;
+            mHostBaseUrl = mServerInfo.mBaseUrl;
+            
+            if (!authSupported(mServerInfo.mAuthMethod)) {
+                
+                updateServerStatusIconNoRegularAuth();  // overrides updateServerStatusIconAndText()  
+                mServerIsValid = false;
 
-            /// retrieve discovered version and normalize server URL
-            mDiscoveredVersion = operation.getDiscoveredVersion();
-            mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
-
-            // Refresh server status, but don't show it
-            updateServerStatusIconAndText(result);
-
-            /// update status icon and text
-            if (mServerIsValid) {
-                hideRefreshButton();
-                // Try to create an account with user and pass "", to know if it is a regular server
-                // Update connect button in the answer of this method
-                detectAuthorizationMethod();
             } else {
-                showRefreshButton();
-                // Show server status
-                showServerStatus();
+                mServerIsValid = true;
             }
+            
+        } else {
+            mServerIsValid = false;
+        }
 
-            /// very special case (TODO: move to a common place for all the remote operations)
-            if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                showUntrustedCertDialog(result);
-            }
+        // refresh UI
+        showRefreshButton(!mServerIsValid);
+        showServerStatus();
+        mOkButton.setEnabled(mServerIsValid);
+        
+        /// very special case (TODO: move to a common place for all the remote operations)
+        if (result.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+            showUntrustedCertDialog(result);
+        }
+    }
 
 
-        }   // else nothing ; only the last check operation is considered; 
-        // multiple can be triggered if the user amends a URL before a previous check can be triggered
+    private boolean authSupported(AuthenticationMethod authMethod) {
+        String basic = AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType());
+        String oAuth = AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType());
+        String saml =  AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType());
+        
+        return (( mAuthTokenType.equals(basic) && 
+                    authMethod.equals(AuthenticationMethod.BASIC_HTTP_AUTH) ) ||
+                ( mAuthTokenType.equals(oAuth) && 
+                    authMethod.equals(AuthenticationMethod.BEARER_TOKEN)) ||
+                ( mAuthTokenType.equals(saml)  && 
+                    authMethod.equals(AuthenticationMethod.SAML_WEB_SSO))
+        );
     }
 
 
@@ -1048,6 +1089,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
 
+    // TODO remove, if possible
     private String normalizeUrl(String url) {
         if (url != null && url.length() > 0) {
             url = url.trim();
@@ -1072,6 +1114,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
 
+    // TODO remove, if possible
     private String trimUrlWebdav(String url){       
         if(url.toLowerCase().endsWith(AccountUtils.WEBDAV_PATH_4_0)){
             url = url.substring(0, url.length() - AccountUtils.WEBDAV_PATH_4_0.length());             
@@ -1325,7 +1368,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerIsChecked = true;
             mServerIsValid = false;
             mIsSslConn = false;
-            mOcServerChkOperation = null;
+            mServerInfoOperation = null;
             mDiscoveredVersion = null;
             mHostBaseUrl = normalizeUrl(mHostUrlInput.getText().toString());
 
@@ -1337,7 +1380,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             showAuthStatus();
 
             // update input controls state
-            showRefreshButton();
+            showRefreshButton(true);
             mOkButton.setEnabled(false);
 
             // very special case (TODO: move to a common place for all the remote operations) (dangerous here?)
@@ -1592,12 +1635,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }     
 
 
-    private void showRefreshButton() {
-        mRefreshButton.setVisibility(View.VISIBLE);
-    }
-
-    private void hideRefreshButton() {
-        mRefreshButton.setVisibility(View.GONE);
+    private void showRefreshButton (boolean show) {
+        if (show)  {
+            mRefreshButton.setVisibility(View.VISIBLE);
+        } else {
+            mRefreshButton.setVisibility(View.GONE);
+        }
     }
 
     /**

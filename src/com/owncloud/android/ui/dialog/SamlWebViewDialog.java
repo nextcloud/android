@@ -72,7 +72,7 @@ public class SamlWebViewDialog extends SherlockDialogFragment {
      * 
      * @param handler
      * @param Url           Url to open at WebView
-     * @param targetURL     mHostBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType)
+     * @param targetURL     mBaseUrl + AccountUtils.getWebdavPath(mDiscoveredVersion, mCurrentAuthTokenType)
      * @return              New dialog instance, ready to show.
      */
     public static SamlWebViewDialog newInstance(String url, String targetUrl) {
