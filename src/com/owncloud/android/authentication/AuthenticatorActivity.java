@@ -111,7 +111,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_AUTH_MESSAGE_TEXT = "AUTH_MESSAGE_TEXT";
     private static final String KEY_HOST_URL_TEXT = "HOST_URL_TEXT";
     private static final String KEY_OC_VERSION = "OC_VERSION";
-    private static final String KEY_OC_VERSION_STRING = "OC_VERSION_STRING";
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_SERVER_VALID = "SERVER_VALID";
     private static final String KEY_SERVER_CHECKED = "SERVER_CHECKED";
@@ -157,10 +156,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private final Handler mHandler = new Handler();
     private Thread mOperationThread;
-    //private GetRemoteStatusOperation mOcServerChkOperation;
     private GetServerInfoOperation mServerInfoOperation;
-    private ExistenceCheckRemoteOperation mAuthCheckOperation;
 
+    //private ExistenceCheckRemoteOperation mAuthCheckOperation;
+    private int mExistenceCheckOpId = -1;
+    
     private Uri mNewCapturedUriFromOAuth2Redirection;
 
     private AccountManager mAccountMgr;
@@ -282,9 +282,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mAccount = getIntent().getExtras().getParcelable(EXTRA_ACCOUNT);
             if (mAccount != null) {
                 String ocVersion = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION);
-                String ocVersionString = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_VERSION_STRING);
                 if (ocVersion != null) {
-                    mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                    mDiscoveredVersion = new OwnCloudVersion(ocVersion);
                 }
                 mHostBaseUrl = normalizeUrl(mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL));
                 mHostUrlInput.setText(mHostBaseUrl);
@@ -317,9 +316,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
             /// server data
             String ocVersion = savedInstanceState.getString(KEY_OC_VERSION);
-            String ocVersionString = savedInstanceState.getString(KEY_OC_VERSION_STRING);
             if (ocVersion != null) {
-                mDiscoveredVersion = new OwnCloudVersion(ocVersion, ocVersionString);
+                mDiscoveredVersion = new OwnCloudVersion(ocVersion);
             }
             mHostBaseUrl = savedInstanceState.getString(KEY_HOST_URL_TEXT);
 
@@ -500,7 +498,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// server data
         if (mDiscoveredVersion != null) {
             outState.putString(KEY_OC_VERSION, mDiscoveredVersion.getVersion());
-            outState.putString(KEY_OC_VERSION_STRING, mDiscoveredVersion.getVersionString());
         }
         outState.putString(KEY_HOST_URL_TEXT, mHostBaseUrl);
 
@@ -827,12 +824,32 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         showDialog(DIALOG_LOGIN_PROGRESS);
 
         /// test credentials accessing the root folder
-        mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
-        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
-        client.setBasicCredentials(username, password);
-        mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
+        String remotePath ="";
+        boolean successIfAbsent = false;
+        boolean followRedirects = true;
+        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, username, password, followRedirects);
+        
     }
 
+    private void startExistenceCheckRemoteOperation(String remotePath, Context context, boolean successIfAbsent, String webdav_path,
+            String username, String password, boolean followRedirects) {
+        
+        Intent existenceCheckIntent = new Intent();
+        existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_SUCCESS_IF_ABSENT, successIfAbsent);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
+        
+        if (mOperationsServiceBinder != null) {
+            Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
+            mExistenceCheckOpId = mOperationsServiceBinder.newOperation(existenceCheckIntent);
+        }
+    }
 
     /**
      * Starts the OAuth 'grant type' flow to get an access token, with 
@@ -875,9 +892,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
 
         /// test credentials accessing the root folder
-        mAuthCheckOperation = new  ExistenceCheckRemoteOperation("", this, false);
-        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, false);
-        mOperationThread = mAuthCheckOperation.execute(client, this, mHandler);
+        String remotePath ="";
+        boolean successIfAbsent = false;
+        boolean followRedirections = false;
+        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirections);
 
     }
 
@@ -899,11 +917,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             onGetOAuthAccessTokenFinish(result);
 
         } else if (operation instanceof ExistenceCheckRemoteOperation)  {
+            Log_OC.wtf(TAG, "received detection response through callback" );
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
-                onSamlBasedFederatedSingleSignOnAuthorizationStart(operation, result);
+                onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
 
             } else {
-                onAuthorizationCheckFinish((ExistenceCheckRemoteOperation)operation, result);
+                onAuthorizationCheckFinish(result);
             }
         } else if (operation instanceof GetRemoteUserNameOperation) {
             onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
@@ -945,7 +964,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     }
 
-    private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperation operation, RemoteOperationResult result) {
+    private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperationResult result) {
+        mExistenceCheckOpId = -1;
         try {
             dismissDialog(DIALOG_LOGIN_PROGRESS);
         } catch (IllegalArgumentException e) {
@@ -1053,8 +1073,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                     url = "http://" + url;
                 }
             }
-
-            // OC-208: Add suffix remote.php/webdav to normalize (OC-34)            
+            
             url = trimUrlWebdav(url);
 
             if (url.endsWith("/")) {
@@ -1274,10 +1293,11 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mAuthToken = tokens.get(OAuth2Constants.KEY_ACCESS_TOKEN);
             //mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
-            mAuthCheckOperation = new ExistenceCheckRemoteOperation("", this, false);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
-            client.setBearerCredentials(mAuthToken);
-            mAuthCheckOperation.execute(client, this, mHandler);
+            
+            String remotePath ="";
+            boolean successIfAbsent = false;
+            boolean followRedirects = true;
+            startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirects);
 
         } else {
             updateAuthStatusIconAndText(result);
@@ -1295,7 +1315,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param operation     Access check performed.
      * @param result        Result of the operation.
      */
-    private void onAuthorizationCheckFinish(ExistenceCheckRemoteOperation operation, RemoteOperationResult result) {
+    private void onAuthorizationCheckFinish(RemoteOperationResult result) {
+        mExistenceCheckOpId = -1;
         try {
             dismissDialog(DIALOG_LOGIN_PROGRESS);
         } catch (IllegalArgumentException e) {
@@ -1442,7 +1463,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             }
             /// add user data to the new account; TODO probably can be done in the last parameter addAccountExplicitly, or in KEY_USERDATA
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION,         mDiscoveredVersion.getVersion());
-            mAccountMgr.setUserData(mAccount, Constants.KEY_OC_VERSION_STRING,  mDiscoveredVersion.getVersionString());
             mAccountMgr.setUserData(mAccount, Constants.KEY_OC_BASE_URL,   mHostBaseUrl);
 
             if (isSaml) {
@@ -1877,7 +1897,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             RemoteOperationResult result = 
                     mOperationsServiceBinder.getOperationResultIfFinished(mGetServerInfoOpId);
             if (result != null) {
-                //Log.wtf(TAG, "found result of operation finished while rotating");
+                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 onGetServerInfoFinish(result);
             }
             
@@ -1886,8 +1906,22 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                     mOperationsServiceBinder.getOperationResultIfFinished(
                             mOauth2GetAccessTokenOpId);
             if (result != null) {
-                //Log.wtf(TAG, "found result of operation finished while rotating");
+                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 onGetOAuthAccessTokenFinish(result);
+            }
+            
+        } else if (mExistenceCheckOpId != -1) {
+            RemoteOperationResult result = 
+                    mOperationsServiceBinder.getOperationResultIfFinished(mExistenceCheckOpId);
+            if (result != null) {
+                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
+                        MainApp.getAccountType()).equals(mAuthTokenType)) {
+                    onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
+
+                } else {
+                    onAuthorizationCheckFinish(result);
+                }
             }
         }
     }

@@ -161,6 +161,7 @@
   <string name="auth_connecting_auth_server">Łączenie z serwerem autoryzacji...</string>
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera multikont</string>
+  <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego identyfikatora użytkownika, proszę skontaktuj się z administratorem</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować z tym serwerem</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>

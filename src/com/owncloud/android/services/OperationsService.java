@@ -30,6 +30,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
@@ -64,10 +65,19 @@ public class OperationsService extends Service {
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_RESULT = "RESULT";
     
+    // TODO review if ALL OF THEM are necessary
+    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
+    public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
+    public static final String EXTRA_USERNAME = "USERNAME";
+    public static final String EXTRA_PASSWORD = "PASSWORD";
+    public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
+    public static final String EXTRA_FOLLOW_REDIRECTS = "FOLLOW_REDIRECTS";
+    
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
+    public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -81,9 +91,21 @@ public class OperationsService extends Service {
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public Target(Account account, Uri serverUrl) {
+        public String mWebDavUrl = "";
+        public String mUsername = "";
+        public String mPassword = "";
+        public String mAuthToken = "";
+        public boolean mFollowRedirects = true;
+        
+        public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
+                boolean followRedirects) {
             mAccount = account;
             mServerUrl = serverUrl;
+            mWebDavUrl = webdavUrl;
+            mUsername = username;
+            mPassword = password;
+            mAuthToken = authToken;
+            mFollowRedirects = followRedirects;
         }
     }
 
@@ -232,9 +254,20 @@ public class OperationsService extends Service {
                 } else {
                     Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
                     String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
+                    String webDavPath = operationIntent.getStringExtra(EXTRA_WEBDAV_PATH);
+                    String webDavUrl = serverUrl + webDavPath;
+                    String username = operationIntent.getStringExtra(EXTRA_USERNAME);
+                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
+                    String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
+                    boolean followRedirects = operationIntent.getBooleanExtra(EXTRA_FOLLOW_REDIRECTS, true);
                     target = new Target(
                             account, 
-                            (serverUrl == null) ? null : Uri.parse(serverUrl)
+                            (serverUrl == null) ? null : Uri.parse(serverUrl),
+                            ((webDavPath == null) || (serverUrl == null)) ? "" : webDavUrl,
+                            (username == null) ? "" : username,
+                            (password == null) ? "" : password,
+                            (authToken == null) ? "" : authToken,
+                            followRedirects
                     );
                     
                     String action = operationIntent.getAction();
@@ -245,6 +278,7 @@ public class OperationsService extends Service {
                             operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
                                     "", false, "", 1, sendIntent);
                         }
+                        
                     } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         if (remotePath.length() > 0) {
@@ -252,6 +286,7 @@ public class OperationsService extends Service {
                                     remotePath, 
                                     OperationsService.this);
                         }
+                        
                     } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
                         // check OC server and get basic information from it
                         String authTokenType = 
@@ -268,6 +303,13 @@ public class OperationsService extends Service {
                                 getString(R.string.oauth2_redirect_uri),       
                                 getString(R.string.oauth2_grant_type),
                                 oauth2QueryParameters);
+                        
+                    } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
+                        // Existence Check 
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, true);
+                        operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
+                        
                     }
                 }
                     
@@ -329,7 +371,7 @@ public class OperationsService extends Service {
         synchronized(mPendingOperations) {
             next = mPendingOperations.peek();
         }
-        
+
         if (next != null) {
             
             mCurrentOperation = next.second;
@@ -342,7 +384,16 @@ public class OperationsService extends Service {
                         mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mAccount, getApplicationContext());
                         mStorageManager = new FileDataStorageManager(mLastTarget.mAccount, getContentResolver());
                     } else {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), true);    // this is not good enough
+                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
+                                mLastTarget.mFollowRedirects);    // this is not good enough
+                        if (mLastTarget.mWebDavUrl != "") {
+                            mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
+                        }
+                        if (mLastTarget.mUsername != "" && mLastTarget.mPassword != "") {
+                            mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
+                        } else if (mLastTarget.mAuthToken != "") {
+                            mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
+                        }
                         mStorageManager = null;
                     }
                 }
