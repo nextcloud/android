@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -32,8 +33,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
-import com.owncloud.android.operations.DetectAuthenticationMethodOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
+import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -58,14 +59,15 @@ public class OperationsService extends Service {
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_AUTH_TOKEN_TYPE = "AUTH_TOKEN_TYPE";
+    public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_RESULT = "RESULT";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
-    //public static final String ACTION_DETECT_AUTHENTICATION_METHOD = "DETECT_AUTHENTICATION_METHOD";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
+    public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -256,6 +258,16 @@ public class OperationsService extends Service {
                                 operationIntent.getStringExtra(EXTRA_AUTH_TOKEN_TYPE);
                         operation = new GetServerInfoOperation(
                                 serverUrl, authTokenType, OperationsService.this);
+                        
+                    } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
+                        /// GET ACCESS TOKEN to the OAuth server
+                        String oauth2QueryParameters =
+                                operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
+                        operation = new OAuth2GetAccessToken(
+                                getString(R.string.oauth2_client_id), 
+                                getString(R.string.oauth2_redirect_uri),       
+                                getString(R.string.oauth2_grant_type),
+                                oauth2QueryParameters);
                     }
                 }
                     

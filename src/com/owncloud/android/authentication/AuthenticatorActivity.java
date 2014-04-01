@@ -19,6 +19,7 @@
 package com.owncloud.android.authentication;
 
 import java.security.cert.X509Certificate;
+import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -147,7 +148,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private int mAuthMessageVisibility, mServerStatusText, mServerStatusIcon;
     private boolean mServerIsChecked, mServerIsValid, mIsSslConn;
     private AuthenticationMethod mServerAuthMethod = AuthenticationMethod.UNKNOWN;
+
     private int mGetServerInfoOpId = -1;
+    private int mOauth2GetAccessTokenOpId = -1;
 
     private int mAuthStatusText, mAuthStatusIcon;    
     private TextView mAuthStatusLayout;
@@ -602,7 +605,24 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// Showing the dialog with instructions for the user.
         showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
 
-        /// GET ACCESS TOKEN to the oAuth server 
+        /// GET ACCESS TOKEN to the oAuth server
+        Intent getServerInfoIntent = new Intent();
+        getServerInfoIntent.setAction(OperationsService.ACTION_OAUTH2_GET_ACCESS_TOKEN);
+        
+        getServerInfoIntent.putExtra(
+                OperationsService.EXTRA_SERVER_URL, 
+                mOAuthTokenEndpointText.getText().toString().trim());
+        
+        getServerInfoIntent.putExtra(
+                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS, 
+                queryParameters);
+        
+        if (mOperationsServiceBinder != null) {
+            //Log.wtf(TAG, "getting access token..." );
+            mOauth2GetAccessTokenOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+        }
+        
+        /*
         RemoteOperation operation = new OAuth2GetAccessToken(   getString(R.string.oauth2_client_id), 
                 getString(R.string.oauth2_redirect_uri),       
                 getString(R.string.oauth2_grant_type),
@@ -610,6 +630,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         //OwnCloudClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
         OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
         operation.execute(client, this, mHandler);
+        */
+        
     }
 
 
@@ -671,12 +693,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
             showServerStatus();
-            
-            /*
-            mServerInfoOperation = new GetServerInfoOperation(uri, mAuthTokenType, this);
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(uri), this, true);
-            mServerInfoOperation.execute(client, this, mHandler);
-            */
             
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
@@ -828,7 +844,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mAuthStatusText = R.string.oauth_login_connection;
         showAuthStatus();
 
-
         // GET AUTHORIZATION request
         //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
         Uri uri = Uri.parse(mOAuthAuthEndpointText.getText().toString().trim());
@@ -881,7 +896,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 // multiple can be started if the user amends a URL quickly
 
         } else if (operation instanceof OAuth2GetAccessToken) {
-            onGetOAuthAccessTokenFinish((OAuth2GetAccessToken)operation, result);
+            onGetOAuthAccessTokenFinish(result);
 
         } else if (operation instanceof ExistenceCheckRemoteOperation)  {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
@@ -1238,10 +1253,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * Processes the result of the request for and access token send 
      * to an OAuth authorization server.
      * 
-     * @param operation     Operation performed requesting the access token.
      * @param result        Result of the operation.
      */
-    private void onGetOAuthAccessTokenFinish(OAuth2GetAccessToken operation, RemoteOperationResult result) {
+    private void onGetOAuthAccessTokenFinish(RemoteOperationResult result) {
+        mOauth2GetAccessTokenOpId = -1;
         try {
             dismissDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
         } catch (IllegalArgumentException e) {
@@ -1254,7 +1269,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             showDialog(DIALOG_LOGIN_PROGRESS);
 
             /// time to test the retrieved access token on the ownCloud server
-            mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
+            @SuppressWarnings("unchecked")
+            Map<String, String> tokens = (Map<String, String>)(result.getData().get(0));
+            mAuthToken = tokens.get(OAuth2Constants.KEY_ACCESS_TOKEN);
+            //mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             mAuthCheckOperation = new ExistenceCheckRemoteOperation("", this, false);
             OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl + webdav_path), this, true);
@@ -1861,6 +1879,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             if (result != null) {
                 //Log.wtf(TAG, "found result of operation finished while rotating");
                 onGetServerInfoFinish(result);
+            }
+            
+        } else if (mOauth2GetAccessTokenOpId != -1) {
+            RemoteOperationResult result = 
+                    mOperationsServiceBinder.getOperationResultIfFinished(
+                            mOauth2GetAccessTokenOpId);
+            if (result != null) {
+                //Log.wtf(TAG, "found result of operation finished while rotating");
+                onGetOAuthAccessTokenFinish(result);
             }
         }
     }
