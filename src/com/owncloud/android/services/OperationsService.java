@@ -32,6 +32,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
@@ -72,12 +73,14 @@ public class OperationsService extends Service {
     public static final String EXTRA_PASSWORD = "PASSWORD";
     public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
     public static final String EXTRA_FOLLOW_REDIRECTS = "FOLLOW_REDIRECTS";
+    public static final String EXTRA_COOKIE = "COOKIE";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
+    public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -96,9 +99,10 @@ public class OperationsService extends Service {
         public String mPassword = "";
         public String mAuthToken = "";
         public boolean mFollowRedirects = true;
+        public String mCookie = "";
         
         public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
-                boolean followRedirects) {
+                boolean followRedirects, String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
             mWebDavUrl = webdavUrl;
@@ -106,6 +110,7 @@ public class OperationsService extends Service {
             mPassword = password;
             mAuthToken = authToken;
             mFollowRedirects = followRedirects;
+            mCookie = cookie;
         }
     }
 
@@ -260,6 +265,7 @@ public class OperationsService extends Service {
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
                     String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
                     boolean followRedirects = operationIntent.getBooleanExtra(EXTRA_FOLLOW_REDIRECTS, true);
+                    String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
                     target = new Target(
                             account, 
                             (serverUrl == null) ? null : Uri.parse(serverUrl),
@@ -267,7 +273,8 @@ public class OperationsService extends Service {
                             (username == null) ? "" : username,
                             (password == null) ? "" : password,
                             (authToken == null) ? "" : authToken,
-                            followRedirects
+                            followRedirects,
+                            (cookie == null) ? "" : cookie
                     );
                     
                     String action = operationIntent.getAction();
@@ -310,6 +317,9 @@ public class OperationsService extends Service {
                         boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, true);
                         operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
                         
+                    } else if (action.equals(ACTION_GET_USER_NAME)) {
+                        // Get User Name
+                        operation = new GetRemoteUserNameOperation();
                     }
                 }
                     
@@ -393,6 +403,8 @@ public class OperationsService extends Service {
                             mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
                         } else if (mLastTarget.mAuthToken != "") {
                             mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
+                        } else if (mLastTarget.mCookie != "") {
+                            mOwnCloudClient.setSsoSessionCookie(mLastTarget.mCookie);
                         }
                         mStorageManager = null;
                     }

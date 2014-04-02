@@ -67,8 +67,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -158,8 +156,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private Thread mOperationThread;
     private GetServerInfoOperation mServerInfoOperation;
 
-    //private ExistenceCheckRemoteOperation mAuthCheckOperation;
     private int mExistenceCheckOpId = -1;
+    private int mGetUserNameOpId = -1;
     
     private Uri mNewCapturedUriFromOAuth2Redirection;
 
@@ -925,17 +923,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 onAuthorizationCheckFinish(result);
             }
         } else if (operation instanceof GetRemoteUserNameOperation) {
-            onGetUserNameFinish((GetRemoteUserNameOperation) operation, result);
-
+            onGetUserNameFinish(result);
         }
 
     }
 
-    private void onGetUserNameFinish(GetRemoteUserNameOperation operation, RemoteOperationResult result) {
-
+    private void onGetUserNameFinish(RemoteOperationResult result) {
+        mGetUserNameOpId = -1;
         if (result.isSuccess()) {
             boolean success = false;
-            String username = operation.getUserName();
+            String username = (String) result.getData().get(0);
 
             if ( mAction == ACTION_CREATE) {
                 mUsernameInput.setText(username);
@@ -1753,13 +1750,27 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
 
-            GetRemoteUserNameOperation getUserOperation = new GetRemoteUserNameOperation();            
-            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
-            client.setSsoSessionCookie(mAuthToken);
-            getUserOperation.execute(client, this, mHandler);
+//            GetRemoteUserNameOperation getUserOperation = new GetRemoteUserNameOperation();
+//            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
+//            client.setSsoSessionCookie(mAuthToken);
+//            getUserOperation.execute(client, this, mHandler);
+            boolean followRedirects = true;
+            getRemoteUserNameOperation(sessionCookie, followRedirects);
         }
-
-
+    }
+    
+    private void getRemoteUserNameOperation(String sessionCookie, boolean followRedirects) {
+        
+        Intent getUserNameIntent = new Intent();
+        getUserNameIntent.setAction(OperationsService.ACTION_GET_USER_NAME);
+        getUserNameIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mHostBaseUrl);
+        getUserNameIntent.putExtra(OperationsService.EXTRA_COOKIE, sessionCookie);
+        getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
+        
+        if (mOperationsServiceBinder != null) {
+            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            mGetUserNameOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
+        }
     }
 
 
@@ -1923,7 +1934,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                     onAuthorizationCheckFinish(result);
                 }
             }
-        }
+        }if (mGetUserNameOpId != -1) {
+            RemoteOperationResult result = 
+                    mOperationsServiceBinder.getOperationResultIfFinished(mGetUserNameOpId);
+            if (result != null) {
+                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                onGetUserNameFinish(result);
+            }
+            
+        } 
+        
     }
     
     /** 
