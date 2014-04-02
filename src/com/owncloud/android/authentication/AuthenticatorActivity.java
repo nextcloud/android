@@ -23,12 +23,9 @@ import java.util.Map;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -81,6 +78,7 @@ import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -92,6 +90,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
  * 
  * @author Bartek Przybylski
  * @author David A. Velasco
+ * @author masensio
  */
 public class AuthenticatorActivity extends AccountAuthenticatorActivity
 implements  OnRemoteOperationListener, OnFocusChangeListener, OnEditorActionListener, 
@@ -120,23 +119,18 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_REFRESH_BUTTON_ENABLED = "KEY_REFRESH_BUTTON_ENABLED";
-    //private static final String KEY_IS_SHARED_SUPPORTED = "KEY_IS_SHARE_SUPPORTED";
     private static final String KEY_SERVER_AUTH_METHOD = "KEY_SERVER_AUTH_METHOD";
     private static final String KEY_DETECT_AUTH_OP_ID = "KEY_DETECT_AUTH_OP_ID";
 
-
     private static final String AUTH_ON = "on";
-    private static final String AUTH_OFF = "off";
+    //private static final String AUTH_OFF = "off";
     private static final String AUTH_OPTIONAL = "optional";
-
-    private static final int DIALOG_LOGIN_PROGRESS = 0;
-    private static final int DIALOG_CERT_NOT_SAVED = 1;
-    private static final int DIALOG_OAUTH2_LOGIN_PROGRESS = 2;
 
     public static final byte ACTION_CREATE = 0;
     public static final byte ACTION_UPDATE_TOKEN = 1;
 
-    private static final String TAG_SAML_DIALOG = "samlWebViewDialog";
+    private static final String SAML_DIALOG_TAG = "SAML_DIALOG";
+    private static final String WAIT_DIALOG_TAG = "WAIT_DIALOG";
 
     private String mHostBaseUrl;                // TODO remove
     private OwnCloudVersion mDiscoveredVersion; // TODO remove
@@ -153,7 +147,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private TextView mAuthStatusLayout;
 
     private final Handler mHandler = new Handler();
-    private Thread mOperationThread;
     private GetServerInfoOperation mServerInfoOperation;
 
     private int mExistenceCheckOpId = -1;
@@ -598,7 +591,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mNewCapturedUriFromOAuth2Redirection = null;
 
         /// Showing the dialog with instructions for the user.
-        showDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
+        IndeterminateProgressDialog dialog = 
+                IndeterminateProgressDialog.newInstance(R.string.auth_getting_authorization, true);
+        dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// GET ACCESS TOKEN to the oAuth server
         Intent getServerInfoIntent = new Intent();
@@ -616,17 +611,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             //Log.wtf(TAG, "getting access token..." );
             mOauth2GetAccessTokenOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
         }
-        
-        /*
-        RemoteOperation operation = new OAuth2GetAccessToken(   getString(R.string.oauth2_client_id), 
-                getString(R.string.oauth2_redirect_uri),       
-                getString(R.string.oauth2_grant_type),
-                queryParameters);
-        //OwnCloudClient client = OwnCloudClientUtils.createOwnCloudClient(Uri.parse(getString(R.string.oauth2_url_endpoint_access)), getApplicationContext());
-        OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mOAuthTokenEndpointText.getText().toString().trim()), getApplicationContext(), true);
-        operation.execute(client, this, mHandler);
-        */
-        
     }
 
 
@@ -754,23 +738,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         showViewPasswordButton();
     }
 
-
-    /**
-     * Cancels the authenticator activity
-     * 
-     * IMPORTANT ENTRY POINT 3: Never underestimate the importance of cancellation
-     * 
-     * This method is bound in the layout/acceoun_setup.xml resource file.
-     * 
-     * @param view      Cancel button
-     */
-    public void onCancelClick(View view) {
-        setResult(RESULT_CANCELED);     // TODO review how is this related to AccountAuthenticator (debugging)
-        finish();
-    }
-
-
-
     /**
      * Checks the credentials of the user in the root of the ownCloud server
      * before creating a new local account.
@@ -819,7 +786,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String password = mPasswordInput.getText().toString();
 
         /// be gentle with the user
-        showDialog(DIALOG_LOGIN_PROGRESS);
+        IndeterminateProgressDialog dialog = 
+                IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
+        dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// test credentials accessing the root folder
         String remotePath ="";
@@ -884,7 +853,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mAuthStatusIcon = R.drawable.progress_small;
         mAuthStatusText = R.string.auth_connecting_auth_server;
         showAuthStatus();
-        showDialog(DIALOG_LOGIN_PROGRESS);
+        IndeterminateProgressDialog dialog = 
+                IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
+        dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
         /// get the path to the root folder through WebDAV from the version server
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
@@ -963,11 +934,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperationResult result) {
         mExistenceCheckOpId = -1;
-        try {
-            dismissDialog(DIALOG_LOGIN_PROGRESS);
-        } catch (IllegalArgumentException e) {
-            // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
-        }
+        dismissDialog(WAIT_DIALOG_TAG);
 
         //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
         if (result.isIdPRedirection()) {
@@ -976,7 +943,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
             // Show dialog
             mSamlDialog = SamlWebViewDialog.newInstance(url, targetUrl);            
-            mSamlDialog.show(getSupportFragmentManager(), TAG_SAML_DIALOG);
+            mSamlDialog.show(getSupportFragmentManager(), SAML_DIALOG_TAG);
 
             mAuthStatusIcon = 0;
             mAuthStatusText = 0;
@@ -1273,16 +1240,14 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     private void onGetOAuthAccessTokenFinish(RemoteOperationResult result) {
         mOauth2GetAccessTokenOpId = -1;
-        try {
-            dismissDialog(DIALOG_OAUTH2_LOGIN_PROGRESS);
-        } catch (IllegalArgumentException e) {
-            // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
-        }
+        dismissDialog(WAIT_DIALOG_TAG);
 
         String webdav_path = AccountUtils.getWebdavPath(mDiscoveredVersion, mAuthTokenType);
         if (result.isSuccess() && webdav_path != null) {
             /// be gentle with the user
-            showDialog(DIALOG_LOGIN_PROGRESS);
+            IndeterminateProgressDialog dialog = 
+                    IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
+            dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
             /// time to test the retrieved access token on the ownCloud server
             @SuppressWarnings("unchecked")
@@ -1314,11 +1279,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     private void onAuthorizationCheckFinish(RemoteOperationResult result) {
         mExistenceCheckOpId = -1;
-        try {
-            dismissDialog(DIALOG_LOGIN_PROGRESS);
-        } catch (IllegalArgumentException e) {
-            // NOTHING TO DO ; can't find out what situation that leads to the exception in this code, but user logs signal that it happens
-        }
+        dismissDialog(WAIT_DIALOG_TAG);
 
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
@@ -1473,90 +1434,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
             return true;
         }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     * 
-     * Necessary to update the contents of the SSL Dialog
-     * 
-     * TODO move to some common place for all possible untrusted SSL failures
-     */
-    @Override
-    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
-        switch (id) {
-        case DIALOG_LOGIN_PROGRESS:
-        case DIALOG_CERT_NOT_SAVED:
-        case DIALOG_OAUTH2_LOGIN_PROGRESS:
-            break;
-        default:
-            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
-        }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog = null;
-        switch (id) {
-        case DIALOG_LOGIN_PROGRESS: {
-            /// simple progress dialog
-            ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(getResources().getString(R.string.auth_trying_to_login));
-            working_dialog.setIndeterminate(true);
-            working_dialog.setCancelable(true);
-            working_dialog
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    /// TODO study if this is enough
-                    Log_OC.i(TAG, "Login canceled");
-                    if (mOperationThread != null) {
-                        mOperationThread.interrupt();
-                        finish();
-                    }
-                }
-            });
-            dialog = working_dialog;
-            break;
-        }
-        case DIALOG_OAUTH2_LOGIN_PROGRESS: {
-            ProgressDialog working_dialog = new ProgressDialog(this);
-            working_dialog.setMessage(String.format("Getting authorization")); 
-            working_dialog.setIndeterminate(true);
-            working_dialog.setCancelable(true);
-            working_dialog
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    Log_OC.i(TAG, "Login canceled");
-                    finish();
-                }
-            });
-            dialog = working_dialog;
-            break;
-        }
-        case DIALOG_CERT_NOT_SAVED: {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(getResources().getString(R.string.ssl_validator_not_saved));
-            builder.setCancelable(false);
-            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                };
-            });
-            dialog = builder.create();
-            break;
-        }
-        default:
-            Log_OC.e(TAG, "Incorrect dialog called with id = " + id);
-        }
-        return dialog;
     }
 
 
@@ -1749,11 +1626,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         if (sessionCookie != null && sessionCookie.length() > 0) {
             mAuthToken = sessionCookie;
-
-//            GetRemoteUserNameOperation getUserOperation = new GetRemoteUserNameOperation();
-//            OwnCloudClient client = OwnCloudClientFactory.createOwnCloudClient(Uri.parse(mHostBaseUrl), getApplicationContext(), true);
-//            client.setSsoSessionCookie(mAuthToken);
-//            getUserOperation.execute(client, this, mHandler);
             boolean followRedirects = true;
             getRemoteUserNameOperation(sessionCookie, followRedirects);
         }
@@ -1768,7 +1640,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
             mGetUserNameOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
         }
     }
@@ -1776,12 +1648,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     @Override
     public void onSsoFinished(String sessionCookies) {
-        //Toast.makeText(this, "got cookies: " + sessionCookie, Toast.LENGTH_LONG).show();
-
         if (sessionCookies != null && sessionCookies.length() > 0) {
             Log_OC.d(TAG, "Successful SSO - time to save the account");
             onSamlDialogSuccess(sessionCookies);
-            Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+            Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
             if (fd != null && fd instanceof SherlockDialogFragment) {
                 Dialog d = ((SherlockDialogFragment)fd).getDialog();
                 if (d != null && d.isShowing()) {
@@ -1850,22 +1720,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     /**
-     * Dismiss untrusted cert dialog
-     */
-    public void dismissUntrustedCertDialog(){
-        /*Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_UNTRUSTED_CERT);
-        if (frag != null) {
-            SslErrorViewAdapter dialog = (SslErrorViewAdapter) frag;
-            dialog.dismiss();
-        }
-         */
-    }
-
-    /**
      * Called from SslValidatorDialog when a new server certificate was correctly saved.
      */
     public void onSavedCertificate() {
-        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
+        Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
         if (fd == null) {
             // if SAML dialog is not shown, the SslDialog was shown due to an SSL error in the server check
             checkOcServer();
@@ -1878,28 +1736,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     public void onFailedSavingCertificate() {
-        showDialog(DIALOG_CERT_NOT_SAVED);
-        cancelWebView();
+        dismissDialog(SAML_DIALOG_TAG);
+        Toast.makeText(this, R.string.ssl_validator_not_saved, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onCancelCertificate() {
-        cancelWebView();
+        dismissDialog(SAML_DIALOG_TAG);
     }
 
 
-    public void cancelWebView() {
-        Fragment fd = getSupportFragmentManager().findFragmentByTag(TAG_SAML_DIALOG);
-        if (fd != null && fd instanceof SherlockDialogFragment) {
-            Dialog d = ((SherlockDialogFragment)fd).getDialog();
-            if (d != null && d.isShowing()) {
-                d.dismiss();
-            }
-        }
-
-    }
-    
-    
     private void doOnResumeAndBound() {
         //Log.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
@@ -1945,6 +1791,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         } 
         
     }
+
+    
+    private void dismissDialog(String dialogTag){
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(dialogTag);
+        if (frag != null && frag instanceof SherlockDialogFragment) {
+            SherlockDialogFragment dialog = (SherlockDialogFragment) frag;
+            dialog.dismiss();
+        }
+    }
+    
     
     /** 
      * Implements callback methods for service binding. 
