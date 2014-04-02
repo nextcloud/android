@@ -199,8 +199,8 @@
   <string name="ssl_validator_label_subject">Verilen:</string>
   <string name="ssl_validator_label_issuer">Veren:</string>
   <string name="ssl_validator_label_CN">Ortak ad:</string>
-  <string name="ssl_validator_label_O">Organizasyon:</string>
-  <string name="ssl_validator_label_OU">Organizasyon birimi:</string>
+  <string name="ssl_validator_label_O">Kurum:</string>
+  <string name="ssl_validator_label_OU">Kuruluş birimi:</string>
   <string name="ssl_validator_label_C">Ülke:</string>
   <string name="ssl_validator_label_ST">Eyalet:</string>
   <string name="ssl_validator_label_L">Konum:</string>
