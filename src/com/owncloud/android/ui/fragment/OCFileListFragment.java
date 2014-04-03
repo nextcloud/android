@@ -65,6 +65,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ? OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
     private static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
+
+    private static final String KEY_INDEXES = "INDEXES";
+    private static final String KEY_TOPS = "TOPS";
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -103,17 +106,21 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
+            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+            
+        } else {
+            mIndexes = new ArrayList<Integer>();
+            mTops = new ArrayList<Integer>();
+            
         }
+        
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
-        
-        mIndexes = new ArrayList<Integer>();
-        mTops = new ArrayList<Integer>();
-        
 
     }
     
@@ -124,6 +131,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(EXTRA_FILE, mFile);
+        outState.putIntegerArrayList(KEY_INDEXES, mIndexes);
+        outState.putIntegerArrayList(KEY_TOPS, mTops);
     }
     
     /**
