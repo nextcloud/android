@@ -73,6 +73,10 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     private Handler mHandler;
     private OCFile mTargetFile;
+
+    private ArrayList<Integer> mIndexes;
+    private ArrayList<Integer> mTops;
+
     
     /**
      * {@inheritDoc}
@@ -87,8 +91,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             throw new ClassCastException(activity.toString() + " must implement " + OCFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -106,6 +110,10 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         getListView().setOnCreateContextMenuListener(this);        
         
         mHandler = new Handler();
+        
+        mIndexes = new ArrayList<Integer>();
+        mTops = new ArrayList<Integer>();
+        
 
     }
     
@@ -117,8 +125,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         super.onSaveInstanceState(outState);
         outState.putParcelable(EXTRA_FILE, mFile);
     }
-
-
+    
     /**
      * Call this, when the user presses the up button.
      * 
@@ -156,9 +163,34 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             listDirectory(mFile);
 
             mContainerActivity.startSyncFolderOperation(mFile);
+            
+            // restore index and position
+            restoreIndexAndPosition();
+            
         }   // else - should never happen now
    
         return moveCount;
+    }
+    
+    /*
+     * Restore index and position
+     */
+    private void restoreIndexAndPosition() {
+        int index = mIndexes.get(mIndexes.size() - 1);
+        mIndexes.remove(mIndexes.size() - 1);
+        int top = mTops.get(mTops.size() - 1);
+        mTops.remove(mTops.size() - 1);
+        mList.setSelectionFromTop(index, top);
+    }
+    
+    /*
+     * Save index and top position
+     */
+    private void saveIndexAndPosition(int index) {
+        
+        mIndexes.add(index);
+        View view = mList.getChildAt(0);
+        mTops.add( (view == null) ? 0 : view.getTop() );
     }
     
     @Override
@@ -170,6 +202,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
                 mContainerActivity.onBrowsedDownTo(file);
+                
+                // save index and top position
+               saveIndexAndPosition(position);
                 
             } else { /// Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
