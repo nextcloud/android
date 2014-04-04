@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Відвантажити</string>
   <string name="actionbar_upload_from_apps">Вміст із інших програм</string>
   <string name="actionbar_upload_files">Файли</string>
-  <string name="actionbar_mkdir">Створити теку</string>
   <string name="actionbar_settings">Налаштування</string>
   <string name="actionbar_see_details">Деталі</string>
   <string name="actionbar_send_file">Надіслати</string>
@@ -54,7 +53,6 @@
   <string name="delete_account">Видалити запис</string>
   <string name="create_account">Створити запис</string>
   <string name="upload_chooser_title">Завантажити з …</string>
-  <string name="uploader_info_dirname">Ім\'я теки</string>
   <string name="uploader_upload_in_progress_ticker">Завантаження …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Завантаження %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Успішно завантажено</string>
@@ -75,7 +73,6 @@
   <string name="sync_fail_in_favourites_ticker">Синхронізувати файли не вдалося</string>
   <string name="sync_fail_in_favourites_content">Зміст %1$d файлів не може бути синхронізований (%2$d конфліктів)</string>
   <string name="sync_foreign_files_forgotten_ticker">Деякі локальні файли були забуті</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d файлів з каталогу %2$s не можуть бути в нього скопійовані</string>
   <string name="foreign_files_move">Перемістити все</string>
   <string name="foreign_files_success">Всі файли були переміщені</string>
   <string name="foreign_files_fail">Деякі файли не можуть бути переміщені</string>
@@ -122,7 +119,6 @@
   <string name="rename_server_fail_msg">Перейменування не вдалося</string>
   <string name="sync_file_fail_msg">Неможливо перевірити віддалений файл</string>
   <string name="sync_file_nothing_to_do_msg">Зміст файлу вже синхронізовано</string>
-  <string name="create_dir_fail_msg">Не вдалося створити теку</string>
   <string name="wait_a_moment">Зачекайте хвилинку</string>
   <string name="filedisplay_unexpected_bad_get_content">Несподівані проблеми ; будь ласка, спробуйте використати іншу програму для вибору файлу</string>
   <string name="filedisplay_no_file_selected">Не обрано файл</string>
@@ -156,7 +152,6 @@
   <string name="conflict_keep_both">Залишити обидва</string>
   <string name="conflict_overwrite">Замінити</string>
   <string name="conflict_dont_upload">Не завантажувати</string>
-  <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати в локальний каталог %2$s</string>
   <string name="activity_chooser_send_file_title">Надіслати</string>
   <string name="clipboard_text_copied">Скопійовано в буфер обміну</string>
 </resources>

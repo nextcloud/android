@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
-  <string name="actionbar_mkdir">Нова директория</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_send_file">Изпрати</string>
   <string name="prefs_category_general">Общи</string>
@@ -40,7 +39,6 @@
   <string name="delete_account">Изтрий акаунт</string>
   <string name="create_account">Създай акаунт</string>
   <string name="upload_chooser_title">Качено от ...</string>
-  <string name="uploader_info_dirname">Име на папка</string>
   <string name="uploader_upload_in_progress_ticker">Качване ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Качване е успешно</string>
@@ -71,7 +69,6 @@
   <string name="confirmation_remove_local">Само локално</string>
   <string name="confirmation_remove_remote">Премахни от сървъра</string>
   <string name="rename_server_fail_msg">Преименуването не може да се осъществи</string>
-  <string name="create_dir_fail_msg">Папката не може да бъде създадена</string>
   <string name="wait_a_moment">Изчакайте малко</string>
   <string name="filedisplay_no_file_selected">Не е избран файл</string>
   <string name="ssl_validator_header">Самоличността на сайта не може да бъде проверена</string>

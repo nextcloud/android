@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Încarcă</string>
   <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
   <string name="actionbar_upload_files">Fișiere</string>
-  <string name="actionbar_mkdir">Creare director</string>
   <string name="actionbar_settings">Setări</string>
   <string name="actionbar_send_file">Expediază</string>
   <string name="prefs_category_general">General</string>
@@ -40,7 +39,6 @@
   <string name="delete_account">Șterge cont</string>
   <string name="create_account">Crează cont</string>
   <string name="upload_chooser_title">Încarcă din...</string>
-  <string name="uploader_info_dirname">Nume director</string>
   <string name="uploader_upload_in_progress_ticker">În curs de încărcare...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Se încarcă %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Încărcat cu succes</string>
@@ -78,7 +76,6 @@
   <string name="confirmation_remove_remote">Elimină de pe server</string>
   <string name="remove_success_msg">Eliminat cu succes</string>
   <string name="remove_fail_msg">Eliminarea nu a reușit</string>
-  <string name="create_dir_fail_msg">Directorul nu a putut fi creat</string>
   <string name="wait_a_moment">Așteaptă un moment</string>
   <string name="filedisplay_no_file_selected">Nu a fost selectat nici un fișier</string>
   <string name="activity_chooser_send_file_title">Expediază</string>

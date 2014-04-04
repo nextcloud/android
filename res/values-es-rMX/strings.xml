@@ -7,7 +7,6 @@
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
-  <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_settings">Ajustes</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Enviar</string>
@@ -38,7 +37,6 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
-  <string name="uploader_top_message">Escoja el directorio de carga:</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_text">No hay cuentas de %1$s en tu dispositivo. Por favor configura una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
@@ -72,7 +70,6 @@
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir</string>
-  <string name="uploader_info_dirname">Nombre de directorio</string>
   <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
@@ -95,7 +92,6 @@
   <string name="sync_fail_in_favourites_ticker">Fallos en la sincronización de contenidos</string>
   <string name="sync_fail_in_favourites_content">Los contenidos de %1$d archivos no fueron sincronizados (%2$d conflictos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Algunos archivos locales se han perdido</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d archivos de %2$s no han podido ser copiados</string>
   <string name="sync_current_folder_was_removed">La carpeta local %1$s no existe.</string>
   <string name="foreign_files_move">Mover todo</string>
   <string name="foreign_files_success">Todos los archivos fueron movidos</string>
@@ -175,7 +171,6 @@
   <string name="rename_server_fail_msg">No se pudo cambiar el nombre</string>
   <string name="sync_file_fail_msg">No pudo comprobarse el archivo remoto</string>
   <string name="sync_file_nothing_to_do_msg">Ya está sincronizado</string>
-  <string name="create_dir_fail_msg">El directorio no pudo ser creado</string>
   <string name="filename_forbidden_characters">Carácteres ilegales: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Espere un momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, prueba otra app para seleccionar el archivo</string>
@@ -219,7 +214,6 @@
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
   <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
-  <string name="error__upload__local_file_not_copied">%1$s no puede ser copiado al %2$s directorio local </string>
   <string name="actionbar_failed_instant_upload">Carga instantánea fallida</string>
   <string name="failed_upload_headline_text">Cargas instantáneas fallidas</string>
   <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas fallidas</string>

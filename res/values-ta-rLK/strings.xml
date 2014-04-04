@@ -3,7 +3,6 @@
   <string name="actionbar_upload">பதிவேற்றுக</string>
   <string name="actionbar_upload_from_apps">மற்ற செயலிகளிலிருந்து உள்ளடக்கம்</string>
   <string name="actionbar_upload_files">கோப்புகள்</string>
-  <string name="actionbar_mkdir">அடைவை உருவாக்குக</string>
   <string name="actionbar_settings">அமைப்புகள்</string>
   <string name="actionbar_see_details">விவரங்கள்</string>
   <string name="prefs_category_general">பொதுவான</string>
@@ -49,7 +48,6 @@
   <string name="delete_account">கணக்கை நீக்குக</string>
   <string name="create_account">கணக்கை உருவாக்குக</string>
   <string name="upload_chooser_title">பதிவேற்றல் படிவம்</string>
-  <string name="uploader_info_dirname">அடைவு பெயர்</string>
   <string name="uploader_upload_in_progress_ticker">பதிவேற்றல்...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% பதிவேற்றல்g %2$s</string>
   <string name="uploader_upload_succeeded_ticker">வெற்றிகரமாக பதிவேற்றப்பட்டது</string>
@@ -107,7 +105,6 @@
   <string name="rename_server_fail_msg">பெயர்மாற்றத்தை முற்றாக முடிக்கமுடியவில்லை</string>
   <string name="sync_file_fail_msg">தொலை கோப்பை சரிபார்க்கமுடியவில்லை</string>
   <string name="sync_file_nothing_to_do_msg">கோப்பு உள்ளடக்கங்கள் ஏற்கவே ஒத்திசைக்கப்படுள்ளன</string>
-  <string name="create_dir_fail_msg">அடைவுகளை உருவாக்க முடியவில்லை</string>
   <string name="wait_a_moment">சிறிது நேரம் காத்திருங்கள்</string>
   <string name="filedisplay_unexpected_bad_get_content">எதிர்பாராத பிரச்சினை ; தயவுசெய்து கோப்பை தெரிவுசெய்ய மற்ற செயலியை பயன்படுத்தவும்</string>
   <string name="filedisplay_no_file_selected">ஒரு கோப்பும் தெரிவுசெய்யப்படவில்லை</string>

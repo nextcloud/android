@@ -7,7 +7,6 @@
   <string name="actionbar_upload_from_apps">Obsah z inej aplikácie</string>
   <string name="actionbar_upload_files">Súbory</string>
   <string name="actionbar_open_with">Otvoriť v</string>
-  <string name="actionbar_mkdir">Vytvor priečinok</string>
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odoslať</string>
@@ -38,7 +37,6 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
-  <string name="uploader_top_message">Vyberte priečinok pre nahrané súbory:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny %1$s účet. Zadajte ho prosím.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
@@ -73,7 +71,6 @@
   <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
-  <string name="uploader_info_dirname">Názov priečinka</string>
   <string name="uploader_upload_in_progress_ticker">Odosielam ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Odoslanie bolo úspešné</string>
@@ -96,8 +93,6 @@
   <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d súborov z priečinka %2$s nemožno skopírovať do</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od verzie 1.3.16 sú súbory nahrané z tohoto zariadenia, skopírovné do lokálneho priečinka %1$s, aby sa zabránilo strate dát, keď je jeden súbor synchronizovný s viacerými účtami.\n\nPre túto zmenu, všetky súbory nahraté v predchádzajúcich verziách tejto aplikácie boli skopírované do priečinka %2$s. Je nám to ľúto, chyba zabránila dokončeniu tejto operácie počas synchronizácie účtu. Súbor(y) môžete ponechať v súčasnom stave a zmazať odkaz na %3$s, alebo presunúť súbor(y) do priečinka %1$s a zachovať odkaz na %4$s.\n\nNižšie je zoznam lokálnych súborov a vzdialených súborov z %5$s na ktoré odkazovali.</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
@@ -177,7 +172,6 @@
   <string name="rename_server_fail_msg">Nie je možné premenovať</string>
   <string name="sync_file_fail_msg">Vzdialený súbor nemohol byť prekontrolovaný</string>
   <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
-  <string name="create_dir_fail_msg">Priečinok nie je možné vytvoriť</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Počkať chvíľu</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
@@ -222,7 +216,6 @@
   <string name="conflict_dont_upload">Nenahrávajte</string>
   <string name="preview_image_description">Ukážka obrazu</string>
   <string name="preview_image_error_unknown_format">Obraz nemôže byť zobrazený</string>
-  <string name="error__upload__local_file_not_copied">%1$s nemožno skopírovať do lokálneho priečinka %2$s</string>
   <string name="actionbar_failed_instant_upload">Okamžité odoslanie zlyhalo</string>
   <string name="failed_upload_headline_text">Zlyhané instantné nahratia</string>
   <string name="failed_upload_headline_hint">Zhrnutie všetkých zlyhaných nahratí</string>

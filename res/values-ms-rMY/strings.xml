@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Muat naik</string>
   <string name="actionbar_upload_files">Fail-fail</string>
-  <string name="actionbar_mkdir">Bina direktori</string>
   <string name="actionbar_settings">Set</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lanjutan</string>
@@ -33,7 +32,6 @@
   <string name="about_title">Mengenai</string>
   <string name="change_password">Ubah kata laluan</string>
   <string name="delete_account">Padam akaun</string>
-  <string name="uploader_info_dirname">Nama direktori</string>
   <string name="uploader_upload_succeeded_ticker">Muatnaik berjaya</string>
   <string name="uploader_upload_failed_ticker">Muatnaik gagal</string>
   <string name="downloader_download_in_progress_ticker">Muatturun....</string>

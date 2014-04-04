@@ -4,7 +4,6 @@
   <string name="actionbar_upload">Last opp</string>
   <string name="actionbar_upload_from_apps">Innhald frå andre program</string>
   <string name="actionbar_upload_files">Filer</string>
-  <string name="actionbar_mkdir">Opprett mappe</string>
   <string name="actionbar_settings">Innstillingar</string>
   <string name="actionbar_send_file">Send</string>
   <string name="prefs_category_general">Generelt</string>
@@ -43,7 +42,6 @@
   <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp frå …</string>
-  <string name="uploader_info_dirname">Mappenamn</string>
   <string name="uploader_upload_in_progress_ticker">Lastar opp …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% lastar opp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Opplasting fullført</string>
@@ -74,7 +72,6 @@
   <string name="confirmation_remove_local">Berre lokalt</string>
   <string name="confirmation_remove_remote">Fjern frå tenaren</string>
   <string name="rename_server_fail_msg">Klarte ikkje å fullføra omdøyping</string>
-  <string name="create_dir_fail_msg">Klarte ikkje å oppretta mappa</string>
   <string name="wait_a_moment">Vent litt</string>
   <string name="filedisplay_no_file_selected">Inga fil valt</string>
   <string name="ssl_validator_header">Klarte ikkje å stadfesta identiteten til nettstaden</string>

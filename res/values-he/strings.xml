@@ -3,7 +3,6 @@
   <string name="actionbar_upload">העלאה</string>
   <string name="actionbar_upload_from_apps">תוכן מיישומים אחרים</string>
   <string name="actionbar_upload_files">קבצים</string>
-  <string name="actionbar_mkdir">יצירת תיקייה</string>
   <string name="actionbar_settings">הגדרות</string>
   <string name="actionbar_see_details">פרטים</string>
   <string name="actionbar_send_file">שליחה</string>
@@ -21,7 +20,6 @@
   <string name="sync_string_files">קבצים</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
-  <string name="uploader_top_message">נא לבחור את תיקיית ההעלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">אין חשבונות %1$s בהתקן שלך. נא להגדיר חשבון תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
@@ -53,7 +51,6 @@
   <string name="delete_account">מחיקת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
-  <string name="uploader_info_dirname">שם התיקייה</string>
   <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ההעלאה הצליחה</string>
@@ -127,7 +124,6 @@
   <string name="rename_server_fail_msg">לא ניתן להשלים את פעולת שינוי השם</string>
   <string name="sync_file_fail_msg">לא ניתן לבדוק את הקובץ המרוחק </string>
   <string name="sync_file_nothing_to_do_msg">תוכן הקובץ כבר מסונכרן</string>
-  <string name="create_dir_fail_msg">לא ניתן ליצור את התיקייה</string>
   <string name="wait_a_moment">נא להמתין רגע</string>
   <string name="filedisplay_unexpected_bad_get_content">תקלה בלתי צפויה ; נא לבחור בקובץ מיישום אחר</string>
   <string name="filedisplay_no_file_selected">לא נבחרו קבצים</string>

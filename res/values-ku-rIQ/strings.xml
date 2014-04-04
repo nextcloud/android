@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_upload_files">په‌ڕگەکان</string>
-  <string name="actionbar_mkdir">درووستکردنى بوخچە</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
   <string name="prefs_category_general">گشتی</string>
   <string name="prefs_accounts">هەژمارەکان</string>

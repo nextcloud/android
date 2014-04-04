@@ -7,7 +7,6 @@
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
   <string name="actionbar_upload_files">Tiedostot</string>
   <string name="actionbar_open_with">Avaa sovelluksella</string>
-  <string name="actionbar_mkdir">Luo kansio</string>
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="actionbar_send_file">Lähetä</string>
@@ -35,7 +34,6 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
-  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -69,7 +67,6 @@
   <string name="delete_account">Poista tili</string>
   <string name="create_account">Luo tili</string>
   <string name="upload_chooser_title">Lataus täältä:</string>
-  <string name="uploader_info_dirname">Kansion nimi</string>
   <string name="uploader_upload_in_progress_ticker">Lähetetään...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Lähetetään palvelimelle %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Lähetys onnistui</string>
@@ -158,7 +155,6 @@
   <string name="rename_server_fail_msg">Nimen muutos epäonnistui</string>
   <string name="sync_file_fail_msg">Etäpään tiedostoa ei voitu tarkistaa</string>
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
-  <string name="create_dir_fail_msg">Kansion luonti epäonnistui</string>
   <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>

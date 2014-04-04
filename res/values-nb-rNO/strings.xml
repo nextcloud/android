@@ -7,7 +7,6 @@
   <string name="actionbar_upload_from_apps">Innhold fra andre applikasjoner</string>
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Åpne med</string>
-  <string name="actionbar_mkdir">Opprett katalog</string>
   <string name="actionbar_settings">Innstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
@@ -38,7 +37,6 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Koble til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
-  <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
   <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s kontoer for din enhet. For å bruker denne appen må du først opprette en.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
@@ -73,7 +71,6 @@
   <string name="delete_account">Slett konto</string>
   <string name="create_account">Opprett konto</string>
   <string name="upload_chooser_title">Last opp fra...</string>
-  <string name="uploader_info_dirname">Katalognavn</string>
   <string name="uploader_upload_in_progress_ticker">Laster opp...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Opplasting fullført</string>
@@ -96,8 +93,6 @@
   <string name="sync_fail_in_favourites_ticker">Hold i synk filer mislyktes</string>
   <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d filer av %2$s mappen kunne ikke kopieres til</string>
-  <string name="sync_foreign_files_forgotten_explanation">Fra versjon 1.3.16 blir filer som lastes opp fra denne enheten kopiert inn i lokal mappe %1$s for å forhindre tap av data når en enkelt fil synkroniseres med flere kontoer.\n\nPga. denne endringen ble alle filer som er lastet opp med tidligere versjoner kopiert inn i lokal mappe %2$s. Imidlertid skjedde det en feil og denne operasjonen kunne ikke fullføres under kontosynkroniseringen. Du kan enten la filen(e) være som de er og fjerne lenken til %3$s, eller flytte filen(e) inn i mappen %1$s og beholde lenken til %4$s.\n\nNedenfor vises de lokale filen(e) og de fjernlagrede filen(e) i %5$s som de var lenket til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengere</string>
   <string name="foreign_files_move">Flytt alle</string>
   <string name="foreign_files_success">Alle filer ble flyttet</string>
@@ -177,7 +172,6 @@
   <string name="rename_server_fail_msg">Klarte ikke å endre navn</string>
   <string name="sync_file_fail_msg">Eksterne filer kunne ikke sjekkes</string>
   <string name="sync_file_nothing_to_do_msg">filinnhold er allerede synkronisert</string>
-  <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
   <string name="filename_forbidden_characters">Forbudte tegn: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Vent et øyeblikk</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; vennligst velg filen fra en annen applikasjon</string>
@@ -222,7 +216,6 @@
   <string name="conflict_dont_upload">Ikke last opp</string>
   <string name="preview_image_description">Bildeforhåndsvisning</string>
   <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
-  <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mapper</string>
   <string name="actionbar_failed_instant_upload">Misslyktes direkteopplasting</string>
   <string name="failed_upload_headline_text">Mislykket direkteopplastinger</string>
   <string name="failed_upload_headline_hint">Oppsumering av alle mislykkede direkteopplastinger</string>
