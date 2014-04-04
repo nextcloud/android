@@ -43,6 +43,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -547,7 +548,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //Log.wtf(TAG, "onSaveInstanceState init" );
+        Log.wtf(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
         /// global state
@@ -577,7 +578,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_OAUTH2_GET_ACCESS_TOKEN_OP_ID, mOauth2GetAccessTokenOpId);
         outState.putInt(KEY_GET_USER_NAME_OP_ID, mGetUserNameOpId);
 
-        //Log.wtf(TAG, "onSaveInstanceState end" );
+        Log.wtf(TAG, "onSaveInstanceState end" );
     }
 
 
@@ -625,9 +626,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     @Override
     protected void onPause() {
-        //Log.wtf(TAG, "onPause init" );
+        Log.wtf(TAG, "onPause init" );
         if (mOperationsServiceBinder != null) {
-            //Log.wtf(TAG, "unregistering to listen for operation callbacks" );
+            Log.wtf(TAG, "unregistering to listen for operation callbacks" );
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
@@ -635,7 +636,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mHostUrlInput.setOnFocusChangeListener(null);
         
         super.onPause();
-        //Log.wtf(TAG, "onPause end" );
+        Log.wtf(TAG, "onPause end" );
     }
     
     @Override
@@ -678,7 +679,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
-            //Log.wtf(TAG, "getting access token..." );
+            Log.wtf(TAG, "getting access token..." );
             mOauth2GetAccessTokenOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
         }
     }
@@ -744,7 +745,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                //Log.wtf(TAG, "checking server..." );
+                Log.wtf(TAG, "checking server..." );
                 mGetServerInfoOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             }
             
@@ -1673,7 +1674,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
             mGetUserNameOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
         }
     }
@@ -1768,7 +1769,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
 
     private void doOnResumeAndBound() {
-        //Log.wtf(TAG, "registering to listen for operation callbacks" );
+        Log.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
         
         
@@ -1777,7 +1778,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             RemoteOperationResult result = 
                     mOperationsServiceBinder.getOperationResultIfFinished(mGetServerInfoOpId);
             if (result != null) {
-                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 onGetServerInfoFinish(result);
             }
             
@@ -1786,7 +1787,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                     mOperationsServiceBinder.getOperationResultIfFinished(
                             mOauth2GetAccessTokenOpId);
             if (result != null) {
-                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 onGetOAuthAccessTokenFinish(result);
             }
             
@@ -1794,7 +1795,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             RemoteOperationResult result = 
                     mOperationsServiceBinder.getOperationResultIfFinished(mExistenceCheckOpId);
             if (result != null) {
-                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
                         MainApp.getAccountType()).equals(mAuthTokenType)) {
                     onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
@@ -1807,7 +1808,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             RemoteOperationResult result = 
                     mOperationsServiceBinder.getOperationResultIfFinished(mGetUserNameOpId);
             if (result != null) {
-                //Log_OC.wtf(TAG, "found result of operation finished while rotating");
+                Log_OC.wtf(TAG, "found result of operation finished while rotating");
                 onGetUserNameFinish(result);
             }
             
@@ -1833,7 +1834,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
-                //Log_OC.wtf(TAG, "Operations service connected");
+                Log_OC.wtf(TAG, "Operations service connected");
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
                 
                 doOnResumeAndBound();

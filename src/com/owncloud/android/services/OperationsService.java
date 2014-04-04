@@ -52,6 +52,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
+import android.util.Log;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -148,21 +149,21 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //Log.wtf(TAG, "onStartCommand init" );
+        Log.wtf(TAG, "onStartCommand init" );
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
-        //Log.wtf(TAG, "onStartCommand end" );
+        Log.wtf(TAG, "onStartCommand end" );
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        //Log.wtf(TAG, "onDestroy init" );
+        Log.wtf(TAG, "onDestroy init" );
         super.onDestroy();
-        //Log.wtf(TAG, "Clear mOperationResults" );
+        Log.wtf(TAG, "Clear mOperationResults" );
         mOperationResults.clear();
-        //Log.wtf(TAG, "onDestroy end" );
+        Log.wtf(TAG, "onDestroy end" );
     }
 
 
@@ -172,7 +173,7 @@ public class OperationsService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        //Log.wtf(TAG, "onBind" );
+        Log.wtf(TAG, "onBind" );
         return mBinder;
     }
 
@@ -348,7 +349,7 @@ public class OperationsService extends Service {
         }
 
         public RemoteOperationResult getOperationResultIfFinished(int operationId) {
-            //Log_OC.wtf(TAG, "Searching result for operation with id " + operationId);
+            Log_OC.wtf(TAG, "Searching result for operation with id " + operationId);
             return mOperationResults.remove(operationId);
         }
 
@@ -384,7 +385,7 @@ public class OperationsService extends Service {
      */
     private void nextOperation() {
         
-        //Log.wtf(TAG, "nextOperation init" );
+        Log.wtf(TAG, "nextOperation init" );
         
         Pair<Target, RemoteOperation> next = null;
         synchronized(mPendingOperations) {
