@@ -156,7 +156,16 @@ public class OperationsService extends Service {
         return START_NOT_STICKY;
     }
 
-    
+    @Override
+    public void onDestroy() {
+        //Log.wtf(TAG, "onDestroy init" );
+        super.onDestroy();
+        //Log.wtf(TAG, "Clear mOperationResults" );
+        mOperationResults.clear();
+        //Log.wtf(TAG, "onDestroy end" );
+    }
+
+
     /**
      * Provides a binder object that clients can use to perform actions on the queue of operations, 
      * except the addition of new operations. 
@@ -338,9 +347,9 @@ public class OperationsService extends Service {
             }
         }
 
-        public RemoteOperationResult getOperationResultIfFinished(int mDetectAuthOpId) {
-            //Log_OC.wtf(TAG, "Searching result for operation with id " + mDetectAuthOpId);
-            return mOperationResults.remove(mDetectAuthOpId);
+        public RemoteOperationResult getOperationResultIfFinished(int operationId) {
+            //Log_OC.wtf(TAG, "Searching result for operation with id " + operationId);
+            return mOperationResults.remove(operationId);
         }
 
     }
