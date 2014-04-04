@@ -443,12 +443,11 @@ public class OperationsService extends Service {
             } finally {
                 synchronized(mPendingOperations) {
                     mPendingOperations.poll();
-                    mOperationResults.put(mCurrentOperation.hashCode(), result);
                 }
             }
             
             //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
-            callbackOperationListeners(mLastTarget, mCurrentOperation, result);
+            dispatchOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
 
@@ -506,7 +505,7 @@ public class OperationsService extends Service {
      * @param operation         Finished operation.
      * @param result            Result of the operation.
      */
-    private void callbackOperationListeners(
+    private void dispatchOperationListeners(
             Target target, final RemoteOperation operation, final RemoteOperationResult result) {
         int count = 0;
         Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
@@ -522,6 +521,9 @@ public class OperationsService extends Service {
                 });
                 count += 1;
             }
+        }
+        if (count == 0) {
+            mOperationResults.put(operation.hashCode(), result);
         }
         Log_OC.d(TAG, "Called " + count + " listeners");
     }

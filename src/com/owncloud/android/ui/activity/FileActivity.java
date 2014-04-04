@@ -306,6 +306,11 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     }
     
     
+    public OperationsServiceBinder getOperationsServiceBinder() {
+        return mOperationsServiceBinder;
+    }
+
+
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.
