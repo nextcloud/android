@@ -115,7 +115,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
-            callerActivity.startService(service);
+            callerActivity.getOperationsServiceBinder().newOperation(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -154,7 +154,7 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_UNSHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            callerActivity.startService(service);
+            callerActivity.getOperationsServiceBinder().newOperation(service);
             
             callerActivity.showLoadingDialog();
             
