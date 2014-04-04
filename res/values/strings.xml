@@ -110,6 +110,7 @@
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
     <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
+    
     <string name="pincode_configure_your_pin">Enter your App PIN</string>
     <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string>
     <string name="pincode_reenter_your_pincode">Please, reenter your App PIN</string>
@@ -139,6 +140,7 @@
 	<string name="media_play_pause_description">Play or pause button</string>
 	<string name="media_forward_description">Fast forward button</string>
 
+	<string name="auth_getting_authorization">Getting authorization&#8230;</string>
 	<string name="auth_trying_to_login">Trying to login&#8230;</string>
 	<string name="auth_no_net_conn_title">No network connection</string>
 	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
