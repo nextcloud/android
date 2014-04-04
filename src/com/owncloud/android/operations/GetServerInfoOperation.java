@@ -93,8 +93,8 @@ public class GetServerInfoOperation extends RemoteOperation {
         if (result.isSuccess()) {
             // second: get authentication method required by the server
             mResultData.mVersion = (OwnCloudVersion)(result.getData().get(0));
-            boolean isSslConn = (result.getCode() == ResultCode.OK_SSL);
-            mResultData.mBaseUrl = normalizeProtocolPrefix(mUrl, isSslConn);
+            mResultData.mIsSslConn = (result.getCode() == ResultCode.OK_SSL);
+            mResultData.mBaseUrl = normalizeProtocolPrefix(mUrl, mResultData.mIsSslConn);
             RemoteOperationResult detectAuthResult = detectAuthorizationMethod(client);
             
             // third: merge results
@@ -155,9 +155,10 @@ public class GetServerInfoOperation extends RemoteOperation {
     
     
     public static class ServerInfo {
-        public OwnCloudVersion mVersion;
-        public String mBaseUrl;
-        public AuthenticationMethod mAuthMethod;
+        public OwnCloudVersion mVersion = null;
+        public String mBaseUrl = "";
+        public AuthenticationMethod mAuthMethod = AuthenticationMethod.UNKNOWN;
+        public boolean mIsSslConn = false;
     }
 	
 }
