@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
+  <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="actionbar_send_file">Sūtīt</string>
   <string name="prefs_category_general">Vispārīgi</string>
@@ -49,6 +50,7 @@
   <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>
+  <string name="uploader_info_dirname">Mapes nosaukums</string>
   <string name="uploader_upload_in_progress_ticker">Augšupielādē ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Augšupielāde ir veiksmīga</string>

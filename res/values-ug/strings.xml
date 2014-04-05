@@ -2,6 +2,7 @@
 <resources>
   <string name="actionbar_upload">يۈكلە</string>
   <string name="actionbar_upload_files">ھۆججەتلەر</string>
+  <string name="actionbar_mkdir">يېڭى قىسقۇچ</string>
   <string name="actionbar_settings">تەڭشەكلەر</string>
   <string name="actionbar_send_file">يوللا</string>
   <string name="prefs_category_general">ئادەتتىكى</string>
@@ -32,6 +33,7 @@
   <string name="common_error">خاتالىق</string>
   <string name="common_error_unknown">يوچۇن خاتالىق</string>
   <string name="change_password">ئىم ئۆزگەرت</string>
+  <string name="uploader_info_dirname">قىسقۇچ ئاتى</string>
   <string name="common_choose_account">ھېسابات تاللاڭ</string>
   <string name="common_rename">ئات ئۆزگەرت</string>
   <string name="common_remove">چىقىرىۋەت</string>

@@ -38,6 +38,7 @@
   <string name="change_password">මුරපදය වෙනස් කිරීම</string>
   <string name="delete_account">ගිණුම මකන්න</string>
   <string name="create_account">ගිණුම සාදන්න</string>
+  <string name="uploader_info_dirname">ෆොල්ඩරයේ නම</string>
   <string name="uploader_upload_succeeded_ticker">උඩුගත කිරීම සාර්ථකයි</string>
   <string name="uploader_upload_failed_ticker">උඩුගත කිරීම අසාර්ථකයි</string>
   <string name="downloader_download_in_progress_ticker">බාගතවේ...</string>

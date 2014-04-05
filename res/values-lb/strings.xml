@@ -40,6 +40,7 @@
   <string name="change_password">Passwuert änneren</string>
   <string name="delete_account">Account läschen</string>
   <string name="create_account">Account erstellen</string>
+  <string name="uploader_info_dirname">Dossiers Numm:</string>
   <string name="uploader_upload_in_progress_ticker">Gett eropgelueden ...</string>
   <string name="uploader_upload_succeeded_ticker">Eroplueden färdeg</string>
   <string name="uploader_upload_failed_ticker">Eroplueden huet net geklappt</string>

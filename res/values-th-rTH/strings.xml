@@ -3,6 +3,7 @@
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
   <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
   <string name="actionbar_upload_files">ไฟล์</string>
+  <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="actionbar_send_file">ส่ง</string>
@@ -50,6 +51,7 @@
   <string name="delete_account">ลบบัญชี</string>
   <string name="create_account">สร้างบัญชีใหม่</string>
   <string name="upload_chooser_title">อัพโหลดไฟล์จาก...</string>
+  <string name="uploader_info_dirname">ชื่อโฟลเดอร์</string>
   <string name="uploader_upload_in_progress_ticker">กำลังอัพโหลด...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% กำลังอัพโหลด %2$s</string>
   <string name="uploader_upload_succeeded_ticker">อัพโหลดเสร็จสิ้น</string>

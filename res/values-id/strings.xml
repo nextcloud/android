@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Konten dari apl lain</string>
   <string name="actionbar_upload_files">Berkas</string>
   <string name="actionbar_open_with">Bukan dengan</string>
+  <string name="actionbar_mkdir">Folder baru</string>
   <string name="actionbar_settings">pengaturan</string>
   <string name="actionbar_see_details">Rincian</string>
   <string name="actionbar_send_file">Kirim</string>
@@ -70,6 +71,7 @@
   <string name="delete_account">Hapus akun</string>
   <string name="create_account">Buat akun</string>
   <string name="upload_chooser_title">Unggah dari...</string>
+  <string name="uploader_info_dirname">Nama folder</string>
   <string name="uploader_upload_in_progress_ticker">Mengungggah...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Berhasil mengunggah</string>

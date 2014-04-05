@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Inhoud van andere apps</string>
   <string name="actionbar_upload_files">Bestanden</string>
   <string name="actionbar_open_with">Open met</string>
+  <string name="actionbar_mkdir">Nieuwe map</string>
   <string name="actionbar_settings">Instellingen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="actionbar_send_file">Versturen</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Verwijder account</string>
   <string name="create_account">Maak account aan</string>
   <string name="upload_chooser_title">Upload van ...</string>
+  <string name="uploader_info_dirname">Mapnaam</string>
   <string name="uploader_upload_in_progress_ticker">Uploaden ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Uploaden %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload succesvol</string>

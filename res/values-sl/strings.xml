@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Vsebina iz drugih programov</string>
   <string name="actionbar_upload_files">Datoteke</string>
   <string name="actionbar_open_with">Odpri z</string>
+  <string name="actionbar_mkdir">Nova mapa</string>
   <string name="actionbar_settings">Nastavitve</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Pošlji</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Izbriši račun</string>
   <string name="create_account">Ustvari račun</string>
   <string name="upload_chooser_title">Pošlji datoteko iz …</string>
+  <string name="uploader_info_dirname">Ime mape</string>
   <string name="uploader_upload_in_progress_ticker">Pošiljanje …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Pošiljanje je uspešno končano</string>

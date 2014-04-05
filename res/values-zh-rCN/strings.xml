@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">来自其它app的内容</string>
   <string name="actionbar_upload_files">文件</string>
   <string name="actionbar_open_with">打开</string>
+  <string name="actionbar_mkdir">添加文件夹</string>
   <string name="actionbar_settings">设置</string>
   <string name="actionbar_see_details">详细信息</string>
   <string name="actionbar_send_file">发送</string>
@@ -67,6 +68,7 @@
   <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
+  <string name="uploader_info_dirname">目录名称</string>
   <string name="uploader_upload_in_progress_ticker">上传...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">上传成功</string>

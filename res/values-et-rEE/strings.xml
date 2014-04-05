@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Sisu teistest rakendustest</string>
   <string name="actionbar_upload_files">Failid</string>
   <string name="actionbar_open_with">Ava rakendusega</string>
+  <string name="actionbar_mkdir">Uus kaust</string>
   <string name="actionbar_settings">Seaded</string>
   <string name="actionbar_see_details">Üksikasjad</string>
   <string name="actionbar_send_file">Saada</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Kustuta konto</string>
   <string name="create_account">Loo konto</string>
   <string name="upload_chooser_title">Lae fail üles kohast ...</string>
+  <string name="uploader_info_dirname">Kausta nimi</string>
   <string name="uploader_upload_in_progress_ticker">Üleslaadimine ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% üleslaadimine %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Üleslaadimine oli edukas</string>

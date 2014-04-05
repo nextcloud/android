@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Beste app-en edukia</string>
   <string name="actionbar_upload_files">Fitxategiak</string>
   <string name="actionbar_open_with">Ireki honekin</string>
+  <string name="actionbar_mkdir">Karpeta berria</string>
   <string name="actionbar_settings">Ezarpenak</string>
   <string name="actionbar_see_details">Xehetasunak</string>
   <string name="actionbar_send_file">Bidali</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Ezabatu kontua</string>
   <string name="create_account">Sortu kontua</string>
   <string name="upload_chooser_title">Igo fitxategia hemendik ...</string>
+  <string name="uploader_info_dirname">Karpetaren izena</string>
   <string name="uploader_upload_in_progress_ticker">Igotzen ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Igotzea ongi burutu da</string>

@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">他アプリからのコンテンツ</string>
   <string name="actionbar_upload_files">ファイル</string>
   <string name="actionbar_open_with">次で開く</string>
+  <string name="actionbar_mkdir">新しいフォルダー</string>
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細</string>
   <string name="actionbar_send_file">送信</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">アカウントを削除</string>
   <string name="create_account">アカウントを作成</string>
   <string name="upload_chooser_title">アップロード …</string>
+  <string name="uploader_info_dirname">フォルダー名</string>
   <string name="uploader_upload_in_progress_ticker">アップロード中...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">アップロード完了</string>

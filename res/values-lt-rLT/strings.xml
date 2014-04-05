@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Turinys iš kitų programų</string>
   <string name="actionbar_upload_files">Failai</string>
   <string name="actionbar_open_with">Atverti naudojant</string>
+  <string name="actionbar_mkdir">Naujas aplankas</string>
   <string name="actionbar_settings">Nustatymai</string>
   <string name="actionbar_see_details">Informacija</string>
   <string name="actionbar_send_file">Siųsti</string>
@@ -69,6 +70,7 @@
   <string name="delete_account">Ištrinti paskyrą</string>
   <string name="create_account">Sukurti paskyrą</string>
   <string name="upload_chooser_title">Įkelti iš ...</string>
+  <string name="uploader_info_dirname">Katalogo pavadinimas</string>
   <string name="uploader_upload_in_progress_ticker">Įkeliama ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Nusiuntimas pavyko</string>

@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
+  <string name="actionbar_mkdir">Nueva Carpeta</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Mandar</string>
@@ -70,6 +71,7 @@
   <string name="delete_account">Eliminar cuenta</string>
   <string name="create_account">Crear cuenta</string>
   <string name="upload_chooser_title">Subir desde ...</string>
+  <string name="uploader_info_dirname">Nombre de la carpeta</string>
   <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>

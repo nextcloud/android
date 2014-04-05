@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Nội dung từ các ứng dụng khác</string>
   <string name="actionbar_upload_files">Các tập tin</string>
   <string name="actionbar_open_with">Mở với</string>
+  <string name="actionbar_mkdir">Tạo thư mục</string>
   <string name="actionbar_settings">Cài đặt</string>
   <string name="actionbar_see_details">Chi tiết</string>
   <string name="actionbar_send_file">Gởi</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Xóa tài khoản</string>
   <string name="create_account">Tạo tài khoản</string>
   <string name="upload_chooser_title">Tải lên từ ...</string>
+  <string name="uploader_info_dirname">Tên thư mục</string>
   <string name="uploader_upload_in_progress_ticker">Đang tải lên ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Đang tải lên %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Tải lên thành công</string>

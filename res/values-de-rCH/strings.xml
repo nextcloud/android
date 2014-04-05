@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Inhalt von anderen Apps</string>
   <string name="actionbar_upload_files">Dateien</string>
   <string name="actionbar_open_with">Öffnen mit</string>
+  <string name="actionbar_mkdir">Neues Verzeichnis</string>
   <string name="actionbar_settings">Einstellungen</string>
   <string name="actionbar_see_details">Details</string>
   <string name="actionbar_send_file">Senden</string>
@@ -65,6 +66,7 @@
   <string name="delete_account">Account löschen</string>
   <string name="create_account">Account erstellen</string>
   <string name="upload_chooser_title">Dateien hochladen von...</string>
+  <string name="uploader_info_dirname">Ordnername</string>
   <string name="uploader_upload_in_progress_ticker">Hochladen...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>

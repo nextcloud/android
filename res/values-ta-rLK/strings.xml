@@ -48,6 +48,7 @@
   <string name="delete_account">கணக்கை நீக்குக</string>
   <string name="create_account">கணக்கை உருவாக்குக</string>
   <string name="upload_chooser_title">பதிவேற்றல் படிவம்</string>
+  <string name="uploader_info_dirname">கோப்புறை பெயர்</string>
   <string name="uploader_upload_in_progress_ticker">பதிவேற்றல்...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% பதிவேற்றல்g %2$s</string>
   <string name="uploader_upload_succeeded_ticker">வெற்றிகரமாக பதிவேற்றப்பட்டது</string>

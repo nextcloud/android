@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Περιεχόμενο από άλλες εφαρμογές</string>
   <string name="actionbar_upload_files">Αρχεία</string>
   <string name="actionbar_open_with">Άνοιγμα με</string>
+  <string name="actionbar_mkdir">Νέος φάκελος</string>
   <string name="actionbar_settings">Ρυθμίσεις</string>
   <string name="actionbar_see_details">Λεπτομέρειες</string>
   <string name="actionbar_send_file">Αποστολή</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Διαγραφή λογαριασμού</string>
   <string name="create_account">Δημιουργία λογαριασμού</string>
   <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
+  <string name="uploader_info_dirname">Όνομα φακέλου</string>
   <string name="uploader_upload_in_progress_ticker">Μεταφορτώνεται ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Μεταφορτώνονται %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Η μεταφόρτωση ολοκληρώθηκε επιτυχώς</string>

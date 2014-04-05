@@ -3,6 +3,7 @@
   <string name="actionbar_upload">ატვირთვა</string>
   <string name="actionbar_upload_from_apps">კონტენტი სხვა აპლიკაცისებიდან</string>
   <string name="actionbar_upload_files">ფაილები</string>
+  <string name="actionbar_mkdir">ახალი ფოლდერი</string>
   <string name="actionbar_settings">პარამეტრები</string>
   <string name="actionbar_send_file">გაგზავნა</string>
   <string name="prefs_category_general">ზოგადი</string>
@@ -51,6 +52,7 @@
   <string name="delete_account">ანგარიშის წაშლა</string>
   <string name="create_account">ანგარიშის შექმნა</string>
   <string name="upload_chooser_title">ატვირთე აქედან...</string>
+  <string name="uploader_info_dirname">ფოლდერის სახელი</string>
   <string name="uploader_upload_in_progress_ticker">მიმდინარეობს ატვირთვა...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% მიმდინარეობს ატვირთვა %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ატვირთვა განხორციელდა</string>

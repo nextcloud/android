@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Innehåll från andra program</string>
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Öppna med</string>
+  <string name="actionbar_mkdir">Ny mapp</string>
   <string name="actionbar_settings">Inställningar</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Skicka</string>
@@ -69,6 +70,7 @@
   <string name="delete_account">Radera konto</string>
   <string name="create_account">Skapa konto</string>
   <string name="upload_chooser_title">Ladda upp från ...</string>
+  <string name="uploader_info_dirname">Mappnamn</string>
   <string name="uploader_upload_in_progress_ticker">Laddar upp ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Uppladdning klar</string>

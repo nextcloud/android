@@ -39,6 +39,7 @@
   <string name="delete_account">Șterge cont</string>
   <string name="create_account">Crează cont</string>
   <string name="upload_chooser_title">Încarcă din...</string>
+  <string name="uploader_info_dirname">Denumire director</string>
   <string name="uploader_upload_in_progress_ticker">În curs de încărcare...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Se încarcă %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Încărcat cu succes</string>

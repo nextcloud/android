@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Diğer uygulamalardan içerik</string>
   <string name="actionbar_upload_files">Dosyalar</string>
   <string name="actionbar_open_with">ile aç</string>
+  <string name="actionbar_mkdir">Yeni klasör</string>
   <string name="actionbar_settings">Ayarlar</string>
   <string name="actionbar_see_details">Detaylar</string>
   <string name="actionbar_send_file">Gönder</string>
@@ -37,6 +38,7 @@
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
+  <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
   <string name="uploader_wrn_no_account_text">Cihazınızda %1$s hesabı bulunmamaktadır. Lütfen öncelikle bir hesap ayarlayın.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
@@ -71,6 +73,7 @@
   <string name="delete_account">Hesabı sil</string>
   <string name="create_account">Hesap oluştur</string>
   <string name="upload_chooser_title">... dan dosya yükle</string>
+  <string name="uploader_info_dirname">Dizin ismi</string>
   <string name="uploader_upload_in_progress_ticker">Yüklüyor ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Yükleniyor %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Yükleme başarılı</string>
@@ -93,6 +96,8 @@
   <string name="sync_fail_in_favourites_ticker">Korunan dosya eşitlemesi başarısız</string>
   <string name="sync_fail_in_favourites_content">%1$d dosya eşitlenemedi (%2$d çakışma)</string>
   <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
+  <string name="sync_foreign_files_forgotten_content">%2$s klasöründeki %1$d dosya şuraya kopyalanamadı</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, bu aygıttan yüklenen dosyalar bir dosya birden fazla hesapla eşitlendiğinde veri kaybının önlenebilmesi için %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlenmesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyayı/dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilirsiniz veya dosyayı/dosyaları %1$s dizinine taşıyıp %4$s bağlantılarını koruyabilirsiniz.\n\nAşağıda listelenenler yerel dosyalar ve bağlı oldukları %5$s içerisindeki uzak dosyalardır.</string>
   <string name="sync_current_folder_was_removed">%1$s klasörü artık mevcut değil.</string>
   <string name="foreign_files_move">Tümünü taşı</string>
   <string name="foreign_files_success">Tüm dosyalar taşındı</string>
@@ -174,6 +179,7 @@
   <string name="rename_server_fail_msg">Yeniden  adlandırılma tamamlanmadı</string>
   <string name="sync_file_fail_msg">Dosya teslim edilemedi</string>
   <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
+  <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
   <string name="filename_forbidden_characters">Yasaklı karakterler: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmeyen problem ; lütfen, dosya seçmek için diğer uygulamayı deneyin</string>
@@ -220,6 +226,7 @@
   <string name="conflict_dont_upload">Yükleme</string>
   <string name="preview_image_description">Görüntü önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemez</string>
+  <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel dizine klasörüne</string>
   <string name="actionbar_failed_instant_upload">AnındaYükleme başarısız</string>
   <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>
   <string name="failed_upload_headline_hint">Başarısız olan tüm anında yüklemelerin özeti</string>

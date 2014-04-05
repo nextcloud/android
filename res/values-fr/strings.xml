@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Contenu d\'une autre application</string>
   <string name="actionbar_upload_files">Fichiers</string>
   <string name="actionbar_open_with">Ouvrir avec</string>
+  <string name="actionbar_mkdir">Nouveau dossier</string>
   <string name="actionbar_settings">Paramètres</string>
   <string name="actionbar_see_details">Détails</string>
   <string name="actionbar_send_file">Envoyer</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Effacer ce compte</string>
   <string name="create_account">Créer un compte</string>
   <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
+  <string name="uploader_info_dirname">Nom du dossier</string>
   <string name="uploader_upload_in_progress_ticker">Téléversement…</string>
   <string name="uploader_upload_in_progress_content">Envoi du fichier %2$s en cours, %1$d%% effectués</string>
   <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>

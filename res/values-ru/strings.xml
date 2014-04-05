@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
   <string name="actionbar_upload_files">Файлы</string>
   <string name="actionbar_open_with">Открыть с помощью</string>
+  <string name="actionbar_mkdir">Новый каталог</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
   <string name="actionbar_send_file">Отправить</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Удалить учётную запись</string>
   <string name="create_account">Создать учётную запись</string>
   <string name="upload_chooser_title">Загрузить из...</string>
+  <string name="uploader_info_dirname">Имя папки</string>
   <string name="uploader_upload_in_progress_ticker">Загрузка...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% загрузки %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Загрузка завершена</string>

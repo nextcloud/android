@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Obsah z inej aplikácie</string>
   <string name="actionbar_upload_files">Súbory</string>
   <string name="actionbar_open_with">Otvoriť v</string>
+  <string name="actionbar_mkdir">Nový priečinok</string>
   <string name="actionbar_settings">Nastavenia</string>
   <string name="actionbar_see_details">Podrobnosti</string>
   <string name="actionbar_send_file">Odoslať</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Zmazať účet</string>
   <string name="create_account">Vytvoriť účet</string>
   <string name="upload_chooser_title">Odoslať z ...</string>
+  <string name="uploader_info_dirname">Názov priečinka</string>
   <string name="uploader_upload_in_progress_ticker">Odosielam ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Odoslanie bolo úspešné</string>

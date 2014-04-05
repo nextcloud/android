@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Indhold fra andre apps</string>
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Åben med</string>
+  <string name="actionbar_mkdir">Ny Mappe</string>
   <string name="actionbar_settings">Indstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
+  <string name="uploader_info_dirname">Mappenavn</string>
   <string name="uploader_upload_in_progress_ticker">Uploader ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload færdig</string>

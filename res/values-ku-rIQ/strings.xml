@@ -26,4 +26,5 @@
   <string name="common_cancel">لابردن</string>
   <string name="common_save_exit">پاشکەوتکردن &amp; دەرچوون</string>
   <string name="common_error">هه‌ڵه</string>
+  <string name="uploader_info_dirname">ناوی بوخچه</string>
 </resources>

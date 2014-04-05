@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Качване</string>
   <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
   <string name="actionbar_upload_files">Файлове</string>
+  <string name="actionbar_mkdir">Нова папка</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_send_file">Изпрати</string>
   <string name="prefs_category_general">Общи</string>
@@ -39,6 +40,7 @@
   <string name="delete_account">Изтрий акаунт</string>
   <string name="create_account">Създай акаунт</string>
   <string name="upload_chooser_title">Качено от ...</string>
+  <string name="uploader_info_dirname">Име на папката</string>
   <string name="uploader_upload_in_progress_ticker">Качване ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Качване е успешно</string>

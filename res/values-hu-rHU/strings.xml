@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Más alkalmazásokból származó tartalom</string>
   <string name="actionbar_upload_files">Fájlok</string>
   <string name="actionbar_open_with">Megnyitás a következővel</string>
+  <string name="actionbar_mkdir">Új mappa</string>
   <string name="actionbar_settings">Beállítások</string>
   <string name="actionbar_see_details">Részletek</string>
   <string name="actionbar_send_file">Küldjük el</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Fiók törlése</string>
   <string name="create_account">Fiók létrehozása</string>
   <string name="upload_chooser_title">Feltöltés innen ...</string>
+  <string name="uploader_info_dirname">Mappanév</string>
   <string name="uploader_upload_in_progress_ticker">Feltöltés ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
   <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>

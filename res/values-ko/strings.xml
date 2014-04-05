@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">다른 앱의 콘텐츠</string>
   <string name="actionbar_upload_files">파일</string>
   <string name="actionbar_open_with">로 열기</string>
+  <string name="actionbar_mkdir">새 폴더</string>
   <string name="actionbar_settings">설정</string>
   <string name="actionbar_see_details">세부내용</string>
   <string name="actionbar_send_file">보내기</string>
@@ -70,6 +71,7 @@
   <string name="delete_account">계정 삭제</string>
   <string name="create_account">계정 만들기</string>
   <string name="upload_chooser_title">다음에서 업로드...</string>
+  <string name="uploader_info_dirname">폴더 이름</string>
   <string name="uploader_upload_in_progress_ticker">업로드 중...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% %2$s 업로드 중</string>
   <string name="uploader_upload_succeeded_ticker">업로드 성공</string>

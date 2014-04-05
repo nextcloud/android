@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">其他應用程序的內容</string>
   <string name="actionbar_upload_files">檔案</string>
   <string name="actionbar_open_with">開啟方式</string>
+  <string name="actionbar_mkdir">新資料夾</string>
   <string name="actionbar_settings">設定</string>
   <string name="actionbar_see_details">詳細資料</string>
   <string name="actionbar_send_file">寄出</string>
@@ -70,6 +71,7 @@
   <string name="delete_account">刪除帳號</string>
   <string name="create_account">建立帳號</string>
   <string name="upload_chooser_title">更新自 ...</string>
+  <string name="uploader_info_dirname">資料夾名稱</string>
   <string name="uploader_upload_in_progress_ticker">更新中 ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% 上傳中 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">更新成功</string>

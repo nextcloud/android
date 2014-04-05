@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
   <string name="actionbar_upload_files">Dosieroj</string>
+  <string name="actionbar_mkdir">Nova dosierujo</string>
   <string name="actionbar_settings">Agordo</string>
   <string name="actionbar_see_details">Detaloj</string>
   <string name="actionbar_send_file">Sendi</string>
@@ -50,6 +51,7 @@
   <string name="delete_account">Forigi konton</string>
   <string name="create_account">Krei konton</string>
   <string name="upload_chooser_title">Alŝuti dosieron el...</string>
+  <string name="uploader_info_dirname">Dosierujnomo</string>
   <string name="uploader_upload_in_progress_ticker">Alŝutante...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Alŝutante %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Alŝuto sukcesis</string>

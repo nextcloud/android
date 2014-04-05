@@ -51,6 +51,7 @@
   <string name="delete_account">מחיקת חשבון</string>
   <string name="create_account">יצירת חשבון</string>
   <string name="upload_chooser_title">העלאה מהמיקום …</string>
+  <string name="uploader_info_dirname">שם התיקייה</string>
   <string name="uploader_upload_in_progress_ticker">מתבצעת העלאה …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% בהעלאה %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ההעלאה הצליחה</string>

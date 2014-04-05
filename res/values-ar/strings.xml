@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">محتويات من تطبيقات أخرى</string>
   <string name="actionbar_upload_files">الملفات</string>
   <string name="actionbar_open_with">فتح باستخدام</string>
+  <string name="actionbar_mkdir">مجلد جديد</string>
   <string name="actionbar_settings">إعدادات</string>
   <string name="actionbar_see_details">تفاصيل</string>
   <string name="actionbar_send_file">أرسل</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">حذف الحساب</string>
   <string name="create_account">حساب جديد</string>
   <string name="upload_chooser_title">الرفع من ...</string>
+  <string name="uploader_info_dirname">اسم المجلد</string>
   <string name="uploader_upload_in_progress_ticker">يتم الرفع ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
   <string name="uploader_upload_succeeded_ticker">تم الرفع بنجاح</string>

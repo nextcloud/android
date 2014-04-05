@@ -7,6 +7,7 @@
   <string name="actionbar_upload_from_apps">Conteúdo das outras apps</string>
   <string name="actionbar_upload_files">Ficheiros</string>
   <string name="actionbar_open_with">Abrir com</string>
+  <string name="actionbar_mkdir">Nova Pasta</string>
   <string name="actionbar_settings">Definições</string>
   <string name="actionbar_see_details">Detalhes</string>
   <string name="actionbar_send_file">Enviar</string>
@@ -71,6 +72,7 @@
   <string name="delete_account">Apagar conta</string>
   <string name="create_account">Criar conta</string>
   <string name="upload_chooser_title">Carregar de...</string>
+  <string name="uploader_info_dirname">Nome da pasta</string>
   <string name="uploader_upload_in_progress_ticker">A carregar...</string>
   <string name="uploader_upload_in_progress_content">A enviar %1$d%% , %2$s completo.</string>
   <string name="uploader_upload_succeeded_ticker">Carregado com sucesso</string>
