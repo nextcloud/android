@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Subir</string>
   <string name="actionbar_upload_files">Archivos</string>
-  <string name="actionbar_mkdir">Crear directorio</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -24,7 +23,6 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_error">Error</string>
-  <string name="uploader_info_dirname">Nombre del directorio</string>
   <string name="common_choose_account">Elija una cuenta</string>
   <string name="pincode_enter_pin_code">Por favor, ingreses su PIN de aplicación</string>
   <string name="pincode_configure_your_pin">Ingrese su PIN de aplicación</string>

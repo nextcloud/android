@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Подигни</string>
   <string name="actionbar_upload_files">Датотеки</string>
   <string name="actionbar_open_with">Отвори со</string>
-  <string name="actionbar_mkdir">Создади папка</string>
   <string name="actionbar_settings">Параметри</string>
   <string name="actionbar_see_details">Детали:</string>
   <string name="actionbar_send_file">Прати</string>
@@ -43,7 +42,7 @@
   <string name="change_password">Смени лозинка</string>
   <string name="delete_account">Избриши ја сметката</string>
   <string name="create_account">Креирај сметка</string>
-  <string name="uploader_info_dirname">Име на папката</string>
+  <string name="uploader_info_dirname">Име на папка</string>
   <string name="downloader_download_in_progress_ticker">Преземање...</string>
   <string name="downloader_download_succeeded_ticker">Преземањето е успешно</string>
   <string name="downloader_download_failed_ticker">Преземањето не беше успешно</string>
@@ -77,7 +76,6 @@
   <string name="remove_success_msg">Одстранувањето е успешно</string>
   <string name="remove_fail_msg">Одстранувањето е неуспешно</string>
   <string name="rename_dialog_title">Внеси ново име</string>
-  <string name="create_dir_fail_msg">Не можам да креирам папка</string>
   <string name="wait_a_moment">Почекајте малку</string>
   <string name="filedisplay_unexpected_bad_get_content">Неочекуван проблем ; ве молам одберете датотека од друга апликација</string>
   <string name="filedisplay_no_file_selected">Нема избрано датотека</string>

@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Sisältö toisista sovelluksista</string>
   <string name="actionbar_upload_files">Tiedostot</string>
   <string name="actionbar_open_with">Avaa sovelluksella</string>
-  <string name="actionbar_mkdir">Luo kansio</string>
+  <string name="actionbar_mkdir">Uusi kansio</string>
   <string name="actionbar_settings">Asetukset</string>
   <string name="actionbar_see_details">Tiedot</string>
   <string name="actionbar_send_file">Lähetä</string>
@@ -35,7 +35,6 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
-  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -112,6 +111,8 @@
   <string name="media_err_no_account">Tiliä ei määritetty</string>
   <string name="media_err_not_in_owncloud">Tiedosto ei ole kelvollisella tilillä</string>
   <string name="media_err_io">Mediatiedoston luku ei onnistunut</string>
+  <string name="media_err_timeout">Aikakatkaisu toistoa yrittäessä</string>
+  <string name="media_err_invalid_progressive_playback">Mediatiedostoa ei voi suoratoistaa</string>
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
   <string name="media_forward_description">Eteenpäin kelaus -painike</string>
@@ -141,6 +142,7 @@
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+  <string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjä-id:tä, ota yhteys järjestelmän ylläpitäjään</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelimeen ei onnistunut</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
@@ -158,7 +160,6 @@
   <string name="rename_server_fail_msg">Nimen muutos epäonnistui</string>
   <string name="sync_file_fail_msg">Etäpään tiedostoa ei voitu tarkistaa</string>
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
-  <string name="create_dir_fail_msg">Kansion luonti epäonnistui</string>
   <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Odota hetki</string>
   <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>

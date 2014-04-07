@@ -4,7 +4,6 @@
   <string name="actionbar_upload">Eroplueden</string>
   <string name="actionbar_upload_files">Dateien</string>
   <string name="actionbar_open_with">Opmaachen mat</string>
-  <string name="actionbar_mkdir">Dossier erstellen</string>
   <string name="actionbar_settings">Astellungen</string>
   <string name="actionbar_see_details">Detailer</string>
   <string name="actionbar_send_file">Schécken</string>
@@ -41,7 +40,7 @@
   <string name="change_password">Passwuert änneren</string>
   <string name="delete_account">Account läschen</string>
   <string name="create_account">Account erstellen</string>
-  <string name="uploader_info_dirname">Dossier\'s Numm</string>
+  <string name="uploader_info_dirname">Dossiers Numm:</string>
   <string name="uploader_upload_in_progress_ticker">Gett eropgelueden ...</string>
   <string name="uploader_upload_succeeded_ticker">Eroplueden färdeg</string>
   <string name="uploader_upload_failed_ticker">Eroplueden huet net geklappt</string>

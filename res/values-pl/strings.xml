@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Zasoby innych aplikacji</string>
   <string name="actionbar_upload_files">Pliki</string>
   <string name="actionbar_open_with">Otwórz za pomocą</string>
-  <string name="actionbar_mkdir">Nowy katalog</string>
+  <string name="actionbar_mkdir">Nowy folder</string>
   <string name="actionbar_settings">Ustawienia</string>
   <string name="actionbar_see_details">Szczegóły</string>
   <string name="actionbar_send_file">Wyślij</string>
@@ -73,7 +73,7 @@
   <string name="delete_account">Usuń konto</string>
   <string name="create_account">Utwórz konto</string>
   <string name="upload_chooser_title">Wyślij plik z …</string>
-  <string name="uploader_info_dirname">Nazwa katalogu</string>
+  <string name="uploader_info_dirname">Nazwa folderu</string>
   <string name="uploader_upload_in_progress_ticker">Wysyłam…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Wysyłanie %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Wysyłanie zakończone powodzeniem</string>
@@ -96,8 +96,8 @@
   <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
   <string name="sync_fail_in_favourites_content">Zawartość %1$d plików nie może zostać synchronizowana (%2$d konfliktów)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektóre lokalne pliki zostały zgubione.</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d plików z %2$s katalogu nie może zostać skopiowana do niego</string>
-  <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki pobrane z tego urządzenia są kopiowane do folderu lokalnego %1$s aby zapobiec utracie danych, gdy pojedynczy plik jest zsynchronizowany z wielu kont.\n\nZ powodu tej zmiany, wszystkie pliki przesłane w poprzednich wersjach tej aplikacji zostały skopiowane do folderu %2$s. Jednak błąd uniemożliwił realizację tego działania podczas synchronizacji konta. Możesz albo zostawić plik(i), jak teraz i usunąć link do %3$s lub przenieść plik(i) do %1$s katalog i zachować link do %4$s.\n\nPoniżej wymienione są lokalne plik(i), i plik(i) zdalne w %5$s które były powiązane.</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d plików z folderu %2$s nie udało się się przekopiować</string>
+  <string name="sync_foreign_files_forgotten_explanation">Od wersji 1.3.16, pliki kopiowane z tego urządzenia są kopiowane do lokalnego folderu %1$s aby zapobiec utracie danych gdy pojedynczy plik jest synchronizowany z wieloma kontami.\n\nZ powodu tej zmiany, wszystkie pliku przesłane w poprzednich wersjach tej aplikacji zostały skopiowane do folderu %2$s. Jednakże, podczas synchronizacji konta pojawił się się błąd uniemożliwiający dokończenie tej operacji. Możesz albo pozostawić plik(i) tak jak są i usunąć link do %3$s, albo przenieść plik(i) do folderu %1$s i pozostawić link do %4$s.\n\nPoniżej lokalny plik(i) i zdalny plik(i) w %5$s do których były podłączone.</string>
   <string name="sync_current_folder_was_removed">Folder  %1$s nie istnieje.</string>
   <string name="foreign_files_move">Przenieś wszystko</string>
   <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
@@ -179,7 +179,7 @@
   <string name="rename_server_fail_msg">Zmiana nazwy nie powiodła się</string>
   <string name="sync_file_fail_msg">Nie można sprawdzić zdalnego pliku</string>
   <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
-  <string name="create_dir_fail_msg">Nie można utworzyć katalogu</string>
+  <string name="create_dir_fail_msg">Folder nie może zostać utworzony</string>
   <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Poczekaj chwilę</string>
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
@@ -226,7 +226,7 @@
   <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Obraz nie może zostać wyświetlony</string>
-  <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego %2$s katalogu</string>
+  <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
   <string name="actionbar_failed_instant_upload">InstantUpload nie powiódł się</string>
   <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
   <string name="failed_upload_headline_hint">Podsumowanie wszystkich nieudanych transferów</string>

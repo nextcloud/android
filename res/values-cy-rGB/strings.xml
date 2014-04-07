@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Llwytho i fyny</string>
   <string name="actionbar_upload_from_apps">Cynnwys o becynnau eraill</string>
   <string name="actionbar_upload_files">Ffeiliau</string>
-  <string name="actionbar_mkdir">Creu cyfeiriadur</string>
   <string name="actionbar_settings">Gosodiadau</string>
   <string name="actionbar_send_file">Anfon</string>
   <string name="prefs_category_general">Cyffredinol</string>
@@ -48,7 +47,6 @@
   <string name="delete_account">Dileu cyfrif</string>
   <string name="create_account">Creu cyfrif</string>
   <string name="upload_chooser_title">Llwytho i fyny o ...</string>
-  <string name="uploader_info_dirname">Enw cyfeiriadur</string>
   <string name="uploader_upload_in_progress_ticker">Yn llwytho i fyny ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Llwytho i fyny %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Llwytho i fyny\'n llwyddiannus</string>
@@ -69,7 +67,6 @@
   <string name="sync_fail_in_favourites_ticker">Methodd ffeiliau cadw-yn-gydamserol</string>
   <string name="sync_fail_in_favourites_content">Methwyd cydamseru cynnwys ffeiliau %1$d (gwrthdaro %2$d )</string>
   <string name="sync_foreign_files_forgotten_ticker">Anghofiwyd am rai ffeiliau lleol</string>
-  <string name="sync_foreign_files_forgotten_content">Methwyd copio %1$d ffeil o gyfeiriadur %2$s i mewn i</string>
   <string name="foreign_files_move">Symud y cyfan</string>
   <string name="foreign_files_success">Symudwyd pob ffeil</string>
   <string name="foreign_files_fail">Methwyd symud rhai ffeiliau</string>
@@ -114,7 +111,6 @@
   <string name="rename_server_fail_msg">Methwyd cwblhau\'r ailenwi</string>
   <string name="sync_file_fail_msg">Methwyd gwirio\'r ffeil bell</string>
   <string name="sync_file_nothing_to_do_msg">Cynnwys y ffeil eisoes wedi cydamseru</string>
-  <string name="create_dir_fail_msg">Methwyd creu cyfeiriadur</string>
   <string name="wait_a_moment">Arhoswch eiliad</string>
   <string name="filedisplay_unexpected_bad_get_content">Gwall annisgwyl ; dewiswch y ffeil o ap gwahanol</string>
   <string name="filedisplay_no_file_selected">Ni ddewiswyd ffeil</string>
@@ -147,6 +143,5 @@
   <string name="conflict_keep_both">Cadw\'r ddau</string>
   <string name="conflict_overwrite">Trosysgrifio</string>
   <string name="conflict_dont_upload">Peidio llwytho i fyny</string>
-  <string name="error__upload__local_file_not_copied">Methwyd copïo %1$s i blygell lleol %2$s</string>
   <string name="activity_chooser_send_file_title">Anfon</string>
 </resources>

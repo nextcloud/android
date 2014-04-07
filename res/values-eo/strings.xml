@@ -3,7 +3,7 @@
   <string name="actionbar_upload">Alŝuti dosieron</string>
   <string name="actionbar_upload_from_apps">Enhavo el aliaj aplikaĵoj</string>
   <string name="actionbar_upload_files">Dosieroj</string>
-  <string name="actionbar_mkdir">Krei dosierujon</string>
+  <string name="actionbar_mkdir">Nova dosierujo</string>
   <string name="actionbar_settings">Agordo</string>
   <string name="actionbar_see_details">Detaloj</string>
   <string name="actionbar_send_file">Sendi</string>
@@ -110,7 +110,6 @@
   <string name="rename_server_fail_msg">Alinomigo ne povis plenumiĝi</string>
   <string name="sync_file_fail_msg">Malloka dosiero ne povis kontroliĝi</string>
   <string name="sync_file_nothing_to_do_msg">Dosierenhavoj jam sinkroniĝis</string>
-  <string name="create_dir_fail_msg">Dosierujo ne povis kreiĝi</string>
   <string name="wait_a_moment">Atendu momenton</string>
   <string name="filedisplay_unexpected_bad_get_content">Neatendita problemo; bonvolu provi alian aplikaĵon por elekti la dosieron</string>
   <string name="filedisplay_no_file_selected">Neniu dosiero elektiĝis</string>

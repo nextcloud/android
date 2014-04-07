@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">بارکردن</string>
   <string name="actionbar_upload_files">په‌ڕگەکان</string>
-  <string name="actionbar_mkdir">درووستکردنى بوخچە</string>
   <string name="actionbar_settings">ده‌ستكاری</string>
   <string name="prefs_category_general">گشتی</string>
   <string name="prefs_accounts">هەژمارەکان</string>
@@ -27,4 +26,5 @@
   <string name="common_cancel">لابردن</string>
   <string name="common_save_exit">پاشکەوتکردن &amp; دەرچوون</string>
   <string name="common_error">هه‌ڵه</string>
+  <string name="uploader_info_dirname">ناوی بوخچه</string>
 </resources>

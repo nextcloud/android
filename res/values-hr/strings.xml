@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Učitaj</string>
   <string name="actionbar_upload_files">Datoteke</string>
-  <string name="actionbar_mkdir">Kreiraj direktorij</string>
   <string name="actionbar_settings">Postavke</string>
   <string name="prefs_category_general">Općenito</string>
   <string name="prefs_category_more">više</string>

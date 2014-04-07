@@ -3,7 +3,6 @@
   <string name="actionbar_upload">Отпреми</string>
   <string name="actionbar_upload_from_apps">Садржај са других апликација</string>
   <string name="actionbar_upload_files">Датотеке</string>
-  <string name="actionbar_mkdir">Направи фасциклу</string>
   <string name="actionbar_settings">Поставке</string>
   <string name="actionbar_send_file">Пошаљи</string>
   <string name="prefs_category_general">Опште</string>
@@ -43,7 +42,6 @@
   <string name="delete_account">Обриши налог</string>
   <string name="create_account">Отвори налог</string>
   <string name="upload_chooser_title">Отпреми из…</string>
-  <string name="uploader_info_dirname">Име фасцикле</string>
   <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Отпремам %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Отпремање је успело</string>
@@ -84,7 +82,6 @@
   <string name="rename_dialog_title">Унесите ново име</string>
   <string name="rename_server_fail_msg">Не могу да довршим преименовање</string>
   <string name="sync_file_fail_msg">Удаљена датотека се не може проверити</string>
-  <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
   <string name="wait_a_moment">Сачекајте тренутак</string>
   <string name="filedisplay_no_file_selected">Нисте изабрали датотеку</string>
   <string name="ssl_validator_header">Не могу да проверим идентитет сајта</string>

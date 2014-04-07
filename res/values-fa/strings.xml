@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">محتوا از دیگر برنامه ها</string>
   <string name="actionbar_upload_files">پرونده‌ها</string>
   <string name="actionbar_open_with">باز کردن با</string>
-  <string name="actionbar_mkdir">ایجاد پوشه</string>
+  <string name="actionbar_mkdir">پوشه جدید</string>
   <string name="actionbar_settings">تنظیمات</string>
   <string name="actionbar_see_details">جزئیات</string>
   <string name="actionbar_send_file">ارسال</string>
@@ -38,7 +38,6 @@
   <string name="sync_string_files">پرونده‌ها</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">بارگزاری</string>
-  <string name="uploader_top_message">انتخاب مسیر برای آپلود:</string>
   <string name="uploader_wrn_no_account_title">هیچ حسابی یافت نشد</string>
   <string name="uploader_wrn_no_account_text">هیچ حسابی در %1$s بر روی دستگاه شما موجود نیست.لطفا اول یک حساب ترتیب دهید.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">نصب</string>
@@ -96,7 +95,6 @@
   <string name="sync_fail_in_favourites_ticker">همگام سازی پرونده ها ناموفق بود.</string>
   <string name="sync_fail_in_favourites_content">محتوای %1$d فایل ها نمی توانند همگام باشند(%2$d ناسازگاری)</string>
   <string name="sync_foreign_files_forgotten_ticker">بعضی از فایلهای محلی فراموش شده اند</string>
-  <string name="sync_foreign_files_forgotten_content">در اینجا %1$d تعداد فایل از لیست %2$s نمی توانند کپی شوند</string>
   <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
   <string name="foreign_files_move">انتقال همه</string>
   <string name="foreign_files_success">همه ی فایل ها جا به جا شدند</string>
@@ -175,7 +173,6 @@
   <string name="rename_server_fail_msg">نامگذاری نمی تواند به طور کامل انجام شود</string>
   <string name="sync_file_fail_msg">پرونده های دور از دسترس نمی توانند بررسی شوند.</string>
   <string name="sync_file_nothing_to_do_msg">محتوای فایل قبلا همگام شده</string>
-  <string name="create_dir_fail_msg">فهرست را نمی توان ایجاد کرد</string>
   <string name="filename_forbidden_characters">کاراکترهای ممنوع: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">لحظه‌ای صبر کنید</string>
   <string name="filedisplay_unexpected_bad_get_content">مشکل غیر متقربه، لطفا پرونده را از یک برنامه متفاوت انتخاب کنید.</string>
@@ -220,7 +217,6 @@
   <string name="conflict_dont_upload">آپلود نکن</string>
   <string name="preview_image_description">پیش نمایش تصویر</string>
   <string name="preview_image_error_unknown_format">این تصویر نمی تواند نمایش داده شود.</string>
-  <string name="error__upload__local_file_not_copied">%1$s در لیست محلی %2$s نمی تواند کپی شود</string>
   <string name="actionbar_failed_instant_upload">آپلود فوری انجام نشد</string>
   <string name="failed_upload_headline_text">آپلود های فوری انجام نشدند.</string>
   <string name="failed_upload_headline_hint">خلاصه ای از تمام ارسال های فور ی ناموفق.</string>

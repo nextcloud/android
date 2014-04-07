@@ -3,7 +3,7 @@
   <string name="actionbar_upload">อัพโหลดไฟล์</string>
   <string name="actionbar_upload_from_apps">เนื้อหาจากแอปฯอื่นๆ</string>
   <string name="actionbar_upload_files">ไฟล์</string>
-  <string name="actionbar_mkdir">สร้างไดเร็กทอรี่</string>
+  <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
   <string name="actionbar_settings">ตั้งค่า</string>
   <string name="actionbar_see_details">รายละเอียด</string>
   <string name="actionbar_send_file">ส่ง</string>
@@ -51,7 +51,7 @@
   <string name="delete_account">ลบบัญชี</string>
   <string name="create_account">สร้างบัญชีใหม่</string>
   <string name="upload_chooser_title">อัพโหลดไฟล์จาก...</string>
-  <string name="uploader_info_dirname">ชื่อไดเร็กทอรี่</string>
+  <string name="uploader_info_dirname">ชื่อโฟลเดอร์</string>
   <string name="uploader_upload_in_progress_ticker">กำลังอัพโหลด...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% กำลังอัพโหลด %2$s</string>
   <string name="uploader_upload_succeeded_ticker">อัพโหลดเสร็จสิ้น</string>
@@ -118,7 +118,6 @@
   <string name="rename_server_fail_msg">ไม่สามารถเปลี่ยนชื่อได้</string>
   <string name="sync_file_fail_msg">ไม่สามารถตรวจสอบไฟล์ระยะไกลได้</string>
   <string name="sync_file_nothing_to_do_msg">เนื้อหาของไฟล์ถูกผสานข้อมูลอยู่แล้ว</string>
-  <string name="create_dir_fail_msg">ไม่สามารถสร้างไดเร็กทอรี่ได้</string>
   <string name="wait_a_moment">กรุณารอสักครู่</string>
   <string name="filedisplay_unexpected_bad_get_content">เกิดปัญหาที่ไม่คาดคิด ; กรุณาลองใช้งานแอปฯอื่นๆ เพื่อเลือกไฟล์</string>
   <string name="filedisplay_no_file_selected">ไม่มีไฟล์ที่ถูกเลือก</string>
@@ -152,6 +151,5 @@
   <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
   <string name="conflict_overwrite">เขียนทับ</string>
   <string name="conflict_dont_upload">ไม่ต้องอัพโหลด</string>
-  <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถถูกคัดลอกไปที่ %2$s ไดเรกทอรีท้องถิ่น</string>
   <string name="activity_chooser_send_file_title">ส่ง</string>
 </resources>

@@ -7,7 +7,6 @@
   <string name="actionbar_upload_from_apps">ਹੋਰ ਐਪਸ ਤੋਂ ਸਮੱਗਰੀ</string>
   <string name="actionbar_upload_files">ਫਾਇਲਾਂ</string>
   <string name="actionbar_open_with">ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ</string>
-  <string name="actionbar_mkdir">ਡਾਇਰੈਕਟਰੀ ਬਣਾਓ</string>
   <string name="actionbar_settings">ਸੈਟਿੰਗ</string>
   <string name="actionbar_see_details">ਵੇਰਵ</string>
   <string name="actionbar_send_file">ਭੇਜੋ</string>
@@ -22,7 +21,6 @@
   <string name="sync_string_files">ਫਾਇਲਾਂ</string>
   <string name="setup_btn_connect">ਕੁਨੈਕਟ</string>
   <string name="uploader_btn_upload_text">ਅੱਪਲੋਡ</string>
-  <string name="uploader_top_message">ਅੱਪਲੋਡ ਡਾਇਰੈਕਟਰੀ ਚੁਣੋ:</string>
   <string name="uploader_wrn_no_account_title">ਕੋਈ ਅਕਾਊਂਟ ਨਹੀਂ ਲੱਭਾ</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ਸੈਟਅੱਪ</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ਬਾਹਰ</string>
@@ -51,7 +49,6 @@
   <string name="delete_account">ਅਕਾਊਂਟ ਹਟਾਓ</string>
   <string name="create_account">ਅਕਾਊਂਟ ਬਣਾਓ</string>
   <string name="upload_chooser_title">... ਤੋਂ ਅੱਪਲੋਡ</string>
-  <string name="uploader_info_dirname">ਡਾਇਰੈਕਟਰੀ ਨਾਂ</string>
   <string name="uploader_upload_in_progress_ticker">... ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="uploader_upload_in_progress_content">%1$d%% ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ਅੱਪਲੋਡ ਸਫ਼ਲ ਹੈ</string>
@@ -91,7 +88,6 @@
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="confirmation_remove_remote">ਸਰਵਰ ਤੋਂ ਹਟਾਓ</string>
   <string name="confirmation_remove_remote_and_local">ਰਿਮੋਟ ਤੇ ਲੋਕਲ</string>
-  <string name="create_dir_fail_msg">ਡਾਇਰੈਕਟਰੀ ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕੀ</string>
   <string name="wait_a_moment">ਪਲ਼ ਭਰ ਲਈ ਉਡੀਕੋ</string>
   <string name="filedisplay_no_file_selected">ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
   <string name="ssl_validator_header">ਇਹ ਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ</string>

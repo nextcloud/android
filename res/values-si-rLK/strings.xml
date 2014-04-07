@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">උඩුගත කිරීම</string>
   <string name="actionbar_upload_files">ගොනු</string>
-  <string name="actionbar_mkdir">ඩිරෙක්ටරිය සාදන්න</string>
   <string name="actionbar_settings">සිටුවම්</string>
   <string name="prefs_category_general">සාමාන්‍යයෙන්</string>
   <string name="prefs_category_more">වැඩි</string>
@@ -39,7 +38,7 @@
   <string name="change_password">මුරපදය වෙනස් කිරීම</string>
   <string name="delete_account">ගිණුම මකන්න</string>
   <string name="create_account">ගිණුම සාදන්න</string>
-  <string name="uploader_info_dirname">ඩිරෙක්ටරි නම</string>
+  <string name="uploader_info_dirname">ෆොල්ඩරයේ නම</string>
   <string name="uploader_upload_succeeded_ticker">උඩුගත කිරීම සාර්ථකයි</string>
   <string name="uploader_upload_failed_ticker">උඩුගත කිරීම අසාර්ථකයි</string>
   <string name="downloader_download_in_progress_ticker">බාගතවේ...</string>
@@ -70,7 +69,6 @@
   <string name="remove_success_msg">සාර්ථක ඉවත්කිරීමක්</string>
   <string name="remove_fail_msg">ඉවත් කිරීම සම්පූර්ණ කළ නොහැක</string>
   <string name="rename_server_fail_msg">නැවත නම් කිරීම සම්පුර්ණ කළ නොහැකි විය</string>
-  <string name="create_dir_fail_msg">ඩිරෙක්ටරිය සෑදීමට නොහැකි විය</string>
   <string name="wait_a_moment">ස්වල්ප මොහොතක් සිටින්න</string>
   <string name="filedisplay_unexpected_bad_get_content">නොසිතු ප්‍රශ්ණයක්; කරුණාකර වෙනත් යෙදුමක් භාවිතා කර ගොනුව තෝරන්න</string>
   <string name="filedisplay_no_file_selected">ගොනුවක් තෝරා නැත</string>

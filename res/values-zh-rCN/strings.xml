@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">来自其它app的内容</string>
   <string name="actionbar_upload_files">文件</string>
   <string name="actionbar_open_with">打开</string>
-  <string name="actionbar_mkdir">创建目录</string>
+  <string name="actionbar_mkdir">添加文件夹</string>
   <string name="actionbar_settings">设置</string>
   <string name="actionbar_see_details">详细信息</string>
   <string name="actionbar_send_file">发送</string>
@@ -34,7 +34,6 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
-  <string name="uploader_top_message">选择上传目录：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上未找到账号，请先创建账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
@@ -69,7 +68,7 @@
   <string name="delete_account">删除账号</string>
   <string name="create_account">创建账号</string>
   <string name="upload_chooser_title">上传自...</string>
-  <string name="uploader_info_dirname">文件夹名称</string>
+  <string name="uploader_info_dirname">目录名称</string>
   <string name="uploader_upload_in_progress_ticker">上传...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">上传成功</string>
@@ -92,7 +91,6 @@
   <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
   <string name="sync_fail_in_favourites_content">无法同步 %1$d 文件内容(与 %2$d 冲突)</string>
   <string name="sync_foreign_files_forgotten_ticker">某些本地文件已被遗忘</string>
-  <string name="sync_foreign_files_forgotten_content">%2$s目录中的%1$d个文件不能被复制到</string>
   <string name="foreign_files_move">移动所有</string>
   <string name="foreign_files_success">所有文件已被移动</string>
   <string name="foreign_files_fail">某些文件无法被移动</string>
@@ -162,7 +160,6 @@
   <string name="rename_server_fail_msg">重命名未完成</string>
   <string name="sync_file_fail_msg">无法核实远程文件</string>
   <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
-  <string name="create_dir_fail_msg">无法创建文件夹</string>
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
@@ -205,7 +202,6 @@
   <string name="conflict_dont_upload">不上传</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">不能显示图片</string>
-  <string name="error__upload__local_file_not_copied">%1$s无法被复制到%2$s本地目录</string>
   <string name="failed_upload_headline_text">限时上传失败</string>
   <string name="failed_upload_headline_hint">限时上传失败汇总</string>
   <string name="failed_upload_all_cb">全选</string>

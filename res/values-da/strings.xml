@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Indhold fra andre apps</string>
   <string name="actionbar_upload_files">Filer</string>
   <string name="actionbar_open_with">Åben med</string>
-  <string name="actionbar_mkdir">Opret mappe</string>
+  <string name="actionbar_mkdir">Ny Mappe</string>
   <string name="actionbar_settings">Indstillinger</string>
   <string name="actionbar_see_details">Detaljer</string>
   <string name="actionbar_send_file">Send</string>
@@ -38,7 +38,6 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Tilslut</string>
   <string name="uploader_btn_upload_text">Upload</string>
-  <string name="uploader_top_message">Vælg upload mappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
   <string name="uploader_wrn_no_account_text">Der er ingen %1$s brugere på din enhed. Sæt venligst en bruger op først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Opsætning</string>
@@ -73,7 +72,7 @@
   <string name="delete_account">Slet konto</string>
   <string name="create_account">Opret konto</string>
   <string name="upload_chooser_title">Upload fra ...</string>
-  <string name="uploader_info_dirname">mappenavn</string>
+  <string name="uploader_info_dirname">Mappenavn</string>
   <string name="uploader_upload_in_progress_ticker">Uploader ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Uploader %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Upload færdig</string>
@@ -96,8 +95,6 @@
   <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
   <string name="sync_fail_in_favourites_content">Indholdet af %1$d filer ikke kunne synkroniseres (%2$d konflikter)</string>
   <string name="sync_foreign_files_forgotten_ticker">Visse lokale filer blev glemt</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d filer ud af %2$s mappe kunne ikke kopieres ind i</string>
-  <string name="sync_foreign_files_forgotten_explanation">Fra version 1.3.16 bliver filer uploadet fra denne enhed kopieret til mappen %1$s for at forhindre datatab når en enkelt fil synkroniseres med flere konti.\n\nPå grund af denne ændring er alle filer som var uploadet i tidligere versioner af denne app kopieret til mappen %2$s. Imidlertid forhindrede en fejl færdiggørelsen af denne operation under konto-synkronisering. Du kan enten lade filerne være som de er og fjerne linket til %3$s eller flytte filerne til mappen %1$s og beholde linket til %4$s.\n\nHerunder er en liste med de lokale og eksterne filer i %5$s, som de var knyttet til.</string>
   <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
   <string name="foreign_files_move">Flyt alle</string>
   <string name="foreign_files_success">Alle filer blev flyttet</string>
@@ -178,7 +175,6 @@
   <string name="rename_server_fail_msg">Omdøbning kunne ikke gennemføres</string>
   <string name="sync_file_fail_msg">Ekstern fil kunne ikke kontrolleres</string>
   <string name="sync_file_nothing_to_do_msg">Filindholdet allerede synkroniseret</string>
-  <string name="create_dir_fail_msg">Mappe kunne ikke oprettes</string>
   <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Vent et øjeblik</string>
   <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; prøv venligst anden applikation til at vælge filen</string>
@@ -225,7 +221,6 @@
   <string name="conflict_dont_upload">Upload ikke</string>
   <string name="preview_image_description">Billede preview</string>
   <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
-  <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
   <string name="actionbar_failed_instant_upload">Fejlede Umiddelbar upload</string>
   <string name="failed_upload_headline_text">Øjeblikkelige uploads mislykkedes</string>
   <string name="failed_upload_headline_hint">Sammenfatning af alle mislykkede øjeblikkelige uploads</string>

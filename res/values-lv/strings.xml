@@ -3,7 +3,7 @@
   <string name="actionbar_upload">Augšupielādēt</string>
   <string name="actionbar_upload_from_apps">Saturs no citām lietotnēm</string>
   <string name="actionbar_upload_files">Datnes</string>
-  <string name="actionbar_mkdir">Izveidot direktoriju</string>
+  <string name="actionbar_mkdir">Jauna mape</string>
   <string name="actionbar_settings">Iestatījumi</string>
   <string name="actionbar_send_file">Sūtīt</string>
   <string name="prefs_category_general">Vispārīgi</string>
@@ -50,7 +50,7 @@
   <string name="delete_account">Dzēst kontu</string>
   <string name="create_account">Izveidot kontu</string>
   <string name="upload_chooser_title">Augšupielādēt no...</string>
-  <string name="uploader_info_dirname">Direktorijas nosaukums</string>
+  <string name="uploader_info_dirname">Mapes nosaukums</string>
   <string name="uploader_upload_in_progress_ticker">Augšupielādē ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Augšupielāde ir veiksmīga</string>
@@ -108,7 +108,6 @@
   <string name="rename_server_fail_msg">Nevarēja pabeigt pārsaukšanu</string>
   <string name="sync_file_fail_msg">Nevarēja atzīmēt attālinātas datnes</string>
   <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
-  <string name="create_dir_fail_msg">Nevarēja izveidot direktoriju</string>
   <string name="wait_a_moment">Uzgaidīt brīdi</string>
   <string name="filedisplay_unexpected_bad_get_content">Negaidīta problēma; lūdzu, izvēlieties datni no citas lietotnes</string>
   <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>
