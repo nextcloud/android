@@ -52,7 +52,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.util.Log;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -89,8 +88,14 @@ public class OperationsService extends Service {
     private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
             new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
     
+    /*
     private ConcurrentMap<Integer, RemoteOperationResult> mOperationResults =
             new ConcurrentHashMap<Integer, RemoteOperationResult>();
+     */
+
+    private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>> 
+        mUndispatchedFinishedOperations =
+            new ConcurrentHashMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>();
     
     private static class Target {
         public Uri mServerUrl = null;
@@ -149,21 +154,21 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.wtf(TAG, "onStartCommand init" );
+        Log_OC.wtf(TAG, "onStartCommand init" );
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
-        Log.wtf(TAG, "onStartCommand end" );
+        Log_OC.wtf(TAG, "onStartCommand end" );
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        Log.wtf(TAG, "onDestroy init" );
+        Log_OC.wtf(TAG, "onDestroy init" );
         super.onDestroy();
-        Log.wtf(TAG, "Clear mOperationResults" );
-        mOperationResults.clear();
-        Log.wtf(TAG, "onDestroy end" );
+        Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
+        mUndispatchedFinishedOperations.clear();
+        Log_OC.wtf(TAG, "onDestroy end" );
     }
 
 
@@ -173,7 +178,7 @@ public class OperationsService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Log.wtf(TAG, "onBind" );
+        Log_OC.wtf(TAG, "onBind" );
         return mBinder;
     }
 
@@ -341,16 +346,34 @@ public class OperationsService extends Service {
             if (operation != null) {
                 mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
                 startService(new Intent(OperationsService.this, OperationsService.class));
+                Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
                 return operation.hashCode();
                 
             } else {
+                Log_OC.wtf(TAG, "New operation failed, returned -1");
                 return -1;
             }
         }
 
         public RemoteOperationResult getOperationResultIfFinished(int operationId) {
-            Log_OC.wtf(TAG, "Searching result for operation with id " + operationId);
-            return mOperationResults.remove(operationId);
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+                    mUndispatchedFinishedOperations.remove(operationId);
+            if (undispatched != null) {
+                return undispatched.second;
+            }
+            return null;
+        }
+
+
+        public void dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+                    mUndispatchedFinishedOperations.remove(operationId);
+            if (undispatched != null) {
+                listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
+                Log_OC.wtf(TAG, "Sending callback later");
+            } else {
+                Log_OC.wtf(TAG, "Not finished yet");
+            }
         }
 
     }
@@ -385,7 +408,7 @@ public class OperationsService extends Service {
      */
     private void nextOperation() {
         
-        Log.wtf(TAG, "nextOperation init" );
+        Log_OC.wtf(TAG, "nextOperation init" );
         
         Pair<Target, RemoteOperation> next = null;
         synchronized(mPendingOperations) {
@@ -457,7 +480,7 @@ public class OperationsService extends Service {
             }
             
             //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
-            dispatchOperationListeners(mLastTarget, mCurrentOperation, result);
+            dispatchResultToOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
 
@@ -515,7 +538,7 @@ public class OperationsService extends Service {
      * @param operation         Finished operation.
      * @param result            Result of the operation.
      */
-    private void dispatchOperationListeners(
+    private void dispatchResultToOperationListeners(
             Target target, final RemoteOperation operation, final RemoteOperationResult result) {
         int count = 0;
         Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
@@ -533,7 +556,10 @@ public class OperationsService extends Service {
             }
         }
         if (count == 0) {
-            mOperationResults.put(operation.hashCode(), result);
+            //mOperationResults.put(operation.hashCode(), result);
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+                    new Pair<RemoteOperation, RemoteOperationResult>(operation, result);
+            mUndispatchedFinishedOperations.put(operation.hashCode(), undispatched);
         }
         Log_OC.d(TAG, "Called " + count + " listeners");
     }

@@ -114,12 +114,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_PASSWORD_EXPOSED = "PASSWORD_VISIBLE";
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
-    private static final String KEY_REFRESH_BUTTON_ENABLED = "REFRESH_BUTTON_ENABLED";
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
-    private static final String KEY_GET_SERVER_INFO_OP_ID = "DETECT_AUTH_OP_ID";
-    private static final String KEY_EXISTENCE_CHECK_OP_ID = "EXISTENCE_CHECK_OP_ID";
-    private static final String KEY_OAUTH2_GET_ACCESS_TOKEN_OP_ID = "OAUTH2_GET_ACCESS_TOKEN";
-    private static final String KEY_GET_USER_NAME_OP_ID = "GET_USER_NAME";
+    private static final String KEY_WAITING_FOR_OP_ID = "DETECT_AUTH_OP_ID";
     private static final String KEY_AUTH_TOKEN = "AUTH_TOKEN";
 
     private static final String AUTH_ON = "on";
@@ -177,11 +173,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private String mAuthToken = "";
 
     
-    /// Operation-in-progress identifiers - TODO improve pull-interface with OperationsService 
-    private int mGetServerInfoOpId = -1;
-    private int mOauth2GetAccessTokenOpId = -1;
-    private int mExistenceCheckOpId = -1;
-    private int mGetUserNameOpId = -1;
+    /// Identifier of operation in progress which result shouldn't be lost 
+    private int mWaitingForOpId = -1;
     
     
     /**
@@ -218,6 +211,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             initAuthTokenType();
         } else {
             mAuthTokenType = savedInstanceState.getString(KEY_AUTH_TOKEN_TYPE);
+            mWaitingForOpId = savedInstanceState.getInt(KEY_WAITING_FOR_OP_ID);
         }
         
         /// load user interface
@@ -345,9 +339,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerInfo.mAuthMethod = AuthenticationMethod.valueOf(
                     savedInstanceState.getString(KEY_SERVER_AUTH_METHOD));
             
-            // TODO save and recover any operation in progress, in a reasonable way
-            mGetServerInfoOpId = savedInstanceState.getInt(KEY_GET_SERVER_INFO_OP_ID);
-            
         }
         
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
@@ -364,7 +355,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
-        showRefreshButton(mServerIsChecked && !mServerIsValid && mGetServerInfoOpId == -1);
+        showRefreshButton(mServerIsChecked && !mServerIsValid && mWaitingForOpId == -1);
         mServerStatusView = (TextView) findViewById(R.id.server_status_text);
         showServerStatus();
         
@@ -452,9 +443,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mAuthStatusText = savedInstanceState.getInt(KEY_AUTH_STATUS_TEXT);
             mAuthStatusIcon = savedInstanceState.getInt(KEY_AUTH_STATUS_ICON);
             mAuthToken = savedInstanceState.getString(KEY_AUTH_TOKEN);
-            mExistenceCheckOpId = savedInstanceState.getInt(KEY_EXISTENCE_CHECK_OP_ID);
-            mOauth2GetAccessTokenOpId = savedInstanceState.getInt(KEY_OAUTH2_GET_ACCESS_TOKEN_OP_ID);
-            mGetUserNameOpId = savedInstanceState.getInt(KEY_GET_USER_NAME_OP_ID);
         }
         
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
@@ -553,14 +541,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         /// global state
         outState.putString(KEY_AUTH_TOKEN_TYPE, mAuthTokenType);
+        outState.putInt(KEY_WAITING_FOR_OP_ID, mWaitingForOpId);
 
         /// Server PRE-fragment state
-        //outState.putBoolean(KEY_REFRESH_BUTTON_ENABLED, (mRefreshButton.getVisibility() == View.VISIBLE));
         outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
         outState.putInt(KEY_SERVER_STATUS_ICON, mServerStatusIcon);
         outState.putBoolean(KEY_SERVER_CHECKED, mServerIsChecked);
-        //outState.putBoolean(KEY_SERVER_CHECK_IN_PROGRESS, (!mServerIsValid && mServerInfoOperation != null));
-        outState.putInt(KEY_GET_SERVER_INFO_OP_ID, mGetServerInfoOpId);
         outState.putBoolean(KEY_SERVER_VALID, mServerIsValid);
         outState.putBoolean(KEY_IS_SSL_CONN, mServerInfo.mIsSslConn);
         outState.putString(KEY_HOST_URL_TEXT, mServerInfo.mBaseUrl);
@@ -574,9 +560,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_AUTH_STATUS_ICON, mAuthStatusIcon);
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
         outState.putString(KEY_AUTH_TOKEN, mAuthToken);
-        outState.putInt(KEY_EXISTENCE_CHECK_OP_ID, mExistenceCheckOpId);
-        outState.putInt(KEY_OAUTH2_GET_ACCESS_TOKEN_OP_ID, mOauth2GetAccessTokenOpId);
-        outState.putInt(KEY_GET_USER_NAME_OP_ID, mGetUserNameOpId);
 
         Log.wtf(TAG, "onSaveInstanceState end" );
     }
@@ -679,8 +662,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
-            Log.wtf(TAG, "getting access token..." );
-            mOauth2GetAccessTokenOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+            //Log_OC.wtf(TAG, "getting access token..." );
+            mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
         }
     }
 
@@ -745,8 +728,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                Log.wtf(TAG, "checking server..." );
-                mGetServerInfoOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+                //Log_OC.wtf(TAG, "checking server..." );
+                mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             }
             
         } else {
@@ -883,7 +866,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         
         if (mOperationsServiceBinder != null) {
             Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
-            mExistenceCheckOpId = mOperationsServiceBinder.newOperation(existenceCheckIntent);
+            mWaitingForOpId = mOperationsServiceBinder.newOperation(existenceCheckIntent);
         }
     }
 
@@ -946,7 +929,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
 
         if (operation instanceof GetServerInfoOperation) {
-            if (operation.hashCode() == mGetServerInfoOpId) {
+            if (operation.hashCode() == mWaitingForOpId) {
                 onGetServerInfoFinish(result);
             }   // else nothing ; only the last check operation is considered; 
                 // multiple can be started if the user amends a URL quickly
@@ -969,7 +952,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     private void onGetUserNameFinish(RemoteOperationResult result) {
-        mGetUserNameOpId = -1;
+        mWaitingForOpId = -1;
         if (result.isSuccess()) {
             boolean success = false;
             String username = (String) result.getData().get(0);
@@ -1002,7 +985,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperationResult result) {
-        mExistenceCheckOpId = -1;
+        mWaitingForOpId = -1;
         dismissDialog(WAIT_DIALOG_TAG);
 
         //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
@@ -1037,7 +1020,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private void onGetServerInfoFinish(RemoteOperationResult result) {
         /// update activity state
         mServerIsChecked = true;
-        mGetServerInfoOpId = -1;
+        mWaitingForOpId = -1;
         
         // update server status, but don't show it yet
         updateServerStatusIconAndText(result);
@@ -1304,7 +1287,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param result        Result of the operation.
      */
     private void onGetOAuthAccessTokenFinish(RemoteOperationResult result) {
-        mOauth2GetAccessTokenOpId = -1;
+        mWaitingForOpId = -1;
         dismissDialog(WAIT_DIALOG_TAG);
 
         String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
@@ -1343,9 +1326,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param result        Result of the operation.
      */
     private void onAuthorizationCheckFinish(RemoteOperationResult result) {
-        mExistenceCheckOpId = -1;
+        mWaitingForOpId = -1;
         dismissDialog(WAIT_DIALOG_TAG);
 
+        result = new RemoteOperationResult(new RuntimeException("FAKE"));
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
 
@@ -1674,8 +1658,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
-            mGetUserNameOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
+            //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            mWaitingForOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
         }
     }
 
@@ -1771,49 +1755,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private void doOnResumeAndBound() {
         Log.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
-        
-        
-        
-        if (mGetServerInfoOpId != -1) {
-            RemoteOperationResult result = 
-                    mOperationsServiceBinder.getOperationResultIfFinished(mGetServerInfoOpId);
-            if (result != null) {
-                Log_OC.wtf(TAG, "found result of operation finished while rotating");
-                onGetServerInfoFinish(result);
-            }
-            
-        } else if (mOauth2GetAccessTokenOpId != -1) {
-            RemoteOperationResult result = 
-                    mOperationsServiceBinder.getOperationResultIfFinished(
-                            mOauth2GetAccessTokenOpId);
-            if (result != null) {
-                Log_OC.wtf(TAG, "found result of operation finished while rotating");
-                onGetOAuthAccessTokenFinish(result);
-            }
-            
-        } else if (mExistenceCheckOpId != -1) {
-            RemoteOperationResult result = 
-                    mOperationsServiceBinder.getOperationResultIfFinished(mExistenceCheckOpId);
-            if (result != null) {
-                Log_OC.wtf(TAG, "found result of operation finished while rotating");
-                if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
-                        MainApp.getAccountType()).equals(mAuthTokenType)) {
-                    onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
-
-                } else {
-                    onAuthorizationCheckFinish(result);
-                }
-            }
-        }if (mGetUserNameOpId != -1) {
-            RemoteOperationResult result = 
-                    mOperationsServiceBinder.getOperationResultIfFinished(mGetUserNameOpId);
-            if (result != null) {
-                Log_OC.wtf(TAG, "found result of operation finished while rotating");
-                onGetUserNameFinish(result);
-            }
-            
-        } 
-        
+        if (mWaitingForOpId != -1) {
+            mOperationsServiceBinder.dispatchResultIfFinished(mWaitingForOpId, this);
+        }
     }
 
     
