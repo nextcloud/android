@@ -43,7 +43,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -537,7 +536,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.wtf(TAG, "onSaveInstanceState init" );
+        Log_OC.wtf(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
         /// global state
@@ -562,7 +561,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
         outState.putString(KEY_AUTH_TOKEN, mAuthToken);
 
-        Log.wtf(TAG, "onSaveInstanceState end" );
+        Log_OC.wtf(TAG, "onSaveInstanceState end" );
     }
 
 
@@ -610,9 +609,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     @Override
     protected void onPause() {
-        Log.wtf(TAG, "onPause init" );
+        Log_OC.wtf(TAG, "onPause init" );
         if (mOperationsServiceBinder != null) {
-            Log.wtf(TAG, "unregistering to listen for operation callbacks" );
+            Log_OC.wtf(TAG, "unregistering to listen for operation callbacks" );
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
@@ -620,7 +619,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mHostUrlInput.setOnFocusChangeListener(null);
         
         super.onPause();
-        Log.wtf(TAG, "onPause end" );
+        Log_OC.wtf(TAG, "onPause end" );
     }
     
     @Override
@@ -663,7 +662,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
-            //Log_OC.wtf(TAG, "getting access token..." );
+            Log_OC.wtf(TAG, "getting access token..." );
             mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
         }
     }
@@ -729,7 +728,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                //Log_OC.wtf(TAG, "checking server..." );
+                Log_OC.wtf(TAG, "checking server..." );
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             }
             
@@ -1659,7 +1658,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
             mWaitingForOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
         }
     }
@@ -1754,7 +1753,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
 
     private void doOnResumeAndBound() {
-        Log.wtf(TAG, "registering to listen for operation callbacks" );
+        Log_OC.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
         if (mWaitingForOpId <= Integer.MAX_VALUE) {
             mOperationsServiceBinder.dispatchResultIfFinished((int)mWaitingForOpId, this);
