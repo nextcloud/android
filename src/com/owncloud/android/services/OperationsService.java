@@ -261,9 +261,9 @@ public class OperationsService extends Service {
          * Creates and adds to the queue a new operation, as described by operationIntent
          * 
          * @param operationIntent       Intent describing a new operation to queue and execute.
-         * @return                      Identifier of the operation created, or -1 if failed.
+         * @return                      Identifier of the operation created, or null if failed.
          */
-        public int newOperation(Intent operationIntent) {
+        public long newOperation(Intent operationIntent) {
             RemoteOperation operation = null;
             Target target = null;
             try {
@@ -347,23 +347,14 @@ public class OperationsService extends Service {
                 mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
                 startService(new Intent(OperationsService.this, OperationsService.class));
                 Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
+                // better id than hash? ; should be good enough by the time being
                 return operation.hashCode();
                 
             } else {
-                Log_OC.wtf(TAG, "New operation failed, returned -1");
-                return -1;
+                Log_OC.wtf(TAG, "New operation failed, returned Long.MAX_VALUE");
+                return Long.MAX_VALUE;
             }
         }
-
-        public RemoteOperationResult getOperationResultIfFinished(int operationId) {
-            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
-                    mUndispatchedFinishedOperations.remove(operationId);
-            if (undispatched != null) {
-                return undispatched.second;
-            }
-            return null;
-        }
-
 
         public void dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 

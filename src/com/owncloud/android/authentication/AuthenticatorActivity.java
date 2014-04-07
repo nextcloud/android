@@ -174,7 +174,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
     
     /// Identifier of operation in progress which result shouldn't be lost 
-    private int mWaitingForOpId = -1;
+    private long mWaitingForOpId = Long.MAX_VALUE;
     
     
     /**
@@ -211,7 +211,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             initAuthTokenType();
         } else {
             mAuthTokenType = savedInstanceState.getString(KEY_AUTH_TOKEN_TYPE);
-            mWaitingForOpId = savedInstanceState.getInt(KEY_WAITING_FOR_OP_ID);
+            mWaitingForOpId = savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID);
         }
         
         /// load user interface
@@ -355,7 +355,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
-        showRefreshButton(mServerIsChecked && !mServerIsValid && mWaitingForOpId == -1);
+        showRefreshButton(mServerIsChecked && !mServerIsValid && 
+                mWaitingForOpId > Integer.MAX_VALUE);
         mServerStatusView = (TextView) findViewById(R.id.server_status_text);
         showServerStatus();
         
@@ -541,7 +542,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         /// global state
         outState.putString(KEY_AUTH_TOKEN_TYPE, mAuthTokenType);
-        outState.putInt(KEY_WAITING_FOR_OP_ID, mWaitingForOpId);
+        outState.putLong(KEY_WAITING_FOR_OP_ID, mWaitingForOpId);
 
         /// Server PRE-fragment state
         outState.putInt(KEY_SERVER_STATUS_TEXT, mServerStatusText);
@@ -952,7 +953,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     private void onGetUserNameFinish(RemoteOperationResult result) {
-        mWaitingForOpId = -1;
+        mWaitingForOpId = Long.MAX_VALUE;
         if (result.isSuccess()) {
             boolean success = false;
             String username = (String) result.getData().get(0);
@@ -985,7 +986,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     }
 
     private void onSamlBasedFederatedSingleSignOnAuthorizationStart(RemoteOperationResult result) {
-        mWaitingForOpId = -1;
+        mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
         //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
@@ -1020,7 +1021,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private void onGetServerInfoFinish(RemoteOperationResult result) {
         /// update activity state
         mServerIsChecked = true;
-        mWaitingForOpId = -1;
+        mWaitingForOpId = Long.MAX_VALUE;
         
         // update server status, but don't show it yet
         updateServerStatusIconAndText(result);
@@ -1287,7 +1288,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param result        Result of the operation.
      */
     private void onGetOAuthAccessTokenFinish(RemoteOperationResult result) {
-        mWaitingForOpId = -1;
+        mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
         String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
@@ -1326,7 +1327,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * @param result        Result of the operation.
      */
     private void onAuthorizationCheckFinish(RemoteOperationResult result) {
-        mWaitingForOpId = -1;
+        mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
         result = new RemoteOperationResult(new RuntimeException("FAKE"));
@@ -1755,8 +1756,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private void doOnResumeAndBound() {
         Log.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
-        if (mWaitingForOpId != -1) {
-            mOperationsServiceBinder.dispatchResultIfFinished(mWaitingForOpId, this);
+        if (mWaitingForOpId <= Integer.MAX_VALUE) {
+            mOperationsServiceBinder.dispatchResultIfFinished((int)mWaitingForOpId, this);
         }
     }
 
