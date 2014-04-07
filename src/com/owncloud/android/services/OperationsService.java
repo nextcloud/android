@@ -100,12 +100,12 @@ public class OperationsService extends Service {
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public String mWebDavUrl = "";
-        public String mUsername = "";
-        public String mPassword = "";
-        public String mAuthToken = "";
+        public String mWebDavUrl = null;
+        public String mUsername = null;
+        public String mPassword = null;
+        public String mAuthToken = null;
         public boolean mFollowRedirects = true;
-        public String mCookie = "";
+        public String mCookie = null;
         
         public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
                 boolean followRedirects, String cookie) {
@@ -284,12 +284,12 @@ public class OperationsService extends Service {
                     target = new Target(
                             account, 
                             (serverUrl == null) ? null : Uri.parse(serverUrl),
-                            ((webDavPath == null) || (serverUrl == null)) ? "" : webDavUrl,
-                            (username == null) ? "" : username,
-                            (password == null) ? "" : password,
-                            (authToken == null) ? "" : authToken,
+                            ((webDavPath == null) || (serverUrl == null)) ? null : webDavUrl,
+                            username,
+                            password,
+                            authToken,
                             followRedirects,
-                            (cookie == null) ? "" : cookie
+                            cookie
                     );
                     
                     String action = operationIntent.getAction();
@@ -420,14 +420,14 @@ public class OperationsService extends Service {
                     } else {
                         mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
                                 mLastTarget.mFollowRedirects);    // this is not good enough
-                        if (mLastTarget.mWebDavUrl != "") {
+                        if (mLastTarget.mWebDavUrl != null) {
                             mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
                         }
-                        if (mLastTarget.mUsername != "" && mLastTarget.mPassword != "") {
+                        if (mLastTarget.mUsername != null && mLastTarget.mPassword != null) {
                             mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
-                        } else if (mLastTarget.mAuthToken != "") {
+                        } else if (mLastTarget.mAuthToken != null) {
                             mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
-                        } else if (mLastTarget.mCookie != "") {
+                        } else if (mLastTarget.mCookie != null) {
                             mOwnCloudClient.setSsoSessionCookie(mLastTarget.mCookie);
                         }
                         mStorageManager = null;

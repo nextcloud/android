@@ -307,7 +307,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input); 
-        //boolean refreshButtonEnabled = false;
         if (savedInstanceState == null) {
             if (mAccount != null) {
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
@@ -321,7 +320,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");
             }
         } else {
-            //refreshButtonEnabled = savedInstanceState.getBoolean(KEY_REFRESH_BUTTON_ENABLED);
             mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
             mServerStatusIcon = savedInstanceState.getInt(KEY_SERVER_STATUS_ICON);
             
@@ -761,10 +759,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
 
     private void showViewPasswordButton() {
-        //int drawable = android.R.drawable.ic_menu_view;
         int drawable = R.drawable.ic_view;
         if (isPasswordVisible()) {
-            //drawable = android.R.drawable.ic_secure;
             drawable = R.drawable.ic_hide;
         }
         mPasswordInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0);
@@ -881,14 +877,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         showAuthStatus();
 
         // GET AUTHORIZATION request
-        //Uri uri = Uri.parse(getString(R.string.oauth2_url_endpoint_auth));
         Uri uri = Uri.parse(mOAuthAuthEndpointText.getText().toString().trim());
         Uri.Builder uriBuilder = uri.buildUpon();
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_RESPONSE_TYPE, getString(R.string.oauth2_response_type));
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_REDIRECT_URI, getString(R.string.oauth2_redirect_uri));   
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_CLIENT_ID, getString(R.string.oauth2_client_id));
         uriBuilder.appendQueryParameter(OAuth2Constants.KEY_SCOPE, getString(R.string.oauth2_scope));
-        //uriBuilder.appendQueryParameter(OAuth2Constants.KEY_STATE, whateverwewant);
         uri = uriBuilder.build();
         Log_OC.d(TAG, "Starting browser to view " + uri.toString());
         Intent i = new Intent(Intent.ACTION_VIEW, uri);
@@ -988,7 +982,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
-        //if (result.isTemporalRedirection() && result.isIdPRedirection()) {
         if (result.isIdPRedirection()) {
             String url = result.getRedirectedLocation();
             String targetUrl = mServerInfo.mBaseUrl 
@@ -1329,7 +1322,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
-        result = new RemoteOperationResult(new RuntimeException("FAKE"));
         if (result.isSuccess()) {
             Log_OC.d(TAG, "Successful access - time to save the account");
 
@@ -1351,12 +1343,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             /// the server
             mServerIsChecked = true;
             mServerIsValid = false;
-            /*
-            mServerInfo.mIsSslConn = false;
-            mServerInfo.mVersion = null;
-            mServerInfo.mBaseUrl = 
-                    normalizeUrl(mHostUrlInput.getText().toString(), mServerInfo.mIsSslConn);    // TODO remove?
-                    */
             mServerInfo = new GetServerInfoOperation.ServerInfo();  
 
             // update status icon and text
