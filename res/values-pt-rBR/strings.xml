@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Conteúdo de outros apps</string>
   <string name="actionbar_upload_files">Arquivos</string>
   <string name="actionbar_open_with">Abrir com</string>
-  <string name="actionbar_mkdir">Criar pasta</string>
+  <string name="actionbar_mkdir">Nova pasta</string>
   <string name="actionbar_settings">Ajustes</string>
   <string name="actionbar_see_details">Detalhes</string>
   <string name="actionbar_send_file">Enviar</string>
@@ -38,7 +38,7 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Upload</string>
-  <string name="uploader_top_message">Escolher pasta para enviar:</string>
+  <string name="uploader_top_message">Escolher pasta enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
@@ -73,7 +73,7 @@
   <string name="delete_account">Remover conta</string>
   <string name="create_account">Criar conta</string>
   <string name="upload_chooser_title">Enviar de …</string>
-  <string name="uploader_info_dirname">Nome do diretório</string>
+  <string name="uploader_info_dirname">Nome da pasta</string>
   <string name="uploader_upload_in_progress_ticker">Enviando …</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Envio bem sucedido</string>
@@ -96,8 +96,8 @@
   <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
   <string name="sync_fail_in_favourites_content">O conteúdo de %1$d arquivos não puderam ser sincronizados (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alguns arquivos locais foram esquecidos</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d arquivos da pasta %2$s não foram copiados</string>
-  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.  \n \nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta de %2$s . No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode tanto deixar o arquivo(s) como é e remover o link para %3$s , ou mover o arquivo(s) para o diretório %1$s e manter o link para %4$s .  \n \nListados abaixo estão o arquivo local(is), e o arquivo remoto(s) em %5$s que estavam vinculados.</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d arquivos de %2$s não puderam ser copiados para pasta</string>
+  <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os arquivos enviados a partir deste dispositivo são copiados para a pasta local %1$s para evitar a perda de dados quando um único arquivo é sincronizado com várias contas.\nDevido a essa mudança, todos os arquivos carregados em versões anteriores deste aplicativo foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão desta operação durante a sincronização da conta. Você pode tanto deixar o arquivo(s) como é e remover o link para %3$s, ou mover o arquivo(s) para a pasta %1$s e manter o link para  %4$s.\nListados abaixo estão o arquivo(s) locais, e o arquivo(s) remotos %5$s em que estavam vinculados.</string>
   <string name="sync_current_folder_was_removed">Pasta %1s não existe mais</string>
   <string name="foreign_files_move">Mover todos</string>
   <string name="foreign_files_success">Todos os arquivos foram movidos</string>
@@ -179,7 +179,7 @@
   <string name="rename_server_fail_msg">Renomeação não pôde ser completada</string>
   <string name="sync_file_fail_msg">Arquivo remoto não pode ser verificado</string>
   <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
-  <string name="create_dir_fail_msg">Diretório não pôde ser criado</string>
+  <string name="create_dir_fail_msg">A pasta não pode ser criada</string>
   <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
@@ -226,7 +226,7 @@
   <string name="conflict_dont_upload">Não fazer upload</string>
   <string name="preview_image_description">Pré-visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
-  <string name="error__upload__local_file_not_copied">%1$s não pode ser copiado a pasta local %2$s</string>
+  <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
   <string name="actionbar_failed_instant_upload">Falha no EnvioInstantaneo</string>
   <string name="failed_upload_headline_text">Falhas nos envios imediatos</string>
   <string name="failed_upload_headline_hint">Sumario de todas as falhas nos envios imediatos</string>

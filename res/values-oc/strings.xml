@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Amontcarga</string>
   <string name="actionbar_upload_files">Fichièrs</string>
-  <string name="actionbar_mkdir">Crea un repertòri</string>
   <string name="actionbar_settings">Configuracion</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai d\'aquò</string>
@@ -34,7 +33,6 @@
   <string name="delete_account">Escafa lo compte</string>
   <string name="create_account">Crea un compte</string>
   <string name="upload_chooser_title">Avalcarga dempuèi ...</string>
-  <string name="uploader_info_dirname">Nom de repertòri</string>
   <string name="uploader_upload_in_progress_ticker">Al avalcargar ...</string>
   <string name="uploader_upload_succeeded_ticker">Capitada d\'avalcargar</string>
   <string name="common_choose_account">Causís lo compte</string>

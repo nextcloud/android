@@ -38,7 +38,6 @@
   <string name="sync_string_files">Tập tin</string>
   <string name="setup_btn_connect">Kết nối</string>
   <string name="uploader_btn_upload_text">Tải lên</string>
-  <string name="uploader_top_message">Chọn thư mục tải lên:</string>
   <string name="uploader_wrn_no_account_title">Không tìm thấy tài khoản</string>
   <string name="uploader_wrn_no_account_text">Trên thiết bị của bạn không có tài khoản %1$s. Bước đầu tiên hãy thiết lập một tài khoản.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Cài đặt</string>
@@ -96,7 +95,6 @@
   <string name="sync_fail_in_favourites_ticker">Các file trong hàng đợi đồng bộ không thành công</string>
   <string name="sync_fail_in_favourites_content">Nội dung tập tin %1$d không thể đồng bộ (%2$d xung đột)</string>
   <string name="sync_foreign_files_forgotten_ticker">Một số tập tin cục bộ bị quên</string>
-  <string name="sync_foreign_files_forgotten_content">Các tập tin %1$d ở ngoài thư mục %2$s không thể được chép vào</string>
   <string name="sync_current_folder_was_removed">Thư mục %1$s không còn tồn tại</string>
   <string name="foreign_files_move">Di chuyển tất cả</string>
   <string name="foreign_files_success">Tất cả tập tin đã được chuyển đi</string>
@@ -176,7 +174,6 @@
   <string name="rename_server_fail_msg">Đổi tên không thể hoàn thành</string>
   <string name="sync_file_fail_msg">Tập tin từ xa không được kiểm tra</string>
   <string name="sync_file_nothing_to_do_msg">Nội dung tập tin đã đồng bộ</string>
-  <string name="create_dir_fail_msg">Thư mục không thể được tạo</string>
   <string name="filename_forbidden_characters">Những kí tự không được dùng: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Chờ một lúc</string>
   <string name="filedisplay_unexpected_bad_get_content">Vấn đề bất ngờ ; hãy thử ứng dụng khác để chọn tập tin</string>
@@ -221,7 +218,6 @@
   <string name="conflict_dont_upload">Không tải lên</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>
   <string name="preview_image_error_unknown_format">Không thể hiển thị hình ảnh</string>
-  <string name="error__upload__local_file_not_copied">%1$s không thể sao chép vào %2$s thư mục cục bộ</string>
   <string name="actionbar_failed_instant_upload">Tải lên nhanh bị lỗi</string>
   <string name="failed_upload_headline_text">Tải lên nhanh bị lỗi</string>
   <string name="failed_upload_headline_hint">Tóm tắt tất cả các tải lên nhanh bị lỗi</string>

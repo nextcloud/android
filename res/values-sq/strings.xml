@@ -2,7 +2,7 @@
 <resources>
   <string name="actionbar_upload">Ngarko</string>
   <string name="actionbar_upload_files">Skedarët</string>
-  <string name="actionbar_mkdir">Krijo kartelë</string>
+  <string name="actionbar_mkdir">Dosje e\'re</string>
   <string name="actionbar_settings">Parametrat</string>
   <string name="actionbar_send_file">Dërgo</string>
   <string name="prefs_category_general">Përgjithshme</string>

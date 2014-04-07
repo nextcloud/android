@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">আপলোড</string>
   <string name="actionbar_upload_files">ফাইল</string>
-  <string name="actionbar_mkdir">ডিরেক্টরি তৈরী কর</string>
   <string name="actionbar_settings">নিয়ামকসমূহ</string>
   <string name="actionbar_send_file">পাঠাও</string>
   <string name="prefs_category_general">সাধারণ</string>
@@ -31,7 +30,6 @@
   <string name="common_save_exit">সংরক্ষণ কর এবং &amp;প্রস্থান</string>
   <string name="common_error">সমস্যা</string>
   <string name="change_password">কূটশব্দ পরিবর্তন করুন</string>
-  <string name="uploader_info_dirname">ডিরেক্টরির নাম</string>
   <string name="common_choose_account">একাউন্ট নির্বাচন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>

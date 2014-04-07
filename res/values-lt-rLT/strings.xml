@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Turinys iš kitų programų</string>
   <string name="actionbar_upload_files">Failai</string>
   <string name="actionbar_open_with">Atverti naudojant</string>
-  <string name="actionbar_mkdir">Kurti aplanką</string>
+  <string name="actionbar_mkdir">Naujas aplankas</string>
   <string name="actionbar_settings">Nustatymai</string>
   <string name="actionbar_see_details">Informacija</string>
   <string name="actionbar_send_file">Siųsti</string>
@@ -37,7 +37,6 @@
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
-  <string name="uploader_top_message">Nustatyti įkėlimų katalogą.</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
   <string name="uploader_wrn_no_account_text">Jūsų įrenginyje nėra nė vienos %1$s paskyros. Prašome pirmiausia susikurti paskyrą.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nustatymai</string>
@@ -71,7 +70,7 @@
   <string name="delete_account">Ištrinti paskyrą</string>
   <string name="create_account">Sukurti paskyrą</string>
   <string name="upload_chooser_title">Įkelti iš ...</string>
-  <string name="uploader_info_dirname">Aplanko pavadinimas</string>
+  <string name="uploader_info_dirname">Katalogo pavadinimas</string>
   <string name="uploader_upload_in_progress_ticker">Įkeliama ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Nusiuntimas pavyko</string>
@@ -167,7 +166,6 @@
   <string name="rename_server_fail_msg">Pervadinti nepavyko</string>
   <string name="sync_file_fail_msg">Nutolę failai negalėjo būti patikrinti</string>
   <string name="sync_file_nothing_to_do_msg">Failo turinys jau sunchronizuotas</string>
-  <string name="create_dir_fail_msg">Aplanko sukurti nepavyko</string>
   <string name="wait_a_moment">Truputį palaukite</string>
   <string name="filedisplay_unexpected_bad_get_content">Netikėta problema ; prašome pasirinkti failą iš kitos programėlės</string>
   <string name="filedisplay_no_file_selected">Joks failas nebuvo pasirinktas</string>

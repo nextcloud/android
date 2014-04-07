@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
   <string name="actionbar_upload_files">Файлы</string>
   <string name="actionbar_open_with">Открыть с помощью</string>
-  <string name="actionbar_mkdir">Создать каталог</string>
+  <string name="actionbar_mkdir">Новый каталог</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
   <string name="actionbar_send_file">Отправить</string>
@@ -38,7 +38,6 @@
   <string name="sync_string_files">Файлы</string>
   <string name="setup_btn_connect">Соединить</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
-  <string name="uploader_top_message">Выбрать каталог для загрузок:</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет учётных записей %1$s. Сначала нужно настроить учётную запись.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Установка</string>
@@ -73,7 +72,7 @@
   <string name="delete_account">Удалить учётную запись</string>
   <string name="create_account">Создать учётную запись</string>
   <string name="upload_chooser_title">Загрузить из...</string>
-  <string name="uploader_info_dirname">Имя каталога</string>
+  <string name="uploader_info_dirname">Имя папки</string>
   <string name="uploader_upload_in_progress_ticker">Загрузка...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% загрузки %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Загрузка завершена</string>
@@ -96,8 +95,6 @@
   <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
   <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
   <string name="sync_foreign_files_forgotten_ticker">Несколько локальных файлов были забыты</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d файлов из %2$s папок не могут быть скопированы в</string>
-  <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загруженные с этого устройства, копируются в локальную папку %1$s для предотвращения потери данных в случае если один файл синхронизируются с несколькими учетными записями.\n\nВ связи с этим, все файлы, загруженные в предыдущих версиях этого приложения копировались в папку %2$s. Тем не менее, ошибка не позволила завершить эту операцию во время синхронизации учетной записи. Вы можете либо оставить файл(ы) как есть, и удалить ссылку на %3$s, или переместить файл(ы) в каталог %1$s и сохранить ссылку на %4$s.\n\nПеречисленные ниже это локальные файл(ы), и ссылки, которые ссылаются на файл(ы) в %5$s на удаленном хосте.</string>
   <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
   <string name="foreign_files_move">Переместить всё</string>
   <string name="foreign_files_success">Все файлы были перемещены</string>
@@ -179,7 +176,6 @@
   <string name="rename_server_fail_msg">Переименование не может быть завершено</string>
   <string name="sync_file_fail_msg">Удаленный файл не может быть проверен</string>
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
-  <string name="create_dir_fail_msg">Каталог не может быть создан</string>
   <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>
@@ -226,7 +222,6 @@
   <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть показано</string>
-  <string name="error__upload__local_file_not_copied">%1$s не может быть скопирован в локальный каталог %2$s</string>
   <string name="actionbar_failed_instant_upload">Сбой немедленной загрузки</string>
   <string name="failed_upload_headline_text">Сбой немедленной загрузки</string>
   <string name="failed_upload_headline_hint">Сводка по всем сбойным немедленным загрузкам</string>

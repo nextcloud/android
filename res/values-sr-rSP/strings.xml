@@ -2,7 +2,6 @@
 <resources>
   <string name="actionbar_upload">Pošalji</string>
   <string name="actionbar_upload_files">Fajlovi</string>
-  <string name="actionbar_mkdir">Novi folder</string>
   <string name="actionbar_settings">Podešavanja</string>
   <string name="actionbar_see_details">Detaljnije</string>
   <string name="actionbar_send_file">Pošalji</string>

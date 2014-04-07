@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">محتويات من تطبيقات أخرى</string>
   <string name="actionbar_upload_files">الملفات</string>
   <string name="actionbar_open_with">فتح باستخدام</string>
-  <string name="actionbar_mkdir">إنشاء مجلد</string>
+  <string name="actionbar_mkdir">مجلد جديد</string>
   <string name="actionbar_settings">إعدادات</string>
   <string name="actionbar_see_details">تفاصيل</string>
   <string name="actionbar_send_file">أرسل</string>
@@ -38,7 +38,6 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
-  <string name="uploader_top_message">اختر مجلد الرفع :</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>
@@ -96,8 +95,6 @@
   <string name="sync_fail_in_favourites_ticker">لم تنجح المزامنة التلقائية للملفات</string>
   <string name="sync_fail_in_favourites_content"> لا يمكن مزامنة جهات اتصال %1$d  ( %2$d تعارض) </string>
   <string name="sync_foreign_files_forgotten_ticker">تم نسيان بعض الملفات المحلية</string>
-  <string name="sync_foreign_files_forgotten_content">لم ينجح نقل %1$d ملفات إلى المجلد  %2$s</string>
-  <string name="sync_foreign_files_forgotten_explanation">اعتبارا من اﻹصدار 1.3.16, الملفات المرفوعة من هذا الجهاز يتم نسخها إلى المجلد المحلي %1$s تفاديا لفقدان البيانات حينما تتم مزامنة ملف واحد مع عدة حسابات.\n\nنظرا لهذا التغيير، تم نسخ كل الملفات المرفوعة في اﻹصدارات السابقة إلى المجلد %2$s. لكن خطأً ما حال دون إتمام العملية أثناء مزامنة الحسابات. يمكنك إما ترك هذه الملفات و حذف الرابط إلى %3$s، و إما نقل الملفات إلى المجلد %1$s و الاحتفاظ بالرابط إلى %4$s \n\nفيما يلي الملفات المحلية، و المفات الخارجية المرتبطة بها في %5$s</string>
   <string name="sync_current_folder_was_removed">لا يوجد مجلد %1$s بعد الان</string>
   <string name="foreign_files_move">نقل الكل</string>
   <string name="foreign_files_success">تم نقل جميع الملفات</string>
@@ -177,7 +174,6 @@
   <string name="rename_server_fail_msg">لم تكتمل إعادة التسمية</string>
   <string name="sync_file_fail_msg">لا يمكن التحقق من الملف الخارجي</string>
   <string name="sync_file_nothing_to_do_msg">تمت  مزامنة محتويات الملفات من قبل</string>
-  <string name="create_dir_fail_msg">لم ينجح إنشاء المجلد</string>
   <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">انتظر للحظة</string>
   <string name="filedisplay_unexpected_bad_get_content">خطا غير متوقع : الرجاء اختيار الملف من تطبيق آخر</string>
@@ -224,7 +220,6 @@
   <string name="conflict_dont_upload">عدم الرفع</string>
   <string name="preview_image_description">معاينة الصورة</string>
   <string name="preview_image_error_unknown_format">هذه الصورة لا يمكن أن تظهر</string>
-  <string name="error__upload__local_file_not_copied">لم ينجح نسخ %1$s  إلى المجلد المحلي %2$s </string>
   <string name="actionbar_failed_instant_upload">فشل في محاولة الرفع الفوري</string>
   <string name="failed_upload_headline_text">فشل في الرفع الفوري</string>
   <string name="failed_upload_headline_hint">ملخص لكل الاخطاء في عملية الرفع الفوري</string>

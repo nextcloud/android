@@ -3,7 +3,7 @@
   <string name="actionbar_upload">ატვირთვა</string>
   <string name="actionbar_upload_from_apps">კონტენტი სხვა აპლიკაცისებიდან</string>
   <string name="actionbar_upload_files">ფაილები</string>
-  <string name="actionbar_mkdir">დირექტორიის შექმნა</string>
+  <string name="actionbar_mkdir">ახალი ფოლდერი</string>
   <string name="actionbar_settings">პარამეტრები</string>
   <string name="actionbar_send_file">გაგზავნა</string>
   <string name="prefs_category_general">ზოგადი</string>
@@ -52,7 +52,7 @@
   <string name="delete_account">ანგარიშის წაშლა</string>
   <string name="create_account">ანგარიშის შექმნა</string>
   <string name="upload_chooser_title">ატვირთე აქედან...</string>
-  <string name="uploader_info_dirname">დირექტორიის სახელი</string>
+  <string name="uploader_info_dirname">ფოლდერის სახელი</string>
   <string name="uploader_upload_in_progress_ticker">მიმდინარეობს ატვირთვა...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% მიმდინარეობს ატვირთვა %2$s</string>
   <string name="uploader_upload_succeeded_ticker">ატვირთვა განხორციელდა</string>
@@ -73,7 +73,6 @@
   <string name="sync_fail_in_favourites_ticker">Kept-in-sync ფაილები ვერ მოხერხდა</string>
   <string name="sync_fail_in_favourites_content">%1$d ფაილების კონტენტის სინქრონიზაცია ვერ მოხერხდა  (%2$d კონფლიქტი)</string>
   <string name="sync_foreign_files_forgotten_ticker">რამოდენიმე ლოკალური ფაილი დაკარგულია</string>
-  <string name="sync_foreign_files_forgotten_content">%1$d ფაილები არ არის %2$s დირექტორიაში და ვერ დაკოპირდება</string>
   <string name="foreign_files_move">გადაიტანე ყველა</string>
   <string name="foreign_files_success">ყველა ფაილები გადატანილია</string>
   <string name="foreign_files_fail">რამოდენიმე ფაილის გადატანა ვერ მოხერხდა</string>
@@ -118,7 +117,6 @@
   <string name="rename_server_fail_msg">გადარქმევა ვერ დასრულდა წარმატებით</string>
   <string name="sync_file_fail_msg">დაშორებული ფაილის შემოწმება ვერ მოხერხდა</string>
   <string name="sync_file_nothing_to_do_msg">ფაილების კონტენტის სინქრონიზაცია ვერ მოხერხდა</string>
-  <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
   <string name="wait_a_moment">გთხოვთ მოითმინოთ</string>
   <string name="filedisplay_unexpected_bad_get_content">მოულოდნელი პრობლემა: გთხოვთ აირჩიოთ ფაილი სხვადასხვა აპლიკაციიდან</string>
   <string name="filedisplay_no_file_selected">ფაილი არ ყოფილა მონიშნული</string>
@@ -151,7 +149,6 @@
   <string name="conflict_keep_both">დატოვე ორივე</string>
   <string name="conflict_overwrite">გადააწერე</string>
   <string name="conflict_dont_upload">არ ატვირთო</string>
-  <string name="error__upload__local_file_not_copied">%1$s–ის კოპირება ვერ მოხერხდა %2$s  ლოკალურ დირექტორიაში</string>
   <string name="activity_chooser_send_file_title">გაგზავნა</string>
   <string name="clipboard_text_copied">კოპირებულია კლიპბორდში</string>
 </resources>
