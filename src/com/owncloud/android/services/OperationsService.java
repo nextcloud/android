@@ -154,21 +154,21 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log_OC.wtf(TAG, "onStartCommand init" );
+        //Log_OC.wtf(TAG, "onStartCommand init" );
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
-        Log_OC.wtf(TAG, "onStartCommand end" );
+        //Log_OC.wtf(TAG, "onStartCommand end" );
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        Log_OC.wtf(TAG, "onDestroy init" );
+        //Log_OC.wtf(TAG, "onDestroy init" );
         super.onDestroy();
-        Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
+        //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
-        Log_OC.wtf(TAG, "onDestroy end" );
+        //Log_OC.wtf(TAG, "onDestroy end" );
     }
 
 
@@ -178,7 +178,7 @@ public class OperationsService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Log_OC.wtf(TAG, "onBind" );
+        //Log_OC.wtf(TAG, "onBind" );
         return mBinder;
     }
 
@@ -346,12 +346,12 @@ public class OperationsService extends Service {
             if (operation != null) {
                 mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
                 startService(new Intent(OperationsService.this, OperationsService.class));
-                Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
+                //Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
                 // better id than hash? ; should be good enough by the time being
                 return operation.hashCode();
                 
             } else {
-                Log_OC.wtf(TAG, "New operation failed, returned Long.MAX_VALUE");
+                //Log_OC.wtf(TAG, "New operation failed, returned Long.MAX_VALUE");
                 return Long.MAX_VALUE;
             }
         }
@@ -361,9 +361,9 @@ public class OperationsService extends Service {
                     mUndispatchedFinishedOperations.remove(operationId);
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
-                Log_OC.wtf(TAG, "Sending callback later");
+                //Log_OC.wtf(TAG, "Sending callback later");
             } else {
-                Log_OC.wtf(TAG, "Not finished yet");
+                //Log_OC.wtf(TAG, "Not finished yet");
             }
         }
 
@@ -399,7 +399,7 @@ public class OperationsService extends Service {
      */
     private void nextOperation() {
         
-        Log_OC.wtf(TAG, "nextOperation init" );
+        //Log_OC.wtf(TAG, "nextOperation init" );
         
         Pair<Target, RemoteOperation> next = null;
         synchronized(mPendingOperations) {

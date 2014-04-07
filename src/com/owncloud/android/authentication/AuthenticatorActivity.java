@@ -183,7 +183,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log_OC.wtf(TAG,  "onCreate init");
+        //Log_OC.wtf(TAG,  "onCreate init");
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -225,7 +225,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// initialize block to be moved to single Fragment to retrieve and validate credentials 
         initAuthorizationPreFragment(savedInstanceState);
 
-        Log_OC.wtf(TAG,  "onCreate end");
+        //Log_OC.wtf(TAG,  "onCreate end");
     }
 
     private void initAuthTokenType() {
@@ -534,7 +534,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log_OC.wtf(TAG, "onSaveInstanceState init" );
+        //Log_OC.wtf(TAG, "onSaveInstanceState init" );
         super.onSaveInstanceState(outState);
 
         /// global state
@@ -559,7 +559,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         outState.putInt(KEY_AUTH_STATUS_TEXT, mAuthStatusText);
         outState.putString(KEY_AUTH_TOKEN, mAuthToken);
 
-        Log_OC.wtf(TAG, "onSaveInstanceState end" );
+        //Log_OC.wtf(TAG, "onSaveInstanceState end" );
     }
 
 
@@ -586,7 +586,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      */
     @Override
     protected void onResume() {
-        Log_OC.wtf(TAG, "onResume init" );
+        //Log_OC.wtf(TAG, "onResume init" );
         super.onResume();
         
         // bound here to avoid spurious changes triggered by Android on device rotations
@@ -601,15 +601,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             doOnResumeAndBound();
         }
         
-        Log_OC.wtf(TAG, "onResume end" );
+        //Log_OC.wtf(TAG, "onResume end" );
     }
 
     
     @Override
     protected void onPause() {
-        Log_OC.wtf(TAG, "onPause init" );
+        //Log_OC.wtf(TAG, "onPause init" );
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "unregistering to listen for operation callbacks" );
+            //Log_OC.wtf(TAG, "unregistering to listen for operation callbacks" );
             mOperationsServiceBinder.removeOperationListener(this);
         }
         
@@ -617,7 +617,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mHostUrlInput.setOnFocusChangeListener(null);
         
         super.onPause();
-        Log_OC.wtf(TAG, "onPause end" );
+        //Log_OC.wtf(TAG, "onPause end" );
     }
     
     @Override
@@ -660,7 +660,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "getting access token..." );
+            //Log_OC.wtf(TAG, "getting access token..." );
             mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
         }
     }
@@ -726,7 +726,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                Log_OC.wtf(TAG, "checking server..." );
+                //Log_OC.wtf(TAG, "checking server..." );
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             }
             
@@ -808,7 +808,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             mServerStatusText = R.string.auth_wtf_reenter_URL;
             showServerStatus();
             mOkButton.setEnabled(false);
-            Log_OC.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
+            //Log_OC.wtf(TAG,  "The user was allowed to click 'connect' to an unchecked server!!");
             return;
         }
 
@@ -861,7 +861,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         existenceCheckIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
+            //Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
             mWaitingForOpId = mOperationsServiceBinder.newOperation(existenceCheckIntent);
         }
     }
@@ -932,7 +932,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             onGetOAuthAccessTokenFinish(result);
 
         } else if (operation instanceof ExistenceCheckRemoteOperation)  {
-            Log_OC.wtf(TAG, "received detection response through callback" );
+            //Log_OC.wtf(TAG, "received detection response through callback" );
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 onSamlBasedFederatedSingleSignOnAuthorizationStart(result);
 
@@ -1644,7 +1644,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
-            Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
+            //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );
             mWaitingForOpId = mOperationsServiceBinder.newOperation(getUserNameIntent);
         }
     }
@@ -1739,7 +1739,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
 
     private void doOnResumeAndBound() {
-        Log_OC.wtf(TAG, "registering to listen for operation callbacks" );
+        //Log_OC.wtf(TAG, "registering to listen for operation callbacks" );
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
         if (mWaitingForOpId <= Integer.MAX_VALUE) {
             mOperationsServiceBinder.dispatchResultIfFinished((int)mWaitingForOpId, this);
@@ -1764,7 +1764,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (component.equals(new ComponentName(AuthenticatorActivity.this, OperationsService.class))) {
-                Log_OC.wtf(TAG, "Operations service connected");
+                //Log_OC.wtf(TAG, "Operations service connected");
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
                 
                 doOnResumeAndBound();
