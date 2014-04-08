@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
   <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
-  <string name="recommend_text">Хочу предложить вам пользоваться %1$s на вашем смартфоне!\nСкачать: %2$s</string>
   <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера https://...</string>
   <string name="auth_username">Имя пользователя</string>
@@ -158,7 +157,6 @@
   <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
   <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддерживает сразу несколько учётных записей</string>
-  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором</string>
   <string name="auth_can_not_auth_against_server">Не могу авторизоваться на этом сервере </string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
@@ -233,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">Ничего не делать, если нет подключения к сети</string>
   <string name="failed_upload_failure_text">Сообщение об ошибке:</string>
   <string name="failed_upload_quota_exceeded_text">Проверьте настройки сервера, возможно ваш лимит исчерпан</string>
-  <string name="share_link_no_support_share_api">Механизм общего доступа не включен на вашем сервере. Свяжитесь с администратором.</string>
   <string name="share_link_file_no_exist">Невозможно предоставить доступ к этому файлу или каталогу. Убедитесь, что он существует</string>
   <string name="share_link_file_error">Ошибка предоставления общего доступа к этому файлу или каталогу</string>
   <string name="unshare_link_file_no_exist">Невозможно снять общий доступ с этого файла или каталога. Он не существует.</string>

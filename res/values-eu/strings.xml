@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Oharrak</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
-  <string name="recommend_text">Nik %1$s zure telefono adimentsuan erabitzera gonbidatu nahi zaitut!\nDeskargatu hemen: %2$s</string>
   <string name="auth_check_server">Egiaztatu zerbitzaria</string>
   <string name="auth_host_url">Zerbitzariaren helbidea https://</string>
   <string name="auth_username">Erabiltzaile izena</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">ez egin ezer ez zaude on-line uneko igoerarentzat</string>
   <string name="failed_upload_failure_text">Hutsegite mezua:</string>
   <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
-  <string name="share_link_no_support_share_api">Sentitzen dut, partekatzea ez dago zure zerbitzarian gaituta. Mesedez jarri zure administradorearekin harremanetan.</string>
   <string name="share_link_file_no_exist">Ezin izan da karpeta edo fitxategi hau partekatu. Mesedez, ziurtatu existitzen dela</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_no_exist">Ezin izan da karpeta edo fitxategi honen partekatzeari utzi. Ez da existitzen.</string>

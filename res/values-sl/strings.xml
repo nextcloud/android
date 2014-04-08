@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Odziv</string>
   <string name="prefs_imprint">Natis</string>
   <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
-  <string name="recommend_text">Želim ti predstaviti program %1$s za pametni telefon!\nPrejmeš ga lahko na: %2$s</string>
   <string name="auth_check_server">Preveri strežnik</string>
   <string name="auth_host_url">Naslov strežnika https://…</string>
   <string name="auth_username">Uporabniško ime</string>
@@ -158,7 +157,6 @@
   <string name="auth_connecting_auth_server">Poteka povezovanje z overitvenim strežnikom ...</string>
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
-  <string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.</string>
   <string name="auth_can_not_auth_against_server">S tem strežnikom overitev ni mogoča</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
@@ -233,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">ne pošlji takoj, saj je povezava v omrežje ni dejavna</string>
   <string name="failed_upload_failure_text">Sporočilo o napaki:</string>
   <string name="failed_upload_quota_exceeded_text">Preverite nastavitve strežnika. Morda je presežena vrednost količinske omejitve.</string>
-  <string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le uporabniki s skrbniškimi dovoljenji.</string>
   <string name="share_link_file_no_exist">Ni mogoče omogočiti souporabe te datoteke ali mape. Prepričajte se, da obstaja ...</string>
   <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
   <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe te datoteke ali mape, ker ne obstaja.</string>

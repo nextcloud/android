@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Tilbakemelding</string>
   <string name="prefs_imprint">Avtrykk</string>
   <string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
-  <string name="recommend_text">Jeg vil gjerne invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
   <string name="auth_check_server">Sjekk server</string>
   <string name="auth_host_url">Serveradresse https://...</string>
   <string name="auth_username">Brukernavn</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">ikke gjør noe når du ikke er online for direkteopplasting</string>
   <string name="failed_upload_failure_text">Feilmelding:</string>
   <string name="failed_upload_quota_exceeded_text">Vennligst sjekk serverkonfigurasjon, kanskje kvoten din er brukt opp.</string>
-  <string name="share_link_no_support_share_api">Beklager, deling er ikke aktivert på serveren din. Vennligst kontrakt administratoren.</string>
   <string name="share_link_file_no_exist">Klarte ikke å dele denne filen eller mappen. Sjekk at den eksisterer.</string>
   <string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
   <string name="unshare_link_file_no_exist">Klarte ikke å avslutte delingen av denne filen eller mappen. Den eksisterer ikke.</string>

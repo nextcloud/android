@@ -29,7 +29,6 @@
   <string name="prefs_feedback">ملاحظات</string>
   <string name="prefs_imprint">الدمغة.</string>
   <string name="recommend_subject">جرب %1$s على جهازك الذكي</string>
-  <string name="recommend_text">انا احب ان ادعوك ان تستخدم %1$s على جهازك الذكي\nيمكنك التحميل من هنا : %2$s</string>
   <string name="auth_check_server">تحقق من الخادم</string>
   <string name="auth_host_url">عنوان الخادم https://…</string>
   <string name="auth_username">إسم المستخدم</string>
@@ -231,7 +230,6 @@
   <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
   <string name="failed_upload_failure_text">رسالة خطا:</string>
   <string name="failed_upload_quota_exceeded_text">الرجاء التاكد من اعدادات الخادم, من الممكن انك تعديت الحد في quota</string>
-  <string name="share_link_no_support_share_api">عذرا , المشاركة غير مفعلة في الخادم. الرجاء التواصل مع المدير</string>
   <string name="share_link_file_no_exist">لم يتمكن من مشاركة الملف او المجلد. يرجى التاكد من وجوده </string>
   <string name="share_link_file_error">حدث خطأ ما أثناء محاولة مشاركة هذا الملف أو المجلد</string>
   <string name="unshare_link_file_no_exist">غير قادر على إلغاء مشاركة هذا الملف أو المجلد.لا وجود له</string>

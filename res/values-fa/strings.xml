@@ -29,7 +29,6 @@
   <string name="prefs_feedback">باز خورد</string>
   <string name="prefs_imprint">مهر زدن</string>
   <string name="recommend_subject">%1$s را بر روی گوشی هوشمند خود امتحان کنید.</string>
-  <string name="recommend_text">من می‌خواهم شما را به استفاده از %1$s بر روی گوشی هوشمند خود دعوت کنم\nآن را از اینجا دانلود کنید: %2$s</string>
   <string name="auth_check_server">چک کردن سرور</string>
   <string name="auth_host_url">آدرس سرور https://…</string>
   <string name="auth_username">نام کاربری</string>
@@ -228,7 +227,6 @@
   <string name="failed_upload_retry_do_nothing_text">هیچ کاری انجام ندهید، شما برای آپلود فوری آنلاین نیستید.</string>
   <string name="failed_upload_failure_text">پیغام عدم موفقیت:</string>
   <string name="failed_upload_quota_exceeded_text">لطفا پیکربندی سرورتان را بررسی کنید، شاید سهمیه شما بیش از حد شده باشد.</string>
-  <string name="share_link_no_support_share_api">متاسفیم، اشتراک گذاری بر روی سرور شما فعال نمی‌باشد. لطفاً با مدیر فنی خود تماس بگیرید.</string>
   <string name="share_link_file_no_exist">به اشتراک گذاری این فایل یا پوشه ممکن نیست. لطفاً از وجود آن اطمینان حاصل نمایید</string>
   <string name="share_link_file_error">در حین اشتراک گذاری این فایل یا پوشه خطایی رخ داده است</string>
   <string name="unshare_link_file_no_exist">حذف اشتراک گذاری این فایل یا پوشه ممکن نیست. لطفاً از وجود آن اطمینان حاصل نمایید</string>

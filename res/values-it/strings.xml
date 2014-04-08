@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Segnalazioni</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prova %1$s sul tuo smartphone!</string>
-  <string name="recommend_text">Vorrei invitarti ad usare %1$s sul tuo smartphone!⏎\nScarica qui: %2$s</string>
   <string name="auth_check_server">Verifica server</string>
   <string name="auth_host_url">Indirizzo server https://...</string>
   <string name="auth_username">Nome utente</string>
@@ -161,7 +160,6 @@
   <string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
   <string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
   <string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
-  <string name="auth_fail_get_user_name">Il tuo server non restituisce un id utente corretto, contatta un amministratore</string>
   <string name="auth_can_not_auth_against_server">Impossibile eseguire l\'autenticazione su questo server</string>
   <string name="fd_keep_in_sync">Tieni aggiornato il file</string>
   <string name="common_rename">Rinomina</string>
@@ -238,7 +236,6 @@
   <string name="failed_upload_retry_do_nothing_text">non fare niente, non sei collegato per i caricamenti istantanei</string>
   <string name="failed_upload_failure_text">Messaggio d\'errore:</string>
   <string name="failed_upload_quota_exceeded_text">Controlla la configurazione del server, forse hai superato la tua quota.</string>
-  <string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul server. Contatta il tuo amministratore.</string>
   <string name="share_link_file_no_exist">Impossibile condividere il file o la cartella. Assicurati che esista.</string>
   <string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
   <string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione il file o la cartella. Non esiste.</string>

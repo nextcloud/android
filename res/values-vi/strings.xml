@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Phản hồi</string>
   <string name="prefs_imprint">Đánh dấu</string>
   <string name="recommend_subject">Thử %1$s trên smartphone của bạn!</string>
-  <string name="recommend_text">Tôi muốn mời bạn sử dụng %1$s trên smartphone của bạn!\nTải về tại đây: %2$s</string>
   <string name="auth_check_server">Kiểm tra máy chủ</string>
   <string name="auth_host_url">Địa chỉ máy chủ https://…</string>
   <string name="auth_username">Tên người dùng</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">không thực hiện thao tác gì nêu bạn không có kết nối mạng dành cho tải lên nhanh</string>
   <string name="failed_upload_failure_text">Thông điệp lỗi:</string>
   <string name="failed_upload_quota_exceeded_text">Vui lòng kiểm tra cấu hình máy chủ của bạn, có thể hạn ngạch dữ liệu đã quá hạn.</string>
-  <string name="share_link_no_support_share_api">Thật tiếc, chia sẻ đã bị vô hiệu trên server của bạn. Vui lòng liên hệ người quản trị.</string>
   <string name="share_link_file_no_exist">Không thể chia sẻ file hoặc thư mục này. Hãy chắc chắn rằng nó tồn tại</string>
   <string name="share_link_file_error">Một lỗi đã xảy ra khi thử chia sẻ file hoặc thư mục này</string>
   <string name="unshare_link_file_no_exist">Không thể gỡ chia sẻ file hoặc thư mục. Nó không tồn tại.</string>

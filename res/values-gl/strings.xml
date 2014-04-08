@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Comentarios</string>
   <string name="prefs_imprint">Impresión</string>
   <string name="recommend_subject">Tente %1$s no seu teléfono intelixente!</string>
-  <string name="recommend_text">Quero convidalo a empregar %1$s no seu teléfono intelixente!⏎\nDescárgueo de aquí:%2$s</string>
   <string name="auth_check_server">Comprobar o servidor</string>
   <string name="auth_host_url">Enderezo do servidor https://…</string>
   <string name="auth_username">Nome de usuario</string>
@@ -161,7 +160,6 @@
   <string name="auth_connecting_auth_server">Conectando co servidor de autenticación…</string>
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
-  <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte cun administrador</string>
   <string name="auth_can_not_auth_against_server">Non é posíbel autenticalo neste servidor</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
   <string name="common_rename">Renomear</string>
@@ -238,7 +236,6 @@
   <string name="failed_upload_retry_do_nothing_text">non facer nada que non estea en liña para o envío instantáneo</string>
   <string name="failed_upload_failure_text">Mensaxe de fallo:</string>
   <string name="failed_upload_quota_exceeded_text">Comprobe a configuración do seu servidor. é probábel que xa excedera a cota.</string>
-  <string name="share_link_no_support_share_api">O seu servidor non ten activada a opción de compartir. Póñase en contacto co administrador.</string>
   <string name="share_link_file_no_exist">Non foi posíbel compartir este ficheiro ou cartafol. Asegurese de que existe.</string>
   <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
   <string name="unshare_link_file_no_exist">Non foi posíbel deixar de compartir este ficheiro ou cartafol xa que non existe.</string>
