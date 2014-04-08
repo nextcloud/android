@@ -44,12 +44,13 @@ import android.webkit.MimeTypeMap;
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private static String TAG = "InstantUploadBroadcastReceiver";
-   // private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
-    //Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
+    // Image action
+    // Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
     private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
-    //Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
+    // Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
     private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
     // Video action
+    // Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO
     private static String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
 
     @Override
@@ -58,12 +59,13 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
-            handleNewMediaAction(context, intent); //handleNewPhotoAction(context, intent);
+            handleNewMediaAction(context, intent); 
             Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
-            handleNewMediaAction(context, intent); //handleNewPhotoAction(context, intent);
+            handleNewMediaAction(context, intent); 
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
-        } else if (intent.getAction().equals(NEW_PHOTO_ACTION) || intent.getAction().equals(NEW_VIDEO_ACTION)) {
+        } else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
+            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
             handleNewMediaAction(context, intent);
         } else if (intent.getAction().equals(FileUploader.getUploadFinishMessage())) {
             handleUploadFinished(context, intent);
