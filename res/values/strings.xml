@@ -31,7 +31,8 @@
     <string name="prefs_imprint">Imprint</string>
     
 	<string name="recommend_subject">"Try %1$s on your smartphone!"</string>
-	<string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"</string>  
+	<string name="recommend_text">"I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s"
+	</string>
 
     <string name="auth_check_server">Check Server</string>
     <string name="auth_host_url">Server address https://…</string>
@@ -109,6 +110,7 @@
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
     <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them into instead? </string>
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
+    
     <string name="pincode_configure_your_pin">Enter your App PIN</string>
     <string name="pincode_configure_your_pin_explanation">The PIN will be requested every time the app is started</string>
     <string name="pincode_reenter_your_pincode">Please, reenter your App PIN</string>
@@ -124,49 +126,51 @@
     <string name="media_event_done">"%1$s playback finished"</string>
     <string name="media_err_nothing_to_play">No media file found</string>
 	<string name="media_err_no_account">No account provided</string>
-    <string name="media_err_not_in_owncloud">File not in a valid account</string>
-    <string name="media_err_unsupported">Unsupported media codec</string>
-    <string name="media_err_io">Media file could not be read</string>
-    <string name="media_err_malformed">Media file not correctly encoded</string>
-    <string name="media_err_timeout">Timed out while trying to play</string>
-    <string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
-    <string name="media_err_unknown">Media file cannot be played with the stock media player</string>
-    <string name="media_err_security_ex">Security error trying to play %1$s</string>
+	<string name="media_err_not_in_owncloud">File not in a valid account</string>
+	<string name="media_err_unsupported">Unsupported media codec</string>
+	<string name="media_err_io">Media file could not be read</string>
+	<string name="media_err_malformed">Media file not correctly encoded</string>
+	<string name="media_err_timeout">Timed out while trying to play</string>
+	<string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
+	<string name="media_err_unknown">Media file cannot be played with the stock media player</string>
+	<string name="media_err_security_ex">Security error trying to play %1$s</string>
 	<string name="media_err_io_ex">Input error trying to play %1$s</string>
 	<string name="media_err_unexpected">Unexpected error trying to play %1$s</string>
 	<string name="media_rewind_description">Rewind button</string>
 	<string name="media_play_pause_description">Play or pause button</string>
 	<string name="media_forward_description">Fast forward button</string>
 
-    <string name="auth_trying_to_login">Trying to login&#8230;</string>
-    <string name="auth_no_net_conn_title">No network connection</string>
-    <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
-    <string name="auth_connection_established">Connection established</string>
-    <string name="auth_testing_connection">Testing connection&#8230;</string>
-    <string name="auth_not_configured_title">Malformed server configuration</string>
-    <string name="auth_account_not_new">An account for the same user and server already exists in the device</string>
-    <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
-    <string name="auth_unknown_error_title">Unknown error occurred!</string>
-    <string name="auth_unknown_host_title">Couldn\'t find host</string>
-    <string name="auth_incorrect_path_title">Server instance not found</string>
-    <string name="auth_timeout_title">The server took too long to respond</string>
-    <string name="auth_incorrect_address_title">Malformed URL</string>
-    <string name="auth_ssl_general_error_title">SSL initialization failed</string>
-    <string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
-    <string name="auth_bad_oc_version_title">Unrecognized server version</string>
-    <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
-    <string name="auth_secure_connection">Secure connection established</string>
-    <string name="auth_unauthorized">Wrong username or password</string>
+	<string name="auth_getting_authorization">Getting authorization&#8230;</string>
+	<string name="auth_trying_to_login">Trying to login&#8230;</string>
+	<string name="auth_no_net_conn_title">No network connection</string>
+	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
+	<string name="auth_connection_established">Connection established</string>
+	<string name="auth_testing_connection">Testing connection&#8230;</string>
+	<string name="auth_not_configured_title">Malformed server configuration</string>
+	<string name="auth_account_not_new">An account for the same user and server already exists in the device</string>
+	<string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
+	<string name="auth_unknown_error_title">Unknown error occurred!</string>
+	<string name="auth_unknown_host_title">Couldn\'t find host</string>
+	<string name="auth_incorrect_path_title">Server instance not found</string>
+	<string name="auth_timeout_title">The server took too long to respond</string>
+	<string name="auth_incorrect_address_title">Malformed URL</string>
+	<string name="auth_ssl_general_error_title">SSL initialization failed</string>
+	<string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
+	<string name="auth_bad_oc_version_title">Unrecognized server version</string>
+	<string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
+	<string name="auth_secure_connection">Secure connection established</string>
+	<string name="auth_unauthorized">Wrong username or password</string>
 	<string name="auth_oauth_error">Unsuccessful authorization</string>
 	<string name="auth_oauth_error_access_denied">Access denied by authorization server</string>
-    <string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
-    <string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
-    <string name="auth_expired_basic_auth_toast">Please, enter the current password</string>
-    <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
+	<string name="auth_wtf_reenter_URL">Unexpected state; please, enter the server URL again</string>
+	<string name="auth_expired_oauth_token_toast">Your authorization expired. Please, authorize again</string>
+	<string name="auth_expired_basic_auth_toast">Please, enter the current password</string>
+	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
 	<string name="auth_connecting_auth_server">Connecting to authentication server…</string>
-	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>    
+	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
-	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator</string>
+	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
+	</string>
 	<string name="auth_can_not_auth_against_server">Can not authenticate against this server</string>
     
     <string name="fd_keep_in_sync">Keep file up to date</string>
@@ -250,8 +254,9 @@
     <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
 	<string name="failed_upload_failure_text">Failure Message: </string>
 	<string name="failed_upload_quota_exceeded_text">Please check your server configuration,maybe your quota is exceeded.</string>
-	
-	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
+
+	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
+		administrator.</string>
 	<string name="share_link_file_no_exist">Unable to share this file or folder. Please, make sure it exists</string>
 	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 	<string name="unshare_link_file_no_exist">Unable to unshare this file or folder. It does not exist.</string>
@@ -259,7 +264,8 @@
 
 	<string name="activity_chooser_send_file_title">Send</string>
 
-	<string name="copy_link">Copy link</string>	
+	<string name="copy_link">Copy link</string>
 	<string name="clipboard_text_copied">Copied to clipboard</string>
-	
+
+	<string name="error_cant_bind_to_operations_service">Critical error: can not perform operations</string>
 </resources>

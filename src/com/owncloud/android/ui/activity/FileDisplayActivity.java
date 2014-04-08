@@ -19,6 +19,7 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+
 import android.accounts.Account;
 import android.app.AlertDialog;
 import android.app.Dialog;

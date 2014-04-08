@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,20 +18,25 @@
 package com.owncloud.android.services;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.GetServerInfoOperation;
+import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -47,7 +52,6 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Pair;
 
 public class OperationsService extends Service {
@@ -56,24 +60,63 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
+    public static final String EXTRA_AUTH_TOKEN_TYPE = "AUTH_TOKEN_TYPE";
+    public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_RESULT = "RESULT";
     
+    // TODO review if ALL OF THEM are necessary
+    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
+    public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
+    public static final String EXTRA_USERNAME = "USERNAME";
+    public static final String EXTRA_PASSWORD = "PASSWORD";
+    public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
+    public static final String EXTRA_FOLLOW_REDIRECTS = "FOLLOW_REDIRECTS";
+    public static final String EXTRA_COOKIE = "COOKIE";
+    
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
     public static final String ACTION_UNSHARE = "UNSHARE";
+    public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
+    public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
+    public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
+    public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
-    private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
+    private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
+            new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
+    
+    /*
+    private ConcurrentMap<Integer, RemoteOperationResult> mOperationResults =
+            new ConcurrentHashMap<Integer, RemoteOperationResult>();
+     */
+
+    private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>> 
+        mUndispatchedFinishedOperations =
+            new ConcurrentHashMap<Integer, Pair<RemoteOperation, RemoteOperationResult>>();
     
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public Target(Account account, Uri serverUrl) {
+        public String mWebDavUrl = null;
+        public String mUsername = null;
+        public String mPassword = null;
+        public String mAuthToken = null;
+        public boolean mFollowRedirects = true;
+        public String mCookie = null;
+        
+        public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
+                boolean followRedirects, String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
+            mWebDavUrl = webdavUrl;
+            mUsername = username;
+            mPassword = password;
+            mAuthToken = authToken;
+            mFollowRedirects = followRedirects;
+            mCookie = cookie;
         }
     }
 
@@ -99,6 +142,7 @@ public class OperationsService extends Service {
         mBinder = new OperationsServiceBinder();
     }
 
+    
     /**
      * Entry point to add a new operation to the queue of operations.
      * 
@@ -110,57 +154,31 @@ public class OperationsService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!intent.hasExtra(EXTRA_ACCOUNT) && !intent.hasExtra(EXTRA_SERVER_URL)) {
-            Log_OC.e(TAG, "Not enough information provided in intent");
-            return START_NOT_STICKY;
-        }
-        try {
-            Account account = intent.getParcelableExtra(EXTRA_ACCOUNT);
-            String serverUrl = intent.getStringExtra(EXTRA_SERVER_URL);
-            
-            Target target = new Target(account, (serverUrl == null) ? null : Uri.parse(serverUrl));
-            RemoteOperation operation = null;
-            
-            String action = intent.getAction();
-            if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
-                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
-                Intent sendIntent = intent.getParcelableExtra(EXTRA_SEND_INTENT);
-                if (remotePath.length() > 0) {
-                    operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
-                            "", false, "", 1, sendIntent);
-                }
-            } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
-                String remotePath = intent.getStringExtra(EXTRA_REMOTE_PATH);
-                if (remotePath.length() > 0) {
-                    operation = new UnshareLinkOperation(remotePath, this.getApplicationContext());
-                }
-            } else {
-                // nothing we are going to handle
-                return START_NOT_STICKY;
-            }
-            
-            mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
-            //sendBroadcastNewOperation(target, operation);
-            
-            Message msg = mServiceHandler.obtainMessage();
-            msg.arg1 = startId;
-            mServiceHandler.sendMessage(msg);
-            
-        } catch (IllegalArgumentException e) {
-            Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
-            return START_NOT_STICKY;
-        }
-        
+        //Log_OC.wtf(TAG, "onStartCommand init" );
+        Message msg = mServiceHandler.obtainMessage();
+        msg.arg1 = startId;
+        mServiceHandler.sendMessage(msg);
+        //Log_OC.wtf(TAG, "onStartCommand end" );
         return START_NOT_STICKY;
     }
 
-    
+    @Override
+    public void onDestroy() {
+        //Log_OC.wtf(TAG, "onDestroy init" );
+        super.onDestroy();
+        //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
+        mUndispatchedFinishedOperations.clear();
+        //Log_OC.wtf(TAG, "onDestroy end" );
+    }
+
+
     /**
      * Provides a binder object that clients can use to perform actions on the queue of operations, 
      * except the addition of new operations. 
      */
     @Override
     public IBinder onBind(Intent intent) {
+        //Log_OC.wtf(TAG, "onBind" );
         return mBinder;
     }
 
@@ -170,7 +188,7 @@ public class OperationsService extends Service {
      */
     @Override
     public boolean onUnbind(Intent intent) {
-        //((OperationsServiceBinder)mBinder).clearListeners();
+        ((OperationsServiceBinder)mBinder).clearListeners();
         return false;   // not accepting rebinding (default behaviour)
     }
 
@@ -185,7 +203,8 @@ public class OperationsService extends Service {
         /** 
          * Map of listeners that will be reported about the end of operations from a {@link OperationsServiceBinder} instance 
          */
-        private Map<OnRemoteOperationListener, Handler> mBoundListeners = new HashMap<OnRemoteOperationListener, Handler>();
+        private ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = 
+                new ConcurrentHashMap<OnRemoteOperationListener, Handler>();
         
         /**
          * Cancels an operation
@@ -210,7 +229,9 @@ public class OperationsService extends Service {
          * @param callbackHandler   {@link Handler} to access the listener without breaking Android threading protection.
          */
         public void addOperationListener (OnRemoteOperationListener listener, Handler callbackHandler) {
-            mBoundListeners.put(listener, callbackHandler);
+            synchronized (mBoundListeners) {
+                mBoundListeners.put(listener, callbackHandler);
+            }
         }
         
         
@@ -220,7 +241,9 @@ public class OperationsService extends Service {
          * @param listener      Object to notify about progress of transfer.    
          */
         public void removeOperationListener (OnRemoteOperationListener listener) {
-            mBoundListeners.remove(listener);
+            synchronized (mBoundListeners) {
+                mBoundListeners.remove(listener);
+            }
         }
 
 
@@ -231,6 +254,117 @@ public class OperationsService extends Service {
          */
         public boolean isPerformingBlockingOperation() {
             return (!mPendingOperations.isEmpty());
+        }
+
+
+        /**
+         * Creates and adds to the queue a new operation, as described by operationIntent
+         * 
+         * @param operationIntent       Intent describing a new operation to queue and execute.
+         * @return                      Identifier of the operation created, or null if failed.
+         */
+        public long newOperation(Intent operationIntent) {
+            RemoteOperation operation = null;
+            Target target = null;
+            try {
+                if (!operationIntent.hasExtra(EXTRA_ACCOUNT) && 
+                        !operationIntent.hasExtra(EXTRA_SERVER_URL)) {
+                    Log_OC.e(TAG, "Not enough information provided in intent");
+                    
+                } else {
+                    Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
+                    String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
+                    String webDavPath = operationIntent.getStringExtra(EXTRA_WEBDAV_PATH);
+                    String webDavUrl = serverUrl + webDavPath;
+                    String username = operationIntent.getStringExtra(EXTRA_USERNAME);
+                    String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
+                    String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
+                    boolean followRedirects = operationIntent.getBooleanExtra(EXTRA_FOLLOW_REDIRECTS, true);
+                    String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
+                    target = new Target(
+                            account, 
+                            (serverUrl == null) ? null : Uri.parse(serverUrl),
+                            ((webDavPath == null) || (serverUrl == null)) ? null : webDavUrl,
+                            username,
+                            password,
+                            authToken,
+                            followRedirects,
+                            cookie
+                    );
+                    
+                    String action = operationIntent.getAction();
+                    if (action.equals(ACTION_CREATE_SHARE)) {  // Create Share
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
+                        if (remotePath.length() > 0) {
+                            operation = new CreateShareOperation(remotePath, ShareType.PUBLIC_LINK, 
+                                    "", false, "", 1, sendIntent);
+                        }
+                        
+                    } else if (action.equals(ACTION_UNSHARE)) {  // Unshare file
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        if (remotePath.length() > 0) {
+                            operation = new UnshareLinkOperation(
+                                    remotePath, 
+                                    OperationsService.this);
+                        }
+                        
+                    } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
+                        // check OC server and get basic information from it
+                        String authTokenType = 
+                                operationIntent.getStringExtra(EXTRA_AUTH_TOKEN_TYPE);
+                        operation = new GetServerInfoOperation(
+                                serverUrl, authTokenType, OperationsService.this);
+                        
+                    } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
+                        /// GET ACCESS TOKEN to the OAuth server
+                        String oauth2QueryParameters =
+                                operationIntent.getStringExtra(EXTRA_OAUTH2_QUERY_PARAMETERS);
+                        operation = new OAuth2GetAccessToken(
+                                getString(R.string.oauth2_client_id), 
+                                getString(R.string.oauth2_redirect_uri),       
+                                getString(R.string.oauth2_grant_type),
+                                oauth2QueryParameters);
+                        
+                    } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
+                        // Existence Check 
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, true);
+                        operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
+                        
+                    } else if (action.equals(ACTION_GET_USER_NAME)) {
+                        // Get User Name
+                        operation = new GetRemoteUserNameOperation();
+                    }
+                }
+                    
+            } catch (IllegalArgumentException e) {
+                Log_OC.e(TAG, "Bad information provided in intent: " + e.getMessage());
+                operation = null;
+            }
+
+            if (operation != null) {
+                mPendingOperations.add(new Pair<Target , RemoteOperation>(target, operation));
+                startService(new Intent(OperationsService.this, OperationsService.class));
+                //Log_OC.wtf(TAG, "New operation added, opId: " + operation.hashCode());
+                // better id than hash? ; should be good enough by the time being
+                return operation.hashCode();
+                
+            } else {
+                //Log_OC.wtf(TAG, "New operation failed, returned Long.MAX_VALUE");
+                return Long.MAX_VALUE;
+            }
+        }
+
+        public void dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+                    mUndispatchedFinishedOperations.remove(operationId);
+            if (undispatched != null) {
+                listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
+                //Log_OC.wtf(TAG, "Sending callback later");
+            } else {
+                //Log_OC.wtf(TAG, "Not finished yet");
+            }
         }
 
     }
@@ -265,11 +399,13 @@ public class OperationsService extends Service {
      */
     private void nextOperation() {
         
+        //Log_OC.wtf(TAG, "nextOperation init" );
+        
         Pair<Target, RemoteOperation> next = null;
         synchronized(mPendingOperations) {
             next = mPendingOperations.peek();
         }
-        
+
         if (next != null) {
             
             mCurrentOperation = next.second;
@@ -282,7 +418,18 @@ public class OperationsService extends Service {
                         mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mAccount, getApplicationContext());
                         mStorageManager = new FileDataStorageManager(mLastTarget.mAccount, getContentResolver());
                     } else {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), true);    // this is not good enough
+                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
+                                mLastTarget.mFollowRedirects);    // this is not good enough
+                        if (mLastTarget.mWebDavUrl != null) {
+                            mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
+                        }
+                        if (mLastTarget.mUsername != null && mLastTarget.mPassword != null) {
+                            mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
+                        } else if (mLastTarget.mAuthToken != null) {
+                            mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
+                        } else if (mLastTarget.mCookie != null) {
+                            mOwnCloudClient.setSsoSessionCookie(mLastTarget.mCookie);
+                        }
                         mStorageManager = null;
                     }
                 }
@@ -324,7 +471,7 @@ public class OperationsService extends Service {
             }
             
             //sendBroadcastOperationFinished(mLastTarget, mCurrentOperation, result);
-            callbackOperationListeners(mLastTarget, mCurrentOperation, result);
+            dispatchResultToOperationListeners(mLastTarget, mCurrentOperation, result);
         }
     }
 
@@ -382,7 +529,9 @@ public class OperationsService extends Service {
      * @param operation         Finished operation.
      * @param result            Result of the operation.
      */
-    private void callbackOperationListeners(Target target, final RemoteOperation operation, final RemoteOperationResult result) {
+    private void dispatchResultToOperationListeners(
+            Target target, final RemoteOperation operation, final RemoteOperationResult result) {
+        int count = 0;
         Iterator<OnRemoteOperationListener> listeners = mBinder.mBoundListeners.keySet().iterator();
         while (listeners.hasNext()) {
             final OnRemoteOperationListener listener = listeners.next();
@@ -394,9 +543,16 @@ public class OperationsService extends Service {
                         listener.onRemoteOperationFinish(operation, result);
                     }
                 });
+                count += 1;
             }
         }
-            
+        if (count == 0) {
+            //mOperationResults.put(operation.hashCode(), result);
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = 
+                    new Pair<RemoteOperation, RemoteOperationResult>(operation, result);
+            mUndispatchedFinishedOperations.put(operation.hashCode(), undispatched);
+        }
+        Log_OC.d(TAG, "Called " + count + " listeners");
     }
     
 
