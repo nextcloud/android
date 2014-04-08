@@ -103,7 +103,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
+        if (intent.getAction().equals(NEW_PHOTO_ACTION) || intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
             c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
             if (!c.moveToFirst()) {
