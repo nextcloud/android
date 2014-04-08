@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">¡Prueba %1$s en tu teléfono inteligente!</string>
-  <string name="recommend_text">Quiero invitarte a usar %1$s en tu smarthphone!⏎\nDescargalo aquí: %2$s</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor https://…</string>
   <string name="auth_username">Nombre de usuario</string>
@@ -160,7 +159,6 @@
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-  <string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta. Contacte con el administrador.</string>
   <string name="auth_can_not_auth_against_server">No puede autenticarse en este servidor.</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
@@ -237,7 +235,6 @@
   <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
-  <string name="share_link_no_support_share_api">Compartir archivos no está activado en tu servidor. Por favor, ponte en contacto con el administrador.</string>
   <string name="share_link_file_no_exist">No es posible compartir este archivo o carpeta. Asegúrese de que existe.</string>
   <string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
   <string name="unshare_link_file_no_exist">No se puede dejar de compartir este archivo o carpeta. No existe.</string>

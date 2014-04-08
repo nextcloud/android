@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Prøv %1$s på din smartphone!</string>
-  <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
   <string name="auth_check_server">Check Server</string>
   <string name="auth_host_url">Server addresse https://…</string>
   <string name="auth_username">Brugernavn</string>
@@ -232,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">gør intet, du er ikke online til øjeblikkelig upload</string>
   <string name="failed_upload_failure_text">Fejlmeddelelse</string>
   <string name="failed_upload_quota_exceeded_text">Tjek din serverkonfiguration, måske er din kvota overskredet.</string>
-  <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din administrator.</string>
   <string name="share_link_file_no_exist">Kan ikke dele denne fil eller mappe. Find venligst ud af om den eksisterer</string>
   <string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
   <string name="unshare_link_file_no_exist">Kan ikke fjerne delingen af denne fil eller mappe. Den findes ikke.</string>

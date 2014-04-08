@@ -26,7 +26,6 @@
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
-  <string name="recommend_text">Ota %1$s käyttöösi älypuhelimessa!\nLataa tästä: %2$s</string>
   <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelinosoite https://…</string>
   <string name="auth_username">Käyttäjätunnus</string>
@@ -142,7 +141,6 @@
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
-  <string name="auth_fail_get_user_name">Palvelin ei palauta oikeaa käyttäjä-id:tä, ota yhteys järjestelmän ylläpitäjään</string>
   <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelimeen ei onnistunut</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
@@ -206,7 +204,6 @@
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
   <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
   <string name="failed_upload_failure_text">Virheviesti:</string>
-  <string name="share_link_no_support_share_api">Valitettavasti jakamista ei ole otettu käyttöön palvelinasetuksissa. Ota yhteys ylläpitäjään.</string>
   <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>

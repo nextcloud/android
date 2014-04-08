@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Comentaris</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
-  <string name="recommend_text">Vull convidar-te a usar l\'aplicació %1$s al teu telèfon avançat!\nBaixa\'l aquí: %2$s</string>
   <string name="auth_check_server">Comprova el servidor</string>
   <string name="auth_host_url">Adreça del servidor https://…</string>
   <string name="auth_username">Nom d\'usuari</string>
@@ -232,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">no facis res, no estàs en lína per la pujada instantània</string>
   <string name="failed_upload_failure_text">Missatge d\'Error:</string>
   <string name="failed_upload_quota_exceeded_text">Comproveu la configuració del servidor, potser heu excedit la quota.</string>
-  <string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
   <string name="share_link_file_no_exist">No es pot compartir aquest fitxer o carpeta. Assegureu-vos que existeix</string>
   <string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
   <string name="unshare_link_file_no_exist">No es pot deixar de compartir aquest fitxer o carpeta. No existeix.</string>

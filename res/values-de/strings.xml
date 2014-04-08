@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Rückmeldungen</string>
   <string name="prefs_imprint">Impressum</string>
   <string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
-  <string name="recommend_text">Ich möchte Dich zu %1$s für Dein Smartphone einladen!\nLade es hier herunter: %2$s</string>
   <string name="auth_check_server">Überprüfe den Server</string>
   <string name="auth_host_url">Server-Adresse https://…</string>
   <string name="auth_username">Benutzername</string>
@@ -161,7 +160,6 @@
   <string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierung-Server…</string>
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
-  <string name="auth_fail_get_user_name">Dein Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktiere einen Administrator</string>
   <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
   <string name="common_rename">Umbenennen</string>
@@ -238,7 +236,6 @@
   <string name="failed_upload_retry_do_nothing_text">Nicht durchgeführt - Nicht online für sofortigen Upload</string>
   <string name="failed_upload_failure_text">Fehlermeldung:</string>
   <string name="failed_upload_quota_exceeded_text">Bitte überprüfe Deine Servereinstellungen. Eventuell ist Dein Nutzungslimit überschritten.</string>
-  <string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Deinem Server nicht aktiviert. Bitte kontaktiere Deinen Administrator.</string>
   <string name="share_link_file_no_exist">Die Freigabe der Datei oder des Ordners ist nicht möglich. Bitte stelle sicher, dass diese existiert.</string>
   <string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
   <string name="unshare_link_file_no_exist">Das Entfernen der Freigabe für die Datei oder den Ordner ist nicht möglich. Diese existieren nicht.</string>

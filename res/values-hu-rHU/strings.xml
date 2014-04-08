@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Visszajelzés</string>
   <string name="prefs_imprint">Impresszum</string>
   <string name="recommend_subject">Próbálja ki %1$s-t az okostelefonján!</string>
-  <string name="recommend_text">Kérem próbálja ki %1$s-t az okostelefonján!\nInnen tölthető le: %2$s</string>
   <string name="auth_check_server">Szerver állapot ellenörzés</string>
   <string name="auth_host_url">Kiszolgáló címe https://...</string>
   <string name="auth_username">Felhasználói név</string>
@@ -158,7 +157,6 @@
   <string name="auth_connecting_auth_server">Kapcsolódás a felhasználóazonosítást végző kiszolgálóhoz...</string>
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-  <string name="auth_fail_get_user_name">A szerver nem megfelelő felhasználói id-t ad vissza, vegye fel a kapcsolatot egy rendszergazdával</string>
   <string name="auth_can_not_auth_against_server">Nem hiteleíthető a szerverrel szemben</string>
   <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
   <string name="common_rename">Átnevezés</string>
@@ -233,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
   <string name="failed_upload_failure_text">Hibaüzenet</string>
   <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>
-  <string name="share_link_no_support_share_api">Bocsánat, a megosztás nincs engedélyezve. A rendszergazda segíthet ezt tisztázni.</string>
   <string name="share_link_file_no_exist">A mappa nem osztható meg. Lehet, hogy nem is létezik.</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>

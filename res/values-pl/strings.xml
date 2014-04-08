@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Wsparcie</string>
   <string name="prefs_imprint">Stopka</string>
   <string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
-  <string name="recommend_text">Chcę was zaprosić do korzystania z %1$ s na twoim smartfonie!\nPobierz tutaj: %2$s</string>
   <string name="auth_check_server">Sprawdź serwer</string>
   <string name="auth_host_url">Adres serwera https://...</string>
   <string name="auth_username">Nazwa użytkownika</string>
@@ -161,7 +160,6 @@
   <string name="auth_connecting_auth_server">Łączenie z serwerem autoryzacji...</string>
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera multikont</string>
-  <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego identyfikatora użytkownika, proszę skontaktuj się z administratorem</string>
   <string name="auth_can_not_auth_against_server">Nie można autoryzować z tym serwerem</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
@@ -238,7 +236,6 @@
   <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
   <string name="failed_upload_failure_text">Komunikat błędu:</string>
   <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
-  <string name="share_link_no_support_share_api">Przepraszamy, udostępnianie jest wyłączone na twoim serwerze. Skontaktuj się z twoim administratorem.</string>
   <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
   <string name="unshare_link_file_no_exist">Nie można anulować udostępniania tego pliku lub folderu. Jeśli nie istnieje.</string>

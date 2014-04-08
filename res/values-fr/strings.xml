@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Commentaires</string>
   <string name="prefs_imprint">Empreinte</string>
   <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-  <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\nTéléchargez-le ici : %2$s</string>
   <string name="auth_check_server">Vérifier le serveur</string>
   <string name="auth_host_url">Adresse du serveur https://...</string>
   <string name="auth_username">Nom d\'utilisateur</string>
@@ -160,7 +159,6 @@
   <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
   <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
   <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
-  <string name="auth_fail_get_user_name">Votre serveur ne retourne pas un identifiant d\'utilisateur correct. Veuillez contacter votre administrateur</string>
   <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
@@ -237,7 +235,6 @@
   <string name="failed_upload_retry_do_nothing_text">Ne rien faire vous n\'êtes pas connecté pour le téléchargement instantané</string>
   <string name="failed_upload_failure_text">Message d\'échec:</string>
   <string name="failed_upload_quota_exceeded_text">Veuillez vérifier la configuration de votre serveur, peut-être que votre quota est dépassé.</string>
-  <string name="share_link_no_support_share_api">Désolé, la fonctionnalité de partage n’est pas activée sur ce serveur. Veuillez contacter votre administrateur.</string>
   <string name="share_link_file_no_exist">Impossible de partager ce fichier ou répertoire. Vérifiez qu’il est bien présent</string>
   <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
   <string name="unshare_link_file_no_exist">Impossible d’annuler le partage de ce fichier ou répertoire : il n’existe pas.</string>

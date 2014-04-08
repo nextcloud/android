@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Odezva</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Zkuste %1$s na vašem smartphonu!</string>
-  <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem smartphonu.\nKe stažení zde:  %2$s</string>
   <string name="auth_check_server">Zkontrolovat server</string>
   <string name="auth_host_url">Adresa serveru https://...</string>
   <string name="auth_username">Uživatelské jméno</string>
@@ -158,7 +157,6 @@
   <string name="auth_connecting_auth_server">Připojuji se k přihlašovacímu serveru...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-  <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte vašeho administrátora</string>
   <string name="auth_can_not_auth_against_server">Není možné provést ověření  </string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
@@ -233,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">nic nedělat nejste připojeni pro okamžité odeslání</string>
   <string name="failed_upload_failure_text">Chybová zpráva:</string>
   <string name="failed_upload_quota_exceeded_text">Zkontrolujte prosím nastavení vašeho serveru, možná jste překročili kvótu.</string>
-  <string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte vašeho administrátora.</string>
   <string name="share_link_file_no_exist">Nepodařilo se sdílet tento soubor či složku. Ujistěte se, že existuje.</string>
   <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či složky nastala chyba</string>
   <string name="unshare_link_file_no_exist">Nepodařilo se zrušit sdílení tohoto souboru nebo složky, protože neexistuje.</string>

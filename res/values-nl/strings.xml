@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Feedback</string>
   <string name="prefs_imprint">afdruk</string>
   <string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
-  <string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!\nDownload hier: %2$s</string>
   <string name="auth_check_server">Controleer server</string>
   <string name="auth_host_url">Serveradres https://…</string>
   <string name="auth_username">Gebruikersnaam</string>
@@ -161,7 +160,6 @@
   <string name="auth_connecting_auth_server">Verbinden met authenticatieserver...</string>
   <string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
   <string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
-  <string name="auth_fail_get_user_name">Uw server geeft geen goede userid terug, neem contact op met uw beheerder.</string>
   <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
   <string name="fd_keep_in_sync">Houd bestand actueel</string>
   <string name="common_rename">Hernoemen</string>
@@ -238,7 +236,6 @@
   <string name="failed_upload_retry_do_nothing_text">doe niks, u bent niet online voor directe upload</string>
   <string name="failed_upload_failure_text">Mislukkings Bericht:</string>
   <string name="failed_upload_quota_exceeded_text">Controleer uw server instellingen, misschien is uw quota overschreden.</string>
-  <string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op uw server. Neem contact op met uw beheerder.</string>
   <string name="share_link_file_no_exist">Kan dit bestand of deze map niet delen. Controleer of dit object wel bestaat.</string>
   <string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
   <string name="unshare_link_file_no_exist">Kan delen van dit bestand of deze map niet beëindigen. Het object bestaat niet.</string>

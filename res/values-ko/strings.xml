@@ -29,7 +29,6 @@
   <string name="prefs_feedback">피드백</string>
   <string name="prefs_imprint">임프린트</string>
   <string name="recommend_subject">%1$s 을 스마트폰에서 사용해보세요!</string>
-  <string name="recommend_text">당신을 %1$s 로 초대합니다!\n여기서 받으세요: %2$s</string>
   <string name="auth_check_server">서버 확인</string>
   <string name="auth_host_url">서버 주소 https://…</string>
   <string name="auth_username">사용자 이름</string>

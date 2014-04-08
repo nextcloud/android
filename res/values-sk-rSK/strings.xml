@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Spätná väzba</string>
   <string name="prefs_imprint">Podmienky používania</string>
   <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
-  <string name="recommend_text">Chcem vás pozvať na používanie %1$s na vašom smartphone!\nNa stiahnutie tu: %2$s</string>
   <string name="auth_check_server">Skontrolovať Server</string>
   <string name="auth_host_url">Adresa servera https://...</string>
   <string name="auth_username">Používateľské meno</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">nevykonať nič, nie ste online pre instantné nahratie</string>
   <string name="failed_upload_failure_text">Chybová správa:</string>
   <string name="failed_upload_quota_exceeded_text">Prosím skontrolujte nastavenie vášho servera, možno bola prekročená disková kvóta.</string>
-  <string name="share_link_no_support_share_api">Je nám ľúto, zdieľanie nie je povolené na Vašom serveri. Prosím, obráťte sa na správcu.</string>
   <string name="share_link_file_no_exist">Nie je možné zdieľať tento súbor alebo adresár. Prosím uistite sa že existuje</string>
   <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe</string>
   <string name="unshare_link_file_no_exist">Nie je možné zrušiť zdieľanie tohoto súboru alebo priečinka. Súbor alebo priečinok neexistuje.</string>
