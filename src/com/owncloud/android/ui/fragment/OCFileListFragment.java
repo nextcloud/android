@@ -69,6 +69,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
+    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -78,10 +79,12 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     private Handler mHandler;
     private OCFile mTargetFile;
 
+    // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
     private ArrayList<Integer> mTops;
 
+    private int mHeightCell = 0;
     
     /**
      * {@inheritDoc}
@@ -111,11 +114,13 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
             
         } else {
             mIndexes = new ArrayList<Integer>();
             mFirstPositions = new ArrayList<Integer>();
             mTops = new ArrayList<Integer>();
+            mHeightCell = 0;
             
         }
         
@@ -138,6 +143,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         outState.putIntegerArrayList(KEY_INDEXES, mIndexes);
         outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
         outState.putIntegerArrayList(KEY_TOPS, mTops);
+        outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
     }
     
     /**
@@ -202,8 +208,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         mList.setSelectionFromTop(firstPosition, top);
         
         // Move the scroll if the selection is not visible
-        View view = mList.getChildAt(0);
-        int indexPosition = view.getHeight()*index;
+        int indexPosition = mHeightCell*index;
         int height = mList.getHeight();
         
         if (indexPosition > height) {
@@ -225,6 +230,9 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         int top = (view == null) ? 0 : view.getTop() ;
 
         mTops.add(top);
+        
+        // Save the height of a cell
+        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
     }
     
     @Override
