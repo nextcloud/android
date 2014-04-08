@@ -151,6 +151,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     @Override 
     protected void onStart() {
         super.onStart();
+
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
@@ -162,10 +163,12 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     
     @Override 
     protected void onStop() {
-        super.onStop();
+
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
+        
+        super.onStop();
     }
     
     
@@ -302,6 +305,11 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     }
     
     
+    public OperationsServiceBinder getOperationsServiceBinder() {
+        return mOperationsServiceBinder;
+    }
+
+
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
      * a new ownCloud {@link Account} finished, successfully or not.

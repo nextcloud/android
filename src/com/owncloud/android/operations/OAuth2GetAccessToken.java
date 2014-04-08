@@ -1,5 +1,6 @@
 package com.owncloud.android.operations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,15 +38,12 @@ public class OAuth2GetAccessToken extends RemoteOperation {
         mOAuth2ParsedAuthorizationResponse = new HashMap<String, String>();
         mResultTokenMap = null;
     }
-    
-    
-    public Map<String, String> getOauth2AutorizationResponse() {
-        return mOAuth2ParsedAuthorizationResponse;
-    }
 
+    /*
     public Map<String, String> getResultTokenMap() {
         return mResultTokenMap;
     }
+    */
     
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -83,6 +81,9 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                     
                     } else {
                         result = new RemoteOperationResult(true, status, postMethod.getResponseHeaders());
+                        ArrayList<Object> data = new ArrayList<Object>();
+                        data.add(mResultTokenMap);
+                        result.setData(data);
                     }
                     
                 } else {

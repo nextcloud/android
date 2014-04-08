@@ -64,14 +64,17 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
     }
     
     private Context mContext;
+    private String mWebDavUrl;
     
     /**
      * Constructor
      * 
      * @param context       Android context of the caller.
+     * @param webdavUrl
      */
-    public DetectAuthenticationMethodOperation(Context context) {
+    public DetectAuthenticationMethodOperation(Context context, String webdavUrl) {
         mContext = context;
+        mWebDavUrl = webdavUrl;
     }
     
 
@@ -90,6 +93,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
         
         RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
+        client.setWebdavUri(Uri.parse(mWebDavUrl));
         client.setBasicCredentials("", "");
         client.setFollowRedirects(false);
         
@@ -122,6 +126,9 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         // else - fall back to UNKNOWN
         Log.d(TAG, "Authentication method found: " + authenticationMethodToString(authMethod));
         
+        if (!authMethod.equals(AuthenticationMethod.UNKNOWN)) {
+            result = new RemoteOperationResult(true, result.getHttpCode(), null);
+        }
         ArrayList<Object> data = new ArrayList<Object>();
         data.add(authMethod);
         result.setData(data);
