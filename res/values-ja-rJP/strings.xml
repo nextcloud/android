@@ -29,7 +29,6 @@
   <string name="prefs_feedback">フィードバック</string>
   <string name="prefs_imprint">インプリント</string>
   <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-  <string name="recommend_text">スマートフォンで %1$s を利用してみませんか！\nここからダウンロードしてください: %2$s</string>
   <string name="auth_check_server">サーバーを確認する</string>
   <string name="auth_host_url">サーバーアドレス https://…</string>
   <string name="auth_username">ユーザー名</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">オンラインでなく、インスタントアップロードのために何もしません</string>
   <string name="failed_upload_failure_text">失敗メッセージ:</string>
   <string name="failed_upload_quota_exceeded_text">サーバー設定を確認してください。クォータサイズを超えている可能性があります。</string>
-  <string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。管理者に連絡してください。</string>
   <string name="share_link_file_no_exist">このファイルまたはフォルダーは共有できません。存在しているか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
   <string name="unshare_link_file_no_exist">このファイルもしくはフォルダは存在しないため、共有を解除できません。</string>

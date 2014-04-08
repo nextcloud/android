@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Resposta</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Experimente %1$s no seu smartphone!</string>
-  <string name="recommend_text">Quero convidá-lo para experimentar %1$s no seu smartphone!\nDescarregue aqui: %2$s</string>
   <string name="auth_check_server">Verificar Servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
   <string name="auth_username">Nome de Utilizador</string>
@@ -229,7 +228,6 @@
   <string name="failed_upload_retry_do_nothing_text">não fazer nada, nao está online para o Upload-Instantâneo</string>
   <string name="failed_upload_failure_text">Mensagem de erro:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor verifique a configuração do servidor, talvez tenha excedido a sua quota</string>
-  <string name="share_link_no_support_share_api">Desculpe, a partilha não está activada no servidor. Por favor contacte o administrador.</string>
   <string name="share_link_file_no_exist">Não é possível partilhar este ficheiro ou pasta. Por favor, verifique se existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
   <string name="unshare_link_file_no_exist">Não é possível retirar a partilha deste ficheiro ou pasta. Não existe.</string>

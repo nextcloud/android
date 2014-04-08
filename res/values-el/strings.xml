@@ -29,7 +29,6 @@
   <string name="prefs_feedback">Σχόλια </string>
   <string name="prefs_imprint">Αποτύπωμα</string>
   <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
-  <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στο κινητό σας!\nΚατεβάστε το εδώ: %2$s</string>
   <string name="auth_check_server">Έλεγχος Διακομιστή</string>
   <string name="auth_host_url">Διεύθυνση εξυπηρέτη https://…</string>
   <string name="auth_username">Όνομα χρήστη</string>
@@ -158,7 +157,6 @@
   <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης σε εξέλιξη...</string>
   <string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
   <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
-  <string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό χαρακτηριστικό χρήστη, παρακαλώ επικοινωνήστε με έναν διαχειριστή</string>
   <string name="auth_can_not_auth_against_server">Δεν είναι δυνατός ο έλεγχος ταυτότητας με αυτόν τον διακομιστή</string>
   <string name="fd_keep_in_sync">Διατήρηση αρχείου ενημερωμένo</string>
   <string name="common_rename">Μετονομασία</string>
@@ -233,7 +231,6 @@
   <string name="failed_upload_retry_do_nothing_text">μην κάνετε τίποτε, δεν είστε συνδεμένος για άμεση μεταφόρτωση</string>
   <string name="failed_upload_failure_text">Μήνυμα Αποτυχίας:</string>
   <string name="failed_upload_quota_exceeded_text">Παρακαλώ ελέγξτε τις ρυθμίσεις του διακομιστή σας, ίσως έχετε υπερβεί τη διαθέσιμη μερίδα σας.</string>
-  <string name="share_link_no_support_share_api">Λυπάμαι, ο διαμοιρασμός δεν είναι ενεργοποιημένος στο διακομιστή σας. Παρακαλώ επικοινωνήστε με το διαχειριστή σας.</string>
   <string name="share_link_file_no_exist">Αδυναμία διαμοιρασμού αυτού του αρχείου ή φακέλου. Παρακαλώ βεβαιωθείτε ότι υπάρχει</string>
   <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
   <string name="unshare_link_file_no_exist">Ήταν αδύνατη η ακύρωση διαμοιρασμού αυτού του αρχείου ή φακέλου. Δεν υπάρχει.</string>

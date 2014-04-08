@@ -212,7 +212,6 @@
   <string name="failed_upload_retry_do_nothing_text">不在线时不开启即时上传</string>
   <string name="failed_upload_failure_text">失败消息</string>
   <string name="failed_upload_quota_exceeded_text">请检查服务器设置。可能走出配额。</string>
-  <string name="share_link_no_support_share_api">对不起，共享服务功能未开启，请联系管理员</string>
   <string name="share_link_file_no_exist">无法共享该文件或目录，请确定该文件或目录存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
