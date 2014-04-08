@@ -17,38 +17,28 @@
 
 package com.owncloud.android.operations;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.http.HttpStatus;
-
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 import android.accounts.Account;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**
- * Remote operation performing the download of a file to an ownCloud server
+ * Remote mDownloadOperation performing the download of a file to an ownCloud server
  * 
  * @author David A. Velasco
+ * @author masensio
  */
 public class DownloadFileOperation extends RemoteOperation {
     
@@ -57,8 +47,9 @@ public class DownloadFileOperation extends RemoteOperation {
     private Account mAccount;
     private OCFile mFile;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
-    private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
     private long mModificationTimestamp = 0;
+    
+    private DownloadRemoteFileOperation mDownloadOperation;
 
     
     public DownloadFileOperation(Account account, OCFile file) {
@@ -69,6 +60,7 @@ public class DownloadFileOperation extends RemoteOperation {
         
         mAccount = account;
         mFile = file;
+        
     }
 
 
@@ -90,6 +82,10 @@ public class DownloadFileOperation extends RemoteOperation {
     
     public String getTmpPath() {
         return FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+    }
+    
+    public String getTmpFolder() {
+        return FileStorageUtils.getTemporalPath(mAccount.name);
     }
     
     public String getRemotePath() {
@@ -120,8 +116,46 @@ public class DownloadFileOperation extends RemoteOperation {
     public long getModificationTimestamp() {
         return (mModificationTimestamp > 0) ? mModificationTimestamp : mFile.getModificationTimestamp();
     }
-    
-    
+
+    @Override
+    protected RemoteOperationResult run(OwnCloudClient client) {
+        RemoteOperationResult result = null;
+        File newFile = null;
+        boolean moved = true;
+        
+        /// download will be performed to a temporal file, then moved to the final location
+        File tmpFile = new File(getTmpPath());
+        
+        String tmpFolder =  getTmpFolder();
+        
+        /// perform the download
+        mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
+        Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+        while (listener.hasNext()) {
+            mDownloadOperation.addDatatransferProgressListener(listener.next());
+        }
+        result = mDownloadOperation.execute(client);
+        
+        if (result.isSuccess()) {
+            mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
+            newFile = new File(getSavePath());
+            newFile.getParentFile().mkdirs();
+            moved = tmpFile.renameTo(newFile);
+        
+            if (!moved)
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+        }
+        Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
+        
+        
+        return result;
+    }
+
+    public void cancel() {
+        mDownloadOperation.cancel();
+    }
+
+
     public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.add(listener);
@@ -133,103 +167,5 @@ public class DownloadFileOperation extends RemoteOperation {
             mDataTransferListeners.remove(listener);
         }
     }
-
-    @Override
-    protected RemoteOperationResult run(WebdavClient client) {
-        RemoteOperationResult result = null;
-        File newFile = null;
-        boolean moved = true;
-        
-        /// download will be performed to a temporal file, then moved to the final location
-        File tmpFile = new File(getTmpPath());
-        
-        /// perform the download
-        try {
-            tmpFile.getParentFile().mkdirs();
-            int status = downloadFile(client, tmpFile);
-            if (isSuccess(status)) {
-                newFile = new File(getSavePath());
-                newFile.getParentFile().mkdirs();
-                moved = tmpFile.renameTo(newFile);
-            }
-            if (!moved)
-                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
-            else
-                result = new RemoteOperationResult(isSuccess(status), status);
-            Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage());
-            
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " + result.getLogMessage(), e);
-        }
-        
-        return result;
-    }
-
     
-    public boolean isSuccess(int status) {
-        return (status == HttpStatus.SC_OK);
-    }
-    
-    
-    protected int downloadFile(WebdavClient client, File targetFile) throws HttpException, IOException, OperationCancelledException {
-        int status = -1;
-        boolean savedFile = false;
-        GetMethod get = new GetMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
-        Iterator<OnDatatransferProgressListener> it = null;
-        
-        FileOutputStream fos = null;
-        try {
-            status = client.executeMethod(get);
-            if (isSuccess(status)) {
-                targetFile.createNewFile();
-                BufferedInputStream bis = new BufferedInputStream(get.getResponseBodyAsStream());
-                fos = new FileOutputStream(targetFile);
-                long transferred = 0;
-
-                byte[] bytes = new byte[4096];
-                int readResult = 0;
-                while ((readResult = bis.read(bytes)) != -1) {
-                    synchronized(mCancellationRequested) {
-                        if (mCancellationRequested.get()) {
-                            get.abort();
-                            throw new OperationCancelledException();
-                        }
-                    }
-                    fos.write(bytes, 0, readResult);
-                    transferred += readResult;
-                    synchronized (mDataTransferListeners) {
-                        it = mDataTransferListeners.iterator();
-                        while (it.hasNext()) {
-                            it.next().onTransferProgress(readResult, transferred, mFile.getFileLength(), targetFile.getName());
-                        }
-                    }
-                }
-                savedFile = true;
-                Header modificationTime = get.getResponseHeader("Last-Modified");
-                if (modificationTime != null) {
-                    Date d = WebdavUtils.parseResponseDate((String) modificationTime.getValue());
-                    mModificationTimestamp = (d != null) ? d.getTime() : 0;
-                }
-                
-            } else {
-                client.exhaustResponse(get.getResponseBodyAsStream());
-            }
-                
-        } finally {
-            if (fos != null) fos.close();
-            if (!savedFile && targetFile.exists()) {
-                targetFile.delete();
-            }
-            get.releaseConnection();    // let the connection available for other methods
-        }
-        return status;
-    }
-
-    
-    public void cancel() {
-        mCancellationRequested.set(true);   // atomic set; there is no need of synchronizing it
-    }
-
-
 }

@@ -30,8 +30,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
+
 
 /**
  * Activity showing a text message and, optionally, a couple list of single or paired text strings.
@@ -73,6 +76,9 @@ public class GenericExplanationActivity  extends SherlockFragmentActivity {
         } else {
             listView.setVisibility(View.GONE);
         }
+        
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
     
     public class ExplanationListAdapterView extends ArrayAdapter<String> {

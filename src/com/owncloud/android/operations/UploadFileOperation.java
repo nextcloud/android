@@ -24,29 +24,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.http.HttpStatus;
-
-import com.owncloud.android.Log_OC;
-import android.accounts.Account;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.network.ProgressiveDataTransferer;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.network.ProgressiveDataTransferer;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.OperationCancelledException;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ChunkedUploadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
-import eu.alefzero.webdav.FileRequestEntity;
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
+import android.accounts.Account;
+import android.content.Context;
+
 
 /**
  * Remote operation performing the upload of a file to an ownCloud server
@@ -61,6 +63,7 @@ public class UploadFileOperation extends RemoteOperation {
     private OCFile mFile;
     private OCFile mOldFile;
     private String mRemotePath = null;
+    private boolean mChunked = false;
     private boolean mIsInstant = false;
     private boolean mRemoteFolderToBeCreated = false;
     private boolean mForceOverwrite = false;
@@ -71,15 +74,20 @@ public class UploadFileOperation extends RemoteOperation {
     PutMethod mPutMethod = null;
     private Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<OnDatatransferProgressListener>();
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
+    private Context mContext;
+    
+    private UploadRemoteFileOperation mUploadOperation;
 
     protected RequestEntity mEntity = null;
 
     
     public UploadFileOperation( Account account,
                                 OCFile file,
+                                boolean chunked,
                                 boolean isInstant, 
                                 boolean forceOverwrite,
-                                int localBehaviour) {
+                                int localBehaviour, 
+                                Context context) {
         if (account == null)
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation creation");
         if (file == null)
@@ -94,11 +102,13 @@ public class UploadFileOperation extends RemoteOperation {
         mAccount = account;
         mFile = file;
         mRemotePath = file.getRemotePath();
+        mChunked = chunked;
         mIsInstant = isInstant;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
         mOriginalFileName = mFile.getFileName();
+        mContext = context;
     }
 
     public Account getAccount() {
@@ -176,7 +186,7 @@ public class UploadFileOperation extends RemoteOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         boolean localCopyPassed = false, nameCheckPassed = false;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
@@ -198,7 +208,7 @@ public class UploadFileOperation extends RemoteOperation {
                                                                                                 // !!!
             expectedFile = new File(expectedPath);
 
-            // / check location of local file; if not the expected, copy to a
+            // check location of local file; if not the expected, copy to a
             // temporal file before upload (if COPY is the expected behaviour)
             if (!mOriginalStoragePath.equals(expectedPath) && mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY) {
 
@@ -259,19 +269,23 @@ public class UploadFileOperation extends RemoteOperation {
             }
             localCopyPassed = true;
 
-            // / perform the upload
-            synchronized (mCancellationRequested) {
-                if (mCancellationRequested.get()) {
-                    throw new OperationCancelledException();
-                } else {
-                    mPutMethod = new PutMethod(client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()));
-                }
+            /// perform the upload
+            if ( mChunked && (new File(mFile.getStoragePath())).length() > ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
+                        mFile.getMimetype());
+            } else {
+                mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(), mFile.getRemotePath(), 
+                        mFile.getMimetype());
             }
-            int status = uploadFile(client);
+            Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
+            }
+            result = mUploadOperation.execute(client);
 
-            // / move local temporal file or original file to its corresponding
+            /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
-            if (isSuccess(status)) {
+            if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
                     mFile.setStoragePath(null);
 
@@ -303,8 +317,6 @@ public class UploadFileOperation extends RemoteOperation {
                     }
                 }
             }
-
-            result = new RemoteOperationResult(isSuccess(status), status);
 
         } catch (Exception e) {
             // TODO something cleaner with cancellations
@@ -357,29 +369,6 @@ public class UploadFileOperation extends RemoteOperation {
         mFile = newFile;
     }
 
-    public boolean isSuccess(int status) {
-        return ((status == HttpStatus.SC_OK || status == HttpStatus.SC_CREATED || status == HttpStatus.SC_NO_CONTENT));
-    }
-
-    protected int uploadFile(WebdavClient client) throws HttpException, IOException, OperationCancelledException {
-        int status = -1;
-        try {
-            File f = new File(mFile.getStoragePath());
-            mEntity  = new FileRequestEntity(f, getMimeType());
-            synchronized (mDataTransferListeners) {
-                ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListeners(mDataTransferListeners);
-            }
-            mPutMethod.setRequestEntity(mEntity);
-            status = client.executeMethod(mPutMethod);
-            client.exhaustResponse(mPutMethod.getResponseBodyAsStream());
-
-        } finally {
-            mPutMethod.releaseConnection(); // let the connection available for
-                                            // other methods
-        }
-        return status;
-    }
-
     /**
      * Checks if remotePath does not exist in the server and returns it, or adds
      * a suffix to it in order to avoid the server file is overwritten.
@@ -387,8 +376,8 @@ public class UploadFileOperation extends RemoteOperation {
      * @param string
      * @return
      */
-    private String getAvailableRemotePath(WebdavClient wc, String remotePath) throws Exception {
-        boolean check = wc.existsFile(remotePath);
+    private String getAvailableRemotePath(OwnCloudClient wc, String remotePath) throws Exception {
+        boolean check = existsFile(wc, remotePath);
         if (!check) {
             return remotePath;
         }
@@ -403,10 +392,12 @@ public class UploadFileOperation extends RemoteOperation {
         int count = 2;
         do {
             suffix = " (" + count + ")";
-            if (pos >= 0)
-                check = wc.existsFile(remotePath + suffix + "." + extension);
-            else
-                check = wc.existsFile(remotePath + suffix);
+            if (pos >= 0) {
+                check = existsFile(wc, remotePath + suffix + "." + extension);
+            }
+            else {
+                check = existsFile(wc, remotePath + suffix);
+            }
             count++;
         } while (check);
 
@@ -417,12 +408,14 @@ public class UploadFileOperation extends RemoteOperation {
         }
     }
 
+    private boolean existsFile(OwnCloudClient client, String remotePath){
+        ExistenceCheckRemoteOperation existsOperation = new ExistenceCheckRemoteOperation(remotePath, mContext, false);
+        RemoteOperationResult result = existsOperation.execute(client);
+        return result.isSuccess();
+    }
+    
     public void cancel() {
-        synchronized (mCancellationRequested) {
-            mCancellationRequested.set(true);
-            if (mPutMethod != null)
-                mPutMethod.abort();
-        }
+        mUploadOperation.cancel();
     }
 
 }

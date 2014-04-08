@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,11 +20,19 @@ package com.owncloud.android.files;
 
 import java.io.File;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
+
+
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+//import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
@@ -32,17 +40,16 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore.*;
 import android.webkit.MimeTypeMap;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.authenticator.AccountAuthenticator;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.utils.FileStorageUtils;
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private static String TAG = "InstantUploadBroadcastReceiver";
+   // private static final String[] CONTENT_PROJECTION = { Media.DATA, Media.DISPLAY_NAME, Media.MIME_TYPE, Media.SIZE };
+    //Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
+    private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
+    //Officially supported action since SDK 14: http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
     private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
+    // Video action
     private static String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
 
     @Override
@@ -50,9 +57,15 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         Log_OC.d(TAG, "Received: " + intent.getAction());
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
+        }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
+            handleNewMediaAction(context, intent); //handleNewPhotoAction(context, intent);
+            Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
+        } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
+            handleNewMediaAction(context, intent); //handleNewPhotoAction(context, intent);
+            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION) || intent.getAction().equals(NEW_VIDEO_ACTION)) {
             handleNewMediaAction(context, intent);
-        } else if (intent.getAction().equals(FileUploader.UPLOAD_FINISH_MESSAGE)) {
+        } else if (intent.getAction().equals(FileUploader.getUploadFinishMessage())) {
             handleUploadFinished(context, intent);
         } else {
             Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
@@ -61,6 +74,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     private void handleUploadFinished(Context context, Intent intent) {
         // remove successfull uploading, ignore rest for reupload on reconnect
+        /*
         if (intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false)) {
             DbHandler db = new DbHandler(context);
             String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
@@ -69,6 +83,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             }
             db.close();
         }
+        */
     }
 
     private void handleNewMediaAction(Context context, Intent intent) {
@@ -78,7 +93,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String mime_type = null;
 
         if (!instantUploadEnabled(context)) {
-            Log_OC.d(TAG, "Instant upload disabled, abording uploading");
+            Log_OC.d(TAG, "Instant upload disabled, aborting uploading");
             return;
         }
 
@@ -136,8 +151,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         // we can unregister from entire listenings but thats suck a bit.
         // On the other hand this might be only for dynamicly registered
         // broadcast receivers, needs investigation.
-        IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-        context.getApplicationContext().registerReceiver(this, filter);
+        /*IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        context.getApplicationContext().registerReceiver(this, filter);*/
 
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -162,14 +177,14 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
-                IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-                context.getApplicationContext().registerReceiver(this, filter);
+                //IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+                //context.getApplicationContext().registerReceiver(this, filter);
                 do {
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));
                     File f = new File(file_path);
                     if (f.exists()) {
-                        Account account = new Account(account_name, AccountAuthenticator.ACCOUNT_TYPE);
+                        Account account = new Account(account_name, MainApp.getAccountType());
 
                         String mimeType = null;
                         try {

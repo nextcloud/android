@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.dialog;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -28,20 +29,20 @@ import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
 
+import com.owncloud.android.R;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
-import com.owncloud.android.network.CertificateCombinedException;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.utils.Log_OC;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.
@@ -112,7 +113,13 @@ public class SslValidatorDialog extends Dialog {
                             else
                                 Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
                             
-                        } catch (Exception e) {
+                        } catch (GeneralSecurityException e) {
+                            dismiss();
+                            if (mListener != null)
+                                mListener.onFailedSavingCertificate();
+                            Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
+                            
+                        } catch (IOException e) {
                             dismiss();
                             if (mListener != null)
                                 mListener.onFailedSavingCertificate();
@@ -136,11 +143,11 @@ public class SslValidatorDialog extends Dialog {
                        View detailsScroll = findViewById(R.id.details_scroll);
                        if (detailsScroll.getVisibility() == View.VISIBLE) {
                            detailsScroll.setVisibility(View.GONE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_see);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_see);
                            
                        } else {
                            detailsScroll.setVisibility(View.VISIBLE);
-                           ((Button)v).setText(R.string.ssl_validator_btn_details_hide);
+                           ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
                        }
                     }
                 });
@@ -216,6 +223,7 @@ public class SslValidatorDialog extends Dialog {
         return hex.toString();
      }    
 
+    @SuppressWarnings("deprecation")
     private void showValidity(Date notBefore, Date notAfter) {
         TextView fromView = ((TextView)mView.findViewById(R.id.value_validity_from));
         TextView toView = ((TextView)mView.findViewById(R.id.value_validity_to));
@@ -336,7 +344,7 @@ public class SslValidatorDialog extends Dialog {
     private void saveServerCert() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         if (mException.getServerCertificate() != null) {
             // TODO make this asynchronously, it can take some time
-            OwnCloudClientUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
+            NetworkUtils.addCertToKnownServersStore(mException.getServerCertificate(), getContext());
         }
     }
 

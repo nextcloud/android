@@ -18,9 +18,9 @@
 package com.owncloud.android.media;
 
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaService.State;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.content.Intent;
@@ -174,6 +174,12 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     public boolean isInPlaybackState() {
         MediaService.State currentState = mService.getState();
         return (currentState == MediaService.State.PLAYING || currentState == MediaService.State.PAUSED);
+    }
+
+
+    @Override
+    public int getAudioSessionId() {
+        return 1; // not really used
     }
 
 }

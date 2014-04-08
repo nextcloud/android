@@ -20,20 +20,18 @@ package com.owncloud.android.operations;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.jackrabbit.webdav.client.methods.DavMethodBase;
-//import org.apache.jackrabbit.webdav.client.methods.MoveMethod;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.RenameRemoteFileOperation;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
-import android.util.Log;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
@@ -42,17 +40,14 @@ import eu.alefzero.webdav.WebdavUtils;
  */
 public class RenameFileOperation extends RemoteOperation {
     
-    private static final String TAG = RemoveFileOperation.class.getSimpleName();
-
-    private static final int RENAME_READ_TIMEOUT = 10000;
-    private static final int RENAME_CONNECTION_TIMEOUT = 5000;
+    private static final String TAG = RenameFileOperation.class.getSimpleName();
     
 
     private OCFile mFile;
     private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     
     /**
@@ -63,7 +58,7 @@ public class RenameFileOperation extends RemoteOperation {
      * @param newName               New name to set as the name of file.
      * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RenameFileOperation(OCFile file, Account account, String newName, DataStorageManager storageManager) {
+    public RenameFileOperation(OCFile file, Account account, String newName, FileDataStorageManager storageManager) {
         mFile = file;
         mAccount = account;
         mNewName = newName;
@@ -82,78 +77,50 @@ public class RenameFileOperation extends RemoteOperation {
      * @param   client      Client object to communicate with the remote ownCloud server.
      */
     @Override
-    protected RemoteOperationResult run(WebdavClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
-        LocalMoveMethod move = null;
-        mNewRemotePath = null;
+        // check if the new name is valid in the local file system
         try {
-            if (mNewName.equals(mFile.getFileName())) {
-                return new RemoteOperationResult(ResultCode.OK);
-            }
-        
-            String parent = (new File(mFile.getRemotePath())).getParent();
-            parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
-            mNewRemotePath =  parent + mNewName;
-            if (mFile.isDirectory()) {
-                mNewRemotePath += OCFile.PATH_SEPARATOR;
-            }
-            
-            // check if the new name is valid in the local file system
             if (!isValidNewName()) {
                 return new RemoteOperationResult(ResultCode.INVALID_LOCAL_FILE_NAME);
             }
-        
-            // check if a file with the new name already exists
-            if (client.existsFile(mNewRemotePath) ||                             // remote check could fail by network failure. by indeterminate behavior of HEAD for folders ... 
-                    mStorageManager.getFileByPath(mNewRemotePath) != null) {     // ... so local check is convenient
+            String parent = (new File(mFile.getRemotePath())).getParent();
+            parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent + OCFile.PATH_SEPARATOR; 
+            mNewRemotePath =  parent + mNewName;
+            if (mFile.isFolder()) {
+                mNewRemotePath += OCFile.PATH_SEPARATOR;
+            }
+
+            // ckeck local overwrite
+            if (mStorageManager.getFileByPath(mNewRemotePath) != null) {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
-            move = new LocalMoveMethod( client.getBaseUri() + WebdavUtils.encodePath(mFile.getRemotePath()),
-                                        client.getBaseUri() + WebdavUtils.encodePath(mNewRemotePath));
-            int status = client.executeMethod(move, RENAME_READ_TIMEOUT, RENAME_CONNECTION_TIMEOUT);
-            if (move.succeeded()) {
+            
+            RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(), mFile.getRemotePath(), 
+                    mNewName, mFile.isFolder());
+            result = operation.execute(client);
 
-                if (mFile.isDirectory()) {
+            if (result.isSuccess()) {
+                if (mFile.isFolder()) {
                     saveLocalDirectory();
-                    
+
                 } else {
                     saveLocalFile();
-                    
                 }
-             
-            /* 
-             *} else if (mFile.isDirectory() && (status == 207 || status >= 500)) {
-             *   // TODO 
-             *   // if server fails in the rename of a folder, some children files could have been moved to a folder with the new name while some others
-             *   // stayed in the old folder;
-             *   //
-             *   // easiest and heaviest solution is synchronizing the parent folder (or the full account);
-             *   //
-             *   // a better solution is synchronizing the folders with the old and new names;
-             *}
-             */
-                
             }
             
-            move.getResponseBodyAsString(); // exhaust response, although not interesting
-            result = new RemoteOperationResult(move.succeeded(), status);
-            Log_OC.i(TAG, "Rename " + mFile.getRemotePath() + " to " + mNewRemotePath + ": " + result.getLogMessage());
-            
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + result.getLogMessage(), e);
-            
-        } finally {
-            if (move != null)
-                move.releaseConnection();
+        } catch (IOException e) {
+            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ? mNewName : mNewRemotePath) + ": " + 
+                    ((result!= null) ? result.getLogMessage() : ""), e);
         }
+
         return result;
     }
 
     
     private void saveLocalDirectory() {
-        mStorageManager.moveDirectory(mFile, mNewRemotePath);
+        mStorageManager.moveFolder(mFile, mNewRemotePath);
         String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {
@@ -192,17 +159,23 @@ public class RenameFileOperation extends RemoteOperation {
      * 
      * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities specific for the interactions with the file system
      * 
-     * @return      'True' if a temporal file named with the name to set could be created in the file system where 
-     *              local files are stored.
+     * @return              'True' if a temporal file named with the name to set could be created in the file system where 
+     *                      local files are stored.
+     * @throws IOException  When the temporal folder can not be created.
      */
-    private boolean isValidNewName() {
+    private boolean isValidNewName() throws IOException {
         // check tricky names
         if (mNewName == null || mNewName.length() <= 0 || mNewName.contains(File.separator) || mNewName.contains("%")) { 
             return false;
         }
         // create a test file
-        String tmpFolder = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolder + mNewName);
+        String tmpFolderName = FileStorageUtils.getTemporalPath("");
+        File testFile = new File(tmpFolderName + mNewName);
+        File tmpFolder = testFile.getParentFile();
+        tmpFolder.mkdirs();
+        if (!tmpFolder.isDirectory()) {
+            throw new IOException("Unexpected error: temporal directory could not be created");
+        }
         try {
             testFile.createNewFile();   // return value is ignored; it could be 'false' because the file already existed, that doesn't invalidate the name
         } catch (IOException e) {
@@ -216,27 +189,5 @@ public class RenameFileOperation extends RemoteOperation {
         
         return result;
     }
-
-
-    // move operation
-    private class LocalMoveMethod extends DavMethodBase {
-
-        public LocalMoveMethod(String uri, String dest) {
-            super(uri);
-            addRequestHeader(new org.apache.commons.httpclient.Header("Destination", dest));
-        }
-
-        @Override
-        public String getName() {
-            return "MOVE";
-        }
-
-        @Override
-        protected boolean isSuccess(int status) {
-            return status == 201 || status == 204;
-        }
-            
-    }
-    
 
 }

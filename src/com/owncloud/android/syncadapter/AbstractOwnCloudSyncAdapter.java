@@ -19,18 +19,17 @@
 package com.owncloud.android.syncadapter;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Date;
 
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.conn.ConnectionKeepAliveStrategy;
-import org.apache.http.protocol.HttpContext;
 
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.network.OwnCloudClientUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClient;
+
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -39,28 +38,33 @@ import android.accounts.OperationCanceledException;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
-import eu.alefzero.webdav.WebdavClient;
 
 /**
- * Base SyncAdapter for OwnCloud Designed to be subclassed for the concrete
- * SyncAdapter, like ConcatsSync, CalendarSync, FileSync etc..
+ * Base synchronization adapter for ownCloud designed to be subclassed for different
+ * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
+ * 
+ * Implements the standard {@link AbstractThreadedSyncAdapter}.
  * 
  * @author sassman
- * 
+ * @author David A. Velasco
  */
 public abstract class AbstractOwnCloudSyncAdapter extends
         AbstractThreadedSyncAdapter {
 
     private AccountManager accountManager;
     private Account account;
-    private ContentProviderClient contentProvider;
-    private Date lastUpdated;
-    private DataStorageManager mStoreManager;
+    private ContentProviderClient mContentProviderClient;
+    private FileDataStorageManager mStoreManager;
 
-    private WebdavClient mClient = null;
+    private OwnCloudClient mClient = null;
 
     public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+        this.setAccountManager(AccountManager.get(context));
+    }
+
+    public AbstractOwnCloudSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+        super(context, autoInitialize, allowParallelSyncs);
         this.setAccountManager(AccountManager.get(context));
     }
 
@@ -80,76 +84,37 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         this.account = account;
     }
 
-    public ContentProviderClient getContentProvider() {
-        return contentProvider;
+    public ContentProviderClient getContentProviderClient() {
+        return mContentProviderClient;
     }
 
-    public void setContentProvider(ContentProviderClient contentProvider) {
-        this.contentProvider = contentProvider;
+    public void setContentProviderClient(ContentProviderClient contentProvider) {
+        this.mContentProviderClient = contentProvider;
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
-    public void setStorageManager(DataStorageManager storage_manager) {
+    public void setStorageManager(FileDataStorageManager storage_manager) {
         mStoreManager = storage_manager;
     }
 
-    public DataStorageManager getStorageManager() {
+    public FileDataStorageManager getStorageManager() {
         return mStoreManager;
     }
 
-    protected ConnectionKeepAliveStrategy getKeepAliveStrategy() {
-        return new ConnectionKeepAliveStrategy() {
-            public long getKeepAliveDuration(HttpResponse response,
-                    HttpContext context) {
-                // Change keep alive straategy basing on response: ie
-                // forbidden/not found/etc
-                // should have keep alive 0
-                // default return: 5s
-                int statusCode = response.getStatusLine().getStatusCode();
-
-                // HTTP 400, 500 Errors as well as HTTP 118 - Connection timed
-                // out
-                if ((statusCode >= 400 && statusCode <= 418)
-                        || (statusCode >= 421 && statusCode <= 426)
-                        || (statusCode >= 500 && statusCode <= 510)
-                        || statusCode == 118) {
-                    return 0;
-                }
-
-                return 5 * 1000;
-            }
-        };
+    protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
+        AccountUtils.constructFullURLForAccount(getContext(), account);
+        mClient = OwnCloudClientFactory.createOwnCloudClient(account, getContext());
     }
-
+    
+    protected OwnCloudClient getClient() {
+        return mClient;
+    }
+    
+    
+    /* method called by ContactSyncAdapter, that is never used */
     protected HttpResponse fireRawRequest(HttpRequest query)
             throws ClientProtocolException, OperationCanceledException,
             AuthenticatorException, IOException {
-        /*
-         * BasicHttpContext httpContext = new BasicHttpContext(); BasicScheme
-         * basicAuth = new BasicScheme();
-         * httpContext.setAttribute("preemptive-auth", basicAuth);
-         * 
-         * HttpResponse response = getClient().execute(mHost, query,
-         * httpContext);
-         */
         return null;
     }
 
-    protected void initClientForCurrentAccount() throws UnknownHostException {
-        if (AccountUtils.constructFullURLForAccount(getContext(), account) == null) {
-            throw new UnknownHostException();
-        }
-        mClient = OwnCloudClientUtils.createOwnCloudClient(account, getContext());
-    }
-    
-    protected WebdavClient getClient() {
-        return mClient;
-    }
 }

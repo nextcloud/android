@@ -34,7 +34,9 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.adapter.LogListAdapter;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+
 
 
 
@@ -49,9 +51,11 @@ public class LogHistoryActivity extends SherlockPreferenceActivity implements On
         setContentView(R.layout.log_send_file);
         setTitle("Log History");
         ActionBar actionBar = getSherlock().getActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         ListView listView = (ListView) findViewById(android.R.id.list);
         Button deleteHistoryButton = (Button) findViewById(R.id.deleteLogHistoryButton);
+        
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
             
             @Override

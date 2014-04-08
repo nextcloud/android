@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,12 +39,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
+
 
 
 /**
@@ -119,6 +120,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends SherlockFragmentActivity
         /// customize buttons
         Button cancelBtn = (Button) findViewById(R.id.cancel);
         Button okBtn = (Button) findViewById(R.id.ok);
+        
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);

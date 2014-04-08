@@ -18,5 +18,5 @@
 -->
 <!-- Default boolean values -->
 <resources>
-    <bool name="large_layout">false</bool>
+    <bool name="large_land_layout">false</bool>
 </resources>

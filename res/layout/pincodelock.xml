@@ -68,9 +68,10 @@
             style="@style/PassCodeStyle" />
     </LinearLayout>
 
-    <Button android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/common_cancel"
-        android:textColor="@android:color/black"
-        android:id="@+id/cancel"/>
+        android:text="@string/common_cancel" />
+
 </LinearLayout>

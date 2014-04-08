@@ -25,7 +25,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,16 +34,16 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.R;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.ui.fragment.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.R;
 
 /**
  * Displays local files and let the user choose what of them wants to upload
@@ -54,7 +53,7 @@ import com.owncloud.android.R;
  * 
  */
 
-public class UploadFilesActivity extends SherlockFragmentActivity implements
+public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, OnNavigationListener, OnClickListener, ConfirmationDialogFragmentListener {
     
     private ArrayAdapter<String> mDirectories;
@@ -62,10 +61,9 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
     private Button mUploadBtn;
-    private Account mAccount;
+    private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     
-    public static final String EXTRA_ACCOUNT = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
     public static final String EXTRA_CHOSEN_FILES = UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
     public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
@@ -87,7 +85,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
         
-        mAccount = getIntent().getParcelableExtra(EXTRA_ACCOUNT);
+        mAccountOnCreation = getAccount();
                 
         /// USER INTERFACE
             
@@ -110,9 +108,11 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
         mCancelBtn.setOnClickListener(this);
         mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
+        
             
         // Action bar setup
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the official documentation
         actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -319,7 +319,7 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
                 File localFile = new File(localPath);
                 total += localFile.length();
             }
-            return (FileStorageUtils.getUsableSpace(mAccount.name) >= total);
+            return (FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total);
         }
 
         /**
@@ -375,6 +375,22 @@ public class UploadFilesActivity extends SherlockFragmentActivity implements
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
+    }
+
+
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
+        if (getAccount() != null) {
+            if (!mAccountOnCreation.equals(getAccount())) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+            
+        } else {
+            setResult(RESULT_CANCELED);
+            finish();
+        }
     }    
 
     

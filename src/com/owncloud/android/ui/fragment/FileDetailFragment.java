@@ -22,99 +22,50 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
-import org.json.JSONObject;
-
 import android.accounts.Account;
-import android.accounts.AccountManager;
-//import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.graphics.Point;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
-import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.Log_OC;
-import com.owncloud.android.authenticator.AccountAuthenticator;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.network.OwnCloudClientUtils;
-import com.owncloud.android.operations.OnRemoteOperationListener;
-import com.owncloud.android.operations.RemoteOperation;
-import com.owncloud.android.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
-import com.owncloud.android.ui.activity.FileDetailActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.utils.OwnCloudVersion;
-
-import com.owncloud.android.R;
-
-import eu.alefzero.webdav.OnDatatransferProgressListener;
-import eu.alefzero.webdav.WebdavClient;
-import eu.alefzero.webdav.WebdavUtils;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -123,19 +74,14 @@ import eu.alefzero.webdav.WebdavUtils;
  * @author Bartek Przybylski
  * @author David A. Velasco
  */
-public class FileDetailFragment extends SherlockFragment implements
+public class FileDetailFragment extends FileFragment implements
         OnClickListener, 
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener,
-        FileFragment {
-
-    public static final String EXTRA_FILE = "FILE";
-    public static final String EXTRA_ACCOUNT = "ACCOUNT";
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
 
     private FileFragment.ContainerActivity mContainerActivity;
     
     private int mLayout;
     private View mView;
-    private OCFile mFile;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
     
@@ -146,7 +92,6 @@ public class FileDetailFragment extends SherlockFragment implements
     private RemoteOperation mLastRemoteOperation;
     
     private static final String TAG = FileDetailFragment.class.getSimpleName();
-    public static final String FTAG = "FileDetails"; 
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
     
 
@@ -156,13 +101,12 @@ public class FileDetailFragment extends SherlockFragment implements
      * It's necessary to keep a public constructor without parameters; the system uses it when tries to reinstantiate a fragment automatically. 
      */
     public FileDetailFragment() {
-        mFile = null;
+        super();
         mAccount = null;
         mStorageManager = null;
         mLayout = R.layout.file_details_empty;
         mProgressListener = null;
     }
-    
     
     /**
      * Creates a details fragment.
@@ -173,7 +117,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
     public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
-        mFile = fileToDetail;
+        super(fileToDetail);
         mAccount = ocAccount;
         mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
@@ -185,43 +129,40 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
+        setHasOptionsMenu(true);
     }
     
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        //super.onCreateView(inflater, container, savedInstanceState);
         
         if (savedInstanceState != null) {
-            mFile = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_FILE);
-            mAccount = savedInstanceState.getParcelable(FileDetailFragment.EXTRA_ACCOUNT);
+            setFile((OCFile)savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
+            mAccount = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
         }
         
-        if(mFile != null && mAccount != null) {
+        if(getFile() != null && mAccount != null) {
             mLayout = R.layout.file_details_fragment;
         }
         
         View view = null;
-        view = inflater.inflate(mLayout, container, false);
+        //view = inflater.inflate(mLayout, container, false);
+        view = inflater.inflate(mLayout, null);
         mView = view;
         
         if (mLayout == R.layout.file_details_fragment) {
             mView.findViewById(R.id.fdKeepInSync).setOnClickListener(this);
-            mView.findViewById(R.id.fdRenameBtn).setOnClickListener(this);
-            mView.findViewById(R.id.fdDownloadBtn).setOnClickListener(this);
-            mView.findViewById(R.id.fdOpenBtn).setOnClickListener(this);
-            mView.findViewById(R.id.fdRemoveBtn).setOnClickListener(this);
-            //mView.findViewById(R.id.fdShareBtn).setOnClickListener(this);
             ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.fdProgressBar);
             mProgressListener = new ProgressListener(progressBar);
+            mView.findViewById(R.id.fdCancelBtn).setOnClickListener(this);
         }
         
         updateFileDetails(false, false);
         return view;
     }
     
-
     /**
      * {@inheritDoc}
      */
@@ -245,6 +186,10 @@ public class FileDetailFragment extends SherlockFragment implements
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
             mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
+            OCFile file = mStorageManager.getFileByPath(getFile().getRemotePath());
+            if (file != null) {
+                setFile(file);
+            }
         }
     }
         
@@ -252,8 +197,8 @@ public class FileDetailFragment extends SherlockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(FileDetailFragment.EXTRA_FILE, mFile);
-        outState.putParcelable(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        outState.putParcelable(FileActivity.EXTRA_FILE, getFile());
+        outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
     }
 
     @Override
@@ -266,7 +211,7 @@ public class FileDetailFragment extends SherlockFragment implements
     public void onResume() {
         super.onResume();
         mUploadFinishReceiver = new UploadFinishReceiver();
-        IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
+        IntentFilter filter = new IntentFilter(FileUploader.getUploadFinishMessage());
         getActivity().registerReceiver(mUploadFinishReceiver, filter);
 
     }
@@ -294,189 +239,298 @@ public class FileDetailFragment extends SherlockFragment implements
         return super.getView() == null ? mView : super.getView();
     }
 
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.file_actions_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_see_details);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+        
+        // Send file
+        item = menu.findItem(R.id.action_send_file);
+        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
+        if (item != null) {
+            if (sendEnabled) {
+                item.setVisible(true);
+                item.setEnabled(true);
+            } else {
+                item.setVisible(false);
+                item.setEnabled(false);
+                
+            }
+        }
+    }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        
+        List<Integer> toHide = new ArrayList<Integer>();
+        List<Integer> toShow = new ArrayList<Integer>();
+        OCFile file = getFile();
+        
+        FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+        boolean downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file);
+        FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+        boolean uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile());
+        
+        if (downloading || uploading) {
+            toHide.add(R.id.action_download_file);
+            toHide.add(R.id.action_rename_file);
+            toHide.add(R.id.action_remove_file);
+            toHide.add(R.id.action_open_file_with);
+            if (!downloading) {
+                toHide.add(R.id.action_cancel_download);
+                toShow.add(R.id.action_cancel_upload);
+            } else {
+                toHide.add(R.id.action_cancel_upload);
+                toShow.add(R.id.action_cancel_download);
+            }
+
+        } else if (file != null && file.isDown()) {
+            toHide.add(R.id.action_download_file);
+            toHide.add(R.id.action_cancel_download);
+            toHide.add(R.id.action_cancel_upload);
+            
+            toShow.add(R.id.action_rename_file);
+            toShow.add(R.id.action_remove_file);
+            toShow.add(R.id.action_open_file_with);
+            toShow.add(R.id.action_sync_file);
+            
+        } else if (file != null) {
+            toHide.add(R.id.action_open_file_with);
+            toHide.add(R.id.action_cancel_download);
+            toHide.add(R.id.action_cancel_upload);
+            toHide.add(R.id.action_sync_file);
+            
+            toShow.add(R.id.action_rename_file);
+            toShow.add(R.id.action_remove_file);
+            toShow.add(R.id.action_download_file);
+            
+        } else {
+            toHide.add(R.id.action_open_file_with);
+            toHide.add(R.id.action_cancel_download);
+            toHide.add(R.id.action_cancel_upload);
+            toHide.add(R.id.action_sync_file);
+            toHide.add(R.id.action_download_file);
+            toHide.add(R.id.action_rename_file);
+            toHide.add(R.id.action_remove_file);
+            
+        }
+        
+        // Options shareLink
+        if (!file.isShareByLink()) {
+            toHide.add(R.id.action_unshare_file);
+        } else {
+            toShow.add(R.id.action_unshare_file);
+        }
+        
+        MenuItem item = null;
+        for (int i : toHide) {
+            item = menu.findItem(i);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+        for (int i : toShow) {
+            item = menu.findItem(i);
+            if (item != null) {
+                item.setVisible(true);
+                item.setEnabled(true);
+            }
+        }
+    }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+                return true;
+            }
+            case R.id.action_unshare_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+                return true;
+            }
+            case R.id.action_open_file_with: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                activity.getFileOperationsHelper().openFile(getFile(), activity);
+                return true;
+            }
+            case R.id.action_remove_file: {
+                removeFile();
+                return true;
+            }
+            case R.id.action_rename_file: {
+                renameFile();
+                return true;
+            }
+            case R.id.action_download_file: 
+            case R.id.action_cancel_download:
+            case R.id.action_cancel_upload:
+            case R.id.action_sync_file: {
+                synchronizeFile();
+                return true;
+            }
+            case R.id.action_send_file: {
+                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                // Obtain the file
+                if (!getFile().isDown()) {  // Download the file                    
+                    Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
+                    activity.startDownloadForSending(getFile());
+                    
+                } else {
+                    activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+                }
+                return true;
+            }
+            default:
+                return false;
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fdDownloadBtn: {
-                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-                FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
-                    downloaderBinder.cancel(mAccount, mFile);
-                    if (mFile.isDown()) {
-                        setButtonsForDown();
-                    } else {
-                        setButtonsForRemote();
-                    }
-
-                } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile)) {
-                    uploaderBinder.cancel(mAccount, mFile);
-                    if (!mFile.fileExists()) {
-                        // TODO make something better
-                        if (getActivity() instanceof FileDisplayActivity) {
-                            // double pane
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null), FTAG); // empty FileDetailFragment
-                            transaction.commit();
-                            mContainerActivity.onFileStateChanged();
-                        } else {
-                            getActivity().finish();
-                        }
-                        
-                    } else if (mFile.isDown()) {
-                        setButtonsForDown();
-                    } else {
-                        setButtonsForRemote();
-                    }
-                    
-                } else {
-                    mLastRemoteOperation = new SynchronizeFileOperation(mFile, null, mStorageManager, mAccount, true, false, getActivity());
-                    WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                    mLastRemoteOperation.execute(wc, this, mHandler);
-                
-                    // update ui 
-                    boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                    getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-                    
-                }
-                break;
-            }
             case R.id.fdKeepInSync: {
-                CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
-                mFile.setKeepInSync(cb.isChecked());
-                mStorageManager.saveFile(mFile);
-                
-                /// register the OCFile instance in the observer service to monitor local updates;
-                /// if necessary, the file is download 
-                Intent intent = new Intent(getActivity().getApplicationContext(),
-                                           FileObserverService.class);
-                intent.putExtra(FileObserverService.KEY_FILE_CMD,
-                           (cb.isChecked()?
-                                   FileObserverService.CMD_ADD_OBSERVED_FILE:
-                                   FileObserverService.CMD_DEL_OBSERVED_FILE));
-                intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, mFile);
-                intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
-                getActivity().startService(intent);
-                
-                if (mFile.keepInSync()) {
-                    onClick(getView().findViewById(R.id.fdDownloadBtn));    // force an immediate synchronization
-                }
+                toggleKeepInSync();
                 break;
             }
-            case R.id.fdRenameBtn: {
-                String fileName = mFile.getFileName();
-                int extensionStart = mFile.isDirectory() ? -1 : fileName.lastIndexOf(".");
-                int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
-                dialog.show(getFragmentManager(), "nameeditdialog");
-                break;
-            }   
-            case R.id.fdRemoveBtn: {
-                ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                        R.string.confirmation_remove_alert,
-                        new String[]{mFile.getFileName()},
-                        mFile.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
-                        mFile.isDown() ? R.string.confirmation_remove_local : -1,
-                        R.string.common_cancel);
-                confDialog.setOnConfirmationListener(this);
-                confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-                break;
-            }
-            case R.id.fdOpenBtn: {
-                openFile();
+            case R.id.fdCancelBtn: {
+                synchronizeFile();
                 break;
             }
             default:
                 Log_OC.e(TAG, "Incorrect view clicked!");
         }
-        
-        /* else if (v.getId() == R.id.fdShareBtn) {
-            Thread t = new Thread(new ShareRunnable(mFile.getRemotePath()));
-            t.start();
-        }*/
     }
     
     
-    /**
-     * Opens mFile.
-     */
-    private void openFile() {
+    private void toggleKeepInSync() {
+        CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
+        OCFile file = getFile();
+        file.setKeepInSync(cb.isChecked());
+        mStorageManager.saveFile(file);
         
-        String storagePath = mFile.getStoragePath();
-        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mFile.getMimetype());
-            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivity(i);
-            
-        } catch (Throwable t) {
-            Log.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + mFile.getMimetype());
-            boolean toastIt = true; 
-            String mimeType = "";
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(mFile.getMimetype())) {
-                    if (mimeType != null) {
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                    } else {
-                        // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*/*");
-                    }
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    toastIt = false;
-                }
-                
-            } catch (IndexOutOfBoundsException e) {
-                Log.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                
-            } catch (ActivityNotFoundException e) {
-                Log.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                
-            } catch (Throwable th) {
-                Log.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                
-            } finally {
-                if (toastIt) {
-                    Toast.makeText(getActivity(), "There is no application to handle file " + mFile.getFileName(), Toast.LENGTH_SHORT).show();
-                }
+        /// register the OCFile instance in the observer service to monitor local updates;
+        /// if necessary, the file is download 
+        Intent intent = new Intent(getActivity().getApplicationContext(),
+                                   FileObserverService.class);
+        intent.putExtra(FileObserverService.KEY_FILE_CMD,
+                   (cb.isChecked()?
+                           FileObserverService.CMD_ADD_OBSERVED_FILE:
+                           FileObserverService.CMD_DEL_OBSERVED_FILE));
+        intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, file);
+        intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
+        getActivity().startService(intent);
+        
+        if (file.keepInSync()) {
+            synchronizeFile();   // force an immediate synchronization
+        }
+    }
+
+    private void removeFile() {
+        OCFile file = getFile();
+        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
+                R.string.confirmation_remove_alert,
+                new String[]{file.getFileName()},
+                file.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
+                file.isDown() ? R.string.confirmation_remove_local : -1,
+                R.string.common_cancel);
+        confDialog.setOnConfirmationListener(this);
+        confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
+    }
+
+
+    private void renameFile() {
+        OCFile file = getFile();
+        String fileName = file.getFileName();
+        int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
+        int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
+        EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
+        dialog.show(getFragmentManager(), "nameeditdialog");
+    }
+
+    private void synchronizeFile() {
+        OCFile file = getFile();
+        FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+        FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+        if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+            downloaderBinder.cancel(mAccount, file);
+            if (file.isDown()) {
+                setButtonsForDown();
+            } else {
+                setButtonsForRemote();
             }
+
+        } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
+            uploaderBinder.cancel(mAccount, file);
+            if (!file.fileExists()) {
+                // TODO make something better
+                ((FileDisplayActivity)getActivity()).cleanSecondFragment();
+                
+            } else if (file.isDown()) {
+                setButtonsForDown();
+            } else {
+                setButtonsForRemote();
+            }
+            
+        } else {
+            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, getActivity());
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
+            
+            // update ui 
+            ((FileDisplayActivity) getActivity()).showLoadingDialog();
             
         }
     }
 
-
     @Override
     public void onConfirmation(String callerTag) {
+        OCFile file = getFile();
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            if (mStorageManager.getFileById(mFile.getFileId()) != null) {
-                mLastRemoteOperation = new RemoveFileOperation( mFile, 
+            if (mStorageManager.getFileById(file.getFileId()) != null) {
+                mLastRemoteOperation = new RemoveFileOperation( file, 
                                                                 true, 
                                                                 mStorageManager);
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-                mLastRemoteOperation.execute(wc, this, mHandler);
-                
-                boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-                getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
+                                
+                ((FileDisplayActivity) getActivity()).showLoadingDialog();
             }
         }
     }
     
     @Override
     public void onNeutral(String callerTag) {
-        File f = null;
-        if (mFile.isDown() && (f = new File(mFile.getStoragePath())).exists()) {
-            f.delete();
-            mFile.setStoragePath(null);
-            mStorageManager.saveFile(mFile);
-            updateFileDetails(mFile, mAccount);
+        OCFile file = getFile();
+        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
+        if (file.getStoragePath() != null) {
+            file.setStoragePath(null);
+            updateFileDetails(file, mAccount);
         }
     }
     
     @Override
     public void onCancel(String callerTag) {
-        Log.d(TAG, "REMOVAL CANCELED");
+        Log_OC.d(TAG, "REMOVAL CANCELED");
     }
     
     
@@ -486,16 +540,9 @@ public class FileDetailFragment extends SherlockFragment implements
      * @return  True when the fragment was created with the empty layout.
      */
     public boolean isEmpty() {
-        return (mLayout == R.layout.file_details_empty || mFile == null || mAccount == null);
+        return (mLayout == R.layout.file_details_empty || getFile() == null || mAccount == null);
     }
 
-    
-    /**
-     * {@inheritDoc}
-     */
-    public OCFile getFile(){
-        return mFile;
-    }
     
     /**
      * Use this method to signal this Activity that it shall update its view.
@@ -503,7 +550,7 @@ public class FileDetailFragment extends SherlockFragment implements
      * @param file : An {@link OCFile}
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
-        mFile = file;
+        setFile(file);
         if (ocAccount != null && ( 
                 mStorageManager == null || 
                 (mAccount != null && !mAccount.equals(ocAccount))
@@ -532,30 +579,31 @@ public class FileDetailFragment extends SherlockFragment implements
         if (readyToShow()) {
             
             if (refresh && mStorageManager != null) {
-                mFile = mStorageManager.getFileByPath(mFile.getRemotePath());
+                setFile(mStorageManager.getFileByPath(getFile().getRemotePath()));
             }
+            OCFile file = getFile();
             
             // set file details
-            setFilename(mFile.getFileName());
-            setFiletype(mFile.getMimetype());
-            setFilesize(mFile.getFileLength());
+            setFilename(file.getFileName());
+            setFiletype(file.getMimetype());
+            setFilesize(file.getFileLength());
             if(ocVersionSupportsTimeCreated()){
-                setTimeCreated(mFile.getCreationTimestamp());
+                setTimeCreated(file.getCreationTimestamp());
             }
            
-            setTimeModified(mFile.getModificationTimestamp());
+            setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdKeepInSync);
-            cb.setChecked(mFile.keepInSync());
+            cb.setChecked(file.keepInSync());
 
             // configure UI for depending upon local state of the file
             //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile))) {
+            if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))) {
                 setButtonsForTransferring();
                 
-            } else if (mFile.isDown()) {
+            } else if (file.isDown()) {
                 
                 setButtonsForDown();
                 
@@ -567,14 +615,13 @@ public class FileDetailFragment extends SherlockFragment implements
         getView().invalidate();
     }
     
-    
     /**
      * Checks if the fragment is ready to show details of a OCFile
      *  
      * @return  'True' when the fragment is ready to show details of a file
      */
     private boolean readyToShow() {
-        return (mFile != null && mAccount != null && mLayout == R.layout.file_details_fragment);        
+        return (getFile() != null && mAccount != null && mLayout == R.layout.file_details_fragment);        
     }
 
 
@@ -644,26 +691,18 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setButtonsForTransferring() {
         if (!isEmpty()) {
-            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.common_cancel);
-            //downloadButton.setEnabled(false);
-        
             // let's protect the user from himself ;)
-            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
-            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(false);
-            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(false);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(false);
             
             // show the progress bar for the transfer
-            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
-            progressBar.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.VISIBLE);
             TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
             progressText.setVisibility(View.VISIBLE);
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFile)) {
+            if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
                 progressText.setText(R.string.downloader_download_in_progress_ticker);
-            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile)) {
+            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile())) {
                 progressText.setText(R.string.uploader_upload_in_progress_ticker);
             }
         }
@@ -674,17 +713,10 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setButtonsForDown() {
         if (!isEmpty()) {
-            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_sync_file);
-        
-            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(true);
-            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
-            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
             
             // hides the progress bar
-            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
-            progressBar.setVisibility(View.GONE);
+            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
             TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
             progressText.setVisibility(View.GONE);
         }
@@ -695,17 +727,10 @@ public class FileDetailFragment extends SherlockFragment implements
      */
     private void setButtonsForRemote() {
         if (!isEmpty()) {
-            Button downloadButton = (Button) getView().findViewById(R.id.fdDownloadBtn);
-            downloadButton.setText(R.string.filedetails_download);
-            
-            ((Button) getView().findViewById(R.id.fdOpenBtn)).setEnabled(false);
-            ((Button) getView().findViewById(R.id.fdRenameBtn)).setEnabled(true);
-            ((Button) getView().findViewById(R.id.fdRemoveBtn)).setEnabled(true);
             getView().findViewById(R.id.fdKeepInSync).setEnabled(true);
             
             // hides the progress bar
-            ProgressBar progressBar = (ProgressBar)getView().findViewById(R.id.fdProgressBar);
-            progressBar.setVisibility(View.GONE);
+            getView().findViewById(R.id.fdProgressBlock).setVisibility(View.GONE);
             TextView progressText = (TextView)getView().findViewById(R.id.fdProgressText);
             progressText.setVisibility(View.GONE);
         }
@@ -750,11 +775,11 @@ public class FileDetailFragment extends SherlockFragment implements
             if (!isEmpty() && accountName.equals(mAccount.name)) {
                 boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
                 String uploadRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-                boolean renamedInUpload = mFile.getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
-                if (mFile.getRemotePath().equals(uploadRemotePath) ||
+                boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+                if (getFile().getRemotePath().equals(uploadRemotePath) ||
                     renamedInUpload) {
                     if (uploadWasFine) {
-                        mFile = mStorageManager.getFileByPath(uploadRemotePath);
+                        setFile(mStorageManager.getFileByPath(uploadRemotePath));
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadRemotePath)).getName();
@@ -762,129 +787,29 @@ public class FileDetailFragment extends SherlockFragment implements
                         msg.show();
                     }
                     getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
+                    
                     updateFileDetails(false, false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
+                   
+                    // Force the preview if the file is an image
+                    if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(getFile());
+                    } 
                 }
             }
         }
     }
     
 
-    // this is a temporary class for sharing purposes, it need to be replaced in transfer service
-    @SuppressWarnings("unused")
-    private class ShareRunnable implements Runnable {
-        private String mPath;
-
-        public ShareRunnable(String path) {
-            mPath = path;
-        }
-        
-        public void run() {
-            AccountManager am = AccountManager.get(getActivity());
-            Account account = AccountUtils.getCurrentOwnCloudAccount(getActivity());
-            OwnCloudVersion ocv = new OwnCloudVersion(am.getUserData(account, AccountAuthenticator.KEY_OC_VERSION));
-            String url = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + AccountUtils.getWebdavPath(ocv);
-
-            Log.d("share", "sharing for version " + ocv.toString());
-
-            if (ocv.compareTo(new OwnCloudVersion(0x040000)) >= 0) {
-                String APPS_PATH = "/apps/files_sharing/";
-                String SHARE_PATH = "ajax/share.php";
-
-                String SHARED_PATH = "/apps/files_sharing/get.php?token=";
-                
-                final String WEBDAV_SCRIPT = "webdav.php";
-                final String WEBDAV_FILES_LOCATION = "/files/";
-                
-                WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(account, getActivity().getApplicationContext());
-                HttpConnectionManagerParams params = new HttpConnectionManagerParams();
-                params.setMaxConnectionsPerHost(wc.getHostConfiguration(), 5);
-
-                //wc.getParams().setParameter("http.protocol.single-cookie-header", true);
-                //wc.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-
-                PostMethod post = new PostMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + APPS_PATH + SHARE_PATH);
-
-                post.addRequestHeader("Content-type","application/x-www-form-urlencoded; charset=UTF-8" );
-                post.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-                Log.d("share", mPath+"");
-                formparams.add(new BasicNameValuePair("sources",mPath));
-                formparams.add(new BasicNameValuePair("uid_shared_with", "public"));
-                formparams.add(new BasicNameValuePair("permissions", "0"));
-                post.setRequestEntity(new StringRequestEntity(URLEncodedUtils.format(formparams, HTTP.UTF_8)));
-
-                int status;
-                try {
-                    PropFindMethod find = new PropFindMethod(url+"/");
-                    find.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                    Log.d("sharer", ""+ url+"/");
-                    
-                    for (org.apache.commons.httpclient.Header a : find.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
-                    }
-                    
-                    int status2 = wc.executeMethod(find);
-
-                    Log.d("sharer", "propstatus "+status2);
-                    
-                    GetMethod get = new GetMethod(am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + "/");
-                    get.addRequestHeader("Referer", am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL));
-                    
-                    status2 = wc.executeMethod(get);
-
-                    Log.d("sharer", "getstatus "+status2);
-                    Log.d("sharer", "" + get.getResponseBodyAsString());
-                    
-                    for (org.apache.commons.httpclient.Header a : get.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
-                    }
-
-                    status = wc.executeMethod(post);
-                    for (org.apache.commons.httpclient.Header a : post.getRequestHeaders()) {
-                        Log.d("sharer-h", a.getName() + ":"+a.getValue());
-                    }
-                    for (org.apache.commons.httpclient.Header a : post.getResponseHeaders()) {
-                        Log.d("sharer", a.getName() + ":"+a.getValue());
-                    }
-                    String resp = post.getResponseBodyAsString();
-                    Log.d("share", ""+post.getURI().toString());
-                    Log.d("share", "returned status " + status);
-                    Log.d("share", " " +resp);
-                    
-                    if(status != HttpStatus.SC_OK ||resp == null || resp.equals("") || resp.startsWith("false")) {
-                        return;
-                     }
-
-                    JSONObject jsonObject = new JSONObject (resp);
-                    String jsonStatus = jsonObject.getString("status");
-                    if(!jsonStatus.equals("success")) throw new Exception("Error while sharing file status != success");
-                    
-                    String token = jsonObject.getString("data");
-                    String uri = am.getUserData(account, AccountAuthenticator.KEY_OC_BASE_URL) + SHARED_PATH + token; 
-                    Log.d("Actions:shareFile ok", "url: " + uri);   
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                
-            } else if (ocv.compareTo(new OwnCloudVersion(0x030000)) >= 0) {
-                
-            }
-        }
-    }
-    
     public void onDismiss(EditNameDialog dialog) {
         if (dialog.getResult()) {
             String newFilename = dialog.getNewFilename();
-            Log.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-            mLastRemoteOperation = new RenameFileOperation( mFile, 
+            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
+            mLastRemoteOperation = new RenameFileOperation( getFile(), 
                                                             mAccount, 
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            WebdavClient wc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getSherlockActivity().getApplicationContext());
-            mLastRemoteOperation.execute(wc, this, mHandler);
-            boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-            getActivity().showDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
+            ((FileDisplayActivity) getActivity()).showLoadingDialog();
         }
     }
     
@@ -909,22 +834,12 @@ public class FileDetailFragment extends SherlockFragment implements
     
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-        
+        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
             msg.show();
-            if (inDisplayActivity) {
-                // double pane
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.file_details_container, new FileDetailFragment(null, null)); // empty FileDetailFragment
-                transaction.commit();
-                mContainerActivity.onFileStateChanged();
-            } else {
-                getActivity().finish();
-            }
-                
+            ((FileDisplayActivity)getActivity()).cleanSecondFragment();
+
         } else {
             Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
             msg.show();
@@ -935,8 +850,7 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
+        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
         
         if (result.isSuccess()) {
             updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
@@ -947,6 +861,9 @@ public class FileDetailFragment extends SherlockFragment implements
                 Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
                 // TODO throw again the new rename dialog
+            } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
+                Toast msg = Toast.makeText(getActivity(), R.string.filename_forbidden_characters, Toast.LENGTH_LONG);
+                msg.show();
             } else {
                 Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
                 msg.show();
@@ -958,22 +875,18 @@ public class FileDetailFragment extends SherlockFragment implements
     }
     
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
-        boolean inDisplayActivity = getActivity() instanceof FileDisplayActivity;
-        getActivity().dismissDialog((inDisplayActivity)? FileDisplayActivity.DIALOG_SHORT_WAIT : FileDetailActivity.DIALOG_SHORT_WAIT);
-
+        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
+        OCFile file = getFile();
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, mFile);
+                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
                 i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
                 startActivity(i);
                 
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-            }
+            } 
             
-            if (mFile.isDown()) {
+            if (file.isDown()) {
                 setButtonsForDown();
                 
             } else {
@@ -988,7 +901,7 @@ public class FileDetailFragment extends SherlockFragment implements
             } else {
                 Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
                 msg.show();
-                if (mFile.isDown()) {
+                if (file.isDown()) {
                     setButtonsForDown();
                     
                 } else {
@@ -998,14 +911,14 @@ public class FileDetailFragment extends SherlockFragment implements
         }
     }
     
-    
+
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileUploaderBinder().addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -1014,10 +927,10 @@ public class FileDetailFragment extends SherlockFragment implements
     public void leaveTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
             if (mContainerActivity.getFileUploaderBinder() != null) {
-                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, mFile);
+                mContainerActivity.getFileUploaderBinder().removeDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
         }
     }
@@ -1037,11 +950,6 @@ public class FileDetailFragment extends SherlockFragment implements
             mProgressBar = new WeakReference<ProgressBar>(progressBar);
         }
         
-        @Override
-        public void onTransferProgress(long progressRate) {
-            // old method, nothing here
-        };
-
         @Override
         public void onTransferProgress(long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename) {
             int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));

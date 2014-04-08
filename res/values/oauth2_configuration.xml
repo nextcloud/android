@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- constants that must be respected by the authorization server; if changed, the app must be rebuild -->
+    <string name="oauth2_redirect_scheme">owncloud</string>
+    <string name="oauth2_redirect_uri">owncloud://callback</string>
+    
+    <!-- values that should be provided by ownCloud server -->
+    <string name="oauth2_url_endpoint_auth">http://oauth2.authorization.server.org/paht/to/endpoint/for/authorization</string>
+    <string name="oauth2_url_endpoint_access">http://oauth2.authorization.server.org/paht/to/endporint/for/access/token</string>
+    <string name="oauth2_scope">owncloud</string>
+    <string name="oauth2_grant_type">authorization_code</string>	<!-- the only one supported right now -->
+    <string name="oauth2_response_type">code</string>				<!-- depends on oauth2_grant_type -->
+    
+    <!-- values that should be pre-agreed between app and authorization server, but can be loaded without rebuilding the app -->
+    <string name="oauth2_client_id">com.owncloud.android</string>	<!-- preferable that client decides this -->
+    <string name="oauth2_client_secret"></string>					<!-- preferable that client decides this -->
+    
+</resources>

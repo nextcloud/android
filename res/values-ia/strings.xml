@@ -1,20 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="main_files">Files</string>
-  <string name="main_music">Musica</string>
-  <string name="main_contacts">Contactos</string>
-  <string name="main_settings">Configurationes</string>
   <string name="actionbar_upload">Incargar</string>
   <string name="actionbar_upload_files">Files</string>
   <string name="actionbar_settings">Configurationes</string>
+  <string name="actionbar_send_file">Invia</string>
+  <string name="prefs_category_general">General</string>
+  <string name="prefs_category_more">Plus</string>
+  <string name="prefs_help">Adjuta</string>
   <string name="auth_username">Nomine de usator</string>
   <string name="auth_password">Contrasigno</string>
   <string name="sync_string_files">Files</string>
-  <string name="setup_hint_username">Nomine de usator</string>
-  <string name="setup_hint_password">Contrasigno</string>
+  <string name="setup_btn_connect">Connecte</string>
   <string name="uploader_btn_upload_text">Incargar</string>
   <string name="filedetails_download">Discargar</string>
   <string name="common_cancel">Cancellar</string>
-  <string name="sync_string_contacts">Contactos</string>
-  <string name="common_share">Compartir</string>
+  <string name="common_error">Error</string>
+  <string name="common_error_unknown">Error Incognite</string>
+  <string name="change_password">Cambiar contrasigno</string>
+  <string name="activity_chooser_send_file_title">Invia</string>
 </resources>

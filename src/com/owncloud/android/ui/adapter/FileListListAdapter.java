@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,18 +17,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.util.Vector;
-
-import com.owncloud.android.AccountUtils;
-import com.owncloud.android.DisplayUtils;
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
-
-import com.owncloud.android.R;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -39,6 +27,19 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+
+import java.util.Vector;
+
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.utils.DisplayUtils;
+
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -51,19 +52,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
-
-    public FileListListAdapter(OCFile file, DataStorageManager storage_man,
-            Context context, TransferServiceGetter transferServiceGetter) {
-        mStorageManager = storage_man;
+    
+    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
-        swapDirectory(file, mStorageManager);
-        /*mFile = file;
-        mFiles = mStorageManager.getDirectoryContent(mFile);*/
     }
 
     @Override
@@ -108,6 +104,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_item, null);
         }
+    
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
@@ -131,13 +128,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 localStateView.setVisibility(View.INVISIBLE);
             }
-
             
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             
-            if (!file.isDirectory()) {
+            if (!file.isFolder()) {
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
@@ -162,11 +158,22 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
                 
+            } 
+            else {
+                
+                fileSizeV.setVisibility(View.INVISIBLE);
+                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
+                checkBoxV.setVisibility(View.GONE);
+                view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+            }
+            
+            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
+            if (file.isShareByLink()) {
+                shareIconV.setVisibility(View.VISIBLE);
             } else {
-               fileSizeV.setVisibility(View.GONE);
-               lastModV.setVisibility(View.GONE);
-               checkBoxV.setVisibility(View.GONE);
-               view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+                shareIconV.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -193,14 +200,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      * @param directory                 New file to adapt. Can be NULL, meaning "no content to adapt".
      * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, DataStorageManager updatedStorageManager) {
+    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            mFiles = mStorageManager.getDirectoryContent(mFile);
+            mFiles = mStorageManager.getFolderContent(mFile);
         } else {
             mFiles = null;
         }

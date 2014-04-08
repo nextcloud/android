@@ -11,9 +11,24 @@
 # generated files
 bin/
 gen/
+target/
 
-# Local configuration file (sdk path, etc)
+# Local configuration files (sdk path, etc)
 local.properties
+oc_workaround/local.properties
+oc_framework/local.properties
+oc_framework-test-project/local.properties
+tests/local.properties
 
 # Mac .DS_Store files
 .DS_Store
+
+# Proguard README
+proguard-project.txt
+oc_workaround/proguard-project.txt
+oc_framework/proguard-project.txt
+oc_framework-test-project/proguard-project.txt
+tests/proguard-project.txt
+
+# Should not be commited inside this repo:
+actionbarsherlock/

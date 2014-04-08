@@ -37,11 +37,12 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import com.owncloud.android.Log_OC;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.FileDetailActivity;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.utils.Log_OC;
+
 
 /**
  * Service that handles media playback, both audio and video. 
@@ -532,9 +533,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     @SuppressWarnings("deprecation")
     private void updateNotification(String content) {
         // TODO check if updating the Intent is really necessary
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
                                                                 (int)System.currentTimeMillis(), 
@@ -569,9 +570,9 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         
         /// includes a pending intent in the notification showing the details view of the file
-        Intent showDetailsIntent = new Intent(this, FileDetailActivity.class);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_FILE, mFile);
-        showDetailsIntent.putExtra(FileDetailFragment.EXTRA_ACCOUNT, mAccount);
+        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, mFile);
+        showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotification.contentIntent = PendingIntent.getActivity(getApplicationContext(), 
                                                                 (int)System.currentTimeMillis(), 

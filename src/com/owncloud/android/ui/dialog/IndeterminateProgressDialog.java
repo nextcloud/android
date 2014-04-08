@@ -27,6 +27,7 @@ import android.view.KeyEvent;
 import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 
+
 public class IndeterminateProgressDialog extends SherlockDialogFragment {
 
     private static final String ARG_MESSAGE_ID = IndeterminateProgressDialog.class.getCanonicalName() + ".ARG_MESSAGE_ID";

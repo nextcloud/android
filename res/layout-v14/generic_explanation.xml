@@ -19,7 +19,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/owncloud_white" 
+    android:background="@color/background_color" 
     android:id="@+id/explanation"
     android:orientation="vertical">
 
@@ -30,7 +30,7 @@
 		android:layout_weight="2"
 	    android:padding="10dip"
 	    android:scrollbarAlwaysDrawVerticalTrack="true"
-		android:text="@string/text_placeholder" 
+		android:text="@string/placeholder_sentence" 
 		/>
     
 	<ListView 

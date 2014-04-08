@@ -22,13 +22,15 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.owncloud.android.Log_OC;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.OwnCloudFileObserver;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
+
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -40,7 +42,6 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 public class FileObserverService extends Service {
 
@@ -57,7 +58,7 @@ public class FileObserverService extends Service {
     private static Map<String, OwnCloudFileObserver> mObserversMap;
     private static DownloadCompletedReceiverBis mDownloadReceiver;
     private IBinder mBinder = new LocalBinder();
-
+    
     public class LocalBinder extends Binder {
         FileObserverService getService() {
             return FileObserverService.this;
@@ -68,9 +69,10 @@ public class FileObserverService extends Service {
     public void onCreate() {
         super.onCreate();
         mDownloadReceiver = new DownloadCompletedReceiverBis();
+        
         IntentFilter filter = new IntentFilter();
-        filter.addAction(FileDownloader.DOWNLOAD_ADDED_MESSAGE);
-        filter.addAction(FileDownloader.DOWNLOAD_FINISH_MESSAGE);        
+        filter.addAction(FileDownloader.getDownloadAddedMessage());
+        filter.addAction(FileDownloader.getDownloadFinishMessage());        
         registerReceiver(mDownloadReceiver, filter);
         
         mObserversMap = new HashMap<String, OwnCloudFileObserver>();
@@ -140,7 +142,7 @@ public class FileObserverService extends Service {
                 null);
         if (c == null || !c.moveToFirst()) return;
         AccountManager acm = AccountManager.get(this);
-        Account[] accounts = acm.getAccounts();
+        Account[] accounts = acm.getAccountsByType(MainApp.getAccountType());
         do {
             Account account = null;
             for (Account a : accounts)
@@ -161,8 +163,7 @@ public class FileObserverService extends Service {
             OwnCloudFileObserver observer =
                     new OwnCloudFileObserver(   path, 
                                                 account, 
-                                                getApplicationContext(), 
-                                                OwnCloudFileObserver.CHANGES_ONLY);
+                                                getApplicationContext());
             mObserversMap.put(path, observer);
             if (new File(path).exists()) {
                 observer.startWatching();
@@ -201,8 +202,7 @@ public class FileObserverService extends Service {
             /// the local file was never registered to observe before
             observer = new OwnCloudFileObserver(    localPath, 
                                                     account, 
-                                                    getApplicationContext(), 
-                                                    OwnCloudFileObserver.CHANGES_ONLY);
+                                                    getApplicationContext());
             mObserversMap.put(localPath, observer);
             Log_OC.d(TAG, "Observer added for path " + localPath);
         
@@ -260,12 +260,12 @@ public class FileObserverService extends Service {
             String downloadPath = intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH);
             OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
             if (observer != null) {
-                if (intent.getAction().equals(FileDownloader.DOWNLOAD_FINISH_MESSAGE) &&
+                if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage()) &&
                         new File(downloadPath).exists()) {  // the download could be successful. not; in both cases, the file could be down, due to a former download or upload   
                     observer.startWatching();
                     Log_OC.d(TAG, "Watching again " + downloadPath);
                 
-                } else if (intent.getAction().equals(FileDownloader.DOWNLOAD_ADDED_MESSAGE)) {
+                } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
                     observer.stopWatching();
                     Log_OC.d(TAG, "Disabling observance of " + downloadPath);
                 } 

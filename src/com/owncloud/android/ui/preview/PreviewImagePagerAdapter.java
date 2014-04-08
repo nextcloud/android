@@ -16,29 +16,22 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.ui.fragment.FileFragment;
+
 import android.accounts.Account;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
-import com.owncloud.android.datamodel.DataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 
 /**
  * Adapter class that provides Fragment instances  
@@ -48,24 +41,14 @@ import com.owncloud.android.ui.fragment.FileFragment;
 //public class PreviewImagePagerAdapter extends PagerAdapter {
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     
-    private static final String TAG = PreviewImagePagerAdapter.class.getSimpleName();
-            
     private Vector<OCFile> mImageFiles;
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
-    private DataStorageManager mStorageManager;
+    private FileDataStorageManager mStorageManager;
     
     private Map<Integer, FileFragment> mCachedFragments;
-
-    /*
-    private final FragmentManager mFragmentManager;
-    private FragmentTransaction mCurTransaction = null;
-    private ArrayList<Fragment.SavedState> mSavedState = new ArrayList<Fragment.SavedState>();
-    private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
-    private Fragment mCurrentPrimaryItem = null;
-    */
 
     /**
      * Constructor.
@@ -74,7 +57,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param parentFolder      Folder where images will be searched for.
      * @param storageManager    Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, DataStorageManager storageManager) {
+    public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder, Account account, FileDataStorageManager storageManager) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -89,7 +72,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getDirectoryImages(parentFolder); 
+        mImageFiles = mStorageManager.getFolderImages(parentFolder); 
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
         mDownloadErrors = new HashSet<Integer>();
@@ -196,8 +179,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mDownloadErrors.contains(Integer.valueOf(position));
     }
 
-
-    
     /* -*
      * Called when a change in the shown pages is going to start being made.
      * 
