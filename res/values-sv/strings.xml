@@ -29,6 +29,7 @@
   <string name="prefs_feedback">Återkoppling</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Försök %1$s på din smarttelefon!</string>
+  <string name="recommend_text">\"Jag vill bjuda in dig att använda %1$s på din smartphone\nLadda ner här: %2$s\"\n\t</string>
   <string name="auth_check_server">Kontrollera Server</string>
   <string name="auth_host_url">Serveradress https://...</string>
   <string name="auth_username">Användarnamn</string>
@@ -132,6 +133,7 @@
   <string name="media_rewind_description">Bakåtspolningsknapp</string>
   <string name="media_play_pause_description">Spela- / Pausknapp</string>
   <string name="media_forward_description">Snappspolningsknapp</string>
+  <string name="auth_getting_authorization">Får tillstånd...</string>
   <string name="auth_trying_to_login">Försöker logga in...</string>
   <string name="auth_no_net_conn_title">Ingen nätverksanslutning</string>
   <string name="auth_nossl_plain_ok_title">Säker anslutning inte tillgänglig.</string>
@@ -160,6 +162,7 @@
   <string name="auth_connecting_auth_server">Ansluter till autentiseringsservern...</string>
   <string name="auth_unsupported_auth_method">Servern har inte stöd för denna autentiseringsmetod</string>
   <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
+  <string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör\n\t</string>
   <string name="auth_can_not_auth_against_server">Kan inte autentisera mot denna servern</string>
   <string name="fd_keep_in_sync">Håll filen uppdaterad</string>
   <string name="common_rename">Byt namn</string>
@@ -236,6 +239,7 @@
   <string name="failed_upload_retry_do_nothing_text">Du är inte ansluten, direktuppladdning ej möjligt</string>
   <string name="failed_upload_failure_text">Felmeddelande:</string>
   <string name="failed_upload_quota_exceeded_text">Vänligen kontrollera dina serverkonfiguration. Din kvot kan ha överskridits.</string>
+  <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din\n\t\tadministratör.</string>
   <string name="share_link_file_no_exist">Kan inte dela denna fil eller mapp. Se till att den existerar</string>
   <string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
   <string name="unshare_link_file_no_exist">Kan inte ta bort delningen för denna fil eller mapp. Den existerar inte.</string>
@@ -243,4 +247,5 @@
   <string name="activity_chooser_send_file_title">Skicka</string>
   <string name="copy_link">Kopiera länk</string>
   <string name="clipboard_text_copied">Kopierat till urklipp</string>
+  <string name="error_cant_bind_to_operations_service">Kritiskt fel: kan inte utföra operationer</string>
 </resources>
