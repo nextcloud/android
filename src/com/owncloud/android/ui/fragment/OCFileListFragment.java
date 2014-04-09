@@ -212,7 +212,15 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         int height = mList.getHeight();
         
         if (indexPosition > height) {
-            mList.smoothScrollToPosition(index);
+            if (android.os.Build.VERSION.SDK_INT >= 11)
+            {
+                mList.smoothScrollToPosition(index); 
+            }
+            else if (android.os.Build.VERSION.SDK_INT >= 8)
+            {
+                mList.setSelectionFromTop(index, 0);
+            }
+            
         }
     }
     
