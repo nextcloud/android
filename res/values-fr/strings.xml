@@ -133,6 +133,7 @@
   <string name="media_rewind_description">Bouton de rem-bobinage</string>
   <string name="media_play_pause_description">Bouton de Lecture ou de Pause</string>
   <string name="media_forward_description">Bouton d\'avance rapide</string>
+  <string name="auth_getting_authorization">Demande d\'autorisation...</string>
   <string name="auth_trying_to_login">Tentative de connexion …</string>
   <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
   <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
@@ -161,6 +162,7 @@
   <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification...</string>
   <string name="auth_unsupported_auth_method">Le serveur ne supporte pas cette méthode d\'authentification</string>
   <string name="auth_unsupported_multiaccount">%1$s ne supporte pas les comptes multiples</string>
+  <string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur\n</string>
   <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
   <string name="fd_keep_in_sync">Maintenir le fichier à jour</string>
   <string name="common_rename">Renommer</string>
@@ -245,4 +247,5 @@
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
   <string name="clipboard_text_copied">Copié dans le presse-papiers</string>
+  <string name="error_cant_bind_to_operations_service">Erreur critique : l\'opération n\'a pu être réalisée</string>
 </resources>
