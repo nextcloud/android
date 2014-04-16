@@ -118,10 +118,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log_OC.w(TAG, "New photo received");
         }
         else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
-            if (!isConnectedViaWiFi(context)) {
-                Log_OC.e(TAG, "No Wifi available .. Video instant upload only possible if WiFi is on");
-                return;
-            }
             String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE };
             c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
             if (!c.moveToFirst()) {
