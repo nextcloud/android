@@ -219,6 +219,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// initialize general UI elements
         initOverallUi(savedInstanceState);
         
+        mOkButton = findViewById(R.id.buttonOK);
+
         /// initialize block to be moved to single Fragment to check server and get info about it 
         initServerPreFragment(savedInstanceState);
         
@@ -426,7 +428,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
         mAuthStatusView = (TextView) findViewById(R.id.auth_status_text); 
-        mOkButton = findViewById(R.id.buttonOK);
         
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         String presetUserName = null;
