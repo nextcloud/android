@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -65,6 +65,11 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ? OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
     private static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
+
+    private static final String KEY_INDEXES = "INDEXES";
+    private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
+    private static final String KEY_TOPS = "TOPS";
+    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     
     private OCFileListFragment.ContainerActivity mContainerActivity;
     
@@ -73,6 +78,13 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     private Handler mHandler;
     private OCFile mTargetFile;
+
+    // Save the state of the scroll in browsing
+    private ArrayList<Integer> mIndexes;
+    private ArrayList<Integer> mFirstPositions;
+    private ArrayList<Integer> mTops;
+
+    private int mHeightCell = 0;
     
     /**
      * {@inheritDoc}
@@ -87,8 +99,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             throw new ClassCastException(activity.toString() + " must implement " + OCFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -99,7 +111,19 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
+            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
+            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+            
+        } else {
+            mIndexes = new ArrayList<Integer>();
+            mFirstPositions = new ArrayList<Integer>();
+            mTops = new ArrayList<Integer>();
+            mHeightCell = 0;
+            
         }
+        
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
@@ -116,9 +140,12 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(EXTRA_FILE, mFile);
+        outState.putIntegerArrayList(KEY_INDEXES, mIndexes);
+        outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
+        outState.putIntegerArrayList(KEY_TOPS, mTops);
+        outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
     }
-
-
+    
     /**
      * Call this, when the user presses the up button.
      * 
@@ -156,9 +183,64 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             listDirectory(mFile);
 
             mContainerActivity.startSyncFolderOperation(mFile);
+            
+            // restore index and top position
+            restoreIndexAndTopPosition();
+            
         }   // else - should never happen now
    
         return moveCount;
+    }
+    
+    /*
+     * Restore index and position
+     */
+    private void restoreIndexAndTopPosition() {
+        int index = mIndexes.get(mIndexes.size() - 1);
+        mIndexes.remove(mIndexes.size() - 1);
+        
+        int firstPosition = mFirstPositions.get(mFirstPositions.size() - 1);
+        mFirstPositions.remove(mFirstPositions.size() -1);
+        
+        int top = mTops.get(mTops.size() - 1);
+        mTops.remove(mTops.size() - 1);
+        
+        mList.setSelectionFromTop(firstPosition, top);
+        
+        // Move the scroll if the selection is not visible
+        int indexPosition = mHeightCell*index;
+        int height = mList.getHeight();
+        
+        if (indexPosition > height) {
+            if (android.os.Build.VERSION.SDK_INT >= 11)
+            {
+                mList.smoothScrollToPosition(index); 
+            }
+            else if (android.os.Build.VERSION.SDK_INT >= 8)
+            {
+                mList.setSelectionFromTop(index, 0);
+            }
+            
+        }
+    }
+    
+    /*
+     * Save index and top position
+     */
+    private void saveIndexAndTopPosition(int index) {
+        
+        mIndexes.add(index);
+        
+        int firstPosition = mList.getFirstVisiblePosition();
+        mFirstPositions.add(firstPosition);
+        
+        View view = mList.getChildAt(0);
+        int top = (view == null) ? 0 : view.getTop() ;
+
+        mTops.add(top);
+        
+        // Save the height of a cell
+        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
     }
     
     @Override
@@ -170,6 +252,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
                 listDirectory(file);
                 // then, notify parent activity to let it update its state and view, and other fragments
                 mContainerActivity.onBrowsedDownTo(file);
+                // save index and top position
+                saveIndexAndTopPosition(position);
                 
             } else { /// Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
