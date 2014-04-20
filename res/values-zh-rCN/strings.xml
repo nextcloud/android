@@ -124,6 +124,7 @@
   <string name="media_rewind_description">后退按钮</string>
   <string name="media_play_pause_description">播放暂停按钮</string>
   <string name="media_forward_description">快进按钮</string>
+  <string name="auth_getting_authorization">正在认证...</string>
   <string name="auth_trying_to_login">尝试登录</string>
   <string name="auth_no_net_conn_title">没有网络连接</string>
   <string name="auth_nossl_plain_ok_title">安全链接无效。</string>
@@ -144,6 +145,7 @@
   <string name="auth_oauth_error_access_denied">访问被认证服务器拒绝</string>
   <string name="auth_wtf_reenter_URL">意外状态；请再次输入服务器的地址</string>
   <string name="auth_expired_basic_auth_toast">请输入当前密码：</string>
+  <string name="auth_fail_get_user_name">您的服务器没有返回一个正确的用户 id，请联系管理员\n\t</string>
   <string name="fd_keep_in_sync">保证文件更新</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
@@ -187,6 +189,8 @@
   <string name="ssl_validator_label_validity_to">到：</string>
   <string name="ssl_validator_label_signature">签名：</string>
   <string name="ssl_validator_label_signature_algorithm">算法：</string>
+  <string name="ssl_validator_null_cert">无法显示证书。</string>
+  <string name="ssl_validator_no_info_about_error">- 没有关于该错误的有效信息</string>
   <string name="placeholder_sentence">占位符</string>
   <string name="placeholder_filename">点位符.txt</string>
   <string name="placeholder_filetype">PNG图像格式</string>
@@ -212,9 +216,13 @@
   <string name="failed_upload_retry_do_nothing_text">不在线时不开启即时上传</string>
   <string name="failed_upload_failure_text">失败消息</string>
   <string name="failed_upload_quota_exceeded_text">请检查服务器设置。可能走出配额。</string>
+  <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
   <string name="share_link_file_no_exist">无法共享该文件或目录，请确定该文件或目录存在</string>
   <string name="share_link_file_error">共享文件或目录出错</string>
+  <string name="unshare_link_file_no_exist">不能取消该文件或文件夹的共享，因为它不存在。</string>
   <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
   <string name="activity_chooser_send_file_title">发送</string>
+  <string name="copy_link">复制链接</string>
   <string name="clipboard_text_copied">复制到剪贴板</string>
+  <string name="error_cant_bind_to_operations_service">关键性错误：无法执行相关操作</string>
 </resources>
