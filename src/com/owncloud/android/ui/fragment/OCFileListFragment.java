@@ -196,31 +196,32 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
      * Restore index and position
      */
     private void restoreIndexAndTopPosition() {
-        int index = mIndexes.get(mIndexes.size() - 1);
-        mIndexes.remove(mIndexes.size() - 1);
-        
-        int firstPosition = mFirstPositions.get(mFirstPositions.size() - 1);
-        mFirstPositions.remove(mFirstPositions.size() -1);
-        
-        int top = mTops.get(mTops.size() - 1);
-        mTops.remove(mTops.size() - 1);
-        
-        mList.setSelectionFromTop(firstPosition, top);
-        
-        // Move the scroll if the selection is not visible
-        int indexPosition = mHeightCell*index;
-        int height = mList.getHeight();
-        
-        if (indexPosition > height) {
-            if (android.os.Build.VERSION.SDK_INT >= 11)
-            {
-                mList.smoothScrollToPosition(index); 
-            }
-            else if (android.os.Build.VERSION.SDK_INT >= 8)
-            {
-                mList.setSelectionFromTop(index, 0);
-            }
+        if (mIndexes.size() > 0) {  
+            // needs to be checked; not every browse-up had a browse-down before 
             
+            int index = mIndexes.remove(mIndexes.size() - 1);
+            
+            int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
+            
+            int top = mTops.remove(mTops.size() - 1);
+            
+            mList.setSelectionFromTop(firstPosition, top);
+            
+            // Move the scroll if the selection is not visible
+            int indexPosition = mHeightCell*index;
+            int height = mList.getHeight();
+            
+            if (indexPosition > height) {
+                if (android.os.Build.VERSION.SDK_INT >= 11)
+                {
+                    mList.smoothScrollToPosition(index); 
+                }
+                else if (android.os.Build.VERSION.SDK_INT >= 8)
+                {
+                    mList.setSelectionFromTop(index, 0);
+                }
+                
+            }
         }
     }
     
