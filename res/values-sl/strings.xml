@@ -37,6 +37,7 @@
   <string name="sync_string_files">Datoteke</string>
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Pošlji</string>
+  <string name="uploader_top_message">Izbor mape za pošiljanje:</string>
   <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
   <string name="uploader_wrn_no_account_text">Na napravi ni računov %1$s. Nastaviti je treba vsaj en račun.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
@@ -129,6 +130,7 @@
   <string name="media_rewind_description">Vrni nazaj</string>
   <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
   <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
+  <string name="auth_getting_authorization">Pridobivanje overitve ...</string>
   <string name="auth_trying_to_login">Poskus prijave …</string>
   <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
   <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
@@ -174,6 +176,7 @@
   <string name="rename_server_fail_msg">Preimenovanja ni možno dokončati</string>
   <string name="sync_file_fail_msg">Oddaljene datoteke ni mogoče preveriti</string>
   <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
+  <string name="create_dir_fail_msg">Mape ni mogoče ustvariti</string>
   <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Počakajte trenutek ...</string>
   <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusite datoteko izbrati z drugim programom.</string>
@@ -220,6 +223,7 @@
   <string name="conflict_dont_upload">Ne pošlji</string>
   <string name="preview_image_description">Predogled slike</string>
   <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
+  <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
   <string name="actionbar_failed_instant_upload">Spodletelo takojšnje pošiljanje</string>
   <string name="failed_upload_headline_text">Spodletela takojšnja pošiljanja</string>
   <string name="failed_upload_headline_hint">Povzetek vseh spodletelih takojšnjih pošiljanj</string>
@@ -238,4 +242,5 @@
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>
   <string name="clipboard_text_copied">Kopirano v odložišče</string>
+  <string name="error_cant_bind_to_operations_service">Kritična napaka: ni mogoče izvesti opravila.</string>
 </resources>
