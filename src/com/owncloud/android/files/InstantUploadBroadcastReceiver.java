@@ -59,43 +59,29 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION)) {
             handleConnectivityAction(context, intent);
         }else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
-            handleNewMediaAction(context, intent); 
+            handleNewPictureAction(context, intent); 
             Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
-            handleNewMediaAction(context, intent); 
+            handleNewPictureAction(context, intent); 
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
             Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
-            handleNewMediaAction(context, intent);
-        } else if (intent.getAction().equals(FileUploader.getUploadFinishMessage())) {
-            handleUploadFinished(context, intent);
+            handleNewVideoAction(context, intent);
         } else {
             Log_OC.e(TAG, "Incorrect intent sent: " + intent.getAction());
         }
     }
 
-    private void handleUploadFinished(Context context, Intent intent) {
-        // remove successfull uploading, ignore rest for reupload on reconnect
-        /*
-        if (intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false)) {
-            DbHandler db = new DbHandler(context);
-            String localPath = intent.getStringExtra(FileUploader.EXTRA_OLD_FILE_PATH);
-            if (!db.removeIUPendingFile(localPath)) {
-                Log_OC.w(TAG, "Tried to remove non existing instant upload file " + localPath);
-            }
-            db.close();
-        }
-        */
-    }
-
-    private void handleNewMediaAction(Context context, Intent intent) {
+    private void handleNewPictureAction(Context context, Intent intent) {
         Cursor c = null;
         String file_path = null;
         String file_name = null;
         String mime_type = null;
 
-        if (!instantUploadEnabled(context)) {
-            Log_OC.d(TAG, "Instant upload disabled, aborting uploading");
+        Log_OC.w(TAG, "New photo received");
+        
+        if (!instantPictureUploadEnabled(context)) {
+            Log_OC.d(TAG, "Instant picture upload disabled, ignoring new picture");
             return;
         }
 
@@ -105,52 +91,72 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        if (intent.getAction().equals(NEW_PHOTO_ACTION) || intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
-            String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
-            c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
-            if (!c.moveToFirst()) {
-                Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
-                return;
-            }
-            file_path = c.getString(c.getColumnIndex(Images.Media.DATA));
-            file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
-            mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
-            Log_OC.w(TAG, "New photo received");
+        String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+        c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
+        if (!c.moveToFirst()) {
+            Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
+            return;
         }
-        else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
-            String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE };
-            c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
-            if (!c.moveToFirst()) {
-                Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
-                return;
-            } 
-            file_path = c.getString(c.getColumnIndex(Video.Media.DATA));
-            file_name = c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
-            mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
-            Log_OC.w(TAG, "New video received");
-        }
+        file_path = c.getString(c.getColumnIndex(Images.Media.DATA));
+        file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
+        mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
         c.close();
+        
         Log_OC.d(TAG, file_path + "");
 
-        // same always temporally the picture to upload
+        // save always temporally the picture to upload
         DbHandler db = new DbHandler(context);
         db.putFileForLater(file_path, account.name, null);
         db.close();
 
-        if (!isOnline(context) || (instantUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
+        if (!isOnline(context) || (instantPictureUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
             return;
         }
 
-        // register for upload finishe message
-        // there is a litte problem with android API, we can register for
-        // particular
-        // intent in registerReceiver but we cannot unregister from precise
-        // intent
-        // we can unregister from entire listenings but thats suck a bit.
-        // On the other hand this might be only for dynamicly registered
-        // broadcast receivers, needs investigation.
-        /*IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-        context.getApplicationContext().registerReceiver(this, filter);*/
+        Intent i = new Intent(context, FileUploader.class);
+        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+        i.putExtra(FileUploader.KEY_LOCAL_FILE, file_path);
+        i.putExtra(FileUploader.KEY_REMOTE_FILE, FileStorageUtils.getInstantUploadFilePath(context, file_name));
+        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+        i.putExtra(FileUploader.KEY_MIME_TYPE, mime_type);
+        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+        context.startService(i);
+    }
+
+    private void handleNewVideoAction(Context context, Intent intent) {
+        Cursor c = null;
+        String file_path = null;
+        String file_name = null;
+        String mime_type = null;
+
+        Log_OC.w(TAG, "New video received");
+        
+        if (!instantVideoUploadEnabled(context)) {
+            Log_OC.d(TAG, "Instant video upload disabled, ignoring new video");
+            return;
+        }
+
+        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+        if (account == null) {
+            Log_OC.w(TAG, "No owncloud account found for instant upload, aborting");
+            return;
+        }
+
+        String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE, Video.Media.SIZE };
+        c = context.getContentResolver().query(intent.getData(), CONTENT_PROJECTION, null, null, null);
+        if (!c.moveToFirst()) {
+            Log_OC.e(TAG, "Couldn't resolve given uri: " + intent.getDataString());
+            return;
+        } 
+        file_path = c.getString(c.getColumnIndex(Video.Media.DATA));
+        file_name = c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
+        mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
+        c.close();
+        Log_OC.d(TAG, file_path + "");
+
+        if (!isOnline(context) || (instantVideoUploadViaWiFiOnly(context) && !isConnectedViaWiFi(context))) {
+            return;
+        }
 
         Intent i = new Intent(context, FileUploader.class);
         i.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -164,19 +170,17 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleConnectivityAction(Context context, Intent intent) {
-        if (!instantUploadEnabled(context)) {
-            Log_OC.d(TAG, "Instant upload disabled, abording uploading");
+        if (!instantPictureUploadEnabled(context)) {
+            Log_OC.d(TAG, "Instant upload disabled, don't upload anything");
             return;
         }
 
         if (!intent.hasExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY)
                 && isOnline(context)
-                && (!instantUploadViaWiFiOnly(context) || (instantUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
+                && (!instantPictureUploadViaWiFiOnly(context) || (instantPictureUploadViaWiFiOnly(context) == isConnectedViaWiFi(context) == true))) {
             DbHandler db = new DbHandler(context);
             Cursor c = db.getAwaitingFiles();
             if (c.moveToFirst()) {
-                //IntentFilter filter = new IntentFilter(FileUploader.UPLOAD_FINISH_MESSAGE);
-                //context.getApplicationContext().registerReceiver(this, filter);
                 do {
                     String account_name = c.getString(c.getColumnIndex("account"));
                     String file_path = c.getString(c.getColumnIndex("path"));
@@ -226,11 +230,19 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 && cm.getActiveNetworkInfo().getState() == State.CONNECTED;
     }
 
-    public static boolean instantUploadEnabled(Context context) {
+    public static boolean instantPictureUploadEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
     }
 
-    public static boolean instantUploadViaWiFiOnly(Context context) {
+    public static boolean instantVideoUploadEnabled(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_uploading", false);
+    }
+
+    public static boolean instantPictureUploadViaWiFiOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_wifi", false);
+    }
+    
+    public static boolean instantVideoUploadViaWiFiOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_wifi", false);
     }
 }
