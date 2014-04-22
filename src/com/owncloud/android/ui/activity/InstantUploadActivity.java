@@ -465,7 +465,7 @@ public class InstantUploadActivity extends Activity {
     private boolean canInstantUpload() {
 
         if (!InstantUploadBroadcastReceiver.isOnline(this)
-                || (InstantUploadBroadcastReceiver.instantUploadViaWiFiOnly(this) && !InstantUploadBroadcastReceiver
+                || (InstantUploadBroadcastReceiver.instantPictureUploadViaWiFiOnly(this) && !InstantUploadBroadcastReceiver
                         .isConnectedViaWiFi(this))) {
             return false;
         } else {

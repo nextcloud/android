@@ -175,6 +175,10 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.hardware.action.NEW_VIDEO" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>

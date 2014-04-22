@@ -153,6 +153,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     private boolean mServerIsChecked = false;
     private boolean mServerIsValid = false;
+    private boolean mPendingAutoCheck = false;
 
     private GetServerInfoOperation.ServerInfo mServerInfo = 
             new GetServerInfoOperation.ServerInfo();
@@ -174,7 +175,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
-    
+
     
     /**
      * {@inheritDoc}
@@ -219,6 +220,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// initialize general UI elements
         initOverallUi(savedInstanceState);
         
+        mOkButton = findViewById(R.id.buttonOK);
+
         /// initialize block to be moved to single Fragment to check server and get info about it 
         initServerPreFragment(savedInstanceState);
         
@@ -404,12 +407,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         });
      
         
-        /// step 4 - automatic actions to start
-        if (savedInstanceState == null) {
-            if (mAction != ACTION_CREATE || !isUrlInputAllowed) {
-                checkOcServer(); 
-            }
-        }
+        /// step 4 - mark automatic check to be started when OperationsService is ready
+        mPendingAutoCheck = (savedInstanceState == null && 
+                (mAction != ACTION_CREATE || !isUrlInputAllowed));
     }
     
     
@@ -426,7 +426,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mUsernameInput = (EditText) findViewById(R.id.account_username);
         mPasswordInput = (EditText) findViewById(R.id.account_password);
         mAuthStatusView = (TextView) findViewById(R.id.auth_status_text); 
-        mOkButton = findViewById(R.id.buttonOK);
         
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         String presetUserName = null;
@@ -728,6 +727,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             if (mOperationsServiceBinder != null) {
                 //Log_OC.wtf(TAG, "checking server..." );
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
+            } else {
+              Log_OC.wtf(TAG, "Server check tried with OperationService unbound!" );
             }
             
         } else {
@@ -1743,6 +1744,10 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mOperationsServiceBinder.addOperationListener(AuthenticatorActivity.this, mHandler);
         if (mWaitingForOpId <= Integer.MAX_VALUE) {
             mOperationsServiceBinder.dispatchResultIfFinished((int)mWaitingForOpId, this);
+        }
+        
+        if (mPendingAutoCheck) {
+            checkOcServer();
         }
     }
 
