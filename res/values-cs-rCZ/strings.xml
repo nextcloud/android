@@ -174,6 +174,7 @@
   <string name="rename_server_fail_msg">Přejmenování nelze dokončit</string>
   <string name="sync_file_fail_msg">Vzdálený soubor nemohl být zkontrolován</string>
   <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
+  <string name="create_dir_fail_msg">Adresář nelze vytvořit</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Počkejte chvíli</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
