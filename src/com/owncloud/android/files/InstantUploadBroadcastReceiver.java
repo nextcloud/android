@@ -32,18 +32,18 @@ import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-//import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore.*;
+import android.provider.MediaStore.Images;
+import android.provider.MediaStore.Video;
 import android.webkit.MimeTypeMap;
 
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
-    private static String TAG = "InstantUploadBroadcastReceiver";
+    private static String TAG = InstantUploadBroadcastReceiver.class.getName();
     // Image action
     // Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
     private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
