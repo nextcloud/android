@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
   <string name="prefs_pincode">PIN de aplicación</string>
   <string name="prefs_pincode_summary">Protejé tu cliente</string>
-  <string name="prefs_instant_upload">Habilitar la subida inmediata</string>
-  <string name="prefs_instant_upload_summary">Subir inmediatamente las fotos sacadas con la cámara</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
   <string name="prefs_log_title_history">Historia del Registro</string>

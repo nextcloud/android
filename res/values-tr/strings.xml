@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Hesapları Yönet</string>
   <string name="prefs_pincode">Uygulama PIN\'i</string>
   <string name="prefs_pincode_summary">İstemcinizi koruyun</string>
-  <string name="prefs_instant_upload">Anında yükleme etkinleştir</string>
-  <string name="prefs_instant_upload_summary">Anında çekilen fotoğrafları yükle</string>
   <string name="prefs_log_title">Günlük tutmayı etkinleştir</string>
   <string name="prefs_log_summary">Bu, sorunları günlük dosyasına kaydetmek için kullanılır</string>
   <string name="prefs_log_title_history">Günlük geçmişi</string>

@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
   <string name="prefs_pincode">Utilisation d\'un code de sécurité</string>
   <string name="prefs_pincode_summary">Protéger l\'accès aux données maniplulées par le client</string>
-  <string name="prefs_instant_upload">Activer le téléversement instantané</string>
-  <string name="prefs_instant_upload_summary">Import instantané des photos prises par la caméra</string>
   <string name="prefs_log_title">Activer les logs</string>
   <string name="prefs_log_summary">Utilisé pour enregistrer les problèmes dans les logs</string>
   <string name="prefs_log_title_history">Historique des logs</string>

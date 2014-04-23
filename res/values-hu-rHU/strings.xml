@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Fiókok kezelése</string>
   <string name="prefs_pincode">Alkalmazás PIN</string>
   <string name="prefs_pincode_summary">Védje meg az alkalmazást</string>
-  <string name="prefs_instant_upload">Az azonnali feltöltés engedélyezése</string>
-  <string name="prefs_instant_upload_summary">Az eszköz által készített fényképek azonnali feltöltése</string>
   <string name="prefs_log_title">Naplózás engedélyezése</string>
   <string name="prefs_log_summary">Ez használható a problémák naplózásához</string>
   <string name="prefs_log_title_history">Naplózás előzménye</string>

@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Xestionar as contas</string>
   <string name="prefs_pincode">PIN do aplicativo</string>
   <string name="prefs_pincode_summary">Protexe o seu cliente</string>
-  <string name="prefs_instant_upload">Activar o envío instantáneo</string>
-  <string name="prefs_instant_upload_summary">Enviar instantaneamente as fotos tiradas coa cámara</string>
   <string name="prefs_log_title">Activar o rexistro</string>
   <string name="prefs_log_summary">Isto empregase para rexistrar os problemas</string>
   <string name="prefs_log_title_history">Historial do rexistro</string>

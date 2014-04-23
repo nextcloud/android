@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Управление учётными записями</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Защитить ваш клиент</string>
-  <string name="prefs_instant_upload">Включить режим немедленной загрузки</string>
-  <string name="prefs_instant_upload_summary">Немедленно загружать фотографии, полученные с камеры</string>
   <string name="prefs_log_title">Включить журналирование</string>
   <string name="prefs_log_summary">Используется для регистрации ошибок</string>
   <string name="prefs_log_title_history">Журнал</string>

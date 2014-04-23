@@ -11,8 +11,6 @@
   <string name="prefs_manage_accounts">கணக்குகளை நிர்வகிக்க</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">உங்களுடைய சேவைப் பயனரை பாதுகாக்க</string>
-  <string name="prefs_instant_upload">உடனடி பதிவேற்றலை இயலுமைப்படுத்துக</string>
-  <string name="prefs_instant_upload_summary">கமராவினால் எடுக்கப்பட்ட படங்கள் உடனடியாக பதிவேற்றப்பட்டன</string>
   <string name="prefs_help">உதவி</string>
   <string name="auth_username">பயனாளர் பெயர்</string>
   <string name="auth_password">கடவுச்சொல்</string>

@@ -10,8 +10,6 @@
   <string name="prefs_manage_accounts">Rheoli Cyfrifon</string>
   <string name="prefs_pincode">PIN Ap</string>
   <string name="prefs_pincode_summary">Amddiffyn eich cleient</string>
-  <string name="prefs_instant_upload">Galluogi llwytho i fyny\'n syth</string>
-  <string name="prefs_instant_upload_summary">Llwytho lluniau dynnwyd â chamera i fyny\'n syth</string>
   <string name="prefs_help">Cymorth</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="auth_username">Enw defnyddiwr</string>

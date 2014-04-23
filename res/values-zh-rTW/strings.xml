@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode">App 密碼</string>
   <string name="prefs_pincode_summary">保護您的 App 用戶端</string>
-  <string name="prefs_instant_upload">啟用即時上傳</string>
-  <string name="prefs_instant_upload_summary">即時上傳照相機拍攝的圖片</string>
   <string name="prefs_log_title">啟用記錄</string>
   <string name="prefs_log_summary">這個用來記錄執行的動作以找出問題點</string>
   <string name="prefs_log_title_history">歷史記錄</string>

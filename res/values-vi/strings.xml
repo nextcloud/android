@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Quản lý tài khoản</string>
   <string name="prefs_pincode">Mã PIN ứng dụng App</string>
   <string name="prefs_pincode_summary">Bảo vệ App client của bạn</string>
-  <string name="prefs_instant_upload">Kích hoạt tính năng tải lên ngay lập tức</string>
-  <string name="prefs_instant_upload_summary">Ngay lập tức tải lên các hình ảnh được chụp bởi camera</string>
   <string name="prefs_log_title">Bật chế độ nhật trình</string>
   <string name="prefs_log_summary">Được sử dụng cho các vấn đề liên quan đến nhật trình</string>
   <string name="prefs_log_title_history">Nhật trình dữ kiện</string>

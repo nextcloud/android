@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">مدیریت حسابها</string>
   <string name="prefs_pincode">PIN برنامه</string>
   <string name="prefs_pincode_summary">حفاظت از مشتری</string>
-  <string name="prefs_instant_upload">فعال کردن بارگذاری فوری</string>
-  <string name="prefs_instant_upload_summary">فورا عکسهایی را که با دوربین گرفته شده است را آپلود کن</string>
   <string name="prefs_log_title">فعال کردن ورود</string>
   <string name="prefs_log_summary">این برای مشکلات ورود استفاده شده است.</string>
   <string name="prefs_log_title_history">تاریخچه ورود</string>

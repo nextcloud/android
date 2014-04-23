@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">계정 관리</string>
   <string name="prefs_pincode">앱 암호</string>
   <string name="prefs_pincode_summary">내 클라이언트 보호</string>
-  <string name="prefs_instant_upload">자동 업로드 사용</string>
-  <string name="prefs_instant_upload_summary">카메라로 촬영한 사진 자동 업로드</string>
   <string name="prefs_log_title">로깅 허용</string>
   <string name="prefs_log_summary">이건 로그 문제에 사용됩니다</string>
   <string name="prefs_log_title_history">로그 기록</string>

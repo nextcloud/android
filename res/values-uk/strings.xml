@@ -13,8 +13,6 @@
   <string name="prefs_manage_accounts">Управління обліковими записами</string>
   <string name="prefs_pincode">App програмний PIN</string>
   <string name="prefs_pincode_summary">Захист Вашог App клієнта</string>
-  <string name="prefs_instant_upload">Включити негайне завантаження</string>
-  <string name="prefs_instant_upload_summary">Негайно завантажувати фото, зроблені камерою</string>
   <string name="prefs_help">Допомога</string>
   <string name="prefs_feedback">Зворотній зв\'язок</string>
   <string name="prefs_imprint">Відбиток</string>

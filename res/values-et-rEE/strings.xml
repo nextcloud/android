@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Halda kontosid</string>
   <string name="prefs_pincode">Rakenduse PIN</string>
   <string name="prefs_pincode_summary">Kaitse oma klienti</string>
-  <string name="prefs_instant_upload">Luba kohene üleslaadimine</string>
-  <string name="prefs_instant_upload_summary">Lae kaamera poolt tehtud fotod automaatselt üles</string>
   <string name="prefs_log_title">Luba logimine</string>
   <string name="prefs_log_summary">Kasutatakse probleemide logimiseks</string>
   <string name="prefs_log_title_history">Logi ajalugu</string>

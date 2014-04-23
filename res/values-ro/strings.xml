@@ -9,7 +9,6 @@
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>
   <string name="prefs_manage_accounts">Administrare conturi</string>
-  <string name="prefs_instant_upload">Activează încărcarea instant</string>
   <string name="prefs_help">Ajutor</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>

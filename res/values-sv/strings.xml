@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Hantera konton</string>
   <string name="prefs_pincode">applikation PIN</string>
   <string name="prefs_pincode_summary">Skydda applikation-klienten</string>
-  <string name="prefs_instant_upload">Aktivera direktuppladdning</string>
-  <string name="prefs_instant_upload_summary">Direktuppladdning av kamerabilder</string>
   <string name="prefs_log_title">Aktivera loggning</string>
   <string name="prefs_log_summary">Används för att logga problem</string>
   <string name="prefs_log_title_history">Logghistorik</string>

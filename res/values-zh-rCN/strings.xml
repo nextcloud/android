@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">管理账号</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">保护您的App客户端</string>
-  <string name="prefs_instant_upload">开启即时上传</string>
-  <string name="prefs_instant_upload_summary">即时上传相机拍摄的照片</string>
   <string name="prefs_log_title">开启日志</string>
   <string name="prefs_log_summary">这过去是日志问题</string>
   <string name="prefs_log_title_history">日志历史</string>

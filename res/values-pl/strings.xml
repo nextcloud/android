@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Zarządzaj kontami</string>
   <string name="prefs_pincode">PIN aplikacji</string>
   <string name="prefs_pincode_summary">Chroń klienta</string>
-  <string name="prefs_instant_upload">Włącz natychmiastowe wysyłanie</string>
-  <string name="prefs_instant_upload_summary">Natychmiast wysyłaj zdjęcia zrobione aparatem</string>
   <string name="prefs_log_title">Włączone Logi</string>
   <string name="prefs_log_summary">To jest używane do logów problemów</string>
   <string name="prefs_log_title_history">Zapisuj historię</string>

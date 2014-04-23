@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Håndter kontoer</string>
   <string name="prefs_pincode">PIN kode</string>
   <string name="prefs_pincode_summary">Beskytt klienten din</string>
-  <string name="prefs_instant_upload">Aktiver direkte opplastinger</string>
-  <string name="prefs_instant_upload_summary">Last opp bilder tatt med kamera øyeblikkelig</string>
   <string name="prefs_log_title">Aktiver loggføring</string>
   <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
   <string name="prefs_log_title_history">Loggføringshistorikk</string>

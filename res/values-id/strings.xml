@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Kelola Akun</string>
   <string name="prefs_pincode">PIN Apl</string>
   <string name="prefs_pincode_summary">Lindungi klien Anda</string>
-  <string name="prefs_instant_upload">Aktifkan unggah instan</string>
-  <string name="prefs_instant_upload_summary">Unggah langsung foto yang diambil oleh kamera</string>
   <string name="prefs_log_title">Aktifkan Pencatatan</string>
   <string name="prefs_log_summary">Ini digunakan untuk mencatat masalah</string>
   <string name="prefs_log_title_history">Riwayat Catatan</string>

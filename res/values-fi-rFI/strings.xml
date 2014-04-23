@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Tilien hallinta</string>
   <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
   <string name="prefs_pincode_summary">Suojaa Asiakasohjelmasi</string>
-  <string name="prefs_instant_upload">Käytä välitöntä lähetystä</string>
-  <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
   <string name="prefs_log_title">Käytä lokitusta</string>
   <string name="prefs_log_summary_history">Tämä näyttää tallennetut lokit</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>

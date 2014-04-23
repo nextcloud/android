@@ -12,8 +12,6 @@
   <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
   <string name="prefs_pincode">Lietotnes PIN</string>
   <string name="prefs_pincode_summary">Aizsargā savu klientu</string>
-  <string name="prefs_instant_upload">Aktivēt tūlītējo augšupielādēšanu</string>
-  <string name="prefs_instant_upload_summary">Nekavējoties augšupielādēt kameras uzņemtos attēlus</string>
   <string name="prefs_help">Palīdzība</string>
   <string name="auth_username">Lietotājvārds</string>
   <string name="auth_password">Parole</string>

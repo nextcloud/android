@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Tvarkyti paskyras</string>
   <string name="prefs_pincode">App programos PIN kodas</string>
   <string name="prefs_pincode_summary">Apsaugokite savo klientą</string>
-  <string name="prefs_instant_upload">Įjungti momentinius įkėlimus</string>
-  <string name="prefs_instant_upload_summary">Iš karto nusiųsti nufotografuotas nuotraukas</string>
   <string name="prefs_log_title">Įjungti žurnalo rašymą</string>
   <string name="prefs_log_summary">Tai naudojama problemų žurnalo vedimui</string>
   <string name="prefs_log_title_history">Žurnalų istorija</string>

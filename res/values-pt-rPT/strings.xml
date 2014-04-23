@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Gerir contas</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Proteja o seu cliente</string>
-  <string name="prefs_instant_upload">Activar envio instantâneo</string>
-  <string name="prefs_instant_upload_summary">Enviar automaticamente as fotografias tiradas pela camera</string>
   <string name="prefs_log_title">Ativar Rastreio</string>
   <string name="prefs_log_summary">Isto é usado para registar problemas</string>
   <string name="prefs_log_title_history">Historico do rastreio</string>

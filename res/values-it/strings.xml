@@ -17,8 +17,6 @@
   <string name="prefs_manage_accounts">Gestisci account</string>
   <string name="prefs_pincode">PIN App</string>
   <string name="prefs_pincode_summary">Proteggi il tuo client l\'applicazione</string>
-  <string name="prefs_instant_upload">Caricamento immediato</string>
-  <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
   <string name="prefs_log_title">Abilita registrazione log</string>
   <string name="prefs_log_summary">Usato per registrare i problemi nei log</string>
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
