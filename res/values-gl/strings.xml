@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Xestionar as contas</string>
   <string name="prefs_pincode">PIN do aplicativo</string>
   <string name="prefs_pincode_summary">Protexe o seu cliente</string>
+  <string name="prefs_instant_upload">Envío instantáneo de fotos</string>
+  <string name="prefs_instant_upload_summary">Enviar instantaneamente as fotos tiradas coa cámara</string>
+  <string name="prefs_instant_video_upload">Envío instantáneo de vídeos</string>
+  <string name="prefs_instant_video_upload_summary">Enviar instantaneamente os vídeos gravados coa cámara</string>
   <string name="prefs_log_title">Activar o rexistro</string>
   <string name="prefs_log_summary">Isto empregase para rexistrar os problemas</string>
   <string name="prefs_log_title_history">Historial do rexistro</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Enviar imaxes só medinte WiFi</string>
+  <string name="instant_video_upload_on_wifi">Enviar os vídeos só a través de WiFi</string>
   <string name="instant_upload_path">/EnvíoInstantáneo</string>
   <string name="conflict_title">Conflito de actualización</string>
   <string name="conflict_message">O ficheiro remoto %s non está sincronizado co ficheiro local. Continuando substituirase o contido do ficheiro no servidor.</string>

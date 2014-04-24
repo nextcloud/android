@@ -24,6 +24,7 @@
   <string name="prefs_recommend">Suosittele kaverille</string>
   <string name="prefs_feedback">Palaute</string>
   <string name="recommend_subject">Kokeile %1$sia älypuhelimellasi!</string>
+  <string name="recommend_text">\"Käytä %1$sia älypuhelimellasi!\nLataa täältä: %2$s\"\n\t</string>
   <string name="auth_check_server">Tarkista palvelin</string>
   <string name="auth_host_url">Palvelinosoite https://…</string>
   <string name="auth_username">Käyttäjätunnus</string>
@@ -113,6 +114,7 @@
   <string name="media_rewind_description">Taaksepäin kelaus -painike</string>
   <string name="media_play_pause_description">Toisto tai keskeytys -painike</string>
   <string name="media_forward_description">Eteenpäin kelaus -painike</string>
+  <string name="auth_getting_authorization">Noudetaan valtuutusta…</string>
   <string name="auth_trying_to_login">Yritetään kirjautua...</string>
   <string name="auth_no_net_conn_title">Ei verkkoyhteyttä</string>
   <string name="auth_nossl_plain_ok_title">Salattu yhteys ei ole käytettävissä.</string>
@@ -190,6 +192,7 @@
   <string name="placeholder_filetype">PNG-kuva</string>
   <string name="placeholder_filesize">389 kt</string>
   <string name="instant_upload_on_wifi">Lähetä kuvat vain WiFi-verkossa</string>
+  <string name="instant_video_upload_on_wifi">Lähetä videot vain wifi-yhteydellä</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Päivitysristiriita</string>
   <string name="conflict_message">Etätiedostoa %s ei ole synkronoitu paikallisen tiedoston kanssa. Jatkaminen korvaa palvelimella olevan tiedoston sisällön.</string>
@@ -207,4 +210,5 @@
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
+  <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimintoja ei voi suorittaa</string>
 </resources>

@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Konten verwalten</string>
   <string name="prefs_pincode">App-PIN</string>
   <string name="prefs_pincode_summary">Schützen Sie Ihren Client</string>
+  <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
+  <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
+  <string name="prefs_instant_video_upload">Sofortiger Video-Upload</string>
+  <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
   <string name="prefs_log_title">Protokollierung aktivieren</string>
   <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
   <string name="prefs_log_title_history">Protokollierungsverlauf</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">18.05.2012 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
+  <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
   <string name="instant_upload_path">/SofortUpload</string>
   <string name="conflict_title">Konflikt beim Update</string>
   <string name="conflict_message">Serverdatei %s ist nicht synchronisiert mit der lokalen Datei. Weitermachen bedeutet, dass der Inhalt der Datei auf dem Server ersetzt wird.</string>

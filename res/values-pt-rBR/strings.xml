@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Gerenciar Contas</string>
   <string name="prefs_pincode">PIN App</string>
   <string name="prefs_pincode_summary">Proteja seu cliente</string>
+  <string name="prefs_instant_upload">Envio instantâneo de imagem</string>
+  <string name="prefs_instant_upload_summary">Enviar instantaneamente fotos tiradas com a camera</string>
+  <string name="prefs_instant_video_upload">Envio instantâneo de vídeos</string>
+  <string name="prefs_instant_video_upload_summary">Enviar instantaneamente vídeos feitos com a camera</string>
   <string name="prefs_log_title">Habilitar conexão</string>
   <string name="prefs_log_summary">Isto é usado para registrar os problemas</string>
   <string name="prefs_log_title_history">História de Registro</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Fazer upload de fotos somente via WiFi</string>
+  <string name="instant_video_upload_on_wifi">Enviar vídeos somente via WiFi</string>
   <string name="instant_upload_path">/Upload instantâneo</string>
   <string name="conflict_title">Conflito de atualização</string>
   <string name="conflict_message">O arquivo remoto %s não está soncronizado com o arquivo local. Prosseguir irá substituir o arquivo no servidor.</string>

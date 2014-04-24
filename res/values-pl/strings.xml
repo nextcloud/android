@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Zarządzaj kontami</string>
   <string name="prefs_pincode">PIN aplikacji</string>
   <string name="prefs_pincode_summary">Chroń klienta</string>
+  <string name="prefs_instant_upload">natychmiastowa wysyłka obrazków</string>
+  <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
+  <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
+  <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
   <string name="prefs_log_title">Włączone Logi</string>
   <string name="prefs_log_summary">To jest używane do logów problemów</string>
   <string name="prefs_log_title_history">Zapisuj historię</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
+  <string name="instant_video_upload_on_wifi">Aktualizuj filmy tylko przez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt aktualizacji</string>
   <string name="conflict_message">Zdalny plik %s nie jest zsynchronizowany z plikiem lokalnym. Kontynuując zastąpisz zawartość pliku na serwerze.</string>

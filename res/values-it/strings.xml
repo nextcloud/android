@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Gestisci account</string>
   <string name="prefs_pincode">PIN App</string>
   <string name="prefs_pincode_summary">Proteggi il tuo client l\'applicazione</string>
+  <string name="prefs_instant_upload">Caricamenti istantanei delle foto</string>
+  <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
+  <string name="prefs_instant_video_upload">Caricamenti istantanei dei video</string>
+  <string name="prefs_instant_video_upload_summary">Carica immediatamente i video dalla fotocamera</string>
   <string name="prefs_log_title">Abilita registrazione log</string>
   <string name="prefs_log_summary">Usato per registrare i problemi nei log</string>
   <string name="prefs_log_title_history">Cronologia di registrazione log</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Carica le immagini solo via WiFi</string>
+  <string name="instant_video_upload_on_wifi">Carica i video solo via WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Conflitto di aggiornamento</string>
   <string name="conflict_message">Il file remoto %s non è sincronizzato con il file locale. Se continui, il contenuto del file sarà sostituito sul server.</string>

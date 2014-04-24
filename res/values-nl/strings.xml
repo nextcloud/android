@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Beheer accounts</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Beveilig je client</string>
+  <string name="prefs_instant_upload">Directe uploads van afbeeldingen</string>
+  <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
+  <string name="prefs_instant_video_upload">Direct uploaden van video\'s</string>
+  <string name="prefs_instant_video_upload_summary">Direct uploaden van video\'s vanaf de camera</string>
   <string name="prefs_log_title">Loggen aanzetten</string>
   <string name="prefs_log_summary">Dit wordt gebruikt om problemen te loggen.</string>
   <string name="prefs_log_title_history">Log-geschiedenis</string>
@@ -217,6 +221,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
+  <string name="instant_video_upload_on_wifi">Upload video\'s alleen over wifi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Update conflict</string>
   <string name="conflict_message">Het remote bestand %s is niet gesynchroniseerd met het lokale bestand. Als je doorgaat wordt de inhoud van het bestand op de server vervangen.</string>

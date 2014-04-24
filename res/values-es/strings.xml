@@ -17,6 +17,7 @@
   <string name="prefs_manage_accounts">Gestionar cuentas</string>
   <string name="prefs_pincode">PIN de aplicación </string>
   <string name="prefs_pincode_summary">Proteja su cliente</string>
+  <string name="prefs_instant_upload">Subida instantánea de imágenes</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
   <string name="prefs_log_title_history">Historia del Registro</string>
