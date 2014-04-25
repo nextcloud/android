@@ -18,6 +18,9 @@
   <string name="prefs_pincode">PIN de aplicación </string>
   <string name="prefs_pincode_summary">Proteja su cliente</string>
   <string name="prefs_instant_upload">Subida instantánea de imágenes</string>
+  <string name="prefs_instant_upload_summary">Sube instantáneamente las fotos tomadas con la cámara</string>
+  <string name="prefs_instant_video_upload">Subidas instantáneas de video</string>
+  <string name="prefs_instant_video_upload_summary">Sube instantáneamente los vídeos grabados con la cámara</string>
   <string name="prefs_log_title">Habilitar registro</string>
   <string name="prefs_log_summary">Esto es usado para registrar problemas</string>
   <string name="prefs_log_title_history">Historia del Registro</string>
@@ -217,6 +220,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Subir imágenes sólo cuando hay WiFi</string>
+  <string name="instant_video_upload_on_wifi">Subir vídeos sólo por WiFi</string>
   <string name="instant_upload_path">/SubidasInstantáneas</string>
   <string name="conflict_title">Conflicto en la actualización</string>
   <string name="conflict_message">El archivo remoto %s no está sincronizado con el archivo local. Si continúa, se reemplazará el contenido del archivo en el servidor.</string>

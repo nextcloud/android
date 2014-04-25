@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">Gerir contas</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Proteja o seu cliente</string>
+  <string name="prefs_instant_upload">Transferência instantânea de imagens</string>
+  <string name="prefs_instant_upload_summary">Transferência instantânea de imagens tiradas com câmara</string>
   <string name="prefs_log_title">Ativar Rastreio</string>
   <string name="prefs_log_summary">Isto é usado para registar problemas</string>
   <string name="prefs_log_title_history">Historico do rastreio</string>
@@ -171,6 +173,7 @@
   <string name="rename_server_fail_msg">Não foi possível renomear</string>
   <string name="sync_file_fail_msg">Não foi possível verificar o ficheiro remoto</string>
   <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
+  <string name="create_dir_fail_msg">Não foi possivel criar a pasta</string>
   <string name="filename_forbidden_characters">Caracteres não permitidos: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Erro inesperado. Por favor tente outra aplicação para seleccionar o ficheiro.</string>

@@ -3,6 +3,7 @@
   <string name="actionbar_upload">Încarcă</string>
   <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
   <string name="actionbar_upload_files">Fișiere</string>
+  <string name="actionbar_mkdir">Un nou dosar</string>
   <string name="actionbar_settings">Setări</string>
   <string name="actionbar_send_file">Expediază</string>
   <string name="prefs_category_general">General</string>

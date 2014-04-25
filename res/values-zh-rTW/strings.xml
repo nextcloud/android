@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">管理帳號</string>
   <string name="prefs_pincode">App 密碼</string>
   <string name="prefs_pincode_summary">保護您的 App 用戶端</string>
+  <string name="prefs_instant_upload">即時圖片上傳</string>
+  <string name="prefs_instant_upload_summary">即時上傳相機照片</string>
   <string name="prefs_log_title">啟用記錄</string>
   <string name="prefs_log_summary">這個用來記錄執行的動作以找出問題點</string>
   <string name="prefs_log_title_history">歷史記錄</string>
@@ -92,6 +94,7 @@
   <string name="sync_fail_in_favourites_ticker">同步檔案失敗</string>
   <string name="sync_fail_in_favourites_content">%1$d 未被同步 (%2$d 衝突)</string>
   <string name="sync_foreign_files_forgotten_ticker">有些本地端的檔案已遺失</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d 檔案超過 %2$s 資料夾可能不能複製進去</string>
   <string name="sync_current_folder_was_removed">資料夾 %1$s 不存在</string>
   <string name="foreign_files_move">移動全部</string>
   <string name="foreign_files_success">所有文件已被移動</string>
@@ -168,6 +171,7 @@
   <string name="rename_server_fail_msg">重新命名失敗</string>
   <string name="sync_file_fail_msg">無法檢查遠端的檔案</string>
   <string name="sync_file_nothing_to_do_msg">檔案與同步</string>
+  <string name="create_dir_fail_msg">資料夾無法建立</string>
   <string name="filename_forbidden_characters">禁止使用字符: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">請稍後</string>
   <string name="filedisplay_unexpected_bad_get_content">未知的問題; 請選擇其他程式開啟檔案</string>
