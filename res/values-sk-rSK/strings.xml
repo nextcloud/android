@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Správa účtov</string>
   <string name="prefs_pincode">PIN aplikácie</string>
   <string name="prefs_pincode_summary">Chrániť klienta aplikácie</string>
+  <string name="prefs_instant_upload">Okamžité nahratie obrázka</string>
+  <string name="prefs_instant_upload_summary">Okamžite nahrať obrázok zaznamenaný fotoaparátom</string>
+  <string name="prefs_instant_video_upload">Okamžité nahranie videa</string>
+  <string name="prefs_instant_video_upload_summary">Okamžite nahrať video zaznamenané fotoaparátom</string>
   <string name="prefs_log_title">Povoliť logovanie</string>
   <string name="prefs_log_summary">Toto je použité pre logovanie problémov</string>
   <string name="prefs_log_title_history">História logovania</string>
@@ -35,6 +39,7 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripoj</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
+  <string name="uploader_top_message">Vyberte priečinok pre nahrávanie:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_text">Na tomto zariadení nie je zadaný žiadny %1$s účet. Zadajte ho prosím.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
@@ -92,6 +97,7 @@
   <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
   <string name="sync_fail_in_favourites_content">Obsah %1$d súborov nemohol byť synchronizovaný (%2$d konfliktov)</string>
   <string name="sync_foreign_files_forgotten_ticker">Niektoré lokálne súbory boli zabudnuté</string>
+  <string name="sync_foreign_files_forgotten_content">%1$d súborov z %2$s priečinkov sa nepodarilo skopírovať do</string>
   <string name="sync_current_folder_was_removed">Priečinok %1$s už existuje</string>
   <string name="foreign_files_move">Premiestniť všetko</string>
   <string name="foreign_files_success">Všetky súbory boli premiestnené</string>
@@ -127,6 +133,7 @@
   <string name="media_rewind_description">Tlačidlo pretáčania</string>
   <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
   <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
+  <string name="auth_getting_authorization">Kontrolujem poverenia...</string>
   <string name="auth_trying_to_login">Pokus o pripojenie...</string>
   <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
   <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
@@ -155,6 +162,8 @@
   <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server...</string>
   <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
+  <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému\n\t</string>
+  <string name="auth_can_not_auth_against_server">Nie je možné urobiť overenie voči tomuto serveru</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
@@ -171,6 +180,7 @@
   <string name="rename_server_fail_msg">Nie je možné premenovať</string>
   <string name="sync_file_fail_msg">Vzdialený súbor nemohol byť prekontrolovaný</string>
   <string name="sync_file_nothing_to_do_msg">Obsah súboru je zosynchronizovaný</string>
+  <string name="create_dir_fail_msg">Priečinok nie je možné vytvoriť</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Počkať chvíľu</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočakávaný problém; skúste vybrať súbor inou aplikáciou</string>
@@ -200,6 +210,8 @@
   <string name="ssl_validator_label_validity_to">Do: </string>
   <string name="ssl_validator_label_signature">Podpis:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmus:</string>
+  <string name="ssl_validator_null_cert">Certifikát nemohol byť zobrazený.</string>
+  <string name="ssl_validator_no_info_about_error">- Žiadne informácie o tejto chybe</string>
   <string name="placeholder_sentence">Toto je \"placeholder\"</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">PNG obrázok</string>
@@ -207,6 +219,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Odoslať fotografie iba cez WiFi</string>
+  <string name="instant_video_upload_on_wifi">Nahrávať videá len cez WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Konflikt pri aktualizácii</string>
   <string name="conflict_message">Vzdialený súbor %s nie je zosynchronizovaný s lokálnym. Pokračovanie prepíše obsah súboru na serveri.</string>
@@ -233,4 +246,5 @@
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
   <string name="clipboard_text_copied">Skopírované do \"clipboard\"</string>
+  <string name="error_cant_bind_to_operations_service">Kritická chyba: nemožno vykonať operácie</string>
 </resources>
