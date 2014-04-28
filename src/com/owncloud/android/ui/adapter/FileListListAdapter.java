@@ -51,7 +51,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author Bartek Przybylski
  * 
  */
-public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ implements ListAdapter {
+public class FileListListAdapter extends SimpleCursorAdapter implements ListAdapter {
 
     private Context mContext;
     private static OCFile mFile = null;
@@ -59,6 +59,8 @@ public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ imp
     private static FileDataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
+    private static Cursor mCursor = null;
+    
     private static String[] cursorFrom = { ProviderMeta.ProviderTableMeta.FILE_NAME,
         ProviderMeta.ProviderTableMeta.FILE_MODIFIED, 
         ProviderMeta.ProviderTableMeta.FILE_CONTENT_LENGTH
@@ -75,8 +77,8 @@ public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ imp
     
     public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter, OCFile file) {
         super(context,
-                R.layout.list_item, 
-                file == null ? null : mStorageManager.getContent(file.getParentId()),
+                R.layout.list_item,
+                mCursor,
                 cursorFrom,
                 cursorTo, 
                 0);
@@ -84,6 +86,7 @@ public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ imp
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
         mFile = file;
+        mCursor = file == null ? null: mStorageManager.getContent(file.getParentId());
     }
 
     @Override
@@ -232,8 +235,10 @@ public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ imp
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(mFile);
+            mCursor = mStorageManager.getContent(mFile.getParentId());
         } else {
             mFiles = null;
+            mCursor = null;
         }
         notifyDataSetChanged();
     }
