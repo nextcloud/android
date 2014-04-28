@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Spravovat účty</string>
   <string name="prefs_pincode">PIN aplikace</string>
   <string name="prefs_pincode_summary">Chraňte svého klienta</string>
+  <string name="prefs_instant_upload">Okamžité nahrání obrázků</string>
+  <string name="prefs_instant_upload_summary">Okamžitě nahrávat vytvořené fotografie</string>
+  <string name="prefs_instant_video_upload">Okamžité nahrávání videa</string>
+  <string name="prefs_instant_video_upload_summary">Okamžitě odesílat nahrané video</string>
   <string name="prefs_log_title">Povolit logování</string>
   <string name="prefs_log_summary">Použito k zaznamenávání problémů</string>
   <string name="prefs_log_title_history">Historie logování</string>
@@ -178,7 +182,7 @@
   <string name="rename_server_fail_msg">Přejmenování nelze dokončit</string>
   <string name="sync_file_fail_msg">Vzdálený soubor nemohl být zkontrolován</string>
   <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
-  <string name="create_dir_fail_msg">Adresář nelze vytvořit</string>
+  <string name="create_dir_fail_msg">Adresář nemohl být vytvořen</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Počkejte chvíli</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
@@ -246,4 +250,5 @@
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>
   <string name="clipboard_text_copied">Zkopírováno do schránky</string>
+  <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
 </resources>
