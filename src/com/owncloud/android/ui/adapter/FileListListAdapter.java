@@ -19,10 +19,12 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+//import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,6 +37,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.TransferServiceGetter;
@@ -48,18 +51,39 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author Bartek Przybylski
  * 
  */
-public class FileListListAdapter extends BaseAdapter implements ListAdapter {
+public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ implements ListAdapter {
+
     private Context mContext;
-    private OCFile mFile = null;
+    private static OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private FileDataStorageManager mStorageManager;
+    private static FileDataStorageManager mStorageManager;
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
+    private static String[] cursorFrom = { ProviderMeta.ProviderTableMeta.FILE_NAME,
+        ProviderMeta.ProviderTableMeta.FILE_MODIFIED, 
+        ProviderMeta.ProviderTableMeta.FILE_CONTENT_LENGTH
+        }; 
+    private static int[] cursorTo  = { R.id.Filename, 
+        R.id.last_mod, 
+        R.id.file_size
+    };
+
+    public FileListListAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+        super(context, layout, c, from, to, flags);
+        // TODO Auto-generated constructor stub
+    }
     
-    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
+    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter, OCFile file) {
+        super(context,
+                R.layout.list_item, 
+                file == null ? null : mStorageManager.getContent(file.getParentId()),
+                cursorFrom,
+                cursorTo, 
+                0);
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
+        mFile = file;
     }
 
     @Override

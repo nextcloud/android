@@ -108,7 +108,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
-        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
+
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
             mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
@@ -123,6 +123,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             mHeightCell = 0;
             
         }
+        
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity, mFile);
         
         setListAdapter(mAdapter);
         
