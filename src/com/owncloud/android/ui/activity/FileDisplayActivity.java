@@ -215,7 +215,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+        /*
         refeshListOfFilesFragment();
+        */
     }
 
     @Override
@@ -416,12 +418,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
         updateNavigationElementsInActionBar(null);
     }
 
+    /* TODO WIP COMMENT 
     protected void refeshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) { 
             fileListFragment.listDirectory();
         }
     }
+    */
 
     protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath, boolean success) {
         FileFragment secondFragment = getSecondFragment();
@@ -940,13 +944,15 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                                 cleanSecondFragment();
                                 currentFile = currentDir;
                             }
-                        
+
+                            /* TODO WIP COMMENT 
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir);
                                 }
                             }
+                            */
                             setFile(currentFile);
                         }
                         
@@ -999,7 +1005,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             OCFile currentDir = getCurrentDir();
             boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
             if (sameAccount && isDescendant) {
+                /*
                 refeshListOfFilesFragment();
+                */
             }
         }
 
@@ -1020,7 +1028,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
             boolean isDescendant = isDescendant(downloadedRemotePath);
 
             if (sameAccount && isDescendant) {
+                /* TODO WIP COMMENT 
                 refeshListOfFilesFragment();
+                */
                 refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
             }
 
@@ -1069,7 +1079,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 if (getAccount() != null && account.name.equals(getAccount().name)
                         && getStorageManager() != null
                         ) {
+                    /*
                     refeshListOfFilesFragment();
+                    */
                 }
                 if ((getSharesResult != null) &&
                         RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(getSharesResult.getCode())) {
@@ -1224,10 +1236,13 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     /**
      * {@inheritDoc}
      */
+    
     @Override
     public void onFileStateChanged() {
+        /* TODO WIP COMMENT 
         refeshListOfFilesFragment();
         updateNavigationElementsInActionBar(getSecondFragment().getFile());
+        */
     }
 
 
@@ -1362,7 +1377,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();
+            /* TODO WIP COMMENT 
             refeshListOfFilesFragment();
+            */
         }
     }
 
@@ -1370,10 +1387,14 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void onUnshareLinkOperationFinish(UnshareLinkOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             refreshShowDetails();
+            /*
             refeshListOfFilesFragment();
+            */
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             cleanSecondFragment();
+            /*
             refeshListOfFilesFragment();
+            */
         }
     }
     
@@ -1413,7 +1434,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 cleanSecondFragment();
             }
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
+                /*
                 refeshListOfFilesFragment();
+                */
             }
 
         } else {
@@ -1435,7 +1458,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
     private void onCreateFolderOperationFinish(CreateFolderOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             dismissLoadingDialog();
+            /* TODO WIP COMMENT 
             refeshListOfFilesFragment();
+            */
 
         } else {
             dismissLoadingDialog();
@@ -1472,7 +1497,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
                 }
             }
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
+                /*
                 refeshListOfFilesFragment();
+                */
             }
 
         } else {
@@ -1509,7 +1536,9 @@ OCFileListFragment.ContainerActivity, FileDetailFragment.ContainerActivity, OnNa
 
         } else {
             if (operation.transferWasRequested()) {
+                /*
                 refeshListOfFilesFragment();
+                */
                 onTransferStateChanged(syncedFile, true, true);
 
             } else {

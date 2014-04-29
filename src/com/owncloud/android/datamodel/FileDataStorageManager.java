@@ -611,6 +611,7 @@ public class FileDataStorageManager {
     
     
     public Cursor getContent(long parentId) {
+        Log_OC.d(TAG, "getContent start");
         Uri req_uri = Uri.withAppendedPath(
                 ProviderTableMeta.CONTENT_URI_DIR,
                 String.valueOf(parentId));
@@ -629,8 +630,11 @@ public class FileDataStorageManager {
             c = getContentResolver().query(req_uri, null, 
                     ProviderTableMeta.FILE_PARENT + "=?" ,
                     new String[] { String.valueOf(parentId)}, null);
+            
+            //c.setNotificationUri(getContentResolver(), req_uri);
         }
         
+        Log_OC.d(TAG, "getContent end");
         return c;
     }
     

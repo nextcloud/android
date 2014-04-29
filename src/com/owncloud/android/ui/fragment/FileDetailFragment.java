@@ -854,7 +854,9 @@ public class FileDetailFragment extends FileFragment implements
         
         if (result.isSuccess()) {
             updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
+            /* TODO WIP COMMENT 
             mContainerActivity.onFileStateChanged();
+            */
             
         } else {
             if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
@@ -896,8 +898,10 @@ public class FileDetailFragment extends FileFragment implements
         } else {
             if (operation.transferWasRequested()) {
                 setButtonsForTransferring();
+                /* TODO WIP COMMENT 
                 mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
                                                             // checking the service to see if the file is downloading results in FALSE
+                 */
             } else {
                 Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
                 msg.show();

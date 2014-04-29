@@ -99,6 +99,8 @@ public class FileContentProvider extends ContentProvider {
     private static final int DIRECTORY = 2;
     private static final int ROOT_DIRECTORY = 3;
     private static final int SHARES = 4;
+
+    private static final String TAG = FileContentProvider.class.getSimpleName();
     
     // Projection for ocshares table
     private static HashMap<String, String> mOCSharesProjectionMap;
@@ -414,6 +416,7 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
         Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
+        Log_OC.d(TAG, "setting notification URI: " + uri);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
