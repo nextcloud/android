@@ -44,6 +44,7 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.ContextMenu;
@@ -109,6 +110,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
 
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity); 
+                
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
             mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
@@ -123,8 +126,6 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             mHeightCell = 0;
             
         }
-        
-        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity, mFile);
         
         setListAdapter(mAdapter);
         
@@ -248,7 +249,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        OCFile file = (OCFile) mAdapter.getItem(position);
+        OCFile file = mContainerActivity.getStorageManager().createFileInstance(
+                (Cursor) mAdapter.getItem(position));
         if (file != null) {
             if (file.isFolder()) { 
                 // update state and view of this fragment
@@ -294,7 +296,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.file_actions_menu, menu);
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-        OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
+        OCFile targetFile = mContainerActivity.getStorageManager().createFileInstance(
+                (Cursor) mAdapter.getItem(info.position));
         List<Integer> toHide = new ArrayList<Integer>();    
         List<Integer> toDisable = new ArrayList<Integer>();  
         
@@ -379,7 +382,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
-        mTargetFile = (OCFile) mAdapter.getItem(info.position);
+        mTargetFile = mContainerActivity.getStorageManager().createFileInstance(
+                (Cursor) mAdapter.getItem(info.position));
         switch (item.getItemId()) {                
             case R.id.action_share_file: {
                 FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
