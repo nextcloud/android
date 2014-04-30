@@ -61,6 +61,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -83,7 +84,6 @@ public class FileDetailFragment extends FileFragment implements
     private int mLayout;
     private View mView;
     private Account mAccount;
-    private FileDataStorageManager mStorageManager;
     
     private UploadFinishReceiver mUploadFinishReceiver;
     public ProgressListener mProgressListener;
@@ -103,7 +103,6 @@ public class FileDetailFragment extends FileFragment implements
     public FileDetailFragment() {
         super();
         mAccount = null;
-        mStorageManager = null;
         mLayout = R.layout.file_details_empty;
         mProgressListener = null;
     }
@@ -119,7 +118,6 @@ public class FileDetailFragment extends FileFragment implements
     public FileDetailFragment(OCFile fileToDetail, Account ocAccount) {
         super(fileToDetail);
         mAccount = ocAccount;
-        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mLayout = R.layout.file_details_empty;
         mProgressListener = null;
     }
@@ -185,8 +183,8 @@ public class FileDetailFragment extends FileFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
-            mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-            OCFile file = mStorageManager.getFileByPath(getFile().getRemotePath());
+            OCFile file = ((FileActivity)getActivity()).getStorageManager().
+                    getFileByPath(getFile().getRemotePath());
             if (file != null) {
                 setFile(file);
             }
@@ -361,17 +359,17 @@ public class FileDetailFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                FileActivity activity = (FileActivity) getSherlockActivity();
                 activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
                 return true;
             }
             case R.id.action_unshare_file: {
-                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                FileActivity activity = (FileActivity) getSherlockActivity();
                 activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
                 return true;
             }
             case R.id.action_open_file_with: {
-                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
+                FileActivity activity = (FileActivity) getSherlockActivity();
                 activity.getFileOperationsHelper().openFile(getFile(), activity);
                 return true;
             }
@@ -428,7 +426,7 @@ public class FileDetailFragment extends FileFragment implements
         CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
         OCFile file = getFile();
         file.setKeepInSync(cb.isChecked());
-        mStorageManager.saveFile(file);
+        ((FileActivity)getActivity()).getStorageManager().saveFile(file);
         
         /// register the OCFile instance in the observer service to monitor local updates;
         /// if necessary, the file is download 
@@ -494,11 +492,17 @@ public class FileDetailFragment extends FileFragment implements
             }
             
         } else {
-            mLastRemoteOperation = new SynchronizeFileOperation(file, null, mStorageManager, mAccount, true, getActivity());
+            mLastRemoteOperation = new SynchronizeFileOperation(
+                    file, 
+                    null, 
+                    ((FileActivity)getActivity()).getStorageManager(), 
+                    mAccount, 
+                    true, 
+                    getActivity());
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
             // update ui 
-            ((FileDisplayActivity) getActivity()).showLoadingDialog();
+            ((FileActivity) getActivity()).showLoadingDialog();
             
         }
     }
@@ -507,13 +511,15 @@ public class FileDetailFragment extends FileFragment implements
     public void onConfirmation(String callerTag) {
         OCFile file = getFile();
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            if (mStorageManager.getFileById(file.getFileId()) != null) {
+            FileDataStorageManager storageManager =
+                    ((FileActivity)getActivity()).getStorageManager();
+            if (storageManager.getFileById(file.getFileId()) != null) {
                 mLastRemoteOperation = new RemoveFileOperation( file, 
                                                                 true, 
-                                                                mStorageManager);
+                                                                storageManager);
                 mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
                                 
-                ((FileDisplayActivity) getActivity()).showLoadingDialog();
+                ((FileActivity) getActivity()).showLoadingDialog();
             }
         }
     }
@@ -521,7 +527,7 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
+        ((FileActivity)getActivity()).getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
         if (file.getStoragePath() != null) {
             file.setStoragePath(null);
             updateFileDetails(file, mAccount);
@@ -551,11 +557,12 @@ public class FileDetailFragment extends FileFragment implements
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
         setFile(file);
+        FileDataStorageManager storageManager = ((FileActivity)getActivity()).getStorageManager();
         if (ocAccount != null && ( 
-                mStorageManager == null || 
+                storageManager == null || 
                 (mAccount != null && !mAccount.equals(ocAccount))
            )) {
-            mStorageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
+            storageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
         }
         mAccount = ocAccount;
         updateFileDetails(false, false);
@@ -577,9 +584,10 @@ public class FileDetailFragment extends FileFragment implements
     public void updateFileDetails(boolean transferring, boolean refresh) {
 
         if (readyToShow()) {
-            
-            if (refresh && mStorageManager != null) {
-                setFile(mStorageManager.getFileByPath(getFile().getRemotePath()));
+            FileDataStorageManager storageManager = 
+                    ((FileActivity)getActivity()).getStorageManager();
+            if (refresh && storageManager != null) {
+                setFile(storageManager.getFileByPath(getFile().getRemotePath()));
             }
             OCFile file = getFile();
             
@@ -779,7 +787,7 @@ public class FileDetailFragment extends FileFragment implements
                 if (getFile().getRemotePath().equals(uploadRemotePath) ||
                     renamedInUpload) {
                     if (uploadWasFine) {
-                        setFile(mStorageManager.getFileByPath(uploadRemotePath));
+                        setFile(((FileActivity)getActivity()).getStorageManager().getFileByPath(uploadRemotePath));
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadRemotePath)).getName();
@@ -809,7 +817,7 @@ public class FileDetailFragment extends FileFragment implements
                                                             newFilename, 
                                                             new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            ((FileDisplayActivity) getActivity()).showLoadingDialog();
+            ((FileActivity) getActivity()).showLoadingDialog();
         }
     }
     
@@ -834,7 +842,7 @@ public class FileDetailFragment extends FileFragment implements
     
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
+        ((FileActivity) getActivity()).dismissLoadingDialog();
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
             msg.show();
@@ -850,7 +858,7 @@ public class FileDetailFragment extends FileFragment implements
     }
     
     private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
+        ((FileActivity) getActivity()).dismissLoadingDialog();
         
         if (result.isSuccess()) {
             updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
@@ -877,7 +885,7 @@ public class FileDetailFragment extends FileFragment implements
     }
     
     private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
-        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
+        ((FileActivity) getActivity()).dismissLoadingDialog();
         OCFile file = getFile();
         if (!result.isSuccess()) {
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {

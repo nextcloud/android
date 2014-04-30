@@ -26,9 +26,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,7 +51,6 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.PinCodeActivity;
-import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -73,8 +69,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
-    
-    private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
     
     private ViewPager mViewPager; 
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
@@ -289,29 +283,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
 
     private void backToDisplayActivity() {
         finish();
-    }
-    
-    /**
-     * Show loading dialog 
-     */
-    public void showLoadingDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_TAG);
-        
-    }
-    
-    /**
-     * Dismiss loading dialog
-     */
-    public void dismissLoadingDialog(){
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-      if (frag != null) {
-          LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
     }
     
     /**

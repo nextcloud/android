@@ -154,18 +154,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     }
     
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (mAccount != null) {
-            //mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());;
-        }
-    }
-        
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

@@ -58,7 +58,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
 
@@ -79,7 +79,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
 
     private View mView;
     private Account mAccount;
-    private FileDataStorageManager mStorageManager;
     private ImageView mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
@@ -106,7 +105,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public PreviewImageFragment(OCFile fileToDetail, Account ocAccount, boolean ignoreFirstSavedState) {
         super(fileToDetail);
         mAccount = ocAccount;
-        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment
         mIgnoreFirstSavedState = ignoreFirstSavedState;
     }
     
@@ -121,7 +119,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public PreviewImageFragment() {
         super();
         mAccount = null;
-        mStorageManager = null;
         mIgnoreFirstSavedState = false;
     }
     
@@ -173,7 +170,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
                 OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
@@ -181,8 +177,8 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 
                 // Update the file
                 if (mAccount!= null) {
-                    mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-                    OCFile updatedFile = mStorageManager.getFileByPath(file.getRemotePath());
+                    OCFile updatedFile = ((FileActivity)getSherlockActivity()).
+                            getStorageManager().getFileByPath(file.getRemotePath());
                     if (updatedFile != null) {
                         setFile(updatedFile);
                     } else {
@@ -433,13 +429,15 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
      */
     @Override
     public void onConfirmation(String callerTag) {
-        if (mStorageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
+        FileDataStorageManager storageManager = 
+                ((FileActivity)getSherlockActivity()).getStorageManager();
+        if (storageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
             mLastRemoteOperation = new RemoveFileOperation( getFile(),      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
                                                             true, 
-                                                            mStorageManager);
+                                                            storageManager);
             mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
             
-            ((PreviewImageActivity) getActivity()).showLoadingDialog();
+            ((FileActivity) getActivity()).showLoadingDialog();
         }
     }
     
@@ -450,7 +448,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
+        ((FileActivity)getSherlockActivity()).getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
         finish();
     }
     
@@ -657,7 +655,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     }
     
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((PreviewImageActivity) getActivity()).dismissLoadingDialog();
+        ((FileActivity) getActivity()).dismissLoadingDialog();
         
         if (result.isSuccess()) {
             Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
