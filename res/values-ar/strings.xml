@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">إدارة الحسابات</string>
   <string name="prefs_pincode">كلمة سر التطبيق</string>
   <string name="prefs_pincode_summary">حماية العميل</string>
+  <string name="prefs_instant_upload">رفع الصورة مباشرة</string>
+  <string name="prefs_instant_upload_summary">رفع صورة المؤخذة عبر الكاميرا</string>
+  <string name="prefs_instant_video_upload">رفع فيديو مباشرة</string>
+  <string name="prefs_instant_video_upload_summary">رفع فيديو مباشرة من الكاميرا</string>
   <string name="prefs_log_title">تفعيل الدخول</string>
   <string name="prefs_log_summary">يستخدم هذا لتسجيل المشاكل</string>
   <string name="prefs_log_title_history">تاريخ الدخول</string>
@@ -35,6 +39,7 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
+  <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات  %1$s على جهازك. يرجى تهيئة حساب أولاً.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>
@@ -127,6 +132,7 @@
   <string name="media_rewind_description">زر الترجيع</string>
   <string name="media_play_pause_description">زر التشغيل أو الإيقاف</string>
   <string name="media_forward_description">زر التقدم للأمام</string>
+  <string name="auth_getting_authorization">التأكد من الموثوقية</string>
   <string name="auth_trying_to_login">محاولة الدخول ...</string>
   <string name="auth_no_net_conn_title">لا يتوفر اتصال</string>
   <string name="auth_nossl_plain_ok_title">الاتصال الآمن غير متاح</string>
@@ -171,6 +177,7 @@
   <string name="rename_server_fail_msg">لم تكتمل إعادة التسمية</string>
   <string name="sync_file_fail_msg">لا يمكن التحقق من الملف الخارجي</string>
   <string name="sync_file_nothing_to_do_msg">تمت  مزامنة محتويات الملفات من قبل</string>
+  <string name="create_dir_fail_msg">لايمكن إنشاء المجلد</string>
   <string name="filename_forbidden_characters">رموز ممنوعة: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">انتظر للحظة</string>
   <string name="filedisplay_unexpected_bad_get_content">خطا غير متوقع : الرجاء اختيار الملف من تطبيق آخر</string>
@@ -209,6 +216,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">رفع الصور من خلال الـ WiFi فقط</string>
+  <string name="instant_video_upload_on_wifi">رفع فيديو عبر الواي فاي حصراً</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">تعارض في التحديث </string>
   <string name="conflict_message">الملف %s غير </string>
