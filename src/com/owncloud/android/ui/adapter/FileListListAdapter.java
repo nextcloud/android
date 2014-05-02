@@ -57,13 +57,26 @@ public class FileListListAdapter extends CursorAdapter implements ListAdapter {
     private Account mAccount;
     private TransferServiceGetter mTransferServiceGetter;
     
+
     public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
-        super(context, null, 0);
+        super(context, null, FLAG_AUTO_REQUERY);
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
     }
 
+    public void setStorageManager(FileDataStorageManager storageManager) {
+        mStorageManager = storageManager;
+    }
+    
+    @Override
+    protected void onContentChanged() {
+        Log_OC.d(TAG, "onContentChanged() start");
+        super.onContentChanged();
+        
+        notifyDataSetChanged();
+        Log_OC.d(TAG, "onContentChanged() end");
+    }
     /*
     @Override
     public boolean areAllItemsEnabled() {
@@ -115,31 +128,37 @@ public class FileListListAdapter extends CursorAdapter implements ListAdapter {
     }
     */
 
-    /**
-     * Change the adapted directory for a new one
-     * @param folder                    New file to adapt. Can be NULL, meaning "no content to adapt".
-     * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
-     */
-    public void swapDirectory(OCFile folder, FileDataStorageManager updatedStorageManager) {
-        if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
-            mStorageManager = updatedStorageManager;
-            mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        }
-        Cursor newCursor = null; 
-        if (mStorageManager != null) {
-            //mFiles = mStorageManager.getFolderContent(mFile);
-            newCursor = mStorageManager.getContent(folder.getFileId());
-        }
-        Cursor oldCursor = swapCursor(newCursor);
-        if (oldCursor != null){
-            oldCursor.close();
-        }
-        notifyDataSetChanged();
-    }
+//    /**
+//     * Change the adapted directory for a new one
+//     * @param folder                    New file to adapt. Can be NULL, meaning "no content to adapt".
+//     * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
+//     */
+//    public void swapDirectory(OCFile folder, FileDataStorageManager updatedStorageManager) {
+//        if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
+//            mStorageManager = updatedStorageManager;
+//            mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+//        }
+//        Cursor newCursor = null; 
+//        if (mStorageManager != null) {
+//            //mFiles = mStorageManager.getFolderContent(mFile);
+//            newCursor = mStorageManager.getContent(folder.getFileId());
+//            Uri uri = Uri.withAppendedPath(
+//                    ProviderTableMeta.CONTENT_URI_DIR, 
+//                    String.valueOf(folder.getFileId()));
+//            Log_OC.d(TAG, "swapDirectory Uri " + uri);
+//            newCursor.setNotificationUri(mContext.getContentResolver(), uri);
+//            
+//        }
+//        Cursor oldCursor = swapCursor(newCursor);
+//        if (oldCursor != null){
+//            oldCursor.close();
+//        }
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        Log_OC.d(TAG, "bindView start");
+        //Log_OC.d(TAG, "bindView start");
         
         OCFile file = mStorageManager.createFileInstance(cursor);
         
@@ -200,12 +219,12 @@ public class FileListListAdapter extends CursorAdapter implements ListAdapter {
             shareIconV.setVisibility(View.INVISIBLE);
         }
         //}
-        Log_OC.d(TAG, "bindView end");
+        //Log_OC.d(TAG, "bindView end");
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        Log_OC.d(TAG, "newView start");
+        //Log_OC.d(TAG, "newView start");
         LayoutInflater inflator = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflator.inflate(R.layout.list_item, null);
         
@@ -222,7 +241,7 @@ public class FileListListAdapter extends CursorAdapter implements ListAdapter {
             }*/
             checkBoxV.setVisibility(View.VISIBLE);
         }
-        Log_OC.d(TAG, "newView end");
+        //Log_OC.d(TAG, "newView end");
         return view;
       
     }

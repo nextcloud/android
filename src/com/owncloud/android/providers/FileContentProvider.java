@@ -24,6 +24,7 @@ import java.util.HashMap;
 import com.owncloud.android.R;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.Log_OC;
 
@@ -141,18 +142,55 @@ public class FileContentProvider extends ContentProvider {
     
     @Override
     public int delete(Uri uri, String where, String[] whereArgs) {
-        //Log_OC.d(TAG, "Deleting " + uri + " at provider " + this);
+        Log_OC.d(TAG, "Deleting " + uri + " at provider " + this);
         int count = 0;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
+        
+        // Get parentId to notify the change
+        long parentId = getParentId(uri);
+        
+        // Delete action
         try {
             count = delete(db, uri, where, whereArgs);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
+        Log_OC.d(TAG, "Uri " + uri);
         getContext().getContentResolver().notifyChange(uri, null);
+        
+        // Notify the change to the parent folder
+        notifyChangeToParentUri(parentId);
         return count;
+    }
+    
+    private long getParentId(Uri uri) {
+        long parentId = -1;
+        
+        if (mUriMatcher.match(uri) == SINGLE_FILE || mUriMatcher.match(uri) == DIRECTORY) {
+            String fileId = uri.toString().substring(uri.toString().lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
+            Uri selectFileUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, fileId);
+            String[] fileProjection = new String[] { ProviderTableMeta.FILE_PARENT};
+            Cursor fileCursor = query(selectFileUri, fileProjection, null, null, null);
+            
+            if (fileCursor != null  && fileCursor.moveToFirst()) {
+                parentId = fileCursor.getLong(fileCursor.getColumnIndex(ProviderTableMeta.FILE_PARENT));
+            }
+            fileCursor.close();
+        }
+        Log_OC.d(TAG, "getParentId = " + parentId);
+        return parentId;
+    }
+    
+    private void notifyChangeToParentUri(long parentId) {
+        if (parentId != -1) {
+            Uri parentUri = Uri.withAppendedPath(
+                    ProviderTableMeta.CONTENT_URI_DIR, 
+                    String.valueOf(parentId));
+            Log_OC.d(TAG, "ParentUri " + parentUri);
+            getContext().getContentResolver().notifyChange(parentUri, null);
+        }
     }
     
     private int delete(SQLiteDatabase db, Uri uri, String where, String[] whereArgs) {
@@ -252,6 +290,7 @@ public class FileContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         //Log_OC.d(TAG, "Inserting " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+        Log_OC.d(TAG, "Uri " + uri);
         Uri newUri = null;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
@@ -424,7 +463,8 @@ public class FileContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         
-        //Log_OC.d(TAG, "Updating " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+        Log_OC.d(TAG, "Updating " + values.getAsString(ProviderTableMeta.FILE_PATH) + " at provider " + this);
+        Log_OC.d(TAG, "Uri " + uri);
         int count = 0;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
