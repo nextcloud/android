@@ -132,7 +132,7 @@ public class OCFileListFragment extends ExtendedListFragment
             mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+            onCreateLoader(LOADER_ID, null);
             
         } else {
             mIndexes = new ArrayList<Integer>();
@@ -166,6 +166,7 @@ public class OCFileListFragment extends ExtendedListFragment
         outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
         outState.putIntegerArrayList(KEY_TOPS, mTops);
         outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
+        
     }
     
     /**
@@ -572,6 +573,7 @@ public class OCFileListFragment extends ExtendedListFragment
         if (storageManager != null) {
             mAdapter.setStorageManager(storageManager);
             mCursorLoader.setParentId(parentId);
+            mCursorLoader.setStorageManager(storageManager);
             newCursor = mCursorLoader.loadInBackground();//storageManager.getContent(folder.getFileId());
             Uri uri = Uri.withAppendedPath(
                     ProviderTableMeta.CONTENT_URI_DIR, 
