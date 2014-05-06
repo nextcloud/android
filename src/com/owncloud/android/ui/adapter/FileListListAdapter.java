@@ -49,7 +49,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author Bartek Przybylski
  * 
  */
-public class FileListListAdapter extends SimpleCursorAdapter implements ListAdapter {
+public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ implements ListAdapter {
 
     private Context mContext;
     private static OCFile mFile = null;
@@ -211,10 +211,8 @@ public class FileListListAdapter extends SimpleCursorAdapter implements ListAdap
         }
         if (mStorageManager != null) {
             mFiles = mStorageManager.getFolderContent(mFile);
-            mCursor = mStorageManager.getContent(mFile.getParentId());
         } else {
             mFiles = null;
-            mCursor = null;
         }
         notifyDataSetChanged();
     }
