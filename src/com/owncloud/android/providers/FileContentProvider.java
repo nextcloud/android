@@ -484,7 +484,7 @@ public class FileContentProvider extends ContentProvider {
         }
         getContext().getContentResolver().notifyChange(uri, null);
         
-        // Get parentId to notify the change
+     // Get parentId to notify the change
         long parentId = getParentId(uri);
         // Notify the change to the parent folder
         notifyChangeToParentUri(parentId);
