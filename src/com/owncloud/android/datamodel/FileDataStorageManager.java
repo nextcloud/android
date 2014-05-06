@@ -610,34 +610,6 @@ public class FileDataStorageManager {
     }
     
     
-    public Cursor getContent(long parentId) {
-        Log_OC.d(TAG, "getContent start");
-        Uri req_uri = Uri.withAppendedPath(
-                ProviderTableMeta.CONTENT_URI_DIR,
-                String.valueOf(parentId));
-        Cursor c = null;
-
-        if (getContentProviderClient() != null) {
-            try {
-                c = getContentProviderClient().query(req_uri, null, 
-                        ProviderTableMeta.FILE_PARENT + "=?" ,
-                        new String[] { String.valueOf(parentId)}, null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage());
-                return c;
-            }
-        } else {
-            c = getContentResolver().query(req_uri, null, 
-                    ProviderTableMeta.FILE_PARENT + "=?" ,
-                    new String[] { String.valueOf(parentId)}, null);
-            
-            //c.setNotificationUri(getContentResolver(), req_uri);
-        }
-        
-        Log_OC.d(TAG, "getContent end");
-        return c;
-    }
-    
     private OCFile createRootDir() {
         OCFile file = new OCFile(OCFile.ROOT_PATH);
         file.setMimetype("DIR");
@@ -702,31 +674,31 @@ public class FileDataStorageManager {
         return c;
     }
     
-//    private Cursor getShareCursorForValue(String key, String value) {
-//        Cursor c = null;
-//        if (getContentResolver() != null) {
-//            c = getContentResolver()
-//                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
-//                            null,
-//                            key + "=? AND "
-//                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-//                                    + "=?",
-//                                    new String[] { value, mAccount.name }, null);
-//        } else {
-//            try {
-//                c = getContentProviderClient().query(
-//                        ProviderTableMeta.CONTENT_URI_SHARE,
-//                        null,
-//                        key + "=? AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-//                        + "=?", new String[] { value, mAccount.name },
-//                        null);
-//            } catch (RemoteException e) {
-//                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
-//                c = null;
-//            }
-//        }
-//        return c;
-//    }
+    private Cursor getShareCursorForValue(String key, String value) {
+        Cursor c = null;
+        if (getContentResolver() != null) {
+            c = getContentResolver()
+                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
+                            null,
+                            key + "=? AND "
+                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
+                                    + "=?",
+                                    new String[] { value, mAccount.name }, null);
+        } else {
+            try {
+                c = getContentProviderClient().query(
+                        ProviderTableMeta.CONTENT_URI_SHARE,
+                        null,
+                        key + "=? AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
+                        + "=?", new String[] { value, mAccount.name },
+                        null);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
+                c = null;
+            }
+        }
+        return c;
+    }
 
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;

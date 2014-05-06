@@ -19,11 +19,10 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.BaseAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -49,21 +48,20 @@ import com.owncloud.android.utils.DisplayUtils;
  * @author Bartek Przybylski
  * 
  */
-public class FileListListAdapter extends SimpleCursorAdapter /*BaseAdapter*/ implements ListAdapter {
-
+public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private Context mContext;
-    private static OCFile mFile = null;
+    private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private static FileDataStorageManager mStorageManager;
+
+    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
     
-
-    public FileListListAdapter(Context context, ComponentsGetter componentsGetter) {
-        super(context, 0, null, null, null, 0);
+    public FileListListAdapter(Context context, ComponentsGetter transferServiceGetter) {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        mTransferServiceGetter = componentsGetter;    }
+        mTransferServiceGetter = transferServiceGetter;
+    }
 
     @Override
     public boolean areAllItemsEnabled() {
