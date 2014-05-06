@@ -33,6 +33,7 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
+
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -630,7 +631,6 @@ public class FileDataStorageManager {
                     ProviderTableMeta.FILE_PARENT + "=?" ,
                     new String[] { String.valueOf(parentId)}, null);
             
-            //Log_OC.d(TAG, "getContent Uri " + req_uri);
             //c.setNotificationUri(getContentResolver(), req_uri);
         }
         
@@ -1329,5 +1329,4 @@ public class FileDataStorageManager {
             */
         //}
     }
-    
 }

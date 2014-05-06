@@ -24,12 +24,9 @@ import java.util.List;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.FileListCursorLoader;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -43,11 +40,7 @@ import com.owncloud.android.utils.Log_OC;
 import android.accounts.Account;
 import android.app.Activity;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -64,9 +57,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author masensio
  * @author David A. Velasco
  */
-public class OCFileListFragment extends ExtendedListFragment 
-        implements EditNameDialogListener, ConfirmationDialogFragmentListener, 
-        LoaderCallbacks<Cursor>{
+public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -78,14 +69,10 @@ public class OCFileListFragment extends ExtendedListFragment
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     
-    private static final int LOADER_ID = 0;
-    
     private FileFragment.ContainerActivity mContainerActivity;
-    
+   
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
-    private LoaderManager mLoaderManager;
-    private FileListCursorLoader  mCursorLoader;
     
     private OCFile mTargetFile;
 
@@ -125,9 +112,8 @@ public class OCFileListFragment extends ExtendedListFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
-        
+
         mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity); 
-        mLoaderManager = getLoaderManager();
                 
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(EXTRA_FILE);
@@ -144,15 +130,13 @@ public class OCFileListFragment extends ExtendedListFragment
             
         }
         
-        // Initialize loaderManager and makes it active
-        mLoaderManager.initLoader(LOADER_ID, null, this);
-        
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);
+        getListView().setOnCreateContextMenuListener(this);        
         
-    }
+ //       mHandler = new Handler();
+  }
     
     /**
      * Saves the current listed folder.
@@ -226,21 +210,20 @@ public class OCFileListFragment extends ExtendedListFragment
             
             int top = mTops.remove(mTops.size() - 1);
             
-            ExtendedListView list = (ExtendedListView) getListView();
-            list.setSelectionFromTop(firstPosition, top);
+            mList.setSelectionFromTop(firstPosition, top);
             
             // Move the scroll if the selection is not visible
             int indexPosition = mHeightCell*index;
-            int height = list.getHeight();
+            int height = mList.getHeight();
             
             if (indexPosition > height) {
                 if (android.os.Build.VERSION.SDK_INT >= 11)
                 {
-                    list.smoothScrollToPosition(index); 
+                    mList.smoothScrollToPosition(index); 
                 }
                 else if (android.os.Build.VERSION.SDK_INT >= 8)
                 {
-                    list.setSelectionFromTop(index, 0);
+                    mList.setSelectionFromTop(index, 0);
                 }
                 
             }
@@ -254,12 +237,10 @@ public class OCFileListFragment extends ExtendedListFragment
         
         mIndexes.add(index);
         
-        ExtendedListView list = (ExtendedListView) getListView();
-        
-        int firstPosition = list.getFirstVisiblePosition();
+        int firstPosition = mList.getFirstVisiblePosition();
         mFirstPositions.add(firstPosition);
         
-        View view = list.getChildAt(0);
+        View view = mList.getChildAt(0);
         int top = (view == null) ? 0 : view.getTop() ;
 
         mTops.add(top);
@@ -532,44 +513,14 @@ public class OCFileListFragment extends ExtendedListFragment
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
-            swapDirectory(directory.getFileId(), storageManager);
-            
+            mAdapter.swapDirectory(directory, storageManager);
             if (mFile == null || !mFile.equals(directory)) {
-                ((ExtendedListView) getListView()).setSelectionFromTop(0, 0);
+                mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
         }
     }
     
-    
-    /**
-     * Change the adapted directory for a new one
-     * @param folder                    New file to adapt. Can be NULL, meaning "no content to adapt".
-     * @param updatedStorageManager     Optional updated storage manager; used to replace mStorageManager if is different (and not NULL)
-     */
-    public void swapDirectory(long parentId, FileDataStorageManager updatedStorageManager) {
-        FileDataStorageManager storageManager = null;
-        if (updatedStorageManager != null && updatedStorageManager != storageManager) {
-            storageManager = updatedStorageManager;
-        }
-        Cursor newCursor = null; 
-        if (storageManager != null) {
-            mAdapter.setStorageManager(storageManager);
-            mCursorLoader.setParentId(parentId);
-            newCursor = mCursorLoader.loadInBackground();//storageManager.getContent(folder.getFileId());
-            Uri uri = Uri.withAppendedPath(
-                    ProviderTableMeta.CONTENT_URI_DIR, 
-                    String.valueOf(parentId));
-            Log_OC.d(TAG, "swapDirectory Uri " + uri);
-            //newCursor.setNotificationUri(getSherlockActivity().getContentResolver(), uri);
-            
-        }
-        Cursor oldCursor = mAdapter.swapCursor(newCursor);
-        if (oldCursor != null){
-            oldCursor.close();
-        }
-        mAdapter.notifyDataSetChanged();
-    }
     
     
     @Override
@@ -603,72 +554,5 @@ public class OCFileListFragment extends ExtendedListFragment
     public void onCancel(String callerTag) {
         Log_OC.d(TAG, "REMOVAL CANCELED");
     }
-
-    /***
-     *  LoaderManager.LoaderCallbacks<Cursor>
-     */
-    
-    /**
-     * Instantiate and return a new Loader for the given ID. This is where the cursor is created.
-     */
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        Log_OC.d(TAG, "onCreateLoader start");
-        mCursorLoader = new FileListCursorLoader(
-                getSherlockActivity(), 
-                mContainerActivity.getStorageManager());
-        if (mFile != null) {
-            mCursorLoader.setParentId(mFile.getFileId());
-        } else {
-            mCursorLoader.setParentId(1);
-        }
-        Log_OC.d(TAG, "onCreateLoader end");
-        return mCursorLoader;
-    }
-
-
-    /**
-     * Called when a previously created loader has finished its load. Here, you can start using the cursor.
-     */
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log_OC.d(TAG, "onLoadFinished start");
-        
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        if (storageManager != null)  {
-            mCursorLoader.setStorageManager(storageManager);
-            if (mFile != null) {
-                mCursorLoader.setParentId(mFile.getFileId());
-            } else {
-                mCursorLoader.setParentId(1);
-            }
-            mAdapter.swapCursor(mCursorLoader.loadInBackground());
-        }
-        
-//        if(mAdapter != null && cursor != null)
-//            mAdapter.swapCursor(cursor); //swap the new cursor in.
-//        else
-//            Log_OC.d(TAG,"OnLoadFinished: mAdapter is null");
-        
-        Log_OC.d(TAG, "onLoadFinished end");
-    }
-
-
-    /**
-     *  Called when a previously created loader is being reset, thus making its data unavailable. 
-     *  It is being reset in order to create a new cursor to query different data. 
-     *  This is called when the last Cursor provided to onLoadFinished() above is about to be closed. 
-     *  We need to make sure we are no longer using it.
-     */
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        Log_OC.d(TAG, "onLoadReset start");
-        if(mAdapter != null)
-            mAdapter.swapCursor(null);
-        else
-            Log_OC.d(TAG,"OnLoadFinished: mAdapter is null");
-        Log_OC.d(TAG, "onLoadReset end");
-    }
-
 
 }
