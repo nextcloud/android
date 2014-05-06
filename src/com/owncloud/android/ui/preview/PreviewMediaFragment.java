@@ -22,7 +22,6 @@ import java.util.List;
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,17 +32,14 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -57,11 +53,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
-import com.owncloud.android.lib.common.network.WebdavUtils;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -79,7 +70,7 @@ import com.owncloud.android.utils.Log_OC;
  */
 public class PreviewMediaFragment extends FileFragment implements
         OnTouchListener,  
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener  {
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener  {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -92,9 +83,6 @@ public class PreviewMediaFragment extends FileFragment implements
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
     
-    private Handler mHandler;
-    private RemoteOperation mLastRemoteOperation;
-    
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaControlView mMediaController = null;
     private MediaServiceConnection mMediaServiceConnection = null;
@@ -102,6 +90,8 @@ public class PreviewMediaFragment extends FileFragment implements
     private boolean mAutoplay;
     public boolean mPrepared;
     
+    private FileFragment.ContainerActivity mContainerActivity;
+
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
     
@@ -142,7 +132,6 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHandler = new Handler();
         setHasOptionsMenu(true);
     }
     
@@ -169,19 +158,6 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log_OC.e(TAG, "onAttach");
-        
-        if (!(activity instanceof FileFragment.ContainerActivity))
-            throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
-    }
-    
-    
     /**
      * {@inheritDoc}
      */
@@ -373,27 +349,24 @@ public class PreviewMediaFragment extends FileFragment implements
     
     private void unshareFileWithLink() {
         stopPreview(false);
-        FileActivity activity = (FileActivity)getSherlockActivity();
-        activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+        mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
     }
     
     private void shareFileWithLink() {
         stopPreview(false);
-        FileActivity activity = (FileActivity)getSherlockActivity();
-        activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+        mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
         
     }
 
     private void sendFile() {
         stopPreview(false);
-        FileActivity activity = (FileActivity)getSherlockActivity();
-        activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+        mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
         
     }
 
     private void seeDetails() {
         stopPreview(false);
-        ((FileFragment.ContainerActivity)getSherlockActivity()).showDetails(getFile());        
+        mContainerActivity.showDetails(getFile());        
     }
 
 
@@ -643,57 +616,10 @@ public class PreviewMediaFragment extends FileFragment implements
 
     /**
      * Opens the previewed file with an external application.
-     * 
-     * TODO - improve this; instead of prioritize the actions available for the MIME type in the server, 
-     * we should get a list of available apps for MIME tpye in the server and join it with the list of 
-     * available apps for the MIME type known from the file extension, to let the user choose
      */
     private void openFile() {
-        OCFile file = getFile();
         stopPreview(true);
-        String storagePath = file.getStoragePath();
-        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivity(i);
-            
-        } catch (Throwable t) {
-            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
-            boolean toastIt = true; 
-            String mimeType = "";
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(file.getMimetype())) {
-                    if (mimeType != null) {
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                    } else {
-                        // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*-/*");
-                    }
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    toastIt = false;
-                }
-                
-            } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                
-            } catch (ActivityNotFoundException e) {
-                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                
-            } catch (Throwable th) {
-                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                
-            } finally {
-                if (toastIt) {
-                    Toast.makeText(getSherlockActivity(), "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
-                }
-            }
-            
-        }
+        mContainerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
     
@@ -721,16 +647,10 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onConfirmation(String callerTag) {
         OCFile file = getFile();
-        FileDataStorageManager storageManager = 
-                ((FileActivity)getSherlockActivity()).getStorageManager();
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager.getFileById(file.getFileId()) != null) {   // check that the file is still there;
             stopPreview(true);
-            mLastRemoteOperation = new RemoveFileOperation( file,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
-                                                            true, 
-                                                            storageManager);
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            
-            ((FileActivity) getSherlockActivity()).showLoadingDialog();
+            mContainerActivity.getFileOperationsHelper().removeFile(file, true);
         }
     }
     
@@ -742,7 +662,7 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
         stopPreview(true);
-        ((FileActivity)getSherlockActivity()).getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
+        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
         finish();
     }
     
@@ -764,34 +684,7 @@ public class PreviewMediaFragment extends FileFragment implements
     public static boolean canBePreviewed(OCFile file) {
         return (file != null && (file.isAudio() || file.isVideo()));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mLastRemoteOperation)) {
-            if (operation instanceof RemoveFileOperation) {
-                onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-            }
-        }
-    }
     
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((FileActivity) getSherlockActivity()).dismissLoadingDialog();
-        if (result.isSuccess()) {
-            Toast msg = Toast.makeText(getSherlockActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
-            finish();
-                
-        } else {
-            Toast msg = Toast.makeText(getSherlockActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
-            if (result.isSslRecoverableException()) {
-                // TODO show the SSL warning dialog
-            }
-        }
-    }
 
     private void stopPreview(boolean stopAudio) {
         OCFile file = getFile();

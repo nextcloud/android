@@ -24,27 +24,21 @@ import java.util.List;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -52,12 +46,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.network.WebdavUtils;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
@@ -72,8 +60,8 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public class PreviewImageFragment extends FileFragment implements   OnRemoteOperationListener, 
-                                                                        ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+public class PreviewImageFragment extends FileFragment implements 
+ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
@@ -85,12 +73,11 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
 
     public Bitmap mBitmap = null;
     
-    private Handler mHandler;
-    private RemoteOperation mLastRemoteOperation;
-    
     private static final String TAG = PreviewImageFragment.class.getSimpleName();
 
     private boolean mIgnoreFirstSavedState;
+
+    private FileFragment.ContainerActivity mContainerActivity;
 
     
     /**
@@ -129,7 +116,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHandler = new Handler();
         setHasOptionsMenu(true);
     }
     
@@ -144,7 +130,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (ImageView)mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
-        mView.setOnTouchListener((OnTouchListener)getActivity());   // WATCH OUT THAT CAST
+        mView.setOnTouchListener((OnTouchListener)getActivity());
         mMessageView = (TextView)mView.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)mView.findViewById(R.id.progressWheel);
@@ -159,8 +145,10 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof FileFragment.ContainerActivity))
-            throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
+        if (!(activity instanceof OnTouchListener)) {
+            throw new ClassCastException(activity.toString() + 
+                    " must implement " + OnTouchListener.class.getSimpleName());
+        }
     }
     
     
@@ -177,8 +165,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 
                 // Update the file
                 if (mAccount!= null) {
-                    OCFile updatedFile = ((FileActivity)getSherlockActivity()).
-                            getStorageManager().getFileByPath(file.getRemotePath());
+                    OCFile updatedFile = mContainerActivity.getStorageManager().getFileByPath(file.getRemotePath());
                     if (updatedFile != null) {
                         setFile(updatedFile);
                     } else {
@@ -271,8 +258,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
         
         MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
-        OCFile file = ((FileActivity) getSherlockActivity()).getFile();
-        if (!file.isShareByLink()) {
+        if (!getFile().isShareByLink()) {
             item.setVisible(false);
             item.setEnabled(false);
         } else {
@@ -291,13 +277,11 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                FileActivity act = (FileActivity)getSherlockActivity();
-                act.getFileOperationsHelper().shareFileWithLink(getFile(), act);
+                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_unshare_file: {
-                FileActivity act = (FileActivity)getSherlockActivity();
-                act.getFileOperationsHelper().unshareFileWithLink(getFile(), act);
+                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -313,8 +297,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
                 return true;
             }
             case R.id.action_send_file: {
-                FileActivity act = (FileActivity)getSherlockActivity();
-                act.getFileOperationsHelper().sendDownloadedFile(getFile(), act);
+                mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 return true;
             }
             
@@ -325,7 +308,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     
 
     private void seeDetails() {
-        ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
+        mContainerActivity.showDetails(getFile());        
     }
 
 
@@ -352,56 +335,9 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     
     /**
      * Opens the previewed image with an external application.
-     * 
-     * TODO - improve this; instead of prioritize the actions available for the MIME type in the server, 
-     * we should get a list of available apps for MIME tpye in the server and join it with the list of 
-     * available apps for the MIME type known from the file extension, to let the user choose
      */
     private void openFile() {
-        OCFile file = getFile();
-        String storagePath = file.getStoragePath();
-        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivity(i);
-            
-        } catch (Throwable t) {
-            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
-            boolean toastIt = true; 
-            String mimeType = "";
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(file.getMimetype())) {
-                    if (mimeType != null) {
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                    } else {
-                        // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*-/*");
-                    }
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    toastIt = false;
-                }
-                
-            } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                
-            } catch (ActivityNotFoundException e) {
-                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                
-            } catch (Throwable th) {
-                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                
-            } finally {
-                if (toastIt) {
-                    Toast.makeText(getActivity(), "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
-                }
-            }
-            
-        }
+        mContainerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
     
@@ -429,15 +365,9 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
      */
     @Override
     public void onConfirmation(String callerTag) {
-        FileDataStorageManager storageManager = 
-                ((FileActivity)getSherlockActivity()).getStorageManager();
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
-            mLastRemoteOperation = new RemoveFileOperation( getFile(),      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
-                                                            true, 
-                                                            storageManager);
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            
-            ((FileActivity) getActivity()).showLoadingDialog();
+            mContainerActivity.getFileOperationsHelper().removeFile(getFile(), true);
         }
     }
     
@@ -448,7 +378,7 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        ((FileActivity)getSherlockActivity()).getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
+        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
         finish();
     }
     
@@ -644,33 +574,6 @@ public class PreviewImageFragment extends FileFragment implements   OnRemoteOper
     }
 
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mLastRemoteOperation) && operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-        }
-    }
-    
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((FileActivity) getActivity()).dismissLoadingDialog();
-        
-        if (result.isSuccess()) {
-            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
-            finish();
-                
-        } else {
-            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
-            if (result.isSslRecoverableException()) {
-                // TODO show the SSL warning dialog
-            }
-        }
-    }
-
     /**
      * Finishes the preview
      */

@@ -143,8 +143,9 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
 
                             } else {
                                 // Create a new share resource
-                                FileOperationsHelper foh = new FileOperationsHelper();
-                                foh.shareFileWithLinkToApp(mFile, mIntent, (FileActivity)getSherlockActivity());
+                                FileOperationsHelper foh = 
+                                        new FileOperationsHelper((FileActivity)getSherlockActivity());
+                                foh.shareFileWithLinkToApp(mFile, mIntent);
                             }
                         }
         })

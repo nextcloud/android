@@ -23,13 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,14 +49,6 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.RenameFileOperation;
-import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -77,7 +67,7 @@ import com.owncloud.android.utils.Log_OC;
  */
 public class FileDetailFragment extends FileFragment implements
         OnClickListener, 
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener, EditNameDialogListener {
+        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, EditNameDialogListener {
 
     private FileFragment.ContainerActivity mContainerActivity;
     
@@ -87,9 +77,6 @@ public class FileDetailFragment extends FileFragment implements
     
     private UploadFinishReceiver mUploadFinishReceiver;
     public ProgressListener mProgressListener;
-    
-    private Handler mHandler;
-    private RemoteOperation mLastRemoteOperation;
     
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
@@ -126,7 +113,6 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHandler = new Handler();
         setHasOptionsMenu(true);
     }
     
@@ -146,7 +132,6 @@ public class FileDetailFragment extends FileFragment implements
         }
         
         View view = null;
-        //view = inflater.inflate(mLayout, container, false);
         view = inflater.inflate(mLayout, null);
         mView = view;
         
@@ -165,25 +150,10 @@ public class FileDetailFragment extends FileFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mContainerActivity = (ContainerActivity) activity;
-            
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + FileDetailFragment.ContainerActivity.class.getSimpleName());
-        }
-    }
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (mAccount != null) {
-            OCFile file = ((FileActivity)getActivity()).getStorageManager().
+            OCFile file = mContainerActivity.getStorageManager().
                     getFileByPath(getFile().getRemotePath());
             if (file != null) {
                 setFile(file);
@@ -359,44 +329,43 @@ public class FileDetailFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                FileActivity activity = (FileActivity) getSherlockActivity();
-                activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
+                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_unshare_file: {
-                FileActivity activity = (FileActivity) getSherlockActivity();
-                activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
+                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
-                FileActivity activity = (FileActivity) getSherlockActivity();
-                activity.getFileOperationsHelper().openFile(getFile(), activity);
+                mContainerActivity.getFileOperationsHelper().openFile(getFile());
                 return true;
             }
             case R.id.action_remove_file: {
-                removeFile();
+                showDialogToRemoveFile();
                 return true;
             }
             case R.id.action_rename_file: {
-                renameFile();
+                showDialogToRenameFile();
+                return true;
+            }
+            case R.id.action_cancel_download:
+            case R.id.action_cancel_upload: {
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(getFile());
                 return true;
             }
             case R.id.action_download_file: 
-            case R.id.action_cancel_download:
-            case R.id.action_cancel_upload:
             case R.id.action_sync_file: {
-                synchronizeFile();
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
             case R.id.action_send_file: {
-                FileDisplayActivity activity = (FileDisplayActivity) getSherlockActivity();
                 // Obtain the file
                 if (!getFile().isDown()) {  // Download the file                    
                     Log_OC.d(TAG, getFile().getRemotePath() + " : File must be downloaded");
-                    activity.startDownloadForSending(getFile());
+                    ((FileDisplayActivity)mContainerActivity).startDownloadForSending(getFile());
                     
                 } else {
-                    activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+                    ((FileDisplayActivity)mContainerActivity).getFileOperationsHelper().sendDownloadedFile(getFile());
                 }
                 return true;
             }
@@ -413,7 +382,7 @@ public class FileDetailFragment extends FileFragment implements
                 break;
             }
             case R.id.fdCancelBtn: {
-                synchronizeFile();
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(getFile());
                 break;
             }
             default:
@@ -426,7 +395,7 @@ public class FileDetailFragment extends FileFragment implements
         CheckBox cb = (CheckBox) getView().findViewById(R.id.fdKeepInSync);
         OCFile file = getFile();
         file.setKeepInSync(cb.isChecked());
-        ((FileActivity)getActivity()).getStorageManager().saveFile(file);
+        mContainerActivity.getStorageManager().saveFile(file);
         
         /// register the OCFile instance in the observer service to monitor local updates;
         /// if necessary, the file is download 
@@ -441,11 +410,11 @@ public class FileDetailFragment extends FileFragment implements
         getActivity().startService(intent);
         
         if (file.keepInSync()) {
-            synchronizeFile();   // force an immediate synchronization
+            mContainerActivity.getFileOperationsHelper().syncFile(getFile());
         }
     }
 
-    private void removeFile() {
+    private void showDialogToRemoveFile() {
         OCFile file = getFile();
         ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
                 R.string.confirmation_remove_alert,
@@ -458,7 +427,7 @@ public class FileDetailFragment extends FileFragment implements
     }
 
 
-    private void renameFile() {
+    private void showDialogToRenameFile() {
         OCFile file = getFile();
         String fileName = file.getFileName();
         int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
@@ -467,59 +436,13 @@ public class FileDetailFragment extends FileFragment implements
         dialog.show(getFragmentManager(), "nameeditdialog");
     }
 
-    private void synchronizeFile() {
-        OCFile file = getFile();
-        FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-        FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
-            downloaderBinder.cancel(mAccount, file);
-            if (file.isDown()) {
-                setButtonsForDown();
-            } else {
-                setButtonsForRemote();
-            }
-
-        } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
-            uploaderBinder.cancel(mAccount, file);
-            if (!file.fileExists()) {
-                // TODO make something better
-                ((FileDisplayActivity)getActivity()).cleanSecondFragment();
-                
-            } else if (file.isDown()) {
-                setButtonsForDown();
-            } else {
-                setButtonsForRemote();
-            }
-            
-        } else {
-            mLastRemoteOperation = new SynchronizeFileOperation(
-                    file, 
-                    null, 
-                    ((FileActivity)getActivity()).getStorageManager(), 
-                    mAccount, 
-                    true, 
-                    getActivity());
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            
-            // update ui 
-            ((FileActivity) getActivity()).showLoadingDialog();
-            
-        }
-    }
-
+    
     @Override
     public void onConfirmation(String callerTag) {
         OCFile file = getFile();
         if (callerTag.equals(FTAG_CONFIRMATION)) {
-            FileDataStorageManager storageManager =
-                    ((FileActivity)getActivity()).getStorageManager();
-            if (storageManager.getFileById(file.getFileId()) != null) {
-                mLastRemoteOperation = new RemoveFileOperation( file, 
-                                                                true, 
-                                                                storageManager);
-                mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-                                
-                ((FileActivity) getActivity()).showLoadingDialog();
+            if (mContainerActivity.getStorageManager().getFileById(file.getFileId()) != null) {
+                mContainerActivity.getFileOperationsHelper().removeFile(file, true);
             }
         }
     }
@@ -527,7 +450,7 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        ((FileActivity)getActivity()).getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
+        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
         if (file.getStoragePath() != null) {
             file.setStoragePath(null);
             updateFileDetails(file, mAccount);
@@ -557,13 +480,6 @@ public class FileDetailFragment extends FileFragment implements
      */
     public void updateFileDetails(OCFile file, Account ocAccount) {
         setFile(file);
-        FileDataStorageManager storageManager = ((FileActivity)getActivity()).getStorageManager();
-        if (ocAccount != null && ( 
-                storageManager == null || 
-                (mAccount != null && !mAccount.equals(ocAccount))
-           )) {
-            storageManager = new FileDataStorageManager(ocAccount, getActivity().getApplicationContext().getContentResolver());
-        }
         mAccount = ocAccount;
         updateFileDetails(false, false);
     }
@@ -579,13 +495,12 @@ public class FileDetailFragment extends FileFragment implements
      *                          although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and 
      *                          {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
      *                          
-     * @param refresh           If 'true', try to refresh the hold file from the database
+     * @param refresh           If 'true', try to refresh the whole file from the database
      */
     public void updateFileDetails(boolean transferring, boolean refresh) {
 
         if (readyToShow()) {
-            FileDataStorageManager storageManager = 
-                    ((FileActivity)getActivity()).getStorageManager();
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (refresh && storageManager != null) {
                 setFile(storageManager.getFileByPath(getFile().getRemotePath()));
             }
@@ -605,7 +520,6 @@ public class FileDetailFragment extends FileFragment implements
             cb.setChecked(file.keepInSync());
 
             // configure UI for depending upon local state of the file
-            //if (FileDownloader.isDownloading(mAccount, mFile.getRemotePath()) || FileUploader.isUploading(mAccount, mFile.getRemotePath())) {
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
             if (transferring || (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) || (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file))) {
@@ -787,7 +701,7 @@ public class FileDetailFragment extends FileFragment implements
                 if (getFile().getRemotePath().equals(uploadRemotePath) ||
                     renamedInUpload) {
                     if (uploadWasFine) {
-                        setFile(((FileActivity)getActivity()).getStorageManager().getFileByPath(uploadRemotePath));
+                        setFile(mContainerActivity.getStorageManager().getFileByPath(uploadRemotePath));
                     }
                     if (renamedInUpload) {
                         String newName = (new File(uploadRemotePath)).getName();
@@ -800,7 +714,7 @@ public class FileDetailFragment extends FileFragment implements
                    
                     // Force the preview if the file is an image
                     if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
-                        ((FileDisplayActivity) mContainerActivity).startImagePreview(getFile());
+                        ((FileDisplayActivity)mContainerActivity).startImagePreview(getFile());
                     } 
                 }
             }
@@ -812,118 +726,11 @@ public class FileDetailFragment extends FileFragment implements
         if (dialog.getResult()) {
             String newFilename = dialog.getNewFilename();
             Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-            mLastRemoteOperation = new RenameFileOperation( getFile(), 
-                                                            mAccount, 
-                                                            newFilename, 
-                                                            new FileDataStorageManager(mAccount, getActivity().getContentResolver()));
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            ((FileActivity) getActivity()).showLoadingDialog();
+            mContainerActivity.getFileOperationsHelper().renameFile(getFile(), newFilename);
         }
     }
     
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mLastRemoteOperation)) {
-            if (operation instanceof RemoveFileOperation) {
-                onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-                
-            } else if (operation instanceof RenameFileOperation) {
-                onRenameFileOperationFinish((RenameFileOperation)operation, result);
-                
-            } else if (operation instanceof SynchronizeFileOperation) {
-                onSynchronizeFileOperationFinish((SynchronizeFileOperation)operation, result);
-            }
-        }
-    }
-    
-    
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((FileActivity) getActivity()).dismissLoadingDialog();
-        if (result.isSuccess()) {
-            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
-            ((FileDisplayActivity)getActivity()).cleanSecondFragment();
-
-        } else {
-            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
-            if (result.isSslRecoverableException()) {
-                // TODO show the SSL warning dialog
-            }
-        }
-    }
-    
-    private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        ((FileActivity) getActivity()).dismissLoadingDialog();
-        
-        if (result.isSuccess()) {
-            updateFileDetails(((RenameFileOperation)operation).getFile(), mAccount);
-            /* TODO WIP COMMENT 
-            mContainerActivity.onFileStateChanged();
-            */
-            
-        } else {
-            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                // TODO throw again the new rename dialog
-            } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
-                Toast msg = Toast.makeText(getActivity(), R.string.filename_forbidden_characters, Toast.LENGTH_LONG);
-                msg.show();
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (result.isSslRecoverableException()) {
-                    // TODO show the SSL warning dialog
-                }
-            }
-        }
-    }
-    
-    private void onSynchronizeFileOperationFinish(SynchronizeFileOperation operation, RemoteOperationResult result) {
-        ((FileActivity) getActivity()).dismissLoadingDialog();
-        OCFile file = getFile();
-        if (!result.isSuccess()) {
-            if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                Intent i = new Intent(getActivity(), ConflictsResolveActivity.class);
-                i.putExtra(ConflictsResolveActivity.EXTRA_FILE, file);
-                i.putExtra(ConflictsResolveActivity.EXTRA_ACCOUNT, mAccount);
-                startActivity(i);
-                
-            } 
-            
-            if (file.isDown()) {
-                setButtonsForDown();
-                
-            } else {
-                setButtonsForRemote();
-            }
-            
-        } else {
-            if (operation.transferWasRequested()) {
-                setButtonsForTransferring();
-                /* TODO WIP COMMENT 
-                mContainerActivity.onFileStateChanged();    // this is not working; FileDownloader won't do NOTHING at all until this method finishes, so 
-                                                            // checking the service to see if the file is downloading results in FALSE
-                 */
-            } else {
-                Toast msg = Toast.makeText(getActivity(), R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (file.isDown()) {
-                    setButtonsForDown();
-                    
-                } else {
-                    setButtonsForRemote();
-                }
-            }
-        }
-    }
-    
-
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {

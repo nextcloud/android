@@ -26,7 +26,6 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
@@ -139,21 +138,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     }
     
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mContainerActivity = (ContainerActivity) activity;
-            
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
-        }
-    }
-    
-    
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

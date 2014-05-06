@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -55,14 +55,14 @@ public class FileListListAdapter extends CursorAdapter implements ListAdapter {
     private Context mContext;
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
-    private TransferServiceGetter mTransferServiceGetter;
+    private ComponentsGetter mTransferServiceGetter;
     
 
-    public FileListListAdapter(Context context, TransferServiceGetter transferServiceGetter) {
+    public FileListListAdapter(Context context, ComponentsGetter componentsGetter) {
         super(context, null, FLAG_AUTO_REQUERY);
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        mTransferServiceGetter = transferServiceGetter;
+        mTransferServiceGetter = componentsGetter;
     }
 
     public void setStorageManager(FileDataStorageManager storageManager) {

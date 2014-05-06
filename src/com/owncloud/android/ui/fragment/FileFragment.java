@@ -17,11 +17,15 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.TransferServiceGetter;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 
 
 /**
@@ -33,6 +37,8 @@ import com.owncloud.android.ui.activity.TransferServiceGetter;
 public class FileFragment extends SherlockFragment {
     
     private OCFile mFile;
+    
+    protected ContainerActivity mContainerActivity;
 
 
     /**
@@ -66,14 +72,75 @@ public class FileFragment extends SherlockFragment {
     protected void setFile(OCFile file) {
         mFile = file;
     }
-
+    
+    
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mContainerActivity = (ContainerActivity) activity;
+            
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement " + ContainerActivity.class.getSimpleName());
+        }
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDetach() {
+        mContainerActivity = null;
+        super.onDetach();
+    }    
+    
+    
+    /**
+     * Interface to implement by any Activity that includes some instance of FileListFragment
      * Interface to implement by any Activity that includes some instance of FileFragment
      * 
      * @author David A. Velasco
      */
-    public interface ContainerActivity extends TransferServiceGetter {
+    public interface ContainerActivity extends ComponentsGetter {
 
+        /**
+         * Request the parent activity to show the details of an {@link OCFile}.
+         * 
+         * @param file      File to show details
+         */
+        public void showDetails(OCFile file);
+
+        
+        ///// TO UNIFY IN A SINGLE CALLBACK METHOD - EVENT NOTIFICATIONs  -> something happened inside the fragment, MAYBE activity is interested --> unify in notification method
+        /**
+         * Callback method invoked when a the user browsed into a different folder through the list of files
+         *  
+         * @param file
+         */
+        public void onBrowsedDownTo(OCFile folder);                 
+
+        /**
+         * Callback method invoked when a the 'transfer state' of a file changes.
+         * 
+         * This happens when a download or upload is started or ended for a file.
+         * 
+         * This method is necessary by now to update the user interface of the double-pane layout in tablets
+         * because methods {@link FileDownloaderBinder#isDownloading(Account, OCFile)} and {@link FileUploaderBinder#isUploading(Account, OCFile)}
+         * won't provide the needed response before the method where this is called finishes. 
+         * 
+         * TODO Remove this when the transfer state of a file is kept in the database (other thing TODO)
+         * 
+         * @param file          OCFile which state changed.
+         * @param downloading   Flag signaling if the file is now downloading.
+         * @param uploading     Flag signaling if the file is now uploading.
+         */
+        public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading); 
+
+        
         /**
          * Callback method invoked when the detail fragment wants to notice its container 
          * activity about a relevant state the file shown by the fragment.
@@ -88,13 +155,7 @@ public class FileFragment extends SherlockFragment {
          */
         public void onFileStateChanged();
 
-        /**
-         * Request the parent activity to show the details of an {@link OCFile}.
-         * 
-         * @param file      File to show details
-         */
-        public void showDetails(OCFile file);
-
+        
     }
-    
+
 }

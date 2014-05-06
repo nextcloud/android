@@ -42,6 +42,10 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -60,7 +64,8 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public class FileActivity extends SherlockFragmentActivity implements OnRemoteOperationListener {
+public class FileActivity extends SherlockFragmentActivity 
+implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -101,7 +106,11 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     private ServiceConnection mOperationsServiceConnection = null;
     
     private OperationsServiceBinder mOperationsServiceBinder = null;
-
+    
+    protected FileDownloaderBinder mDownloaderBinder = null;
+    protected FileUploaderBinder mUploaderBinder = null;
+    private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+    
     
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of 
@@ -114,7 +123,7 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
-        mFileOperationsHelper = new FileOperationsHelper();
+        mFileOperationsHelper = new FileOperationsHelper(this);
         Account account;
         if(savedInstanceState != null) {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
@@ -130,6 +139,16 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection, Context.BIND_AUTO_CREATE);
+        
+        mDownloadServiceConnection = newTransferenceServiceConnection();
+        if (mDownloadServiceConnection != null) {
+            bindService(new Intent(this, FileDownloader.class), mDownloadServiceConnection, Context.BIND_AUTO_CREATE);
+        }
+        mUploadServiceConnection = newTransferenceServiceConnection();
+        if (mUploadServiceConnection != null) {
+            bindService(new Intent(this, FileUploader.class), mUploadServiceConnection, Context.BIND_AUTO_CREATE);
+        }
+        
     }
 
     
@@ -178,6 +197,14 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
+        }
+        if (mDownloadServiceConnection != null) {
+            unbindService(mDownloadServiceConnection);
+            mDownloadServiceConnection = null;
+        }
+        if (mUploadServiceConnection != null) {
+            unbindService(mUploadServiceConnection);
+            mUploadServiceConnection = null;
         }
     }
     
@@ -308,7 +335,11 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
     public OperationsServiceBinder getOperationsServiceBinder() {
         return mOperationsServiceBinder;
     }
-
+    
+    protected ServiceConnection newTransferenceServiceConnection() {
+        return null;
+    }
+    
 
     /**
      * Helper class handling a callback from the {@link AccountManager} after the creation of
@@ -500,6 +531,19 @@ public class FileActivity extends SherlockFragmentActivity implements OnRemoteOp
                 // TODO whatever could be waiting for the service is unbound
             }
         }
+    }
+
+
+    @Override
+    public FileDownloaderBinder getFileDownloaderBinder() {
+        return mDownloaderBinder;
+    }
+
+
+    @Override
+    public FileUploaderBinder getFileUploaderBinder() {
+        return mUploaderBinder;
     };    
+    
     
 }

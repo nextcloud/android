@@ -47,6 +47,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.CreateShareOperation;
+import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -61,7 +62,9 @@ import com.owncloud.android.utils.Log_OC;
  *  
  *  @author David A. Velasco
  */
-public class PreviewImageActivity extends FileActivity implements FileFragment.ContainerActivity, ViewPager.OnPageChangeListener, OnTouchListener , OnRemoteOperationListener{
+public class PreviewImageActivity extends FileActivity implements 
+FileFragment.ContainerActivity, OnTouchListener,  
+ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
 
@@ -73,10 +76,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     private ViewPager mViewPager; 
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
     
-    private FileDownloaderBinder mDownloaderBinder = null;
-    private ServiceConnection mDownloadConnection, mUploadConnection = null;
-    private FileUploaderBinder mUploaderBinder = null;
-
     private boolean mRequestWaitingForBinder;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
@@ -135,10 +134,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     @Override
     public void onStart() {
         super.onStart();
-        mDownloadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileDownloader.class), mDownloadConnection, Context.BIND_AUTO_CREATE);
-        mUploadConnection = new PreviewImageServiceConnection();
-        bindService(new Intent(this, FileUploader.class), mUploadConnection, Context.BIND_AUTO_CREATE);
     }
     
     @Override
@@ -157,6 +152,8 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         } else if (operation instanceof UnshareLinkOperation) {
             onUnshareLinkOperationFinish((UnshareLinkOperation) operation, result);
             
+        } else if (operation instanceof RemoveFileOperation) {
+            finish();
         }
     }
     
@@ -183,7 +180,12 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
             invalidateOptionsMenu();
         }
     }
-    
+
+    @Override
+    protected ServiceConnection newTransferenceServiceConnection() {
+        return new PreviewImageServiceConnection();
+    }
+
     /** Defines callbacks for service binding, passed to bindService() */
     private class PreviewImageServiceConnection implements ServiceConnection {
 
@@ -223,14 +225,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
     @Override
     public void onStop() {
         super.onStop();
-        if (mDownloadConnection != null) {
-            unbindService(mDownloadConnection);
-            mDownloadConnection = null;
-        }
-        if (mUploadConnection != null) {
-            unbindService(mUploadConnection);
-            mUploadConnection = null;
-        }
     }
     
     
@@ -285,30 +279,6 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         finish();
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFileStateChanged() {
-        // nothing to do here!
-    }
-
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public FileDownloaderBinder getFileDownloaderBinder() {
-        return mDownloaderBinder;
-    }
-
-
-    @Override
-    public FileUploaderBinder getFileUploaderBinder() {
-        return mUploaderBinder;
-    }
-
-
     @Override
     public void showDetails(OCFile file) {
         Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
@@ -487,4 +457,25 @@ public class PreviewImageActivity extends FileActivity implements FileFragment.C
         }
     }
 
+    @Override
+    public void onBrowsedDownTo(OCFile folder) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onFileStateChanged() {
+        // nothing to do here!
+    }
+
+    
 }

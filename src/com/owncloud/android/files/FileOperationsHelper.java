@@ -19,6 +19,7 @@ package com.owncloud.android.files;
 
 import org.apache.http.protocol.HTTP;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,7 +32,11 @@ import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
@@ -48,8 +53,14 @@ public class FileOperationsHelper {
     
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
 
+    protected FileActivity mFileActivity = null;
     
-    public void openFile(OCFile file, FileActivity callerActivity) {
+    public FileOperationsHelper(FileActivity fileActivity) {
+        mFileActivity = fileActivity;
+    }
+
+
+    public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
             String encodedStoragePath = WebdavUtils.encodePath(storagePath);
@@ -70,28 +81,28 @@ public class FileOperationsHelper {
             
             Intent chooserIntent = null;
             if (intentForGuessedMimeType != null) {
-                chooserIntent = Intent.createChooser(intentForGuessedMimeType, callerActivity.getString(R.string.actionbar_open_with));
+                chooserIntent = Intent.createChooser(intentForGuessedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
             } else {
-                chooserIntent = Intent.createChooser(intentForSavedMimeType, callerActivity.getString(R.string.actionbar_open_with));
+                chooserIntent = Intent.createChooser(intentForSavedMimeType, mFileActivity.getString(R.string.actionbar_open_with));
             }
             
-            callerActivity.startActivity(chooserIntent);
+            mFileActivity.startActivity(chooserIntent);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
         }
     }
     
-
-    public void shareFileWithLink(OCFile file, FileActivity callerActivity) {
+    
+    public void shareFileWithLink(OCFile file) {
         
-        if (isSharedSupported(callerActivity)) {
+        if (isSharedSupported()) {
             if (file != null) {
                 String link = "https://fake.url";
                 Intent intent = createShareWithLinkIntent(link);
-                String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
+                String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
                 DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intent, packagesToExclude, file);
-                chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+                chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
                 
             } else {
                 Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
@@ -99,23 +110,23 @@ public class FileOperationsHelper {
             
         } else {
             // Show a Message
-            Toast t = Toast.makeText(callerActivity, callerActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
             t.show();
         }
     }
     
     
-    public void shareFileWithLinkToApp(OCFile file, Intent sendIntent, FileActivity callerActivity) {
+    public void shareFileWithLinkToApp(OCFile file, Intent sendIntent) {
         
         if (file != null) {
-            callerActivity.showLoadingDialog();
+            mFileActivity.showLoadingDialog();
             
-            Intent service = new Intent(callerActivity, OperationsService.class);
+            Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
-            callerActivity.getOperationsServiceBinder().newOperation(service);
+            mFileActivity.getOperationsServiceBinder().newOperation(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -134,39 +145,38 @@ public class FileOperationsHelper {
     /**
      *  @return 'True' if the server supports the Share API
      */
-    public boolean isSharedSupported(FileActivity callerActivity) {
-        if (callerActivity.getAccount() != null) {
-            AccountManager accountManager = AccountManager.get(callerActivity);
+    public boolean isSharedSupported() {
+        if (mFileActivity.getAccount() != null) {
+            AccountManager accountManager = AccountManager.get(mFileActivity);
 
-            String version = accountManager.getUserData(callerActivity.getAccount(), Constants.KEY_OC_VERSION);
+            String version = accountManager.getUserData(mFileActivity.getAccount(), Constants.KEY_OC_VERSION);
             return (new OwnCloudVersion(version)).isSharedSupported();
-            //return Boolean.parseBoolean(accountManager.getUserData(callerActivity.getAccount(), OwnCloudAccount.Constants.KEY_SUPPORTS_SHARE_API));
         }
         return false;
     }
     
     
-    public void unshareFileWithLink(OCFile file, FileActivity callerActivity) {
+    public void unshareFileWithLink(OCFile file) {
         
-        if (isSharedSupported(callerActivity)) {
+        if (isSharedSupported()) {
             // Unshare the file
-            Intent service = new Intent(callerActivity, OperationsService.class);
+            Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_UNSHARE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, callerActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            callerActivity.getOperationsServiceBinder().newOperation(service);
+            mFileActivity.getOperationsServiceBinder().newOperation(service);
             
-            callerActivity.showLoadingDialog();
+            mFileActivity.showLoadingDialog();
             
         } else {
             // Show a Message
-            Toast t = Toast.makeText(callerActivity, callerActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
+            Toast t = Toast.makeText(mFileActivity, mFileActivity.getString(R.string.share_link_no_support_share_api), Toast.LENGTH_LONG);
             t.show();
             
         }
     }
     
-    public void sendDownloadedFile(OCFile file, FileActivity callerActivity) {
+    public void sendDownloadedFile(OCFile file) {
         if (file != null) {
             Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
             // set MimeType
@@ -175,13 +185,64 @@ public class FileOperationsHelper {
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
             
             // Show dialog, without the own app
-            String[] packagesToExclude = new String[] { callerActivity.getPackageName() };
+            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
             DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
-            chooserDialog.show(callerActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
         }
     }
+    
+    
+    public void syncFile(OCFile file) {
+        Account account = mFileActivity.getAccount();
+        RemoteOperation operation = new SynchronizeFileOperation(
+                file, 
+                null, 
+                mFileActivity.getStorageManager(), 
+                account, 
+                true, 
+                mFileActivity);
+        operation.execute(account, mFileActivity, mFileActivity, mFileActivity.getHandler(), mFileActivity);
+        mFileActivity.showLoadingDialog();
+    }
+    
+    
+    public void renameFile(OCFile file, String newFilename) {
+        Account account = mFileActivity.getAccount();
+        RemoteOperation operation = new RenameFileOperation(
+                        file, 
+                        account, 
+                        newFilename, 
+                        mFileActivity.getStorageManager());
+        
+        operation.execute(
+                account, 
+                mFileActivity, 
+                mFileActivity, 
+                mFileActivity.getHandler(), 
+                mFileActivity);
+        
+        mFileActivity.showLoadingDialog();
+    }
 
+
+    public void removeFile(OCFile file, boolean removeLocalCopy) {
+        Account account = mFileActivity.getAccount();
+        RemoteOperation operation = new RemoveFileOperation( 
+                file, 
+                removeLocalCopy, 
+                mFileActivity.getStorageManager());
+        
+        operation.execute(
+                account, 
+                mFileActivity, 
+                mFileActivity, 
+                mFileActivity.getHandler(), 
+                mFileActivity);
+        
+        mFileActivity.showLoadingDialog();
+    }
+    
 }
