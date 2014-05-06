@@ -88,6 +88,7 @@ import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -979,6 +980,9 @@ OnSslUntrustedCertListener, EditNameDialogListener {
     }
     
 
+    /**
+     * Once the file upload has finished -> update view
+     */
     private class UploadFinishReceiver extends BroadcastReceiver {
         /**
          * Once the file upload has finished -> update view
@@ -991,14 +995,50 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
             boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
             OCFile currentDir = getCurrentDir();
-            boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
+            boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && 
+                    (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
+            
             if (sameAccount && isDescendant) {
                 /*
                 refeshListOfFilesFragment();
                 */
             }
+            
+            boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
+            boolean renamedInUpload = getFile().getRemotePath().
+                    equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+            boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || 
+                    renamedInUpload;
+            FileFragment details = getSecondFragment();
+            boolean detailFragmentIsShown = (details != null && 
+                    details instanceof FileDetailFragment);
+            
+            if (sameAccount && sameFile && detailFragmentIsShown) {
+                if (uploadWasFine) {
+                    setFile(getStorageManager().getFileByPath(uploadedRemotePath));
+                }
+                if (renamedInUpload) {
+                    String newName = (new File(uploadedRemotePath)).getName();
+                    Toast msg = Toast.makeText(
+                            context, 
+                            String.format(
+                                    getString(R.string.filedetails_renamed_in_upload_msg), 
+                                    newName), 
+                            Toast.LENGTH_LONG);
+                    msg.show();
+                }
+                ((FileDetailFragment)details).updateFileDetails(false, false);
+                
+                // Force the preview if the file is an image
+                if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
+                    startImagePreview(getFile());
+                } // TODO what about other kind of previews?
+            }
+        
+            removeStickyBroadcast(intent);
+            
         }
-
+        
     }
 
 

@@ -17,16 +17,12 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.accounts.Account;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +32,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -45,7 +40,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileObserverService;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -54,7 +48,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -69,13 +62,10 @@ public class FileDetailFragment extends FileFragment implements
         OnClickListener, 
         ConfirmationDialogFragment.ConfirmationDialogFragmentListener, EditNameDialogListener {
 
-    private FileFragment.ContainerActivity mContainerActivity;
-    
     private int mLayout;
     private View mView;
     private Account mAccount;
     
-    private UploadFinishReceiver mUploadFinishReceiver;
     public ProgressListener mProgressListener;
     
     private static final String TAG = FileDetailFragment.class.getSimpleName();
@@ -174,26 +164,6 @@ public class FileDetailFragment extends FileFragment implements
         super.onStart();
         listenForTransferProgress();
     }
-    
-    @Override
-    public void onResume() {
-        super.onResume();
-        mUploadFinishReceiver = new UploadFinishReceiver();
-        IntentFilter filter = new IntentFilter(FileUploader.getUploadFinishMessage());
-        getActivity().registerReceiver(mUploadFinishReceiver, filter);
-
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mUploadFinishReceiver != null) {
-            getActivity().unregisterReceiver(mUploadFinishReceiver);
-            mUploadFinishReceiver = null;
-        }
-    }
-
     
     @Override
     public void onStop() {
@@ -676,49 +646,6 @@ public class FileDetailFragment extends FileFragment implements
             }
         }*/
         return false;
-    }
-    
-
-    /**
-     * Once the file upload has finished -> update view
-     * 
-     * Being notified about the finish of an upload is necessary for the next sequence:
-     *   1. Upload a big file.
-     *   2. Force a synchronization; if it finished before the upload, the file in transfer will be included in the local database and in the file list
-     *      of its containing folder; the the server includes it in the PROPFIND requests although it's not fully upload. 
-     *   3. Click the file in the list to see its details.
-     *   4. Wait for the upload finishes; at this moment, the details view must be refreshed to enable the action buttons.
-     */
-    private class UploadFinishReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
-
-            if (!isEmpty() && accountName.equals(mAccount.name)) {
-                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
-                String uploadRemotePath = intent.getStringExtra(FileUploader.EXTRA_REMOTE_PATH);
-                boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
-                if (getFile().getRemotePath().equals(uploadRemotePath) ||
-                    renamedInUpload) {
-                    if (uploadWasFine) {
-                        setFile(mContainerActivity.getStorageManager().getFileByPath(uploadRemotePath));
-                    }
-                    if (renamedInUpload) {
-                        String newName = (new File(uploadRemotePath)).getName();
-                        Toast msg = Toast.makeText(getActivity().getApplicationContext(), String.format(getString(R.string.filedetails_renamed_in_upload_msg), newName), Toast.LENGTH_LONG);
-                        msg.show();
-                    }
-                    getSherlockActivity().removeStickyBroadcast(intent);    // not the best place to do this; a small refactorization of BroadcastReceivers should be done
-                    
-                    updateFileDetails(false, false);    // it updates the buttons; must be called although !uploadWasFine; interrupted uploads still leave an incomplete file in the server
-                   
-                    // Force the preview if the file is an image
-                    if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
-                        ((FileDisplayActivity)mContainerActivity).startImagePreview(getFile());
-                    } 
-                }
-            }
-        }
     }
     
 
