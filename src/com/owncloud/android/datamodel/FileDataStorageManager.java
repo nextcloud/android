@@ -728,7 +728,7 @@ public class FileDataStorageManager {
 //        return c;
 //    }
 
-    public OCFile createFileInstance(Cursor c) {
+    private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
         if (c != null) {
             file = new OCFile(c.getString(c

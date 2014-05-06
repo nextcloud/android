@@ -39,7 +39,6 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -129,6 +128,8 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
             mHeightCell = 0;
             
         }
+        
+        mAdapter = new FileListListAdapter(getActivity(), mContainerActivity);
         
         setListAdapter(mAdapter);
         
@@ -251,8 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        OCFile file = mContainerActivity.getStorageManager().createFileInstance(
-                (Cursor) mAdapter.getItem(position));
+        OCFile file = (OCFile) mAdapter.getItem(position);
         if (file != null) {
             if (file.isFolder()) { 
                 // update state and view of this fragment
@@ -297,8 +297,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         MenuInflater inflater = getSherlockActivity().getMenuInflater();
         inflater.inflate(R.menu.file_actions_menu, menu);
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-        OCFile targetFile = mContainerActivity.getStorageManager().createFileInstance(
-                (Cursor) mAdapter.getItem(info.position));
+        OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
         List<Integer> toHide = new ArrayList<Integer>();    
         List<Integer> toDisable = new ArrayList<Integer>();  
         
@@ -383,8 +382,7 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();        
-        mTargetFile = mContainerActivity.getStorageManager().createFileInstance(
-                (Cursor) mAdapter.getItem(info.position));
+        mTargetFile = (OCFile) mAdapter.getItem(info.position);
         switch (item.getItemId()) {                
             case R.id.action_share_file: {
                 mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
