@@ -171,7 +171,7 @@ public class FileContentProvider extends ContentProvider {
         if (mUriMatcher.match(uri) == SINGLE_FILE || mUriMatcher.match(uri) == DIRECTORY) {
             String fileId = uri.toString().substring(uri.toString().lastIndexOf(FileUtils.PATH_SEPARATOR) + 1);
             Uri selectFileUri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE, fileId);
-            String[] fileProjection = new String[] { ProviderTableMeta.FILE_PARENT };
+            String[] fileProjection = new String[] { ProviderTableMeta.FILE_PARENT};
             Cursor fileCursor = query(selectFileUri, fileProjection, null, null, null);
             
             if (fileCursor != null  && fileCursor.moveToFirst()) {
@@ -294,8 +294,6 @@ public class FileContentProvider extends ContentProvider {
         Uri newUri = null;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
-        
-        // Insert action
         try {
             newUri = insert(db, uri, values);
             db.setTransactionSuccessful();
@@ -303,12 +301,6 @@ public class FileContentProvider extends ContentProvider {
             db.endTransaction();
         }
         getContext().getContentResolver().notifyChange(newUri, null);
-        
-        // Get parentId to notify the change
-        long parentId = getParentId(newUri);
-        // Notify the change to the parent folder
-        notifyChangeToParentUri(parentId);
-        
         return newUri;
     }
     
