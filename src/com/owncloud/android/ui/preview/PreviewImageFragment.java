@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc. 
+ *   Copyright (C) 2012-2014 ownCloud Inc. 
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -161,19 +161,21 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
                 OCFile file = (OCFile)savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_FILE);
+                setFile(file);
                 mAccount = savedInstanceState.getParcelable(PreviewImageFragment.EXTRA_ACCOUNT);
-                
-                // Update the file
-                if (mAccount!= null) {
-                    OCFile updatedFile = mContainerActivity.getStorageManager().getFileByPath(file.getRemotePath());
-                    if (updatedFile != null) {
-                        setFile(updatedFile);
-                    } else {
-                        setFile(file);
-                    }
-                } else {
-                    setFile(file);
-                }
+// TODO remove this code: update file no needed               
+//                // Update the file
+////                if (mAccount!= null) {
+//                    OCFile updatedFile = 
+//                      mContainerActivity.getStorageManager().getFileByPath(file.getRemotePath());
+//                    if (updatedFile != null) {
+//                        setFile(updatedFile);
+//                    } else {
+//                        setFile(file);
+//                    }
+//                } else {
+//                    setFile(file);
+//                }
 
             } else {
                 mIgnoreFirstSavedState = false;

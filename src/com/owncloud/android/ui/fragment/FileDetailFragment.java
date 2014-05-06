@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -152,13 +152,14 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (mAccount != null) {
-            OCFile file = mContainerActivity.getStorageManager().
-                    getFileByPath(getFile().getRemotePath());
-            if (file != null) {
-                setFile(file);
-            }
-        }
+        // TODO: Remove this code. (Updated no needed)
+//        if (mAccount != null) {
+//            OCFile file = mContainerActivity.getStorageManager().
+//              getFileByPath(getFile().getRemotePath());
+//            if (file != null) {
+//                setFile(file);
+//            }
+//        }
     }
         
 
