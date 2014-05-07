@@ -78,8 +78,6 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
 
     private boolean mIgnoreFirstSavedState;
 
-    private FileFragment.ContainerActivity mContainerActivity;
-
     
     /**
      * Creates a fragment to preview an image.

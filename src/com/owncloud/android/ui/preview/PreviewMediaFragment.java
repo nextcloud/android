@@ -90,8 +90,6 @@ public class PreviewMediaFragment extends FileFragment implements
     private boolean mAutoplay;
     public boolean mPrepared;
     
-    private FileFragment.ContainerActivity mContainerActivity;
-
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
     
