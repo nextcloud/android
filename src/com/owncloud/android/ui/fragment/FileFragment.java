@@ -141,19 +141,19 @@ public class FileFragment extends SherlockFragment {
         public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading); 
 
         
-        /**
-         * Callback method invoked when the detail fragment wants to notice its container 
-         * activity about a relevant state the file shown by the fragment.
-         * 
-         * Added to notify to FileDisplayActivity about the need of refresh the files list. 
-         * 
-         * Currently called when:
-         *  - a download is started;
-         *  - a rename is completed;
-         *  - a deletion is completed;
-         *  - the 'inSync' flag is changed;
-         */
-        public void onFileStateChanged();
+//        /**
+//         * Callback method invoked when the detail fragment wants to notice its container 
+//         * activity about a relevant state the file shown by the fragment.
+//         * 
+//         * Added to notify to FileDisplayActivity about the need of refresh the files list. 
+//         * 
+//         * Currently called when:
+//         *  - a download is started;
+//         *  - a rename is completed;
+//         *  - a deletion is completed;
+//         *  - the 'inSync' flag is changed;
+//         */
+//        public void onFileStateChanged();
 
         
     }
