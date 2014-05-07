@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">管理账号</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">保护您的App客户端</string>
+  <string name="prefs_instant_upload">即时图片上传</string>
+  <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
   <string name="prefs_log_title">开启日志</string>
   <string name="prefs_log_summary">这过去是日志问题</string>
   <string name="prefs_log_title_history">日志历史</string>
@@ -26,12 +28,14 @@
   <string name="prefs_feedback">反馈</string>
   <string name="prefs_imprint">版本说明</string>
   <string name="auth_check_server">检查服务器</string>
+  <string name="auth_host_url">服务器地址 https://...</string>
   <string name="auth_username">用户名</string>
   <string name="auth_password">密码</string>
   <string name="auth_register">新增到 %1$s?</string>
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
+  <string name="uploader_top_message">选择上传文件夹：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上未找到账号，请先创建账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
@@ -135,6 +139,7 @@
   <string name="auth_timeout_title">看起来服务器不太给力</string>
   <string name="auth_incorrect_address_title">网址不正确</string>
   <string name="auth_ssl_general_error_title">SSL初始化失败</string>
+  <string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
   <string name="auth_bad_oc_version_title">不可辨识的服务器服务器版本</string>
   <string name="auth_wrong_connection_title">无法建立连接</string>
   <string name="auth_secure_connection">加密连接已建立</string>
@@ -160,6 +165,7 @@
   <string name="rename_server_fail_msg">重命名未完成</string>
   <string name="sync_file_fail_msg">无法核实远程文件</string>
   <string name="sync_file_nothing_to_do_msg">文件内容已同步</string>
+  <string name="create_dir_fail_msg">文件夹无法创建</string>
   <string name="wait_a_moment">请稍候</string>
   <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
   <string name="filedisplay_no_file_selected">未选择文件。</string>
@@ -204,6 +210,7 @@
   <string name="conflict_dont_upload">不上传</string>
   <string name="preview_image_description">图片预览</string>
   <string name="preview_image_error_unknown_format">不能显示图片</string>
+  <string name="actionbar_failed_instant_upload">即时上传失败</string>
   <string name="failed_upload_headline_text">限时上传失败</string>
   <string name="failed_upload_headline_hint">限时上传失败汇总</string>
   <string name="failed_upload_all_cb">全选</string>
