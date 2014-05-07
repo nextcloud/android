@@ -50,8 +50,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_ERROR = "ERROR";
 
-    private FileFragment.ContainerActivity mContainerActivity;
-    
     private View mView;
     private Account mAccount;
     

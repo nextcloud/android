@@ -469,13 +469,4 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onFileStateChanged() {
-        // nothing to do here!
-    }
-
-    
 }

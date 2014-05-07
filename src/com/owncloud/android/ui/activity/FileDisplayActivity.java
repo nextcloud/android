@@ -78,7 +78,6 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
-import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
@@ -111,7 +110,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
     private DownloadFinishReceiver mDownloadFinishReceiver;
-    //private OperationsServiceReceiver mOperationsServiceReceiver;
     private RemoteOperationResult mLastSslUntrustedServerResult = null;
 
     private boolean mDualPane;
@@ -120,12 +118,10 @@ OnSslUntrustedCertListener, EditNameDialogListener {
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
-    //private static final String KEY_REFRESH_SHARES_IN_PROGRESS = "SHARES_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
     public static final int DIALOG_SHORT_WAIT = 0;
     private static final int DIALOG_CHOOSE_UPLOAD_SOURCE = 1;
-    //private static final int DIALOG_SSL_VALIDATOR = 2;
     private static final int DIALOG_CERT_NOT_SAVED = 2;
     
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
@@ -141,7 +137,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
     private OCFile mWaitingToPreview;
     
     private boolean mSyncInProgress = false;
-    //private boolean mRefreshSharesInProgress = false;
 
     private String DIALOG_UNTRUSTED_CERT;
     
@@ -170,13 +165,11 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         if(savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            //mRefreshSharesInProgress = savedInstanceState.getBoolean(KEY_REFRESH_SHARES_IN_PROGRESS);
             mWaitingToSend = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
            
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
-            //mRefreshSharesInProgress = false;
             mWaitingToSend = null;
         }        
 
@@ -208,9 +201,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
     protected void onStart() {
         super.onStart();
         getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
-        /*
-        refeshListOfFilesFragment();
-        */
     }
 
     @Override
@@ -396,7 +386,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         return null;
     }
 
-    public void cleanSecondFragment() {
+    protected void cleanSecondFragment() {
         Fragment second = getSecondFragment();
         if (second != null) {
             FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
@@ -407,14 +397,12 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         updateNavigationElementsInActionBar(null);
     }
 
-    /* TODO WIP COMMENT 
     protected void refeshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) { 
             fileListFragment.listDirectory();
         }
     }
-    */
 
     protected void refreshSecondFragment(String downloadEvent, String downloadedRemotePath, boolean success) {
         FileFragment secondFragment = getSecondFragment();
@@ -682,7 +670,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_END);
-        //syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED);
         syncIntentFilter.addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED);
         syncIntentFilter.addAction(SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
@@ -701,14 +688,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
         
-        // Listen for messages from the OperationsService
-        /*
-        IntentFilter operationsIntentFilter = new IntentFilter(OperationsService.ACTION_OPERATION_ADDED);
-        operationsIntentFilter.addAction(OperationsService.ACTION_OPERATION_FINISHED);
-        mOperationsServiceReceiver = new OperationsServiceReceiver();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mOperationsServiceReceiver, operationsIntentFilter);
-        */
-    
         Log_OC.d(TAG, "onResume() end");
     }
 
@@ -730,12 +709,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
-        /*
-        if (mOperationsServiceReceiver != null) {
-            LocalBroadcastManager.getInstance(this).unregisterReceiver(mOperationsServiceReceiver);
-            mOperationsServiceReceiver = null;
-        }
-        */
         Log_OC.d(TAG, "onPause() end");
     }
 
@@ -934,32 +907,17 @@ OnSslUntrustedCertListener, EditNameDialogListener {
                                 currentFile = currentDir;
                             }
 
-                            /* TODO WIP COMMENT 
                             if (synchFolderRemotePath != null && currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir);
                                 }
                             }
-                            */
                             setFile(currentFile);
                         }
                         
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
-                        /*
-                        if (synchResult != null && 
-                            synchResult.isSuccess() &&
-                                (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SYNCED.equals(event) || 
-                                    FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED.equals(event)
-                                ) &&
-                                !mRefreshSharesInProgress &&
-                                getFileOperationsHelper().isSharedSupported(FileDisplayActivity.this)
-                            ) {
-                            startGetShares();
-                        }
-                        */
-                            
                         }
                         removeStickyBroadcast(intent);
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
@@ -999,9 +957,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
                     (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
             
             if (sameAccount && isDescendant) {
-                /*
                 refeshListOfFilesFragment();
-                */
             }
             
             boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
@@ -1056,9 +1012,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             boolean isDescendant = isDescendant(downloadedRemotePath);
 
             if (sameAccount && isDescendant) {
-                /* TODO WIP COMMENT 
                 refeshListOfFilesFragment();
-                */
                 refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
             }
 
@@ -1084,46 +1038,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
     }
     
     
-    /**
-     * Class waiting for broadcast events from the {@link OperationsService}.
-     * 
-     * Updates the list of files when a get for shares is finished; at this moment the refresh of shares is the only
-     * operation performed in {@link OperationsService}.
-     * 
-     * In the future will handle the progress or finalization of all the operations performed in {@link OperationsService}, 
-     * probably all the operations associated to the app model. 
-     */
-    private class OperationsServiceReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (OperationsService.ACTION_OPERATION_ADDED.equals(intent.getAction())) {
-                
-            } else if (OperationsService.ACTION_OPERATION_FINISHED.equals(intent.getAction())) {
-                //mRefreshSharesInProgress = false;
-                
-                Account account = intent.getParcelableExtra(OperationsService.EXTRA_ACCOUNT);
-                RemoteOperationResult getSharesResult = (RemoteOperationResult)intent.getSerializableExtra(OperationsService.EXTRA_RESULT);
-                if (getAccount() != null && account.name.equals(getAccount().name)
-                        && getStorageManager() != null
-                        ) {
-                    /*
-                    refeshListOfFilesFragment();
-                    */
-                }
-                if ((getSharesResult != null) &&
-                        RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(getSharesResult.getCode())) {
-                    mLastSslUntrustedServerResult = getSharesResult;
-                    showUntrustedCertDialog(mLastSslUntrustedServerResult);
-                }
-
-                //setSupportProgressBarIndeterminateVisibility(mRefreshSharesInProgress || mSyncInProgress);
-            }
-            
-        }
-            
-    }
-
     public void browseToRoot() {
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
@@ -1210,19 +1124,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             actionBar.setTitle(chosenFile.getFileName());
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         }
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    
-    @Override
-    public void onFileStateChanged() {
-        /* TODO WIP COMMENT 
-        refeshListOfFilesFragment();
-        updateNavigationElementsInActionBar(getSecondFragment().getFile());
-        */
     }
 
 
@@ -1594,17 +1495,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         setSupportProgressBarIndeterminateVisibility(true);
     }
 
-    /*
-    private void startGetShares() {
-        // Get shared files/folders
-        Intent intent = new Intent(this, OperationsService.class);
-        intent.putExtra(OperationsService.EXTRA_ACCOUNT, getAccount());
-        startService(intent);
-        
-        mRefreshSharesInProgress = true;
-    }
-    */
-    
     /**
      * Show untrusted cert dialog 
      */

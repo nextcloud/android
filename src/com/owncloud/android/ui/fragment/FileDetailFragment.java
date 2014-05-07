@@ -135,10 +135,10 @@ public class FileDetailFragment extends FileFragment implements
         updateFileDetails(false, false);
         return view;
     }
-    
-    /**
+
+    /*-*
      * {@inheritDoc}
-     */
+     *-/
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -150,6 +150,7 @@ public class FileDetailFragment extends FileFragment implements
             }
         }
     }
+    */
         
 
     @Override
@@ -459,8 +460,6 @@ public class FileDetailFragment extends FileFragment implements
      *
      * TODO Remove parameter when the transferring state of files is kept in database. 
      * 
-     * TODO REFACTORING! this method called 5 times before every time the fragment is shown! 
-     * 
      * @param transferring      Flag signaling if the file should be considered as downloading or uploading, 
      *                          although {@link FileDownloaderBinder#isDownloading(Account, OCFile)}  and 
      *                          {@link FileUploaderBinder#isUploading(Account, OCFile)} return false.
@@ -468,7 +467,6 @@ public class FileDetailFragment extends FileFragment implements
      * @param refresh           If 'true', try to refresh the whole file from the database
      */
     public void updateFileDetails(boolean transferring, boolean refresh) {
-
         if (readyToShow()) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (refresh && storageManager != null) {
