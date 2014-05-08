@@ -1389,9 +1389,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             
         } else {
             if (operation.transferWasRequested()) {
-                /* WIP: delete this refresh?
-                 * refreshListOfFilesFragment();
-                 */
                 onTransferStateChanged(syncedFile, true, true);
                 
             } else {
