@@ -255,7 +255,7 @@ public class FileDetailFragment extends FileFragment implements
                     ((FileDisplayActivity)mContainerActivity).startDownloadForSending(getFile());
                     
                 } else {
-                    ((FileDisplayActivity)mContainerActivity).getFileOperationsHelper().sendDownloadedFile(getFile());
+                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 }
                 return true;
             }

@@ -272,7 +272,7 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
                         // media preview
                         ((FileDisplayActivity)mContainerActivity).startMediaPreview(file, 0, true);
                     } else {
-                        ((FileDisplayActivity)mContainerActivity).getFileOperationsHelper().openFile(file);
+                        mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
                     
                 } else {
@@ -390,7 +390,7 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
                     ((FileDisplayActivity)mContainerActivity).startDownloadForSending(mTargetFile);
                     
                 } else {
-                    ((FileDisplayActivity)mContainerActivity).getFileOperationsHelper().sendDownloadedFile(mTargetFile);
+                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
                 }
                 return true;
             }
