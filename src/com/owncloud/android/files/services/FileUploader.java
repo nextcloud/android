@@ -38,6 +38,7 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
@@ -549,10 +550,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, this, false);
         RemoteOperationResult result = operation.execute(mUploadClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mCurrentUpload.isRemoteFolderToBeCreated()) {
-            operation = new CreateFolderOperation( pathToGrant,
-                    true,
-                    mStorageManager    );
-            result = operation.execute(mUploadClient);
+            SyncOperation syncOp = new CreateFolderOperation( pathToGrant, true);
+            result = syncOp.execute(mUploadClient, mStorageManager);
         }
         if (result.isSuccess()) {
             OCFile parentDir = mStorageManager.getFileByPath(pathToGrant);

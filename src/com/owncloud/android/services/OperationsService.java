@@ -34,6 +34,7 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -68,6 +69,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_LOCAL_COPY = "REMOVE_LOCAL_COPY";
+    public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
@@ -87,17 +89,13 @@ public class OperationsService extends Service {
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
     public static final String ACTION_RENAME = "RENAME";
     public static final String ACTION_REMOVE = "REMOVE";
+    public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
     private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
             new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
-    
-    /*
-    private ConcurrentMap<Integer, RemoteOperationResult> mOperationResults =
-            new ConcurrentHashMap<Integer, RemoteOperationResult>();
-     */
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>> 
         mUndispatchedFinishedOperations =
@@ -353,7 +351,14 @@ public class OperationsService extends Service {
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean removeLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_LOCAL_COPY, true);
                         operation = new RemoveFileOperation(remotePath, removeLocalCopy);
+                        
+                    } else if (action.equals(ACTION_CREATE_FOLDER)) {
+                        // Create Folder
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
+                        operation = new CreateFolderOperation(remotePath, createFullPath);
                     }
+                    
                 }
                     
             } catch (IllegalArgumentException e) {

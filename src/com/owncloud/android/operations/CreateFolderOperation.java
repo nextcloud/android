@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012 ownCloud Inc.
+ *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,13 +17,13 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -35,24 +35,21 @@ import com.owncloud.android.utils.Log_OC;
  * @author David A. Velasco 
  * @author masensio
  */
-public class CreateFolderOperation extends RemoteOperation implements OnRemoteOperationListener{
+public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener{
     
     private static final String TAG = CreateFolderOperation.class.getSimpleName();
     
     protected String mRemotePath;
     protected boolean mCreateFullPath;
-    protected FileDataStorageManager mStorageManager;
     
     /**
      * Constructor
      * 
      * @param createFullPath        'True' means that all the ancestor folders should be created if don't exist yet.
-     * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public CreateFolderOperation(String remotePath, boolean createFullPath, FileDataStorageManager storageManager) {
+    public CreateFolderOperation(String remotePath, boolean createFullPath) {
         mRemotePath = remotePath;
         mCreateFullPath = createFullPath;
-        mStorageManager = storageManager;
         
     }
 
@@ -94,10 +91,10 @@ public class CreateFolderOperation extends RemoteOperation implements OnRemoteOp
     public void saveFolderInDB() {
         OCFile newDir = new OCFile(mRemotePath);
         newDir.setMimetype("DIR");
-        long parentId = mStorageManager.getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
+        long parentId = getStorageManager().getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
         newDir.setParentId(parentId);
         newDir.setModificationTimestamp(System.currentTimeMillis());
-        mStorageManager.saveFile(newDir);
+        getStorageManager().saveFile(newDir);
 
         Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
 

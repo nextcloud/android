@@ -1424,14 +1424,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
 
                 // Create directory
                 path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                RemoteOperation operation = new CreateFolderOperation(path, false, getStorageManager());
-                operation.execute(  getAccount(), 
-                        FileDisplayActivity.this, 
-                        FileDisplayActivity.this, 
-                        getHandler(),
-                        FileDisplayActivity.this);
-
-                showLoadingDialog();
+                getFileOperationsHelper().createFolder(path, false);
             }
         }
     }

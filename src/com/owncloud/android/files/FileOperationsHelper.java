@@ -232,4 +232,16 @@ public class FileOperationsHelper {
         mFileActivity.showLoadingDialog();
     }
     
+    
+    public void createFolder(String remotePath, boolean createFullPath) {
+        // Create Folder
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CREATE_FOLDER);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
+        service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
+        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        
+        mFileActivity.showLoadingDialog();
+    }
 }
