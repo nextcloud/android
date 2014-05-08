@@ -56,7 +56,6 @@ public class RenameFileOperation extends SyncOperation {
      * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to rename
      * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
-     * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
     public RenameFileOperation(String remotePath, Account account, String newName) {
         mRemotePath = remotePath;

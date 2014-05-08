@@ -34,7 +34,6 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -208,7 +207,7 @@ public class FileOperationsHelper {
     }
     
     
-    public void renameFile(OCFile file, String newFilename) {        
+    public void renameFile(OCFile file, String newFilename) {
         // RenameFile
         Intent service = new Intent(mFileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_RENAME);
@@ -222,18 +221,13 @@ public class FileOperationsHelper {
 
 
     public void removeFile(OCFile file, boolean removeLocalCopy) {
-        Account account = mFileActivity.getAccount();
-        RemoteOperation operation = new RemoveFileOperation( 
-                file, 
-                removeLocalCopy, 
-                mFileActivity.getStorageManager());
-        
-        operation.execute(
-                account, 
-                mFileActivity, 
-                mFileActivity, 
-                mFileActivity.getHandler(), 
-                mFileActivity);
+        // RemoveFile
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_REMOVE);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        service.putExtra(OperationsService.EXTRA_REMOVE_LOCAL_COPY, removeLocalCopy);
+        mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
     }

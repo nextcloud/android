@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,40 +17,38 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.RemoveRemoteFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 
 
 /**
  * Remote operation performing the removal of a remote file or folder in the ownCloud server.
  * 
  * @author David A. Velasco
+ * @author masensio
  */
-public class RemoveFileOperation extends RemoteOperation {
+public class RemoveFileOperation extends SyncOperation {
     
     // private static final String TAG = RemoveFileOperation.class.getSimpleName();
     
     OCFile mFileToRemove;
+    String mRemotePath;
     boolean mDeleteLocalCopy;
-    FileDataStorageManager mDataStorageManager;
     
     
     /**
      * Constructor
      * 
-     * @param fileToRemove          OCFile instance describing the remote file or folder to remove from the server
+     * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to remove from the server
      * @param deleteLocalCopy       When 'true', and a local copy of the file exists, it is also removed.
-     * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RemoveFileOperation(OCFile fileToRemove, boolean deleteLocalCopy, FileDataStorageManager storageManager) {
-        mFileToRemove = fileToRemove;
+    public RemoveFileOperation(String remotePath, boolean deleteLocalCopy) {
+        mRemotePath = remotePath;
         mDeleteLocalCopy = deleteLocalCopy;
-        mDataStorageManager = storageManager;
     }
     
     
@@ -72,11 +70,13 @@ public class RemoveFileOperation extends RemoteOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
-        RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mFileToRemove.getRemotePath());
+        RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
         result = operation.execute(client);
         
+        mFileToRemove = getStorageManager().getFileByPath(mRemotePath);
+        
         if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
-            mDataStorageManager.removeFile(mFileToRemove, true, mDeleteLocalCopy);
+            getStorageManager().removeFile(mFileToRemove, true, mDeleteLocalCopy);
         }
         
         return result;
