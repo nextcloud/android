@@ -35,7 +35,6 @@ import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -209,20 +208,14 @@ public class FileOperationsHelper {
     }
     
     
-    public void renameFile(OCFile file, String newFilename) {
-        Account account = mFileActivity.getAccount();
-        RemoteOperation operation = new RenameFileOperation(
-                        file, 
-                        account, 
-                        newFilename, 
-                        mFileActivity.getStorageManager());
-        
-        operation.execute(
-                account, 
-                mFileActivity, 
-                mFileActivity, 
-                mFileActivity.getHandler(), 
-                mFileActivity);
+    public void renameFile(OCFile file, String newFilename) {        
+        // RenameFile
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_RENAME);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
+        mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
     }

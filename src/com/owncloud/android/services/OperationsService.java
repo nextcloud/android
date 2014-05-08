@@ -37,6 +37,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
+import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -64,6 +65,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
+    public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
@@ -81,6 +83,7 @@ public class OperationsService extends Service {
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
+    public static final String ACTION_RENAME = "RENAME";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -335,6 +338,12 @@ public class OperationsService extends Service {
                     } else if (action.equals(ACTION_GET_USER_NAME)) {
                         // Get User Name
                         operation = new GetRemoteUserNameOperation();
+                        
+                    } else if (action.equals(ACTION_RENAME)) {
+                        // Rename file or folder
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
+                        operation = new RenameFileOperation(remotePath, account, newName);
                     }
                 }
                     
