@@ -17,8 +17,6 @@
 package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 
 import android.accounts.Account;
@@ -46,6 +44,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -219,19 +218,13 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.file_actions_menu, menu);
-        List<Integer> toHide = new ArrayList<Integer>();    
-        
+        /*List<Integer> toHide = new ArrayList<Integer>();    
         MenuItem item = null;
         toHide.add(R.id.action_cancel_download);
         toHide.add(R.id.action_cancel_upload);
         toHide.add(R.id.action_download_file);
         toHide.add(R.id.action_rename_file);    // by now
         
-        // Options shareLink
-        if (!getFile().isShareByLink()) {
-            toHide.add(R.id.action_unshare_file);
-        }
-
         // Send file
         boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
         if (!sendEnabled) {
@@ -245,6 +238,7 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
                 item.setEnabled(false);
             }
         }
+        */
         
     }
 
@@ -255,6 +249,15 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
+        FileMenuFilter mf = new FileMenuFilter();
+        mf.setFile(getFile());
+        mf.setComponentGetter(mContainerActivity);
+        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
+        mf.setContext(getSherlockActivity());
+        mf.setFragment(this);
+        mf.filter(menu);
+
+        /*
         MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
         if (!getFile().isShareByLink()) {
@@ -264,7 +267,7 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             item.setVisible(true);
             item.setEnabled(true);
         }
-            
+        */
     }
 
     

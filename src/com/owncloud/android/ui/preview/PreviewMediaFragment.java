@@ -16,9 +16,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,6 +47,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
@@ -250,6 +248,7 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.file_actions_menu, menu);
+        /*
         List<Integer> toHide = new ArrayList<Integer>();    
         
         MenuItem item = null;
@@ -277,6 +276,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 item.setEnabled(false);
             }
         }
+        */
         
     }
 
@@ -288,6 +288,15 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
+        FileMenuFilter mf = new FileMenuFilter();
+        mf.setFile(getFile());
+        mf.setComponentGetter(mContainerActivity);
+        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
+        mf.setContext(getSherlockActivity());
+        mf.setFragment(this);
+        mf.filter(menu);
+
+        /*
         MenuItem item = menu.findItem(R.id.action_unshare_file);
         // Options shareLink
         if (!getFile().isShareByLink()) {            
@@ -297,6 +306,7 @@ public class PreviewMediaFragment extends FileFragment implements
             item.setVisible(true);
             item.setEnabled(true);
         }
+        */
     }
     
     

@@ -18,8 +18,6 @@
 package com.owncloud.android.ui.fragment;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.accounts.Account;
 import android.content.Intent;
@@ -39,6 +37,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileObserverService;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
@@ -136,23 +135,6 @@ public class FileDetailFragment extends FileFragment implements
         return view;
     }
 
-    /*-*
-     * {@inheritDoc}
-     *-/
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (mAccount != null) {
-            OCFile file = ((FileActivity)getActivity()).getStorageManager().
-                    getFileByPath(getFile().getRemotePath());
-            if (file != null) {
-                setFile(file);
-            }
-        }
-    }
-    */
-        
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -186,6 +168,10 @@ public class FileDetailFragment extends FileFragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
+        
+        /*
+         TODO Maybe should stay here? It's context (fragment) specific 
+          
         MenuItem item = menu.findItem(R.id.action_see_details);
         if (item != null) {
             item.setVisible(false);
@@ -205,6 +191,7 @@ public class FileDetailFragment extends FileFragment implements
                 
             }
         }
+        */
     }
 
     
@@ -215,81 +202,13 @@ public class FileDetailFragment extends FileFragment implements
     public void onPrepareOptionsMenu (Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        List<Integer> toHide = new ArrayList<Integer>();
-        List<Integer> toShow = new ArrayList<Integer>();
-        OCFile file = getFile();
-        
-        FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-        boolean downloading = downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file);
-        FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-        boolean uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, getFile());
-        
-        if (downloading || uploading) {
-            toHide.add(R.id.action_download_file);
-            toHide.add(R.id.action_rename_file);
-            toHide.add(R.id.action_remove_file);
-            toHide.add(R.id.action_open_file_with);
-            if (!downloading) {
-                toHide.add(R.id.action_cancel_download);
-                toShow.add(R.id.action_cancel_upload);
-            } else {
-                toHide.add(R.id.action_cancel_upload);
-                toShow.add(R.id.action_cancel_download);
-            }
-
-        } else if (file != null && file.isDown()) {
-            toHide.add(R.id.action_download_file);
-            toHide.add(R.id.action_cancel_download);
-            toHide.add(R.id.action_cancel_upload);
-            
-            toShow.add(R.id.action_rename_file);
-            toShow.add(R.id.action_remove_file);
-            toShow.add(R.id.action_open_file_with);
-            toShow.add(R.id.action_sync_file);
-            
-        } else if (file != null) {
-            toHide.add(R.id.action_open_file_with);
-            toHide.add(R.id.action_cancel_download);
-            toHide.add(R.id.action_cancel_upload);
-            toHide.add(R.id.action_sync_file);
-            
-            toShow.add(R.id.action_rename_file);
-            toShow.add(R.id.action_remove_file);
-            toShow.add(R.id.action_download_file);
-            
-        } else {
-            toHide.add(R.id.action_open_file_with);
-            toHide.add(R.id.action_cancel_download);
-            toHide.add(R.id.action_cancel_upload);
-            toHide.add(R.id.action_sync_file);
-            toHide.add(R.id.action_download_file);
-            toHide.add(R.id.action_rename_file);
-            toHide.add(R.id.action_remove_file);
-            
-        }
-        
-        // Options shareLink
-        if (!file.isShareByLink()) {
-            toHide.add(R.id.action_unshare_file);
-        } else {
-            toShow.add(R.id.action_unshare_file);
-        }
-        
-        MenuItem item = null;
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        for (int i : toShow) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(true);
-            }
-        }
+        FileMenuFilter mf = new FileMenuFilter();
+        mf.setFile(getFile());
+        mf.setComponentGetter(mContainerActivity);
+        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
+        mf.setContext(getSherlockActivity());
+        mf.setFragment(this);
+        mf.filter(menu);
     }
 
     

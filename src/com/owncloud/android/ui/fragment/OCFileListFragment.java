@@ -19,12 +19,12 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
@@ -56,7 +56,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author masensio
  * @author David A. Velasco
  */
-public class OCFileListFragment extends ExtendedListFragment implements EditNameDialogListener, ConfirmationDialogFragmentListener {
+public class OCFileListFragment extends ExtendedListFragment 
+implements EditNameDialogListener, ConfirmationDialogFragmentListener {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -297,81 +298,14 @@ public class OCFileListFragment extends ExtendedListFragment implements EditName
         inflater.inflate(R.menu.file_actions_menu, menu);
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
-        List<Integer> toHide = new ArrayList<Integer>();    
-        List<Integer> toDisable = new ArrayList<Integer>();  
         
-        MenuItem item = null;
-        if (targetFile.isFolder()) {
-            // contextual menu for folders
-            toHide.add(R.id.action_open_file_with);
-            toHide.add(R.id.action_download_file);
-            toHide.add(R.id.action_cancel_download);
-            toHide.add(R.id.action_cancel_upload);
-            toHide.add(R.id.action_sync_file);
-            toHide.add(R.id.action_see_details);
-            toHide.add(R.id.action_send_file);
-            if (    mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), targetFile) ||
-                    mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), targetFile)           ) {
-                toDisable.add(R.id.action_rename_file);
-                toDisable.add(R.id.action_remove_file);
-                
-            }
-            
-        } else {
-            // contextual menu for regular files
-            
-            // new design: 'download' and 'open with' won't be available anymore in context menu
-            toHide.add(R.id.action_download_file);
-            toHide.add(R.id.action_open_file_with);
-            
-            if (targetFile.isDown()) {
-                toHide.add(R.id.action_cancel_download);
-                toHide.add(R.id.action_cancel_upload);
-                
-            } else {
-                toHide.add(R.id.action_sync_file);
-            }
-            if ( mContainerActivity.getFileDownloaderBinder().isDownloading(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), targetFile)) {
-                toHide.add(R.id.action_cancel_upload);
-                toDisable.add(R.id.action_rename_file);
-                toDisable.add(R.id.action_remove_file);
-                    
-            } else if ( mContainerActivity.getFileUploaderBinder().isUploading(AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity()), targetFile)) {
-                toHide.add(R.id.action_cancel_download);
-                toDisable.add(R.id.action_rename_file);
-                toDisable.add(R.id.action_remove_file);
-                    
-            } else {
-                toHide.add(R.id.action_cancel_download);
-                toHide.add(R.id.action_cancel_upload);
-            }
-        }
-        
-        // Options shareLink
-        if (!targetFile.isShareByLink()) {
-            toHide.add(R.id.action_unshare_file);
-        }
-
-        // Send file
-        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
-        if (!sendEnabled) {
-            toHide.add(R.id.action_send_file);
-        }
-        
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        
-        for (int i : toDisable) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setEnabled(false);
-            }
-        }
+        FileMenuFilter mf = new FileMenuFilter();
+        mf.setFile(targetFile);
+        mf.setComponentGetter(mContainerActivity);
+        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
+        mf.setContext(getSherlockActivity());
+        mf.setFragment(this);
+        mf.filter(menu);
     }
     
     
