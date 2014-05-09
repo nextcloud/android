@@ -246,38 +246,7 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
         inflater.inflate(R.menu.file_actions_menu, menu);
-        /*
-        List<Integer> toHide = new ArrayList<Integer>();    
-        
-        MenuItem item = null;
-        toHide.add(R.id.action_cancel_download);
-        toHide.add(R.id.action_cancel_upload);
-        toHide.add(R.id.action_download_file);
-        toHide.add(R.id.action_sync_file);
-        toHide.add(R.id.action_rename_file);    // by now
-        
-        // Options shareLink
-        if (!getFile().isShareByLink()) {
-            toHide.add(R.id.action_unshare_file);
-        }
-        
-        // Send file
-        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
-        if (!sendEnabled) {
-            toHide.add(R.id.action_send_file);
-        }
-        
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        */
-        
     }
 
 
@@ -288,25 +257,21 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter();
-        mf.setFile(getFile());
-        mf.setComponentGetter(mContainerActivity);
-        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
-        mf.setContext(getSherlockActivity());
-        mf.setFragment(this);
+        FileMenuFilter mf = new FileMenuFilter(
+            getFile(),
+            mContainerActivity.getStorageManager().getAccount(),
+            mContainerActivity,
+            getSherlockActivity()
+        );
         mf.filter(menu);
 
-        /*
-        MenuItem item = menu.findItem(R.id.action_unshare_file);
-        // Options shareLink
-        if (!getFile().isShareByLink()) {            
+        // additional restriction for this fragment 
+        // TODO allow renaming in PreviewImageFragment
+        MenuItem item = menu.findItem(R.id.action_rename_file);
+        if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
-        } else {
-            item.setVisible(true);
-            item.setEnabled(true);
         }
-        */
     }
     
     
@@ -317,11 +282,13 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                shareFileWithLink();
+                stopPreview(false);
+                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_unshare_file: {
-                unshareFileWithLink();
+                stopPreview(false);
+                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -339,7 +306,11 @@ public class PreviewMediaFragment extends FileFragment implements
             case R.id.action_send_file: {
                 sendFile();
             }
-            
+            case R.id.action_sync_file: {
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
+                return true;
+            }
+
             default:
                 return false;
         }
@@ -355,17 +326,6 @@ public class PreviewMediaFragment extends FileFragment implements
         setFile(file);
     }
     
-    private void unshareFileWithLink() {
-        stopPreview(false);
-        mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
-    }
-    
-    private void shareFileWithLink() {
-        stopPreview(false);
-        mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-        
-    }
-
     private void sendFile() {
         stopPreview(false);
         mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());

@@ -1,3 +1,20 @@
+/* ownCloud Android client application
+ *   Copyright (C) 2014 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.files;
 
 import java.util.ArrayList;
@@ -8,51 +25,55 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
 
+/**
+ * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile} 
+ * according to the current state of the latest. 
+ * 
+ * @author David A. Velasco
+ */
 public class FileMenuFilter {
 
     private OCFile mFile;
     private ComponentsGetter mComponentsGetter;
     private Account mAccount;
     private Context mContext;
-    private SherlockFragment mFragment;
-
-    public void setFile(OCFile targetFile) {
+    
+    /**
+     * Constructor
+     * 
+     * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
+     * @param account           ownCloud {@link Account} holding targetFile.
+     * @param cg                Accessor to app components, needed to get access the 
+     *                          {@link FileUploader} and {@link FileDownloader} services.
+     * @param context           Android {@link Context}, needed to access build setup resources.
+     */
+    public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg, Context context) {
         mFile = targetFile;
-    }
-
-    public void setAccount(Account account) {
         mAccount = account;
-    }
-
-    public void setComponentGetter(ComponentsGetter cg) {
         mComponentsGetter = cg;
-    }
-
-    public void setContext(Context context) {
         mContext = context;
     }
     
-    public void setFragment(SherlockFragment fragment) {
-        mFragment = fragment;  
-    }
-
+    
+    /**
+     * Filters out the file actions available in the passed {@link Menu} taken into account
+     * the state of the {@link OCFile} held by the filter.
+     *  
+     * @param menu              Options or context menu to filter.
+     */
     public void filter(Menu menu) {
         List<Integer> toShow = new ArrayList<Integer>();  
-        List<Integer> toDisable = new ArrayList<Integer>();  
         List<Integer> toHide = new ArrayList<Integer>();    
         
-        filter(toShow, toDisable, toHide);
+        filter(toShow, toHide);
         
         MenuItem item = null;
         for (int i : toShow) {
@@ -60,14 +81,6 @@ public class FileMenuFilter {
             if (item != null) {
                 item.setVisible(true);
                 item.setEnabled(true);
-            }
-        }
-        
-        for (int i : toDisable) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(false);
             }
         }
         
@@ -81,16 +94,21 @@ public class FileMenuFilter {
     }
 
     /**
-     * ActionBarSherlock...
+     * Filters out the file actions available in the passed {@link Menu} taken into account
+     * the state of the {@link OCFile} held by the filter.
      * 
+     * Second method needed thanks to ActionBarSherlock.
+     * 
+     * TODO Get rid of it when ActionBarSherlock is replaced for newer Android Support Library.
+     *  
+     * @param menu              Options or context menu to filter.
      */
     public void filter(com.actionbarsherlock.view.Menu menu) {
 
         List<Integer> toShow = new ArrayList<Integer>();
-        List<Integer> toDisable = new ArrayList<Integer>(); 
         List<Integer> toHide = new ArrayList<Integer>();
         
-        filter(toShow, toDisable, toHide);
+        filter(toShow, toHide);
 
         com.actionbarsherlock.view.MenuItem item = null;
         for (int i : toShow) {
@@ -98,13 +116,6 @@ public class FileMenuFilter {
             if (item != null) {
                 item.setVisible(true);
                 item.setEnabled(true);
-            }
-        }
-        for (int i : toDisable) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(false);
             }
         }
         for (int i : toHide) {
@@ -116,7 +127,15 @@ public class FileMenuFilter {
         }
     }
 
-    private void filter(List<Integer> toShow, List<Integer> toDisable, List <Integer> toHide) {
+    /**
+     * Performs the real filtering, to be applied in the {@link Menu} by the caller methods.
+     * 
+     * Decides what actions must be shown and hidden.
+     *  
+     * @param toShow            List to save the options that must be shown in the menu. 
+     * @param toHide            List to save the options that must be shown in the menu.
+     */
+    private void filter(List<Integer> toShow, List <Integer> toHide) {
         boolean downloading = false;
         boolean uploading = false;
         if (mComponentsGetter != null && mFile != null && mAccount != null) {
@@ -126,55 +145,34 @@ public class FileMenuFilter {
             uploading = uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFile);
         }
         
-        // R.id.action_download_file
-        if (mFile == null || mFile.isFolder() || mFile.isDown() || downloading || uploading ||
-                (mFragment != null && (
-                        mFragment instanceof PreviewImageFragment ||
-                        mFragment instanceof PreviewMediaFragment
-                        )
-                )
-            ) {
+        /// decision is taken for each possible action on a file in the menu
+        
+        // DOWNLOAD 
+        if (mFile == null || mFile.isFolder() || mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_download_file);
             
         } else {
             toShow.add(R.id.action_download_file);
         }
         
-        // R.id.action_rename_file
-        if ((downloading || uploading) && 
-                (mFragment != null && mFragment instanceof OCFileListFragment) 
-            ) {
-            toDisable.add(R.id.action_rename_file);
-            
-        } else if (mFile == null || downloading || uploading ||
-                (mFragment != null && (
-                        mFragment instanceof PreviewImageFragment ||
-                        mFragment instanceof PreviewMediaFragment
-                        )
-                ) 
-            ) {
+        // RENAME
+        if (mFile == null || downloading || uploading) {
             toHide.add(R.id.action_rename_file);
             
         } else {
             toShow.add(R.id.action_rename_file);
         }
         
-        // R.id.action_remove_file
-        if ((downloading || uploading) && 
-                (mFragment != null && mFragment instanceof OCFileListFragment) 
-            ) {
-            toDisable.add(R.id.action_remove_file);
-            
-        } else if (mFile == null || downloading || uploading) {
+        // REMOVE
+        if (mFile == null || downloading || uploading) {
             toHide.add(R.id.action_remove_file);
             
         } else {
             toShow.add(R.id.action_remove_file);
         }
         
-        // R.id.action_open_file_with
-        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading || 
-                (mFragment != null && mFragment instanceof OCFileListFragment)) {
+        // OPEN WITH (different to preview!)
+        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_open_file_with);
             
         } else {
@@ -182,49 +180,37 @@ public class FileMenuFilter {
         }
         
         
-        // R.id.action_cancel_download
-        if (mFile == null || !downloading || mFile.isFolder() || 
-                (mFragment != null && (
-                        (mFragment instanceof PreviewImageFragment) ||
-                        (mFragment instanceof PreviewMediaFragment)
-                        )
-                ) 
-            ) {
+        // CANCEL DOWNLOAD
+        if (mFile == null || !downloading || mFile.isFolder()) {
             toHide.add(R.id.action_cancel_download);
         } else {
             toShow.add(R.id.action_cancel_download);
         }
         
-        // R.id.action_cancel_upload
-        if (mFile == null || !uploading || mFile.isFolder() ||
-                (mFragment != null && (
-                        (mFragment instanceof PreviewImageFragment) ||
-                        (mFragment instanceof PreviewMediaFragment)
-                        )
-                ) 
-            ) {
+        // CANCEL UPLOAD
+        if (mFile == null || !uploading || mFile.isFolder()) {
             toHide.add(R.id.action_cancel_upload);
         } else {
             toShow.add(R.id.action_cancel_upload);
         }
         
-        // R.id.action_sync_file
-        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading ||
-                (mFragment != null && mFragment instanceof PreviewMediaFragment)
-            ) {
+        // SYNC FILE CONTENTS
+        if (mFile == null || mFile.isFolder() || !mFile.isDown() || downloading || uploading) {
             toHide.add(R.id.action_sync_file);
         } else {
             toShow.add(R.id.action_sync_file);
         }
         
-        // R.id.action_share_file  // TODO add check on SHARE available on server side?
+        // SHARE FILE 
+        // TODO add check on SHARE available on server side?
         if (mFile == null) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
         }
         
-        // R.id.action_unshare_file  // TODO add check on SHARE available on server side?
+        // UNSHARE FILE  
+        // TODO add check on SHARE available on server side?
         if (mFile == null || !mFile.isShareByLink()) { 
             toHide.add(R.id.action_unshare_file);
         } else {
@@ -232,21 +218,20 @@ public class FileMenuFilter {
         }
         
         
-        // R.id.action_see_details
-        if (mFile == null || mFile.isFolder() || (mFragment != null && mFragment instanceof FileDetailFragment)) {
-            // TODO check dual pane when FileDetailFragment is shown
+        // SEE DETAILS
+        if (mFile == null || mFile.isFolder()) {
             toHide.add(R.id.action_see_details);
         } else {
             toShow.add(R.id.action_see_details);
         }
         
-        // R.id.action_send_file
-        boolean sendEnabled = (mContext != null &&
+        // SEND
+        boolean sendAllowed = (mContext != null &&
                 mContext.getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on"));
-        if (mFile != null && sendEnabled && !mFile.isFolder()) {
-            toShow.add(R.id.action_send_file);
-        } else {
+        if (mFile == null || !sendAllowed || mFile.isFolder() || uploading || downloading) {
             toHide.add(R.id.action_send_file);
+        } else {
+            toShow.add(R.id.action_send_file);
         }
 
     }

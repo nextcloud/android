@@ -21,12 +21,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -37,7 +34,6 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.Log_OC;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -299,13 +295,33 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
         OCFile targetFile = (OCFile) mAdapter.getItem(info.position);
         
-        FileMenuFilter mf = new FileMenuFilter();
-        mf.setFile(targetFile);
-        mf.setComponentGetter(mContainerActivity);
-        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
-        mf.setContext(getSherlockActivity());
-        mf.setFragment(this);
+        FileMenuFilter mf = new FileMenuFilter(
+            targetFile,
+            mContainerActivity.getStorageManager().getAccount(),
+            mContainerActivity,
+            getSherlockActivity()
+        );
         mf.filter(menu);
+        
+        /// additional restrictions for this fragment 
+        // TODO allow in the future 'open with' for previewable files
+        MenuItem item = menu.findItem(R.id.action_open_file_with);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+        /// TODO break this direct dependency on FileDisplayActivity... if possible
+        FileFragment frag = ((FileDisplayActivity)getSherlockActivity()).getSecondFragment();
+        if (frag != null && frag instanceof FileDetailFragment && 
+                frag.getFile().getFileId() == targetFile.getFileId()) {
+            item = menu.findItem(R.id.action_see_details);
+            if (item != null) {
+                item.setVisible(false);
+                item.setEnabled(false);
+            }
+        }
+        
+
     }
     
     
@@ -330,7 +346,7 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
                 int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
                 int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
                 EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
-                dialog.show(getFragmentManager(), EditNameDialog.TAG);
+                dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             }
             case R.id.action_remove_file: {
@@ -355,28 +371,14 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
                 confDialog.show(getFragmentManager(), FileDetailFragment.FTAG_CONFIRMATION);
                 return true;
             }
+            case R.id.action_download_file: 
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                 return true;
             }
-            case R.id.action_cancel_download: {
-                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-                Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
-                if (downloaderBinder != null && downloaderBinder.isDownloading(account, mTargetFile)) {
-                    downloaderBinder.cancel(account, mTargetFile);
-                    listDirectory();
-                    mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
-                }
-                return true;
-            }
+            case R.id.action_cancel_download:
             case R.id.action_cancel_upload: {
-                FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-                Account account = AccountUtils.getCurrentOwnCloudAccount(getSherlockActivity());
-                if (uploaderBinder != null && uploaderBinder.isUploading(account, mTargetFile)) {
-                    uploaderBinder.cancel(account, mTargetFile);
-                    listDirectory();
-                    mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
-                }
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(mTargetFile);
                 return true;
             }
             case R.id.action_see_details: {

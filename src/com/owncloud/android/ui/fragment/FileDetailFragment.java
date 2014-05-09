@@ -69,6 +69,7 @@ public class FileDetailFragment extends FileFragment implements
     
     private static final String TAG = FileDetailFragment.class.getSimpleName();
     public static final String FTAG_CONFIRMATION = "REMOVE_CONFIRMATION_FRAGMENT";
+    public static final String FTAG_RENAME_FILE = "RENAME_FILE_FRAGMENT";
     
 
     /**
@@ -109,7 +110,6 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
         
         if (savedInstanceState != null) {
             setFile((OCFile)savedInstanceState.getParcelable(FileActivity.EXTRA_FILE));
@@ -168,31 +168,7 @@ public class FileDetailFragment extends FileFragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
-        
-        /*
-         TODO Maybe should stay here? It's context (fragment) specific 
-          
-        MenuItem item = menu.findItem(R.id.action_see_details);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-        
-        // Send file
-        item = menu.findItem(R.id.action_send_file);
-        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
-        if (item != null) {
-            if (sendEnabled) {
-                item.setVisible(true);
-                item.setEnabled(true);
-            } else {
-                item.setVisible(false);
-                item.setEnabled(false);
-                
-            }
-        }
-        */
-    }
+   }
 
     
     /**
@@ -202,13 +178,20 @@ public class FileDetailFragment extends FileFragment implements
     public void onPrepareOptionsMenu (Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter();
-        mf.setFile(getFile());
-        mf.setComponentGetter(mContainerActivity);
-        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
-        mf.setContext(getSherlockActivity());
-        mf.setFragment(this);
+        FileMenuFilter mf = new FileMenuFilter(
+            getFile(),
+            mContainerActivity.getStorageManager().getAccount(),
+            mContainerActivity,
+            getSherlockActivity()
+        );
         mf.filter(menu);
+        
+        // additional restriction for this fragment 
+        MenuItem item = menu.findItem(R.id.action_see_details);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     
@@ -323,7 +306,7 @@ public class FileDetailFragment extends FileFragment implements
         int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
         int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
         EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
-        dialog.show(getFragmentManager(), "nameeditdialog");
+        dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
     }
 
     

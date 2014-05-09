@@ -216,30 +216,7 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
         inflater.inflate(R.menu.file_actions_menu, menu);
-        /*List<Integer> toHide = new ArrayList<Integer>();    
-        MenuItem item = null;
-        toHide.add(R.id.action_cancel_download);
-        toHide.add(R.id.action_cancel_upload);
-        toHide.add(R.id.action_download_file);
-        toHide.add(R.id.action_rename_file);    // by now
-        
-        // Send file
-        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
-        if (!sendEnabled) {
-            toHide.add(R.id.action_send_file);
-        }
-        
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        */
-        
     }
 
     /**
@@ -249,25 +226,21 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter();
-        mf.setFile(getFile());
-        mf.setComponentGetter(mContainerActivity);
-        mf.setAccount(mContainerActivity.getStorageManager().getAccount());
-        mf.setContext(getSherlockActivity());
-        mf.setFragment(this);
+        FileMenuFilter mf = new FileMenuFilter(
+            getFile(),
+            mContainerActivity.getStorageManager().getAccount(),
+            mContainerActivity,
+            getSherlockActivity()
+        );
         mf.filter(menu);
-
-        /*
-        MenuItem item = menu.findItem(R.id.action_unshare_file);
-        // Options shareLink
-        if (!getFile().isShareByLink()) {
+        
+        // additional restriction for this fragment 
+        // TODO allow renaming in PreviewImageFragment
+        MenuItem item = menu.findItem(R.id.action_rename_file);
+        if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
-        } else {
-            item.setVisible(true);
-            item.setEnabled(true);
         }
-        */
     }
 
     
@@ -300,6 +273,10 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
             }
             case R.id.action_send_file: {
                 mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
+                return true;
+            }
+            case R.id.action_sync_file: {
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
             

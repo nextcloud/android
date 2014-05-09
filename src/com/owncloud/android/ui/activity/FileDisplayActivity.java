@@ -378,7 +378,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         return null;
     }
 
-    protected FileFragment getSecondFragment() {
+    public FileFragment getSecondFragment() {
         Fragment second = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_SECOND_FRAGMENT);
         if (second != null) {
             return (FileFragment)second;
@@ -1563,10 +1563,12 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         Account account = getAccount();
         if (mDownloaderBinder != null && mDownloaderBinder.isDownloading(account, file)) {
             mDownloaderBinder.cancel(account, file);
+            refreshListOfFilesFragment();
             onTransferStateChanged(file, false, false);
 
         } else if (mUploaderBinder != null && mUploaderBinder.isUploading(account, file)) {
             mUploaderBinder.cancel(account, file);
+            refreshListOfFilesFragment();
             if (!file.fileExists()) {
                 cleanSecondFragment();
                 
