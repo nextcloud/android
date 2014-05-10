@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">アカウント管理</string>
   <string name="prefs_pincode">アプリのパスワード</string>
   <string name="prefs_pincode_summary">クライアントを保護する</string>
+  <string name="prefs_instant_upload">自動画像アップロード</string>
+  <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
   <string name="prefs_log_title">ログを有効にする</string>
   <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
   <string name="prefs_log_title_history">ログ履歴</string>

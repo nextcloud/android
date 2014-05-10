@@ -172,6 +172,7 @@
   <string name="rename_server_fail_msg">Переименование не может быть завершено</string>
   <string name="sync_file_fail_msg">Удаленный файл не может быть проверен</string>
   <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
+  <string name="create_dir_fail_msg">Не возможно создать папку</string>
   <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">Подождите немного</string>
   <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>

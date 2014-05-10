@@ -19,6 +19,7 @@
   <string name="prefs_pincode_summary">Proteja o seu cliente</string>
   <string name="prefs_instant_upload">Transferência instantânea de imagens</string>
   <string name="prefs_instant_upload_summary">Transferência instantânea de imagens tiradas com câmara</string>
+  <string name="prefs_instant_video_upload">Envios instantâneos dos vídeos</string>
   <string name="prefs_log_title">Ativar Rastreio</string>
   <string name="prefs_log_summary">Isto é usado para registar problemas</string>
   <string name="prefs_log_title_history">Historico do rastreio</string>
@@ -37,6 +38,7 @@
   <string name="sync_string_files">Ficheiros</string>
   <string name="setup_btn_connect">Ligar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
+  <string name="uploader_top_message">Escolha a pasta de envio:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não tem nenhuma conta  %1$s no seu dispositivo. Configure uma conta.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
@@ -129,6 +131,7 @@
   <string name="media_rewind_description">Botão de rebobinar</string>
   <string name="media_play_pause_description">Botão Tocar/Pausa</string>
   <string name="media_forward_description">Botão de avanço rápido</string>
+  <string name="auth_getting_authorization">A obter autorização...</string>
   <string name="auth_trying_to_login">A tentar entrar...</string>
   <string name="auth_no_net_conn_title">Sem ligação à rede</string>
   <string name="auth_nossl_plain_ok_title">Ligação segura indisponível</string>
@@ -157,6 +160,7 @@
   <string name="auth_connecting_auth_server">A verificar a sua autenticação no servidor...</string>
   <string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
   <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
+  <string name="auth_can_not_auth_against_server">Não foi possível autenticar no servidor</string>
   <string name="fd_keep_in_sync">manter ficheiro actualizado</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
@@ -203,6 +207,8 @@
   <string name="ssl_validator_label_validity_to">Para:</string>
   <string name="ssl_validator_label_signature">Assinatura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo</string>
+  <string name="ssl_validator_null_cert">O certificado não pôde ser mostrado.</string>
+  <string name="ssl_validator_no_info_about_error">- Nenhuma informação acerca do erro</string>
   <string name="placeholder_sentence">Isto é uma variável.</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Imagem PNG</string>
@@ -210,6 +216,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Enviar fotografias apenas via WiFi</string>
+  <string name="instant_video_upload_on_wifi">Enviar videos apenas por WiFi</string>
   <string name="instant_upload_path">/Upload-Instantâneo </string>
   <string name="conflict_title">Conflito na actualização</string>
   <string name="conflict_message">O ficheiro remoto %s não está sincronizado com o ficheiro local. Se continuar ira substituir o ficheiro no servidor.</string>
@@ -236,4 +243,5 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar ligação</string>
   <string name="clipboard_text_copied">Copiado para a área de transferência</string>
+  <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
 </resources>
