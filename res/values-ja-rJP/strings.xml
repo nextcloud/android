@@ -19,6 +19,8 @@
   <string name="prefs_pincode_summary">クライアントを保護する</string>
   <string name="prefs_instant_upload">自動画像アップロード</string>
   <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
+  <string name="prefs_instant_video_upload">自動動画アップロード</string>
+  <string name="prefs_instant_video_upload_summary">カメラで撮影した動画を自動アップロード</string>
   <string name="prefs_log_title">ログを有効にする</string>
   <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
   <string name="prefs_log_title_history">ログ履歴</string>
@@ -29,6 +31,7 @@
   <string name="prefs_feedback">フィードバック</string>
   <string name="prefs_imprint">インプリント</string>
   <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
+  <string name="recommend_text">\"あなたのスマートフォンでも %1$s を是非使ってみてください！\nここからダウンロードできます： %2$s\"\n\t</string>
   <string name="auth_check_server">サーバーを確認する</string>
   <string name="auth_host_url">サーバーアドレス https://…</string>
   <string name="auth_username">ユーザー名</string>
@@ -37,6 +40,7 @@
   <string name="sync_string_files">ファイル</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
+  <string name="uploader_top_message">アップロードするフォルダを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">デバイスに%1$sのアカウントがありません。まず最初にアカウントを登録してください。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
@@ -94,6 +98,8 @@
   <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
   <string name="sync_fail_in_favourites_content">%1$d ファイルのコンテンツを同期できませんでした（%2$d の競合）</string>
   <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
+  <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
+  <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16から、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期される時にデータの損失を防ぐため、ローカルの%1$sのフォルダにコピーされます。\n\nこの変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルが%2$s フォルダにコピーされます。ただし、アカウント同期の際に、エラーがこの操作の完了を阻止しました。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$s ディレクトリにファイルを移動して%4$sへのリンクを維持することができます。\n\n以下にリストされているのは、ローカルのファイル及びそれらにリンクしている %5$s 内のリモートファイルです。</string>
   <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
   <string name="foreign_files_move">全て移動</string>
   <string name="foreign_files_success">全てのファイルは移動されました</string>
@@ -129,6 +135,7 @@
   <string name="media_rewind_description">巻き戻しボタン</string>
   <string name="media_play_pause_description">再生/一時停止ボタン</string>
   <string name="media_forward_description">早送りボタン</string>
+  <string name="auth_getting_authorization">認証中...</string>
   <string name="auth_trying_to_login">ログイン中...</string>
   <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
   <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
@@ -157,6 +164,7 @@
   <string name="auth_connecting_auth_server">認証サーバーに接続中 ...</string>
   <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
   <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
+  <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者にご連絡ください。\n\t</string>
   <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
@@ -173,6 +181,7 @@
   <string name="rename_server_fail_msg">名前の変更ができませんでした</string>
   <string name="sync_file_fail_msg">リモートファイルをチェックできませんでした</string>
   <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
+  <string name="create_dir_fail_msg">フォルダを作成できませんでした</string>
   <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
   <string name="wait_a_moment">しばらくお待ちください</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
@@ -202,6 +211,8 @@
   <string name="ssl_validator_label_validity_to">先:</string>
   <string name="ssl_validator_label_signature">署名:</string>
   <string name="ssl_validator_label_signature_algorithm">アルゴリズム:</string>
+  <string name="ssl_validator_null_cert">証明書が表示できません。</string>
+  <string name="ssl_validator_no_info_about_error">-エラーについての詳細情報はありません</string>
   <string name="placeholder_sentence">これはプレースホルダです</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">PNG 画像</string>
@@ -209,6 +220,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">WiFi経由でのみ写真をアップロード</string>
+  <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">更新が競合</string>
   <string name="conflict_message">リモートファイル %s はローカルファイルと同期していません。続行すると、サーバー上のファイルを置き換えます。</string>
@@ -217,6 +229,7 @@
   <string name="conflict_dont_upload">アップロードしない</string>
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
+  <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダ %2$s  にコピーできませんでした。</string>
   <string name="actionbar_failed_instant_upload">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_text">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_hint">全ての失敗したインスタントアップロードの要約</string>
@@ -228,6 +241,7 @@
   <string name="failed_upload_retry_do_nothing_text">オンラインでなく、インスタントアップロードのために何もしません</string>
   <string name="failed_upload_failure_text">失敗メッセージ:</string>
   <string name="failed_upload_quota_exceeded_text">サーバー設定を確認してください。クォータサイズを超えている可能性があります。</string>
+  <string name="share_link_no_support_share_api">申し訳ございません。共有がサーバー上で有効になっていません。 管理者に\n\t\tご連絡ください。</string>
   <string name="share_link_file_no_exist">このファイルまたはフォルダーは共有できません。存在しているか確認してください。</string>
   <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
   <string name="unshare_link_file_no_exist">このファイルもしくはフォルダは存在しないため、共有を解除できません。</string>
@@ -235,4 +249,5 @@
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
   <string name="clipboard_text_copied">クリップボードにコピー</string>
+  <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
 </resources>

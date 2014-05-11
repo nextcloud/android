@@ -8,5 +8,6 @@
   <string name="filedetails_download">ဒေါင်းလုတ်</string>
   <string name="common_yes">ဟုတ်</string>
   <string name="common_no">မဟုတ်ဘူး</string>
+  <string name="common_ok">အိုကေ</string>
   <string name="common_cancel">ပယ်ဖျက်မည်</string>
 </resources>
