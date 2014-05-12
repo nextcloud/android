@@ -49,6 +49,9 @@ public class FileOperationsHelper {
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG"; 
 
     protected FileActivity mFileActivity = null;
+
+    /// Identifier of operation in progress which result shouldn't be lost 
+    private long mWaitingForOpId = Long.MAX_VALUE;
     
     public FileOperationsHelper(FileActivity fileActivity) {
         mFileActivity = fileActivity;
@@ -121,7 +124,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
             service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
-            mFileActivity.getOperationsServiceBinder().newOperation(service);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
             
         } else {
             Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
@@ -159,7 +162,7 @@ public class FileOperationsHelper {
             service.setAction(OperationsService.ACTION_UNSHARE);
             service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
             service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            mFileActivity.getOperationsServiceBinder().newOperation(service);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
             
             mFileActivity.showLoadingDialog();
             
@@ -197,7 +200,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath()); 
         service.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
@@ -210,7 +213,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
-        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
@@ -223,7 +226,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
-        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
     }
@@ -236,8 +239,18 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
         service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
-        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();
+    }
+
+
+    public long getOpIdWaitingFor() {
+        return mWaitingForOpId;
+    }
+
+
+    public void setOpIdWaitingFor(long waitingForOpId) {
+        mWaitingForOpId = waitingForOpId;
     }
 }

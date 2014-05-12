@@ -75,6 +75,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     public static final String TAG = FileActivity.class.getSimpleName();
     
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";;
     
     
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located. */
@@ -129,6 +130,9 @@ implements OnRemoteOperationListener, ComponentsGetter {
             account = savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT);
             mFile = savedInstanceState.getParcelable(FileActivity.EXTRA_FILE);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
+            mFileOperationsHelper.setOpIdWaitingFor(
+                    savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
+                    );
         } else {
             account = getIntent().getParcelableExtra(FileActivity.EXTRA_ACCOUNT);
             mFile = getIntent().getParcelableExtra(FileActivity.EXTRA_FILE);
@@ -179,6 +183,24 @@ implements OnRemoteOperationListener, ComponentsGetter {
         }
     }
     
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if (mOperationsServiceBinder != null) {
+            doOnResumeAndBound();
+        }
+
+    }
+    
+    @Override
+    protected void onPause()  {
+        if (mOperationsServiceBinder != null) {
+            mOperationsServiceBinder.removeOperationListener(this);
+        }
+        
+        super.onPause();
+    }
     
     @Override 
     protected void onStop() {
@@ -285,6 +307,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
         outState.putParcelable(FileActivity.EXTRA_FILE, mFile);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, mAccount);
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
+        outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
     }
     
     
@@ -424,6 +447,9 @@ implements OnRemoteOperationListener, ComponentsGetter {
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the FileActivities ");
+        
+        mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
+        
         if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
             
@@ -502,6 +528,15 @@ implements OnRemoteOperationListener, ComponentsGetter {
     }
 
     
+    private void doOnResumeAndBound() {
+        mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
+        long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
+        if (waitingForOpId <= Integer.MAX_VALUE) {
+            mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId, this);
+        }
+    }
+
+
     /** 
      * Implements callback methods for service binding. Passed as a parameter to { 
      */
@@ -512,10 +547,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
             if (component.equals(new ComponentName(FileActivity.this, OperationsService.class))) {
                 Log_OC.d(TAG, "Operations service connected");
                 mOperationsServiceBinder = (OperationsServiceBinder) service;
-                mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
-                if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
+                /*if (!mOperationsServiceBinder.isPerformingBlockingOperation()) {
                     dismissLoadingDialog();
-                }
+                }*/
+                doOnResumeAndBound();
 
             } else {
                 return;
