@@ -40,6 +40,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -70,6 +71,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
+    public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
@@ -90,6 +92,7 @@ public class OperationsService extends Service {
     public static final String ACTION_RENAME = "RENAME";
     public static final String ACTION_REMOVE = "REMOVE";
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
+    public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
@@ -357,6 +360,12 @@ public class OperationsService extends Service {
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                         boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
                         operation = new CreateFolderOperation(remotePath, createFullPath);
+                        
+                    } else if (action.equals(ACTION_SYNC_FILE)) {
+                        // Sync file
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
+                        operation = new SynchronizeFileOperation(remotePath, account, syncFileContents, getApplicationContext());
                     }
                     
                 }

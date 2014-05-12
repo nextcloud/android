@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -350,11 +350,11 @@ public class SynchronizeFolderOperation extends RemoteOperation {
             if (remoteFile.keepInSync()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
                                                                                     remoteFile, 
-                                                                                    mStorageManager,
-                                                                                    mAccount,       
+                                                                                    mAccount, 
                                                                                     true, 
                                                                                     mContext
                                                                                     );
+                
                 filesToSyncContents.add(operation);
             }
             
@@ -382,7 +382,7 @@ public class SynchronizeFolderOperation extends RemoteOperation {
     private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents, OwnCloudClient client) {
         RemoteOperationResult contentsResult = null;
         for (SynchronizeFileOperation op: filesToSyncContents) {
-            contentsResult = op.execute(client);   // returns without waiting for upload or download finishes
+            contentsResult = op.execute(mStorageManager, mContext);   // returns without waiting for upload or download finishes
             if (!contentsResult.isSuccess()) {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;

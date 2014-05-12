@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,16 +18,15 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -42,13 +41,13 @@ import android.content.Intent;
  * @author masensio
  */
 
-public class SynchronizeFileOperation extends RemoteOperation {
+public class SynchronizeFileOperation extends SyncOperation {
 
     private String TAG = SynchronizeFileOperation.class.getSimpleName();
     
     private OCFile mLocalFile;
+    private String mRemotePath;
     private OCFile mServerFile;
-    private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private boolean mSyncFileContents;
     private Context mContext;
@@ -58,25 +57,39 @@ public class SynchronizeFileOperation extends RemoteOperation {
     public SynchronizeFileOperation(
             OCFile localFile,
             OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
-            FileDataStorageManager storageManager, 
             Account account, 
             boolean syncFileContents,
             Context context) {
         
         mLocalFile = localFile;
         mServerFile = serverFile;
-        mStorageManager = storageManager;
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
     }
 
+    public SynchronizeFileOperation(
+            String remotePath,  
+            Account account, 
+            boolean syncFileContents,
+            Context context) {
+        
+        mRemotePath = remotePath;
+        mServerFile = null;
+        mAccount = account;
+        mSyncFileContents = syncFileContents;
+        mContext = context;
+    }
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         RemoteOperationResult result = null;
         mTransferWasRequested = false;
+        
+        // Get local file from the DB
+        mLocalFile = getStorageManager().getFileByPath(mRemotePath);
+        
         if (!mLocalFile.isDown()) {
             /// easy decision
             requestForDownload(mLocalFile);
@@ -135,7 +148,7 @@ public class SynchronizeFileOperation extends RemoteOperation {
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());
-                        mStorageManager.saveFile(mServerFile);
+                        getStorageManager().saveFile(mServerFile);
 
                     }
                     result = new RemoteOperationResult(ResultCode.OK);

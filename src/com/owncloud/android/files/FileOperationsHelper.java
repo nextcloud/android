@@ -19,7 +19,6 @@ package com.owncloud.android.files;
 
 import org.apache.http.protocol.HTTP;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,9 +31,7 @@ import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
@@ -194,15 +191,14 @@ public class FileOperationsHelper {
     
     
     public void syncFile(OCFile file) {
-        Account account = mFileActivity.getAccount();
-        RemoteOperation operation = new SynchronizeFileOperation(
-                file, 
-                null, 
-                mFileActivity.getStorageManager(), 
-                account, 
-                true, 
-                mFileActivity);
-        operation.execute(account, mFileActivity, mFileActivity, mFileActivity.getHandler(), mFileActivity);
+        // Sync file
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_SYNC_FILE);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath()); 
+        service.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
+        mFileActivity.getOperationsServiceBinder().newOperation(service);
+        
         mFileActivity.showLoadingDialog();
     }
     
