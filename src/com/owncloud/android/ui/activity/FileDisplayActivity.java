@@ -983,7 +983,11 @@ OnSslUntrustedCertListener, EditNameDialogListener {
                             Toast.LENGTH_LONG);
                     msg.show();
                 }
-                ((FileDetailFragment)details).updateFileDetails(false, false);
+                if (uploadWasFine || getFile().fileExists()) {
+                    ((FileDetailFragment)details).updateFileDetails(false, true);
+                } else {
+                    cleanSecondFragment();
+                }
                 
                 // Force the preview if the file is an image
                 if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
