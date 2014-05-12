@@ -73,8 +73,6 @@ implements ConfirmationDialogFragmentListener {
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
         
-        frag.setOnConfirmationListener(frag);
-        
         return frag;
     }
 
@@ -84,6 +82,9 @@ implements ConfirmationDialogFragmentListener {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
+        
+        setOnConfirmationListener(this);
+        
         return dialog;
     }    
 
