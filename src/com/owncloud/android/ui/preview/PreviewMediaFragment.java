@@ -45,7 +45,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.media.MediaControlView;
@@ -53,6 +52,7 @@ import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
 
@@ -67,8 +67,7 @@ import com.owncloud.android.utils.Log_OC;
  * @author David A. Velasco
  */
 public class PreviewMediaFragment extends FileFragment implements
-        OnTouchListener,  
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener  {
+        OnTouchListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -257,13 +256,15 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter(
-            getFile(),
-            mContainerActivity.getStorageManager().getAccount(),
-            mContainerActivity,
-            getSherlockActivity()
-        );
-        mf.filter(menu);
+        if (mContainerActivity.getStorageManager() != null) {
+            FileMenuFilter mf = new FileMenuFilter(
+                getFile(),
+                mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
+                getSherlockActivity()
+            );
+            mf.filter(menu);
+        }
 
         // additional restriction for this fragment 
         // TODO allow renaming in PreviewImageFragment
@@ -296,7 +297,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_remove_file: {
-                removeFile();
+                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
             case R.id.action_see_details: {
@@ -592,59 +594,6 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
     /**
-     * Starts a the removal of the previewed file.
-     * 
-     * Shows a confirmation dialog. The action continues in {@link #onConfirmation(String)} , {@link #onNeutral(String)} or {@link #onCancel(String)},
-     * depending upon the user selection in the dialog. 
-     */
-    private void removeFile() {
-        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                R.string.confirmation_remove_alert,
-                new String[]{getFile().getFileName()},
-                R.string.confirmation_remove_remote_and_local,
-                R.string.confirmation_remove_local,
-                R.string.common_cancel);
-        confDialog.setOnConfirmationListener(this);
-        confDialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-    }
-
-    
-    /**
-     * Performs the removal of the previewed file, both locally and in the server.
-     */
-    @Override
-    public void onConfirmation(String callerTag) {
-        OCFile file = getFile();
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        if (storageManager.getFileById(file.getFileId()) != null) {   // check that the file is still there;
-            stopPreview(true);
-            mContainerActivity.getFileOperationsHelper().removeFile(file, false);
-        }
-    }
-    
-    
-    /**
-     * Removes the file from local storage
-     */
-    @Override
-    public void onNeutral(String callerTag) {
-        OCFile file = getFile();
-        stopPreview(true);
-        //mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
-        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
-        //finish();
-    }
-    
-    /**
-     * User cancelled the removal action.
-     */
-    @Override
-    public void onCancel(String callerTag) {
-        // nothing to do here
-    }
-    
-
-    /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment} to be previewed.
      * 
      * @param file      File to test if can be previewed.
@@ -655,7 +604,7 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
 
-    private void stopPreview(boolean stopAudio) {
+    public void stopPreview(boolean stopAudio) {
         OCFile file = getFile();
         if (file.isAudio() && stopAudio) {
             mMediaServiceBinder.pause();

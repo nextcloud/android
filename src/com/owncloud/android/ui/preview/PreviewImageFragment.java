@@ -42,11 +42,11 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
 
@@ -60,8 +60,7 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * @author David A. Velasco
  */
-public class PreviewImageFragment extends FileFragment implements 
-ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
+public class PreviewImageFragment extends FileFragment {
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
@@ -226,13 +225,15 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter(
-            getFile(),
-            mContainerActivity.getStorageManager().getAccount(),
-            mContainerActivity,
-            getSherlockActivity()
-        );
-        mf.filter(menu);
+        if (mContainerActivity.getStorageManager() != null) {
+            FileMenuFilter mf = new FileMenuFilter(
+                getFile(),
+                mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
+                getSherlockActivity()
+            );
+            mf.filter(menu);
+        }
         
         // additional restriction for this fragment 
         // TODO allow renaming in PreviewImageFragment
@@ -264,7 +265,8 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
                 return true;
             }
             case R.id.action_remove_file: {
-                removeFile();
+                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
             case R.id.action_see_details: {
@@ -321,56 +323,6 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     }
     
     
-    /**
-     * Starts a the removal of the previewed file.
-     * 
-     * Shows a confirmation dialog. The action continues in {@link #onConfirmation(String)} , {@link #onNeutral(String)} or {@link #onCancel(String)},
-     * depending upon the user selection in the dialog. 
-     */
-    private void removeFile() {
-        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                R.string.confirmation_remove_alert,
-                new String[]{getFile().getFileName()},
-                R.string.confirmation_remove_remote_and_local,
-                R.string.confirmation_remove_local,
-                R.string.common_cancel);
-        confDialog.setOnConfirmationListener(this);
-        confDialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-    }
-
-    
-    /**
-     * Performs the removal of the previewed file, both locally and in the server.
-     */
-    @Override
-    public void onConfirmation(String callerTag) {
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        if (storageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
-            mContainerActivity.getFileOperationsHelper().removeFile(getFile(), false);
-        }
-    }
-    
-    
-    /**
-     * Removes the file from local storage
-     */
-    @Override
-    public void onNeutral(String callerTag) {
-        OCFile file = getFile();
-        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
-        //mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
-        //finish();
-    }
-    
-    /**
-     * User cancelled the removal action.
-     */
-    @Override
-    public void onCancel(String callerTag) {
-        // nothing to do here
-    }
-    
-
     private class BitmapLoader extends AsyncTask<String, Void, Bitmap> {
 
         /**

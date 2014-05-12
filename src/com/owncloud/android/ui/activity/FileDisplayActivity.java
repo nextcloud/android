@@ -1293,6 +1293,9 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             OCFile removedFile = operation.getFile();
             FileFragment second = getSecondFragment();
             if (second != null && removedFile.equals(second.getFile())) {
+                if (second instanceof PreviewMediaFragment) {
+                    ((PreviewMediaFragment)second).stopPreview(true);
+                }
                 cleanSecondFragment();
             }
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {

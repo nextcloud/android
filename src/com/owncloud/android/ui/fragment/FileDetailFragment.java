@@ -44,8 +44,8 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
@@ -58,8 +58,7 @@ import com.owncloud.android.utils.Log_OC;
  * @author David A. Velasco
  */
 public class FileDetailFragment extends FileFragment implements
-        OnClickListener, 
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, EditNameDialogListener {
+        OnClickListener, EditNameDialogListener {
 
     private int mLayout;
     private View mView;
@@ -101,7 +100,7 @@ public class FileDetailFragment extends FileFragment implements
     
     
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -178,13 +177,15 @@ public class FileDetailFragment extends FileFragment implements
     public void onPrepareOptionsMenu (Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        FileMenuFilter mf = new FileMenuFilter(
-            getFile(),
-            mContainerActivity.getStorageManager().getAccount(),
-            mContainerActivity,
-            getSherlockActivity()
-        );
-        mf.filter(menu);
+        if (mContainerActivity.getStorageManager() != null) {
+            FileMenuFilter mf = new FileMenuFilter(
+                getFile(),
+                mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
+                getSherlockActivity()
+            );
+            mf.filter(menu);
+        }
         
         // additional restriction for this fragment 
         MenuItem item = menu.findItem(R.id.action_see_details);
@@ -214,7 +215,8 @@ public class FileDetailFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_remove_file: {
-                showDialogToRemoveFile();
+                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 return true;
             }
             case R.id.action_rename_file: {
@@ -287,19 +289,6 @@ public class FileDetailFragment extends FileFragment implements
         }
     }
 
-    private void showDialogToRemoveFile() {
-        OCFile file = getFile();
-        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                R.string.confirmation_remove_alert,
-                new String[]{file.getFileName()},
-                file.isDown() ? R.string.confirmation_remove_remote_and_local : R.string.confirmation_remove_remote,
-                file.isDown() ? R.string.confirmation_remove_local : -1,
-                R.string.common_cancel);
-        confDialog.setOnConfirmationListener(this);
-        confDialog.show(getFragmentManager(), FTAG_CONFIRMATION);
-    }
-
-
     private void showDialogToRenameFile() {
         OCFile file = getFile();
         String fileName = file.getFileName();
@@ -308,33 +297,6 @@ public class FileDetailFragment extends FileFragment implements
         EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
         dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
     }
-
-    
-    @Override
-    public void onConfirmation(String callerTag) {
-        OCFile file = getFile();
-        if (callerTag.equals(FTAG_CONFIRMATION)) {
-            if (mContainerActivity.getStorageManager().getFileById(file.getFileId()) != null) {
-                mContainerActivity.getFileOperationsHelper().removeFile(file, false);
-            }
-        }
-    }
-    
-    @Override
-    public void onNeutral(String callerTag) {
-        OCFile file = getFile();
-        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
-        //if (file.getStoragePath() != null) {
-        //    file.setStoragePath(null);
-        //    updateFileDetails(file, mAccount);
-        //}
-    }
-    
-    @Override
-    public void onCancel(String callerTag) {
-        Log_OC.d(TAG, "REMOVAL CANCELED");
-    }
-    
     
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
