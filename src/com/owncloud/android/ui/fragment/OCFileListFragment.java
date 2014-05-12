@@ -471,16 +471,16 @@ implements EditNameDialogListener, ConfirmationDialogFragmentListener {
         if (callerTag.equals(FileDetailFragment.FTAG_CONFIRMATION)) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-                mContainerActivity.getFileOperationsHelper().removeFile(mTargetFile, true);
+                mContainerActivity.getFileOperationsHelper().removeFile(mTargetFile, false);
             }
         }
     }
     
     @Override
     public void onNeutral(String callerTag) {
-        mContainerActivity.getStorageManager().removeFile(mTargetFile, false, true);    // TODO perform in background task / new thread
-        listDirectory();
-        mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
+        mContainerActivity.getFileOperationsHelper().removeFile(mTargetFile, true);
+        //listDirectory();
+        //mContainerActivity.onTransferStateChanged(mTargetFile, false, false);
     }
     
     @Override

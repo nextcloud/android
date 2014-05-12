@@ -37,18 +37,20 @@ public class RemoveFileOperation extends SyncOperation {
     
     OCFile mFileToRemove;
     String mRemotePath;
-    boolean mDeleteLocalCopy;
+    boolean mOnlyLocalCopy;
     
     
     /**
      * Constructor
      * 
-     * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to remove from the server
-     * @param deleteLocalCopy       When 'true', and a local copy of the file exists, it is also removed.
+     * @param remotePath            RemotePath of the OCFile instance describing the remote file or 
+     *                              folder to remove from the server
+     * @param onlyLocalCopy         When 'true', and a local copy of the file exists, only this is 
+     *                              removed.
      */
-    public RemoveFileOperation(String remotePath, boolean deleteLocalCopy) {
+    public RemoveFileOperation(String remotePath, boolean onlyLocalCopy) {
         mRemotePath = remotePath;
-        mDeleteLocalCopy = deleteLocalCopy;
+        mOnlyLocalCopy = onlyLocalCopy;
     }
     
     
@@ -70,13 +72,25 @@ public class RemoveFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
-        RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
-        result = operation.execute(client);
-        
         mFileToRemove = getStorageManager().getFileByPath(mRemotePath);
+
+        boolean localRemovalFailed = false;
+        if (!mOnlyLocalCopy) {
+            RemoveRemoteFileOperation operation = new RemoveRemoteFileOperation(mRemotePath);
+            result = operation.execute(client);
+            if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, true, true));
+            }
+            
+        } else {
+            localRemovalFailed = !(getStorageManager().removeFile(mFileToRemove, false, true));
+            if (!localRemovalFailed) {
+                result = new RemoteOperationResult(ResultCode.OK);
+            }
+        }
         
-        if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
-            getStorageManager().removeFile(mFileToRemove, true, mDeleteLocalCopy);
+        if (localRemovalFailed) {
+            result = new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_REMOVED);
         }
         
         return result;

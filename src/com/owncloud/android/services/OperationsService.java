@@ -68,7 +68,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_NEWNAME = "NEWNAME";
-    public static final String EXTRA_REMOVE_LOCAL_COPY = "REMOVE_LOCAL_COPY";
+    public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
     public static final String EXTRA_RESULT = "RESULT";
     
@@ -349,8 +349,8 @@ public class OperationsService extends Service {
                     } else if (action.equals(ACTION_REMOVE)) {
                         // Remove file or folder
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean removeLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_LOCAL_COPY, true);
-                        operation = new RemoveFileOperation(remotePath, removeLocalCopy);
+                        boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
+                        operation = new RemoveFileOperation(remotePath, onlyLocalCopy);
                         
                     } else if (action.equals(ACTION_CREATE_FOLDER)) {
                         // Create Folder

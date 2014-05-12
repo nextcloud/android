@@ -315,7 +315,7 @@ public class FileDetailFragment extends FileFragment implements
         OCFile file = getFile();
         if (callerTag.equals(FTAG_CONFIRMATION)) {
             if (mContainerActivity.getStorageManager().getFileById(file.getFileId()) != null) {
-                mContainerActivity.getFileOperationsHelper().removeFile(file, true);
+                mContainerActivity.getFileOperationsHelper().removeFile(file, false);
             }
         }
     }
@@ -323,11 +323,11 @@ public class FileDetailFragment extends FileFragment implements
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
-        if (file.getStoragePath() != null) {
-            file.setStoragePath(null);
-            updateFileDetails(file, mAccount);
-        }
+        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
+        //if (file.getStoragePath() != null) {
+        //    file.setStoragePath(null);
+        //    updateFileDetails(file, mAccount);
+        //}
     }
     
     @Override

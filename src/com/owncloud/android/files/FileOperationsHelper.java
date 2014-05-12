@@ -220,13 +220,13 @@ public class FileOperationsHelper {
     }
 
 
-    public void removeFile(OCFile file, boolean removeLocalCopy) {
+    public void removeFile(OCFile file, boolean onlyLocalCopy) {
         // RemoveFile
         Intent service = new Intent(mFileActivity, OperationsService.class);
         service.setAction(OperationsService.ACTION_REMOVE);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOVE_LOCAL_COPY, removeLocalCopy);
+        service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
         mFileActivity.getOperationsServiceBinder().newOperation(service);
         
         mFileActivity.showLoadingDialog();

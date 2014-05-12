@@ -346,7 +346,7 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     public void onConfirmation(String callerTag) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager.getFileById(getFile().getFileId()) != null) {   // check that the file is still there;
-            mContainerActivity.getFileOperationsHelper().removeFile(getFile(), true);
+            mContainerActivity.getFileOperationsHelper().removeFile(getFile(), false);
         }
     }
     
@@ -357,8 +357,9 @@ ConfirmationDialogFragment.ConfirmationDialogFragmentListener {
     @Override
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
-        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
-        finish();
+        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
+        //mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
+        //finish();
     }
     
     /**

@@ -618,7 +618,7 @@ public class PreviewMediaFragment extends FileFragment implements
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager.getFileById(file.getFileId()) != null) {   // check that the file is still there;
             stopPreview(true);
-            mContainerActivity.getFileOperationsHelper().removeFile(file, true);
+            mContainerActivity.getFileOperationsHelper().removeFile(file, false);
         }
     }
     
@@ -630,8 +630,9 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onNeutral(String callerTag) {
         OCFile file = getFile();
         stopPreview(true);
-        mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
-        finish();
+        //mContainerActivity.getStorageManager().removeFile(file, false, true);    // TODO perform in background task / new thread
+        mContainerActivity.getFileOperationsHelper().removeFile(file, true);
+        //finish();
     }
     
     /**
