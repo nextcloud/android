@@ -20,6 +20,7 @@
   <string name="filedetails_download">Preuzmi</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
+  <string name="common_ok">Ok</string>
   <string name="common_cancel">Otkaži</string>
   <string name="common_error">Greška</string>
   <string name="change_password">Izmeni lozinku</string>

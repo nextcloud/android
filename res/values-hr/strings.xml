@@ -16,6 +16,7 @@
   <string name="filedetails_download">Preuzimanje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
+  <string name="common_ok">U redu</string>
   <string name="common_cancel_upload">Prekini upload</string>
   <string name="common_cancel">Odustani</string>
   <string name="common_error">Greška</string>

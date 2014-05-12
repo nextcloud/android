@@ -6,6 +6,7 @@
   <string name="auth_password">پاسورڈ</string>
   <string name="common_yes">ہاں</string>
   <string name="common_no">نہیں</string>
+  <string name="common_ok">اوکے</string>
   <string name="common_cancel">منسوخ کریں</string>
   <string name="common_error">ایرر</string>
 </resources>
