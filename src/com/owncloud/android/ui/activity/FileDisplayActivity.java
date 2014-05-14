@@ -1358,7 +1358,9 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             FileFragment details = getSecondFragment();
             if (details != null && details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
                 ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
+                showDetails(renamedFile);
             }
+
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
                 refreshListOfFilesFragment();
             }
