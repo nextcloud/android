@@ -1357,9 +1357,19 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             FileFragment details = getSecondFragment();
-            if (details != null && details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
-                ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
-                showDetails(renamedFile);
+            if (details != null) 
+                if (details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
+                    ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
+                    showDetails(renamedFile);
+                    
+            } else if (details instanceof PreviewMediaFragment && renamedFile.equals(details.getFile())) {
+                ((PreviewMediaFragment) details).updateFile(renamedFile);
+                if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
+                    int position = ((PreviewMediaFragment)details).getPosition();
+                    startMediaPreview(renamedFile, position, true);
+                } else {
+                    getFileOperationsHelper().openFile(renamedFile);
+                }
             }
 
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
