@@ -1301,6 +1301,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
                 if (second instanceof PreviewMediaFragment) {
                     ((PreviewMediaFragment)second).stopPreview(true);
                 }
+                setFile(getStorageManager().getFileById(removedFile.getParentId()));
                 cleanSecondFragment();
             }
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {

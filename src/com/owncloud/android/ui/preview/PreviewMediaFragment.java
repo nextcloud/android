@@ -98,7 +98,12 @@ public class PreviewMediaFragment extends FileFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition, boolean autoplay) {
+    public PreviewMediaFragment(
+            OCFile fileToDetail, 
+            Account ocAccount, 
+            int startPlaybackPosition, 
+            boolean autoplay) {
+        
         super(fileToDetail);
         mAccount = ocAccount;
         mSavedPlaybackPosition = startPlaybackPosition;
@@ -109,9 +114,11 @@ public class PreviewMediaFragment extends FileFragment implements
     /**
      *  Creates an empty fragment for previews.
      * 
-     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the device is turned a aside).
+     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically 
+     *  (for instance, when the device is turned a aside).
      * 
-     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
+     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful 
+     *  construction 
      */
     public PreviewMediaFragment() {
         super();
@@ -161,31 +168,36 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated");
 
-        if (savedInstanceState != null) {
+        OCFile file = getFile();
+        if (savedInstanceState == null) {
+            if (file == null) {
+                throw new IllegalStateException("Instanced with a NULL OCFile");
+            }
+            if (mAccount == null) {
+                throw new IllegalStateException("Instanced with a NULL ownCloud Account");
+            }
+            if (!file.isDown()) {
+                throw new IllegalStateException("There is no local file to preview");
+            }
+            
+        } else {
             setFile((OCFile)savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
-            mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
+            mSavedPlaybackPosition = 
+                    savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
             mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
             
         }
-        OCFile file = getFile();
-        if (file == null) {
-            throw new IllegalStateException("Instanced with a NULL OCFile");
-        }
-        if (mAccount == null) {
-            throw new IllegalStateException("Instanced with a NULL ownCloud Account");
-        }
-        if (!file.isDown()) {
-            throw new IllegalStateException("There is no local file to preview");
-        }
-        if (file.isVideo()) {
-            mVideoPreview.setVisibility(View.VISIBLE);
-            mImagePreview.setVisibility(View.GONE);
-            prepareVideo();
+        if (file != null && file.isDown()) {
+            if (file.isVideo()) {
+                mVideoPreview.setVisibility(View.VISIBLE);
+                mImagePreview.setVisibility(View.GONE);
+                prepareVideo();
             
-        } else {
-            mVideoPreview.setVisibility(View.GONE);
-            mImagePreview.setVisibility(View.VISIBLE);
+            } else {
+                mVideoPreview.setVisibility(View.GONE);
+                mImagePreview.setVisibility(View.VISIBLE);
+            }
         }
         
     }
@@ -208,8 +220,11 @@ public class PreviewMediaFragment extends FileFragment implements
             outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mSavedPlaybackPosition);
             outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mAutoplay);
         } else {
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mMediaServiceBinder.getCurrentPosition());
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
+            outState.putInt(
+                    PreviewMediaFragment.EXTRA_PLAY_POSITION , 
+                    mMediaServiceBinder.getCurrentPosition());
+            outState.putBoolean(
+                    PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
         }
     }
     
@@ -220,7 +235,7 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.e(TAG, "onStart");
 
         OCFile file = getFile();
-        if (file != null) {
+        if (file != null && file.isDown()) {
            if (file.isAudio()) {
                bindMediaService();
                
@@ -352,7 +367,8 @@ public class PreviewMediaFragment extends FileFragment implements
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
         
-        // load the video file in the video player ; when done, VideoHelper#onPrepared() will be called
+        // load the video file in the video player ; 
+        // when done, VideoHelper#onPrepared() will be called
         mVideoPreview.setVideoPath(getFile().getStoragePath()); 
     }
     
@@ -419,7 +435,8 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
             if (mVideoPreview.getWindowToken() != null) {
-                String message = MediaService.getMessageForMediaError(getSherlockActivity(), what, extra);
+                String message = MediaService.getMessageForMediaError(
+                        getSherlockActivity(), what, extra);
                 new AlertDialog.Builder(getSherlockActivity())
                         .setMessage(message)
                         .setPositiveButton(android.R.string.VideoView_error_button,
@@ -503,7 +520,8 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.e(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            mSavedPlaybackPosition = data.getExtras().getInt(PreviewVideoActivity.EXTRA_START_POSITION);
+            mSavedPlaybackPosition = data.getExtras().getInt(
+                    PreviewVideoActivity.EXTRA_START_POSITION);
             mAutoplay = data.getExtras().getBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY); 
         }
     }
@@ -542,7 +560,8 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (getSherlockActivity() != null) {
-                if (component.equals(new ComponentName(getSherlockActivity(), MediaService.class))) {
+                if (component.equals(
+                        new ComponentName(getSherlockActivity(), MediaService.class))) {
                     Log_OC.d(TAG, "Media service connected");
                     mMediaServiceBinder = (MediaServiceBinder) service;
                     if (mMediaServiceBinder != null) {
@@ -574,7 +593,10 @@ public class PreviewMediaFragment extends FileFragment implements
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
                 } else {
-                    Toast.makeText(getSherlockActivity(), "No media controller to release when disconnected from media service", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getSherlockActivity(), 
+                            "No media controller to release when disconnected from media service", 
+                            Toast.LENGTH_SHORT).show();
                 }
                 mMediaServiceBinder = null;
                 mMediaServiceConnection = null;
@@ -594,7 +616,8 @@ public class PreviewMediaFragment extends FileFragment implements
     }
     
     /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment}
+     *  to be previewed.
      * 
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
