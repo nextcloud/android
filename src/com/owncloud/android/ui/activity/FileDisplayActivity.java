@@ -1028,6 +1028,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             }
             
             removeStickyBroadcast(intent);
+            mWaitingToPreview = null;
         }
 
         private boolean isDescendant(String downloadedRemotePath) {
