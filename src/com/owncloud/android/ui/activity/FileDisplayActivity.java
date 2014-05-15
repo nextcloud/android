@@ -1306,7 +1306,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
                 refreshListOfFilesFragment();
             }
-
+            invalidateOptionsMenu();
         } else {
             Toast msg = Toast.makeText(this, R.string.remove_fail_msg, Toast.LENGTH_LONG); 
             msg.show();
