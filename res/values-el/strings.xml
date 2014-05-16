@@ -19,6 +19,8 @@
   <string name="prefs_pincode_summary">Προστατέψτε την εφαρμογή</string>
   <string name="prefs_instant_upload">Στιγμιαίες φορτώσεις εικόνων</string>
   <string name="prefs_instant_upload_summary">Ανεβάστε απευθείας φωτογραφίες από την κάμερα.</string>
+  <string name="prefs_instant_video_upload">Στιγμιαίες φορτώσεις βίντεο</string>
+  <string name="prefs_instant_video_upload_summary">Άμεση μεταφόρτωση των βίντεο από την φωτογραφική μηχανή</string>
   <string name="prefs_log_title">Ενεργοποίηση Καταγραφής Ιστορικού</string>
   <string name="prefs_log_summary">Χρησιμοποιείται για την καταγραφή προβλημάτων</string>
   <string name="prefs_log_title_history">Ιστορικό Καταγραφής</string>
@@ -218,6 +220,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Μεταφόρτωση εικόνων μόνο μέσω WiFi</string>
+  <string name="instant_video_upload_on_wifi">Αποστολή βίντεο μόνο μέσω WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">Σύγκρουση ενημερώσεων</string>
   <string name="conflict_message">Το απομακρυσμένο αρχείο %s δεν είναι συγχρονισμένο με το τοπικό. Η συνέχεια θα αντικαταστήσει το περιεχόμενο του αρχείου στον εξυπηρέτη. </string>
