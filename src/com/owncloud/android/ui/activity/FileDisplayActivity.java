@@ -1028,7 +1028,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             }
             
             removeStickyBroadcast(intent);
-            mWaitingToPreview = null;
         }
 
         private boolean isDescendant(String downloadedRemotePath) {
@@ -1145,7 +1144,7 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
-                if (mWaitingToPreview != null) {
+                if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
                     requestForDownload();
                 }
 
