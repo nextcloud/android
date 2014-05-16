@@ -709,6 +709,9 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             unregisterReceiver(mDownloadFinishReceiver);
             mDownloadFinishReceiver = null;
         }
+        
+        dismissLoadingDialog();
+        
         Log_OC.d(TAG, "onPause() end");
     }
 
