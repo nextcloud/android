@@ -27,9 +27,8 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
-import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.utils.Log_OC;
@@ -52,8 +51,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
  * @author masensio
  * @author David A. Velasco
  */
-public class OCFileListFragment extends ExtendedListFragment 
-implements EditNameDialogListener {
+public class OCFileListFragment extends ExtendedListFragment {
     
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -344,10 +342,7 @@ implements EditNameDialogListener {
                 return true;
             }
             case R.id.action_rename_file: {
-                String fileName = mTargetFile.getFileName();
-                int extensionStart = mTargetFile.isFolder() ? -1 : fileName.lastIndexOf(".");
-                int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
-                EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(mTargetFile);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
                 return true;
             }
@@ -436,17 +431,6 @@ implements EditNameDialogListener {
                 mList.setSelectionFromTop(0, 0);
             }
             mFile = directory;
-        }
-    }
-    
-    
-    
-    @Override
-    public void onDismiss(EditNameDialog dialog) {
-        if (dialog.getResult()) {
-            String newFilename = dialog.getNewFilename();
-            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-            mContainerActivity.getFileOperationsHelper().renameFile(mTargetFile, newFilename);
         }
     }
     
