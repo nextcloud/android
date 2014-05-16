@@ -1,6 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +21,8 @@ package com.owncloud.android.ui.dialog;
  *  Dialog requiring confirmation before removing a given OCFile.  
  * 
  *  Triggers the removal according to the user response. 
+ *  
+ *  @author David A. Velasco
  */
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -38,14 +39,10 @@ implements ConfirmationDialogFragmentListener {
     private static final String ARG_TARGET_FILE = "TARGET_FILE";
 
     /**
-     * Public factory method to create new RemoveFIleDialogFragment instances.
+     * Public factory method to create new RemoveFileDialogFragment instances.
      * 
-     * @param string_id         Resource id for a message to show in the dialog.
-     * @param arguments         Arguments to complete the message, if it's a format string.
-     * @param posBtn            Resource id for the text of the positive button.
-     * @param neuBtn            Resource id for the text of the neutral button.
-     * @param negBtn            Resource id for the text of the negative button.
-     * @return                  Dialog ready to show.
+     * @param file            File to remove.
+     * @return                Dialog ready to show.
      */
     public static RemoveFileDialogFragment newInstance(OCFile file) {
         RemoveFileDialogFragment frag = new RemoveFileDialogFragment();

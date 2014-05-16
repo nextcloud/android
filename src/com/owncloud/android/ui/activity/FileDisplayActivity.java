@@ -79,9 +79,8 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.dialog.EditNameDialog;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -102,8 +101,7 @@ import com.owncloud.android.utils.Log_OC;
  */
 
 public class FileDisplayActivity extends HookActivity implements
-FileFragment.ContainerActivity, OnNavigationListener, 
-OnSslUntrustedCertListener, EditNameDialogListener {
+FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener {
 
     private ArrayAdapter<String> mDirectories;
 
@@ -453,7 +451,8 @@ OnSslUntrustedCertListener, EditNameDialogListener {
         boolean retval = true;
         switch (item.getItemId()) {
         case R.id.action_create_dir: {
-            EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.uploader_info_dirname), "", -1, -1, this);
+            CreateFolderDialogFragment dialog = 
+                    CreateFolderDialogFragment.newInstance(getCurrentDir());
             dialog.show(getSupportFragmentManager(), "createdirdialog");
             break;
         }
@@ -1434,21 +1433,6 @@ OnSslUntrustedCertListener, EditNameDialogListener {
                 ((FileDetailFragment)details).updateFileDetails(file, getAccount());
             } else {
                 ((FileDetailFragment)details).updateFileDetails(false, true);
-            }
-        }
-    }
-
-
-    public void onDismiss(EditNameDialog dialog) {
-        if (dialog.getResult()) {
-            String newDirectoryName = dialog.getNewFilename().trim();
-            Log_OC.d(TAG, "'create directory' dialog dismissed with new name " + newDirectoryName);
-            if (newDirectoryName.length() > 0) {
-                String path = getCurrentDir().getRemotePath();
-
-                // Create directory
-                path += newDirectoryName + OCFile.PATH_SEPARATOR;
-                getFileOperationsHelper().createFolder(path, false);
             }
         }
     }

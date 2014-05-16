@@ -44,9 +44,8 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.EditNameDialog;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
-import com.owncloud.android.ui.dialog.EditNameDialog.EditNameDialogListener;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -57,8 +56,7 @@ import com.owncloud.android.utils.Log_OC;
  * @author Bartek Przybylski
  * @author David A. Velasco
  */
-public class FileDetailFragment extends FileFragment implements
-        OnClickListener, EditNameDialogListener {
+public class FileDetailFragment extends FileFragment implements OnClickListener {
 
     private int mLayout;
     private View mView;
@@ -220,7 +218,8 @@ public class FileDetailFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_rename_file: {
-                showDialogToRenameFile();
+                RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(getFile());
+                dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
                 return true;
             }
             case R.id.action_cancel_download:
@@ -289,15 +288,6 @@ public class FileDetailFragment extends FileFragment implements
         }
     }
 
-    private void showDialogToRenameFile() {
-        OCFile file = getFile();
-        String fileName = file.getFileName();
-        int extensionStart = file.isFolder() ? -1 : fileName.lastIndexOf(".");
-        int selectionEnd = (extensionStart >= 0) ? extensionStart : fileName.length();
-        EditNameDialog dialog = EditNameDialog.newInstance(getString(R.string.rename_dialog_title), fileName, 0, selectionEnd, this);
-        dialog.show(getFragmentManager(), FTAG_RENAME_FILE);
-    }
-    
     /**
      * Check if the fragment was created with an empty layout. An empty fragment can't show file details, must be replaced.
      * 
@@ -511,15 +501,6 @@ public class FileDetailFragment extends FileFragment implements
     }
     
 
-    public void onDismiss(EditNameDialog dialog) {
-        if (dialog.getResult()) {
-            String newFilename = dialog.getNewFilename();
-            Log_OC.d(TAG, "name edit dialog dismissed with new name " + newFilename);
-            mContainerActivity.getFileOperationsHelper().renameFile(getFile(), newFilename);
-        }
-    }
-    
-    
     public void listenForTransferProgress() {
         if (mProgressListener != null) {
             if (mContainerActivity.getFileDownloaderBinder() != null) {
