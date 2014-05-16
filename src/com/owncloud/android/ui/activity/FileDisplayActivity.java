@@ -1144,8 +1144,12 @@ OnSslUntrustedCertListener, EditNameDialogListener {
             if (component.equals(new ComponentName(FileDisplayActivity.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service connected");
                 mDownloaderBinder = (FileDownloaderBinder) service;
-                if (mWaitingToPreview != null && !mWaitingToPreview.isDown()) {
-                    requestForDownload();
+                if (mWaitingToPreview != null)
+                    if (getStorageManager() != null) {
+                        mWaitingToPreview = getStorageManager().getFileById(mWaitingToPreview.getFileId()); // update the file
+                        if (!mWaitingToPreview.isDown()) {
+                            requestForDownload();
+                        }
                 }
 
             } else if (component.equals(new ComponentName(FileDisplayActivity.this, FileUploader.class))) {
