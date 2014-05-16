@@ -18,11 +18,15 @@
 
 package com.owncloud.android.ui.activity;
 
+import org.apache.commons.httpclient.Credentials;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -39,6 +43,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
@@ -46,6 +51,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.network.BearerCredentials;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -450,7 +456,15 @@ implements OnRemoteOperationListener, ComponentsGetter {
         
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
         
-        if (operation instanceof CreateShareOperation) {
+        if (!result.isSuccess() && (
+                result.getCode() == ResultCode.UNAUTHORIZED || 
+                result.isIdPRedirection() ||
+                (result.isException() && result.getException() instanceof AuthenticatorException)
+                )) {
+            
+            requestCredentialsUpdate();
+
+        } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);
             
         } else if (operation instanceof UnshareLinkOperation) {
@@ -458,6 +472,17 @@ implements OnRemoteOperationListener, ComponentsGetter {
         
         } 
     }
+
+    private void requestCredentialsUpdate() {
+        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+        updateAccountCredentials.putExtra(
+                AuthenticatorActivity.EXTRA_ACTION, 
+                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+        updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        startActivity(updateAccountCredentials);
+    }
+    
 
     private void onCreateShareOperationFinish(CreateShareOperation operation, RemoteOperationResult result) {
         dismissLoadingDialog();

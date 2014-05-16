@@ -472,20 +472,20 @@ public class OperationsService extends Service {
                 } else {
                     result = mCurrentOperation.execute(mOwnCloudClient);
                 }
-            
+                
             } catch (AccountsException e) {
                 if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for a NULL account", e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
                 } else {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
                 
             } catch (IOException e) {
                 if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for a NULL account", e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
                 } else {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
             } catch (Exception e) {
