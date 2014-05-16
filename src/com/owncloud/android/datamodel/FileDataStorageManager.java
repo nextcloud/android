@@ -467,8 +467,7 @@ public class FileDataStorageManager {
                 success = removeFolderInDb(folder);
             }
             if (removeLocalContent && success) {
-                File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
-                success = removeLocalFolder(localFolder);
+                success = removeLocalFolder(folder);
             }
         }
         return success;
@@ -491,20 +490,28 @@ public class FileDataStorageManager {
         return deleted > 0;
     }
 
-    private boolean removeLocalFolder(File folder) {
+    private boolean removeLocalFolder(OCFile folder) {
         boolean success = true;
-        if (folder.exists()) {
-            File[] files = folder.listFiles();
+        File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
+        if (localFolder.exists()) {
+            Vector<OCFile> files = getFolderContent(folder.getFileId());
             if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
+                for (OCFile file : files) {
+                    if (file.isFolder()) {
                         success &= removeLocalFolder(file);
                     } else {
-                        success &= file.delete();
+                        if (file.isDown()) {
+                            File localFile = new File(file.getStoragePath());
+                            success &= localFile.delete();
+                            if (success) {
+                                file.setStoragePath(null);
+                                saveFile(file);
+                            }
+                        }
                     }
                 }
             }
-            success &= folder.delete();
+            success &= localFolder.delete();
         }
         return success;
     }
