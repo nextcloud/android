@@ -232,6 +232,15 @@ public class PreviewImageFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
+        
+        // additional restriction for this fragment 
+        // TODO allow refresh file in PreviewImageFragment
+        item = menu.findItem(R.id.action_sync_file);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+        
     }
 
     
