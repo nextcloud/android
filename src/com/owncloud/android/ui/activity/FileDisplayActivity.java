@@ -665,6 +665,9 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
     protected void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
+        
+        // refresh list of files
+        refreshListOfFilesFragment();
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
@@ -1438,6 +1441,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                 ((FileDetailFragment)details).updateFileDetails(false, true);
             }
         }
+            
     }
 
 
@@ -1535,6 +1539,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_ACCOUNT, getAccount());
         startActivity(showDetailsIntent);
+        
     }
 
     /**
