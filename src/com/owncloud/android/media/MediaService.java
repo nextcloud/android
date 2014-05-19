@@ -218,6 +218,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
      */
     @Override
     public void onCreate() {
+        super.onCreate();
         Log_OC.d(TAG, "Creating ownCloud media service");
 
         mWifiLock = ((WifiManager) getSystemService(Context.WIFI_SERVICE)).
@@ -637,6 +638,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         mState = State.STOPPED;
         releaseResources(true);
         giveUpAudioFocus();
+        super.onDestroy();
     }
     
 

@@ -261,10 +261,10 @@ public class Preferences extends SherlockPreferenceActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean("set_pincode", false);
         pCode.setChecked(state);
-        super.onResume();
     }
 
     @Override

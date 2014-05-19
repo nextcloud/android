@@ -69,6 +69,6 @@ public class LoadingDialog extends DialogFragment {
     public void onDestroyView() {
         if (getDialog() != null && getRetainInstance())
             getDialog().setDismissMessage(null);
-            super.onDestroyView();
+        super.onDestroyView();
     }
 }

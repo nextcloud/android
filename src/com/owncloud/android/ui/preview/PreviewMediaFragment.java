@@ -457,8 +457,8 @@ public class PreviewMediaFragment extends FileFragment implements
     
     @Override
     public void onPause() {
-        super.onPause();
         Log_OC.e(TAG, "onPause");
+        super.onPause();
     }
     
     @Override
@@ -469,14 +469,13 @@ public class PreviewMediaFragment extends FileFragment implements
     
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log_OC.e(TAG, "onDestroy");
+        super.onDestroy();
     }
     
     @Override
     public void onStop() {
         Log_OC.e(TAG, "onStop");
-        super.onStop();
 
         mPrepared = false;
         if (mMediaServiceConnection != null) {
@@ -488,6 +487,8 @@ public class PreviewMediaFragment extends FileFragment implements
             mMediaServiceConnection = null;
             mMediaServiceBinder = null;
         }
+        
+        super.onStop();
     }
     
     @Override

@@ -172,10 +172,10 @@ public class OperationsService extends Service {
     @Override
     public void onDestroy() {
         //Log_OC.wtf(TAG, "onDestroy init" );
-        super.onDestroy();
         //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
         //Log_OC.wtf(TAG, "onDestroy end" );
+        super.onDestroy();
     }
 
 

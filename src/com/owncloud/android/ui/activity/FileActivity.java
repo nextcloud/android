@@ -180,9 +180,6 @@ implements OnRemoteOperationListener, ComponentsGetter {
         if (mAccountWasSet) {
             onAccountSet(mAccountWasRestored);
         }
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
-        }
     }
     
     @Override
@@ -204,20 +201,9 @@ implements OnRemoteOperationListener, ComponentsGetter {
         super.onPause();
     }
     
-    @Override 
-    protected void onStop() {
-
-        if (mOperationsServiceBinder != null) {
-            mOperationsServiceBinder.removeOperationListener(this);
-        }
-        
-        super.onStop();
-    }
-    
     
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -230,6 +216,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
             unbindService(mUploadServiceConnection);
             mUploadServiceConnection = null;
         }
+        super.onDestroy();
     }
     
     

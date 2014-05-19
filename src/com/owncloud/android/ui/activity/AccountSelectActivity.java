@@ -89,7 +89,6 @@ public class AccountSelectActivity extends SherlockListActivity implements
     
     @Override
     protected void onPause() {
-        super.onPause();
         if (this.isFinishing()) {
             Account current = AccountUtils.getCurrentOwnCloudAccount(this);
             if ((mPreviousAccount == null && current != null) || 
@@ -102,6 +101,7 @@ public class AccountSelectActivity extends SherlockListActivity implements
                 startActivity(i);
             }
         }
+        super.onPause();
     }
 
     @Override

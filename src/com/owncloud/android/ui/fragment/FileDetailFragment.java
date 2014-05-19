@@ -147,8 +147,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     
     @Override
     public void onStop() {
-        super.onStop();
         leaveTransferProgress();
+        super.onStop();
     }
 
     
