@@ -696,7 +696,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
 
     @Override
     protected void onPause() {
-        super.onPause();
         Log_OC.e(TAG, "onPause() start");
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
@@ -713,6 +712,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         }
         
         Log_OC.d(TAG, "onPause() end");
+        super.onPause();
     }
 
 
