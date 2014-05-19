@@ -1433,12 +1433,17 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
      */
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
+        refreshListOfFilesFragment();
         FileFragment details = getSecondFragment();
         if (details != null && details instanceof FileDetailFragment && file.equals(details.getFile()) ) {
             if (downloading || uploading) {
                 ((FileDetailFragment)details).updateFileDetails(file, getAccount());
             } else {
-                ((FileDetailFragment)details).updateFileDetails(false, true);
+                if (!file.fileExists()) {
+                    cleanSecondFragment();
+                } else {
+                    ((FileDetailFragment)details).updateFileDetails(false, true);
+                }
             }
         }
             
@@ -1576,22 +1581,16 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
 
 
     public void cancelTransference(OCFile file) {
-        Account account = getAccount();
-        if (mDownloaderBinder != null && mDownloaderBinder.isDownloading(account, file)) {
-            mDownloaderBinder.cancel(account, file);
-            refreshListOfFilesFragment();
-            onTransferStateChanged(file, false, false);
-
-        } else if (mUploaderBinder != null && mUploaderBinder.isUploading(account, file)) {
-            mUploaderBinder.cancel(account, file);
-            refreshListOfFilesFragment();
-            if (!file.fileExists()) {
-                cleanSecondFragment();
-                
-            } else {
-                onTransferStateChanged(file, false, false);
-            }
+        getFileOperationsHelper().cancelTransference(file);
+        if (mWaitingToPreview != null && 
+                mWaitingToPreview.getRemotePath().equals(file.getRemotePath())) {
+            mWaitingToPreview = null;
         }
+        if (mWaitingToSend != null &&
+                mWaitingToSend.getRemotePath().equals(file.getRemotePath())) {
+            mWaitingToSend = null;
+        }
+        onTransferStateChanged(file, false, false);
     }
     
 }
