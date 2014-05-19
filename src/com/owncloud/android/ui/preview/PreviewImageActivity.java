@@ -269,9 +269,9 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     @Override
     public void onPause() {
-        super.onPause();
         unregisterReceiver(mDownloadFinishReceiver);
         mDownloadFinishReceiver = null;
+        super.onPause();
     }
     
 

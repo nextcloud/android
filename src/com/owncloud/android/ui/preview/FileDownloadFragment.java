@@ -164,8 +164,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     
     @Override
     public void onStop() {
-        super.onStop();
         leaveTransferProgress();
+        super.onStop();
     }
     
     @Override

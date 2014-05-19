@@ -82,10 +82,10 @@ public class FileObserverService extends Service {
     
     @Override
     public void onDestroy() {
-        super.onDestroy();
         unregisterReceiver(mDownloadReceiver);
         mObserversMap = null;   // TODO study carefully the life cycle of Services to grant the best possible observance
         Log_OC.d(TAG, "Bye, bye");
+        super.onDestroy();
     }
     
     

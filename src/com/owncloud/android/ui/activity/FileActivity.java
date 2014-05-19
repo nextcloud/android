@@ -204,7 +204,6 @@ implements OnRemoteOperationListener, ComponentsGetter {
     
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mOperationsServiceConnection != null) {
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
@@ -217,6 +216,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
             unbindService(mUploadServiceConnection);
             mUploadServiceConnection = null;
         }
+        super.onDestroy();
     }
     
     

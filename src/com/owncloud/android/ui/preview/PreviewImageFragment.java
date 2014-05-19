@@ -294,10 +294,10 @@ public class PreviewImageFragment extends FileFragment {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if (mBitmap != null) {
             mBitmap.recycle();
         }
+        super.onDestroy();
     }
 
     
