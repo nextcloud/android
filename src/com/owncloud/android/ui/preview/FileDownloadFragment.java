@@ -187,19 +187,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancelBtn: {
-                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-                if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, getFile())) {
-                    downloaderBinder.cancel(mAccount, getFile());
-                    getActivity().finish(); // :)
-                    /*
-                    leaveTransferProgress();
-                    if (mFile.isDown()) {
-                        setButtonsForDown();
-                    } else {
-                        setButtonsForRemote();
-                    }
-                    */
-                }
+                mContainerActivity.getFileOperationsHelper().cancelTransference(getFile());
+                getActivity().finish();
                 break;
             }
             default:

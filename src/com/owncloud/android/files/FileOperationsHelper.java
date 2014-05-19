@@ -19,6 +19,7 @@ package com.owncloud.android.files;
 
 import org.apache.http.protocol.HTTP;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -244,6 +247,19 @@ public class FileOperationsHelper {
         mFileActivity.showLoadingDialog();
     }
 
+    
+    public void cancelTransference(OCFile file) {
+        Account account = mFileActivity.getAccount();
+        FileDownloaderBinder downloaderBinder = mFileActivity.getFileDownloaderBinder();
+        FileUploaderBinder uploaderBinder =  mFileActivity.getFileUploaderBinder();
+        if (downloaderBinder != null && downloaderBinder.isDownloading(account, file)) {
+            downloaderBinder.cancel(account, file);
+
+        } else if (uploaderBinder != null && uploaderBinder.isUploading(account, file)) {
+            uploaderBinder.cancel(account, file);
+        }
+    }    
+
 
     public long getOpIdWaitingFor() {
         return mWaitingForOpId;
@@ -253,4 +269,6 @@ public class FileOperationsHelper {
     public void setOpIdWaitingFor(long waitingForOpId) {
         mWaitingForOpId = waitingForOpId;
     }
+    
+    
 }
