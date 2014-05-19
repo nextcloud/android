@@ -43,6 +43,7 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.utils.Log_OC;
@@ -132,7 +133,9 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
                             // Add the information of the chosen activity to the intent to send 
                             ResolveInfo chosen = mAdapter.getItem(which);
                             ActivityInfo actInfo = chosen.activityInfo;
-                            ComponentName name=new ComponentName(actInfo.applicationInfo.packageName, actInfo.name);
+                            ComponentName name=new ComponentName(
+                                    actInfo.applicationInfo.packageName, 
+                                    actInfo.name);
                             mIntent.setComponent(name);                               
 
                             if (sendAction) {
@@ -143,9 +146,8 @@ public class ShareLinkToDialog  extends SherlockDialogFragment {
 
                             } else {
                                 // Create a new share resource
-                                FileOperationsHelper foh = 
-                                        new FileOperationsHelper((FileActivity)getSherlockActivity());
-                                foh.shareFileWithLinkToApp(mFile, mIntent);
+                                ((ComponentsGetter)getSherlockActivity()).getFileOperationsHelper()
+                                    .shareFileWithLinkToApp(mFile, mIntent);
                             }
                         }
         })
