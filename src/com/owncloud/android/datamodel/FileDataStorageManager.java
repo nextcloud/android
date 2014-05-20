@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -494,6 +494,7 @@ public class FileDataStorageManager {
         boolean success = true;
         File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
         if (localFolder.exists()) {
+            // stage 1: remove the local files already registered in the files database
             Vector<OCFile> files = getFolderContent(folder.getFileId());
             if (files != null) {
                 for (OCFile file : files) {
@@ -511,8 +512,27 @@ public class FileDataStorageManager {
                     }
                 }
             }
-            success &= localFolder.delete();
+
+            // stage 2: remove the folder itself and any local file inside out of sync; 
+            //          for instance, after clearing the app cache or reinstalling
+            success &= removeLocalFolder(localFolder);
         }
+        return success;
+    }
+
+    private boolean removeLocalFolder(File localFolder) {
+        boolean success = true;
+        File[] localFiles = localFolder.listFiles();
+        if (localFiles != null) {
+            for (File localFile : localFiles) {
+                if (localFile.isDirectory()) {
+                    success &= removeLocalFolder(localFile);
+                } else {
+                    success &= localFile.delete();
+                }
+            }
+        }
+        success &= localFolder.delete();
         return success;
     }
 
