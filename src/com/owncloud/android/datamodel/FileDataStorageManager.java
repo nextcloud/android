@@ -709,31 +709,6 @@ public class FileDataStorageManager {
         return c;
     }
     
-    private Cursor getShareCursorForValue(String key, String value) {
-        Cursor c = null;
-        if (getContentResolver() != null) {
-            c = getContentResolver()
-                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
-                            null,
-                            key + "=? AND "
-                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-                                    + "=?",
-                                    new String[] { value, mAccount.name }, null);
-        } else {
-            try {
-                c = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        null,
-                        key + "=? AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-                        + "=?", new String[] { value, mAccount.name },
-                        null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
-                c = null;
-            }
-        }
-        return c;
-    }
 
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
@@ -873,25 +848,6 @@ public class FileDataStorageManager {
         return overriden;
     }
 
-//    private OCShare getShareById(long id) {
-//        Cursor c = getShareCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
-//        OCShare share = null;
-//        if (c.moveToFirst()) {
-//            share = createShareInstance(c);
-//        }
-//        c.close();
-//        return share;
-//    }
-//
-//    private OCShare getShareByRemoteId(long remoteId) {
-//        Cursor c = getShareCursorForValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
-//        OCShare share = null;
-//        if (c.moveToFirst()) {
-//            share = createShareInstance(c);
-//        }
-//        c.close();
-//        return share;
-//    }
 
     public OCShare getFirstShareByPathAndType(String path, ShareType type) {
         Cursor c = null;
