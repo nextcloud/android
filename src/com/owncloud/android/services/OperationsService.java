@@ -397,7 +397,6 @@ public class OperationsService extends Service {
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
                 if (!mPendingOperations.isEmpty()) {
-                    nextOperation();
                     return true;
                 } else {
                     return false;
