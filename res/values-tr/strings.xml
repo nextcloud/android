@@ -34,8 +34,8 @@
   <string name="recommend_text">\"Sana, akıllı telefonunda kullanmak üzere %1$s daveti yapıyorum!\nBuradan indirebilirsin: %2$s\"</string>
   <string name="auth_check_server">Sunucuyu kontrol et</string>
   <string name="auth_host_url">Sunucu adresi https://…</string>
-  <string name="auth_username">Kullanıcı Adı:</string>
-  <string name="auth_password">Parola:</string>
+  <string name="auth_username">Kullanıcı Adı</string>
+  <string name="auth_password">Parola</string>
   <string name="auth_register">%1$s senin için yeni mi?</string>
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
