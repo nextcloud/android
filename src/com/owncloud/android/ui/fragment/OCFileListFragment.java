@@ -130,7 +130,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         registerForContextMenu(getListView());
         getListView().setOnCreateContextMenuListener(this);        
         
- //       mHandler = new Handler();
   }
     
     /**
