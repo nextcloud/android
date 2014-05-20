@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -422,10 +422,11 @@ public class FileDataStorageManager {
 //    }
     
 
-    public void removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
+    public boolean removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
+        boolean success = true;
         if (file != null) {
             if (file.isFolder()) {
-                removeFolder(file, removeDBData, removeLocalCopy);
+                success = removeFolder(file, removeDBData, removeLocalCopy);
                 
             } else {
                 if (removeDBData) {
@@ -433,19 +434,20 @@ public class FileDataStorageManager {
                     Uri file_uri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, file.getFileId());
                     String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?" + " AND " + ProviderTableMeta.FILE_PATH + "=?";
                     String [] whereArgs = new String[]{mAccount.name, file.getRemotePath()};
+                    int deleted = 0;
                     if (getContentProviderClient() != null) {
                         try {
-                            getContentProviderClient().delete(file_uri, where, whereArgs);
+                            deleted = getContentProviderClient().delete(file_uri, where, whereArgs);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        getContentResolver().delete(file_uri, where, whereArgs);
+                        deleted = getContentResolver().delete(file_uri, where, whereArgs);
                     }
-                    //updateFolderSize(file.getParentId());
+                    success &= (deleted > 0); 
                 }
-                if (removeLocalCopy && file.isDown() && file.getStoragePath() != null) {
-                    boolean success = new File(file.getStoragePath()).delete();
+                if (removeLocalCopy && file.isDown() && file.getStoragePath() != null && success) {
+                    success = new File(file.getStoragePath()).delete();
                     if (!removeDBData && success) {
                         // maybe unnecessary, but should be checked TODO remove if unnecessary
                         file.setStoragePath(null);
@@ -454,51 +456,84 @@ public class FileDataStorageManager {
                 }
             }
         }
+        return success;
     }
     
 
-    public void removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
+    public boolean removeFolder(OCFile folder, boolean removeDBData, boolean removeLocalContent) {
+        boolean success = true;
         if (folder != null && folder.isFolder()) {
             if (removeDBData &&  folder.getFileId() != -1) {
-                removeFolderInDb(folder);
+                success = removeFolderInDb(folder);
             }
-            if (removeLocalContent) {
-                File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
-                removeLocalFolder(localFolder);
+            if (removeLocalContent && success) {
+                success = removeLocalFolder(folder);
             }
         }
+        return success;
     }
 
-    private void removeFolderInDb(OCFile folder) {
+    private boolean removeFolderInDb(OCFile folder) {
         Uri folder_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_DIR, ""+ folder.getFileId());   // URI for recursive deletion
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?" + " AND " + ProviderTableMeta.FILE_PATH + "=?";
         String [] whereArgs = new String[]{mAccount.name, folder.getRemotePath()};
+        int deleted = 0;
         if (getContentProviderClient() != null) {
             try {
-                getContentProviderClient().delete(folder_uri, where, whereArgs);
+                deleted = getContentProviderClient().delete(folder_uri, where, whereArgs);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         } else {
-            getContentResolver().delete(folder_uri, where, whereArgs); 
+            deleted = getContentResolver().delete(folder_uri, where, whereArgs); 
         }
-        //updateFolderSize(folder.getParentId());
+        return deleted > 0;
     }
 
-    private void removeLocalFolder(File folder) {
-        if (folder.exists()) {
-            File[] files = folder.listFiles();
+    private boolean removeLocalFolder(OCFile folder) {
+        boolean success = true;
+        File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, folder));
+        if (localFolder.exists()) {
+            // stage 1: remove the local files already registered in the files database
+            Vector<OCFile> files = getFolderContent(folder.getFileId());
             if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        removeLocalFolder(file);
+                for (OCFile file : files) {
+                    if (file.isFolder()) {
+                        success &= removeLocalFolder(file);
                     } else {
-                        file.delete();
+                        if (file.isDown()) {
+                            File localFile = new File(file.getStoragePath());
+                            success &= localFile.delete();
+                            if (success) {
+                                file.setStoragePath(null);
+                                saveFile(file);
+                            }
+                        }
                     }
                 }
             }
-            folder.delete();
+
+            // stage 2: remove the folder itself and any local file inside out of sync; 
+            //          for instance, after clearing the app cache or reinstalling
+            success &= removeLocalFolder(localFolder);
         }
+        return success;
+    }
+
+    private boolean removeLocalFolder(File localFolder) {
+        boolean success = true;
+        File[] localFiles = localFolder.listFiles();
+        if (localFiles != null) {
+            for (File localFile : localFiles) {
+                if (localFile.isDirectory()) {
+                    success &= removeLocalFolder(localFile);
+                } else {
+                    success &= localFile.delete();
+                }
+            }
+        }
+        success &= localFolder.delete();
+        return success;
     }
 
     /**
@@ -674,31 +709,6 @@ public class FileDataStorageManager {
         return c;
     }
     
-    private Cursor getShareCursorForValue(String key, String value) {
-        Cursor c = null;
-        if (getContentResolver() != null) {
-            c = getContentResolver()
-                    .query(ProviderTableMeta.CONTENT_URI_SHARE,
-                            null,
-                            key + "=? AND "
-                                    + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-                                    + "=?",
-                                    new String[] { value, mAccount.name }, null);
-        } else {
-            try {
-                c = getContentProviderClient().query(
-                        ProviderTableMeta.CONTENT_URI_SHARE,
-                        null,
-                        key + "=? AND " + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER
-                        + "=?", new String[] { value, mAccount.name },
-                        null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
-                c = null;
-            }
-        }
-        return c;
-    }
 
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
@@ -838,25 +848,6 @@ public class FileDataStorageManager {
         return overriden;
     }
 
-    private OCShare getShareById(long id) {
-        Cursor c = getShareCursorForValue(ProviderTableMeta._ID, String.valueOf(id));
-        OCShare share = null;
-        if (c.moveToFirst()) {
-            share = createShareInstance(c);
-        }
-        c.close();
-        return share;
-    }
-
-    private OCShare getShareByRemoteId(long remoteId) {
-        Cursor c = getShareCursorForValue(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED, String.valueOf(remoteId));
-        OCShare share = null;
-        if (c.moveToFirst()) {
-            share = createShareInstance(c);
-        }
-        c.close();
-        return share;
-    }
 
     public OCShare getFirstShareByPathAndType(String path, ShareType type) {
         Cursor c = null;

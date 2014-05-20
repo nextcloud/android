@@ -34,9 +34,13 @@ import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.utils.Log_OC;
 
@@ -64,6 +68,10 @@ public class OperationsService extends Service {
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
+    public static final String EXTRA_NEWNAME = "NEWNAME";
+    public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
+    public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
+    public static final String EXTRA_SYNC_FILE_CONTENTS = "SYNC_FILE_CONTENTS";
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
@@ -81,17 +89,16 @@ public class OperationsService extends Service {
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_EXISTENCE_CHECK = "EXISTENCE_CHECK";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
+    public static final String ACTION_RENAME = "RENAME";
+    public static final String ACTION_REMOVE = "REMOVE";
+    public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
+    public static final String ACTION_SYNC_FILE = "SYNC_FILE";
     
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() + ".OPERATION_ADDED";
     public static final String ACTION_OPERATION_FINISHED = OperationsService.class.getName() + ".OPERATION_FINISHED";
 
     private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations = 
             new ConcurrentLinkedQueue<Pair<Target, RemoteOperation>>();
-    
-    /*
-    private ConcurrentMap<Integer, RemoteOperationResult> mOperationResults =
-            new ConcurrentHashMap<Integer, RemoteOperationResult>();
-     */
 
     private ConcurrentMap<Integer, Pair<RemoteOperation, RemoteOperationResult>> 
         mUndispatchedFinishedOperations =
@@ -165,10 +172,10 @@ public class OperationsService extends Service {
     @Override
     public void onDestroy() {
         //Log_OC.wtf(TAG, "onDestroy init" );
-        super.onDestroy();
         //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
         //Log_OC.wtf(TAG, "onDestroy end" );
+        super.onDestroy();
     }
 
 
@@ -335,7 +342,32 @@ public class OperationsService extends Service {
                     } else if (action.equals(ACTION_GET_USER_NAME)) {
                         // Get User Name
                         operation = new GetRemoteUserNameOperation();
+                        
+                    } else if (action.equals(ACTION_RENAME)) {
+                        // Rename file or folder
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        String newName = operationIntent.getStringExtra(EXTRA_NEWNAME);
+                        operation = new RenameFileOperation(remotePath, account, newName);
+                        
+                    } else if (action.equals(ACTION_REMOVE)) {
+                        // Remove file or folder
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
+                        operation = new RemoveFileOperation(remotePath, onlyLocalCopy);
+                        
+                    } else if (action.equals(ACTION_CREATE_FOLDER)) {
+                        // Create Folder
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean createFullPath = operationIntent.getBooleanExtra(EXTRA_CREATE_FULL_PATH, true);
+                        operation = new CreateFolderOperation(remotePath, createFullPath);
+                        
+                    } else if (action.equals(ACTION_SYNC_FILE)) {
+                        // Sync file
+                        String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
+                        operation = new SynchronizeFileOperation(remotePath, account, syncFileContents, getApplicationContext());
                     }
+                    
                 }
                     
             } catch (IllegalArgumentException e) {
@@ -356,13 +388,19 @@ public class OperationsService extends Service {
             }
         }
 
-        public void dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
+        public boolean dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
                     mUndispatchedFinishedOperations.remove(operationId);
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
+                return true;
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
+                if (!mPendingOperations.isEmpty()) {
+                    return true;
+                } else {
+                    return false;
+                }
                 //Log_OC.wtf(TAG, "Not finished yet");
             }
         }
@@ -440,20 +478,20 @@ public class OperationsService extends Service {
                 } else {
                     result = mCurrentOperation.execute(mOwnCloudClient);
                 }
-            
+                
             } catch (AccountsException e) {
                 if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for a NULL account", e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
                 } else {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
                 
             } catch (IOException e) {
                 if (mLastTarget.mAccount == null) {
-                    Log_OC.e(TAG, "Error while trying to get autorization for a NULL account", e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for a NULL account", e);
                 } else {
-                    Log_OC.e(TAG, "Error while trying to get autorization for " + mLastTarget.mAccount.name, e);
+                    Log_OC.e(TAG, "Error while trying to get authorization for " + mLastTarget.mAccount.name, e);
                 }
                 result = new RemoteOperationResult(e);
             } catch (Exception e) {

@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -91,11 +91,10 @@ public class OwnCloudFileObserver extends FileObserver {
                                                                     // again, assuming that local files are linked to a remote file AT MOST, SOMETHING TO BE DONE; 
         SynchronizeFileOperation sfo = new SynchronizeFileOperation(file, 
                                                                     null, 
-                                                                    storageManager, 
                                                                     mOCAccount, 
                                                                     true, 
                                                                     mContext);
-        RemoteOperationResult result = sfo.execute(mOCAccount, mContext);
+        RemoteOperationResult result = sfo.execute(storageManager, mContext);
         if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             // ISSUE 5: if the user is not running the app (this is a service!), this can be very intrusive; a notification should be preferred
             Intent i = new Intent(mContext, ConflictsResolveActivity.class);

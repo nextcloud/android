@@ -1,5 +1,5 @@
 /* ownCloud Android client application
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,13 +20,12 @@ package com.owncloud.android.operations;
 import java.io.File;
 import java.io.IOException;
 
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.RenameRemoteFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -37,33 +36,32 @@ import android.accounts.Account;
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
  * 
  * @author David A. Velasco
+ * @author masensio
  */
-public class RenameFileOperation extends RemoteOperation {
+public class RenameFileOperation extends SyncOperation {
     
     private static final String TAG = RenameFileOperation.class.getSimpleName();
     
-
     private OCFile mFile;
+    private String mRemotePath;
     private Account mAccount;
     private String mNewName;
     private String mNewRemotePath;
-    private FileDataStorageManager mStorageManager;
+
     
     
     /**
      * Constructor
      * 
-     * @param file                  OCFile instance describing the remote file or folder to rename
+     * @param remotePath            RemotePath of the OCFile instance describing the remote file or folder to rename
      * @param account               OwnCloud account containing the remote file 
      * @param newName               New name to set as the name of file.
-     * @param storageManager        Reference to the local database corresponding to the account where the file is contained. 
      */
-    public RenameFileOperation(OCFile file, Account account, String newName, FileDataStorageManager storageManager) {
-        mFile = file;
+    public RenameFileOperation(String remotePath, Account account, String newName) {
+        mRemotePath = remotePath;
         mAccount = account;
         mNewName = newName;
         mNewRemotePath = null;
-        mStorageManager = storageManager;
     }
   
     public OCFile getFile() {
@@ -80,6 +78,8 @@ public class RenameFileOperation extends RemoteOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         
+        mFile = getStorageManager().getFileByPath(mRemotePath);
+        
         // check if the new name is valid in the local file system
         try {
             if (!isValidNewName()) {
@@ -92,8 +92,8 @@ public class RenameFileOperation extends RemoteOperation {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
             }
 
-            // ckeck local overwrite
-            if (mStorageManager.getFileByPath(mNewRemotePath) != null) {
+            // check local overwrite
+            if (getStorageManager().getFileByPath(mNewRemotePath) != null) {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
             
@@ -120,7 +120,7 @@ public class RenameFileOperation extends RemoteOperation {
 
     
     private void saveLocalDirectory() {
-        mStorageManager.moveFolder(mFile, mNewRemotePath);
+        getStorageManager().moveFolder(mFile, mNewRemotePath);
         String localPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
         File localDir = new File(localPath);
         if (localDir.exists()) {
@@ -145,7 +145,7 @@ public class RenameFileOperation extends RemoteOperation {
             // TODO - study conditions when this could be a problem
         }
         
-        mStorageManager.saveFile(mFile);
+        getStorageManager().saveFile(mFile);
     }
 
     /**

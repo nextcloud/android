@@ -114,7 +114,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
     private static final String KEY_AUTH_STATUS_TEXT = "AUTH_STATUS_TEXT";
     private static final String KEY_AUTH_STATUS_ICON = "AUTH_STATUS_ICON";
     private static final String KEY_SERVER_AUTH_METHOD = "SERVER_AUTH_METHOD";
-    private static final String KEY_WAITING_FOR_OP_ID = "DETECT_AUTH_OP_ID";
+    private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_AUTH_TOKEN = "AUTH_TOKEN";
 
     private static final String AUTH_ON = "on";

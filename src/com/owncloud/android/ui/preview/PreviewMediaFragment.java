@@ -16,13 +16,9 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,17 +29,14 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -52,19 +45,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
-import com.owncloud.android.lib.common.network.WebdavUtils;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.fragment.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.Log_OC;
 
@@ -79,8 +67,7 @@ import com.owncloud.android.utils.Log_OC;
  * @author David A. Velasco
  */
 public class PreviewMediaFragment extends FileFragment implements
-        OnTouchListener,  
-        ConfirmationDialogFragment.ConfirmationDialogFragmentListener, OnRemoteOperationListener  {
+        OnTouchListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -89,13 +76,9 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private View mView;
     private Account mAccount;
-    private FileDataStorageManager mStorageManager;
     private ImageView mImagePreview;
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
-    
-    private Handler mHandler;
-    private RemoteOperation mLastRemoteOperation;
     
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaControlView mMediaController = null;
@@ -115,11 +98,15 @@ public class PreviewMediaFragment extends FileFragment implements
      * @param fileToDetail      An {@link OCFile} to preview in the fragment
      * @param ocAccount         An ownCloud account; needed to start downloads
      */
-    public PreviewMediaFragment(OCFile fileToDetail, Account ocAccount, int startPlaybackPosition, boolean autoplay) {
+    public PreviewMediaFragment(
+            OCFile fileToDetail, 
+            Account ocAccount, 
+            int startPlaybackPosition, 
+            boolean autoplay) {
+        
         super(fileToDetail);
         mAccount = ocAccount;
         mSavedPlaybackPosition = startPlaybackPosition;
-        mStorageManager = null; // we need a context to init this; the container activity is not available yet at this moment 
         mAutoplay = autoplay;
     }
     
@@ -127,15 +114,16 @@ public class PreviewMediaFragment extends FileFragment implements
     /**
      *  Creates an empty fragment for previews.
      * 
-     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically (for instance, when the device is turned a aside).
+     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically 
+     *  (for instance, when the device is turned a aside).
      * 
-     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful construction 
+     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful 
+     *  construction 
      */
     public PreviewMediaFragment() {
         super();
         mAccount = null;
         mSavedPlaybackPosition = 0;
-        mStorageManager = null;
         mAutoplay = true;
     }
     
@@ -146,7 +134,6 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mHandler = new Handler();
         setHasOptionsMenu(true);
     }
     
@@ -177,49 +164,40 @@ public class PreviewMediaFragment extends FileFragment implements
      * {@inheritDoc}
      */
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log_OC.e(TAG, "onAttach");
-        
-        if (!(activity instanceof FileFragment.ContainerActivity))
-            throw new ClassCastException(activity.toString() + " must implement " + FileFragment.ContainerActivity.class.getSimpleName());
-    }
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated");
 
-        mStorageManager = new FileDataStorageManager(mAccount, getActivity().getApplicationContext().getContentResolver());
-        if (savedInstanceState != null) {
+        OCFile file = getFile();
+        if (savedInstanceState == null) {
+            if (file == null) {
+                throw new IllegalStateException("Instanced with a NULL OCFile");
+            }
+            if (mAccount == null) {
+                throw new IllegalStateException("Instanced with a NULL ownCloud Account");
+            }
+            if (!file.isDown()) {
+                throw new IllegalStateException("There is no local file to preview");
+            }
+            
+        } else {
             setFile((OCFile)savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE));
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
-            mSavedPlaybackPosition = savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
+            mSavedPlaybackPosition = 
+                    savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
             mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
             
         }
-        OCFile file = getFile();
-        if (file == null) {
-            throw new IllegalStateException("Instanced with a NULL OCFile");
-        }
-        if (mAccount == null) {
-            throw new IllegalStateException("Instanced with a NULL ownCloud Account");
-        }
-        if (!file.isDown()) {
-            throw new IllegalStateException("There is no local file to preview");
-        }
-        if (file.isVideo()) {
-            mVideoPreview.setVisibility(View.VISIBLE);
-            mImagePreview.setVisibility(View.GONE);
-            prepareVideo();
+        if (file != null && file.isDown()) {
+            if (file.isVideo()) {
+                mVideoPreview.setVisibility(View.VISIBLE);
+                mImagePreview.setVisibility(View.GONE);
+                prepareVideo();
             
-        } else {
-            mVideoPreview.setVisibility(View.GONE);
-            mImagePreview.setVisibility(View.VISIBLE);
+            } else {
+                mVideoPreview.setVisibility(View.GONE);
+                mImagePreview.setVisibility(View.VISIBLE);
+            }
         }
         
     }
@@ -242,8 +220,11 @@ public class PreviewMediaFragment extends FileFragment implements
             outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mSavedPlaybackPosition);
             outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mAutoplay);
         } else {
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION , mMediaServiceBinder.getCurrentPosition());
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
+            outState.putInt(
+                    PreviewMediaFragment.EXTRA_PLAY_POSITION , 
+                    mMediaServiceBinder.getCurrentPosition());
+            outState.putBoolean(
+                    PreviewMediaFragment.EXTRA_PLAYING , mMediaServiceBinder.isPlaying());
         }
     }
     
@@ -254,7 +235,7 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.e(TAG, "onStart");
 
         OCFile file = getFile();
-        if (file != null) {
+        if (file != null && file.isDown()) {
            if (file.isAudio()) {
                bindMediaService();
                
@@ -279,36 +260,7 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
         inflater.inflate(R.menu.file_actions_menu, menu);
-        List<Integer> toHide = new ArrayList<Integer>();    
-        
-        MenuItem item = null;
-        toHide.add(R.id.action_cancel_download);
-        toHide.add(R.id.action_cancel_upload);
-        toHide.add(R.id.action_download_file);
-        toHide.add(R.id.action_sync_file);
-        toHide.add(R.id.action_rename_file);    // by now
-        
-        // Options shareLink
-        if (!getFile().isShareByLink()) {
-            toHide.add(R.id.action_unshare_file);
-        }
-        
-        // Send file
-        boolean sendEnabled = getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on");
-        if (!sendEnabled) {
-            toHide.add(R.id.action_send_file);
-        }
-        
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
-        }
-        
     }
 
 
@@ -319,14 +271,22 @@ public class PreviewMediaFragment extends FileFragment implements
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         
-        MenuItem item = menu.findItem(R.id.action_unshare_file);
-        // Options shareLink
-        if (!getFile().isShareByLink()) {            
+        if (mContainerActivity.getStorageManager() != null) {
+            FileMenuFilter mf = new FileMenuFilter(
+                getFile(),
+                mContainerActivity.getStorageManager().getAccount(),
+                mContainerActivity,
+                getSherlockActivity()
+            );
+            mf.filter(menu);
+        }
+
+        // additional restriction for this fragment 
+        // TODO allow renaming in PreviewImageFragment
+        MenuItem item = menu.findItem(R.id.action_rename_file);
+        if (item != null) {
             item.setVisible(false);
             item.setEnabled(false);
-        } else {
-            item.setVisible(true);
-            item.setEnabled(true);
         }
     }
     
@@ -338,11 +298,13 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                shareFileWithLink();
+                stopPreview(false);
+                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_unshare_file: {
-                unshareFileWithLink();
+                stopPreview(false);
+                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -350,7 +312,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_remove_file: {
-                removeFile();
+                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
             case R.id.action_see_details: {
@@ -359,8 +322,13 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             case R.id.action_send_file: {
                 sendFile();
+                return true;
             }
-            
+            case R.id.action_sync_file: {
+                mContainerActivity.getFileOperationsHelper().syncFile(getFile());
+                return true;
+            }
+
             default:
                 return false;
         }
@@ -376,29 +344,15 @@ public class PreviewMediaFragment extends FileFragment implements
         setFile(file);
     }
     
-    private void unshareFileWithLink() {
-        stopPreview(false);
-        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
-        activity.getFileOperationsHelper().unshareFileWithLink(getFile(), activity);
-    }
-    
-    private void shareFileWithLink() {
-        stopPreview(false);
-        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
-        activity.getFileOperationsHelper().shareFileWithLink(getFile(), activity);
-        
-    }
-
     private void sendFile() {
         stopPreview(false);
-        FileActivity activity = (FileActivity)((FileFragment.ContainerActivity)getActivity());
-        activity.getFileOperationsHelper().sendDownloadedFile(getFile(), activity);
+        mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
         
     }
 
     private void seeDetails() {
         stopPreview(false);
-        ((FileFragment.ContainerActivity)getActivity()).showDetails(getFile());        
+        mContainerActivity.showDetails(getFile());        
     }
 
 
@@ -414,7 +368,8 @@ public class PreviewMediaFragment extends FileFragment implements
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
         
-        // load the video file in the video player ; when done, VideoHelper#onPrepared() will be called
+        // load the video file in the video player ; 
+        // when done, VideoHelper#onPrepared() will be called
         mVideoPreview.setVideoPath(getFile().getStoragePath()); 
     }
     
@@ -481,8 +436,9 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
             if (mVideoPreview.getWindowToken() != null) {
-                String message = MediaService.getMessageForMediaError(getActivity(), what, extra);
-                new AlertDialog.Builder(getActivity())
+                String message = MediaService.getMessageForMediaError(
+                        getSherlockActivity(), what, extra);
+                new AlertDialog.Builder(getSherlockActivity())
                         .setMessage(message)
                         .setPositiveButton(android.R.string.VideoView_error_button,
                                 new DialogInterface.OnClickListener() {
@@ -502,8 +458,8 @@ public class PreviewMediaFragment extends FileFragment implements
     
     @Override
     public void onPause() {
-        super.onPause();
         Log_OC.e(TAG, "onPause");
+        super.onPause();
     }
     
     @Override
@@ -514,14 +470,13 @@ public class PreviewMediaFragment extends FileFragment implements
     
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log_OC.e(TAG, "onDestroy");
+        super.onDestroy();
     }
     
     @Override
     public void onStop() {
         Log_OC.e(TAG, "onStop");
-        super.onStop();
 
         mPrepared = false;
         if (mMediaServiceConnection != null) {
@@ -529,10 +484,12 @@ public class PreviewMediaFragment extends FileFragment implements
             if (mMediaServiceBinder != null && mMediaController != null) {
                 mMediaServiceBinder.unregisterMediaController(mMediaController);
             }
-            getActivity().unbindService(mMediaServiceConnection);
+            getSherlockActivity().unbindService(mMediaServiceConnection);
             mMediaServiceConnection = null;
             mMediaServiceBinder = null;
         }
+        
+        super.onStop();
     }
     
     @Override
@@ -546,7 +503,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     
     private void startFullScreenVideo() {
-        Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
+        Intent i = new Intent(getSherlockActivity(), PreviewVideoActivity.class);
         i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
         i.putExtra(FileActivity.EXTRA_FILE, getFile());
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
@@ -565,7 +522,8 @@ public class PreviewMediaFragment extends FileFragment implements
         Log_OC.e(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            mSavedPlaybackPosition = data.getExtras().getInt(PreviewVideoActivity.EXTRA_START_POSITION);
+            mSavedPlaybackPosition = data.getExtras().getInt(
+                    PreviewVideoActivity.EXTRA_START_POSITION);
             mAutoplay = data.getExtras().getBoolean(PreviewVideoActivity.EXTRA_AUTOPLAY); 
         }
     }
@@ -591,7 +549,7 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mMediaServiceConnection == null) {
             mMediaServiceConnection = new MediaServiceConnection();
         }
-        getActivity().bindService(  new Intent(getActivity(), 
+        getSherlockActivity().bindService(  new Intent(getSherlockActivity(), 
                                     MediaService.class),
                                     mMediaServiceConnection, 
                                     Context.BIND_AUTO_CREATE);
@@ -603,8 +561,9 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (getActivity() != null) {
-                if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+            if (getSherlockActivity() != null) {
+                if (component.equals(
+                        new ComponentName(getSherlockActivity(), MediaService.class))) {
                     Log_OC.d(TAG, "Media service connected");
                     mMediaServiceBinder = (MediaServiceBinder) service;
                     if (mMediaServiceBinder != null) {
@@ -631,12 +590,15 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
+            if (component.equals(new ComponentName(getSherlockActivity(), MediaService.class))) {
                 Log_OC.e(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
                 } else {
-                    Toast.makeText(getActivity(), "No media controller to release when disconnected from media service", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getSherlockActivity(), 
+                            "No media controller to release when disconnected from media service", 
+                            Toast.LENGTH_SHORT).show();
                 }
                 mMediaServiceBinder = null;
                 mMediaServiceConnection = null;
@@ -648,118 +610,16 @@ public class PreviewMediaFragment extends FileFragment implements
 
     /**
      * Opens the previewed file with an external application.
-     * 
-     * TODO - improve this; instead of prioritize the actions available for the MIME type in the server, 
-     * we should get a list of available apps for MIME tpye in the server and join it with the list of 
-     * available apps for the MIME type known from the file extension, to let the user choose
      */
     private void openFile() {
-        OCFile file = getFile();
         stopPreview(true);
-        String storagePath = file.getStoragePath();
-        String encodedStoragePath = WebdavUtils.encodePath(storagePath);
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), file.getMimetype());
-            i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivity(i);
-            
-        } catch (Throwable t) {
-            Log_OC.e(TAG, "Fail when trying to open with the mimeType provided from the ownCloud server: " + file.getMimetype());
-            boolean toastIt = true; 
-            String mimeType = "";
-            try {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(storagePath.substring(storagePath.lastIndexOf('.') + 1));
-                if (mimeType == null || !mimeType.equals(file.getMimetype())) {
-                    if (mimeType != null) {
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), mimeType);
-                    } else {
-                        // desperate try
-                        i.setDataAndType(Uri.parse("file://"+ encodedStoragePath), "*-/*");
-                    }
-                    i.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    startActivity(i);
-                    toastIt = false;
-                }
-                
-            } catch (IndexOutOfBoundsException e) {
-                Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " + storagePath);
-                
-            } catch (ActivityNotFoundException e) {
-                Log_OC.e(TAG, "No activity found to handle: " + storagePath + " with MIME type " + mimeType + " obtained from extension");
-                
-            } catch (Throwable th) {
-                Log_OC.e(TAG, "Unexpected problem when opening: " + storagePath, th);
-                
-            } finally {
-                if (toastIt) {
-                    Toast.makeText(getActivity(), "There is no application to handle file " + file.getFileName(), Toast.LENGTH_SHORT).show();
-                }
-            }
-            
-        }
+        mContainerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
     }
     
     /**
-     * Starts a the removal of the previewed file.
-     * 
-     * Shows a confirmation dialog. The action continues in {@link #onConfirmation(String)} , {@link #onNeutral(String)} or {@link #onCancel(String)},
-     * depending upon the user selection in the dialog. 
-     */
-    private void removeFile() {
-        ConfirmationDialogFragment confDialog = ConfirmationDialogFragment.newInstance(
-                R.string.confirmation_remove_alert,
-                new String[]{getFile().getFileName()},
-                R.string.confirmation_remove_remote_and_local,
-                R.string.confirmation_remove_local,
-                R.string.common_cancel);
-        confDialog.setOnConfirmationListener(this);
-        confDialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
-    }
-
-    
-    /**
-     * Performs the removal of the previewed file, both locally and in the server.
-     */
-    @Override
-    public void onConfirmation(String callerTag) {
-        OCFile file = getFile();
-        if (mStorageManager.getFileById(file.getFileId()) != null) {   // check that the file is still there;
-            stopPreview(true);
-            mLastRemoteOperation = new RemoveFileOperation( file,      // TODO we need to review the interface with RemoteOperations, and use OCFile IDs instead of OCFile objects as parameters
-                                                            true, 
-                                                            mStorageManager);
-            mLastRemoteOperation.execute(mAccount, getSherlockActivity(), this, mHandler, getSherlockActivity());
-            
-            ((FileDisplayActivity) getActivity()).showLoadingDialog();
-        }
-    }
-    
-    
-    /**
-     * Removes the file from local storage
-     */
-    @Override
-    public void onNeutral(String callerTag) {
-        OCFile file = getFile();
-        stopPreview(true);
-        mStorageManager.removeFile(file, false, true);    // TODO perform in background task / new thread
-        finish();
-    }
-    
-    /**
-     * User cancelled the removal action.
-     */
-    @Override
-    public void onCancel(String callerTag) {
-        // nothing to do here
-    }
-    
-
-    /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment} to be previewed.
+     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewMediaFragment}
+     *  to be previewed.
      * 
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
@@ -767,36 +627,9 @@ public class PreviewMediaFragment extends FileFragment implements
     public static boolean canBePreviewed(OCFile file) {
         return (file != null && (file.isAudio() || file.isVideo()));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
-        if (operation.equals(mLastRemoteOperation)) {
-            if (operation instanceof RemoveFileOperation) {
-                onRemoveFileOperationFinish((RemoveFileOperation)operation, result);
-            }
-        }
-    }
     
-    private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
-        ((FileDisplayActivity) getActivity()).dismissLoadingDialog();
-        if (result.isSuccess()) {
-            Toast msg = Toast.makeText(getActivity().getApplicationContext(), R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
-            finish();
-                
-        } else {
-            Toast msg = Toast.makeText(getActivity(), R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
-            if (result.isSslRecoverableException()) {
-                // TODO show the SSL warning dialog
-            }
-        }
-    }
 
-    private void stopPreview(boolean stopAudio) {
+    public void stopPreview(boolean stopAudio) {
         OCFile file = getFile();
         if (file.isAudio() && stopAudio) {
             mMediaServiceBinder.pause();
@@ -812,7 +645,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * Finishes the preview
      */
     private void finish() {
-        getActivity().onBackPressed();
+        getSherlockActivity().onBackPressed();
     }
 
 
