@@ -322,6 +322,7 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             case R.id.action_send_file: {
                 sendFile();
+                return true;
             }
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
