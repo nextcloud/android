@@ -711,6 +711,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             mDownloadFinishReceiver = null;
         }
         
+        
         Log_OC.d(TAG, "onPause() end");
         super.onPause();
     }

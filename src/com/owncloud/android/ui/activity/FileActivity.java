@@ -540,7 +540,10 @@ implements OnRemoteOperationListener, ComponentsGetter {
         mOperationsServiceBinder.addOperationListener(FileActivity.this, mHandler);
         long waitingForOpId = mFileOperationsHelper.getOpIdWaitingFor();
         if (waitingForOpId <= Integer.MAX_VALUE) {
-            mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId, this);
+            boolean wait = mOperationsServiceBinder.dispatchResultIfFinished((int)waitingForOpId, this);
+            if (!wait ) {
+                dismissLoadingDialog();
+            }
         }
     }
 

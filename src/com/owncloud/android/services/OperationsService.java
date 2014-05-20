@@ -388,13 +388,20 @@ public class OperationsService extends Service {
             }
         }
 
-        public void dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
+        public boolean dispatchResultIfFinished(int operationId, OnRemoteOperationListener listener) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = 
                     mUndispatchedFinishedOperations.remove(operationId);
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
+                return true;
                 //Log_OC.wtf(TAG, "Sending callback later");
             } else {
+                if (!mPendingOperations.isEmpty()) {
+                    nextOperation();
+                    return true;
+                } else {
+                    return false;
+                }
                 //Log_OC.wtf(TAG, "Not finished yet");
             }
         }
