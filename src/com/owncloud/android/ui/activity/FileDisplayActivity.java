@@ -1,6 +1,6 @@
 /* ownCloud Android client application
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2012-2013 ownCloud Inc.
+ *   Copyright (C) 2012-2014 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -1365,21 +1365,22 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         OCFile renamedFile = operation.getFile();
         if (result.isSuccess()) {
             FileFragment details = getSecondFragment();
-            if (details != null) 
+            if (details != null) {
                 if (details instanceof FileDetailFragment && renamedFile.equals(details.getFile()) ) {
                     ((FileDetailFragment) details).updateFileDetails(renamedFile, getAccount());
                     showDetails(renamedFile);
-                    
-            } else if (details instanceof PreviewMediaFragment && renamedFile.equals(details.getFile())) {
-                ((PreviewMediaFragment) details).updateFile(renamedFile);
-                if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
-                    int position = ((PreviewMediaFragment)details).getPosition();
-                    startMediaPreview(renamedFile, position, true);
-                } else {
-                    getFileOperationsHelper().openFile(renamedFile);
+
+                } else if (details instanceof PreviewMediaFragment && renamedFile.equals(details.getFile())) {
+                    ((PreviewMediaFragment) details).updateFile(renamedFile);
+                    if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
+                        int position = ((PreviewMediaFragment)details).getPosition();
+                        startMediaPreview(renamedFile, position, true);
+                    } else {
+                        getFileOperationsHelper().openFile(renamedFile);
+                    }
                 }
             }
-
+            
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
                 refreshListOfFilesFragment();
             }
