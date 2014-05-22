@@ -7,6 +7,7 @@
   <string name="auth_username">یوزر نیم</string>
   <string name="auth_password">پاسورڈ</string>
   <string name="setup_btn_connect">منسلک</string>
+  <string name="filedetails_download">ڈاؤن لوڈ،</string>
   <string name="action_share_file">اشتراک لنک</string>
   <string name="common_yes">ہاں</string>
   <string name="common_no">نہیں</string>
