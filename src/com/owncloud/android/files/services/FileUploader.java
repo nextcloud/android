@@ -766,20 +766,26 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         } else {
 
             // / fail -> explicit failure notification
-            mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
-            NotificationCompat.Builder errorBuilder = new NotificationCompat.Builder(this);
-            errorBuilder
-                .setSmallIcon(R.drawable.notification_icon)
-                .setTicker(getString(R.string.uploader_upload_failed_ticker))
-                .setContentTitle(getString(R.string.uploader_upload_failed_ticker))
-                .setAutoCancel(true);
-            String content = null;
+            mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);            
             
-            boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                    //(uploadResult.isTemporalRedirection() && uploadResult.isIdPRedirection() && 
+            NotificationCompat.Builder errorBuilder = new NotificationCompat.Builder(this);
+            
+            String content = null;
+
+            // check credentials error
+            boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
                     (uploadResult.isIdPRedirection() &&
                             mUploadClient.getCredentials() == null));
-                            //MainApp.getAuthTokenTypeSamlSessionCookie().equals(mUploadClient.getAuthTokenType())));
+            int tickerId = (needsToUpdateCredentials) ? 
+                    R.string.uploader_upload_failed_credentials_error : R.string.uploader_upload_failed_ticker;
+
+            errorBuilder
+            .setSmallIcon(R.drawable.notification_icon)
+            .setTicker(getString(tickerId))
+            .setContentTitle(getString(tickerId))
+            .setAutoCancel(true);
+            
+            
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
@@ -847,7 +853,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             }
             
             errorBuilder.setContentText(content);
-            mNotificationManager.notify(R.string.uploader_upload_failed_ticker, errorBuilder.build());
+            mNotificationManager.notify(tickerId, errorBuilder.build());
         }
 
     }

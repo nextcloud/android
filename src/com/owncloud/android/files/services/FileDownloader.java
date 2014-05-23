@@ -463,18 +463,22 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
         if (!downloadResult.isCancelled()) {
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
             int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
-            mNotificationBuilder
-                .setTicker(getString(tickerId))
-                .setContentTitle(getString(tickerId))
-                .setAutoCancel(true)
-                .setOngoing(false)
-                .setProgress(0, 0, false);
+
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                // (downloadResult.isTemporalRedirection() && downloadResult.isIdPRedirection()
                                                   (downloadResult.isIdPRedirection()
                                                         && mDownloadClient.getCredentials() == null));
-                                                        //&& MainApp.getAuthTokenTypeSamlSessionCookie().equals(mDownloadClient.getAuthTokenType())));
+            tickerId = (needsToUpdateCredentials) ? 
+                    R.string.downloader_download_failed_credentials_error : tickerId;
+            
+            mNotificationBuilder
+            .setTicker(getString(tickerId))
+            .setContentTitle(getString(tickerId))
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .setProgress(0, 0, false);
+            
             if (needsToUpdateCredentials) {
+                
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, download.getAccount());
