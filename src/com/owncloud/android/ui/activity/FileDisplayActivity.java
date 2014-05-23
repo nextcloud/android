@@ -180,11 +180,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
         if (savedInstanceState == null) {
             createMinFragments();
-        } else {
-            Log_OC.d(TAG, "Init the secondFragment again");
-            if (mDualPane) {
-                initFragmentsWithFile();                
-            }
         }
 
         // Action bar setup
