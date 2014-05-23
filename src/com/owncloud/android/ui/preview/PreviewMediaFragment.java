@@ -181,7 +181,8 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             
         } else {
-            setFile((OCFile)savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE));
+            file = (OCFile)savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition = 
                     savedInstanceState.getInt(PreviewMediaFragment.EXTRA_PLAY_POSITION);
