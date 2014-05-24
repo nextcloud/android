@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
   <string name="create_dir_fail_msg">Não foi possivel criar a pasta</string>
   <string name="filename_forbidden_characters">Caracteres não permitidos: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">O nome do ficheiro não pode ser vazio.</string>
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Erro inesperado. Por favor tente outra aplicação para seleccionar o ficheiro.</string>
   <string name="filedisplay_no_file_selected">Não selecionou nenhum ficheiro</string>

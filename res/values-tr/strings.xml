@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
   <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
   <string name="filename_forbidden_characters">Yasaklı karakterler: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Dosya adı boş olamaz</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmedik sorun; lütfen, dosya seçmek için farklı uygulama kullanın</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
