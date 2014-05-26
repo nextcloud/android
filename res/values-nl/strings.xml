@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">Bestandsinhoud is al gesynchroniseerd</string>
   <string name="create_dir_fail_msg">Map kon niet worden aangemaakt</string>
   <string name="filename_forbidden_characters">Verboden tekens: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
   <string name="wait_a_moment">Even geduld</string>
   <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
   <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>

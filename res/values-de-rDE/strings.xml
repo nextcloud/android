@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">Dateiinhalte bereits synchronisiert</string>
   <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
   <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Dateiname darf nicht leer sein</string>
   <string name="wait_a_moment">Bitte warten Sie einen Moment.</string>
   <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuchen Sie, die Datei in einer anderen App zu öffnen.</string>
   <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>

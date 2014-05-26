@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
   <string name="create_dir_fail_msg">Folder nie może zostać utworzony</string>
   <string name="filename_forbidden_characters">Znaki zabronione: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
   <string name="wait_a_moment">Poczekaj chwilę</string>
   <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
   <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>

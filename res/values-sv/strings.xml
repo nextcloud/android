@@ -184,6 +184,7 @@
   <string name="sync_file_nothing_to_do_msg">Filinnehåll redan synkroniserat</string>
   <string name="create_dir_fail_msg">Mapp kunde inte skapas</string>
   <string name="filename_forbidden_characters">Förbjudna tecken är: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Filnamnet får inte lämnas blankt</string>
   <string name="wait_a_moment">Var god vänta</string>
   <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
   <string name="filedisplay_no_file_selected">Ingen fil vald</string>

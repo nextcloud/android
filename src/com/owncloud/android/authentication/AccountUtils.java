@@ -18,6 +18,8 @@
 
 package com.owncloud.android.authentication;
 
+import java.util.Locale;
+
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
@@ -81,8 +83,18 @@ public class AccountUtils {
                 MainApp.getAccountType());
 
         if (account != null && account.name != null) {
-            for (Account ac : ocAccounts) {
-                if (ac.name.equals(account.name)) {
+            int lastAtPos = account.name.lastIndexOf("@");
+            String hostAndPort = account.name.substring(lastAtPos + 1);
+            String username = account.name.substring(0, lastAtPos);
+            String otherHostAndPort, otherUsername;
+            Locale currentLocale = context.getResources().getConfiguration().locale;
+            for (Account otherAccount : ocAccounts) {
+                lastAtPos = otherAccount.name.lastIndexOf("@");
+                otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
+                otherUsername = otherAccount.name.substring(0, lastAtPos);
+                if (otherHostAndPort.equals(hostAndPort) &&
+                        otherUsername.toLowerCase(currentLocale).
+                            equals(username.toLowerCase(currentLocale))) {
                     return true;
                 }
             }
