@@ -274,4 +274,11 @@
 	<string name="clipboard_text_copied">Copied to clipboard</string>
 
 	<string name="error_cant_bind_to_operations_service">Critical error: can not perform operations</string>
+	
+	<string name="network_error_socket_exception">An error occurred while connecting with the server.</string>
+	<string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
+	<string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
+	<string name="unexpected_exception">Unexpected exception</string>
+	
+	
 </resources>

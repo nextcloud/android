@@ -19,7 +19,8 @@
 package com.owncloud.android.utils;
 
 import java.io.File;
-
+import java.net.SocketTimeoutException;
+import org.apache.commons.httpclient.ConnectTimeoutException;
 import android.content.res.Resources;
 
 import com.owncloud.android.R;
@@ -72,6 +73,35 @@ public class ErrorMessageAdapter {
             } else {
                 message = String.format(res.getString(R.string.downloader_download_failed_content), 
                         new File(((DownloadFileOperation) operation).getSavePath()).getName());
+            }
+        }
+        
+        
+        return message;
+    }
+    
+    public static String getErrorMessage(RemoteOperationResult result , Resources res) {
+        
+        String message = null;
+        
+        if (!result.isSuccess()) {
+            
+            switch (result.getCode()) {
+            case WRONG_CONNECTION:
+                message = res.getString(R.string.network_error_socket_exception);
+                break;
+                
+            case TIMEOUT:
+                if (result.getException() instanceof SocketTimeoutException) {
+                    message = res.getString(R.string.network_error_socket_timeout_exception);
+                } else if(result.getException() instanceof ConnectTimeoutException) {
+                    message = res.getString(R.string.network_error_connect_timeout_exception);
+                } 
+                break;
+                
+            default:
+                message = res.getString(R.string.unexpected_exception);
+                break;
             }
         }
         
