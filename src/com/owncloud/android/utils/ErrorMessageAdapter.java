@@ -27,7 +27,13 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
+import com.owncloud.android.operations.RemoveFileOperation;
+import com.owncloud.android.operations.RenameFileOperation;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
 /**
@@ -57,8 +63,10 @@ public class ErrorMessageAdapter {
                         || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
                     message = String.format(res.getString(R.string.error__upload__local_file_not_copied), 
                             ((UploadFileOperation) operation).getFileName());
+                    
                 } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
                     message = res.getString(R.string.failed_upload_quota_exceeded_text);
+                    
                 } else {
                     message = String.format(res.getString(R.string.uploader_upload_failed_content_single), 
                             ((UploadFileOperation) operation).getFileName());
@@ -70,41 +78,116 @@ public class ErrorMessageAdapter {
             if (result.isSuccess()) {
                 message = String.format(res.getString(R.string.downloader_download_succeeded_content), 
                         new File(((DownloadFileOperation) operation).getSavePath()).getName());
+                
             } else {
                 message = String.format(res.getString(R.string.downloader_download_failed_content), 
                         new File(((DownloadFileOperation) operation).getSavePath()).getName());
             }
-        }
+            
+        } else if (operation instanceof RemoveFileOperation) {
+            if (result.isSuccess()) {
+                message = res.getString(R.string.remove_success_msg);
+                
+            } else {
+                if (isNetworkError(result.getCode())) {
+                    message = getErrorMessage(result, res);
+                    
+                } else {
+                    message = res.getString(R.string.remove_fail_msg);
+                }
+            }
+
+        } else if (operation instanceof RenameFileOperation) {
+            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
+                message = res.getString(R.string.rename_local_fail_msg);
+                
+            } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
+                message = res.getString(R.string.filename_forbidden_characters);
+                
+            } else if (isNetworkError(result.getCode())) {
+                message = getErrorMessage(result, res);
+                
+            } else {
+                message = res.getString(R.string.rename_server_fail_msg); 
+            }
+            
+        } else if (operation instanceof SynchronizeFileOperation) {
+            if (!((SynchronizeFileOperation) operation).transferWasRequested()) {
+                message = res.getString(R.string.sync_file_nothing_to_do_msg);
+            }
+            
+        } else if (operation instanceof CreateFolderOperation) {
+            if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
+                message = res.getString(R.string.filename_forbidden_characters);
+                
+            } else if (isNetworkError(result.getCode())) {
+                message = getErrorMessage(result, res);
+                
+            } else {
+                message = res.getString(R.string.create_dir_fail_msg);
+            }
+        } else if (operation instanceof CreateShareOperation) {        
+            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+                message = res.getString(R.string.share_link_file_no_exist);
+                
+            } else if (isNetworkError(result.getCode())) {
+                message = getErrorMessage(result, res);
+                
+            } else {    // Generic error
+                // Show a Message, operation finished without success
+                message = res.getString(R.string.share_link_file_error);
+            }
+            
+        } else if (operation instanceof UnshareLinkOperation) {
         
+            if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
+                message = res.getString(R.string.unshare_link_file_no_exist);
+                
+            } else if (isNetworkError(result.getCode())) {
+                message = getErrorMessage(result, res);
+                
+            } else {    // Generic error
+                // Show a Message, operation finished without success
+                message = res.getString(R.string.unshare_link_file_error);
+            }
+        }
         
         return message;
     }
     
-    public static String getErrorMessage(RemoteOperationResult result , Resources res) {
+    private static String getErrorMessage(RemoteOperationResult result , Resources res) {
         
         String message = null;
         
         if (!result.isSuccess()) {
             
-            switch (result.getCode()) {
-            case WRONG_CONNECTION:
+            if (result.getCode() == ResultCode.WRONG_CONNECTION) {
                 message = res.getString(R.string.network_error_socket_exception);
-                break;
                 
-            case TIMEOUT:
+            } else if (result.getCode() == ResultCode.TIMEOUT) {
+                message = res.getString(R.string.network_error_socket_exception);
+                
                 if (result.getException() instanceof SocketTimeoutException) {
                     message = res.getString(R.string.network_error_socket_timeout_exception);
                 } else if(result.getException() instanceof ConnectTimeoutException) {
                     message = res.getString(R.string.network_error_connect_timeout_exception);
                 } 
-                break;
                 
-            default:
-                message = res.getString(R.string.unexpected_exception);
-                break;
+            } else if (result.getCode() == ResultCode.HOST_NOT_AVAILABLE) {
+                message = res.getString(R.string.network_host_not_available);
             }
         }
         
         return message;
+    }
+    
+    private static boolean isNetworkError(RemoteOperationResult.ResultCode code) {
+        if (code == ResultCode.WRONG_CONNECTION || 
+                code == ResultCode.TIMEOUT || 
+                code == ResultCode.HOST_NOT_AVAILABLE) {
+            return true;
+        }
+        else
+            return false;
     }
 }

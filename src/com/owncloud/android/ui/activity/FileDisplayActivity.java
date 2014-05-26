@@ -90,6 +90,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -1299,9 +1300,12 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
      */
     private void onRemoveFileOperationFinish(RemoveFileOperation operation, RemoteOperationResult result) {
         dismissLoadingDialog();
+        
+        Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                Toast.LENGTH_LONG); 
+        msg.show();
+        
         if (result.isSuccess()) {
-            Toast msg = Toast.makeText(this, R.string.remove_success_msg, Toast.LENGTH_LONG);
-            msg.show();
             OCFile removedFile = operation.getFile();
             FileFragment second = getSecondFragment();
             if (second != null && removedFile.equals(second.getFile())) {
@@ -1316,8 +1320,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             }
             invalidateOptionsMenu();
         } else {
-            Toast msg = Toast.makeText(this, R.string.remove_fail_msg, Toast.LENGTH_LONG); 
-            msg.show();
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
                 showUntrustedCertDialog(mLastSslUntrustedServerResult);
@@ -1338,16 +1340,14 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             refreshListOfFilesFragment();
         } else {
             dismissLoadingDialog();
-            if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
-                Toast.makeText(FileDisplayActivity.this, R.string.filename_forbidden_characters, Toast.LENGTH_LONG).show();
-            } else {
             try {
-                Toast msg = Toast.makeText(FileDisplayActivity.this, R.string.create_dir_fail_msg, Toast.LENGTH_LONG); 
+                Toast msg = Toast.makeText(FileDisplayActivity.this, 
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
                 msg.show();
 
             } catch (NotFoundException e) {
                 Log_OC.e(TAG, "Error while trying to show fail message " , e);
-            }
             }
         }
     }
@@ -1386,20 +1386,13 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             }
 
         } else {
-            if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
-                Toast msg = Toast.makeText(this, R.string.rename_local_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                // TODO throw again the new rename dialog
-            } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
-                Toast msg = Toast.makeText(this, R.string.filename_forbidden_characters, Toast.LENGTH_LONG); 
-                msg.show();
-            } else {
-                Toast msg = Toast.makeText(this, R.string.rename_server_fail_msg, Toast.LENGTH_LONG); 
-                msg.show();
-                if (result.isSslRecoverableException()) {
-                    mLastSslUntrustedServerResult = result;
-                    showUntrustedCertDialog(mLastSslUntrustedServerResult);
-                }
+            Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                    Toast.LENGTH_LONG); 
+            msg.show();
+            
+            if (result.isSslRecoverableException()) {
+                mLastSslUntrustedServerResult = result;
+                showUntrustedCertDialog(mLastSslUntrustedServerResult);
             }
         }
     }
@@ -1421,7 +1414,8 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                 onTransferStateChanged(syncedFile, true, true);
                 
             } else {
-                Toast msg = Toast.makeText(this, R.string.sync_file_nothing_to_do_msg, Toast.LENGTH_LONG); 
+                Toast msg = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG); 
                 msg.show();
             }
         }
