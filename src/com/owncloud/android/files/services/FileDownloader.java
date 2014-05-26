@@ -44,6 +44,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
@@ -461,9 +462,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
     private void notifyDownloadResult(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
         if (!downloadResult.isCancelled()) {
-            int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : R.string.downloader_download_failed_ticker;
-            int contentId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_content : R.string.downloader_download_failed_content;
-
+            int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : 
+                R.string.downloader_download_failed_ticker;
+            
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                   (downloadResult.isIdPRedirection()
                                                         && mDownloadClient.getCredentials() == null));
@@ -488,9 +489,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
                 mNotificationBuilder
                     .setContentIntent(PendingIntent.getActivity(
-                        this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
-                    ))
-                    .setContentText(String.format(getString(contentId), new File(download.getSavePath()).getName()));
+                        this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT));
+                
                 mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
                 
             } else {
@@ -511,10 +511,11 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 }
                 mNotificationBuilder
                     .setContentIntent(PendingIntent.getActivity(
-                        this, (int) System.currentTimeMillis(), showDetailsIntent, 0
-                    ))
-                    .setContentText(String.format(getString(contentId), new File(download.getSavePath()).getName()));  
+                        this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
             }
+            
+            mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download, getResources()));
+            
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
         }
     }

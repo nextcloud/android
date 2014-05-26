@@ -54,6 +54,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
@@ -752,10 +753,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 ))
                 .setTicker(getString(R.string.uploader_upload_succeeded_ticker))
                 .setContentTitle(getString(R.string.uploader_upload_succeeded_ticker))
-                .setContentText(
-                        String.format(getString(R.string.uploader_upload_succeeded_content_single),
-                        upload.getFileName())
-                );
+                .setContentText(ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources()));
 
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());  // NOT
                                                                                                                      // AN
@@ -785,6 +783,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             .setContentTitle(getString(tickerId))
             .setAutoCancel(true);
             
+            content =  ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
             
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
@@ -797,23 +796,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 errorBuilder.setContentIntent(PendingIntent.getActivity(
                     this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
                 ));
-                content =  String.format(getString(R.string.uploader_upload_failed_content_single), upload.getFileName());
+                
                 mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
             } else {
                 // TODO put something smart in the contentIntent below
-            
-                if (uploadResult.getCode() == ResultCode.LOCAL_STORAGE_FULL
-                        || uploadResult.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
-                    // TODO we need a class to provide error messages for the users
-                    // from a RemoteOperationResult and a RemoteOperation
-                    content = String.format(getString(R.string.error__upload__local_file_not_copied), upload.getFileName(),
-                            getString(R.string.app_name));
-                } else if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                    content = getString(R.string.failed_upload_quota_exceeded_text);
-                } else {
-                    content = String
-                            .format(getString(R.string.uploader_upload_failed_content_single), upload.getFileName());
-                }
 
                 // we add only for instant-uploads the InstantUploadActivity and the
                 // db entry
