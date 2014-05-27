@@ -149,6 +149,7 @@ public class DisplayUtils {
      * known MIME type.
      * 
      * @param mimetype      MIME type string.
+     * @param filename      name, with extension
      * @return              Resource identifier of an image resource.
      */
     public static int getResourceId(String mimetype, String filename) {

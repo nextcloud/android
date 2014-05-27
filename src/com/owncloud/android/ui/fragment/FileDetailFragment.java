@@ -382,6 +382,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     /**
      * Updates the MIME type in view
      * @param mimetype to set
+     * @param filename
      */
     private void setFiletype(String mimetype, String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
