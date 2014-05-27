@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import android.util.Log;
+
 import com.owncloud.android.R;
 
 /**
@@ -63,14 +65,28 @@ public class DisplayUtils {
     private static final String TYPE_VIDEO = "video";
     
     private static final String SUBTYPE_PDF = "pdf";
-    private static final String[] SUBTYPES_DOCUMENT = { "msword", "mspowerpoint", "msexcel", 
-                                                        "vnd.oasis.opendocument.presentation",
-                                                        "vnd.oasis.opendocument.spreadsheet",
-                                                        "vnd.oasis.opendocument.text"
+    private static final String[] SUBTYPES_DOCUMENT = { "msword",
+                                                        "vnd.openxmlformats-officedocument.wordprocessingml.document",
+                                                        "vnd.oasis.opendocument.text",
+                                                        "rtf"
                                                         };
     private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
+    private static final String[] SUBTYPES_SPREADSHEET = { "msexcel",
+                                                           "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                                           "vnd.oasis.opendocument.spreadsheet"
+                                                           };
+    private static Set<String> SUBTYPES_SPREADSHEET_SET = new HashSet<String>(Arrays.asList(SUBTYPES_SPREADSHEET));
+    private static final String[] SUBTYPES_PRESENTATION = { "mspowerpoint",
+                                                            "vnd.openxmlformats-officedocument.presentationml.presentation",
+                                                            "vnd.oasis.opendocument.presentation"
+                                                            };
+    private static Set<String> SUBTYPES_PRESENTATION_SET = new HashSet<String>(Arrays.asList(SUBTYPES_PRESENTATION));
     private static final String[] SUBTYPES_COMPRESSED = {"x-tar", "x-gzip", "zip"};
     private static final Set<String> SUBTYPES_COMPRESSED_SET = new HashSet<String>(Arrays.asList(SUBTYPES_COMPRESSED));
+    private static final String SUBTYPE_OCTET_STREAM = "octet-stream";
+    private static final String EXTENSION_RAR = "rar";
+    private static final String EXTENSION_RTF = "rtf";
+    private static final String EXTENSION_3GP = "3gp";
     
     /**
      * Converts the file size in bytes to human readable output.
@@ -137,7 +153,7 @@ public class DisplayUtils {
      * @param mimetype      MIME type string.
      * @return              Resource identifier of an image resource.
      */
-    public static int getResourceId(String mimetype) {
+    public static int getResourceId(String mimetype, String filename) {
 
         if (mimetype == null || "DIR".equals(mimetype)) {
             return R.drawable.ic_menu_archive;
@@ -167,12 +183,28 @@ public class DisplayUtils {
                 } else if (SUBTYPES_DOCUMENT_SET.contains(subtype)) {
                     return R.drawable.file_doc;
 
+                } else if (SUBTYPES_SPREADSHEET_SET.contains(subtype)) {
+                    return R.drawable.file_xls;
+
+                } else if (SUBTYPES_PRESENTATION_SET.contains(subtype)) {
+                    return R.drawable.file_ppt;
+
                 } else if (SUBTYPES_COMPRESSED_SET.contains(subtype)) {
                     return R.drawable.file_zip;
-                }
-    
+                    
+                } else if (SUBTYPE_OCTET_STREAM.equals(subtype) ) {
+                    if (getExtension(filename).equalsIgnoreCase(EXTENSION_RAR)) {
+                        return R.drawable.file_zip;
+                        
+                    } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_RTF)) {
+                        return R.drawable.file_doc;
+                        
+                    } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_3GP)) {
+                        return R.drawable.file_movie;
+                        
+                    } 
+                } 
             }
-            // problems: RAR, RTF, 3GP are send as application/octet-stream from the server ; extension in the filename should be explicitly reviewed
         }
 
         // default icon
@@ -180,7 +212,12 @@ public class DisplayUtils {
     }
 
     
-
+    private static String getExtension(String filename) {
+        String extension = filename.substring(filename.lastIndexOf(".") + 1);
+        
+        return extension;
+    }
+    
     /**
      * Converts Unix time to human readable format
      * @param miliseconds that have passed since 01/01/1970
