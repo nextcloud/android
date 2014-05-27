@@ -25,8 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.util.Log;
-
 import com.owncloud.android.R;
 
 /**
