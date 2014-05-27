@@ -58,6 +58,7 @@ import com.owncloud.android.operations.UnshareLinkOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.LoadingDialog;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 
 
@@ -475,14 +476,11 @@ implements OnRemoteOperationListener, ComponentsGetter {
             Intent sendIntent = operation.getSendIntent();
             startActivity(sendIntent);
             
-        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
-                Toast t = Toast.makeText(this, getString(R.string.share_link_file_no_exist), Toast.LENGTH_LONG);
-                t.show();
-        } else {    // Generic error
-            // Show a Message, operation finished without success
-            Toast t = Toast.makeText(this, getString(R.string.share_link_file_error), Toast.LENGTH_LONG);
+        } else { 
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                    Toast.LENGTH_LONG);
             t.show();
-        }
+        } 
     }
     
     
@@ -492,15 +490,11 @@ implements OnRemoteOperationListener, ComponentsGetter {
         if (result.isSuccess()){
             updateFileFromDB();
             
-        } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
-            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_no_exist), Toast.LENGTH_LONG);
+        } else {
+            Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                    Toast.LENGTH_LONG);
             t.show();
-        } else {    // Generic error
-            // Show a Message, operation finished without success
-            Toast t = Toast.makeText(this, getString(R.string.unshare_link_file_error), Toast.LENGTH_LONG);
-            t.show();
-        }
-        
+        } 
     }
     
     
