@@ -461,9 +461,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void notifyDownloadResult(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
-        if (!downloadResult.isCancelled()) {
-            int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : 
-                R.string.downloader_download_failed_ticker;
+        if (!downloadResult.isCancelled() && !downloadResult.isSuccess()) {
+            int tickerId = R.string.downloader_download_failed_ticker;
             
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                   (downloadResult.isIdPRedirection()
@@ -494,21 +493,8 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
                 
             } else {
-                Intent showDetailsIntent = null;
-                if (downloadResult.isSuccess()) {
-                    if (PreviewImageFragment.canBePreviewed(download.getFile())) {
-                        showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-                    } else {
-                        showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-                    }
-                    showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
-                    showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
-                    showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    
-                } else {
-                    // TODO put something smart in showDetailsIntent
-                    showDetailsIntent = new Intent();
-                }
+                // TODO put something smart in showDetailsIntent
+                Intent   showDetailsIntent = new Intent();
                 mNotificationBuilder
                     .setContentIntent(PendingIntent.getActivity(
                         this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
