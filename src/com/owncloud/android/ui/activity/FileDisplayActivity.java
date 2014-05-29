@@ -927,6 +927,13 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                         removeStickyBroadcast(intent);
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                         setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                        
+                        if (mSyncInProgress) {
+                            getListOfFilesFragment().showSwipeProgress();
+                            
+                        } else {
+                            getListOfFilesFragment().hideSwipeProgress();
+                        }
                 }
                 
                 if (synchResult != null) {

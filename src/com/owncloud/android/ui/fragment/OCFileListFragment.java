@@ -35,7 +35,6 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -434,5 +433,19 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFile = directory;
         }
     }
+
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        
+        if (mFile != null) {
+            listDirectory(mFile);
+            
+            ((FileDisplayActivity)mContainerActivity).startSyncFolderOperation(mFile);
+        }
+    }
+    
+    
     
 }

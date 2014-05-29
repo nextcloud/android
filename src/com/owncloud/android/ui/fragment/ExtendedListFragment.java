@@ -147,6 +147,20 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     public void disableSwipe() {
         mRefreshLayout.setEnabled(false);
     }
+    
+    /**
+     * It shows the SwipeRefreshLayout progress
+     */
+    public void showSwipeProgress() {
+        mRefreshLayout.setRefreshing(true);
+    }
+ 
+    /**
+     * It shows the SwipeRefreshLayout progress
+     */
+    public void hideSwipeProgress() {
+        mRefreshLayout.setRefreshing(false);
+    }
  
     
 }
