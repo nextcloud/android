@@ -725,42 +725,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private void notifyUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
-        if (uploadResult.isCancelled()) {
-            // / cancelled operation -> silent removal of progress notification
+        if (uploadResult.isCancelled() ||  uploadResult.isSuccess()) {
+            // / cancelled operation or success -> silent removal of progress notification
             mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
-
-        } else if (uploadResult.isSuccess()) {
-            // / success -> silent update of progress notification to success
-            // message
-            mNotificationBuilder
-                .setOngoing(false)
-                .setAutoCancel(true)
-                .setProgress(0, 0, false);
             
-            /// includes a pending intent in the notification showing the details view of the file
-            Intent showDetailsIntent = null;
-            if (PreviewImageFragment.canBePreviewed(upload.getFile())) {
-                showDetailsIntent = new Intent(this, PreviewImageActivity.class); 
-            } else {
-                showDetailsIntent = new Intent(this, FileDisplayActivity.class); 
-            }
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
-            showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
-            showDetailsIntent.putExtra(FileActivity.EXTRA_FROM_NOTIFICATION, true);;
-            mNotificationBuilder
-                .setContentIntent(PendingIntent.getActivity(
-                        this, (int) System.currentTimeMillis(), showDetailsIntent, 0
-                ))
-                .setTicker(getString(R.string.uploader_upload_succeeded_ticker))
-                .setContentTitle(getString(R.string.uploader_upload_succeeded_ticker))
-                .setContentText(ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources()));
-
-            mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());  // NOT
-                                                                                                                     // AN
-            DbHandler db = new DbHandler(this.getBaseContext());
-            db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
-            db.close();
-
         } else {
 
             // / fail -> explicit failure notification
@@ -841,7 +809,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             errorBuilder.setContentText(content);
             mNotificationManager.notify(tickerId, errorBuilder.build());
         }
-
     }
 
     /**
