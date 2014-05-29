@@ -89,6 +89,7 @@
   <string name="downloader_download_failed_ticker">Falló la descarga</string>
   <string name="downloader_download_failed_content">La descarga de %1$s no se pudo completar</string>
   <string name="downloader_not_downloaded_yet">No descargado</string>
+  <string name="downloader_download_failed_credentials_error">Descarga fallida, necesita reinicar la sesión</string>
   <string name="common_choose_account">Elige una cuenta</string>
   <string name="sync_fail_ticker">Falló la sincronización</string>
   <string name="sync_fail_content">La sincronización de %1$s s no se pudo completar</string>
@@ -252,4 +253,8 @@
   <string name="copy_link">Copiar enlace</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
   <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden hacer operaciones</string>
+  <string name="network_error_socket_exception">Ocurrió un error al conectarse con el servidor.</string>
+  <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
+  <string name="network_error_connect_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
+  <string name="network_host_not_available">La operación no se pudo completar; el servidor no está disponible </string>
 </resources>

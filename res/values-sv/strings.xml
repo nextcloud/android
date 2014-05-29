@@ -82,6 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s laddades upp</string>
   <string name="uploader_upload_failed_ticker">Misslyckad uppladdning</string>
   <string name="uploader_upload_failed_content_single">Uppladdning av %1$s kunde inte slutföras</string>
+  <string name="uploader_upload_failed_credentials_error">Uppladdning misslyckades, måste du logga in igen</string>
   <string name="downloader_download_in_progress_ticker">Laddar ner ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Laddar ner %2$s</string>
   <string name="downloader_download_succeeded_ticker">Nedladdning klar</string>
@@ -89,6 +90,7 @@
   <string name="downloader_download_failed_ticker">Misslyckad nedladdning</string>
   <string name="downloader_download_failed_content">Nedladdning av %1$s kunde inte slutföras</string>
   <string name="downloader_not_downloaded_yet">Ännu inte nedladdade</string>
+  <string name="downloader_download_failed_credentials_error">Nerladda misslyckades, måste du logga in igen</string>
   <string name="common_choose_account">Välj konto</string>
   <string name="sync_fail_ticker">Synkroniseringen misslyckades</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
@@ -252,4 +254,8 @@
   <string name="copy_link">Kopiera länk</string>
   <string name="clipboard_text_copied">Kopierat till urklipp</string>
   <string name="error_cant_bind_to_operations_service">Kritiskt fel: kan inte utföra operationer</string>
+  <string name="network_error_socket_exception">Ett fel uppstod vid anslutning till servern.</string>
+  <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
+  <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
+  <string name="network_host_not_available">Åtgärden kunde inte slutföras, är servern ej kontaktbar</string>
 </resources>
