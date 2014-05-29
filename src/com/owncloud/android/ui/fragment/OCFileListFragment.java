@@ -35,6 +35,7 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -106,6 +107,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
+        
         mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity); 
                 
         if (savedInstanceState != null) {

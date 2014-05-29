@@ -24,7 +24,7 @@
 	android:orientation="vertical" >
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_main"
+        android:id="@+id/swipe_refresh_files"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
