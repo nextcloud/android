@@ -461,8 +461,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
      */
     private void notifyDownloadResult(DownloadFileOperation download, RemoteOperationResult downloadResult) {
         mNotificationManager.cancel(R.string.downloader_download_in_progress_ticker);
-        if (!downloadResult.isCancelled() && !downloadResult.isSuccess()) {
-            int tickerId = R.string.downloader_download_failed_ticker;
+        if (!downloadResult.isCancelled()) {
+            int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : 
+                R.string.downloader_download_failed_ticker;
             
             boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
                                                   (downloadResult.isIdPRedirection()
@@ -501,8 +502,20 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             }
             
             mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download, getResources()));
-            
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+            
+            // Remove success notification
+            if (downloadResult.isSuccess()) {   
+                // Sleep 2 seconds, so show the notification before remove it
+                Handler handler = new Handler(); 
+                handler.postDelayed(new Runnable() { 
+                     public void run() { 
+                         mNotificationManager.cancel(R.string.downloader_download_succeeded_ticker);
+                     } 
+                }, 2000); 
+                
+            }
+                
         }
     }
     

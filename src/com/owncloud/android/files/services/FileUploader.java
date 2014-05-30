@@ -723,16 +723,15 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      */
     private void notifyUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
-        if (uploadResult.isCancelled() ||  uploadResult.isSuccess()) {
-            // / cancelled operation or success -> silent removal of progress notification
-            mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+        // / cancelled operation or success -> silent removal of progress notification
+        mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
+        
+        // Show the result: success or fail notification
+        if (!uploadResult.isCancelled()) {
+            int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker : 
+                R.string.uploader_upload_failed_ticker;
             
-        } else {
-
-            // / fail -> explicit failure notification
-            mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);            
-            
-            NotificationCompat.Builder errorBuilder = new NotificationCompat.Builder(this);
+            NotificationCompat.Builder resultBuilder = new NotificationCompat.Builder(this);
             
             String content = null;
 
@@ -740,10 +739,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
                     (uploadResult.isIdPRedirection() &&
                             mUploadClient.getCredentials() == null));
-            int tickerId = (needsToUpdateCredentials) ? 
-                    R.string.uploader_upload_failed_credentials_error : R.string.uploader_upload_failed_ticker;
+            tickerId = (needsToUpdateCredentials) ? 
+                    R.string.uploader_upload_failed_credentials_error : tickerId;
 
-            errorBuilder
+            resultBuilder
             .setSmallIcon(R.drawable.notification_icon)
             .setTicker(getString(tickerId))
             .setContentTitle(getString(tickerId))
@@ -759,7 +758,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                errorBuilder.setContentIntent(PendingIntent.getActivity(
+                resultBuilder.setContentIntent(PendingIntent.getActivity(
                     this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
                 ));
                 
@@ -777,7 +776,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     detailUploadIntent = new Intent(this, FailedUploadActivity.class);
                     detailUploadIntent.putExtra(FailedUploadActivity.MESSAGE, content);
                 }
-                errorBuilder
+                resultBuilder
                     .setContentIntent(PendingIntent.getActivity(
                         this, (int) System.currentTimeMillis(), detailUploadIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT
                     ))
@@ -804,8 +803,20 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
             
-            errorBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, errorBuilder.build());
+            resultBuilder.setContentText(content);
+            mNotificationManager.notify(tickerId, resultBuilder.build());
+            
+            // Remove success notification
+            if (uploadResult.isSuccess()) {   
+                // Sleep 2 seconds, so show the notification before remove it
+                Handler handler = new Handler(); 
+                handler.postDelayed(new Runnable() { 
+                     public void run() { 
+                         mNotificationManager.cancel(R.string.uploader_upload_succeeded_ticker);
+                     } 
+                }, 2000); 
+                
+            }
         }
     }
 
