@@ -447,6 +447,13 @@ implements OnRemoteOperationListener, ComponentsGetter {
                 )) {
             
             requestCredentialsUpdate();
+            
+            if (result.getCode() == ResultCode.UNAUTHORIZED) {
+                dismissLoadingDialog();
+                Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
+                        Toast.LENGTH_LONG);
+                t.show();
+            }
 
         } else if (operation instanceof CreateShareOperation) {
             onCreateShareOperationFinish((CreateShareOperation) operation, result);

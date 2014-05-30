@@ -175,13 +175,13 @@
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
 	</string>
-	<string name="auth_can_not_auth_against_server">Can not authenticate against this server</string>
+	<string name="auth_can_not_auth_against_server">Cannot authenticate against this server</string>
     
     <string name="fd_keep_in_sync">Keep file up to date</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
-    <string name="confirmation_remove_alert">"Do you really want to remove %1$s ?"</string>
-    <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents ?"</string>
+    <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
+    <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="confirmation_remove_folder_local">Local contents only</string>
     <string name="confirmation_remove_remote">Remove from server</string>
@@ -246,7 +246,7 @@
     <string name="conflict_dont_upload">Don\'t upload</string>
     
     <string name="preview_image_description">Image preview</string>
-    <string name="preview_image_error_unknown_format">This image can not be shown</string>
+    <string name="preview_image_error_unknown_format">This image cannot be shown</string>
     
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="actionbar_failed_instant_upload">Failed InstantUpload</string>
@@ -256,7 +256,7 @@
     <string name="failed_upload_headline_retryall_btn">retry all selected</string>
     <string name="failed_upload_headline_delete_all_btn">delete all  selected from uploadqueue</string>
     <string name="failed_upload_retry_text">retry to upload the image: </string>
-    <string name="failed_upload_load_more_images">Load more Picrures</string>
+    <string name="failed_upload_load_more_images">Load more Pictures</string>
     <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
 	<string name="failed_upload_failure_text">Failure Message: </string>
 	<string name="failed_upload_quota_exceeded_text">Please check your server configuration,maybe your quota is exceeded.</string>
@@ -273,12 +273,11 @@
 	<string name="copy_link">Copy link</string>
 	<string name="clipboard_text_copied">Copied to clipboard</string>
 
-	<string name="error_cant_bind_to_operations_service">Critical error: can not perform operations</string>
+	<string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 	
 	<string name="network_error_socket_exception">An error occurred while connecting with the server.</string>
 	<string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
 	<string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
-	<string name="network_host_not_available">The operation couldn\'t be completed, server is unavaliable</string>
-	
+	<string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
 	
 </resources>

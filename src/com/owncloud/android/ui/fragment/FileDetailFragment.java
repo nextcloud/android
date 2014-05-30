@@ -330,7 +330,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             
             // set file details
             setFilename(file.getFileName());
-            setFiletype(file.getMimetype());
+            setFiletype(file.getMimetype(), file.getFileName());
             setFilesize(file.getFileLength());
             if(ocVersionSupportsTimeCreated()){
                 setTimeCreated(file.getCreationTimestamp());
@@ -382,8 +382,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     /**
      * Updates the MIME type in view
      * @param mimetype to set
+     * @param filename
      */
-    private void setFiletype(String mimetype) {
+    private void setFiletype(String mimetype, String filename) {
         TextView tv = (TextView) getView().findViewById(R.id.fdType);
         if (tv != null) {
             String printableMimetype = DisplayUtils.convertMIMEtoPrettyPrint(mimetype);;        
@@ -391,7 +392,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         }
         ImageView iv = (ImageView) getView().findViewById(R.id.fdIcon);
         if (iv != null) {
-            iv.setImageResource(DisplayUtils.getResourceId(mimetype));
+            iv.setImageResource(DisplayUtils.getResourceId(mimetype, filename));
         }
     }
 
