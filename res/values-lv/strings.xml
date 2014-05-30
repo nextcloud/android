@@ -43,6 +43,7 @@
   <string name="common_save_exit">Saglabāt un iziet</string>
   <string name="common_error">Kļūda</string>
   <string name="common_loading">Ielādē</string>
+  <string name="common_error_unknown">Nezināma kļūda</string>
   <string name="about_title">Par</string>
   <string name="change_password">Mainīt paroli</string>
   <string name="delete_account">Dzēst kontu</string>
@@ -77,9 +78,11 @@
   <string name="pincode_wrong">Nepareizs lietotnes PIN</string>
   <string name="pincode_removed">Lietotnes PIN ir izņemts</string>
   <string name="pincode_stored">Lietotnes PIN ir noglabāts</string>
+  <string name="auth_trying_to_login">Mēģina ierakstīties...</string>
   <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
   <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
   <string name="auth_connection_established">Savienojums ir izveidots</string>
+  <string name="auth_testing_connection">Testē savienojumu...</string>
   <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
   <string name="auth_unknown_error_title">Gadījās nezināma kļūda!</string>
   <string name="auth_unknown_host_title">Nevarēja atrast datoru</string>
