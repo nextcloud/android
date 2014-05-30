@@ -82,6 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s laeti üles</string>
   <string name="uploader_upload_failed_ticker">Üleslaadimine ebaõnnestus</string>
   <string name="uploader_upload_failed_content_single">%1$s üleslaadimise lõpetamine ebaõnnestus</string>
+  <string name="uploader_upload_failed_credentials_error">Üleslaadimine ebaõnnestus, sa pead uuesti sisse logima</string>
   <string name="downloader_download_in_progress_ticker">Allalaadimine ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% allalaadimine %2$s</string>
   <string name="downloader_download_succeeded_ticker">Allalaadimine oli edukas</string>
@@ -89,6 +90,7 @@
   <string name="downloader_download_failed_ticker">Allalaadimine ebaõnnestus</string>
   <string name="downloader_download_failed_content">%1$s allalaadimist ei õnnestunud lõpetada</string>
   <string name="downloader_not_downloaded_yet">Allalaadimata</string>
+  <string name="downloader_download_failed_credentials_error">Allaladimine ebaõnnestus, sa pead uuesti sisse logima</string>
   <string name="common_choose_account">Vali konto</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
@@ -184,6 +186,7 @@
   <string name="sync_file_nothing_to_do_msg">Faili sisu on juba sünkroniseeritud</string>
   <string name="create_dir_fail_msg">Kataloogi ei saa tekitada</string>
   <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Faili nime lahter ei saa olla tühi</string>
   <string name="wait_a_moment">Oota hetk</string>
   <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
   <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
@@ -251,4 +254,8 @@
   <string name="copy_link">Kopeeri link</string>
   <string name="clipboard_text_copied">Kopeeritud lõikepuhvrisse</string>
   <string name="error_cant_bind_to_operations_service">Viga: ei suutnud operatsiooni lõpetada</string>
+  <string name="network_error_socket_exception">Serveriga ühendumisel tekkis tõrge.</string>
+  <string name="network_error_socket_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
+  <string name="network_error_connect_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
+  <string name="network_host_not_available">Toimingu lõpetamine ebaõnnestus, server pole saadaval</string>
 </resources>
