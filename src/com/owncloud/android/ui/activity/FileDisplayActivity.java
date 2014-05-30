@@ -929,11 +929,13 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                         setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
                         
                         if (mSyncInProgress) {
-                            getListOfFilesFragment().showSwipeProgress();
+                            getListOfFilesFragment().disableSwipe();
                             
                         } else {
+                            getListOfFilesFragment().enableSwipe();
                             getListOfFilesFragment().hideSwipeProgress();
                         }
+                        
                 }
                 
                 if (synchResult != null) {
