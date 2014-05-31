@@ -158,8 +158,6 @@
   <string name="fd_keep_in_sync">讓檔案保持最新的</string>
   <string name="common_rename">重新命名</string>
   <string name="common_remove">移除</string>
-  <string name="confirmation_remove_alert">您真的要移除 %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">您真的要移除 %1$s 與裡頭的檔案?</string>
   <string name="confirmation_remove_local">只有本地</string>
   <string name="confirmation_remove_folder_local">只有本地</string>
   <string name="confirmation_remove_remote">從伺服器移除</string>
@@ -215,7 +213,6 @@
   <string name="conflict_overwrite">覆寫</string>
   <string name="conflict_dont_upload">不要上載</string>
   <string name="preview_image_description">圖片預覽</string>
-  <string name="preview_image_error_unknown_format">無法顯示圖片</string>
   <string name="actionbar_failed_instant_upload">即時上傳失敗</string>
   <string name="failed_upload_headline_text">即時上傳失敗</string>
   <string name="failed_upload_headline_hint">所有即時上傳失敗的記錄</string>
@@ -223,7 +220,6 @@
   <string name="failed_upload_headline_retryall_btn">重新上傳選取的檔案</string>
   <string name="failed_upload_headline_delete_all_btn">刪除所有被選取的檔案</string>
   <string name="failed_upload_retry_text">重新上傳這個檔案: </string>
-  <string name="failed_upload_load_more_images">載入更多的檔案</string>
   <string name="failed_upload_retry_do_nothing_text">未連線, 所以無法使用上傳功能</string>
   <string name="failed_upload_failure_text">失敗訊息: </string>
   <string name="failed_upload_quota_exceeded_text">請檢查你的伺服器設定, 可能你的額度已超過.</string>

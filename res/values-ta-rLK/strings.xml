@@ -91,8 +91,6 @@
   <string name="fd_keep_in_sync">நவீன கோப்பை வைத்திருக்கவும்</string>
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
-  <string name="confirmation_remove_alert">உங்களுக்கு உண்மையாக %1$s ஐ அகற்றவேண்டுமா?</string>
-  <string name="confirmation_remove_folder_alert">உங்களுக்கு%1$s ஐயும் அதன் உள்ளடக்கங்களையும் அகற்ற வேண்டுமா?</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>
   <string name="confirmation_remove_folder_local">இடத்துரி உள்ளடக்கங்கள் மட்டும்</string>
   <string name="confirmation_remove_remote">சேவையகத்திலிருந்து அகற்றுக</string>

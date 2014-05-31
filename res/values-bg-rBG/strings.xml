@@ -66,7 +66,6 @@
   <string name="fd_keep_in_sync">Дръж файлът обновен</string>
   <string name="common_rename">Преименуване</string>
   <string name="common_remove">Премахване</string>
-  <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="confirmation_remove_remote">Премахни от сървъра</string>
   <string name="rename_server_fail_msg">Преименуването не може да се осъществи</string>

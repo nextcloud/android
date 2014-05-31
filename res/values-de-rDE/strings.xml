@@ -167,12 +167,9 @@
   <string name="auth_unsupported_auth_method">Der Server unterstützt diese Authentifizierung-Methode nicht</string>
   <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
   <string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator\n⇥</string>
-  <string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
   <string name="fd_keep_in_sync">Datei aktuell halten</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
-  <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
-  <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="confirmation_remove_folder_local">Nur lokale Inhalte</string>
   <string name="confirmation_remove_remote">Vom Server entfernen</string>
@@ -232,7 +229,6 @@
   <string name="conflict_overwrite">Überschreiben</string>
   <string name="conflict_dont_upload">Nicht hochladen</string>
   <string name="preview_image_description">Bildvorschau</string>
-  <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
   <string name="actionbar_failed_instant_upload">Sofort-Upload fehlgeschlagen</string>
   <string name="failed_upload_headline_text">Sofortige Uploads fehlgeschlagen</string>
@@ -241,7 +237,6 @@
   <string name="failed_upload_headline_retryall_btn">Versuche alle ausgewählten erneut</string>
   <string name="failed_upload_headline_delete_all_btn">Lösche alle ausgewählten aus der Uploadwarteschlange</string>
   <string name="failed_upload_retry_text">Bildupload erneut versuchen:</string>
-  <string name="failed_upload_load_more_images">Lade weitere Bilder</string>
   <string name="failed_upload_retry_do_nothing_text">Nicht durchgeführt - Nicht online für sofortigen Upload</string>
   <string name="failed_upload_failure_text">Fehlermeldung:</string>
   <string name="failed_upload_quota_exceeded_text">Bitte überprüfen Sie Ihre Serverkonfiguration. Vielleicht ist Ihr Nutzungslimit überschritten.</string>
@@ -253,9 +248,7 @@
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="copy_link">Link kopieren</string>
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
-  <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
   <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
   <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
   <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
-  <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
 </resources>

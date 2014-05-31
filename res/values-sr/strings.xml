@@ -74,7 +74,6 @@
   <string name="fd_keep_in_sync">Редовно ажурирај датотеку</string>
   <string name="common_rename">Преименуј</string>
   <string name="common_remove">Уклони</string>
-  <string name="confirmation_remove_alert">Желите ли да уклоните %1$s?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="confirmation_remove_remote">Уклони са сервера</string>
   <string name="confirmation_remove_remote_and_local">Удаљено и локално</string>

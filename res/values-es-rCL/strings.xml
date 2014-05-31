@@ -96,7 +96,6 @@
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Remover</string>
-  <string name="confirmation_remove_alert">Realmente desea remover %1$s?</string>
   <string name="confirmation_remove_local">Solo local</string>
   <string name="confirmation_remove_folder_local">solo contenidos locales </string>
   <string name="confirmation_remove_remote">Eliminar desde el servidor</string>

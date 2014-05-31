@@ -165,12 +165,9 @@
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera multikont</string>
   <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem\n\t</string>
-  <string name="auth_can_not_auth_against_server">Nie można autoryzować z tym serwerem</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
-  <string name="confirmation_remove_alert">Czy na pewno chcesz usunąć %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Czy usunąć %1$s oraz jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
   <string name="confirmation_remove_folder_local">Tylko zasoby lokalne</string>
   <string name="confirmation_remove_remote">Usuń z serwera</string>
@@ -230,7 +227,6 @@
   <string name="conflict_overwrite">Zastąp</string>
   <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
-  <string name="preview_image_error_unknown_format">Obraz nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
   <string name="actionbar_failed_instant_upload">InstantUpload nie powiódł się</string>
   <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
@@ -239,7 +235,6 @@
   <string name="failed_upload_headline_retryall_btn">spróbuj zaznaczyć wszystkie</string>
   <string name="failed_upload_headline_delete_all_btn">usuń wszystko z kolejki wysyłania</string>
   <string name="failed_upload_retry_text">ponów wysyłanie obrazu:</string>
-  <string name="failed_upload_load_more_images">Wczytaj więcej obrazów</string>
   <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
   <string name="failed_upload_failure_text">Komunikat błędu:</string>
   <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
@@ -251,5 +246,4 @@
   <string name="activity_chooser_send_file_title">Wyślij</string>
   <string name="copy_link">Skopiuj link</string>
   <string name="clipboard_text_copied">Skopiuj do schowka</string>
-  <string name="error_cant_bind_to_operations_service">Błąd krytyczny: nie można przeprowadzić operacji</string>
 </resources>

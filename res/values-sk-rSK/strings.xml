@@ -163,12 +163,9 @@
   <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
   <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému\n\t</string>
-  <string name="auth_can_not_auth_against_server">Nie je možné urobiť overenie voči tomuto serveru</string>
   <string name="fd_keep_in_sync">Udržiavať súbor aktuálny.</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
-  <string name="confirmation_remove_alert">Naozaj odstrániť %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Chcete odstrániť %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Iba lokálne</string>
   <string name="confirmation_remove_folder_local">Len lokálny obsah</string>
   <string name="confirmation_remove_remote">Zmazať zo servera</string>
@@ -227,7 +224,6 @@
   <string name="conflict_overwrite">Prepísať</string>
   <string name="conflict_dont_upload">Nenahrávajte</string>
   <string name="preview_image_description">Ukážka obrazu</string>
-  <string name="preview_image_error_unknown_format">Obraz nemôže byť zobrazený</string>
   <string name="actionbar_failed_instant_upload">Okamžité odoslanie zlyhalo</string>
   <string name="failed_upload_headline_text">Zlyhané instantné nahratia</string>
   <string name="failed_upload_headline_hint">Zhrnutie všetkých zlyhaných nahratí</string>
@@ -235,7 +231,6 @@
   <string name="failed_upload_headline_retryall_btn">opakovať všetky vybrané</string>
   <string name="failed_upload_headline_delete_all_btn">zmazať všetky vybrané z radu pre nahratie</string>
   <string name="failed_upload_retry_text">opakovať nahratie obrazu:</string>
-  <string name="failed_upload_load_more_images">Načítať viac Obrázkov</string>
   <string name="failed_upload_retry_do_nothing_text">nevykonať nič, nie ste online pre instantné nahratie</string>
   <string name="failed_upload_failure_text">Chybová správa:</string>
   <string name="failed_upload_quota_exceeded_text">Prosím skontrolujte nastavenie vášho servera, možno bola prekročená disková kvóta.</string>
@@ -246,5 +241,4 @@
   <string name="activity_chooser_send_file_title">Odoslať</string>
   <string name="copy_link">Kopíruj odkaz</string>
   <string name="clipboard_text_copied">Skopírované do \"clipboard\"</string>
-  <string name="error_cant_bind_to_operations_service">Kritická chyba: nemožno vykonať operácie</string>
 </resources>

@@ -60,7 +60,6 @@
   <string name="fd_keep_in_sync">ගොනුව යාවත්කාලීනව තබාගන්න</string>
   <string name="common_rename">නැවත නම් කරන්න</string>
   <string name="common_remove">ඉවත් කරන්න </string>
-  <string name="confirmation_remove_alert">%1$s සැබැවින්ම ඉවත්කිරීමට අවශ්‍යද?</string>
   <string name="confirmation_remove_local">පෙදෙසි පමණක්</string>
   <string name="confirmation_remove_remote">සේවාදායකයාගෙන් ඉවත් කරන්න</string>
   <string name="confirmation_remove_remote_and_local">දුරස්ථ හා පෙදෙසි </string>

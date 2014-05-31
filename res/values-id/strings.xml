@@ -153,8 +153,6 @@
   <string name="fd_keep_in_sync">Biarkan berkas tetap terbaru</string>
   <string name="common_rename">Ubah nama</string>
   <string name="common_remove">Hapus</string>
-  <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Apakah Anda benar-benar ingin menghapus %1$s beserta isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
   <string name="confirmation_remove_folder_local">Konten lokal saja</string>
   <string name="confirmation_remove_remote">Hapus dari server</string>
@@ -208,7 +206,6 @@
   <string name="conflict_overwrite">Timpa</string>
   <string name="conflict_dont_upload">Jangan mengunggah</string>
   <string name="preview_image_description">Pratilik gambar</string>
-  <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
   <string name="actionbar_failed_instant_upload">UnggahInsatan Gagal</string>
   <string name="failed_upload_headline_text">Unggahan instan gagal</string>
   <string name="failed_upload_headline_hint">Ringkasan dari semua unggahan instan yang gagal</string>
@@ -216,7 +213,6 @@
   <string name="failed_upload_headline_retryall_btn">Ulangi semua yang terpilih</string>
   <string name="failed_upload_headline_delete_all_btn">hapus semua yang terpilih dari antrian unggahan</string>
   <string name="failed_upload_retry_text">ulangi unggah gambar:</string>
-  <string name="failed_upload_load_more_images">Muat Gambar selengkapnya</string>
   <string name="failed_upload_retry_do_nothing_text">Tidak melakukan apapun, Anda tidak sedang online</string>
   <string name="failed_upload_failure_text">Pesan Kegagalan:</string>
   <string name="failed_upload_quota_exceeded_text">Silakan periksa konfigurasi server Anda, kemungkinan kuota terlampaui.</string>

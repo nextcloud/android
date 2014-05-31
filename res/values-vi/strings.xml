@@ -158,8 +158,6 @@
   <string name="fd_keep_in_sync">Giữ tập tin cập nhật</string>
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
-  <string name="confirmation_remove_alert">Bạn có thực sự muốn xóa %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Bạn có thật sự muốn xóa %1$s và nội dung của nó ?</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>
   <string name="confirmation_remove_folder_local">Chỉ nội dung trên máy</string>
   <string name="confirmation_remove_remote">Xóa từ máy chủ</string>
@@ -214,7 +212,6 @@
   <string name="conflict_overwrite">Ghi đè lên</string>
   <string name="conflict_dont_upload">Không tải lên</string>
   <string name="preview_image_description">Xem trước hình ảnh</string>
-  <string name="preview_image_error_unknown_format">Không thể hiển thị hình ảnh</string>
   <string name="actionbar_failed_instant_upload">Tải lên nhanh bị lỗi</string>
   <string name="failed_upload_headline_text">Tải lên nhanh bị lỗi</string>
   <string name="failed_upload_headline_hint">Tóm tắt tất cả các tải lên nhanh bị lỗi</string>
@@ -222,7 +219,6 @@
   <string name="failed_upload_headline_retryall_btn">thử lại với tất cả các đối tượng được chọn</string>
   <string name="failed_upload_headline_delete_all_btn">xóa tất cả khỏi các đối tượng được chọn trong hàng đợi chờ tải lên</string>
   <string name="failed_upload_retry_text">thử lại việc tải lên hình ảnh:</string>
-  <string name="failed_upload_load_more_images">Tải thêm nhiều hình ảnh</string>
   <string name="failed_upload_retry_do_nothing_text">không thực hiện thao tác gì nêu bạn không có kết nối mạng dành cho tải lên nhanh</string>
   <string name="failed_upload_failure_text">Thông điệp lỗi:</string>
   <string name="failed_upload_quota_exceeded_text">Vui lòng kiểm tra cấu hình máy chủ của bạn, có thể hạn ngạch dữ liệu đã quá hạn.</string>
