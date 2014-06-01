@@ -146,6 +146,8 @@
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
+  <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
   <string name="confirmation_remove_folder_local">Vain paikallinen sisältö</string>
   <string name="confirmation_remove_remote">Poista palvelimelta</string>
@@ -157,6 +159,7 @@
   <string name="rename_server_fail_msg">Nimen muutos epäonnistui</string>
   <string name="sync_file_fail_msg">Etäpään tiedostoa ei voitu tarkistaa</string>
   <string name="sync_file_nothing_to_do_msg">Tiedoston sisältö on jo synkronoitu</string>
+  <string name="create_dir_fail_msg">Kansion luominen epäonnistui</string>
   <string name="filename_forbidden_characters">Kielletyt merkit: / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
   <string name="wait_a_moment">Odota hetki</string>

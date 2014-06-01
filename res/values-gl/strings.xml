@@ -167,9 +167,12 @@
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
   <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte cun administrador\n\t</string>
+  <string name="auth_can_not_auth_against_server">Non pode autenticarse neste servidor</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
+  <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
   <string name="confirmation_remove_folder_local">Só contidos locais</string>
   <string name="confirmation_remove_remote">Retirar do servidor</string>
@@ -229,6 +232,7 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">Non enviar</string>
   <string name="preview_image_description">Vista previa da imaxe</string>
+  <string name="preview_image_error_unknown_format">Esta imaxe non pode ser amosada</string>
   <string name="error__upload__local_file_not_copied">Non foi posíbel copiar %1$s no cartafol local %2$s</string>
   <string name="actionbar_failed_instant_upload">produciuse un fallo de EnvíoInstantáneo</string>
   <string name="failed_upload_headline_text">Envíos instantáneos fallados</string>
@@ -237,6 +241,7 @@
   <string name="failed_upload_headline_retryall_btn">tentar de novo todo o seleccionado</string>
   <string name="failed_upload_headline_delete_all_btn">eliminar todo o seleccionado da cola de envío</string>
   <string name="failed_upload_retry_text">tentar de novo o envío da imaxe:</string>
+  <string name="failed_upload_load_more_images">Cargar máis imaxes</string>
   <string name="failed_upload_retry_do_nothing_text">non facer nada que non estea en liña para o envío instantáneo</string>
   <string name="failed_upload_failure_text">Mensaxe de fallo:</string>
   <string name="failed_upload_quota_exceeded_text">Comprobe a configuración do seu servidor. é probábel que xa excedera a cota.</string>
@@ -248,7 +253,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar a ligazón</string>
   <string name="clipboard_text_copied">Copiado no portapapeis.</string>
+  <string name="error_cant_bind_to_operations_service">Produciuse un erro crítico: non é posíbel realizar as operacións</string>
   <string name="network_error_socket_exception">Produciuse un erro mentres conectaba co servidor.</string>
   <string name="network_error_socket_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>
   <string name="network_error_connect_timeout_exception">Produciuse un erro mentres agardaba polo servidor, a operación non se puido levar a fin</string>
+  <string name="network_host_not_available">A operación non se completou, o servidor non está dispoñíbel</string>
 </resources>
