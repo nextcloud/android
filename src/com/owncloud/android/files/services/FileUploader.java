@@ -807,9 +807,13 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             resultBuilder.setContentText(content);
             mNotificationManager.notify(tickerId, resultBuilder.build());
             
-            // Remove success notification
-            if (uploadResult.isSuccess()) {   
-                // Sleep 2 seconds, so show the notification before remove it
+            if (uploadResult.isSuccess()) {
+                
+                DbHandler db = new DbHandler(this.getBaseContext());
+                db.removeIUPendingFile(mCurrentUpload.getOriginalStoragePath());
+                db.close();
+
+                // remove success notification, with a delay of 2 seconds
                 NotificationDelayer.cancelWithDelay(
                         mNotificationManager, 
                         R.string.uploader_upload_succeeded_ticker, 
