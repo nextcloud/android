@@ -33,6 +33,8 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
+import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -54,7 +56,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
-import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -809,12 +810,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             // Remove success notification
             if (uploadResult.isSuccess()) {   
                 // Sleep 2 seconds, so show the notification before remove it
-                Handler handler = new Handler(); 
-                handler.postDelayed(new Runnable() { 
-                     public void run() { 
-                         mNotificationManager.cancel(R.string.uploader_upload_succeeded_ticker);
-                     } 
-                }, 2000); 
+                NotificationDelayer.cancelWithDelay(
+                        mNotificationManager, 
+                        R.string.uploader_upload_succeeded_ticker, 
+                        2000);
                 
             }
         }

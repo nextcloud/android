@@ -36,6 +36,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
+import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -46,7 +48,6 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
-import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -507,12 +508,18 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             // Remove success notification
             if (downloadResult.isSuccess()) {   
                 // Sleep 2 seconds, so show the notification before remove it
+                NotificationDelayer.cancelWithDelay(
+                        mNotificationManager, 
+                        R.string.downloader_download_succeeded_ticker, 
+                        2000);
+                /*
                 Handler handler = new Handler(); 
                 handler.postDelayed(new Runnable() { 
                      public void run() { 
                          mNotificationManager.cancel(R.string.downloader_download_succeeded_ticker);
                      } 
-                }, 2000); 
+                }, 2000);
+                */ 
                 
             }
                 

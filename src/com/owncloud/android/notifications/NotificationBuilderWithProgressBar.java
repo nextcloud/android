@@ -15,13 +15,17 @@
  *
  */
 
-package com.owncloud.android.utils;
+package com.owncloud.android.notifications;
 
 import com.owncloud.android.R;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -127,5 +131,6 @@ public class NotificationBuilderWithProgressBar extends NotificationCompat.Build
         }
         return result;
     }
+    
     
 }
