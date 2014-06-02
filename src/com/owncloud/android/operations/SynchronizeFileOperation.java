@@ -53,21 +53,20 @@ public class SynchronizeFileOperation extends SyncOperation {
     private Context mContext;
     
     private boolean mTransferWasRequested = false;
-    
-    public SynchronizeFileOperation(
-            OCFile localFile,
-            OCFile serverFile,          // make this null to let the operation checks the server; added to reuse info from SynchronizeFolderOperation 
-            Account account, 
-            boolean syncFileContents,
-            Context context) {
-        
-        mLocalFile = localFile;
-        mServerFile = serverFile;
-        mAccount = account;
-        mSyncFileContents = syncFileContents;
-        mContext = context;
-    }
 
+    
+    /**
+     * Constructor.
+     * 
+     * Uses remotePath to retrieve all the data in local cache and remote server when the operation
+     * is executed, instead of reusing {@link OCFile} instances.
+     * 
+     * @param 
+     * @param account               ownCloud account holding the file.
+     * @param syncFileContents      When 'true', transference of data will be started by the 
+     *                              operation if needed and no conflict is detected.
+     * @param context               Android context; needed to start transfers.
+     */
     public SynchronizeFileOperation(
             String remotePath,  
             Account account, 
@@ -75,11 +74,42 @@ public class SynchronizeFileOperation extends SyncOperation {
             Context context) {
         
         mRemotePath = remotePath;
+        mLocalFile = null;
         mServerFile = null;
         mAccount = account;
         mSyncFileContents = syncFileContents;
         mContext = context;
     }
+
+    
+    /**
+     * Constructor allowing to reuse {@link OCFile} instances just queried from cache or network.
+     * 
+     * Useful for folder / account synchronizations.
+     * 
+     * @param localFile             Data of file currently hold in device cache. MUSTN't be null.
+     * @param serverFile            Data of file just retrieved from network. If null, will be
+     *                              retrieved from network by the operation when executed.
+     * @param account               ownCloud account holding the file.
+     * @param syncFileContents      When 'true', transference of data will be started by the 
+     *                              operation if needed and no conflict is detected.
+     * @param context               Android context; needed to start transfers.
+     */
+    public SynchronizeFileOperation(
+            OCFile localFile,
+            OCFile serverFile, 
+            Account account, 
+            boolean syncFileContents,
+            Context context) {
+        
+        mLocalFile = localFile;
+        mServerFile = serverFile;
+        mRemotePath = localFile.getRemotePath();
+        mAccount = account;
+        mSyncFileContents = syncFileContents;
+        mContext = context;
+    }
+    
 
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
@@ -87,8 +117,10 @@ public class SynchronizeFileOperation extends SyncOperation {
         RemoteOperationResult result = null;
         mTransferWasRequested = false;
         
-        // Get local file from the DB
-        mLocalFile = getStorageManager().getFileByPath(mRemotePath);
+        if (mLocalFile == null) {
+            // Get local file from the DB
+            mLocalFile = getStorageManager().getFileByPath(mRemotePath);
+        }
         
         if (!mLocalFile.isDown()) {
             /// easy decision
@@ -99,8 +131,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             /// local copy in the device -> need to think a bit more before do anything
 
             if (mServerFile == null) {
-                String remotePath = mLocalFile.getRemotePath();
-                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(remotePath);
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(mRemotePath);
                 result = operation.execute(client);
                 if (result.isSuccess()){
                     mServerFile = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
