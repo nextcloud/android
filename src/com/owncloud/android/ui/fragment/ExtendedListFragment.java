@@ -76,6 +76,10 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
+        // Colors in animations: background
+        mRefreshLayout.setColorScheme(R.color.background_color, R.color.background_color, 
+                 R.color.background_color, R.color.background_color);
+        
         mRefreshLayout.setOnRefreshListener(this);
         
         return v;
