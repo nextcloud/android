@@ -157,8 +157,6 @@
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
-  <string name="confirmation_remove_alert">¿Estás seguro que querés borrar %1$s?</string>
-  <string name="confirmation_remove_folder_alert">¿Realmente quieres borrar %1$s y todos sus contenidos ?</string>
   <string name="confirmation_remove_local">Sólo local</string>
   <string name="confirmation_remove_folder_local">Solo archivos locales</string>
   <string name="confirmation_remove_remote">Borrar del servidor</string>
@@ -212,7 +210,6 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
-  <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
   <string name="actionbar_failed_instant_upload">Falló InstantUpload</string>
   <string name="failed_upload_headline_text">Error en Cargas instantánea </string>
   <string name="failed_upload_headline_hint">Resumen de todas las cargas instantáneas con error</string>
@@ -220,7 +217,6 @@
   <string name="failed_upload_headline_retryall_btn">Reintentar con todos los seleccionados</string>
   <string name="failed_upload_headline_delete_all_btn">Eliminar todo de la cola de subida</string>
   <string name="failed_upload_retry_text">Reintentar subida de imagen:</string>
-  <string name="failed_upload_load_more_images">Cargar mas imágenes</string>
   <string name="failed_upload_retry_do_nothing_text">No hacer nada, no estás conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor, revisá la configuración de servidor, posiblemente tu cuota se haya excedido.</string>

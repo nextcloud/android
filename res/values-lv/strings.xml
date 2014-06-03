@@ -96,8 +96,6 @@
   <string name="fd_keep_in_sync">Uzturēt datni aktuālu</string>
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
-  <string name="confirmation_remove_alert">Vai tiešām vēlaties izņemt %1$s?</string>
-  <string name="confirmation_remove_folder_alert">Vai vēlaties izņemt %1$s un tā saturu?</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>
   <string name="confirmation_remove_folder_local">Tikai lokālo saturu</string>
   <string name="confirmation_remove_remote">Izņemt no servera</string>

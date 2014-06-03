@@ -102,8 +102,6 @@
   <string name="fd_keep_in_sync">არ განაახლო ფაილი</string>
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
-  <string name="confirmation_remove_alert">ნამდვილად გინდათ წაშალოთ %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">თქვენ აუცილებლად გინდათ %1$s–ის წაშლა თავისი კონტენტით?</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
   <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური კონტენტი</string>
   <string name="confirmation_remove_remote">სერვერიდან წაშლა</string>

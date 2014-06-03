@@ -172,7 +172,7 @@
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
   <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
-  <string name="confirmation_remove_folder_alert">Gerçekten %1s ve içeriğini silmek istediğinizden emin misiniz?</string>
+  <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
   <string name="confirmation_remove_folder_local">Sadece yerel içerik</string>
   <string name="confirmation_remove_remote">Sunucudan kaldır</string>
@@ -232,7 +232,7 @@
   <string name="conflict_overwrite">Üzerine yaz</string>
   <string name="conflict_dont_upload">Yükleme</string>
   <string name="preview_image_description">Resim önizleme</string>
-  <string name="preview_image_error_unknown_format">Bu resim gösterilemez</string>
+  <string name="preview_image_error_unknown_format">Bu resim gösterilemiyor</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
   <string name="actionbar_failed_instant_upload">AnındaYükleme başarısız</string>
   <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>

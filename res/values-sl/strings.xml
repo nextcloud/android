@@ -165,12 +165,9 @@
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
   <string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.\n\t</string>
-  <string name="auth_can_not_auth_against_server">S tem strežnikom overitev ni mogoča</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
-  <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Ali ste prepričani, da želite odstraniti %1$s in njeno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
   <string name="confirmation_remove_folder_local">Le krajevno vsebino</string>
   <string name="confirmation_remove_remote">Odstrani s strežnika</string>
@@ -229,7 +226,6 @@
   <string name="conflict_overwrite">Prepiši</string>
   <string name="conflict_dont_upload">Ne pošlji</string>
   <string name="preview_image_description">Predogled slike</string>
-  <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
   <string name="actionbar_failed_instant_upload">Spodletelo takojšnje pošiljanje</string>
   <string name="failed_upload_headline_text">Spodletela takojšnja pošiljanja</string>
@@ -238,7 +234,6 @@
   <string name="failed_upload_headline_retryall_btn">vse izbrane poskusi znova</string>
   <string name="failed_upload_headline_delete_all_btn">izbriši izbrane iz vrste za pošiljanje</string>
   <string name="failed_upload_retry_text">poskusi poslati sliko:</string>
-  <string name="failed_upload_load_more_images">Naloži več slik</string>
   <string name="failed_upload_retry_do_nothing_text">ne pošlji takoj, saj je povezava v omrežje ni dejavna</string>
   <string name="failed_upload_failure_text">Sporočilo o napaki:</string>
   <string name="failed_upload_quota_exceeded_text">Preverite nastavitve strežnika. Morda je presežena vrednost količinske omejitve.</string>
@@ -250,5 +245,4 @@
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>
   <string name="clipboard_text_copied">Kopirano v odložišče</string>
-  <string name="error_cant_bind_to_operations_service">Kritična napaka: ni mogoče izvesti opravila.</string>
 </resources>

@@ -157,8 +157,6 @@
   <string name="fd_keep_in_sync">파일을 최신 정보로 유지</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
-  <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>
-  <string name="confirmation_remove_folder_alert">%1$s 및 그 내용을 삭제하시겠습니까?</string>
   <string name="confirmation_remove_local">로컬만</string>
   <string name="confirmation_remove_folder_local">로컬 콘텐츠만</string>
   <string name="confirmation_remove_remote">서버에서 삭제</string>
@@ -212,7 +210,6 @@
   <string name="conflict_overwrite">덮어쓰기</string>
   <string name="conflict_dont_upload">업로드하지 않음</string>
   <string name="preview_image_description">그림 미리보기</string>
-  <string name="preview_image_error_unknown_format">이 그림을 볼수 없습니다</string>
   <string name="actionbar_failed_instant_upload">자동 업로드가 실패했습니다</string>
   <string name="failed_upload_headline_text">자동 업로드 실패함</string>
   <string name="failed_upload_headline_hint">실패된 자동 업로드 전체 요약</string>
@@ -220,7 +217,6 @@
   <string name="failed_upload_headline_retryall_btn">전체 선택 재시도</string>
   <string name="failed_upload_headline_delete_all_btn">선택된 업로드 큐 전체 삭제</string>
   <string name="failed_upload_retry_text">이미지 업로드 재시도:</string>
-  <string name="failed_upload_load_more_images">더 많은 사진 불러오기</string>
   <string name="failed_upload_retry_do_nothing_text">현재 온라인이 아니셔서 자동 업로드를 할수 없습니다</string>
   <string name="failed_upload_failure_text">실패 메시지:</string>
   <string name="failed_upload_quota_exceeded_text">서버 설정을 확인해주세요, 아마 업로드 제한을 초과하셨을겁니다.</string>

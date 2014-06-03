@@ -166,12 +166,12 @@
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador\n\t</string>
-  <string name="auth_can_not_auth_against_server">No puede autenticarse en este servidor.</string>
+  <string name="auth_can_not_auth_against_server">No es posible autenticarse con este servidor</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
-  <string name="confirmation_remove_alert">¿Está seguro que desea borrar %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">¿Desea eliminar %1$s y sus descendientes?</string>
+  <string name="confirmation_remove_alert">¿Realmente desea eliminar %1$s?</string>
+  <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
   <string name="confirmation_remove_folder_local">Sólo ficheros locales</string>
   <string name="confirmation_remove_remote">Eliminar del servidor</string>
@@ -231,7 +231,7 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
-  <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
+  <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada.</string>
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
   <string name="actionbar_failed_instant_upload">Carga instantánea fallida</string>
   <string name="failed_upload_headline_text">Cargas instantáneas fallidas</string>
@@ -240,7 +240,7 @@
   <string name="failed_upload_headline_retryall_btn">Reintentar todos los seleccionados</string>
   <string name="failed_upload_headline_delete_all_btn">Eliminar todo de la cola de subida</string>
   <string name="failed_upload_retry_text">Reintentar subida de imagen:</string>
-  <string name="failed_upload_load_more_images">Cargar mas imágenes</string>
+  <string name="failed_upload_load_more_images">Cargar más imágenes</string>
   <string name="failed_upload_retry_do_nothing_text">No hacer nada no está conectado para subida instantánea</string>
   <string name="failed_upload_failure_text">Mensaje de error:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor revise su configuración de servidor, posiblemente su cuota se haya excedido.</string>
@@ -252,9 +252,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar enlace</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
-  <string name="error_cant_bind_to_operations_service">Error crítico: no se pueden hacer operaciones</string>
+  <string name="error_cant_bind_to_operations_service">Error crítico: no es posible realizar operaciones</string>
   <string name="network_error_socket_exception">Ocurrió un error al conectarse con el servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
   <string name="network_error_connect_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
-  <string name="network_host_not_available">La operación no se pudo completar; el servidor no está disponible </string>
+  <string name="network_host_not_available">La operación no se pudo completar; el servidor no está disponible</string>
 </resources>

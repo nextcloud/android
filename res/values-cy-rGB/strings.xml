@@ -96,8 +96,6 @@
   <string name="fd_keep_in_sync">Cadw\'r ffeil yn gyfredol</string>
   <string name="common_rename">Ailenwi</string>
   <string name="common_remove">Gwaredu</string>
-  <string name="confirmation_remove_alert">Ydych chi wir am gael gwared ar %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Ydych chi wir am waredu %1$s a\'i gynnwys?</string>
   <string name="confirmation_remove_local">Lleol yn unig</string>
   <string name="confirmation_remove_folder_local">Cynnwys lleol yn unig</string>
   <string name="confirmation_remove_remote">Gwaredu o\'r gweinydd</string>

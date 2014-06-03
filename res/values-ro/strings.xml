@@ -101,7 +101,6 @@
   <string name="fd_keep_in_sync">Păstrează fișierul actualizat</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
-  <string name="confirmation_remove_alert">Sigur dorești să elimini %1$s ?</string>
   <string name="confirmation_remove_local">Doar local</string>
   <string name="confirmation_remove_remote">Elimină de pe server</string>
   <string name="remove_success_msg">Eliminat cu succes</string>
@@ -129,6 +128,5 @@
   <string name="ssl_validator_no_info_about_error">- Nu exista nici o informaţie pentru aceasta eroare</string>
   <string name="instant_upload_path">/Încărcare instanta</string>
   <string name="conflict_dont_upload">Nu încarcă</string>
-  <string name="preview_image_error_unknown_format">Aceasta imagine nu poate fi accesata </string>
   <string name="activity_chooser_send_file_title">Expediază</string>
 </resources>

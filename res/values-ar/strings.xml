@@ -164,12 +164,9 @@
   <string name="auth_unsupported_auth_method">الخادم لا يدعم طريقة التحقق هذه</string>
   <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
   <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول\n\t</string>
-  <string name="auth_can_not_auth_against_server">لا يمكن المصادقة من الخادم</string>
   <string name="fd_keep_in_sync"> جعل الملف محدثا</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
-  <string name="confirmation_remove_alert">هل تود حقاَ إزالة %1$s ؟ </string>
-  <string name="confirmation_remove_folder_alert">هل ترغب حقا في إزالة %1$s و محتوياته ؟</string>
   <string name="confirmation_remove_local">محليا فقط</string>
   <string name="confirmation_remove_folder_local">المحتويات المحلية فقط</string>
   <string name="confirmation_remove_remote">الحذف من الخادم</string>
@@ -228,7 +225,6 @@
   <string name="conflict_overwrite">استبدال</string>
   <string name="conflict_dont_upload">عدم الرفع</string>
   <string name="preview_image_description">معاينة الصورة</string>
-  <string name="preview_image_error_unknown_format">هذه الصورة لا يمكن أن تظهر</string>
   <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
   <string name="actionbar_failed_instant_upload">فشل في محاولة الرفع الفوري</string>
   <string name="failed_upload_headline_text">فشل في الرفع الفوري</string>
@@ -237,7 +233,6 @@
   <string name="failed_upload_headline_retryall_btn">اعادة كل المختارات</string>
   <string name="failed_upload_headline_delete_all_btn">حذف كل المختارات من قائمة انتظار الرفع</string>
   <string name="failed_upload_retry_text">اعادة المحاولة لرفع الصورة:</string>
-  <string name="failed_upload_load_more_images">تحميل المزيد من الصور</string>
   <string name="failed_upload_retry_do_nothing_text">do nothing you are not online for instant upload</string>
   <string name="failed_upload_failure_text">رسالة خطا:</string>
   <string name="failed_upload_quota_exceeded_text">الرجاء التاكد من اعدادات الخادم, من الممكن انك تعديت الحد في quota</string>
@@ -249,5 +244,4 @@
   <string name="activity_chooser_send_file_title">أرسل</string>
   <string name="copy_link">نسخ الرابط</string>
   <string name="clipboard_text_copied">تم النسخ للحافظة</string>
-  <string name="error_cant_bind_to_operations_service">خطأ حرج: لا يمكن تنفيذ العمليات</string>
 </resources>

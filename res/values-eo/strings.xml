@@ -95,8 +95,6 @@
   <string name="fd_keep_in_sync">Teni dosieron ĝisdatigita</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
-  <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
-  <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj sian enhavon?</string>
   <string name="confirmation_remove_local">Nur loka</string>
   <string name="confirmation_remove_folder_local">Nur lokaj enhavoj</string>
   <string name="confirmation_remove_remote">Forigi el la servilo</string>
