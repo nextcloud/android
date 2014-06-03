@@ -23,7 +23,7 @@ public class NotificationDelayer {
         handler.postDelayed(new Runnable() { 
              public void run() { 
                  notificationManager.cancel(notificationId);
-                 ((HandlerThread)Thread.currentThread()).getLooper().quitSafely();
+                 ((HandlerThread)Thread.currentThread()).getLooper().quit();
              } 
         }, delayInMillis); 
     
