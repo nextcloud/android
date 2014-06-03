@@ -512,15 +512,6 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                         mNotificationManager, 
                         R.string.downloader_download_succeeded_ticker, 
                         2000);
-                /*
-                Handler handler = new Handler(); 
-                handler.postDelayed(new Runnable() { 
-                     public void run() { 
-                         mNotificationManager.cancel(R.string.downloader_download_succeeded_ticker);
-                     } 
-                }, 2000);
-                */ 
-                
             }
                 
         }
