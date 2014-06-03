@@ -119,14 +119,14 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     }
 
     @Override
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
         // to be @overriden  
     }
 
     @Override
     public void onRefresh() {
         // to be @overriden  
-        
+        mRefreshLayout.setRefreshing(false);
     }
 
     /**

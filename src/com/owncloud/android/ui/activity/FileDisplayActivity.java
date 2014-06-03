@@ -928,7 +928,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                             
                         } else {
                             getListOfFilesFragment().enableSwipe();
-                            getListOfFilesFragment().hideSwipeProgress();
                         }
                         
                 }
