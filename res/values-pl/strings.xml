@@ -82,6 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">Wysyłanie %1$s zakończone sukcesem</string>
   <string name="uploader_upload_failed_ticker">Wysyłanie nie powiodło się</string>
   <string name="uploader_upload_failed_content_single">Wysyłanie %1$s nie powiodło się</string>
+  <string name="uploader_upload_failed_credentials_error">Przesyłanie nie powiodło się, musisz się ponownie zalogować</string>
   <string name="downloader_download_in_progress_ticker">Pobieranie …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
   <string name="downloader_download_succeeded_ticker">Pobieranie zakończone</string>
@@ -89,6 +90,7 @@
   <string name="downloader_download_failed_ticker">Pobieranie nieudane</string>
   <string name="downloader_download_failed_content">Pobieranie %1$s nie powiodło się</string>
   <string name="downloader_not_downloaded_yet">Nie poprane jeszcze</string>
+  <string name="downloader_download_failed_credentials_error">Ściganie nie powiodło się, musisz się ponownie zalogować</string>
   <string name="common_choose_account">Wybierz konto</string>
   <string name="sync_fail_ticker">Błąd synchronizacji</string>
   <string name="sync_fail_content">Nie można było ukończyć synchronizacji %1$s </string>
@@ -165,9 +167,12 @@
   <string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
   <string name="auth_unsupported_multiaccount">%1$s nie wspiera multikont</string>
   <string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem\n\t</string>
+  <string name="auth_can_not_auth_against_server">Nie można autoryzować wykorzystując ten serwer</string>
   <string name="fd_keep_in_sync">Automatyczne aktualizuj plik</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
+  <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
   <string name="confirmation_remove_local">Tylko lokalnie</string>
   <string name="confirmation_remove_folder_local">Tylko zasoby lokalne</string>
   <string name="confirmation_remove_remote">Usuń z serwera</string>
@@ -227,6 +232,7 @@
   <string name="conflict_overwrite">Zastąp</string>
   <string name="conflict_dont_upload">Nie wysyłaj</string>
   <string name="preview_image_description">Podgląd</string>
+  <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
   <string name="actionbar_failed_instant_upload">InstantUpload nie powiódł się</string>
   <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
@@ -235,6 +241,7 @@
   <string name="failed_upload_headline_retryall_btn">spróbuj zaznaczyć wszystkie</string>
   <string name="failed_upload_headline_delete_all_btn">usuń wszystko z kolejki wysyłania</string>
   <string name="failed_upload_retry_text">ponów wysyłanie obrazu:</string>
+  <string name="failed_upload_load_more_images">Załaduj więcej zdjęć</string>
   <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
   <string name="failed_upload_failure_text">Komunikat błędu:</string>
   <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
@@ -246,4 +253,9 @@
   <string name="activity_chooser_send_file_title">Wyślij</string>
   <string name="copy_link">Skopiuj link</string>
   <string name="clipboard_text_copied">Skopiuj do schowka</string>
+  <string name="error_cant_bind_to_operations_service">Błąd krytyczny: nie można wykonać operacji</string>
+  <string name="network_error_socket_exception">Pojawił się błąd podczas łączenia z serwerem.</string>
+  <string name="network_error_socket_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
+  <string name="network_error_connect_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
+  <string name="network_host_not_available">Nie można dokończyć operacji, serwer jest niedostępny</string>
 </resources>
