@@ -25,6 +25,7 @@ import com.owncloud.android.utils.Log_OC;
 
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +37,15 @@ import android.widget.ListView;
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
  */
-public class ExtendedListFragment extends SherlockFragment implements OnItemClickListener {
+public class ExtendedListFragment extends SherlockFragment implements OnItemClickListener, SwipeRefreshLayout.OnRefreshListener{
     
     private static final String TAG = ExtendedListFragment.class.getSimpleName();
 
     private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
 
     protected ExtendedListView mList;
+    
+    private SwipeRefreshLayout mRefreshLayout;
     
     public void setListAdapter(ListAdapter listAdapter) {
         mList.setAdapter(listAdapter);
@@ -58,6 +61,7 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.e(TAG, "onCreateView");
         //mList = new ExtendedListView(getActivity());
+        
         View v = inflater.inflate(R.layout.list_fragment, null);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
@@ -69,6 +73,14 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
             setReferencePosition(referencePosition);
         }
+        
+        // Pull down refresh
+        mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
+        // Colors in animations: background
+        mRefreshLayout.setColorScheme(R.color.background_color, R.color.background_color, 
+                 R.color.background_color, R.color.background_color);
+        
+        mRefreshLayout.setOnRefreshListener(this);
         
         return v;
     }
@@ -111,9 +123,44 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     }
 
     @Override
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
         // to be @overriden  
     }
 
+    @Override
+    public void onRefresh() {
+        // to be @overriden  
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * Enables swipe gesture
+     */
+    public void enableSwipe() {
+        mRefreshLayout.setEnabled(true);
+    }
+ 
+    /**
+     * Disables swipe gesture. It prevents manual gestures but keeps the option you show
+     * refreshing programmatically.
+     */
+    public void disableSwipe() {
+        mRefreshLayout.setEnabled(false);
+    }
+    
+    /**
+     * It shows the SwipeRefreshLayout progress
+     */
+    public void showSwipeProgress() {
+        mRefreshLayout.setRefreshing(true);
+    }
+ 
+    /**
+     * It shows the SwipeRefreshLayout progress
+     */
+    public void hideSwipeProgress() {
+        mRefreshLayout.setRefreshing(false);
+    }
+ 
     
 }
