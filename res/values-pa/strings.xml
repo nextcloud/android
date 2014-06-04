@@ -84,7 +84,6 @@
   <string name="fd_keep_in_sync">ਫਾਇਲ ਨੂੰ ਅੱਪ ਟੂ ਡੇਟ ਰੱਖੋ</string>
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
-  <string name="confirmation_remove_alert">ਕੀ ਤੁਸੀਂ %1$s ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="confirmation_remove_remote">ਸਰਵਰ ਤੋਂ ਹਟਾਓ</string>
   <string name="confirmation_remove_remote_and_local">ਰਿਮੋਟ ਤੇ ਲੋਕਲ</string>

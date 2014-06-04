@@ -165,12 +165,9 @@
   <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
   <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
   <string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者にご連絡ください。\n\t</string>
-  <string name="auth_can_not_auth_against_server">このサーバーを認証できません</string>
   <string name="fd_keep_in_sync">ファイルを最新に保つ</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
-  <string name="confirmation_remove_alert">本当に %1$s を削除してもよろしいですか？</string>
-  <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
   <string name="confirmation_remove_folder_local">ローカルコンテンツのみ</string>
   <string name="confirmation_remove_remote">サーバーから削除</string>
@@ -229,7 +226,6 @@
   <string name="conflict_overwrite">上書き</string>
   <string name="conflict_dont_upload">アップロードしない</string>
   <string name="preview_image_description">イメージプレビュー</string>
-  <string name="preview_image_error_unknown_format">この画像は表示できません</string>
   <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダ %2$s  にコピーできませんでした。</string>
   <string name="actionbar_failed_instant_upload">インスタントアップロードに失敗</string>
   <string name="failed_upload_headline_text">インスタントアップロードに失敗</string>
@@ -238,7 +234,6 @@
   <string name="failed_upload_headline_retryall_btn">すべての選択を再試行</string>
   <string name="failed_upload_headline_delete_all_btn">アップロードキューからすべての選択を削除</string>
   <string name="failed_upload_retry_text">画像のアップロードを再試行:</string>
-  <string name="failed_upload_load_more_images">更に画像を読み込む</string>
   <string name="failed_upload_retry_do_nothing_text">オンラインでなく、インスタントアップロードのために何もしません</string>
   <string name="failed_upload_failure_text">失敗メッセージ:</string>
   <string name="failed_upload_quota_exceeded_text">サーバー設定を確認してください。クォータサイズを超えている可能性があります。</string>
@@ -250,5 +245,4 @@
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
   <string name="clipboard_text_copied">クリップボードにコピー</string>
-  <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
 </resources>

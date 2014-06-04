@@ -155,12 +155,9 @@
   <string name="auth_connecting_auth_server">Kapcsolódás a felhasználóazonosítást végző kiszolgálóhoz...</string>
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-  <string name="auth_can_not_auth_against_server">Nem hiteleíthető a szerverrel szemben</string>
   <string name="fd_keep_in_sync">Automatikusan frissítse a fájlokat</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
-  <string name="confirmation_remove_alert">Tényleg szeretné törölni  ezt: %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Tényleg törölni akarja ezt a tartalmával együtt: %1$s?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
   <string name="confirmation_remove_folder_local">Csak a helyi tartalmat</string>
   <string name="confirmation_remove_remote">Törlés a szerverről</string>
@@ -217,7 +214,6 @@
   <string name="conflict_overwrite">Felülírás</string>
   <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
-  <string name="preview_image_error_unknown_format">Ez a kép nem jelenik meg</string>
   <string name="actionbar_failed_instant_upload">Sikertelen azonnali feltöltés\"</string>
   <string name="failed_upload_headline_text">Sikertelen Azonnali feltöltés</string>
   <string name="failed_upload_headline_hint">Összefoglaló az összes sikertelen instant feltöltésről</string>
@@ -225,7 +221,6 @@
   <string name="failed_upload_headline_retryall_btn">újra az összes kiválasztott</string>
   <string name="failed_upload_headline_delete_all_btn">törölje az összes kiválasztottat a feltöltési sorból</string>
   <string name="failed_upload_retry_text">újra feltölteni a képet:</string>
-  <string name="failed_upload_load_more_images">További képek betöltése</string>
   <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
   <string name="failed_upload_failure_text">Hibaüzenet</string>
   <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>

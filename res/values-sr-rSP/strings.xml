@@ -38,7 +38,6 @@
   <string name="auth_connection_established">Konekcija uspostavljena</string>
   <string name="common_rename">Preimenij</string>
   <string name="common_remove">Ukloni</string>
-  <string name="confirmation_remove_alert">Da li želite da uklonite %1$s ?</string>
   <string name="remove_success_msg">Uklanjanje je uspelo</string>
   <string name="remove_fail_msg">Uklanjanje nije uspelo</string>
   <string name="wait_a_moment">Molim pričekajte</string>

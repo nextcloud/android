@@ -88,7 +88,6 @@
   <string name="fd_keep_in_sync">Hald fila oppdatert</string>
   <string name="common_rename">Endra namn</string>
   <string name="common_remove">Fjern</string>
-  <string name="confirmation_remove_alert">Vil du verkeleg fjerna %1$s?</string>
   <string name="confirmation_remove_local">Berre lokalt</string>
   <string name="confirmation_remove_remote">Fjern frå tenaren</string>
   <string name="confirmation_remove_remote_and_local">Ekstern og lokal</string>

@@ -167,12 +167,12 @@
   <string name="auth_unsupported_auth_method">O servidor non admite este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
   <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte cun administrador\n\t</string>
-  <string name="auth_can_not_auth_against_server">Non é posíbel autenticalo neste servidor</string>
+  <string name="auth_can_not_auth_against_server">Non pode autenticarse neste servidor</string>
   <string name="fd_keep_in_sync">Manter actualizado o ficheiro</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
-  <string name="confirmation_remove_alert">Confirma que quere retirar %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido ?</string>
+  <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
   <string name="confirmation_remove_folder_local">Só contidos locais</string>
   <string name="confirmation_remove_remote">Retirar do servidor</string>

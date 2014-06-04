@@ -110,8 +110,6 @@
   <string name="fd_keep_in_sync">לשמור על קובץ עדכני</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
-  <string name="confirmation_remove_alert">האם אכן להסיר את </string>
-  <string name="confirmation_remove_folder_alert">האם אכן ברצונך להסיר את %1$s על כל תוכנו ?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
   <string name="confirmation_remove_folder_local">תכנים מקומיים בלבד</string>
   <string name="confirmation_remove_remote">הסרה מהשרת</string>
@@ -163,7 +161,6 @@
   <string name="failed_upload_headline_retryall_btn">לנסות שוב את כל הנבחרים</string>
   <string name="failed_upload_headline_delete_all_btn">למחוק את כל הנבחרים מתור ההעלאה</string>
   <string name="failed_upload_retry_text">לנסות להעלות את התמונה מחדש:</string>
-  <string name="failed_upload_load_more_images">טעינת תמונות נוספות</string>
   <string name="failed_upload_failure_text">הודעת התקלה:</string>
   <string name="failed_upload_quota_exceeded_text">נא לבדוק את תצורת שרת שלך, יתכן שחרגת מהמיכסה שלך.</string>
   <string name="activity_chooser_send_file_title">שליחה</string>

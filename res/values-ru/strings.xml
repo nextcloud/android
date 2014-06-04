@@ -167,11 +167,11 @@
   <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддерживает сразу несколько учётных записей</string>
   <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором</string>
-  <string name="auth_can_not_auth_against_server">Не могу авторизоваться на этом сервере </string>
+  <string name="auth_can_not_auth_against_server">Невозможно аутентифицироваться на этом сервере</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
-  <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s ?</string>
+  <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
   <string name="confirmation_remove_folder_local">Только локальные данные</string>
@@ -232,7 +232,7 @@
   <string name="conflict_overwrite">Заменить</string>
   <string name="conflict_dont_upload">Не загружать</string>
   <string name="preview_image_description">Предпросмотр</string>
-  <string name="preview_image_error_unknown_format">Это изображение не может быть показано</string>
+  <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
   <string name="error__upload__local_file_not_copied">%1$s не возможно скопировать в локальною папку %2$s </string>
   <string name="actionbar_failed_instant_upload">Сбой немедленной загрузки</string>
   <string name="failed_upload_headline_text">Сбой немедленной загрузки</string>
@@ -241,7 +241,7 @@
   <string name="failed_upload_headline_retryall_btn">Ещё раз попробовать всё выделенное</string>
   <string name="failed_upload_headline_delete_all_btn">Удалить выбранное из очереди загрузки</string>
   <string name="failed_upload_retry_text">попробовать ещё раз загрузить изображение:</string>
-  <string name="failed_upload_load_more_images">Загрузить больше картинок</string>
+  <string name="failed_upload_load_more_images">Загрузить ещё картинок</string>
   <string name="failed_upload_retry_do_nothing_text">Ничего не делать, если нет подключения к сети</string>
   <string name="failed_upload_failure_text">Сообщение об ошибке:</string>
   <string name="failed_upload_quota_exceeded_text">Проверьте настройки сервера, возможно ваш лимит исчерпан</string>
@@ -253,7 +253,7 @@
   <string name="activity_chooser_send_file_title">Отправить</string>
   <string name="copy_link">Копировать ссылку</string>
   <string name="clipboard_text_copied">Скопировано в буфер обмена</string>
-  <string name="error_cant_bind_to_operations_service">Критическая ошибка: не возможно выполнить операции</string>
+  <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить операции</string>
   <string name="network_error_socket_exception">При подключении к серверу возникла ошибка</string>
   <string name="network_error_socket_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_error_connect_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>

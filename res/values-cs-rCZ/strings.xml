@@ -165,12 +165,9 @@
   <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
   <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
   <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte vašeho administrátora</string>
-  <string name="auth_can_not_auth_against_server">Není možné provést ověření vůči tomuto serveru</string>
   <string name="fd_keep_in_sync">Udržovat soubor aktuální</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>
-  <string name="confirmation_remove_alert">Opravdu si přejete odstranit %1$s ?</string>
-  <string name="confirmation_remove_folder_alert">Opravdu si přejete odstranit %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Pouze místní</string>
   <string name="confirmation_remove_folder_local">Pouze místní obsah</string>
   <string name="confirmation_remove_remote">Odstranit ze serveru</string>
@@ -229,7 +226,6 @@
   <string name="conflict_overwrite">Přepsat</string>
   <string name="conflict_dont_upload">Nenahrávat</string>
   <string name="preview_image_description">Náhled obrázku</string>
-  <string name="preview_image_error_unknown_format">Obrázek nemůže být zobrazen</string>
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
   <string name="actionbar_failed_instant_upload">Selhalo Okamžité odeslání</string>
   <string name="failed_upload_headline_text">Selhaná okamžitá odeslání</string>
@@ -238,7 +234,6 @@
   <string name="failed_upload_headline_retryall_btn">zkusit znovu vybrané</string>
   <string name="failed_upload_headline_delete_all_btn">smazat vybrané z fronty k nahrání</string>
   <string name="failed_upload_retry_text">zkusit znovu odeslat obrázek:</string>
-  <string name="failed_upload_load_more_images">Načíst více obrázků</string>
   <string name="failed_upload_retry_do_nothing_text">nic nedělat nejste připojeni pro okamžité odeslání</string>
   <string name="failed_upload_failure_text">Chybová zpráva:</string>
   <string name="failed_upload_quota_exceeded_text">Zkontrolujte prosím nastavení vašeho serveru, možná jste překročili kvótu.</string>
@@ -250,5 +245,4 @@
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>
   <string name="clipboard_text_copied">Zkopírováno do schránky</string>
-  <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
 </resources>

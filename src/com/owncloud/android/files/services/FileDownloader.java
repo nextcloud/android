@@ -36,6 +36,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
+import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -46,7 +48,6 @@ import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
-import com.owncloud.android.utils.NotificationBuilderWithProgressBar;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
@@ -494,29 +495,25 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 mDownloadClient = null;   // grant that future retries on the same account will get the fresh credentials
                 
             } else {
-                Intent showDetailsIntent = null;
-                if (downloadResult.isSuccess()) {
-                    if (PreviewImageFragment.canBePreviewed(download.getFile())) {
-                        showDetailsIntent = new Intent(this, PreviewImageActivity.class);
-                    } else {
-                        showDetailsIntent = new Intent(this, FileDisplayActivity.class);
-                    }
-                    showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, download.getFile());
-                    showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT, download.getAccount());
-                    showDetailsIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    
-                } else {
-                    // TODO put something smart in showDetailsIntent
-                    showDetailsIntent = new Intent();
-                }
+                // TODO put something smart in showDetailsIntent
+                Intent   showDetailsIntent = new Intent();
                 mNotificationBuilder
                     .setContentIntent(PendingIntent.getActivity(
                         this, (int) System.currentTimeMillis(), showDetailsIntent, 0));
             }
             
             mNotificationBuilder.setContentText(ErrorMessageAdapter.getErrorCauseMessage(downloadResult, download, getResources()));
-            
             mNotificationManager.notify(tickerId, mNotificationBuilder.build());
+            
+            // Remove success notification
+            if (downloadResult.isSuccess()) {   
+                // Sleep 2 seconds, so show the notification before remove it
+                NotificationDelayer.cancelWithDelay(
+                        mNotificationManager, 
+                        R.string.downloader_download_succeeded_ticker, 
+                        2000);
+            }
+                
         }
     }
     

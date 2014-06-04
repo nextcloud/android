@@ -23,13 +23,19 @@
 	android:layout_weight="1"
 	android:orientation="vertical" >
 
-	<com.owncloud.android.ui.ExtendedListView
-        android:id="@+id/list_root"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_files"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" 
-	/>
-    
+        android:layout_height="match_parent" >
+
+        <com.owncloud.android.ui.ExtendedListView
+            android:id="@+id/list_root"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+        
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <TextView
     	android:id="@+id/empty_list_view"
         android:layout_width="match_parent"

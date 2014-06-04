@@ -241,7 +241,7 @@
   <string name="failed_upload_headline_retryall_btn">Versuche alle ausgewählten erneut</string>
   <string name="failed_upload_headline_delete_all_btn">Lösche alle ausgewählten aus der Uploadwarteschlange</string>
   <string name="failed_upload_retry_text">Bildupload erneut versuchen:</string>
-  <string name="failed_upload_load_more_images">Lade weitere Bilder</string>
+  <string name="failed_upload_load_more_images">Weitere Bilder laden</string>
   <string name="failed_upload_retry_do_nothing_text">Nicht durchgeführt - Nicht online für sofortigen Upload</string>
   <string name="failed_upload_failure_text">Fehlermeldung:</string>
   <string name="failed_upload_quota_exceeded_text">Bitte überprüfen Sie Ihre Serverkonfiguration. Vielleicht ist Ihr Nutzungslimit überschritten.</string>
