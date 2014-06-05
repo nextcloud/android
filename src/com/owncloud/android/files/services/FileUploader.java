@@ -48,8 +48,8 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -486,8 +486,9 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 /// prepare client object to send requests to the ownCloud server
                 if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
                     mLastAccount = mCurrentUpload.getAccount();
-                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                    mUploadClient = OwnCloudClientFactory.createOwnCloudClient(mLastAccount, getApplicationContext());
+                    mStorageManager = 
+                            new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mUploadClient = OwnCloudClientMap.getClientFor(mLastAccount, this);
                 }
                 
                 /// check the existence of the parent folder for the file to upload

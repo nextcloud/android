@@ -19,8 +19,14 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.httpclient.Credentials;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -68,6 +74,11 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientMap;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+import com.owncloud.android.lib.common.network.BearerCredentials;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -918,10 +929,45 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                         
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
+                        if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                                    equals(event) &&
+                                /// TODO refactor and make common
+                                synchResult != null && !synchResult.isSuccess() &&  
+                                (synchResult.getCode() == ResultCode.UNAUTHORIZED   || 
+                                    synchResult.isIdPRedirection()                  ||
+                                    (synchResult.isException() && synchResult.getException() 
+                                            instanceof AuthenticatorException))) {
+                            
+
+                            OwnCloudClient client = OwnCloudClientMap.removeClientFor(getAccount());
+                            if (client != null) {
+                                Credentials cred = client.getCredentials();
+                                String ssoSessionCookie = client.getSsoSessionCookie();
+                                if (cred != null || ssoSessionCookie != null) {
+                                    boolean bearerAuthorization = (cred != null && cred instanceof BearerCredentials);
+                                    boolean samlBasedSsoAuthorization = (cred == null && ssoSessionCookie != null);
+                                    AccountManager am = AccountManager.get(context);
+                                
+                                    if (bearerAuthorization) {
+                                        am.invalidateAuthToken(getAccount().type, 
+                                                ((BearerCredentials)cred).getAccessToken());
+                                        
+                                    } else if (samlBasedSsoAuthorization ) {
+                                        am.invalidateAuthToken(getAccount().type, ssoSessionCookie);
+        
+                                    } else {
+                                        am.clearPassword(getAccount());
+                                    }
+                                }
+                            }
+                            
+                            requestCredentialsUpdate();
+                            
                         }
-                        removeStickyBroadcast(intent);
-                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                    }
+                    removeStickyBroadcast(intent);
+                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
                         
                 }
                 
@@ -1478,7 +1524,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null, this);
+        synchFolderOp.execute(getAccount(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
     }

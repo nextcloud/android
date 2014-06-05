@@ -25,8 +25,9 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -453,8 +454,12 @@ public class OperationsService extends Service {
                 if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                     mLastTarget = next.first;
                     if (mLastTarget.mAccount != null) {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mAccount, getApplicationContext());
-                        mStorageManager = new FileDataStorageManager(mLastTarget.mAccount, getContentResolver());
+                        mOwnCloudClient = 
+                                OwnCloudClientMap.getClientFor(mLastTarget.mAccount, this);
+                        mStorageManager = 
+                                new FileDataStorageManager(
+                                        mLastTarget.mAccount, 
+                                        getContentResolver());
                     } else {
                         mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
                                 mLastTarget.mFollowRedirects);    // this is not good enough

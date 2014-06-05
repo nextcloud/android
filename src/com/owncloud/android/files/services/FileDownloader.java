@@ -34,14 +34,14 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
 import com.owncloud.android.notifications.NotificationDelayer;
-import com.owncloud.android.operations.DownloadFileOperation;
+import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
@@ -347,8 +347,9 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                 /// prepare client object to send the request to the ownCloud server
                 if (mDownloadClient == null || !mLastAccount.equals(mCurrentDownload.getAccount())) {
                     mLastAccount = mCurrentDownload.getAccount();
-                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                    mDownloadClient = OwnCloudClientFactory.createOwnCloudClient(mLastAccount, getApplicationContext());
+                    mStorageManager = 
+                            new FileDataStorageManager(mLastAccount, getContentResolver());
+                    mDownloadClient = OwnCloudClientMap.getClientFor(mLastAccount, this);
                 }
 
                 /// perform the download

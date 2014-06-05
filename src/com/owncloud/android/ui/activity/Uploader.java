@@ -329,18 +329,9 @@ public class Uploader extends ListActivity implements OnItemClickListener, andro
 
     public void uploadFiles() {
         try {
-            //OwnCloudClient webdav = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
 
             ArrayList<String> local = new ArrayList<String>();
             ArrayList<String> remote = new ArrayList<String>();
-            
-            /* TODO - mCreateDir can never be true at this moment; we will replace wdc.createDirectory by CreateFolderOperation when that is fixed 
-            OwnCloudClient wdc = OwnCloudClientUtils.createOwnCloudClient(mAccount, getApplicationContext());
-            // create last directory in path if necessary
-            if (mCreateDir) {
-                wdc.createDirectory(mUploadPath);
-            }
-            */
             
             // this checks the mimeType 
             for (Parcelable mStream : mStreamsToUpload) {

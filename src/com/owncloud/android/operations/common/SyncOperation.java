@@ -97,6 +97,7 @@ public abstract class SyncOperation extends RemoteOperation {
      * @param listenerHandler   Handler associated to the thread where the methods of the listener objects must be called.
      * @return                  Thread were the remote operation is executed.
      */
+	/*
     public Thread execute(FileDataStorageManager storageManager, Context context, OnRemoteOperationListener listener, Handler listenerHandler, Activity callerActivity) {
         if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a NULL storage manager");
@@ -107,6 +108,7 @@ public abstract class SyncOperation extends RemoteOperation {
         mStorageManager = storageManager;
         return super.execute(storageManager.getAccount(), context, listener, listenerHandler, callerActivity);
     }
+    */
 
     
 	/**
