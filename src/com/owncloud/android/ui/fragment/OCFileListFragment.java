@@ -440,6 +440,9 @@ public class OCFileListFragment extends ExtendedListFragment {
         super.onRefresh();
         
         if (mFile != null) {
+            // Refresh mFile
+            mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
+            
             listDirectory(mFile);
             
             ((FileDisplayActivity)mContainerActivity).startSyncFolderOperation(mFile);
