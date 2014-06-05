@@ -442,10 +442,11 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (mFile != null) {
             // Refresh mFile
             mFile = mContainerActivity.getStorageManager().getFileById(mFile.getFileId());
-            
+
             listDirectory(mFile);
             
             ((FileDisplayActivity)mContainerActivity).startSyncFolderOperation(mFile);
+            Log_OC.d(TAG, "Parent etag= |" + mFile.getEtag() + "|");
         }
     }
     
