@@ -94,7 +94,7 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         
         RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
         client.setWebdavUri(Uri.parse(mWebDavUrl));
-        client.setBasicCredentials("", "");
+        client.clearCredentials();
         client.setFollowRedirects(false);
         
         // try to access the root folder, following redirections but not SAML SSO redirections
