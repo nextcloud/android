@@ -31,7 +31,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
-import com.owncloud.android.utils.Log_OC;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -134,7 +133,6 @@ implements ConfirmationDialogFragmentListener {
             
            folder.setEtag("");
            storageManager.saveFile(folder);
-           Log_OC.d("RemoveFileDialogFragment", "Parent etag= |" + folder.getEtag() + "|");
         }
     }
 

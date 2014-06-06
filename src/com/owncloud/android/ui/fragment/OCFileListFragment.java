@@ -446,7 +446,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             listDirectory(mFile);
             
             ((FileDisplayActivity)mContainerActivity).startSyncFolderOperation(mFile);
-            Log_OC.d(TAG, "Parent etag= |" + mFile.getEtag() + "|");
         }
     }
     
