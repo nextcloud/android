@@ -218,7 +218,7 @@
   <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
   <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
   <string name="placeholder_sentence">Isto é un marcador de posición</string>
-  <string name="placeholder_filename">marcador_de_posición.txt</string>
+  <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Imaxe PNG</string>
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
