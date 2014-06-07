@@ -17,6 +17,10 @@
   <string name="prefs_manage_accounts">Kontuak kudeatu</string>
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Babestu zure bezeroa</string>
+  <string name="prefs_instant_upload">Uneko irudi igoerak</string>
+  <string name="prefs_instant_upload_summary">Igo berehala kamerak ateratako argazkiak</string>
+  <string name="prefs_instant_video_upload">Uneko bideo igoerak</string>
+  <string name="prefs_instant_video_upload_summary">Igo berehala kamerak filmatutako bideoak</string>
   <string name="prefs_log_title">Gaitu erregistroa</string>
   <string name="prefs_log_summary">Arazoen erregistroa gordetzeko erabiltzen da</string>
   <string name="prefs_log_title_history">Erregistro historia</string>
@@ -27,6 +31,7 @@
   <string name="prefs_feedback">Oharrak</string>
   <string name="prefs_imprint">Imprint</string>
   <string name="recommend_subject">Probatu %1$s zure telefono adimentsuan!</string>
+  <string name="recommend_text">Nik %1$s zure telefono adimentsuan erabiltzera gonbidatu nahi zaitut! Deskargatu hemen: %2$s</string>
   <string name="auth_check_server">Egiaztatu zerbitzaria</string>
   <string name="auth_host_url">Zerbitzariaren helbidea https://</string>
   <string name="auth_username">Erabiltzaile izena</string>
@@ -35,6 +40,7 @@
   <string name="sync_string_files">Fitxategiak</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
+  <string name="uploader_top_message">Hautatu igoera karpeta:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_text">Zure gailuan ez dago %1$s konturik. Mesedez konfiguratu kontu bat lehenengo.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Konfiguratu</string>
@@ -76,6 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s ongi igo da</string>
   <string name="uploader_upload_failed_ticker">igotzeak huts egin du</string>
   <string name="uploader_upload_failed_content_single">%1$s fitxategiaren igoera ezin izan da burutu</string>
+  <string name="uploader_upload_failed_credentials_error">Huts egin du igotzen, berriro sartu behar duzu</string>
   <string name="downloader_download_in_progress_ticker">Deskargatzen ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Deskarga ongi burutu da</string>
@@ -83,6 +90,7 @@
   <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
   <string name="downloader_download_failed_content">%1$s fitxategiaren deskarga ezin izan da burutu</string>
   <string name="downloader_not_downloaded_yet">Oraindik deskargatu gabe</string>
+  <string name="downloader_download_failed_credentials_error">Huts egin du deskargatzen, berriro sartu behar duzu</string>
   <string name="common_choose_account">Hautatu kontua</string>
   <string name="sync_fail_ticker">Sinkronizazioak huts egin du</string>
   <string name="sync_fail_content">%1$s fitxategiaren sinkronizazioa ezin da burutu</string>
@@ -92,6 +100,8 @@
   <string name="sync_fail_in_favourites_ticker">edukien sinkronizazioak huts egin du</string>
   <string name="sync_fail_in_favourites_content">%1$d fitxategien edukiak ezin dira sinkronizatu (%2$d gatazka)</string>
   <string name="sync_foreign_files_forgotten_ticker">Bertako fitxategi batzuk ahaztu dira</string>
+  <string name="sync_foreign_files_forgotten_content">%2$s karpetako %1$d fitxategi ezin dira dira kopiatu</string>
+  <string name="sync_foreign_files_forgotten_explanation">1.3.16 bertsioan, gailu honetatik igotzen diren fitxategiak bertako %1$s karpetara mugitzen dira datu galera ekiditeko fitxategi bat kontu ezberdinekin sinkronizatzen denean. Aldaketa hau dela eta, programa honen aurreko bertsioetan igotako fitxategi guztiak %2$s karpetara kopiatu dira. Hala ere, errore batek hau burutzea ekidin du kontuaren sinkronizazioa egiten ari zen bitartean. Orain fitxategiak dauden bezala utz ditzakezu eta %3$s rako lotura ezabatu, edo fitxategiak %1$s karpetara mugi ditzakezu eta %4$srako lotura mantendu. Behean bertako fitxategien zerrenda eta %5$s era lotuta zeuden urruneko fitxategiena.</string>
   <string name="sync_current_folder_was_removed">%1$s karpeta dagoeneko ez da existitzen</string>
   <string name="foreign_files_move">Mugitu denak</string>
   <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
@@ -127,6 +137,7 @@
   <string name="media_rewind_description">Atzeratu botoia</string>
   <string name="media_play_pause_description">Erreproduzitu edo pausatu botoia</string>
   <string name="media_forward_description">Azkar aurreratu botoia</string>
+  <string name="auth_getting_authorization">Baimena eskuratzen...</string>
   <string name="auth_trying_to_login">Saioa hasten saiatzen...</string>
   <string name="auth_no_net_conn_title">Ez dago sare konexiorik</string>
   <string name="auth_nossl_plain_ok_title">Konexio segurua ez dago eskuragarri</string>
@@ -155,9 +166,13 @@
   <string name="auth_connecting_auth_server">Konektatzen autentikazio zerbitzarira...</string>
   <string name="auth_unsupported_auth_method">Zerbitzariak ez du autentikazio metodo hau onartzen</string>
   <string name="auth_unsupported_multiaccount">%1$s ez du kontu anitzak onartzen</string>
+  <string name="auth_fail_get_user_name">Zure zerbitzariak ez du bueltatzen erabiltzailearen id egokia, mesedez jarri harremanetan administratzailearekin.</string>
+  <string name="auth_can_not_auth_against_server">Ezin da autentikatu zerbitzarian.</string>
   <string name="fd_keep_in_sync">Mantendu fitxategia eguneratuta</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
+  <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
+  <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
   <string name="confirmation_remove_folder_local">Eduki lokalak bakarrik</string>
   <string name="confirmation_remove_remote">Zerbitzaritik ezabatu</string>
@@ -169,7 +184,9 @@
   <string name="rename_server_fail_msg">Izen aldaketa ezin izan da burutu</string>
   <string name="sync_file_fail_msg">Urruneko fitxategia ezin izan da arakatu</string>
   <string name="sync_file_nothing_to_do_msg">Fitxategi edukiak dagoeneko sinkronizaturik</string>
+  <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
   <string name="filename_forbidden_characters">Debekatutako karaktereak: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Fitxategi izena ezin da hutsa izan</string>
   <string name="wait_a_moment">Itxaron momentu bat</string>
   <string name="filedisplay_unexpected_bad_get_content">Ezusteko arazoa; mesedez, saiatu beste app batekin fitxategia hautatzeko</string>
   <string name="filedisplay_no_file_selected">Ez da fitxategirik hautatu</string>
@@ -198,6 +215,8 @@
   <string name="ssl_validator_label_validity_to">Noiz arte:</string>
   <string name="ssl_validator_label_signature">Sinadura:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmoa:</string>
+  <string name="ssl_validator_null_cert">Ezin da ziurtagiria erakutsi.</string>
+  <string name="ssl_validator_no_info_about_error">- Ez dago errorearen gaineko informaziorik.</string>
   <string name="placeholder_sentence">Hau leku-marka da</string>
   <string name="placeholder_filename">kokalekua.txt</string>
   <string name="placeholder_filetype">PNG Irudia</string>
@@ -205,6 +224,7 @@
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Igo irudiak bakarrik WIFIren bidez</string>
+  <string name="instant_video_upload_on_wifi">Igo bideoak bakarrik WIFIren bidez</string>
   <string name="instant_upload_path">/BerehalakoIgoerak</string>
   <string name="conflict_title">Igoera konfliktoa</string>
   <string name="conflict_message">Urruneko %s fitxategia ez dago bertako fitxategiarekin sinkronizatuta. Jarraituz gero zerbitzariko fitxategiaren edukia ordeztuko da.</string>
@@ -212,6 +232,8 @@
   <string name="conflict_overwrite">Gainidatzi</string>
   <string name="conflict_dont_upload">Ez igo</string>
   <string name="preview_image_description">Irudi aurreikuspena</string>
+  <string name="preview_image_error_unknown_format">Ezin da irudi hau erakutsi</string>
+  <string name="error__upload__local_file_not_copied">%1$s ezin da %2$s karpeta lokalera kopiatu</string>
   <string name="actionbar_failed_instant_upload">UnekoIgoerak huts egin du</string>
   <string name="failed_upload_headline_text">Uneko igoerek huts egin dute</string>
   <string name="failed_upload_headline_hint">Huts egindako igoeren laburpena</string>
@@ -219,9 +241,11 @@
   <string name="failed_upload_headline_retryall_btn">Berriz saiatu hautatutakoak</string>
   <string name="failed_upload_headline_delete_all_btn">kendu hautatutakoak igoera-ilaratik</string>
   <string name="failed_upload_retry_text">Berriz saiatu irudia igotzen:</string>
+  <string name="failed_upload_load_more_images">Igo argazki gehiago</string>
   <string name="failed_upload_retry_do_nothing_text">ez egin ezer ez zaude on-line uneko igoerarentzat</string>
   <string name="failed_upload_failure_text">Hutsegite mezua:</string>
   <string name="failed_upload_quota_exceeded_text">Egiaztatu zure konfigurazioa, agian zure kuota muga gainditu  duzu.</string>
+  <string name="share_link_no_support_share_api">Sentitzen dut, partekatzea ez dago zure zerbitzarian gaituta. Mesedez jarri harremanetan zure administratzailearekin.</string>
   <string name="share_link_file_no_exist">Ezin izan da karpeta edo fitxategi hau partekatu. Mesedez, ziurtatu existitzen dela</string>
   <string name="share_link_file_error">Errore bat egon da fitxategaia edo karpeta partekatzerakoan</string>
   <string name="unshare_link_file_no_exist">Ezin izan da karpeta edo fitxategi honen partekatzeari utzi. Ez da existitzen.</string>
@@ -229,4 +253,9 @@
   <string name="activity_chooser_send_file_title">Bidali</string>
   <string name="copy_link">Lotura kopiatu</string>
   <string name="clipboard_text_copied">Arbelera kopiatua</string>
+  <string name="error_cant_bind_to_operations_service">Errore larria: ezin dira egin eragiketak</string>
+  <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
+  <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
+  <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariaren zain egon bitartean, ezin izan da eragiketa burutu</string>
+  <string name="network_host_not_available">Eragiketa ezin izan da burutu, zerbitzaria ez dago erabilgarri</string>
 </resources>

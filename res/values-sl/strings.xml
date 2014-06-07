@@ -82,6 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s je uspešno poslan</string>
   <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
   <string name="uploader_upload_failed_content_single">Pošiljanja %1$s ni mogoče dokončati</string>
+  <string name="uploader_upload_failed_credentials_error">Napaka pri nalaganju, ponovno se prijavite!</string>
   <string name="downloader_download_in_progress_ticker">Prejemanje …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
   <string name="downloader_download_succeeded_ticker">Prejemanje je uspešno končano</string>
@@ -89,6 +90,7 @@
   <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
   <string name="downloader_download_failed_content">Prejemanja %1$s ni mogoče dokončati</string>
   <string name="downloader_not_downloaded_yet">Prejem še ni zaključen</string>
+  <string name="downloader_download_failed_credentials_error">Napaka pri prenosu, ponovno se prijavite!</string>
   <string name="common_choose_account">Izbor računa</string>
   <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
   <string name="sync_fail_content">Usklajevanja %1$s ni mogoče dokončati</string>
@@ -165,9 +167,12 @@
   <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
   <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
   <string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.\n\t</string>
+  <string name="auth_can_not_auth_against_server">Preverjanje pristnosti s tem strežnikom ni uspela</string>
   <string name="fd_keep_in_sync">Datoteka naj bo posodobljena</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
+  <string name="confirmation_remove_alert">Resnično želite odstraniti %1$s?</string>
+  <string name="confirmation_remove_folder_alert">Resnično želite odstraniti %1$s in vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
   <string name="confirmation_remove_folder_local">Le krajevno vsebino</string>
   <string name="confirmation_remove_remote">Odstrani s strežnika</string>
@@ -181,6 +186,7 @@
   <string name="sync_file_nothing_to_do_msg">Vsebina datoteke je že usklajena</string>
   <string name="create_dir_fail_msg">Mape ni mogoče ustvariti</string>
   <string name="filename_forbidden_characters">Nedovoljeni znaki: characters: / \\ &lt; &gt; : \" | ? *</string>
+  <string name="filename_empty">Ime datoteke ne sme biti prazno</string>
   <string name="wait_a_moment">Počakajte trenutek ...</string>
   <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusite datoteko izbrati z drugim programom.</string>
   <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
@@ -226,6 +232,7 @@
   <string name="conflict_overwrite">Prepiši</string>
   <string name="conflict_dont_upload">Ne pošlji</string>
   <string name="preview_image_description">Predogled slike</string>
+  <string name="preview_image_error_unknown_format">Slike se ne da prikazati</string>
   <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
   <string name="actionbar_failed_instant_upload">Spodletelo takojšnje pošiljanje</string>
   <string name="failed_upload_headline_text">Spodletela takojšnja pošiljanja</string>
@@ -234,6 +241,7 @@
   <string name="failed_upload_headline_retryall_btn">vse izbrane poskusi znova</string>
   <string name="failed_upload_headline_delete_all_btn">izbriši izbrane iz vrste za pošiljanje</string>
   <string name="failed_upload_retry_text">poskusi poslati sliko:</string>
+  <string name="failed_upload_load_more_images">Naloži več slik</string>
   <string name="failed_upload_retry_do_nothing_text">ne pošlji takoj, saj je povezava v omrežje ni dejavna</string>
   <string name="failed_upload_failure_text">Sporočilo o napaki:</string>
   <string name="failed_upload_quota_exceeded_text">Preverite nastavitve strežnika. Morda je presežena vrednost količinske omejitve.</string>
@@ -245,4 +253,9 @@
   <string name="activity_chooser_send_file_title">Pošlji</string>
   <string name="copy_link">Kopiraj povezavo</string>
   <string name="clipboard_text_copied">Kopirano v odložišče</string>
+  <string name="error_cant_bind_to_operations_service">Kritična napaka: dejanj ni možno izvesti</string>
+  <string name="network_error_socket_exception">Pri povezavi s tem strežnikom je prišlo do napake.</string>
+  <string name="network_error_socket_timeout_exception">Med čakanjem na strežnik je prišlo do napake. Zahtevanega dejanja ni bilo moč izvesti.</string>
+  <string name="network_error_connect_timeout_exception">Med čakanjem na strežnik je prišlo do napake. Zahtevanega dejanja ni bilo moč izvesti.</string>
+  <string name="network_host_not_available">Zahtevanega dejanja se ne da izvesti ker strežnik ni dosegljiv.</string>
 </resources>
