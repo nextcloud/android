@@ -24,6 +24,8 @@ package com.owncloud.android.ui.dialog;
  *  
  *  @author David A. Velasco
  */
+import java.util.Vector;
+
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -98,12 +100,40 @@ implements ConfirmationDialogFragmentListener {
     }
     
     /**
-     * Performs the removal of the local copy of the taget file
+     * Performs the removal of the local copy of the target file
      */
     @Override
     public void onNeutral(String callerTag) {
-        ((ComponentsGetter)getSherlockActivity()).getFileOperationsHelper()
+        ComponentsGetter cg = (ComponentsGetter)getSherlockActivity();
+        cg.getFileOperationsHelper()
             .removeFile(mTargetFile, true);
+        
+        FileDataStorageManager storageManager = cg.getStorageManager();
+        
+        boolean containsKeepInSync = false;
+        if (mTargetFile.isFolder()) {
+            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile);
+            for(OCFile file: files) {
+                containsKeepInSync = file.keepInSync() || containsKeepInSync;
+
+                if (containsKeepInSync)
+                    break;
+            }
+        }
+
+        // Remove etag for parent, if file is a keep_in_sync 
+        // or is a folder and contains keep_in_sync        
+        if (mTargetFile.keepInSync() || containsKeepInSync) {
+            OCFile folder = null;
+            if (mTargetFile.isFolder()) {
+                folder = mTargetFile;
+            } else {
+                folder = storageManager.getFileById(mTargetFile.getParentId());
+            }
+            
+           folder.setEtag("");
+           storageManager.saveFile(folder);
+        }
     }
 
     @Override
