@@ -48,6 +48,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -195,6 +196,12 @@ implements OnRemoteOperationListener, ComponentsGetter {
     
     @Override
     protected void onPause()  {
+        // Save cookies here
+        Log_OC.wtf(TAG, "Saving Cookies" );
+        if (mAccount != null) {
+            OwnCloudClientMap.saveClient(mAccount, this);
+        }
+        
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
