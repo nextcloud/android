@@ -26,7 +26,6 @@ import java.util.concurrent.ConcurrentMap;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -461,8 +460,11 @@ public class OperationsService extends Service {
                                         mLastTarget.mAccount, 
                                         getContentResolver());
                     } else {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
-                                mLastTarget.mFollowRedirects);    // this is not good enough
+                        mOwnCloudClient = OwnCloudClientMap.getAnonymousClientFor(
+                                mLastTarget.mServerUrl, 
+                                this,
+                                mLastTarget.mFollowRedirects);
+                        
                         if (mLastTarget.mWebDavUrl != null) {
                             mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
                         }
