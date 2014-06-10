@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -172,8 +173,12 @@ public class OperationsService extends Service {
     @Override
     public void onDestroy() {
         //Log_OC.wtf(TAG, "onDestroy init" );
+        // Saving cookies
+        OwnCloudClientMap.saveAllClients(this, MainApp.getAccountType());
+        
         //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
+        
         //Log_OC.wtf(TAG, "onDestroy end" );
         super.onDestroy();
     }
