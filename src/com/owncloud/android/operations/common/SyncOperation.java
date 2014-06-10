@@ -23,7 +23,6 @@ import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
