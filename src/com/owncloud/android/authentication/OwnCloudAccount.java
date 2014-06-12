@@ -17,59 +17,45 @@
 
 package com.owncloud.android.authentication;
 
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+
 import android.accounts.Account;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.content.Context;
+import android.net.Uri;
 
 /**
- * Account with extra information specific for ownCloud accounts.
- * 
- * TODO integrate in the main app
+ * OwnCloud Account
  * 
  * @author David A. Velasco
  */
-public class OwnCloudAccount extends Account {
+public class OwnCloudAccount {
 
-	private String mAuthTokenType;
-
-	public OwnCloudAccount(String name, String type, String authTokenType) {
-		super(name, type);
-		// TODO validate authTokentype as supported
-		mAuthTokenType = authTokenType;
-	}
-	
-    /**
-     * Reconstruct from parcel
-     * 
-     * @param source The source parcel
-     */
-	public OwnCloudAccount(Parcel source) {
-		super(source);
-        mAuthTokenType = source.readString();
-	}
-	
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    	super.writeToParcel(dest, flags);
-        dest.writeString(mAuthTokenType);
+    private Uri mBaseUri; 
+    
+    private OwnCloudCredentials mCredentials;
+    
+    public OwnCloudAccount(Account savedAccount, Context context) {
+        
     }
-	
-	
-	public String getAuthTokenType() {
-		return mAuthTokenType;
-	}
-
-	
-    public static final Parcelable.Creator<OwnCloudAccount> CREATOR = new Parcelable.Creator<OwnCloudAccount>() {
-        @Override
-        public OwnCloudAccount createFromParcel(Parcel source) {
-            return new OwnCloudAccount(source);
+    
+    public OwnCloudAccount(Uri baseUri, OwnCloudCredentials credentials) {
+        if (baseUri == null) {
+            throw new IllegalArgumentException("Parameter 'baseUri' cannot be null");
         }
+        mBaseUri = baseUri;
+        mCredentials = credentials;
+    }
+    
+    public boolean isAnonymous() {
+        return (mCredentials == null);
+    }
+    
+    public Uri getBaseUri() {
+        return mBaseUri;
+    }
+            
+    public OwnCloudCredentials getCredentials() {
+        return mCredentials;
+    }
 
-        @Override
-        public OwnCloudAccount [] newArray(int size) {
-            return new OwnCloudAccount[size];
-        }
-    };
-	
 }

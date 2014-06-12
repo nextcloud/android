@@ -292,10 +292,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
         } else {
             // in failures, the statistics for the global result are updated
-            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    ( result.isIdPRedirection() &&
-                            getClient().getCredentials() == null      )) {
-                            //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))) {
+            if (    result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
+                    result.isIdPRedirection()
+                ) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -384,13 +383,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
         notificationBuilder.setTicker(i18n(R.string.sync_fail_ticker));
-        boolean needsToUpdateCredentials = (mLastFailedResult != null && 
-                                             (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                ( mLastFailedResult.isIdPRedirection() && 
-                                                  getClient().getCredentials() == null      )
-                                                 //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))
-                                             )
-                                           );
+        boolean needsToUpdateCredentials = (
+                mLastFailedResult != null && (  
+                        mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
+                        mLastFailedResult.isIdPRedirection()
+                )
+        );
         // TODO put something smart in the contentIntent below for all the possible errors
         notificationBuilder.setContentTitle(i18n(R.string.sync_fail_ticker));
         if (needsToUpdateCredentials) {

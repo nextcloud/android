@@ -27,7 +27,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientMap;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -47,6 +49,8 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -174,7 +178,20 @@ public class OperationsService extends Service {
     public void onDestroy() {
         //Log_OC.wtf(TAG, "onDestroy init" );
         // Saving cookies
-        OwnCloudClientMap.saveAllClients(this, MainApp.getAccountType());
+        try {
+            ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+                saveAllClients(this, MainApp.getAccountType());
+            
+            // TODO - get rid of these exceptions
+        } catch (AccountNotFoundException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
         //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
@@ -458,28 +475,40 @@ public class OperationsService extends Service {
                 if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                     mLastTarget = next.first;
                     if (mLastTarget.mAccount != null) {
-                        mOwnCloudClient = 
-                                OwnCloudClientMap.getClientFor(mLastTarget.mAccount, this);
+                        mOwnCloudClient = ((MainApp)getApplicationContext()).
+                                getOwnCloudClientManager().getClientFor(
+                                        mLastTarget.mAccount, 
+                                        this);
                         mStorageManager = 
                                 new FileDataStorageManager(
                                         mLastTarget.mAccount, 
                                         getContentResolver());
                     } else {
-                        mOwnCloudClient = OwnCloudClientMap.getAnonymousClientFor(
-                                mLastTarget.mServerUrl, 
-                                this,
-                                mLastTarget.mFollowRedirects);
+                        OwnCloudCredentials credentials = null;
+                        if (mLastTarget.mUsername != null) {
+                            credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+                                    mLastTarget.mUsername, 
+                                    mLastTarget.mPassword);  // basic
+                            
+                        } else if (mLastTarget.mAuthToken != null) {
+                            credentials = OwnCloudCredentialsFactory.newBearerCredentials(
+                                    mLastTarget.mAuthToken);  // bearer token
+                            
+                        } else if (mLastTarget.mCookie != null) {
+                            credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
+                                    mLastTarget.mCookie); // SAML SSO
+                        }
+                        
+                        mOwnCloudClient = ((MainApp)getApplicationContext()).
+                                getOwnCloudClientManager().getClientFor(
+                                        mLastTarget.mServerUrl,
+                                        credentials,    // still can be null, and that is right
+                                        this);
                         
                         if (mLastTarget.mWebDavUrl != null) {
                             mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
                         }
-                        if (mLastTarget.mUsername != null && mLastTarget.mPassword != null) {
-                            mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
-                        } else if (mLastTarget.mAuthToken != null) {
-                            mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
-                        } else if (mLastTarget.mCookie != null) {
-                            mOwnCloudClient.setSsoSessionCookie(mLastTarget.mCookie);
-                        }
+                        mOwnCloudClient.setFollowRedirects(mLastTarget.mFollowRedirects);
                         mStorageManager = null;
                     }
                 }

@@ -18,6 +18,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import java.io.IOException;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -48,7 +50,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.OwnCloudClientMap;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -199,7 +201,20 @@ implements OnRemoteOperationListener, ComponentsGetter {
         // Save cookies here
         Log_OC.wtf(TAG, "Saving Cookies" );
         if (mAccount != null) {
-            OwnCloudClientMap.saveClient(mAccount, this);
+            try {
+                ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+                    saveClient(mAccount, this);
+                
+                // TODO get rid of the exceptions
+            } catch (AccountNotFoundException e) {
+                e.printStackTrace();
+            } catch (AuthenticatorException e) {
+                e.printStackTrace();
+            } catch (OperationCanceledException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         
         if (mOperationsServiceBinder != null) {

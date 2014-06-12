@@ -19,11 +19,12 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
-import org.apache.commons.httpclient.Credentials;
+import java.io.IOException;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -72,8 +73,8 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientMap;
-import com.owncloud.android.lib.common.network.BearerCredentials;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -932,24 +933,33 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                                     synchResult.isIdPRedirection()                  ||
                                     (synchResult.isException() && synchResult.getException() 
                                             instanceof AuthenticatorException))) {
-                            
 
-                            OwnCloudClient client = OwnCloudClientMap.removeClientFor(getAccount());
+                            OwnCloudClient client = null;
+                            try {
+                                client = ((MainApp)getApplicationContext()).
+                                        getOwnCloudClientManager().removeClientFor(
+                                                getAccount(), 
+                                                context);
+                                // TODO get rid of these exceptions
+                            } catch (AccountNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (AuthenticatorException e) {
+                                e.printStackTrace();
+                            } catch (OperationCanceledException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            
                             if (client != null) {
-                                Credentials cred = client.getCredentials();
-                                String ssoSessionCookie = client.getSsoSessionCookie();
-                                if (cred != null || ssoSessionCookie != null) {
-                                    boolean bearerAuthorization = (cred != null && cred instanceof BearerCredentials);
-                                    boolean samlBasedSsoAuthorization = (cred == null && ssoSessionCookie != null);
+                                OwnCloudCredentials cred = client.getCredentials();
+                                if (cred != null) {
                                     AccountManager am = AccountManager.get(context);
-                                
-                                    if (bearerAuthorization) {
-                                        am.invalidateAuthToken(getAccount().type, 
-                                                ((BearerCredentials)cred).getAccessToken());
-                                        
-                                    } else if (samlBasedSsoAuthorization ) {
-                                        am.invalidateAuthToken(getAccount().type, ssoSessionCookie);
-        
+                                    if (cred.authTokenExpires()) {
+                                        am.invalidateAuthToken(
+                                                getAccount().type, 
+                                                cred.getAuthToken()
+                                        );
                                     } else {
                                         am.clearPassword(getAccount());
                                     }

@@ -28,6 +28,7 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -49,7 +50,6 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientMap;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -488,7 +488,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     mLastAccount = mCurrentUpload.getAccount();
                     mStorageManager = 
                             new FileDataStorageManager(mLastAccount, getContentResolver());
-                    mUploadClient = OwnCloudClientMap.getClientFor(mLastAccount, this);
+                    mUploadClient = ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+                            getClientFor(mLastAccount, this);
                 }
                 
                 /// check the existence of the parent folder for the file to upload
