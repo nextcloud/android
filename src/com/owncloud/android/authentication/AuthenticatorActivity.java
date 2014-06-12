@@ -1417,11 +1417,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String username = mUsernameInput.getText().toString().trim();
         if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
-        }            
-        String accountName = username + "@" + uri.getHost();
-        if (uri.getPort() >= 0) {
-            accountName += ":" + uri.getPort();
         }
+        String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.
+                buildAccountName(uri, username);
         Account newAccount = new Account(accountName, MainApp.getAccountType());
         if (AccountUtils.exists(newAccount, getApplicationContext())) {
             // fail - not a new account, but an existing one; disallow
