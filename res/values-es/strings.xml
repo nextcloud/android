@@ -29,7 +29,7 @@
   <string name="prefs_help">Ayuda</string>
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
-  <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_imprint">Imprimir</string>
   <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
   <string name="recommend_text">\"¡Quiero invitarlo a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s\"\n\t</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
