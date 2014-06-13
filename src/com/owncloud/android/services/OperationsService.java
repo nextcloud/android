@@ -80,7 +80,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
-    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
     public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
     public static final String EXTRA_USERNAME = "USERNAME";
     public static final String EXTRA_PASSWORD = "PASSWORD";
@@ -112,18 +111,16 @@ public class OperationsService extends Service {
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public String mWebDavUrl = null;
         public String mUsername = null;
         public String mPassword = null;
         public String mAuthToken = null;
         public boolean mFollowRedirects = true;
         public String mCookie = null;
         
-        public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
+        public Target(Account account, Uri serverUrl, String username, String password, String authToken,
                 boolean followRedirects, String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
-            mWebDavUrl = webdavUrl;
             mUsername = username;
             mPassword = password;
             mAuthToken = authToken;
@@ -303,8 +300,6 @@ public class OperationsService extends Service {
                 } else {
                     Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
                     String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
-                    String webDavPath = operationIntent.getStringExtra(EXTRA_WEBDAV_PATH);
-                    String webDavUrl = serverUrl + webDavPath;
                     String username = operationIntent.getStringExtra(EXTRA_USERNAME);
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
                     String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
@@ -313,7 +308,6 @@ public class OperationsService extends Service {
                     target = new Target(
                             account, 
                             (serverUrl == null) ? null : Uri.parse(serverUrl),
-                            ((webDavPath == null) || (serverUrl == null)) ? null : webDavUrl,
                             username,
                             password,
                             authToken,
@@ -504,10 +498,6 @@ public class OperationsService extends Service {
                                         mLastTarget.mServerUrl,
                                         credentials,    // still can be null, and that is right
                                         this);
-                        
-                        if (mLastTarget.mWebDavUrl != null) {
-                            mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
-                        }
                         mOwnCloudClient.setFollowRedirects(mLastTarget.mFollowRedirects);
                         mStorageManager = null;
                     }

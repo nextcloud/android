@@ -828,9 +828,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * the root folder of the ownCloud server.
      */
     private void checkBasicAuthorization() {
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-
         /// get basic credentials entered by user
         String username = mUsernameInput.getText().toString();
         String password = mPasswordInput.getText().toString();
@@ -844,18 +841,19 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String remotePath ="";
         boolean successIfAbsent = false;
         boolean followRedirects = true;
-        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, username, password, followRedirects);
+        startExistenceCheckRemoteOperation(
+                remotePath, this, successIfAbsent, username, password, followRedirects);
         
     }
 
-    private void startExistenceCheckRemoteOperation(String remotePath, Context context, boolean successIfAbsent, String webdav_path,
+    private void startExistenceCheckRemoteOperation(
+            String remotePath, Context context, boolean successIfAbsent,
             String username, String password, boolean followRedirects) {
         Intent existenceCheckIntent = new Intent();
         existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SUCCESS_IF_ABSENT, successIfAbsent);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
@@ -904,14 +902,12 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-
         /// test credentials accessing the root folder
         String remotePath ="";
         boolean successIfAbsent = false;
         boolean followRedirections = false;
-        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirections);
+        startExistenceCheckRemoteOperation(
+                remotePath, this, successIfAbsent, "", "", followRedirections);
 
     }
 
@@ -1284,8 +1280,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-        if (result.isSuccess() && webdav_path != null) {
+        if (result.isSuccess()) {
             /// be gentle with the user
             IndeterminateProgressDialog dialog = 
                     IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
@@ -1301,7 +1296,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             String remotePath ="";
             boolean successIfAbsent = false;
             boolean followRedirects = true;
-            startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirects);
+            startExistenceCheckRemoteOperation(
+                    remotePath, this, successIfAbsent, "", "", followRedirects);
 
         } else {
             updateAuthStatusIconAndText(result);
