@@ -28,6 +28,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
@@ -177,7 +178,7 @@ public class OperationsService extends Service {
         //Log_OC.wtf(TAG, "onDestroy init" );
         // Saving cookies
         try {
-            ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+            OwnCloudClientManagerFactory.getDefaultSingleton().
                 saveAllClients(this, MainApp.getAccountType());
             
             // TODO - get rid of these exceptions
@@ -471,8 +472,8 @@ public class OperationsService extends Service {
                     mLastTarget = next.first;
                     if (mLastTarget.mAccount != null) {
                         OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, this);
-                        mOwnCloudClient = ((MainApp)getApplicationContext()).
-                                getOwnCloudClientManager().getClientFor(ocAccount, this);
+                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                getClientFor(ocAccount, this);
                         mStorageManager = 
                                 new FileDataStorageManager(
                                         mLastTarget.mAccount, 
@@ -494,8 +495,8 @@ public class OperationsService extends Service {
                         }
                         OwnCloudAccount ocAccount = new OwnCloudAccount(
                                 mLastTarget.mServerUrl, credentials);
-                        mOwnCloudClient = ((MainApp)getApplicationContext()).
-                                getOwnCloudClientManager().getClientFor(ocAccount, this);
+                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                getClientFor(ocAccount, this);
                         mOwnCloudClient.setFollowRedirects(mLastTarget.mFollowRedirects);
                         mStorageManager = null;
                     }

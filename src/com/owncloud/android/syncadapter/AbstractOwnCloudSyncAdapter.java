@@ -30,6 +30,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -103,7 +104,7 @@ public abstract class AbstractOwnCloudSyncAdapter extends
     protected void initClientForCurrentAccount() throws OperationCanceledException, AuthenticatorException, IOException, AccountNotFoundException {
         AccountUtils.constructFullURLForAccount(getContext(), account);
         OwnCloudAccount ocAccount = new OwnCloudAccount(account, getContext());
-        mClient = ((MainApp)(getContext().getApplicationContext())).getOwnCloudClientManager().
+        mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, getContext());
     }
     

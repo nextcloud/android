@@ -16,7 +16,6 @@
  */
 package com.owncloud.android;
 
-import com.owncloud.android.lib.common.OwnCloudClientManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 
@@ -25,7 +24,8 @@ import android.content.Context;
 /**
  * Main Application of the project
  * 
- * Contains methods to build the "static" strings. These strings were before constants in different classes
+ * Contains methods to build the "static" strings. These strings were before constants in different
+ * classes
  * 
  * @author masensio
  * @author David A. Velasco
@@ -38,8 +38,6 @@ public class MainApp extends Application {
 
     private static Context mContext;
     
-    private OwnCloudClientManager mOwnCloudClientManager;
-
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
@@ -48,12 +46,10 @@ public class MainApp extends Application {
         if (clientPolicy != null &&
                 POLICY_SINGLE_SESSION_PER_ACCOUNT.equals(clientPolicy.toLowerCase())) {
             
-            mOwnCloudClientManager = OwnCloudClientManagerFactory.newOwnCloudClientManager(
-                    Policy.SINGLE_SESSION_PER_ACCOUNT);
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
             
         } else {
-            mOwnCloudClientManager = OwnCloudClientManagerFactory.newOwnCloudClientManager(
-                    Policy.ALWAYS_NEW_CLIENT);
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
         }
         
     }
@@ -103,7 +99,4 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
-    public OwnCloudClientManager getOwnCloudClientManager() {
-        return mOwnCloudClientManager;
-    }
 }

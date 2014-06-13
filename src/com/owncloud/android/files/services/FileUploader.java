@@ -51,6 +51,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -490,7 +491,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                     mStorageManager = 
                             new FileDataStorageManager(mLastAccount, getContentResolver());
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
-                    mUploadClient = ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+                    mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
                 }
                 

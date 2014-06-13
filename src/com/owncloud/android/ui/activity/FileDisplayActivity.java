@@ -73,6 +73,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
@@ -936,10 +937,10 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
 
                             OwnCloudClient client = null;
                             try {
-                                client = ((MainApp)getApplicationContext()).
-                                        getOwnCloudClientManager().removeClientFor(
+                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
+                                        removeClientFor(
                                                 getAccount(), 
-                                                context);
+                                                context));
                                 // TODO get rid of these exceptions
                             } catch (AccountNotFoundException e) {
                                 e.printStackTrace();

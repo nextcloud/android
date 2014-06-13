@@ -37,6 +37,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
 import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -351,7 +352,7 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
                     mStorageManager = 
                             new FileDataStorageManager(mLastAccount, getContentResolver());
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
-                    mDownloadClient = ((MainApp)getApplicationContext()).getOwnCloudClientManager().
+                    mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
                 }
 
