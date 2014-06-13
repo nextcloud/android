@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentMap;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
@@ -469,10 +470,9 @@ public class OperationsService extends Service {
                 if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                     mLastTarget = next.first;
                     if (mLastTarget.mAccount != null) {
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, this);
                         mOwnCloudClient = ((MainApp)getApplicationContext()).
-                                getOwnCloudClientManager().getClientFor(
-                                        mLastTarget.mAccount, 
-                                        this);
+                                getOwnCloudClientManager().getClientFor(ocAccount, this);
                         mStorageManager = 
                                 new FileDataStorageManager(
                                         mLastTarget.mAccount, 
@@ -492,12 +492,10 @@ public class OperationsService extends Service {
                             credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
                                     mLastTarget.mCookie); // SAML SSO
                         }
-                        
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(
+                                mLastTarget.mServerUrl, credentials);
                         mOwnCloudClient = ((MainApp)getApplicationContext()).
-                                getOwnCloudClientManager().getClientFor(
-                                        mLastTarget.mServerUrl,
-                                        credentials,    // still can be null, and that is right
-                                        this);
+                                getOwnCloudClientManager().getClientFor(ocAccount, this);
                         mOwnCloudClient.setFollowRedirects(mLastTarget.mFollowRedirects);
                         mStorageManager = null;
                     }
