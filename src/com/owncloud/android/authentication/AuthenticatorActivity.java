@@ -840,15 +840,14 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// test credentials accessing the root folder
         String remotePath ="";
         boolean successIfAbsent = false;
-        boolean followRedirects = true;
         startExistenceCheckRemoteOperation(
-                remotePath, this, successIfAbsent, username, password, followRedirects);
+                remotePath, this, successIfAbsent, username, password);
         
     }
 
     private void startExistenceCheckRemoteOperation(
             String remotePath, Context context, boolean successIfAbsent,
-            String username, String password, boolean followRedirects) {
+            String username, String password) {
         Intent existenceCheckIntent = new Intent();
         existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
@@ -857,7 +856,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
@@ -905,9 +903,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         /// test credentials accessing the root folder
         String remotePath ="";
         boolean successIfAbsent = false;
-        boolean followRedirections = false;
         startExistenceCheckRemoteOperation(
-                remotePath, this, successIfAbsent, "", "", followRedirections);
+                remotePath, this, successIfAbsent, "", "");
 
     }
 
@@ -1295,9 +1292,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             
             String remotePath ="";
             boolean successIfAbsent = false;
-            boolean followRedirects = true;
             startExistenceCheckRemoteOperation(
-                    remotePath, this, successIfAbsent, "", "", followRedirects);
+                    remotePath, this, successIfAbsent, "", "");
 
         } else {
             updateAuthStatusIconAndText(result);
@@ -1636,7 +1632,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.setAction(OperationsService.ACTION_GET_USER_NAME);
         getUserNameIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
         getUserNameIntent.putExtra(OperationsService.EXTRA_COOKIE, sessionCookie);
-        getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );

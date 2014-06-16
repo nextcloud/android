@@ -86,7 +86,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_USERNAME = "USERNAME";
     public static final String EXTRA_PASSWORD = "PASSWORD";
     public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
-    public static final String EXTRA_FOLLOW_REDIRECTS = "FOLLOW_REDIRECTS";
     public static final String EXTRA_COOKIE = "COOKIE";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
@@ -116,17 +115,15 @@ public class OperationsService extends Service {
         public String mUsername = null;
         public String mPassword = null;
         public String mAuthToken = null;
-        public boolean mFollowRedirects = true;
         public String mCookie = null;
         
         public Target(Account account, Uri serverUrl, String username, String password, String authToken,
-                boolean followRedirects, String cookie) {
+                String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
             mUsername = username;
             mPassword = password;
             mAuthToken = authToken;
-            mFollowRedirects = followRedirects;
             mCookie = cookie;
         }
     }
@@ -305,7 +302,6 @@ public class OperationsService extends Service {
                     String username = operationIntent.getStringExtra(EXTRA_USERNAME);
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
                     String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
-                    boolean followRedirects = operationIntent.getBooleanExtra(EXTRA_FOLLOW_REDIRECTS, true);
                     String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
                     target = new Target(
                             account, 
@@ -313,7 +309,6 @@ public class OperationsService extends Service {
                             username,
                             password,
                             authToken,
-                            followRedirects,
                             cookie
                     );
                     
@@ -497,7 +492,6 @@ public class OperationsService extends Service {
                                 mLastTarget.mServerUrl, credentials);
                         mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                 getClientFor(ocAccount, this);
-                        mOwnCloudClient.setFollowRedirects(mLastTarget.mFollowRedirects);
                         mStorageManager = null;
                     }
                 }

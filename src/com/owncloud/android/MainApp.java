@@ -31,7 +31,10 @@ import android.content.Context;
  * @author David A. Velasco
  */
 public class MainApp extends Application {
-
+    
+    private static final String AUTH_ON = "on";
+    
+    @SuppressWarnings("unused")
     private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
     @SuppressWarnings("unused")
     private static final String POLICY_ALWAYS_NEW_CLIENT = "always new client";
@@ -42,10 +45,9 @@ public class MainApp extends Application {
         super.onCreate();
         MainApp.mContext = getApplicationContext();
         
-        String clientPolicy = getString(R.string.client_creation_policy);
-        if (clientPolicy != null &&
-                POLICY_SINGLE_SESSION_PER_ACCOUNT.equals(clientPolicy.toLowerCase())) {
-            
+        boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
+        
+        if (isSamlAuth) {   
             OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
             
         } else {
