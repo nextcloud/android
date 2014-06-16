@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="actionbar_sync">Refresh cont</string>
   <string name="actionbar_upload">Încarcă</string>
   <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
   <string name="actionbar_upload_files">Fișiere</string>
@@ -15,6 +16,7 @@
   <string name="prefs_pincode">PIN-ul aplicaţiei</string>
   <string name="prefs_pincode_summary">Protejaţi-vă clientul</string>
   <string name="prefs_instant_upload">Încărcare instanta de imagine</string>
+  <string name="prefs_instant_upload_summary">Încărca instantaneu imagini luate de camera</string>
   <string name="prefs_log_delete_history_button">Ştergeţi istoric</string>
   <string name="prefs_help">Ajutor</string>
   <string name="prefs_recommend">Recomandati unui prieten</string>
@@ -67,6 +69,7 @@
   <string name="downloader_download_succeeded_ticker">Descărcarea a reușit</string>
   <string name="downloader_download_succeeded_content">%1$s a fost descărcat cu succes</string>
   <string name="downloader_download_failed_ticker">Descărcarea a eșuat</string>
+  <string name="downloader_download_failed_content">Nu s-a putut face downloadarea completa a %1$s</string>
   <string name="common_choose_account">Alege cont</string>
   <string name="sync_fail_ticker">Sincronizarea a eșuat</string>
   <string name="foreign_files_success">Toate fişierele au fost mutate</string>
@@ -101,8 +104,10 @@
   <string name="fd_keep_in_sync">Păstrează fișierul actualizat</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
+  <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>
   <string name="confirmation_remove_local">Doar local</string>
   <string name="confirmation_remove_remote">Elimină de pe server</string>
+  <string name="confirmation_remove_remote_and_local">De la distanță și local</string>
   <string name="remove_success_msg">Eliminat cu succes</string>
   <string name="remove_fail_msg">Eliminarea nu a reușit</string>
   <string name="rename_dialog_title">Introduceţi un nou nume</string>
