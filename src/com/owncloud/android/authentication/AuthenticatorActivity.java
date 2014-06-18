@@ -723,9 +723,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
-            getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                //Log_OC.wtf(TAG, "checking server..." );
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             } else {
               Log_OC.wtf(TAG, "Server check tried with OperationService unbound!" );
@@ -837,22 +835,16 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
-        /// test credentials accessing the root folder
-        String remotePath ="";
-        boolean successIfAbsent = false;
-        startExistenceCheckRemoteOperation(
-                remotePath, this, successIfAbsent, username, password);
+        /// validate credentials accessing the root folder
+        accessRootFolderRemoteOperation(username, password);
         
     }
 
-    private void startExistenceCheckRemoteOperation(
-            String remotePath, Context context, boolean successIfAbsent,
-            String username, String password) {
+    private void accessRootFolderRemoteOperation(String username, String password) {
         Intent existenceCheckIntent = new Intent();
         existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_SUCCESS_IF_ABSENT, successIfAbsent);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, "/");
         existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
@@ -900,11 +892,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
-        /// test credentials accessing the root folder
-        String remotePath ="";
-        boolean successIfAbsent = false;
-        startExistenceCheckRemoteOperation(
-                remotePath, this, successIfAbsent, "", "");
+        /// validate credentials accessing the root folder
+        accessRootFolderRemoteOperation("", "");
 
     }
 
@@ -1290,10 +1279,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             //mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             
-            String remotePath ="";
-            boolean successIfAbsent = false;
-            startExistenceCheckRemoteOperation(
-                    remotePath, this, successIfAbsent, "", "");
+            accessRootFolderRemoteOperation("", "");
 
         } else {
             updateAuthStatusIconAndText(result);

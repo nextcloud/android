@@ -71,7 +71,6 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
-    public static final String EXTRA_AUTH_TOKEN_TYPE = "AUTH_TOKEN_TYPE";
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
@@ -331,10 +330,7 @@ public class OperationsService extends Service {
                         
                     } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
                         // check OC server and get basic information from it
-                        String authTokenType = 
-                                operationIntent.getStringExtra(EXTRA_AUTH_TOKEN_TYPE);
-                        operation = new GetServerInfoOperation(
-                                serverUrl, authTokenType, OperationsService.this);
+                        operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
                         
                     } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
                         /// GET ACCESS TOKEN to the OAuth server
@@ -349,7 +345,7 @@ public class OperationsService extends Service {
                     } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
                         // Existence Check 
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, true);
+                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, false);
                         operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
                         
                     } else if (action.equals(ACTION_GET_USER_NAME)) {
@@ -475,16 +471,19 @@ public class OperationsService extends Service {
                                         getContentResolver());
                     } else {
                         OwnCloudCredentials credentials = null;
-                        if (mLastTarget.mUsername != null) {
+                        if (mLastTarget.mUsername != null && 
+                                mLastTarget.mUsername.length() > 0) {
                             credentials = OwnCloudCredentialsFactory.newBasicCredentials(
                                     mLastTarget.mUsername, 
                                     mLastTarget.mPassword);  // basic
                             
-                        } else if (mLastTarget.mAuthToken != null) {
+                        } else if (mLastTarget.mAuthToken != null && 
+                                mLastTarget.mAuthToken.length() > 0) {
                             credentials = OwnCloudCredentialsFactory.newBearerCredentials(
                                     mLastTarget.mAuthToken);  // bearer token
                             
-                        } else if (mLastTarget.mCookie != null) {
+                        } else if (mLastTarget.mCookie != null &&
+                                mLastTarget.mCookie.length() > 0) {
                             credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
                                     mLastTarget.mCookie); // SAML SSO
                         }

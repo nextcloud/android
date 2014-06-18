@@ -64,7 +64,6 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
     }
     
     private Context mContext;
-    private String mWebDavUrl;
     
     /**
      * Constructor
@@ -72,9 +71,8 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      * @param context       Android context of the caller.
      * @param webdavUrl
      */
-    public DetectAuthenticationMethodOperation(Context context, String webdavUrl) {
+    public DetectAuthenticationMethodOperation(Context context) {
         mContext = context;
-        mWebDavUrl = webdavUrl;
     }
     
 
