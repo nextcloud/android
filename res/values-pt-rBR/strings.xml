@@ -21,9 +21,9 @@
   <string name="prefs_instant_upload_summary">Enviar instantaneamente fotos tiradas com a camera</string>
   <string name="prefs_instant_video_upload">Envio instantâneo de vídeos</string>
   <string name="prefs_instant_video_upload_summary">Enviar instantaneamente vídeos feitos com a camera</string>
-  <string name="prefs_log_title">Habilitar conexão</string>
-  <string name="prefs_log_summary">Isto é usado para registrar os problemas</string>
-  <string name="prefs_log_title_history">História de Registro</string>
+  <string name="prefs_log_title">Habilitar Conexão</string>
+  <string name="prefs_log_summary">Isto é usado para registrar(log) os problemas</string>
+  <string name="prefs_log_title_history">História de Registro(log)</string>
   <string name="prefs_log_summary_history">Isso mostra os registros gravados</string>
   <string name="prefs_log_delete_history_button">Excluir Histórico</string>
   <string name="prefs_help">Ajuda</string>
@@ -40,7 +40,7 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_top_message">Escolher pasta enviar:</string>
+  <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem contas %1$s no seu dispositivo. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
@@ -82,7 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s foi enviado com sucesso</string>
   <string name="uploader_upload_failed_ticker">Falha no envio</string>
   <string name="uploader_upload_failed_content_single">Envio de %1$s não pôde ser finalizado</string>
-  <string name="uploader_upload_failed_credentials_error">Enviar falhou, você precisa reconectar</string>
+  <string name="uploader_upload_failed_credentials_error">O envio falhou, você precisa reconectar</string>
   <string name="downloader_download_in_progress_ticker">Baixando …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
   <string name="downloader_download_succeeded_ticker">Download bem sucedido</string>
@@ -90,7 +90,7 @@
   <string name="downloader_download_failed_ticker">Download falhou</string>
   <string name="downloader_download_failed_content">Download de %1$s não pôde ser concluído</string>
   <string name="downloader_not_downloaded_yet">Não baixado ainda</string>
-  <string name="downloader_download_failed_credentials_error">Baixar falhou, você precisa reconectar</string>
+  <string name="downloader_download_failed_credentials_error">O download falhou, você precisa reconectar</string>
   <string name="common_choose_account">Escolha a conta</string>
   <string name="sync_fail_ticker">Sincronização falhou</string>
   <string name="sync_fail_content">Sincronização de %1$s não pôde ser completada</string>
@@ -130,7 +130,7 @@
   <string name="media_err_malformed">Arquivo de mídia não corretamente codificado</string>
   <string name="media_err_timeout">Expirou o tempo durante a tentativa</string>
   <string name="media_err_invalid_progressive_playback">Arquivo de mídia não pode ser transmitido</string>
-  <string name="media_err_unknown">Arquivo de mídia não pode ser reproduzido com o estoque media player</string>
+  <string name="media_err_unknown">Arquivo de mídia não pode ser reproduzido com o stock media player</string>
   <string name="media_err_security_ex">Erro de segurança tentando reproduzir %1$s</string>
   <string name="media_err_io_ex">Erro de entrada tentando reproduzir %1$s</string>
   <string name="media_err_unexpected">Erro inesperado tentando reproduzir %1$s</string>
@@ -145,7 +145,7 @@
   <string name="auth_testing_connection">Testando conexão...</string>
   <string name="auth_not_configured_title">Configuração do servidor mal formada</string>
   <string name="auth_account_not_new">Uma conta para o mesmo usuário e servidor já existe no dispositivo</string>
-  <string name="auth_account_not_the_same">As informações que o usuário digitou não corresponde ao usuário da conta</string>
+  <string name="auth_account_not_the_same">As informações que o usuário digitou não correspondem ao usuário da conta</string>
   <string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
   <string name="auth_unknown_host_title">Não pôde encontrar host</string>
   <string name="auth_incorrect_path_title">Instância de servidor não encontrada</string>
@@ -186,7 +186,7 @@
   <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
   <string name="create_dir_fail_msg">A pasta não pode ser criada</string>
   <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
-  <string name="filename_empty">O nome do arquivo não pode ficar estar vazio</string>
+  <string name="filename_empty">O nome do arquivo não pode estar vazio</string>
   <string name="wait_a_moment">Aguarde um momento</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
   <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
