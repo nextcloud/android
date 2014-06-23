@@ -69,6 +69,7 @@ public class ProviderMeta {
         public static final String FILE_SHARE_BY_LINK = "share_by_link";
         public static final String FILE_PUBLIC_LINK = "public_link";
         public static final String FILE_PERMISSIONS = "permissions";
+        public static final String FILE_REMOTE_ID = "remote_id";
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";

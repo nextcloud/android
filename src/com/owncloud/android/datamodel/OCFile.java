@@ -66,6 +66,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mPublicLink;
 
     private String mPermissions;
+    private String mRemoteId;
 
 
     /**
@@ -107,6 +108,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mShareByLink = source.readInt() == 1;
         mPublicLink = source.readString();
         mPermissions = source.readString();
+        mRemoteId = source.readString();
     }
 
     @Override
@@ -128,6 +130,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mShareByLink ? 1 : 0);
         dest.writeString(mPublicLink);
         dest.writeString(mPermissions);
+        dest.writeString(mRemoteId);
     }
     
     /**
@@ -339,6 +342,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mShareByLink = false;
         mPublicLink = null;
         mPermissions = null;
+        mRemoteId = null;
     }
 
     /**
@@ -529,6 +533,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public void setPermissions(String permissions) {
         this.mPermissions = permissions;
+    }
+
+    public String getRemoteId() {
+        return mRemoteId;
+    }
+
+    public void setRemoteId(String remoteId) {
+        this.mRemoteId = remoteId;
     }
 
 }

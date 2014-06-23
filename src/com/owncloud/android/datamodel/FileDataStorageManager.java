@@ -187,6 +187,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
         
         boolean sameRemotePath = fileExists(file.getRemotePath());
         if (sameRemotePath ||
@@ -287,6 +288,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
             cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
             cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
+            cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
@@ -345,6 +347,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, folder.isShareByLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
         cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
         
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                 withValues(cv).
@@ -754,6 +757,7 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_SHARE_BY_LINK)) == 1 ? true : false);
             file.setPublicLink(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PUBLIC_LINK)));
             file.setPermissions(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
+            file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
                     
         }
         return file;
@@ -1097,6 +1101,7 @@ public class FileDataStorageManager {
                 cv.put(ProviderTableMeta.FILE_SHARE_BY_LINK, file.isShareByLink() ? 1 : 0);
                 cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
                 cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
+                cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
 
                 boolean existsByPath = fileExists(file.getRemotePath());
                 if (existsByPath || fileExists(file.getFileId())) {

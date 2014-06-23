@@ -95,6 +95,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_PUBLIC_LINK);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PERMISSIONS,
                 ProviderTableMeta.FILE_PERMISSIONS);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_REMOTE_ID,
+                ProviderTableMeta.FILE_REMOTE_ID);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -557,7 +559,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_ETAG + " TEXT, " 
                     + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
                     + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
-                    + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null);"
+                    + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null,"
+                    + ProviderTableMeta.FILE_REMOTE_ID  + " TEXT null);"
                     );
             
             // Create table ocshares
@@ -646,7 +649,7 @@ public class FileContentProvider extends ContentProvider {
             }
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
-            
+
             if (oldVersion < 6 && newVersion >= 6) {
                 Log_OC.i("SQL", "Entering in the #5 ADD in onUpgrade");
                 db.beginTransaction();
@@ -657,10 +660,6 @@ public class FileContentProvider extends ContentProvider {
                     
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_PUBLIC_LINK + " TEXT " +
-                            " DEFAULT NULL");
-                    
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
-                            " ADD COLUMN " + ProviderTableMeta.FILE_PERMISSIONS + " TEXT " +
                             " DEFAULT NULL");
 
                     // Create table ocshares
@@ -680,6 +679,27 @@ public class FileContentProvider extends ContentProvider {
                             + ProviderTableMeta.OCSHARES_USER_ID + " INTEGER, "
                             + ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + " INTEGER," 
                             + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + " TEXT );" );
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+            if (!upgraded)
+                Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
+
+            if (oldVersion < 7 && newVersion >= 7) {
+                Log_OC.i("SQL", "Entering in the #6 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_PERMISSIONS + " TEXT " +
+                            " DEFAULT NULL");
+
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_REMOTE_ID +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_REMOTE_ID + " TEXT " +
+                            " DEFAULT NULL");
                     
                     upgraded = true;
                     db.setTransactionSuccessful();
