@@ -93,6 +93,8 @@ public class FileContentProvider extends ContentProvider {
                 ProviderTableMeta.FILE_SHARE_BY_LINK);
         mFileProjectionMap.put(ProviderTableMeta.FILE_PUBLIC_LINK,
                 ProviderTableMeta.FILE_PUBLIC_LINK);
+        mFileProjectionMap.put(ProviderTableMeta.FILE_PERMISSIONS,
+                ProviderTableMeta.FILE_PERMISSIONS);
     }
 
     private static final int SINGLE_FILE = 1;
@@ -554,7 +556,8 @@ public class FileContentProvider extends ContentProvider {
                     + ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA + " INTEGER, "
                     + ProviderTableMeta.FILE_ETAG + " TEXT, " 
                     + ProviderTableMeta.FILE_SHARE_BY_LINK + " INTEGER, "
-                    + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT );"
+                    + ProviderTableMeta.FILE_PUBLIC_LINK  + " TEXT, "
+                    + ProviderTableMeta.FILE_PERMISSIONS  + " TEXT null);"
                     );
             
             // Create table ocshares
@@ -656,6 +659,10 @@ public class FileContentProvider extends ContentProvider {
                             " ADD COLUMN " + ProviderTableMeta.FILE_PUBLIC_LINK + " TEXT " +
                             " DEFAULT NULL");
                     
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
+                            " ADD COLUMN " + ProviderTableMeta.FILE_PERMISSIONS + " TEXT " +
+                            " DEFAULT NULL");
+
                     // Create table ocshares
                     db.execSQL("CREATE TABLE " + ProviderTableMeta.OCSHARES_TABLE_NAME + "("
                             + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
