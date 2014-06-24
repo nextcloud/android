@@ -108,7 +108,6 @@
   <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
   <string name="foreign_files_local_text">Локально: %1$s</string>
   <string name="foreign_files_remote_text">Удаленно: %1$s</string>
-  <string name="upload_query_move_foreign_files">Недостаточно места для копирования выделенных файлов в каталог %1$s. Переместить их в другое место?</string>
   <string name="pincode_enter_pin_code">Вставьте PIN вашего приложения</string>
   <string name="pincode_configure_your_pin">Введите App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN-код будет запрашиваться при каждом запуске приложения.</string>

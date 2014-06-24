@@ -108,7 +108,6 @@
   <string name="foreign_files_fail">Não foi possível mover alguns ficheiros</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="upload_query_move_foreign_files">Não existe espaço suficiente para copiar os ficheiros seleccionados para a pasta %1$s . Deseja move-los?</string>
   <string name="pincode_enter_pin_code">Por favor escreva o PIN da Aplicação</string>
   <string name="pincode_configure_your_pin">Escreva o PIN da Aplicação</string>
   <string name="pincode_configure_your_pin_explanation">O PIN vai ser pedido todas as vezes que iniciar a aplicação.</string>

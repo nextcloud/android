@@ -108,7 +108,6 @@
   <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
-  <string name="upload_query_move_foreign_files">Nie je dostatok miesta na kopírovanie vybraných súborov do priečinka %1$s. Želáte si miesto kopírovania zmeniť?</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>

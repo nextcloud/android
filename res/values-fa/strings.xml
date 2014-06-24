@@ -98,7 +98,6 @@
   <string name="foreign_files_fail">بعضی از فایل ها نمی توانند انتقال یابند</string>
   <string name="foreign_files_local_text">محلی: %1$s</string>
   <string name="foreign_files_remote_text">دور از دسترس:  %1$s</string>
-  <string name="upload_query_move_foreign_files">فضایی به اندازه ی کافی برای کپی کردن فایل ها در پوشه ی %1$s نیست.آیا می خواهید آنها را به جای دیگری انتقال دهید؟</string>
   <string name="pincode_enter_pin_code">لطفا PIN برنامه خودتان را وارد کنید</string>
   <string name="pincode_configure_your_pin">PIN برنامه را وارد کنید</string>
   <string name="pincode_configure_your_pin_explanation">هر زمان که برنامه آغاز شود PIN درخواست خواهد شد.</string>

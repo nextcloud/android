@@ -75,7 +75,6 @@
   <string name="foreign_files_fail">มีบางแฟ้มข้อมูลไม่สามารถย้ายได้</string>
   <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
   <string name="foreign_files_remote_text">ปลายทาง: %1$s</string>
-  <string name="upload_query_move_foreign_files">ไม่มีพื้นที่เหลือเพียงพอสำหรับคัดลอกแฟ้มข้อมูลที่เลือกไว้ไปที่โฟลเดอร์ %1$s คุณต้องการย้ายมันแทนหรือไม่</string>
   <string name="pincode_enter_pin_code">กรุณาใส่ PIN แอปของคุณ</string>
   <string name="pincode_configure_your_pin">กรอกรหัส PIN ของ  App</string>
   <string name="pincode_configure_your_pin_explanation">หมายเลข PIN ดังกล่าวจะถูกร้องขอทุกครั้งที่เริ่มใช้งานแอปฯ</string>

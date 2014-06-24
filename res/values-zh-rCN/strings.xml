@@ -104,7 +104,6 @@
   <string name="foreign_files_fail">某些文件无法被移动</string>
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">远程:%1$s</string>
-  <string name="upload_query_move_foreign_files">没有足够的空间来将选定的文件复制到%1$s文件夹. 是否使用使用移动来代替复制?</string>
   <string name="pincode_enter_pin_code">请输入您的App PIN码</string>
   <string name="pincode_configure_your_pin">输入 App PIN码</string>
   <string name="pincode_configure_your_pin_explanation">每次应用启动时都会请求PIN码</string>

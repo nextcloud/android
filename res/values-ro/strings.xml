@@ -91,7 +91,6 @@
   <string name="foreign_files_fail">Unele fişiere nu au putut fi mutate</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">La distanta: %1$s</string>
-  <string name="upload_query_move_foreign_files">Nu este suficient spațiu pentru a copia fișierele selectate în dosarul %1$s . Doresti să le muți la loc?</string>
   <string name="pincode_enter_pin_code">Te rugăm să specifici PIN-ul aplicației</string>
   <string name="pincode_configure_your_pin">Introduceti PIN-ul aplicatiei</string>
   <string name="pincode_configure_your_pin_explanation">PIN-ul va fi solicitat ori de cate ori aplicaţia este pornita</string>

@@ -105,7 +105,6 @@
   <string name="foreign_files_fail">لم ينجح نقل بعض الملفات</string>
   <string name="foreign_files_local_text">محلي :%1$s</string>
   <string name="foreign_files_remote_text">خارجي : %1$s</string>
-  <string name="upload_query_move_foreign_files">لا يوجد مساحة كافية لنسخ الملفات المحددة إلى مجلد  %1$s . هل ترغب بنقلها بدلاَ من ذلك؟</string>
   <string name="pincode_enter_pin_code">يرجى إدخال كلمة السر</string>
   <string name="pincode_configure_your_pin">أدخل كلمة السر</string>
   <string name="pincode_configure_your_pin_explanation">سيتم طلب PIN في كل مرة يتم فيها تشغيل التطبيق</string>

@@ -108,7 +108,6 @@
   <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remot: %1$s</string>
-  <string name="upload_query_move_foreign_files">No hi ha prou espai per copiar els fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
   <string name="pincode_enter_pin_code">Escriviu el PIN de l\'aplicació</string>
   <string name="pincode_configure_your_pin">Escriviu el PIN de l\'aplicació</string>
   <string name="pincode_configure_your_pin_explanation">es requerirà el PIN cada vegada que s\'iniciï l\'aplicació</string>

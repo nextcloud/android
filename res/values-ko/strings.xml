@@ -97,7 +97,6 @@
   <string name="foreign_files_fail">몇몇 파일을 옮기지 못했습니다.</string>
   <string name="foreign_files_local_text">로컬: %1$s</string>
   <string name="foreign_files_remote_text">원격: %1$s</string>
-  <string name="upload_query_move_foreign_files">선택한 파일을 %1$s폴더에 넣기에는 공간이 충분하지 않습니다. 다른곳으로 옮기시겠습니까?</string>
   <string name="pincode_enter_pin_code">앱 암호를 입력하십시오</string>
   <string name="pincode_configure_your_pin">앱 암호를 입력하십시오</string>
   <string name="pincode_configure_your_pin_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
