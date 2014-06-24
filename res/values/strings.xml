@@ -112,7 +112,7 @@
     <string name="foreign_files_fail">"Some files could not be moved"</string>
     <string name="foreign_files_local_text">"Local: %1$s"</string>
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
-    <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would like to move them instead? </string>
+    <string name="upload_query_move_foreign_files">There is not space enough to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
     <string name="pincode_enter_pin_code">Please, insert your App PIN</string>
     
     <string name="pincode_configure_your_pin">Enter your App PIN</string>
