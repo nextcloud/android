@@ -49,7 +49,6 @@ import com.owncloud.android.utils.DisplayUtils;
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private final static String PERMISSION_SHARED_WITH_ME = "S";
-    private final static String FILE_CONTENTTYPE_FOLDER = "DIR";
 
     private Context mContext;
     private OCFile mFile = null;
@@ -119,30 +118,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView shareWithMeIconV = (ImageView) view.findViewById(R.id.shareWithMeIcon);
             shareWithMeIconV.setVisibility(View.GONE);
 
-            if (file.isShareByLink()) {
-                shareIconV.setVisibility(View.VISIBLE);
-            } else {
-                shareIconV.setVisibility(View.GONE);
-            }
-
-            // Checks if parent folder does not include 'S' permission
-            if (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)) {
-
-                // Checks if file/folder is shared with me
-                if (file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME)) {
-
-                    // For folders, also update left icon
-                    if (file.getMimetype().equals(FILE_CONTENTTYPE_FOLDER)) {
-                        fileIcon.setImageResource(R.drawable.shared_with_me_folder);
-                    } else {
-                        fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
-                    }
-                    shareWithMeIconV.setVisibility(View.VISIBLE);
-                } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
-                }
-            }
-
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
@@ -187,7 +162,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
-                
+
+                fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+
+                if (checkIfFileIsSharedWithMe(file)) {
+                    shareWithMeIconV.setVisibility(View.VISIBLE);
+                }
             } 
             else {
                 
@@ -197,6 +177,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
+
+                if (checkIfFileIsSharedWithMe(file)) {
+                    fileIcon.setImageResource(R.drawable.shared_with_me_folder);
+                    shareWithMeIconV.setVisibility(View.VISIBLE);
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                }
+            }
+
+            if (file.isShareByLink()) {
+                shareIconV.setVisibility(View.VISIBLE);
+            } else {
+                shareIconV.setVisibility(View.GONE);
             }
         }
 
@@ -237,4 +230,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         notifyDataSetChanged();
     }
     
+    /**
+     * Check if parent folder does not include 'S' permission and if file/folder
+     * is shared with me
+     * 
+     * @param file: OCFile
+     * @return boolean: True if it is shared with me and false if it is not
+     */
+    private boolean checkIfFileIsSharedWithMe(OCFile file) {
+        return (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)
+                && file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME));
+    }
 }
