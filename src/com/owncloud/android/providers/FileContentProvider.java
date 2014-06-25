@@ -697,7 +697,7 @@ public class FileContentProvider extends ContentProvider {
                             " ADD COLUMN " + ProviderTableMeta.FILE_PERMISSIONS + " TEXT " +
                             " DEFAULT NULL");
 
-                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_REMOTE_ID +
+                    db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +
                             " ADD COLUMN " + ProviderTableMeta.FILE_REMOTE_ID + " TEXT " +
                             " DEFAULT NULL");
                     
