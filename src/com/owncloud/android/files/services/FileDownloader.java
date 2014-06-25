@@ -470,9 +470,10 @@ public class FileDownloader extends Service implements OnDatatransferProgressLis
             int tickerId = (downloadResult.isSuccess()) ? R.string.downloader_download_succeeded_ticker : 
                 R.string.downloader_download_failed_ticker;
             
-            boolean needsToUpdateCredentials = (downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                  (downloadResult.isIdPRedirection()
-                                                        && mDownloadClient.getCredentials() == null));
+            boolean needsToUpdateCredentials = (
+                    downloadResult.getCode() == ResultCode.UNAUTHORIZED ||
+                    downloadResult.isIdPRedirection()
+            );
             tickerId = (needsToUpdateCredentials) ? 
                     R.string.downloader_download_failed_credentials_error : tickerId;
             

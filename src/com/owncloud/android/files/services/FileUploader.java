@@ -741,9 +741,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             String content = null;
 
             // check credentials error
-            boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
-                    (uploadResult.isIdPRedirection() &&
-                            mUploadClient.getCredentials() == null));
+            boolean needsToUpdateCredentials = (
+                    uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
+                    uploadResult.isIdPRedirection()
+            );
             tickerId = (needsToUpdateCredentials) ? 
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 
