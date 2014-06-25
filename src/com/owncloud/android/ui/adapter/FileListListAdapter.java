@@ -17,6 +17,8 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.util.Vector;
+
 import android.accounts.Account;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -27,9 +29,6 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-
-import java.util.Vector;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -49,6 +48,9 @@ import com.owncloud.android.utils.DisplayUtils;
  * 
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
+    private final static String PERMISSION_SHARED_WITH_ME = "S";
+    private final static String FILE_CONTENTTYPE_FOLDER = "DIR";
+
     private Context mContext;
     private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
@@ -113,7 +115,33 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
+            ImageView shareWithMeIconV = (ImageView) view.findViewById(R.id.shareWithMeIcon);
+
+            if (file.isShareByLink()) {
+                shareIconV.setVisibility(View.VISIBLE);
+            } else {
+                shareIconV.setVisibility(View.GONE);
+            }
+
+            // Checks if parent folder does not include 'S' permission
+            if (mFile.getPermissions() != null && !mFile.getPermissions().contains(PERMISSION_SHARED_WITH_ME)) {
+
+                // Checks if file/folder is shared with me
+                if (file.getPermissions() != null && file.getPermissions().contains(PERMISSION_SHARED_WITH_ME)) {
+
+                    // For folders, also update left icon
+                    if (file.getMimetype().equals(FILE_CONTENTTYPE_FOLDER)) {
+                        fileIcon.setImageResource(R.drawable.shared_with_me_folder);
+                    } else {
+                        fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                    }
+                    shareWithMeIconV.setVisibility(View.VISIBLE);
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                }
+            }
+
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
@@ -168,13 +196,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
                 view.findViewById(R.id.imageView3).setVisibility(View.GONE);
-            }
-            
-            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
-            if (file.isShareByLink()) {
-                shareIconV.setVisibility(View.VISIBLE);
-            } else {
-                shareIconV.setVisibility(View.INVISIBLE);
             }
         }
 
