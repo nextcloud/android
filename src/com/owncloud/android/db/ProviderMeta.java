@@ -17,10 +17,10 @@
  */
 package com.owncloud.android.db;
 
-import com.owncloud.android.MainApp;
-
 import android.net.Uri;
 import android.provider.BaseColumns;
+
+import com.owncloud.android.MainApp;
 
 /**
  * Meta-Class that holds various static field information
@@ -31,7 +31,7 @@ import android.provider.BaseColumns;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 6;
+    public static final int DB_VERSION = 7;
 
     private ProviderMeta() {
     }
