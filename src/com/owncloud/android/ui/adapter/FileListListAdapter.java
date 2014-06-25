@@ -117,6 +117,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
             ImageView shareWithMeIconV = (ImageView) view.findViewById(R.id.shareWithMeIcon);
+            shareWithMeIconV.setVisibility(View.GONE);
 
             if (file.isShareByLink()) {
                 shareIconV.setVisibility(View.VISIBLE);

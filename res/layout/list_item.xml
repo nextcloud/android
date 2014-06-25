@@ -117,8 +117,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:src="@drawable/shared_with_me"
-        android:visibility="gone" />
+        android:src="@drawable/shared_with_me" />
 
     <ImageView
         android:id="@+id/shareIcon"
