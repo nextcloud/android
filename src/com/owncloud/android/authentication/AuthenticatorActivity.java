@@ -62,6 +62,9 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
@@ -941,7 +944,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
                 if (!mUsernameInput.getText().toString().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
-                    result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
+                    result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
+                    /*
+                    OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
+                            new OwnCloudAccount(
+                                    Uri.parse(mServerInfo.mBaseUrl),
+                                    OwnCloudCredentialsFactory.newSamlSsoCredentials(mAuthToken))
+                            );
+                            */
+                    mAuthToken = "";
                     updateAuthStatusIconAndText(result);
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
