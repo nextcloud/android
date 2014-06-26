@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
   <string name="foreign_files_local_text">Yerel: %1$s</string>
   <string name="foreign_files_remote_text">Uzak: %1$s</string>
+  <string name="upload_query_move_foreign_files">Seçilen dosyaları %1$s dizinine kopyalamak için yeterli alan yok. Bunun yerine dosyayı içine taşımak ister misiniz?</string>
   <string name="pincode_enter_pin_code">Lütfen uygulama PIN\'inizi girin</string>
   <string name="pincode_configure_your_pin">Uygulama PIN\'inizi girin</string>
   <string name="pincode_configure_your_pin_explanation">PIN uygulama yeniden başladığında tekrar sorulacak</string>

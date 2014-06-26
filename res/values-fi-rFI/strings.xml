@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">Tilien hallinta</string>
   <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
   <string name="prefs_pincode_summary">Suojaa Asiakasohjelmasi</string>
+  <string name="prefs_instant_video_upload">Välittömät videolähetykset</string>
+  <string name="prefs_instant_video_upload_summary">Lähetä kameralla kuvatut videot välittömästi</string>
   <string name="prefs_log_title">Käytä lokitusta</string>
   <string name="prefs_log_summary_history">Tämä näyttää tallennetut lokit</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>
@@ -33,6 +35,7 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -205,6 +208,7 @@
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
+  <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
   <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>

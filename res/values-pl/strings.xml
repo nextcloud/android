@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Niektóre pliki nie mogły być przeniesione</string>
   <string name="foreign_files_local_text">Lokalna ścieżka: %1$s</string>
   <string name="foreign_files_remote_text">Zdalna ścieżka: %1$s</string>
+  <string name="upload_query_move_foreign_files">Nie ma wystarczająco miejśca, aby skopiować zaznaczone pliki do folderu %1$s. Chciałbyś je przenieść?</string>
   <string name="pincode_enter_pin_code">Podaj PIN aplikacji</string>
   <string name="pincode_configure_your_pin">Wpisz PIN aplikacji</string>
   <string name="pincode_configure_your_pin_explanation">Kod PIN będzie wymagany za każdym razem, gdy aplikacja będzie uruchamiana.</string>
