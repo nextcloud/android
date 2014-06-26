@@ -22,16 +22,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.OwnCloudFileObserver;
-import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.Log_OC;
-
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;
@@ -41,7 +31,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.files.OwnCloudFileObserver;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
 
 public class FileObserverService extends Service {
 
@@ -58,6 +58,7 @@ public class FileObserverService extends Service {
     private static Map<String, OwnCloudFileObserver> mObserversMap;
     private static DownloadCompletedReceiverBis mDownloadReceiver;
     private IBinder mBinder = new LocalBinder();
+    private Handler mHandler = new Handler();
     
     public class LocalBinder extends Binder {
         FileObserverService getService() {
@@ -160,10 +161,7 @@ public class FileObserverService extends Service {
             String path = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
             if (path == null || path.length() <= 0)
                 continue;
-            OwnCloudFileObserver observer =
-                    new OwnCloudFileObserver(   path, 
-                                                account, 
-                                                getApplicationContext());
+            OwnCloudFileObserver observer = new OwnCloudFileObserver(path, account, getApplicationContext(), mHandler);
             mObserversMap.put(path, observer);
             if (new File(path).exists()) {
                 observer.startWatching();
@@ -202,7 +200,8 @@ public class FileObserverService extends Service {
             /// the local file was never registered to observe before
             observer = new OwnCloudFileObserver(    localPath, 
                                                     account, 
-                                                    getApplicationContext());
+                                                    getApplicationContext(),
+                                                    mHandler);
             mObserversMap.put(localPath, observer);
             Log_OC.d(TAG, "Observer added for path " + localPath);
         
