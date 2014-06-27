@@ -271,18 +271,15 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         file.setKeepInSync(cb.isChecked());
         mContainerActivity.getStorageManager().saveFile(file);
         
-        /// register the OCFile instance in the observer service to monitor local updates;
-        /// if necessary, the file is download 
-        Intent intent = new Intent(getActivity().getApplicationContext(),
-                                   FileObserverService.class);
-        intent.putExtra(FileObserverService.KEY_FILE_CMD,
-                   (cb.isChecked()?
-                           FileObserverService.CMD_ADD_OBSERVED_FILE:
-                           FileObserverService.CMD_DEL_OBSERVED_FILE));
-        intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, file);
-        intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, mAccount);
-        getActivity().startService(intent);
+        /// register the OCFile instance in the observer service to monitor local updates
+        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
+                getActivity(),
+                file, 
+                mAccount,
+                cb.isChecked());
+        getActivity().startService(observedFileIntent);
         
+        /// immediate content synchronization
         if (file.keepInSync()) {
             mContainerActivity.getFileOperationsHelper().syncFile(getFile());
         }

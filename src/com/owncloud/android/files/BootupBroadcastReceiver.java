@@ -25,10 +25,25 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+
+/**
+ * App-registered receiver catching the broadcast intent reporting that the system was 
+ * just boot up.
+ * 
+ * @author David A. Velasco
+ */
 public class BootupBroadcastReceiver extends BroadcastReceiver {
 
-    private static String TAG = "BootupBroadcastReceiver";
+    private static String TAG = BootupBroadcastReceiver.class.getSimpleName();
     
+    /**
+     * Receives broadcast intent reporting that the system was just boot up.
+     *
+     * Starts {@link FileObserverService} to enable observation of favourite files.
+     * 
+     * @param   context     The context where the receiver is running.
+     * @param   intent      The intent received.
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
@@ -36,11 +51,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
             return;
         }
         Log_OC.d(TAG, "Starting file observer service...");
-        Intent i = new Intent(context, FileObserverService.class);
-        i.putExtra(FileObserverService.KEY_FILE_CMD,
-                   FileObserverService.CMD_INIT_OBSERVED_LIST);
-        context.startService(i);
-        Log_OC.d(TAG, "DONE");
+        Intent initObservers = FileObserverService.makeInitIntent(context);
+        context.startService(initObservers);
     }
 
 }

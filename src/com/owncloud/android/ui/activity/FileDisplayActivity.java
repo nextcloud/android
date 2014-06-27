@@ -164,11 +164,12 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             requestPinCode();
         }
 
-        /// file observer
-        Intent observer_intent = new Intent(this, FileObserverService.class);
-        observer_intent.putExtra(FileObserverService.KEY_FILE_CMD, FileObserverService.CMD_INIT_OBSERVED_LIST);
-        startService(observer_intent);
-
+        /// grant that FileObserverService is watching favourite files
+        if (savedInstanceState != null) {
+            Intent initObserversIntent = FileObserverService.makeInitIntent(this);
+            startService(initObserversIntent);
+        }
+        
         /// Load of saved instance state
         if(savedInstanceState != null) {
             mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
