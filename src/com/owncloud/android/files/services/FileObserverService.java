@@ -20,6 +20,7 @@ package com.owncloud.android.files.services;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.owncloud.android.MainApp;
@@ -133,8 +134,14 @@ public class FileObserverService extends Service {
         Log_OC.d(TAG, "onDestroy - FINISHING OBSERVATION");
         
         unregisterReceiver(mDownloadReceiver);
+        
+        Iterator<OwnCloudFileObserver> it = mObserversMap.values().iterator();
+        while (it.hasNext()) {
+            it.next().stopWatching();
+        }
         mObserversMap.clear();
-        mObserversMap = null;   
+        mObserversMap = null;
+        
         //mObserverParentsMap = null;
         
         super.onDestroy();
