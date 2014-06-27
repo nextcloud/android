@@ -69,7 +69,7 @@ public class FileObserverService extends Service {
     private static String TAG = FileObserverService.class.getSimpleName();
 
     private static Map<String, OwnCloudFileObserver> mObserversMap;
-    //private static Map<String, OwnCloudFileObserver> mObserverParentsMap;
+    private static Map<String, OwnCloudFileObserver> mObserverParentsMap;
     private static DownloadCompletedReceiver mDownloadReceiver;
 
     
@@ -125,7 +125,7 @@ public class FileObserverService extends Service {
         registerReceiver(mDownloadReceiver, filter);
         
         mObserversMap = new HashMap<String, OwnCloudFileObserver>();
-        //mObserverParentsMap = new HashMap<String, OwnCloudFileObserver>();
+        mObserverParentsMap = new HashMap<String, OwnCloudFileObserver>();
     }
     
     
@@ -142,7 +142,12 @@ public class FileObserverService extends Service {
         mObserversMap.clear();
         mObserversMap = null;
         
-        //mObserverParentsMap = null;
+        it = mObserverParentsMap.values().iterator();
+        while (it.hasNext()) {
+            it.next().stopWatching();
+        }
+        mObserverParentsMap.clear();
+        mObserverParentsMap = null;
         
         super.onDestroy();
     }
@@ -243,21 +248,18 @@ public class FileObserverService extends Service {
                         }
                     }
                             
-                    /*
                     String parentPath = (new File(localPath)).getParent();
-                    OwnCloudFileObserver observerParent =
-                            new OwnCloudFileObserver(   parentPath,
-                                                        account,
-                                                        getApplicationContext());
-                    mObserverParentsMap.put(parentPath, observer);
-                    
-                    if (new File(localPath).exists()) {
-                        observer.startWatching();
-                        Log_OC.d(TAG, "Started watching file " + localPath);
-                        observerParent.startWatching();
-                        Log_OC.d(TAG, "Started watching parent file " + parentPath);
+                    OwnCloudFileObserver observerParent = mObserverParentsMap.get(parentPath);
+                    if (observerParent == null) {
+                        observerParent = new OwnCloudFileObserver(
+                                parentPath, account, getApplicationContext()
+                        );
+                        mObserverParentsMap.put(parentPath, observer);
+                        if (new File(parentPath).exists()) {
+                            observerParent.startWatching();
+                            Log_OC.d(TAG, "Started watching parent folder " + parentPath);
+                        }
                     }
-                    */
                     
                 } while (cursorOnKeptInSync.moveToNext());
                 
@@ -299,30 +301,33 @@ public class FileObserverService extends Service {
         OwnCloudFileObserver observer = mObserversMap.get(localPath);
         if (observer == null) {
             /// the local file was never registered to observe before
-            observer = new OwnCloudFileObserver(    localPath, 
-                                                    account, 
-                                                    getApplicationContext(),
-                                                    mHandler);
+            observer = new OwnCloudFileObserver(
+                    localPath, account, getApplicationContext()
+            );
             mObserversMap.put(localPath, observer);
             Log_OC.d(TAG, "Observer added for path " + localPath);
             
-            /*
-            String parentPath = (new File(localPath)).getParent();
-            OwnCloudFileObserver observerParent =
-                    new OwnCloudFileObserver(   parentPath,
-                                                account,
-                                                getApplicationContext());
-            mObserverParentsMap.put(parentPath, observer);
-            */
-        
             if (file.isDown()) {
                 observer.startWatching();
                 Log_OC.d(TAG, "Started watching " + localPath);
-                /*observerParent.startWatching();
-                Log_OC.d(TAG, "Started watching parent file " + parentPath);*/
             }   
             // else - the observance can't be started on a file not already down; 
             //      mDownloadReceiver will get noticed when the download of the file finishes
+        }
+        
+        String parentPath = (new File(localPath)).getParent();
+        OwnCloudFileObserver observerParent = mObserverParentsMap.get(parentPath);
+        if (observerParent == null) {
+            observerParent = new OwnCloudFileObserver(
+                    parentPath, account, getApplicationContext()
+            );
+            mObserverParentsMap.put(parentPath, observerParent);
+            Log_OC.d(TAG, "Observer added for parent folder " + localPath);
+            
+            if (file.isDown()) {
+                observerParent.startWatching();
+                Log_OC.d(TAG, "Started watching parent folder " + parentPath);
+            }   
         }
         
     }
@@ -381,16 +386,12 @@ public class FileObserverService extends Service {
             String downloadPath = intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH);
             OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
             if (observer != null) {
-                /*String parentPath = (new File(downloadPath)).getParent();
-                OwnCloudFileObserver observerParent = mObserverParentsMap.get(parentPath); */
                 if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage()) &&
                         new File(downloadPath).exists()) {  
                     // no matter is the download was be successful or not; the file could be down, 
                     // anyway due to a former download or upload   
                     observer.startWatching();
                     Log_OC.d(TAG, "Resuming observance of " + downloadPath);
-                    /*observerParent.startWatching();
-                    Log_OC.d(TAG, "Watching parent again " + parentPath); */
                 
                 } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
                     observer.stopWatching();
