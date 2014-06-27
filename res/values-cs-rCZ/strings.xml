@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Některé soubory nebylo možno přesunout</string>
   <string name="foreign_files_local_text">Místní: %1$s</string>
   <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
+  <string name="upload_query_move_foreign_files">Není dostatek místa pro kopírování vybraných souborů do adresáře %1$s. Přejete si je místo kopírování přesunout?</string>
   <string name="pincode_enter_pin_code">Zadejte PIN aplikace</string>
   <string name="pincode_configure_your_pin">Zadat PIN aplikace</string>
   <string name="pincode_configure_your_pin_explanation">Při každém spuštění aplikace bude vyžadováno zadání PIN</string>
