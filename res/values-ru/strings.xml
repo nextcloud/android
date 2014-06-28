@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
   <string name="actionbar_upload_files">Файлы</string>
   <string name="actionbar_open_with">Открыть с помощью</string>
-  <string name="actionbar_mkdir">Новый каталог</string>
+  <string name="actionbar_mkdir">Новая папка</string>
   <string name="actionbar_settings">Настройки</string>
   <string name="actionbar_see_details">Подробно</string>
   <string name="actionbar_send_file">Отправить</string>
@@ -38,7 +38,7 @@
   <string name="auth_password">Пароль</string>
   <string name="auth_register">Незнакомы с %1$s?</string>
   <string name="sync_string_files">Файлы</string>
-  <string name="setup_btn_connect">Соединить</string>
+  <string name="setup_btn_connect">Подключиться</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
   <string name="uploader_top_message">Выберете папку для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
@@ -66,7 +66,7 @@
   <string name="common_cancel_download">Отменить скачивание</string>
   <string name="common_cancel_upload">Отменить загрузку</string>
   <string name="common_cancel">Отмена</string>
-  <string name="common_save_exit">Сохранить &amp; Выйти</string>
+  <string name="common_save_exit">Сохранить и выйти</string>
   <string name="common_error">Ошибка</string>
   <string name="common_loading">Идёт загрузка...</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
@@ -108,11 +108,12 @@
   <string name="foreign_files_fail">Некоторые файлы не могут быть перемещены</string>
   <string name="foreign_files_local_text">Локально: %1$s</string>
   <string name="foreign_files_remote_text">Удаленно: %1$s</string>
-  <string name="pincode_enter_pin_code">Вставьте PIN вашего приложения</string>
+  <string name="upload_query_move_foreign_files">Для копирования выбранных файлов в папку %1$s недостаточно свободного места. Скопировать в другое место?</string>
+  <string name="pincode_enter_pin_code">Вставьте  App PIN</string>
   <string name="pincode_configure_your_pin">Введите App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN-код будет запрашиваться при каждом запуске приложения.</string>
   <string name="pincode_reenter_your_pincode">Повторите ввод App PIN</string>
-  <string name="pincode_remove_your_pincode">Удалить App PIN</string>
+  <string name="pincode_remove_your_pincode">Удалите App PIN</string>
   <string name="pincode_mismatch">Введённые App PIN не совпадают</string>
   <string name="pincode_wrong">Неверный App PIN</string>
   <string name="pincode_removed">App PIN удалён</string>
@@ -137,8 +138,8 @@
   <string name="media_play_pause_description">Воспроизведение или пауза</string>
   <string name="media_forward_description">Перемотка вперед</string>
   <string name="auth_getting_authorization">Происходит авторизация.....</string>
-  <string name="auth_trying_to_login">Попытка входа...</string>
-  <string name="auth_no_net_conn_title">Нет сетевого соединения</string>
+  <string name="auth_trying_to_login">Авторизация...</string>
+  <string name="auth_no_net_conn_title">Нет подключения к сети</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_connection_established">Соединение установлено</string>
   <string name="auth_testing_connection">Тестирование соединения...</string>
