@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Distant: %1$s</string>
+  <string name="upload_query_move_foreign_files">Il n\'y a pas assez de place disponible pour copier les fichiers sélectionnés dans le dossier %1$s. Voulez-vous quand même les déplacer ?</string>
   <string name="pincode_enter_pin_code">Veuillez saisir votre code de sécurité</string>
   <string name="pincode_configure_your_pin">Veuillez saisir votre code de sécurité </string>
   <string name="pincode_configure_your_pin_explanation">Le code PIN vous sera demandé à chaque lancement de l\'application</string>

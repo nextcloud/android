@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Μερικά αρχεία δεν μπόρεσαν να μετακινηθούν</string>
   <string name="foreign_files_local_text">Τοπικά: %1$s</string>
   <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
+  <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντι αυτού;</string>
   <string name="pincode_enter_pin_code">Παρακαλώ, εισάγετε το PIN εφαρμογής σας</string>
   <string name="pincode_configure_your_pin">Εισάγετε το PIN της εφαρμογής</string>
   <string name="pincode_configure_your_pin_explanation">Το PIN θα ζητείται κάθε φορά που εκκινείται η εφαρμογή</string>

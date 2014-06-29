@@ -108,6 +108,7 @@
   <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjärr: %1$s</string>
+  <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med ledigt utrymme för att kopiera de valda filerna till %1$s mappen. Skulle du vilja flytta dem istället?</string>
   <string name="pincode_enter_pin_code">Ange din PIN</string>
   <string name="pincode_configure_your_pin">Ange applikation PIN</string>
   <string name="pincode_configure_your_pin_explanation">Din PIN måste anges varje gång du startar programmet.</string>
