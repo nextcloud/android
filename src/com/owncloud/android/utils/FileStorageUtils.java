@@ -97,7 +97,8 @@ public class FileStorageUtils {
         file.setMimetype(remote.getMimeType());
         file.setModificationTimestamp(remote.getModifiedTimestamp());
         file.setEtag(remote.getEtag());
-        
+        file.setPermissions(remote.getPermissions());
+        file.setRemoteId(remote.getRemoteId());
         return file;
     }
     
@@ -114,6 +115,8 @@ public class FileStorageUtils {
         file.setMimeType(ocFile.getMimetype());
         file.setModifiedTimestamp(ocFile.getModificationTimestamp());
         file.setEtag(ocFile.getEtag());
+        file.setPermissions(ocFile.getPermissions());
+        file.setRemoteId(ocFile.getRemoteId());
         return file;
     }
   
