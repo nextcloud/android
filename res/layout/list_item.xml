@@ -110,7 +110,7 @@
         android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/shareIcon"
+        android:id="@+id/sharedIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -120,7 +120,7 @@
         android:src="@drawable/sharedlink" />
 
     <ImageView
-        android:id="@+id/shareWithMeIcon"
+        android:id="@+id/sharedWithMeIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

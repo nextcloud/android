@@ -135,8 +135,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             view.findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);   // not GONE; the alignment changes; ugly way to keep it
             view.findViewById(R.id.imageView3).setVisibility(View.GONE);
             
-            view.findViewById(R.id.shareIcon).setVisibility(View.GONE);
-            view.findViewById(R.id.shareWithMeIcon).setVisibility(View.GONE);
+            view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
+            view.findViewById(R.id.sharedWithMeIcon).setVisibility(View.GONE);
         }
 
         return view;

@@ -690,7 +690,7 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion + ", newVersion == " + newVersion);
 
             if (oldVersion < 7 && newVersion >= 7) {
-                Log_OC.i("SQL", "Entering in the #6 ADD in onUpgrade");
+                Log_OC.i("SQL", "Entering in the #7 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     db .execSQL("ALTER TABLE " + ProviderTableMeta.FILE_TABLE_NAME +

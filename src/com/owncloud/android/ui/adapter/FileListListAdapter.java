@@ -114,9 +114,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             fileName.setText(name);
             ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
-            ImageView shareIconV = (ImageView) view.findViewById(R.id.shareIcon);
-            ImageView shareWithMeIconV = (ImageView) view.findViewById(R.id.shareWithMeIcon);
-            shareWithMeIconV.setVisibility(View.GONE);
+            ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
+            ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
+            sharedWithMeIconV.setVisibility(View.GONE);
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
@@ -166,7 +166,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
 
                 if (checkIfFileIsSharedWithMe(file)) {
-                    shareWithMeIconV.setVisibility(View.VISIBLE);
+                    sharedWithMeIconV.setVisibility(View.VISIBLE);
                 }
             } 
             else {
@@ -180,16 +180,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                 if (checkIfFileIsSharedWithMe(file)) {
                     fileIcon.setImageResource(R.drawable.shared_with_me_folder);
-                    shareWithMeIconV.setVisibility(View.VISIBLE);
+                    sharedWithMeIconV.setVisibility(View.VISIBLE);
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
             }
 
             if (file.isShareByLink()) {
-                shareIconV.setVisibility(View.VISIBLE);
+                sharedIconV.setVisibility(View.VISIBLE);
             } else {
-                shareIconV.setVisibility(View.GONE);
+                sharedIconV.setVisibility(View.GONE);
             }
         }
 
