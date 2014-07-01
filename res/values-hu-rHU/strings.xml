@@ -98,7 +98,6 @@
   <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
   <string name="foreign_files_local_text">Helyi: %1$s</string>
   <string name="foreign_files_remote_text">Távoli: %1$s</string>
-  <string name="upload_query_move_foreign_files">Nincs elég hely ahhoz, hogy a kiválasztott fájlokat a %1$s mappába másoljuk. Akkor inkább helyezzük át őket oda?</string>
   <string name="pincode_enter_pin_code">Kérem adja meg az alkalmazás PIN-kódját</string>
   <string name="pincode_configure_your_pin">Az alkalmazás PIN-kódja</string>
   <string name="pincode_configure_your_pin_explanation">A PIN-t kötelező lesz megadni az alkalmazás minden indításakor</string>

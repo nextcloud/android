@@ -70,7 +70,6 @@
   <string name="foreign_files_fail">Methwyd symud rhai ffeiliau</string>
   <string name="foreign_files_local_text">Lleol: %1$s</string>
   <string name="foreign_files_remote_text">Pell: %1$s</string>
-  <string name="upload_query_move_foreign_files">Does dim digon o le i gopïo\'r ffeiliau ddewiswyd i blygell %1$s . Would like to move them into instead? </string>
   <string name="pincode_enter_pin_code">Cyflwynwch PIN eich Ap</string>
   <string name="pincode_configure_your_pin">Cyflwynwch PIN eich Ap</string>
   <string name="pincode_configure_your_pin_explanation">Bydd cais am y PIN bob tro mae\'r ap yn cychwyn</string>

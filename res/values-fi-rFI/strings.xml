@@ -17,6 +17,8 @@
   <string name="prefs_manage_accounts">Tilien hallinta</string>
   <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
   <string name="prefs_pincode_summary">Suojaa Asiakasohjelmasi</string>
+  <string name="prefs_instant_video_upload">Välittömät videolähetykset</string>
+  <string name="prefs_instant_video_upload_summary">Lähetä kameralla kuvatut videot välittömästi</string>
   <string name="prefs_log_title">Käytä lokitusta</string>
   <string name="prefs_log_summary_history">Tämä näyttää tallennetut lokit</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>
@@ -33,6 +35,7 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
+  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteelle ei ole asetettu %1$s-tiliä. Luo tili ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -130,6 +133,7 @@
   <string name="auth_timeout_title">Palvelimen vastaus viipyy liian kauan</string>
   <string name="auth_incorrect_address_title">Väärin annettu osoite</string>
   <string name="auth_ssl_general_error_title">SSL:n alustus epäonnistui</string>
+  <string name="auth_ssl_unverified_server_title">SSL-palvelimen identiteettiä ei voitu varmistaa</string>
   <string name="auth_bad_oc_version_title">Tuntematon palvelimen versio</string>
   <string name="auth_wrong_connection_title">Yhteyden muodostus epäonnistui</string>
   <string name="auth_secure_connection">Salattu yhteys muodostettu</string>
@@ -143,6 +147,7 @@
   <string name="auth_connecting_auth_server">Yhdistetään tunnistautumispalvelimeen…</string>
   <string name="auth_unsupported_auth_method">Palvelin ei tue tätä tunnistautumistapaa</string>
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
+  <string name="auth_can_not_auth_against_server">Tunnistautuminen palvelinta vastaan ei onnistu</string>
   <string name="fd_keep_in_sync">Pidä tiedosto ajan tasalla</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
@@ -203,13 +208,17 @@
   <string name="conflict_overwrite">Korvaa</string>
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
+  <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="failed_upload_all_cb">valitse kaikki</string>
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
+  <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
   <string name="failed_upload_failure_text">Virheviesti:</string>
   <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>
   <string name="copy_link">Kopioi linkki</string>
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
+  <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimintoja ei voi suorittaa</string>
   <string name="network_error_socket_exception">Virhe palvelimeen yhdistäessä</string>
+  <string name="network_host_not_available">Toimintoa ei voi suorittaa loppuun, palvelin ei ole käytettävissä</string>
 </resources>

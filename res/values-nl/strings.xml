@@ -108,7 +108,7 @@
   <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
   <string name="foreign_files_local_text">Lokaal: %1$s</string>
   <string name="foreign_files_remote_text">Extern: %1$s</string>
-  <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de gekopieerde bestanden ook te plaatsen in map %1$s. Wilt u ze erheen verplaatsten? </string>
+  <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de bestanden te gekopieëren in map %1$s. Wilt u ze erheen verplaatsten? </string>
   <string name="pincode_enter_pin_code">Voer App PIN in</string>
   <string name="pincode_configure_your_pin">Voer App PIN in</string>
   <string name="pincode_configure_your_pin_explanation">De PIN wordt steeds opnieuw gevraagd als de app wordt gestart</string>

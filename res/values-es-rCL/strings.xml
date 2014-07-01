@@ -79,7 +79,6 @@
   <string name="foreign_files_fail">algunos archivos no pueden ser transferidos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="upload_query_move_foreign_files">No hay espacio suficiente para copiar los archivos seleccionados en la %1$s carpeta. Le gustaria que los trasladaran en su lugar?</string>
   <string name="pincode_enter_pin_code">Por favor, ingreses su PIN de aplicación</string>
   <string name="pincode_configure_your_pin">Ingrese su PIN de aplicación</string>
   <string name="pincode_configure_your_pin_explanation">El PIN será solicitado cada vez que la aplicación se inicie</string>

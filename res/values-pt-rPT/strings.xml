@@ -108,7 +108,6 @@
   <string name="foreign_files_fail">Não foi possível mover alguns ficheiros</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="upload_query_move_foreign_files">Não existe espaço suficiente para copiar os ficheiros seleccionados para a pasta %1$s . Deseja move-los?</string>
   <string name="pincode_enter_pin_code">Por favor escreva o PIN da Aplicação</string>
   <string name="pincode_configure_your_pin">Escreva o PIN da Aplicação</string>
   <string name="pincode_configure_your_pin_explanation">O PIN vai ser pedido todas as vezes que iniciar a aplicação.</string>
@@ -167,9 +166,12 @@
   <string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
   <string name="auth_unsupported_multiaccount">%1$s não suporta contas múltiplas</string>
   <string name="auth_fail_get_user_name">O seu servidor não transmite o ID correcto. Por favor contacte o administrador.</string>
+  <string name="auth_can_not_auth_against_server">Não foi possível autenticar no servidor</string>
   <string name="fd_keep_in_sync">manter ficheiro actualizado</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
+  <string name="confirmation_remove_alert">Tem a certeza que deseja remover %1$s ?</string>
+  <string name="confirmation_remove_folder_alert">Deseja realmente remover %1$s e o seu conteúdo?</string>
   <string name="confirmation_remove_local">Apenas localmente</string>
   <string name="confirmation_remove_folder_local">So conteúdos locais</string>
   <string name="confirmation_remove_remote">Apagar do servidor</string>
@@ -229,6 +231,7 @@
   <string name="conflict_overwrite">Sobrepor</string>
   <string name="conflict_dont_upload">Não enviar.</string>
   <string name="preview_image_description">Pré-Visualização da imagem</string>
+  <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
   <string name="actionbar_failed_instant_upload">O envio rápido falhou</string>
   <string name="failed_upload_headline_text">Falharam os Uploads-Instantâneos</string>
@@ -237,6 +240,7 @@
   <string name="failed_upload_headline_retryall_btn">Tentar todos os seleccionados</string>
   <string name="failed_upload_headline_delete_all_btn">Eliminar todos os seleccionados da lista de envio</string>
   <string name="failed_upload_retry_text">Tentar envio da imagem:</string>
+  <string name="failed_upload_load_more_images">Carregar mais Fotos</string>
   <string name="failed_upload_retry_do_nothing_text">não fazer nada, nao está online para o Upload-Instantâneo</string>
   <string name="failed_upload_failure_text">Mensagem de erro:</string>
   <string name="failed_upload_quota_exceeded_text">Por favor verifique a configuração do servidor, talvez tenha excedido a sua quota</string>
@@ -248,7 +252,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar ligação</string>
   <string name="clipboard_text_copied">Copiado para a área de transferência</string>
+  <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
   <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidos.</string>
   <string name="network_error_socket_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
+  <string name="network_host_not_available">A operação não foi concluída, o servidor está inacessível.</string>
 </resources>

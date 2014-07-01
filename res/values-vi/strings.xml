@@ -98,7 +98,6 @@
   <string name="foreign_files_fail">Một vài tập tin không thể chuyển đi</string>
   <string name="foreign_files_local_text">Cục bộ: %1$s</string>
   <string name="foreign_files_remote_text">Từ xa: %1$s</string>
-  <string name="upload_query_move_foreign_files">Không đủ chỗ trống để chép các tập tin đã chọn vào thư mục %1$s. Bạn có muốn di chuyển chúng thay vì sao chép?</string>
   <string name="pincode_enter_pin_code">Vui lòng, nhập mã PIN ứng dụng của bạn</string>
   <string name="pincode_configure_your_pin">Nhập mã PIN ứng dụng App</string>
   <string name="pincode_configure_your_pin_explanation">Mã PIN sẽ được yêu cầu mỗi khi ứng dụng được bật </string>

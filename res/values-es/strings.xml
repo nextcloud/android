@@ -7,7 +7,7 @@
   <string name="actionbar_upload_from_apps">Contenido de otras aplicaciones</string>
   <string name="actionbar_upload_files">Archivos</string>
   <string name="actionbar_open_with">Abrir con</string>
-  <string name="actionbar_mkdir">Nueva carpeta</string>
+  <string name="actionbar_mkdir">Nueva Carpeta</string>
   <string name="actionbar_settings">Configuración</string>
   <string name="actionbar_see_details">Detalles</string>
   <string name="actionbar_send_file">Enviar</string>
@@ -29,8 +29,8 @@
   <string name="prefs_help">Ayuda</string>
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
-  <string name="prefs_imprint">Imprint</string>
-  <string name="recommend_subject">¡Prueba %1$s en tu teléfono inteligente!</string>
+  <string name="prefs_imprint">Imprimir</string>
+  <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
   <string name="recommend_text">\"¡Quiero invitarlo a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s\"\n\t</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor https://…</string>
@@ -58,8 +58,8 @@
   <string name="filedetails_download">Descargar</string>
   <string name="filedetails_sync_file">Actualizar archivo</string>
   <string name="filedetails_renamed_in_upload_msg">El fichero fue renombrado como %1$s durante la subida</string>
-  <string name="action_share_file">Compartir</string>
-  <string name="action_unshare_file">Descompartir</string>
+  <string name="action_share_file">Compartir con enlace</string>
+  <string name="action_unshare_file">Dejar de compartir</string>
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
@@ -108,7 +108,7 @@
   <string name="foreign_files_fail">No se han podido mover algunos archivos</string>
   <string name="foreign_files_local_text">Local: %1$s</string>
   <string name="foreign_files_remote_text">Remoto: %1$s</string>
-  <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. ¿Quiere moverlos en lugar de copiarlos?</string>
+  <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados a la carpeta %1$s. ¿Desea moverlos en vez de copiarlos?</string>
   <string name="pincode_enter_pin_code">Por favor, inserta tu PIN de aplicación</string>
   <string name="pincode_configure_your_pin">Introduzca un PIN para la aplicación</string>
   <string name="pincode_configure_your_pin_explanation">Se solicitará el PIN cada vez que se inicie la aplicación</string>
@@ -122,7 +122,7 @@
   <string name="media_state_playing">%1$s (reproduciendo)</string>
   <string name="media_state_loading">%1$s (cargando)</string>
   <string name="media_event_done">%1$s reproducción finalizada</string>
-  <string name="media_err_nothing_to_play">No se encuentra archivo de medio</string>
+  <string name="media_err_nothing_to_play">No se encontró el archivo multimedia</string>
   <string name="media_err_no_account">No se ha proporcionado cuenta</string>
   <string name="media_err_not_in_owncloud">El archivo no esta en una cuenta valida </string>
   <string name="media_err_unsupported">Codec No Soportado</string>
@@ -144,7 +144,7 @@
   <string name="auth_connection_established">Conexión establecida</string>
   <string name="auth_testing_connection">Probando conexión...</string>
   <string name="auth_not_configured_title">Configuración de servidor en formato incorrecto</string>
-  <string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existen en el dispositivo</string>
+  <string name="auth_account_not_new">Ya existe una cuenta en este dispositivo con los mismos datos de Usuario y Servidor</string>
   <string name="auth_account_not_the_same">El usuario introducido no concuerda con el usuario de esta cuenta</string>
   <string name="auth_unknown_error_title">Ocurrió un error desconocido</string>
   <string name="auth_unknown_host_title">No se pudo encontrar la dirección</string>
@@ -162,12 +162,12 @@
   <string name="auth_wtf_reenter_URL">Estado inesperado; por favor, introduzca la URL del servidor de nuevo</string>
   <string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Por favor, autorice de nuevo</string>
   <string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual.</string>
-  <string name="auth_expired_saml_sso_token_toast">Tu sesión ha expirado. Por favor, intenta conectarte de nuevo</string>
+  <string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
   <string name="auth_connecting_auth_server">Conectando al servidor de autenticación...</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
   <string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador\n\t</string>
-  <string name="auth_can_not_auth_against_server">No es posible autenticarse con este servidor</string>
+  <string name="auth_can_not_auth_against_server">No puede autenticarse en este servidor.</string>
   <string name="fd_keep_in_sync">Mantener el archivo actualizado</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
@@ -211,7 +211,7 @@
   <string name="ssl_validator_label_ST">Estado:</string>
   <string name="ssl_validator_label_L">Ubicación:</string>
   <string name="ssl_validator_label_validity">Validez:</string>
-  <string name="ssl_validator_label_validity_from">De:</string>
+  <string name="ssl_validator_label_validity_from">Desde</string>
   <string name="ssl_validator_label_validity_to">A:</string>
   <string name="ssl_validator_label_signature">Firma:</string>
   <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
@@ -232,7 +232,7 @@
   <string name="conflict_overwrite">Sobrescribir</string>
   <string name="conflict_dont_upload">No subir</string>
   <string name="preview_image_description">Previsualización de imagen</string>
-  <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada.</string>
+  <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
   <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
   <string name="actionbar_failed_instant_upload">Carga instantánea fallida</string>
   <string name="failed_upload_headline_text">Cargas instantáneas fallidas</string>

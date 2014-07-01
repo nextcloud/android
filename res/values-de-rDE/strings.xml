@@ -108,7 +108,7 @@
   <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Remote: %1$s</string>
-  <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in den %1$s Ordner zu kopieren. Möchten Sie sie stattdessen verschieben?</string>
+  <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung um die ausgewählten Dateien in den %1$s Ordner zu kopieren. Möchten Sie diese stattdessen verschieben?</string>
   <string name="pincode_enter_pin_code">Bitte geben Sie Ihre App-PIN ein</string>
   <string name="pincode_configure_your_pin">Bitte geben Sie Ihre App-PIN ein</string>
   <string name="pincode_configure_your_pin_explanation">PIN-Abfrage erfolgt nach Starten der App.</string>

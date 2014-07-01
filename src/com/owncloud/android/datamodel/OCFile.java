@@ -65,6 +65,9 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mShareByLink;
     private String mPublicLink;
 
+    private String mPermissions;
+    private String mRemoteId;
+
 
     /**
      * Create new {@link OCFile} with given path.
@@ -104,6 +107,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtag = source.readString();
         mShareByLink = source.readInt() == 1;
         mPublicLink = source.readString();
+        mPermissions = source.readString();
+        mRemoteId = source.readString();
     }
 
     @Override
@@ -124,6 +129,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mEtag);
         dest.writeInt(mShareByLink ? 1 : 0);
         dest.writeString(mPublicLink);
+        dest.writeString(mPermissions);
+        dest.writeString(mRemoteId);
     }
     
     /**
@@ -334,6 +341,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mEtag = null;
         mShareByLink = false;
         mPublicLink = null;
+        mPermissions = null;
+        mRemoteId = null;
     }
 
     /**
@@ -516,6 +525,22 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         }
         String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
         return (result != null) ? result : "";
+    }
+
+    public String getPermissions() {
+        return mPermissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.mPermissions = permissions;
+    }
+
+    public String getRemoteId() {
+        return mRemoteId;
+    }
+
+    public void setRemoteId(String remoteId) {
+        this.mRemoteId = remoteId;
     }
 
 }

@@ -108,7 +108,7 @@
   <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
   <string name="foreign_files_local_text">ローカル: %1$s</string>
   <string name="foreign_files_remote_text">リモート: %1$s</string>
-  <string name="upload_query_move_foreign_files">%1$s フォルダーに選択されたファイルをコピーするのに十分な空き領域がありません。コピーする代わりに、それらを移動させますか？</string>
+  <string name="upload_query_move_foreign_files">十分なスペースが無いため、選択されたファイルを %1$s フォルダーにコピーすることができません。コピーする代わりに、それらを移動させますか？</string>
   <string name="pincode_enter_pin_code">アプリのパスワードを入力してください</string>
   <string name="pincode_configure_your_pin">アプリのパスワードを入力してください</string>
   <string name="pincode_configure_your_pin_explanation">アプリ開始時に毎回PINが要求されます。</string>
