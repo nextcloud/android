@@ -292,10 +292,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
         } else {
             // in failures, the statistics for the global result are updated
-            if (result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    ( result.isIdPRedirection() &&
-                            getClient().getCredentials() == null      )) {
-                            //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))) {
+            if (    result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
+                    result.isIdPRedirection()
+                ) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -383,16 +382,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
-        notificationBuilder.setTicker(i18n(R.string.sync_fail_ticker));
-        boolean needsToUpdateCredentials = (mLastFailedResult != null && 
-                                             (  mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                                ( mLastFailedResult.isIdPRedirection() && 
-                                                  getClient().getCredentials() == null      )
-                                                 //MainApp.getAuthTokenTypeSamlSessionCookie().equals(getClient().getAuthTokenType()))
-                                             )
-                                           );
-        // TODO put something smart in the contentIntent below for all the possible errors
-        notificationBuilder.setContentTitle(i18n(R.string.sync_fail_ticker));
+        boolean needsToUpdateCredentials = (
+                mLastFailedResult != null && (  
+                        mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
+                        mLastFailedResult.isIdPRedirection()
+                )
+        );
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
             Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
@@ -402,12 +397,16 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
             notificationBuilder
+                .setTicker(i18n(R.string.sync_fail_ticker_unauthorized))
+                .setContentTitle(i18n(R.string.sync_fail_ticker_unauthorized))
                 .setContentIntent(PendingIntent.getActivity(
                     getContext(), (int)System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
                 ))
                 .setContentText(i18n(R.string.sync_fail_content_unauthorized, getAccount().name));
         } else {
             notificationBuilder
+                .setTicker(i18n(R.string.sync_fail_ticker))
+                .setContentTitle(i18n(R.string.sync_fail_ticker))
                 .setContentText(i18n(R.string.sync_fail_content, getAccount().name));
         }
         

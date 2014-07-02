@@ -53,7 +53,6 @@ public class GetServerInfoOperation extends RemoteOperation {
     private static final String TAG = GetServerInfoOperation.class.getSimpleName();
     
     private String mUrl;
-    private String mAuthTokenType;
     private Context mContext;
     
     private ServerInfo mResultData;
@@ -62,14 +61,11 @@ public class GetServerInfoOperation extends RemoteOperation {
      * Constructor.
      * 
      * @param url               URL to an ownCloud server.
-     * @param authTokenType     Identifies the authorization token supported by the caller;
-     *                          TODO ugly dependency, get rid of it. 
      * @param context           Android context; needed to check network state
      *                          TODO ugly dependency, get rid of it. 
      */
-    public GetServerInfoOperation(String url, String authTokenType, Context context) {
+    public GetServerInfoOperation(String url, Context context) {
         mUrl = trimWebdavSuffix(url);
-        mAuthTokenType = authTokenType;
         mContext = context;
         
         mResultData = new ServerInfo();
@@ -87,9 +83,9 @@ public class GetServerInfoOperation extends RemoteOperation {
 	protected RemoteOperationResult run(OwnCloudClient client) {
 	    
 	    // first: check the status of the server (including its version)
-	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mUrl, mContext);
+	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mContext);
 	    RemoteOperationResult result = getStatus.execute(client);
-
+	    
         if (result.isSuccess()) {
             // second: get authentication method required by the server
             mResultData.mVersion = (OwnCloudVersion)(result.getData().get(0));
@@ -114,10 +110,8 @@ public class GetServerInfoOperation extends RemoteOperation {
 	
     private RemoteOperationResult detectAuthorizationMethod(OwnCloudClient client) {
         Log_OC.d(TAG, "Trying empty authorization to detect authentication method");
-        String webdav_path = AccountUtils.getWebdavPath(mResultData.mVersion, mAuthTokenType);
-        String webdav_url = mResultData.mBaseUrl + webdav_path;
         DetectAuthenticationMethodOperation operation = 
-                new DetectAuthenticationMethodOperation(mContext, webdav_url);
+                new DetectAuthenticationMethodOperation(mContext);
         return operation.execute(client);
     }
     

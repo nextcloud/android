@@ -64,7 +64,6 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
     }
     
     private Context mContext;
-    private String mWebDavUrl;
     
     /**
      * Constructor
@@ -72,9 +71,8 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      * @param context       Android context of the caller.
      * @param webdavUrl
      */
-    public DetectAuthenticationMethodOperation(Context context, String webdavUrl) {
+    public DetectAuthenticationMethodOperation(Context context) {
         mContext = context;
-        mWebDavUrl = webdavUrl;
     }
     
 
@@ -93,15 +91,15 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
         
         RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
-        client.setWebdavUri(Uri.parse(mWebDavUrl));
-        client.setBasicCredentials("", "");
+        client.clearCredentials();
         client.setFollowRedirects(false);
         
         // try to access the root folder, following redirections but not SAML SSO redirections
         result = operation.execute(client);
         String redirectedLocation = result.getRedirectedLocation(); 
-        while (redirectedLocation != null && redirectedLocation.length() > 0 && !result.isIdPRedirection()) {
-            client.setWebdavUri(Uri.parse(result.getRedirectedLocation()));
+        while (redirectedLocation != null && redirectedLocation.length() > 0 && 
+                !result.isIdPRedirection()) {
+            client.setBaseUri(Uri.parse(result.getRedirectedLocation()));
             result = operation.execute(client);
             redirectedLocation = result.getRedirectedLocation();
         } 

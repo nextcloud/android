@@ -48,8 +48,9 @@ import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.ui.activity.FailedUploadActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -486,8 +487,11 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 /// prepare client object to send requests to the ownCloud server
                 if (mUploadClient == null || !mLastAccount.equals(mCurrentUpload.getAccount())) {
                     mLastAccount = mCurrentUpload.getAccount();
-                    mStorageManager = new FileDataStorageManager(mLastAccount, getContentResolver());
-                    mUploadClient = OwnCloudClientFactory.createOwnCloudClient(mLastAccount, getApplicationContext());
+                    mStorageManager = 
+                            new FileDataStorageManager(mLastAccount, getContentResolver());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mLastAccount, this);
+                    mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, this);
                 }
                 
                 /// check the existence of the parent folder for the file to upload
@@ -737,9 +741,10 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             String content = null;
 
             // check credentials error
-            boolean needsToUpdateCredentials = (uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
-                    (uploadResult.isIdPRedirection() &&
-                            mUploadClient.getCredentials() == null));
+            boolean needsToUpdateCredentials = (
+                    uploadResult.getCode() == ResultCode.UNAUTHORIZED || 
+                    uploadResult.isIdPRedirection()
+            );
             tickerId = (needsToUpdateCredentials) ? 
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 

@@ -23,10 +23,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudClientFactory;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -46,6 +51,8 @@ import com.owncloud.android.utils.Log_OC;
 
 import android.accounts.Account;
 import android.accounts.AccountsException;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
@@ -64,7 +71,6 @@ public class OperationsService extends Service {
     
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
-    public static final String EXTRA_AUTH_TOKEN_TYPE = "AUTH_TOKEN_TYPE";
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
@@ -75,12 +81,10 @@ public class OperationsService extends Service {
     public static final String EXTRA_RESULT = "RESULT";
     
     // TODO review if ALL OF THEM are necessary
-    public static final String EXTRA_WEBDAV_PATH = "WEBDAV_PATH";
     public static final String EXTRA_SUCCESS_IF_ABSENT = "SUCCESS_IF_ABSENT";
     public static final String EXTRA_USERNAME = "USERNAME";
     public static final String EXTRA_PASSWORD = "PASSWORD";
     public static final String EXTRA_AUTH_TOKEN = "AUTH_TOKEN";
-    public static final String EXTRA_FOLLOW_REDIRECTS = "FOLLOW_REDIRECTS";
     public static final String EXTRA_COOKIE = "COOKIE";
     
     public static final String ACTION_CREATE_SHARE = "CREATE_SHARE";
@@ -107,22 +111,18 @@ public class OperationsService extends Service {
     private static class Target {
         public Uri mServerUrl = null;
         public Account mAccount = null;
-        public String mWebDavUrl = null;
         public String mUsername = null;
         public String mPassword = null;
         public String mAuthToken = null;
-        public boolean mFollowRedirects = true;
         public String mCookie = null;
         
-        public Target(Account account, Uri serverUrl, String webdavUrl, String username, String password, String authToken,
-                boolean followRedirects, String cookie) {
+        public Target(Account account, Uri serverUrl, String username, String password, String authToken,
+                String cookie) {
             mAccount = account;
             mServerUrl = serverUrl;
-            mWebDavUrl = webdavUrl;
             mUsername = username;
             mPassword = password;
             mAuthToken = authToken;
-            mFollowRedirects = followRedirects;
             mCookie = cookie;
         }
     }
@@ -172,8 +172,25 @@ public class OperationsService extends Service {
     @Override
     public void onDestroy() {
         //Log_OC.wtf(TAG, "onDestroy init" );
+        // Saving cookies
+        try {
+            OwnCloudClientManagerFactory.getDefaultSingleton().
+                saveAllClients(this, MainApp.getAccountType());
+            
+            // TODO - get rid of these exceptions
+        } catch (AccountNotFoundException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         //Log_OC.wtf(TAG, "Clear mUndispatchedFinisiedOperations" );
         mUndispatchedFinishedOperations.clear();
+        
         //Log_OC.wtf(TAG, "onDestroy end" );
         super.onDestroy();
     }
@@ -281,21 +298,16 @@ public class OperationsService extends Service {
                 } else {
                     Account account = operationIntent.getParcelableExtra(EXTRA_ACCOUNT);
                     String serverUrl = operationIntent.getStringExtra(EXTRA_SERVER_URL);
-                    String webDavPath = operationIntent.getStringExtra(EXTRA_WEBDAV_PATH);
-                    String webDavUrl = serverUrl + webDavPath;
                     String username = operationIntent.getStringExtra(EXTRA_USERNAME);
                     String password = operationIntent.getStringExtra(EXTRA_PASSWORD);
                     String authToken = operationIntent.getStringExtra(EXTRA_AUTH_TOKEN);
-                    boolean followRedirects = operationIntent.getBooleanExtra(EXTRA_FOLLOW_REDIRECTS, true);
                     String cookie = operationIntent.getStringExtra(EXTRA_COOKIE);
                     target = new Target(
                             account, 
                             (serverUrl == null) ? null : Uri.parse(serverUrl),
-                            ((webDavPath == null) || (serverUrl == null)) ? null : webDavUrl,
                             username,
                             password,
                             authToken,
-                            followRedirects,
                             cookie
                     );
                     
@@ -318,10 +330,7 @@ public class OperationsService extends Service {
                         
                     } else if (action.equals(ACTION_GET_SERVER_INFO)) { 
                         // check OC server and get basic information from it
-                        String authTokenType = 
-                                operationIntent.getStringExtra(EXTRA_AUTH_TOKEN_TYPE);
-                        operation = new GetServerInfoOperation(
-                                serverUrl, authTokenType, OperationsService.this);
+                        operation = new GetServerInfoOperation(serverUrl, OperationsService.this);
                         
                     } else if (action.equals(ACTION_OAUTH2_GET_ACCESS_TOKEN)) {
                         /// GET ACCESS TOKEN to the OAuth server
@@ -336,7 +345,7 @@ public class OperationsService extends Service {
                     } else if (action.equals(ACTION_EXISTENCE_CHECK)) {
                         // Existence Check 
                         String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
-                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, true);
+                        boolean successIfAbsent = operationIntent.getBooleanExtra(EXTRA_SUCCESS_IF_ABSENT, false);
                         operation = new ExistenceCheckRemoteOperation(remotePath, OperationsService.this, successIfAbsent);
                         
                     } else if (action.equals(ACTION_GET_USER_NAME)) {
@@ -453,21 +462,35 @@ public class OperationsService extends Service {
                 if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                     mLastTarget = next.first;
                     if (mLastTarget.mAccount != null) {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mAccount, getApplicationContext());
-                        mStorageManager = new FileDataStorageManager(mLastTarget.mAccount, getContentResolver());
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, this);
+                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                getClientFor(ocAccount, this);
+                        mStorageManager = 
+                                new FileDataStorageManager(
+                                        mLastTarget.mAccount, 
+                                        getContentResolver());
                     } else {
-                        mOwnCloudClient = OwnCloudClientFactory.createOwnCloudClient(mLastTarget.mServerUrl, getApplicationContext(), 
-                                mLastTarget.mFollowRedirects);    // this is not good enough
-                        if (mLastTarget.mWebDavUrl != null) {
-                            mOwnCloudClient.setWebdavUri(Uri.parse(mLastTarget.mWebDavUrl));
+                        OwnCloudCredentials credentials = null;
+                        if (mLastTarget.mUsername != null && 
+                                mLastTarget.mUsername.length() > 0) {
+                            credentials = OwnCloudCredentialsFactory.newBasicCredentials(
+                                    mLastTarget.mUsername, 
+                                    mLastTarget.mPassword);  // basic
+                            
+                        } else if (mLastTarget.mAuthToken != null && 
+                                mLastTarget.mAuthToken.length() > 0) {
+                            credentials = OwnCloudCredentialsFactory.newBearerCredentials(
+                                    mLastTarget.mAuthToken);  // bearer token
+                            
+                        } else if (mLastTarget.mCookie != null &&
+                                mLastTarget.mCookie.length() > 0) {
+                            credentials = OwnCloudCredentialsFactory.newSamlSsoCredentials(
+                                    mLastTarget.mCookie); // SAML SSO
                         }
-                        if (mLastTarget.mUsername != null && mLastTarget.mPassword != null) {
-                            mOwnCloudClient.setBasicCredentials(mLastTarget.mUsername, mLastTarget.mPassword);
-                        } else if (mLastTarget.mAuthToken != null) {
-                            mOwnCloudClient.setBearerCredentials(mLastTarget.mAuthToken);
-                        } else if (mLastTarget.mCookie != null) {
-                            mOwnCloudClient.setSsoSessionCookie(mLastTarget.mCookie);
-                        }
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(
+                                mLastTarget.mServerUrl, credentials);
+                        mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                getClientFor(ocAccount, this);
                         mStorageManager = null;
                     }
                 }

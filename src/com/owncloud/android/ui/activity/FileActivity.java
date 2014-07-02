@@ -195,6 +195,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
     
     @Override
     protected void onPause()  {
+        
         if (mOperationsServiceBinder != null) {
             mOperationsServiceBinder.removeOperationListener(this);
         }
@@ -464,7 +465,7 @@ implements OnRemoteOperationListener, ComponentsGetter {
         } 
     }
 
-    private void requestCredentialsUpdate() {
+    protected void requestCredentialsUpdate() {
         Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
         updateAccountCredentials.putExtra(

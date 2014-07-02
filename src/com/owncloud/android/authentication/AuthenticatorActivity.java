@@ -62,6 +62,9 @@ import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
@@ -723,9 +726,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(OperationsService.EXTRA_SERVER_URL, uri);
-            getServerInfoIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN_TYPE, mAuthTokenType);
             if (mOperationsServiceBinder != null) {
-                //Log_OC.wtf(TAG, "checking server..." );
                 mWaitingForOpId = mOperationsServiceBinder.newOperation(getServerInfoIntent);
             } else {
               Log_OC.wtf(TAG, "Server check tried with OperationService unbound!" );
@@ -828,9 +829,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
      * the root folder of the ownCloud server.
      */
     private void checkBasicAuthorization() {
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-
         /// get basic credentials entered by user
         String username = mUsernameInput.getText().toString();
         String password = mPasswordInput.getText().toString();
@@ -840,26 +838,19 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
-        /// test credentials accessing the root folder
-        String remotePath ="";
-        boolean successIfAbsent = false;
-        boolean followRedirects = true;
-        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, username, password, followRedirects);
+        /// validate credentials accessing the root folder
+        accessRootFolderRemoteOperation(username, password);
         
     }
 
-    private void startExistenceCheckRemoteOperation(String remotePath, Context context, boolean successIfAbsent, String webdav_path,
-            String username, String password, boolean followRedirects) {
+    private void accessRootFolderRemoteOperation(String username, String password) {
         Intent existenceCheckIntent = new Intent();
         existenceCheckIntent.setAction(OperationsService.ACTION_EXISTENCE_CHECK);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, remotePath);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_SUCCESS_IF_ABSENT, successIfAbsent);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_WEBDAV_PATH, webdav_path);
+        existenceCheckIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, "/");
         existenceCheckIntent.putExtra(OperationsService.EXTRA_USERNAME, username);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_PASSWORD, password);
         existenceCheckIntent.putExtra(OperationsService.EXTRA_AUTH_TOKEN, mAuthToken);
-        existenceCheckIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting existenceCheckRemoteOperation..." );
@@ -904,14 +895,8 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
                 IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
         dialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
 
-        /// get the path to the root folder through WebDAV from the version server
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-
-        /// test credentials accessing the root folder
-        String remotePath ="";
-        boolean successIfAbsent = false;
-        boolean followRedirections = false;
-        startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirections);
+        /// validate credentials accessing the root folder
+        accessRootFolderRemoteOperation("", "");
 
     }
 
@@ -959,7 +944,15 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
 
                 if (!mUsernameInput.getText().toString().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
-                    result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME); 
+                    result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
+                    /*
+                    OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(
+                            new OwnCloudAccount(
+                                    Uri.parse(mServerInfo.mBaseUrl),
+                                    OwnCloudCredentialsFactory.newSamlSsoCredentials(mAuthToken))
+                            );
+                            */
+                    mAuthToken = "";
                     updateAuthStatusIconAndText(result);
                     showAuthStatus();
                     Log_OC.d(TAG, result.getLogMessage());
@@ -1284,8 +1277,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         mWaitingForOpId = Long.MAX_VALUE;
         dismissDialog(WAIT_DIALOG_TAG);
 
-        String webdav_path = AccountUtils.getWebdavPath(mServerInfo.mVersion, mAuthTokenType);
-        if (result.isSuccess() && webdav_path != null) {
+        if (result.isSuccess()) {
             /// be gentle with the user
             IndeterminateProgressDialog dialog = 
                     IndeterminateProgressDialog.newInstance(R.string.auth_trying_to_login, true);
@@ -1298,10 +1290,7 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
             //mAuthToken = ((OAuth2GetAccessToken)operation).getResultTokenMap().get(OAuth2Constants.KEY_ACCESS_TOKEN);
             Log_OC.d(TAG, "Got ACCESS TOKEN: " + mAuthToken);
             
-            String remotePath ="";
-            boolean successIfAbsent = false;
-            boolean followRedirects = true;
-            startExistenceCheckRemoteOperation(remotePath, this, successIfAbsent, webdav_path, "", "", followRedirects);
+            accessRootFolderRemoteOperation("", "");
 
         } else {
             updateAuthStatusIconAndText(result);
@@ -1417,11 +1406,9 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         String username = mUsernameInput.getText().toString().trim();
         if (isOAuth) {
             username = "OAuth_user" + (new java.util.Random(System.currentTimeMillis())).nextLong();
-        }            
-        String accountName = username + "@" + uri.getHost();
-        if (uri.getPort() >= 0) {
-            accountName += ":" + uri.getPort();
         }
+        String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.
+                buildAccountName(uri, username);
         Account newAccount = new Account(accountName, MainApp.getAccountType());
         if (AccountUtils.exists(newAccount, getApplicationContext())) {
             // fail - not a new account, but an existing one; disallow
@@ -1642,7 +1629,6 @@ SsoWebViewClientListener, OnSslUntrustedCertListener {
         getUserNameIntent.setAction(OperationsService.ACTION_GET_USER_NAME);
         getUserNameIntent.putExtra(OperationsService.EXTRA_SERVER_URL, mServerInfo.mBaseUrl);
         getUserNameIntent.putExtra(OperationsService.EXTRA_COOKIE, sessionCookie);
-        getUserNameIntent.putExtra(OperationsService.EXTRA_FOLLOW_REDIRECTS, followRedirects);
         
         if (mOperationsServiceBinder != null) {
             //Log_OC.wtf(TAG, "starting getRemoteUserNameOperation..." );

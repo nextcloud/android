@@ -19,8 +19,12 @@
 package com.owncloud.android.ui.activity;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -68,6 +72,11 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.operations.CreateFolderOperation;
 
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -918,10 +927,54 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                         
                         mSyncInProgress = (!FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event));
                                 
+                        if (SynchronizeFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
+                                    equals(event) &&
+                                /// TODO refactor and make common
+                                synchResult != null && !synchResult.isSuccess() &&  
+                                (synchResult.getCode() == ResultCode.UNAUTHORIZED   || 
+                                    synchResult.isIdPRedirection()                  ||
+                                    (synchResult.isException() && synchResult.getException() 
+                                            instanceof AuthenticatorException))) {
+
+                            OwnCloudClient client = null;
+                            try {
+                                OwnCloudAccount ocAccount = 
+                                        new OwnCloudAccount(getAccount(), context);
+                                client = (OwnCloudClientManagerFactory.getDefaultSingleton().
+                                        removeClientFor(ocAccount));
+                                // TODO get rid of these exceptions
+                            } catch (AccountNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (AuthenticatorException e) {
+                                e.printStackTrace();
+                            } catch (OperationCanceledException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            
+                            if (client != null) {
+                                OwnCloudCredentials cred = client.getCredentials();
+                                if (cred != null) {
+                                    AccountManager am = AccountManager.get(context);
+                                    if (cred.authTokenExpires()) {
+                                        am.invalidateAuthToken(
+                                                getAccount().type, 
+                                                cred.getAuthToken()
+                                        );
+                                    } else {
+                                        am.clearPassword(getAccount());
+                                    }
+                                }
+                            }
+                            
+                            requestCredentialsUpdate();
+                            
                         }
-                        removeStickyBroadcast(intent);
-                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+                    }
+                    removeStickyBroadcast(intent);
+                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                    setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
                         
                 }
                 
@@ -1478,7 +1531,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                                                                         getAccount(), 
                                                                         getApplicationContext()
                                                                       );
-        synchFolderOp.execute(getAccount(), this, null, null, this);
+        synchFolderOp.execute(getAccount(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
     }

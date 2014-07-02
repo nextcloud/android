@@ -16,22 +16,44 @@
  */
 package com.owncloud.android;
 
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
+
 import android.app.Application;
 import android.content.Context;
 /**
  * Main Application of the project
  * 
- * Contains methods to build the "static" strings. These strings were before constants in different classes
+ * Contains methods to build the "static" strings. These strings were before constants in different
+ * classes
  * 
  * @author masensio
+ * @author David A. Velasco
  */
 public class MainApp extends Application {
+    
+    private static final String AUTH_ON = "on";
+    
+    @SuppressWarnings("unused")
+    private static final String POLICY_SINGLE_SESSION_PER_ACCOUNT = "single session per account";
+    @SuppressWarnings("unused")
+    private static final String POLICY_ALWAYS_NEW_CLIENT = "always new client";
 
     private static Context mContext;
-
+    
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
+        
+        boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
+        
+        if (isSamlAuth) {   
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.SINGLE_SESSION_PER_ACCOUNT);
+            
+        } else {
+            OwnCloudClientManagerFactory.setDefaultPolicy(Policy.ALWAYS_NEW_CLIENT);
+        }
+        
     }
 
     public static Context getAppContext() {
@@ -78,4 +100,5 @@ public class MainApp extends Application {
     public static String getLogName() {
         return getAppContext().getResources().getString(R.string.log_name);
     }
+
 }
