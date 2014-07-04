@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Nedlasting feilet. Du må logge inn på nytt</string>
   <string name="common_choose_account">Velg konto</string>
   <string name="sync_fail_ticker">Synkronisering feilet</string>
+  <string name="sync_fail_ticker_unauthorized">Synkronisering feilet, du må logge inn på nytt</string>
   <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
   <string name="sync_fail_content_unauthorized">Ugyldig passord for %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>

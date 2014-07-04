@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Ściganie nie powiodło się, musisz się ponownie zalogować</string>
   <string name="common_choose_account">Wybierz konto</string>
   <string name="sync_fail_ticker">Błąd synchronizacji</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronizacja nie powiodła się, musisz się przelogować</string>
   <string name="sync_fail_content">Nie można było ukończyć synchronizacji %1$s </string>
   <string name="sync_fail_content_unauthorized">Niepoprawne hasło dla %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>

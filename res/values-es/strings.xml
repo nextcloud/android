@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Descarga fallida, necesita reinicar la sesión</string>
   <string name="common_choose_account">Elige una cuenta</string>
   <string name="sync_fail_ticker">Falló la sincronización</string>
+  <string name="sync_fail_ticker_unauthorized">La sincronización falló, debe reiniciar la sesión</string>
   <string name="sync_fail_content">La sincronización de %1$s s no se pudo completar</string>
   <string name="sync_fail_content_unauthorized">Contraseña no válida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>

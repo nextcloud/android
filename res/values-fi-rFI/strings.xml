@@ -87,6 +87,7 @@
   <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu uudelleen</string>
   <string name="common_choose_account">Valitse tili</string>
   <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
+  <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui, kirjaudu uudelleen</string>
   <string name="sync_fail_content">Kohteen %1$s synkronointia ei voitu suorittaa loppuun</string>
   <string name="sync_fail_content_unauthorized">Virheellinen salasana tilille %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -213,6 +214,7 @@
   <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
   <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
   <string name="failed_upload_failure_text">Virheviesti:</string>
+  <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys\n\t\tylläpitäjään.</string>
   <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>
   <string name="activity_chooser_send_file_title">Lähetä</string>

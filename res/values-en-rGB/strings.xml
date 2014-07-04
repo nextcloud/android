@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Download failed, you need to login again</string>
   <string name="common_choose_account">Choose account</string>
   <string name="sync_fail_ticker">Synchronisation failed</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronisation failed, you need to relogin</string>
   <string name="sync_fail_content">Synchronisation of %1$s could not be completed</string>
   <string name="sync_fail_content_unauthorized">Invalid password for %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>

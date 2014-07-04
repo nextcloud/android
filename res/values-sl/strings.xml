@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo. Pred nadaljevanjem se je treba prijaviti.</string>
   <string name="common_choose_account">Izbor računa</string>
   <string name="sync_fail_ticker">Usklajevanje je spodletelo</string>
+  <string name="sync_fail_ticker_unauthorized">Usklajevanje je spodletelo. Znova se je treba prijaviti.</string>
   <string name="sync_fail_content">Usklajevanja %1$s ni mogoče dokončati</string>
   <string name="sync_fail_content_unauthorized">Neveljavno geslo za %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
@@ -108,6 +109,7 @@
   <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
   <string name="foreign_files_local_text">Krajevno: %1$s</string>
   <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
+  <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali jih želite premakniti?</string>
   <string name="pincode_enter_pin_code">Vnesite kodo PIN programa</string>
   <string name="pincode_configure_your_pin">Vnesite kodo PIN programa</string>
   <string name="pincode_configure_your_pin_explanation">Koda PIN bo zahtevana vsakič pred zagonom programa.</string>

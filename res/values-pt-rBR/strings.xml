@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">O download falhou, você precisa reconectar</string>
   <string name="common_choose_account">Escolha a conta</string>
   <string name="sync_fail_ticker">Sincronização falhou</string>
+  <string name="sync_fail_ticker_unauthorized">A sincronização falhou, você necessita se reconectar</string>
   <string name="sync_fail_content">Sincronização de %1$s não pôde ser completada</string>
   <string name="sync_fail_content_unauthorized">Senha inválida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>

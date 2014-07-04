@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">İndirme başarısız, yeniden oturum açmalısınız</string>
   <string name="common_choose_account">Hesap seçin</string>
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
+  <string name="sync_fail_ticker_unauthorized">Eşitleme başarısız, yeniden oturum açmalısınız</string>
   <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
   <string name="sync_fail_content_unauthorized">%1$s için geçersiz parola</string>
   <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>

@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Allaladimine ebaõnnestus, sa pead uuesti sisse logima</string>
   <string name="common_choose_account">Vali konto</string>
   <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
+  <string name="sync_fail_ticker_unauthorized">Sünkroniseering katkes, pead uuesti sisse logima</string>
   <string name="sync_fail_content">%1$s sünkroniseerimise lõpetamine ebaõnnestus</string>
   <string name="sync_fail_content_unauthorized">Vigane parool %1$s jaoks</string>
   <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>

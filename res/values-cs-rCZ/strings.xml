@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Stahování selhalo. Je třeba se přihlásit znovu.</string>
   <string name="common_choose_account">Vybrat účet</string>
   <string name="sync_fail_ticker">Synchronizace selhala</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronizace selhala, je třeba se znovu přihlásit</string>
   <string name="sync_fail_content">Synchronizaci %1$s nelze dokončit</string>
   <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
