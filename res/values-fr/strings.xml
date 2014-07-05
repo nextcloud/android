@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Le téléchargement a échoué, vous devez vous connecter à nouveau</string>
   <string name="common_choose_account">Choisissez un compte</string>
   <string name="sync_fail_ticker">La synchronisation a échoué</string>
+  <string name="sync_fail_ticker_unauthorized">Échec de la synchronisation, vous devez vous reconnecter à nouveau</string>
   <string name="sync_fail_content">La synchronisation de %1$s ne peut pas être complétée</string>
   <string name="sync_fail_content_unauthorized">Mot de passe invalide pour %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
