@@ -119,6 +119,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             sharedWithMeIconV.setVisibility(View.GONE);
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
+            localStateView.bringToFront();
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
             if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
