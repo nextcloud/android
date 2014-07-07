@@ -36,22 +36,23 @@ import com.owncloud.android.utils.Log_OC;
 
 public class OwnCloudFileObserver extends FileObserver {
 
-    private static int MASK = (FileObserver.MODIFY | FileObserver.CLOSE_WRITE);
-    private static int IN_IGNORE = 32768;
+    //private static int MASK = (FileObserver.MODIFY | FileObserver.CLOSE_WRITE);
+    public static int IN_IGNORE = 32768;
+    public static int ALL_EVENTS_AND_MORE = 0xffffffff;
 
     private static String TAG = OwnCloudFileObserver.class.getSimpleName();
 
     private String mPath;
-    private int mMask;
+    //private int mMask;
     private Account mOCAccount;
     private Context mContext;
     private boolean mModified;
     private long mFileLastModified;
-    private boolean mRestartWatching;
-    private Handler mHandler;
+    //private boolean mRestartWatching;
+    //private Handler mHandler;
 
     public OwnCloudFileObserver(String path, Account account, Context context, Handler handler) {
-        super(path, FileObserver.ALL_EVENTS);
+        super(path, ALL_EVENTS);
         if (path == null)
             throw new IllegalArgumentException("NULL path argument received");
         if (account == null)
@@ -63,14 +64,16 @@ public class OwnCloudFileObserver extends FileObserver {
         mContext = context;
         mModified = false;
         mFileLastModified = new File(path).lastModified();
-        mHandler = handler;
+        //mHandler = handler;
         Log_OC.d(TAG, "Create Observer - FileLastModified: " + mFileLastModified);
     }
 
     @Override
     public void onEvent(int event, String path) {
-        Log_OC.d(TAG, "Got file modified with event " + event + " and path " + mPath
-                + ((path != null) ? File.separator + path : ""));
+        Log_OC.v(TAG, "Got event " + event + " on FILE " + mPath + " about "
+                + ((path != null) ? path : ""));
+
+        /*
         if ((event & MASK) == 0) {
             Log_OC.wtf(TAG, "Incorrect event " + event + " sent for file " + mPath
                     + ((path != null) ? File.separator + path : "") + " with registered for " + mMask
@@ -88,6 +91,7 @@ public class OwnCloudFileObserver extends FileObserver {
 
             }
         } else {
+        */
             if ((event & FileObserver.MODIFY) != 0) {
                 // file changed
                 mModified = true;
@@ -98,18 +102,19 @@ public class OwnCloudFileObserver extends FileObserver {
                 // file closed
                 if (mModified) {
                     mModified = false;
-                    mRestartWatching = false;
+                    //mRestartWatching = false;
                     startSyncOperation();
+                    
                 } else if (isFileUpdated()) {
                     // if file has been modified but Modify event type has not
                     // been launched
-                    mRestartWatching = true;
+                    //mRestartWatching = true;
                     mFileLastModified = new File(mPath).lastModified();
                     Log_OC.d(TAG, "CLOSE_WRITE - New FileLastModified: " + mFileLastModified);
                     startSyncOperation();
                 }
             }
-        }
+        //}
     }
 
     private void startSyncOperation() {

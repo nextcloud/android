@@ -23,17 +23,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
-import com.owncloud.android.files.OwnCloudFileObserver;
-import com.owncloud.android.files.OwnCloudFolderObserver;
-import com.owncloud.android.operations.SynchronizeFileOperation;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.Log_OC;
-
-
 import android.accounts.Account;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -41,7 +30,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.os.FileObserver;
 import android.os.IBinder;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.files.OwnCloudFolderObserver;
+import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.Log_OC;
+
 
 /**
  * Service keeping a list of {@link FileObserver} instances that watch for local
@@ -61,30 +61,29 @@ import android.os.IBinder;
 public class FileObserverService extends Service {
 
     public final static String MY_NAME = FileObserverService.class.getCanonicalName();
-    public final static String ACTION_INIT_OBSERVED_LIST = MY_NAME + ".action.INIT_OBSERVED_LIST";
-    public final static String CMD_ADD_OBSERVED_FILE = MY_NAME + ".action.ADD_OBSERVED_FILE";
-    public final static String CMD_DEL_OBSERVED_FILE = MY_NAME + ".action.DEL_OBSERVED_FILE";
+    public final static String ACTION_START_OBSERVE = MY_NAME + ".action.START_OBSERVATION";
+    public final static String ACTION_ADD_OBSERVED_FILE = MY_NAME + ".action.ADD_OBSERVED_FILE";
+    public final static String ACTION_DEL_OBSERVED_FILE = MY_NAME + ".action.DEL_OBSERVED_FILE";
 
-    public final static String KEY_CMD_ARG_FILE = "KEY_CMD_ARG_FILE";
-    public final static String KEY_CMD_ARG_ACCOUNT = "KEY_CMD_ARG_ACCOUNT";
+    private final static String ARG_FILE = "ARG_FILE";
+    private final static String ARG_ACCOUNT = "ARG_ACCOUNT";
 
     private static String TAG = FileObserverService.class.getSimpleName();
 
-    private static Map<String, OwnCloudFileObserver> mObserversMap;
-    private static Map<String, OwnCloudFolderObserver> mObserversFolderMap;
-    private static DownloadCompletedReceiver mDownloadReceiver;
+    private Map<String, OwnCloudFolderObserver> mFolderObserversMap;
+    private DownloadCompletedReceiver mDownloadReceiver;
 
     /**
      * Factory method to create intents that allow to start an
-     * ACTION_INIT_OBSERVED_LIST command.
+     * ACTION_START_OBSERVE command.
      * 
      * @param context Android context of the caller component.
-     * @return Intent that starts a command ACTION_INIT_OBSERVED_LIST when
+     * @return Intent that starts a command ACTION_START_OBSERVE when
      *         {@link Context#startService(Intent)} is called.
      */
     public static Intent makeInitIntent(Context context) {
         Intent i = new Intent(context, FileObserverService.class);
-        i.setAction(ACTION_INIT_OBSERVED_LIST);
+        i.setAction(ACTION_START_OBSERVE);
         return i;
     }
 
@@ -100,12 +99,13 @@ public class FileObserverService extends Service {
      * @return Intent to start or stop the observance of a file through a call
      *         to {@link Context#startService(Intent)}.
      */
-    public static Intent makeObservedFileIntent(Context context, OCFile file, Account account, boolean watchIt) {
+    public static Intent makeObservedFileIntent(
+            Context context, OCFile file, Account account, boolean watchIt) {
         Intent intent = new Intent(context, FileObserverService.class);
-        intent.setAction(watchIt ? FileObserverService.CMD_ADD_OBSERVED_FILE
-                : FileObserverService.CMD_DEL_OBSERVED_FILE);
-        intent.putExtra(FileObserverService.KEY_CMD_ARG_FILE, file);
-        intent.putExtra(FileObserverService.KEY_CMD_ARG_ACCOUNT, account);
+        intent.setAction(watchIt ? FileObserverService.ACTION_ADD_OBSERVED_FILE
+                : FileObserverService.ACTION_DEL_OBSERVED_FILE);
+        intent.putExtra(FileObserverService.ARG_FILE, file);
+        intent.putExtra(FileObserverService.ARG_ACCOUNT, account);
         return intent;
     }
 
@@ -120,35 +120,21 @@ public class FileObserverService extends Service {
         filter.addAction(FileDownloader.getDownloadFinishMessage());
         registerReceiver(mDownloadReceiver, filter);
 
-        mObserversMap = new HashMap<String, OwnCloudFileObserver>();
-        mObserversFolderMap = new HashMap<String, OwnCloudFolderObserver>();
-    }
-
-    @Override
-    public void onLowMemory() {
-        Log_OC.d(TAG, "ON LOW MEMORY");
-
+        mFolderObserversMap = new HashMap<String, OwnCloudFolderObserver>();
     }
 
     @Override
     public void onDestroy() {
-        Log_OC.d(TAG, "onDestroy - FINISHING OBSERVATION");
+        Log_OC.d(TAG, "onDestroy - finishing observation of favourite files");
 
         unregisterReceiver(mDownloadReceiver);
 
-        Iterator<OwnCloudFileObserver> it = mObserversMap.values().iterator();
-        while (it.hasNext()) {
-            it.next().stopWatching();
-        }
-        mObserversMap.clear();
-        mObserversMap = null;
-
-        Iterator<OwnCloudFolderObserver> itOCFolder = mObserversFolderMap.values().iterator();
+        Iterator<OwnCloudFolderObserver> itOCFolder = mFolderObserversMap.values().iterator();
         while (itOCFolder.hasNext()) {
             itOCFolder.next().stopWatching();
         }
-        mObserversFolderMap.clear();
-        mObserversFolderMap = null;
+        mFolderObserversMap.clear();
+        mFolderObserversMap = null;
 
         super.onDestroy();
     }
@@ -163,31 +149,20 @@ public class FileObserverService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command " + intent);
 
-        if (intent == null || ACTION_INIT_OBSERVED_LIST.equals(intent.getAction())) {
+        if (intent == null || ACTION_START_OBSERVE.equals(intent.getAction())) {
             // NULL occurs when system tries to restart the service after its
-            // process
-            // was killed
-            initializeObservedList();
+            // process was killed
+            startObservation();
             return Service.START_STICKY;
 
-        } else if (CMD_ADD_OBSERVED_FILE.equals(intent.getAction())) {
-            OCFile file = (OCFile) intent.getParcelableExtra(KEY_CMD_ARG_FILE);
-            Account account = (Account) intent.getParcelableExtra(KEY_CMD_ARG_ACCOUNT);
+        } else if (ACTION_ADD_OBSERVED_FILE.equals(intent.getAction())) {
+            OCFile file = (OCFile) intent.getParcelableExtra(ARG_FILE);
+            Account account = (Account) intent.getParcelableExtra(ARG_ACCOUNT);
             addObservedFile(file, account);
 
-            String localPath = file.getStoragePath();
-            if (localPath == null || localPath.length() <= 0) {
-                // file downloading or to be downloaded for the first time
-                localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
-            }
-
-            String parentPath = (new File(localPath)).getParent();
-
-            addObservedFolder(parentPath, account);
-
-        } else if (CMD_DEL_OBSERVED_FILE.equals(intent.getAction())) {
-            removeObservedFile((OCFile) intent.getParcelableExtra(KEY_CMD_ARG_FILE),
-                    (Account) intent.getParcelableExtra(KEY_CMD_ARG_ACCOUNT));
+        } else if (ACTION_DEL_OBSERVED_FILE.equals(intent.getAction())) {
+            removeObservedFile((OCFile) intent.getParcelableExtra(ARG_FILE),
+                    (Account) intent.getParcelableExtra(ARG_ACCOUNT));
 
         } else {
             Log_OC.e(TAG, "Unknown action recieved; ignoring it: " + intent.getAction());
@@ -196,18 +171,22 @@ public class FileObserverService extends Service {
         return Service.START_STICKY;
     }
 
+    
     /**
      * Read from the local database the list of files that must to be kept
-     * synchronized and starts file observers to monitor local changes on them
+     * synchronized and starts observers to monitor local changes on them
      */
-    private void initializeObservedList() {
+    private void startObservation() {
         Log_OC.d(TAG, "Loading all kept-in-sync files from database to start watching them");
 
-        // mObserversMap.clear();
-        // mObserverParentsMap.clear();
-
-        Cursor cursorOnKeptInSync = getContentResolver().query(ProviderTableMeta.CONTENT_URI, null,
-                ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?", new String[] { String.valueOf(1) }, null);
+        // query for any favorite file in any OC account
+        Cursor cursorOnKeptInSync = getContentResolver().query(
+                ProviderTableMeta.CONTENT_URI, 
+                null,
+                ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?", 
+                new String[] { String.valueOf(1) }, 
+                null
+        );
 
         if (cursorOnKeptInSync != null) {
 
@@ -232,30 +211,8 @@ public class FileObserverService extends Service {
                     if (!AccountUtils.exists(account, this) || localPath == null || localPath.length() <= 0) {
                         continue;
                     }
-
-                    OwnCloudFileObserver observer = mObserversMap.get(localPath);
-                    if (observer == null) {
-                        observer = new OwnCloudFileObserver(localPath, account, getApplicationContext(), mHandler);
-                        mObserversMap.put(localPath, observer);
-
-                        // only if being added
-                        if (new File(localPath).exists()) {
-                            observer.startWatching();
-                            Log_OC.d(TAG, "Started watching file " + localPath);
-                        }
-                    }
-
-                    String parentPath = (new File(localPath)).getParent();
-                    OwnCloudFolderObserver observerFolder = mObserversFolderMap.get(parentPath);
-                    if (observerFolder == null) {
-                        observerFolder = new OwnCloudFolderObserver(parentPath, account, getApplicationContext());
-                        mObserversFolderMap.put(parentPath, observerFolder);
-
-                        if (new File(parentPath).exists()) {
-                            observerFolder.startWatching();
-                            Log_OC.d(TAG, "Started watching parent folder " + parentPath + "/");
-                        }
-                    }
+                    
+                    addObservedFile(localPath, account);
 
                 } while (cursorOnKeptInSync.moveToNext());
 
@@ -267,6 +224,7 @@ public class FileObserverService extends Service {
 
     }
 
+    
     /**
      * Registers the local copy of a remote file to be observed for local
      * changes, an automatically updated in the ownCloud server.
@@ -295,48 +253,35 @@ public class FileObserverService extends Service {
             // file downloading or to be downloaded for the first time
             localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
         }
-        OwnCloudFileObserver observer = mObserversMap.get(localPath);
-        if (observer == null) {
-            // / the local file was never registered to observe before
-            observer = new OwnCloudFileObserver(localPath, account, getApplicationContext(), mHandler);
-            mObserversMap.put(localPath, observer);
-            Log_OC.d(TAG, "Observer added for path " + localPath);
-
-            if (file.isDown()) {
-                observer.startWatching();
-                Log_OC.d(TAG, "Started watching " + localPath);
-            }
-            // else - the observance can't be started on a file not already
-            // down;
-            // mDownloadReceiver will get noticed when the download of the file
-            // finishes
-        }
+        
+        addObservedFile(localPath, account);
+        
     }
 
+    
+    
+    
     /**
      * Registers the folder to be observed in which there are changes inside any
      * file
      * 
-     * @param localPath String representing the folder will be observed
      * @param account OwnCloud account containing file.
      */
-    public void addObservedFolder(String localPath, Account account) {
-        Log_OC.v(TAG, "Adding a child file to be watched");
-
-        String parentPath = (new File(localPath)).getParent();
-        OwnCloudFolderObserver observerParent = mObserversFolderMap.get(parentPath);
-        if (observerParent == null) {
-            observerParent = new OwnCloudFolderObserver(parentPath, account, getApplicationContext());
-            mObserversFolderMap.put(parentPath, observerParent);
+    private void addObservedFile(String localPath, Account account) {
+        File file = new File(localPath);
+        String parentPath = file.getParent();
+        OwnCloudFolderObserver observer = mFolderObserversMap.get(parentPath);
+        if (observer == null) {
+            observer = new OwnCloudFolderObserver(parentPath, account, getApplicationContext());
+            mFolderObserversMap.put(parentPath, observer);
             Log_OC.d(TAG, "Observer added for parent folder " + parentPath + "/");
-
-            if (new File(parentPath).exists()) {
-                observerParent.startWatching();
-                Log_OC.d(TAG, "Started watching parent folder " + parentPath + "/");
-            }
         }
+        
+        observer.startWatching(file.getName());
+        Log_OC.d(TAG, "Added " + localPath + " to list of observed children");
     }
 
+    
     /**
      * Unregisters the local copy of a remote file to be observed for local
      * changes.
@@ -364,24 +309,32 @@ public class FileObserverService extends Service {
             localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
         }
 
-        OwnCloudFileObserver observer = mObserversMap.get(localPath);
-        if (observer != null) {
-            observer.stopWatching();
-            mObserversMap.remove(observer);
-            Log_OC.d(TAG, "Stopped watching " + localPath);
+        removeObservedFile(localPath);
+    }
 
+    
+    private void removeObservedFile(String localPath) {
+        File file = new File(localPath);
+        String parentPath = file.getParent();
+        OwnCloudFolderObserver observer = mFolderObserversMap.get(parentPath);
+        if (observer != null) {
+            observer.stopWatching(file.getName());
+            if (observer.isEmpty()) {
+                mFolderObserversMap.remove(parentPath);
+                Log_OC.d(TAG, "Observer removed for parent folder " + parentPath + "/");
+            }
+        
         } else {
             Log_OC.d(TAG, "No observer to remove for path " + localPath);
         }
-
     }
 
+    
     /**
-     * Private receiver listening to events broadcast by the FileDownloader
-     * service.
+     * Private receiver listening to events broadcasted by the FileDownloader service.
      * 
-     * Starts and stops the observance on registered files when they are being
-     * download, in order to avoid to start unnecessary synchronizations.
+     * Pauses and resumes the observance on registered files while being download,
+     * in order to avoid to unnecessary synchronizations.
      */
     private class DownloadCompletedReceiver extends BroadcastReceiver {
 
@@ -389,24 +342,24 @@ public class FileObserverService extends Service {
         public void onReceive(Context context, Intent intent) {
             Log_OC.d(TAG, "Received broadcast intent " + intent);
 
-            String downloadPath = intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH);
-            OwnCloudFileObserver observer = mObserversMap.get(downloadPath);
+            File downloadedFile = new File(intent.getStringExtra(FileDownloader.EXTRA_FILE_PATH));
+            String parentPath = downloadedFile.getParent();
+            OwnCloudFolderObserver observer = mFolderObserversMap.get(parentPath);
             if (observer != null) {
                 if (intent.getAction().equals(FileDownloader.getDownloadFinishMessage())
-                        && new File(downloadPath).exists()) {
-                    // no matter is the download was be successful or not; the
-                    // file could be down,
-                    // anyway due to a former download or upload
-                    observer.startWatching();
-                    Log_OC.d(TAG, "Resuming observance of " + downloadPath);
+                        && downloadedFile.exists()) {
+                    // no matter if the download was be successful or not; the
+                    // file could be down anyway due to a former download or upload
+                    observer.startWatching(downloadedFile.getName());
+                    Log_OC.d(TAG, "Resuming observance of " + downloadedFile.getAbsolutePath());
 
                 } else if (intent.getAction().equals(FileDownloader.getDownloadAddedMessage())) {
-                    observer.stopWatching();
-                    Log_OC.d(TAG, "Pausing observance of " + downloadPath);
+                    observer.stopWatching(downloadedFile.getName());
+                    Log_OC.d(TAG, "Pausing observance of " + downloadedFile.getAbsolutePath());
                 }
 
             } else {
-                Log_OC.d(TAG, "No observer for path " + downloadPath);
+                Log_OC.d(TAG, "No observer for path " + downloadedFile.getAbsolutePath());
             }
         }
 
