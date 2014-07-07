@@ -1004,53 +1004,58 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
-            boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
-            OCFile currentDir = getCurrentDir();
-            boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && 
-                    (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
-            
-            if (sameAccount && isDescendant) {
-                refreshListOfFilesFragment();
-            }
-            
-            boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
-            boolean renamedInUpload = getFile().getRemotePath().
-                    equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
-            boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || 
-                    renamedInUpload;
-            FileFragment details = getSecondFragment();
-            boolean detailFragmentIsShown = (details != null && 
-                    details instanceof FileDetailFragment);
-            
-            if (sameAccount && sameFile && detailFragmentIsShown) {
-                if (uploadWasFine) {
-                    setFile(getStorageManager().getFileByPath(uploadedRemotePath));
-                }
-                if (renamedInUpload) {
-                    String newName = (new File(uploadedRemotePath)).getName();
-                    Toast msg = Toast.makeText(
-                            context, 
-                            String.format(
-                                    getString(R.string.filedetails_renamed_in_upload_msg), 
-                                    newName), 
-                            Toast.LENGTH_LONG);
-                    msg.show();
-                }
-                if (uploadWasFine || getFile().fileExists()) {
-                    ((FileDetailFragment)details).updateFileDetails(false, true);
-                } else {
-                    cleanSecondFragment();
+            try {
+                String uploadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                String accountName = intent.getStringExtra(FileUploader.ACCOUNT_NAME);
+                boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
+                OCFile currentDir = getCurrentDir();
+                boolean isDescendant = (currentDir != null) && (uploadedRemotePath != null) && 
+                        (uploadedRemotePath.startsWith(currentDir.getRemotePath()));
+                
+                if (sameAccount && isDescendant) {
+                    refreshListOfFilesFragment();
                 }
                 
-                // Force the preview if the file is an image
-                if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
-                    startImagePreview(getFile());
-                } // TODO what about other kind of previews?
+                boolean uploadWasFine = intent.getBooleanExtra(FileUploader.EXTRA_UPLOAD_RESULT, false);
+                boolean renamedInUpload = getFile().getRemotePath().
+                        equals(intent.getStringExtra(FileUploader.EXTRA_OLD_REMOTE_PATH));
+                boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || 
+                        renamedInUpload;
+                FileFragment details = getSecondFragment();
+                boolean detailFragmentIsShown = (details != null && 
+                        details instanceof FileDetailFragment);
+                
+                if (sameAccount && sameFile && detailFragmentIsShown) {
+                    if (uploadWasFine) {
+                        setFile(getStorageManager().getFileByPath(uploadedRemotePath));
+                    }
+                    if (renamedInUpload) {
+                        String newName = (new File(uploadedRemotePath)).getName();
+                        Toast msg = Toast.makeText(
+                                context, 
+                                String.format(
+                                        getString(R.string.filedetails_renamed_in_upload_msg), 
+                                        newName), 
+                                Toast.LENGTH_LONG);
+                        msg.show();
+                    }
+                    if (uploadWasFine || getFile().fileExists()) {
+                        ((FileDetailFragment)details).updateFileDetails(false, true);
+                    } else {
+                        cleanSecondFragment();
+                    }
+                    
+                    // Force the preview if the file is an image
+                    if (uploadWasFine && PreviewImageFragment.canBePreviewed(getFile())) {
+                        startImagePreview(getFile());
+                    } // TODO what about other kind of previews?
+                }
+                
+            } finally {
+                if (intent != null) {
+                    removeStickyBroadcast(intent);
+                }
             }
-        
-            removeStickyBroadcast(intent);
             
         }
         
@@ -1066,23 +1071,28 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
     private class DownloadFinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean sameAccount = isSameAccount(context, intent);
-            String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
-            boolean isDescendant = isDescendant(downloadedRemotePath);
-
-            if (sameAccount && isDescendant) {
-                refreshListOfFilesFragment();
-                refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
-            }
-
-            if (mWaitingToSend != null) {
-                mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
-                if (mWaitingToSend.isDown()) { 
-                    sendDownloadedFile();
+            try {
+                boolean sameAccount = isSameAccount(context, intent);
+                String downloadedRemotePath = intent.getStringExtra(FileDownloader.EXTRA_REMOTE_PATH);
+                boolean isDescendant = isDescendant(downloadedRemotePath);
+    
+                if (sameAccount && isDescendant) {
+                    refreshListOfFilesFragment();
+                    refreshSecondFragment(intent.getAction(), downloadedRemotePath, intent.getBooleanExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, false));
+                }
+    
+                if (mWaitingToSend != null) {
+                    mWaitingToSend = getStorageManager().getFileByPath(mWaitingToSend.getRemotePath()); // Update the file to send
+                    if (mWaitingToSend.isDown()) { 
+                        sendDownloadedFile();
+                    }
+                }
+            
+            } finally {
+                if (intent != null) {
+                    removeStickyBroadcast(intent);
                 }
             }
-            
-            removeStickyBroadcast(intent);
         }
 
         private boolean isDescendant(String downloadedRemotePath) {
