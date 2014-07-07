@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Fallou a descarga, necesita volver acceder</string>
   <string name="common_choose_account">Escoller unha conta</string>
   <string name="sync_fail_ticker">Produciuse un fallo na sincronización</string>
+  <string name="sync_fail_ticker_unauthorized">Fallou a sincronización, necesita volver acceder</string>
   <string name="sync_fail_content">Non foi posíbel completar a sincronización de %1$s</string>
   <string name="sync_fail_content_unauthorized">Contrasinal incorrecto para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflictos</string>
