@@ -184,6 +184,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
                 }
+
+                // If folder is sharedByLink, icon folder must be changed to
+                // folder-public one
+                if (file.isShareByLink()) {
+                    fileIcon.setImageResource(R.drawable.folder_public);
+                }
             }
 
             if (file.isShareByLink()) {
