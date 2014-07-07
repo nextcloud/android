@@ -38,8 +38,8 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_vertical|center"
             android:layout_margin="4dp"
             android:src="@drawable/ic_menu_archive" />
