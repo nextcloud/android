@@ -92,27 +92,14 @@ public class OwnCloudFolderObserver extends FileObserver {
         synchronized(mObservedChildren) {
             if (path != null && path.length() > 0 && mObservedChildren.containsKey(path)) {
                 
-                if ((event & FileObserver.MODIFY) != 0) {
-                    if (!mObservedChildren.get(path)) {
-                        mObservedChildren.put(path, Boolean.valueOf(true));
-                    }
-                }
-        
-                /*
-                if ((event & FileObserver.ATTRIB) != 0) {
+                if (    ((event & FileObserver.MODIFY) != 0) ||
+                        ((event & FileObserver.ATTRIB) != 0) ||
+                        ((event & FileObserver.MOVED_TO) != 0) ) {
+                    
                     if (mObservedChildren.get(path) != true) {
                         mObservedChildren.put(path, Boolean.valueOf(true));
                     }
                 }
-                */
-                
-                /*
-                if ((event & FileObserver.MOVED_TO) != 0) {
-                    if (mObservedChildren.get(path) != true) {
-                        mObservedChildren.put(path, Boolean.valueOf(true));
-                    }
-                }
-                */
                 
                 if ((event & FileObserver.CLOSE_WRITE) != 0) {
                     mObservedChildren.put(path, Boolean.valueOf(false));
