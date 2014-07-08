@@ -119,6 +119,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             sharedWithMeIconV.setVisibility(View.GONE);
 
             ImageView localStateView = (ImageView) view.findViewById(R.id.imageView2);
+            localStateView.bringToFront();
             FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
             FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
             if (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
@@ -183,6 +184,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                }
+
+                // If folder is sharedByLink, icon folder must be changed to
+                // folder-public one
+                if (file.isShareByLink()) {
+                    fileIcon.setImageResource(R.drawable.folder_public);
                 }
             }
 
