@@ -15,7 +15,7 @@
  *
  */
 
-package com.owncloud.android.files;
+package com.owncloud.android.services.observer;
 
 import java.io.File;
 import java.util.HashMap;
@@ -40,33 +40,45 @@ import com.owncloud.android.utils.Log_OC;
  * 
  * Takes into account two possible update cases:
  *  - an editor directly updates the file;
- *  - an editor works on a temporal file, and later replaces the kept-in-sync file with the
- *  temporal.
+ *  - an editor works on a temporary file, and later replaces the kept-in-sync file with the
+ *  former.
  *  
  *  The second case requires to monitor the folder parent of the files, since a direct 
  *  {@link FileObserver} on it will not receive more events after the file is deleted to
- *  be replaced later.
+ *  be replaced.
  * 
  * @author David A. Velasco
  */
-public class OwnCloudFolderObserver extends FileObserver {
+public class FolderObserver extends FileObserver {
+
+    private static String TAG = FolderObserver.class.getSimpleName();
 
     private static int UPDATE_MASK = (
             FileObserver.ATTRIB | FileObserver.MODIFY | 
             FileObserver.MOVED_TO | FileObserver.CLOSE_WRITE
     ); 
+    
+    private static int IN_IGNORE = 32768;
     /* 
     private static int ALL_EVENTS_EVEN_THOSE_NOT_DOCUMENTED = 0x7fffffff;   // NEVER use 0xffffffff
     */
-
-    private static String TAG = OwnCloudFolderObserver.class.getSimpleName();
 
     private String mPath;
     private Account mAccount;
     private Context mContext;
     private Map<String, Boolean> mObservedChildren;
 
-    public OwnCloudFolderObserver(String path, Account account, Context context) {
+    /**
+     * Constructor.
+     * 
+     * Initializes the observer to receive events about the update of the passed folder, and
+     * its children files.
+     * 
+     * @param path          Absolute path to the local folder to watch.
+     * @param account       OwnCloud account associated to the folder.
+     * @param context       Used to start an operation to synchronize the file, when needed.    
+     */
+    public FolderObserver(String path, Account account, Context context) {
         super(path, UPDATE_MASK);
         
         if (path == null)
@@ -82,7 +94,13 @@ public class OwnCloudFolderObserver extends FileObserver {
         mObservedChildren = new HashMap<String, Boolean>();
     }
 
-    
+
+    /**
+     * Receives and processes events about updates of the monitor folder and its children files.
+     * 
+     * @param event     Kind of event occurred.
+     * @param path      Relative path of the file referred by the event.
+     */
     @Override
     public void onEvent(int event, String path) {
         Log_OC.d(TAG, "Got event " + event + " on FOLDER " + mPath + " about "
@@ -101,7 +119,7 @@ public class OwnCloudFolderObserver extends FileObserver {
                     }
                 }
                 
-                if ((event & FileObserver.CLOSE_WRITE) != 0) {
+                if ((event & FileObserver.CLOSE_WRITE) != 0 && mObservedChildren.get(path)) {
                     mObservedChildren.put(path, Boolean.valueOf(false));
                     shouldSynchronize = true;
                 }
@@ -111,7 +129,7 @@ public class OwnCloudFolderObserver extends FileObserver {
             startSyncOperation(path);
         }
         
-        if ((event & OwnCloudFileObserver.IN_IGNORE) != 0 &&
+        if ((event & IN_IGNORE) != 0 &&
                 (path == null || path.length() == 0)) {
             Log_OC.d(TAG, "Stopping the observance on " + mPath);
         }
@@ -119,10 +137,15 @@ public class OwnCloudFolderObserver extends FileObserver {
     }
     
 
-    public void startWatching(String localPath) {
+    /**
+     * Adds a child file to the list of files observed by the folder observer.
+     * 
+     * @param fileName         Name of a file inside the observed folder. 
+     */
+    public void startWatching(String fileName) {
         synchronized (mObservedChildren) {
-            if (!mObservedChildren.containsKey(localPath)) {
-                mObservedChildren.put(localPath, Boolean.valueOf(false));
+            if (!mObservedChildren.containsKey(fileName)) {
+                mObservedChildren.put(fileName, Boolean.valueOf(false));
             }
         }
         
@@ -133,9 +156,15 @@ public class OwnCloudFolderObserver extends FileObserver {
         // else - the observance can't be started on a file not existing;
     }
 
-    public void stopWatching(String localPath) {
+    
+    /**
+     * Removes a child file from the list of files observed by the folder observer.
+     * 
+     * @param fileName         Name of a file inside the observed folder. 
+     */
+    public void stopWatching(String fileName) {
         synchronized (mObservedChildren) {
-            mObservedChildren.remove(localPath);
+            mObservedChildren.remove(fileName);
             if (mObservedChildren.isEmpty()) {
                 stopWatching();
                 Log_OC.d(TAG, "Stopped watching parent folder " + mPath + "/");
@@ -143,6 +172,9 @@ public class OwnCloudFolderObserver extends FileObserver {
         }
     }
 
+    /**
+     * @return      'True' when the folder is not watching any file inside.
+     */
     public boolean isEmpty() {
         synchronized (mObservedChildren) {
             return mObservedChildren.isEmpty();
@@ -150,13 +182,19 @@ public class OwnCloudFolderObserver extends FileObserver {
     }
     
     
-    private void startSyncOperation(String childName) {
+    /**
+     * Triggers an operation to synchronize the contents of a file inside the observed folder with
+     * its remote counterpart in the associated ownCloud account.
+     *    
+     * @param fileName          Name of a file inside the watched folder.
+     */
+    private void startSyncOperation(String fileName) {
         FileDataStorageManager storageManager = 
                 new FileDataStorageManager(mAccount, mContext.getContentResolver());
         // a fresh object is needed; many things could have occurred to the file
         // since it was registered to observe again, assuming that local files
         // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-        OCFile file = storageManager.getFileByLocalPath(mPath + File.separator + childName);
+        OCFile file = storageManager.getFileByLocalPath(mPath + File.separator + fileName);
         SynchronizeFileOperation sfo = 
                 new SynchronizeFileOperation(file, null, mAccount, true, mContext);
         RemoteOperationResult result = sfo.execute(storageManager, mContext);
