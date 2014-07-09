@@ -25,7 +25,7 @@
     android:layout_height="56dp">
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="56dp"
         android:focusable="false"
         android:focusableInTouchMode="false">
@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="2dp"
             android:src="@drawable/ic_favorite" />
     </FrameLayout>
 
