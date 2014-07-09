@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました。再ログインする必要があります。</string>
   <string name="common_choose_account">アカウントを選択</string>
   <string name="sync_fail_ticker">同期失敗</string>
+  <string name="sync_fail_ticker_unauthorized">同期に失敗しました。再ログインする必要があります。</string>
   <string name="sync_fail_content">%1$s の同期が完了しませんでした。</string>
   <string name="sync_fail_content_unauthorized">1$sの無効なパスワード</string>
   <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
@@ -108,7 +109,7 @@
   <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
   <string name="foreign_files_local_text">ローカル: %1$s</string>
   <string name="foreign_files_remote_text">リモート: %1$s</string>
-  <string name="upload_query_move_foreign_files">十分なスペースが無いため、選択されたファイルを %1$s フォルダーにコピーすることができません。コピーする代わりに、それらを移動させますか？</string>
+  <string name="upload_query_move_foreign_files">十分なスペースがないため、選択されたファイルを %1$s フォルダーにコピーすることができません。コピーする代わりに、それらを移動させますか？</string>
   <string name="pincode_enter_pin_code">アプリのパスワードを入力してください</string>
   <string name="pincode_configure_your_pin">アプリのパスワードを入力してください</string>
   <string name="pincode_configure_your_pin_explanation">アプリ開始時に毎回PINが要求されます。</string>

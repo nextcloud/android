@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">La descàrrega ha fallat, t\'has de tornar a acreditar</string>
   <string name="common_choose_account">Escolliu el compte</string>
   <string name="sync_fail_ticker">La sincronització ha fallat</string>
+  <string name="sync_fail_ticker_unauthorized">La sincronització ha fallat, us heu d\'acreditar de nou</string>
   <string name="sync_fail_content">La sincronització de %1$s no s\'ha pogut acabar</string>
   <string name="sync_fail_content_unauthorized">Contrasenya no vàlida per %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
