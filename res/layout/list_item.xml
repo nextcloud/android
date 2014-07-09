@@ -29,30 +29,30 @@
         android:layout_height="56dp"
         android:focusable="false"
         android:focusableInTouchMode="false">
-        
+
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/local_file_indicator"/>
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="22dp"
+            android:src="@drawable/local_file_indicator" />
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_gravity="center_vertical|center"
-            android:layout_margin="4dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="9dp"
             android:src="@drawable/ic_menu_archive" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight=".1"
-            android:maxHeight="15dip"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_favorite" />
-        
     </FrameLayout>
 
     <LinearLayout
@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:layout_weight=".5"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="12dip"/>
 
             <TextView
@@ -96,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="TextView"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:layout_weight=".5"
                 android:textSize="12dip"/>
 
