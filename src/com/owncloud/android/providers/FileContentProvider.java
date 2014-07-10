@@ -420,7 +420,6 @@ public class FileContentProvider extends ContentProvider {
         // DB case_sensitive
         db.execSQL("PRAGMA case_sensitive_like = true");
         Cursor c = sqlQuery.query(db, projection, selection, selectionArgs, null, null, order);
-        Log_OC.d(TAG, "setting notification URI: " + uri);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
