@@ -18,7 +18,7 @@
   <string name="prefs_pincode">App PIN</string>
   <string name="prefs_pincode_summary">Защитить ваш клиент</string>
   <string name="prefs_instant_upload">Быстрая загрузка фотографий</string>
-  <string name="prefs_instant_upload_summary">Быстрая загрузка фотографий из камеры</string>
+  <string name="prefs_instant_upload_summary">Немедленно загружать фотографии сделанные камерой</string>
   <string name="prefs_instant_video_upload">Быстрая загрузка видео</string>
   <string name="prefs_instant_video_upload_summary">Быстрая загрузка видео с камеры</string>
   <string name="prefs_log_title">Включить журналирование</string>
@@ -31,7 +31,7 @@
   <string name="prefs_feedback">Обратная связь</string>
   <string name="prefs_imprint">Штамп</string>
   <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
-  <string name="recommend_text">\"Я хочу пригласить вас использовать %1$s на вашем смартфоне! \nПриложение для загрузки доступно здесь: %2$s\"\n\t</string>
+  <string name="recommend_text">\"Я хочу пригласить вас пользоваться %1$s на вашем смартфоне! \nПриложение для загрузки доступно здесь: %2$s\"\n\t</string>
   <string name="auth_check_server">Проверить сервер</string>
   <string name="auth_host_url">Адрес сервера https://...</string>
   <string name="auth_username">Имя пользователя</string>
@@ -82,7 +82,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s был успешно загружен</string>
   <string name="uploader_upload_failed_ticker">Ошибка загрузки</string>
   <string name="uploader_upload_failed_content_single">Загрузка %1$s не может быть завершена</string>
-  <string name="uploader_upload_failed_credentials_error">Загрузка завершилась неудачей, Вам необходимо переподключиться</string>
+  <string name="uploader_upload_failed_credentials_error">Загрузка не удалась, Вам необходимо переподключиться</string>
   <string name="downloader_download_in_progress_ticker">Скачивание...</string>
   <string name="downloader_download_in_progress_content">%1$d%% скачивания %2$s</string>
   <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
@@ -90,9 +90,10 @@
   <string name="downloader_download_failed_ticker">Скачивание не удалось</string>
   <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
   <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
-  <string name="downloader_download_failed_credentials_error">Скачивание завершилось неудачей, Вам необходимо переподключиться</string>
+  <string name="downloader_download_failed_credentials_error">Скачивание не удалось, Вам необходимо переподключиться</string>
   <string name="common_choose_account">Выберите учётную запись</string>
   <string name="sync_fail_ticker">Синхронизация прошла неудачно</string>
+  <string name="sync_fail_ticker_unauthorized">Синхронизация не удалась, Вам необходимо переподключиться</string>
   <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
   <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
@@ -113,7 +114,7 @@
   <string name="pincode_configure_your_pin">Введите App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN-код будет запрашиваться при каждом запуске приложения.</string>
   <string name="pincode_reenter_your_pincode">Повторите ввод App PIN</string>
-  <string name="pincode_remove_your_pincode">Удалите App PIN</string>
+  <string name="pincode_remove_your_pincode">Удалить App PIN</string>
   <string name="pincode_mismatch">Введённые App PIN не совпадают</string>
   <string name="pincode_wrong">Неверный App PIN</string>
   <string name="pincode_removed">App PIN удалён</string>
@@ -138,7 +139,7 @@
   <string name="media_play_pause_description">Воспроизведение или пауза</string>
   <string name="media_forward_description">Перемотка вперед</string>
   <string name="auth_getting_authorization">Происходит авторизация.....</string>
-  <string name="auth_trying_to_login">Авторизация...</string>
+  <string name="auth_trying_to_login">Попытка входа...</string>
   <string name="auth_no_net_conn_title">Нет подключения к сети</string>
   <string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
   <string name="auth_connection_established">Соединение установлено</string>
@@ -166,7 +167,7 @@
   <string name="auth_connecting_auth_server">Подключение к серверу аутентификации...</string>
   <string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
   <string name="auth_unsupported_multiaccount">%1$s не поддерживает сразу несколько учётных записей</string>
-  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором</string>
+  <string name="auth_fail_get_user_name">Ваш сервер не возвращает корректный пользовательский идентификатор, пожалуйста свяжитесь с администратором\n⇥</string>
   <string name="auth_can_not_auth_against_server">Невозможно аутентифицироваться на этом сервере</string>
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
@@ -216,7 +217,7 @@
   <string name="ssl_validator_label_signature">Подпись:</string>
   <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
   <string name="ssl_validator_null_cert">Сертификат не может быть показан.</string>
-  <string name="ssl_validator_no_info_about_error">Информации об ошибке нет</string>
+  <string name="ssl_validator_no_info_about_error">- Информации об ошибке нет</string>
   <string name="placeholder_sentence">Это заполнитель</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">Изображение PNG</string>
