@@ -20,7 +20,9 @@ package com.owncloud.android.utils;
 
 import java.io.File;
 import java.net.SocketTimeoutException;
+
 import org.apache.commons.httpclient.ConnectTimeoutException;
+
 import android.content.res.Resources;
 
 import com.owncloud.android.R;
@@ -91,7 +93,11 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.remove_success_msg);
                 
             } else {
-                if (isNetworkError(result.getCode())) {
+                if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+                    // Error --> No permissions
+                    message = String.format(res.getString(R.string.forbidden_permissions),
+                            res.getString(R.string.forbidden_permissions_delete));
+                } else if (isNetworkError(result.getCode())) {
                     message = getErrorMessage(result, res);
                     
                 } else {
@@ -102,10 +108,15 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof RenameFileOperation) {
             if (result.getCode().equals(ResultCode.INVALID_LOCAL_FILE_NAME)) {
                 message = res.getString(R.string.rename_local_fail_msg);
-                
-            } if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
+
+            } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+                // Error --> No permissions
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.forbidden_permissions_rename));
+
+            } else if (result.getCode().equals(ResultCode.INVALID_CHARACTER_IN_NAME)) {
                 message = res.getString(R.string.filename_forbidden_characters);
-                
+
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
@@ -121,7 +132,11 @@ public class ErrorMessageAdapter {
         } else if (operation instanceof CreateFolderOperation) {
             if (result.getCode() == ResultCode.INVALID_CHARACTER_IN_NAME) {
                 message = res.getString(R.string.filename_forbidden_characters);
-                
+
+            } else if (result.getCode().equals(ResultCode.FORBIDDEN)) {
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.forbidden_permissions_create));
+
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
@@ -132,6 +147,11 @@ public class ErrorMessageAdapter {
             if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.share_link_file_no_exist);
                 
+            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+                // Error --> No permissions
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.share_link_forbidden_permissions));
+
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
@@ -145,6 +165,11 @@ public class ErrorMessageAdapter {
             if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {        // Error --> SHARE_NOT_FOUND
                 message = res.getString(R.string.unshare_link_file_no_exist);
                 
+            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+                // Error --> No permissions
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.unshare_link_forbidden_permissions));
+
             } else if (isNetworkError(result.getCode())) {
                 message = getErrorMessage(result, res);
                 
