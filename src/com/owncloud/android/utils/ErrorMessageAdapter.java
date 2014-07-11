@@ -89,8 +89,13 @@ public class ErrorMessageAdapter {
                         new File(((DownloadFileOperation) operation).getSavePath()).getName());
                 
             } else {
-                message = String.format(res.getString(R.string.downloader_download_failed_content), 
-                        new File(((DownloadFileOperation) operation).getSavePath()).getName());
+                if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                    message = res.getString(R.string.downloader_download_file_not_found);
+
+                } else {
+                    message = String.format(res.getString(R.string.downloader_download_failed_content), new File(
+                            ((DownloadFileOperation) operation).getSavePath()).getName());
+                }
             }
             
         } else if (operation instanceof RemoveFileOperation) {
