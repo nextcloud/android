@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Download mislykkedes, du skal logge ind på ny</string>
   <string name="common_choose_account">Vælg konto</string>
   <string name="sync_fail_ticker">Synkronisering fejlede</string>
+  <string name="sync_fail_ticker_unauthorized">Synkroniseringen mislykkedes, du er nødt til at logge ind påny</string>
   <string name="sync_fail_content">Synkronisering af %1$s kunne ikke gennemføres</string>
   <string name="sync_fail_content_unauthorized">Ugyldig adgangskode for %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
@@ -108,6 +109,7 @@
   <string name="foreign_files_fail">Visse filer kunne ikke flyttes</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
   <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
+  <string name="upload_query_move_foreign_files">Der er ikke plads nok til at kopiere de valgte filer ind i mappen %1$s. Vil du flytte dem i stedet?</string>
   <string name="pincode_enter_pin_code">Indsæt venligst din App PIN</string>
   <string name="pincode_configure_your_pin">Indtast App PIN</string>
   <string name="pincode_configure_your_pin_explanation">PIN koden vil blive anmodet om hver gang applikationen bliver startet</string>
