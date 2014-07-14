@@ -70,7 +70,6 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.InstantUploadActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.Log_OC;
 
@@ -769,17 +768,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 
                 mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
             } else {
-                // TODO put something smart in the contentIntent below
-
-                // we add only for instant-uploads the InstantUploadActivity and the
-                // db entry
-                Intent detailUploadIntent = new Intent(this, InstantUploadActivity.class);
-                detailUploadIntent.putExtra(FileUploader.KEY_ACCOUNT, upload.getAccount());
-                resultBuilder
-                    .setContentIntent(PendingIntent.getActivity(
-                        this, (int) System.currentTimeMillis(), detailUploadIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT
-                    ))
-                    .setContentText(content);
+                resultBuilder.setContentText(content);
     
                 if (upload.isInstant()) {
                     DbHandler db = null;
