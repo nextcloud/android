@@ -1,2 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources/>
+<resources>
+  <string name="actionbar_upload_files">ফাইলস</string>
+  <string name="actionbar_settings">সেটিংস</string>
+  <string name="auth_username">ইউজারনেম</string>
+  <string name="sync_string_files">ফাইলস</string>
+  <string name="common_cancel">বাতিল করা</string>
+  <string name="common_error">ভুল</string>
+</resources>
