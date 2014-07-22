@@ -122,7 +122,7 @@
   <string name="media_notif_ticker">%1$s müzik çalar</string>
   <string name="media_state_playing">%1$s (oynatılıyor)</string>
   <string name="media_state_loading">%1$s (yükleniyor)</string>
-  <string name="media_event_done">%1$s yeniden oynatım tamamlandı</string>
+  <string name="media_event_done">%1$s oynatma tamamlandı</string>
   <string name="media_err_nothing_to_play">Herhangi bir ortam ögesi bulunamadı</string>
   <string name="media_err_no_account">Tanımlı hesap yok</string>
   <string name="media_err_not_in_owncloud">Dosya geçerli bir hesapta değil</string>
