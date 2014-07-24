@@ -93,6 +93,7 @@
   <string name="downloader_download_failed_credentials_error">Falha no download, é necessário fazer login </string>
   <string name="common_choose_account">Escolha a conta</string>
   <string name="sync_fail_ticker">Falhou a sincronização</string>
+  <string name="sync_fail_ticker_unauthorized">Falhou a sincronização, necessita fazer um novo login</string>
   <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
   <string name="sync_fail_content_unauthorized">Password inválida para %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Foram encontrados conflitos</string>
