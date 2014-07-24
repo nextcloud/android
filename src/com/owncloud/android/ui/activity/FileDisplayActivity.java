@@ -48,7 +48,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,11 +65,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.operations.CreateFolderOperation;
-
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -80,6 +77,7 @@ import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
@@ -739,23 +737,13 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         }
         case DIALOG_CHOOSE_UPLOAD_SOURCE: {
 
-            String[] items = null;
 
             String[] allTheItems = { getString(R.string.actionbar_upload_files),
-                    getString(R.string.actionbar_upload_from_apps),
-                    getString(R.string.actionbar_failed_instant_upload) };
-
-            String[] commonItems = { getString(R.string.actionbar_upload_files),
                     getString(R.string.actionbar_upload_from_apps) };
-
-            if (InstantUploadActivity.IS_ENABLED)
-                items = allTheItems;
-            else 
-                items = commonItems;
 
             builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.actionbar_upload);
-            builder.setItems(items, new DialogInterface.OnClickListener() {
+            builder.setItems(allTheItems, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int item) {
                     if (item == 0) {
                         // if (!mDualPane) {
@@ -771,10 +759,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                         action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
                         startActivityForResult(Intent.createChooser(action, getString(R.string.upload_chooser_title)),
                                 ACTION_SELECT_CONTENT_FROM_APPS);
-                    } else if (item == 2 && InstantUploadActivity.IS_ENABLED) {
-                        Intent action = new Intent(FileDisplayActivity.this, InstantUploadActivity.class);
-                        action.putExtra(FileUploader.KEY_ACCOUNT, FileDisplayActivity.this.getAccount());
-                        startActivity(action);
                     }
                 }
             });

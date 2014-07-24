@@ -28,36 +28,6 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
-import com.owncloud.android.notifications.NotificationDelayer;
-import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.ui.activity.FailedUploadActivity;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.InstantUploadActivity;
-import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.Log_OC;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountsException;
@@ -74,6 +44,34 @@ import android.os.Message;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
 import android.webkit.MimeTypeMap;
+
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
+import com.owncloud.android.notifications.NotificationDelayer;
+import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.Log_OC;
 
 
 
@@ -726,7 +724,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
      * @param uploadResult Result of the upload operation.
      * @param upload Finished upload operation
      */
-    private void notifyUploadResult(RemoteOperationResult uploadResult, UploadFileOperation upload) {
+    private void notifyUploadResult(
+            RemoteOperationResult uploadResult, UploadFileOperation upload) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.getCode());
         // / cancelled operation or success -> silent removal of progress notification
         mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
@@ -735,8 +734,6 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
         if (!uploadResult.isCancelled()) {
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker : 
                 R.string.uploader_upload_failed_ticker;
-            
-            NotificationCompat.Builder resultBuilder = new NotificationCompat.Builder(this);
             
             String content = null;
 
@@ -748,57 +745,60 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
             tickerId = (needsToUpdateCredentials) ? 
                     R.string.uploader_upload_failed_credentials_error : tickerId;
 
-            resultBuilder
-            .setSmallIcon(R.drawable.notification_icon)
+            mNotificationBuilder
             .setTicker(getString(tickerId))
             .setContentTitle(getString(tickerId))
-            .setAutoCancel(true);
+            .setAutoCancel(true)
+            .setOngoing(false)
+            .setProgress(0, 0, false);
             
-            content =  ErrorMessageAdapter.getErrorCauseMessage(uploadResult, upload, getResources());
+            content =  ErrorMessageAdapter.getErrorCauseMessage(
+                    uploadResult, upload, getResources()
+            );
             
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount());
-                updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
+                updateAccountCredentials.putExtra(
+                        AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
+                );
+                updateAccountCredentials.putExtra(
+                        AuthenticatorActivity.EXTRA_ACTION, 
+                        AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+                );
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 updateAccountCredentials.addFlags(Intent.FLAG_FROM_BACKGROUND);
-                resultBuilder.setContentIntent(PendingIntent.getActivity(
-                    this, (int) System.currentTimeMillis(), updateAccountCredentials, PendingIntent.FLAG_ONE_SHOT
+                mNotificationBuilder.setContentIntent(PendingIntent.getActivity(
+                    this, 
+                    (int) System.currentTimeMillis(), 
+                    updateAccountCredentials, 
+                    PendingIntent.FLAG_ONE_SHOT
                 ));
                 
-                mUploadClient = null;   // grant that future retries on the same account will get the fresh credentials
+                mUploadClient = null;   
+                    // grant that future retries on the same account will get the fresh credentials
             } else {
-                // TODO put something smart in the contentIntent below
-
-                // we add only for instant-uploads the InstantUploadActivity and the
-                // db entry
-                Intent detailUploadIntent = null;
-                if (upload.isInstant() && InstantUploadActivity.IS_ENABLED) {
-                    detailUploadIntent = new Intent(this, InstantUploadActivity.class);
-                    detailUploadIntent.putExtra(FileUploader.KEY_ACCOUNT, upload.getAccount());
-                } else {
-                    detailUploadIntent = new Intent(this, FailedUploadActivity.class);
-                    detailUploadIntent.putExtra(FailedUploadActivity.MESSAGE, content);
-                }
-                resultBuilder
-                    .setContentIntent(PendingIntent.getActivity(
-                        this, (int) System.currentTimeMillis(), detailUploadIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT
-                    ))
-                    .setContentText(content);
+                mNotificationBuilder.setContentText(content);
     
                 if (upload.isInstant()) {
                     DbHandler db = null;
                     try {
                         db = new DbHandler(this.getBaseContext());
-                        String message = uploadResult.getLogMessage() + " errorCode: " + uploadResult.getCode();
+                        String message = uploadResult.getLogMessage() + " errorCode: " +
+                                uploadResult.getCode();
                         Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                         if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
                             message = getString(R.string.failed_upload_quota_exceeded_text);
-                            if (db.updateFileState(upload.getOriginalStoragePath(), DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,
+                            if (db.updateFileState(
+                                    upload.getOriginalStoragePath(), 
+                                    DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,
                                     message) == 0) {
-                                db.putFileForLater(upload.getOriginalStoragePath(), upload.getAccount().name, message);
+                                db.putFileForLater(
+                                        upload.getOriginalStoragePath(), 
+                                        upload.getAccount().name, 
+                                        message
+                                );
                             }
                         }
                     } finally {
@@ -809,8 +809,8 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                 }
             }
             
-            resultBuilder.setContentText(content);
-            mNotificationManager.notify(tickerId, resultBuilder.build());
+            mNotificationBuilder.setContentText(content);
+            mNotificationManager.notify(tickerId, mNotificationBuilder.build());
             
             if (uploadResult.isSuccess()) {
                 
