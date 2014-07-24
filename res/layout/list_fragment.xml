@@ -17,11 +17,10 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="0dp"
 	android:layout_height="match_parent"
-	android:layout_weight="1"
-	android:orientation="vertical" >
+	android:layout_weight="1" >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_files"
@@ -31,8 +30,7 @@
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" />
         
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -45,4 +43,4 @@
         android:visibility="gone"
 	/>
 
-</LinearLayout>    
+</FrameLayout>

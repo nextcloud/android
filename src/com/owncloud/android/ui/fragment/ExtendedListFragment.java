@@ -18,21 +18,21 @@
 
 package com.owncloud.android.ui.fragment;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.utils.Log_OC;
-
-
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.owncloud.android.R;
+import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.utils.Log_OC;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
@@ -46,6 +46,7 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
+    private TextView mEmptyListMessage;
     
     public void setListAdapter(ListAdapter listAdapter) {
         mList.setAdapter(listAdapter);
@@ -63,9 +64,10 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         //mList = new ExtendedListView(getActivity());
         
         View v = inflater.inflate(R.layout.list_fragment, null);
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
-        //mList.setEmptyView(v.findViewById(R.id.empty_list_view));     // looks like it's not a cool idea 
+        mList.setEmptyView(mEmptyListMessage); // looks like it's not a cool idea
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
 
@@ -160,6 +162,13 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
      */
     public void hideSwipeProgress() {
         mRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * Set message for empty list view
+     */
+    public void setMessageforEmptyView(int message) {
+        mEmptyListMessage.setText(message);
     }
  
     

@@ -20,19 +20,6 @@ package com.owncloud.android.ui.fragment;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.Log_OC;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -41,6 +28,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.Log_OC;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -107,6 +107,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
         
+        setMessageforEmptyView(R.string.file_list_empty);
+
         mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity); 
                 
         if (savedInstanceState != null) {
@@ -129,8 +131,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);        
-        
+        getListView().setOnCreateContextMenuListener(this);
   }
     
     /**
