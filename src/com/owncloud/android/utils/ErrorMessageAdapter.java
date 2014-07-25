@@ -64,10 +64,11 @@ public class ErrorMessageAdapter {
                     message = String.format(res.getString(R.string.error__upload__local_file_not_copied), 
                             ((UploadFileOperation) operation).getFileName(), 
                             res.getString(R.string.app_name));
-                    
+                /*
                 } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
                     message = res.getString(R.string.failed_upload_quota_exceeded_text);
-                    
+                  
+                    */
                 } else {
                     message = String.format(res.getString(R.string.uploader_upload_failed_content_single), 
                             ((UploadFileOperation) operation).getFileName());

@@ -789,7 +789,7 @@ public class FileUploader extends Service implements OnDatatransferProgressListe
                                 uploadResult.getCode();
                         Log_OC.e(TAG, message + " Http-Code: " + uploadResult.getHttpCode());
                         if (uploadResult.getCode() == ResultCode.QUOTA_EXCEEDED) {
-                            message = getString(R.string.failed_upload_quota_exceeded_text);
+                            //message = getString(R.string.failed_upload_quota_exceeded_text);
                             if (db.updateFileState(
                                     upload.getOriginalStoragePath(), 
                                     DbHandler.UPLOAD_STATUS_UPLOAD_FAILED,
