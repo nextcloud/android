@@ -196,6 +196,8 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
+        showMessageView();
+
         Log_OC.d(TAG, "onCreate() end");
     }
     
@@ -960,6 +962,8 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                     setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
+
+                    showMessageView();
                         
                 }
                 
@@ -976,6 +980,23 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         }
     }
     
+    /**
+     * Show a text message on screen view for notifying user if content is
+     * loading or folder is empty
+     */
+    private void showMessageView() {
+        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
+        if (ocFileListFragment != null) {
+            int message = R.string.file_list_loading;
+            if (!mSyncInProgress) {
+                // In case file list is empty
+                message = R.string.file_list_empty;
+            }
+            ocFileListFragment.setMessageforEmptyView(message);
+        } else {
+            Log.e(TAG, "OCFileListFragment is null");
+        }
+    }
 
     /**
      * Once the file upload has finished -> update view
@@ -1529,6 +1550,8 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         synchFolderOp.execute(getAccount(), this, null, null);
         
         setSupportProgressBarIndeterminateVisibility(true);
+
+        showMessageView();
     }
 
     /**

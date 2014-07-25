@@ -107,8 +107,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         super.onActivityCreated(savedInstanceState);
         Log_OC.e(TAG, "onActivityCreated() start");
         
-        setMessageforEmptyView(R.string.file_list_empty);
-
         mAdapter = new FileListListAdapter(getSherlockActivity(), mContainerActivity); 
                 
         if (savedInstanceState != null) {
