@@ -235,17 +235,6 @@
   <string name="preview_image_description">Resim önizleme</string>
   <string name="preview_image_error_unknown_format">Bu resim gösterilemiyor</string>
   <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
-  <string name="actionbar_failed_instant_upload">AnındaYükleme başarısız</string>
-  <string name="failed_upload_headline_text">Anında yüklemeler başarısız</string>
-  <string name="failed_upload_headline_hint">Başarısız olan tüm anında yüklemelerin özeti</string>
-  <string name="failed_upload_all_cb">tümünü seç</string>
-  <string name="failed_upload_headline_retryall_btn">tüm seçili olanları tekrar dene</string>
-  <string name="failed_upload_headline_delete_all_btn">yükleme kuyruğundaki tüm seçili olanları sil</string>
-  <string name="failed_upload_retry_text">fotoğrafı yeniden yüklemeyi dene:</string>
-  <string name="failed_upload_load_more_images">Daha fazla resim yükle</string>
-  <string name="failed_upload_retry_do_nothing_text">anında yükleme için çevrimiçi değilsiniz, bir şey yapma</string>
-  <string name="failed_upload_failure_text">Hata Mesajı:</string>
-  <string name="failed_upload_quota_exceeded_text">Sunucu yapılandırmanızı kontrol edin. Kotanızı aşmış olabilirsiniz.</string>
   <string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle\n                iletişime geçin.</string>
   <string name="share_link_file_no_exist">Bu dosya veya klasör paylaşılamıyor. Lütfen mevcut olup olmadığını denetleyin</string>
   <string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>

@@ -235,17 +235,6 @@
   <string name="preview_image_description">Podgląd</string>
   <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
   <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
-  <string name="actionbar_failed_instant_upload">InstantUpload nie powiódł się</string>
-  <string name="failed_upload_headline_text">Błąd automatycznego przesyłania</string>
-  <string name="failed_upload_headline_hint">Podsumowanie wszystkich nieudanych transferów</string>
-  <string name="failed_upload_all_cb">zaznacz wszystkie</string>
-  <string name="failed_upload_headline_retryall_btn">spróbuj zaznaczyć wszystkie</string>
-  <string name="failed_upload_headline_delete_all_btn">usuń wszystko z kolejki wysyłania</string>
-  <string name="failed_upload_retry_text">ponów wysyłanie obrazu:</string>
-  <string name="failed_upload_load_more_images">Załaduj więcej zdjęć</string>
-  <string name="failed_upload_retry_do_nothing_text">nic nie rób, ponieważ nie jesteś online, nie możesz przesyłać plików</string>
-  <string name="failed_upload_failure_text">Komunikat błędu:</string>
-  <string name="failed_upload_quota_exceeded_text">Proszę sprawdź ustawienia serwera, możliwe że przekroczyłes limit wielkości pliku</string>
   <string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z\n\t\tadministratorem.</string>
   <string name="share_link_file_no_exist">Brak możliwości udostępnienia tego pliku lub folderu. Upewnij się, że istnieje.</string>
   <string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>

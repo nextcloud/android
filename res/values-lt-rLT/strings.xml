@@ -219,16 +219,6 @@
   <string name="conflict_dont_upload">Nebesiųsti</string>
   <string name="preview_image_description">Paveikslėlio peržiūra</string>
   <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
-  <string name="actionbar_failed_instant_upload">Nepavyko MomentinisĮkėlimas</string>
-  <string name="failed_upload_headline_text">Nepavykę momentiniai įkėlimai</string>
-  <string name="failed_upload_headline_hint">Suvestinė visų nepavykusių momentinių įkėlimų</string>
-  <string name="failed_upload_all_cb">pažymėti viską</string>
-  <string name="failed_upload_headline_retryall_btn">bandyti dar kartą su visais pažymėtais</string>
-  <string name="failed_upload_headline_delete_all_btn">ištrinti visus pažymėtus iš įkėlimo eilės</string>
-  <string name="failed_upload_retry_text">bandyti iš naujo nusiųsti paveikslėlį:</string>
-  <string name="failed_upload_load_more_images">Įkelti daugiau Nuotraukų</string>
-  <string name="failed_upload_failure_text">Klaidos pranešimas:</string>
-  <string name="failed_upload_quota_exceeded_text">Patikrinkite savo serverio nustatymus, tikėtina jog viršijote savo limitą.</string>
   <string name="share_link_file_no_exist">Nepavyksta dalinti šio failo ar aplanko. Prašome įsitikinti ar jis egzistuoja</string>
   <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
   <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti šiuo failu ar aplanku. Jis neegzistuoja</string>

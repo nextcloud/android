@@ -177,8 +177,6 @@
   <string name="preview_image_description">Antaŭvido de bildo</string>
   <string name="preview_image_error_unknown_format">Ĉi tiu bildo ne povas montriĝi</string>
   <string name="error__upload__local_file_not_copied">%1$s ne povis kopiiĝi al la loka dosierujo %2$s</string>
-  <string name="failed_upload_all_cb">elekti ĉion</string>
-  <string name="failed_upload_failure_text">Mesaĝo de malsukceso:</string>
   <string name="activity_chooser_send_file_title">Sendi</string>
   <string name="copy_link">Kopii ligilon</string>
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>

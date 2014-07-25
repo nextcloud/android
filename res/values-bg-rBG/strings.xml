@@ -235,17 +235,6 @@
   <string name="preview_image_description">Преглед на изборажението</string>
   <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
   <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
-  <string name="actionbar_failed_instant_upload">Неуспешен </string>
-  <string name="failed_upload_headline_text">Неуспешно незабавно качване</string>
-  <string name="failed_upload_headline_hint">Обобщение на всички неуспешни, незабавни качвания</string>
-  <string name="failed_upload_all_cb">избери всички</string>
-  <string name="failed_upload_headline_retryall_btn">повтори за всички избрани</string>
-  <string name="failed_upload_headline_delete_all_btn">изтрий всички избрани</string>
-  <string name="failed_upload_retry_text">повторен опит за качване на:</string>
-  <string name="failed_upload_load_more_images">Зареди повече Снимки</string>
-  <string name="failed_upload_retry_do_nothing_text">не прави нищо, не си в интерент, за да можеш да извършваш незабвни качвания</string>
-  <string name="failed_upload_failure_text">Грешка:</string>
-  <string name="failed_upload_quota_exceeded_text">Моля, провери съвърните си конфигурации, може би си надвишил квотата.</string>
   <string name="share_link_no_support_share_api">Съжалявам, споделянето не е включено на сървъра ти. \nМоля, свържи се с администратора.</string>
   <string name="share_link_file_no_exist">Неуспешен опит за споделяне на този файл или папка. Моля, провери дали съществува.</string>
   <string name="share_link_file_error">Настъпи грешка при опита за споделяне на този файл или папка.</string>

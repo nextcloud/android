@@ -210,10 +210,6 @@
   <string name="conflict_dont_upload">Älä lähetä</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
-  <string name="failed_upload_all_cb">valitse kaikki</string>
-  <string name="failed_upload_headline_retryall_btn">yritä uudelleen kaikkia valittuja</string>
-  <string name="failed_upload_load_more_images">Lataa lisää kuvia</string>
-  <string name="failed_upload_failure_text">Virheviesti:</string>
   <string name="share_link_no_support_share_api">Jakaminen ei ole käytössä palvelimellasi. Ota yhteys\n\t\tylläpitäjään.</string>
   <string name="share_link_file_no_exist">Valitettavasti tämän tiedoston tai kansion jakaminen ei onnistu. Varmista että se on olemassa</string>
   <string name="share_link_file_error">Virhe tiedoston tai kansion jakamista yrittäessä</string>

@@ -213,16 +213,6 @@
   <string name="conflict_overwrite">Felülírás</string>
   <string name="conflict_dont_upload">Ne töltsük föl</string>
   <string name="preview_image_description">Előnézeti kép</string>
-  <string name="actionbar_failed_instant_upload">Sikertelen azonnali feltöltés\"</string>
-  <string name="failed_upload_headline_text">Sikertelen Azonnali feltöltés</string>
-  <string name="failed_upload_headline_hint">Összefoglaló az összes sikertelen instant feltöltésről</string>
-  <string name="failed_upload_all_cb">Összes kijelölése</string>
-  <string name="failed_upload_headline_retryall_btn">újra az összes kiválasztott</string>
-  <string name="failed_upload_headline_delete_all_btn">törölje az összes kiválasztottat a feltöltési sorból</string>
-  <string name="failed_upload_retry_text">újra feltölteni a képet:</string>
-  <string name="failed_upload_retry_do_nothing_text">nem vagyunk online üzemmódban az azonnali feltöltéshez</string>
-  <string name="failed_upload_failure_text">Hibaüzenet</string>
-  <string name="failed_upload_quota_exceeded_text">Kérjük ellenőrizd a szerver konfigurációt, mert lehet, hogy a kvótát túllépted.</string>
   <string name="share_link_file_no_exist">A mappa nem osztható meg. Lehet, hogy nem is létezik.</string>
   <string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
   <string name="unshare_link_file_no_exist">Nem lehet a megosztást megszüntetni. A mappa vagy fájl nem létezik.</string>
