@@ -16,10 +16,14 @@
   <string name="prefs_accounts">Tilit</string>
   <string name="prefs_manage_accounts">Tilien hallinta</string>
   <string name="prefs_pincode">Sovelluksen PIN-koodi</string>
-  <string name="prefs_pincode_summary">Suojaa Asiakasohjelmasi</string>
+  <string name="prefs_pincode_summary">Suojaa asiakasohjelmasi</string>
+  <string name="prefs_instant_upload">Kuvien välitön lähetys</string>
+  <string name="prefs_instant_upload_summary">Lähetä kameralla otetut kuvat välittömästi</string>
   <string name="prefs_instant_video_upload">Välittömät videolähetykset</string>
   <string name="prefs_instant_video_upload_summary">Lähetä kameralla kuvatut videot välittömästi</string>
   <string name="prefs_log_title">Käytä lokitusta</string>
+  <string name="prefs_log_summary">Tätä käytetään ongelmien lokitukseen</string>
+  <string name="prefs_log_title_history">Lokihistoria</string>
   <string name="prefs_log_summary_history">Tämä näyttää tallennetut lokit</string>
   <string name="prefs_log_delete_history_button">Poista historia</string>
   <string name="prefs_help">Ohje</string>
@@ -218,5 +222,15 @@
   <string name="clipboard_text_copied">Kopioitu leikepöydälle</string>
   <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimintoja ei voi suorittaa</string>
   <string name="network_error_socket_exception">Virhe palvelimeen yhdistäessä</string>
+  <string name="network_error_socket_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
+  <string name="network_error_connect_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
   <string name="network_host_not_available">Toimintoa ei voi suorittaa loppuun, palvelin ei ole käytettävissä</string>
+  <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
+  <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
+  <string name="forbidden_permissions_delete">poistaa tiedostoa</string>
+  <string name="share_link_forbidden_permissions">jakaa tiedostoa</string>
+  <string name="unshare_link_forbidden_permissions">poistaa tiedoston jakamista</string>
+  <string name="forbidden_permissions_create">luoda tiedostoa</string>
+  <string name="uploader_upload_forbidden_permissions">lähettää tähän kansioon</string>
+  <string name="downloader_download_file_not_found">Tämä tiedosto ei ole enää palvelimella käytettävissä</string>
 </resources>

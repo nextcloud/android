@@ -248,4 +248,12 @@
   <string name="network_error_socket_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_host_not_available">A operação não foi concluída, o servidor está inacessível.</string>
+  <string name="forbidden_permissions">Você não tem permissão %s</string>
+  <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
+  <string name="forbidden_permissions_delete">para eliminar este ficheiro</string>
+  <string name="share_link_forbidden_permissions">para partilhar este ficheiro</string>
+  <string name="unshare_link_forbidden_permissions">para eliminar a partilha deste ficheiro</string>
+  <string name="forbidden_permissions_create">para criar o ficheiro</string>
+  <string name="uploader_upload_forbidden_permissions">para carregar dentro desta pasta</string>
+  <string name="downloader_download_file_not_found">O ficheiro não está mais disponível no servidor</string>
 </resources>

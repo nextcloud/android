@@ -248,4 +248,12 @@
   <string name="network_error_socket_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_error_connect_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_host_not_available">Операция не может быть завершена, сервер недоступен</string>
+  <string name="forbidden_permissions">У вас нет доступа %s</string>
+  <string name="forbidden_permissions_rename">к переименованию этого файла</string>
+  <string name="forbidden_permissions_delete">к удалению этого файла</string>
+  <string name="share_link_forbidden_permissions">к публикации этого файла</string>
+  <string name="unshare_link_forbidden_permissions">к отмене публикации этого файла</string>
+  <string name="forbidden_permissions_create">к созданию этого файла</string>
+  <string name="uploader_upload_forbidden_permissions">к загрузке этой папки</string>
+  <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 </resources>
