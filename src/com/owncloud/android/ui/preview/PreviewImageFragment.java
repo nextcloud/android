@@ -18,7 +18,6 @@ package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
 
-
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,6 +40,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.ortiz.touch.TouchImageView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -65,7 +65,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private View mView;
     private Account mAccount;
-    private ImageView mImageView;
+    private TouchImageView mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
@@ -124,7 +124,7 @@ public class PreviewImageFragment extends FileFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = (ImageView)mView.findViewById(R.id.image);
+        mImageView = (TouchImageView) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
         mView.setOnTouchListener((OnTouchListener)getActivity());
         mMessageView = (TextView)mView.findViewById(R.id.message);
