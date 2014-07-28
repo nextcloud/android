@@ -62,6 +62,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
+    private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     
     private FileFragment.ContainerActivity mContainerActivity;
    
@@ -115,6 +116,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+            setMessageforEmptyView(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
             
         } else {
             mIndexes = new ArrayList<Integer>();
@@ -143,6 +145,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
         outState.putIntegerArrayList(KEY_TOPS, mTops);
         outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
+        outState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
     
     /**

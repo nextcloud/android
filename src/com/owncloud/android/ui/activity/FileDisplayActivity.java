@@ -38,7 +38,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SyncRequest;
-import android.content.res.Configuration;
 import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -993,7 +992,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                 // In case file list is empty
                 message = R.string.file_list_empty;
             }
-            ocFileListFragment.setMessageforEmptyView(message);
+            ocFileListFragment.setMessageforEmptyView(getString(message));
         } else {
             Log.e(TAG, "OCFileListFragment is null");
         }
@@ -1653,11 +1652,6 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
-    }
-    
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 
 }
