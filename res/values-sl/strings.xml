@@ -248,4 +248,12 @@
   <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
   <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>
   <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv.</string>
+  <string name="forbidden_permissions">Ni ustreznega dovoljenja %s</string>
+  <string name="forbidden_permissions_rename">za preimenovanje datoteke.</string>
+  <string name="forbidden_permissions_delete">za izbris datoteke.</string>
+  <string name="share_link_forbidden_permissions">za omogočanje souporabe datoteke.</string>
+  <string name="unshare_link_forbidden_permissions">za preklic souporabe datoteke.</string>
+  <string name="forbidden_permissions_create">za ustvarjanje datoteke.</string>
+  <string name="uploader_upload_forbidden_permissions">za pošiljanje datoteke v oblak.</string>
+  <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
 </resources>
