@@ -31,7 +31,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -126,15 +126,19 @@ public class PreviewImageFragment extends FileFragment {
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageView) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
-        mImageView.setOnTouchListener((OnTouchListener) getActivity());
-        mView.setOnTouchListener((OnTouchListener)getActivity());
+        mImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+
+        });
         mMessageView = (TextView)mView.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)mView.findViewById(R.id.progressWheel);
         mProgressWheel.setVisibility(View.VISIBLE);
         return mView;
     }
-    
 
     /**
      * {@inheritDoc}
@@ -142,13 +146,8 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof OnTouchListener)) {
-            throw new ClassCastException(activity.toString() + 
-                    " must implement " + OnTouchListener.class.getSimpleName());
-        }
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -303,7 +302,6 @@ public class PreviewImageFragment extends FileFragment {
     public void onPause() {
         super.onPause();
     }
-
 
     @Override
     public void onDestroy() {
@@ -514,5 +512,8 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
     
+    public TouchImageView getImageView() {
+        return mImageView;
+    }
     
 }

@@ -27,9 +27,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
@@ -64,7 +61,7 @@ import com.owncloud.android.utils.Log_OC;
  *  @author David A. Velasco
  */
 public class PreviewImageActivity extends FileActivity implements 
-FileFragment.ContainerActivity, OnTouchListener,  
+ FileFragment.ContainerActivity,
 ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
@@ -323,7 +320,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     requestForDownload(currentFile);
                 }
             }
+
+            // Call to reset image zoom to initial state
+            ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }
+
     }
     
     /**
@@ -389,17 +390,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     }
 
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-           toggleFullScreen();
-        }
-        return true;
-    }
-
-    
-    private void toggleFullScreen() {
+    public void toggleFullScreen() {
         ActionBar actionBar = getSupportActionBar();
         if (mFullScreen) {
             actionBar.show();
