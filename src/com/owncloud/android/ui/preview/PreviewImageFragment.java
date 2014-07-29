@@ -144,14 +144,6 @@ public class PreviewImageFragment extends FileFragment {
      * {@inheritDoc}
      */
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
