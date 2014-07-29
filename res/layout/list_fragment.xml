@@ -34,13 +34,33 @@
         
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-    	android:id="@+id/empty_list_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_files_emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/empty"
-        android:visibility="gone"
-	/>
+        android:visibility="gone" >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+		        android:id="@+id/linearLayout1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="vertical"
+		        android:layout_gravity="center"
+		        android:gravity="center">
+
+	            <TextView
+			        android:id="@+id/empty_list_view"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center_vertical|center_horizontal"
+			        android:text="@string/empty"
+			        android:visibility="visible" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

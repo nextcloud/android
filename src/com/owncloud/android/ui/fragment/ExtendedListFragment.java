@@ -46,6 +46,7 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
+    private SwipeRefreshLayout mRefreshEmptyLayout;
     private TextView mEmptyListMessage;
     
     public void setListAdapter(ListAdapter listAdapter) {
@@ -67,7 +68,7 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
-        mList.setEmptyView(mEmptyListMessage); // looks like it's not a cool idea
+
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
 
@@ -78,12 +79,13 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
-        // Colors in animations: background
-        mRefreshLayout.setColorScheme(R.color.background_color, R.color.background_color, 
-                 R.color.background_color, R.color.background_color);
+        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
         
-        mRefreshLayout.setOnRefreshListener(this);
+        onCreateSwipeToRefresh(mRefreshLayout);
+        onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
+        mList.setEmptyView(mRefreshEmptyLayout);
+
         return v;
     }
 
@@ -131,8 +133,9 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
 
     @Override
     public void onRefresh() {
-        // to be @overriden  
+        // to be @overriden
         mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
     }
 
     /**
@@ -181,5 +184,13 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     public String getEmptyViewText() {
         return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
     }
-    
+
+    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        // Colors in animations: background
+        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color, R.color.background_color,
+                R.color.background_color);
+
+        refreshLayout.setOnRefreshListener(this);
+    }
+
 }
