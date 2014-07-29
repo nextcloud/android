@@ -126,6 +126,7 @@ public class PreviewImageFragment extends FileFragment {
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageView) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
+        mImageView.setOnTouchListener((OnTouchListener) getActivity());
         mView.setOnTouchListener((OnTouchListener)getActivity());
         mMessageView = (TextView)mView.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
