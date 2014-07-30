@@ -18,7 +18,6 @@ package com.owncloud.android.ui.preview;
 
 import java.lang.ref.WeakReference;
 
-
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -32,7 +31,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -41,6 +40,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.ortiz.touch.TouchImageView;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -65,7 +65,7 @@ public class PreviewImageFragment extends FileFragment {
 
     private View mView;
     private Account mAccount;
-    private ImageView mImageView;
+    private TouchImageView mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
 
@@ -124,30 +124,22 @@ public class PreviewImageFragment extends FileFragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         mView = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = (ImageView)mView.findViewById(R.id.image);
+        mImageView = (TouchImageView) mView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
-        mView.setOnTouchListener((OnTouchListener)getActivity());
+        mImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+
+        });
         mMessageView = (TextView)mView.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)mView.findViewById(R.id.progressWheel);
         mProgressWheel.setVisibility(View.VISIBLE);
         return mView;
     }
-    
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof OnTouchListener)) {
-            throw new ClassCastException(activity.toString() + 
-                    " must implement " + OnTouchListener.class.getSimpleName());
-        }
-    }
-    
-    
     /**
      * {@inheritDoc}
      */
@@ -302,7 +294,6 @@ public class PreviewImageFragment extends FileFragment {
     public void onPause() {
         super.onPause();
     }
-
 
     @Override
     public void onDestroy() {
@@ -513,5 +504,8 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
     
+    public TouchImageView getImageView() {
+        return mImageView;
+    }
     
 }

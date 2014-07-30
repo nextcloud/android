@@ -27,20 +27,18 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -63,7 +61,7 @@ import com.owncloud.android.utils.Log_OC;
  *  @author David A. Velasco
  */
 public class PreviewImageActivity extends FileActivity implements 
-FileFragment.ContainerActivity, OnTouchListener,  
+ FileFragment.ContainerActivity,
 ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     
     public static final int DIALOG_SHORT_WAIT = 0;
@@ -73,7 +71,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     
-    private ViewPager mViewPager; 
+    private ExtendedViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;    
     
     private boolean mRequestWaitingForBinder;
@@ -118,7 +116,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(), parentFolder, getAccount(), getStorageManager());
-        mViewPager = (ViewPager) findViewById(R.id.fragmentPager);
+        mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mPreviewImagePagerAdapter.getFilePosition(getFile());
         position = (position >= 0) ? position : 0;
         mViewPager.setAdapter(mPreviewImagePagerAdapter); 
@@ -322,7 +320,11 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     requestForDownload(currentFile);
                 }
             }
+
+            // Call to reset image zoom to initial state
+            ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
         }
+
     }
     
     /**
@@ -388,17 +390,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     }
 
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-           toggleFullScreen();
-        }
-        return true;
-    }
-
-    
-    private void toggleFullScreen() {
+    public void toggleFullScreen() {
         ActionBar actionBar = getSupportActionBar();
         if (mFullScreen) {
             actionBar.show();
