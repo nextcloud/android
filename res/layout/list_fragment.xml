@@ -44,23 +44,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <LinearLayout
-		        android:id="@+id/linearLayout1"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="vertical"
-		        android:layout_gravity="center"
-		        android:gravity="center">
-
 	            <TextView
 			        android:id="@+id/empty_list_view"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
 			        android:gravity="center_vertical|center_horizontal"
 			        android:text="@string/empty"
+					android:layout_gravity="center"
 			        android:visibility="visible" />
 
-            </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

@@ -77,7 +77,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         disableSwipe(); // Disable pull refresh
-        setMessageforEmptyView(getString(R.string.local_file_list_empty));
+        setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }    

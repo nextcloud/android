@@ -116,7 +116,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageforEmptyView(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
             
         } else {
             mIndexes = new ArrayList<Integer>();

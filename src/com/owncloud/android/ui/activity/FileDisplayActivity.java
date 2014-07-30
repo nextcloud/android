@@ -196,7 +196,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
         setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
         
-        showMessageView();
+        setBackgroundText();
 
         Log_OC.d(TAG, "onCreate() end");
     }
@@ -963,7 +963,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                     setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);
 
-                    showMessageView();
+                    setBackgroundText();
                         
                 }
                 
@@ -984,7 +984,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
      * Show a text message on screen view for notifying user if content is
      * loading or folder is empty
      */
-    private void showMessageView() {
+    private void setBackgroundText() {
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             int message = R.string.file_list_loading;
@@ -992,7 +992,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
                 // In case file list is empty
                 message = R.string.file_list_empty;
             }
-            ocFileListFragment.setMessageforEmptyView(getString(message));
+            ocFileListFragment.setMessageForEmptyList(getString(message));
         } else {
             Log.e(TAG, "OCFileListFragment is null");
         }
@@ -1551,7 +1551,7 @@ FileFragment.ContainerActivity, OnNavigationListener, OnSslUntrustedCertListener
         
         setSupportProgressBarIndeterminateVisibility(true);
 
-        showMessageView();
+        setBackgroundText();
     }
 
     /**

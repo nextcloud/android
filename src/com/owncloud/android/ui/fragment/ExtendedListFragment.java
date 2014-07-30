@@ -170,7 +170,7 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     /**
      * Set message for empty list view
      */
-    public void setMessageforEmptyView(String message) {
+    public void setMessageForEmptyList(String message) {
         if (mEmptyListMessage != null) {
             mEmptyListMessage.setText(message);
         }
