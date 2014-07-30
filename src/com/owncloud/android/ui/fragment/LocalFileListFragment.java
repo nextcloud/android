@@ -19,11 +19,6 @@ package com.owncloud.android.ui.fragment;
 
 import java.io.File;
 
-import com.owncloud.android.R;
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
-import com.owncloud.android.utils.Log_OC;
-
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -34,6 +29,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.owncloud.android.R;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -78,6 +77,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         disableSwipe(); // Disable pull refresh
+        setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }    

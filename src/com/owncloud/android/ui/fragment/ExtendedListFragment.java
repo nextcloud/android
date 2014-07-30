@@ -18,21 +18,21 @@
 
 package com.owncloud.android.ui.fragment;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.owncloud.android.R;
-import com.owncloud.android.ui.ExtendedListView;
-import com.owncloud.android.utils.Log_OC;
-
-
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.owncloud.android.R;
+import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.utils.Log_OC;
 
 /**
  *  TODO extending SherlockListFragment instead of SherlockFragment 
@@ -46,6 +46,8 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     protected ExtendedListView mList;
     
     private SwipeRefreshLayout mRefreshLayout;
+    private SwipeRefreshLayout mRefreshEmptyLayout;
+    private TextView mEmptyListMessage;
     
     public void setListAdapter(ListAdapter listAdapter) {
         mList.setAdapter(listAdapter);
@@ -63,9 +65,10 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         //mList = new ExtendedListView(getActivity());
         
         View v = inflater.inflate(R.layout.list_fragment, null);
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mList = (ExtendedListView)(v.findViewById(R.id.list_root));
         mList.setOnItemClickListener(this);
-        //mList.setEmptyView(v.findViewById(R.id.empty_list_view));     // looks like it's not a cool idea 
+
         mList.setDivider(getResources().getDrawable(R.drawable.uploader_list_separator));
         mList.setDividerHeight(1);
 
@@ -76,12 +79,13 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
         
         // Pull down refresh
         mRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files);
-        // Colors in animations: background
-        mRefreshLayout.setColorScheme(R.color.background_color, R.color.background_color, 
-                 R.color.background_color, R.color.background_color);
+        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh_files_emptyView);
         
-        mRefreshLayout.setOnRefreshListener(this);
+        onCreateSwipeToRefresh(mRefreshLayout);
+        onCreateSwipeToRefresh(mRefreshEmptyLayout);
         
+        mList.setEmptyView(mRefreshEmptyLayout);
+
         return v;
     }
 
@@ -129,8 +133,9 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
 
     @Override
     public void onRefresh() {
-        // to be @overriden  
+        // to be @overriden
         mRefreshLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
     }
 
     /**
@@ -161,6 +166,31 @@ public class ExtendedListFragment extends SherlockFragment implements OnItemClic
     public void hideSwipeProgress() {
         mRefreshLayout.setRefreshing(false);
     }
- 
-    
+
+    /**
+     * Set message for empty list view
+     */
+    public void setMessageForEmptyList(String message) {
+        if (mEmptyListMessage != null) {
+            mEmptyListMessage.setText(message);
+        }
+    }
+
+    /**
+     * Get the text of EmptyListMessage TextView
+     * 
+     * @return String
+     */
+    public String getEmptyViewText() {
+        return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
+    }
+
+    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+        // Colors in animations: background
+        refreshLayout.setColorScheme(R.color.background_color, R.color.background_color, R.color.background_color,
+                R.color.background_color);
+
+        refreshLayout.setOnRefreshListener(this);
+    }
+
 }

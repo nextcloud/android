@@ -17,11 +17,10 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="0dp"
 	android:layout_height="match_parent"
-	android:layout_weight="1"
-	android:orientation="vertical" >
+	android:layout_weight="1" >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_files"
@@ -31,18 +30,29 @@
         <com.owncloud.android.ui.ExtendedListView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" />
         
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <TextView
-    	android:id="@+id/empty_list_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_files_emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/file_list_empty"
-        android:visibility="gone"
-	/>
+        android:visibility="gone" >
 
-</LinearLayout>    
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+	            <TextView
+			        android:id="@+id/empty_list_view"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center_vertical|center_horizontal"
+			        android:text="@string/empty"
+					android:layout_gravity="center"
+			        android:visibility="visible" />
+
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>
