@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
   <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
   <string name="uploader_info_uploading">Laddar upp</string>
-  <string name="file_list_empty">Det finns inga filer i denna mapp.\nNya filer kan läggas till med \"Ladda upp\" i menyn.</string>
   <string name="filedetails_select_file">Peka på en fil för att visa mer information.</string>
   <string name="filedetails_size">Storlek:</string>
   <string name="filedetails_type">Typ:</string>
@@ -247,4 +246,5 @@
   <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
   <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
+  <string name="empty"></string>
 </resources>

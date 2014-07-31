@@ -45,7 +45,6 @@
   <string name="uploader_wrn_no_content_text">Nu a fost primit nici un conţinut .Nu exista nimic de încărcat .</string>
   <string name="uploader_error_forbidden_content">%1$s nu este permis sa acceseze conținutul shared</string>
   <string name="uploader_info_uploading">Încărcare</string>
-  <string name="file_list_empty">Nu există fișiere în acest dosar. \nNoile fișiere pot fi adăugate cu opțiunea de meniu \"Upload\" </string>
   <string name="filedetails_select_file">Selectati un fisier pentru a afisa informatia aditionala</string>
   <string name="filedetails_size">Mărime:</string>
   <string name="filedetails_type">Tip:</string>
@@ -238,4 +237,5 @@
   <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server, operațiunea nu s-a executat</string>
   <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server, operațiunea nu s-a executat</string>
   <string name="network_host_not_available">Operațiunea nu a putut fi finalizată, serverul este indisponibil</string>
+  <string name="empty"></string>
 </resources>

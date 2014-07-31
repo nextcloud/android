@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">Intet innhold ble mottatt. Intet å laste opp.</string>
   <string name="uploader_error_forbidden_content">%1$s har ikke tilgang til det delte innholdet</string>
   <string name="uploader_info_uploading">Laster opp</string>
-  <string name="file_list_empty">Det finnes ikke filer i mappen.\nNye filer kan legges til med \"last opp\" i menyen.</string>
   <string name="filedetails_select_file">Trykk på en fil for å vise ekstra informasjon.</string>
   <string name="filedetails_size">Størrelse:</string>
   <string name="filedetails_type">Type:</string>
@@ -248,6 +247,7 @@
   <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
   <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
   <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Server utilgjengelig</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
   <string name="forbidden_permissions_rename">å omdøpe denne filen</string>
   <string name="forbidden_permissions_delete">å slette denne filen</string>

@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
   <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
   <string name="uploader_info_uploading">Uploaden</string>
-  <string name="file_list_empty">Er zitten geen bestanden in deze map.\nNieuwe bestanden kunnen worden toegevoegd via de \"Upload\" menukeuze.</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
   <string name="filedetails_type">Type:</string>
@@ -248,6 +247,7 @@
   <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
   <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
   <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">U mist autorisatie %s</string>
   <string name="forbidden_permissions_rename">om dit bestand te hernoemen</string>
   <string name="forbidden_permissions_delete">om dit bestand te verwijderen</string>

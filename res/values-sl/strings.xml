@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">Ni prejete vsebine. Ni datotek za pošiljanje.</string>
   <string name="uploader_error_forbidden_content">Oblak %1$s nima nastavljenih dovoljenj za dostop do vsebine v souporabi</string>
   <string name="uploader_info_uploading">Pošiljanje</string>
-  <string name="file_list_empty">V tej mapi ni datotek.\nNove datoteke je mogoče dodati preko možnosti menija \"Pošlji\".</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>
@@ -248,6 +247,7 @@
   <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
   <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>
   <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv.</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Ni ustreznega dovoljenja %s</string>
   <string name="forbidden_permissions_rename">za preimenovanje datoteke.</string>
   <string name="forbidden_permissions_delete">za izbris datoteke.</string>

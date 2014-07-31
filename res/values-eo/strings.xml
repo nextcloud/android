@@ -34,7 +34,6 @@
   <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
   <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
   <string name="uploader_info_uploading">Alŝutante</string>
-  <string name="file_list_empty">Neniu dosiero estas en ĉi tiu dosierujo.\nNovajn dosierojn vi povas aldoni per la menuero “Alŝuti”.</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -181,4 +180,5 @@
   <string name="copy_link">Kopii ligilon</string>
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
+  <string name="empty"></string>
 </resources>

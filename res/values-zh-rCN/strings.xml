@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">没有接收到内容，无可上传。</string>
   <string name="uploader_error_forbidden_content">%1$s未被允许访问共享内容。</string>
   <string name="uploader_info_uploading">上传</string>
-  <string name="file_list_empty">文件夹为空\n可以使用上传按钮来增加文件</string>
   <string name="filedetails_select_file">点击一个文件来显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
@@ -248,4 +247,5 @@
   <string name="network_error_socket_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_host_not_available">服务器不可用，此操作无法完成</string>
+  <string name="empty"></string>
 </resources>

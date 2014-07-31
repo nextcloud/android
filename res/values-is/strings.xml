@@ -22,4 +22,5 @@
   <string name="common_rename">Endurskýra</string>
   <string name="common_remove">Fjarlægja</string>
   <string name="activity_chooser_send_file_title">Senda</string>
+  <string name="empty"></string>
 </resources>

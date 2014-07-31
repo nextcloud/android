@@ -49,7 +49,6 @@
   <string name="uploader_wrn_no_content_text">Δεν ελήφθη περιεχόμενο. Δεν υπάρχει τίποτα να μεταφορτώσετε.</string>
   <string name="uploader_error_forbidden_content">Ο %1$s δεν επιτρέπεται να έχει πρόσβαση στο κοινόχρηστο περιεχόμενο</string>
   <string name="uploader_info_uploading">Μεταφόρτωση</string>
-  <string name="file_list_empty">Δεν υπάρχουν αρχεία σε αυτόν τον φάκελο.\nΝέα αρχεία μπορούν να προστεθούν με την επιλογή \"Μεταφόρτωση\" του μενού.</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
   <string name="filedetails_type">Τύπος:</string>
@@ -248,6 +247,7 @@
   <string name="network_error_socket_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>
   <string name="network_error_connect_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>
   <string name="network_host_not_available">Η λειτουργία δεν ήταν δυνατό να ολοκληρωθεί, ο διακομιστής δεν είναι διαθέσιμος</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Δεν έχετε πρόσβαση %s</string>
   <string name="forbidden_permissions_rename">για να μετονομάσετε αυτό το αρχείο</string>
   <string name="forbidden_permissions_delete">για να διαγράψετε αυτό το αρχείο</string>

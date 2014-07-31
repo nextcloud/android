@@ -48,7 +48,6 @@
   <string name="uploader_wrn_no_content_text">Sisältöä ei saatu. Ei lähetettävää palvelimelle.</string>
   <string name="uploader_error_forbidden_content">%1$silla ei ole oikeuksia jaettuun sisältöön</string>
   <string name="uploader_info_uploading">Lähetetään</string>
-  <string name="file_list_empty">Tässä kansiossa ei ole tiedostoja.\nUusia tiedostoja voi lisätä käyttäen valikon \"Lähetä\"-toimintoa.</string>
   <string name="filedetails_select_file">Napauta tiedostoa nähdäksesi lisätietoja.</string>
   <string name="filedetails_size">Koko:</string>
   <string name="filedetails_type">Tyyppi:</string>
@@ -225,6 +224,7 @@
   <string name="network_error_socket_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
   <string name="network_error_connect_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
   <string name="network_host_not_available">Toimintoa ei voi suorittaa loppuun, palvelin ei ole käytettävissä</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
   <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
   <string name="forbidden_permissions_delete">poistaa tiedostoa</string>

@@ -43,7 +43,6 @@
   <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
   <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
   <string name="uploader_info_uploading">Feltöltés</string>
-  <string name="file_list_empty">Ebben a mappában nincsenek állományok. A \"Feltöltés\" menüpont segítségével tölthet föl fájlokat.</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -220,4 +219,5 @@
   <string name="activity_chooser_send_file_title">Küldjük el</string>
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
+  <string name="empty"></string>
 </resources>

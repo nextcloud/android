@@ -10,4 +10,5 @@
   <string name="common_error">ভুল</string>
   <string name="uploader_info_dirname">ফোল্ডারের নাম</string>
   <string name="common_rename">পুনঃনামকরণ</string>
+  <string name="empty"></string>
 </resources>
