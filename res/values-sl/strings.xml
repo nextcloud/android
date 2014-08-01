@@ -49,6 +49,8 @@
   <string name="uploader_wrn_no_content_text">Ni prejete vsebine. Ni datotek za pošiljanje.</string>
   <string name="uploader_error_forbidden_content">Oblak %1$s nima nastavljenih dovoljenj za dostop do vsebine v souporabi</string>
   <string name="uploader_info_uploading">Pošiljanje</string>
+  <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba kakšno datoteko poslati v oblak!</string>
+  <string name="file_list_loading">Poteka nalaganje ...</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>

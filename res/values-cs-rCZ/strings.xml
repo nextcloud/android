@@ -49,6 +49,8 @@
   <string name="uploader_wrn_no_content_text">Neobdržen žádný obsah. Nic k odeslání.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá právo přistupovat ke sdílenému obsahu</string>
   <string name="uploader_info_uploading">Odesílání</string>
+  <string name="file_list_empty">Žádný obsah. Nahrajte něco.</string>
+  <string name="file_list_loading">Načítám...</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Typ:</string>

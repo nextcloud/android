@@ -49,6 +49,9 @@
   <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
   <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
   <string name="uploader_info_uploading">Caricamento in corso</string>
+  <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
+  <string name="file_list_loading">Caricamento in corso...</string>
+  <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
   <string name="filedetails_type">Tipo:</string>

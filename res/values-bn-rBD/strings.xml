@@ -17,6 +17,7 @@
   <string name="uploader_wrn_no_account_setup_btn_text">সেট-আপ</string>
   <string name="uploader_wrn_no_account_quit_btn_text">বন্ধ</string>
   <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
+  <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
   <string name="filedetails_size">আয়তনঃ</string>
   <string name="filedetails_type">ধরণঃ</string>
   <string name="filedetails_created">তৈরীর নির্ঘন্টঃ</string>

@@ -49,6 +49,7 @@
   <string name="uploader_wrn_no_content_text">沒接到任何內容。沒有什麼可上載。</string>
   <string name="uploader_error_forbidden_content">%1$s 並沒有被允許存取分享的內容</string>
   <string name="uploader_info_uploading">上傳中</string>
+  <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
   <string name="filedetails_type">類型:</string>

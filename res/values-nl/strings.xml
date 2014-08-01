@@ -49,6 +49,8 @@
   <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
   <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
   <string name="uploader_info_uploading">Uploaden</string>
+  <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
+  <string name="file_list_loading">Laden ...</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
   <string name="filedetails_type">Type:</string>

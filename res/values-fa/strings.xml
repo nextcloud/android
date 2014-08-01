@@ -43,6 +43,8 @@
   <string name="uploader_wrn_no_content_text">هیچ مطلبی دریافت نشده است. هیچ‌‌چیزی بارگزاری نشده.</string>
   <string name="uploader_error_forbidden_content">%1$s اجازه ی دسترسی به محتوای مشترک را نمی دهد</string>
   <string name="uploader_info_uploading">در حال بارگزاری</string>
+  <string name="file_list_empty">اینجا هیچ چیز نیست.</string>
+  <string name="file_list_loading">درحال بارگذاری...</string>
   <string name="filedetails_select_file">روی هر فایل کلیک کنید تا اطلاعات اضافی نمایش داده شود.</string>
   <string name="filedetails_size">اندازه</string>
   <string name="filedetails_type">نوع:</string>

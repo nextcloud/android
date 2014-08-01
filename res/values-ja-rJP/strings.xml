@@ -49,6 +49,8 @@
   <string name="uploader_wrn_no_content_text">コンテンツを受信しませんでした。アップロードするものはありません。</string>
   <string name="uploader_error_forbidden_content">%1$sで共有コンテンツへのアクセスが許可されていません。</string>
   <string name="uploader_info_uploading">アップロード中</string>
+  <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
+  <string name="file_list_loading">読込中 ...</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>
