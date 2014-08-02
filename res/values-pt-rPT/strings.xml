@@ -51,6 +51,7 @@
   <string name="uploader_info_uploading">A enviar</string>
   <string name="file_list_empty">Vazio. Envie alguma coisa!</string>
   <string name="file_list_loading">A carregar...</string>
+  <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
   <string name="filedetails_select_file">Clique no ficheiro para visualizar informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
