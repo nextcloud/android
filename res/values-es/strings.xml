@@ -29,14 +29,14 @@
   <string name="prefs_help">Ayuda</string>
   <string name="prefs_recommend">Recomendar a un amigo</string>
   <string name="prefs_feedback">Mensajes de retroalimentación</string>
-  <string name="prefs_imprint">Imprimir</string>
+  <string name="prefs_imprint">pie de imprenta</string>
   <string name="recommend_subject">Prueba  %1$s en tu smarthphone!</string>
-  <string name="recommend_text">\"¡Quiero invitarlo a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s\"\n\t</string>
+  <string name="recommend_text">\"¡Quiero invitarle a usar %1$s en su smartphone!\nDescárguelo aquí: %2$s\"\n\t</string>
   <string name="auth_check_server">Compruebe el servidor.</string>
   <string name="auth_host_url">Dirección del servidor https://…</string>
   <string name="auth_username">Nombre de usuario</string>
   <string name="auth_password">Contraseña</string>
-  <string name="auth_register">New to %1$s?</string>
+  <string name="auth_register">Nuevo para %1$s?</string>
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
