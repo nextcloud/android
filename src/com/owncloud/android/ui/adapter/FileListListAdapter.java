@@ -17,10 +17,14 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +117,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             String name = file.getFileName();
 
             fileName.setText(name);
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
             ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
             ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
             sharedWithMeIconV.setVisibility(View.GONE);
@@ -164,7 +168,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
 
-                fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
+                // generate Thumbnail if file is available local and image
+                if (file.isDown() && file.isImage()){
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
+                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 50, 50));
+                } else {
+                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));  
+                }
 
                 if (checkIfFileIsSharedWithMe(file)) {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
