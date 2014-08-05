@@ -19,6 +19,7 @@
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory android:title="@string/prefs_category_accounts" android:key="accounts_category">
+        <com.owncloud.android.ui.PreferenceMultiline android:title="@string/prefs_manage_accounts" android:key="add_account" />
     </PreferenceCategory>
     
 	<PreferenceCategory android:title="@string/prefs_category_general">

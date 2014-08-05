@@ -40,6 +40,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
+import com.owncloud.android.ui.PreferenceMultiline;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -53,11 +54,16 @@ import com.owncloud.android.utils.Log_OC;
 public class Preferences extends SherlockPreferenceActivity {
     
     private static final String TAG = "OwnCloudPreferences";
+
+    private static final String PREVIOUS_ACCOUNT_KEY = "ACCOUNT";
+
     private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     //private CheckBoxPreference pLogging;
     //private Preference pLoggingHistory;
     private Preference pAboutApp;
+
+    private Account mPreviousAccount = null;
 
 
     @SuppressWarnings("deprecation")
@@ -71,23 +77,52 @@ public class Preferences extends SherlockPreferenceActivity {
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         
+        if (savedInstanceState != null) {
+            mPreviousAccount = savedInstanceState.getParcelable(PREVIOUS_ACCOUNT_KEY);
+        } else {
+            mPreviousAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+        }
+
         // Load the accounts category for adding the list of accounts
         PreferenceCategory accountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
         // Populate the accounts category with the list of accounts
         createAccountsCheckboxPreferences(accountsPrefCategory);
 
+        // Show Create Account if Multiaccount is enabled
+        if (!getResources().getBoolean(R.bool.multiaccount_support)) {
+            PreferenceMultiline addAccountPreference = (PreferenceMultiline) findPreference("add_account");
+            accountsPrefCategory.removePreference(addAccountPreference);
+        }
 
-        Preference p = findPreference("manage_account");
-        if (p != null)
-        p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        Preference pAddAccount = findPreference("add_account");
+        if (pAddAccount != null)
+            pAddAccount.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent i = new Intent(getApplicationContext(), AccountSelectActivity.class);
-                startActivity(i);
-                return true;
+
+                    /*
+                     * Intent intent = new Intent(
+                     * android.provider.Settings.ACTION_ADD_ACCOUNT);
+                     * intent.putExtra("authorities", new String[] {
+                     * MainApp.getAuthTokenType() }); startActivity(intent);
+                     */
+                    AccountManager am = AccountManager.get(getApplicationContext());
+                    am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this, null, null);
+                    return true;
             }
         });
+
+        Preference pManageAccount = findPreference("manage_account");
+        if (pManageAccount != null)
+            pManageAccount.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent i = new Intent(getApplicationContext(), AccountSelectActivity.class);
+                    startActivity(i);
+                    return true;
+                }
+            });
         
         pCode = (CheckBoxPreference) findPreference("set_pincode");
         if (pCode != null){
@@ -330,7 +365,46 @@ public class Preferences extends SherlockPreferenceActivity {
                 checkBoxPreference.setChecked(true);
             }
 
+            checkBoxPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String key = preference.getKey();
+                    AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+                    Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
+                    for (Account a : accounts) {
+                        @SuppressWarnings("deprecation")
+                        CheckBoxPreference p = (CheckBoxPreference) findPreference(a.name);
+                        if (key.equals(a.name)) {
+                            p.setChecked(true);
+                            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), a.name);
+                        } else {
+                            p.setChecked(false);
+                        }
+                    }
+                    return (Boolean) newValue;
+                }
+            });
+
             accountsPrefCategory.addPreference(checkBoxPreference);
         }
     }
+
+    @Override
+    protected void onPause() {
+        if (this.isFinishing()) {
+            Account current = AccountUtils.getCurrentOwnCloudAccount(this);
+            if ((mPreviousAccount == null && current != null)
+                    || (mPreviousAccount != null && !mPreviousAccount.equals(current))) {
+                // the account set as default changed since this activity was
+                // created
+
+                // restart the main activity
+                Intent i = new Intent(this, FileDisplayActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        }
+        super.onPause();
+    }
+
 }
