@@ -51,6 +51,7 @@
   <string name="uploader_info_uploading">Odesílání</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco.</string>
   <string name="file_list_loading">Načítám...</string>
+  <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Typ:</string>
@@ -188,7 +189,7 @@
   <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
   <string name="create_dir_fail_msg">Adresář nemohl být vytvořen</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
-  <string name="filename_empty">Název souboru nemůže být prázdný.</string>
+  <string name="filename_empty">Název nemůže být prázdný.</string>
   <string name="wait_a_moment">Počkejte chvíli</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
   <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
