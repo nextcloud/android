@@ -18,6 +18,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -35,6 +36,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
@@ -69,6 +71,13 @@ public class Preferences extends SherlockPreferenceActivity {
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
         
+        // Load the accounts category for adding the list of accounts
+        PreferenceCategory accountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
+
+        // Populate the accounts category with the list of accounts
+        createAccountsCheckboxPreferences(accountsPrefCategory);
+
+
         Preference p = findPreference("manage_account");
         if (p != null)
         p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -301,5 +310,27 @@ public class Preferences extends SherlockPreferenceActivity {
         mDbHandler.close();
         super.onDestroy();
     }
-    
+
+    /**
+     * Create the list of accounts that have been added into the app
+     * 
+     * @param accountsPrefCategory
+     */
+    private void createAccountsCheckboxPreferences(PreferenceCategory accountsPrefCategory) {
+        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        for (Account a : accounts) {
+            CheckBoxPreference checkBoxPreference = new CheckBoxPreference(this);
+            checkBoxPreference.setKey(a.name);
+            checkBoxPreference.setTitle(a.name);
+
+            // Check the current account that is being used
+            if (a.name.equals(currentAccount.name)) {
+                checkBoxPreference.setChecked(true);
+            }
+
+            accountsPrefCategory.addPreference(checkBoxPreference);
+        }
+    }
 }
