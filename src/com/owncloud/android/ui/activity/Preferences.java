@@ -86,14 +86,6 @@ public class Preferences extends SherlockPreferenceActivity {
         // Load the accounts category for adding the list of accounts
         mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
-        // Populate the accounts category with the list of accounts
-        createAccountsCheckboxPreferences();
-
-        // Add Create Account preference if Multiaccount is enabled
-        if (getResources().getBoolean(R.bool.multiaccount_support)) {
-            createAddAccountPreference();
-        }
-
         pCode = (CheckBoxPreference) findPreference("set_pincode");
         if (pCode != null){
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -277,6 +269,9 @@ public class Preferences extends SherlockPreferenceActivity {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean("set_pincode", false);
         pCode.setChecked(state);
+
+        // Populate the accounts category with the list of accounts
+        createAccountsCheckboxPreferences();
     }
 
     @Override
@@ -315,9 +310,16 @@ public class Preferences extends SherlockPreferenceActivity {
     }
 
     /**
-     * Create the list of accounts that have been added into the app
+     * Create the list of accounts that has been added into the app
      */
     private void createAccountsCheckboxPreferences() {
+
+        // Remove accounts in case list is refreshing for avoiding to have
+        // duplicate items
+        if (mAccountsPrefCategory.getPreferenceCount() > 0) {
+            mAccountsPrefCategory.removeAll();
+        }
+
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
@@ -353,6 +355,12 @@ public class Preferences extends SherlockPreferenceActivity {
 
             mAccountsPrefCategory.addPreference(checkBoxPreference);
         }
+
+        // Add Create Account preference at the end of account list if Multiaccount is enabled
+        if (getResources().getBoolean(R.bool.multiaccount_support)) {
+            createAddAccountPreference();
+        }
+
     }
 
     /**
