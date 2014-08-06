@@ -40,7 +40,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.ui.PreferenceMultiline;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
@@ -64,6 +63,7 @@ public class Preferences extends SherlockPreferenceActivity {
     private Preference pAboutApp;
 
     private Account mPreviousAccount = null;
+    private PreferenceCategory mAccountsPrefCategory = null;
 
 
     @SuppressWarnings("deprecation")
@@ -72,7 +72,7 @@ public class Preferences extends SherlockPreferenceActivity {
         super.onCreate(savedInstanceState);
         mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
-        //populateAccountList();
+
         ActionBar actionBar = getSherlock().getActionBar();
         actionBar.setIcon(DisplayUtils.getSeasonalIconId());
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -84,29 +84,16 @@ public class Preferences extends SherlockPreferenceActivity {
         }
 
         // Load the accounts category for adding the list of accounts
-        PreferenceCategory accountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
+        mAccountsPrefCategory = (PreferenceCategory) findPreference("accounts_category");
 
         // Populate the accounts category with the list of accounts
-        createAccountsCheckboxPreferences(accountsPrefCategory);
+        createAccountsCheckboxPreferences();
 
-        // Show Create Account if Multiaccount is enabled
-        if (!getResources().getBoolean(R.bool.multiaccount_support)) {
-            PreferenceMultiline addAccountPreference = (PreferenceMultiline) findPreference("add_account");
-            accountsPrefCategory.removePreference(addAccountPreference);
+        // Add Create Account preference if Multiaccount is enabled
+        if (getResources().getBoolean(R.bool.multiaccount_support)) {
+            createAddAccountPreference();
         }
 
-        Preference pAddAccount = findPreference("add_account");
-        if (pAddAccount != null)
-            pAddAccount.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                    AccountManager am = AccountManager.get(getApplicationContext());
-                    am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this, null, null);
-                    return true;
-            }
-        });
-
-        
         pCode = (CheckBoxPreference) findPreference("set_pincode");
         if (pCode != null){
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -329,10 +316,8 @@ public class Preferences extends SherlockPreferenceActivity {
 
     /**
      * Create the list of accounts that have been added into the app
-     * 
-     * @param accountsPrefCategory
      */
-    private void createAccountsCheckboxPreferences(PreferenceCategory accountsPrefCategory) {
+    private void createAccountsCheckboxPreferences() {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account accounts[] = am.getAccountsByType(MainApp.getAccountType());
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
@@ -366,8 +351,28 @@ public class Preferences extends SherlockPreferenceActivity {
                 }
             });
 
-            accountsPrefCategory.addPreference(checkBoxPreference);
+            mAccountsPrefCategory.addPreference(checkBoxPreference);
         }
+    }
+
+    /**
+     * Create the preference for allow adding new accounts
+     */
+    private void createAddAccountPreference() {
+        Preference addAccountPref = new Preference(this);
+        addAccountPref.setKey("add_account");
+        addAccountPref.setTitle(getString(R.string.prefs_add_account));
+        mAccountsPrefCategory.addPreference(addAccountPref);
+
+        addAccountPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AccountManager am = AccountManager.get(getApplicationContext());
+                am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this, null, null);
+                return true;
+            }
+        });
+
     }
 
     @Override
