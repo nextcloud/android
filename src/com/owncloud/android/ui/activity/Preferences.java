@@ -100,29 +100,12 @@ public class Preferences extends SherlockPreferenceActivity {
             pAddAccount.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-
-                    /*
-                     * Intent intent = new Intent(
-                     * android.provider.Settings.ACTION_ADD_ACCOUNT);
-                     * intent.putExtra("authorities", new String[] {
-                     * MainApp.getAuthTokenType() }); startActivity(intent);
-                     */
                     AccountManager am = AccountManager.get(getApplicationContext());
                     am.addAccount(MainApp.getAccountType(), null, null, null, Preferences.this, null, null);
                     return true;
             }
         });
 
-        Preference pManageAccount = findPreference("manage_account");
-        if (pManageAccount != null)
-            pManageAccount.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent i = new Intent(getApplicationContext(), AccountSelectActivity.class);
-                    startActivity(i);
-                    return true;
-                }
-            });
         
         pCode = (CheckBoxPreference) findPreference("set_pincode");
         if (pCode != null){
@@ -139,8 +122,6 @@ public class Preferences extends SherlockPreferenceActivity {
             });            
             
         }
-        
-        
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
         
