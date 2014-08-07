@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -108,48 +107,24 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-     // decide image vs. file view
-        double count = 0;
-        
-        
-        for (OCFile file : mFiles){
-            if (file.isImage()){
-                count++;
-            }
-        }
-        
-        // > 50% Images --> image view
-        boolean fileView = true;
-        if ((count / mFiles.size()) >= 0.5){
-            Log_OC.i("FileListListAdapter", "Image View");
-            fileView = false;
-        } else {
-            Log_OC.i("FileListListAdapter", "File View");
-            fileView = true;
-        }
+     
         
         View view = convertView;
-//        if (view == null) {
+        if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (fileView){
-                view = inflator.inflate(R.layout.list_item, null);
-            } else {
-                view = inflator.inflate(R.layout.image_item, null);
-                View frame = view.findViewById(R.id.imageItemFrame);
-                frame.setVisibility(View.GONE);
-            }
-//        }
-            view.invalidate();
-    
+           view = inflator.inflate(R.layout.list_item, null);
+         
+        }
+         
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            if (!fileView){fileName.setVisibility(View.GONE);}
+            fileName.setVisibility(View.GONE);
             String name = file.getFileName();
 
             fileName.setText(name);
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
+            ImageView fileIcon = (ImageView) view.findViewById(R.id.imageView1);
             ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
             ImageView sharedWithMeIconV = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
             sharedWithMeIconV.setVisibility(View.GONE);
@@ -188,8 +163,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
                 
-                GridView parentList = (GridView)parent;
-                if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
+                ListView parentList = (ListView)parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
@@ -217,7 +192,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             } 
             else {
                 fileSizeV.setVisibility(View.INVISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
