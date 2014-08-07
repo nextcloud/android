@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Neobdržen žádný obsah. Nic k odeslání.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá právo přistupovat ke sdílenému obsahu</string>
   <string name="uploader_info_uploading">Odesílání</string>
-  <string name="file_list_empty">Ve složce nejsou žádné soubory.\nNové soubory mohou být přidány pomocí volby \"Odeslat\".</string>
+  <string name="file_list_empty">Žádný obsah. Nahrajte něco.</string>
+  <string name="file_list_loading">Načítám...</string>
+  <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
   <string name="filedetails_select_file">Více informací získáte klepnutím na soubor.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Typ:</string>
@@ -187,7 +189,7 @@
   <string name="sync_file_nothing_to_do_msg">Obsah souboru je již synchronizován</string>
   <string name="create_dir_fail_msg">Adresář nemohl být vytvořen</string>
   <string name="filename_forbidden_characters">Zakázané znaky: / \\ &lt; &gt; : \" | ? *</string>
-  <string name="filename_empty">Název souboru nemůže být prázdný.</string>
+  <string name="filename_empty">Název nemůže být prázdný.</string>
   <string name="wait_a_moment">Počkejte chvíli</string>
   <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
   <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
@@ -248,4 +250,13 @@
   <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
   <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
   <string name="network_host_not_available">Operace nemohla být dokončena. Server není dostupný</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Nejsou dostupná potřebná oprávnění %s</string>
+  <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
+  <string name="forbidden_permissions_delete">smazat tento soubor</string>
+  <string name="share_link_forbidden_permissions">sdílet tento soubor</string>
+  <string name="unshare_link_forbidden_permissions">zrušit sdílení tohoto souboru</string>
+  <string name="forbidden_permissions_create">vytvořit tento soubor</string>
+  <string name="uploader_upload_forbidden_permissions">nahrávat do tohoto adresáře</string>
+  <string name="downloader_download_file_not_found">Soubor není již více dostupný na tomto serveru</string>
 </resources>

@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Não foi recebido nenhum conteúdo. Nada para enviar.</string>
   <string name="uploader_error_forbidden_content">O  %1$s não está autorizado a aceder aos ficheiro partilhados.</string>
   <string name="uploader_info_uploading">A enviar</string>
-  <string name="file_list_empty">Não existem ficheiros nesta pasta.\nPode adicionar ficheiros com a opção \"Enviar\" no menu.</string>
+  <string name="file_list_empty">Vazio. Envie alguma coisa!</string>
+  <string name="file_list_loading">A carregar...</string>
+  <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
   <string name="filedetails_select_file">Clique no ficheiro para visualizar informação adicional.</string>
   <string name="filedetails_size">Tamanho:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -248,6 +250,7 @@
   <string name="network_error_socket_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_host_not_available">A operação não foi concluída, o servidor está inacessível.</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Você não tem permissão %s</string>
   <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
   <string name="forbidden_permissions_delete">para eliminar este ficheiro</string>

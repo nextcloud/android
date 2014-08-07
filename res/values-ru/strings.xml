@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
   <string name="uploader_error_forbidden_content">%1$s не имеет доступа к опубликованным данным</string>
   <string name="uploader_info_uploading">Загрузка</string>
-  <string name="file_list_empty">В этом каталоге нет файлов.\nНовые файлы могут быть добавлены с помощью пункта меню \"Загрузить\".</string>
+  <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
+  <string name="file_list_loading">Загрузка...</string>
+  <string name="local_file_list_empty">В данной папке нет файлов.</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -248,12 +250,13 @@
   <string name="network_error_socket_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_error_connect_timeout_exception">Во время ожидания сервера возникла ошибка, операция не может быть завершена</string>
   <string name="network_host_not_available">Операция не может быть завершена, сервер недоступен</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">У вас нет доступа %s</string>
-  <string name="forbidden_permissions_rename">к переименованию этого файла</string>
-  <string name="forbidden_permissions_delete">к удалению этого файла</string>
-  <string name="share_link_forbidden_permissions">к публикации этого файла</string>
-  <string name="unshare_link_forbidden_permissions">к отмене публикации этого файла</string>
-  <string name="forbidden_permissions_create">к созданию этого файла</string>
-  <string name="uploader_upload_forbidden_permissions">к загрузке этой папки</string>
+  <string name="forbidden_permissions_rename">переименовать этот файл</string>
+  <string name="forbidden_permissions_delete">удалить этот файл</string>
+  <string name="share_link_forbidden_permissions">опубликовать этот файл</string>
+  <string name="unshare_link_forbidden_permissions">отменить публикацию этого файла</string>
+  <string name="forbidden_permissions_create">создать файл</string>
+  <string name="uploader_upload_forbidden_permissions">загрузить в эту папку</string>
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 </resources>

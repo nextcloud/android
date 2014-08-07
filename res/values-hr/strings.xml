@@ -13,6 +13,7 @@
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
+  <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
   <string name="filedetails_download">Preuzimanje</string>
   <string name="common_yes">Da</string>
   <string name="common_no">Ne</string>
@@ -24,4 +25,5 @@
   <string name="auth_trying_to_login">Trying to login…</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
+  <string name="empty"></string>
 </resources>

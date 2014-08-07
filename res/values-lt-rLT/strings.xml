@@ -48,7 +48,7 @@
   <string name="uploader_wrn_no_content_text">nebuvo gauta turinio. Nėra įkeltino turinio</string>
   <string name="uploader_error_forbidden_content">%1$s neleidžiama prieiti prie turinio, kuriuo dalijamasi</string>
   <string name="uploader_info_uploading">Išsiunčiama</string>
-  <string name="file_list_empty">Šiame aplanke failų nėra.\nNauji failai gali būti pridėti naudojant \"Įkelti\" funkciją meniu.</string>
+  <string name="file_list_empty">Čia tuščia. Įkelkite ką nors!</string>
   <string name="filedetails_select_file">Palieskite failą, kad parodyti papildomą informaciją.</string>
   <string name="filedetails_size">Dydis:</string>
   <string name="filedetails_type">Tipas:</string>
@@ -226,4 +226,5 @@
   <string name="activity_chooser_send_file_title">Siųsti</string>
   <string name="copy_link">Kopijuoti nuorodą</string>
   <string name="clipboard_text_copied">Nukopijuota į talpyklę</string>
+  <string name="empty"></string>
 </resources>

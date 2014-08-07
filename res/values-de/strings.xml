@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Es wurden keine Inhalte empfangen. Es gibt nichts zum Hochladen.</string>
   <string name="uploader_error_forbidden_content">%1$s darf den freigegebenen Inhalt nicht nutzen.</string>
   <string name="uploader_info_uploading">Lade hoch</string>
-  <string name="file_list_empty">Es sind keine Dateien im Verzeichnis vorhanden.\nNeue Dateien können mit der \"Hochladen\" Menüfunktion hinzugefügt werden.</string>
+  <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
+  <string name="file_list_loading">Lade...</string>
+  <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Art:</string>
@@ -248,6 +250,7 @@
   <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
   <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
   <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">Du hast keine Berechtigung %s</string>
   <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
   <string name="forbidden_permissions_delete">diese Datei zu löschen</string>

@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
   <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
   <string name="uploader_info_uploading">Uploading</string>
-  <string name="file_list_empty">There are no files in this folder.\nNew files can be added with the \"Upload\" menu option.</string>
+  <string name="file_list_empty">Nothing in here. Upload something!</string>
+  <string name="file_list_loading">Loading...</string>
+  <string name="local_file_list_empty">There are no files in this folder.</string>
   <string name="filedetails_select_file">Tap on a file to display additional information.</string>
   <string name="filedetails_size">Size:</string>
   <string name="filedetails_type">Type:</string>
@@ -248,6 +250,7 @@
   <string name="network_error_socket_timeout_exception">An error occurred whilst waiting for the server, the operation couldn\'t be done</string>
   <string name="network_error_connect_timeout_exception">An error occurred whilst waiting for the server, the operation couldn\'t been done</string>
   <string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
+  <string name="empty"></string>
   <string name="forbidden_permissions">You do not have permission %s</string>
   <string name="forbidden_permissions_rename">to rename this file</string>
   <string name="forbidden_permissions_delete">to delete this file</string>

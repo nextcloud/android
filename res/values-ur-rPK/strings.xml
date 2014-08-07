@@ -16,4 +16,5 @@
   <string name="common_error">ایرر</string>
   <string name="common_error_unknown">غیر معروف خرابی</string>
   <string name="activity_chooser_send_file_title">بھجیں</string>
+  <string name="empty"></string>
 </resources>

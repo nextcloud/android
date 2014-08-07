@@ -43,7 +43,7 @@
   <string name="uploader_wrn_no_content_text">받은 콘텐츠가 없습니다. 업로드할 항목이 없습니다.</string>
   <string name="uploader_error_forbidden_content">%1$s에서 공유된 콘텐츠에 접근할 수 없습니다</string>
   <string name="uploader_info_uploading">업로드 중</string>
-  <string name="file_list_empty">이 폴더에 파일이 없습니다.\n메뉴 옵션의 \"업로드\" 항목을 사용하여 새 파일을 업로드할 수 있습니다.</string>
+  <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
   <string name="filedetails_type">종류:</string>
@@ -212,4 +212,5 @@
   <string name="activity_chooser_send_file_title">보내기</string>
   <string name="copy_link">링크 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
+  <string name="empty"></string>
 </resources>

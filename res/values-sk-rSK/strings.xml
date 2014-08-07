@@ -49,7 +49,7 @@
   <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
-  <string name="file_list_empty">Priečinok neobsahuje súbory.\nNové súbory môžete pridať cez \"Nahrať\" v menu.</string>
+  <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -246,4 +246,5 @@
   <string name="network_error_socket_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_host_not_available">Operácia nemohla byť dokončená, server je nedostupný</string>
+  <string name="empty"></string>
 </resources>

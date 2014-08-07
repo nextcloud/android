@@ -20,19 +20,6 @@ package com.owncloud.android.ui.fragment;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.FileMenuFilter;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.preview.PreviewImageFragment;
-import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.Log_OC;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -41,6 +28,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaFragment;
+import com.owncloud.android.utils.Log_OC;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -62,6 +62,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
+    private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     
     private FileFragment.ContainerActivity mContainerActivity;
    
@@ -115,6 +116,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
             
         } else {
             mIndexes = new ArrayList<Integer>();
@@ -129,8 +131,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         setListAdapter(mAdapter);
         
         registerForContextMenu(getListView());
-        getListView().setOnCreateContextMenuListener(this);        
-        
+        getListView().setOnCreateContextMenuListener(this);
   }
     
     /**
@@ -144,6 +145,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         outState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
         outState.putIntegerArrayList(KEY_TOPS, mTops);
         outState.putInt(KEY_HEIGHT_CELL, mHeightCell);
+        outState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
     
     /**

@@ -49,7 +49,8 @@
   <string name="uploader_wrn_no_content_text">Aucun contenu reçu. Rien à envoyer.</string>
   <string name="uploader_error_forbidden_content">%1$s n\'est pas autorisé à accéder au contenu partagé</string>
   <string name="uploader_info_uploading">Téléversement</string>
-  <string name="file_list_empty">Ce répertoire ne contient aucun fichier.\nDe nouveaux fichiers peuvent être importés en cliquant sur le bouton « Téléverser un fichier » du menu des options</string>
+  <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
+  <string name="file_list_loading">Chargement…</string>
   <string name="filedetails_select_file">Effleurez un fichier pour afficher les informations complémentaires</string>
   <string name="filedetails_size">Taille :</string>
   <string name="filedetails_type">Type :</string>
@@ -248,4 +249,13 @@
   <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée.</string>
   <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée.</string>
   <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible.</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">Vous ne possédez pas les droits suffisants %s</string>
+  <string name="forbidden_permissions_rename">afin de renommer ce fichier</string>
+  <string name="forbidden_permissions_delete">afin d’effacer ce fichier</string>
+  <string name="share_link_forbidden_permissions">afin de partager ce fichier</string>
+  <string name="unshare_link_forbidden_permissions">afin de ne plus partager ce fichier</string>
+  <string name="forbidden_permissions_create">afin de créer ce fichier</string>
+  <string name="uploader_upload_forbidden_permissions">afin d’importer dans ce répertoire</string>
+  <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 </resources>

@@ -28,6 +28,7 @@
   <string name="uploader_wrn_no_content_title">Inga innhald å lasta opp</string>
   <string name="uploader_wrn_no_content_text">Mottok ikkje noko innhald. Ingenting å lasta opp.</string>
   <string name="uploader_info_uploading">Lastar opp</string>
+  <string name="file_list_empty">Ingenting her. Last noko opp!</string>
   <string name="filedetails_select_file">Trykk på ei fil for å visa meir informasjon.</string>
   <string name="filedetails_size">Storleik:</string>
   <string name="filedetails_type">Type:</string>
@@ -105,4 +106,5 @@
   <string name="ssl_validator_not_saved">Klarte ikkje å lagra sertifikatet</string>
   <string name="instant_upload_on_wifi">Berre last opp bilete over WiFi</string>
   <string name="activity_chooser_send_file_title">Send</string>
+  <string name="empty"></string>
 </resources>

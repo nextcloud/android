@@ -49,7 +49,9 @@
   <string name="uploader_wrn_no_content_text">Hiç içerik alınmadı. Yüklenecek hiçbir şey yok.</string>
   <string name="uploader_error_forbidden_content">%1$s için paylaşılan içeriğe erişim izni yok</string>
   <string name="uploader_info_uploading">Yükleniyor</string>
-  <string name="file_list_empty">Bu klasörde dosya yok.\nYeni dosyalar \"Yükle\" menü seçeneği ile eklenebilir.</string>
+  <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
+  <string name="file_list_loading">Yükleniyor...</string>
+  <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -248,4 +250,13 @@
   <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
   <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
   <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
+  <string name="empty"></string>
+  <string name="forbidden_permissions">%s izniniz yok</string>
+  <string name="forbidden_permissions_rename">Bu dosyayı adlandırma</string>
+  <string name="forbidden_permissions_delete">Bu dosyayı silme</string>
+  <string name="share_link_forbidden_permissions">Bu dosyayı paylaşma</string>
+  <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırma</string>
+  <string name="forbidden_permissions_create">Dosya oluşturma</string>
+  <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
+  <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
 </resources>
