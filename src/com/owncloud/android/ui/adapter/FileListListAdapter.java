@@ -22,13 +22,16 @@ import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -42,6 +45,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -104,16 +108,44 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+     // decide image vs. file view
+        double count = 0;
+        
+        
+        for (OCFile file : mFiles){
+            if (file.isImage()){
+                count++;
+            }
+        }
+        
+        // > 50% Images --> image view
+        boolean fileView = true;
+        if ((count / mFiles.size()) >= 0.5){
+            Log_OC.i("FileListListAdapter", "Image View");
+            fileView = false;
+        } else {
+            Log_OC.i("FileListListAdapter", "File View");
+            fileView = true;
+        }
+        
         View view = convertView;
-        if (view == null) {
+//        if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
-        }
+            if (fileView){
+                view = inflator.inflate(R.layout.list_item, null);
+            } else {
+                view = inflator.inflate(R.layout.image_item, null);
+                View frame = view.findViewById(R.id.imageItemFrame);
+                frame.setVisibility(View.GONE);
+            }
+//        }
+            view.invalidate();
     
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
+            if (!fileView){fileName.setVisibility(View.GONE);}
             String name = file.getFileName();
 
             fileName.setText(name);
@@ -156,8 +188,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     view.findViewById(R.id.imageView3).setVisibility(View.VISIBLE);
                 }
                 
-                ListView parentList = (ListView)parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                GridView parentList = (GridView)parent;
+                if (parentList.getChoiceMode() == GridView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
@@ -170,8 +202,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                 // generate Thumbnail if file is available local and image
                 if (file.isDown() && file.isImage()){
+                    // Converts dp to pixel
+                    Resources r = mContext.getResources();
+                    int px = (int) Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()));
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, 50, 50));
+                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, px, px));
                 } else {
                     fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));  
                 }
@@ -181,9 +216,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
-                
                 fileSizeV.setVisibility(View.INVISIBLE);
-                //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
                 lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.getModificationTimestamp()));
                 checkBoxV.setVisibility(View.GONE);
