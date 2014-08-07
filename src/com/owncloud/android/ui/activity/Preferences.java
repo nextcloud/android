@@ -108,6 +108,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 ListView listView = (ListView) parent;
                 ListAdapter listAdapter = listView.getAdapter();
                 Object obj = listAdapter.getItem(position);
+
                 if (obj != null && obj instanceof LongClickableCheckBoxPreference) {
                     mShowContextMenu = true;
                     mAccountName = obj.toString();
@@ -121,6 +122,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
             }
         });
 
+        // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
         pCode = (CheckBoxPreference) findPreference("set_pincode");
@@ -302,6 +304,9 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+
+        // Filter for only showing contextual menu when long press on the
+        // accounts
         if (mShowContextMenu) {
             getMenuInflater().inflate(R.menu.account_picker_long_click, menu);
             mShowContextMenu = false;
@@ -323,6 +328,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         for (Account a : accounts) {
             if (a.name.equals(mAccountName)) {
                 if (item.getItemId() == R.id.change_password) {
+
+                    // Change account password
                     Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                     updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, a);
                     updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
@@ -330,6 +337,8 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     startActivity(updateAccountCredentials);
 
                 } else if (item.getItemId() == R.id.delete_account) {
+
+                    // Remove account
                     am.removeAccount(a, this, mHandler);
                 }
             }
@@ -349,7 +358,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     accountName = accounts[0].name;
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
             }
-            createAccountsCheckboxPreferences();
+            addAccountsCheckboxPreferences();
         }
     }
 
@@ -361,7 +370,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
         pCode.setChecked(state);
 
         // Populate the accounts category with the list of accounts
-        createAccountsCheckboxPreferences();
+        addAccountsCheckboxPreferences();
     }
 
     @Override
@@ -403,7 +412,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
      * Create the list of accounts that has been added into the app
      */
     @SuppressWarnings("deprecation")
-    private void createAccountsCheckboxPreferences() {
+    private void addAccountsCheckboxPreferences() {
 
         // Remove accounts in case list is refreshing for avoiding to have
         // duplicate items
@@ -427,6 +436,7 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                 LongClickableCheckBoxPreference accountPreference = new LongClickableCheckBoxPreference(this);
                 accountPreference.setKey(a.name);
                 accountPreference.setTitle(a.name);
+                mAccountsPrefCategory.addPreference(accountPreference);
 
                 // Check the current account that is being used
                 if (a.name.equals(currentAccount.name)) {
@@ -454,7 +464,6 @@ public class Preferences extends SherlockPreferenceActivity implements AccountMa
                     }
                 });
 
-                mAccountsPrefCategory.addPreference(accountPreference);
             }
 
             // Add Create Account preference at the end of account list if
