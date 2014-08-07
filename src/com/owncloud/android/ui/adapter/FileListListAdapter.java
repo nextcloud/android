@@ -17,7 +17,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.Vector;
 
 import android.accounts.Account;
@@ -44,7 +43,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.Log_OC;
 
 
 /**
@@ -107,20 +105,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-     
-        
         View view = convertView;
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           view = inflator.inflate(R.layout.list_item, null);
-         
+            view = inflator.inflate(R.layout.list_item, null);
         }
          
         if (mFiles != null && mFiles.size() > position) {
             OCFile file = mFiles.get(position);
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            fileName.setVisibility(View.GONE);
+            TextView fileName = (TextView) view.findViewById(R.id.Filename);           
             String name = file.getFileName();
 
             fileName.setText(name);
@@ -191,6 +185,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
             } 
             else {
+                
                 fileSizeV.setVisibility(View.INVISIBLE);
                 //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
