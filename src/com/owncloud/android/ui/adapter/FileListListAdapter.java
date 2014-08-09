@@ -168,7 +168,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         
 
                         // TODO change to user preview.png
-                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
+                        //HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/index.php/core/preview.png?file="+URLEncoder.encode(file.getRemotePath(), "UTF-8")+"&x=36&y=36&forceIcon=1");
+                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?x=50&y=50&path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
                         HttpResponse response = httpclient.execute(httpget);
                         HttpEntity entity = response.getEntity();
                         
@@ -181,7 +182,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail != null){
                                 addBitmapToCache(imageKey, thumbnail);
                             }
-                            
                         }
                     } catch(Exception e){
                         e.printStackTrace();
@@ -194,7 +194,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
         
         protected void onPostExecute(Bitmap bitmap){
-            fileIcon.setImageBitmap(bitmap);
+            if (bitmap != null){
+                fileIcon.setImageBitmap(bitmap);
+            }
         }
     }
   
