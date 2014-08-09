@@ -17,10 +17,22 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Vector;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.os.AsyncTask;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +48,20 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 
 /**
@@ -57,11 +81,144 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    
+    private final Object mDiskCacheLock = new Object();
+    private DiskLruImageCache mDiskLruCache;
+    private boolean mDiskCacheStarting = true;
+    private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+    private CompressFormat mCompressFormat = CompressFormat.JPEG;
+    private int mCompressQuality = 70;
+    private OwnCloudClient mClient;
+        
     public FileListListAdapter(Context context, ComponentsGetter transferServiceGetter) {
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         mTransferServiceGetter = transferServiceGetter;
+        
+        // Initialise disk cache on background thread
+        new InitDiskCacheTask().execute();
+    }
+    
+    class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
+        @Override
+        protected Void doInBackground(File... params) {
+            synchronized (mDiskCacheLock) {
+                mDiskLruCache = new DiskLruImageCache(mContext, "thumbnailCache", DISK_CACHE_SIZE, mCompressFormat,mCompressQuality);
+                
+                try {
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, mContext);
+                    mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, mContext);
+                } catch (AccountNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (AuthenticatorException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (OperationCanceledException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                mDiskCacheStarting = false; // Finished initialization
+                mDiskCacheLock.notifyAll(); // Wake any waiting threads
+            }
+            return null;
+        }
+    }
+
+    class BitmapWorkerTask extends AsyncTask<OCFile, Void, Bitmap> {
+        private final ImageView fileIcon;
+        
+        public BitmapWorkerTask(ImageView fileIcon) {
+            this.fileIcon = fileIcon;
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(OCFile... params) {
+            OCFile file = params[0];
+            final String imageKey = String.valueOf(file.getRemoteId());
+
+            // Check disk cache in background thread
+            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
+
+            // Not found in disk cache
+            if (thumbnail == null) { 
+                // Converts dp to pixel
+                Resources r = mContext.getResources();
+                int px = (int) Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()));
+                
+                if (file.isDown()){
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
+                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                    
+                    // Add thumbnail to cache
+                    addBitmapToCache(imageKey, thumbnail);
+
+                } else {
+                    // Download thumbnail from server
+                    DefaultHttpClient httpclient = new DefaultHttpClient();
+                    try {
+                        httpclient.getCredentialsProvider().setCredentials(
+                                new AuthScope(mClient.getBaseUri().toString().replace("https://", ""), 443), 
+                                new UsernamePasswordCredentials(mClient.getCredentials().getUsername(), mClient.getCredentials().getAuthToken()));
+                        
+
+                        // TODO change to user preview.png
+                        HttpGet httpget = new HttpGet(mClient.getBaseUri() + "/ocs/v1.php/thumbnail?path=" + URLEncoder.encode(file.getRemotePath(), "UTF-8"));
+                        HttpResponse response = httpclient.execute(httpget);
+                        HttpEntity entity = response.getEntity();
+                        
+                        if (entity != null) {
+                            byte[] bytes = EntityUtils.toByteArray(entity);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+                            
+                            // Add thumbnail to cache
+                            if (thumbnail != null){
+                                addBitmapToCache(imageKey, thumbnail);
+                            }
+                            
+                        }
+                    } catch(Exception e){
+                        e.printStackTrace();
+                    }finally {
+                        httpclient.getConnectionManager().shutdown();
+                    }
+                } 
+            }
+            return thumbnail;
+        }
+        
+        protected void onPostExecute(Bitmap bitmap){
+            fileIcon.setImageBitmap(bitmap);
+        }
+    }
+  
+    public void addBitmapToCache(String key, Bitmap bitmap) {
+        synchronized (mDiskCacheLock) {
+            if (mDiskLruCache != null && mDiskLruCache.getBitmap(key) == null) {
+                mDiskLruCache.put(key, bitmap);
+            }
+        }
+    }
+
+    public Bitmap getBitmapFromDiskCache(String key) {
+        synchronized (mDiskCacheLock) {
+            // Wait while disk cache is started from background thread
+            while (mDiskCacheStarting) {
+                try {
+                    mDiskCacheLock.wait();
+                } catch (InterruptedException e) {}
+            }
+            if (mDiskLruCache != null) {
+                return (Bitmap) mDiskLruCache.getBitmap(key);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -163,15 +320,27 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
-
+                
+                // first set thumbnail according to Mimetype, prevents empty thumbnails
                 fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
-
+                
+                // get Thumbnail if file is image
+                if (file.isImage()){
+                    // Thumbnail in Cache?
+                    Bitmap thumbnail = getBitmapFromDiskCache(String.valueOf(file.getRemoteId()));
+                    if (thumbnail != null){
+                        fileIcon.setImageBitmap(thumbnail);
+                    } else {
+                        // generate new Thumbnail
+                        new BitmapWorkerTask(fileIcon).execute(file);
+                    }
+                }
+                
                 if (checkIfFileIsSharedWithMe(file)) {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 }
             } 
             else {
-                
                 fileSizeV.setVisibility(View.INVISIBLE);
                 //fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                 lastModV.setVisibility(View.VISIBLE);
