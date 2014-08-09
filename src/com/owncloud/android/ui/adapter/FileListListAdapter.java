@@ -28,15 +28,10 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-<<<<<<< HEAD
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
-=======
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
->>>>>>> c0dc4c42d71eb9593ff48a02a8af74bd7df8776e
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -325,7 +320,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
-<<<<<<< HEAD
                 
                 // first set thumbnail according to Mimetype, prevents empty thumbnails
                 fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));
@@ -341,21 +335,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         new BitmapWorkerTask(fileIcon).execute(file);
                     }
                 }
-                
-=======
 
-                // generate Thumbnail if file is available local and image
-                if (file.isDown() && file.isImage()){
-                    // Converts dp to pixel
-                    Resources r = mContext.getResources();
-                    int px = (int) Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, r.getDisplayMetrics()));
-                    Bitmap bitmap = BitmapFactory.decodeFile(file.getStoragePath());
-                    fileIcon.setImageBitmap(ThumbnailUtils.extractThumbnail(bitmap, px, px));
-                } else {
-                    fileIcon.setImageResource(DisplayUtils.getResourceId(file.getMimetype(), file.getFileName()));  
-                }
-
->>>>>>> c0dc4c42d71eb9593ff48a02a8af74bd7df8776e
                 if (checkIfFileIsSharedWithMe(file)) {
                     sharedWithMeIconV.setVisibility(View.VISIBLE);
                 }
