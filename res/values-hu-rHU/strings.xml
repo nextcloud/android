@@ -222,4 +222,5 @@
   <string name="copy_link">Link másolása</string>
   <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Fiókok</string>
 </resources>

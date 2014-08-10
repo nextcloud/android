@@ -249,4 +249,5 @@
   <string name="network_error_connect_timeout_exception">Hi ha hagut un error esperant el servidor, l\'operació no s\'ha pogut realitzar</string>
   <string name="network_host_not_available">La operació no s\'ha pogut completar, no es pot accedir al servidor</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Comptes</string>
 </resources>

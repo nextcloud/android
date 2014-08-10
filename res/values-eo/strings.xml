@@ -182,4 +182,5 @@
   <string name="clipboard_text_copied">Kopiita en la tondejon</string>
   <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo.</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Kontoj</string>
 </resources>

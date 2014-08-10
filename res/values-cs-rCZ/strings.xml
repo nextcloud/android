@@ -259,4 +259,7 @@
   <string name="forbidden_permissions_create">vytvořit tento soubor</string>
   <string name="uploader_upload_forbidden_permissions">nahrávat do tohoto adresáře</string>
   <string name="downloader_download_file_not_found">Soubor není již více dostupný na tomto serveru</string>
+  <string name="prefs_category_accounts">Účty</string>
+  <string name="prefs_add_account">Přidat účet</string>
+  <string name="auth_redirect_non_secure_connection_title">Bezpečené spojení je přesměrováno na nezabezpečenou trasu.</string>
 </resources>

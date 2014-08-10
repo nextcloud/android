@@ -258,4 +258,5 @@
   <string name="forbidden_permissions_create">faili loomiseks</string>
   <string name="uploader_upload_forbidden_permissions">sellesse kausta laadimiseks</string>
   <string name="downloader_download_file_not_found">Fail ei ole serveris enam kättesaadav</string>
+  <string name="prefs_category_accounts">Kontod</string>
 </resources>

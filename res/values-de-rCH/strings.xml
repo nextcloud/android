@@ -196,4 +196,5 @@
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Konten</string>
 </resources>

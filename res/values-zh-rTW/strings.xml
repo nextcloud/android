@@ -247,4 +247,5 @@
   <string name="network_error_connect_timeout_exception">在等待伺服器回應時發生了錯誤, 這個操作將無法被完成</string>
   <string name="network_host_not_available">這個操作無法完成, 無法使用伺服器</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">帳號</string>
 </resources>

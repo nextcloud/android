@@ -213,4 +213,5 @@
   <string name="copy_link">링크 복사</string>
   <string name="clipboard_text_copied">클립보드로 복사됨</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">계정</string>
 </resources>

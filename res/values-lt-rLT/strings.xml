@@ -227,4 +227,5 @@
   <string name="copy_link">Kopijuoti nuorodą</string>
   <string name="clipboard_text_copied">Nukopijuota į talpyklę</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Paskyros</string>
 </resources>

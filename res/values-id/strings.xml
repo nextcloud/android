@@ -208,4 +208,5 @@
   <string name="preview_image_description">Pratilik gambar</string>
   <string name="activity_chooser_send_file_title">Kirim</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">Akun</string>
 </resources>

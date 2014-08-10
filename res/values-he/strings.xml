@@ -158,4 +158,5 @@
   <string name="conflict_dont_upload">לא להעלות</string>
   <string name="activity_chooser_send_file_title">שליחה</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">חשבונות</string>
 </resources>

@@ -250,4 +250,5 @@
   <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
   <string name="network_host_not_available">服务器不可用，此操作无法完成</string>
   <string name="empty"></string>
+  <string name="prefs_category_accounts">账号</string>
 </resources>
