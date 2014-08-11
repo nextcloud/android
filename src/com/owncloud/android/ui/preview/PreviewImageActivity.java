@@ -126,7 +126,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
                     } else {
                         actionBar.hide();
                     }
-                    }
+                }
             });
 
         }
@@ -195,9 +195,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         // When the window loses focus (e.g. the action overflow is shown),
         // cancel any pending hide action. When the window gains focus,
         // hide the system UI.
-        if (hasFocus) {
-            delayedHide(INITIAL_HIDE_DELAY);
-        } else {
+        if (!hasFocus) {
             mHideSystemUiHandler.removeMessages(0);
         }
     }
