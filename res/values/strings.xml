@@ -286,4 +286,6 @@
 	<string name="prefs_add_account">Add account</string>
 	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through a non secure route.</string>
 
+	<string name="actionbar_move">Move</string>
+
 </resources>
