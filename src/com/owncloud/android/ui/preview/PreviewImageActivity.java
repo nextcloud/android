@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -104,27 +105,31 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         // PIN CODE request
         if (getIntent().getExtras() != null && savedInstanceState == null && fromNotification()) {
             requestPinCode();
-        }         
+        }
+
+        // Make sure we're running on Honeycomb or higher to use FullScreen and
+        // Immersive Mode
+        if (isHoneycombOrHigher()) {
         
-        //mFullScreen = true;
-        mFullScreenAnchorView = getWindow().getDecorView(); 
-        // to keep our UI controls visibility in line with system bars visibility
-        mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(
-            new View.OnSystemUiVisibilityChangeListener() {
+            // mFullScreen = true;
+            mFullScreenAnchorView = getWindow().getDecorView();
+            // to keep our UI controls visibility in line with system bars
+            // visibility
+            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
                 @SuppressLint("InlinedApi")
-				@Override
-                public void onSystemUiVisibilityChange(int flags)   {
-                    boolean visible = (flags &
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                @Override
+                public void onSystemUiVisibilityChange(int flags) {
+                    boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
                     ActionBar actionBar = getSupportActionBar();
                     if (visible) {
                         actionBar.show();
                     } else {
                         actionBar.hide();
                     }
-                }
-            }
-        );
+                    }
+            });
+
+        }
             
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
@@ -169,7 +174,9 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     Handler mHideSystemUiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            hideSystemUI(mFullScreenAnchorView);
+            if (isHoneycombOrHigher()) {
+                hideSystemUI(mFullScreenAnchorView);
+            }
             getSupportActionBar().hide();
         }
     };
@@ -460,30 +467,33 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
     @SuppressLint("InlinedApi")
 	public void toggleFullScreen() {
-        //ActionBar actionBar = getSupportActionBar();
+
+        if (isHoneycombOrHigher()) {
         
-        boolean visible = (
-                mFullScreenAnchorView.getSystemUiVisibility() 
-                & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            ) == 0;
-        
-        if (visible) {
-            hideSystemUI(mFullScreenAnchorView);
-            //actionBar.hide(); // propagated through OnSystemUiVisibilityChangeListener()
+            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+
+            if (visible) {
+                hideSystemUI(mFullScreenAnchorView);
+                // actionBar.hide(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            } else {
+                showSystemUI(mFullScreenAnchorView);
+                // actionBar.show(); // propagated through
+                // OnSystemUiVisibilityChangeListener()
+            }
+
         } else {
-            showSystemUI(mFullScreenAnchorView);
-            //actionBar.show(); // propagated through OnSystemUiVisibilityChangeListener()
+
+            ActionBar actionBar = getSupportActionBar();
+            if (!actionBar.isShowing()) {
+                actionBar.show();
+
+            } else {
+                actionBar.hide();
+
+            }
+
         }
-        /*
-        if (mFullScreen) {
-            actionBar.show();
-            
-        } else {
-            actionBar.hide();
-            
-        }
-        mFullScreen = !mFullScreen;
-        */
     }
 
     @Override
@@ -566,7 +576,17 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
             |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
         );
     }
-    
-    
+
+    /**
+     * Checks if OS version is Honeycomb one or higher
+     * 
+     * @return boolean
+     */
+    private boolean isHoneycombOrHigher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return true;
+        }
+        return false;
+    }
 
 }
