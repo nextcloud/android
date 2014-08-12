@@ -84,8 +84,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
     private boolean mRequestWaitingForBinder;
     
     private DownloadFinishReceiver mDownloadFinishReceiver;
-
-    //private boolean mFullScreen;
     
     private View mFullScreenAnchorView;
     
@@ -111,7 +109,6 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         // Immersive Mode
         if (isHoneycombOrHigher()) {
         
-            // mFullScreen = true;
             mFullScreenAnchorView = getWindow().getDecorView();
             // to keep our UI controls visibility in line with system bars
             // visibility
@@ -193,8 +190,7 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
         super.onWindowFocusChanged(hasFocus);
         
         // When the window loses focus (e.g. the action overflow is shown),
-        // cancel any pending hide action. When the window gains focus,
-        // hide the system UI.
+        // cancel any pending hide action.
         if (!hasFocus) {
             mHideSystemUiHandler.removeMessages(0);
         }
@@ -468,7 +464,8 @@ ViewPager.OnPageChangeListener, OnRemoteOperationListener {
 
         if (isHoneycombOrHigher()) {
         
-            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
+                    & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
             if (visible) {
                 hideSystemUI(mFullScreenAnchorView);
