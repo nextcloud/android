@@ -162,6 +162,14 @@ public class FileMenuFilter {
         } else {
             toShow.add(R.id.action_rename_file);
         }
+
+        // MOVE
+        if (mFile == null || downloading || uploading) {
+            toHide.add(R.id.action_move);
+
+        } else {
+            toShow.add(R.id.action_move);
+        }
         
         // REMOVE
         if (mFile == null || downloading || uploading) {
