@@ -287,5 +287,7 @@
 	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through a non secure route.</string>
 
 	<string name="actionbar_move">Move</string>
+	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
+	<string name="move_choose_button_text">Choose</string>
 
 </resources>
