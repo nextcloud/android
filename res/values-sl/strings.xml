@@ -261,5 +261,4 @@
   <string name="downloader_download_file_not_found">Datoteka na strežniku ni več na voljo.</string>
   <string name="prefs_category_accounts">Računi</string>
   <string name="prefs_add_account">Dodaj račun</string>
-  <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena preko ne-varne poti.</string>
 </resources>

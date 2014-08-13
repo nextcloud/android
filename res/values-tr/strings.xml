@@ -261,5 +261,4 @@
   <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
   <string name="prefs_category_accounts">Hesaplar</string>
   <string name="prefs_add_account">Hesap ekle</string>
-  <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendiriliyor.</string>
 </resources>

@@ -261,5 +261,4 @@
   <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Agregar cuenta</string>
-  <string name="auth_redirect_non_secure_connection_title">La conexión segura está siendo redirigida por una ruta insegura.</string>
 </resources>

@@ -261,5 +261,4 @@
   <string name="downloader_download_file_not_found">Файлът вече не се намира на този сървър</string>
   <string name="prefs_category_accounts">Профили</string>
   <string name="prefs_add_account">Добави профил</string>
-  <string name="auth_redirect_non_secure_connection_title">Подсигурената връзка бе пренасочена към не подсигурен канал.</string>
 </resources>
