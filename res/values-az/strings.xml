@@ -1,4 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="actionbar_upload_files">Fayllar</string>
+  <string name="sync_string_files">Fayllar</string>
   <string name="empty"></string>
 </resources>
