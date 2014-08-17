@@ -1,6 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s Android Programlar</string>
+  <string name="about_version">versiya %1$s</string>
+  <string name="actionbar_sync">Yenilənmə hesabı</string>
+  <string name="actionbar_upload">Serverə yüklə</string>
+  <string name="actionbar_upload_from_apps">Digər porgramların kontenti</string>
   <string name="actionbar_upload_files">Fayllar</string>
+  <string name="actionbar_settings">Quraşdırmalar</string>
   <string name="sync_string_files">Fayllar</string>
+  <string name="uploader_btn_upload_text">Serverə yüklə</string>
+  <string name="common_cancel">Dayandır</string>
+  <string name="common_error">Səhv</string>
+  <string name="common_error_unknown">Bəlli olmayan səhv baş verdi</string>
+  <string name="common_remove">Sil</string>
   <string name="empty"></string>
 </resources>
