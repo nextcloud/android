@@ -506,11 +506,12 @@ implements OnRemoteOperationListener, ComponentsGetter {
     }
     
     
-    private void updateFileFromDB(){
-      OCFile file = getStorageManager().getFileByPath(getFile().getRemotePath());
-      if (file != null) {
-          setFile(file);
-      }
+    protected void updateFileFromDB(){
+        OCFile file = getFile();
+        if (file != null) {
+            file = getStorageManager().getFileByPath(file.getRemotePath());
+            setFile(file);
+        }
     }
     
     /**

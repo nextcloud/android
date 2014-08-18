@@ -16,14 +16,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -39,7 +35,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
-import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -48,19 +43,13 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.Log_OC;
 
 public class MoveActivity extends HookActivity implements FileFragment.ContainerActivity, 
-    OnNavigationListener, OnClickListener{
-    
-    private ArrayAdapter<String> mDirectories;
+    OnClickListener{
     
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
-    public static final int DIALOG_SHORT_WAIT = 0;
-    
-    public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
-
     private static final String TAG = MoveActivity.class.getSimpleName();
     
-    private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
+    private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
     private boolean mSyncInProgress = false;
 
@@ -73,39 +62,74 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         Log_OC.d(TAG, "onCreate() start");
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
-        super.onCreate(savedInstanceState); // this calls onAccountChanged() when ownCloud Account is valid
+        super.onCreate(savedInstanceState); 
 
-        /// grant that FileObserverService is watching favourite files
+        setContentView(R.layout.files_move);
+        
         if (savedInstanceState == null) {
-            Intent initObserversIntent = FileObserverService.makeInitIntent(this);
-            startService(initObserversIntent);
+            createFragments();
         }
 
-        /// USER INTERFACE
-
-        // Inflate and set the layout view
-        setContentView(R.layout.files_move);    
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
-
+        // sets callback listeners for UI elements
         initControls();
 
         // Action bar setup
-        mDirectories = new CustomArrayAdapter<String>(this, R.layout.sherlock_spinner_dropdown_item);
-        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS, according to the official documentation
-        setSupportProgressBarIndeterminateVisibility(mSyncInProgress /*|| mRefreshSharesInProgress*/);    // always AFTER setContentView(...) ; to work around bug in its implementation
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        setSupportProgressBarIndeterminateVisibility(mSyncInProgress);
+            // always AFTER setContentView(...) ; to work around bug in its implementation
         
+        // sets message for empty list of folders
         setBackgroundText();
 
         Log_OC.d(TAG, "onCreate() end");
         
     }
 
-    private void createMinFragments() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    /**
+     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     */
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
+        if (getAccount() != null) {
+            
+            updateFileFromDB();
+            
+            OCFile folder = getFile();
+            if (folder == null || !folder.isFolder()) {
+                // fall back to root folder
+                setFile(getStorageManager().getFileByPath(OCFile.ROOT_PATH));
+                folder = getFile();
+            }
+            
+            if (!stateWasRecovered) {
+                MoveFileListFragment listOfFolders = getListOfFilesFragment(); 
+                listOfFolders.listDirectory(folder);   
+                
+                startSyncFolderOperation(folder);
+            }
+            
+            updateNavigationElementsInActionBar();
+        }
+    }
+
+    private void createFragments() {
         MoveFileListFragment listOfFiles = new MoveFileListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+        transaction.add(R.id.fragment_container, listOfFiles, TAG_LIST_OF_FOLDERS);
         transaction.commit();
     }
 
@@ -128,7 +152,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
     }
 
     private MoveFileListFragment getListOfFilesFragment() {
-        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(MoveActivity.TAG_LIST_OF_FILES);
+        Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(MoveActivity.TAG_LIST_OF_FOLDERS);
         if (listOfFiles != null) {
             return (MoveFileListFragment)listOfFiles;
         }
@@ -136,42 +160,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         return null;
     }
 
-    // Custom array adapter to override text colors
-    private class CustomArrayAdapter<T> extends ArrayAdapter<T> {
-
-        public CustomArrayAdapter(MoveActivity ctx, int view) {
-            super(ctx, view);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = super.getView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-            
-            fixRoot((TextView) v );
-            return v;
-        }
-
-        public View getDropDownView(int position, View convertView,
-                ViewGroup parent) {
-            View v = super.getDropDownView(position, convertView, parent);
-
-            ((TextView) v).setTextColor(getResources().getColorStateList(
-                    android.R.color.white));
-
-            fixRoot((TextView) v );
-            return v;
-        }
-
-        private void fixRoot(TextView v) {
-            if (v.getText().equals(OCFile.PATH_SEPARATOR)) {
-                v.setText(R.string.default_display_name_for_root_folder);
-            }
-        }
-
-    }
-
+    
     /**
      * {@inheritDoc}
      * 
@@ -179,45 +168,14 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
      */
     @Override
     public void onBrowsedDownTo(OCFile directory) {
-        pushDirname(directory);
-        
+        setFile(directory);
+        updateNavigationElementsInActionBar();
         // Sync Folder
         startSyncFolderOperation(directory);
         
     }
 
-    /**
-     * Shows the information of the {@link OCFile} received as a 
-     * parameter in the second fragment.
-     * 
-     * @param file          {@link OCFile} whose details will be shown
-     */
-    @Override
-    public void showDetails(OCFile file) {
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
-            
-    }
-
-    /**
-     * Pushes a directory to the drop down list
-     * @param directory to push
-     * @throws IllegalArgumentException If the {@link OCFile#isFolder()} returns false.
-     */
-    public void pushDirname(OCFile directory) {
-        if(!directory.isFolder()){
-            throw new IllegalArgumentException("Only directories may be pushed!");
-        }
-        mDirectories.insert(directory.getFileName(), 0);
-        setFile(directory);
-    }
-
+    
     public void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
@@ -258,18 +216,20 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         
         Log_OC.d(TAG, "onResume() end");
     }
-
+    
     @Override
-    protected void onStart() {
-        super.onStart();
-        getSupportActionBar().setIcon(DisplayUtils.getSeasonalIconId());
+    protected void onPause() {
+        Log_OC.e(TAG, "onPause() start");
+        if (mSyncBroadcastReceiver != null) {
+            unregisterReceiver(mSyncBroadcastReceiver);
+            //LocalBroadcastManager.getInstance(this).unregisterReceiver(mSyncBroadcastReceiver);
+            mSyncBroadcastReceiver = null;
+        }
+        
+        Log_OC.d(TAG, "onPause() end");
+        super.onPause();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSherlock().getMenuInflater();
@@ -286,12 +246,15 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         switch (item.getItemId()) {
         case R.id.action_create_dir: {
             CreateFolderDialogFragment dialog = 
-                    CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), "createdirdialog");
+                    CreateFolderDialogFragment.newInstance(getCurrentFolder());
+            dialog.show(
+                    getSupportFragmentManager(), 
+                    CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT
+            );
             break;
         }
         case android.R.id.home: {
-            OCFile currentDir = getCurrentDir();
+            OCFile currentDir = getCurrentFolder();
             if(currentDir != null && currentDir.getParentId() != 0) {
                 onBackPressed();
             }
@@ -303,7 +266,7 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         return retval;
     }
 
-    private OCFile getCurrentDir() {
+    private OCFile getCurrentFolder() {
         OCFile file = getFile();
         if (file != null) {
             if (file.isFolder()) {
@@ -323,6 +286,69 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         }
     }
 
+    public void browseToRoot() {
+        MoveFileListFragment listOfFiles = getListOfFilesFragment(); 
+        if (listOfFiles != null) {  // should never be null, indeed
+            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+            listOfFiles.listDirectory(root);
+            setFile(listOfFiles.getCurrentFile());
+            updateNavigationElementsInActionBar();
+            startSyncFolderOperation(root);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MoveFileListFragment listOfFiles = getListOfFilesFragment();
+        if (listOfFiles != null) {  // should never be null, indeed
+            int levelsUp = listOfFiles.onBrowseUp();
+            if (levelsUp == 0) {
+                finish();
+                return;
+            }
+            setFile(listOfFiles.getCurrentFile());
+            updateNavigationElementsInActionBar();
+        }
+    }
+
+    private void updateNavigationElementsInActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        OCFile currentDir = getCurrentFolder();
+        boolean atRoot = (currentDir == null || currentDir.getParentId() == 0);
+        actionBar.setDisplayHomeAsUpEnabled(!atRoot);
+        actionBar.setHomeButtonEnabled(!atRoot);
+        actionBar.setTitle(
+            atRoot 
+                ? getString(R.string.default_display_name_for_root_folder) 
+                : currentDir.getFileName()
+        );
+    }
+
+    /**
+     * Set per-view controllers
+     */
+    private void initControls(){
+        mCancelBtn = (Button) findViewById(R.id.move_files_btn_cancel);
+        mCancelBtn.setOnClickListener(this);
+        mChooseBtn = (Button) findViewById(R.id.move_files_btn_choose);
+        mChooseBtn.setOnClickListener(this);
+    }
+    
+    @Override
+    public void onClick(View v) {
+        if (v == mCancelBtn) {
+            finish();
+        } else if (v == mChooseBtn) {
+            // TODO request to move, OR save selected folder as a result and let request for caller
+            Toast.makeText( MoveActivity.this, 
+                            "TODO: MOVE IMPLEMENTATION", 
+                            Toast.LENGTH_LONG)
+                .show();
+            finish();
+        }
+    }
+    
+    
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -345,12 +371,12 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
                         
                     } else {
                         OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
-                        OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                        OCFile currentDir = (getCurrentFolder() == null) ? null : getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
     
                         if (currentDir == null) {
                             // current folder was removed from the server 
                             Toast.makeText( MoveActivity.this, 
-                                            String.format(getString(R.string.sync_current_folder_was_removed), mDirectories.getItem(0)), 
+                                            String.format(getString(R.string.sync_current_folder_was_removed), "PLACEHOLDER"), 
                                             Toast.LENGTH_LONG)
                                 .show();
                             browseToRoot();
@@ -433,174 +459,26 @@ public class MoveActivity extends HookActivity implements FileFragment.Container
         }
     }
 
-    public void browseToRoot() {
-        MoveFileListFragment listOfFiles = getListOfFilesFragment(); 
-        if (listOfFiles != null) {  // should never be null, indeed
-            while (mDirectories.getCount() > 1) {
-                popDirname();
-            }
-            OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
-            setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(root);
-        }
+    
+
+    /**
+     * Shows the information of the {@link OCFile} received as a 
+     * parameter in the second fragment.
+     * 
+     * @param file          {@link OCFile} whose details will be shown
+     */
+    @Override
+    public void showDetails(OCFile file) {
+
     }
 
     /**
-     * Pops a directory name from the drop down list
-     * @return True, unless the stack is empty
-     */
-    public boolean popDirname() {
-        mDirectories.remove(mDirectories.getItem(0));
-        return !mDirectories.isEmpty();
-    }
-
-    private void setNavigationListWithFolder(OCFile file) {
-        mDirectories.clear();
-        OCFile fileIt = file;
-        String parentPath;
-        while(fileIt != null && fileIt.getFileName() != OCFile.ROOT_PATH) {
-            if (fileIt.isFolder()) {
-                mDirectories.add(fileIt.getFileName());
-            }
-            // get parent from path
-            parentPath = fileIt.getRemotePath().substring(0, fileIt.getRemotePath().lastIndexOf(fileIt.getFileName()));
-            fileIt = getStorageManager().getFileByPath(parentPath);
-        }
-        mDirectories.add(OCFile.PATH_SEPARATOR);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-        if (itemPosition != 0) {
-            String targetPath = "";
-            for (int i=itemPosition; i < mDirectories.getCount() - 1; i++) {
-                targetPath = mDirectories.getItem(i) + OCFile.PATH_SEPARATOR + targetPath; 
-            }
-            targetPath = OCFile.PATH_SEPARATOR + targetPath;
-            OCFile targetFolder = getStorageManager().getFileByPath(targetPath);
-            if (targetFolder != null) {
-                browseTo(targetFolder);
-            }
-
-            // the next operation triggers a new call to this method, but it's necessary to 
-            // ensure that the name exposed in the action bar is the current directory when the 
-            // user selected it in the navigation list
-            if (getSupportActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_LIST  && itemPosition != 0)
-                getSupportActionBar().setSelectedNavigationItem(0);
-        }
-        return true;
-    }
-
-    public void browseTo(OCFile folder) {
-        if (folder == null || !folder.isFolder()) {
-            throw new IllegalArgumentException("Trying to browse to invalid folder " + folder);
-        }
-        MoveFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null) {
-            setNavigationListWithFolder(folder);
-            listOfFiles.listDirectory(folder);
-            setFile(listOfFiles.getCurrentFile());
-            startSyncFolderOperation(folder);
-        } else {
-            Log_OC.e(TAG, "Unexpected null when accessing list fragment");
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        MoveFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null) {  // should never be null, indeed
-            if (mDirectories.getCount() <= 1) {
-                finish();
-                return;
-            }
-            int levelsUp = listOfFiles.onBrowseUp();
-            for (int i=0; i < levelsUp && mDirectories.getCount() > 1 ; i++) {
-                popDirname();
-            }
-        }
-        if (listOfFiles != null) {  // should never be null, indeed
-            setFile(listOfFiles.getCurrentFile());
-        }
-    }
-
-    private void updateNavigationElementsInActionBar(OCFile chosenFile) {
-        ActionBar actionBar = getSupportActionBar();
-        if (chosenFile == null) {
-            // only list of files - set for browsing through folders
-            OCFile currentDir = getCurrentDir();
-            boolean noRoot = (currentDir != null && currentDir.getParentId() != 0);
-            actionBar.setDisplayHomeAsUpEnabled(noRoot);
-            actionBar.setDisplayShowTitleEnabled(!noRoot);
-            if (!noRoot) {
-                actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
-            }
-            actionBar.setNavigationMode(!noRoot ? ActionBar.NAVIGATION_MODE_STANDARD : ActionBar.NAVIGATION_MODE_LIST);
-            actionBar.setListNavigationCallbacks(mDirectories, this);   // assuming mDirectories is updated
-
-        } else {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(chosenFile.getFileName());
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        }
-    }
-
-    /**
-     *  Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     * {@inheritDoc}
      */
     @Override
-    protected void onAccountSet(boolean stateWasRecovered) {
-        super.onAccountSet(stateWasRecovered);
-        if (getAccount() != null) {
-            /// Check whether the 'main' OCFile handled by the Activity is contained in the current Account
-            OCFile file = getFile();
-            // get parent from path
-            String parentPath = "";
-            if (file != null) {
-                if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
-                    // upload in progress - right now, files are not inserted in the local cache until the upload is successful
-                    // get parent from path
-                    parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
-                    if (getStorageManager().getFileByPath(parentPath) ==  null)
-                        file = null; // not able to know the directory where the file is uploading
-                } else {
-                    file = getStorageManager().getFileByPath(file.getRemotePath());   // currentDir = null if not in the current Account
-                }
-            }
-            if (file == null) {
-                // fall back to root folder
-                file = getStorageManager().getFileByPath(OCFile.ROOT_PATH);  // never returns null
-            }
-            setFile(file);
-            setNavigationListWithFolder(file);
-
-            if (!stateWasRecovered) {
-                Log_OC.e(TAG, "Initializing Fragments in onAccountChanged..");
-                if (file.isFolder()) {
-                    startSyncFolderOperation(file);
-                }
-            } else {
-                updateNavigationElementsInActionBar(file.isFolder() ? null : file);
-            }
-        }
+    public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
+            
     }
 
-    /**
-     * Set controllers
-     */
-    private void initControls(){
-        mCancelBtn = (Button) findViewById(R.id.move_files_btn_cancel);
-        mCancelBtn.setOnClickListener(this);
-        mChooseBtn = (Button) findViewById(R.id.move_files_btn_choose);
-        mChooseBtn.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mCancelBtn) {
-            finish();
-        }
-    }
 }
