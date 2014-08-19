@@ -7,11 +7,17 @@
   <string name="actionbar_upload_from_apps">Digər porgramların kontenti</string>
   <string name="actionbar_upload_files">Fayllar</string>
   <string name="actionbar_settings">Quraşdırmalar</string>
+  <string name="actionbar_see_details">Detallar</string>
+  <string name="actionbar_send_file">Göndər</string>
+  <string name="prefs_category_general">Ümumi</string>
+  <string name="auth_username">İstifadəçi adı</string>
   <string name="sync_string_files">Fayllar</string>
   <string name="uploader_btn_upload_text">Serverə yüklə</string>
   <string name="common_cancel">Dayandır</string>
   <string name="common_error">Səhv</string>
   <string name="common_error_unknown">Bəlli olmayan səhv baş verdi</string>
   <string name="common_remove">Sil</string>
+  <string name="ssl_validator_btn_details_see">Detallar</string>
+  <string name="activity_chooser_send_file_title">Göndər</string>
   <string name="empty"></string>
 </resources>

@@ -50,6 +50,8 @@
   <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
   <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
+  <string name="file_list_loading">Nahráva sa...</string>
+  <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
   <string name="filedetails_select_file">Viac informácií získate kliknutím na súbor.</string>
   <string name="filedetails_size">Veľkosť:</string>
   <string name="filedetails_type">Typ:</string>
@@ -93,6 +95,7 @@
   <string name="downloader_download_failed_credentials_error">Sťahovanie zlyhalo. Prihláste sa znovu</string>
   <string name="common_choose_account">Zvoliť účet</string>
   <string name="sync_fail_ticker">Synchronizácia zlyhala</string>
+  <string name="sync_fail_ticker_unauthorized">Synchronizácia zlyhala. Prihláste sa znovu</string>
   <string name="sync_fail_content">Synchronizáciu %1$s nemožno dokončiť</string>
   <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
@@ -108,6 +111,7 @@
   <string name="foreign_files_fail">Niektoré súbory nebolo možné premiestniť</string>
   <string name="foreign_files_local_text">Lokálne: %1$s</string>
   <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
+  <string name="upload_query_move_foreign_files">Nie je dostatok miesta na skopírovanie vybraných súborov do priečinka %1$s. Želáte si ich namiesto toho presunúť?</string>
   <string name="pincode_enter_pin_code">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin">Zadajte PIN aplikácie</string>
   <string name="pincode_configure_your_pin_explanation">Pri každom spustení aplikácie bude vyžadovaný PIN</string>
@@ -247,5 +251,15 @@
   <string name="network_error_connect_timeout_exception">Pri čakaní na odpoveď servera nastala chyba, operácia nemohla byť dokončená</string>
   <string name="network_host_not_available">Operácia nemohla byť dokončená, server je nedostupný</string>
   <string name="empty"></string>
+  <string name="forbidden_permissions">Nemáte oprávnenie %s</string>
+  <string name="forbidden_permissions_rename">premenovať tento súbor</string>
+  <string name="forbidden_permissions_delete">zmazať tento súbor</string>
+  <string name="share_link_forbidden_permissions">zdieľať tento súbor</string>
+  <string name="unshare_link_forbidden_permissions">zrušiť zdieľanie tohto súboru</string>
+  <string name="forbidden_permissions_create">vytvoriť súbor</string>
+  <string name="uploader_upload_forbidden_permissions">nahrávať do tohto priečinka</string>
+  <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
   <string name="prefs_category_accounts">Účty</string>
+  <string name="prefs_add_account">Pridať účet</string>
+  <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
 </resources>
